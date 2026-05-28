@@ -56,27 +56,58 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         Directory.CreateDirectory(workingDirectoryPath);
 
         const string script = """
+                              $foundryGptBootPartitionType = '{c12a7328-f81f-11d2-ba4b-00a0c93ec93b}'
+
+                              function Get-FoundryUsbDriveLetter($DriveLetter) {
+                                  if ($null -eq $DriveLetter) { return $null }
+                                  if ($DriveLetter -is [char] -and [int][char]$DriveLetter -eq 0) { return $null }
+
+                                  $text = ([string]$DriveLetter).Trim()
+                                  if ($text.Length -eq 2 -and $text[1] -eq ':') { $text = $text.Substring(0, 1) }
+                                  if ($text -match '^[A-Za-z]$') { return $text.ToUpperInvariant() }
+
+                                  return $null
+                              }
+
+                              function Get-FoundryUsbDriveLetterText($DriveLetter) {
+                                  $letter = Get-FoundryUsbDriveLetter $DriveLetter
+                                  if ($null -eq $letter) { return '' }
+                                  return "$($letter):"
+                              }
+
+                              function Get-FoundryUsbPartitionVolume($Partition) {
+                                  $driveLetter = Get-FoundryUsbDriveLetter $Partition.DriveLetter
+                                  if ($null -ne $driveLetter) {
+                                      $volume = Get-Volume -DriveLetter $driveLetter -ErrorAction SilentlyContinue
+                                  }
+                                  else {
+                                      $volume = Get-Volume -Partition $Partition -ErrorAction SilentlyContinue
+                                  }
+
+                                  if ($null -eq $volume) { return $null }
+
+                                  [pscustomobject]@{
+                                      PartitionNumber = [int]$Partition.PartitionNumber
+                                      DriveLetter = Get-FoundryUsbDriveLetterText $Partition.DriveLetter
+                                      FileSystemLabel = [string]$volume.FileSystemLabel
+                                      FileSystem = [string]$volume.FileSystem
+                                      GptType = [string]$Partition.GptType
+                                      MbrType = [string]$Partition.MbrType
+                                      IsActive = [bool]$Partition.IsActive
+                                  }
+                              }
+
                               $disks = Get-Disk | Where-Object { $_.BusType -eq 'USB' }
                               $result = @(
                               foreach ($disk in $disks) {
-                                  $volumes = @(
-                                      Get-Partition -DiskNumber $disk.Number -ErrorAction SilentlyContinue |
-                                          Where-Object { $null -ne $_.DriveLetter } |
-                                          ForEach-Object {
-                                              $volume = Get-Volume -DriveLetter $_.DriveLetter -ErrorAction SilentlyContinue
-                                              if ($null -ne $volume) {
-                                                  [pscustomobject]@{
-                                                      DriveLetter = "$($_.DriveLetter):"
-                                                      FileSystemLabel = [string]$volume.FileSystemLabel
-                                                      FileSystem = [string]$volume.FileSystem
-                                                  }
-                                              }
-                                          }
-                                  )
+                                  $partitions = @(Get-Partition -DiskNumber $disk.Number -ErrorAction SilentlyContinue)
+                                  $volumes = @($partitions | ForEach-Object { Get-FoundryUsbPartitionVolume $_ })
                                   $letters = @(
-                                      $volumes | ForEach-Object { $_.DriveLetter }
+                                      $volumes | Where-Object { $_.DriveLetter -ne '' } | ForEach-Object { $_.DriveLetter }
                                   )
                                   $hasBootVolume = @($volumes | Where-Object { $_.FileSystemLabel -eq 'BOOT' -and $_.FileSystem -eq 'FAT32' }).Count -gt 0
+                                  $hasGptBootPartition = @($partitions | Where-Object { [string]$_.GptType -eq $foundryGptBootPartitionType }).Count -gt 0
+                                  $hasMbrBootPartition = @($partitions | Where-Object { [string]$_.MbrType -eq 'FAT32' -and [bool]$_.IsActive }).Count -gt 0
                                   $hasCacheVolume = @($volumes | Where-Object { $_.FileSystemLabel -eq 'Foundry Cache' -and $_.FileSystem -eq 'NTFS' }).Count -gt 0
 
                                   [pscustomobject]@{
@@ -90,7 +121,7 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
                                       IsSystem = [bool]$disk.IsSystem
                                       IsBoot = [bool]$disk.IsBoot
                                       Size = [uint64]$disk.Size
-                                      IsFoundryMedia = [bool]($hasBootVolume -and $hasCacheVolume)
+                                      IsFoundryMedia = [bool](($hasBootVolume -or $hasGptBootPartition -or $hasMbrBootPartition) -and $hasCacheVolume)
                                   }
                               }
                               )
@@ -659,25 +690,91 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
     {
         string script = $$"""
                           $diskNumber = {{diskNumber}}
-                          $volumes = @(
-                              Get-Partition -DiskNumber $diskNumber -ErrorAction Stop |
-                                  Where-Object { $null -ne $_.DriveLetter } |
-                                  ForEach-Object {
-                                      $volume = Get-Volume -DriveLetter $_.DriveLetter -ErrorAction SilentlyContinue
-                                      if ($null -ne $volume) {
-                                          [pscustomobject]@{
-                                              DriveLetter = "$($_.DriveLetter):"
-                                              FileSystemLabel = [string]$volume.FileSystemLabel
-                                              FileSystem = [string]$volume.FileSystem
-                                          }
-                                      }
-                                  }
-                          )
+                          $foundryGptBootPartitionType = '{c12a7328-f81f-11d2-ba4b-00a0c93ec93b}'
+
+                          function Get-FoundryUsbDriveLetter($DriveLetter) {
+                              if ($null -eq $DriveLetter) { return $null }
+                              if ($DriveLetter -is [char] -and [int][char]$DriveLetter -eq 0) { return $null }
+
+                              $text = ([string]$DriveLetter).Trim()
+                              if ($text.Length -eq 2 -and $text[1] -eq ':') { $text = $text.Substring(0, 1) }
+                              if ($text -match '^[A-Za-z]$') { return $text.ToUpperInvariant() }
+
+                              return $null
+                          }
+
+                          function Test-FoundryUsbDriveLetter($DriveLetter) {
+                              return $null -ne (Get-FoundryUsbDriveLetter $DriveLetter)
+                          }
+
+                          function Get-FoundryUsbDriveLetterText($DriveLetter) {
+                              $letter = Get-FoundryUsbDriveLetter $DriveLetter
+                              if ($null -eq $letter) { return '' }
+                              return "$($letter):"
+                          }
+
+                          function Get-FoundryUsbPartitionVolume($Partition) {
+                              $driveLetter = Get-FoundryUsbDriveLetter $Partition.DriveLetter
+                              if ($null -ne $driveLetter) {
+                                  $volume = Get-Volume -DriveLetter $driveLetter -ErrorAction SilentlyContinue
+                              }
+                              else {
+                                  $volume = Get-Volume -Partition $Partition -ErrorAction SilentlyContinue
+                              }
+
+                              if ($null -eq $volume) { return $null }
+
+                              [pscustomobject]@{
+                                  PartitionNumber = [int]$Partition.PartitionNumber
+                                  DriveLetter = Get-FoundryUsbDriveLetterText $Partition.DriveLetter
+                                  FileSystemLabel = [string]$volume.FileSystemLabel
+                                  FileSystem = [string]$volume.FileSystem
+                                  GptType = [string]$Partition.GptType
+                                  MbrType = [string]$Partition.MbrType
+                                  IsActive = [bool]$Partition.IsActive
+                              }
+                          }
+
+                          $partitions = @(Get-Partition -DiskNumber $diskNumber -ErrorAction Stop)
+                          $volumes = @($partitions | ForEach-Object { Get-FoundryUsbPartitionVolume $_ })
 
                           $bootVolume = @($volumes | Where-Object { $_.FileSystemLabel -eq 'BOOT' -and $_.FileSystem -eq 'FAT32' } | Select-Object -First 1)
                           $cacheVolume = @($volumes | Where-Object { $_.FileSystemLabel -eq 'Foundry Cache' -and $_.FileSystem -eq 'NTFS' } | Select-Object -First 1)
-                          if ($bootVolume.Count -eq 0 -or $cacheVolume.Count -eq 0) {
-                              throw "Disk $diskNumber is not a Foundry USB media. Expected BOOT FAT32 and Foundry Cache NTFS volumes."
+                          if ($cacheVolume.Count -eq 0) {
+                              throw "Disk $diskNumber is not a Foundry USB media. Expected Foundry Cache NTFS volume."
+                          }
+
+                          if ($bootVolume.Count -gt 0) {
+                              $bootPartition = @($partitions | Where-Object { $_.PartitionNumber -eq $bootVolume[0].PartitionNumber } | Select-Object -First 1)
+                          }
+                          else {
+                              $bootPartition = @($partitions | Where-Object { [string]$_.GptType -eq $foundryGptBootPartitionType } | Select-Object -First 1)
+                              if ($bootPartition.Count -eq 0) {
+                                  $bootPartition = @($partitions | Where-Object { [string]$_.MbrType -eq 'FAT32' -and [bool]$_.IsActive } | Select-Object -First 1)
+                              }
+
+                              if ($bootPartition.Count -eq 0) {
+                                  throw "Disk $diskNumber is not a Foundry USB media. Expected BOOT FAT32 partition."
+                              }
+                          }
+
+                          $hasFoundryBootPartitionType = ([string]$bootPartition[0].GptType -eq $foundryGptBootPartitionType) -or ([string]$bootPartition[0].MbrType -eq 'FAT32' -and [bool]$bootPartition[0].IsActive)
+                          if (-not $hasFoundryBootPartitionType) {
+                              throw "Disk $diskNumber is not a Foundry USB media. Expected BOOT FAT32 partition."
+                          }
+
+                          if (-not (Test-FoundryUsbDriveLetter $bootPartition[0].DriveLetter)) {
+                              Add-PartitionAccessPath -DiskNumber $diskNumber -PartitionNumber $bootPartition[0].PartitionNumber -AssignDriveLetter -ErrorAction Stop
+                              Update-HostStorageCache -ErrorAction SilentlyContinue
+                              Update-Disk -Number $diskNumber -ErrorAction SilentlyContinue
+
+                              $partitions = @(Get-Partition -DiskNumber $diskNumber -ErrorAction Stop)
+                              $bootPartition = @($partitions | Where-Object { $_.PartitionNumber -eq $bootPartition[0].PartitionNumber } | Select-Object -First 1)
+                          }
+
+                          $bootVolume = @(Get-FoundryUsbPartitionVolume $bootPartition[0])
+                          if ($bootVolume.Count -eq 0 -or $bootVolume[0].FileSystemLabel -ne 'BOOT' -or $bootVolume[0].FileSystem -ne 'FAT32') {
+                              throw "Disk $diskNumber is not a Foundry USB media. Expected BOOT FAT32 volume."
                           }
 
                           [pscustomobject]@{
