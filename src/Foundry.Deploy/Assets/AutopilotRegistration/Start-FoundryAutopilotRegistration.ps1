@@ -71,6 +71,28 @@ function Write-Result {
     } | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $ResultPath -Encoding UTF8
 }
 
+function Remove-AutomaticLaunchTask {
+    if ($null -eq $Config.automaticLaunchTaskName -or [string]::IsNullOrWhiteSpace([string]$Config.automaticLaunchTaskName)) {
+        return
+    }
+
+    $taskName = [string]$Config.automaticLaunchTaskName
+    try {
+        if (Get-Command -Name Unregister-ScheduledTask -ErrorAction SilentlyContinue) {
+            Unregister-ScheduledTask -TaskName $taskName -Confirm:$false -ErrorAction SilentlyContinue
+        }
+        else {
+            $schtasksPath = Join-Path $env:SystemRoot 'System32\schtasks.exe'
+            Start-Process -FilePath $schtasksPath -ArgumentList @('/Delete', '/TN', $taskName, '/F') -WindowStyle Hidden -Wait
+        }
+
+        Write-FoundryLog -Message "Removed automatic launch task '$taskName'."
+    }
+    catch {
+        Write-FoundryLog -Message "Failed to remove automatic launch task '$taskName'. $($_.Exception.Message)"
+    }
+}
+
 function ConvertTo-FormBody {
     param([Parameter(Mandatory = $true)][hashtable]$Values)
 
@@ -909,6 +931,7 @@ function Start-FoundryAutopilotRegistrationUi {
                     Write-Result -Status 'completed' -Message 'Autopilot registration completed.' -Details $details
                     Write-FoundryLog -Message 'Autopilot registration completed.'
                     Set-UploadProgress -Message 'Registration completed.' -Value 100 -IsIndeterminate $false
+                    Remove-AutomaticLaunchTask
                     $script:ExitCode = 0
                     Start-RebootCountdown
                 }

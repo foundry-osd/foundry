@@ -6,7 +6,7 @@ namespace Foundry.Deploy.Services.Autopilot;
 public interface IAutopilotInteractiveRegistrationProvisioningService
 {
     /// <summary>
-    /// Stages the assistant files and returns their offline paths.
+    /// Stages the assistant files, automatic launch hook, and returns their offline paths.
     /// </summary>
     /// <param name="targetWindowsPartitionRoot">Root of the applied Windows partition.</param>
     /// <returns>Provisioned assistant paths.</returns>

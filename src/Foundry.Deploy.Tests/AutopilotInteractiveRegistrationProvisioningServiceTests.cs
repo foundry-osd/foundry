@@ -1,5 +1,6 @@
 using System.Text.Json;
 using Foundry.Deploy.Services.Autopilot;
+using Foundry.Deploy.Services.Deployment;
 
 namespace Foundry.Deploy.Tests;
 
@@ -9,7 +10,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
     public void Provision_StagesAssistantLauncherConfigAndRuntimeFolders()
     {
         string windowsRoot = CreateWindowsRoot();
-        var service = new AutopilotInteractiveRegistrationProvisioningService();
+        var service = CreateService();
 
         AutopilotInteractiveRegistrationProvisioningResult result = service.Provision(windowsRoot);
 
@@ -18,11 +19,17 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Equal(registrationRoot, result.RegistrationRootPath);
         Assert.Equal(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistration.ps1"), result.ScriptPath);
         Assert.Equal(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistration.cmd"), result.LauncherPath);
+        Assert.Equal(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistrationAutoLaunch.cmd"), result.AutomaticLauncherPath);
+        Assert.Equal(Path.Combine(registrationRoot, "Register-FoundryAutopilotRegistrationTask.ps1"), result.AutomaticLaunchScriptPath);
         Assert.Equal(Path.Combine(registrationRoot, "config.json"), result.ConfigPath);
+        Assert.Equal(Path.Combine(windowsRoot, "Windows", "Setup", "Scripts", "SetupComplete.cmd"), result.SetupCompletePath);
         Assert.Equal(logRoot, result.LogRootPath);
         Assert.True(File.Exists(result.ScriptPath));
         Assert.True(File.Exists(result.LauncherPath));
+        Assert.True(File.Exists(result.AutomaticLauncherPath));
+        Assert.True(File.Exists(result.AutomaticLaunchScriptPath));
         Assert.True(File.Exists(result.ConfigPath));
+        Assert.True(File.Exists(result.SetupCompletePath));
         Assert.True(Directory.Exists(Path.Combine(registrationRoot, "State")));
         Assert.True(Directory.Exists(logRoot));
     }
@@ -31,7 +38,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
     public void Provision_WritesSanitizedConfigWithDeviceCodeSettings()
     {
         string windowsRoot = CreateWindowsRoot();
-        var service = new AutopilotInteractiveRegistrationProvisioningService();
+        var service = CreateService();
 
         AutopilotInteractiveRegistrationProvisioningResult result = service.Provision(windowsRoot);
 
@@ -40,6 +47,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Equal("interactiveHardwareHashUpload", config.RootElement.GetProperty("provisioningMode").GetString());
         Assert.Equal("common", config.RootElement.GetProperty("tenant").GetString());
         Assert.Equal("83eb3a92-030d-49b7-881b-32a1eb3e110a", config.RootElement.GetProperty("clientId").GetString());
+        Assert.Equal("FoundryAutopilotInteractiveRegistration", config.RootElement.GetProperty("automaticLaunchTaskName").GetString());
         Assert.Contains(
             "DeviceManagementServiceConfig.ReadWrite.All",
             config.RootElement.GetProperty("scopes").EnumerateArray().Select(scope => scope.GetString()));
@@ -54,7 +62,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
     public void Provision_WritesManualLauncher()
     {
         string windowsRoot = CreateWindowsRoot();
-        var service = new AutopilotInteractiveRegistrationProvisioningService();
+        var service = CreateService();
 
         AutopilotInteractiveRegistrationProvisioningResult result = service.Provision(windowsRoot);
 
@@ -68,10 +76,57 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
     }
 
     [Fact]
+    public void Provision_WritesAutomaticLauncherTaskRegistrationAndSetupCompleteBlock()
+    {
+        string windowsRoot = CreateWindowsRoot();
+        var service = CreateService();
+
+        AutopilotInteractiveRegistrationProvisioningResult result = service.Provision(windowsRoot);
+
+        string automaticLauncher = File.ReadAllText(result.AutomaticLauncherPath);
+        Assert.Contains("FoundryAutopilotInteractiveRegistration", automaticLauncher);
+        Assert.Contains("schtasks.exe", automaticLauncher);
+        Assert.Contains("/Delete", automaticLauncher);
+        Assert.Contains("registration-result.json", automaticLauncher);
+        Assert.Contains("Start-FoundryAutopilotRegistration.cmd", automaticLauncher);
+        Assert.Contains("start \"\"", automaticLauncher);
+
+        string automaticLaunchScript = File.ReadAllText(result.AutomaticLaunchScriptPath);
+        Assert.Contains("FoundryAutopilotInteractiveRegistration", automaticLaunchScript);
+        Assert.Contains("New-ScheduledTaskAction", automaticLaunchScript);
+        Assert.Contains("New-ScheduledTaskTrigger -AtLogon", automaticLaunchScript);
+        Assert.Contains("New-ScheduledTaskPrincipal -GroupId 'BUILTIN\\Administrators' -RunLevel Highest", automaticLaunchScript);
+        Assert.Contains("Register-ScheduledTask", automaticLaunchScript);
+        Assert.DoesNotContain("Start-ScheduledTask", automaticLaunchScript);
+        Assert.Contains("Start-FoundryAutopilotRegistrationAutoLaunch.cmd", automaticLaunchScript);
+
+        string setupComplete = File.ReadAllText(result.SetupCompletePath);
+        Assert.Contains("REM >>> FOUNDRY AUTOPILOT REGISTRATION BEGIN", setupComplete);
+        Assert.Contains(
+            "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"%SystemRoot%\\Temp\\Foundry\\AutopilotRegistration\\Register-FoundryAutopilotRegistrationTask.ps1\" >>\"%SystemRoot%\\Temp\\Foundry\\Logs\\AutopilotRegistration\\SetupComplete.log\" 2>&1",
+            setupComplete);
+        Assert.Contains("REM <<< FOUNDRY AUTOPILOT REGISTRATION END", setupComplete);
+    }
+
+    [Fact]
+    public void Provision_DoesNotDuplicateSetupCompleteAutomaticLaunchBlock()
+    {
+        string windowsRoot = CreateWindowsRoot();
+        var service = CreateService();
+
+        service.Provision(windowsRoot);
+        AutopilotInteractiveRegistrationProvisioningResult result = service.Provision(windowsRoot);
+
+        string setupComplete = File.ReadAllText(result.SetupCompletePath);
+
+        Assert.Equal(1, CountOccurrences(setupComplete, "REM >>> FOUNDRY AUTOPILOT REGISTRATION BEGIN"));
+    }
+
+    [Fact]
     public void Provision_StagedScriptContainsExpectedFlowWithoutExternalModuleDependencies()
     {
         string windowsRoot = CreateWindowsRoot();
-        var service = new AutopilotInteractiveRegistrationProvisioningService();
+        var service = CreateService();
 
         AutopilotInteractiveRegistrationProvisioningResult result = service.Provision(windowsRoot);
 
@@ -105,7 +160,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
     public void Provision_StagedScriptUsesTwoStepWpfFlow()
     {
         string windowsRoot = CreateWindowsRoot();
-        var service = new AutopilotInteractiveRegistrationProvisioningService();
+        var service = CreateService();
 
         AutopilotInteractiveRegistrationProvisioningResult result = service.Provision(windowsRoot);
 
@@ -137,6 +192,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("Waiting for device registration in Microsoft Intune.", script);
         Assert.Contains("Restarting in {0} seconds.", script);
         Assert.Contains("Restarting now.", script);
+        Assert.Contains("Unregister-ScheduledTask", script);
         Assert.Contains("shutdown.exe", script);
         Assert.Contains("Width=\"420\"", script);
         Assert.Contains("Height=\"560\"", script);
@@ -166,5 +222,24 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         string root = Path.Combine(Path.GetTempPath(), "FoundryDeployTests", Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(root);
         return root;
+    }
+
+    private static AutopilotInteractiveRegistrationProvisioningService CreateService()
+    {
+        return new AutopilotInteractiveRegistrationProvisioningService(new SetupCompleteScriptService());
+    }
+
+    private static int CountOccurrences(string value, string expected)
+    {
+        int count = 0;
+        int index = 0;
+
+        while ((index = value.IndexOf(expected, index, StringComparison.OrdinalIgnoreCase)) >= 0)
+        {
+            count++;
+            index += expected.Length;
+        }
+
+        return count;
     }
 }

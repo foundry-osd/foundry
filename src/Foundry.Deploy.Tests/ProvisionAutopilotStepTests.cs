@@ -125,7 +125,10 @@ public sealed class ProvisionAutopilotStepTests
         Assert.Equal(expectedConfigPath, context.RuntimeState.StagedAutopilotConfigurationPath);
         Assert.True(File.Exists(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistration.ps1")));
         Assert.True(File.Exists(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistration.cmd")));
+        Assert.True(File.Exists(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistrationAutoLaunch.cmd")));
+        Assert.True(File.Exists(Path.Combine(registrationRoot, "Register-FoundryAutopilotRegistrationTask.ps1")));
         Assert.True(File.Exists(expectedConfigPath));
+        Assert.True(File.Exists(Path.Combine(workspace.TargetWindowsRootPath, "Windows", "Setup", "Scripts", "SetupComplete.cmd")));
         Assert.True(Directory.Exists(Path.Combine(registrationRoot, "State")));
         Assert.True(Directory.Exists(Path.Combine(workspace.TargetWindowsRootPath, "Windows", "Temp", "Foundry", "Logs", "AutopilotRegistration")));
         Assert.False(Directory.Exists(Path.Combine(workspace.TargetWindowsRootPath, "Windows", "Provisioning", "Autopilot")));
@@ -312,7 +315,7 @@ public sealed class ProvisionAutopilotStepTests
             captureService ?? new FakeAutopilotHardwareHashCaptureService(),
             uploadService ?? new FakeAutopilotHardwareHashUploadService(
                 AutopilotHardwareHashUploadResult.Completed("Device imported.")),
-            new AutopilotInteractiveRegistrationProvisioningService());
+            new AutopilotInteractiveRegistrationProvisioningService(new SetupCompleteScriptService()));
     }
 
     private static DeploymentStepExecutionContext CreateContext(
