@@ -95,6 +95,8 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("FoundryAutopilotInteractiveRegistration", automaticLaunchScript);
         Assert.Contains("New-ScheduledTaskAction", automaticLaunchScript);
         Assert.Contains("New-ScheduledTaskTrigger -AtLogon", automaticLaunchScript);
+        Assert.Contains("New-ScheduledTaskTrigger -Once -At (Get-Date).AddSeconds(30)", automaticLaunchScript);
+        Assert.Contains("-Trigger @($logonTrigger, $fallbackTrigger)", automaticLaunchScript);
         Assert.Contains("S-1-5-32-544", automaticLaunchScript);
         Assert.Contains("SecurityIdentifier", automaticLaunchScript);
         Assert.Contains("New-ScheduledTaskPrincipal -GroupId $administratorsGroup -RunLevel Highest", automaticLaunchScript);
