@@ -76,7 +76,8 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         AutopilotInteractiveRegistrationProvisioningResult result = service.Provision(windowsRoot);
 
         string script = File.ReadAllText(result.ScriptPath);
-        Assert.Contains("Invoke-DeviceCodeAuthentication", script);
+        Assert.Contains("Request-DeviceCode", script);
+        Assert.Contains("Wait-DeviceCodeToken", script);
         Assert.Contains("Get-AutopilotHardwareIdentity", script);
         Assert.Contains("Import-AutopilotDeviceIdentity", script);
         Assert.Contains("Invoke-GraphRequest", script);
@@ -99,14 +100,29 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("Start-FoundryAutopilotRegistrationUi", script);
         Assert.Contains("Show-AuthenticationStep", script);
         Assert.Contains("Show-UploadStep", script);
-        Assert.Contains("Authenticate", script);
-        Assert.Contains("Upload", script);
+        Assert.Contains("Start-AuthenticationFlow", script);
+        Assert.Contains("Add_ContentRendered", script);
+        Assert.Contains("AuthenticationProgressBar", script);
+        Assert.Contains("UploadProgressBar", script);
+        Assert.Contains("UploadStatusTextBlock", script);
+        Assert.Contains("Content=\"Upload\"", script);
         Assert.Contains("Group tag", script);
+        Assert.Contains("Foundry OSD - Interactive hardware hash upload", script);
+        Assert.Contains("Foundry OSD - Sign in to Microsoft", script);
+        Assert.Contains("Foundry OSD - Upload hardware hash", script);
+        Assert.Contains("Choose a group tag, then upload this device hardware hash to Microsoft Intune.", script);
         Assert.Contains("Width=\"420\"", script);
         Assert.Contains("Height=\"560\"", script);
         Assert.Contains("ResizeMode=\"NoResize\"", script);
-        Assert.DoesNotContain("Title=\"Foundry Autopilot Registration\"", script);
-        Assert.DoesNotContain("Text=\"Foundry Autopilot Registration\"", script);
+        Assert.Contains("FontSize=\"16\"", script);
+        Assert.Contains("FontSize=\"32\"", script);
+        Assert.Contains("MinWidth=\"140\"", script);
+        Assert.Contains("MinHeight=\"32\"", script);
+        Assert.DoesNotContain("AuthenticateButton", script);
+        Assert.DoesNotContain("DeviceCodeTextBox", script);
+        Assert.DoesNotContain("UploadStatusTextBox", script);
+        Assert.DoesNotContain("x:Name=\"StatusTextBlock\"", script);
+        Assert.DoesNotContain("Content=\"Authenticate\"", script);
         Assert.DoesNotContain("Text=\"1. Authenticate\"", script);
         Assert.DoesNotContain("Text=\"2. Group tag and upload\"", script);
         Assert.DoesNotContain("CloseButton", script);
@@ -116,9 +132,6 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.DoesNotContain("Foreground=\"#", script);
         Assert.DoesNotContain("Background=\"#", script);
         Assert.DoesNotContain("FontFamily=\"", script);
-        Assert.DoesNotContain("FontSize=\"", script);
-        Assert.DoesNotContain("MinWidth=\"", script);
-        Assert.DoesNotContain("MinHeight=\"", script);
     }
 
     private static string CreateWindowsRoot()

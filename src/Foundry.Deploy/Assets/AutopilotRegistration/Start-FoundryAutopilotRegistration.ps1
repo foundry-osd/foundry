@@ -163,13 +163,6 @@ function Wait-DeviceCodeToken {
     throw 'Device code authentication timed out.'
 }
 
-function Invoke-DeviceCodeAuthentication {
-    param([Parameter(Mandatory = $true)]$Config)
-
-    $deviceCode = Request-DeviceCode -Config $Config
-    return Wait-DeviceCodeToken -Config $Config -DeviceCode $deviceCode
-}
-
 function Invoke-GraphRequest {
     param(
         [Parameter(Mandatory = $true)][string]$Method,
@@ -270,7 +263,7 @@ function Import-AutopilotDeviceIdentity {
         $body['groupTag'] = $GroupTag
     }
 
-    Write-State -Stage 'import' -Message 'Importing device identity into Windows Autopilot.'
+    Write-State -Stage 'import' -Message 'Uploading device hardware hash to Microsoft Intune.'
     $response = Invoke-GraphRequest -Method Post -Path 'deviceManagement/importedWindowsAutopilotDeviceIdentities' -AccessToken $AccessToken -Body $body
     $importedIdentityId = [string]$response.id
 
@@ -338,69 +331,131 @@ function Start-FoundryAutopilotRegistrationUi {
     Add-Type -AssemblyName PresentationCore
     Add-Type -AssemblyName WindowsBase
 
+    $foundryLogoBase64 = 'iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAA8DSURBVGhD7Zh5bJT5fYfdpkk2adptqqSnorRN1ChtlD+arVq1UROlihqpuaru9kiTLmR32WWbTbJgMBiDuQKsgYUFlstgDAbWYwxrwNiAsY3vsWc8h+e05z7emXfue+ad632q8bJJdlSjVNpt1YpHemek0Tv6fZ73+/0dehsaHvGIRzziEe8iwK/I09MfSvZPfDQ3b/k9EonfqL/nXYEe3jd6zvVYX9/kr129M/VbYwbDJ6aNtk8ParV/ekMz9+c3NHNfetOg+7sres23OlXKf+2cU645Paf88Wn1XPNxpXL34amZQ4cmp84cnFBebBubvbp7SHmr5dbk/ZabU6pN/ZOG9X2TSz+8Mu5dqxiLfO/8cOZI/3zA5fJ9uT7HQ5m2Gf5dH3IeUHrNx2c95i5NcLFXK1pvzYuLI6qgWTUfsho0MdviXHTRPRO1BCdEY3IsbMqPRczl4YiZoYSVuyk7t7NOBrIe+vN+bhYErksBrhWCXJXC9BQidOejXM7F6MrEOZ+KczYR52Q0xrFghIPeEDvtIs2LIVZPOjg6bMe44Nhcn3VFWlvPPabxWRK8AxmoAGUqFClSIEeOJGliJBCJ4kVkEQEDPubxMSf7mK56maj4uF/yMVz0cUfyMVDwcTPnpy8r0JsWUKQCXE6KXIgF6YwEOSMGeM0bYJc9yBazSLMpxOrhRU7cMaPXWlbV512RswMDH7eKzgciOSBLmQwSKfIkyZIgRZwYUSJECCDikH2Yq24WKi40FTeqspuZspupkoexoodRycs9ycudgpfBvI/+ByJXMwF60iJvJENciot0REK86g+z0xWj1R6jxRpjiyXGqrtLtN82YtBZvlGfd0WuK5V/aI94irUKyGSokqFMmiIpJJLkSCzLJIkRlIO4ZC+LVTcW2YNR9qCvepmvepmreJkp+5gs+Rgr+RktCtyTBO5KAQYLAfrzQa7nQvRlwyhSYU5ForQFE/zEl2K3J80OR4qt1iQt1iRPDy7RMaDDanV8sT7vilydnv4zbyoAlN4hUiJFkeSyTFqOEpAFXLIHp+zFhg+r7MMo+9DLPuarfuaqfpQVgalygIlykPvlICPFIEOSyB1J5HYhzEA+Qnc6yuuxBAfCGdrEHHuFPLs9OXY4srRY07RYszx9c4lzN1UsLFg/X593RQb0838bLsYBaVmiQpoyqeWrJpKQwwhVP178ePDjxI8NPxb8GGUBnSygkQOo5ACz1SDTVZHJSojxSojRUoiRUpiRYphb+TBd6SjHkymOJLIciknsDxfZJ5TY7Smw3Z5flmixFvj+dRsXb85JJpPpk/V5V6RfPf1PCTJAYbkSb18FEkTkIH7Zj4BA7dODgBOBJQQsCBgJoCeIRg6ilkVmZZGZaojJaoiJSpjJSoTRUpi+fIjObITTmSQn0jmOJoscipU5EK6yT6iw211ku12ixVKg2VLk2TftKAZUcbXa+rH6vCtyx6B+MUWBCjmk5ZbKkJPjBGXhgUQAPwG8BHAhYCfAIgHMBDESRI+IBnFZZE4OoayGmalGmK5EGCqFuFIIcjEXpjMX50w2w4mMxNFkhUMxmf1h2CdU2eUqs32pxBaTxGZThReu2ekdmPVOKxQfqs+7IkMmbUtmeYHNUCBNWo4tt5IP/3IVfAh4EXATwEEAG0GsBDEjYiCEnhBawszLYdRyZPmaKofplwIoCgG6CyEuFWKcy6dpzxY4nilzJClzMAptIdjjk9nprNC6WGaLsUTTQpUf9Nq5MaQ21Gd9KIMmzZHaGpWt7RFyFG/Vi1f2PZgTNQEB189JLCJiIYSJ0AORMFo5gk6OMl+NMlISuVYQuFII0COFeEOK0lVI0ZHPcypX4vW0zOEEHIjAK0H4iRd22Ktss1RoNlRo1FZ5uddO/z3VdH3WhzK0qO+qtVaUKK6KB1fVg0v24Vqe2AKOB+20tLwBilgJYSaMkTALRFggxoIcQ1kJc6so0Cv5uSoFuSKF6JaiXJKSnC9kac8XOZGtcjQFr8beqsbeAOx2w3YbbDXLbNbLvKyu0nTVzu1hVX991ocyaNXeipLBXnWzVHFjq3qxyT5ssn95UtfmQ62VrA8q8ZZEBANRjMTQVaOMloL0Ff1cKwa4WhTpKYZR1CSKSS4Uc3QUJE7lKhxLs1yN/VHYJ8IeP+x0QusitBhhsw5emqmw7U07I2OarvqsD6V/UTPjIISx7MRcdmGuejBXfZhlP2ZZwCQHMMlBjLKIQQ5jkCMY5SgmOcZMJUT/ssDPJBTFMN1SbLkSF4pZOqQip/MVXs/Aayk4GINXwrCnVo1aWzlgmwWaDbBJCy+Ol9j9po3h+6pj9VkfyjWb1rSAgLbkRFdyoSt70FV86Kp+dFUBvRxALwfRyyH0cnhZQlMNc68ocE3ycbXWTsUgPcUQ3cUIl4sxLhaTdEpZzhZLnC5UOZ6DI2l4NQFtUdgrwu5aNTyw3Q4tZmjWwyYNPD8i0XZ9ibEJ1Y76rCuiPiV8WLGoFlT4mJUczBadzJXczJW9qMp+VBWB+WqA+WoQbfUtkclSgL6ChysFH1eKAopikO5iiMvFCF3FBJ3FDB1SnvZCkZMFmddz8FoaDiahLQZ7w7A7ADt9sN0F25Zgiwk2a2HTPDxzO8eh61YmprU/rs+7IjMzC7992a5JTZQ9jOXtjBecjEtuJore5TPTVMnPTDmAuioyWw4ykPfQnXPRnffSXRC4JIlclMJckGKcLybpKGZplyROFsocz8kczcHhzAOJOOyNwO4g7PBDqwe2OWCrFZoX3pLYpIbVN1Ic6zMyOjbzi598r02qPtW5NF++W3BxJ2PjbtbBUN7FcMHDiORlrOhnqiRwr+BFkXHSlXZyKeflYl7gQl6ksxChQ4pzVkrTLuU4WZB4PV/9qcCradifhFfisCcCu0TY7odtHtjqhBYbND+oxsY52DQHT/fGOdmnY2pK/fX6vCtyeXT2iQ6njhsZO9eTS9xI2+nPOBnMubmb9zJU8NCbcnAusURn0kFn2s25jJ+OXJAzuQin80lOFbKcLOR5PV/kSK76U4EDKXglAXtisDsCO0VoFWCrB7Y4obkmYYFNC9Ckhg0z0DgF6+/Dxvuw+pxAu2JMGhwd/YP6vCvSPq18/kTQzlnRyjnRSodo5YjXxF6XgTavhf3CEgcCDg6IbvaH/eyPiLTFYrySyPBKosC+eJk98So/ebt9ak+/1kIB2PrzAi5ocsCGJdhggUYjbNBBoxoap6FxDNbfg8Z78MwZL2cVIwnFwMDH6/OuyMnxqaYdRi1bNdNs1U6zTj3FDzUzrDfOs8GqZ5PdTLPbRovPzbZAgFYxyo5wip2RPLsiJXZFqstPviaw422BWgt5YUutjdxvVaHJDht/TqLxbYlaS41D4zCsvw3rB2DNaTfneka8CsXBX/zka/OHXvUkkszaPdy32hkwWXnTYOHygokzWj3H5vW0qbTsUOloURtoVJn5oWqJF+dcrFH5eFYt8owmxjPaFM/qcjy3ILHGUOJ5Y4W1JpmXzPAjC7xsgXUWWG+GRsNb1djwYIJvGIMNQ7BhANbfhBdPOblw5Z65oaHhl+rzrogrmDhce+VQqb7zHcp/Re2eTL5EOJXHE0lh8kdRucOM20IMmAL0aP10zHo5Oull/5iPXSMCzXeCvHwrxH/cCPN8X4Tn+uI805fi+9cyrO7NskqRZ/UbBZ65XOK5SxWevSjz/NFFLvTcnqvP+lB6htSP353Q/+WIcuHvNRbvd9Qm54/MjuAum1c8bvdHenzh1JAQSWlC8awzmsxH4ulCIZsvUe9dKVUoF8sU8xL5TJ5MKksykSYWTSOG07j9MazOCLpFEaUhwIjaz81JD4phF52DDk5cd3Cwx8aOCzaOXLFwsXfobn3Wd4dPf+2Dm45f+uiZ3uFP3pnSfW5UbfzinMXzDZ0t8D3lgqNz1uBiQm1lUrPIjM7G7IKDeZMbrdldsrrF1KJblN1ikmA8TyRVJJYpEUsXCSfzBKMpvMEoDm8Qq8OLO5iks2foRn2E95xZo+t3FmyByozezrDSyOC4luv3VNwYmed4V3+05dD5z57vn/ls963pvx64r/tG/5h21e0JXeOdSf3eW2Pqs3cn9dcG7mvGBkbnFwbHNJ7+kXnvgZOKtfXjvCcAj5XgC8AXZFn+XE6qhPOlKqFEDncwgcUVYmFJYHBcz/fWHfjj+v+vyCe/9FhDw+9+uP7ndxXg8bIsf7NUrrZn8yVHplAmlZVqbVEwO4SK0Sags3pRG10o9Q5mF5wMTRtoVwz2Gp3Ccws277fdodRfSbL8GeC9DVsP8BFZlr8ly3JXqVKtvcVbplCGaCqPEE7i9IVZWPSg1C0xOmvk9riWG8MqOnvvsf9kN1dvTzNv8WFyiDj8MRY9Ybqvj1yoH+s9xSNEBt65Pv2MUm05LpSJpXL4xDhLHhGjzce8ycHdCQ1Xbo1z894sw9N6ZrSLqAxO+u7O0HqgfWn1S1vXPffSlk81NTU93tra+sv1477rXO4b+Yv+kbk1bw5O7Lg7rj41ptTfVOoss2qDza23uJPGJa/sEmIEYjnERIFQUsIfyS6vPIFYlkAkjVOIMTxjpO34JfHpH2w9/uVvr/rWN/9lzRP/9sKPPrNm3bqPrVmz5v314/5P8pGvPPny769tbPv85n3tX91ztOvpgycVTcc6rh062z3Y80bf6P2bQzNG9YLD23dnxv7Cxn3nv/oPzz75pX/8/hNPrl7/J/+8dt0nvrN27Uefam39wH9rB/9f4gMNDX/0eEPDb/56Q0PD+7++Zs2Hv/vd9b/6tZde+uBTTz31vv8LAo94xCMe8Yj/f/wnsp7aWPosj38AAAAASUVORK5CYII='
+
     $xaml = @'
 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Foundry OSD - Interactive hardware hash upload"
         Width="420"
         Height="560"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <Grid Margin="12">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+        <Grid x:Name="AuthenticationStep">
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Center"
+                        Margin="0,0,0,12">
+                <Image x:Name="AuthenticationLogoImage"
+                       Width="50"
+                       Height="50"
+                       Margin="0,0,12,0"
+                       VerticalAlignment="Center" />
+                <TextBlock Text="Foundry OSD - Sign in to Microsoft"
+                           FontSize="16"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"
+                           TextWrapping="Wrap" />
+            </StackPanel>
 
-        <StackPanel Grid.Row="0" Margin="0,0,0,12">
-            <TextBlock Text="Register this device with Windows Autopilot using technician sign-in." TextWrapping="Wrap" />
-        </StackPanel>
+            <StackPanel VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Width="330">
+                <TextBlock x:Name="AuthenticationInstructionTextBlock"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap">
+                    <Run Text="Go to" />
+                    <Run Text="https://microsoft.com/devicelogin" FontWeight="Bold" />
+                    <Run Text="in a browser and enter this code:" />
+                </TextBlock>
 
-        <Grid Grid.Row="1">
-            <Grid x:Name="AuthenticationStep">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0">
-                    <TextBlock Text="Use the Microsoft device code prompt to sign in with an account allowed to import Windows Autopilot devices." TextWrapping="Wrap" Margin="0,0,0,12" />
-                </StackPanel>
-                <TextBox x:Name="DeviceCodeTextBox" Grid.Row="1" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" />
-                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
-                    <Button x:Name="AuthenticateButton" Content="Authenticate" />
-                </StackPanel>
-            </Grid>
+                <TextBlock x:Name="DeviceCodeTextBlock"
+                           TextAlignment="Center"
+                           FontSize="32"
+                           FontWeight="Bold"
+                           Margin="0,8,0,0" />
+            </StackPanel>
 
-            <Grid x:Name="UploadStep" Visibility="Collapsed">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0">
-                    <TextBlock Text="Choose an existing group tag, enter a custom group tag, or leave the device without a group tag." TextWrapping="Wrap" Margin="0,0,0,12" />
-                </StackPanel>
-                <Grid Grid.Row="1" Margin="0,0,0,12">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Group tag" VerticalAlignment="Center" Margin="0,0,12,0" />
-                    <StackPanel Grid.Column="1">
-                        <ComboBox x:Name="GroupTagCombo" />
-                        <TextBox x:Name="CustomGroupTagTextBox" Margin="0,8,0,0" Visibility="Collapsed" />
-                    </StackPanel>
-                </Grid>
-                <TextBox x:Name="UploadStatusTextBox" Grid.Row="2" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" />
-                <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
-                    <Button x:Name="UploadButton" Content="Upload" />
-                </StackPanel>
-            </Grid>
+            <ProgressBar x:Name="AuthenticationProgressBar"
+                         IsIndeterminate="True"
+                         Height="4"
+                         Width="330"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Bottom"
+                         Margin="0,0,0,12" />
         </Grid>
 
-        <TextBlock x:Name="StatusTextBlock" Grid.Row="2" Text="Ready." Margin="0,12,0,0" TextWrapping="Wrap" />
+        <Grid x:Name="UploadStep" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Center"
+                        Margin="0,0,0,12">
+                <Image x:Name="UploadLogoImage"
+                       Width="50"
+                       Height="50"
+                       Margin="0,0,12,0"
+                       VerticalAlignment="Center" />
+                <TextBlock Text="Foundry OSD - Upload hardware hash"
+                           FontSize="16"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"
+                           TextWrapping="Wrap" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="1"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Width="330">
+                <TextBlock Text="Choose a group tag, then upload this device hardware hash to Microsoft Intune."
+                           TextAlignment="Center"
+                           TextWrapping="Wrap"
+                           Margin="0,0,0,18" />
+
+                <TextBlock Text="Group tag"
+                           Margin="0,0,0,4" />
+
+                <ComboBox x:Name="GroupTagCombo" />
+
+                <TextBlock Text="Custom group tag"
+                           Margin="0,12,0,4" />
+
+                <TextBox x:Name="CustomGroupTagTextBox"
+                         IsEnabled="False" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="2"
+                        VerticalAlignment="Bottom"
+                        HorizontalAlignment="Center"
+                        Width="330"
+                        Margin="0,12,0,0">
+                <TextBlock x:Name="UploadStatusTextBlock"
+                           Text="Ready to upload."
+                           TextAlignment="Center"
+                           TextWrapping="Wrap"
+                           Margin="0,0,0,8" />
+
+                <ProgressBar x:Name="UploadProgressBar"
+                             Minimum="0"
+                             Maximum="100"
+                             Value="0"
+                             Height="4"
+                             Margin="0,0,0,12" />
+
+                <Button x:Name="UploadButton"
+                        Content="Upload"
+                        HorizontalAlignment="Center"
+                        MinWidth="140"
+                        MinHeight="32" />
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
 '@
@@ -408,31 +463,71 @@ function Start-FoundryAutopilotRegistrationUi {
     $xmlReader = New-Object System.Xml.XmlNodeReader ([xml]$xaml)
     $window = [Windows.Markup.XamlReader]::Load($xmlReader)
 
+    function New-FoundryBitmapImageFromBase64 {
+        param([Parameter(Mandatory = $true)][string]$Base64)
+
+        $bytes = [Convert]::FromBase64String($Base64)
+        $stream = New-Object System.IO.MemoryStream(,$bytes)
+        try {
+            $image = New-Object System.Windows.Media.Imaging.BitmapImage
+            $image.BeginInit()
+            $image.CacheOption = [System.Windows.Media.Imaging.BitmapCacheOption]::OnLoad
+            $image.StreamSource = $stream
+            $image.EndInit()
+            $image.Freeze()
+            return $image
+        }
+        finally {
+            $stream.Dispose()
+        }
+    }
+
     $authenticationStep = $window.FindName('AuthenticationStep')
     $uploadStep = $window.FindName('UploadStep')
-    $deviceCodeTextBox = $window.FindName('DeviceCodeTextBox')
-    $authenticateButton = $window.FindName('AuthenticateButton')
+    $authenticationLogoImage = $window.FindName('AuthenticationLogoImage')
+    $uploadLogoImage = $window.FindName('UploadLogoImage')
+    $authenticationInstructionTextBlock = $window.FindName('AuthenticationInstructionTextBlock')
+    $authenticationProgressBar = $window.FindName('AuthenticationProgressBar')
+    $deviceCodeTextBlock = $window.FindName('DeviceCodeTextBlock')
     $groupTagCombo = $window.FindName('GroupTagCombo')
     $customGroupTagTextBox = $window.FindName('CustomGroupTagTextBox')
-    $uploadStatusTextBox = $window.FindName('UploadStatusTextBox')
+    $uploadStatusTextBlock = $window.FindName('UploadStatusTextBlock')
+    $uploadProgressBar = $window.FindName('UploadProgressBar')
     $uploadButton = $window.FindName('UploadButton')
-    $statusTextBlock = $window.FindName('StatusTextBlock')
+
+    $logoImage = New-FoundryBitmapImageFromBase64 -Base64 $foundryLogoBase64
+    $window.Icon = $logoImage
+    $authenticationLogoImage.Source = $logoImage
+    $uploadLogoImage.Source = $logoImage
 
     $script:AccessToken = $null
     $script:DiscoveredGroupTags = @()
     $script:ExitCode = 1
+    $script:AuthenticationStarted = $false
 
-    function Set-StatusText {
+    function Set-AuthenticationError {
         param([Parameter(Mandatory = $true)][string]$Message)
-        $statusTextBlock.Text = $Message
+        $authenticationInstructionTextBlock.Inlines.Clear()
+        [void]$authenticationInstructionTextBlock.Inlines.Add((New-Object System.Windows.Documents.Run($Message)))
+        $authenticationProgressBar.IsIndeterminate = $false
+    }
+
+    function Set-UploadProgress {
+        param(
+            [Parameter(Mandatory = $true)][string]$Message,
+            [Parameter(Mandatory = $true)][int]$Value
+        )
+
+        $uploadStatusTextBlock.Text = $Message
+        $uploadProgressBar.Value = $Value
         Write-FoundryLog -Message $Message
     }
 
     function Show-AuthenticationStep {
         $authenticationStep.Visibility = 'Visible'
         $uploadStep.Visibility = 'Collapsed'
-        $deviceCodeTextBox.Text = ''
-        Set-StatusText -Message 'Ready to authenticate.'
+        $deviceCodeTextBlock.Text = ''
+        $authenticationProgressBar.IsIndeterminate = $true
     }
 
     function Show-UploadStep {
@@ -445,72 +540,102 @@ function Start-FoundryAutopilotRegistrationUi {
         }
         [void]$groupTagCombo.Items.Add('Custom')
         $groupTagCombo.SelectedIndex = 0
-        $uploadStatusTextBox.Text = 'Authentication completed. Choose a group tag and select Upload.'
-        Set-StatusText -Message 'Authentication completed.'
+        $customGroupTagTextBox.IsEnabled = $false
+        $customGroupTagTextBox.Text = ''
+        Set-UploadProgress -Message 'Ready to upload.' -Value 0
     }
 
     $groupTagCombo.Add_SelectionChanged({
         if ([string]$groupTagCombo.SelectedItem -eq 'Custom') {
-            $customGroupTagTextBox.Visibility = 'Visible'
+            $customGroupTagTextBox.IsEnabled = $true
             $customGroupTagTextBox.Focus() | Out-Null
         }
         else {
-            $customGroupTagTextBox.Visibility = 'Collapsed'
+            $customGroupTagTextBox.IsEnabled = $false
             $customGroupTagTextBox.Text = ''
         }
     })
 
-    $authenticateButton.Add_Click({
+    function Start-AuthenticationFlow {
         try {
-            $authenticateButton.IsEnabled = $false
-            Set-StatusText -Message 'Requesting Microsoft device code.'
-            $deviceCode = Request-DeviceCode -Config $Config
-            $deviceCodeTextBox.Text = [string]$deviceCode.message
-            Set-StatusText -Message 'Waiting for Microsoft sign-in to complete.'
-
             $authWorker = New-Object System.ComponentModel.BackgroundWorker
+            $authWorker.WorkerReportsProgress = $true
             $authWorker.add_DoWork({
                 param($sender, $eventArgs)
-                $eventArgs.Result = Wait-DeviceCodeToken -Config $Config -DeviceCode $deviceCode
+                $sender.ReportProgress(0, [pscustomobject]@{
+                    Type = 'Status'
+                    Message = 'Requesting Microsoft device code.'
+                })
+                $deviceCode = Request-DeviceCode -Config $Config
+                $sender.ReportProgress(0, [pscustomobject]@{
+                    Type = 'DeviceCode'
+                    UserCode = [string]$deviceCode.user_code
+                })
+                $accessToken = Wait-DeviceCodeToken -Config $Config -DeviceCode $deviceCode
+                $sender.ReportProgress(0, [pscustomobject]@{
+                    Type = 'Status'
+                    Message = 'Loading available group tags.'
+                })
+                $groupTags = @(Get-ExistingGroupTags -AccessToken $accessToken)
+                $eventArgs.Result = [pscustomobject]@{
+                    AccessToken = [string]$accessToken
+                    GroupTags = $groupTags
+                }
+            })
+            $authWorker.add_ProgressChanged({
+                param($sender, $eventArgs)
+                $state = $eventArgs.UserState
+                if ($state.Type -eq 'DeviceCode') {
+                    $deviceCodeTextBlock.Text = [string]$state.UserCode
+                    Write-FoundryLog -Message 'Device code was displayed to the technician.'
+                    return
+                }
+
+                if ($state.Type -eq 'Status') {
+                    Write-FoundryLog -Message ([string]$state.Message)
+                }
             })
             $authWorker.add_RunWorkerCompleted({
                 param($sender, $eventArgs)
                 if ($eventArgs.Error -ne $null) {
-                    $authenticateButton.IsEnabled = $true
                     $message = $eventArgs.Error.Message
                     Write-Result -Status 'failed' -Message $message
-                    Set-StatusText -Message $message
+                    Write-FoundryLog -Message $message
+                    Set-AuthenticationError -Message 'Authentication failed. Check logs for details.'
                     return
                 }
 
-                $script:AccessToken = [string]$eventArgs.Result
-                Set-StatusText -Message 'Loading available group tags.'
-                $script:DiscoveredGroupTags = @(Get-ExistingGroupTags -AccessToken $script:AccessToken)
+                $script:AccessToken = [string]$eventArgs.Result.AccessToken
+                $script:DiscoveredGroupTags = @($eventArgs.Result.GroupTags)
                 Show-UploadStep
             })
             $authWorker.RunWorkerAsync()
         }
         catch {
-            $authenticateButton.IsEnabled = $true
             $message = $_.Exception.Message
             Write-Result -Status 'failed' -Message $message
-            Set-StatusText -Message $message
+            Write-FoundryLog -Message $message
+            Set-AuthenticationError -Message 'Authentication failed. Check logs for details.'
         }
-    })
+    }
 
     $uploadButton.Add_Click({
         try {
             $uploadButton.IsEnabled = $false
             $selectedGroupTag = Get-SelectedGroupTag -GroupTagCombo $groupTagCombo -CustomGroupTagTextBox $customGroupTagTextBox
-            $uploadStatusTextBox.Text = 'Collecting hardware identity and uploading to Windows Autopilot.'
-            Set-StatusText -Message 'Uploading Autopilot hardware hash.'
+            Set-UploadProgress -Message 'Collecting hardware hash.' -Value 20
 
             $uploadWorker = New-Object System.ComponentModel.BackgroundWorker
+            $uploadWorker.WorkerReportsProgress = $true
             $uploadWorker.add_DoWork({
                 param($sender, $eventArgs)
+                $sender.ReportProgress(20, 'Collecting hardware hash.')
                 $identity = Get-AutopilotHardwareIdentity
+                $sender.ReportProgress(45, 'Uploading hardware hash to Microsoft Intune.')
                 $import = Import-AutopilotDeviceIdentity -AccessToken $script:AccessToken -Identity $identity -GroupTag $selectedGroupTag
+                $sender.ReportProgress(70, 'Waiting for import completion.')
                 $completedImport = Wait-AutopilotImport -AccessToken $script:AccessToken -ImportedIdentityId $import.ImportedIdentityId
+                $sender.ReportProgress(90, 'Registration completed.')
                 $eventArgs.Result = [pscustomobject]@{
                     Identity = $identity
                     Import = $import
@@ -518,14 +643,18 @@ function Start-FoundryAutopilotRegistrationUi {
                     GroupTag = $selectedGroupTag
                 }
             })
+            $uploadWorker.add_ProgressChanged({
+                param($sender, $eventArgs)
+                Set-UploadProgress -Message ([string]$eventArgs.UserState) -Value $eventArgs.ProgressPercentage
+            })
             $uploadWorker.add_RunWorkerCompleted({
                 param($sender, $eventArgs)
                 if ($eventArgs.Error -ne $null) {
                     $uploadButton.IsEnabled = $true
                     $message = $eventArgs.Error.Message
                     Write-Result -Status 'failed' -Message $message
-                    $uploadStatusTextBox.Text = $message
-                    Set-StatusText -Message $message
+                    Set-UploadProgress -Message 'Upload failed. Check logs for details.' -Value ([int]$uploadProgressBar.Value)
+                    Write-FoundryLog -Message $message
                     return
                 }
 
@@ -539,9 +668,8 @@ function Start-FoundryAutopilotRegistrationUi {
                 }
                 Write-Result -Status 'completed' -Message 'Autopilot registration completed.' -Details $details
                 Write-FoundryLog -Message 'Autopilot registration completed.'
-                $uploadStatusTextBox.Text = "Autopilot registration completed.`r`nSerial number: $($result.Identity.SerialNumber)`r`nGroup tag: $($result.GroupTag)"
+                Set-UploadProgress -Message 'Registration completed.' -Value 100
                 $script:ExitCode = 0
-                Set-StatusText -Message 'Autopilot registration completed.'
             })
             $uploadWorker.RunWorkerAsync()
         }
@@ -549,9 +677,18 @@ function Start-FoundryAutopilotRegistrationUi {
             $uploadButton.IsEnabled = $true
             $message = $_.Exception.Message
             Write-Result -Status 'failed' -Message $message
-            $uploadStatusTextBox.Text = $message
-            Set-StatusText -Message $message
+            Set-UploadProgress -Message 'Upload failed. Check logs for details.' -Value ([int]$uploadProgressBar.Value)
+            Write-FoundryLog -Message $message
         }
+    })
+
+    $window.Add_ContentRendered({
+        if ($script:AuthenticationStarted) {
+            return
+        }
+
+        $script:AuthenticationStarted = $true
+        Start-AuthenticationFlow
     })
 
     Show-AuthenticationStep
