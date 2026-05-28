@@ -99,10 +99,10 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.DoesNotContain("New-ScheduledTaskTrigger -AtLogon", automaticLaunchScript);
         Assert.DoesNotContain("fallbackTrigger", automaticLaunchScript);
         Assert.DoesNotContain("logonTrigger", automaticLaunchScript);
-        Assert.Contains("S-1-5-32-544", automaticLaunchScript);
-        Assert.Contains("SecurityIdentifier", automaticLaunchScript);
-        Assert.Contains("New-ScheduledTaskPrincipal -GroupId $administratorsGroup -RunLevel Highest", automaticLaunchScript);
-        Assert.DoesNotContain("BUILTIN\\Administrators", automaticLaunchScript);
+        Assert.Contains("[System.Security.Principal.WindowsIdentity]::GetCurrent().Name", automaticLaunchScript);
+        Assert.Contains("New-ScheduledTaskPrincipal -UserId $interactiveUser -LogonType Interactive -RunLevel Highest", automaticLaunchScript);
+        Assert.DoesNotContain("S-1-5-32-544", automaticLaunchScript);
+        Assert.DoesNotContain("-GroupId", automaticLaunchScript);
         Assert.Contains("Register-ScheduledTask", automaticLaunchScript);
         Assert.DoesNotContain("Start-ScheduledTask", automaticLaunchScript);
         Assert.Contains("Start-FoundryAutopilotRegistrationAutoLaunch.cmd", automaticLaunchScript);
