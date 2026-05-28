@@ -551,8 +551,18 @@ function Start-FoundryAutopilotRegistrationUi {
                            Margin="0,8,0,0" />
             </StackPanel>
 
+            <TextBlock x:Name="AuthenticationStatusTextBlock"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap"
+                       Width="330"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Bottom"
+                       Margin="0,0,0,24" />
+
             <ProgressBar x:Name="AuthenticationProgressBar"
-                         IsIndeterminate="True"
+                         Minimum="0"
+                         Maximum="100"
+                         Value="0"
                          Height="4"
                          Width="330"
                          HorizontalAlignment="Center"
@@ -665,6 +675,7 @@ function Start-FoundryAutopilotRegistrationUi {
     $uploadLogoImage = $window.FindName('UploadLogoImage')
     $authenticationInstructionTextBlock = $window.FindName('AuthenticationInstructionTextBlock')
     $authenticationProgressBar = $window.FindName('AuthenticationProgressBar')
+    $authenticationStatusTextBlock = $window.FindName('AuthenticationStatusTextBlock')
     $deviceCodeTextBlock = $window.FindName('DeviceCodeTextBlock')
     $groupTagCombo = $window.FindName('GroupTagCombo')
     $customGroupTagTextBox = $window.FindName('CustomGroupTagTextBox')
@@ -689,17 +700,35 @@ function Start-FoundryAutopilotRegistrationUi {
         $authenticationInstructionTextBlock.Inlines.Clear()
         [void]$authenticationInstructionTextBlock.Inlines.Add((New-Object System.Windows.Documents.Run($Message)))
         $authenticationProgressBar.IsIndeterminate = $false
+        $authenticationProgressBar.Value = 0
+        $authenticationStatusTextBlock.Text = ''
     }
 
     function Set-UploadProgress {
         param(
             [Parameter(Mandatory = $true)][string]$Message,
-            [Parameter(Mandatory = $true)][int]$Value
+            [Parameter(Mandatory = $false)][int]$Value = 0,
+            [Parameter(Mandatory = $false)][bool]$IsIndeterminate = $false
         )
 
         $uploadStatusTextBlock.Text = $Message
-        $uploadProgressBar.Value = $Value
+        $uploadProgressBar.IsIndeterminate = $IsIndeterminate
+        if (-not $IsIndeterminate) {
+            $uploadProgressBar.Value = $Value
+        }
         Write-FoundryLog -Message $Message
+    }
+
+    function Update-AuthenticationCountdown {
+        if ($null -eq $script:AuthenticationDeadline -or $null -eq $script:AuthenticationStartedAt) {
+            return
+        }
+
+        $remainingSeconds = [Math]::Max(0, [int][Math]::Ceiling(($script:AuthenticationDeadline - [DateTimeOffset]::UtcNow).TotalSeconds))
+        $totalSeconds = [Math]::Max(1, [int][Math]::Ceiling(($script:AuthenticationDeadline - $script:AuthenticationStartedAt).TotalSeconds))
+        $authenticationStatusTextBlock.Text = 'Code expires in {0} seconds.' -f $remainingSeconds
+        $authenticationProgressBar.IsIndeterminate = $false
+        $authenticationProgressBar.Value = [Math]::Max(0, [Math]::Min(100, ($remainingSeconds / $totalSeconds) * 100))
     }
 
     function Set-UploadControlsEnabled {
@@ -740,7 +769,9 @@ function Start-FoundryAutopilotRegistrationUi {
         $authenticationStep.Visibility = 'Visible'
         $uploadStep.Visibility = 'Collapsed'
         $deviceCodeTextBlock.Text = ''
-        $authenticationProgressBar.IsIndeterminate = $true
+        $authenticationStatusTextBlock.Text = ''
+        $authenticationProgressBar.IsIndeterminate = $false
+        $authenticationProgressBar.Value = 0
     }
 
     function Show-UploadStep {
@@ -755,7 +786,7 @@ function Start-FoundryAutopilotRegistrationUi {
         $groupTagCombo.SelectedIndex = 0
         $customGroupTagTextBox.Text = ''
         Set-UploadControlsEnabled -IsEnabled $true
-        Set-UploadProgress -Message 'Ready to upload.' -Value 0
+        Set-UploadProgress -Message 'Ready to upload.' -Value 0 -IsIndeterminate $false
     }
 
     $groupTagCombo.Add_SelectionChanged({
@@ -777,20 +808,29 @@ function Start-FoundryAutopilotRegistrationUi {
         try {
             Write-FoundryLog -Message 'Requesting Microsoft device code.'
             $script:AuthenticationDeviceCode = Request-DeviceCode -Config $Config
-            $script:AuthenticationDeadline = [DateTimeOffset]::UtcNow.AddSeconds([int]$script:AuthenticationDeviceCode.expires_in)
+            $script:AuthenticationStartedAt = [DateTimeOffset]::UtcNow
+            $script:AuthenticationDeadline = $script:AuthenticationStartedAt.AddSeconds([int]$script:AuthenticationDeviceCode.expires_in)
             $script:AuthenticationPollInterval = [Math]::Max(5, [int]$script:AuthenticationDeviceCode.interval)
             $deviceCodeTextBlock.Text = [string]$script:AuthenticationDeviceCode.user_code
             Write-FoundryLog -Message 'Device code was displayed to the technician.'
+            Update-AuthenticationCountdown
+            $script:NextAuthenticationPollAt = [DateTimeOffset]::UtcNow
 
             $script:AuthenticationPollTimer = New-Object System.Windows.Threading.DispatcherTimer
-            $script:AuthenticationPollTimer.Interval = [TimeSpan]::FromSeconds($script:AuthenticationPollInterval)
+            $script:AuthenticationPollTimer.Interval = [TimeSpan]::FromSeconds(1)
             $script:AuthenticationPollTimer.Add_Tick({
                 try {
+                    Update-AuthenticationCountdown
                     if ([DateTimeOffset]::UtcNow -ge $script:AuthenticationDeadline) {
                         $script:AuthenticationPollTimer.Stop()
                         throw 'Device code authentication timed out.'
                     }
 
+                    if ($script:NextAuthenticationPollAt -gt [DateTimeOffset]::UtcNow) {
+                        return
+                    }
+
+                    $script:NextAuthenticationPollAt = [DateTimeOffset]::UtcNow.AddSeconds($script:AuthenticationPollInterval)
                     $tokenResult = Request-DeviceCodeToken -Config $Config -DeviceCode $script:AuthenticationDeviceCode
                     if ($tokenResult.Status -eq 'Pending') {
                         return
@@ -798,7 +838,6 @@ function Start-FoundryAutopilotRegistrationUi {
 
                     if ($tokenResult.Status -eq 'SlowDown') {
                         $script:AuthenticationPollInterval += 5
-                        $script:AuthenticationPollTimer.Interval = [TimeSpan]::FromSeconds($script:AuthenticationPollInterval)
                         return
                     }
 
@@ -830,17 +869,17 @@ function Start-FoundryAutopilotRegistrationUi {
         try {
             Set-UploadControlsEnabled -IsEnabled $false
             $selectedGroupTag = Get-SelectedGroupTag -GroupTagCombo $groupTagCombo -CustomGroupTagTextBox $customGroupTagTextBox
-            Set-UploadProgress -Message 'Collecting hardware hash.' -Value 20
+            Set-UploadProgress -Message 'Collecting hardware hash.' -IsIndeterminate $true
 
             $script:UploadSelectedGroupTag = $selectedGroupTag
             $script:UploadIdentity = Get-AutopilotHardwareIdentity
-            Set-UploadProgress -Message 'Uploading hardware hash to Microsoft Intune.' -Value 45
+            Set-UploadProgress -Message 'Uploading hardware hash to Microsoft Intune.' -IsIndeterminate $true
             $script:UploadImport = Import-AutopilotDeviceIdentity -AccessToken $script:AccessToken -Identity $script:UploadIdentity -GroupTag $script:UploadSelectedGroupTag
             $script:UploadImportedIdentity = $script:UploadImport.ImportedIdentity
             $timeoutSeconds = if ($Config.importPollingTimeoutSeconds) { [int]$Config.importPollingTimeoutSeconds } else { 900 }
             $intervalSeconds = if ($Config.importPollingIntervalSeconds) { [int]$Config.importPollingIntervalSeconds } else { 15 }
             $script:UploadDeadline = [DateTimeOffset]::UtcNow.AddSeconds($timeoutSeconds)
-            Set-UploadProgress -Message 'Waiting for device registration in Microsoft Intune.' -Value 70
+            Set-UploadProgress -Message 'Waiting for device registration in Microsoft Intune.' -IsIndeterminate $true
 
             $script:UploadPollTimer = New-Object System.Windows.Threading.DispatcherTimer
             $script:UploadPollTimer.Interval = [TimeSpan]::FromSeconds($intervalSeconds)
@@ -869,7 +908,7 @@ function Start-FoundryAutopilotRegistrationUi {
                     }
                     Write-Result -Status 'completed' -Message 'Autopilot registration completed.' -Details $details
                     Write-FoundryLog -Message 'Autopilot registration completed.'
-                    Set-UploadProgress -Message 'Registration completed.' -Value 100
+                    Set-UploadProgress -Message 'Registration completed.' -Value 100 -IsIndeterminate $false
                     $script:ExitCode = 0
                     Start-RebootCountdown
                 }
