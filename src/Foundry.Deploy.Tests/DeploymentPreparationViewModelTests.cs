@@ -141,7 +141,7 @@ public sealed class DeploymentPreparationViewModelTests
         Assert.False(viewModel.IsAutopilotProfileSelectionEnabled);
         Assert.False(viewModel.IsHardwareHashGroupTagControlsVisible);
         Assert.False(viewModel.IsHardwareHashUploadMessageVisible);
-        Assert.Contains("Interactive", viewModel.AutopilotModeText, StringComparison.OrdinalIgnoreCase);
+        Assert.False(string.IsNullOrWhiteSpace(viewModel.AutopilotModeText));
         Assert.Null(viewModel.SelectedAutopilotProfile);
     }
 

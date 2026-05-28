@@ -108,7 +108,6 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     public bool IsAutopilotSectionVisible => IsAutopilotEnabled || HasAutopilotProfiles;
     public bool IsJsonProfileMode => AutopilotProvisioningMode == AutopilotProvisioningMode.JsonProfile;
     public bool IsHardwareHashUploadMode => AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload;
-    public bool IsInteractiveHardwareHashUploadMode => AutopilotProvisioningMode == AutopilotProvisioningMode.InteractiveHardwareHashUpload;
     public bool IsAutopilotDisabledSummaryVisible => IsAutopilotSectionVisible && !IsAutopilotEnabled;
     public bool IsJsonProfileControlsVisible => IsAutopilotEnabled && IsJsonProfileMode;
     public bool IsHardwareHashUploadControlsVisible => IsAutopilotEnabled && IsHardwareHashUploadMode;
@@ -520,7 +519,6 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     {
         OnPropertyChanged(nameof(IsJsonProfileMode));
         OnPropertyChanged(nameof(IsHardwareHashUploadMode));
-        OnPropertyChanged(nameof(IsInteractiveHardwareHashUploadMode));
         OnPropertyChanged(nameof(IsJsonProfileControlsVisible));
         OnPropertyChanged(nameof(IsHardwareHashUploadControlsVisible));
         OnPropertyChanged(nameof(IsAutopilotProfileSelectionEnabled));

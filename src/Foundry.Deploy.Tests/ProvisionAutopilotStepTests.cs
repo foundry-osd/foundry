@@ -102,7 +102,7 @@ public sealed class ProvisionAutopilotStepTests
     }
 
     [Fact]
-    public async Task ExecuteAsync_WhenLiveInteractiveHardwareHashModeIsSelected_FailsWithoutJsonProfileStaging()
+    public async Task ExecuteAsync_WhenLiveInteractiveHardwareHashModeIsSelected_FailsWithoutRegistrationAssistant()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
         var uploadService = new FakeAutopilotHardwareHashUploadService(
@@ -257,7 +257,7 @@ public sealed class ProvisionAutopilotStepTests
     }
 
     [Fact]
-    public async Task ExecuteAsync_WhenDryRunInteractiveHardwareHashModeIsSelected_FailsWithoutJsonProfileManifest()
+    public async Task ExecuteAsync_WhenDryRunInteractiveHardwareHashModeIsSelected_FailsWithoutRegistrationAssistant()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
         ProvisionAutopilotStep step = CreateStep();

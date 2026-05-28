@@ -189,7 +189,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
     public bool IsJsonProfileMode => provisioningMode == AutopilotProvisioningMode.JsonProfile;
     public bool IsHardwareHashUploadMode => provisioningMode == AutopilotProvisioningMode.HardwareHashUpload;
-    public bool IsInteractiveHardwareHashUploadMode => provisioningMode == AutopilotProvisioningMode.InteractiveHardwareHashUpload;
     public bool IsHardwareHashCertificateExpired => hardwareHashUploadSettings.ActiveCertificate?.ExpiresOnUtc is DateTimeOffset expiresOnUtc &&
                                                     expiresOnUtc <= DateTimeOffset.UtcNow;
     public Visibility JsonProfileSettingsVisibility => IsJsonProfileMode ? Visibility.Visible : Visibility.Collapsed;
@@ -1042,7 +1041,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         OnPropertyChanged(nameof(UseInteractiveHardwareHashUploadProvisioning));
         OnPropertyChanged(nameof(IsJsonProfileMode));
         OnPropertyChanged(nameof(IsHardwareHashUploadMode));
-        OnPropertyChanged(nameof(IsInteractiveHardwareHashUploadMode));
         OnPropertyChanged(nameof(JsonProfileSettingsVisibility));
         OnPropertyChanged(nameof(HardwareHashSettingsVisibility));
         ImportProfileCommand.NotifyCanExecuteChanged();
