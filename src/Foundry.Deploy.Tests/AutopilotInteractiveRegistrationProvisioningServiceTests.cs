@@ -102,8 +102,17 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("Authenticate", script);
         Assert.Contains("Upload", script);
         Assert.Contains("Group tag", script);
+        Assert.Contains("Width=\"420\"", script);
+        Assert.Contains("Height=\"560\"", script);
+        Assert.Contains("ResizeMode=\"NoResize\"", script);
         Assert.DoesNotContain("Read-Host", script);
         Assert.DoesNotContain("Write-Host", script);
+        Assert.DoesNotContain("Foreground=\"#", script);
+        Assert.DoesNotContain("Background=\"#", script);
+        Assert.DoesNotContain("FontFamily=\"", script);
+        Assert.DoesNotContain("FontSize=\"", script);
+        Assert.DoesNotContain("MinWidth=\"", script);
+        Assert.DoesNotContain("MinHeight=\"", script);
     }
 
     private static string CreateWindowsRoot()

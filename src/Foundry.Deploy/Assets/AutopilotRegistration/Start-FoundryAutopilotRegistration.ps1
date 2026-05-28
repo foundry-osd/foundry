@@ -342,22 +342,20 @@ function Start-FoundryAutopilotRegistrationUi {
 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Foundry Autopilot Registration"
-        Width="760"
+        Width="420"
         Height="560"
-        MinWidth="680"
-        MinHeight="500"
-        WindowStartupLocation="CenterScreen"
-        Background="#F4F6F8">
-    <Grid Margin="24">
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="12">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Margin="0,0,0,18">
-            <TextBlock Text="Foundry Autopilot Registration" FontSize="24" FontWeight="SemiBold" Foreground="#1F2937" />
-            <TextBlock Text="Register this device with Windows Autopilot using technician sign-in." Margin="0,6,0,0" Foreground="#4B5563" />
+        <StackPanel Grid.Row="0" Margin="0,0,0,12">
+            <TextBlock Text="Foundry Autopilot Registration" FontWeight="SemiBold" />
+            <TextBlock Text="Register this device with Windows Autopilot using technician sign-in." TextWrapping="Wrap" Margin="0,6,0,0" />
         </StackPanel>
 
         <Grid Grid.Row="1">
@@ -368,14 +366,12 @@ function Start-FoundryAutopilotRegistrationUi {
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0">
-                    <TextBlock Text="1. Authenticate" FontSize="18" FontWeight="SemiBold" Foreground="#111827" />
-                    <TextBlock Text="Use the Microsoft device code prompt to sign in with an account allowed to import Windows Autopilot devices." TextWrapping="Wrap" Margin="0,6,0,12" Foreground="#4B5563" />
+                    <TextBlock Text="1. Authenticate" FontWeight="SemiBold" />
+                    <TextBlock Text="Use the Microsoft device code prompt to sign in with an account allowed to import Windows Autopilot devices." TextWrapping="Wrap" Margin="0,6,0,12" />
                 </StackPanel>
-                <Border Grid.Row="1" BorderBrush="#D1D5DB" BorderThickness="1" Background="White" Padding="16">
-                    <TextBox x:Name="DeviceCodeTextBox" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" BorderThickness="0" Background="White" FontFamily="Consolas" FontSize="14" />
-                </Border>
+                <TextBox x:Name="DeviceCodeTextBox" Grid.Row="1" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" />
                 <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
-                    <Button x:Name="AuthenticateButton" Content="Authenticate" Width="140" Height="36" />
+                    <Button x:Name="AuthenticateButton" Content="Authenticate" />
                 </StackPanel>
             </Grid>
 
@@ -387,31 +383,29 @@ function Start-FoundryAutopilotRegistrationUi {
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0">
-                    <TextBlock Text="2. Group tag and upload" FontSize="18" FontWeight="SemiBold" Foreground="#111827" />
-                    <TextBlock Text="Choose an existing group tag, enter a custom group tag, or leave the device without a group tag." TextWrapping="Wrap" Margin="0,6,0,12" Foreground="#4B5563" />
+                    <TextBlock Text="2. Group tag and upload" FontWeight="SemiBold" />
+                    <TextBlock Text="Choose an existing group tag, enter a custom group tag, or leave the device without a group tag." TextWrapping="Wrap" Margin="0,6,0,12" />
                 </StackPanel>
                 <Grid Grid.Row="1" Margin="0,0,0,12">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="180" />
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Group tag" VerticalAlignment="Center" Foreground="#374151" />
+                    <TextBlock Text="Group tag" VerticalAlignment="Center" Margin="0,0,12,0" />
                     <StackPanel Grid.Column="1">
-                        <ComboBox x:Name="GroupTagCombo" Height="32" />
-                        <TextBox x:Name="CustomGroupTagTextBox" Height="32" Margin="0,8,0,0" Visibility="Collapsed" />
+                        <ComboBox x:Name="GroupTagCombo" />
+                        <TextBox x:Name="CustomGroupTagTextBox" Margin="0,8,0,0" Visibility="Collapsed" />
                     </StackPanel>
                 </Grid>
-                <Border Grid.Row="2" BorderBrush="#D1D5DB" BorderThickness="1" Background="White" Padding="16">
-                    <TextBox x:Name="UploadStatusTextBox" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" BorderThickness="0" Background="White" FontFamily="Consolas" FontSize="14" />
-                </Border>
+                <TextBox x:Name="UploadStatusTextBox" Grid.Row="2" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" />
                 <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
-                    <Button x:Name="UploadButton" Content="Upload" Width="140" Height="36" />
-                    <Button x:Name="CloseButton" Content="Close" Width="100" Height="36" Margin="8,0,0,0" IsEnabled="False" />
+                    <Button x:Name="UploadButton" Content="Upload" />
+                    <Button x:Name="CloseButton" Content="Close" Margin="8,0,0,0" IsEnabled="False" />
                 </StackPanel>
             </Grid>
         </Grid>
 
-        <TextBlock x:Name="StatusTextBlock" Grid.Row="2" Text="Ready." Margin="0,18,0,0" Foreground="#374151" TextWrapping="Wrap" />
+        <TextBlock x:Name="StatusTextBlock" Grid.Row="2" Text="Ready." Margin="0,12,0,0" TextWrapping="Wrap" />
     </Grid>
 </Window>
 '@
