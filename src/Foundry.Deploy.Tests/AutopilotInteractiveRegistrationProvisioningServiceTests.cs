@@ -78,6 +78,8 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         string script = File.ReadAllText(result.ScriptPath);
         Assert.Contains("Request-DeviceCode", script);
         Assert.Contains("Request-DeviceCodeToken", script);
+        Assert.Contains("ErrorDetails.Message", script);
+        Assert.Contains("authorization_pending", script);
         Assert.Contains("Get-AutopilotHardwareIdentity", script);
         Assert.Contains("Import-AutopilotDeviceIdentity", script);
         Assert.Contains("Test-AutopilotDeviceReadiness", script);
@@ -121,6 +123,10 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("Foundry OSD - Interactive hardware hash upload", script);
         Assert.Contains("Foundry OSD - Sign in to Microsoft", script);
         Assert.Contains("Foundry OSD - Upload hardware hash", script);
+        Assert.Contains("UseLayoutRounding=\"True\"", script);
+        Assert.Contains("Stretch=\"Uniform\"", script);
+        Assert.Contains("RenderOptions.BitmapScalingMode=\"HighQuality\"", script);
+        Assert.Contains("<Run Text=\" \" />", script);
         Assert.Contains("Choose a group tag, then upload this device hardware hash to Microsoft Intune.", script);
         Assert.Contains("Waiting for device registration in Microsoft Intune.", script);
         Assert.Contains("Restarting in {0} seconds.", script);

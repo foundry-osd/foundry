@@ -84,6 +84,10 @@ function ConvertTo-FormBody {
 function Get-ErrorResponseText {
     param([Parameter(Mandatory = $true)]$ErrorRecord)
 
+    if (-not [string]::IsNullOrWhiteSpace($ErrorRecord.ErrorDetails.Message)) {
+        return [string]$ErrorRecord.ErrorDetails.Message
+    }
+
     try {
         $response = $ErrorRecord.Exception.Response
         if ($null -eq $response) {
@@ -96,7 +100,12 @@ function Get-ErrorResponseText {
         }
 
         $reader = New-Object System.IO.StreamReader($stream)
-        return $reader.ReadToEnd()
+        $responseText = $reader.ReadToEnd()
+        if (-not [string]::IsNullOrWhiteSpace($responseText)) {
+            return $responseText
+        }
+
+        return $ErrorRecord.Exception.Message
     }
     catch {
         return $ErrorRecord.Exception.Message
@@ -154,6 +163,15 @@ function Request-DeviceCodeToken {
         if ($errorText -match 'slow_down') {
             return [pscustomobject]@{
                 Status = 'SlowDown'
+                AccessToken = $null
+            }
+        }
+
+        $response = $_.Exception.Response
+        if ($null -ne $response -and [int]$response.StatusCode -eq 400 -and
+            ([string]::IsNullOrWhiteSpace($errorText) -or $errorText -match 'Bad Request|\(400\)')) {
+            return [pscustomobject]@{
+                Status = 'Pending'
                 AccessToken = $null
             }
         }
@@ -489,7 +507,9 @@ function Start-FoundryAutopilotRegistrationUi {
         Width="420"
         Height="560"
         ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        UseLayoutRounding="True"
+        SnapsToDevicePixels="True">
     <Grid Margin="12">
         <Grid x:Name="AuthenticationStep">
             <StackPanel Orientation="Horizontal"
@@ -500,6 +520,9 @@ function Start-FoundryAutopilotRegistrationUi {
                        Width="50"
                        Height="50"
                        Margin="0,0,12,0"
+                       Stretch="Uniform"
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       SnapsToDevicePixels="True"
                        VerticalAlignment="Center" />
                 <TextBlock Text="Foundry OSD - Sign in to Microsoft"
                            FontSize="16"
@@ -515,7 +538,9 @@ function Start-FoundryAutopilotRegistrationUi {
                            TextAlignment="Center"
                            TextWrapping="Wrap">
                     <Run Text="Go to" />
+                    <Run Text=" " />
                     <Run Text="https://microsoft.com/devicelogin" FontWeight="Bold" />
+                    <Run Text=" " />
                     <Run Text="in a browser and enter this code:" />
                 </TextBlock>
 
@@ -551,6 +576,9 @@ function Start-FoundryAutopilotRegistrationUi {
                        Width="50"
                        Height="50"
                        Margin="0,0,12,0"
+                       Stretch="Uniform"
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       SnapsToDevicePixels="True"
                        VerticalAlignment="Center" />
                 <TextBlock Text="Foundry OSD - Upload hardware hash"
                            FontSize="16"
