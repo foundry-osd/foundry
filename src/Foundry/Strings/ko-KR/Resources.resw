@@ -298,13 +298,13 @@
     <value>JSON 프로필 프로비저닝 사용</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>하드웨어 해시 업로드</value>
+    <value>제로터치 하드웨어 해시 업로드</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>WinPE의 Foundry Deploy에서 Intune으로 장치 하드웨어 해시를 업로드합니다.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>하드웨어 해시 업로드 사용</value>
+    <value>제로터치 하드웨어 해시 업로드 사용</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>대화형 하드웨어 해시 업로드</value>
@@ -1423,7 +1423,7 @@
     <value>활성화됨: {0}({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>활성화됨: 하드웨어 해시 업로드</value>
+    <value>사용: 제로터치 하드웨어 해시 업로드</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
     <value>사용: 대화형 하드웨어 해시 업로드</value>

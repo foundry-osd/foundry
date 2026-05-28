@@ -298,13 +298,13 @@
     <value>ใช้การจัดเตรียมโปรไฟล์ JSON</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>การอัปโหลดแฮชฮาร์ดแวร์</value>
+    <value>การอัปโหลดแฮชฮาร์ดแวร์แบบ zero-touch</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>อัปโหลดแฮชฮาร์ดแวร์อุปกรณ์ไปที่ Intune จาก Foundry Deploy ใน WinPE</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>ใช้การอัปโหลดแฮชฮาร์ดแวร์</value>
+    <value>ใช้การอัปโหลดแฮชฮาร์ดแวร์แบบ zero-touch</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>การอัปโหลดแฮชฮาร์ดแวร์แบบโต้ตอบ</value>
@@ -1423,7 +1423,7 @@
     <value>เปิดใช้งาน: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>เปิดใช้งาน: อัปโหลดแฮชฮาร์ดแวร์</value>
+    <value>เปิดใช้งาน: การอัปโหลดแฮชฮาร์ดแวร์แบบ zero-touch</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
     <value>เปิดใช้งาน: การอัปโหลดแฮชฮาร์ดแวร์แบบโต้ตอบ</value>

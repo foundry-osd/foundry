@@ -298,13 +298,13 @@
     <value>استخدم JSON توفير ملف التعريف</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>تحميل تجزئة الأجهزة</value>
+    <value>تحميل zero-touch لتجزئة الأجهزة</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>قم بتحميل تجزئة أجهزة الجهاز إلى Intune من Foundry Deploy في WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>استخدم تحميل تجزئة الأجهزة</value>
+    <value>استخدام تحميل zero-touch لتجزئة الأجهزة</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>تحميل تفاعلي لتجزئة الأجهزة</value>
@@ -1423,7 +1423,7 @@
     <value>ممكّن: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>ممكّن: تحميل تجزئة الأجهزة</value>
+    <value>مُمكّن: تحميل zero-touch لتجزئة الأجهزة</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
     <value>مُمكّن: تحميل تفاعلي لتجزئة الأجهزة</value>

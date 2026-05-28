@@ -298,13 +298,13 @@
     <value>Koristite dodelu profila JSON</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Hardverski heš otpremanje</value>
+    <value>Zero-touch otpremanje hardverskog heša</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>Otpremite hardverski heš uređaja na Intune sa Foundry Deploy u WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Koristite hardversko heš otpremanje</value>
+    <value>Koristi zero-touch otpremanje hardverskog heša</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Interaktivno otpremanje hardverskog heša</value>
@@ -1423,7 +1423,7 @@
     <value>Omogućeno: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Omogućeno: hardversko heš otpremanje</value>
+    <value>Omogućeno: zero-touch otpremanje hardverskog heša</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
     <value>Omogućeno: interaktivno otpremanje hardverskog heša</value>

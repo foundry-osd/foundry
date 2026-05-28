@@ -298,13 +298,13 @@
     <value>JSON profil temel hazırlığını kullanın</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Donanım karma yüklemesi</value>
+    <value>Zero-touch donanım karması yükleme</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>Cihaz donanım karmasını WinPE içindeki Foundry Deploy öğesinden Intune öğesine yükleyin.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Donanım karma yüklemesini kullan</value>
+    <value>Zero-touch donanım karması yüklemeyi kullan</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Etkileşimli donanım karması yükleme</value>
@@ -1423,7 +1423,7 @@
     <value>Etkin: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Etkin: donanım karma yüklemesi</value>
+    <value>Etkin: zero-touch donanım karması yükleme</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
     <value>Etkin: etkileşimli donanım karması yükleme</value>

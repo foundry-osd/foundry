@@ -50,10 +50,10 @@
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>公司简介</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>在此介质上未找到嵌入的 Autopilot 配置文件。</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON个人资料</value></data>
-  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>硬件哈希上传</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch 硬件哈希上传</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>交互式硬件哈希上传</value></data>
   <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>在此媒体上可用：{0}</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>硬件哈希上传</value></data>
+  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch 硬件哈希上传</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>硬件哈希上传状态</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>准备上传硬件哈希</value></data>
   <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>尚未准备好上传硬件哈希值</value></data>
@@ -122,7 +122,7 @@
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>没有Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON个人资料</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>硬件哈希上传</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Zero-touch 硬件哈希上传</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>有效证件</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>证书过期</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>缺少证书信息</value></data>

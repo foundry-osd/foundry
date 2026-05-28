@@ -50,10 +50,10 @@
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>프로필</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>이 미디어에는 포함된 Autopilot 프로필이 없습니다.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON 프로필</value></data>
-  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>하드웨어 해시 업로드</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>제로터치 하드웨어 해시 업로드</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>대화형 하드웨어 해시 업로드</value></data>
   <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>다음 미디어에서 볼 수 있습니다: {0}</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>하드웨어 해시 업로드</value></data>
+  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>제로터치 하드웨어 해시 업로드</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>하드웨어 해시 업로드 상태</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>하드웨어 해시를 업로드할 준비가 되었습니다.</value></data>
   <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>하드웨어 해시를 업로드할 준비가 되지 않았습니다.</value></data>
@@ -122,7 +122,7 @@
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>아니요 Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON 프로필</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>하드웨어 해시 업로드</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>제로터치 하드웨어 해시 업로드</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>유효한 인증서</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>만료된 인증서</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>인증서 정보가 누락되었습니다.</value></data>

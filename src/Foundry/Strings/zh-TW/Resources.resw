@@ -298,13 +298,13 @@
     <value>使用JSON設定檔配置</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>硬體哈希上傳</value>
+    <value>Zero-touch 硬體雜湊上傳</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>將裝置硬體哈希從WinPE 中的Foundry Deploy 上傳至Intune。</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>使用硬體哈希上傳</value>
+    <value>使用 zero-touch 硬體雜湊上傳</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>互動式硬體雜湊上傳</value>
@@ -1423,7 +1423,7 @@
     <value>啟用：{0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>啟用：硬體哈希上傳</value>
+    <value>已啟用：zero-touch 硬體雜湊上傳</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
     <value>已啟用：互動式硬體雜湊上傳</value>

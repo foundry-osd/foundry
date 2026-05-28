@@ -298,13 +298,13 @@
     <value>Uporabite oskrbo profila JSON</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Nalaganje hash strojne opreme</value>
+    <value>Zero-touch nalaganje zgoščene vrednosti strojne opreme</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>Prenesite zgoščeno opremo naprave v Intune iz Foundry Deploy v WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Uporabi nalaganje zgoščene opreme strojne opreme</value>
+    <value>Uporabi zero-touch nalaganje zgoščene vrednosti strojne opreme</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Interaktivno nalaganje zgoščene vrednosti strojne opreme</value>
@@ -1423,7 +1423,7 @@
     <value>Omogočeno: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Omogočeno: nalaganje zgoščene vrednosti strojne opreme</value>
+    <value>Omogočeno: zero-touch nalaganje zgoščene vrednosti strojne opreme</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
     <value>Omogočeno: interaktivno nalaganje zgoščene vrednosti strojne opreme</value>

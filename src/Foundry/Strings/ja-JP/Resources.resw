@@ -298,13 +298,13 @@
     <value>JSON プロファイル プロビジョニングを使用する</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>ハードウェアハッシュのアップロード</value>
+    <value>ゼロタッチ ハードウェア ハッシュ アップロード</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>デバイス ハードウェア ハッシュを WinPE の Foundry Deploy から Intune にアップロードします。</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>ハードウェア ハッシュ アップロードを使用する</value>
+    <value>ゼロタッチ ハードウェア ハッシュ アップロードを使用する</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>対話型ハードウェア ハッシュ アップロード</value>
@@ -1423,7 +1423,7 @@
     <value>有効: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>有効: ハードウェア ハッシュ アップロード</value>
+    <value>有効: ゼロタッチ ハードウェア ハッシュ アップロード</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
     <value>有効: 対話型ハードウェア ハッシュ アップロード</value>

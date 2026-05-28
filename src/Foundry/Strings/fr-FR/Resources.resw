@@ -298,13 +298,13 @@
     <value>Utiliser le provisionnement par profil JSON</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Envoi du hash matériel</value>
+    <value>Envoi zero-touch du hash matériel</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>Envoie le hash matériel de l’appareil vers Intune depuis Foundry Deploy dans WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Utiliser l’envoi du hash matériel</value>
+    <value>Utiliser l’envoi zero-touch du hash matériel</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Envoi interactif du hash matériel</value>
@@ -1423,7 +1423,7 @@
     <value>Activé : {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Activé : envoi du hash matériel</value>
+    <value>Activé : envoi zero-touch du hash matériel</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
     <value>Activé : envoi interactif du hash matériel</value>

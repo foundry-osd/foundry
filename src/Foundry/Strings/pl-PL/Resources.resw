@@ -298,13 +298,13 @@
     <value>Użyj udostępniania profilu JSON</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Przesyłanie skrótu sprzętowego</value>
+    <value>Bezobsługowe przesyłanie skrótu sprzętowego</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>Prześlij skrót sprzętowy urządzenia do Intune z Foundry Deploy w WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Użyj przesyłania skrótu sprzętowego</value>
+    <value>Użyj bezobsługowego przesyłania skrótu sprzętowego</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Interaktywne przesyłanie skrótu sprzętowego</value>
@@ -1423,7 +1423,7 @@
     <value>Włączono: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Włączone: przesyłanie skrótu sprzętowego</value>
+    <value>Włączono: bezobsługowe przesyłanie skrótu sprzętowego</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
     <value>Włączono: interaktywne przesyłanie skrótu sprzętowego</value>

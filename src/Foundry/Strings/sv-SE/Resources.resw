@@ -298,13 +298,13 @@
     <value>Använd JSON profiladministration</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Hårdvaruhashuppladdning</value>
+    <value>Zero-touch-uppladdning av maskinvaruhash</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>Ladda upp enhetens hårdvaruhash till Intune från Foundry Deploy i WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Använd hårdvaruhashuppladdning</value>
+    <value>Använd zero-touch-uppladdning av maskinvaruhash</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Interaktiv uppladdning av maskinvaruhash</value>
@@ -1423,7 +1423,7 @@
     <value>Aktiverad: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Aktiverad: uppladdning av hårdvaruhash</value>
+    <value>Aktiverat: zero-touch-uppladdning av maskinvaruhash</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
     <value>Aktiverat: interaktiv uppladdning av maskinvaruhash</value>

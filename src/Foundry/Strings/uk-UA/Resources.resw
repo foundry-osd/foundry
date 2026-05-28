@@ -298,13 +298,13 @@
     <value>Використовуйте надання профілю JSON</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Завантаження апаратного хешу</value>
+    <value>Zero-touch завантаження апаратного хешу</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>Завантажте хеш апаратного забезпечення пристрою на Intune з Foundry Deploy у WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Використовуйте завантаження апаратного хешу</value>
+    <value>Використовувати zero-touch завантаження апаратного хешу</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Інтерактивне завантаження апаратного хешу</value>
@@ -1423,7 +1423,7 @@
     <value>Увімкнено: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Увімкнено: завантаження хешу апаратного забезпечення</value>
+    <value>Увімкнено: zero-touch завантаження апаратного хешу</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
     <value>Увімкнено: інтерактивне завантаження апаратного хешу</value>

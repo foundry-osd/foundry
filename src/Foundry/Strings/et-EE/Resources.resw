@@ -298,13 +298,13 @@
     <value>Kasutage JSON profiili pakkumist</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Riistvara räsi üleslaadimine</value>
+    <value>Zero-touch riistvararäsi üleslaadimine</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>Laadige seadme riistvara räsi üles Intune aadressilt Foundry Deploy WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Kasutage riistvara räsi üleslaadimist</value>
+    <value>Kasuta zero-touch riistvararäsi üleslaadimist</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Interaktiivne riistvararäsi üleslaadimine</value>
@@ -1423,7 +1423,7 @@
     <value>Lubatud: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Lubatud: riistvara räsi üleslaadimine</value>
+    <value>Lubatud: zero-touch riistvararäsi üleslaadimine</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
     <value>Lubatud: interaktiivne riistvararäsi üleslaadimine</value>

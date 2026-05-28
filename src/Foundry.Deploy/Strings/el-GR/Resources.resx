@@ -50,10 +50,10 @@
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Προφίλ</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Δεν βρέθηκαν ενσωματωμένα προφίλ Autopilot σε αυτό το μέσο.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>προφίλ JSON</value></data>
-  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Μεταφόρτωση κατακερματισμού υλικού</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch αποστολή κατακερματισμού υλικού</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Διαδραστική αποστολή κατακερματισμού υλικού</value></data>
   <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Διαθέσιμο σε αυτό το μέσο: {0}</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Μεταφόρτωση κατακερματισμού υλικού</value></data>
+  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch αποστολή κατακερματισμού υλικού</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Κατάσταση μεταφόρτωσης κατακερματισμού υλικού</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Έτοιμο για μεταφόρτωση κατακερματισμού υλικού</value></data>
   <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Δεν είναι έτοιμο για μεταφόρτωση κατακερματισμού υλικού</value></data>
@@ -122,7 +122,7 @@
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Όχι Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>προφίλ JSON</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Μεταφόρτωση κατακερματισμού υλικού</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Zero-touch αποστολή κατακερματισμού υλικού</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>Έγκυρο πιστοποιητικό</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>Ληγμένο πιστοποιητικό</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>Λείπουν πληροφορίες πιστοποιητικού</value></data>

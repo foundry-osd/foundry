@@ -298,13 +298,13 @@
     <value>Χρησιμοποιήστε την παροχή προφίλ JSON</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Μεταφόρτωση κατακερματισμού υλικού</value>
+    <value>Zero-touch αποστολή κατακερματισμού υλικού</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>Ανεβάστε το hash υλικού της συσκευής στο Intune από το Foundry Deploy στο WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Χρησιμοποιήστε τη μεταφόρτωση κατακερματισμού υλικού</value>
+    <value>Χρήση zero-touch αποστολής κατακερματισμού υλικού</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Διαδραστική αποστολή κατακερματισμού υλικού</value>
@@ -1423,7 +1423,7 @@
     <value>Ενεργοποιημένο: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Ενεργοποιημένο: μεταφόρτωση κατακερματισμού υλικού</value>
+    <value>Ενεργό: zero-touch αποστολή κατακερματισμού υλικού</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
     <value>Ενεργό: διαδραστική αποστολή κατακερματισμού υλικού</value>

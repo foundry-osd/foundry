@@ -298,13 +298,13 @@
     <value>Käytä JSON-profiilin hallintaa</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Laitteiston hash-lataus</value>
+    <value>Zero-touch-laitteiston hajautusarvon lataus</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>Lataa laitteen laitteiston hash osoitteeseen Intune Foundry Deploy:sta WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Käytä laitteiston hash-latausta</value>
+    <value>Käytä zero-touch-laitteiston hajautusarvon latausta</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Vuorovaikutteinen laitteiston hajautusarvon lataus</value>
@@ -1423,7 +1423,7 @@
     <value>Käytössä: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Käytössä: laitteiston hash-lataus</value>
+    <value>Käytössä: zero-touch-laitteiston hajautusarvon lataus</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
     <value>Käytössä: vuorovaikutteinen laitteiston hajautusarvon lataus</value>

@@ -298,13 +298,13 @@
     <value>Koristite JSON dodjelu profila</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Prijenos hash hardvera</value>
+    <value>Zero-touch prijenos hardverskog hasha</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>Prenesite hash hardvera uređaja na Intune iz Foundry Deploy u WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Upotrijebi prijenos hash vrijednosti hardvera</value>
+    <value>Koristi zero-touch prijenos hardverskog hasha</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Interaktivni prijenos hardverskog hasha</value>
@@ -1423,7 +1423,7 @@
     <value>Omogućeno: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Omogućeno: učitavanje hash hardvera</value>
+    <value>Omogućeno: zero-touch prijenos hardverskog hasha</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
     <value>Omogućeno: interaktivni prijenos hardverskog hasha</value>

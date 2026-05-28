@@ -298,13 +298,13 @@
     <value>Použijte zřizování profilu JSON</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Nahrání hardwarového hashe</value>
+    <value>Zero-touch nahrání hardwarového hashe</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>Nahrajte hardwarový hash zařízení do Intune z Foundry Deploy v WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Použijte hardwarový hash upload</value>
+    <value>Použít zero-touch nahrání hardwarového hashe</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Interaktivní nahrání hardwarového hashe</value>
@@ -1423,7 +1423,7 @@
     <value>Povoleno: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Povoleno: nahrávání hardwarového hash</value>
+    <value>Povoleno: zero-touch nahrání hardwarového hashe</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
     <value>Povoleno: interaktivní nahrání hardwarového hashe</value>

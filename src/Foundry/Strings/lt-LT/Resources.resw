@@ -298,13 +298,13 @@
     <value>Naudokite JSON profilio sudarymą</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Aparatinės įrangos maišos įkėlimas</value>
+    <value>Zero-touch aparatūros maišos įkėlimas</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>Įkelkite įrenginio aparatinės įrangos maišą į Intune iš Foundry Deploy į WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Naudokite aparatinės įrangos maišos įkėlimą</value>
+    <value>Naudoti zero-touch aparatūros maišos įkėlimą</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Interaktyvus aparatūros maišos įkėlimas</value>
@@ -1423,7 +1423,7 @@
     <value>Įjungta: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Įjungta: aparatinės įrangos maišos įkėlimas</value>
+    <value>Įjungta: zero-touch aparatūros maišos įkėlimas</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
     <value>Įjungta: interaktyvus aparatūros maišos įkėlimas</value>

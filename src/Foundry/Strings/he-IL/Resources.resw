@@ -298,13 +298,13 @@
     <value>השתמש בהקצאת פרופיל JSON</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>העלאת hash של חומרה</value>
+    <value>העלאת zero-touch של hash חומרה</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>העלה את ה-hash של חומרת המכשיר אל Intune מ-Foundry Deploy ב-WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>השתמש בהעלאת גיבוב חומרה</value>
+    <value>השתמש בהעלאת zero-touch של hash חומרה</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>העלאה אינטראקטיבית של hash חומרה</value>
@@ -1423,7 +1423,7 @@
     <value>מופעל: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>מופעל: העלאת hash של חומרה</value>
+    <value>מופעל: העלאת zero-touch של hash חומרה</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
     <value>מופעל: העלאה אינטראקטיבית של hash חומרה</value>

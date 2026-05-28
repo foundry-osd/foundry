@@ -298,13 +298,13 @@
     <value>Utilice el aprovisionamiento de perfil JSON</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Carga de hash de hardware</value>
+    <value>Carga zero-touch del hash de hardware</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>Cargue el hash de hardware del dispositivo a Intune desde Foundry Deploy en WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Usar carga de hash de hardware</value>
+    <value>Usar carga zero-touch del hash de hardware</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Carga interactiva del hash de hardware</value>
@@ -1423,7 +1423,7 @@
     <value>Habilitado: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Habilitado: carga de hash de hardware</value>
+    <value>Habilitado: carga zero-touch del hash de hardware</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
     <value>Habilitado: carga interactiva del hash de hardware</value>

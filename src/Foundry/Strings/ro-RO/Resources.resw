@@ -298,13 +298,13 @@
     <value>Utilizați furnizarea profilului JSON</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Încărcare hash hardware</value>
+    <value>Încărcare zero-touch a hashului hardware</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>Încărcați hash-ul hardware al dispozitivului la Intune de la Foundry Deploy în WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Utilizați încărcarea hash hardware</value>
+    <value>Utilizați încărcarea zero-touch a hashului hardware</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Încărcare interactivă a hashului hardware</value>
@@ -1423,7 +1423,7 @@
     <value>Activat: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Activat: încărcare hash hardware</value>
+    <value>Activat: încărcare zero-touch a hashului hardware</value>
   </data>
   <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
     <value>Activat: încărcare interactivă a hashului hardware</value>
