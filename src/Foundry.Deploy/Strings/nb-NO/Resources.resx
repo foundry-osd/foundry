@@ -51,6 +51,7 @@
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Ingen innebygde Autopilot-profiler ble funnet på dette mediet.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profil</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Opplasting av maskinvarehash</value></data>
+  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktiv opplasting av maskinvarehash</value></data>
   <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Tilgjengelig på dette mediet: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Opplasting av maskinvarehash</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Maskinvarehash-opplastingsstatus</value></data>

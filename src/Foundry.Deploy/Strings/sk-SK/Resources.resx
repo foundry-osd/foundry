@@ -51,6 +51,7 @@
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Na tomto médiu sa nenašli žiadne vložené profily Autopilot.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>Profil JSON</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Nahranie hardvérového hashu</value></data>
+  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktívne nahratie hardvérového hashu</value></data>
   <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Dostupné na tomto médiu: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Nahranie hardvérového hashu</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Stav nahrávania hardvérového hash</value></data>

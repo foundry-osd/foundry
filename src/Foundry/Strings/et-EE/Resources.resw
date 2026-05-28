@@ -169,7 +169,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Autopilot.Description" xml:space="preserve">
-    <value>Valige juurutusmeediumi jaoks Autopilot ettevalmistusmeetod: JSON profiili lavastus või WinPE riistvara räsi üleslaadimine.</value>
+    <value>Vali juurutusmeedia Autopiloti ettevalmistusviis: JSON-profiili ettevalmistus, WinPE zero-touch riistvararäsi üleslaadimine või interaktiivne riistvararäsi üleslaadimine.</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Luba Autopilot</value>
@@ -305,6 +305,15 @@
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
     <value>Kasutage riistvara räsi üleslaadimist</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
+    <value>Interaktiivne riistvararäsi üleslaadimine</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
+    <value>Valmistab ette tehniku seadmekoodiga sisselogimise riistvararäsi registreerimiseks OOBE ajal.</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
+    <value>Kasuta interaktiivset riistvararäsi üleslaadimist</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Ühendage üürnik</value>
@@ -1415,6 +1424,9 @@
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
     <value>Lubatud: riistvara räsi üleslaadimine</value>
+  </data>
+  <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
+    <value>Lubatud: interaktiivne riistvararäsi üleslaadimine</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot kasutab toetamata varustamisrežiimi.</value>

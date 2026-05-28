@@ -51,6 +51,7 @@
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>لم يتم العثور على ملفات تعريف Autopilot مضمنة على هذه الوسائط.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON الملف الشخصي</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>تحميل تجزئة الأجهزة</value></data>
+  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>تحميل تفاعلي لتجزئة الأجهزة</value></data>
   <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>متوفر على هذه الوسائط: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>تحميل تجزئة الأجهزة</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>حالة تحميل تجزئة الأجهزة</value></data>

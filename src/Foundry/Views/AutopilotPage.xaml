@@ -298,6 +298,17 @@
                     </wct:SettingsCard>
                 </wct:SettingsExpander.Items>
             </wct:SettingsExpander>
+
+            <wct:SettingsExpander Header="{x:Bind ViewModel.InteractiveHardwareHashHeader, Mode=OneWay}"
+                                  Description="{x:Bind ViewModel.InteractiveHardwareHashDescription, Mode=OneWay}"
+                                  IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}"
+                                  IsExpanded="{x:Bind ViewModel.UseInteractiveHardwareHashUploadProvisioning, Mode=OneWay}">
+                <wct:SettingsExpander.HeaderIcon>
+                    <FontIcon Glyph="&#xE8D4;" />
+                </wct:SettingsExpander.HeaderIcon>
+                <ToggleSwitch behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True" AutomationProperties.Name="{x:Bind ViewModel.InteractiveHardwareHashEnableText, Mode=OneWay}"
+                              IsOn="{x:Bind ViewModel.UseInteractiveHardwareHashUploadProvisioning, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </wct:SettingsExpander>
         </StackPanel>
     </ScrollView>
 </Page>

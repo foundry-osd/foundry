@@ -51,6 +51,7 @@
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>В този носител не бяха намерени вградени Autopilot профили.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON профил</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Качване на хардуерен хеш</value></data>
+  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Интерактивно качване на хардуерен хеш</value></data>
   <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Налично на тази медия: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Качване на хардуерен хеш</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Състояние на качване на хардуерен хеш</value></data>

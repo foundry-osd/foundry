@@ -45,6 +45,11 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
             return await PrepareHardwareHashUploadAsync(context, dryRun: false, cancellationToken).ConfigureAwait(false);
         }
 
+        if (context.Request.AutopilotProvisioningMode == AutopilotProvisioningMode.InteractiveHardwareHashUpload)
+        {
+            return await BlockInteractiveHardwareHashUploadAsync(context, cancellationToken).ConfigureAwait(false);
+        }
+
         if (context.Request.SelectedAutopilotProfile is null)
         {
             return DeploymentStepResult.Failed("Autopilot is enabled but no profile was selected.");
@@ -100,6 +105,11 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
             return await PrepareHardwareHashUploadAsync(context, dryRun: true, cancellationToken).ConfigureAwait(false);
         }
 
+        if (context.Request.AutopilotProvisioningMode == AutopilotProvisioningMode.InteractiveHardwareHashUpload)
+        {
+            return await BlockInteractiveHardwareHashUploadAsync(context, cancellationToken).ConfigureAwait(false);
+        }
+
         if (context.Request.SelectedAutopilotProfile is null)
         {
             return DeploymentStepResult.Failed("Autopilot is enabled but no profile was selected.");
@@ -134,6 +144,20 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
             cancellationToken).ConfigureAwait(false);
 
         return DeploymentStepResult.Succeeded("Autopilot profile staged (simulation).");
+    }
+
+    private static async Task<DeploymentStepResult> BlockInteractiveHardwareHashUploadAsync(
+        DeploymentStepExecutionContext context,
+        CancellationToken cancellationToken)
+    {
+        const string message = "Interactive Autopilot hardware hash upload is selected, but the registration assistant has not been staged by this build.";
+        context.RuntimeState.StagedAutopilotConfigurationPath = null;
+        context.RuntimeState.AutopilotHardwareHashUploadState = AutopilotHardwareHashUploadState.NotPlanned;
+        await context.AppendLogAsync(
+            DeploymentLogLevel.Warning,
+            message,
+            cancellationToken).ConfigureAwait(false);
+        return DeploymentStepResult.Failed(message);
     }
 
     private async Task<DeploymentStepResult> PrepareHardwareHashUploadAsync(

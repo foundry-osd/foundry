@@ -169,7 +169,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Autopilot.Description" xml:space="preserve">
-    <value>Choose the Autopilot provisioning method for deployment media: JSON profile staging or WinPE hardware hash upload.</value>
+    <value>Choose the Autopilot provisioning method for deployment media: JSON profile staging, WinPE zero-touch hardware hash upload, or interactive hardware hash upload.</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Enable Autopilot</value>
@@ -305,6 +305,15 @@
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
     <value>Use hardware hash upload</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
+    <value>Interactive hardware hash upload</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
+    <value>Stage technician device-code sign-in for hardware hash registration during OOBE.</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
+    <value>Use interactive hardware hash upload</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Connect tenant</value>
@@ -1415,6 +1424,9 @@
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
     <value>Enabled: hardware hash upload</value>
+  </data>
+  <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
+    <value>Enabled: interactive hardware hash upload</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot uses an unsupported provisioning mode.</value>

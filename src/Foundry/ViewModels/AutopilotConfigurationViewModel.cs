@@ -171,8 +171,25 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         }
     }
 
+    public bool UseInteractiveHardwareHashUploadProvisioning
+    {
+        get => provisioningMode == AutopilotProvisioningMode.InteractiveHardwareHashUpload;
+        set
+        {
+            if (value)
+            {
+                SetProvisioningMode(AutopilotProvisioningMode.InteractiveHardwareHashUpload);
+            }
+            else if (UseInteractiveHardwareHashUploadProvisioning && !UseJsonProfileProvisioning && !UseHardwareHashUploadProvisioning)
+            {
+                OnPropertyChanged();
+            }
+        }
+    }
+
     public bool IsJsonProfileMode => provisioningMode == AutopilotProvisioningMode.JsonProfile;
     public bool IsHardwareHashUploadMode => provisioningMode == AutopilotProvisioningMode.HardwareHashUpload;
+    public bool IsInteractiveHardwareHashUploadMode => provisioningMode == AutopilotProvisioningMode.InteractiveHardwareHashUpload;
     public bool IsHardwareHashCertificateExpired => hardwareHashUploadSettings.ActiveCertificate?.ExpiresOnUtc is DateTimeOffset expiresOnUtc &&
                                                     expiresOnUtc <= DateTimeOffset.UtcNow;
     public Visibility JsonProfileSettingsVisibility => IsJsonProfileMode ? Visibility.Visible : Visibility.Collapsed;
@@ -259,6 +276,15 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
     [ObservableProperty]
     public partial string HardwareHashEnableText { get; set; }
+
+    [ObservableProperty]
+    public partial string InteractiveHardwareHashHeader { get; set; }
+
+    [ObservableProperty]
+    public partial string InteractiveHardwareHashDescription { get; set; }
+
+    [ObservableProperty]
+    public partial string InteractiveHardwareHashEnableText { get; set; }
 
     [ObservableProperty]
     public partial string ConnectTenantButtonText { get; set; }
@@ -939,6 +965,9 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         HardwareHashHeader = localizationService.GetString("Autopilot.HardwareHashHeader");
         HardwareHashDescription = localizationService.GetString("Autopilot.HardwareHashDescription");
         HardwareHashEnableText = localizationService.GetString("Autopilot.HardwareHashEnableLabel");
+        InteractiveHardwareHashHeader = localizationService.GetString("Autopilot.InteractiveHardwareHashHeader");
+        InteractiveHardwareHashDescription = localizationService.GetString("Autopilot.InteractiveHardwareHashDescription");
+        InteractiveHardwareHashEnableText = localizationService.GetString("Autopilot.InteractiveHardwareHashEnableLabel");
         ConnectTenantButtonText = localizationService.GetString("Autopilot.HardwareHashConnectTenantButton");
         DisconnectTenantButtonText = localizationService.GetString("Autopilot.HardwareHashDisconnectTenantButton");
         ConnectingTenantStatusText = localizationService.GetString("Autopilot.HardwareHashConnectingTenantStatus");
@@ -1010,8 +1039,10 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     {
         OnPropertyChanged(nameof(UseJsonProfileProvisioning));
         OnPropertyChanged(nameof(UseHardwareHashUploadProvisioning));
+        OnPropertyChanged(nameof(UseInteractiveHardwareHashUploadProvisioning));
         OnPropertyChanged(nameof(IsJsonProfileMode));
         OnPropertyChanged(nameof(IsHardwareHashUploadMode));
+        OnPropertyChanged(nameof(IsInteractiveHardwareHashUploadMode));
         OnPropertyChanged(nameof(JsonProfileSettingsVisibility));
         OnPropertyChanged(nameof(HardwareHashSettingsVisibility));
         ImportProfileCommand.NotifyCanExecuteChanged();

@@ -169,7 +169,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Autopilot.Description" xml:space="preserve">
-    <value>Dağıtım ortamı için Autopilot sağlama yöntemini seçin: JSON profil hazırlama veya WinPE donanım karma yüklemesi.</value>
+    <value>Dağıtım medyası için Autopilot sağlama yöntemini seçin: JSON profil hazırlama, WinPE zero-touch donanım karması yükleme veya etkileşimli donanım karması yükleme.</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Autopilot'yi etkinleştir</value>
@@ -305,6 +305,15 @@
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
     <value>Donanım karma yüklemesini kullan</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
+    <value>Etkileşimli donanım karması yükleme</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
+    <value>OOBE sırasında donanım karması kaydı için teknisyenin cihaz koduyla oturum açmasını hazırlar.</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
+    <value>Etkileşimli donanım karması yüklemeyi kullan</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Kiracıyı bağlayın</value>
@@ -1415,6 +1424,9 @@
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
     <value>Etkin: donanım karma yüklemesi</value>
+  </data>
+  <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
+    <value>Etkin: etkileşimli donanım karması yükleme</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot desteklenmeyen bir temel hazırlık modu kullanıyor.</value>

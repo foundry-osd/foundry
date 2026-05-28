@@ -169,7 +169,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Autopilot.Description" xml:space="preserve">
-    <value>Izberite način zagotavljanja Autopilot za razmestitveni medij: JSON uprizarjanje profila ali WinPE nalaganje zgoščene opreme strojne opreme.</value>
+    <value>Izberite način priprave Autopilot za namestitveni medij: priprava profila JSON, WinPE zero-touch nalaganje zgoščene vrednosti strojne opreme ali interaktivno nalaganje zgoščene vrednosti strojne opreme.</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Omogoči Autopilot</value>
@@ -305,6 +305,15 @@
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
     <value>Uporabi nalaganje zgoščene opreme strojne opreme</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
+    <value>Interaktivno nalaganje zgoščene vrednosti strojne opreme</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
+    <value>Pripravi prijavo tehnika s kodo naprave za registracijo zgoščene vrednosti strojne opreme med OOBE.</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
+    <value>Uporabi interaktivno nalaganje zgoščene vrednosti strojne opreme</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Povežite najemnika</value>
@@ -1415,6 +1424,9 @@
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
     <value>Omogočeno: nalaganje zgoščene vrednosti strojne opreme</value>
+  </data>
+  <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
+    <value>Omogočeno: interaktivno nalaganje zgoščene vrednosti strojne opreme</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot uporablja nepodprt način zagotavljanja.</value>

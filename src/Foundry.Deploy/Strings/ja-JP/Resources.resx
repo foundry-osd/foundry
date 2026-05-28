@@ -51,6 +51,7 @@
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>このメディアには埋め込まれた Autopilot プロファイルが見つかりませんでした。</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON プロフィール</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>ハードウェアハッシュのアップロード</value></data>
+  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>対話型ハードウェア ハッシュ アップロード</value></data>
   <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>このメディアで利用可能: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>ハードウェアハッシュのアップロード</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>ハードウェア ハッシュのアップロード ステータス</value></data>

@@ -139,6 +139,25 @@ public sealed class DeploymentLaunchPreparationServiceTests
     }
 
     [Fact]
+    public void Prepare_WhenInteractiveHardwareHashUploadModeHasNoJsonProfile_ReturnsDeploymentContext()
+    {
+        var shell = new FakeApplicationShellService { ConfirmationResult = true };
+        var service = new DeploymentLaunchPreparationService(shell);
+
+        DeploymentLaunchPreparationResult result = service.Prepare(
+            CreateRequest(
+                selectedTargetDisk: CreateDisk(),
+                isAutopilotEnabled: true,
+                autopilotProvisioningMode: AutopilotProvisioningMode.InteractiveHardwareHashUpload,
+                selectedAutopilotProfile: null,
+                isDryRun: true));
+
+        Assert.True(result.IsReadyToStart);
+        Assert.Equal(AutopilotProvisioningMode.InteractiveHardwareHashUpload, result.Context?.AutopilotProvisioningMode);
+        Assert.Null(result.Context?.SelectedAutopilotProfile);
+    }
+
+    [Fact]
     public void Prepare_WhenLiveHardwareHashUploadModeIsSelected_DoesNotRequireJsonProfile()
     {
         var shell = new FakeApplicationShellService { ConfirmationResult = true };

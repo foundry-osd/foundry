@@ -30,6 +30,7 @@ public sealed class AutopilotProvisioningModeJsonConverter : JsonConverter<Autop
         {
             "jsonProfile" or "JsonProfile" => AutopilotProvisioningMode.JsonProfile,
             "hardwareHashUpload" or "HardwareHashUpload" => AutopilotProvisioningMode.HardwareHashUpload,
+            "interactiveHardwareHashUpload" or "InteractiveHardwareHashUpload" => AutopilotProvisioningMode.InteractiveHardwareHashUpload,
             string value => throw new JsonException($"Unsupported Autopilot provisioning mode value '{value}'."),
             null => throw new JsonException("Autopilot provisioning mode cannot be null.")
         };
@@ -45,6 +46,7 @@ public sealed class AutopilotProvisioningModeJsonConverter : JsonConverter<Autop
         {
             AutopilotProvisioningMode.JsonProfile => "jsonProfile",
             AutopilotProvisioningMode.HardwareHashUpload => "hardwareHashUpload",
+            AutopilotProvisioningMode.InteractiveHardwareHashUpload => "interactiveHardwareHashUpload",
             _ => throw new JsonException($"Unsupported Autopilot provisioning mode value '{value}'.")
         });
     }

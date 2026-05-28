@@ -169,7 +169,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Autopilot.Description" xml:space="preserve">
-    <value>Odaberite Autopilot metodu dodjele za medij za implementaciju: JSON postavljanje profila ili WinPE učitavanje hash hardvera.</value>
+    <value>Odaberite način Autopilot pripreme za medij za implementaciju: priprema JSON profila, WinPE zero-touch prijenos hardverskog hasha ili interaktivni prijenos hardverskog hasha.</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Omogući Autopilot</value>
@@ -305,6 +305,15 @@
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
     <value>Upotrijebi prijenos hash vrijednosti hardvera</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
+    <value>Interaktivni prijenos hardverskog hasha</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
+    <value>Priprema prijavu tehničara pomoću koda uređaja za registraciju hardverskog hasha tijekom OOBE-a.</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
+    <value>Koristi interaktivni prijenos hardverskog hasha</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Povežite stanara</value>
@@ -1415,6 +1424,9 @@
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
     <value>Omogućeno: učitavanje hash hardvera</value>
+  </data>
+  <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
+    <value>Omogućeno: interaktivni prijenos hardverskog hasha</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot koristi nepodržani način rada.</value>

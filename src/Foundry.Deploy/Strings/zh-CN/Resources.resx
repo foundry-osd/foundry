@@ -51,6 +51,7 @@
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>在此介质上未找到嵌入的 Autopilot 配置文件。</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON个人资料</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>硬件哈希上传</value></data>
+  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>交互式硬件哈希上传</value></data>
   <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>在此媒体上可用：{0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>硬件哈希上传</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>硬件哈希上传状态</value></data>

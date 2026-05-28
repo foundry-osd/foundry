@@ -169,7 +169,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Autopilot.Description" xml:space="preserve">
-    <value>בחר את שיטת ההקצאה Autopilot עבור מדיית פריסה: JSON יצירת פרופיל או WinPE העלאת חומרה.</value>
+    <value>בחר את שיטת הקצאת Autopilot עבור מדיית הפריסה: הכנת פרופיל JSON, העלאת hash חומרה ללא מגע ב-WinPE או העלאה אינטראקטיבית של hash חומרה.</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>אפשר Autopilot</value>
@@ -305,6 +305,15 @@
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
     <value>השתמש בהעלאת גיבוב חומרה</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
+    <value>העלאה אינטראקטיבית של hash חומרה</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
+    <value>מכין כניסת טכנאי באמצעות קוד מכשיר לרישום hash חומרה במהלך OOBE.</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
+    <value>השתמש בהעלאה אינטראקטיבית של hash חומרה</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>חבר דייר</value>
@@ -1415,6 +1424,9 @@
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
     <value>מופעל: העלאת hash של חומרה</value>
+  </data>
+  <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
+    <value>מופעל: העלאה אינטראקטיבית של hash חומרה</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot משתמש במצב הקצאה לא נתמך.</value>

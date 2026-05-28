@@ -169,7 +169,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Autopilot.Description" xml:space="preserve">
-    <value>Wybierz metodę udostępniania Autopilot nośników wdrożeniowych: JSON przygotowanie profilu lub przesyłanie skrótu sprzętowego WinPE.</value>
+    <value>Wybierz metodę aprowizowania Autopilot dla nośnika wdrożeniowego: przygotowanie profilu JSON, bezobsługowe przesyłanie skrótu sprzętowego w WinPE albo interaktywne przesyłanie skrótu sprzętowego.</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Włącz Autopilot</value>
@@ -305,6 +305,15 @@
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
     <value>Użyj przesyłania skrótu sprzętowego</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
+    <value>Interaktywne przesyłanie skrótu sprzętowego</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
+    <value>Przygotowuje logowanie technika kodem urządzenia do rejestracji skrótu sprzętowego podczas OOBE.</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
+    <value>Użyj interaktywnego przesyłania skrótu sprzętowego</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Połącz najemcę</value>
@@ -1415,6 +1424,9 @@
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
     <value>Włączone: przesyłanie skrótu sprzętowego</value>
+  </data>
+  <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
+    <value>Włączono: interaktywne przesyłanie skrótu sprzętowego</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot używa nieobsługiwanego trybu udostępniania.</value>

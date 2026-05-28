@@ -51,6 +51,7 @@
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>ไม่พบโปรไฟล์ Autopilot ที่ฝังอยู่ในสื่อนี้</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON โปรไฟล์</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>การอัปโหลดแฮชฮาร์ดแวร์</value></data>
+  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>การอัปโหลดแฮชฮาร์ดแวร์แบบโต้ตอบ</value></data>
   <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>มีอยู่ในสื่อนี้: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>การอัปโหลดแฮชฮาร์ดแวร์</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>สถานะการอัปโหลดแฮชของฮาร์ดแวร์</value></data>

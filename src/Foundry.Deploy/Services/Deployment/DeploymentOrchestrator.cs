@@ -340,6 +340,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         return context.AutopilotProvisioningMode switch
         {
             AutopilotProvisioningMode.HardwareHashUpload => "hardware_hash_upload",
+            AutopilotProvisioningMode.InteractiveHardwareHashUpload => "interactive_hardware_hash_upload",
             _ => "json_profile"
         };
     }

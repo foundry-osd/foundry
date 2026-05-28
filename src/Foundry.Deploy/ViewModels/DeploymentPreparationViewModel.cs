@@ -108,6 +108,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     public bool IsAutopilotSectionVisible => IsAutopilotEnabled || HasAutopilotProfiles;
     public bool IsJsonProfileMode => AutopilotProvisioningMode == AutopilotProvisioningMode.JsonProfile;
     public bool IsHardwareHashUploadMode => AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload;
+    public bool IsInteractiveHardwareHashUploadMode => AutopilotProvisioningMode == AutopilotProvisioningMode.InteractiveHardwareHashUpload;
     public bool IsAutopilotDisabledSummaryVisible => IsAutopilotSectionVisible && !IsAutopilotEnabled;
     public bool IsJsonProfileControlsVisible => IsAutopilotEnabled && IsJsonProfileMode;
     public bool IsHardwareHashUploadControlsVisible => IsAutopilotEnabled && IsHardwareHashUploadMode;
@@ -142,9 +143,12 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
                 ? GetString("Preparation.AutopilotProfilesMissing")
                 : string.Empty;
     public bool HasAutopilotProfileHint => !string.IsNullOrWhiteSpace(AutopilotProfileHint);
-    public string AutopilotModeText => IsHardwareHashUploadMode
-        ? GetString("Preparation.AutopilotModeHardwareHashUpload")
-        : GetString("Preparation.AutopilotModeJsonProfile");
+    public string AutopilotModeText => AutopilotProvisioningMode switch
+    {
+        AutopilotProvisioningMode.HardwareHashUpload => GetString("Preparation.AutopilotModeHardwareHashUpload"),
+        AutopilotProvisioningMode.InteractiveHardwareHashUpload => GetString("Preparation.AutopilotModeInteractiveHardwareHashUpload"),
+        _ => GetString("Preparation.AutopilotModeJsonProfile")
+    };
     public string AutopilotDisabledSummaryText => Format("Preparation.AutopilotConfiguredModeFormat", AutopilotModeText);
     public string AutopilotHardwareHashUploadStatusText
     {
@@ -516,6 +520,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     {
         OnPropertyChanged(nameof(IsJsonProfileMode));
         OnPropertyChanged(nameof(IsHardwareHashUploadMode));
+        OnPropertyChanged(nameof(IsInteractiveHardwareHashUploadMode));
         OnPropertyChanged(nameof(IsJsonProfileControlsVisible));
         OnPropertyChanged(nameof(IsHardwareHashUploadControlsVisible));
         OnPropertyChanged(nameof(IsAutopilotProfileSelectionEnabled));

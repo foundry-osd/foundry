@@ -822,8 +822,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             DeployConfigurationJson = foundryConfigurationStateService.GenerateDeployConfigurationJson(deployTelemetrySettings, mediaSecretsKey),
             MediaSecretsKey = mediaSecretsKey,
             FoundryConnectAssetFiles = connectBundle.AssetFiles,
-            AutopilotProvisioningMode = isHardwareHashMode
-                ? AutopilotProvisioningMode.HardwareHashUpload
+            AutopilotProvisioningMode = options.IsAutopilotEnabled
+                ? options.AutopilotProvisioningMode
                 : AutopilotProvisioningMode.JsonProfile,
             Oa3ToolSourcePath = oa3ToolSourcePath,
             AutopilotProfiles = options.IsAutopilotEnabled && options.AutopilotProvisioningMode == AutopilotProvisioningMode.JsonProfile
@@ -1909,6 +1909,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         if (options.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload)
         {
             return localizationService.GetString("StartMedia.Autopilot.HardwareHashUpload");
+        }
+
+        if (options.AutopilotProvisioningMode == AutopilotProvisioningMode.InteractiveHardwareHashUpload)
+        {
+            return localizationService.GetString("StartMedia.Autopilot.InteractiveHardwareHashUpload");
         }
 
         return string.Format(

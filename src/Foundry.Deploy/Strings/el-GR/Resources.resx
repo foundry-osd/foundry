@@ -51,6 +51,7 @@
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Δεν βρέθηκαν ενσωματωμένα προφίλ Autopilot σε αυτό το μέσο.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>προφίλ JSON</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Μεταφόρτωση κατακερματισμού υλικού</value></data>
+  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Διαδραστική αποστολή κατακερματισμού υλικού</value></data>
   <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Διαθέσιμο σε αυτό το μέσο: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Μεταφόρτωση κατακερματισμού υλικού</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Κατάσταση μεταφόρτωσης κατακερματισμού υλικού</value></data>

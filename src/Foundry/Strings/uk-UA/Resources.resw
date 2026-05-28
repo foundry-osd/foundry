@@ -169,7 +169,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Autopilot.Description" xml:space="preserve">
-    <value>Виберіть Autopilot спосіб надання для медіа розгортання: JSON проміжний профіль або WinPE завантаження апаратного хешу.</value>
+    <value>Виберіть метод підготовки Autopilot для носія розгортання: підготовка профілю JSON, zero-touch завантаження апаратного хешу у WinPE або інтерактивне завантаження апаратного хешу.</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Увімкнути Autopilot</value>
@@ -305,6 +305,15 @@
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
     <value>Використовуйте завантаження апаратного хешу</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
+    <value>Інтерактивне завантаження апаратного хешу</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
+    <value>Готує вхід техніка за кодом пристрою для реєстрації апаратного хешу під час OOBE.</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
+    <value>Використовувати інтерактивне завантаження апаратного хешу</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Підключити орендаря</value>
@@ -1415,6 +1424,9 @@
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
     <value>Увімкнено: завантаження хешу апаратного забезпечення</value>
+  </data>
+  <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
+    <value>Увімкнено: інтерактивне завантаження апаратного хешу</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot використовує непідтримуваний режим ініціалізації.</value>

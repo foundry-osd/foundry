@@ -39,6 +39,7 @@ public static class AutopilotConfigurationValidator
                 ? AutopilotConfigurationValidationResult.Ready(AutopilotConfigurationValidationCode.Ready)
                 : AutopilotConfigurationValidationResult.Blocked(AutopilotConfigurationValidationCode.JsonProfileMissing),
             AutopilotProvisioningMode.HardwareHashUpload => EvaluateHardwareHashUpload(settings.HardwareHashUpload, currentTimeUtc),
+            AutopilotProvisioningMode.InteractiveHardwareHashUpload => AutopilotConfigurationValidationResult.Ready(AutopilotConfigurationValidationCode.Ready),
             _ => AutopilotConfigurationValidationResult.Blocked(AutopilotConfigurationValidationCode.UnsupportedProvisioningMode)
         };
     }

@@ -190,6 +190,29 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
     }
 
     [Fact]
+    public void Build_WhenInteractiveHardwareHashUploadIsEnabled_ReportsInteractiveMode()
+    {
+        var options = new MediaPreflightOptions
+        {
+            IsAutopilotEnabled = true,
+            AutopilotProvisioningMode = AutopilotProvisioningMode.InteractiveHardwareHashUpload
+        };
+
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
+            options,
+            new FoundryConfigurationDocument(),
+            success: true,
+            failedStepName: null,
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+
+        Assert.Equal("interactive_hardware_hash_upload", result["autopilot_provisioning_mode"]);
+    }
+
+    [Fact]
     public void Build_WhenUsbBootMediaIsUpdated_ReportsUpdateOperation()
     {
         IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(

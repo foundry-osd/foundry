@@ -169,7 +169,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Autopilot.Description" xml:space="preserve">
-    <value>為部署媒體選擇Autopilot 設定方法：JSON 設定檔暫存或WinPE 硬體哈希上傳。</value>
+    <value>選擇部署媒體的 Autopilot 佈建方法：JSON 設定檔暫存、WinPE zero-touch 硬體雜湊上傳，或互動式硬體雜湊上傳。</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>啟用Autopilot</value>
@@ -305,6 +305,15 @@
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
     <value>使用硬體哈希上傳</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
+    <value>互動式硬體雜湊上傳</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
+    <value>在 OOBE 期間為硬體雜湊註冊準備技術人員裝置代碼登入。</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
+    <value>使用互動式硬體雜湊上傳</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>連接租戶</value>
@@ -1415,6 +1424,9 @@
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
     <value>啟用：硬體哈希上傳</value>
+  </data>
+  <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
+    <value>已啟用：互動式硬體雜湊上傳</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot 使用不支援的配置模式。</value>

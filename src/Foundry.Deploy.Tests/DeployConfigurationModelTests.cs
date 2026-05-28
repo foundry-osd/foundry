@@ -87,6 +87,31 @@ public sealed class DeployConfigurationModelTests
     }
 
     [Fact]
+    public void Deserialize_WhenInteractiveHardwareHashModeIsConfigured_PreservesProvisioningMode()
+    {
+        const string json = """
+            {
+              "schemaVersion": 2,
+              "autopilot": {
+                "isEnabled": true,
+                "provisioningMode": "interactiveHardwareHashUpload"
+              }
+            }
+            """;
+
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
+
+        FoundryDeployConfigurationDocument? document = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(json, options);
+
+        Assert.NotNull(document);
+        Assert.Equal(AutopilotProvisioningMode.InteractiveHardwareHashUpload, document.Autopilot.ProvisioningMode);
+    }
+
+    [Fact]
     public void Deserialize_WhenHardwareHashSettingsAreConfigured_PreservesRuntimeMetadata()
     {
         const string json = """

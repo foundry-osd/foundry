@@ -58,6 +58,22 @@ public sealed class AutopilotConfigurationValidatorTests
         Assert.True(AutopilotConfigurationValidator.IsReady(settings, EvaluationTimeUtc));
     }
 
+    [Fact]
+    public void IsReady_WhenInteractiveHardwareHashModeHasNoProfileOrCertificateMetadata_ReturnsTrue()
+    {
+        var settings = new AutopilotSettings
+        {
+            IsEnabled = true,
+            ProvisioningMode = AutopilotProvisioningMode.InteractiveHardwareHashUpload,
+            HardwareHashUpload = new AutopilotHardwareHashUploadSettings()
+        };
+
+        AutopilotConfigurationValidationResult result = AutopilotConfigurationValidator.Evaluate(settings, EvaluationTimeUtc);
+
+        Assert.True(result.IsReady);
+        Assert.Equal(AutopilotConfigurationValidationCode.Ready, result.Code);
+    }
+
     [Theory]
     [InlineData("", "application-object-id", "client-id", "service-principal-object-id", "certificate-key-id", "ABCDEF123456")]
     [InlineData("tenant-id", "", "client-id", "service-principal-object-id", "certificate-key-id", "ABCDEF123456")]

@@ -169,7 +169,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Autopilot.Description" xml:space="preserve">
-    <value>เลือกวิธีการจัดเตรียม Autopilot สำหรับสื่อการปรับใช้: JSON การจัดเตรียมโปรไฟล์ หรือ WinPE การอัปโหลดแฮชฮาร์ดแวร์</value>
+    <value>เลือกวิธีการเตรียม Autopilot สำหรับสื่อการปรับใช้: การเตรียมโปรไฟล์ JSON, การอัปโหลดแฮชฮาร์ดแวร์แบบ zero-touch ใน WinPE หรือการอัปโหลดแฮชฮาร์ดแวร์แบบโต้ตอบ</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>เปิดใช้งาน Autopilot</value>
@@ -305,6 +305,15 @@
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
     <value>ใช้การอัปโหลดแฮชฮาร์ดแวร์</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
+    <value>การอัปโหลดแฮชฮาร์ดแวร์แบบโต้ตอบ</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
+    <value>จัดเตรียมการลงชื่อเข้าใช้ของช่างเทคนิคด้วยรหัสอุปกรณ์สำหรับการลงทะเบียนแฮชฮาร์ดแวร์ระหว่าง OOBE</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
+    <value>ใช้การอัปโหลดแฮชฮาร์ดแวร์แบบโต้ตอบ</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>เชื่อมต่อผู้เช่า</value>
@@ -1415,6 +1424,9 @@
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
     <value>เปิดใช้งาน: อัปโหลดแฮชฮาร์ดแวร์</value>
+  </data>
+  <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
+    <value>เปิดใช้งาน: การอัปโหลดแฮชฮาร์ดแวร์แบบโต้ตอบ</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot ใช้โหมดการจัดสรรที่ไม่รองรับ</value>

@@ -102,6 +102,29 @@ public sealed class ProvisionAutopilotStepTests
     }
 
     [Fact]
+    public async Task ExecuteAsync_WhenLiveInteractiveHardwareHashModeIsSelected_FailsWithoutJsonProfileStaging()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var uploadService = new FakeAutopilotHardwareHashUploadService(
+            AutopilotHardwareHashUploadResult.Completed("Graph should not be called."));
+        ProvisionAutopilotStep step = CreateStep(uploadService: uploadService);
+        DeploymentStepExecutionContext context = CreateContext(
+            workspace,
+            isDryRun: false,
+            provisioningMode: AutopilotProvisioningMode.InteractiveHardwareHashUpload);
+
+        DeploymentStepResult result = await step.ExecuteAsync(context, CancellationToken.None);
+
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.Contains("registration assistant", result.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Equal(AutopilotProvisioningMode.InteractiveHardwareHashUpload, context.RuntimeState.AutopilotProvisioningMode);
+        Assert.Equal(AutopilotHardwareHashUploadState.NotPlanned, context.RuntimeState.AutopilotHardwareHashUploadState);
+        Assert.Null(context.RuntimeState.StagedAutopilotConfigurationPath);
+        Assert.False(Directory.Exists(Path.Combine(workspace.TargetWindowsRootPath, "Windows", "Provisioning", "Autopilot")));
+        Assert.Empty(uploadService.Requests);
+    }
+
+    [Fact]
     public async Task ExecuteAsync_WhenGraphUploadFailsAfterCapture_ContinuesDeployment()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
@@ -231,6 +254,26 @@ public sealed class ProvisionAutopilotStepTests
         Assert.Equal("hardwareHashUpload", manifest.RootElement.GetProperty("provisioningMode").GetString());
         Assert.False(manifest.RootElement.TryGetProperty("certificatePfxSecret", out _));
         Assert.False(manifest.RootElement.TryGetProperty("certificatePfxPasswordSecret", out _));
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WhenDryRunInteractiveHardwareHashModeIsSelected_FailsWithoutJsonProfileManifest()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        ProvisionAutopilotStep step = CreateStep();
+        DeploymentStepExecutionContext context = CreateContext(
+            workspace,
+            isDryRun: true,
+            provisioningMode: AutopilotProvisioningMode.InteractiveHardwareHashUpload);
+
+        DeploymentStepResult result = await step.ExecuteAsync(context, CancellationToken.None);
+
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.Contains("registration assistant", result.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Equal(AutopilotProvisioningMode.InteractiveHardwareHashUpload, context.RuntimeState.AutopilotProvisioningMode);
+        Assert.Equal(AutopilotHardwareHashUploadState.NotPlanned, context.RuntimeState.AutopilotHardwareHashUploadState);
+        Assert.Null(context.RuntimeState.StagedAutopilotConfigurationPath);
+        Assert.False(File.Exists(Path.Combine(workspace.TargetFoundryRootPath, "Autopilot", "autopilot-profile-stage.dryrun.json")));
     }
 
     private static DeployAutopilotHardwareHashUploadSettings CreateCompleteHardwareHashSettings()

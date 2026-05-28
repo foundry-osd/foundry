@@ -120,6 +120,32 @@ public sealed class DeploymentPreparationViewModelTests
     }
 
     [Fact]
+    public void ApplyAutopilotConfiguration_WhenInteractiveHardwareHashModeIsEnabled_DoesNotExposeJsonOrCertificateControls()
+    {
+        using DeploymentPreparationViewModel viewModel = CreateViewModel();
+        AutopilotProfileCatalogItem profile = CreateProfile("json", "JSON Profile");
+
+        viewModel.ApplyAutopilotConfiguration(
+            new DeployAutopilotSettings
+            {
+                IsEnabled = true,
+                ProvisioningMode = AutopilotProvisioningMode.InteractiveHardwareHashUpload,
+                DefaultProfileFolderName = "json"
+            },
+            [profile]);
+
+        Assert.True(viewModel.IsAutopilotEnabled);
+        Assert.Equal(AutopilotProvisioningMode.InteractiveHardwareHashUpload, viewModel.AutopilotProvisioningMode);
+        Assert.False(viewModel.IsJsonProfileControlsVisible);
+        Assert.False(viewModel.IsHardwareHashUploadControlsVisible);
+        Assert.False(viewModel.IsAutopilotProfileSelectionEnabled);
+        Assert.False(viewModel.IsHardwareHashGroupTagControlsVisible);
+        Assert.False(viewModel.IsHardwareHashUploadMessageVisible);
+        Assert.Contains("Interactive", viewModel.AutopilotModeText, StringComparison.OrdinalIgnoreCase);
+        Assert.Null(viewModel.SelectedAutopilotProfile);
+    }
+
+    [Fact]
     public void ApplyAutopilotConfiguration_WhenHardwareHashCertificateExpired_SurfacesExpiredState()
     {
         using DeploymentPreparationViewModel viewModel = CreateViewModel();

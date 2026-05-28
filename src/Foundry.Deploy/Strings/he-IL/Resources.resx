@@ -51,6 +51,7 @@
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>לא נמצאו פרופילים משובצים של Autopilot במדיה זו.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>פרופיל JSON</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>העלאת hash של חומרה</value></data>
+  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>העלאה אינטראקטיבית של hash חומרה</value></data>
   <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>זמין במדיה זו: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>העלאת hash של חומרה</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>סטטוס העלאת גיבוב של חומרה</value></data>

@@ -169,7 +169,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Autopilot.Description" xml:space="preserve">
-    <value>Välj Autopilot provisioneringsmetod för distributionsmedia: JSON profiluppsättning eller WinPE uppladdning av hårdvaruhash.</value>
+    <value>Välj Autopilot-etableringsmetod för distributionsmediet: JSON-profilstaging, WinPE zero-touch-uppladdning av maskinvaruhash eller interaktiv uppladdning av maskinvaruhash.</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Aktivera Autopilot</value>
@@ -305,6 +305,15 @@
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
     <value>Använd hårdvaruhashuppladdning</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
+    <value>Interaktiv uppladdning av maskinvaruhash</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
+    <value>Förbereder teknikerinloggning med enhetskod för registrering av maskinvaruhash under OOBE.</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
+    <value>Använd interaktiv uppladdning av maskinvaruhash</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Anslut hyresgäst</value>
@@ -1415,6 +1424,9 @@
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
     <value>Aktiverad: uppladdning av hårdvaruhash</value>
+  </data>
+  <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
+    <value>Aktiverat: interaktiv uppladdning av maskinvaruhash</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot använder ett provisioneringsläge som inte stöds.</value>
