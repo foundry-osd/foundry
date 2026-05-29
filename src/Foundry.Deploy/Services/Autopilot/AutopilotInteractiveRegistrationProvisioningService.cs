@@ -244,8 +244,6 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
                 "    '-ExecutionPolicy',",
                 "    'Bypass',",
                 "    '-STA',",
-                "    '-WindowStyle',",
-                "    'Hidden',",
                 "    '-File',",
                 "    $registrationScriptPath,",
                 "    '-ConfigPath',",
