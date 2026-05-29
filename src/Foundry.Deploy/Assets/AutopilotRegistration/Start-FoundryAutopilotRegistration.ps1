@@ -588,7 +588,6 @@ function Start-FoundryAutopilotRegistrationUi {
         Height="560"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Topmost="True"
         UseLayoutRounding="True"
         SnapsToDevicePixels="True">
     <Grid Margin="12">
@@ -1074,9 +1073,6 @@ function Start-FoundryAutopilotRegistrationUi {
     })
 
     $window.Add_ContentRendered({
-        $window.Topmost = $true
-        [void]$window.Activate()
-
         if ($script:AuthenticationStarted) {
             return
         }
