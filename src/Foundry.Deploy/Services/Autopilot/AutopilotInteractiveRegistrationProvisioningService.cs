@@ -13,7 +13,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
 {
     private const string ScriptFileName = "Start-FoundryAutopilotRegistration.ps1";
     private const string LauncherFileName = "Start-FoundryAutopilotRegistration.cmd";
-    private const string OobeLauncherFileName = "Launch-FoundryAutopilotRegistrationOobe.cmd";
+    private const string OobeLauncherFileName = "Start-FoundryAutopilotRegistrationOobe.cmd";
     private const string OobeWaiterFileName = "Wait-FoundryAutopilotRegistrationOobe.ps1";
     private const string OobeCommandFileName = "OOBE.cmd";
     private const string ConfigFileName = "config.json";

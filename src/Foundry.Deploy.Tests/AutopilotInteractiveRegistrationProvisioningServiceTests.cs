@@ -19,7 +19,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Equal(registrationRoot, result.RegistrationRootPath);
         Assert.Equal(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistration.ps1"), result.ScriptPath);
         Assert.Equal(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistration.cmd"), result.LauncherPath);
-        Assert.Equal(Path.Combine(registrationRoot, "Launch-FoundryAutopilotRegistrationOobe.cmd"), result.OobeLauncherPath);
+        Assert.Equal(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistrationOobe.cmd"), result.OobeLauncherPath);
         Assert.Equal(Path.Combine(registrationRoot, "Wait-FoundryAutopilotRegistrationOobe.ps1"), result.OobeWaiterPath);
         Assert.Equal(Path.Combine(windowsRoot, "Windows", "Setup", "Scripts", "OOBE.cmd"), result.OobeCommandPath);
         Assert.Equal(Path.Combine(registrationRoot, "config.json"), result.ConfigPath);
@@ -101,7 +101,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         string oobeCommand = File.ReadAllText(result.OobeCommandPath);
         Assert.Contains("REM >>> FOUNDRY AUTOPILOT REGISTRATION BEGIN", oobeCommand);
         Assert.Contains(
-            "call \"%SystemRoot%\\Temp\\Foundry\\AutopilotRegistration\\Launch-FoundryAutopilotRegistrationOobe.cmd\"",
+            "call \"%SystemRoot%\\Temp\\Foundry\\AutopilotRegistration\\Start-FoundryAutopilotRegistrationOobe.cmd\"",
             oobeCommand);
         Assert.Contains("REM <<< FOUNDRY AUTOPILOT REGISTRATION END", oobeCommand);
     }
