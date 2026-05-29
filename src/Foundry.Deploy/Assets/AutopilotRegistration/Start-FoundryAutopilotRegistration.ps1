@@ -71,26 +71,24 @@ function Write-Result {
     } | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $ResultPath -Encoding UTF8
 }
 
-function Remove-AutomaticLaunchTask {
-    if ($null -eq $Config.automaticLaunchTaskName -or [string]::IsNullOrWhiteSpace([string]$Config.automaticLaunchTaskName)) {
-        return
+function Test-RegistrationAlreadyCompleted {
+    if (-not (Test-Path -LiteralPath $ResultPath)) {
+        return $false
     }
 
-    $taskName = [string]$Config.automaticLaunchTaskName
     try {
-        if (Get-Command -Name Unregister-ScheduledTask -ErrorAction SilentlyContinue) {
-            Unregister-ScheduledTask -TaskName $taskName -Confirm:$false -ErrorAction SilentlyContinue
-        }
-        else {
-            $schtasksPath = Join-Path $env:SystemRoot 'System32\schtasks.exe'
-            Start-Process -FilePath $schtasksPath -ArgumentList @('/Delete', '/TN', $taskName, '/F') -WindowStyle Hidden -Wait
-        }
-
-        Write-FoundryLog -Message "Removed automatic launch task '$taskName'."
+        $result = Get-Content -LiteralPath $ResultPath -Raw | ConvertFrom-Json
+        return $result.status -eq 'completed'
     }
     catch {
-        Write-FoundryLog -Message "Failed to remove automatic launch task '$taskName'. $($_.Exception.Message)"
+        Write-FoundryLog -Message "Failed to read existing registration result. $($_.Exception.Message)"
+        return $false
     }
+}
+
+if (Test-RegistrationAlreadyCompleted) {
+    Write-FoundryLog -Message 'Autopilot registration is already completed.'
+    exit 0
 }
 
 function ConvertTo-FormBody {
@@ -931,7 +929,6 @@ function Start-FoundryAutopilotRegistrationUi {
                     Write-Result -Status 'completed' -Message 'Autopilot registration completed.' -Details $details
                     Write-FoundryLog -Message 'Autopilot registration completed.'
                     Set-UploadProgress -Message 'Registration completed.' -Value 100 -IsIndeterminate $false
-                    Remove-AutomaticLaunchTask
                     $script:ExitCode = 0
                     Start-RebootCountdown
                 }

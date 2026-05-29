@@ -11,13 +11,11 @@ public sealed record AutopilotInteractiveRegistrationProvisioningResult
 
     public required string LauncherPath { get; init; }
 
-    public required string AutomaticLauncherPath { get; init; }
+    public required string OobeLauncherPath { get; init; }
 
-    public required string AutomaticLaunchScriptPath { get; init; }
+    public required string OobeCommandPath { get; init; }
 
     public required string ConfigPath { get; init; }
-
-    public required string SetupCompletePath { get; init; }
 
     public required string StateRootPath { get; init; }
 

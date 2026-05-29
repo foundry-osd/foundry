@@ -13,8 +13,8 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
 {
     private const string ScriptFileName = "Start-FoundryAutopilotRegistration.ps1";
     private const string LauncherFileName = "Start-FoundryAutopilotRegistration.cmd";
-    private const string AutomaticLauncherFileName = "Start-FoundryAutopilotRegistrationAutoLaunch.ps1";
-    private const string AutomaticLaunchScriptFileName = "Register-FoundryAutopilotRegistrationTask.ps1";
+    private const string OobeLauncherFileName = "Launch-FoundryAutopilotRegistrationOobe.cmd";
+    private const string OobeCommandFileName = "OOBE.cmd";
     private const string ConfigFileName = "config.json";
     private const string SetupCompleteMarkerKey = "FOUNDRY AUTOPILOT REGISTRATION";
     private const string ScriptResourceName = "Foundry.Deploy.AutopilotRegistration.Start-FoundryAutopilotRegistration.ps1";
@@ -22,7 +22,6 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
     private const string RuntimeLogRoot = "%SystemRoot%\\Temp\\Foundry\\Logs\\AutopilotRegistration";
     private const string RuntimeStateRoot = "%SystemRoot%\\Temp\\Foundry\\AutopilotRegistration\\State";
     private const string FoundryBootstrapClientId = "83eb3a92-030d-49b7-881b-32a1eb3e110a";
-    private const string AutomaticLaunchTaskName = "FoundryAutopilotInteractiveRegistration";
     private static readonly UTF8Encoding Utf8NoBom = new(false);
     private readonly ISetupCompleteScriptService _setupCompleteScriptService;
 
@@ -44,8 +43,8 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
         string logRoot = GetLogRoot(targetWindowsPartitionRoot);
         string scriptPath = Path.Combine(registrationRoot, ScriptFileName);
         string launcherPath = Path.Combine(registrationRoot, LauncherFileName);
-        string automaticLauncherPath = Path.Combine(registrationRoot, AutomaticLauncherFileName);
-        string automaticLaunchScriptPath = Path.Combine(registrationRoot, AutomaticLaunchScriptFileName);
+        string oobeLauncherPath = Path.Combine(registrationRoot, OobeLauncherFileName);
+        string oobeCommandPath = GetOobeCommandPath(targetWindowsPartitionRoot);
         string configPath = Path.Combine(registrationRoot, ConfigFileName);
         string setupCompletePath = GetSetupCompletePath(targetWindowsPartitionRoot);
 
@@ -55,28 +54,24 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
 
         StageScript(scriptPath);
         File.WriteAllText(launcherPath, BuildLauncher(), Encoding.ASCII);
-        File.WriteAllText(automaticLauncherPath, BuildAutomaticLauncher(), Encoding.ASCII);
-        File.WriteAllText(automaticLaunchScriptPath, BuildAutomaticLaunchScript(), Encoding.ASCII);
+        File.WriteAllText(oobeLauncherPath, BuildOobeLauncher(), Encoding.ASCII);
         File.WriteAllText(configPath, BuildConfig(), Utf8NoBom);
 
-        // Keep this block last so interactive registration starts only after every
-        // non-interactive SetupComplete customization has finished. Removing first
-        // makes re-provisioning move any existing block back to the end.
         _setupCompleteScriptService.RemoveBlock(setupCompletePath, SetupCompleteMarkerKey);
+        _setupCompleteScriptService.RemoveBlock(oobeCommandPath, SetupCompleteMarkerKey);
         _setupCompleteScriptService.EnsureBlock(
-            setupCompletePath,
+            oobeCommandPath,
             SetupCompleteMarkerKey,
-            BuildSetupCompleteLauncher());
+            BuildOobeCommandLauncher());
 
         return new AutopilotInteractiveRegistrationProvisioningResult
         {
             RegistrationRootPath = registrationRoot,
             ScriptPath = scriptPath,
             LauncherPath = launcherPath,
-            AutomaticLauncherPath = automaticLauncherPath,
-            AutomaticLaunchScriptPath = automaticLaunchScriptPath,
+            OobeLauncherPath = oobeLauncherPath,
+            OobeCommandPath = oobeCommandPath,
             ConfigPath = configPath,
-            SetupCompletePath = setupCompletePath,
             StateRootPath = stateRoot,
             LogRootPath = logRoot
         };
@@ -95,6 +90,11 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
     private static string GetSetupCompletePath(string targetWindowsPartitionRoot)
     {
         return Path.Combine(targetWindowsPartitionRoot, "Windows", "Setup", "Scripts", "SetupComplete.cmd");
+    }
+
+    private static string GetOobeCommandPath(string targetWindowsPartitionRoot)
+    {
+        return Path.Combine(targetWindowsPartitionRoot, "Windows", "Setup", "Scripts", OobeCommandFileName);
     }
 
     private static void StageScript(string scriptPath)
@@ -128,144 +128,42 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
             ]);
     }
 
-    private static string BuildSetupCompleteLauncher()
+    private static string BuildOobeCommandLauncher()
     {
         return string.Join(
             Environment.NewLine,
             [
                 $"mkdir \"{RuntimeLogRoot}\" >nul 2>&1",
-                $"echo [%date% %time%] Registering Foundry Autopilot registration assistant.>>\"{RuntimeLogRoot}\\SetupComplete.log\"",
-                $"powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"{RuntimeRegistrationRoot}\\{AutomaticLaunchScriptFileName}\" >>\"{RuntimeLogRoot}\\SetupComplete.log\" 2>&1",
-                "set \"FOUNDRY_AUTOPILOT_REGISTRATION_TASK_EXIT=%ERRORLEVEL%\"",
-                $"echo [%date% %time%] Foundry Autopilot registration task registration exited with %FOUNDRY_AUTOPILOT_REGISTRATION_TASK_EXIT%.>>\"{RuntimeLogRoot}\\SetupComplete.log\""
+                $"echo [%date% %time%] Calling Foundry Autopilot OOBE registration launcher.>>\"{RuntimeLogRoot}\\OOBE.log\"",
+                $"call \"{RuntimeRegistrationRoot}\\{OobeLauncherFileName}\"",
+                "set \"FOUNDRY_AUTOPILOT_OOBE_EXIT=%ERRORLEVEL%\"",
+                $"echo [%date% %time%] Foundry Autopilot OOBE registration launcher exited with %FOUNDRY_AUTOPILOT_OOBE_EXIT%.>>\"{RuntimeLogRoot}\\OOBE.log\""
             ]);
     }
 
-    private static string BuildAutomaticLauncher()
+    private static string BuildOobeLauncher()
     {
         return string.Join(
             Environment.NewLine,
             [
-                "$ErrorActionPreference = 'Stop'",
-                $"$taskName = '{AutomaticLaunchTaskName}'",
-                "$registrationRoot = Join-Path $env:SystemRoot 'Temp\\Foundry\\AutopilotRegistration'",
-                "$logRoot = Join-Path $env:SystemRoot 'Temp\\Foundry\\Logs\\AutopilotRegistration'",
-                "$resultPath = Join-Path $registrationRoot 'State\\registration-result.json'",
-                "$registrationScriptPath = Join-Path $registrationRoot 'Start-FoundryAutopilotRegistration.ps1'",
-                "$configPath = Join-Path $registrationRoot 'config.json'",
-                "New-Item -Path $logRoot -ItemType Directory -Force | Out-Null",
-                "$launcherLogPath = Join-Path $logRoot 'auto-launcher.log'",
-                "function Write-FoundryAutoLaunchLog {",
-                "    param([Parameter(Mandatory = $true)][string]$Message)",
-                "    $timestamp = [DateTimeOffset]::Now.ToString('o')",
-                "    Add-Content -LiteralPath $launcherLogPath -Value \"[$timestamp] $Message\"",
-                "}",
-                "Write-FoundryAutoLaunchLog -Message 'Starting Foundry Autopilot automatic launcher.'",
-                "if (Get-Command -Name Unregister-ScheduledTask -ErrorAction SilentlyContinue) {",
-                "    Unregister-ScheduledTask -TaskName $taskName -Confirm:$false -ErrorAction SilentlyContinue",
-                "}",
-                "if (Test-Path -LiteralPath $resultPath) {",
-                "    $result = Get-Content -LiteralPath $resultPath -Raw | ConvertFrom-Json",
-                "    if ($result.status -eq 'completed') {",
-                "        Write-FoundryAutoLaunchLog -Message 'Autopilot registration is already completed.'",
-                "        exit 0",
-                "    }",
-                "}",
-                "Write-FoundryAutoLaunchLog -Message 'Launching Foundry Autopilot registration assistant.'",
-                "& $registrationScriptPath -ConfigPath $configPath",
-                string.Empty
-            ]);
-    }
-
-    private static string BuildAutomaticLaunchScript()
-    {
-        return string.Join(
-            Environment.NewLine,
-            [
-                "$ErrorActionPreference = 'Stop'",
-                $"$taskName = '{AutomaticLaunchTaskName}'",
-                "$registrationRoot = Join-Path $env:SystemRoot 'Temp\\Foundry\\AutopilotRegistration'",
-                "$logRoot = Join-Path $env:SystemRoot 'Temp\\Foundry\\Logs\\AutopilotRegistration'",
-                $"$launcherPath = Join-Path $registrationRoot '{AutomaticLauncherFileName}'",
-                "New-Item -Path $logRoot -ItemType Directory -Force | Out-Null",
-                "$taskLogPath = Join-Path $logRoot 'task-registration.log'",
-                "function Write-FoundryTaskLog {",
-                "    param([Parameter(Mandatory = $true)][string]$Message)",
-                "    $timestamp = [DateTimeOffset]::Now.ToString('o')",
-                "    Add-Content -LiteralPath $taskLogPath -Value \"[$timestamp] $Message\"",
-                "}",
-                "function Get-FoundryInteractiveLaunchUser {",
-                "    $defaultOobeUser = \"$env:COMPUTERNAME\\defaultuser0\"",
-                "    try {",
-                "        $account = New-Object System.Security.Principal.NTAccount $defaultOobeUser",
-                "        [void]$account.Translate([System.Security.Principal.SecurityIdentifier])",
-                "    }",
-                "    catch {",
-                "        throw \"Could not resolve default OOBE user '$defaultOobeUser'. $($_.Exception.Message)\"",
-                "    }",
-                "    Write-FoundryTaskLog -Message \"Resolved default OOBE launch user as '$defaultOobeUser'.\"",
-                "    return $defaultOobeUser",
-                "}",
-                "Write-FoundryTaskLog -Message 'Registering Foundry Autopilot interactive registration task.'",
-                "$interactiveUser = Get-FoundryInteractiveLaunchUser",
-                "$powershellPath = Join-Path $env:SystemRoot 'System32\\WindowsPowerShell\\v1.0\\powershell.exe'",
-                "$actionArgument = '-NoProfile -STA -ExecutionPolicy Bypass -WindowStyle Hidden -File \"' + $launcherPath + '\"'",
-                "$escapedUser = [System.Security.SecurityElement]::Escape($interactiveUser)",
-                "$escapedCommand = [System.Security.SecurityElement]::Escape($powershellPath)",
-                "$escapedArguments = [System.Security.SecurityElement]::Escape($actionArgument)",
-                "$escapedWorkingDirectory = [System.Security.SecurityElement]::Escape($registrationRoot)",
-                "$taskXml = @\"",
-                "<?xml version=\"1.0\" encoding=\"UTF-16\"?>",
-                "<Task version=\"1.4\" xmlns=\"http://schemas.microsoft.com/windows/2004/02/mit/task\">",
-                "  <RegistrationInfo>",
-                "    <Author>Foundry OSD</Author>",
-                "    <Description>Launches Foundry Autopilot interactive hardware hash upload in OOBE.</Description>",
-                "  </RegistrationInfo>",
-                "  <Triggers>",
-                "    <RegistrationTrigger>",
-                "      <Enabled>true</Enabled>",
-                "      <Delay>PT10S</Delay>",
-                "    </RegistrationTrigger>",
-                "  </Triggers>",
-                "  <Principals>",
-                "    <Principal id=\"Author\">",
-                "      <UserId>$escapedUser</UserId>",
-                "      <LogonType>InteractiveToken</LogonType>",
-                "      <RunLevel>HighestAvailable</RunLevel>",
-                "    </Principal>",
-                "  </Principals>",
-                "  <Settings>",
-                "    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>",
-                "    <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>",
-                "    <StopIfGoingOnBatteries>false</StopIfGoingOnBatteries>",
-                "    <AllowHardTerminate>true</AllowHardTerminate>",
-                "    <StartWhenAvailable>true</StartWhenAvailable>",
-                "    <RunOnlyIfNetworkAvailable>false</RunOnlyIfNetworkAvailable>",
-                "    <IdleSettings>",
-                "      <StopOnIdleEnd>false</StopOnIdleEnd>",
-                "      <RestartOnIdle>false</RestartOnIdle>",
-                "    </IdleSettings>",
-                "    <AllowStartOnDemand>true</AllowStartOnDemand>",
-                "    <Enabled>true</Enabled>",
-                "    <Hidden>false</Hidden>",
-                "    <RunOnlyIfIdle>false</RunOnlyIfIdle>",
-                "    <DisallowStartOnRemoteAppSession>false</DisallowStartOnRemoteAppSession>",
-                "    <UseUnifiedSchedulingEngine>true</UseUnifiedSchedulingEngine>",
-                "    <WakeToRun>false</WakeToRun>",
-                "    <ExecutionTimeLimit>PT0S</ExecutionTimeLimit>",
-                "    <Priority>7</Priority>",
-                "  </Settings>",
-                "  <Actions Context=\"Author\">",
-                "    <Exec>",
-                "      <Command>$escapedCommand</Command>",
-                "      <Arguments>$escapedArguments</Arguments>",
-                "      <WorkingDirectory>$escapedWorkingDirectory</WorkingDirectory>",
-                "    </Exec>",
-                "  </Actions>",
-                "</Task>",
-                "\"@",
-                "Register-ScheduledTask -TaskName $taskName -Xml $taskXml -Force | Out-Null",
-                "Write-FoundryTaskLog -Message 'Foundry Autopilot interactive registration task registered.'",
+                "@echo off",
+                "setlocal EnableExtensions",
+                $"set \"FOUNDRY_AUTOPILOT_REGISTRATION_ROOT={RuntimeRegistrationRoot}\"",
+                $"set \"FOUNDRY_AUTOPILOT_LOG_ROOT={RuntimeLogRoot}\"",
+                "set \"FOUNDRY_AUTOPILOT_SCRIPT=%FOUNDRY_AUTOPILOT_REGISTRATION_ROOT%\\Start-FoundryAutopilotRegistration.ps1\"",
+                "set \"FOUNDRY_AUTOPILOT_CONFIG=%FOUNDRY_AUTOPILOT_REGISTRATION_ROOT%\\config.json\"",
+                "set \"FOUNDRY_AUTOPILOT_LOG=%FOUNDRY_AUTOPILOT_LOG_ROOT%\\oobe-launcher.log\"",
+                "set \"FOUNDRY_AUTOPILOT_PS=%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\"",
+                "mkdir \"%FOUNDRY_AUTOPILOT_LOG_ROOT%\" >nul 2>&1",
+                "echo [%date% %time%] Starting Foundry Autopilot OOBE registration launcher.>>\"%FOUNDRY_AUTOPILOT_LOG%\"",
+                "if not exist \"%FOUNDRY_AUTOPILOT_SCRIPT%\" (",
+                "    echo [%date% %time%] Registration script was not found: %FOUNDRY_AUTOPILOT_SCRIPT%.>>\"%FOUNDRY_AUTOPILOT_LOG%\"",
+                "    exit /b 0",
+                ")",
+                "\"%FOUNDRY_AUTOPILOT_PS%\" -NoLogo -NoProfile -ExecutionPolicy Bypass -STA -WindowStyle Hidden -File \"%FOUNDRY_AUTOPILOT_SCRIPT%\" -ConfigPath \"%FOUNDRY_AUTOPILOT_CONFIG%\" >>\"%FOUNDRY_AUTOPILOT_LOG%\" 2>&1",
+                "set \"FOUNDRY_AUTOPILOT_EXIT=%ERRORLEVEL%\"",
+                "echo [%date% %time%] Foundry Autopilot registration assistant exited with %FOUNDRY_AUTOPILOT_EXIT%.>>\"%FOUNDRY_AUTOPILOT_LOG%\"",
+                "exit /b 0",
                 string.Empty
             ]);
     }
@@ -286,7 +184,6 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
             registrationRootPath = RuntimeRegistrationRoot,
             logRootPath = RuntimeLogRoot,
             stateRootPath = RuntimeStateRoot,
-            automaticLaunchTaskName = AutomaticLaunchTaskName,
             importPollingTimeoutSeconds = 900,
             importPollingIntervalSeconds = 15
         }, new JsonSerializerOptions
