@@ -13,7 +13,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
 {
     private const string ScriptFileName = "Start-FoundryAutopilotRegistration.ps1";
     private const string LauncherFileName = "Start-FoundryAutopilotRegistration.cmd";
-    private const string AutomaticLauncherFileName = "Start-FoundryAutopilotRegistrationAutoLaunch.cmd";
+    private const string AutomaticLauncherFileName = "Start-FoundryAutopilotRegistrationAutoLaunch.ps1";
     private const string AutomaticLaunchScriptFileName = "Register-FoundryAutopilotRegistrationTask.ps1";
     private const string ConfigFileName = "config.json";
     private const string SetupCompleteMarkerKey = "FOUNDRY AUTOPILOT REGISTRATION";
@@ -146,23 +146,33 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
         return string.Join(
             Environment.NewLine,
             [
-                "@echo off",
-                "setlocal",
-                $"set \"FOUNDRY_AUTOPILOT_TASK_NAME={AutomaticLaunchTaskName}\"",
-                $"set \"FOUNDRY_AUTOPILOT_REGISTRATION_ROOT={RuntimeRegistrationRoot}\"",
-                $"set \"FOUNDRY_AUTOPILOT_LOG_ROOT={RuntimeLogRoot}\"",
-                $"set \"FOUNDRY_AUTOPILOT_RESULT={RuntimeStateRoot}\\registration-result.json\"",
-                "mkdir \"%FOUNDRY_AUTOPILOT_LOG_ROOT%\" >nul 2>&1",
-                "echo [%date% %time%] Starting Foundry Autopilot automatic launcher.>>\"%FOUNDRY_AUTOPILOT_LOG_ROOT%\\auto-launcher.log\"",
-                "schtasks.exe /Delete /TN \"%FOUNDRY_AUTOPILOT_TASK_NAME%\" /F >>\"%FOUNDRY_AUTOPILOT_LOG_ROOT%\\auto-launcher.log\" 2>&1",
-                "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"if (Test-Path -LiteralPath $env:FOUNDRY_AUTOPILOT_RESULT) { $result = Get-Content -LiteralPath $env:FOUNDRY_AUTOPILOT_RESULT -Raw | ConvertFrom-Json; if ($result.status -eq 'completed') { exit 0 } }; exit 1\"",
-                "if %ERRORLEVEL% EQU 0 (",
-                "    echo [%date% %time%] Autopilot registration is already completed.>>\"%FOUNDRY_AUTOPILOT_LOG_ROOT%\\auto-launcher.log\"",
-                "    exit /b 0",
-                ")",
-                "echo [%date% %time%] Launching Foundry Autopilot registration assistant.>>\"%FOUNDRY_AUTOPILOT_LOG_ROOT%\\auto-launcher.log\"",
-                "start \"\" \"%FOUNDRY_AUTOPILOT_REGISTRATION_ROOT%\\Start-FoundryAutopilotRegistration.cmd\"",
-                "exit /b 0",
+                "$ErrorActionPreference = 'Stop'",
+                $"$taskName = '{AutomaticLaunchTaskName}'",
+                "$registrationRoot = Join-Path $env:SystemRoot 'Temp\\Foundry\\AutopilotRegistration'",
+                "$logRoot = Join-Path $env:SystemRoot 'Temp\\Foundry\\Logs\\AutopilotRegistration'",
+                "$resultPath = Join-Path $registrationRoot 'State\\registration-result.json'",
+                "$registrationScriptPath = Join-Path $registrationRoot 'Start-FoundryAutopilotRegistration.ps1'",
+                "$configPath = Join-Path $registrationRoot 'config.json'",
+                "New-Item -Path $logRoot -ItemType Directory -Force | Out-Null",
+                "$launcherLogPath = Join-Path $logRoot 'auto-launcher.log'",
+                "function Write-FoundryAutoLaunchLog {",
+                "    param([Parameter(Mandatory = $true)][string]$Message)",
+                "    $timestamp = [DateTimeOffset]::Now.ToString('o')",
+                "    Add-Content -LiteralPath $launcherLogPath -Value \"[$timestamp] $Message\"",
+                "}",
+                "Write-FoundryAutoLaunchLog -Message 'Starting Foundry Autopilot automatic launcher.'",
+                "if (Get-Command -Name Unregister-ScheduledTask -ErrorAction SilentlyContinue) {",
+                "    Unregister-ScheduledTask -TaskName $taskName -Confirm:$false -ErrorAction SilentlyContinue",
+                "}",
+                "if (Test-Path -LiteralPath $resultPath) {",
+                "    $result = Get-Content -LiteralPath $resultPath -Raw | ConvertFrom-Json",
+                "    if ($result.status -eq 'completed') {",
+                "        Write-FoundryAutoLaunchLog -Message 'Autopilot registration is already completed.'",
+                "        exit 0",
+                "    }",
+                "}",
+                "Write-FoundryAutoLaunchLog -Message 'Launching Foundry Autopilot registration assistant.'",
+                "& $registrationScriptPath -ConfigPath $configPath",
                 string.Empty
             ]);
     }
@@ -197,11 +207,12 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
                 "    return $defaultOobeUser",
                 "}",
                 "Write-FoundryTaskLog -Message 'Registering Foundry Autopilot interactive registration task.'",
-                "$cmdPath = Join-Path $env:SystemRoot 'System32\\cmd.exe'",
-                "$actionArgument = '/c \"' + $launcherPath + '\"'",
-                "$action = New-ScheduledTaskAction -Execute $cmdPath -Argument $actionArgument -WorkingDirectory $registrationRoot",
-                "$launchTrigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddSeconds(5)",
                 "$interactiveUser = Get-FoundryInteractiveLaunchUser",
+                "$powershellPath = Join-Path $env:SystemRoot 'System32\\WindowsPowerShell\\v1.0\\powershell.exe'",
+                "$actionArgument = '-NoProfile -STA -ExecutionPolicy Bypass -WindowStyle Hidden -File \"' + $launcherPath + '\"'",
+                "$action = New-ScheduledTaskAction -Execute $powershellPath -Argument $actionArgument -WorkingDirectory $registrationRoot",
+                "$launchTrigger = New-ScheduledTaskTrigger -AtLogOn -User $interactiveUser",
+                "$launchTrigger.Delay = 'PT10S'",
                 "$principal = New-ScheduledTaskPrincipal -UserId $interactiveUser -LogonType Interactive -RunLevel Highest",
                 "$settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable",
                 "$task = New-ScheduledTask -Action $action -Trigger $launchTrigger -Principal $principal -Settings $settings",

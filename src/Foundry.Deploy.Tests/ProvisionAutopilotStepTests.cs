@@ -125,7 +125,7 @@ public sealed class ProvisionAutopilotStepTests
         Assert.Equal(expectedConfigPath, context.RuntimeState.StagedAutopilotConfigurationPath);
         Assert.True(File.Exists(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistration.ps1")));
         Assert.True(File.Exists(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistration.cmd")));
-        Assert.True(File.Exists(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistrationAutoLaunch.cmd")));
+        Assert.True(File.Exists(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistrationAutoLaunch.ps1")));
         Assert.True(File.Exists(Path.Combine(registrationRoot, "Register-FoundryAutopilotRegistrationTask.ps1")));
         Assert.True(File.Exists(expectedConfigPath));
         Assert.True(File.Exists(Path.Combine(workspace.TargetWindowsRootPath, "Windows", "Setup", "Scripts", "SetupComplete.cmd")));

@@ -19,7 +19,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Equal(registrationRoot, result.RegistrationRootPath);
         Assert.Equal(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistration.ps1"), result.ScriptPath);
         Assert.Equal(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistration.cmd"), result.LauncherPath);
-        Assert.Equal(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistrationAutoLaunch.cmd"), result.AutomaticLauncherPath);
+        Assert.Equal(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistrationAutoLaunch.ps1"), result.AutomaticLauncherPath);
         Assert.Equal(Path.Combine(registrationRoot, "Register-FoundryAutopilotRegistrationTask.ps1"), result.AutomaticLaunchScriptPath);
         Assert.Equal(Path.Combine(registrationRoot, "config.json"), result.ConfigPath);
         Assert.Equal(Path.Combine(windowsRoot, "Windows", "Setup", "Scripts", "SetupComplete.cmd"), result.SetupCompletePath);
@@ -85,31 +85,38 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
 
         string automaticLauncher = File.ReadAllText(result.AutomaticLauncherPath);
         Assert.Contains("FoundryAutopilotInteractiveRegistration", automaticLauncher);
-        Assert.Contains("schtasks.exe", automaticLauncher);
-        Assert.Contains("/Delete", automaticLauncher);
+        Assert.Contains("Unregister-ScheduledTask", automaticLauncher);
         Assert.Contains("registration-result.json", automaticLauncher);
-        Assert.Contains("Start-FoundryAutopilotRegistration.cmd", automaticLauncher);
-        Assert.Contains("start \"\"", automaticLauncher);
+        Assert.Contains("Start-FoundryAutopilotRegistration.ps1", automaticLauncher);
+        Assert.Contains("auto-launcher.log", automaticLauncher);
+        Assert.Contains("& $registrationScriptPath -ConfigPath $configPath", automaticLauncher);
+        Assert.DoesNotContain("Start-FoundryAutopilotRegistration.cmd", automaticLauncher);
+        Assert.DoesNotContain("& powershell.exe", automaticLauncher);
+        Assert.DoesNotContain("start \"\"", automaticLauncher);
 
         string automaticLaunchScript = File.ReadAllText(result.AutomaticLaunchScriptPath);
         Assert.Contains("FoundryAutopilotInteractiveRegistration", automaticLaunchScript);
         Assert.Contains("New-ScheduledTaskAction", automaticLaunchScript);
-        Assert.Contains("New-ScheduledTaskTrigger -Once -At (Get-Date).AddSeconds(5)", automaticLaunchScript);
+        Assert.Contains("New-ScheduledTaskTrigger -AtLogOn -User $interactiveUser", automaticLaunchScript);
+        Assert.Contains("$launchTrigger.Delay = 'PT10S'", automaticLaunchScript);
         Assert.Contains("-Trigger $launchTrigger", automaticLaunchScript);
-        Assert.DoesNotContain("New-ScheduledTaskTrigger -AtLogon", automaticLaunchScript);
+        Assert.DoesNotContain("New-ScheduledTaskTrigger -Once", automaticLaunchScript);
         Assert.DoesNotContain("fallbackTrigger", automaticLaunchScript);
         Assert.DoesNotContain("logonTrigger", automaticLaunchScript);
         Assert.Contains("$defaultOobeUser = \"$env:COMPUTERNAME\\defaultuser0\"", automaticLaunchScript);
         Assert.Contains("$interactiveUser = Get-FoundryInteractiveLaunchUser", automaticLaunchScript);
+        Assert.Contains("WindowsPowerShell\\v1.0\\powershell.exe", automaticLaunchScript);
+        Assert.Contains("-WindowStyle Hidden", automaticLaunchScript);
         Assert.Contains("New-ScheduledTaskPrincipal -UserId $interactiveUser -LogonType Interactive -RunLevel Highest", automaticLaunchScript);
         Assert.DoesNotContain("WTSGetActiveConsoleSessionId", automaticLaunchScript);
         Assert.DoesNotContain("WTSQuerySessionInformation", automaticLaunchScript);
         Assert.DoesNotContain("[System.Security.Principal.WindowsIdentity]::GetCurrent().Name", automaticLaunchScript);
         Assert.DoesNotContain("S-1-5-32-544", automaticLaunchScript);
         Assert.DoesNotContain("-GroupId", automaticLaunchScript);
+        Assert.DoesNotContain("System32\\cmd.exe", automaticLaunchScript);
         Assert.Contains("Register-ScheduledTask", automaticLaunchScript);
         Assert.DoesNotContain("Start-ScheduledTask", automaticLaunchScript);
-        Assert.Contains("Start-FoundryAutopilotRegistrationAutoLaunch.cmd", automaticLaunchScript);
+        Assert.Contains("Start-FoundryAutopilotRegistrationAutoLaunch.ps1", automaticLaunchScript);
 
         string setupComplete = File.ReadAllText(result.SetupCompletePath);
         Assert.Contains("REM >>> FOUNDRY AUTOPILOT REGISTRATION BEGIN", setupComplete);
