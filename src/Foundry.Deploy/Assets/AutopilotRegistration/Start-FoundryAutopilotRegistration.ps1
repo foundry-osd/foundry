@@ -1085,22 +1085,6 @@ function Start-FoundryAutopilotRegistrationUi {
         Start-AuthenticationFlow
     })
 
-    $script:FocusGuardTimer = New-Object System.Windows.Threading.DispatcherTimer
-    $script:FocusGuardTimer.Interval = [TimeSpan]::FromSeconds(1)
-    $script:FocusGuardTimer.Add_Tick({
-        if ($window.IsVisible) {
-            $window.Topmost = $true
-            [void]$window.Activate()
-        }
-    })
-    $script:FocusGuardTimer.Start()
-
-    $window.Add_Closed({
-        if ($null -ne $script:FocusGuardTimer) {
-            $script:FocusGuardTimer.Stop()
-        }
-    })
-
     Show-AuthenticationStep
     [void]$window.ShowDialog()
     return $script:ExitCode
