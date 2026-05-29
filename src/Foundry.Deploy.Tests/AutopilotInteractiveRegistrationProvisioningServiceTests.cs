@@ -100,6 +100,8 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("Start-Sleep -Seconds $stableSeconds", oobeWaiter);
         Assert.Contains("Start-Process -FilePath $powershellPath", oobeWaiter);
         Assert.Contains("-STA", oobeWaiter);
+        Assert.Contains("-WindowStyle", oobeWaiter);
+        Assert.Contains("Hidden", oobeWaiter);
         Assert.Contains("Start-FoundryAutopilotRegistration.ps1", oobeWaiter);
 
         string oobeCommand = File.ReadAllText(result.OobeCommandPath);
