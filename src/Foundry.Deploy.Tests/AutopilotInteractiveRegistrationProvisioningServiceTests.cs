@@ -130,6 +130,8 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("Invoke-FoundryShiftF10", foregroundWrapper);
         Assert.Contains("Wait-FoundryOobeCommandPrompt", foregroundWrapper);
         Assert.Contains("Close-FoundryOobeCommandPrompt", foregroundWrapper);
+        Assert.Contains("[int[]]$existingCommandPromptIds = @(Get-FoundryCommandPromptIds", foregroundWrapper);
+        Assert.Contains("ExistingCommandPromptIds = @()", foregroundWrapper);
         Assert.Contains("& $RegistrationScriptPath -ConfigPath $ConfigPath", foregroundWrapper);
         Assert.Contains("foreground.log", foregroundWrapper);
 
