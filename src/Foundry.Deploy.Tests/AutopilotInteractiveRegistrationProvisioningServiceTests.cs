@@ -200,6 +200,9 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("Show-UploadStep", script);
         Assert.Contains("Start-AuthenticationFlow", script);
         Assert.Contains("Add_ContentRendered", script);
+        Assert.Contains("Topmost=\"True\"", script);
+        Assert.Contains("FocusGuardTimer", script);
+        Assert.Contains("Add_Closed", script);
         Assert.Contains("AuthenticationProgressBar", script);
         Assert.Contains("AuthenticationStatusTextBlock", script);
         Assert.Contains("Code expires in {0} seconds.", script);
