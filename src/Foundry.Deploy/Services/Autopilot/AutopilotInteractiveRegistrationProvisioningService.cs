@@ -14,6 +14,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
     private const string ScriptFileName = "Start-FoundryAutopilotRegistration.ps1";
     private const string LauncherFileName = "Start-FoundryAutopilotRegistration.cmd";
     private const string OobeLauncherFileName = "Launch-FoundryAutopilotRegistrationOobe.cmd";
+    private const string OobeWaiterFileName = "Wait-FoundryAutopilotRegistrationOobe.ps1";
     private const string OobeCommandFileName = "OOBE.cmd";
     private const string ConfigFileName = "config.json";
     private const string SetupCompleteMarkerKey = "FOUNDRY AUTOPILOT REGISTRATION";
@@ -44,6 +45,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
         string scriptPath = Path.Combine(registrationRoot, ScriptFileName);
         string launcherPath = Path.Combine(registrationRoot, LauncherFileName);
         string oobeLauncherPath = Path.Combine(registrationRoot, OobeLauncherFileName);
+        string oobeWaiterPath = Path.Combine(registrationRoot, OobeWaiterFileName);
         string oobeCommandPath = GetOobeCommandPath(targetWindowsPartitionRoot);
         string configPath = Path.Combine(registrationRoot, ConfigFileName);
         string setupCompletePath = GetSetupCompletePath(targetWindowsPartitionRoot);
@@ -55,6 +57,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
         StageScript(scriptPath);
         File.WriteAllText(launcherPath, BuildLauncher(), Encoding.ASCII);
         File.WriteAllText(oobeLauncherPath, BuildOobeLauncher(), Encoding.ASCII);
+        File.WriteAllText(oobeWaiterPath, BuildOobeWaiter(), Encoding.ASCII);
         File.WriteAllText(configPath, BuildConfig(), Utf8NoBom);
 
         _setupCompleteScriptService.RemoveBlock(setupCompletePath, SetupCompleteMarkerKey);
@@ -70,6 +73,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
             ScriptPath = scriptPath,
             LauncherPath = launcherPath,
             OobeLauncherPath = oobeLauncherPath,
+            OobeWaiterPath = oobeWaiterPath,
             OobeCommandPath = oobeCommandPath,
             ConfigPath = configPath,
             StateRootPath = stateRoot,
@@ -152,18 +156,137 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
                 $"set \"FOUNDRY_AUTOPILOT_LOG_ROOT={RuntimeLogRoot}\"",
                 "set \"FOUNDRY_AUTOPILOT_SCRIPT=%FOUNDRY_AUTOPILOT_REGISTRATION_ROOT%\\Start-FoundryAutopilotRegistration.ps1\"",
                 "set \"FOUNDRY_AUTOPILOT_CONFIG=%FOUNDRY_AUTOPILOT_REGISTRATION_ROOT%\\config.json\"",
+                "set \"FOUNDRY_AUTOPILOT_WAITER=%FOUNDRY_AUTOPILOT_REGISTRATION_ROOT%\\Wait-FoundryAutopilotRegistrationOobe.ps1\"",
                 "set \"FOUNDRY_AUTOPILOT_LOG=%FOUNDRY_AUTOPILOT_LOG_ROOT%\\oobe-launcher.log\"",
                 "set \"FOUNDRY_AUTOPILOT_PS=%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\"",
                 "mkdir \"%FOUNDRY_AUTOPILOT_LOG_ROOT%\" >nul 2>&1",
                 "echo [%date% %time%] Starting Foundry Autopilot OOBE registration launcher.>>\"%FOUNDRY_AUTOPILOT_LOG%\"",
-                "if not exist \"%FOUNDRY_AUTOPILOT_SCRIPT%\" (",
-                "    echo [%date% %time%] Registration script was not found: %FOUNDRY_AUTOPILOT_SCRIPT%.>>\"%FOUNDRY_AUTOPILOT_LOG%\"",
+                "if not exist \"%FOUNDRY_AUTOPILOT_WAITER%\" (",
+                "    echo [%date% %time%] OOBE waiter was not found: %FOUNDRY_AUTOPILOT_WAITER%.>>\"%FOUNDRY_AUTOPILOT_LOG%\"",
                 "    exit /b 0",
                 ")",
-                "\"%FOUNDRY_AUTOPILOT_PS%\" -NoLogo -NoProfile -ExecutionPolicy Bypass -STA -WindowStyle Hidden -File \"%FOUNDRY_AUTOPILOT_SCRIPT%\" -ConfigPath \"%FOUNDRY_AUTOPILOT_CONFIG%\" >>\"%FOUNDRY_AUTOPILOT_LOG%\" 2>&1",
-                "set \"FOUNDRY_AUTOPILOT_EXIT=%ERRORLEVEL%\"",
-                "echo [%date% %time%] Foundry Autopilot registration assistant exited with %FOUNDRY_AUTOPILOT_EXIT%.>>\"%FOUNDRY_AUTOPILOT_LOG%\"",
+                "start \"\" \"%FOUNDRY_AUTOPILOT_PS%\" -NoLogo -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File \"%FOUNDRY_AUTOPILOT_WAITER%\"",
+                "echo [%date% %time%] Foundry Autopilot OOBE waiter started.>>\"%FOUNDRY_AUTOPILOT_LOG%\"",
                 "exit /b 0",
+                string.Empty
+            ]);
+    }
+
+    private static string BuildOobeWaiter()
+    {
+        return string.Join(
+            Environment.NewLine,
+            [
+                "$ErrorActionPreference = 'Stop'",
+                "$registrationRoot = Join-Path $env:SystemRoot 'Temp\\Foundry\\AutopilotRegistration'",
+                "$logRoot = Join-Path $env:SystemRoot 'Temp\\Foundry\\Logs\\AutopilotRegistration'",
+                "$statePath = Join-Path $registrationRoot 'State\\registration-result.json'",
+                "$registrationScriptPath = Join-Path $registrationRoot 'Start-FoundryAutopilotRegistration.ps1'",
+                "$configPath = Join-Path $registrationRoot 'config.json'",
+                "$powershellPath = Join-Path $env:SystemRoot 'System32\\WindowsPowerShell\\v1.0\\powershell.exe'",
+                "$waitLogPath = Join-Path $logRoot 'oobe-waiter.log'",
+                "$oobeProcessNames = @('CloudExperienceHost', 'CloudExperienceHostBroker', 'UserOOBEBroker')",
+                "$timeout = [DateTimeOffset]::UtcNow.AddMinutes(20)",
+                "$stableSeconds = 15",
+                "New-Item -Path $logRoot -ItemType Directory -Force | Out-Null",
+                "$cursorApi = @'",
+                "using System;",
+                "using System.Runtime.InteropServices;",
+                "public static class FoundryCursor",
+                "{",
+                "    [StructLayout(LayoutKind.Sequential)]",
+                "    public struct Point",
+                "    {",
+                "        public int X;",
+                "        public int Y;",
+                "    }",
+                "    [StructLayout(LayoutKind.Sequential)]",
+                "    public struct CursorInfo",
+                "    {",
+                "        public int Size;",
+                "        public int Flags;",
+                "        public IntPtr CursorHandle;",
+                "        public Point ScreenPosition;",
+                "    }",
+                "    [DllImport(\"user32.dll\")]",
+                "    public static extern bool GetCursorInfo(out CursorInfo cursorInfo);",
+                "}",
+                "'@",
+                "Add-Type -TypeDefinition $cursorApi",
+                "function Write-FoundryOobeWaiterLog {",
+                "    param([Parameter(Mandatory = $true)][string]$Message)",
+                "    $timestamp = [DateTimeOffset]::Now.ToString('o')",
+                "    Add-Content -LiteralPath $waitLogPath -Value \"[$timestamp] $Message\"",
+                "}",
+                "function Test-FoundryRegistrationCompleted {",
+                "    if (-not (Test-Path -LiteralPath $statePath)) {",
+                "        return $false",
+                "    }",
+                "    try {",
+                "        $result = Get-Content -LiteralPath $statePath -Raw | ConvertFrom-Json",
+                "        return $result.status -eq 'completed'",
+                "    }",
+                "    catch {",
+                "        Write-FoundryOobeWaiterLog -Message \"Failed to read existing registration result. $($_.Exception.Message)\"",
+                "        return $false",
+                "    }",
+                "}",
+                "function Test-FoundryOobeProcessReady {",
+                "    foreach ($processName in $oobeProcessNames) {",
+                "        if (Get-Process -Name $processName -ErrorAction SilentlyContinue) {",
+                "            return $true",
+                "        }",
+                "    }",
+                "    return $false",
+                "}",
+                "function Test-FoundryCursorVisible {",
+                "    $cursorInfo = New-Object FoundryCursor+CursorInfo",
+                "    $cursorInfo.Size = [Runtime.InteropServices.Marshal]::SizeOf([FoundryCursor+CursorInfo])",
+                "    if (-not [FoundryCursor]::GetCursorInfo([ref]$cursorInfo)) {",
+                "        return $false",
+                "    }",
+                "    return ($cursorInfo.Flags -band 1) -eq 1",
+                "}",
+                "function Test-FoundryOobeReady {",
+                "    return (Test-FoundryOobeProcessReady) -and (Test-FoundryCursorVisible)",
+                "}",
+                "Write-FoundryOobeWaiterLog -Message 'Waiting for interactive OOBE desktop readiness.'",
+                "while ([DateTimeOffset]::UtcNow -lt $timeout) {",
+                "    if (Test-FoundryRegistrationCompleted) {",
+                "        Write-FoundryOobeWaiterLog -Message 'Autopilot registration is already completed.'",
+                "        exit 0",
+                "    }",
+                "    if (Test-FoundryOobeReady) {",
+                "        Write-FoundryOobeWaiterLog -Message \"OOBE desktop is ready. Waiting $stableSeconds seconds before launching assistant.\"",
+                "        Start-Sleep -Seconds $stableSeconds",
+                "        break",
+                "    }",
+                "    Start-Sleep -Seconds 2",
+                "}",
+                "if (-not (Test-FoundryOobeReady)) {",
+                "    Write-FoundryOobeWaiterLog -Message 'Timed out while waiting for interactive OOBE readiness.'",
+                "    exit 0",
+                "}",
+                "if (-not (Test-Path -LiteralPath $registrationScriptPath)) {",
+                "    Write-FoundryOobeWaiterLog -Message \"Registration script was not found: $registrationScriptPath\"",
+                "    exit 0",
+                "}",
+                "Write-FoundryOobeWaiterLog -Message 'Launching Foundry Autopilot registration assistant.'",
+                "$arguments = @(",
+                "    '-NoLogo',",
+                "    '-NoProfile',",
+                "    '-ExecutionPolicy',",
+                "    'Bypass',",
+                "    '-STA',",
+                "    '-WindowStyle',",
+                "    'Hidden',",
+                "    '-File',",
+                "    $registrationScriptPath,",
+                "    '-ConfigPath',",
+                "    $configPath",
+                ")",
+                "$process = Start-Process -FilePath $powershellPath -ArgumentList $arguments -PassThru",
+                "Write-FoundryOobeWaiterLog -Message \"Registration assistant process started with PID $($process.Id).\"",
                 string.Empty
             ]);
     }

@@ -126,6 +126,7 @@ public sealed class ProvisionAutopilotStepTests
         Assert.True(File.Exists(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistration.ps1")));
         Assert.True(File.Exists(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistration.cmd")));
         Assert.True(File.Exists(Path.Combine(registrationRoot, "Launch-FoundryAutopilotRegistrationOobe.cmd")));
+        Assert.True(File.Exists(Path.Combine(registrationRoot, "Wait-FoundryAutopilotRegistrationOobe.ps1")));
         Assert.True(File.Exists(expectedConfigPath));
         Assert.True(File.Exists(Path.Combine(workspace.TargetWindowsRootPath, "Windows", "Setup", "Scripts", "OOBE.cmd")));
         Assert.True(Directory.Exists(Path.Combine(registrationRoot, "State")));

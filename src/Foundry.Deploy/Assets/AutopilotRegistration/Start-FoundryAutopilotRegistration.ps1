@@ -132,6 +132,57 @@ function Get-ErrorResponseText {
     }
 }
 
+function Get-HttpStatusCode {
+    param([Parameter(Mandatory = $true)]$ErrorRecord)
+
+    $response = $ErrorRecord.Exception.Response
+    if ($null -eq $response) {
+        return $null
+    }
+
+    try {
+        return [int]$response.StatusCode
+    }
+    catch {
+        return $null
+    }
+}
+
+function Get-OAuthErrorCode {
+    param([Parameter(Mandatory = $true)][string]$ErrorText)
+
+    if ([string]::IsNullOrWhiteSpace($ErrorText)) {
+        return $null
+    }
+
+    try {
+        $payload = $ErrorText | ConvertFrom-Json
+        if (-not [string]::IsNullOrWhiteSpace($payload.error)) {
+            return [string]$payload.error
+        }
+    }
+    catch {
+    }
+
+    $match = [regex]::Match($ErrorText, '"error"\s*:\s*"(?<error>[^"]+)"')
+    if ($match.Success) {
+        return $match.Groups['error'].Value
+    }
+
+    return $null
+}
+
+function Test-TransientHttpFailure {
+    param([Parameter(Mandatory = $true)]$ErrorRecord)
+
+    $statusCode = Get-HttpStatusCode -ErrorRecord $ErrorRecord
+    if ($null -eq $statusCode) {
+        return $true
+    }
+
+    return $statusCode -eq 408 -or $statusCode -eq 429 -or $statusCode -ge 500
+}
+
 function Request-DeviceCode {
     param([Parameter(Mandatory = $true)]$Config)
 
@@ -173,14 +224,15 @@ function Request-DeviceCodeToken {
     }
     catch {
         $errorText = Get-ErrorResponseText -ErrorRecord $_
-        if ($errorText -match 'authorization_pending') {
+        $oauthErrorCode = Get-OAuthErrorCode -ErrorText $errorText
+        if ($oauthErrorCode -eq 'authorization_pending' -or $errorText -match 'authorization_pending') {
             return [pscustomobject]@{
                 Status = 'Pending'
                 AccessToken = $null
             }
         }
 
-        if ($errorText -match 'slow_down') {
+        if ($oauthErrorCode -eq 'slow_down' -or $errorText -match 'slow_down') {
             return [pscustomobject]@{
                 Status = 'SlowDown'
                 AccessToken = $null
@@ -193,6 +245,14 @@ function Request-DeviceCodeToken {
             return [pscustomobject]@{
                 Status = 'Pending'
                 AccessToken = $null
+            }
+        }
+
+        if (Test-TransientHttpFailure -ErrorRecord $_) {
+            return [pscustomobject]@{
+                Status = 'TransientFailure'
+                AccessToken = $null
+                ErrorText = $errorText
             }
         }
 
@@ -713,7 +773,33 @@ function Start-FoundryAutopilotRegistrationUi {
     $script:ExitCode = 1
     $script:AuthenticationStarted = $false
     $script:AuthenticationPollTimer = $null
+    $script:AuthenticationRetryTimer = $null
     $script:UploadPollTimer = $null
+
+    function Set-AuthenticationPromptInstruction {
+        $authenticationInstructionTextBlock.Inlines.Clear()
+        [void]$authenticationInstructionTextBlock.Inlines.Add((New-Object System.Windows.Documents.Run('Go to')))
+        [void]$authenticationInstructionTextBlock.Inlines.Add((New-Object System.Windows.Documents.Run(' ')))
+        $uriRun = New-Object System.Windows.Documents.Run('https://microsoft.com/devicelogin')
+        $uriRun.FontWeight = [System.Windows.FontWeights]::Bold
+        [void]$authenticationInstructionTextBlock.Inlines.Add($uriRun)
+        [void]$authenticationInstructionTextBlock.Inlines.Add((New-Object System.Windows.Documents.Run(' ')))
+        [void]$authenticationInstructionTextBlock.Inlines.Add((New-Object System.Windows.Documents.Run('in a browser and enter this code:')))
+    }
+
+    function Set-AuthenticationWaiting {
+        param(
+            [Parameter(Mandatory = $true)][string]$Message,
+            [Parameter(Mandatory = $true)][string]$StatusMessage
+        )
+
+        $authenticationInstructionTextBlock.Inlines.Clear()
+        [void]$authenticationInstructionTextBlock.Inlines.Add((New-Object System.Windows.Documents.Run($Message)))
+        $deviceCodeTextBlock.Text = ''
+        $authenticationStatusTextBlock.Text = $StatusMessage
+        $authenticationProgressBar.IsIndeterminate = $true
+        $authenticationProgressBar.Value = 0
+    }
 
     function Set-AuthenticationError {
         param([Parameter(Mandatory = $true)][string]$Message)
@@ -824,8 +910,13 @@ function Start-FoundryAutopilotRegistrationUi {
         }
     })
 
-    function Start-AuthenticationFlow {
+    function Start-AuthenticationDeviceCodeRequest {
         try {
+            if ($null -ne $script:AuthenticationRetryTimer) {
+                $script:AuthenticationRetryTimer.Stop()
+            }
+
+            Set-AuthenticationPromptInstruction
             Write-FoundryLog -Message 'Requesting Microsoft device code.'
             $script:AuthenticationDeviceCode = Request-DeviceCode -Config $Config
             $script:AuthenticationStartedAt = [DateTimeOffset]::UtcNow
@@ -861,6 +952,13 @@ function Start-FoundryAutopilotRegistrationUi {
                         return
                     }
 
+                    if ($tokenResult.Status -eq 'TransientFailure') {
+                        Write-State -Stage 'authentication' -Message 'Waiting for network connectivity.'
+                        $authenticationStatusTextBlock.Text = 'Waiting for network connectivity. Retrying authentication.'
+                        Write-FoundryLog -Message "Device code token polling transient failure. $($tokenResult.ErrorText)"
+                        return
+                    }
+
                     $script:AuthenticationPollTimer.Stop()
                     $script:AccessToken = [string]$tokenResult.AccessToken
                     Write-FoundryLog -Message 'Loading available group tags.'
@@ -879,10 +977,32 @@ function Start-FoundryAutopilotRegistrationUi {
         }
         catch {
             $message = $_.Exception.Message
-            Write-Result -Status 'failed' -Message $message
             Write-FoundryLog -Message $message
-            Set-AuthenticationError -Message 'Authentication failed. Check logs for details.'
+            if (-not (Test-TransientHttpFailure -ErrorRecord $_)) {
+                Write-Result -Status 'failed' -Message $message
+                Set-AuthenticationError -Message 'Authentication failed. Check logs for details.'
+                return
+            }
+
+            Write-State -Stage 'authentication' -Message 'Waiting for network connectivity.'
+            Set-AuthenticationWaiting `
+                -Message 'Waiting for network connectivity.' `
+                -StatusMessage 'Retrying Microsoft sign-in request in 10 seconds.'
+
+            if ($null -eq $script:AuthenticationRetryTimer) {
+                $script:AuthenticationRetryTimer = New-Object System.Windows.Threading.DispatcherTimer
+                $script:AuthenticationRetryTimer.Interval = [TimeSpan]::FromSeconds(10)
+                $script:AuthenticationRetryTimer.Add_Tick({
+                    Start-AuthenticationDeviceCodeRequest
+                })
+            }
+
+            $script:AuthenticationRetryTimer.Start()
         }
+    }
+
+    function Start-AuthenticationFlow {
+        Start-AuthenticationDeviceCodeRequest
     }
 
     $uploadButton.Add_Click({

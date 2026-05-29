@@ -20,12 +20,14 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Equal(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistration.ps1"), result.ScriptPath);
         Assert.Equal(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistration.cmd"), result.LauncherPath);
         Assert.Equal(Path.Combine(registrationRoot, "Launch-FoundryAutopilotRegistrationOobe.cmd"), result.OobeLauncherPath);
+        Assert.Equal(Path.Combine(registrationRoot, "Wait-FoundryAutopilotRegistrationOobe.ps1"), result.OobeWaiterPath);
         Assert.Equal(Path.Combine(windowsRoot, "Windows", "Setup", "Scripts", "OOBE.cmd"), result.OobeCommandPath);
         Assert.Equal(Path.Combine(registrationRoot, "config.json"), result.ConfigPath);
         Assert.Equal(logRoot, result.LogRootPath);
         Assert.True(File.Exists(result.ScriptPath));
         Assert.True(File.Exists(result.LauncherPath));
         Assert.True(File.Exists(result.OobeLauncherPath));
+        Assert.True(File.Exists(result.OobeWaiterPath));
         Assert.True(File.Exists(result.OobeCommandPath));
         Assert.True(File.Exists(result.ConfigPath));
         Assert.True(Directory.Exists(Path.Combine(registrationRoot, "State")));
@@ -81,10 +83,21 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         string oobeLauncher = File.ReadAllText(result.OobeLauncherPath);
         Assert.Contains("oobe-launcher.log", oobeLauncher);
         Assert.Contains("WindowsPowerShell\\v1.0\\powershell.exe", oobeLauncher);
-        Assert.Contains("-STA", oobeLauncher);
+        Assert.Contains("start \"\"", oobeLauncher);
         Assert.Contains("-WindowStyle Hidden", oobeLauncher);
-        Assert.Contains("Start-FoundryAutopilotRegistration.ps1", oobeLauncher);
-        Assert.Contains("-ConfigPath", oobeLauncher);
+        Assert.Contains("Wait-FoundryAutopilotRegistrationOobe.ps1", oobeLauncher);
+        Assert.Contains("exit /b 0", oobeLauncher);
+
+        string oobeWaiter = File.ReadAllText(result.OobeWaiterPath);
+        Assert.Contains("CloudExperienceHost", oobeWaiter);
+        Assert.Contains("CloudExperienceHostBroker", oobeWaiter);
+        Assert.Contains("UserOOBEBroker", oobeWaiter);
+        Assert.Contains("GetCursorInfo", oobeWaiter);
+        Assert.Contains("Test-FoundryCursorVisible", oobeWaiter);
+        Assert.Contains("Start-Sleep -Seconds $stableSeconds", oobeWaiter);
+        Assert.Contains("Start-Process -FilePath $powershellPath", oobeWaiter);
+        Assert.Contains("-STA", oobeWaiter);
+        Assert.Contains("Start-FoundryAutopilotRegistration.ps1", oobeWaiter);
 
         string oobeCommand = File.ReadAllText(result.OobeCommandPath);
         Assert.Contains("REM >>> FOUNDRY AUTOPILOT REGISTRATION BEGIN", oobeCommand);
@@ -146,6 +159,11 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
 
         string script = File.ReadAllText(result.ScriptPath);
         Assert.Contains("Request-DeviceCode", script);
+        Assert.Contains("Start-AuthenticationDeviceCodeRequest", script);
+        Assert.Contains("Test-TransientHttpFailure", script);
+        Assert.Contains("TransientFailure", script);
+        Assert.Contains("Waiting for network connectivity.", script);
+        Assert.Contains("Retrying Microsoft sign-in request", script);
         Assert.Contains("Request-DeviceCodeToken", script);
         Assert.Contains("ErrorDetails.Message", script);
         Assert.Contains("authorization_pending", script);
