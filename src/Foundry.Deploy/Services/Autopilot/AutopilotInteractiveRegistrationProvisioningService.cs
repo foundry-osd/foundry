@@ -187,7 +187,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
                 "$waitLogPath = Join-Path $logRoot 'oobe-waiter.log'",
                 "$oobeProcessNames = @('CloudExperienceHost', 'CloudExperienceHostBroker', 'UserOOBEBroker')",
                 "$timeout = [DateTimeOffset]::UtcNow.AddMinutes(20)",
-                "$stableSeconds = 15",
+                "$stableSeconds = 5",
                 "New-Item -Path $logRoot -ItemType Directory -Force | Out-Null",
                 "function Write-FoundryOobeWaiterLog {",
                 "    param([Parameter(Mandatory = $true)][string]$Message)",
