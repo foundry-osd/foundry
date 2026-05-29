@@ -128,6 +128,8 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         string foregroundWrapper = File.ReadAllText(result.ForegroundWrapperPath);
         Assert.Contains("SendInput", foregroundWrapper);
         Assert.Contains("Invoke-FoundryShiftF10", foregroundWrapper);
+        Assert.Contains("private struct MOUSEINPUT", foregroundWrapper);
+        Assert.Contains("private struct HARDWAREINPUT", foregroundWrapper);
         Assert.Contains("Wait-FoundryOobeCommandPrompt", foregroundWrapper);
         Assert.Contains("Close-FoundryOobeCommandPrompt", foregroundWrapper);
         Assert.Contains("[int[]]$existingCommandPromptIds = @(Get-FoundryCommandPromptIds", foregroundWrapper);
