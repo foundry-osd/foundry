@@ -96,18 +96,22 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
 
         string automaticLaunchScript = File.ReadAllText(result.AutomaticLaunchScriptPath);
         Assert.Contains("FoundryAutopilotInteractiveRegistration", automaticLaunchScript);
-        Assert.Contains("New-ScheduledTaskAction", automaticLaunchScript);
-        Assert.Contains("New-ScheduledTaskTrigger -AtLogOn -User $interactiveUser", automaticLaunchScript);
-        Assert.Contains("$launchTrigger.Delay = 'PT10S'", automaticLaunchScript);
-        Assert.Contains("-Trigger $launchTrigger", automaticLaunchScript);
+        Assert.Contains("<RegistrationTrigger>", automaticLaunchScript);
+        Assert.Contains("<Delay>PT10S</Delay>", automaticLaunchScript);
+        Assert.Contains("<LogonType>InteractiveToken</LogonType>", automaticLaunchScript);
+        Assert.Contains("<RunLevel>HighestAvailable</RunLevel>", automaticLaunchScript);
+        Assert.Contains("<StartWhenAvailable>true</StartWhenAvailable>", automaticLaunchScript);
+        Assert.DoesNotContain("New-ScheduledTaskAction", automaticLaunchScript);
+        Assert.DoesNotContain("New-ScheduledTaskTrigger -AtLogOn", automaticLaunchScript);
         Assert.DoesNotContain("New-ScheduledTaskTrigger -Once", automaticLaunchScript);
+        Assert.DoesNotContain("-Trigger $launchTrigger", automaticLaunchScript);
         Assert.DoesNotContain("fallbackTrigger", automaticLaunchScript);
         Assert.DoesNotContain("logonTrigger", automaticLaunchScript);
         Assert.Contains("$defaultOobeUser = \"$env:COMPUTERNAME\\defaultuser0\"", automaticLaunchScript);
         Assert.Contains("$interactiveUser = Get-FoundryInteractiveLaunchUser", automaticLaunchScript);
         Assert.Contains("WindowsPowerShell\\v1.0\\powershell.exe", automaticLaunchScript);
         Assert.Contains("-WindowStyle Hidden", automaticLaunchScript);
-        Assert.Contains("New-ScheduledTaskPrincipal -UserId $interactiveUser -LogonType Interactive -RunLevel Highest", automaticLaunchScript);
+        Assert.DoesNotContain("New-ScheduledTaskPrincipal", automaticLaunchScript);
         Assert.DoesNotContain("WTSGetActiveConsoleSessionId", automaticLaunchScript);
         Assert.DoesNotContain("WTSQuerySessionInformation", automaticLaunchScript);
         Assert.DoesNotContain("[System.Security.Principal.WindowsIdentity]::GetCurrent().Name", automaticLaunchScript);
