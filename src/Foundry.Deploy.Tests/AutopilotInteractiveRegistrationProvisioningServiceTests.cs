@@ -98,14 +98,14 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("Get-FoundryServiceUiTargetProcessName", oobeWaiter);
         Assert.Contains("-process:$targetProcessName", oobeWaiter);
         Assert.Contains("Launching assistant through ServiceUI", oobeWaiter);
-        Assert.Contains("Falling back to direct launch", oobeWaiter);
+        Assert.DoesNotContain("Falling back to direct launch", oobeWaiter);
+        Assert.DoesNotContain("Start-Process -FilePath $powershellPath", oobeWaiter);
         Assert.Contains("oobe-sessiondiag.log", oobeWaiter);
         Assert.Contains("query session", oobeWaiter);
         Assert.Contains("Before assistant launch", oobeWaiter);
         Assert.Contains("After assistant launch", oobeWaiter);
         Assert.Contains("OOBE waiter failed.", oobeWaiter);
         Assert.Contains("Start-Sleep -Seconds $stableSeconds", oobeWaiter);
-        Assert.Contains("Start-FoundryAutopilotAssistant", oobeWaiter);
         Assert.Contains("-STA", oobeWaiter);
         Assert.Contains("-WindowStyle", oobeWaiter);
         Assert.Contains("Hidden", oobeWaiter);
