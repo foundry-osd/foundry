@@ -193,7 +193,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
                 "$waitLogPath = Join-Path $logRoot 'oobe-waiter.log'",
                 "$sessionDiagLogPath = Join-Path $logRoot 'oobe-sessiondiag.log'",
                 "$oobeProcessNames = @('CloudExperienceHost', 'CloudExperienceHostBroker', 'UserOOBEBroker')",
-                "$serviceUiTargetProcessNames = @('CloudExperienceHost', 'CloudExperienceHostBroker', 'UserOOBEBroker', 'oobenetworkconnectionflow', 'wwahost', 'powershell')",
+                "$serviceUiTargetProcessNames = $oobeProcessNames",
                 "$timeout = [DateTimeOffset]::UtcNow.AddMinutes(20)",
                 "$stableSeconds = 15",
                 "New-Item -Path $logRoot -ItemType Directory -Force | Out-Null",
