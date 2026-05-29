@@ -92,6 +92,10 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("CloudExperienceHost", oobeWaiter);
         Assert.Contains("CloudExperienceHostBroker", oobeWaiter);
         Assert.Contains("UserOOBEBroker", oobeWaiter);
+        Assert.Contains("oobe-sessiondiag.log", oobeWaiter);
+        Assert.Contains("query session", oobeWaiter);
+        Assert.Contains("Before assistant launch", oobeWaiter);
+        Assert.Contains("After assistant launch", oobeWaiter);
         Assert.Contains("OOBE waiter failed.", oobeWaiter);
         Assert.Contains("Start-Sleep -Seconds $stableSeconds", oobeWaiter);
         Assert.Contains("Start-Process -FilePath $powershellPath", oobeWaiter);
