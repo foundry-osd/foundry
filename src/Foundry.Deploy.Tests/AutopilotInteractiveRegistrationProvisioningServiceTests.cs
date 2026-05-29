@@ -96,11 +96,16 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
 
         string automaticLaunchScript = File.ReadAllText(result.AutomaticLaunchScriptPath);
         Assert.Contains("FoundryAutopilotInteractiveRegistration", automaticLaunchScript);
+        Assert.Contains("<?xml version=\"1.0\" encoding=\"UTF-16\"?>", automaticLaunchScript);
+        Assert.Contains("<Task version=\"1.4\" xmlns=\"http://schemas.microsoft.com/windows/2004/02/mit/task\">", automaticLaunchScript);
         Assert.Contains("<RegistrationTrigger>", automaticLaunchScript);
         Assert.Contains("<Delay>PT10S</Delay>", automaticLaunchScript);
+        Assert.Contains("<Principal id=\"Author\">", automaticLaunchScript);
         Assert.Contains("<LogonType>InteractiveToken</LogonType>", automaticLaunchScript);
         Assert.Contains("<RunLevel>HighestAvailable</RunLevel>", automaticLaunchScript);
         Assert.Contains("<StartWhenAvailable>true</StartWhenAvailable>", automaticLaunchScript);
+        Assert.DoesNotContain("version=\"\"1.0\"\"", automaticLaunchScript);
+        Assert.DoesNotContain("id=\"\"Author\"\"", automaticLaunchScript);
         Assert.DoesNotContain("New-ScheduledTaskAction", automaticLaunchScript);
         Assert.DoesNotContain("New-ScheduledTaskTrigger -AtLogOn", automaticLaunchScript);
         Assert.DoesNotContain("New-ScheduledTaskTrigger -Once", automaticLaunchScript);
