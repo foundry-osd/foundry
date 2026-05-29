@@ -95,8 +95,10 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("CloudExperienceHostBroker", oobeWaiter);
         Assert.Contains("UserOOBEBroker", oobeWaiter);
         Assert.Contains("ServiceUI.exe", oobeWaiter);
-        Assert.Contains("Get-FoundryServiceUiTargetProcessName", oobeWaiter);
+        Assert.Contains("Get-FoundryServiceUiTargetProcess", oobeWaiter);
         Assert.Contains("-process:$targetProcessName", oobeWaiter);
+        Assert.Contains("Before ServiceUI target selection", oobeWaiter);
+        Assert.Contains("Selected ServiceUI target process", oobeWaiter);
         Assert.Contains("Launching assistant through ServiceUI", oobeWaiter);
         Assert.DoesNotContain("Falling back to direct launch", oobeWaiter);
         Assert.DoesNotContain("Start-Process -FilePath $powershellPath", oobeWaiter);
