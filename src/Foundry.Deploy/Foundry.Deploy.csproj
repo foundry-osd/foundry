@@ -200,6 +200,9 @@
     <EmbeddedResource Include="Assets\AutopilotRegistration\*.ps1">
       <LogicalName>Foundry.Deploy.AutopilotRegistration.%(Filename)%(Extension)</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Assets\AutopilotRegistration\*.exe">
+      <LogicalName>Foundry.Deploy.AutopilotRegistration.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>

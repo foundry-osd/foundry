@@ -21,6 +21,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Equal(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistration.cmd"), result.LauncherPath);
         Assert.Equal(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistrationOobe.cmd"), result.OobeLauncherPath);
         Assert.Equal(Path.Combine(registrationRoot, "Wait-FoundryAutopilotRegistrationOobe.ps1"), result.OobeWaiterPath);
+        Assert.Equal(Path.Combine(registrationRoot, "ServiceUI.exe"), result.ServiceUiPath);
         Assert.Equal(Path.Combine(windowsRoot, "Windows", "Setup", "Scripts", "OOBE.cmd"), result.OobeCommandPath);
         Assert.Equal(Path.Combine(registrationRoot, "config.json"), result.ConfigPath);
         Assert.Equal(logRoot, result.LogRootPath);
@@ -28,6 +29,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.True(File.Exists(result.LauncherPath));
         Assert.True(File.Exists(result.OobeLauncherPath));
         Assert.True(File.Exists(result.OobeWaiterPath));
+        Assert.True(File.Exists(result.ServiceUiPath));
         Assert.True(File.Exists(result.OobeCommandPath));
         Assert.True(File.Exists(result.ConfigPath));
         Assert.True(Directory.Exists(Path.Combine(registrationRoot, "State")));
@@ -92,13 +94,18 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("CloudExperienceHost", oobeWaiter);
         Assert.Contains("CloudExperienceHostBroker", oobeWaiter);
         Assert.Contains("UserOOBEBroker", oobeWaiter);
+        Assert.Contains("ServiceUI.exe", oobeWaiter);
+        Assert.Contains("Get-FoundryServiceUiTargetProcessName", oobeWaiter);
+        Assert.Contains("-process:$targetProcessName", oobeWaiter);
+        Assert.Contains("Launching assistant through ServiceUI", oobeWaiter);
+        Assert.Contains("Falling back to direct launch", oobeWaiter);
         Assert.Contains("oobe-sessiondiag.log", oobeWaiter);
         Assert.Contains("query session", oobeWaiter);
         Assert.Contains("Before assistant launch", oobeWaiter);
         Assert.Contains("After assistant launch", oobeWaiter);
         Assert.Contains("OOBE waiter failed.", oobeWaiter);
         Assert.Contains("Start-Sleep -Seconds $stableSeconds", oobeWaiter);
-        Assert.Contains("Start-Process -FilePath $powershellPath", oobeWaiter);
+        Assert.Contains("Start-FoundryAutopilotAssistant", oobeWaiter);
         Assert.Contains("-STA", oobeWaiter);
         Assert.Contains("-WindowStyle", oobeWaiter);
         Assert.Contains("Hidden", oobeWaiter);

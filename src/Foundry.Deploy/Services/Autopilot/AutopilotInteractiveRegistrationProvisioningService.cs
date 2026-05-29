@@ -15,10 +15,12 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
     private const string LauncherFileName = "Start-FoundryAutopilotRegistration.cmd";
     private const string OobeLauncherFileName = "Start-FoundryAutopilotRegistrationOobe.cmd";
     private const string OobeWaiterFileName = "Wait-FoundryAutopilotRegistrationOobe.ps1";
+    private const string ServiceUiFileName = "ServiceUI.exe";
     private const string OobeCommandFileName = "OOBE.cmd";
     private const string ConfigFileName = "config.json";
     private const string SetupCompleteMarkerKey = "FOUNDRY AUTOPILOT REGISTRATION";
     private const string ScriptResourceName = "Foundry.Deploy.AutopilotRegistration.Start-FoundryAutopilotRegistration.ps1";
+    private const string ServiceUiResourceName = "Foundry.Deploy.AutopilotRegistration.ServiceUI.exe";
     private const string RuntimeRegistrationRoot = "%SystemRoot%\\Temp\\Foundry\\AutopilotRegistration";
     private const string RuntimeLogRoot = "%SystemRoot%\\Temp\\Foundry\\Logs\\AutopilotRegistration";
     private const string RuntimeStateRoot = "%SystemRoot%\\Temp\\Foundry\\AutopilotRegistration\\State";
@@ -46,6 +48,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
         string launcherPath = Path.Combine(registrationRoot, LauncherFileName);
         string oobeLauncherPath = Path.Combine(registrationRoot, OobeLauncherFileName);
         string oobeWaiterPath = Path.Combine(registrationRoot, OobeWaiterFileName);
+        string serviceUiPath = Path.Combine(registrationRoot, ServiceUiFileName);
         string oobeCommandPath = GetOobeCommandPath(targetWindowsPartitionRoot);
         string configPath = Path.Combine(registrationRoot, ConfigFileName);
         string setupCompletePath = GetSetupCompletePath(targetWindowsPartitionRoot);
@@ -54,7 +57,8 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
         Directory.CreateDirectory(stateRoot);
         Directory.CreateDirectory(logRoot);
 
-        StageScript(scriptPath);
+        StageEmbeddedResource(ScriptResourceName, scriptPath);
+        StageEmbeddedResource(ServiceUiResourceName, serviceUiPath);
         File.WriteAllText(launcherPath, BuildLauncher(), Encoding.ASCII);
         File.WriteAllText(oobeLauncherPath, BuildOobeLauncher(), Encoding.ASCII);
         File.WriteAllText(oobeWaiterPath, BuildOobeWaiter(), Encoding.ASCII);
@@ -74,6 +78,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
             LauncherPath = launcherPath,
             OobeLauncherPath = oobeLauncherPath,
             OobeWaiterPath = oobeWaiterPath,
+            ServiceUiPath = serviceUiPath,
             OobeCommandPath = oobeCommandPath,
             ConfigPath = configPath,
             StateRootPath = stateRoot,
@@ -101,16 +106,16 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
         return Path.Combine(targetWindowsPartitionRoot, "Windows", "Setup", "Scripts", OobeCommandFileName);
     }
 
-    private static void StageScript(string scriptPath)
+    private static void StageEmbeddedResource(string resourceName, string destinationPath)
     {
         Assembly assembly = typeof(AutopilotInteractiveRegistrationProvisioningService).Assembly;
-        using Stream? stream = assembly.GetManifestResourceStream(ScriptResourceName);
+        using Stream? stream = assembly.GetManifestResourceStream(resourceName);
         if (stream is null)
         {
-            throw new InvalidOperationException($"Embedded Autopilot registration assistant resource '{ScriptResourceName}' was not found.");
+            throw new InvalidOperationException($"Embedded Autopilot registration resource '{resourceName}' was not found.");
         }
 
-        using FileStream destination = File.Create(scriptPath);
+        using FileStream destination = File.Create(destinationPath);
         stream.CopyTo(destination);
     }
 
@@ -183,10 +188,12 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
                 "$statePath = Join-Path $registrationRoot 'State\\registration-result.json'",
                 "$registrationScriptPath = Join-Path $registrationRoot 'Start-FoundryAutopilotRegistration.ps1'",
                 "$configPath = Join-Path $registrationRoot 'config.json'",
+                "$serviceUiPath = Join-Path $registrationRoot 'ServiceUI.exe'",
                 "$powershellPath = Join-Path $env:SystemRoot 'System32\\WindowsPowerShell\\v1.0\\powershell.exe'",
                 "$waitLogPath = Join-Path $logRoot 'oobe-waiter.log'",
                 "$sessionDiagLogPath = Join-Path $logRoot 'oobe-sessiondiag.log'",
                 "$oobeProcessNames = @('CloudExperienceHost', 'CloudExperienceHostBroker', 'UserOOBEBroker')",
+                "$serviceUiTargetProcessNames = @('CloudExperienceHost', 'CloudExperienceHostBroker', 'UserOOBEBroker', 'oobenetworkconnectionflow', 'wwahost', 'powershell')",
                 "$timeout = [DateTimeOffset]::UtcNow.AddMinutes(20)",
                 "$stableSeconds = 15",
                 "New-Item -Path $logRoot -ItemType Directory -Force | Out-Null",
@@ -229,6 +236,53 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
                 "    catch {",
                 "        Write-FoundryOobeWaiterLog -Message \"Failed to write OOBE session diagnostics. $($_.Exception.Message)\"",
                 "    }",
+                "}",
+                "function Get-FoundryServiceUiTargetProcessName {",
+                "    $currentSessionId = [System.Diagnostics.Process]::GetCurrentProcess().SessionId",
+                "    foreach ($processName in $serviceUiTargetProcessNames) {",
+                "        $targetProcess = Get-Process -Name $processName -ErrorAction SilentlyContinue |",
+                "            Where-Object { $_.SessionId -eq $currentSessionId } |",
+                "            Select-Object -First 1",
+                "        if ($targetProcess) {",
+                "            return \"$($targetProcess.ProcessName).exe\"",
+                "        }",
+                "    }",
+                "    return $null",
+                "}",
+                "function Start-FoundryAutopilotAssistant {",
+                "    $assistantArguments = @(",
+                "        '-NoLogo',",
+                "        '-NoProfile',",
+                "        '-ExecutionPolicy',",
+                "        'Bypass',",
+                "        '-STA',",
+                "        '-WindowStyle',",
+                "        'Hidden',",
+                "        '-File',",
+                "        $registrationScriptPath,",
+                "        '-ConfigPath',",
+                "        $configPath",
+                "    )",
+                "    if (Test-Path -LiteralPath $serviceUiPath) {",
+                "        $targetProcessName = Get-FoundryServiceUiTargetProcessName",
+                "        if ($targetProcessName) {",
+                "            Write-FoundryOobeWaiterLog -Message \"Launching assistant through ServiceUI using target process $targetProcessName.\"",
+                "            $serviceUiArguments = @(\"-process:$targetProcessName\", $powershellPath) + $assistantArguments",
+                "            try {",
+                "                return Start-Process -FilePath $serviceUiPath -ArgumentList $serviceUiArguments -PassThru",
+                "            }",
+                "            catch {",
+                "                Write-FoundryOobeWaiterLog -Message \"ServiceUI launch failed. Falling back to direct launch. $($_.Exception.Message)\"",
+                "            }",
+                "        }",
+                "        else {",
+                "            Write-FoundryOobeWaiterLog -Message 'ServiceUI target process was not found in the current OOBE session. Falling back to direct launch.'",
+                "        }",
+                "    }",
+                "    else {",
+                "        Write-FoundryOobeWaiterLog -Message \"ServiceUI was not found: $serviceUiPath. Falling back to direct launch.\"",
+                "    }",
+                "    return Start-Process -FilePath $powershellPath -ArgumentList $assistantArguments -PassThru",
                 "}",
                 "try {",
                 "function Test-FoundryRegistrationCompleted {",
@@ -275,21 +329,8 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
                 "}",
                 "Write-FoundryOobeWaiterLog -Message 'Launching Foundry Autopilot registration assistant.'",
                 "Write-FoundryOobeSessionDiagnostics -Stage 'Before assistant launch'",
-                "$arguments = @(",
-                "    '-NoLogo',",
-                "    '-NoProfile',",
-                "    '-ExecutionPolicy',",
-                "    'Bypass',",
-                "    '-STA',",
-                "    '-WindowStyle',",
-                "    'Hidden',",
-                "    '-File',",
-                "    $registrationScriptPath,",
-                "    '-ConfigPath',",
-                "    $configPath",
-                ")",
-                "$process = Start-Process -FilePath $powershellPath -ArgumentList $arguments -PassThru",
-                "Write-FoundryOobeWaiterLog -Message \"Registration assistant process started with PID $($process.Id).\"",
+                "$process = Start-FoundryAutopilotAssistant",
+                "Write-FoundryOobeWaiterLog -Message \"Registration assistant launch process started with PID $($process.Id).\"",
                 "Write-FoundryOobeSessionDiagnostics -Stage 'After assistant launch' -AssistantProcessId $process.Id",
                 "}",
                 "catch {",
