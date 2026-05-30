@@ -213,6 +213,8 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("Find-AutopilotDeviceBySerialNumber", script);
         Assert.Contains("Update-AutopilotDeviceGroupTag", script);
         Assert.Contains("Should-ContinueVisibilityWaitAfterImportError", script);
+        Assert.Contains("UploadGroupTagUpdateRequested", script);
+        Assert.Contains("Timed out while waiting for Windows Autopilot group tag update.", script);
         Assert.Contains("Invoke-GraphRequest", script);
         Assert.Contains("Test-RegistrationAlreadyCompleted", script);
         Assert.Contains("deviceManagement/importedWindowsAutopilotDeviceIdentities/import", script);
@@ -224,6 +226,8 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.DoesNotContain("Connect-MgGraph", script);
         Assert.DoesNotContain("Get-WindowsAutopilotInfo", script);
         Assert.DoesNotContain("WindowsAutopilotIntune", script);
+        Assert.DoesNotContain("Wait-AutopilotDeviceGroupTag", script);
+        Assert.DoesNotContain("Start-Sleep -Seconds $intervalSeconds", script);
     }
 
     [Fact]

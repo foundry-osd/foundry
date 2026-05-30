@@ -483,29 +483,6 @@ function Update-AutopilotDeviceGroupTag {
     Invoke-GraphRequest -Method Post -Path "deviceManagement/windowsAutopilotDeviceIdentities/$deviceId/updateDeviceProperties" -AccessToken $AccessToken -Body $body | Out-Null
 }
 
-function Wait-AutopilotDeviceGroupTag {
-    param(
-        [Parameter(Mandatory = $true)][string]$AccessToken,
-        [Parameter(Mandatory = $true)][string]$SerialNumber,
-        [Parameter(Mandatory = $false)][string]$GroupTag
-    )
-
-    $timeoutSeconds = if ($Config.importPollingTimeoutSeconds) { [int]$Config.importPollingTimeoutSeconds } else { 900 }
-    $intervalSeconds = if ($Config.importPollingIntervalSeconds) { [int]$Config.importPollingIntervalSeconds } else { 15 }
-    $deadline = [DateTimeOffset]::UtcNow.AddSeconds($timeoutSeconds)
-
-    while ([DateTimeOffset]::UtcNow -lt $deadline) {
-        $device = Find-AutopilotDeviceBySerialNumber -AccessToken $AccessToken -SerialNumber $SerialNumber
-        if ($null -ne $device -and -not (Should-UpdateGroupTag -CurrentGroupTag ([string]$device.groupTag) -RequestedGroupTag $GroupTag)) {
-            return $device
-        }
-
-        Start-Sleep -Seconds $intervalSeconds
-    }
-
-    throw 'Timed out while waiting for Windows Autopilot group tag update.'
-}
-
 function Test-AutopilotDeviceReadiness {
     param(
         [Parameter(Mandatory = $true)][string]$AccessToken,
@@ -519,10 +496,22 @@ function Test-AutopilotDeviceReadiness {
     $visibleDevice = Find-AutopilotDeviceBySerialNumber -AccessToken $AccessToken -SerialNumber $Identity.SerialNumber
     if ($null -ne $visibleDevice) {
         if (Should-UpdateGroupTag -CurrentGroupTag ([string]$visibleDevice.groupTag) -RequestedGroupTag $GroupTag) {
-            Write-State -Stage 'groupTag' -Message 'Updating Windows Autopilot group tag.'
-            Write-FoundryLog -Path $GraphLogPath -Message 'Updating Windows Autopilot group tag.'
-            Update-AutopilotDeviceGroupTag -AccessToken $AccessToken -Device $visibleDevice -GroupTag $GroupTag
-            $visibleDevice = Wait-AutopilotDeviceGroupTag -AccessToken $AccessToken -SerialNumber $Identity.SerialNumber -GroupTag $GroupTag
+            if (-not $script:UploadGroupTagUpdateRequested) {
+                Write-State -Stage 'groupTag' -Message 'Updating Windows Autopilot group tag.'
+                Write-FoundryLog -Path $GraphLogPath -Message 'Updating Windows Autopilot group tag.'
+                Update-AutopilotDeviceGroupTag -AccessToken $AccessToken -Device $visibleDevice -GroupTag $GroupTag
+                $script:UploadGroupTagUpdateRequested = $true
+            }
+
+            if ([DateTimeOffset]::UtcNow -ge $Deadline) {
+                throw 'Timed out while waiting for Windows Autopilot group tag update.'
+            }
+
+            return [pscustomobject]@{
+                Status = 'Pending'
+                ImportedIdentity = $ImportedIdentity.Value
+                AutopilotDevice = $visibleDevice
+            }
         }
 
         return [pscustomobject]@{
@@ -1041,6 +1030,7 @@ function Start-FoundryAutopilotRegistrationUi {
 
             $script:UploadSelectedGroupTag = $selectedGroupTag
             $script:UploadIdentity = Get-AutopilotHardwareIdentity
+            $script:UploadGroupTagUpdateRequested = $false
             Set-UploadProgress -Message 'Uploading hardware hash to Microsoft Intune.' -IsIndeterminate $true
             $script:UploadImport = Import-AutopilotDeviceIdentity -AccessToken $script:AccessToken -Identity $script:UploadIdentity -GroupTag $script:UploadSelectedGroupTag
             $script:UploadImportedIdentity = $script:UploadImport.ImportedIdentity
