@@ -169,7 +169,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Autopilot.Description" xml:space="preserve">
-    <value>اختر طريقة التوفير Autopilot لوسائط النشر: JSON التدريج لملف التعريف أو WinPE تحميل تجزئة الأجهزة.</value>
+    <value>اختر طريقة توفير Autopilot لوسائط النشر: تجهيز ملف تعريف JSON أو تحميل تجزئة الأجهزة بدون لمس في WinPE أو تحميل تجزئة الأجهزة التفاعلي.</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>تمكين Autopilot</value>
@@ -298,13 +298,22 @@
     <value>استخدم JSON توفير ملف التعريف</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>تحميل تجزئة الأجهزة</value>
+    <value>تحميل zero-touch لتجزئة الأجهزة</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>قم بتحميل تجزئة أجهزة الجهاز إلى Intune من Foundry Deploy في WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>استخدم تحميل تجزئة الأجهزة</value>
+    <value>استخدام تحميل zero-touch لتجزئة الأجهزة</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
+    <value>تحميل تفاعلي لتجزئة الأجهزة</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
+    <value>تجهيز تسجيل دخول الفني باستخدام رمز الجهاز لتسجيل تجزئة الأجهزة أثناء OOBE.</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
+    <value>استخدام تحميل تجزئة الأجهزة التفاعلي</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>ربط المستأجر</value>
@@ -1414,7 +1423,10 @@
     <value>ممكّن: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>ممكّن: تحميل تجزئة الأجهزة</value>
+    <value>مُمكّن: تحميل zero-touch لتجزئة الأجهزة</value>
+  </data>
+  <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
+    <value>مُمكّن: تحميل تفاعلي لتجزئة الأجهزة</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot يستخدم وضع توفير غير مدعوم.</value>

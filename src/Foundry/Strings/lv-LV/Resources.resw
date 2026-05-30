@@ -169,7 +169,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Autopilot.Description" xml:space="preserve">
-    <value>Izvēlieties Autopilot nodrošināšanas metodi izvietošanas datu nesējam: JSON profila inscenējums vai WinPE aparatūras jaukšanas augšupielāde.</value>
+    <value>Izvēlieties izvietošanas datu nesēja Autopilot sagatavošanas metodi: JSON profila sagatavošanu, WinPE zero-touch aparatūras jaucējkoda augšupielādi vai interaktīvu aparatūras jaucējkoda augšupielādi.</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Iespējot Autopilot</value>
@@ -298,13 +298,22 @@
     <value>Izmantojiet JSON profila nodrošināšanu</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Aparatūras hash augšupielāde</value>
+    <value>Zero-touch aparatūras jaucējkoda augšupielāde</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>Augšupielādējiet ierīces aparatūras jaucējfailu uz Intune no Foundry Deploy, izmantojot WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Izmantojiet aparatūras hash augšupielādi</value>
+    <value>Izmantot zero-touch aparatūras jaucējkoda augšupielādi</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
+    <value>Interaktīva aparatūras jaucējkoda augšupielāde</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
+    <value>Sagatavo tehniķa pierakstīšanos ar ierīces kodu aparatūras jaucējkoda reģistrācijai OOBE laikā.</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
+    <value>Izmantot interaktīvu aparatūras jaucējkoda augšupielādi</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Pievienojiet īrnieku</value>
@@ -1414,7 +1423,10 @@
     <value>Iespējots: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Iespējots: aparatūras jauktā augšupielāde</value>
+    <value>Iespējots: zero-touch aparatūras jaucējkoda augšupielāde</value>
+  </data>
+  <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
+    <value>Iespējots: interaktīva aparatūras jaucējkoda augšupielāde</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot izmanto neatbalstītu nodrošināšanas režīmu.</value>

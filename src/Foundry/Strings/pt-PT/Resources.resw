@@ -169,7 +169,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Autopilot.Description" xml:space="preserve">
-    <value>Escolha o método de provisionamento Autopilot para mídia de implantação: teste de perfil JSON ou upload de hash de hardware WinPE.</value>
+    <value>Escolha o método de aprovisionamento Autopilot para o suporte de implementação: preparação do perfil JSON, carregamento zero-touch do hash de hardware no WinPE ou carregamento interativo do hash de hardware.</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Ativar Autopilot</value>
@@ -298,13 +298,22 @@
     <value>Use o provisionamento de perfil JSON</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Upload de hash de hardware</value>
+    <value>Carregamento zero-touch do hash de hardware</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>Carregue o hash de hardware do dispositivo para Intune de Foundry Deploy em WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Usar upload de hash de hardware</value>
+    <value>Utilizar carregamento zero-touch do hash de hardware</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
+    <value>Carregamento interativo do hash de hardware</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
+    <value>Prepara o início de sessão do técnico com código do dispositivo para registar o hash de hardware durante o OOBE.</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
+    <value>Utilizar carregamento interativo do hash de hardware</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Conectar inquilino</value>
@@ -1414,7 +1423,10 @@
     <value>Ativado: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Habilitado: upload de hash de hardware</value>
+    <value>Ativado: carregamento zero-touch do hash de hardware</value>
+  </data>
+  <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
+    <value>Ativado: carregamento interativo do hash de hardware</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot usa um modo de provisionamento não suportado.</value>

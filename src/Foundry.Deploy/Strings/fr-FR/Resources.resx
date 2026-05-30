@@ -50,9 +50,10 @@
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Aucun profil Autopilot intégré n’a été trouvé sur ce média.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>Profil JSON</value></data>
-  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Envoi du hash matériel</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Envoi zero-touch du hash matériel</value></data>
+  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Envoi interactif du hash matériel</value></data>
   <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Disponible sur ce média : {0}</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Envoi du hash matériel</value></data>
+  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Envoi zero-touch du hash matériel</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>État de l’envoi du hash matériel</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Prêt pour l’envoi du hash matériel</value></data>
   <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Pas prêt pour l’envoi du hash matériel</value></data>
@@ -121,7 +122,7 @@
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Pas d’Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>Profil JSON</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Envoi du hash matériel</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Envoi zero-touch du hash matériel</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>Certificat valide</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>Certificat expiré</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>Infos du certificat manquantes</value></data>
@@ -527,5 +528,23 @@ Continuer le déploiement ?</value></data>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Chinois traditionnel (Taïwan)</value>
+  </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Préparation de l&apos;assistant d&apos;enregistrement Autopilot...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>Copie des fichiers d&apos;enregistrement interactif...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>Écriture du manifeste d&apos;enregistrement interactif en simulation...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>La partition Windows cible n&apos;est pas disponible pour préparer l&apos;assistant d&apos;enregistrement Autopilot interactif.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>Assistant d&apos;enregistrement Autopilot interactif préparé.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>Assistant d&apos;enregistrement Autopilot interactif préparé (simulation).</value>
   </data>
 </root>

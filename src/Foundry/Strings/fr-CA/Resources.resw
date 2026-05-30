@@ -169,7 +169,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Autopilot.Description" xml:space="preserve">
-    <value>Choisissez la méthode de provisionnement Autopilot pour le support de déploiement: JSON transfert de profil ou WinPE téléchargement de hachage matériel.</value>
+    <value>Choisissez la méthode de provisionnement Autopilot pour le média de déploiement : préparation du profil JSON, téléversement zero-touch du hachage matériel dans WinPE ou téléversement interactif du hachage matériel.</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Activer Autopilot</value>
@@ -298,13 +298,22 @@
     <value>Utiliser le provisionnement de profil JSON</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Téléchargement de hachage matériel</value>
+    <value>Téléversement zero-touch du hachage matériel</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>Téléchargez le hachage matériel du périphérique vers Intune depuis Foundry Deploy dans WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Utiliser le téléchargement de hachage matériel</value>
+    <value>Utiliser le téléversement zero-touch du hachage matériel</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
+    <value>Téléversement interactif du hachage matériel</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
+    <value>Prépare la connexion du technicien par code d’appareil pour enregistrer le hachage matériel pendant l’OOBE.</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
+    <value>Utiliser le téléversement interactif du hachage matériel</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Connecter le locataire</value>
@@ -1414,7 +1423,10 @@
     <value>Activé: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Activé: téléchargement du hachage matériel</value>
+    <value>Activé : téléversement zero-touch du hachage matériel</value>
+  </data>
+  <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
+    <value>Activé : téléversement interactif du hachage matériel</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot utilise un mode de provisionnement non pris en charge.</value>

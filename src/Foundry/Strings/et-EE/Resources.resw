@@ -169,7 +169,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Autopilot.Description" xml:space="preserve">
-    <value>Valige juurutusmeediumi jaoks Autopilot ettevalmistusmeetod: JSON profiili lavastus või WinPE riistvara räsi üleslaadimine.</value>
+    <value>Vali juurutusmeedia Autopiloti ettevalmistusviis: JSON-profiili ettevalmistus, WinPE zero-touch riistvararäsi üleslaadimine või interaktiivne riistvararäsi üleslaadimine.</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Luba Autopilot</value>
@@ -298,13 +298,22 @@
     <value>Kasutage JSON profiili pakkumist</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Riistvara räsi üleslaadimine</value>
+    <value>Zero-touch riistvararäsi üleslaadimine</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>Laadige seadme riistvara räsi üles Intune aadressilt Foundry Deploy WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Kasutage riistvara räsi üleslaadimist</value>
+    <value>Kasuta zero-touch riistvararäsi üleslaadimist</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
+    <value>Interaktiivne riistvararäsi üleslaadimine</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
+    <value>Valmistab ette tehniku seadmekoodiga sisselogimise riistvararäsi registreerimiseks OOBE ajal.</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
+    <value>Kasuta interaktiivset riistvararäsi üleslaadimist</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Ühendage üürnik</value>
@@ -1414,7 +1423,10 @@
     <value>Lubatud: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Lubatud: riistvara räsi üleslaadimine</value>
+    <value>Lubatud: zero-touch riistvararäsi üleslaadimine</value>
+  </data>
+  <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
+    <value>Lubatud: interaktiivne riistvararäsi üleslaadimine</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot kasutab toetamata varustamisrežiimi.</value>

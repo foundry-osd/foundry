@@ -197,6 +197,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Assets\AutopilotRegistration\*.ps1">
+      <LogicalName>Foundry.Deploy.AutopilotRegistration.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\AutopilotRegistration\*.exe">
+      <LogicalName>Foundry.Deploy.AutopilotRegistration.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Assets\Icons\app.ico">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>

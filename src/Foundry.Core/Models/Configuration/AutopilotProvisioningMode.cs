@@ -16,5 +16,10 @@ public enum AutopilotProvisioningMode
     /// <summary>
     /// Captures and uploads the device hardware hash from WinPE using the configured tenant app registration.
     /// </summary>
-    HardwareHashUpload
+    HardwareHashUpload,
+
+    /// <summary>
+    /// Stages interactive device-code hardware hash registration to run from the deployed Windows image.
+    /// </summary>
+    InteractiveHardwareHashUpload
 }

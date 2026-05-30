@@ -50,9 +50,10 @@
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>V tem mediju ni bilo najdenih nobenih vdelanih profilov Autopilot.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>profil JSON</value></data>
-  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Nalaganje hash strojne opreme</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch nalaganje zgoščene vrednosti strojne opreme</value></data>
+  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktivno nalaganje zgoščene vrednosti strojne opreme</value></data>
   <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Dostopno na tem mediju: {0}</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Nalaganje hash strojne opreme</value></data>
+  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch nalaganje zgoščene vrednosti strojne opreme</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Stanje nalaganja zgoščene vrednosti strojne opreme</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Pripravljen za nalaganje zgoščene vrednosti strojne opreme</value></data>
   <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Ni pripravljen za nalaganje zgoščene vrednosti strojne opreme</value></data>
@@ -121,7 +122,7 @@
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Ne Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>profil JSON</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Nalaganje hash strojne opreme</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Zero-touch nalaganje zgoščene vrednosti strojne opreme</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>Veljaven certifikat</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>Potekel certifikat</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>Manjkajo informacije o potrdilu</value></data>
@@ -527,5 +528,23 @@ Ali želite nadaljevati z uvajanjem?</value></data>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>tradicionalna kitajščina (Tajvan)</value>
+  </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Pripravlja se pomočnik za registracijo Autopilot...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>Kopirajo se datoteke interaktivne registracije...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>Zapisuje se manifest interaktivne registracije za preskusni zagon...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>Ciljna particija Windows ni na voljo za pripravo interaktivnega pomočnika za registracijo Autopilot.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>Interaktivni pomočnik za registracijo Autopilot je pripravljen.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>Interaktivni pomočnik za registracijo Autopilot je pripravljen (simulacija).</value>
   </data>
 </root>

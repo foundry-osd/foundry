@@ -50,9 +50,10 @@
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>الملف الشخصي</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>لم يتم العثور على ملفات تعريف Autopilot مضمنة على هذه الوسائط.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON الملف الشخصي</value></data>
-  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>تحميل تجزئة الأجهزة</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>تحميل zero-touch لتجزئة الأجهزة</value></data>
+  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>تحميل تفاعلي لتجزئة الأجهزة</value></data>
   <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>متوفر على هذه الوسائط: {0}</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>تحميل تجزئة الأجهزة</value></data>
+  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>تحميل zero-touch لتجزئة الأجهزة</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>حالة تحميل تجزئة الأجهزة</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>جاهز لتحميل تجزئة الأجهزة</value></data>
   <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>غير جاهز لتحميل تجزئة الأجهزة</value></data>
@@ -121,7 +122,7 @@
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>لا Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON الملف الشخصي</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>تحميل تجزئة الأجهزة</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>تحميل zero-touch لتجزئة الأجهزة</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>شهادة صالحة</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>شهادة منتهية الصلاحية</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>معلومات الشهادة مفقودة</value></data>
@@ -527,5 +528,23 @@
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>الصينية التقليدية (تايوان)</value>
+  </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>جارٍ تجهيز مساعد تسجيل Autopilot...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>جارٍ نسخ ملفات التسجيل التفاعلي...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>جارٍ كتابة بيان التسجيل التفاعلي للتشغيل التجريبي...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>قسم Windows الهدف غير متوفر لتجهيز مساعد تسجيل Autopilot التفاعلي.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>تم تجهيز مساعد تسجيل Autopilot التفاعلي.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>تم تجهيز مساعد تسجيل Autopilot التفاعلي (محاكاة).</value>
   </data>
 </root>

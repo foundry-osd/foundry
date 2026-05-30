@@ -50,9 +50,10 @@
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profils</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Šajā datu nesējā netika atrasts neviens iegults Autopilot profils.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profils</value></data>
-  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Aparatūras hash augšupielāde</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch aparatūras jaucējkoda augšupielāde</value></data>
+  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktīva aparatūras jaucējkoda augšupielāde</value></data>
   <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Pieejams šajā medijā: {0}</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Aparatūras hash augšupielāde</value></data>
+  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch aparatūras jaucējkoda augšupielāde</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Aparatūras hash augšupielādes statuss</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Gatavs aparatūras hash augšupielādei</value></data>
   <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Nav gatavs augšupielādēt aparatūras hash</value></data>
@@ -121,7 +122,7 @@
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Nē Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profils</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Aparatūras hash augšupielāde</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Zero-touch aparatūras jaucējkoda augšupielāde</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>Derīgs sertifikāts</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>Sertifikāta derīguma termiņš beidzies</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>Trūkst sertifikāta informācijas</value></data>
@@ -527,5 +528,23 @@ Vai turpināt izvietošanu?</value></data>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Ķīniešu tradicionālā (Taivāna)</value>
+  </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Tiek sagatavots Autopilot reģistrācijas palīgs...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>Tiek kopēti interaktīvās reģistrācijas faili...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>Tiek rakstīts interaktīvās reģistrācijas izmēģinājuma manifests...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>Mērķa Windows nodalījums nav pieejams interaktīvā Autopilot reģistrācijas palīga sagatavošanai.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>Interaktīvais Autopilot reģistrācijas palīgs ir sagatavots.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>Interaktīvais Autopilot reģistrācijas palīgs ir sagatavots (simulācija).</value>
   </data>
 </root>

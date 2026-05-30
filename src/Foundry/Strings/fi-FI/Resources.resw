@@ -169,7 +169,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Autopilot.Description" xml:space="preserve">
-    <value>Valitse Autopilot käyttöönottomenetelmä: JSON-profiilin vaiheistus tai WinPE laitteiston hash-lataus.</value>
+    <value>Valitse käyttöönottolevyn Autopilot-valmistelutapa: JSON-profiilin valmistelu, WinPE:n zero-touch-laitteiston hajautusarvon lataus tai vuorovaikutteinen laitteiston hajautusarvon lataus.</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Ota Autopilot käyttöön</value>
@@ -298,13 +298,22 @@
     <value>Käytä JSON-profiilin hallintaa</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Laitteiston hash-lataus</value>
+    <value>Zero-touch-laitteiston hajautusarvon lataus</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>Lataa laitteen laitteiston hash osoitteeseen Intune Foundry Deploy:sta WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Käytä laitteiston hash-latausta</value>
+    <value>Käytä zero-touch-laitteiston hajautusarvon latausta</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
+    <value>Vuorovaikutteinen laitteiston hajautusarvon lataus</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
+    <value>Valmistelee teknikon laitekoodikirjautumisen laitteiston hajautusarvon rekisteröintiä varten OOBE-vaiheessa.</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
+    <value>Käytä vuorovaikutteista laitteiston hajautusarvon latausta</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Yhdistä vuokralainen</value>
@@ -1414,7 +1423,10 @@
     <value>Käytössä: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Käytössä: laitteiston hash-lataus</value>
+    <value>Käytössä: zero-touch-laitteiston hajautusarvon lataus</value>
+  </data>
+  <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
+    <value>Käytössä: vuorovaikutteinen laitteiston hajautusarvon lataus</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot käyttää ei-tuettua hallintatilaa.</value>

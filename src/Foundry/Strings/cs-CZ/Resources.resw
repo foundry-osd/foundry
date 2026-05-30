@@ -169,7 +169,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Autopilot.Description" xml:space="preserve">
-    <value>Vyberte metodu zajišťování Autopilot pro média pro nasazení: JSON profilování nebo WinPE nahrání hardwarového hash.</value>
+    <value>Vyberte metodu zřizování Autopilotu pro instalační médium: přípravu profilu JSON, bezobslužné nahrání hardwarového hashe ve WinPE nebo interaktivní nahrání hardwarového hashe.</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Povolit Autopilot</value>
@@ -298,13 +298,22 @@
     <value>Použijte zřizování profilu JSON</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Nahrání hardwarového hashe</value>
+    <value>Zero-touch nahrání hardwarového hashe</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>Nahrajte hardwarový hash zařízení do Intune z Foundry Deploy v WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Použijte hardwarový hash upload</value>
+    <value>Použít zero-touch nahrání hardwarového hashe</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
+    <value>Interaktivní nahrání hardwarového hashe</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
+    <value>Připraví přihlášení technika pomocí kódu zařízení pro registraci hardwarového hashe během OOBE.</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
+    <value>Použít interaktivní nahrání hardwarového hashe</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Připojte nájemce</value>
@@ -1414,7 +1423,10 @@
     <value>Povoleno: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Povoleno: nahrávání hardwarového hash</value>
+    <value>Povoleno: zero-touch nahrání hardwarového hashe</value>
+  </data>
+  <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
+    <value>Povoleno: interaktivní nahrání hardwarového hashe</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot používá nepodporovaný režim zřizování.</value>

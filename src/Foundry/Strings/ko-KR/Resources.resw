@@ -169,7 +169,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Autopilot.Description" xml:space="preserve">
-    <value>배포 미디어에 대한 Autopilot 프로비저닝 방법(JSON 프로필 준비 또는 WinPE 하드웨어 해시 업로드)을 선택합니다.</value>
+    <value>배포 미디어의 Autopilot 프로비저닝 방법을 선택합니다: JSON 프로필 스테이징, WinPE zero-touch 하드웨어 해시 업로드 또는 대화형 하드웨어 해시 업로드.</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Autopilot 활성화</value>
@@ -298,13 +298,22 @@
     <value>JSON 프로필 프로비저닝 사용</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>하드웨어 해시 업로드</value>
+    <value>제로터치 하드웨어 해시 업로드</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>WinPE의 Foundry Deploy에서 Intune으로 장치 하드웨어 해시를 업로드합니다.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>하드웨어 해시 업로드 사용</value>
+    <value>제로터치 하드웨어 해시 업로드 사용</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
+    <value>대화형 하드웨어 해시 업로드</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
+    <value>OOBE 중 하드웨어 해시 등록을 위해 기술자 장치 코드 로그인을 준비합니다.</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
+    <value>대화형 하드웨어 해시 업로드 사용</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>테넌트 연결</value>
@@ -1414,7 +1423,10 @@
     <value>활성화됨: {0}({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>활성화됨: 하드웨어 해시 업로드</value>
+    <value>사용: 제로터치 하드웨어 해시 업로드</value>
+  </data>
+  <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
+    <value>사용: 대화형 하드웨어 해시 업로드</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot은 지원되지 않는 프로비저닝 모드를 사용합니다.</value>

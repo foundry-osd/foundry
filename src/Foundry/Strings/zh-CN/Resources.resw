@@ -169,7 +169,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Autopilot.Description" xml:space="preserve">
-    <value>为部署介质选择Autopilot 配置方法：JSON 配置文件暂存或WinPE 硬件哈希上传。</value>
+    <value>选择部署介质的 Autopilot 预配方法：JSON 配置文件暂存、WinPE zero-touch 硬件哈希上传，或交互式硬件哈希上传。</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>启用Autopilot</value>
@@ -298,13 +298,22 @@
     <value>使用JSON配置文件配置</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>硬件哈希上传</value>
+    <value>Zero-touch 硬件哈希上传</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>将设备硬件哈希从WinPE 中的Foundry Deploy 上传到Intune。</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>使用硬件哈希上传</value>
+    <value>使用 zero-touch 硬件哈希上传</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
+    <value>交互式硬件哈希上传</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
+    <value>在 OOBE 期间为硬件哈希注册准备技术人员设备代码登录。</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
+    <value>使用交互式硬件哈希上传</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>连接租户</value>
@@ -1414,7 +1423,10 @@
     <value>启用：{0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>启用：硬件哈希上传</value>
+    <value>已启用：zero-touch 硬件哈希上传</value>
+  </data>
+  <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
+    <value>已启用：交互式硬件哈希上传</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot 使用不受支持的配置模式。</value>

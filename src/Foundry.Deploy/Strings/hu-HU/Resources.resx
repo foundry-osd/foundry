@@ -50,9 +50,10 @@
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Ezen az adathordozón nem található beágyazott Autopilot profil.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profil</value></data>
-  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Hardveres hash feltöltés</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch hardverhash-feltöltés</value></data>
+  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktív hardverhash-feltöltés</value></data>
   <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Elérhető ezen a médián: {0}</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Hardveres hash feltöltés</value></data>
+  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch hardverhash-feltöltés</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Hardver hash feltöltési állapota</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Készen áll a hardveres hash feltöltésére</value></data>
   <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Nem áll készen a hardveres hash feltöltésére</value></data>
@@ -121,7 +122,7 @@
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Nem Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profil</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Hardveres hash feltöltés</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Zero-touch hardverhash-feltöltés</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>Érvényes tanúsítvány</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>Lejárt tanúsítvány</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>Hiányzó tanúsítvány információ</value></data>
@@ -527,5 +528,23 @@ Folytatja a telepítést?</value></data>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>hagyományos kínai (Tajvan)</value>
+  </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Az Autopilot regisztrációs segéd előkészítése...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>Interaktív regisztrációs fájlok másolása...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>Interaktív regisztrációs próbaüzemi jegyzék írása...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>A cél Windows-partíció nem érhető el az interaktív Autopilot regisztrációs segéd előkészítéséhez.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>Az interaktív Autopilot regisztrációs segéd előkészítve.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>Az interaktív Autopilot regisztrációs segéd előkészítve (szimuláció).</value>
   </data>
 </root>

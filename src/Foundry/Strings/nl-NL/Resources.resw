@@ -169,7 +169,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Autopilot.Description" xml:space="preserve">
-    <value>Kies de Autopilot inrichtingsmethode voor implementatiemedia: JSON profielfasering of WinPE hardware-hash-upload.</value>
+    <value>Kies de Autopilot-inrichtingsmethode voor het implementatiemedium: JSON-profielstaging, WinPE zero-touch hardware-hash-upload of interactieve hardware-hash-upload.</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Schakel Autopilot in</value>
@@ -298,13 +298,22 @@
     <value>Gebruik JSON profielinrichting</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Hardware-hash-upload</value>
+    <value>Zero-touch hardware-hash-upload</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>Upload de hardware-hash van het apparaat naar Intune van Foundry Deploy in WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Gebruik hardware-hash-upload</value>
+    <value>Zero-touch hardware-hash-upload gebruiken</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
+    <value>Interactieve hardware-hash-upload</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
+    <value>Bereidt aanmelding met apparaatcode voor technici voor om de hardware-hash tijdens OOBE te registreren.</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
+    <value>Interactieve hardware-hash-upload gebruiken</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Huurder verbinden</value>
@@ -1414,7 +1423,10 @@
     <value>Ingeschakeld: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Ingeschakeld: hardware-hash-upload</value>
+    <value>Ingeschakeld: zero-touch hardware-hash-upload</value>
+  </data>
+  <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
+    <value>Ingeschakeld: interactieve hardware-hash-upload</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot gebruikt een niet-ondersteunde inrichtingsmodus.</value>

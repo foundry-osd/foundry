@@ -102,6 +102,40 @@ public sealed class ProvisionAutopilotStepTests
     }
 
     [Fact]
+    public async Task ExecuteAsync_WhenLiveInteractiveHardwareHashModeIsSelected_StagesRegistrationAssistant()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var uploadService = new FakeAutopilotHardwareHashUploadService(
+            AutopilotHardwareHashUploadResult.Completed("Graph should not be called."));
+        ProvisionAutopilotStep step = CreateStep(uploadService: uploadService);
+        DeploymentStepExecutionContext context = CreateContext(
+            workspace,
+            isDryRun: false,
+            provisioningMode: AutopilotProvisioningMode.InteractiveHardwareHashUpload);
+
+        DeploymentStepResult result = await step.ExecuteAsync(context, CancellationToken.None);
+
+        string registrationRoot = Path.Combine(workspace.TargetWindowsRootPath, "Windows", "Temp", "Foundry", "AutopilotRegistration");
+        string expectedConfigPath = Path.Combine(registrationRoot, "config.json");
+
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        Assert.Contains("registration assistant", result.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Equal(AutopilotProvisioningMode.InteractiveHardwareHashUpload, context.RuntimeState.AutopilotProvisioningMode);
+        Assert.Equal(AutopilotHardwareHashUploadState.NotPlanned, context.RuntimeState.AutopilotHardwareHashUploadState);
+        Assert.Equal(expectedConfigPath, context.RuntimeState.StagedAutopilotConfigurationPath);
+        Assert.True(File.Exists(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistration.ps1")));
+        Assert.True(File.Exists(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistration.cmd")));
+        Assert.True(File.Exists(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistrationOobe.cmd")));
+        Assert.True(File.Exists(Path.Combine(registrationRoot, "Wait-FoundryAutopilotRegistrationOobe.ps1")));
+        Assert.True(File.Exists(expectedConfigPath));
+        Assert.True(File.Exists(Path.Combine(workspace.TargetWindowsRootPath, "Windows", "Setup", "Scripts", "OOBE.cmd")));
+        Assert.True(Directory.Exists(Path.Combine(registrationRoot, "State")));
+        Assert.True(Directory.Exists(Path.Combine(workspace.TargetWindowsRootPath, "Windows", "Temp", "Foundry", "Logs", "AutopilotRegistration")));
+        Assert.False(Directory.Exists(Path.Combine(workspace.TargetWindowsRootPath, "Windows", "Provisioning", "Autopilot")));
+        Assert.Empty(uploadService.Requests);
+    }
+
+    [Fact]
     public async Task ExecuteAsync_WhenGraphUploadFailsAfterCapture_ContinuesDeployment()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
@@ -233,6 +267,34 @@ public sealed class ProvisionAutopilotStepTests
         Assert.False(manifest.RootElement.TryGetProperty("certificatePfxPasswordSecret", out _));
     }
 
+    [Fact]
+    public async Task ExecuteAsync_WhenDryRunInteractiveHardwareHashModeIsSelected_WritesSanitizedManifest()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        ProvisionAutopilotStep step = CreateStep();
+        DeploymentStepExecutionContext context = CreateContext(
+            workspace,
+            isDryRun: true,
+            provisioningMode: AutopilotProvisioningMode.InteractiveHardwareHashUpload);
+
+        DeploymentStepResult result = await step.ExecuteAsync(context, CancellationToken.None);
+
+        string manifestPath = Path.Combine(workspace.TargetFoundryRootPath, "Autopilot", "interactive-registration.dryrun.json");
+
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        Assert.Contains("registration assistant", result.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Equal(AutopilotProvisioningMode.InteractiveHardwareHashUpload, context.RuntimeState.AutopilotProvisioningMode);
+        Assert.Equal(AutopilotHardwareHashUploadState.NotPlanned, context.RuntimeState.AutopilotHardwareHashUploadState);
+        Assert.Equal(manifestPath, context.RuntimeState.StagedAutopilotConfigurationPath);
+        Assert.True(File.Exists(manifestPath));
+        using JsonDocument manifest = JsonDocument.Parse(await File.ReadAllTextAsync(manifestPath));
+        Assert.Equal("interactiveHardwareHashUpload", manifest.RootElement.GetProperty("provisioningMode").GetString());
+        Assert.False(manifest.RootElement.TryGetProperty("certificatePfxSecret", out _));
+        Assert.False(manifest.RootElement.TryGetProperty("certificatePfxPasswordSecret", out _));
+        Assert.False(manifest.RootElement.TryGetProperty("groupTag", out _));
+        Assert.False(File.Exists(Path.Combine(workspace.TargetFoundryRootPath, "Autopilot", "autopilot-profile-stage.dryrun.json")));
+    }
+
     private static DeployAutopilotHardwareHashUploadSettings CreateCompleteHardwareHashSettings()
     {
         return new DeployAutopilotHardwareHashUploadSettings
@@ -252,7 +314,8 @@ public sealed class ProvisionAutopilotStepTests
         return new ProvisionAutopilotStep(
             captureService ?? new FakeAutopilotHardwareHashCaptureService(),
             uploadService ?? new FakeAutopilotHardwareHashUploadService(
-                AutopilotHardwareHashUploadResult.Completed("Device imported.")));
+                AutopilotHardwareHashUploadResult.Completed("Device imported.")),
+            new AutopilotInteractiveRegistrationProvisioningService(new SetupCompleteScriptService()));
     }
 
     private static DeploymentStepExecutionContext CreateContext(

@@ -169,7 +169,7 @@
     <value>Autopilot</value>
   </data>
   <data name="Autopilot.Description" xml:space="preserve">
-    <value>Vælg Autopilot klargøringsmetoden for implementeringsmedier: JSON profilopsamling eller WinPE hardware hash upload.</value>
+    <value>Vælg Autopilot-klargøringsmetode for installationsmediet: JSON-profilklargøring, WinPE zero-touch upload af hardwarehash eller interaktiv upload af hardwarehash.</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Aktiver Autopilot</value>
@@ -298,13 +298,22 @@
     <value>Brug JSON profilklargøring</value>
   </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
-    <value>Hardware hash upload</value>
+    <value>Zero-touch upload af hardwarehash</value>
   </data>
   <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
     <value>Upload enhedens hardware-hash til Intune fra Foundry Deploy i WinPE.</value>
   </data>
   <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Brug hardware-hash-upload</value>
+    <value>Brug zero-touch upload af hardwarehash</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
+    <value>Interaktiv upload af hardwarehash</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
+    <value>Klargør teknikerlogin med enhedskode til registrering af hardwarehash under OOBE.</value>
+  </data>
+  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
+    <value>Brug interaktiv upload af hardwarehash</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Tilslut lejer</value>
@@ -1414,7 +1423,10 @@
     <value>Aktiveret: {0} ({1})</value>
   </data>
   <data name="StartMedia.Autopilot.HardwareHashUpload" xml:space="preserve">
-    <value>Aktiveret: hardware hash upload</value>
+    <value>Aktiveret: zero-touch upload af hardwarehash</value>
+  </data>
+  <data name="StartMedia.Autopilot.InteractiveHardwareHashUpload" xml:space="preserve">
+    <value>Aktiveret: interaktiv upload af hardwarehash</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.UnsupportedProvisioningMode" xml:space="preserve">
     <value>Autopilot bruger en ikke-understøttet klargøringstilstand.</value>

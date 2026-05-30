@@ -50,9 +50,10 @@
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>プロフィール</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>このメディアには埋め込まれた Autopilot プロファイルが見つかりませんでした。</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON プロフィール</value></data>
-  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>ハードウェアハッシュのアップロード</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>ゼロタッチ ハードウェア ハッシュ アップロード</value></data>
+  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>対話型ハードウェア ハッシュ アップロード</value></data>
   <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>このメディアで利用可能: {0}</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>ハードウェアハッシュのアップロード</value></data>
+  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>ゼロタッチ ハードウェア ハッシュ アップロード</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>ハードウェア ハッシュのアップロード ステータス</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>ハードウェア ハッシュをアップロードする準備ができました</value></data>
   <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>ハードウェア ハッシュをアップロードする準備ができていません</value></data>
@@ -121,7 +122,7 @@
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>いいえ Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON プロフィール</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>ハードウェアハッシュのアップロード</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>ゼロタッチ ハードウェア ハッシュ アップロード</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>有効な証明書</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>期限切れの証明書</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>証明書情報がありません</value></data>
@@ -527,5 +528,23 @@
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>繁体字中国語 (台湾)</value>
+  </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Autopilot 登録アシスタントをステージングしています...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>対話型登録ファイルをコピーしています...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>ドライラン用の対話型登録マニフェストを書き込んでいます...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>対話型 Autopilot 登録アシスタントのステージングに使用するターゲット Windows パーティションを利用できません。</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>対話型 Autopilot 登録アシスタントをステージングしました。</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>対話型 Autopilot 登録アシスタントをステージングしました (シミュレーション)。</value>
   </data>
 </root>

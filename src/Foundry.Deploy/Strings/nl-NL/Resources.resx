@@ -50,9 +50,10 @@
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profiel</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Er zijn geen ingebedde Autopilot-profielen gevonden op dit medium.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profiel</value></data>
-  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Hardware-hash-upload</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch hardware-hash-upload</value></data>
+  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interactieve hardware-hash-upload</value></data>
   <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Beschikbaar op dit medium: {0}</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Hardware-hash-upload</value></data>
+  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch hardware-hash-upload</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Uploadstatus van hardware-hash</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Klaar om hardware-hash te uploaden</value></data>
   <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Niet klaar om hardware-hash te uploaden</value></data>
@@ -121,7 +122,7 @@
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Nee Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profiel</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Hardware-hash-upload</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Zero-touch hardware-hash-upload</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>Geldig certificaat</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>Verlopen certificaat</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>Ontbrekende certificaatinformatie</value></data>
@@ -527,5 +528,23 @@ Doorgaan met de implementatie?</value></data>
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Traditioneel Chinees (Taiwan)</value>
+  </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Autopilot-registratieassistent wordt voorbereid...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>Interactieve registratiebestanden worden gekopieerd...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>Dry-runmanifest voor interactieve registratie wordt geschreven...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>De doel-Windows-partitie is niet beschikbaar voor het voorbereiden van de interactieve Autopilot-registratieassistent.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>Interactieve Autopilot-registratieassistent voorbereid.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>Interactieve Autopilot-registratieassistent voorbereid (simulatie).</value>
   </data>
 </root>

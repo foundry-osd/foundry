@@ -136,6 +136,26 @@ public sealed class FoundryConfigurationServiceTests
     }
 
     [Fact]
+    public void Serialize_ThenDeserialize_WhenInteractiveHardwareHashModeIsSelected_PreservesReadableMode()
+    {
+        var service = new FoundryConfigurationService();
+        var document = new FoundryConfigurationDocument
+        {
+            Autopilot = new AutopilotSettings
+            {
+                IsEnabled = true,
+                ProvisioningMode = AutopilotProvisioningMode.InteractiveHardwareHashUpload
+            }
+        };
+
+        string json = service.Serialize(document);
+        FoundryConfigurationDocument loaded = service.Deserialize(json);
+
+        Assert.Contains("\"provisioningMode\": \"interactiveHardwareHashUpload\"", json, StringComparison.Ordinal);
+        Assert.Equal(AutopilotProvisioningMode.InteractiveHardwareHashUpload, loaded.Autopilot.ProvisioningMode);
+    }
+
+    [Fact]
     public void Serialize_WhenHardwareHashSettingsArePersisted_DoesNotWritePrivateMaterial()
     {
         var service = new FoundryConfigurationService();

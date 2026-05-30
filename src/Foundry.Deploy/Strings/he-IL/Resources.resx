@@ -50,9 +50,10 @@
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>פרופיל</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>לא נמצאו פרופילים משובצים של Autopilot במדיה זו.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>פרופיל JSON</value></data>
-  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>העלאת hash של חומרה</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>העלאת zero-touch של hash חומרה</value></data>
+  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>העלאה אינטראקטיבית של hash חומרה</value></data>
   <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>זמין במדיה זו: {0}</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>העלאת hash של חומרה</value></data>
+  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>העלאת zero-touch של hash חומרה</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>סטטוס העלאת גיבוב של חומרה</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>מוכן להעלות hash של חומרה</value></data>
   <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>לא מוכן להעלות hash של חומרה</value></data>
@@ -121,7 +122,7 @@
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>לא Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>פרופיל JSON</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>העלאת hash של חומרה</value></data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>העלאת zero-touch של hash חומרה</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>תעודה תקפה</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>תעודה שפג תוקפו</value></data>
   <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>חסר מידע על תעודה</value></data>
@@ -527,5 +528,23 @@ ErrorCode=0x80070005
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>סינית מסורתית (טייוואן)</value>
+  </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>מכין את מסייע הרישום של Autopilot...</value>
+  </data>
+  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
+    <value>מעתיק קובצי רישום אינטראקטיבי...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
+    <value>כותב מניפסט רישום אינטראקטיבי להרצה יבשה...</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>מחיצת ה-Windows היעד אינה זמינה להכנת מסייע הרישום האינטראקטיבי של Autopilot.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
+    <value>מסייע הרישום האינטראקטיבי של Autopilot הוכן.</value>
+  </data>
+  <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
+    <value>מסייע הרישום האינטראקטיבי של Autopilot הוכן (סימולציה).</value>
   </data>
 </root>

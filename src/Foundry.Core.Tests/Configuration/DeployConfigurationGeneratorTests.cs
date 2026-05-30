@@ -383,6 +383,41 @@ public sealed class DeployConfigurationGeneratorTests
     }
 
     [Fact]
+    public void Generate_WhenInteractiveHardwareHashModeIsEnabled_DoesNotRequireSelectedProfileOrCertificateMetadata()
+    {
+        var generator = new DeployConfigurationGenerator();
+        DateTimeOffset expiration = DateTimeOffset.UtcNow.AddMonths(6);
+        var document = new FoundryConfigurationDocument
+        {
+            Autopilot = new AutopilotSettings
+            {
+                IsEnabled = true,
+                ProvisioningMode = AutopilotProvisioningMode.InteractiveHardwareHashUpload,
+                HardwareHashUpload = CreateCompleteHardwareHashSettings(expiration)
+            }
+        };
+
+        FoundryDeployConfigurationDocument result = generator.Generate(document, mediaSecretsKey: [1, 2, 3]);
+
+        Assert.True(result.Autopilot.IsEnabled);
+        Assert.Equal(AutopilotProvisioningMode.InteractiveHardwareHashUpload, result.Autopilot.ProvisioningMode);
+        Assert.Null(result.Autopilot.DefaultProfileFolderName);
+        Assert.Null(result.Autopilot.HardwareHashUpload.TenantId);
+        Assert.Null(result.Autopilot.HardwareHashUpload.ClientId);
+        Assert.Null(result.Autopilot.HardwareHashUpload.ActiveCertificateKeyId);
+        Assert.Null(result.Autopilot.HardwareHashUpload.ActiveCertificateThumbprint);
+        Assert.Null(result.Autopilot.HardwareHashUpload.ActiveCertificateExpiresOnUtc);
+        Assert.Null(result.Autopilot.HardwareHashUpload.DefaultGroupTag);
+        Assert.Null(result.Autopilot.HardwareHashUpload.CertificatePfxSecret);
+        Assert.Null(result.Autopilot.HardwareHashUpload.CertificatePfxPasswordSecret);
+
+        string json = generator.Serialize(result);
+        Assert.Contains("\"provisioningMode\": \"interactiveHardwareHashUpload\"", json, StringComparison.Ordinal);
+        Assert.DoesNotContain("certificatePfxSecret", json, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("certificatePfxPasswordSecret", json, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
     public void Generate_WhenHardwareHashDefaultGroupTagIsNotKnown_PreservesDefaultGroupTag()
     {
         var generator = new DeployConfigurationGenerator();

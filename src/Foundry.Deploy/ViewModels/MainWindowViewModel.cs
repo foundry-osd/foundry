@@ -493,6 +493,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             HasValidAutopilotSelection =
                 !Preparation.IsAutopilotEnabled ||
                 Preparation.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload ||
+                Preparation.AutopilotProvisioningMode == AutopilotProvisioningMode.InteractiveHardwareHashUpload ||
                 Preparation.SelectedAutopilotProfile is not null,
             IsOperatingSystemCatalogReadyForNavigation = !IsCatalogLoading && OperatingSystemCatalog.IsReadyForNavigation()
         };
