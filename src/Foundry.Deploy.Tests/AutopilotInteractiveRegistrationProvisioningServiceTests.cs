@@ -205,6 +205,8 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("Request-DeviceCodeToken", script);
         Assert.Contains("ErrorDetails.Message", script);
         Assert.Contains("authorization_pending", script);
+        Assert.Contains("expired_token", script);
+        Assert.Contains("Requesting a new Microsoft device code.", script);
         Assert.Contains("Get-AutopilotHardwareIdentity", script);
         Assert.Contains("Import-AutopilotDeviceIdentity", script);
         Assert.Contains("Test-AutopilotDeviceReadiness", script);
@@ -243,6 +245,8 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("AuthenticationStatusTextBlock", script);
         Assert.Contains("Code expires in {0} seconds.", script);
         Assert.Contains("Update-AuthenticationCountdown", script);
+        Assert.Contains("Restart-AuthenticationDeviceCodeRequest", script);
+        Assert.Contains("Previous code expired.", script);
         Assert.Contains("UploadProgressBar", script);
         Assert.Contains("UploadStatusTextBlock", script);
         Assert.Contains("IsIndeterminate", script);

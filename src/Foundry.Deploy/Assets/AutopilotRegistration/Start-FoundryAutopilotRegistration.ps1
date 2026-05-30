@@ -239,6 +239,13 @@ function Request-DeviceCodeToken {
             }
         }
 
+        if ($oauthErrorCode -eq 'expired_token' -or $errorText -match 'expired_token') {
+            return [pscustomobject]@{
+                Status = 'Expired'
+                AccessToken = $null
+            }
+        }
+
         $response = $_.Exception.Response
         if ($null -ne $response -and [int]$response.StatusCode -eq 400 -and
             ([string]::IsNullOrWhiteSpace($errorText) -or $errorText -match 'Bad Request|\(400\)')) {
@@ -805,6 +812,7 @@ function Start-FoundryAutopilotRegistrationUi {
         param([Parameter(Mandatory = $true)][string]$Message)
         $authenticationInstructionTextBlock.Inlines.Clear()
         [void]$authenticationInstructionTextBlock.Inlines.Add((New-Object System.Windows.Documents.Run($Message)))
+        $deviceCodeTextBlock.Text = ''
         $authenticationProgressBar.IsIndeterminate = $false
         $authenticationProgressBar.Value = 0
         $authenticationStatusTextBlock.Text = ''
@@ -835,6 +843,21 @@ function Start-FoundryAutopilotRegistrationUi {
         $authenticationStatusTextBlock.Text = 'Code expires in {0} seconds.' -f $remainingSeconds
         $authenticationProgressBar.IsIndeterminate = $false
         $authenticationProgressBar.Value = [Math]::Max(0, [Math]::Min(100, ($remainingSeconds / $totalSeconds) * 100))
+    }
+
+    function Restart-AuthenticationDeviceCodeRequest {
+        param([Parameter(Mandatory = $true)][string]$Reason)
+
+        if ($null -ne $script:AuthenticationPollTimer) {
+            $script:AuthenticationPollTimer.Stop()
+            $script:AuthenticationPollTimer = $null
+        }
+
+        Write-FoundryLog -Message "Requesting a new Microsoft device code. $Reason"
+        Set-AuthenticationWaiting `
+            -Message 'Requesting a new Microsoft sign-in code.' `
+            -StatusMessage 'Refreshing sign-in code.'
+        Start-AuthenticationDeviceCodeRequest
     }
 
     function Set-UploadControlsEnabled {
@@ -933,8 +956,8 @@ function Start-FoundryAutopilotRegistrationUi {
                 try {
                     Update-AuthenticationCountdown
                     if ([DateTimeOffset]::UtcNow -ge $script:AuthenticationDeadline) {
-                        $script:AuthenticationPollTimer.Stop()
-                        throw 'Device code authentication timed out.'
+                        Restart-AuthenticationDeviceCodeRequest -Reason 'Previous code expired.'
+                        return
                     }
 
                     if ($script:NextAuthenticationPollAt -gt [DateTimeOffset]::UtcNow) {
@@ -949,6 +972,11 @@ function Start-FoundryAutopilotRegistrationUi {
 
                     if ($tokenResult.Status -eq 'SlowDown') {
                         $script:AuthenticationPollInterval += 5
+                        return
+                    }
+
+                    if ($tokenResult.Status -eq 'Expired') {
+                        Restart-AuthenticationDeviceCodeRequest -Reason 'Token endpoint reported expired_token.'
                         return
                     }
 
