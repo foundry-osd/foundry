@@ -28,10 +28,7 @@
   <data name="Theme.Dark" xml:space="preserve"><value>Tumšs</value></data>
   <data name="Language.English" xml:space="preserve"><value>angļu valoda</value></data>
   <data name="Language.French" xml:space="preserve"><value>franču valoda</value></data>
-  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Atsvaidziniet katalogus</value></data>
-  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Atsvaidziniet mērķa diskus</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Atveriet žurnāla failu</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>Simulācijas režīms ir aktīvs: tiek simulētas izvietošanas darbības un netiek veikta diska vai attēla rakstīšana.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Mērķis</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operētājsistēma</value></data>
   <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Vadītāja pakotne</value></data>
@@ -74,8 +71,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Notiek mērķa disku ielāde...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Mērķa diska atklāšana neizdevās: {0}</value></data>
-  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>Nav atrasts neviens disks.</value></data>
-  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Ielādēti mērķa diski: konstatēti {0}.</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operētājsistēma</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versija</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Valoda</value></data>
@@ -131,9 +126,6 @@
   <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Progresa lapa</value></data>
   <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Veiksmes lapa</value></data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Kļūdas lapa</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>Atkļūdošanas priekšskatījums: norises lapa.</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>Atkļūdošanas priekšskatījums: veiksmes lapa.</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>Atkļūdošanas priekšskatījums: kļūdas lapa.</value></data>
   <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Atkļūdošanas priekšskatījums: DISM pieteikšanās neizdevās, jo mērķa nodalījums ir tikai lasāms.
 
 ErrorCode=0x80070005
@@ -144,7 +136,6 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
   <data name="Common.Previous" xml:space="preserve"><value>Iepriekšējais</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Tālāk</value></data>
   <data name="Common.Deploy" xml:space="preserve"><value>Izvietot</value></data>
-  <data name="Common.OpenLog" xml:space="preserve"><value>Atvērt žurnālu</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>N/A</value></data>
   <data name="Common.Unavailable" xml:space="preserve"><value>Nav pieejams</value></data>
   <data name="Common.None" xml:space="preserve"><value>Nav</value></data>
@@ -176,7 +167,6 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
   <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Bloķēts: tikai lasāms</value></data>
   <data name="Disk.BlockedOffline" xml:space="preserve"><value>Bloķēts: bezsaistē</value></data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>VIRTUĀLĀ MĒRĶA ATKLĀŠANA</value></data>
-  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Atlasītais disks ir bloķēts: {0}</value></data>
   <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Mērķa disks {0} vairs nav pieejams.</value></data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Mērķa disks {0} ir bloķēts: {1}</value></data>
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Apstipriniet diska dzēšanu</value></data>
@@ -190,26 +180,11 @@ Izmērs: {3}
 Operētājsistēma: {4}
 
 Vai turpināt izvietošanu?</value></data>
-  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Izvēlieties operētājsistēmu.</value></data>
-  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Ievadiet derīgu datora nosaukumu.</value></data>
-  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Izvēlieties mērķa disku.</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Pirms izvietošanas sākuma atlasiet derīgu OEM modeli vai versiju.</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Pirms izvietošanas sākuma atlasiet Autopilot profilu vai atspējojiet Autopilot.</value></data>
-  <data name="Launch.CancelledByUser" xml:space="preserve"><value>Lietotājs atcēla izvietošanu.</value></data>
-  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Izvēršanas sagatavošana pabeigta.</value></data>
-  <data name="Status.Ready" xml:space="preserve"><value>Gatavs</value></data>
   <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Gaida izvietošanu...</value></data>
   <data name="Status.WaitingForProgress" xml:space="preserve"><value>Gaidām progresu...</value></data>
   <data name="Status.PreparingDeployment" xml:space="preserve"><value>Notiek izvietošanas sagatavošana...</value></data>
-  <data name="Status.DeploymentStarted" xml:space="preserve"><value>Sākta izvietošana.</value></data>
-  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>Izvietošana pabeigta.</value></data>
-  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>Izvietošanas darbplūsma ir pabeigta.</value></data>
   <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Izvietošana atcelta.</value></data>
-  <data name="Status.DeploymentFailed" xml:space="preserve"><value>Izvietošana neizdevās.</value></data>
-  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Izvietošana neizdevās: {0}</value></data>
   <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Jau notiek cita operācija.</value></data>
-  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Atkļūdošanas drošais režīms ir iespējots: tiek simulētas izvietošanas darbības.</value></data>
-  <data name="Status.StartingOrchestration" xml:space="preserve"><value>Tiek sākta izvietošanas darbplūsma.</value></data>
   <data name="Status.StartingStep" xml:space="preserve"><value>Sākuma solis...</value></data>
   <data name="Status.StartingStepFormat" xml:space="preserve"><value>Sākot ar {0}.</value></data>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Sākot ar {0}...</value></data>
@@ -219,10 +194,6 @@ Vai turpināt izvietošanu?</value></data>
   <data name="Status.InProgress" xml:space="preserve"><value>Notiek...</value></data>
   <data name="Status.StepCounterUnknown" xml:space="preserve"><value>solis:? no?</value></data>
   <data name="Status.StepCounterFormat" xml:space="preserve"><value>Darbība: {0} no {1}</value></data>
-  <data name="Status.RebootingNow" xml:space="preserve"><value>Tagad notiek atsāknēšana...</value></data>
-  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>Atsāknēšanas komanda neizdevās.</value></data>
-  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Atsāknēšanas komanda neizdevās: {0}</value></data>
-  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Nevar atvērt žurnāla failu: {0}</value></data>
   <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe neizdevās ar izejas kodu {0}. {1}</value></data>
   <data name="Status.SystemReboot" xml:space="preserve"><value>Sistēmas atsāknēšana</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Nepieciešamais atsāknēšanas izpildāmais fails “wpeutil.exe” netika atrasts.</value></data>

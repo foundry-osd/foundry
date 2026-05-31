@@ -8,7 +8,6 @@ namespace Foundry.Deploy.Services.Wizard;
 
 public sealed class DeploymentWizardContextFactory : IDeploymentWizardContextFactory
 {
-    private readonly ITargetDiskService _targetDiskService;
     private readonly IHardwareProfileService _hardwareProfileService;
     private readonly IOfflineWindowsComputerNameService _offlineWindowsComputerNameService;
     private readonly IDriverPackSelectionService _driverPackSelectionService;
@@ -16,14 +15,12 @@ public sealed class DeploymentWizardContextFactory : IDeploymentWizardContextFac
     private readonly ILoggerFactory _loggerFactory;
 
     public DeploymentWizardContextFactory(
-        ITargetDiskService targetDiskService,
         IHardwareProfileService hardwareProfileService,
         IOfflineWindowsComputerNameService offlineWindowsComputerNameService,
         IDriverPackSelectionService driverPackSelectionService,
         ILocalizationService localizationService,
         ILoggerFactory loggerFactory)
     {
-        _targetDiskService = targetDiskService;
         _hardwareProfileService = hardwareProfileService;
         _offlineWindowsComputerNameService = offlineWindowsComputerNameService;
         _driverPackSelectionService = driverPackSelectionService;
@@ -34,7 +31,6 @@ public sealed class DeploymentWizardContextFactory : IDeploymentWizardContextFac
     public DeploymentWizardContext Create(bool isDebugSafeMode)
     {
         DeploymentPreparationViewModel preparation = new(
-            _targetDiskService,
             _hardwareProfileService,
             _offlineWindowsComputerNameService,
             _localizationService,
@@ -51,7 +47,6 @@ public sealed class DeploymentWizardContextFactory : IDeploymentWizardContextFac
         return new DeploymentWizardContext(
             preparation,
             operatingSystemCatalog,
-            driverPackSelection,
-            isDebugSafeMode);
+            driverPackSelection);
     }
 }

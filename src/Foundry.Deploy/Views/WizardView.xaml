@@ -44,25 +44,11 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Margin="0,0,0,12">
-            <Border
-                Margin="0,0,0,8"
-                Padding="8"
-                Background="#33FFAA00"
-                BorderBrush="#FFFFAA00"
-                BorderThickness="1"
-                CornerRadius="4"
-                Visibility="{Binding IsDebugSafeMode, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Wizard.DebugSafeModeBanner]}" />
-            </Border>
-        </StackPanel>
-
-        <Grid Grid.Row="1" Margin="0,0,0,16">
+        <Grid Grid.Row="0" Margin="0,0,0,16">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="8" />
@@ -142,7 +128,7 @@
             </Border>
         </Grid>
 
-        <Border Grid.Row="2" Style="{StaticResource SectionCardBorderStyle}">
+        <Border Grid.Row="1" Style="{StaticResource SectionCardBorderStyle}">
             <ContentControl Content="{Binding}">
                 <ContentControl.Style>
                     <Style TargetType="ContentControl">
@@ -172,7 +158,7 @@
             </ContentControl>
         </Border>
 
-        <Grid Grid.Row="3" Margin="0,12,0,0">
+        <Grid Grid.Row="2" Margin="0,12,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>

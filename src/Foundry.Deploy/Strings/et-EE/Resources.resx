@@ -28,10 +28,7 @@
   <data name="Theme.Dark" xml:space="preserve"><value>Tume</value></data>
   <data name="Language.English" xml:space="preserve"><value>inglise keel</value></data>
   <data name="Language.French" xml:space="preserve"><value>prantsuse keel</value></data>
-  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Värskenda katalooge</value></data>
-  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Värskendage sihtkettaid</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Ava logifail</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>Simulatsioonirežiim on aktiivne: juurutustoiminguid simuleeritakse ja kettale või kujutisele ei kirjutata.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Sihtmärk</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operatsioonisüsteem</value></data>
   <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Juhipakett</value></data>
@@ -74,8 +71,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Sihtketaste laadimine...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Sihtketta leidmine ebaõnnestus: {0}</value></data>
-  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>Ühtegi ketast ei tuvastatud.</value></data>
-  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Laaditud sihtkettad: {0} tuvastati.</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operatsioonisüsteem</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versioon</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Keel</value></data>
@@ -131,9 +126,6 @@
   <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Edenemise leht</value></data>
   <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Edu leht</value></data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Vealeht</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>Silumise eelvaade: edenemise leht.</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>Silumise eelvaade: edu leht.</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>Silumise eelvaade: vealeht.</value></data>
   <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Silumise eelvaade: DISM rakendamine nurjus, kuna sihtpartitsioon on kirjutuskaitstud.
 
 ErrorCode=0x80070005
@@ -144,7 +136,6 @@ Toiming: kontrollige ketta atribuute ja proovige juurutamist uuesti.</value></da
   <data name="Common.Previous" xml:space="preserve"><value>Eelmine</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Edasi</value></data>
   <data name="Common.Deploy" xml:space="preserve"><value>Kasutusele võtta</value></data>
-  <data name="Common.OpenLog" xml:space="preserve"><value>Ava logi</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>Ei kehti</value></data>
   <data name="Common.Unavailable" xml:space="preserve"><value>Pole saadaval</value></data>
   <data name="Common.None" xml:space="preserve"><value>Mitte ühtegi</value></data>
@@ -176,7 +167,6 @@ Toiming: kontrollige ketta atribuute ja proovige juurutamist uuesti.</value></da
   <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Blokeeritud: kirjutuskaitstud</value></data>
   <data name="Disk.BlockedOffline" xml:space="preserve"><value>Blokeeritud: võrguühenduseta</value></data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>SILU VIRTUAALNE SIHT</value></data>
-  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Valitud ketas blokeeritud: {0}</value></data>
   <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Sihtketast {0} pole enam.</value></data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Sihtketas {0} on blokeeritud: {1}</value></data>
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Kinnitage ketta kustutamine</value></data>
@@ -190,26 +180,11 @@ Suurus: {3}
 Operatsioonisüsteem: {4}
 
 Kas jätkata juurutamisega?</value></data>
-  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Valige operatsioonisüsteem.</value></data>
-  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Sisestage kehtiv arvuti nimi.</value></data>
-  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Valige sihtketas.</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Valige enne juurutamise alustamist kehtiv OEM-mudel või versioon.</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Enne juurutamise alustamist valige Autopilot profiil või keelake Autopilot.</value></data>
-  <data name="Launch.CancelledByUser" xml:space="preserve"><value>Kasutaja tühistas juurutamise.</value></data>
-  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Kasutuselevõtu ettevalmistamine on lõpetatud.</value></data>
-  <data name="Status.Ready" xml:space="preserve"><value>Valmis</value></data>
   <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Ootan kasutuselevõttu...</value></data>
   <data name="Status.WaitingForProgress" xml:space="preserve"><value>Ootan edusamme...</value></data>
   <data name="Status.PreparingDeployment" xml:space="preserve"><value>Juurutamise ettevalmistamine...</value></data>
-  <data name="Status.DeploymentStarted" xml:space="preserve"><value>Kasutuselevõtt algas.</value></data>
-  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>Juurutamine lõpetatud.</value></data>
-  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>Juurutamise töövoog on lõpetatud.</value></data>
   <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Kasutuselevõtt tühistati.</value></data>
-  <data name="Status.DeploymentFailed" xml:space="preserve"><value>Juurutamine ebaõnnestus.</value></data>
-  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Juurutamine ebaõnnestus: {0}</value></data>
   <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Teine operatsioon on juba käimas.</value></data>
-  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Silumise turvarežiim lubatud: juurutamistoiminguid simuleeritakse.</value></data>
-  <data name="Status.StartingOrchestration" xml:space="preserve"><value>Juurutamise töövoo käivitamine.</value></data>
   <data name="Status.StartingStep" xml:space="preserve"><value>Algusaste...</value></data>
   <data name="Status.StartingStepFormat" xml:space="preserve"><value>Algus {0}.</value></data>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Algus {0}...</value></data>
@@ -219,10 +194,6 @@ Kas jätkata juurutamisega?</value></data>
   <data name="Status.InProgress" xml:space="preserve"><value>Pooleli...</value></data>
   <data name="Status.StepCounterUnknown" xml:space="preserve"><value>samm:??</value></data>
   <data name="Status.StepCounterFormat" xml:space="preserve"><value>Samm: {0} {1}-st</value></data>
-  <data name="Status.RebootingNow" xml:space="preserve"><value>Taaskäivitamine kohe...</value></data>
-  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>Taaskäivitamise käsk ebaõnnestus.</value></data>
-  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Taaskäivitamise käsk ebaõnnestus: {0}</value></data>
-  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Logifaili ei saa avada: {0}</value></data>
   <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe ebaõnnestus väljumiskoodiga {0}. {1}</value></data>
   <data name="Status.SystemReboot" xml:space="preserve"><value>Süsteemi taaskäivitamine</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Nõutavat taaskäivitusfaili 'wpeutil.exe' ei leitud.</value></data>

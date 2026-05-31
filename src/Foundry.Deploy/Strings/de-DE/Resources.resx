@@ -28,10 +28,7 @@
   <data name="Theme.Dark" xml:space="preserve"><value>Dunkel</value></data>
   <data name="Language.English" xml:space="preserve"><value>Englisch</value></data>
   <data name="Language.French" xml:space="preserve"><value>Französisch</value></data>
-  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Kataloge aktualisieren</value></data>
-  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Zielfestplatten aktualisieren</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Protokolldatei öffnen</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>Der Simulationsmodus ist aktiv: Bereitstellungsaktionen werden simuliert und es werden keine Festplatten- oder Image-Schreibvorgänge durchgeführt.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Ziel</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Betriebssystem</value></data>
   <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Treiberpaket</value></data>
@@ -74,8 +71,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>Wechselstrom</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Zieldatenträger werden geladen...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Erkennung des Ziellaufwerks fehlgeschlagen: {0}</value></data>
-  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>Keine Festplatten erkannt.</value></data>
-  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Zieldatenträger geladen: {0} erkannt.</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Betriebssystem</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Version</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Sprache</value></data>
@@ -131,9 +126,6 @@
   <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Fortschrittsseite</value></data>
   <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Erfolgsseite</value></data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Fehlerseite</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>Debug-Vorschau: Fortschrittsseite.</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>Debug-Vorschau: Erfolgsseite.</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>Debug-Vorschau: Fehlerseite.</value></data>
   <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Debug-Vorschau: Die Anwendung von DISM ist fehlgeschlagen, da die Zielpartition schreibgeschützt ist.
 
 Fehlercode=0x80070005
@@ -144,7 +136,6 @@ Aktion: Überprüfen Sie die Festplattenattribute und wiederholen Sie die Bereit
   <data name="Common.Previous" xml:space="preserve"><value>Zurück</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Als nächstes</value></data>
   <data name="Common.Deploy" xml:space="preserve"><value>Bereitstellen</value></data>
-  <data name="Common.OpenLog" xml:space="preserve"><value>Protokoll öffnen</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>N/A</value></data>
   <data name="Common.Unavailable" xml:space="preserve"><value>Nicht verfügbar</value></data>
   <data name="Common.None" xml:space="preserve"><value>Keine</value></data>
@@ -176,7 +167,6 @@ Aktion: Überprüfen Sie die Festplattenattribute und wiederholen Sie die Bereit
   <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Gesperrt: schreibgeschützt</value></data>
   <data name="Disk.BlockedOffline" xml:space="preserve"><value>Gesperrt: offline</value></data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>VIRTUELLES ZIEL DEBUGIEREN</value></data>
-  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Ausgewählte Festplatte blockiert: {0}</value></data>
   <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Zielfestplatte {0} ist nicht mehr vorhanden.</value></data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Zielfestplatte {0} ist blockiert: {1}</value></data>
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Bestätigen Sie das Löschen der Festplatte</value></data>
@@ -190,26 +180,11 @@ Größe: {3}
 Betriebssystem: {4}
 
 Mit der Bereitstellung fortfahren?</value></data>
-  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Wählen Sie ein Betriebssystem aus.</value></data>
-  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Geben Sie einen gültigen Computernamen ein.</value></data>
-  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Wählen Sie eine Zielfestplatte aus.</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Wählen Sie ein gültiges OEM-Modell oder eine gültige OEM-Version aus, bevor Sie mit der Bereitstellung beginnen.</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Wählen Sie ein Autopilot-Profil aus oder deaktivieren Sie Autopilot, bevor Sie mit der Bereitstellung beginnen.</value></data>
-  <data name="Launch.CancelledByUser" xml:space="preserve"><value>Bereitstellung vom Benutzer abgebrochen.</value></data>
-  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Bereitstellungsvorbereitung abgeschlossen.</value></data>
-  <data name="Status.Ready" xml:space="preserve"><value>Bereit</value></data>
   <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Warten auf Bereitstellung...</value></data>
   <data name="Status.WaitingForProgress" xml:space="preserve"><value>Warten auf Fortschritte...</value></data>
   <data name="Status.PreparingDeployment" xml:space="preserve"><value>Bereitstellung wird vorbereitet...</value></data>
-  <data name="Status.DeploymentStarted" xml:space="preserve"><value>Die Bereitstellung wurde gestartet.</value></data>
-  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>Bereitstellung abgeschlossen.</value></data>
-  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>Bereitstellungsworkflow abgeschlossen.</value></data>
   <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Bereitstellung abgebrochen.</value></data>
-  <data name="Status.DeploymentFailed" xml:space="preserve"><value>Die Bereitstellung ist fehlgeschlagen.</value></data>
-  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Bereitstellung fehlgeschlagen: {0}</value></data>
   <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Ein anderer Vorgang läuft bereits.</value></data>
-  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Debug-Sicherheitsmodus aktiviert: Bereitstellungsaktionen werden simuliert.</value></data>
-  <data name="Status.StartingOrchestration" xml:space="preserve"><value>Bereitstellungsworkflow wird gestartet.</value></data>
   <data name="Status.StartingStep" xml:space="preserve"><value>Startschritt...</value></data>
   <data name="Status.StartingStepFormat" xml:space="preserve"><value>Beginnend mit {0}.</value></data>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Beginnend mit {0}...</value></data>
@@ -219,10 +194,6 @@ Mit der Bereitstellung fortfahren?</value></data>
   <data name="Status.InProgress" xml:space="preserve"><value>In Bearbeitung...</value></data>
   <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Schritt:? von?</value></data>
   <data name="Status.StepCounterFormat" xml:space="preserve"><value>Schritt: {0} von {1}</value></data>
-  <data name="Status.RebootingNow" xml:space="preserve"><value>Jetzt neu starten...</value></data>
-  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>Der Neustartbefehl ist fehlgeschlagen.</value></data>
-  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Neustartbefehl fehlgeschlagen: {0}</value></data>
-  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Protokolldatei kann nicht geöffnet werden: {0}</value></data>
   <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe ist mit dem Exit-Code {0} fehlgeschlagen. {1}</value></data>
   <data name="Status.SystemReboot" xml:space="preserve"><value>Systemneustart</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Die erforderliche ausführbare Neustartdatei „wpeutil.exe“ wurde nicht gefunden.</value></data>

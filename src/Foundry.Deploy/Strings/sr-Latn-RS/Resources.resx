@@ -28,10 +28,7 @@
   <data name="Theme.Dark" xml:space="preserve"><value>Dark</value></data>
   <data name="Language.English" xml:space="preserve"><value>engleski</value></data>
   <data name="Language.French" xml:space="preserve"><value>francuski</value></data>
-  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Osvežite kataloge</value></data>
-  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Osvežite ciljne diskove</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Otvorite datoteku evidencije</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>Režim simulacije je aktivan: radnje primene se simuliraju i ne vrši se upis na disk ili sliku.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Target</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operativni sistem</value></data>
   <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Paket drajvera</value></data>
@@ -74,8 +71,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Učitavanje ciljnih diskova...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Otkrivanje ciljnog diska nije uspelo: {0}</value></data>
-  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>Nije otkriven nijedan disk.</value></data>
-  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Učitani ciljni diskovi: {0} otkriven.</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operativni sistem</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Version</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Jezik</value></data>
@@ -131,9 +126,6 @@
   <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Stranica napretka</value></data>
   <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Stranica uspeha</value></data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Stranica sa greškom</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>Pregled otklanjanja grešaka: stranica napretka.</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>Pregled otklanjanja grešaka: stranica o uspehu.</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>Pregled otklanjanja grešaka: stranica sa greškom.</value></data>
   <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Pregled otklanjanja grešaka: DISM primena nije uspela jer je ciljna particija samo za čitanje.
 
 ErrorCode=0k80070005
@@ -144,7 +136,6 @@ Radnja: Proverite atribute diska i pokušajte ponovo da ga primenite.</value></d
   <data name="Common.Previous" xml:space="preserve"><value>Prethodno</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Sledeće</value></data>
   <data name="Common.Deploy" xml:space="preserve"><value>Deploi</value></data>
-  <data name="Common.OpenLog" xml:space="preserve"><value>Otvori dnevnik</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>N/A</value></data>
   <data name="Common.Unavailable" xml:space="preserve"><value>Nedostupno</value></data>
   <data name="Common.None" xml:space="preserve"><value>Nijedan</value></data>
@@ -176,7 +167,6 @@ Radnja: Proverite atribute diska i pokušajte ponovo da ga primenite.</value></d
   <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Blokirano: samo za čitanje</value></data>
   <data name="Disk.BlockedOffline" xml:space="preserve"><value>Blokirano: van mreže</value></data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>DEBUG VIRTUAL TARGET</value></data>
-  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Izabrani disk blokiran: {0}</value></data>
   <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Ciljni disk {0} više nije prisutan.</value></data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Ciljni disk {0} je blokiran: {1}</value></data>
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Potvrdite brisanje diska</value></data>
@@ -190,26 +180,11 @@ Veličina: {3}
 Operativni sistem: {4}
 
 Želite li da nastavite sa primenom?</value></data>
-  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Izaberite operativni sistem.</value></data>
-  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Unesite važeće ime računara.</value></data>
-  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Izaberite ciljni disk.</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Izaberite važeći OEM model ili verziju pre početka primene.</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Izaberite Autopilot profil ili onemogućite Autopilot pre početka primene.</value></data>
-  <data name="Launch.CancelledByUser" xml:space="preserve"><value>Korisnik je otkazao primenu.</value></data>
-  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Priprema za raspoređivanje je završena.</value></data>
-  <data name="Status.Ready" xml:space="preserve"><value>Spreman</value></data>
   <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Čeka se raspoređivanje...</value></data>
   <data name="Status.WaitingForProgress" xml:space="preserve"><value>Čeka se napredak...</value></data>
   <data name="Status.PreparingDeployment" xml:space="preserve"><value>Priprema raspoređivanja...</value></data>
-  <data name="Status.DeploymentStarted" xml:space="preserve"><value>Raspoređivanje je počelo.</value></data>
-  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>Raspoređivanje je završeno.</value></data>
-  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>Radni tok implementacije je završen.</value></data>
   <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Primena je otkazana.</value></data>
-  <data name="Status.DeploymentFailed" xml:space="preserve"><value>Primena nije uspela.</value></data>
-  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Primena nije uspela: {0}</value></data>
   <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Druga operacija je već u toku.</value></data>
-  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Bezbedan režim za otklanjanje grešaka je omogućen: radnje primene su simulirane.</value></data>
-  <data name="Status.StartingOrchestration" xml:space="preserve"><value>Pokretanje radnog toka implementacije.</value></data>
   <data name="Status.StartingStep" xml:space="preserve"><value>Početni korak...</value></data>
   <data name="Status.StartingStepFormat" xml:space="preserve"><value>Počinje {0}.</value></data>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Počinje {0}...</value></data>
@@ -219,10 +194,6 @@ Operativni sistem: {4}
   <data name="Status.InProgress" xml:space="preserve"><value>U toku...</value></data>
   <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Korak:? od?</value></data>
   <data name="Status.StepCounterFormat" xml:space="preserve"><value>Korak: {0} od {1}</value></data>
-  <data name="Status.RebootingNow" xml:space="preserve"><value>Ponovno pokretanje sada...</value></data>
-  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>Komanda za ponovno pokretanje nije uspela.</value></data>
-  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Komanda za ponovno pokretanje nije uspela: {0}</value></data>
-  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Nije moguće otvoriti datoteku evidencije: {0}</value></data>
   <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe nije uspeo sa izlaznim kodom {0}. {1}</value></data>
   <data name="Status.SystemReboot" xml:space="preserve"><value>Ponovno pokretanje sistema</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Potrebna izvršna datoteka za ponovno pokretanje „wpeutil.exe“ nije pronađena.</value></data>

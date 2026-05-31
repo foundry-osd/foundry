@@ -28,10 +28,7 @@
   <data name="Theme.Dark" xml:space="preserve"><value>الظلام</value></data>
   <data name="Language.English" xml:space="preserve"><value>الإنجليزية</value></data>
   <data name="Language.French" xml:space="preserve"><value>الفرنسية</value></data>
-  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>تحديث الكتالوجات</value></data>
-  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>تحديث الأقراص المستهدفة</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>فتح ملف السجل</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>وضع المحاكاة نشط: تتم محاكاة إجراءات النشر ولا يتم تنفيذ أي عمليات كتابة على القرص أو الصورة.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. الهدف</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. نظام التشغيل</value></data>
   <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. حزمة السائق</value></data>
@@ -74,8 +71,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>تكييف</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>جارٍ تحميل الأقراص المستهدفة...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>فشل اكتشاف القرص الهدف: {0}</value></data>
-  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>لم يتم اكتشاف أي أقراص.</value></data>
-  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>الأقراص الهدف المحملة: تم اكتشاف {0}.</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>نظام التشغيل</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>الإصدار</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>اللغة</value></data>
@@ -131,9 +126,6 @@
   <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>صفحة التقدم</value></data>
   <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>صفحة النجاح</value></data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>صفحة الخطأ</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>معاينة التصحيح: صفحة التقدم.</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>معاينة التصحيح: صفحة النجاح.</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>معاينة التصحيح: صفحة الخطأ.</value></data>
   <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>معاينة التصحيح: فشل تطبيق DISM لأن القسم الهدف للقراءة فقط.
 
 رمز الخطأ = 0x80070005
@@ -144,7 +136,6 @@
   <data name="Common.Previous" xml:space="preserve"><value>السابق</value></data>
   <data name="Common.Next" xml:space="preserve"><value>التالي</value></data>
   <data name="Common.Deploy" xml:space="preserve"><value>نشر</value></data>
-  <data name="Common.OpenLog" xml:space="preserve"><value>فتح السجل</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>لا يوجد</value></data>
   <data name="Common.Unavailable" xml:space="preserve"><value>غير متاح</value></data>
   <data name="Common.None" xml:space="preserve"><value>لا شيء</value></data>
@@ -176,7 +167,6 @@
   <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>محظور: للقراءة فقط</value></data>
   <data name="Disk.BlockedOffline" xml:space="preserve"><value>محظور: غير متصل</value></data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>تصحيح الهدف الظاهري</value></data>
-  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>القرص المحدد محظور: {0}</value></data>
   <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>القرص الهدف {0} لم يعد موجودًا.</value></data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>القرص الهدف {0} محظور: {1}</value></data>
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>تأكيد مسح القرص</value></data>
@@ -190,26 +180,11 @@
 نظام التشغيل: {4}
 
 هل تريد الاستمرار في النشر؟</value></data>
-  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>حدد نظام التشغيل.</value></data>
-  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>أدخل اسمًا صالحًا للكمبيوتر.</value></data>
-  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>حدد القرص الهدف.</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>حدد طرازًا أو إصدارًا صالحًا لـ OEM قبل بدء النشر.</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>حدد ملف تعريف Autopilot أو قم بتعطيل Autopilot قبل بدء النشر.</value></data>
-  <data name="Launch.CancelledByUser" xml:space="preserve"><value>تم إلغاء النشر من قبل المستخدم.</value></data>
-  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>تم الانتهاء من إعداد النشر.</value></data>
-  <data name="Status.Ready" xml:space="preserve"><value>جاهز</value></data>
   <data name="Status.WaitingForDeployment" xml:space="preserve"><value>في انتظار النشر...</value></data>
   <data name="Status.WaitingForProgress" xml:space="preserve"><value>في انتظار التقدم...</value></data>
   <data name="Status.PreparingDeployment" xml:space="preserve"><value>جارٍ التحضير للنشر...</value></data>
-  <data name="Status.DeploymentStarted" xml:space="preserve"><value>بدأ النشر.</value></data>
-  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>اكتمل النشر.</value></data>
-  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>اكتمل سير عمل النشر.</value></data>
   <data name="Status.DeploymentCancelled" xml:space="preserve"><value>تم إلغاء النشر.</value></data>
-  <data name="Status.DeploymentFailed" xml:space="preserve"><value>فشل النشر.</value></data>
-  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>فشل النشر: {0}</value></data>
   <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>هناك عملية أخرى قيد التشغيل بالفعل.</value></data>
-  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>تم تمكين الوضع الآمن لتصحيح الأخطاء: تتم محاكاة إجراءات النشر.</value></data>
-  <data name="Status.StartingOrchestration" xml:space="preserve"><value>بدء سير عمل النشر.</value></data>
   <data name="Status.StartingStep" xml:space="preserve"><value>خطوة البداية...</value></data>
   <data name="Status.StartingStepFormat" xml:space="preserve"><value>البدء {0}.</value></data>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>البدء {0}...</value></data>
@@ -219,10 +194,6 @@
   <data name="Status.InProgress" xml:space="preserve"><value>قيد التقدم...</value></data>
   <data name="Status.StepCounterUnknown" xml:space="preserve"><value>الخطوة: ؟ ل ؟</value></data>
   <data name="Status.StepCounterFormat" xml:space="preserve"><value>الخطوة: {0} من {1}</value></data>
-  <data name="Status.RebootingNow" xml:space="preserve"><value>إعادة التشغيل الآن...</value></data>
-  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>فشل أمر إعادة التشغيل.</value></data>
-  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>فشل أمر إعادة التشغيل: {0}</value></data>
-  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>غير قادر على فتح ملف السجل: {0}</value></data>
   <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>فشل wpeutil.exe مع رمز الخروج {0}. {1}</value></data>
   <data name="Status.SystemReboot" xml:space="preserve"><value>إعادة تشغيل النظام</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>لم يتم العثور على الملف القابل للتنفيذ لإعادة التشغيل "wpeutil.exe".</value></data>

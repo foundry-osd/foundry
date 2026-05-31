@@ -344,7 +344,6 @@ public sealed class DeploymentPreparationViewModelTests
     private static DeploymentPreparationViewModel CreateViewModel()
     {
         return new DeploymentPreparationViewModel(
-            new FakeTargetDiskService(),
             new FakeHardwareProfileService(),
             new FakeOfflineWindowsComputerNameService(),
             new LocalizationService(),
@@ -379,19 +378,6 @@ public sealed class DeploymentPreparationViewModelTests
                 KnownGroupTags = ["Kiosk", "Sales"]
             }
         };
-    }
-
-    private sealed class FakeTargetDiskService : ITargetDiskService
-    {
-        public Task<IReadOnlyList<TargetDiskInfo>> GetDisksAsync(CancellationToken cancellationToken = default)
-        {
-            return Task.FromResult<IReadOnlyList<TargetDiskInfo>>([]);
-        }
-
-        public Task<int?> GetDiskNumberForPathAsync(string path, CancellationToken cancellationToken = default)
-        {
-            return Task.FromResult<int?>(null);
-        }
     }
 
     private sealed class FakeHardwareProfileService : IHardwareProfileService

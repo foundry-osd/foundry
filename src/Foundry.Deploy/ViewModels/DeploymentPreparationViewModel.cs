@@ -25,7 +25,6 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     private const string DebugAutopilotProfileDisplayName = "Debug Autopilot Profile";
     private const string DebugAutopilotGroupTag = "Debug";
 
-    private readonly ITargetDiskService _targetDiskService;
     private readonly IHardwareProfileService _hardwareProfileService;
     private readonly IOfflineWindowsComputerNameService _offlineWindowsComputerNameService;
     private readonly ILogger _logger;
@@ -40,7 +39,6 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     private bool _firmwareUpdatesPreference = true;
 
     public DeploymentPreparationViewModel(
-        ITargetDiskService targetDiskService,
         IHardwareProfileService hardwareProfileService,
         IOfflineWindowsComputerNameService offlineWindowsComputerNameService,
         ILocalizationService localizationService,
@@ -48,7 +46,6 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         bool isDebugSafeMode)
         : base(localizationService)
     {
-        _targetDiskService = targetDiskService;
         _hardwareProfileService = hardwareProfileService;
         _offlineWindowsComputerNameService = offlineWindowsComputerNameService;
         _logger = logger;
@@ -57,7 +54,6 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     }
 
     public event EventHandler? StateChanged;
-    public event Action<string>? StatusMessageGenerated;
 
     [ObservableProperty]
     private string targetComputerName = string.Empty;
@@ -96,7 +92,6 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     private string detectedHardwareSummary = LocalizationText.GetString("Preparation.DetectingHardware");
 
     [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(RefreshTargetDisksCommand))]
     private bool isTargetDiskLoading;
 
     public ObservableCollection<TargetDiskInfo> TargetDisks { get; } = [];
@@ -205,36 +200,6 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         {
             DefaultGroupTag = ResolveEffectiveHardwareHashGroupTag()
         };
-    }
-
-    [RelayCommand(CanExecute = nameof(CanRefreshTargetDisks))]
-    private async Task RefreshTargetDisksAsync()
-    {
-        _logger.LogInformation("Refreshing target disk list.");
-        if (IsTargetDiskLoading)
-        {
-            return;
-        }
-
-        IsTargetDiskLoading = true;
-        PublishStatus("Loading target disks...");
-
-        try
-        {
-            IReadOnlyList<TargetDiskInfo> disks = await _targetDiskService.GetDisksAsync();
-            string statusMessage = ApplyTargetDisks(disks);
-            PublishStatus(statusMessage);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Target disk discovery failed.");
-            PublishStatus($"Target disk discovery failed: {ex.Message}");
-        }
-        finally
-        {
-            IsTargetDiskLoading = false;
-            RaiseStateChanged();
-        }
     }
 
     public async Task LoadHardwareProfileAsync()
@@ -360,7 +325,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         RaiseStateChanged();
     }
 
-    public string ApplyTargetDisks(IReadOnlyList<TargetDiskInfo> disks)
+    public void ApplyTargetDisks(IReadOnlyList<TargetDiskInfo> disks)
     {
         ArgumentNullException.ThrowIfNull(disks);
 
@@ -379,7 +344,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         {
             SelectedTargetDisk = null;
             RaiseStateChanged();
-            return "No disks detected.";
+            return;
         }
 
         TargetDiskInfo? currentSelection = SelectedTargetDisk is null
@@ -392,7 +357,6 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
             ?? TargetDisks.FirstOrDefault();
 
         RaiseStateChanged();
-        return $"Target disks loaded: {TargetDisks.Count} detected.";
     }
 
     partial void OnTargetComputerNameChanged(string value)
@@ -728,11 +692,6 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         StateChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    private void PublishStatus(string message)
-    {
-        StatusMessageGenerated?.Invoke(message);
-    }
-
     public override void Dispose()
     {
         LocalizationService.LanguageChanged -= OnLocalizationLanguageChanged;
@@ -836,11 +795,6 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         OnPropertyChanged(nameof(AutopilotHardwareHashUploadStatusText));
         OnPropertyChanged(nameof(AutopilotHardwareHashUploadMessage));
         OnPropertyChanged(nameof(EffectiveHardwareHashGroupTagText));
-    }
-
-    private bool CanRefreshTargetDisks()
-    {
-        return !IsTargetDiskLoading;
     }
 
 }

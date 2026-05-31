@@ -22,7 +22,6 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     private readonly IDeploymentOrchestrator _deploymentOrchestrator;
     private readonly IProcessRunner _processRunner;
     private readonly bool _isDebugSafeMode;
-    private string _rawDeploymentStatus = "Ready";
     private string _rawCurrentStepName = "Waiting for deployment...";
     private string _rawCurrentStepProgressText = "Waiting for progress...";
     private string _rawFailedStepName = string.Empty;
@@ -67,9 +66,6 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     [NotifyPropertyChangedFor(nameof(IsSplashPage))]
     [NotifyPropertyChangedFor(nameof(IsSuccessPage))]
     private DeploymentPage currentPage = DeploymentPage.Splash;
-
-    [ObservableProperty]
-    private string deploymentStatus = LocalizationText.GetString("Status.Ready");
 
     [ObservableProperty]
     private int deploymentProgress;
@@ -136,12 +132,6 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     public int PlannedStepCount => _deploymentOrchestrator.PlannedSteps.Count;
     public string RebootCountdownText => Format("Success.RebootCountdownFormat", RebootCountdownSeconds);
 
-    public void SetStatus(string status)
-    {
-        _rawDeploymentStatus = status;
-        DeploymentStatus = DeploymentUiTextLocalizer.LocalizeMessage(status);
-    }
-
     public void SetComputerName(string computerName)
     {
         ComputerNameText = computerName;
@@ -186,24 +176,21 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         ElapsedTimeText = "00:00:00";
         StartElapsedTimeTracking();
 
-        SetStatus("Deployment started.");
         CurrentPage = DeploymentPage.Progress;
     }
 
-    public void CompleteDeployment(string status, string? logsDirectoryPath)
+    public void CompleteDeployment(string? logsDirectoryPath)
     {
         _isDeploymentInProgress = false;
         _lastLogsDirectoryPath = logsDirectoryPath ?? string.Empty;
-        SetStatus(status);
         CurrentPage = DeploymentPage.Success;
     }
 
-    public void FailDeployment(string status, string? stepName, string? errorMessage, string? logsDirectoryPath = null)
+    public void FailDeployment(string? stepName, string? errorMessage, string? logsDirectoryPath = null)
     {
         _isDeploymentInProgress = false;
         _lastLogsDirectoryPath = logsDirectoryPath ?? _lastLogsDirectoryPath;
         SetFailureDetails(stepName, errorMessage);
-        SetStatus(status);
         CurrentPage = DeploymentPage.Error;
     }
 
@@ -213,7 +200,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
 
         if (executionRunResult.IsSuccess)
         {
-            CompleteDeployment("Deployment completed.", executionRunResult.LogsDirectoryPath);
+            CompleteDeployment(executionRunResult.LogsDirectoryPath);
             return;
         }
 
@@ -224,11 +211,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
             ? executionRunResult.Message
             : FailedStepErrorMessage;
 
-        FailDeployment(
-            $"Deployment failed: {executionRunResult.Message}",
-            fallbackStep,
-            fallbackMessage,
-            executionRunResult.LogsDirectoryPath);
+        FailDeployment(fallbackStep, fallbackMessage, executionRunResult.LogsDirectoryPath);
     }
 
     public void ShowDebugProgress(string computerName, int currentStepIndex, int plannedStepCount, string currentStepName, int progressPercent)
@@ -250,7 +233,6 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         StartTimeText = FormatDeploymentStartTime(_deploymentStartTimeUtc.Value);
         ElapsedTimeText = "00:00:00";
         StartElapsedTimeTracking();
-        SetStatus("Debug preview: progress page.");
         CurrentPage = DeploymentPage.Progress;
     }
 
@@ -268,7 +250,6 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         CurrentStepProgress = 100;
         IsCurrentStepProgressIndeterminate = false;
         SetCurrentStepProgressText("Step completed.");
-        SetStatus("Debug preview: success page.");
         CurrentPage = DeploymentPage.Success;
     }
 
@@ -279,7 +260,6 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         ComputerNameText = computerName;
         StepCounterText = BuildStepCounterText(currentStepIndex);
         SetFailureDetails(failedStepName, failedStepErrorMessage);
-        SetStatus("Debug preview: error page.");
         CurrentPage = DeploymentPage.Error;
     }
 
@@ -300,7 +280,6 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to open log file.");
-            SetStatus($"Unable to open log file: {ex.Message}");
         }
     }
 
@@ -325,10 +304,6 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
             DeploymentProgress = Math.Max(DeploymentProgress, normalizedProgress);
             UpdateGlobalProgressVisuals(DeploymentProgress);
 
-            if (!string.IsNullOrWhiteSpace(_operationProgressService.Status))
-            {
-                SetStatus(_operationProgressService.Status!);
-            }
         });
     }
 
@@ -350,11 +325,6 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
             DeploymentProgress = Math.Max(DeploymentProgress, stepProgress.ProgressPercent);
             UpdateGlobalProgressVisuals(DeploymentProgress);
             UpdateCurrentStepProgressVisuals(stepProgress);
-
-            if (!string.IsNullOrWhiteSpace(stepProgress.Message))
-            {
-                SetStatus(stepProgress.Message);
-            }
 
             if (stepProgress.State == DeploymentStepState.Failed)
             {
@@ -556,8 +526,6 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
                 throw new FileNotFoundException("Required reboot executable 'wpeutil.exe' was not found.", rebootExecutablePath);
             }
 
-            SetStatus("Rebooting now...");
-
             ProcessExecutionResult result = await _processRunner
                 .RunAsync(rebootExecutablePath, "Reboot", Path.GetTempPath())
                 .ConfigureAwait(false);
@@ -573,7 +541,6 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
                     ? result.StandardOutput
                     : result.StandardError;
                 SetFailureDetails("System reboot", $"wpeutil.exe failed with exit code {result.ExitCode}. {diagnostic}".Trim());
-                SetStatus("Reboot command failed.");
                 CurrentPage = DeploymentPage.Error;
             });
         }
@@ -582,7 +549,6 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
             RunOnUi(() =>
             {
                 SetFailureDetails("System reboot", ex.Message);
-                SetStatus($"Reboot command failed: {ex.Message}");
                 CurrentPage = DeploymentPage.Error;
             });
         }
@@ -709,7 +675,6 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     {
         RunOnUiThread(() =>
         {
-            DeploymentStatus = DeploymentUiTextLocalizer.LocalizeMessage(_rawDeploymentStatus);
             CurrentStepName = DeploymentUiTextLocalizer.LocalizeStepName(_rawCurrentStepName);
             CurrentStepProgressText = DeploymentUiTextLocalizer.LocalizeMessage(_rawCurrentStepProgressText);
             FailedStepName = string.IsNullOrWhiteSpace(_rawFailedStepName)

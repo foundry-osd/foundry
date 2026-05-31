@@ -28,10 +28,7 @@
   <data name="Theme.Dark" xml:space="preserve"><value>Întuneric</value></data>
   <data name="Language.English" xml:space="preserve"><value>engleză</value></data>
   <data name="Language.French" xml:space="preserve"><value>francez</value></data>
-  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Actualizează cataloagele</value></data>
-  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Actualizează discurile țintă</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Deschideți fișierul jurnal</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>Modul de simulare este activ: acțiunile de implementare sunt simulate și nu sunt efectuate scrieri pe disc sau imagini.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Țintă</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Sistem de operare</value></data>
   <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Pachet de șoferi</value></data>
@@ -74,8 +71,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Se încarcă discurile țintă...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Descoperirea discului țintă a eșuat: {0}</value></data>
-  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>Nu au fost detectate discuri.</value></data>
-  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Discuri țintă încărcate: {0} detectate.</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Sistem de operare</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versiune</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Limba</value></data>
@@ -131,9 +126,6 @@
   <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Pagina de progres</value></data>
   <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Pagina de succes</value></data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Pagina de eroare</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>Previzualizare depanare: pagina de progres.</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>Previzualizare depanare: pagina de succes.</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>Previzualizare depanare: pagina de eroare.</value></data>
   <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Previzualizare depanare: DISM aplicarea eșuată deoarece partiția țintă este doar pentru citire.
 
 ErrorCode=0x80070005
@@ -144,7 +136,6 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
   <data name="Common.Previous" xml:space="preserve"><value>Anterior</value></data>
   <data name="Common.Next" xml:space="preserve"><value>În continuare</value></data>
   <data name="Common.Deploy" xml:space="preserve"><value>Implementează</value></data>
-  <data name="Common.OpenLog" xml:space="preserve"><value>Deschideți jurnalul</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>N/A</value></data>
   <data name="Common.Unavailable" xml:space="preserve"><value>Indisponibil</value></data>
   <data name="Common.None" xml:space="preserve"><value>Niciuna</value></data>
@@ -176,7 +167,6 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
   <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Blocat: numai pentru citire</value></data>
   <data name="Disk.BlockedOffline" xml:space="preserve"><value>Blocat: offline</value></data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>DEBUG ȚINTĂ VIRTUALĂ</value></data>
-  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Discul selectat blocat: {0}</value></data>
   <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Discul țintă {0} nu mai este prezent.</value></data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Discul țintă {0} este blocat: {1}</value></data>
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Confirmați ștergerea discului</value></data>
@@ -190,26 +180,11 @@ Dimensiune: {3}
 Sistem de operare: {4}
 
 Continuați cu implementarea?</value></data>
-  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Selectați un sistem de operare.</value></data>
-  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Introduceți un nume valid de computer.</value></data>
-  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Selectați un disc țintă.</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Selectați un model sau o versiune OEM validă înainte de a începe implementarea.</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Selectați un profil Autopilot sau dezactivați Autopilot înainte de a începe implementarea.</value></data>
-  <data name="Launch.CancelledByUser" xml:space="preserve"><value>Implementarea a fost anulată de utilizator.</value></data>
-  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Pregătirea pentru desfășurare a fost finalizată.</value></data>
-  <data name="Status.Ready" xml:space="preserve"><value>Gata</value></data>
   <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Se așteaptă implementarea...</value></data>
   <data name="Status.WaitingForProgress" xml:space="preserve"><value>În așteptarea progresului...</value></data>
   <data name="Status.PreparingDeployment" xml:space="preserve"><value>Se pregătește implementarea...</value></data>
-  <data name="Status.DeploymentStarted" xml:space="preserve"><value>A început implementarea.</value></data>
-  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>Implementare finalizată.</value></data>
-  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>Flux de lucru de implementare finalizat.</value></data>
   <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Implementarea a fost anulată.</value></data>
-  <data name="Status.DeploymentFailed" xml:space="preserve"><value>Implementarea a eșuat.</value></data>
-  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Implementarea a eșuat: {0}</value></data>
   <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>O altă operațiune este deja în curs de desfășurare.</value></data>
-  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Modul sigur de depanare activat: acțiunile de implementare sunt simulate.</value></data>
-  <data name="Status.StartingOrchestration" xml:space="preserve"><value>Se începe fluxul de lucru de implementare.</value></data>
   <data name="Status.StartingStep" xml:space="preserve"><value>Începe pasul...</value></data>
   <data name="Status.StartingStepFormat" xml:space="preserve"><value>Începând cu {0}.</value></data>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Începând cu {0}...</value></data>
@@ -219,10 +194,6 @@ Continuați cu implementarea?</value></data>
   <data name="Status.InProgress" xml:space="preserve"><value>În curs...</value></data>
   <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Pasul:? de?</value></data>
   <data name="Status.StepCounterFormat" xml:space="preserve"><value>Pas: {0} din {1}</value></data>
-  <data name="Status.RebootingNow" xml:space="preserve"><value>Se repornește acum...</value></data>
-  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>Comanda de repornire a eșuat.</value></data>
-  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Comanda de repornire a eșuat: {0}</value></data>
-  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Nu se poate deschide fișierul jurnal: {0}</value></data>
   <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe a eșuat cu codul de ieșire {0}. {1}</value></data>
   <data name="Status.SystemReboot" xml:space="preserve"><value>Repornirea sistemului</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Executabilul de repornire obligatoriu „wpeutil.exe” nu a fost găsit.</value></data>

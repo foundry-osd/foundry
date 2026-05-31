@@ -28,10 +28,7 @@
   <data name="Theme.Dark" xml:space="preserve"><value>มืด</value></data>
   <data name="Language.English" xml:space="preserve"><value>อังกฤษ</value></data>
   <data name="Language.French" xml:space="preserve"><value>ฝรั่งเศส</value></data>
-  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>รีเฟรชแคตตาล็อก</value></data>
-  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>รีเฟรชดิสก์เป้าหมาย</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>เปิดไฟล์บันทึก</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>โหมดการจำลองทำงานอยู่: มีการจำลองการดำเนินการปรับใช้และไม่มีการเขียนดิสก์หรืออิมเมจ</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. เป้าหมาย</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. ระบบปฏิบัติการ</value></data>
   <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. ชุดไดรเวอร์</value></data>
@@ -74,8 +71,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>เครื่องปรับอากาศ</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>กำลังโหลดดิสก์เป้าหมาย...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>การค้นพบดิสก์เป้าหมายล้มเหลว: {0}</value></data>
-  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>ไม่พบดิสก์</value></data>
-  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>โหลดดิสก์เป้าหมาย: ตรวจพบ {0}</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>ระบบปฏิบัติการ</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>เวอร์ชัน</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>ภาษา</value></data>
@@ -131,9 +126,6 @@
   <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>หน้าความคืบหน้า</value></data>
   <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>หน้าความสำเร็จ</value></data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>หน้าข้อผิดพลาด</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>ตัวอย่างการแก้ไขข้อบกพร่อง: หน้าความคืบหน้า</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>ตัวอย่างการแก้ไขข้อบกพร่อง: หน้าความสำเร็จ</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>ตัวอย่างการแก้ไขข้อบกพร่อง: หน้าข้อผิดพลาด</value></data>
   <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>ตัวอย่างการแก้ไขข้อบกพร่อง: DISM ใช้ล้มเหลวเนื่องจากพาร์ติชันเป้าหมายเป็นแบบอ่านอย่างเดียว
 
 รหัสข้อผิดพลาด=0x80070005
@@ -144,7 +136,6 @@
   <data name="Common.Previous" xml:space="preserve"><value>ก่อนหน้า</value></data>
   <data name="Common.Next" xml:space="preserve"><value>ถัดไป</value></data>
   <data name="Common.Deploy" xml:space="preserve"><value>ปรับใช้</value></data>
-  <data name="Common.OpenLog" xml:space="preserve"><value>เปิดบันทึก</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>ไม่มี</value></data>
   <data name="Common.Unavailable" xml:space="preserve"><value>ไม่พร้อมใช้งาน</value></data>
   <data name="Common.None" xml:space="preserve"><value>ไม่มี</value></data>
@@ -176,7 +167,6 @@
   <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>ถูกบล็อก: อ่านอย่างเดียว</value></data>
   <data name="Disk.BlockedOffline" xml:space="preserve"><value>ถูกบล็อก: ออฟไลน์</value></data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>แก้ไขข้อบกพร่องเป้าหมายเสมือน</value></data>
-  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>ดิสก์ที่เลือกถูกบล็อก: {0}</value></data>
   <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>ดิสก์เป้าหมาย {0} ไม่มีอยู่อีกต่อไป</value></data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>ดิสก์เป้าหมาย {0} ถูกบล็อก: {1}</value></data>
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>ยืนยันการลบดิสก์</value></data>
@@ -190,26 +180,11 @@
 ระบบปฏิบัติการ: {4}
 
 ดำเนินการปรับใช้ต่อไปหรือไม่</value></data>
-  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>เลือกระบบปฏิบัติการ</value></data>
-  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>ป้อนชื่อคอมพิวเตอร์ที่ถูกต้อง</value></data>
-  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>เลือกดิสก์เป้าหมาย</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>เลือกรุ่นหรือเวอร์ชัน OEM ที่ถูกต้องก่อนเริ่มการปรับใช้</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>เลือกโปรไฟล์ Autopilot หรือปิดใช้งาน Autopilot ก่อนที่จะเริ่มการปรับใช้</value></data>
-  <data name="Launch.CancelledByUser" xml:space="preserve"><value>การทำให้ใช้งานได้ถูกยกเลิกโดยผู้ใช้</value></data>
-  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>การเตรียมการปรับใช้เสร็จสมบูรณ์</value></data>
-  <data name="Status.Ready" xml:space="preserve"><value>พร้อม</value></data>
   <data name="Status.WaitingForDeployment" xml:space="preserve"><value>กำลังรอการทำให้ใช้งานได้...</value></data>
   <data name="Status.WaitingForProgress" xml:space="preserve"><value>รอความคืบหน้า...</value></data>
   <data name="Status.PreparingDeployment" xml:space="preserve"><value>กำลังเตรียมการทำให้ใช้งานได้...</value></data>
-  <data name="Status.DeploymentStarted" xml:space="preserve"><value>เริ่มปรับใช้แล้ว</value></data>
-  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>การปรับใช้เสร็จสมบูรณ์</value></data>
-  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>เวิร์กโฟลว์การทำให้ใช้งานได้เสร็จสมบูรณ์</value></data>
   <data name="Status.DeploymentCancelled" xml:space="preserve"><value>ยกเลิกการทำให้ใช้งานได้แล้ว</value></data>
-  <data name="Status.DeploymentFailed" xml:space="preserve"><value>การทำให้ใช้งานได้ล้มเหลว</value></data>
-  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>การปรับใช้ล้มเหลว: {0}</value></data>
   <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>การดำเนินการอื่นกำลังทำงานอยู่แล้ว</value></data>
-  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>เปิดใช้งานการแก้ไขข้อบกพร่องในโหมดปลอดภัยแล้ว: มีการจำลองการดำเนินการปรับใช้</value></data>
-  <data name="Status.StartingOrchestration" xml:space="preserve"><value>กำลังเริ่มเวิร์กโฟลว์การทำให้ใช้งานได้</value></data>
   <data name="Status.StartingStep" xml:space="preserve"><value>ขั้นเริ่มต้น...</value></data>
   <data name="Status.StartingStepFormat" xml:space="preserve"><value>เริ่ม {0}.</value></data>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>เริ่ม {0}...</value></data>
@@ -219,10 +194,6 @@
   <data name="Status.InProgress" xml:space="preserve"><value>อยู่ระหว่างดำเนินการ...</value></data>
   <data name="Status.StepCounterUnknown" xml:space="preserve"><value>ขั้นตอน:? ของ?</value></data>
   <data name="Status.StepCounterFormat" xml:space="preserve"><value>ขั้นตอน: {0} จาก {1}</value></data>
-  <data name="Status.RebootingNow" xml:space="preserve"><value>กำลังรีบูตตอนนี้...</value></data>
-  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>คำสั่งรีบูตล้มเหลว</value></data>
-  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>คำสั่งการรีบูตล้มเหลว: {0}</value></data>
-  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>ไม่สามารถเปิดไฟล์บันทึกได้: {0}</value></data>
   <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe ล้มเหลวด้วยรหัสออก {0} {1}</value></data>
   <data name="Status.SystemReboot" xml:space="preserve"><value>รีบูตระบบ</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>ไม่พบไฟล์ปฏิบัติการรีบูตที่จำเป็น 'wpeutil.exe'</value></data>

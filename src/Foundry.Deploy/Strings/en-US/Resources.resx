@@ -28,10 +28,7 @@
   <data name="Theme.Dark" xml:space="preserve"><value>Dark</value></data>
   <data name="Language.English" xml:space="preserve"><value>English</value></data>
   <data name="Language.French" xml:space="preserve"><value>French</value></data>
-  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Refresh catalogs</value></data>
-  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Refresh target disks</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Open log file</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>Simulation mode is active: deployment actions are simulated and no disk or image writes are performed.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Target</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operating system</value></data>
   <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Driver pack</value></data>
@@ -74,8 +71,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Loading target disks...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Target disk discovery failed: {0}</value></data>
-  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>No disks detected.</value></data>
-  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Target disks loaded: {0} detected.</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operating system</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Version</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Language</value></data>
@@ -131,9 +126,6 @@
   <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Progress page</value></data>
   <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Success page</value></data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Error page</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>Debug preview: progress page.</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>Debug preview: success page.</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>Debug preview: error page.</value></data>
   <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Debug preview: DISM apply failed because the target partition is read-only.
 
 ErrorCode=0x80070005
@@ -144,7 +136,6 @@ Action: Verify disk attributes and retry deployment.</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>Previous</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Next</value></data>
   <data name="Common.Deploy" xml:space="preserve"><value>Deploy</value></data>
-  <data name="Common.OpenLog" xml:space="preserve"><value>Open log</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>N/A</value></data>
   <data name="Common.Unavailable" xml:space="preserve"><value>Unavailable</value></data>
   <data name="Common.None" xml:space="preserve"><value>None</value></data>
@@ -176,7 +167,6 @@ Action: Verify disk attributes and retry deployment.</value></data>
   <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Blocked: read-only</value></data>
   <data name="Disk.BlockedOffline" xml:space="preserve"><value>Blocked: offline</value></data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>DEBUG VIRTUAL TARGET</value></data>
-  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Selected disk blocked: {0}</value></data>
   <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Target disk {0} is no longer present.</value></data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Target disk {0} is blocked: {1}</value></data>
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Confirm disk erase</value></data>
@@ -190,26 +180,11 @@ Size: {3}
 Operating system: {4}
 
 Continue with deployment?</value></data>
-  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Select an operating system.</value></data>
-  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Enter a valid computer name.</value></data>
-  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Select a target disk.</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Select a valid OEM model or version before starting deployment.</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Select an Autopilot profile or disable Autopilot before starting deployment.</value></data>
-  <data name="Launch.CancelledByUser" xml:space="preserve"><value>Deployment cancelled by user.</value></data>
-  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Deployment preparation completed.</value></data>
-  <data name="Status.Ready" xml:space="preserve"><value>Ready</value></data>
   <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Waiting for deployment...</value></data>
   <data name="Status.WaitingForProgress" xml:space="preserve"><value>Waiting for progress...</value></data>
   <data name="Status.PreparingDeployment" xml:space="preserve"><value>Preparing deployment...</value></data>
-  <data name="Status.DeploymentStarted" xml:space="preserve"><value>Deployment started.</value></data>
-  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>Deployment completed.</value></data>
-  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>Deployment workflow completed.</value></data>
   <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Deployment cancelled.</value></data>
-  <data name="Status.DeploymentFailed" xml:space="preserve"><value>Deployment failed.</value></data>
-  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Deployment failed: {0}</value></data>
   <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Another operation is already running.</value></data>
-  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Debug safe mode enabled: deployment actions are simulated.</value></data>
-  <data name="Status.StartingOrchestration" xml:space="preserve"><value>Starting deployment workflow.</value></data>
   <data name="Status.StartingStep" xml:space="preserve"><value>Starting step...</value></data>
   <data name="Status.StartingStepFormat" xml:space="preserve"><value>Starting {0}.</value></data>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Starting {0}...</value></data>
@@ -219,10 +194,6 @@ Continue with deployment?</value></data>
   <data name="Status.InProgress" xml:space="preserve"><value>In progress...</value></data>
   <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Step: ? of ?</value></data>
   <data name="Status.StepCounterFormat" xml:space="preserve"><value>Step: {0} of {1}</value></data>
-  <data name="Status.RebootingNow" xml:space="preserve"><value>Rebooting now...</value></data>
-  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>Reboot command failed.</value></data>
-  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Reboot command failed: {0}</value></data>
-  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Unable to open log file: {0}</value></data>
   <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe failed with exit code {0}. {1}</value></data>
   <data name="Status.SystemReboot" xml:space="preserve"><value>System reboot</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Required reboot executable 'wpeutil.exe' was not found.</value></data>

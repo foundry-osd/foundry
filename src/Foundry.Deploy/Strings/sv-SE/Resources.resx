@@ -28,10 +28,7 @@
   <data name="Theme.Dark" xml:space="preserve"><value>Mörkt</value></data>
   <data name="Language.English" xml:space="preserve"><value>engelska</value></data>
   <data name="Language.French" xml:space="preserve"><value>franska</value></data>
-  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Uppdatera kataloger</value></data>
-  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Uppdatera måldiskar</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Öppna loggfilen</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>Simuleringsläget är aktivt: distributionsåtgärder simuleras och inga disk- eller bildskrivningar utförs.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Mål</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operativsystem</value></data>
   <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Förarpaket</value></data>
@@ -74,8 +71,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Laddar måldiskar...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Måldiskupptäckt misslyckades: {0}</value></data>
-  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>Inga diskar upptäckts.</value></data>
-  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Måldiskar laddade: {0} upptäckt.</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operativsystem</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Version</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Språk</value></data>
@@ -131,9 +126,6 @@
   <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Framstegssida</value></data>
   <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Framgångssida</value></data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Felsida</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>Förhandsgranskning av felsökning: förloppssida.</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>Förhandsvisning av felsökning: framgångssida.</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>Felsökningsförhandsgranskning: felsida.</value></data>
   <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Felsökningsförhandsgranskning: DISM applikationen misslyckades eftersom målpartitionen är skrivskyddad.
 
 ErrorCode=0x80070005
@@ -144,7 +136,6 @@ Detaljer: Åtkomst nekad vid montering av bild till målsökväg.
   <data name="Common.Previous" xml:space="preserve"><value>Föregående</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Nästa</value></data>
   <data name="Common.Deploy" xml:space="preserve"><value>Distribuera</value></data>
-  <data name="Common.OpenLog" xml:space="preserve"><value>Öppna loggen</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>N/A</value></data>
   <data name="Common.Unavailable" xml:space="preserve"><value>Ej tillgänglig</value></data>
   <data name="Common.None" xml:space="preserve"><value>Inga</value></data>
@@ -176,7 +167,6 @@ Detaljer: Åtkomst nekad vid montering av bild till målsökväg.
   <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Blockerad: skrivskyddad</value></data>
   <data name="Disk.BlockedOffline" xml:space="preserve"><value>Blockerad: offline</value></data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>DEBUGA VIRTUELLT MÅL</value></data>
-  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Vald disk blockerad: {0}</value></data>
   <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Måldisken {0} finns inte längre.</value></data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Måldisken {0} är blockerad: {1}</value></data>
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Bekräfta diskradering</value></data>
@@ -190,26 +180,11 @@ Storlek: {3}
 Operativsystem: {4}
 
 Fortsätt med implementeringen?</value></data>
-  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Välj ett operativsystem.</value></data>
-  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Ange ett giltigt datornamn.</value></data>
-  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Välj en måldisk.</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Välj en giltig OEM-modell eller -version innan du startar distributionen.</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Välj en Autopilot-profil eller inaktivera Autopilot innan du startar distributionen.</value></data>
-  <data name="Launch.CancelledByUser" xml:space="preserve"><value>Implementeringen avbröts av användaren.</value></data>
-  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Implementeringsförberedelserna slutförda.</value></data>
-  <data name="Status.Ready" xml:space="preserve"><value>Klar</value></data>
   <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Väntar på implementering...</value></data>
   <data name="Status.WaitingForProgress" xml:space="preserve"><value>Väntar på framsteg...</value></data>
   <data name="Status.PreparingDeployment" xml:space="preserve"><value>Förbereder implementering...</value></data>
-  <data name="Status.DeploymentStarted" xml:space="preserve"><value>Implementeringen startade.</value></data>
-  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>Implementeringen slutförd.</value></data>
-  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>Implementeringsarbetsflödet slutfört.</value></data>
   <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Implementeringen avbröts.</value></data>
-  <data name="Status.DeploymentFailed" xml:space="preserve"><value>Implementeringen misslyckades.</value></data>
-  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Implementeringen misslyckades: {0}</value></data>
   <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>En annan operation körs redan.</value></data>
-  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Felsökning av felsäkert läge aktiverat: implementeringsåtgärder simuleras.</value></data>
-  <data name="Status.StartingOrchestration" xml:space="preserve"><value>Startar implementeringsarbetsflödet.</value></data>
   <data name="Status.StartingStep" xml:space="preserve"><value>Startsteg...</value></data>
   <data name="Status.StartingStepFormat" xml:space="preserve"><value>Startar {0}.</value></data>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Startar {0}...</value></data>
@@ -219,10 +194,6 @@ Fortsätt med implementeringen?</value></data>
   <data name="Status.InProgress" xml:space="preserve"><value>Pågår...</value></data>
   <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Steg:? av?</value></data>
   <data name="Status.StepCounterFormat" xml:space="preserve"><value>Steg: {0} av {1}</value></data>
-  <data name="Status.RebootingNow" xml:space="preserve"><value>Startar om nu...</value></data>
-  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>Reboot-kommandot misslyckades.</value></data>
-  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Omstartskommandot misslyckades: {0}</value></data>
-  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Det går inte att öppna loggfilen: {0}</value></data>
   <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe misslyckades med utgångskoden {0}. {1}</value></data>
   <data name="Status.SystemReboot" xml:space="preserve"><value>Systemstart</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Krävd omstart körbar "wpeutil.exe" hittades inte.</value></data>

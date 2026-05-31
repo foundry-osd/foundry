@@ -53,18 +53,10 @@ public static partial class DeploymentUiTextLocalizer
 
         return value switch
         {
-            "Ready" => LocalizationText.GetString("Status.Ready"),
             "Waiting for deployment..." => LocalizationText.GetString("Status.WaitingForDeployment"),
             "Waiting for progress..." => LocalizationText.GetString("Status.WaitingForProgress"),
             "Preparing deployment..." => LocalizationText.GetString("Status.PreparingDeployment"),
-            "Deployment started." => LocalizationText.GetString("Status.DeploymentStarted"),
-            "Deployment completed." => LocalizationText.GetString("Status.DeploymentCompleted"),
-            "Deployment orchestration completed." => LocalizationText.GetString("Status.DeploymentOrchestrationCompleted"),
             "Deployment cancelled." => LocalizationText.GetString("Status.DeploymentCancelled"),
-            "Deployment failed." => LocalizationText.GetString("Status.DeploymentFailed"),
-            "Debug preview: progress page." => LocalizationText.GetString("Debug.ProgressPage"),
-            "Debug preview: success page." => LocalizationText.GetString("Debug.SuccessPage"),
-            "Debug preview: error page." => LocalizationText.GetString("Debug.ErrorPage"),
             "Starting step..." => LocalizationText.GetString("Status.StartingStep"),
             "Step completed." => LocalizationText.GetString("Status.StepCompleted"),
             "Step failed." => LocalizationText.GetString("Status.StepFailed"),
@@ -74,17 +66,7 @@ public static partial class DeploymentUiTextLocalizer
             "Detecting hardware..." => LocalizationText.GetString("Preparation.DetectingHardware"),
             "Hardware detection failed." => LocalizationText.GetString("Preparation.HardwareDetectionFailed"),
             "Loading target disks..." => LocalizationText.GetString("Preparation.LoadingTargetDisks"),
-            "No disks detected." => LocalizationText.GetString("Preparation.NoDisksDetected"),
-            "Select an operating system." => LocalizationText.GetString("Launch.SelectOperatingSystem"),
-            "Enter a valid computer name." => LocalizationText.GetString("Launch.EnterValidComputerName"),
-            "Select a target disk." => LocalizationText.GetString("Launch.SelectTargetDisk"),
-            "Select a valid OEM model/version before starting deployment." => LocalizationText.GetString("Launch.SelectValidOemDriverPack"),
-            "Select an Autopilot profile or disable Autopilot before starting deployment." => LocalizationText.GetString("Launch.SelectAutopilotProfile"),
-            "Deployment cancelled by user." => LocalizationText.GetString("Launch.CancelledByUser"),
-            "Deployment preparation completed." => LocalizationText.GetString("Launch.PreparationCompleted"),
             "Another operation is already running." => LocalizationText.GetString("Status.AnotherOperationRunning"),
-            "Debug Safe Mode enabled: deployment actions are simulated." => LocalizationText.GetString("Status.DebugSafeModeEnabled"),
-            "Starting Foundry.Deploy orchestration." => LocalizationText.GetString("Status.StartingOrchestration"),
             "Gathering deployment variables..." => LocalizationText.GetString("StepMessage.GatheringDeploymentVariables"),
             "Collecting deployment context..." => LocalizationText.GetString("StepMessage.CollectingDeploymentContext"),
             "Deployment variables gathered." => LocalizationText.GetString("StepResult.DeploymentVariablesGathered"),
@@ -244,8 +226,6 @@ public static partial class DeploymentUiTextLocalizer
             "Interactive Autopilot registration assistant staged (simulation)." => LocalizationText.GetString("StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation"),
             "Autopilot profile staged." => LocalizationText.GetString("StepResult.AutopilotProfileStaged"),
             "Autopilot profile staged (simulation)." => LocalizationText.GetString("StepResult.AutopilotProfileStagedSimulation"),
-            "Rebooting now..." => LocalizationText.GetString("Status.RebootingNow"),
-            "Reboot command failed." => LocalizationText.GetString("Status.RebootCommandFailed"),
             "System reboot" => LocalizationText.GetString("Status.SystemReboot"),
             "Required reboot executable 'wpeutil.exe' was not found." => LocalizationText.GetString("Status.RequiredRebootExecutableMissing"),
             "Unknown step" => LocalizationText.GetString("Status.UnknownStep"),
@@ -293,16 +273,6 @@ public static partial class DeploymentUiTextLocalizer
             return localized;
         }
 
-        if (TryLocalizeSingleSuffix(value, "Selected disk blocked: ", "Disk.SelectedBlockedFormat", out localized))
-        {
-            return localized;
-        }
-
-        if (TryLocalizeSingleSuffix(value, "Selected disk is blocked: ", "Disk.SelectedBlockedFormat", out localized))
-        {
-            return localized;
-        }
-
         match = TargetDiskMissingRegex().Match(value);
         if (match.Success)
         {
@@ -316,21 +286,6 @@ public static partial class DeploymentUiTextLocalizer
                 "Disk.TargetBlockedFormat",
                 int.Parse(match.Groups["disk"].Value),
                 LocalizeMessage(match.Groups["warning"].Value));
-        }
-
-        if (TryLocalizeSingleSuffix(value, "Deployment failed: ", "Status.DeploymentFailedFormat", out localized))
-        {
-            return localized;
-        }
-
-        if (TryLocalizeSingleSuffix(value, "Unable to open log file: ", "Status.UnableToOpenLogFileFormat", out localized))
-        {
-            return localized;
-        }
-
-        if (TryLocalizeSingleSuffix(value, "Reboot command failed: ", "Status.RebootCommandFailedFormat", out localized))
-        {
-            return localized;
         }
 
         if (TryLocalizeSingleSuffix(value, "Selected Autopilot profile file was not found: ", "StepResult.SelectedAutopilotProfileFileMissingFormat", out localized))
@@ -389,12 +344,6 @@ public static partial class DeploymentUiTextLocalizer
         if (match.Success)
         {
             return LocalizationText.Format("StepProgress.DownloadedBytesFormat", match.Groups["size"].Value);
-        }
-
-        match = TargetDisksLoadedRegex().Match(value);
-        if (match.Success)
-        {
-            return LocalizationText.Format("Preparation.TargetDisksLoadedFormat", int.Parse(match.Groups["count"].Value));
         }
 
         match = StepCounterRegex().Match(value);
@@ -497,9 +446,6 @@ public static partial class DeploymentUiTextLocalizer
 
     [GeneratedRegex(@"^Catalogs loaded: (?<os>\d+) OS entries, (?<drivers>\d+) driver packs\.$")]
     private static partial Regex CatalogLoadedRegex();
-
-    [GeneratedRegex(@"^Target disks loaded: (?<count>\d+) detected\.$")]
-    private static partial Regex TargetDisksLoadedRegex();
 
     [GeneratedRegex(@"^Target disk (?<disk>\d+) is no longer present\.$")]
     private static partial Regex TargetDiskMissingRegex();

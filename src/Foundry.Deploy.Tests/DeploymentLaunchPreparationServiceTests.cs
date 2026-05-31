@@ -32,7 +32,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
         DeploymentLaunchPreparationResult result = service.Prepare(CreateRequest(selectedTargetDisk: blockedDisk));
 
         Assert.False(result.IsReadyToStart);
-        Assert.Equal("Selected disk is blocked: System disk", result.StatusMessage);
+        Assert.Null(result.Context);
         Assert.Equal(0, shell.ConfirmationCallCount);
     }
 
@@ -49,7 +49,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
                 selectedDriverPack: null));
 
         Assert.False(result.IsReadyToStart);
-        Assert.Equal("Select a valid OEM model/version before starting deployment.", result.StatusMessage);
+        Assert.Null(result.Context);
     }
 
     [Fact]
@@ -201,7 +201,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
                 selectedAutopilotProfile: null));
 
         Assert.False(result.IsReadyToStart);
-        Assert.Equal("Select an Autopilot profile or disable Autopilot before starting deployment.", result.StatusMessage);
+        Assert.Null(result.Context);
         Assert.Equal(0, shell.ConfirmationCallCount);
     }
 

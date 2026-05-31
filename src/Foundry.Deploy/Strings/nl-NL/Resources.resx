@@ -28,10 +28,7 @@
   <data name="Theme.Dark" xml:space="preserve"><value>Donker</value></data>
   <data name="Language.English" xml:space="preserve"><value>Engels</value></data>
   <data name="Language.French" xml:space="preserve"><value>Frans</value></data>
-  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Catalogi vernieuwen</value></data>
-  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Doelschijven vernieuwen</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Logbestand openen</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>De simulatiemodus is actief: implementatieacties worden gesimuleerd en er worden geen schijf- of image-schrijfbewerkingen uitgevoerd.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Doel</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Besturingssysteem</value></data>
   <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Driverpakket</value></data>
@@ -74,8 +71,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Doelschijven laden...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Detectie van doelschijf mislukt: {0}</value></data>
-  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>Geen schijven gedetecteerd.</value></data>
-  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Doelschijven geladen: {0} gedetecteerd.</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Besturingssysteem</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versie</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Taal</value></data>
@@ -131,9 +126,6 @@
   <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Voortgangspagina</value></data>
   <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Succes pagina</value></data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Foutpagina</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>Voorbeeld van foutopsporing: voortgangspagina.</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>Voorbeeld van foutopsporing: succespagina.</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>Voorbeeld van foutopsporing: foutpagina.</value></data>
   <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Voorbeeld van foutopsporing: DISM toepassen mislukt omdat de doelpartitie alleen-lezen is.
 
 Foutcode=0x80070005
@@ -144,7 +136,6 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
   <data name="Common.Previous" xml:space="preserve"><value>Vorige</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Volgende</value></data>
   <data name="Common.Deploy" xml:space="preserve"><value>Implementeren</value></data>
-  <data name="Common.OpenLog" xml:space="preserve"><value>Logboek openen</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>N.v.t</value></data>
   <data name="Common.Unavailable" xml:space="preserve"><value>Niet beschikbaar</value></data>
   <data name="Common.None" xml:space="preserve"><value>Geen</value></data>
@@ -176,7 +167,6 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
   <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Geblokkeerd: alleen-lezen</value></data>
   <data name="Disk.BlockedOffline" xml:space="preserve"><value>Geblokkeerd: offline</value></data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>DEBUG VIRTUEEL DOEL</value></data>
-  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Geselecteerde schijf geblokkeerd: {0}</value></data>
   <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Doelschijf {0} is niet langer aanwezig.</value></data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Doelschijf {0} is geblokkeerd: {1}</value></data>
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Bevestig het wissen van de schijf</value></data>
@@ -190,26 +180,11 @@ Grootte: {3}
 Besturingssysteem: {4}
 
 Doorgaan met de implementatie?</value></data>
-  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Selecteer een besturingssysteem.</value></data>
-  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Voer een geldige computernaam in.</value></data>
-  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Selecteer een doelschijf.</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Selecteer een geldig OEM-model of -versie voordat u met de implementatie begint.</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Selecteer een Autopilot-profiel of schakel Autopilot uit voordat u met de implementatie begint.</value></data>
-  <data name="Launch.CancelledByUser" xml:space="preserve"><value>Implementatie geannuleerd door gebruiker.</value></data>
-  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Voorbereiding voor implementatie voltooid.</value></data>
-  <data name="Status.Ready" xml:space="preserve"><value>Klaar</value></data>
   <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Wachten op implementatie...</value></data>
   <data name="Status.WaitingForProgress" xml:space="preserve"><value>Wachten op vooruitgang...</value></data>
   <data name="Status.PreparingDeployment" xml:space="preserve"><value>Implementatie voorbereiden...</value></data>
-  <data name="Status.DeploymentStarted" xml:space="preserve"><value>De implementatie is gestart.</value></data>
-  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>Implementatie voltooid.</value></data>
-  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>Implementatieworkflow voltooid.</value></data>
   <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Implementatie geannuleerd.</value></data>
-  <data name="Status.DeploymentFailed" xml:space="preserve"><value>Implementatie is mislukt.</value></data>
-  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Implementatie mislukt: {0}</value></data>
   <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Er loopt al een andere operatie.</value></data>
-  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Foutopsporing in veilige modus ingeschakeld: implementatieacties worden gesimuleerd.</value></data>
-  <data name="Status.StartingOrchestration" xml:space="preserve"><value>Implementatieworkflow starten.</value></data>
   <data name="Status.StartingStep" xml:space="preserve"><value>Beginstap...</value></data>
   <data name="Status.StartingStepFormat" xml:space="preserve"><value>Beginnen met {0}.</value></data>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>{0} starten...</value></data>
@@ -219,10 +194,6 @@ Doorgaan met de implementatie?</value></data>
   <data name="Status.InProgress" xml:space="preserve"><value>In uitvoering...</value></data>
   <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Stap:? van?</value></data>
   <data name="Status.StepCounterFormat" xml:space="preserve"><value>Stap: {0} of {1}</value></data>
-  <data name="Status.RebootingNow" xml:space="preserve"><value>Nu opnieuw opstarten...</value></data>
-  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>Herstartopdracht mislukt.</value></data>
-  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Herstartopdracht mislukt: {0}</value></data>
-  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Kan logbestand niet openen: {0}</value></data>
   <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe mislukt met afsluitcode {0}. {1}</value></data>
   <data name="Status.SystemReboot" xml:space="preserve"><value>Systeem opnieuw opstarten</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Het vereiste herstartbare uitvoerbare bestand 'wpeutil.exe' is niet gevonden.</value></data>

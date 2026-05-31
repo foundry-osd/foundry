@@ -28,10 +28,7 @@
   <data name="Theme.Dark" xml:space="preserve"><value>Buio</value></data>
   <data name="Language.English" xml:space="preserve"><value>Inglese</value></data>
   <data name="Language.French" xml:space="preserve"><value>francese</value></data>
-  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Aggiorna cataloghi</value></data>
-  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Aggiorna i dischi di destinazione</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Apri il file di registro</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>La modalità di simulazione è attiva: le azioni di distribuzione vengono simulate e non vengono eseguite scritture su disco o immagini.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Obiettivo</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Sistema operativo</value></data>
   <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Pacchetto driver</value></data>
@@ -74,8 +71,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Caricamento dei dischi di destinazione...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Individuazione del disco di destinazione non riuscita: {0}</value></data>
-  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>Nessun disco rilevato.</value></data>
-  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Dischi di destinazione caricati: {0} rilevati.</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Sistema operativo</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versione</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Lingua</value></data>
@@ -131,9 +126,6 @@
   <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Pagina di avanzamento</value></data>
   <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Pagina del successo</value></data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Pagina di errore</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>Anteprima del debug: pagina di avanzamento.</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>Anteprima del debug: pagina di successo.</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>Anteprima del debug: pagina di errore.</value></data>
   <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Anteprima del debug: DISM applicazione non riuscita perché la partizione di destinazione è di sola lettura.
 
 Codice errore=0x80070005
@@ -144,7 +136,6 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
   <data name="Common.Previous" xml:space="preserve"><value>Precedente</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Avanti</value></data>
   <data name="Common.Deploy" xml:space="preserve"><value>Distribuire</value></data>
-  <data name="Common.OpenLog" xml:space="preserve"><value>Apri registro</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>N/D</value></data>
   <data name="Common.Unavailable" xml:space="preserve"><value>Non disponibile</value></data>
   <data name="Common.None" xml:space="preserve"><value>Nessuno</value></data>
@@ -176,7 +167,6 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
   <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Bloccato: sola lettura</value></data>
   <data name="Disk.BlockedOffline" xml:space="preserve"><value>Bloccato: offline</value></data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>DEBUG BERSAGLI VIRTUALI</value></data>
-  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Disco selezionato bloccato: {0}</value></data>
   <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Il disco di destinazione {0} non è più presente.</value></data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Il disco di destinazione {0} è bloccato: {1}</value></data>
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Conferma la cancellazione del disco</value></data>
@@ -190,26 +180,11 @@ Dimensioni: {3}
 Sistema operativo: {4}
 
 Continuare con la distribuzione?</value></data>
-  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Seleziona un sistema operativo.</value></data>
-  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Immettere un nome computer valido.</value></data>
-  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Seleziona un disco di destinazione.</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Seleziona un modello o una versione OEM valida prima di iniziare la distribuzione.</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Selezionare un profilo Autopilot o disabilitare Autopilot prima di iniziare la distribuzione.</value></data>
-  <data name="Launch.CancelledByUser" xml:space="preserve"><value>Distribuzione annullata dall'utente.</value></data>
-  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Preparazione della distribuzione completata.</value></data>
-  <data name="Status.Ready" xml:space="preserve"><value>Pronto</value></data>
   <data name="Status.WaitingForDeployment" xml:space="preserve"><value>In attesa di distribuzione...</value></data>
   <data name="Status.WaitingForProgress" xml:space="preserve"><value>In attesa di progressi...</value></data>
   <data name="Status.PreparingDeployment" xml:space="preserve"><value>Preparazione della distribuzione in corso...</value></data>
-  <data name="Status.DeploymentStarted" xml:space="preserve"><value>La distribuzione è iniziata.</value></data>
-  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>Distribuzione completata.</value></data>
-  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>Flusso di lavoro di distribuzione completato.</value></data>
   <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Distribuzione annullata.</value></data>
-  <data name="Status.DeploymentFailed" xml:space="preserve"><value>Distribuzione non riuscita.</value></data>
-  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Distribuzione non riuscita: {0}</value></data>
   <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Un'altra operazione è già in corso.</value></data>
-  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Modalità provvisoria di debug abilitata: le azioni di distribuzione vengono simulate.</value></data>
-  <data name="Status.StartingOrchestration" xml:space="preserve"><value>Avvio del flusso di lavoro di distribuzione.</value></data>
   <data name="Status.StartingStep" xml:space="preserve"><value>Passo iniziale...</value></data>
   <data name="Status.StartingStepFormat" xml:space="preserve"><value>Inizio {0}.</value></data>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Inizio {0}...</value></data>
@@ -219,10 +194,6 @@ Continuare con la distribuzione?</value></data>
   <data name="Status.InProgress" xml:space="preserve"><value>In corso...</value></data>
   <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Passo:? Di?</value></data>
   <data name="Status.StepCounterFormat" xml:space="preserve"><value>Passo: {0} di {1}</value></data>
-  <data name="Status.RebootingNow" xml:space="preserve"><value>Riavvio ora...</value></data>
-  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>Il comando di riavvio non è riuscito.</value></data>
-  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Comando di riavvio non riuscito: {0}</value></data>
-  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Impossibile aprire il file di registro: {0}</value></data>
   <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe non è riuscito con il codice di uscita {0}. {1}</value></data>
   <data name="Status.SystemReboot" xml:space="preserve"><value>Riavvio del sistema</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>L'eseguibile di riavvio richiesto "wpeutil.exe" non è stato trovato.</value></data>

@@ -56,9 +56,6 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         FoundryDeployConfigurationDocument? deployConfigurationDocument = deployConfigLoadResult.Document is null
             ? null
             : await RefreshAutopilotGroupTagsAsync(deployConfigLoadResult.Document, cacheRootPath).ConfigureAwait(false);
-        string? startupStatusMessage = request.IsDebugSafeMode
-            ? "Debug Safe Mode enabled: deployment actions are simulated."
-            : null;
 
         Task<string> computerNameTask = ResolveComputerNameAsync(request.FallbackComputerName);
         Task<HardwareLoadResult> hardwareTask = LoadHardwareAsync();
@@ -70,14 +67,12 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         return new DeploymentStartupSnapshot
         {
             CacheRootPath = cacheRootPath,
-            StartupStatusMessage = startupStatusMessage,
             DeployConfigurationDocument = deployConfigurationDocument,
             AutopilotProfiles = autopilotProfiles,
             EffectiveComputerName = computerNameTask.Result,
             DetectedHardware = hardwareTask.Result.Profile,
             HardwareDetectionFailureMessage = hardwareTask.Result.ErrorMessage,
             TargetDisks = targetDisksTask.Result.Disks,
-            TargetDiskStatusMessage = targetDisksTask.Result.StatusMessage,
             CatalogSnapshot = catalogTask.Result
         };
     }
@@ -121,12 +116,12 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         try
         {
             IReadOnlyList<TargetDiskInfo> disks = await _targetDiskService.GetDisksAsync().ConfigureAwait(false);
-            return new TargetDiskLoadResult(disks, null);
+            return new TargetDiskLoadResult(disks);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Target disk discovery failed during startup.");
-            return new TargetDiskLoadResult([], $"Target disk discovery failed: {ex.Message}");
+            return new TargetDiskLoadResult([]);
         }
     }
 
@@ -224,5 +219,5 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
     }
 
     private sealed record HardwareLoadResult(HardwareProfile? Profile, string? ErrorMessage);
-    private sealed record TargetDiskLoadResult(IReadOnlyList<TargetDiskInfo> Disks, string? StatusMessage);
+    private sealed record TargetDiskLoadResult(IReadOnlyList<TargetDiskInfo> Disks);
 }

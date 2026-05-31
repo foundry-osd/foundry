@@ -28,10 +28,7 @@
   <data name="Theme.Dark" xml:space="preserve"><value>Escuro</value></data>
   <data name="Language.English" xml:space="preserve"><value>Inglês</value></data>
   <data name="Language.French" xml:space="preserve"><value>Francês</value></data>
-  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Atualizar catálogos</value></data>
-  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Atualizar discos de destino</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Abrir arquivo de registro</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>O modo de simulação está ativo: as ações de implantação são simuladas e nenhuma gravação de disco ou imagem é executada.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Alvo</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Sistema operacional</value></data>
   <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Pacote de driver</value></data>
@@ -74,8 +71,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Carregando discos de destino...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Falha na descoberta do disco de destino: {0}</value></data>
-  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>Nenhum disco detectado.</value></data>
-  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Discos de destino carregados: {0} detectados.</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Sistema operacional</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versão</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Idioma</value></data>
@@ -131,9 +126,6 @@
   <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Página de progresso</value></data>
   <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Página de sucesso</value></data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Página de erro</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>Visualização de depuração: página de progresso.</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>Visualização de depuração: página de sucesso.</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>Visualização de depuração: página de erro.</value></data>
   <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Visualização de depuração: DISM aplicação falhou porque a partição de destino é somente leitura.
 
 Código de erro = 0x80070005
@@ -144,7 +136,6 @@ Ação: Verifique os atributos do disco e tente novamente a implantação.</valu
   <data name="Common.Previous" xml:space="preserve"><value>Anterior</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Próximo</value></data>
   <data name="Common.Deploy" xml:space="preserve"><value>Implantar</value></data>
-  <data name="Common.OpenLog" xml:space="preserve"><value>Abrir registro</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>N/A</value></data>
   <data name="Common.Unavailable" xml:space="preserve"><value>Indisponível</value></data>
   <data name="Common.None" xml:space="preserve"><value>Nenhum</value></data>
@@ -176,7 +167,6 @@ Ação: Verifique os atributos do disco e tente novamente a implantação.</valu
   <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Bloqueado: somente leitura</value></data>
   <data name="Disk.BlockedOffline" xml:space="preserve"><value>Bloqueado: off-line</value></data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>DEBUGAR ALVO VIRTUAL</value></data>
-  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Disco selecionado bloqueado: {0}</value></data>
   <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>O disco de destino {0} não está mais presente.</value></data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>O disco de destino {0} está bloqueado: {1}</value></data>
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Confirme o apagamento do disco</value></data>
@@ -190,26 +180,11 @@ Tamanho: {3}
 Sistema operacional: {4}
 
 Continuar com a implantação?</value></data>
-  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Selecione um sistema operacional.</value></data>
-  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Insira um nome de computador válido.</value></data>
-  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Selecione um disco de destino.</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Selecione um modelo ou versão OEM válido antes de iniciar a implantação.</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Selecione um perfil Autopilot ou desative Autopilot antes de iniciar a implantação.</value></data>
-  <data name="Launch.CancelledByUser" xml:space="preserve"><value>Implantação cancelada pelo usuário.</value></data>
-  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Preparação de implantação concluída.</value></data>
-  <data name="Status.Ready" xml:space="preserve"><value>Pronto</value></data>
   <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Aguardando implantação...</value></data>
   <data name="Status.WaitingForProgress" xml:space="preserve"><value>Aguardando progresso...</value></data>
   <data name="Status.PreparingDeployment" xml:space="preserve"><value>Preparando implantação...</value></data>
-  <data name="Status.DeploymentStarted" xml:space="preserve"><value>A implantação foi iniciada.</value></data>
-  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>Implantação concluída.</value></data>
-  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>Fluxo de trabalho de implantação concluído.</value></data>
   <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Implantação cancelada.</value></data>
-  <data name="Status.DeploymentFailed" xml:space="preserve"><value>A implantação falhou.</value></data>
-  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Falha na implantação: {0}</value></data>
   <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Outra operação já está em execução.</value></data>
-  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Modo de segurança de depuração ativado: ações de implantação são simuladas.</value></data>
-  <data name="Status.StartingOrchestration" xml:space="preserve"><value>Iniciando o fluxo de trabalho de implantação.</value></data>
   <data name="Status.StartingStep" xml:space="preserve"><value>Etapa inicial...</value></data>
   <data name="Status.StartingStepFormat" xml:space="preserve"><value>Iniciando {0}.</value></data>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Iniciando {0}...</value></data>
@@ -219,10 +194,6 @@ Continuar com a implantação?</value></data>
   <data name="Status.InProgress" xml:space="preserve"><value>Em andamento...</value></data>
   <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Etapa:? de?</value></data>
   <data name="Status.StepCounterFormat" xml:space="preserve"><value>Etapa: {0} de {1}</value></data>
-  <data name="Status.RebootingNow" xml:space="preserve"><value>Reiniciando agora...</value></data>
-  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>O comando de reinicialização falhou.</value></data>
-  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Falha no comando de reinicialização: {0}</value></data>
-  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Não foi possível abrir o arquivo de log: {0}</value></data>
   <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe falhou com o código de saída {0}. {1}</value></data>
   <data name="Status.SystemReboot" xml:space="preserve"><value>Reinicialização do sistema</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>O executável de reinicialização necessária 'wpeutil.exe' não foi encontrado.</value></data>

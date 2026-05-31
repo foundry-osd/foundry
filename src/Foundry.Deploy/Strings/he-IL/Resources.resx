@@ -28,10 +28,7 @@
   <data name="Theme.Dark" xml:space="preserve"><value>כהה</value></data>
   <data name="Language.English" xml:space="preserve"><value>אנגלית</value></data>
   <data name="Language.French" xml:space="preserve"><value>צרפתית</value></data>
-  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>רענון קטלוגים</value></data>
-  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>רענן דיסקי יעד</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>פתח קובץ יומן</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>מצב סימולציה פעיל: פעולות פריסה מדומה ולא מבוצעות כתיבת דיסק או תמונה.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. יעד</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. מערכת הפעלה</value></data>
   <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. חבילת דרייברים</value></data>
@@ -74,8 +71,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>טוען דיסקי יעד...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>גילוי דיסק יעד נכשל: {0}</value></data>
-  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>לא זוהו דיסקים.</value></data>
-  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>דיסקים יעד נטענו: {0} זוהו.</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>מערכת הפעלה</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>גרסה</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>שפה</value></data>
@@ -131,9 +126,6 @@
   <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>דף התקדמות</value></data>
   <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>דף הצלחה</value></data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>דף שגיאה</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>תצוגה מקדימה של ניפוי באגים: דף התקדמות.</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>תצוגה מקדימה של ניפוי באגים: דף הצלחה.</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>תצוגה מקדימה של ניפוי באגים: דף שגיאה.</value></data>
   <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>תצוגה מקדימה של ניפוי באגים: יישום DISM נכשל מכיוון שמחיצת היעד היא לקריאה בלבד.
 
 ErrorCode=0x80070005
@@ -144,7 +136,6 @@ ErrorCode=0x80070005
   <data name="Common.Previous" xml:space="preserve"><value>הקודם</value></data>
   <data name="Common.Next" xml:space="preserve"><value>הבא</value></data>
   <data name="Common.Deploy" xml:space="preserve"><value>פרוס</value></data>
-  <data name="Common.OpenLog" xml:space="preserve"><value>פתח יומן</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>לא</value></data>
   <data name="Common.Unavailable" xml:space="preserve"><value>לא זמין</value></data>
   <data name="Common.None" xml:space="preserve"><value>אין</value></data>
@@ -176,7 +167,6 @@ ErrorCode=0x80070005
   <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>חסום: לקריאה בלבד</value></data>
   <data name="Disk.BlockedOffline" xml:space="preserve"><value>חסום: לא מקוון</value></data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>ניפוי יעד וירטואלי</value></data>
-  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>דיסק שנבחר חסום: {0}</value></data>
   <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>דיסק היעד {0} אינו קיים יותר.</value></data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>דיסק היעד {0} חסום: {1}</value></data>
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>אשר את מחיקת הדיסק</value></data>
@@ -190,26 +180,11 @@ ErrorCode=0x80070005
 מערכת הפעלה: {4}
 
 האם להמשיך בפריסה?</value></data>
-  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>בחר מערכת הפעלה.</value></data>
-  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>הזן שם מחשב חוקי.</value></data>
-  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>בחר דיסק יעד.</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>בחר דגם או גרסה חוקית של OEM לפני תחילת הפריסה.</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>בחר פרופיל Autopilot או השבת את Autopilot לפני תחילת הפריסה.</value></data>
-  <data name="Launch.CancelledByUser" xml:space="preserve"><value>הפריסה בוטלה על ידי המשתמש.</value></data>
-  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>הכנת הפריסה הושלמה.</value></data>
-  <data name="Status.Ready" xml:space="preserve"><value>מוכן</value></data>
   <data name="Status.WaitingForDeployment" xml:space="preserve"><value>ממתין לפריסה...</value></data>
   <data name="Status.WaitingForProgress" xml:space="preserve"><value>מחכה להתקדמות...</value></data>
   <data name="Status.PreparingDeployment" xml:space="preserve"><value>מכין פריסה...</value></data>
-  <data name="Status.DeploymentStarted" xml:space="preserve"><value>החלה הפריסה.</value></data>
-  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>הפריסה הושלמה.</value></data>
-  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>זרימת העבודה של הפריסה הושלמה.</value></data>
   <data name="Status.DeploymentCancelled" xml:space="preserve"><value>הפריסה בוטלה.</value></data>
-  <data name="Status.DeploymentFailed" xml:space="preserve"><value>הפריסה נכשלה.</value></data>
-  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>הפריסה נכשלה: {0}</value></data>
   <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>פעולה נוספת כבר פועלת.</value></data>
-  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>ניפוי באגים במצב בטוח מופעל: פעולות פריסה מדומות.</value></data>
-  <data name="Status.StartingOrchestration" xml:space="preserve"><value>התחלת זרימת עבודה בפריסה.</value></data>
   <data name="Status.StartingStep" xml:space="preserve"><value>שלב מתחיל...</value></data>
   <data name="Status.StartingStepFormat" xml:space="preserve"><value>מתחיל {0}.</value></data>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>מתחיל {0}...</value></data>
@@ -219,10 +194,6 @@ ErrorCode=0x80070005
   <data name="Status.InProgress" xml:space="preserve"><value>בתהליך...</value></data>
   <data name="Status.StepCounterUnknown" xml:space="preserve"><value>שלב:? של?</value></data>
   <data name="Status.StepCounterFormat" xml:space="preserve"><value>שלב: {0} של {1}</value></data>
-  <data name="Status.RebootingNow" xml:space="preserve"><value>מאתחל עכשיו...</value></data>
-  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>פקודת אתחול מחדש נכשלה.</value></data>
-  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>פקודת אתחול מחדש נכשלה: {0}</value></data>
-  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>לא ניתן לפתוח קובץ יומן: {0}</value></data>
   <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe נכשל עם קוד יציאה {0}. {1}</value></data>
   <data name="Status.SystemReboot" xml:space="preserve"><value>אתחול המערכת</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>קובץ ההפעלה 'wpeutil.exe' הנדרש לא נמצא.</value></data>
