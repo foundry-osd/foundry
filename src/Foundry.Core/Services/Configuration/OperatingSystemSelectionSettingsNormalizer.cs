@@ -9,7 +9,7 @@ namespace Foundry.Core.Services.Configuration;
 public static class OperatingSystemSelectionSettingsNormalizer
 {
     /// <summary>
-    /// Normalizes a user-facing OS selection policy and removes defaults that are outside explicit allowed lists.
+    /// Normalizes a user-facing OS selection policy and forces singleton allowed lists as their defaults.
     /// </summary>
     /// <param name="settings">The user-facing OS selection policy.</param>
     /// <returns>A normalized policy that is safe to persist.</returns>
@@ -168,8 +168,13 @@ public static class OperatingSystemSelectionSettingsNormalizer
             string.Equals(supported, normalized, StringComparison.OrdinalIgnoreCase));
     }
 
-    private static string? NormalizeDefault(string? defaultValue, IReadOnlyCollection<string> allowedValues)
+    private static string? NormalizeDefault(string? defaultValue, IReadOnlyList<string> allowedValues)
     {
+        if (allowedValues.Count == 1)
+        {
+            return allowedValues[0];
+        }
+
         if (string.IsNullOrWhiteSpace(defaultValue))
         {
             return null;

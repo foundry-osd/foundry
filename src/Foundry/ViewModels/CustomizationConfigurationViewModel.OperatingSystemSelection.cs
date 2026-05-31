@@ -22,6 +22,10 @@ public sealed partial class CustomizationConfigurationViewModel
     public ObservableCollection<SelectionOption<string>> DefaultOperatingSystemEditionOptions { get; } = [];
 
     public bool IsOperatingSystemSelectionOptionsEnabled => IsOperatingSystemSelectionEnabled;
+    public bool IsDefaultOperatingSystemLanguageSelectionEnabled => IsOperatingSystemSelectionOptionsEnabled && !HasSingleSelectedOption(OperatingSystemLanguageOptions);
+    public bool IsDefaultOperatingSystemReleaseSelectionEnabled => IsOperatingSystemSelectionOptionsEnabled && !HasSingleSelectedOption(OperatingSystemReleaseOptions);
+    public bool IsDefaultOperatingSystemLicenseChannelSelectionEnabled => IsOperatingSystemSelectionOptionsEnabled && !HasSingleSelectedOption(OperatingSystemLicenseChannelOptions);
+    public bool IsDefaultOperatingSystemEditionSelectionEnabled => IsOperatingSystemSelectionOptionsEnabled && !HasSingleSelectedOption(OperatingSystemEditionOptions);
 
     [ObservableProperty]
     public partial string OperatingSystemSelectionHeader { get; set; }
@@ -109,6 +113,10 @@ public sealed partial class CustomizationConfigurationViewModel
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsOperatingSystemSelectionOptionsEnabled))]
+    [NotifyPropertyChangedFor(nameof(IsDefaultOperatingSystemLanguageSelectionEnabled))]
+    [NotifyPropertyChangedFor(nameof(IsDefaultOperatingSystemReleaseSelectionEnabled))]
+    [NotifyPropertyChangedFor(nameof(IsDefaultOperatingSystemLicenseChannelSelectionEnabled))]
+    [NotifyPropertyChangedFor(nameof(IsDefaultOperatingSystemEditionSelectionEnabled))]
     public partial bool IsOperatingSystemSelectionEnabled { get; set; }
 
     [ObservableProperty]
@@ -238,22 +246,27 @@ public sealed partial class CustomizationConfigurationViewModel
         isRefreshingOperatingSystemSelectionOptions = true;
         try
         {
-            RefreshDefaultOptions(DefaultOperatingSystemLanguageOptions, OperatingSystemLanguageOptions, settings.DefaultLanguageCode);
+            RefreshDefaultOptions(DefaultOperatingSystemLanguageOptions, OperatingSystemLanguageOptions);
             SelectedDefaultOperatingSystemLanguage = SelectStringOption(DefaultOperatingSystemLanguageOptions, settings.DefaultLanguageCode) ?? DefaultOperatingSystemLanguageOptions[0];
 
-            RefreshDefaultOptions(DefaultOperatingSystemReleaseOptions, OperatingSystemReleaseOptions, settings.DefaultReleaseId);
+            RefreshDefaultOptions(DefaultOperatingSystemReleaseOptions, OperatingSystemReleaseOptions);
             SelectedDefaultOperatingSystemRelease = SelectStringOption(DefaultOperatingSystemReleaseOptions, settings.DefaultReleaseId) ?? DefaultOperatingSystemReleaseOptions[0];
 
-            RefreshDefaultOptions(DefaultOperatingSystemLicenseChannelOptions, OperatingSystemLicenseChannelOptions, settings.DefaultLicenseChannel);
+            RefreshDefaultOptions(DefaultOperatingSystemLicenseChannelOptions, OperatingSystemLicenseChannelOptions);
             SelectedDefaultOperatingSystemLicenseChannel = SelectStringOption(DefaultOperatingSystemLicenseChannelOptions, settings.DefaultLicenseChannel) ?? DefaultOperatingSystemLicenseChannelOptions[0];
 
-            RefreshDefaultOptions(DefaultOperatingSystemEditionOptions, OperatingSystemEditionOptions, settings.DefaultEdition);
+            RefreshDefaultOptions(DefaultOperatingSystemEditionOptions, OperatingSystemEditionOptions);
             SelectedDefaultOperatingSystemEdition = SelectStringOption(DefaultOperatingSystemEditionOptions, settings.DefaultEdition) ?? DefaultOperatingSystemEditionOptions[0];
         }
         finally
         {
             isRefreshingOperatingSystemSelectionOptions = false;
         }
+
+        OnPropertyChanged(nameof(IsDefaultOperatingSystemLanguageSelectionEnabled));
+        OnPropertyChanged(nameof(IsDefaultOperatingSystemReleaseSelectionEnabled));
+        OnPropertyChanged(nameof(IsDefaultOperatingSystemLicenseChannelSelectionEnabled));
+        OnPropertyChanged(nameof(IsDefaultOperatingSystemEditionSelectionEnabled));
     }
 
     private void OnOperatingSystemSelectionOptionPropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -306,8 +319,7 @@ public sealed partial class CustomizationConfigurationViewModel
 
     private void RefreshDefaultOptions(
         ObservableCollection<SelectionOption<string>> target,
-        IEnumerable<SelectableStringOptionViewModel> allOptions,
-        string? selectedValue)
+        IEnumerable<SelectableStringOptionViewModel> allOptions)
     {
         SelectableStringOptionViewModel[] selectedOptions = allOptions
             .Where(option => option.IsSelected)
@@ -317,17 +329,22 @@ public sealed partial class CustomizationConfigurationViewModel
             : allOptions.ToArray();
 
         target.Clear();
+        if (selectedOptions.Length == 1)
+        {
+            target.Add(new(selectedOptions[0].Value, selectedOptions[0].DisplayName));
+            return;
+        }
+
         target.Add(new(AutomaticSelectionValue, AutomaticOptionText));
         foreach (SelectableStringOptionViewModel option in selectableOptions)
         {
             target.Add(new(option.Value, option.DisplayName));
         }
+    }
 
-        if (!string.IsNullOrWhiteSpace(selectedValue) &&
-            target.All(option => !string.Equals(option.Value, selectedValue, StringComparison.OrdinalIgnoreCase)))
-        {
-            target.Add(new(selectedValue, selectedValue));
-        }
+    private static bool HasSingleSelectedOption(IEnumerable<SelectableStringOptionViewModel> options)
+    {
+        return options.Count(option => option.IsSelected) == 1;
     }
 
     private static SelectionOption<string>? SelectStringOption(IEnumerable<SelectionOption<string>> options, string? value)

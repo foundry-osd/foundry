@@ -98,6 +98,7 @@
                                 </wct:SettingsCard.HeaderIcon>
                                 <ComboBox Width="{ThemeResource FoundryWideInputMinWidth}"
                                           DisplayMemberPath="DisplayName"
+                                          IsEnabled="{x:Bind ViewModel.IsDefaultOperatingSystemReleaseSelectionEnabled, Mode=OneWay}"
                                           ItemsSource="{x:Bind ViewModel.DefaultOperatingSystemReleaseOptions, Mode=OneWay}"
                                           SelectedItem="{x:Bind ViewModel.SelectedDefaultOperatingSystemRelease, Mode=TwoWay}" />
                             </wct:SettingsCard>
@@ -140,6 +141,7 @@
                                 </wct:SettingsCard.HeaderIcon>
                                 <ComboBox Width="{ThemeResource FoundryWideInputMinWidth}"
                                           DisplayMemberPath="DisplayName"
+                                          IsEnabled="{x:Bind ViewModel.IsDefaultOperatingSystemLanguageSelectionEnabled, Mode=OneWay}"
                                           ItemsSource="{x:Bind ViewModel.DefaultOperatingSystemLanguageOptions, Mode=OneWay}"
                                           SelectedItem="{x:Bind ViewModel.SelectedDefaultOperatingSystemLanguage, Mode=TwoWay}" />
                             </wct:SettingsCard>
@@ -181,6 +183,7 @@
                                 </wct:SettingsCard.HeaderIcon>
                                 <ComboBox Width="{ThemeResource FoundryWideInputMinWidth}"
                                           DisplayMemberPath="DisplayName"
+                                          IsEnabled="{x:Bind ViewModel.IsDefaultOperatingSystemLicenseChannelSelectionEnabled, Mode=OneWay}"
                                           ItemsSource="{x:Bind ViewModel.DefaultOperatingSystemLicenseChannelOptions, Mode=OneWay}"
                                           SelectedItem="{x:Bind ViewModel.SelectedDefaultOperatingSystemLicenseChannel, Mode=TwoWay}" />
                             </wct:SettingsCard>
@@ -223,6 +226,7 @@
                                 </wct:SettingsCard.HeaderIcon>
                                 <ComboBox Width="{ThemeResource FoundryWideInputMinWidth}"
                                           DisplayMemberPath="DisplayName"
+                                          IsEnabled="{x:Bind ViewModel.IsDefaultOperatingSystemEditionSelectionEnabled, Mode=OneWay}"
                                           ItemsSource="{x:Bind ViewModel.DefaultOperatingSystemEditionOptions, Mode=OneWay}"
                                           SelectedItem="{x:Bind ViewModel.SelectedDefaultOperatingSystemEdition, Mode=TwoWay}" />
                             </wct:SettingsCard>

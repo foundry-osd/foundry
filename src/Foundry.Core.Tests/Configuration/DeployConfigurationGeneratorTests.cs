@@ -310,6 +310,30 @@ public sealed class DeployConfigurationGeneratorTests
     }
 
     [Fact]
+    public void Generate_WhenOperatingSystemSelectionAllowedListHasOneValue_ForcesDefaultToThatValue()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            OperatingSystemSelection = new OperatingSystemSelectionSettings
+            {
+                IsEnabled = true,
+                AllowedLanguageCodes = ["fr-FR"],
+                AllowedReleaseIds = ["24H2"],
+                AllowedLicenseChannels = ["VOL"],
+                AllowedEditions = ["Enterprise"]
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.Equal("fr-FR", result.OperatingSystemSelection.DefaultLanguageCode);
+        Assert.Equal("24H2", result.OperatingSystemSelection.DefaultReleaseId);
+        Assert.Equal("VOL", result.OperatingSystemSelection.DefaultLicenseChannel);
+        Assert.Equal("Enterprise", result.OperatingSystemSelection.DefaultEdition);
+    }
+
+    [Fact]
     public void Generate_WhenOperatingSystemSelectionIsDisabled_DoesNotPropagatePolicy()
     {
         var generator = new DeployConfigurationGenerator();
