@@ -21,5 +21,5 @@ public sealed record OperatingSystemCatalogItem
     public string Sha256 { get; init; } = string.Empty;
 
     public string DisplayLabel =>
-        $"{Foundry.Deploy.Converters.OperatingSystemDisplayFormatter.FormatWindowsRelease(WindowsRelease)} {ReleaseId} | {Architecture} | {LanguageCode} | {Foundry.Deploy.Converters.OperatingSystemDisplayFormatter.FormatEdition(Edition)} | {Foundry.Deploy.Converters.OperatingSystemDisplayFormatter.FormatLicenseChannel(LicenseChannel)} | {Build}";
+        $"{Foundry.Deploy.Converters.OperatingSystemDisplayFormatter.FormatWindowsRelease(WindowsRelease)} {ReleaseId} | {Architecture} | {LanguageCode} | {Edition.Trim()} | {Foundry.Deploy.Converters.OperatingSystemDisplayFormatter.FormatLicenseChannel(LicenseChannel)} | {Build}";
 }

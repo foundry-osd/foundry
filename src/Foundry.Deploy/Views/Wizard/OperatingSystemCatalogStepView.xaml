@@ -69,13 +69,7 @@
                                 Margin="0,8,0,0"
                                 IsEnabled="{Binding OperatingSystemCatalog.IsEditionSelectionEnabled}"
                                 ItemsSource="{Binding OperatingSystemCatalog.EditionFilters}"
-                                SelectedItem="{Binding OperatingSystemCatalog.SelectedEdition}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding ., Converter={StaticResource OsCatalogFilterDisplayConverter}, ConverterParameter=Edition}" />
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
+                                SelectedItem="{Binding OperatingSystemCatalog.SelectedEdition}" />
                         </StackPanel>
                     </Grid>
                 </Border>

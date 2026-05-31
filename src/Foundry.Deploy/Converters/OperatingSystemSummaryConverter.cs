@@ -14,7 +14,7 @@ public sealed class OperatingSystemSummaryConverter : IValueConverter
         }
 
         string language = string.IsNullOrWhiteSpace(item.LanguageCode) ? item.Language : item.LanguageCode;
-        string edition = OperatingSystemDisplayFormatter.FormatEdition(item.Edition);
+        string edition = item.Edition.Trim();
         string channel = OperatingSystemDisplayFormatter.FormatLicenseChannel(item.LicenseChannel);
         string windowsRelease = OperatingSystemDisplayFormatter.FormatWindowsRelease(item.WindowsRelease);
         string operatingSystemLabel = string.IsNullOrWhiteSpace(windowsRelease) ? "Windows" : $"Windows {windowsRelease}";

@@ -19,21 +19,6 @@ public sealed class OperatingSystemDisplayFormatterTests : IDisposable
         Assert.Equal(expected, OperatingSystemDisplayFormatter.FormatLicenseChannel(input));
     }
 
-    [Theory]
-    [InlineData("Home", "Home")]
-    [InlineData("Home N", "Home N")]
-    [InlineData("Home Single Language", "Home Single Language")]
-    [InlineData("Education", "Education")]
-    [InlineData("Enterprise", "Enterprise")]
-    [InlineData("Pro", "Pro")]
-    public void FormatEdition_UsesEnglishDisplayText(string input, string expected)
-    {
-        CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("fr-FR");
-        CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("fr-FR");
-
-        Assert.Equal(expected, OperatingSystemDisplayFormatter.FormatEdition(input));
-    }
-
     public void Dispose()
     {
         CultureInfo.CurrentCulture = _originalCulture;

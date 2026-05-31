@@ -30,25 +30,4 @@ internal static class OperatingSystemDisplayFormatter
         };
     }
 
-    /// <summary>
-    /// Converts known Windows edition names to English display labels.
-    /// </summary>
-    /// <param name="edition">The catalog edition name.</param>
-    /// <returns>The English display label for known editions, otherwise the trimmed source value.</returns>
-    public static string FormatEdition(string edition)
-    {
-        return edition.Trim() switch
-        {
-            "Home" => "Home",
-            "Home N" => "Home N",
-            "Home Single Language" => "Home Single Language",
-            "Education" => "Education",
-            "Education N" => "Education N",
-            "Pro" => "Pro",
-            "Pro N" => "Pro N",
-            "Enterprise" => "Enterprise",
-            "Enterprise N" => "Enterprise N",
-            _ => edition.Trim()
-        };
-    }
 }

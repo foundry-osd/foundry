@@ -16,7 +16,6 @@ public sealed class OsCatalogFilterDisplayConverter : IValueConverter
         return mode.ToUpperInvariant() switch
         {
             "LICENSECHANNEL" => OperatingSystemDisplayFormatter.FormatLicenseChannel(source),
-            "EDITION" => OperatingSystemDisplayFormatter.FormatEdition(source),
             _ => source
         };
     }
