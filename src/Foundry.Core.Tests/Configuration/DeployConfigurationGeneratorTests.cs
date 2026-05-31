@@ -279,6 +279,7 @@ public sealed class DeployConfigurationGeneratorTests
         {
             OperatingSystemSelection = new OperatingSystemSelectionSettings
             {
+                IsEnabled = true,
                 AllowedLanguageCodes = [" fr_fr ", "EN-us", "fr-FR", ""],
                 DefaultLanguageCode = "de-DE",
                 AllowedReleaseIds = ["25h2", "24H2", "25H2", ""],
@@ -296,6 +297,7 @@ public sealed class DeployConfigurationGeneratorTests
 
         var result = generator.Generate(document);
 
+        Assert.True(result.OperatingSystemSelection.IsEnabled);
         Assert.Equal(["fr-FR", "en-US"], result.OperatingSystemSelection.AllowedLanguageCodes);
         Assert.Null(result.OperatingSystemSelection.DefaultLanguageCode);
         Assert.Equal(["25H2", "24H2"], result.OperatingSystemSelection.AllowedReleaseIds);
@@ -305,6 +307,39 @@ public sealed class DeployConfigurationGeneratorTests
         Assert.Equal(["Enterprise", "Pro"], result.OperatingSystemSelection.AllowedEditions);
         Assert.Null(result.OperatingSystemSelection.DefaultEdition);
         Assert.Equal("Romance Standard Time", result.Localization.DefaultTimeZoneId);
+    }
+
+    [Fact]
+    public void Generate_WhenOperatingSystemSelectionIsDisabled_DoesNotPropagatePolicy()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            OperatingSystemSelection = new OperatingSystemSelectionSettings
+            {
+                IsEnabled = false,
+                AllowedLanguageCodes = ["fr-FR"],
+                DefaultLanguageCode = "fr-FR",
+                AllowedReleaseIds = ["25H2"],
+                DefaultReleaseId = "25H2",
+                AllowedLicenseChannels = ["VOL"],
+                DefaultLicenseChannel = "VOL",
+                AllowedEditions = ["Enterprise"],
+                DefaultEdition = "Enterprise"
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.False(result.OperatingSystemSelection.IsEnabled);
+        Assert.Empty(result.OperatingSystemSelection.AllowedLanguageCodes);
+        Assert.Null(result.OperatingSystemSelection.DefaultLanguageCode);
+        Assert.Empty(result.OperatingSystemSelection.AllowedReleaseIds);
+        Assert.Null(result.OperatingSystemSelection.DefaultReleaseId);
+        Assert.Empty(result.OperatingSystemSelection.AllowedLicenseChannels);
+        Assert.Null(result.OperatingSystemSelection.DefaultLicenseChannel);
+        Assert.Empty(result.OperatingSystemSelection.AllowedEditions);
+        Assert.Null(result.OperatingSystemSelection.DefaultEdition);
     }
 
     [Fact]

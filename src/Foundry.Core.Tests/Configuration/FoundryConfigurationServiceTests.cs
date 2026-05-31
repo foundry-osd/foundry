@@ -26,6 +26,7 @@ public sealed class FoundryConfigurationServiceTests
             },
             OperatingSystemSelection = new OperatingSystemSelectionSettings
             {
+                IsEnabled = true,
                 AllowedLanguageCodes = ["en-US", "fr-FR"],
                 DefaultLanguageCode = "fr-FR",
                 AllowedReleaseIds = ["25H2"],
@@ -89,6 +90,7 @@ public sealed class FoundryConfigurationServiceTests
 
         Assert.True(loaded.Network.WifiProvisioned);
         Assert.Equal("CorpWiFi", loaded.Network.Wifi.Ssid);
+        Assert.True(loaded.OperatingSystemSelection.IsEnabled);
         Assert.Equal(["en-US", "fr-FR"], loaded.OperatingSystemSelection.AllowedLanguageCodes);
         Assert.Equal("fr-FR", loaded.OperatingSystemSelection.DefaultLanguageCode);
         Assert.Equal(["25H2"], loaded.OperatingSystemSelection.AllowedReleaseIds);

@@ -22,6 +22,7 @@ public sealed class OperatingSystemCatalogViewModelTests
 
         viewModel.ApplyOperatingSystemSelection(new DeployOperatingSystemSelectionSettings
         {
+            IsEnabled = true,
             AllowedLanguageCodes = [" fr_FR "],
             DefaultLanguageCode = "FR-fr"
         });
@@ -43,6 +44,7 @@ public sealed class OperatingSystemCatalogViewModelTests
 
         viewModel.ApplyOperatingSystemSelection(new DeployOperatingSystemSelectionSettings
         {
+            IsEnabled = true,
             AllowedReleaseIds = ["24h2"],
             DefaultReleaseId = "24H2",
             AllowedLicenseChannels = ["volume"],
@@ -71,6 +73,7 @@ public sealed class OperatingSystemCatalogViewModelTests
 
         viewModel.ApplyOperatingSystemSelection(new DeployOperatingSystemSelectionSettings
         {
+            IsEnabled = true,
             AllowedReleaseIds = ["23H2"],
             DefaultReleaseId = "23H2",
             AllowedLicenseChannels = ["VOL"],
@@ -81,6 +84,39 @@ public sealed class OperatingSystemCatalogViewModelTests
 
         Assert.Equal(["25H2"], viewModel.ReleaseIdFilters);
         Assert.True(viewModel.IsReleaseIdSelectionEnabled);
+        Assert.Equal(["RET"], viewModel.LicenseChannelFilters);
+        Assert.True(viewModel.IsLicenseChannelSelectionEnabled);
+        Assert.Contains("Pro", viewModel.EditionFilters);
+        Assert.True(viewModel.IsEditionSelectionEnabled);
+    }
+
+    [Fact]
+    public void ApplyOperatingSystemSelection_WhenDisabled_IgnoresSavedPolicy()
+    {
+        var viewModel = new OperatingSystemCatalogViewModel(NullLogger.Instance, "x64");
+        viewModel.ApplyCatalog(
+        [
+            CreateOperatingSystem("en-US", releaseId: "25H2", licenseChannel: "RET"),
+            CreateOperatingSystem("fr-FR", releaseId: "24H2", licenseChannel: "VOL")
+        ]);
+
+        viewModel.ApplyOperatingSystemSelection(new DeployOperatingSystemSelectionSettings
+        {
+            IsEnabled = false,
+            AllowedLanguageCodes = ["fr-FR"],
+            DefaultLanguageCode = "fr-FR",
+            AllowedReleaseIds = ["24H2"],
+            DefaultReleaseId = "24H2",
+            AllowedLicenseChannels = ["VOL"],
+            DefaultLicenseChannel = "VOL",
+            AllowedEditions = ["Enterprise"],
+            DefaultEdition = "Enterprise"
+        });
+
+        Assert.Equal(["24H2", "25H2"], viewModel.ReleaseIdFilters);
+        Assert.True(viewModel.IsReleaseIdSelectionEnabled);
+        Assert.Equal(["en-US"], viewModel.LanguageFilters);
+        Assert.True(viewModel.IsLanguageSelectionEnabled);
         Assert.Equal(["RET"], viewModel.LicenseChannelFilters);
         Assert.True(viewModel.IsLicenseChannelSelectionEnabled);
         Assert.Contains("Pro", viewModel.EditionFilters);

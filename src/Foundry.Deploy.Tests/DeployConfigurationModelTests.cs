@@ -37,6 +37,7 @@ public sealed class DeployConfigurationModelTests
             {
               "schemaVersion": 7,
               "operatingSystemSelection": {
+                "isEnabled": true,
                 "allowedLanguageCodes": ["en-US", "fr-FR"],
                 "defaultLanguageCode": "fr-FR",
                 "allowedReleaseIds": ["25H2"],
@@ -58,6 +59,7 @@ public sealed class DeployConfigurationModelTests
         FoundryDeployConfigurationDocument? document = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(json, options);
 
         Assert.NotNull(document);
+        Assert.True(document.OperatingSystemSelection.IsEnabled);
         Assert.Equal(["en-US", "fr-FR"], document.OperatingSystemSelection.AllowedLanguageCodes);
         Assert.Equal("fr-FR", document.OperatingSystemSelection.DefaultLanguageCode);
         Assert.Equal(["25H2"], document.OperatingSystemSelection.AllowedReleaseIds);

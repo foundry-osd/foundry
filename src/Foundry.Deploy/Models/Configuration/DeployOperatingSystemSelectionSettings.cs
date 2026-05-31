@@ -6,6 +6,11 @@ namespace Foundry.Deploy.Models.Configuration;
 public sealed record DeployOperatingSystemSelectionSettings
 {
     /// <summary>
+    /// Gets whether the deploy runtime should apply the generated OS catalog policy.
+    /// </summary>
+    public bool IsEnabled { get; init; }
+
+    /// <summary>
     /// Gets language codes that remain selectable in Foundry.Deploy. An empty list allows all catalog languages.
     /// </summary>
     public IReadOnlyList<string> AllowedLanguageCodes { get; init; } = Array.Empty<string>();

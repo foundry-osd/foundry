@@ -69,6 +69,8 @@ public static class BootMediaTelemetryPropertyBuilder
 
         AddCustomizationTelemetryProperties(properties, document.Customization);
         AddOperatingSystemSelectionTelemetryProperties(properties, document.OperatingSystemSelection);
+        properties["customization_any_enabled"] =
+            (bool)properties["customization_any_enabled"]! || document.OperatingSystemSelection.IsEnabled;
         AddLocalizationTelemetryProperties(properties, document.Localization);
         AddNetworkTelemetryProperties(properties, document.Network, options.AreRequiredSecretsReady);
 
@@ -121,15 +123,17 @@ public static class BootMediaTelemetryPropertyBuilder
         IDictionary<string, object?> properties,
         OperatingSystemSelectionSettings operatingSystemSelection)
     {
-        int allowedLanguagesCount = operatingSystemSelection.AllowedLanguageCodes.Count;
-        bool hasDefaultLanguage = !string.IsNullOrWhiteSpace(operatingSystemSelection.DefaultLanguageCode);
-        int allowedReleaseCount = operatingSystemSelection.AllowedReleaseIds.Count;
-        bool hasDefaultRelease = !string.IsNullOrWhiteSpace(operatingSystemSelection.DefaultReleaseId);
-        int allowedLicenseChannelCount = operatingSystemSelection.AllowedLicenseChannels.Count;
-        bool hasDefaultLicenseChannel = !string.IsNullOrWhiteSpace(operatingSystemSelection.DefaultLicenseChannel);
-        int allowedEditionCount = operatingSystemSelection.AllowedEditions.Count;
-        bool hasDefaultEdition = !string.IsNullOrWhiteSpace(operatingSystemSelection.DefaultEdition);
+        bool isEnabled = operatingSystemSelection.IsEnabled;
+        int allowedLanguagesCount = isEnabled ? operatingSystemSelection.AllowedLanguageCodes.Count : 0;
+        bool hasDefaultLanguage = isEnabled && !string.IsNullOrWhiteSpace(operatingSystemSelection.DefaultLanguageCode);
+        int allowedReleaseCount = isEnabled ? operatingSystemSelection.AllowedReleaseIds.Count : 0;
+        bool hasDefaultRelease = isEnabled && !string.IsNullOrWhiteSpace(operatingSystemSelection.DefaultReleaseId);
+        int allowedLicenseChannelCount = isEnabled ? operatingSystemSelection.AllowedLicenseChannels.Count : 0;
+        bool hasDefaultLicenseChannel = isEnabled && !string.IsNullOrWhiteSpace(operatingSystemSelection.DefaultLicenseChannel);
+        int allowedEditionCount = isEnabled ? operatingSystemSelection.AllowedEditions.Count : 0;
+        bool hasDefaultEdition = isEnabled && !string.IsNullOrWhiteSpace(operatingSystemSelection.DefaultEdition);
 
+        properties["os_selection_enabled"] = isEnabled;
         properties["os_selection_any_configured"] =
             allowedLanguagesCount > 0 ||
             hasDefaultLanguage ||

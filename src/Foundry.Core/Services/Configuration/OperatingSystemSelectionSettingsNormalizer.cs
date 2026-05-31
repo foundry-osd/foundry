@@ -54,6 +54,7 @@ public static class OperatingSystemSelectionSettingsNormalizer
 
         return new OperatingSystemSelectionSettings
         {
+            IsEnabled = settings.IsEnabled,
             AllowedLanguageCodes = allowedLanguages,
             DefaultLanguageCode = defaultLanguage,
             AllowedReleaseIds = allowedReleaseIds,
@@ -73,8 +74,14 @@ public static class OperatingSystemSelectionSettingsNormalizer
     public static DeployOperatingSystemSelectionSettings ToDeploySettings(OperatingSystemSelectionSettings settings)
     {
         OperatingSystemSelectionSettings normalized = Normalize(settings);
+        if (!normalized.IsEnabled)
+        {
+            return new DeployOperatingSystemSelectionSettings();
+        }
+
         return new DeployOperatingSystemSelectionSettings
         {
+            IsEnabled = true,
             AllowedLanguageCodes = normalized.AllowedLanguageCodes,
             DefaultLanguageCode = normalized.DefaultLanguageCode,
             AllowedReleaseIds = normalized.AllowedReleaseIds,

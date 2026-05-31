@@ -30,6 +30,7 @@ public sealed class TelemetryEventPropertyPolicyTests
             ["network_configured"] = true,
             ["connect_configured"] = true,
             ["deploy_configured"] = true,
+            ["os_selection_enabled"] = true,
             ["os_selection_any_configured"] = true,
             ["os_selection_allowed_languages_count"] = 2,
             ["os_selection_default_language_configured"] = true,
@@ -107,6 +108,7 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.False(result.ContainsKey("network_configured"));
         Assert.False(result.ContainsKey("connect_configured"));
         Assert.False(result.ContainsKey("deploy_configured"));
+        Assert.True((bool)result["os_selection_enabled"]!);
         Assert.True((bool)result["os_selection_any_configured"]!);
         Assert.Equal(2, result["os_selection_allowed_languages_count"]);
         Assert.True((bool)result["os_selection_default_language_configured"]!);

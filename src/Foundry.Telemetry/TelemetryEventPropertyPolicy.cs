@@ -89,6 +89,7 @@ public static class TelemetryEventPropertyPolicy
                 "customization_ai_disable_paint_ai_enabled",
                 "customization_ai_disable_notepad_ai_enabled",
                 "customization_ai_component_removal_option_count",
+                "os_selection_enabled",
                 "os_selection_any_configured",
                 "os_selection_allowed_languages_count",
                 "os_selection_default_language_configured",

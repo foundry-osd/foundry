@@ -527,6 +527,20 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
 
     private void ResetOperatingSystemSelectionPolicy(DeployOperatingSystemSelectionSettings settings)
     {
+        if (!settings.IsEnabled)
+        {
+            ResetConfiguredValues(_configuredAllowedLanguageCodes, [], NormalizeLanguageCode);
+            ResetConfiguredValues(_configuredAllowedReleaseIds, [], static value => value.Trim());
+            ResetConfiguredValues(_configuredAllowedLicenseChannels, [], NormalizeLicenseChannel);
+            ResetConfiguredValues(_configuredAllowedEditions, [], static value => value.Trim());
+            _configuredDefaultLanguageCode = null;
+            _configuredDefaultReleaseId = null;
+            _configuredDefaultLicenseChannel = null;
+            _configuredDefaultEdition = null;
+            ResetOperatingSystemSelectionLogState();
+            return;
+        }
+
         ResetConfiguredValues(_configuredAllowedLanguageCodes, settings.AllowedLanguageCodes, NormalizeLanguageCode);
         ResetConfiguredValues(_configuredAllowedReleaseIds, settings.AllowedReleaseIds, static value => value.Trim());
         ResetConfiguredValues(_configuredAllowedLicenseChannels, settings.AllowedLicenseChannels, NormalizeLicenseChannel);
@@ -537,6 +551,11 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
         _configuredDefaultLicenseChannel = NormalizeOptionalKnownValue(settings.DefaultLicenseChannel, OperatingSystemSupportMatrix.LicenseChannelOrder, NormalizeLicenseChannel);
         _configuredDefaultEdition = NormalizeOptionalKnownValue(settings.DefaultEdition, OperatingSystemSupportMatrix.EditionOrder, static value => value.Trim());
 
+        ResetOperatingSystemSelectionLogState();
+    }
+
+    private void ResetOperatingSystemSelectionLogState()
+    {
         _hasLoggedUnavailableConfiguredLanguages = false;
         _hasLoggedUnavailableConfiguredReleaseIds = false;
         _hasLoggedUnavailableConfiguredLicenseChannels = false;

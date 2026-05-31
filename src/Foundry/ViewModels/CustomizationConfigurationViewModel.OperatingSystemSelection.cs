@@ -21,6 +21,8 @@ public sealed partial class CustomizationConfigurationViewModel
     public ObservableCollection<SelectableStringOptionViewModel> OperatingSystemEditionOptions { get; } = [];
     public ObservableCollection<SelectionOption<string>> DefaultOperatingSystemEditionOptions { get; } = [];
 
+    public bool IsOperatingSystemSelectionOptionsEnabled => IsOperatingSystemSelectionEnabled;
+
     [ObservableProperty]
     public partial string OperatingSystemSelectionHeader { get; set; }
 
@@ -58,6 +60,13 @@ public sealed partial class CustomizationConfigurationViewModel
     public partial string AutomaticOptionText { get; set; }
 
     [ObservableProperty]
+    public partial bool IsOperatingSystemSelectionExpanded { get; set; }
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsOperatingSystemSelectionOptionsEnabled))]
+    public partial bool IsOperatingSystemSelectionEnabled { get; set; }
+
+    [ObservableProperty]
     public partial SelectionOption<string>? SelectedDefaultOperatingSystemLanguage { get; set; }
 
     [ObservableProperty]
@@ -89,6 +98,12 @@ public sealed partial class CustomizationConfigurationViewModel
         SaveState();
     }
 
+    partial void OnIsOperatingSystemSelectionEnabledChanged(bool value)
+    {
+        IsOperatingSystemSelectionExpanded = value;
+        SaveState();
+    }
+
     private void InitializeOperatingSystemSelectionOptions(IReadOnlyList<LanguageRegistryEntry> languages)
     {
         foreach (LanguageRegistryEntry language in languages
@@ -115,6 +130,8 @@ public sealed partial class CustomizationConfigurationViewModel
 
     private void ApplyOperatingSystemSelectionState(OperatingSystemSelectionSettings settings)
     {
+        IsOperatingSystemSelectionEnabled = settings.IsEnabled;
+        IsOperatingSystemSelectionExpanded = settings.IsEnabled;
         SetSelectedOptions(OperatingSystemLanguageOptions, settings.AllowedLanguageCodes);
         SetSelectedOptions(OperatingSystemReleaseOptions, settings.AllowedReleaseIds);
         SetSelectedOptions(OperatingSystemLicenseChannelOptions, settings.AllowedLicenseChannels);
@@ -127,6 +144,7 @@ public sealed partial class CustomizationConfigurationViewModel
     {
         return OperatingSystemSelectionSettingsNormalizer.Normalize(new OperatingSystemSelectionSettings
         {
+            IsEnabled = IsOperatingSystemSelectionEnabled,
             AllowedLanguageCodes = GetSelectedOptionValues(OperatingSystemLanguageOptions),
             DefaultLanguageCode = NormalizeDefaultOption(SelectedDefaultOperatingSystemLanguage?.Value),
             AllowedReleaseIds = GetSelectedOptionValues(OperatingSystemReleaseOptions),

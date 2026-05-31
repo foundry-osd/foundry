@@ -6,6 +6,11 @@ namespace Foundry.Core.Models.Configuration;
 public sealed record OperatingSystemSelectionSettings
 {
     /// <summary>
+    /// Gets whether the generated deployment media should apply OS catalog constraints and defaults.
+    /// </summary>
+    public bool IsEnabled { get; init; }
+
+    /// <summary>
     /// Gets language codes that remain selectable in Foundry.Deploy. An empty list allows all catalog languages.
     /// </summary>
     public IReadOnlyList<string> AllowedLanguageCodes { get; init; } = Array.Empty<string>();
