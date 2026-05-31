@@ -2026,47 +2026,81 @@
     <value>tradicinė kinų kalba (Taivanas)</value>
   </data>
   <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Operating system selection</value>
+    <value>Operacinės sistemos pasirinkimas</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Limit or preselect the OS catalog choices shown during deployment.</value>
+    <value>Apribokite arba iš anksto pasirinkite diegimo metu rodomas Windows katalogo parinktis.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
-    <value>OS version</value>
+    <value>OS versija</value>
   </data>
-  <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
-    <value>OS language</value>
-  </data>
-  <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
-    <value>License channel</value>
-  </data>
-  <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
-    <value>Edition</value>
-  </data>
-  <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
-    <value>Allowed OS languages</value>
-  </data>
-  <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
-    <value>Default OS language</value>
+  <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
+    <value>Valdykite, kurias Windows versijas operatoriai gali diegti.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
-    <value>Allowed OS versions</value>
+    <value>Leidžiamos OS versijos</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
+    <value>Palikite tuščią, kad būtų leidžiamos visos palaikomos Windows versijos.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
-    <value>Default OS version</value>
+    <value>Numatytoji OS versija</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
+    <value>Automatinis pasirinkimas palieka numatytąją katalogo versiją.</value>
+  </data>
+  <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
+    <value>OS kalba</value>
+  </data>
+  <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
+    <value>Valdykite, kurias Windows kalbas operatoriai gali diegti.</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
+    <value>Leidžiamos OS kalbos</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
+    <value>Palikite tuščią, kad būtų leidžiamos visos palaikomos Windows kalbos.</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
+    <value>Numatytoji OS kalba</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
+    <value>Automatinis pasirinkimas palieka numatytąją katalogo kalbą.</value>
+  </data>
+  <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
+    <value>Licencijos kanalas</value>
+  </data>
+  <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
+    <value>Valdykite, kuriuos Windows licencijos kanalus operatoriai gali diegti.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
-    <value>Allowed license channels</value>
+    <value>Leidžiami licencijos kanalai</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
+    <value>Palikite tuščią, kad būtų leidžiami visi palaikomi licencijos kanalai.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
-    <value>Default license channel</value>
+    <value>Numatytasis licencijos kanalas</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
+    <value>Automatinis pasirinkimas palieka numatytąjį katalogo licencijos kanalą.</value>
+  </data>
+  <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
+    <value>Leidimas</value>
+  </data>
+  <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
+    <value>Valdykite, kuriuos Windows leidimus operatoriai gali diegti.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
-    <value>Allowed editions</value>
+    <value>Leidžiami leidimai</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
+    <value>Palikite tuščią, kad būtų leidžiami visi palaikomi Windows leidimai.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
-    <value>Default edition</value>
+    <value>Numatytasis leidimas</value>
   </data>
-  <data name="Customization.OperatingSystemAllowAllDescription" xml:space="preserve">
-    <value>Leave empty to allow every supported option.</value>
-  </data></root>
+  <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
+    <value>Automatinis pasirinkimas palieka numatytąjį katalogo leidimą.</value>
+  </data>
+</root>

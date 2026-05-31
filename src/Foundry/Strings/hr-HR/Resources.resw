@@ -2026,47 +2026,81 @@
     <value>kineski tradicionalni (Tajvan)</value>
   </data>
   <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Operating system selection</value>
+    <value>Odabir operacijskog sustava</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Limit or preselect the OS catalog choices shown during deployment.</value>
+    <value>Ograničite ili unaprijed odaberite mogućnosti Windows kataloga prikazane tijekom implementacije.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
-    <value>OS version</value>
+    <value>Verzija OS-a</value>
   </data>
-  <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
-    <value>OS language</value>
-  </data>
-  <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
-    <value>License channel</value>
-  </data>
-  <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
-    <value>Edition</value>
-  </data>
-  <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
-    <value>Allowed OS languages</value>
-  </data>
-  <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
-    <value>Default OS language</value>
+  <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
+    <value>Odredite koje verzije sustava Windows operateri mogu implementirati.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
-    <value>Allowed OS versions</value>
+    <value>Dopuštene verzije OS-a</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
+    <value>Ostavite prazno za dopuštanje svih podržanih verzija sustava Windows.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
-    <value>Default OS version</value>
+    <value>Zadana verzija OS-a</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
+    <value>Automatski zadržava zadanu verziju kataloga.</value>
+  </data>
+  <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
+    <value>Jezik OS-a</value>
+  </data>
+  <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
+    <value>Odredite koje jezike sustava Windows operateri mogu implementirati.</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
+    <value>Dopušteni jezici OS-a</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
+    <value>Ostavite prazno za dopuštanje svih podržanih jezika sustava Windows.</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
+    <value>Zadani jezik OS-a</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
+    <value>Automatski zadržava zadani jezik kataloga.</value>
+  </data>
+  <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
+    <value>Licencni kanal</value>
+  </data>
+  <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
+    <value>Odredite koje licencne kanale sustava Windows operateri mogu implementirati.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
-    <value>Allowed license channels</value>
+    <value>Dopušteni licencni kanali</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
+    <value>Ostavite prazno za dopuštanje svih podržanih licencnih kanala.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
-    <value>Default license channel</value>
+    <value>Zadani licencni kanal</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
+    <value>Automatski zadržava zadani licencni kanal kataloga.</value>
+  </data>
+  <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
+    <value>Izdanje</value>
+  </data>
+  <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
+    <value>Odredite koja izdanja sustava Windows operateri mogu implementirati.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
-    <value>Allowed editions</value>
+    <value>Dopuštena izdanja</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
+    <value>Ostavite prazno za dopuštanje svih podržanih izdanja sustava Windows.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
-    <value>Default edition</value>
+    <value>Zadano izdanje</value>
   </data>
-  <data name="Customization.OperatingSystemAllowAllDescription" xml:space="preserve">
-    <value>Leave empty to allow every supported option.</value>
-  </data></root>
+  <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
+    <value>Automatski zadržava zadano izdanje kataloga.</value>
+  </data>
+</root>

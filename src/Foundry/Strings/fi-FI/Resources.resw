@@ -2026,47 +2026,81 @@
     <value>perinteinen kiina (Taiwan)</value>
   </data>
   <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Operating system selection</value>
+    <value>Käyttöjärjestelmän valinta</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Limit or preselect the OS catalog choices shown during deployment.</value>
+    <value>Rajoita tai esivalitse käyttöönotossa näytettävät Windows-luettelon valinnat.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
-    <value>OS version</value>
+    <value>Käyttöjärjestelmäversio</value>
   </data>
-  <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
-    <value>OS language</value>
-  </data>
-  <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
-    <value>License channel</value>
-  </data>
-  <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
-    <value>Edition</value>
-  </data>
-  <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
-    <value>Allowed OS languages</value>
-  </data>
-  <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
-    <value>Default OS language</value>
+  <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
+    <value>Määritä, mitä Windows-versioita operaattorit voivat ottaa käyttöön.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
-    <value>Allowed OS versions</value>
+    <value>Sallitut käyttöjärjestelmäversiot</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
+    <value>Jätä tyhjäksi, jos kaikki tuetut Windows-versiot sallitaan.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
-    <value>Default OS version</value>
+    <value>Oletuskäyttöjärjestelmäversio</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
+    <value>Automaattinen säilyttää luettelon oletusversion.</value>
+  </data>
+  <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
+    <value>Käyttöjärjestelmän kieli</value>
+  </data>
+  <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
+    <value>Määritä, mitä Windows-kieliä operaattorit voivat ottaa käyttöön.</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
+    <value>Sallitut käyttöjärjestelmän kielet</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
+    <value>Jätä tyhjäksi, jos kaikki tuetut Windows-kielet sallitaan.</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
+    <value>Oletuskäyttöjärjestelmän kieli</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
+    <value>Automaattinen säilyttää luettelon oletuskielen.</value>
+  </data>
+  <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
+    <value>Lisenssikanava</value>
+  </data>
+  <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
+    <value>Määritä, mitä Windows-lisenssikanavia operaattorit voivat ottaa käyttöön.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
-    <value>Allowed license channels</value>
+    <value>Sallitut lisenssikanavat</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
+    <value>Jätä tyhjäksi, jos kaikki tuetut lisenssikanavat sallitaan.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
-    <value>Default license channel</value>
+    <value>Oletuslisenssikanava</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
+    <value>Automaattinen säilyttää luettelon oletuslisenssikanavan.</value>
+  </data>
+  <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
+    <value>Versio</value>
+  </data>
+  <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
+    <value>Määritä, mitä Windows-versioita operaattorit voivat ottaa käyttöön.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
-    <value>Allowed editions</value>
+    <value>Sallitut versiot</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
+    <value>Jätä tyhjäksi, jos kaikki tuetut Windows-versiot sallitaan.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
-    <value>Default edition</value>
+    <value>Oletusversio</value>
   </data>
-  <data name="Customization.OperatingSystemAllowAllDescription" xml:space="preserve">
-    <value>Leave empty to allow every supported option.</value>
-  </data></root>
+  <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
+    <value>Automaattinen säilyttää luettelon oletusversion.</value>
+  </data>
+</root>

@@ -33,40 +33,73 @@ public sealed partial class CustomizationConfigurationViewModel
     public partial string OperatingSystemVersionGroupHeader { get; set; }
 
     [ObservableProperty]
+    public partial string OperatingSystemVersionGroupDescription { get; set; }
+
+    [ObservableProperty]
     public partial string OperatingSystemLanguageGroupHeader { get; set; }
+
+    [ObservableProperty]
+    public partial string OperatingSystemLanguageGroupDescription { get; set; }
 
     [ObservableProperty]
     public partial string OperatingSystemLicenseChannelGroupHeader { get; set; }
 
     [ObservableProperty]
+    public partial string OperatingSystemLicenseChannelGroupDescription { get; set; }
+
+    [ObservableProperty]
     public partial string OperatingSystemEditionGroupHeader { get; set; }
+
+    [ObservableProperty]
+    public partial string OperatingSystemEditionGroupDescription { get; set; }
 
     [ObservableProperty]
     public partial string OperatingSystemAllowedLanguagesLabel { get; set; }
 
     [ObservableProperty]
+    public partial string OperatingSystemAllowedLanguagesDescription { get; set; }
+
+    [ObservableProperty]
     public partial string OperatingSystemDefaultLanguageLabel { get; set; }
+
+    [ObservableProperty]
+    public partial string OperatingSystemDefaultLanguageDescription { get; set; }
 
     [ObservableProperty]
     public partial string OperatingSystemAllowedReleasesLabel { get; set; }
 
     [ObservableProperty]
+    public partial string OperatingSystemAllowedReleasesDescription { get; set; }
+
+    [ObservableProperty]
     public partial string OperatingSystemDefaultReleaseLabel { get; set; }
+
+    [ObservableProperty]
+    public partial string OperatingSystemDefaultReleaseDescription { get; set; }
 
     [ObservableProperty]
     public partial string OperatingSystemAllowedLicenseChannelsLabel { get; set; }
 
     [ObservableProperty]
+    public partial string OperatingSystemAllowedLicenseChannelsDescription { get; set; }
+
+    [ObservableProperty]
     public partial string OperatingSystemDefaultLicenseChannelLabel { get; set; }
+
+    [ObservableProperty]
+    public partial string OperatingSystemDefaultLicenseChannelDescription { get; set; }
 
     [ObservableProperty]
     public partial string OperatingSystemAllowedEditionsLabel { get; set; }
 
     [ObservableProperty]
+    public partial string OperatingSystemAllowedEditionsDescription { get; set; }
+
+    [ObservableProperty]
     public partial string OperatingSystemDefaultEditionLabel { get; set; }
 
     [ObservableProperty]
-    public partial string OperatingSystemAllowAllDescription { get; set; }
+    public partial string OperatingSystemDefaultEditionDescription { get; set; }
 
     [ObservableProperty]
     public partial string AutomaticOptionText { get; set; }
@@ -173,18 +206,29 @@ public sealed partial class CustomizationConfigurationViewModel
         OperatingSystemSelectionHeader = localizationService.GetString("Customization.OperatingSystemSelectionHeader");
         OperatingSystemSelectionDescription = localizationService.GetString("Customization.OperatingSystemSelectionDescription");
         OperatingSystemVersionGroupHeader = localizationService.GetString("Customization.OperatingSystemVersionGroupHeader");
+        OperatingSystemVersionGroupDescription = localizationService.GetString("Customization.OperatingSystemVersionGroupDescription");
         OperatingSystemLanguageGroupHeader = localizationService.GetString("Customization.OperatingSystemLanguageGroupHeader");
+        OperatingSystemLanguageGroupDescription = localizationService.GetString("Customization.OperatingSystemLanguageGroupDescription");
         OperatingSystemLicenseChannelGroupHeader = localizationService.GetString("Customization.OperatingSystemLicenseChannelGroupHeader");
+        OperatingSystemLicenseChannelGroupDescription = localizationService.GetString("Customization.OperatingSystemLicenseChannelGroupDescription");
         OperatingSystemEditionGroupHeader = localizationService.GetString("Customization.OperatingSystemEditionGroupHeader");
+        OperatingSystemEditionGroupDescription = localizationService.GetString("Customization.OperatingSystemEditionGroupDescription");
         OperatingSystemAllowedLanguagesLabel = localizationService.GetString("Customization.OperatingSystemAllowedLanguagesLabel");
+        OperatingSystemAllowedLanguagesDescription = localizationService.GetString("Customization.OperatingSystemAllowedLanguagesDescription");
         OperatingSystemDefaultLanguageLabel = localizationService.GetString("Customization.OperatingSystemDefaultLanguageLabel");
+        OperatingSystemDefaultLanguageDescription = localizationService.GetString("Customization.OperatingSystemDefaultLanguageDescription");
         OperatingSystemAllowedReleasesLabel = localizationService.GetString("Customization.OperatingSystemAllowedReleasesLabel");
+        OperatingSystemAllowedReleasesDescription = localizationService.GetString("Customization.OperatingSystemAllowedReleasesDescription");
         OperatingSystemDefaultReleaseLabel = localizationService.GetString("Customization.OperatingSystemDefaultReleaseLabel");
+        OperatingSystemDefaultReleaseDescription = localizationService.GetString("Customization.OperatingSystemDefaultReleaseDescription");
         OperatingSystemAllowedLicenseChannelsLabel = localizationService.GetString("Customization.OperatingSystemAllowedLicenseChannelsLabel");
+        OperatingSystemAllowedLicenseChannelsDescription = localizationService.GetString("Customization.OperatingSystemAllowedLicenseChannelsDescription");
         OperatingSystemDefaultLicenseChannelLabel = localizationService.GetString("Customization.OperatingSystemDefaultLicenseChannelLabel");
+        OperatingSystemDefaultLicenseChannelDescription = localizationService.GetString("Customization.OperatingSystemDefaultLicenseChannelDescription");
         OperatingSystemAllowedEditionsLabel = localizationService.GetString("Customization.OperatingSystemAllowedEditionsLabel");
+        OperatingSystemAllowedEditionsDescription = localizationService.GetString("Customization.OperatingSystemAllowedEditionsDescription");
         OperatingSystemDefaultEditionLabel = localizationService.GetString("Customization.OperatingSystemDefaultEditionLabel");
-        OperatingSystemAllowAllDescription = localizationService.GetString("Customization.OperatingSystemAllowAllDescription");
+        OperatingSystemDefaultEditionDescription = localizationService.GetString("Customization.OperatingSystemDefaultEditionDescription");
         AutomaticOptionText = localizationService.GetString("Localization.AutomaticOption");
         RefreshOperatingSystemDefaultOptions(BuildOperatingSystemSelectionSettings());
     }
