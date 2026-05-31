@@ -80,17 +80,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>カタログを読み込んでいます...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>ロードされたカタログ: {0} オペレーティング システム エントリ、{1} ドライバー パック。</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>カタログのロードに失敗しました: {0}</value></data>
-  <data name="Catalog.LicenseChannelRetail" xml:space="preserve"><value>小売</value></data>
-  <data name="Catalog.LicenseChannelVolume" xml:space="preserve"><value>ボリューム</value></data>
-  <data name="Catalog.EditionHome" xml:space="preserve"><value>ホーム</value></data>
-  <data name="Catalog.EditionHomeN" xml:space="preserve"><value>ホームN</value></data>
-  <data name="Catalog.EditionHomeSingleLanguage" xml:space="preserve"><value>ホーム 単一言語</value></data>
-  <data name="Catalog.EditionEducation" xml:space="preserve"><value>教育</value></data>
-  <data name="Catalog.EditionEducationN" xml:space="preserve"><value>教育N</value></data>
-  <data name="Catalog.EditionPro" xml:space="preserve"><value>プロ</value></data>
-  <data name="Catalog.EditionProN" xml:space="preserve"><value>プロN</value></data>
-  <data name="Catalog.EditionEnterprise" xml:space="preserve"><value>エンタープライズ</value></data>
-  <data name="Catalog.EditionEnterpriseN" xml:space="preserve"><value>N社</value></data>
   <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>ドライバーソース</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>モデル</value></data>

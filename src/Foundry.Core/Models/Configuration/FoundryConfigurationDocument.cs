@@ -10,7 +10,7 @@ public sealed record FoundryConfigurationDocument
     /// <summary>
     /// Gets the current schema version for Foundry configuration documents.
     /// </summary>
-    public const int CurrentSchemaVersion = 8;
+    public const int CurrentSchemaVersion = 9;
 
     /// <summary>
     /// Gets the schema version of this configuration document.
@@ -28,7 +28,12 @@ public sealed record FoundryConfigurationDocument
     public NetworkSettings Network { get; init; } = new();
 
     /// <summary>
-    /// Gets user-authored OS localization settings used when deployment configuration is generated.
+    /// Gets user-authored OS catalog selection settings used when deployment configuration is generated.
+    /// </summary>
+    public OperatingSystemSelectionSettings OperatingSystemSelection { get; init; } = new();
+
+    /// <summary>
+    /// Gets user-authored localization settings used when deployment configuration is generated.
     /// </summary>
     public LocalizationSettings Localization { get; init; } = new();
 

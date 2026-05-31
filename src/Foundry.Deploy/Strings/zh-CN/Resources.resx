@@ -80,17 +80,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>正在加载目录...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>加载的目录：{0}操作系统条目、{1}驱动程序包。</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>目录加载失败：{0}</value></data>
-  <data name="Catalog.LicenseChannelRetail" xml:space="preserve"><value>零售</value></data>
-  <data name="Catalog.LicenseChannelVolume" xml:space="preserve"><value>体积</value></data>
-  <data name="Catalog.EditionHome" xml:space="preserve"><value>首页</value></data>
-  <data name="Catalog.EditionHomeN" xml:space="preserve"><value>家N</value></data>
-  <data name="Catalog.EditionHomeSingleLanguage" xml:space="preserve"><value>家庭单语言</value></data>
-  <data name="Catalog.EditionEducation" xml:space="preserve"><value>教育</value></data>
-  <data name="Catalog.EditionEducationN" xml:space="preserve"><value>教育经历</value></data>
-  <data name="Catalog.EditionPro" xml:space="preserve"><value>专业版</value></data>
-  <data name="Catalog.EditionProN" xml:space="preserve"><value>临N</value></data>
-  <data name="Catalog.EditionEnterprise" xml:space="preserve"><value>企业</value></data>
-  <data name="Catalog.EditionEnterpriseN" xml:space="preserve"><value>企业N</value></data>
   <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>驱动源码</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>型号</value></data>

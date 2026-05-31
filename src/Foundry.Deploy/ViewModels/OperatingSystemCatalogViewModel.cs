@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Foundry.Deploy.Models;
+using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Catalog;
 using Microsoft.Extensions.Logging;
 
@@ -10,8 +11,8 @@ namespace Foundry.Deploy.ViewModels;
 public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
 {
     private const string DefaultReleaseId = OperatingSystemSupportMatrix.DefaultReleaseId;
-    private const string DefaultLicenseChannel = "RET";
-    private const string DefaultEdition = "Pro";
+    private const string DefaultLicenseChannel = OperatingSystemSupportMatrix.DefaultLicenseChannel;
+    private const string DefaultEdition = OperatingSystemSupportMatrix.DefaultEdition;
     private const string FallbackLanguageCode = "en-US";
     private static readonly string DefaultLanguageCode = ResolveDefaultLanguageCode();
     private static readonly string[] RetailEditionOptions =
@@ -48,11 +49,26 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
     ];
 
     private readonly ILogger _logger;
-    private readonly HashSet<string> _configuredVisibleLanguageCodes = new(StringComparer.OrdinalIgnoreCase);
-    private string? _configuredDefaultLanguageCodeOverride;
-    private bool _forceSingleVisibleLanguageSelection;
+    private readonly HashSet<string> _configuredAllowedLanguageCodes = new(StringComparer.OrdinalIgnoreCase);
+    private readonly HashSet<string> _configuredAllowedReleaseIds = new(StringComparer.OrdinalIgnoreCase);
+    private readonly HashSet<string> _configuredAllowedLicenseChannels = new(StringComparer.OrdinalIgnoreCase);
+    private readonly HashSet<string> _configuredAllowedEditions = new(StringComparer.OrdinalIgnoreCase);
+    private string? _configuredDefaultLanguageCode;
+    private string? _configuredDefaultReleaseId;
+    private string? _configuredDefaultLicenseChannel;
+    private string? _configuredDefaultEdition;
+    private bool _isReleaseIdRestrictedToSingleOption;
+    private bool _isLanguageRestrictedToSingleOption;
+    private bool _isLicenseChannelRestrictedToSingleOption;
+    private bool _isEditionRestrictedToSingleOption;
     private bool _hasLoggedUnavailableConfiguredLanguages;
-    private bool _hasLoggedUnavailableDefaultLanguageOverride;
+    private bool _hasLoggedUnavailableConfiguredReleaseIds;
+    private bool _hasLoggedUnavailableConfiguredLicenseChannels;
+    private bool _hasLoggedUnavailableConfiguredEditions;
+    private bool _hasLoggedUnavailableDefaultLanguage;
+    private bool _hasLoggedUnavailableDefaultReleaseId;
+    private bool _hasLoggedUnavailableDefaultLicenseChannel;
+    private bool _hasLoggedUnavailableDefaultEdition;
     private bool _isUpdatingFilters;
 
     public OperatingSystemCatalogViewModel(ILogger logger, string initialArchitecture)
@@ -91,7 +107,13 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
 
     public ObservableCollection<string> EditionFilters { get; } = [];
 
-    public bool IsLanguageSelectionEnabled => !(_forceSingleVisibleLanguageSelection && LanguageFilters.Count == 1);
+    public bool IsReleaseIdSelectionEnabled => !_isReleaseIdRestrictedToSingleOption;
+
+    public bool IsLanguageSelectionEnabled => !_isLanguageRestrictedToSingleOption;
+
+    public bool IsLicenseChannelSelectionEnabled => !_isLicenseChannelRestrictedToSingleOption;
+
+    public bool IsEditionSelectionEnabled => !_isEditionRestrictedToSingleOption;
 
     public void ApplyCatalog(IReadOnlyList<OperatingSystemCatalogItem> operatingSystems)
     {
@@ -108,28 +130,18 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
         RaiseStateChanged();
     }
 
-    public void ApplyDeployLocalization(IEnumerable<string> visibleLanguageCodes, string? defaultLanguageCodeOverride, bool forceSingleVisibleLanguageSelection)
+    public void ApplyOperatingSystemSelection(DeployOperatingSystemSelectionSettings settings)
     {
-        ArgumentNullException.ThrowIfNull(visibleLanguageCodes);
+        ArgumentNullException.ThrowIfNull(settings);
 
-        _configuredVisibleLanguageCodes.Clear();
-        foreach (string languageCode in visibleLanguageCodes)
-        {
-            string normalized = LanguageCodeUtility.NormalizeForComparison(languageCode);
-            if (!string.IsNullOrWhiteSpace(normalized))
-            {
-                _configuredVisibleLanguageCodes.Add(normalized);
-            }
-        }
-
-        _configuredDefaultLanguageCodeOverride = NormalizeOptionalLanguageCode(defaultLanguageCodeOverride);
-        _forceSingleVisibleLanguageSelection = forceSingleVisibleLanguageSelection;
-        _hasLoggedUnavailableConfiguredLanguages = false;
-        _hasLoggedUnavailableDefaultLanguageOverride = false;
+        ResetOperatingSystemSelectionPolicy(settings);
 
         RefreshFilterOptions();
         ApplySelection();
+        OnPropertyChanged(nameof(IsReleaseIdSelectionEnabled));
         OnPropertyChanged(nameof(IsLanguageSelectionEnabled));
+        OnPropertyChanged(nameof(IsLicenseChannelSelectionEnabled));
+        OnPropertyChanged(nameof(IsEditionSelectionEnabled));
         RaiseStateChanged();
     }
 
@@ -235,58 +247,81 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
             IEnumerable<OperatingSystemCatalogItem> baseQuery = BuildOsQueryWithArchitecture(OperatingSystems);
 
             IEnumerable<OperatingSystemCatalogItem> releaseScope = baseQuery;
+            IEnumerable<string> effectiveReleaseValues = BuildEffectiveFilterValues(
+                releaseScope.Select(item => item.ReleaseId),
+                _configuredAllowedReleaseIds,
+                "release IDs",
+                ref _hasLoggedUnavailableConfiguredReleaseIds,
+                out _isReleaseIdRestrictedToSingleOption);
             SelectedReleaseId = UpdateFilterSelection(
                 ReleaseIdFilters,
-                releaseScope.Select(item => item.ReleaseId),
+                effectiveReleaseValues,
                 previousReleaseId,
-                DefaultReleaseId,
+                _configuredDefaultReleaseId ?? DefaultReleaseId,
                 selectFirstWhenNoMatch: true);
+            LogUnavailableDefault(
+                _configuredDefaultReleaseId,
+                ReleaseIdFilters,
+                "release ID",
+                ref _hasLoggedUnavailableDefaultReleaseId);
 
             IEnumerable<OperatingSystemCatalogItem> languageScope = ApplyReleaseIdFilter(releaseScope);
-            IEnumerable<string> effectiveLanguageValues = BuildEffectiveLanguageFilterValues(languageScope);
+            IEnumerable<string> effectiveLanguageValues = BuildEffectiveLanguageFilterValues(
+                languageScope,
+                out _isLanguageRestrictedToSingleOption);
             SelectedLanguageCode = UpdateLanguageFilterSelection(
                 LanguageFilters,
                 effectiveLanguageValues,
-                previousLanguageCode);
-
-            string configuredDefaultLanguageCode = EnsureLanguageSelection(
-                _configuredDefaultLanguageCodeOverride ?? string.Empty,
-                LanguageFilters);
-            if (!string.IsNullOrWhiteSpace(configuredDefaultLanguageCode))
-            {
-                SelectedLanguageCode = configuredDefaultLanguageCode;
-            }
-            else if (!_hasLoggedUnavailableDefaultLanguageOverride &&
-                     LanguageFilters.Count > 0 &&
-                     !string.IsNullOrWhiteSpace(_configuredDefaultLanguageCodeOverride))
-            {
-                _logger.LogWarning(
-                    "Configured default language override '{LanguageCode}' is not available in the current catalog scope and was ignored.",
-                    _configuredDefaultLanguageCodeOverride);
-                _hasLoggedUnavailableDefaultLanguageOverride = true;
-            }
+                previousLanguageCode,
+                _configuredDefaultLanguageCode);
+            LogUnavailableDefaultLanguage();
 
             IEnumerable<OperatingSystemCatalogItem> licenseScope = ApplyLanguageFilter(languageScope);
+            IEnumerable<string> effectiveLicenseChannelValues = BuildEffectiveFilterValues(
+                licenseScope.Select(item => item.LicenseChannel),
+                _configuredAllowedLicenseChannels,
+                "license channels",
+                ref _hasLoggedUnavailableConfiguredLicenseChannels,
+                out _isLicenseChannelRestrictedToSingleOption);
             SelectedLicenseChannel = UpdateFilterSelection(
                 LicenseChannelFilters,
-                licenseScope.Select(item => item.LicenseChannel),
+                effectiveLicenseChannelValues,
                 previousLicenseChannel,
-                DefaultLicenseChannel,
+                _configuredDefaultLicenseChannel ?? DefaultLicenseChannel,
                 selectFirstWhenNoMatch: true);
+            LogUnavailableDefault(
+                _configuredDefaultLicenseChannel,
+                LicenseChannelFilters,
+                "license channel",
+                ref _hasLoggedUnavailableDefaultLicenseChannel);
 
             IEnumerable<OperatingSystemCatalogItem> editionScope = ApplyLicenseChannelFilter(licenseScope);
             IEnumerable<string> recommendedEditions = BuildRecommendedEditionOptions(editionScope);
+            IEnumerable<string> effectiveEditionValues = BuildEffectiveFilterValues(
+                recommendedEditions,
+                _configuredAllowedEditions,
+                "editions",
+                ref _hasLoggedUnavailableConfiguredEditions,
+                out _isEditionRestrictedToSingleOption);
             SelectedEdition = UpdateFilterSelection(
                 EditionFilters,
-                recommendedEditions,
+                effectiveEditionValues,
                 previousEdition,
-                DefaultEdition,
+                _configuredDefaultEdition ?? DefaultEdition,
                 selectFirstWhenNoMatch: true);
+            LogUnavailableDefault(
+                _configuredDefaultEdition,
+                EditionFilters,
+                "edition",
+                ref _hasLoggedUnavailableDefaultEdition);
         }
         finally
         {
             _isUpdatingFilters = false;
+            OnPropertyChanged(nameof(IsReleaseIdSelectionEnabled));
             OnPropertyChanged(nameof(IsLanguageSelectionEnabled));
+            OnPropertyChanged(nameof(IsLicenseChannelSelectionEnabled));
+            OnPropertyChanged(nameof(IsEditionSelectionEnabled));
         }
     }
 
@@ -316,7 +351,9 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
             : source.Where(item => GetLanguageFilterValue(item).Equals(SelectedLanguageCode, StringComparison.OrdinalIgnoreCase));
     }
 
-    private IEnumerable<string> BuildEffectiveLanguageFilterValues(IEnumerable<OperatingSystemCatalogItem> source)
+    private IEnumerable<string> BuildEffectiveLanguageFilterValues(
+        IEnumerable<OperatingSystemCatalogItem> source,
+        out bool isRestrictedToSingleOption)
     {
         string[] availableLanguageValues = source
             .Select(GetLanguageFilterValue)
@@ -324,35 +361,81 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
             .Distinct(StringComparer.OrdinalIgnoreCase)
             .ToArray();
 
-        if (_configuredVisibleLanguageCodes.Count == 0)
+        if (_configuredAllowedLanguageCodes.Count == 0)
         {
+            isRestrictedToSingleOption = false;
             return availableLanguageValues;
         }
 
         if (availableLanguageValues.Length == 0)
         {
+            isRestrictedToSingleOption = false;
             return availableLanguageValues;
         }
 
         string[] filteredLanguageValues = availableLanguageValues
-            .Where(value => _configuredVisibleLanguageCodes.Contains(LanguageCodeUtility.NormalizeForComparison(value)))
+            .Where(value => _configuredAllowedLanguageCodes.Contains(LanguageCodeUtility.NormalizeForComparison(value)))
             .ToArray();
 
         if (filteredLanguageValues.Length > 0)
         {
+            isRestrictedToSingleOption = filteredLanguageValues.Length == 1;
             return filteredLanguageValues;
         }
 
         if (!_hasLoggedUnavailableConfiguredLanguages)
         {
-            string configuredLanguages = string.Join(", ", _configuredVisibleLanguageCodes.OrderBy(value => value, StringComparer.OrdinalIgnoreCase));
+            string configuredLanguages = string.Join(", ", _configuredAllowedLanguageCodes.OrderBy(value => value, StringComparer.OrdinalIgnoreCase));
             _logger.LogWarning(
                 "Configured visible languages [{ConfiguredLanguages}] do not match the current catalog scope. Falling back to the catalog languages.",
                 configuredLanguages);
             _hasLoggedUnavailableConfiguredLanguages = true;
         }
 
+        isRestrictedToSingleOption = false;
         return availableLanguageValues;
+    }
+
+    private IEnumerable<string> BuildEffectiveFilterValues(
+        IEnumerable<string> availableValues,
+        HashSet<string> configuredAllowedValues,
+        string selectorName,
+        ref bool hasLoggedUnavailableValues,
+        out bool isRestrictedToSingleOption)
+    {
+        string[] available = availableValues
+            .Where(value => !string.IsNullOrWhiteSpace(value))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+
+        if (configuredAllowedValues.Count == 0 || available.Length == 0)
+        {
+            isRestrictedToSingleOption = false;
+            return available;
+        }
+
+        string[] filtered = available
+            .Where(configuredAllowedValues.Contains)
+            .ToArray();
+
+        if (filtered.Length > 0)
+        {
+            isRestrictedToSingleOption = filtered.Length == 1;
+            return filtered;
+        }
+
+        if (!hasLoggedUnavailableValues)
+        {
+            string configuredValues = string.Join(", ", configuredAllowedValues.OrderBy(value => value, StringComparer.OrdinalIgnoreCase));
+            _logger.LogWarning(
+                "Configured operating system {SelectorName} [{ConfiguredValues}] do not match the current catalog scope. Falling back to the catalog values.",
+                selectorName,
+                configuredValues);
+            hasLoggedUnavailableValues = true;
+        }
+
+        isRestrictedToSingleOption = false;
+        return available;
     }
 
     private IEnumerable<OperatingSystemCatalogItem> ApplyLicenseChannelFilter(IEnumerable<OperatingSystemCatalogItem> source)
@@ -442,6 +525,59 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
         return [];
     }
 
+    private void ResetOperatingSystemSelectionPolicy(DeployOperatingSystemSelectionSettings settings)
+    {
+        ResetConfiguredValues(_configuredAllowedLanguageCodes, settings.AllowedLanguageCodes, NormalizeLanguageCode);
+        ResetConfiguredValues(_configuredAllowedReleaseIds, settings.AllowedReleaseIds, static value => value.Trim());
+        ResetConfiguredValues(_configuredAllowedLicenseChannels, settings.AllowedLicenseChannels, NormalizeLicenseChannel);
+        ResetConfiguredValues(_configuredAllowedEditions, settings.AllowedEditions, static value => value.Trim());
+
+        _configuredDefaultLanguageCode = NormalizeOptionalLanguageCode(settings.DefaultLanguageCode);
+        _configuredDefaultReleaseId = NormalizeOptionalKnownValue(settings.DefaultReleaseId, OperatingSystemSupportMatrix.ReleaseSearchOrder, static value => value.Trim());
+        _configuredDefaultLicenseChannel = NormalizeOptionalKnownValue(settings.DefaultLicenseChannel, OperatingSystemSupportMatrix.LicenseChannelOrder, NormalizeLicenseChannel);
+        _configuredDefaultEdition = NormalizeOptionalKnownValue(settings.DefaultEdition, OperatingSystemSupportMatrix.EditionOrder, static value => value.Trim());
+
+        _hasLoggedUnavailableConfiguredLanguages = false;
+        _hasLoggedUnavailableConfiguredReleaseIds = false;
+        _hasLoggedUnavailableConfiguredLicenseChannels = false;
+        _hasLoggedUnavailableConfiguredEditions = false;
+        _hasLoggedUnavailableDefaultLanguage = false;
+        _hasLoggedUnavailableDefaultReleaseId = false;
+        _hasLoggedUnavailableDefaultLicenseChannel = false;
+        _hasLoggedUnavailableDefaultEdition = false;
+    }
+
+    private static void ResetConfiguredValues(
+        HashSet<string> target,
+        IEnumerable<string> values,
+        Func<string, string> normalize)
+    {
+        target.Clear();
+        foreach (string value in values)
+        {
+            string normalized = normalize(value);
+            if (!string.IsNullOrWhiteSpace(normalized))
+            {
+                target.Add(normalized);
+            }
+        }
+    }
+
+    private static string? NormalizeOptionalKnownValue(
+        string? value,
+        IEnumerable<string> supportedValues,
+        Func<string, string> normalize)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return null;
+        }
+
+        string normalized = normalize(value);
+        return supportedValues.FirstOrDefault(supported =>
+            string.Equals(supported, normalized, StringComparison.OrdinalIgnoreCase));
+    }
+
     private static void UpdateFilterCollection(ObservableCollection<string> target, IEnumerable<string> values)
     {
         string[] normalizedValues = values
@@ -510,7 +646,8 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
     private static string UpdateLanguageFilterSelection(
         ObservableCollection<string> target,
         IEnumerable<string> values,
-        string previousSelection)
+        string previousSelection,
+        string? defaultSelection)
     {
         UpdateFilterCollection(target, values);
         if (target.Count == 0)
@@ -518,9 +655,9 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
             return string.Empty;
         }
 
-        foreach (string candidate in new[] { previousSelection, DefaultLanguageCode, FallbackLanguageCode })
+        foreach (string? candidate in new[] { previousSelection, defaultSelection, DefaultLanguageCode, FallbackLanguageCode })
         {
-            string selected = EnsureLanguageSelection(candidate, target);
+            string selected = EnsureLanguageSelection(candidate ?? string.Empty, target);
             if (!string.IsNullOrWhiteSpace(selected))
             {
                 return selected;
@@ -528,6 +665,43 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
         }
 
         return target[0];
+    }
+
+    private void LogUnavailableDefaultLanguage()
+    {
+        if (_hasLoggedUnavailableDefaultLanguage ||
+            string.IsNullOrWhiteSpace(_configuredDefaultLanguageCode) ||
+            LanguageFilters.Count == 0 ||
+            !string.IsNullOrWhiteSpace(EnsureLanguageSelection(_configuredDefaultLanguageCode, LanguageFilters)))
+        {
+            return;
+        }
+
+        _logger.LogWarning(
+            "Configured default language '{LanguageCode}' is not available in the current catalog scope and was ignored.",
+            _configuredDefaultLanguageCode);
+        _hasLoggedUnavailableDefaultLanguage = true;
+    }
+
+    private void LogUnavailableDefault(
+        string? configuredDefault,
+        ObservableCollection<string> options,
+        string selectorName,
+        ref bool hasLoggedUnavailableDefault)
+    {
+        if (hasLoggedUnavailableDefault ||
+            string.IsNullOrWhiteSpace(configuredDefault) ||
+            options.Count == 0 ||
+            options.Any(option => option.Equals(configuredDefault, StringComparison.OrdinalIgnoreCase)))
+        {
+            return;
+        }
+
+        _logger.LogWarning(
+            "Configured default operating system {SelectorName} '{ConfiguredDefault}' is not available in the current catalog scope and was ignored.",
+            selectorName,
+            configuredDefault);
+        hasLoggedUnavailableDefault = true;
     }
 
     private static string EnsureLanguageSelection(string languageCode, ObservableCollection<string> options)
@@ -620,6 +794,17 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
     private static string NormalizeLanguageCode(string languageCode)
     {
         return LanguageCodeUtility.NormalizeForComparison(languageCode);
+    }
+
+    private static string NormalizeLicenseChannel(string? value)
+    {
+        string normalized = value?.Trim().ToUpperInvariant() ?? string.Empty;
+        return normalized switch
+        {
+            "RETAIL" => "RET",
+            "VOLUME" => "VOL",
+            _ => normalized
+        };
     }
 
     private static bool IsArchitectureMatch(string osArchitecture, string driverArchitecture)

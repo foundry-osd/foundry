@@ -99,10 +99,7 @@ public sealed class DeploymentWizardContext : IDisposable
         string seedComputerName,
         IReadOnlyList<AutopilotProfileCatalogItem> autopilotProfiles)
     {
-        OperatingSystemCatalog.ApplyDeployLocalization(
-            document.Localization.VisibleLanguageCodes,
-            document.Localization.DefaultLanguageCodeOverride,
-            document.Localization.ForceSingleVisibleLanguage);
+        OperatingSystemCatalog.ApplyOperatingSystemSelection(document.OperatingSystemSelection);
         DefaultTimeZoneId = string.IsNullOrWhiteSpace(document.Localization.DefaultTimeZoneId)
             ? null
             : document.Localization.DefaultTimeZoneId.Trim();

@@ -31,6 +31,7 @@
                                 Text="{Binding Strings[Catalog.Version]}" />
                             <ComboBox
                                 Margin="0,8,0,0"
+                                IsEnabled="{Binding OperatingSystemCatalog.IsReleaseIdSelectionEnabled}"
                                 ItemsSource="{Binding OperatingSystemCatalog.ReleaseIdFilters}"
                                 SelectedItem="{Binding OperatingSystemCatalog.SelectedReleaseId}" />
 
@@ -50,6 +51,7 @@
                                 Text="{Binding Strings[Catalog.LicenseChannel]}" />
                             <ComboBox
                                 Margin="0,8,0,0"
+                                IsEnabled="{Binding OperatingSystemCatalog.IsLicenseChannelSelectionEnabled}"
                                 ItemsSource="{Binding OperatingSystemCatalog.LicenseChannelFilters}"
                                 SelectedItem="{Binding OperatingSystemCatalog.SelectedLicenseChannel}">
                                 <ComboBox.ItemTemplate>
@@ -65,6 +67,7 @@
                                 Text="{Binding Strings[Catalog.EditionTarget]}" />
                             <ComboBox
                                 Margin="0,8,0,0"
+                                IsEnabled="{Binding OperatingSystemCatalog.IsEditionSelectionEnabled}"
                                 ItemsSource="{Binding OperatingSystemCatalog.EditionFilters}"
                                 SelectedItem="{Binding OperatingSystemCatalog.SelectedEdition}">
                                 <ComboBox.ItemTemplate>

@@ -11,7 +11,7 @@ public sealed class OperatingSystemDisplayFormatterTests : IDisposable
     [Theory]
     [InlineData("RET", "Retail")]
     [InlineData("VOL", "Volume")]
-    public void FormatLicenseChannel_UsesCurrentUiCulture(string input, string expected)
+    public void FormatLicenseChannel_UsesEnglishDisplayText(string input, string expected)
     {
         CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("fr-FR");
         CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("fr-FR");
@@ -20,13 +20,13 @@ public sealed class OperatingSystemDisplayFormatterTests : IDisposable
     }
 
     [Theory]
-    [InlineData("Home", "Famille")]
-    [InlineData("Home N", "Famille N")]
-    [InlineData("Home Single Language", "Famille unilingue")]
-    [InlineData("Education", "Éducation")]
-    [InlineData("Enterprise", "Entreprise")]
-    [InlineData("Pro", "Professionnel")]
-    public void FormatEdition_UsesCurrentUiCultureForKnownEditions(string input, string expected)
+    [InlineData("Home", "Home")]
+    [InlineData("Home N", "Home N")]
+    [InlineData("Home Single Language", "Home Single Language")]
+    [InlineData("Education", "Education")]
+    [InlineData("Enterprise", "Enterprise")]
+    [InlineData("Pro", "Pro")]
+    public void FormatEdition_UsesEnglishDisplayText(string input, string expected)
     {
         CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("fr-FR");
         CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("fr-FR");

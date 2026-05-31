@@ -80,17 +80,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Načítání katalogů...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Načtené katalogy: {0} položky operačního systému, {1} balíčky ovladačů.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Načtení katalogu se nezdařilo: {0}</value></data>
-  <data name="Catalog.LicenseChannelRetail" xml:space="preserve"><value>Maloobchod</value></data>
-  <data name="Catalog.LicenseChannelVolume" xml:space="preserve"><value>Hlasitost</value></data>
-  <data name="Catalog.EditionHome" xml:space="preserve"><value>Domů</value></data>
-  <data name="Catalog.EditionHomeN" xml:space="preserve"><value>Domácí N</value></data>
-  <data name="Catalog.EditionHomeSingleLanguage" xml:space="preserve"><value>Domů Jeden jazyk</value></data>
-  <data name="Catalog.EditionEducation" xml:space="preserve"><value>Vzdělávání</value></data>
-  <data name="Catalog.EditionEducationN" xml:space="preserve"><value>Vzdělání N</value></data>
-  <data name="Catalog.EditionPro" xml:space="preserve"><value>Pro</value></data>
-  <data name="Catalog.EditionProN" xml:space="preserve"><value>Pro N</value></data>
-  <data name="Catalog.EditionEnterprise" xml:space="preserve"><value>Enterprise</value></data>
-  <data name="Catalog.EditionEnterpriseN" xml:space="preserve"><value>Enterprise N</value></data>
   <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Zdroj ovladače</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Model</value></data>

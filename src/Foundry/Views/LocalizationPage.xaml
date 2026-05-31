@@ -15,39 +15,6 @@
             <TextBlock Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
                        Style="{ThemeResource FoundryPageTitleTextBlockStyle}" />
 
-            <wct:SettingsCard Header="{x:Bind ViewModel.VisibleLanguagesHeader, Mode=OneWay}"
-                              HorizontalContentAlignment="Right">
-                <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xF2B7;" />
-                </wct:SettingsCard.HeaderIcon>
-                <ItemsRepeater HorizontalAlignment="Right"
-                               MaxWidth="{ThemeResource FoundryLanguageGridMaxWidth}"
-                               ItemsSource="{x:Bind ViewModel.AvailableLanguages, Mode=OneWay}">
-                    <ItemsRepeater.Layout>
-                        <UniformGridLayout MaximumRowsOrColumns="2"
-                                           MinColumnSpacing="{ThemeResource FoundrySpace12}"
-                                           MinItemWidth="{ThemeResource FoundryCheckboxGridItemMinWidth}"
-                                           MinRowSpacing="{ThemeResource FoundrySpace4}" />
-                    </ItemsRepeater.Layout>
-                    <ItemsRepeater.ItemTemplate>
-                        <DataTemplate x:DataType="viewModels:LocalizationLanguageOptionViewModel">
-                            <CheckBox Content="{x:Bind DisplayName, Mode=OneWay}"
-                                      IsChecked="{x:Bind IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </DataTemplate>
-                    </ItemsRepeater.ItemTemplate>
-                </ItemsRepeater>
-            </wct:SettingsCard>
-
-            <wct:SettingsCard Header="{x:Bind ViewModel.DefaultLanguageHeader, Mode=OneWay}">
-                <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE774;" />
-                </wct:SettingsCard.HeaderIcon>
-                <ComboBox Width="{ThemeResource FoundryWideInputMinWidth}"
-                          DisplayMemberPath="DisplayName"
-                          ItemsSource="{x:Bind ViewModel.DefaultLanguageOptions, Mode=OneWay}"
-                          SelectedItem="{x:Bind ViewModel.SelectedDefaultLanguage, Mode=TwoWay}" />
-            </wct:SettingsCard>
-
             <wct:SettingsCard Header="{x:Bind ViewModel.TimeZoneHeader, Mode=OneWay}">
                 <wct:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xE823;" />

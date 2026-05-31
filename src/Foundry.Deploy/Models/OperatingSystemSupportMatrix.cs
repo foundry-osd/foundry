@@ -6,6 +6,8 @@ internal static class OperatingSystemSupportMatrix
 {
     public const string SupportedWindowsRelease = "11";
     public const string DefaultReleaseId = "25H2";
+    public const string DefaultLicenseChannel = "RET";
+    public const string DefaultEdition = "Pro";
 
     private static readonly string[] SupportedReleaseIdOrder =
     [
@@ -16,7 +18,30 @@ internal static class OperatingSystemSupportMatrix
 
     private static readonly HashSet<string> SupportedReleaseIds = new(SupportedReleaseIdOrder, StringComparer.OrdinalIgnoreCase);
 
+    private static readonly string[] SupportedLicenseChannelOrder =
+    [
+        "RET",
+        "VOL"
+    ];
+
+    private static readonly string[] SupportedEditionOrder =
+    [
+        "Home",
+        "Home N",
+        "Home Single Language",
+        "Education",
+        "Education N",
+        "Pro",
+        "Pro N",
+        "Enterprise",
+        "Enterprise N"
+    ];
+
     public static IReadOnlyList<string> ReleaseSearchOrder => SupportedReleaseIdOrder;
+
+    public static IReadOnlyList<string> LicenseChannelOrder => SupportedLicenseChannelOrder;
+
+    public static IReadOnlyList<string> EditionOrder => SupportedEditionOrder;
 
     public static bool IsSupported(OperatingSystemCatalogItem item)
     {

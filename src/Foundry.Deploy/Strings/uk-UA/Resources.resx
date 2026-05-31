@@ -80,17 +80,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Завантаження каталогів...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Завантажено каталоги: {0} записи операційної системи, {1} пакети драйверів.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Помилка завантаження каталогу: {0}</value></data>
-  <data name="Catalog.LicenseChannelRetail" xml:space="preserve"><value>Роздрібна торгівля</value></data>
-  <data name="Catalog.LicenseChannelVolume" xml:space="preserve"><value>Обсяг</value></data>
-  <data name="Catalog.EditionHome" xml:space="preserve"><value>додому</value></data>
-  <data name="Catalog.EditionHomeN" xml:space="preserve"><value>Головна Н</value></data>
-  <data name="Catalog.EditionHomeSingleLanguage" xml:space="preserve"><value>Домашня єдина мова</value></data>
-  <data name="Catalog.EditionEducation" xml:space="preserve"><value>Освіта</value></data>
-  <data name="Catalog.EditionEducationN" xml:space="preserve"><value>Освіта Н</value></data>
-  <data name="Catalog.EditionPro" xml:space="preserve"><value>Pro</value></data>
-  <data name="Catalog.EditionProN" xml:space="preserve"><value>Про Н</value></data>
-  <data name="Catalog.EditionEnterprise" xml:space="preserve"><value>підприємство</value></data>
-  <data name="Catalog.EditionEnterpriseN" xml:space="preserve"><value>Підприємство Н</value></data>
   <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Джерело драйвера</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Модель</value></data>

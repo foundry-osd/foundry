@@ -80,17 +80,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Įkeliami katalogai...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Įkelti katalogai: {0} operacinės sistemos įrašai, {1} tvarkyklių paketai.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Katalogo įkėlimas nepavyko: {0}</value></data>
-  <data name="Catalog.LicenseChannelRetail" xml:space="preserve"><value>Mažmeninė prekyba</value></data>
-  <data name="Catalog.LicenseChannelVolume" xml:space="preserve"><value>Apimtis</value></data>
-  <data name="Catalog.EditionHome" xml:space="preserve"><value>Pradžia</value></data>
-  <data name="Catalog.EditionHomeN" xml:space="preserve"><value>Namai N</value></data>
-  <data name="Catalog.EditionHomeSingleLanguage" xml:space="preserve"><value>Pradžia Viena kalba</value></data>
-  <data name="Catalog.EditionEducation" xml:space="preserve"><value>Išsilavinimas</value></data>
-  <data name="Catalog.EditionEducationN" xml:space="preserve"><value>Išsilavinimas N</value></data>
-  <data name="Catalog.EditionPro" xml:space="preserve"><value>Pro</value></data>
-  <data name="Catalog.EditionProN" xml:space="preserve"><value>Pro N</value></data>
-  <data name="Catalog.EditionEnterprise" xml:space="preserve"><value>Įmonė</value></data>
-  <data name="Catalog.EditionEnterpriseN" xml:space="preserve"><value>Įmonė N</value></data>
   <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Vairuotojo šaltinis</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Modelis</value></data>

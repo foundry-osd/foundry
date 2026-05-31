@@ -80,17 +80,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>카탈로그 로드 중...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>로드된 카탈로그: {0} 운영 체제 항목, {1} 드라이버 팩.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>카탈로그 로드 실패: {0}</value></data>
-  <data name="Catalog.LicenseChannelRetail" xml:space="preserve"><value>소매</value></data>
-  <data name="Catalog.LicenseChannelVolume" xml:space="preserve"><value>볼륨</value></data>
-  <data name="Catalog.EditionHome" xml:space="preserve"><value>홈</value></data>
-  <data name="Catalog.EditionHomeN" xml:space="preserve"><value>홈 N</value></data>
-  <data name="Catalog.EditionHomeSingleLanguage" xml:space="preserve"><value>홈 단일 언어</value></data>
-  <data name="Catalog.EditionEducation" xml:space="preserve"><value>교육</value></data>
-  <data name="Catalog.EditionEducationN" xml:space="preserve"><value>교육 N</value></data>
-  <data name="Catalog.EditionPro" xml:space="preserve"><value>프로</value></data>
-  <data name="Catalog.EditionProN" xml:space="preserve"><value>프로N</value></data>
-  <data name="Catalog.EditionEnterprise" xml:space="preserve"><value>기업</value></data>
-  <data name="Catalog.EditionEnterpriseN" xml:space="preserve"><value>엔터프라이즈 N</value></data>
   <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>드라이버 소스</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>모델</value></data>

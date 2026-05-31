@@ -10,12 +10,17 @@ public sealed record FoundryDeployConfigurationDocument
     /// <summary>
     /// Gets the current configuration schema version.
     /// </summary>
-    public const int CurrentSchemaVersion = 6;
+    public const int CurrentSchemaVersion = 7;
 
     /// <summary>
     /// Gets the schema version of this configuration.
     /// </summary>
     public int SchemaVersion { get; init; } = CurrentSchemaVersion;
+
+    /// <summary>
+    /// Gets Windows catalog selection settings used during apply image selection.
+    /// </summary>
+    public DeployOperatingSystemSelectionSettings OperatingSystemSelection { get; init; } = new();
 
     /// <summary>
     /// Gets Windows localization settings used during deployment.

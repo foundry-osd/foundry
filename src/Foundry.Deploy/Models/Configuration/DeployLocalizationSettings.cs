@@ -1,9 +1,12 @@
 namespace Foundry.Deploy.Models.Configuration;
 
+/// <summary>
+/// Carries deploy-runtime localization settings that are not OS catalog selectors.
+/// </summary>
 public sealed record DeployLocalizationSettings
 {
-    public IReadOnlyList<string> VisibleLanguageCodes { get; init; } = Array.Empty<string>();
-    public string? DefaultLanguageCodeOverride { get; init; }
+    /// <summary>
+    /// Gets the optional default Windows time-zone identifier.
+    /// </summary>
     public string? DefaultTimeZoneId { get; init; }
-    public bool ForceSingleVisibleLanguage { get; init; }
 }

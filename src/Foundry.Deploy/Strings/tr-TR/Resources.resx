@@ -80,17 +80,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Kataloglar yükleniyor...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Yüklenen kataloglar: {0} işletim sistemi girişleri, {1} sürücü paketleri.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Katalog yükleme başarısız oldu: {0}</value></data>
-  <data name="Catalog.LicenseChannelRetail" xml:space="preserve"><value>Perakende</value></data>
-  <data name="Catalog.LicenseChannelVolume" xml:space="preserve"><value>Hacim</value></data>
-  <data name="Catalog.EditionHome" xml:space="preserve"><value>Ana sayfa</value></data>
-  <data name="Catalog.EditionHomeN" xml:space="preserve"><value>Ana Sayfa N</value></data>
-  <data name="Catalog.EditionHomeSingleLanguage" xml:space="preserve"><value>Ana Sayfa Tek Dil</value></data>
-  <data name="Catalog.EditionEducation" xml:space="preserve"><value>Eğitim</value></data>
-  <data name="Catalog.EditionEducationN" xml:space="preserve"><value>Eğitim N</value></data>
-  <data name="Catalog.EditionPro" xml:space="preserve"><value>Profesyonel</value></data>
-  <data name="Catalog.EditionProN" xml:space="preserve"><value>Profesyonel N</value></data>
-  <data name="Catalog.EditionEnterprise" xml:space="preserve"><value>kurumsal</value></data>
-  <data name="Catalog.EditionEnterpriseN" xml:space="preserve"><value>Kurumsal N</value></data>
   <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Sürücü kaynağı</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Modeli</value></data>

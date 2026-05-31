@@ -27,24 +27,12 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         ArgumentNullException.ThrowIfNull(document);
         AutopilotConfigurationValidator.ThrowIfNotReady(document.Autopilot, DateTimeOffset.UtcNow);
 
-        string[] visibleLanguageCodes = CanonicalizeLanguageCodes(document.Localization.VisibleLanguageCodes);
-        string? defaultLanguageCodeOverride = CanonicalizeOptionalLanguageCode(document.Localization.DefaultLanguageCodeOverride);
-        if (!visibleLanguageCodes.Any(code => LanguageCodeUtility.NormalizeForComparison(code).Equals(
-                LanguageCodeUtility.NormalizeForComparison(defaultLanguageCodeOverride),
-                StringComparison.OrdinalIgnoreCase)))
-        {
-            // The default language override is only valid when the language remains visible to the deployment UI.
-            defaultLanguageCodeOverride = null;
-        }
-
         return new FoundryDeployConfigurationDocument
         {
+            OperatingSystemSelection = OperatingSystemSelectionSettingsNormalizer.ToDeploySettings(document.OperatingSystemSelection),
             Localization = new DeployLocalizationSettings
             {
-                VisibleLanguageCodes = visibleLanguageCodes,
-                DefaultLanguageCodeOverride = defaultLanguageCodeOverride,
-                DefaultTimeZoneId = document.Localization.DefaultTimeZoneId,
-                ForceSingleVisibleLanguage = document.Localization.ForceSingleVisibleLanguage
+                DefaultTimeZoneId = document.Localization.DefaultTimeZoneId
             },
             Customization = new DeployCustomizationSettings
             {
@@ -87,33 +75,6 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
     {
         ArgumentNullException.ThrowIfNull(document);
         return JsonSerializer.Serialize(document, ConfigurationJsonDefaults.SerializerOptions);
-    }
-
-    private static string[] CanonicalizeLanguageCodes(IEnumerable<string> languageCodes)
-    {
-        ArgumentNullException.ThrowIfNull(languageCodes);
-
-        HashSet<string> seen = new(StringComparer.OrdinalIgnoreCase);
-        List<string> result = [];
-        foreach (string languageCode in languageCodes)
-        {
-            string canonicalCode = LanguageCodeUtility.Canonicalize(languageCode);
-            if (string.IsNullOrWhiteSpace(canonicalCode) ||
-                !seen.Add(LanguageCodeUtility.NormalizeForComparison(canonicalCode)))
-            {
-                continue;
-            }
-
-            result.Add(canonicalCode);
-        }
-
-        return result.ToArray();
-    }
-
-    private static string? CanonicalizeOptionalLanguageCode(string? languageCode)
-    {
-        string canonicalCode = LanguageCodeUtility.Canonicalize(languageCode);
-        return string.IsNullOrWhiteSpace(canonicalCode) ? null : canonicalCode;
     }
 
     private static DeployAutopilotHardwareHashUploadSettings CreateDeployHardwareHashUploadSettings(

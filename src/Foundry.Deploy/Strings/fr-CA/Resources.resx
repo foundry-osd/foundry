@@ -80,17 +80,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Chargement des catalogues...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Catalogues chargés: {0} entrées du système d'exploitation, {1} packs de pilotes.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Échec du chargement du catalogue: {0}</value></data>
-  <data name="Catalog.LicenseChannelRetail" xml:space="preserve"><value>Vente au détail</value></data>
-  <data name="Catalog.LicenseChannelVolume" xml:space="preserve"><value>Volume</value></data>
-  <data name="Catalog.EditionHome" xml:space="preserve"><value>Accueil</value></data>
-  <data name="Catalog.EditionHomeN" xml:space="preserve"><value>Accueil N</value></data>
-  <data name="Catalog.EditionHomeSingleLanguage" xml:space="preserve"><value>Accueil Langue unique</value></data>
-  <data name="Catalog.EditionEducation" xml:space="preserve"><value>Éducation</value></data>
-  <data name="Catalog.EditionEducationN" xml:space="preserve"><value>Éducation N</value></data>
-  <data name="Catalog.EditionPro" xml:space="preserve"><value>Pro</value></data>
-  <data name="Catalog.EditionProN" xml:space="preserve"><value>ProN</value></data>
-  <data name="Catalog.EditionEnterprise" xml:space="preserve"><value>Entreprise</value></data>
-  <data name="Catalog.EditionEnterpriseN" xml:space="preserve"><value>Entreprise N</value></data>
   <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Origine du pilote</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Modèle</value></data>

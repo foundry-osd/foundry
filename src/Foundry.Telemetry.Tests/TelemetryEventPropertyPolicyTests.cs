@@ -30,9 +30,15 @@ public sealed class TelemetryEventPropertyPolicyTests
             ["network_configured"] = true,
             ["connect_configured"] = true,
             ["deploy_configured"] = true,
-            ["localization_any_enabled"] = true,
-            ["localization_visible_languages_count"] = 2,
-            ["localization_default_language_configured"] = true,
+            ["os_selection_any_configured"] = true,
+            ["os_selection_allowed_languages_count"] = 2,
+            ["os_selection_default_language_configured"] = true,
+            ["os_selection_allowed_release_count"] = 2,
+            ["os_selection_default_release_configured"] = true,
+            ["os_selection_allowed_license_channel_count"] = 1,
+            ["os_selection_default_license_channel_configured"] = true,
+            ["os_selection_allowed_edition_count"] = 2,
+            ["os_selection_default_edition_configured"] = true,
             ["localization_time_zone_configured"] = true,
             ["network_any_enabled"] = true,
             ["network_wired_dot1x_enabled"] = true,
@@ -101,9 +107,15 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.False(result.ContainsKey("network_configured"));
         Assert.False(result.ContainsKey("connect_configured"));
         Assert.False(result.ContainsKey("deploy_configured"));
-        Assert.True((bool)result["localization_any_enabled"]!);
-        Assert.Equal(2, result["localization_visible_languages_count"]);
-        Assert.True((bool)result["localization_default_language_configured"]!);
+        Assert.True((bool)result["os_selection_any_configured"]!);
+        Assert.Equal(2, result["os_selection_allowed_languages_count"]);
+        Assert.True((bool)result["os_selection_default_language_configured"]!);
+        Assert.Equal(2, result["os_selection_allowed_release_count"]);
+        Assert.True((bool)result["os_selection_default_release_configured"]!);
+        Assert.Equal(1, result["os_selection_allowed_license_channel_count"]);
+        Assert.True((bool)result["os_selection_default_license_channel_configured"]!);
+        Assert.Equal(2, result["os_selection_allowed_edition_count"]);
+        Assert.True((bool)result["os_selection_default_edition_configured"]!);
         Assert.True((bool)result["localization_time_zone_configured"]!);
         Assert.True((bool)result["network_any_enabled"]!);
         Assert.True((bool)result["network_wired_dot1x_enabled"]!);

@@ -80,17 +80,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>جارٍ تحميل الكتالوجات...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>الكتالوجات المحملة: {0} إدخالات نظام التشغيل، {1} حزم برامج التشغيل.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>فشل تحميل الكتالوج: {0}</value></data>
-  <data name="Catalog.LicenseChannelRetail" xml:space="preserve"><value>البيع بالتجزئة</value></data>
-  <data name="Catalog.LicenseChannelVolume" xml:space="preserve"><value>الحجم</value></data>
-  <data name="Catalog.EditionHome" xml:space="preserve"><value>الصفحة الرئيسية</value></data>
-  <data name="Catalog.EditionHomeN" xml:space="preserve"><value>الصفحة الرئيسية ن</value></data>
-  <data name="Catalog.EditionHomeSingleLanguage" xml:space="preserve"><value>الصفحة الرئيسية لغة واحدة</value></data>
-  <data name="Catalog.EditionEducation" xml:space="preserve"><value>التعليم</value></data>
-  <data name="Catalog.EditionEducationN" xml:space="preserve"><value>التعليم ن</value></data>
-  <data name="Catalog.EditionPro" xml:space="preserve"><value>برو</value></data>
-  <data name="Catalog.EditionProN" xml:space="preserve"><value>برو ن</value></data>
-  <data name="Catalog.EditionEnterprise" xml:space="preserve"><value>المؤسسة</value></data>
-  <data name="Catalog.EditionEnterpriseN" xml:space="preserve"><value>المؤسسة ن</value></data>
   <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>مصدر السائق</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>نموذج</value></data>

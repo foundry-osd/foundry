@@ -80,17 +80,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Nalaganje katalogov...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Naloženi katalogi: {0} vnosi operacijskega sistema, {1} paketi gonilnikov.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Nalaganje kataloga ni uspelo: {0}</value></data>
-  <data name="Catalog.LicenseChannelRetail" xml:space="preserve"><value>Maloprodaja</value></data>
-  <data name="Catalog.LicenseChannelVolume" xml:space="preserve"><value>Glasnost</value></data>
-  <data name="Catalog.EditionHome" xml:space="preserve"><value>domov</value></data>
-  <data name="Catalog.EditionHomeN" xml:space="preserve"><value>Dom N</value></data>
-  <data name="Catalog.EditionHomeSingleLanguage" xml:space="preserve"><value>Domači enotni jezik</value></data>
-  <data name="Catalog.EditionEducation" xml:space="preserve"><value>izobraževanje</value></data>
-  <data name="Catalog.EditionEducationN" xml:space="preserve"><value>Izobrazba N</value></data>
-  <data name="Catalog.EditionPro" xml:space="preserve"><value>Pro</value></data>
-  <data name="Catalog.EditionProN" xml:space="preserve"><value>Pro N</value></data>
-  <data name="Catalog.EditionEnterprise" xml:space="preserve"><value>Podjetje</value></data>
-  <data name="Catalog.EditionEnterpriseN" xml:space="preserve"><value>Podjetje N</value></data>
   <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Vir gonilnika</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Model</value></data>

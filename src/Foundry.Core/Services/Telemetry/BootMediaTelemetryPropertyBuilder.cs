@@ -68,6 +68,7 @@ public static class BootMediaTelemetryPropertyBuilder
         };
 
         AddCustomizationTelemetryProperties(properties, document.Customization);
+        AddOperatingSystemSelectionTelemetryProperties(properties, document.OperatingSystemSelection);
         AddLocalizationTelemetryProperties(properties, document.Localization);
         AddNetworkTelemetryProperties(properties, document.Network, options.AreRequiredSecretsReady);
 
@@ -116,18 +117,43 @@ public static class BootMediaTelemetryPropertyBuilder
         properties["customization_ai_component_removal_option_count"] = isAiComponentRemovalEnabled ? aiComponentRemovalOptionCount : 0;
     }
 
+    private static void AddOperatingSystemSelectionTelemetryProperties(
+        IDictionary<string, object?> properties,
+        OperatingSystemSelectionSettings operatingSystemSelection)
+    {
+        int allowedLanguagesCount = operatingSystemSelection.AllowedLanguageCodes.Count;
+        bool hasDefaultLanguage = !string.IsNullOrWhiteSpace(operatingSystemSelection.DefaultLanguageCode);
+        int allowedReleaseCount = operatingSystemSelection.AllowedReleaseIds.Count;
+        bool hasDefaultRelease = !string.IsNullOrWhiteSpace(operatingSystemSelection.DefaultReleaseId);
+        int allowedLicenseChannelCount = operatingSystemSelection.AllowedLicenseChannels.Count;
+        bool hasDefaultLicenseChannel = !string.IsNullOrWhiteSpace(operatingSystemSelection.DefaultLicenseChannel);
+        int allowedEditionCount = operatingSystemSelection.AllowedEditions.Count;
+        bool hasDefaultEdition = !string.IsNullOrWhiteSpace(operatingSystemSelection.DefaultEdition);
+
+        properties["os_selection_any_configured"] =
+            allowedLanguagesCount > 0 ||
+            hasDefaultLanguage ||
+            allowedReleaseCount > 0 ||
+            hasDefaultRelease ||
+            allowedLicenseChannelCount > 0 ||
+            hasDefaultLicenseChannel ||
+            allowedEditionCount > 0 ||
+            hasDefaultEdition;
+        properties["os_selection_allowed_languages_count"] = allowedLanguagesCount;
+        properties["os_selection_default_language_configured"] = hasDefaultLanguage;
+        properties["os_selection_allowed_release_count"] = allowedReleaseCount;
+        properties["os_selection_default_release_configured"] = hasDefaultRelease;
+        properties["os_selection_allowed_license_channel_count"] = allowedLicenseChannelCount;
+        properties["os_selection_default_license_channel_configured"] = hasDefaultLicenseChannel;
+        properties["os_selection_allowed_edition_count"] = allowedEditionCount;
+        properties["os_selection_default_edition_configured"] = hasDefaultEdition;
+    }
+
     private static void AddLocalizationTelemetryProperties(
         IDictionary<string, object?> properties,
         LocalizationSettings localization)
     {
-        int visibleLanguagesCount = localization.VisibleLanguageCodes.Count;
-        bool hasDefaultLanguage = !string.IsNullOrWhiteSpace(localization.DefaultLanguageCodeOverride);
-        bool hasTimeZone = !string.IsNullOrWhiteSpace(localization.DefaultTimeZoneId);
-
-        properties["localization_any_enabled"] = visibleLanguagesCount > 0 || hasDefaultLanguage || hasTimeZone;
-        properties["localization_visible_languages_count"] = visibleLanguagesCount;
-        properties["localization_default_language_configured"] = hasDefaultLanguage;
-        properties["localization_time_zone_configured"] = hasTimeZone;
+        properties["localization_time_zone_configured"] = !string.IsNullOrWhiteSpace(localization.DefaultTimeZoneId);
     }
 
     private static void AddNetworkTelemetryProperties(

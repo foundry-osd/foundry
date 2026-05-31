@@ -810,12 +810,6 @@
   <data name="LocalizationPage_Title.Text" xml:space="preserve">
     <value>التعريب</value>
   </data>
-  <data name="Localization.VisibleLanguages.Header" xml:space="preserve">
-    <value>لغات النشر المرئية</value>
-  </data>
-  <data name="Localization.DefaultLanguage.Header" xml:space="preserve">
-    <value>لغة النشر الافتراضية</value>
-  </data>
   <data name="Localization.TimeZone.Header" xml:space="preserve">
     <value>المنطقة الزمنية للنشر</value>
   </data>
@@ -2031,4 +2025,36 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>الصينية التقليدية (تايوان)</value>
   </data>
-</root>
+  <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
+    <value>Operating system selection</value>
+  </data>
+  <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
+    <value>Limit or preselect the OS catalog choices shown during deployment.</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
+    <value>Allowed OS languages</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
+    <value>Default OS language</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
+    <value>Allowed OS versions</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
+    <value>Default OS version</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
+    <value>Allowed license channels</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
+    <value>Default license channel</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
+    <value>Allowed editions</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
+    <value>Default edition</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowAllDescription" xml:space="preserve">
+    <value>Leave empty to allow every supported option.</value>
+  </data></root>
