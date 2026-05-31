@@ -28,10 +28,7 @@
   <data name="Theme.Dark" xml:space="preserve"><value>Σκοτεινό</value></data>
   <data name="Language.English" xml:space="preserve"><value>Αγγλικά</value></data>
   <data name="Language.French" xml:space="preserve"><value>Γαλλικά</value></data>
-  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Ανανέωση καταλόγων</value></data>
-  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Ανανεώστε τους δίσκους προορισμού</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Ανοίξτε το αρχείο καταγραφής</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>Η λειτουργία προσομοίωσης είναι ενεργή: οι ενέργειες ανάπτυξης προσομοιώνονται και δεν εκτελούνται εγγραφές δίσκου ή εικόνας.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Στόχος</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Λειτουργικό σύστημα</value></data>
   <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Driver pack</value></data>
@@ -74,8 +71,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Φόρτωση δίσκων προορισμού...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Ο εντοπισμός δίσκου στόχου απέτυχε: {0}</value></data>
-  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>Δεν εντοπίστηκαν δίσκοι.</value></data>
-  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Δίσκοι στόχου που φορτώθηκαν: εντοπίστηκαν {0}.</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Λειτουργικό σύστημα</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Έκδοση</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Γλώσσα</value></data>
@@ -131,9 +126,6 @@
   <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Σελίδα προόδου</value></data>
   <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Σελίδα επιτυχίας</value></data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Σελίδα σφάλματος</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>Προεπισκόπηση εντοπισμού σφαλμάτων: σελίδα προόδου.</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>Προεπισκόπηση εντοπισμού σφαλμάτων: σελίδα επιτυχίας.</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>Προεπισκόπηση εντοπισμού σφαλμάτων: σελίδα σφάλματος.</value></data>
   <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Προεπισκόπηση εντοπισμού σφαλμάτων: Η εφαρμογή DISM απέτυχε επειδή το διαμέρισμα προορισμού είναι μόνο για ανάγνωση.
 
 Κωδικός σφάλματος=0x80070005
@@ -144,7 +136,6 @@
   <data name="Common.Previous" xml:space="preserve"><value>Προηγούμενο</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Επόμενο</value></data>
   <data name="Common.Deploy" xml:space="preserve"><value>Ανάπτυξη</value></data>
-  <data name="Common.OpenLog" xml:space="preserve"><value>Ανοίξτε το αρχείο καταγραφής</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>N/A</value></data>
   <data name="Common.Unavailable" xml:space="preserve"><value>Μη διαθέσιμο</value></data>
   <data name="Common.None" xml:space="preserve"><value>Κανένα</value></data>
@@ -176,7 +167,6 @@
   <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Αποκλεισμένο: μόνο για ανάγνωση</value></data>
   <data name="Disk.BlockedOffline" xml:space="preserve"><value>Αποκλείστηκε: εκτός σύνδεσης</value></data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>ΕΝΤΟΠΙΣΜΟΣ ΣΦΑΛΜΑΤΩΝ ΕΙΚΟΝΙΚΟΥ ΣΤΟΧΟΥ</value></data>
-  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Αποκλείστηκε ο επιλεγμένος δίσκος: {0}</value></data>
   <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Ο δίσκος στόχος {0} δεν υπάρχει πλέον.</value></data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Ο δίσκος στόχος {0} είναι αποκλεισμένος: {1}</value></data>
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Επιβεβαιώστε τη διαγραφή του δίσκου</value></data>
@@ -190,26 +180,11 @@
 Λειτουργικό σύστημα: {4}
 
 Συνέχεια με την ανάπτυξη;</value></data>
-  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Επιλέξτε ένα λειτουργικό σύστημα.</value></data>
-  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Εισαγάγετε ένα έγκυρο όνομα υπολογιστή.</value></data>
-  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Επιλέξτε έναν δίσκο προορισμού.</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Επιλέξτε ένα έγκυρο μοντέλο ή έκδοση OEM πριν ξεκινήσετε την ανάπτυξη.</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Επιλέξτε ένα προφίλ Autopilot ή απενεργοποιήστε το Autopilot πριν ξεκινήσετε την ανάπτυξη.</value></data>
-  <data name="Launch.CancelledByUser" xml:space="preserve"><value>Η ανάπτυξη ακυρώθηκε από τον χρήστη.</value></data>
-  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Ολοκληρώθηκε η προετοιμασία της ανάπτυξης.</value></data>
-  <data name="Status.Ready" xml:space="preserve"><value>Έτοιμοι</value></data>
   <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Αναμονή για ανάπτυξη...</value></data>
   <data name="Status.WaitingForProgress" xml:space="preserve"><value>Αναμονή για πρόοδο...</value></data>
   <data name="Status.PreparingDeployment" xml:space="preserve"><value>Προετοιμασία ανάπτυξης...</value></data>
-  <data name="Status.DeploymentStarted" xml:space="preserve"><value>Η ανάπτυξη ξεκίνησε.</value></data>
-  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>Η ανάπτυξη ολοκληρώθηκε.</value></data>
-  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>Η ροή εργασιών ανάπτυξης ολοκληρώθηκε.</value></data>
   <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Η ανάπτυξη ακυρώθηκε.</value></data>
-  <data name="Status.DeploymentFailed" xml:space="preserve"><value>Η ανάπτυξη απέτυχε.</value></data>
-  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Η ανάπτυξη απέτυχε: {0}</value></data>
   <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Μια άλλη λειτουργία εκτελείται ήδη.</value></data>
-  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Ενεργοποιήθηκε η ασφαλής λειτουργία εντοπισμού σφαλμάτων: προσομοιώνονται οι ενέργειες ανάπτυξης.</value></data>
-  <data name="Status.StartingOrchestration" xml:space="preserve"><value>Έναρξη ροής εργασιών ανάπτυξης.</value></data>
   <data name="Status.StartingStep" xml:space="preserve"><value>Βήμα εκκίνησης...</value></data>
   <data name="Status.StartingStepFormat" xml:space="preserve"><value>Έναρξη {0}.</value></data>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Έναρξη {0}...</value></data>
@@ -219,10 +194,6 @@
   <data name="Status.InProgress" xml:space="preserve"><value>Σε εξέλιξη...</value></data>
   <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Βήμα:? από?</value></data>
   <data name="Status.StepCounterFormat" xml:space="preserve"><value>Βήμα: {0} του {1}</value></data>
-  <data name="Status.RebootingNow" xml:space="preserve"><value>Επανεκκίνηση τώρα...</value></data>
-  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>Η εντολή επανεκκίνησης απέτυχε.</value></data>
-  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Η εντολή επανεκκίνησης απέτυχε: {0}</value></data>
-  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Δεν είναι δυνατό το άνοιγμα του αρχείου καταγραφής: {0}</value></data>
   <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>Το wpeutil.exe απέτυχε με τον κωδικό εξόδου {0}. {1}</value></data>
   <data name="Status.SystemReboot" xml:space="preserve"><value>Επανεκκίνηση συστήματος</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Το απαιτούμενο εκτελέσιμο αρχείο επανεκκίνησης 'wpeutil.exe' δεν βρέθηκε.</value></data>

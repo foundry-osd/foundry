@@ -28,10 +28,7 @@
   <data name="Theme.Dark" xml:space="preserve"><value>Тъмно</value></data>
   <data name="Language.English" xml:space="preserve"><value>английски</value></data>
   <data name="Language.French" xml:space="preserve"><value>френски</value></data>
-  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Обновяване на каталози</value></data>
-  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Обновяване на целевите дискове</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Отворете регистрационния файл</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>Режимът на симулация е активен: действията по внедряване се симулират и не се извършва запис на диск или изображение.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Цел</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Операционна система</value></data>
   <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Пакет драйвери</value></data>
@@ -74,8 +71,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Целевите дискове се зареждат...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Неуспешно откриване на целевия диск: {0}</value></data>
-  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>Няма открити дискове.</value></data>
-  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Заредени целеви дискове: открити са {0}.</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Операционна система</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Версия</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>език</value></data>
@@ -131,9 +126,6 @@
   <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Страница за напредък</value></data>
   <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Страница за успех</value></data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Страница с грешки</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>Визуализация на отстраняване на грешки: страница за напредък.</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>Визуализация на отстраняване на грешки: страница за успех.</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>Визуализация на отстраняване на грешки: страница за грешка.</value></data>
   <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Визуализация на отстраняване на грешки: прилагането на DISM не бе успешно, защото целевият дял е само за четене.
 
 Код на грешка=0x80070005
@@ -144,7 +136,6 @@
   <data name="Common.Previous" xml:space="preserve"><value>Предишен</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Следваща</value></data>
   <data name="Common.Deploy" xml:space="preserve"><value>Разположете</value></data>
-  <data name="Common.OpenLog" xml:space="preserve"><value>Отворен дневник</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>N/A</value></data>
   <data name="Common.Unavailable" xml:space="preserve"><value>Недостъпен</value></data>
   <data name="Common.None" xml:space="preserve"><value>Няма</value></data>
@@ -176,7 +167,6 @@
   <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Блокиран: само за четене</value></data>
   <data name="Disk.BlockedOffline" xml:space="preserve"><value>Блокиран: офлайн</value></data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>ОТСТРАНЯВАНЕ НА ГРЕШКИ ВИРТУАЛНА ЦЕЛ</value></data>
-  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Избраният диск е блокиран: {0}</value></data>
   <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Целевият диск {0} вече не присъства.</value></data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Целевият диск {0} е блокиран: {1}</value></data>
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Потвърдете изтриването на диска</value></data>
@@ -190,26 +180,11 @@
 Операционна система: {4}
 
 Да продължите с внедряването?</value></data>
-  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Изберете операционна система.</value></data>
-  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Въведете валидно име на компютър.</value></data>
-  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Изберете целеви диск.</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Изберете валиден OEM модел или версия, преди да започнете внедряването.</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Изберете Autopilot профил или деактивирайте Autopilot преди да започнете внедряването.</value></data>
-  <data name="Launch.CancelledByUser" xml:space="preserve"><value>Внедряването е отменено от потребителя.</value></data>
-  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Подготовката за внедряване е завършена.</value></data>
-  <data name="Status.Ready" xml:space="preserve"><value>Готови</value></data>
   <data name="Status.WaitingForDeployment" xml:space="preserve"><value>В очакване на внедряване...</value></data>
   <data name="Status.WaitingForProgress" xml:space="preserve"><value>В очакване на напредък...</value></data>
   <data name="Status.PreparingDeployment" xml:space="preserve"><value>Подготвя се разполагане...</value></data>
-  <data name="Status.DeploymentStarted" xml:space="preserve"><value>Внедряването започна.</value></data>
-  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>Внедряването е завършено.</value></data>
-  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>Работният процес по внедряването е завършен.</value></data>
   <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Внедряването е отменено.</value></data>
-  <data name="Status.DeploymentFailed" xml:space="preserve"><value>Внедряването не бе успешно.</value></data>
-  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Неуспешно внедряване: {0}</value></data>
   <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Друга операция вече тече.</value></data>
-  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Безопасният режим за отстраняване на грешки е активиран: действията по внедряване се симулират.</value></data>
-  <data name="Status.StartingOrchestration" xml:space="preserve"><value>Стартиране на работния процес на внедряване.</value></data>
   <data name="Status.StartingStep" xml:space="preserve"><value>Начална стъпка...</value></data>
   <data name="Status.StartingStepFormat" xml:space="preserve"><value>Стартиране на {0}.</value></data>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Стартиране на {0}...</value></data>
@@ -219,10 +194,6 @@
   <data name="Status.InProgress" xml:space="preserve"><value>В ход...</value></data>
   <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Стъпка:? от?</value></data>
   <data name="Status.StepCounterFormat" xml:space="preserve"><value>Стъпка: {0} от {1}</value></data>
-  <data name="Status.RebootingNow" xml:space="preserve"><value>Рестартира се сега...</value></data>
-  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>Командата за рестартиране е неуспешна.</value></data>
-  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Командата за рестартиране е неуспешна: {0}</value></data>
-  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Не може да се отвори лог файл: {0}</value></data>
   <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe се провали с изходен код {0}. {1}</value></data>
   <data name="Status.SystemReboot" xml:space="preserve"><value>Рестартиране на системата</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Изискваният изпълним файл за рестартиране 'wpeutil.exe' не е намерен.</value></data>

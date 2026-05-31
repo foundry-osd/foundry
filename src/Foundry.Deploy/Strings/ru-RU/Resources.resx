@@ -28,10 +28,7 @@
   <data name="Theme.Dark" xml:space="preserve"><value>Темный</value></data>
   <data name="Language.English" xml:space="preserve"><value>английский</value></data>
   <data name="Language.French" xml:space="preserve"><value>французский</value></data>
-  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Обновить каталоги</value></data>
-  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Обновить целевые диски</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Открыть файл журнала</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>Режим моделирования активен: действия по развертыванию моделируются, запись на диск или образ не выполняется.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Цель</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Операционная система</value></data>
   <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Пакет драйверов</value></data>
@@ -74,8 +71,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>переменного тока</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Загрузка целевых дисков...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Не удалось обнаружить целевой диск: {0}</value></data>
-  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>Диски не обнаружены.</value></data>
-  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Загружены целевые диски: обнаружен {0}.</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Операционная система</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Версия</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Язык</value></data>
@@ -131,9 +126,6 @@
   <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Страница прогресса</value></data>
   <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Страница успеха</value></data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Страница ошибки</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>Предварительный просмотр отладки: страница прогресса.</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>Предварительный просмотр отладки: страница успеха.</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>Предварительный просмотр отладки: страница ошибки.</value></data>
   <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Предварительный просмотр отладки: DISM применить не удалось, поскольку целевой раздел доступен только для чтения.
 
 Код ошибки=0x80070005
@@ -144,7 +136,6 @@
   <data name="Common.Previous" xml:space="preserve"><value>Предыдущий</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Далее</value></data>
   <data name="Common.Deploy" xml:space="preserve"><value>Развертывание</value></data>
-  <data name="Common.OpenLog" xml:space="preserve"><value>Открыть журнал</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>Н/Д</value></data>
   <data name="Common.Unavailable" xml:space="preserve"><value>Недоступно</value></data>
   <data name="Common.None" xml:space="preserve"><value>Нет</value></data>
@@ -176,7 +167,6 @@
   <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Заблокировано: только чтение</value></data>
   <data name="Disk.BlockedOffline" xml:space="preserve"><value>Заблокировано: офлайн</value></data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>ОТЛАДКА ВИРТУАЛЬНОЙ ЦЕЛИ</value></data>
-  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Выбранный диск заблокирован: {0}</value></data>
   <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Целевой диск {0} больше не существует.</value></data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Целевой диск {0} заблокирован: {1}</value></data>
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Подтвердить очистку диска</value></data>
@@ -190,26 +180,11 @@
 Операционная система: {4}
 
 Продолжить развертывание?</value></data>
-  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Выберите операционную систему.</value></data>
-  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Введите допустимое имя компьютера.</value></data>
-  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Выберите целевой диск.</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Перед началом развертывания выберите действующую OEM-модель или версию.</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Выберите профиль Autopilot или отключите Autopilot перед началом развертывания.</value></data>
-  <data name="Launch.CancelledByUser" xml:space="preserve"><value>Развертывание отменено пользователем.</value></data>
-  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Подготовка к развертыванию завершена.</value></data>
-  <data name="Status.Ready" xml:space="preserve"><value>Готово</value></data>
   <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Ожидание развертывания...</value></data>
   <data name="Status.WaitingForProgress" xml:space="preserve"><value>Ждем прогресса...</value></data>
   <data name="Status.PreparingDeployment" xml:space="preserve"><value>Подготовка развертывания...</value></data>
-  <data name="Status.DeploymentStarted" xml:space="preserve"><value>Развертывание началось.</value></data>
-  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>Развертывание завершено.</value></data>
-  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>Рабочий процесс развертывания завершен.</value></data>
   <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Развертывание отменено.</value></data>
-  <data name="Status.DeploymentFailed" xml:space="preserve"><value>Развертывание не удалось.</value></data>
-  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Развертывание не удалось: {0}</value></data>
   <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Другая операция уже выполняется.</value></data>
-  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Включен безопасный режим отладки: действия по развертыванию моделируются.</value></data>
-  <data name="Status.StartingOrchestration" xml:space="preserve"><value>Запуск рабочего процесса развертывания.</value></data>
   <data name="Status.StartingStep" xml:space="preserve"><value>Начальный шаг...</value></data>
   <data name="Status.StartingStepFormat" xml:space="preserve"><value>Начинаем {0}.</value></data>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Начинаем {0}...</value></data>
@@ -219,10 +194,6 @@
   <data name="Status.InProgress" xml:space="preserve"><value>В процессе...</value></data>
   <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Шаг:? из?</value></data>
   <data name="Status.StepCounterFormat" xml:space="preserve"><value>Шаг: {0} из {1}</value></data>
-  <data name="Status.RebootingNow" xml:space="preserve"><value>Перезагружаюсь сейчас...</value></data>
-  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>Команда перезагрузки не удалась.</value></data>
-  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Не удалось выполнить команду перезагрузки: {0}</value></data>
-  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Невозможно открыть файл журнала: {0}</value></data>
   <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe завершился с ошибкой с кодом завершения {0}. {1}</value></data>
   <data name="Status.SystemReboot" xml:space="preserve"><value>Перезагрузка системы</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Требуемый исполняемый файл перезагрузки «wpeutil.exe» не найден.</value></data>

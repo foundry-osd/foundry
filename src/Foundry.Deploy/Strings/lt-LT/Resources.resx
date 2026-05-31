@@ -28,10 +28,7 @@
   <data name="Theme.Dark" xml:space="preserve"><value>Tamsus</value></data>
   <data name="Language.English" xml:space="preserve"><value>anglų kalba</value></data>
   <data name="Language.French" xml:space="preserve"><value>prancūzų</value></data>
-  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Atnaujinti katalogus</value></data>
-  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Atnaujinkite tikslinius diskus</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Atidaryti žurnalo failą</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>Modeliavimo režimas yra aktyvus: modeliuojami diegimo veiksmai ir neįrašoma į diską ar vaizdą.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Taikinys</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operacinė sistema</value></data>
   <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Vairuotojo paketas</value></data>
@@ -74,8 +71,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Įkeliami tiksliniai diskai...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Nepavyko aptikti tikslinio disko: {0}</value></data>
-  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>Nerasta jokių diskų.</value></data>
-  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Įkelti tiksliniai diskai: aptikta {0}.</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operacinė sistema</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versija</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Kalba</value></data>
@@ -131,9 +126,6 @@
   <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Pažangos puslapis</value></data>
   <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Sėkmės puslapis</value></data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Klaidos puslapis</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>Derinimo peržiūra: eigos puslapis.</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>Derinimo peržiūra: sėkmės puslapis.</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>Derinimo peržiūra: klaidos puslapis.</value></data>
   <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Derinimo peržiūra: DISM taikyti nepavyko, nes tikslinis skaidinys yra tik skaitomas.
 
 ErrorCode=0x80070005
@@ -144,7 +136,6 @@ Veiksmas: patikrinkite disko atributus ir bandykite iš naujo įdiegti.</value><
   <data name="Common.Previous" xml:space="preserve"><value>Ankstesnis</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Kitas</value></data>
   <data name="Common.Deploy" xml:space="preserve"><value>Dislokuoti</value></data>
-  <data name="Common.OpenLog" xml:space="preserve"><value>Atidaryti žurnalą</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>N/A</value></data>
   <data name="Common.Unavailable" xml:space="preserve"><value>Nepasiekiamas</value></data>
   <data name="Common.None" xml:space="preserve"><value>Nėra</value></data>
@@ -176,7 +167,6 @@ Veiksmas: patikrinkite disko atributus ir bandykite iš naujo įdiegti.</value><
   <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Užblokuota: tik skaitoma</value></data>
   <data name="Disk.BlockedOffline" xml:space="preserve"><value>Užblokuota: neprisijungus</value></data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>DERINTI VIRTUALUS TIKSLAS</value></data>
-  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Pasirinktas diskas užblokuotas: {0}</value></data>
   <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Tikslinio disko {0} nebėra.</value></data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Tikslinis diskas {0} užblokuotas: {1}</value></data>
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Patvirtinkite disko ištrynimą</value></data>
@@ -190,26 +180,11 @@ Dydis: {3}
 Operacinė sistema: {4}
 
 Tęsti diegimą?</value></data>
-  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Pasirinkite operacinę sistemą.</value></data>
-  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Įveskite galiojantį kompiuterio pavadinimą.</value></data>
-  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Pasirinkite tikslinį diską.</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Prieš pradėdami diegti, pasirinkite tinkamą OĮG modelį arba versiją.</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Prieš pradėdami diegti, pasirinkite Autopilot profilį arba išjunkite Autopilot.</value></data>
-  <data name="Launch.CancelledByUser" xml:space="preserve"><value>Diegimą atšaukė vartotojas.</value></data>
-  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Pasirengimas diegimui baigtas.</value></data>
-  <data name="Status.Ready" xml:space="preserve"><value>Paruošta</value></data>
   <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Laukiama diegimo...</value></data>
   <data name="Status.WaitingForProgress" xml:space="preserve"><value>Laukiam progreso...</value></data>
   <data name="Status.PreparingDeployment" xml:space="preserve"><value>Ruošiamas diegimas...</value></data>
-  <data name="Status.DeploymentStarted" xml:space="preserve"><value>Pradėtas dislokavimas.</value></data>
-  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>Diegimas baigtas.</value></data>
-  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>Diegimo darbo eiga baigta.</value></data>
   <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Diegimas atšauktas.</value></data>
-  <data name="Status.DeploymentFailed" xml:space="preserve"><value>Diegimas nepavyko.</value></data>
-  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Diegimas nepavyko: {0}</value></data>
   <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Jau vykdoma kita operacija.</value></data>
-  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Derinimo saugus režimas įjungtas: modeliuojami diegimo veiksmai.</value></data>
-  <data name="Status.StartingOrchestration" xml:space="preserve"><value>Pradedama diegimo darbo eiga.</value></data>
   <data name="Status.StartingStep" xml:space="preserve"><value>Pradinis žingsnis...</value></data>
   <data name="Status.StartingStepFormat" xml:space="preserve"><value>Nuo {0}.</value></data>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Pradedama {0}...</value></data>
@@ -219,10 +194,6 @@ Tęsti diegimą?</value></data>
   <data name="Status.InProgress" xml:space="preserve"><value>Vykdoma...</value></data>
   <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Žingsnis:? iš?</value></data>
   <data name="Status.StepCounterFormat" xml:space="preserve"><value>Žingsnis: {0} iš {1}</value></data>
-  <data name="Status.RebootingNow" xml:space="preserve"><value>Dabar paleidžiama iš naujo...</value></data>
-  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>Perkrovimo komanda nepavyko.</value></data>
-  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Perkrovimo komanda nepavyko: {0}</value></data>
-  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Nepavyko atidaryti žurnalo failo: {0}</value></data>
   <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe nepavyko su išėjimo kodu {0}. {1}</value></data>
   <data name="Status.SystemReboot" xml:space="preserve"><value>Sistemos paleidimas iš naujo</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Reikalingas iš naujo paleisti vykdomasis failas „wpeutil.exe“ nerastas.</value></data>

@@ -28,10 +28,7 @@
   <data name="Theme.Dark" xml:space="preserve"><value>Ciemny</value></data>
   <data name="Language.English" xml:space="preserve"><value>Angielski</value></data>
   <data name="Language.French" xml:space="preserve"><value>Francuski</value></data>
-  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Odśwież katalogi</value></data>
-  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Odśwież dyski docelowe</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Otwórz plik dziennika</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>Tryb symulacji jest aktywny: symulowane są akcje wdrażania i nie są wykonywane żadne zapisy na dysku lub obrazie.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Cel</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. System operacyjny</value></data>
   <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Pakiet sterowników</value></data>
@@ -74,8 +71,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Ładowanie dysków docelowych...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Wykrycie dysku docelowego nie powiodło się: {0}</value></data>
-  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>Nie wykryto dysków.</value></data>
-  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Załadowane dyski docelowe: wykryto {0}.</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>System operacyjny</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Wersja</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Język</value></data>
@@ -131,9 +126,6 @@
   <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Strona postępu</value></data>
   <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Strona sukcesu</value></data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Strona błędu</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>Podgląd debugowania: strona postępu.</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>Podgląd debugowania: strona sukcesu.</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>Podgląd debugowania: strona błędu.</value></data>
   <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Podgląd debugowania: DISM zastosowanie nie powiodło się, ponieważ partycja docelowa jest tylko do odczytu.
 
 Kod błędu=0x80070005
@@ -144,7 +136,6 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>Poprzedni</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Następny</value></data>
   <data name="Common.Deploy" xml:space="preserve"><value>Wdróż</value></data>
-  <data name="Common.OpenLog" xml:space="preserve"><value>Otwórz dziennik</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>Nie dotyczy</value></data>
   <data name="Common.Unavailable" xml:space="preserve"><value>Niedostępne</value></data>
   <data name="Common.None" xml:space="preserve"><value>Żadne</value></data>
@@ -176,7 +167,6 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value></data>
   <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Zablokowano: tylko do odczytu</value></data>
   <data name="Disk.BlockedOffline" xml:space="preserve"><value>Zablokowano: offline</value></data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>DEBUGUJ WIRTUALNY CEL</value></data>
-  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Wybrany dysk zablokowany: {0}</value></data>
   <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Dysk docelowy {0} nie jest już obecny.</value></data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Dysk docelowy {0} jest zablokowany: {1}</value></data>
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Potwierdź usunięcie dysku</value></data>
@@ -190,26 +180,11 @@ Rozmiar: {3}
 System operacyjny: {4}
 
 Kontynuować wdrażanie?</value></data>
-  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Wybierz system operacyjny.</value></data>
-  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Wprowadź prawidłową nazwę komputera.</value></data>
-  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Wybierz dysk docelowy.</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Przed rozpoczęciem wdrażania wybierz prawidłowy model lub wersję OEM.</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Wybierz profil Autopilot lub wyłącz Autopilot przed rozpoczęciem wdrażania.</value></data>
-  <data name="Launch.CancelledByUser" xml:space="preserve"><value>Wdrożenie anulowane przez użytkownika.</value></data>
-  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Zakończono przygotowania do wdrożenia.</value></data>
-  <data name="Status.Ready" xml:space="preserve"><value>Gotowy</value></data>
   <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Oczekiwanie na wdrożenie...</value></data>
   <data name="Status.WaitingForProgress" xml:space="preserve"><value>Czekam na postęp...</value></data>
   <data name="Status.PreparingDeployment" xml:space="preserve"><value>Przygotowuję wdrożenie...</value></data>
-  <data name="Status.DeploymentStarted" xml:space="preserve"><value>Rozpoczęto wdrażanie.</value></data>
-  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>Wdrożenie zakończone.</value></data>
-  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>Przepływ pracy wdrożeniowej został ukończony.</value></data>
   <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Wdrożenie anulowane.</value></data>
-  <data name="Status.DeploymentFailed" xml:space="preserve"><value>Wdrożenie nie powiodło się.</value></data>
-  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Wdrożenie nie powiodło się: {0}</value></data>
   <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Inna operacja już trwa.</value></data>
-  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Włączono tryb awaryjny debugowania: symulowane są działania wdrożeniowe.</value></data>
-  <data name="Status.StartingOrchestration" xml:space="preserve"><value>Rozpoczęcie procesu wdrażania.</value></data>
   <data name="Status.StartingStep" xml:space="preserve"><value>Krok początkowy...</value></data>
   <data name="Status.StartingStepFormat" xml:space="preserve"><value>Rozpoczęcie {0}.</value></data>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Rozpoczęcie {0}...</value></data>
@@ -219,10 +194,6 @@ Kontynuować wdrażanie?</value></data>
   <data name="Status.InProgress" xml:space="preserve"><value>W toku...</value></data>
   <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Krok:? z?</value></data>
   <data name="Status.StepCounterFormat" xml:space="preserve"><value>Krok: {0} z {1}</value></data>
-  <data name="Status.RebootingNow" xml:space="preserve"><value>Ponowne uruchamianie teraz...</value></data>
-  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>Polecenie ponownego uruchomienia nie powiodło się.</value></data>
-  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Polecenie ponownego uruchomienia nie powiodło się: {0}</value></data>
-  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Nie można otworzyć pliku dziennika: {0}</value></data>
   <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe nie powiodło się z kodem zakończenia {0}. {1}</value></data>
   <data name="Status.SystemReboot" xml:space="preserve"><value>Ponowne uruchomienie systemu</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Nie znaleziono wymaganego pliku wykonywalnego ponownego uruchomienia „wpeutil.exe”.</value></data>

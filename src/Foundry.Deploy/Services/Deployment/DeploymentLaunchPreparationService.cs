@@ -29,15 +29,13 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
 
         if (request.SelectedOperatingSystem is null)
         {
-            return DeploymentLaunchPreparationResult.Failure(
-                "Select an operating system.",
-                ComputerNameRules.Normalize(request.TargetComputerName));
+            return DeploymentLaunchPreparationResult.Failure(ComputerNameRules.Normalize(request.TargetComputerName));
         }
 
         string normalizedComputerName = ComputerNameRules.Normalize(request.TargetComputerName);
         if (!ComputerNameRules.IsValid(normalizedComputerName))
         {
-            return DeploymentLaunchPreparationResult.Failure("Enter a valid computer name.", normalizedComputerName);
+            return DeploymentLaunchPreparationResult.Failure(normalizedComputerName);
         }
 
         TargetDiskInfo? effectiveTargetDisk = request.SelectedTargetDisk;
@@ -48,36 +46,30 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
 
         if (effectiveTargetDisk is null)
         {
-            return DeploymentLaunchPreparationResult.Failure("Select a target disk.", normalizedComputerName);
+            return DeploymentLaunchPreparationResult.Failure(normalizedComputerName);
         }
 
         if (!request.IsDryRun && !effectiveTargetDisk.IsSelectable)
         {
-            return DeploymentLaunchPreparationResult.Failure(
-                $"Selected disk is blocked: {effectiveTargetDisk.SelectionWarning}",
-                normalizedComputerName);
+            return DeploymentLaunchPreparationResult.Failure(normalizedComputerName);
         }
 
         if (request.DriverPackSelectionKind == DriverPackSelectionKind.OemCatalog &&
             request.SelectedDriverPack is null)
         {
-            return DeploymentLaunchPreparationResult.Failure(
-                "Select a valid OEM model/version before starting deployment.",
-                normalizedComputerName);
+            return DeploymentLaunchPreparationResult.Failure(normalizedComputerName);
         }
 
         if (request.IsAutopilotEnabled &&
             request.AutopilotProvisioningMode == AutopilotProvisioningMode.JsonProfile &&
             request.SelectedAutopilotProfile is null)
         {
-            return DeploymentLaunchPreparationResult.Failure(
-                "Select an Autopilot profile or disable Autopilot before starting deployment.",
-                normalizedComputerName);
+            return DeploymentLaunchPreparationResult.Failure(normalizedComputerName);
         }
 
         if (!request.IsDryRun && !ConfirmDestructiveDeployment(effectiveTargetDisk, request.SelectedOperatingSystem))
         {
-            return DeploymentLaunchPreparationResult.Failure("Deployment cancelled by user.", normalizedComputerName);
+            return DeploymentLaunchPreparationResult.Failure(normalizedComputerName);
         }
 
         DeploymentContext context = new()
@@ -102,7 +94,6 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
         };
 
         return DeploymentLaunchPreparationResult.Success(
-            "Deployment preparation completed.",
             normalizedComputerName,
             effectiveTargetDisk,
             context);

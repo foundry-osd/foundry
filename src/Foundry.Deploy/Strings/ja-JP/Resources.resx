@@ -28,10 +28,7 @@
   <data name="Theme.Dark" xml:space="preserve"><value>暗い</value></data>
   <data name="Language.English" xml:space="preserve"><value>英語</value></data>
   <data name="Language.French" xml:space="preserve"><value>フランス語</value></data>
-  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>カタログを更新する</value></data>
-  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>ターゲットディスクをリフレッシュする</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>ログファイルを開く</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>シミュレーション モードがアクティブです。展開アクションがシミュレートされ、ディスクまたはイメージの書き込みは実行されません。</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. ターゲット</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. オペレーティングシステム</value></data>
   <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3.ドライバーパック</value></data>
@@ -74,8 +71,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>交流</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>ターゲットディスクをロードしています...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>ターゲット ディスクの検出に失敗しました: {0}</value></data>
-  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>ディスクが検出されませんでした。</value></data>
-  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>ロードされたターゲット ディスク: {0} が検出されました。</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>オペレーティングシステム</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>バージョン</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>言語</value></data>
@@ -131,9 +126,6 @@
   <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>進捗ページ</value></data>
   <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>成功ページ</value></data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>エラーページ</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>デバッグ プレビュー: 進行状況ページ。</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>デバッグ プレビュー: 成功ページ。</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>デバッグ プレビュー: エラー ページ。</value></data>
   <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>デバッグ プレビュー: DISM ターゲット パーティションが読み取り専用であるため、適用に失敗しました。
 
 エラーコード=0x80070005
@@ -144,7 +136,6 @@
   <data name="Common.Previous" xml:space="preserve"><value>前へ</value></data>
   <data name="Common.Next" xml:space="preserve"><value>次へ</value></data>
   <data name="Common.Deploy" xml:space="preserve"><value>デプロイ</value></data>
-  <data name="Common.OpenLog" xml:space="preserve"><value>ログを開く</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>該当なし</value></data>
   <data name="Common.Unavailable" xml:space="preserve"><value>利用不可</value></data>
   <data name="Common.None" xml:space="preserve"><value>なし</value></data>
@@ -176,7 +167,6 @@
   <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>ブロック済み: 読み取り専用</value></data>
   <data name="Disk.BlockedOffline" xml:space="preserve"><value>ブロック中: オフライン</value></data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>仮想ターゲットのデバッグ</value></data>
-  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>選択したディスクがブロックされました: {0}</value></data>
   <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>ターゲット ディスク {0} は存在しません。</value></data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>ターゲット ディスク {0} がブロックされています: {1}</value></data>
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>ディスク消去の確認</value></data>
@@ -190,26 +180,11 @@
 オペレーティング システム: {4}
 
 導入を続行しますか?</value></data>
-  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>オペレーティング システムを選択します。</value></data>
-  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>有効なコンピュータ名を入力してください。</value></data>
-  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>ターゲットディスクを選択します。</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>導入を開始する前に、有効な OEM モデルまたはバージョンを選択してください。</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>展開を開始する前に、Autopilot プロファイルを選択するか、Autopilot を無効にします。</value></data>
-  <data name="Launch.CancelledByUser" xml:space="preserve"><value>デプロイメントはユーザーによってキャンセルされました。</value></data>
-  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>導入準備が完了しました。</value></data>
-  <data name="Status.Ready" xml:space="preserve"><value>準備完了</value></data>
   <data name="Status.WaitingForDeployment" xml:space="preserve"><value>導入を待っています...</value></data>
   <data name="Status.WaitingForProgress" xml:space="preserve"><value>進展を待っています...</value></data>
   <data name="Status.PreparingDeployment" xml:space="preserve"><value>導入を準備しています...</value></data>
-  <data name="Status.DeploymentStarted" xml:space="preserve"><value>展開が開始されました。</value></data>
-  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>導入が完了しました。</value></data>
-  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>導入ワークフローが完了しました。</value></data>
   <data name="Status.DeploymentCancelled" xml:space="preserve"><value>デプロイメントがキャンセルされました。</value></data>
-  <data name="Status.DeploymentFailed" xml:space="preserve"><value>デプロイメントに失敗しました。</value></data>
-  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>デプロイメントに失敗しました: {0}</value></data>
   <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>別の操作がすでに実行中です。</value></data>
-  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>デバッグ セーフ モードが有効になっています: 展開アクションがシミュレートされます。</value></data>
-  <data name="Status.StartingOrchestration" xml:space="preserve"><value>導入ワークフローを開始します。</value></data>
   <data name="Status.StartingStep" xml:space="preserve"><value>開始ステップ...</value></data>
   <data name="Status.StartingStepFormat" xml:space="preserve"><value>{0} を開始します。</value></data>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>{0} を開始します...</value></data>
@@ -219,10 +194,6 @@
   <data name="Status.InProgress" xml:space="preserve"><value>進行中...</value></data>
   <data name="Status.StepCounterUnknown" xml:space="preserve"><value>ステップ:?の ？</value></data>
   <data name="Status.StepCounterFormat" xml:space="preserve"><value>ステップ: {0} の {1}</value></data>
-  <data name="Status.RebootingNow" xml:space="preserve"><value>今再起動しています...</value></data>
-  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>再起動コマンドが失敗しました。</value></data>
-  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>再起動コマンドが失敗しました: {0}</value></data>
-  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>ログ ファイルを開けません: {0}</value></data>
   <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe は終了コード {0} で失敗しました。 {1}</value></data>
   <data name="Status.SystemReboot" xml:space="preserve"><value>システムの再起動</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>必要な再起動実行可能ファイル「wpeutil.exe」が見つかりませんでした。</value></data>

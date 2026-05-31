@@ -28,10 +28,7 @@
   <data name="Theme.Dark" xml:space="preserve"><value>Tmavý</value></data>
   <data name="Language.English" xml:space="preserve"><value>angličtina</value></data>
   <data name="Language.French" xml:space="preserve"><value>francúzsky</value></data>
-  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Obnoviť katalógy</value></data>
-  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Obnovte cieľové disky</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Otvorte súbor denníka</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>Režim simulácie je aktívny: akcie nasadenia sa simulujú a nevykonávajú sa žiadne zápisy na disk alebo obraz.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Cieľ</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operačný systém</value></data>
   <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Balík ovládačov</value></data>
@@ -74,8 +71,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Načítavam cieľové disky...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Zistenie cieľového disku zlyhalo: {0}</value></data>
-  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>Neboli zistené žiadne disky.</value></data>
-  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Načítané cieľové disky: Zistil sa {0}.</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operačný systém</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Verzia</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Jazyk</value></data>
@@ -131,9 +126,6 @@
   <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Stránka pokroku</value></data>
   <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Úspešná stránka</value></data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Chybová stránka</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>Ukážka ladenia: stránka priebehu.</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>Ukážka ladenia: stránka úspechu.</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>Ukážka ladenia: chybová stránka.</value></data>
   <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Ukážka ladenia: Aplikácia DISM zlyhala, pretože cieľový oddiel je len na čítanie.
 
 ErrorCode=0x80070005
@@ -144,7 +136,6 @@ Akcia: Overte atribúty disku a zopakujte nasadenie.</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>Predchádzajúce</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Ďalej</value></data>
   <data name="Common.Deploy" xml:space="preserve"><value>Nasadiť</value></data>
-  <data name="Common.OpenLog" xml:space="preserve"><value>Otvorte denník</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>N/A</value></data>
   <data name="Common.Unavailable" xml:space="preserve"><value>nedostupné</value></data>
   <data name="Common.None" xml:space="preserve"><value>žiadne</value></data>
@@ -176,7 +167,6 @@ Akcia: Overte atribúty disku a zopakujte nasadenie.</value></data>
   <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Blokované: iba na čítanie</value></data>
   <data name="Disk.BlockedOffline" xml:space="preserve"><value>Blokované: offline</value></data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>LADIŤ VIRTUÁLNY CIEĽ</value></data>
-  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Vybraný disk je zablokovaný: {0}</value></data>
   <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Cieľový disk {0} už nie je prítomný.</value></data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Cieľový disk {0} je zablokovaný: {1}</value></data>
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Potvrďte vymazanie disku</value></data>
@@ -190,26 +180,11 @@ Veľkosť: {3}
 Operačný systém: {4}
 
 Pokračovať v nasadzovaní?</value></data>
-  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Vyberte operačný systém.</value></data>
-  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Zadajte platný názov počítača.</value></data>
-  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Vyberte cieľový disk.</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Pred spustením nasadenia vyberte platný model alebo verziu OEM.</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Pred spustením nasadenia vyberte profil Autopilot alebo zakážte Autopilot.</value></data>
-  <data name="Launch.CancelledByUser" xml:space="preserve"><value>Nasadenie bolo zrušené používateľom.</value></data>
-  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Príprava na nasadenie dokončená.</value></data>
-  <data name="Status.Ready" xml:space="preserve"><value>Pripravený</value></data>
   <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Čaká sa na nasadenie...</value></data>
   <data name="Status.WaitingForProgress" xml:space="preserve"><value>Čakanie na pokrok...</value></data>
   <data name="Status.PreparingDeployment" xml:space="preserve"><value>Pripravuje sa nasadenie...</value></data>
-  <data name="Status.DeploymentStarted" xml:space="preserve"><value>Nasadzovanie začalo.</value></data>
-  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>Nasadenie dokončené.</value></data>
-  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>Pracovný postup nasadenia bol dokončený.</value></data>
   <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Nasadenie bolo zrušené.</value></data>
-  <data name="Status.DeploymentFailed" xml:space="preserve"><value>Nasadenie zlyhalo.</value></data>
-  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Nasadenie zlyhalo: {0}</value></data>
   <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Ďalšia operácia už prebieha.</value></data>
-  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Povolený bezpečný režim ladenia: akcie nasadenia sú simulované.</value></data>
-  <data name="Status.StartingOrchestration" xml:space="preserve"><value>Spustenie pracovného postupu nasadenia.</value></data>
   <data name="Status.StartingStep" xml:space="preserve"><value>Začiatočný krok...</value></data>
   <data name="Status.StartingStepFormat" xml:space="preserve"><value>Začína {0}.</value></data>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Začína {0}...</value></data>
@@ -219,10 +194,6 @@ Pokračovať v nasadzovaní?</value></data>
   <data name="Status.InProgress" xml:space="preserve"><value>Prebieha...</value></data>
   <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Krok:? z?</value></data>
   <data name="Status.StepCounterFormat" xml:space="preserve"><value>Krok: {0} z {1}</value></data>
-  <data name="Status.RebootingNow" xml:space="preserve"><value>Teraz sa reštartuje...</value></data>
-  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>Príkaz reštartu zlyhal.</value></data>
-  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Príkaz reštartu zlyhal: {0}</value></data>
-  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Nie je možné otvoriť súbor denníka: {0}</value></data>
   <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe zlyhal s kódom ukončenia {0}. {1}</value></data>
   <data name="Status.SystemReboot" xml:space="preserve"><value>Reštart systému</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Požadovaný reštartovací spustiteľný súbor „wpeutil.exe“ sa nenašiel.</value></data>

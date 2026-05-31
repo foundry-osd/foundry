@@ -9,7 +9,6 @@ using CommunityToolkit.Mvvm.Input;
 using Foundry.Deploy;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
-using Foundry.Deploy.Services.Catalog;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
@@ -30,7 +29,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 {
     private readonly IThemeService _themeService;
     private readonly IDeploymentStartupCoordinator _deploymentStartupCoordinator;
-    private readonly IDeploymentCatalogLoadService _deploymentCatalogLoadService;
     private readonly IDeploymentLaunchPreparationService _deploymentLaunchPreparationService;
     private readonly IDeploymentExecutionService _deploymentExecutionService;
     private readonly IDeploymentWizardStateService _deploymentWizardStateService;
@@ -52,7 +50,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private int wizardStepIndex;
 
     [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(RefreshCatalogsCommand))]
     [NotifyCanExecuteChangedFor(nameof(NextWizardStepCommand))]
     private bool isCatalogLoading;
 
@@ -102,7 +99,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         IOperationProgressService operationProgressService,
         IDeploymentStartupCoordinator deploymentStartupCoordinator,
         IDeploymentRuntimeContextService deploymentRuntimeContextService,
-        IDeploymentCatalogLoadService deploymentCatalogLoadService,
         IDeploymentLaunchPreparationService deploymentLaunchPreparationService,
         IDeploymentExecutionService deploymentExecutionService,
         IDeploymentWizardStateService deploymentWizardStateService,
@@ -115,7 +111,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     {
         _themeService = themeService;
         _deploymentStartupCoordinator = deploymentStartupCoordinator;
-        _deploymentCatalogLoadService = deploymentCatalogLoadService;
         _deploymentLaunchPreparationService = deploymentLaunchPreparationService;
         _deploymentExecutionService = deploymentExecutionService;
         _deploymentWizardStateService = deploymentWizardStateService;
@@ -126,7 +121,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _deploymentRuntimeContext = deploymentRuntimeContextService.Resolve();
         _wizardContext = deploymentWizardContextFactory.Create(IsDebugSafeMode);
         _wizardContext.StateChanged += OnWizardContextStateChanged;
-        _wizardContext.StatusMessageGenerated += OnWizardContextStatusMessageGenerated;
         Preparation = _wizardContext.Preparation;
         OperatingSystemCatalog = _wizardContext.OperatingSystemCatalog;
         DriverPackSelection = _wizardContext.DriverPackSelection;
@@ -230,43 +224,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         StartDeploymentCommand.NotifyCanExecuteChanged();
     }
 
-    [RelayCommand(CanExecute = nameof(CanRefreshCatalogs))]
-    private async Task RefreshCatalogsAsync()
-    {
-        _logger.LogInformation("Refreshing deployment catalogs.");
-        if (IsCatalogLoading)
-        {
-            return;
-        }
-
-        IsCatalogLoading = true;
-        Session.SetStatus("Loading catalogs...");
-
-        try
-        {
-            DeploymentCatalogSnapshot snapshot = await _deploymentCatalogLoadService.LoadAsync().ConfigureAwait(false);
-            _logger.LogInformation(
-                "Deployment catalogs refreshed successfully. OperatingSystemCount={OperatingSystemCount}, DriverPackCount={DriverPackCount}",
-                snapshot.OperatingSystems.Count,
-                snapshot.DriverPacks.Count);
-
-            RunOnUi(() =>
-            {
-                _wizardContext.ApplyCatalogSnapshot(snapshot);
-                Session.SetStatus($"Catalogs loaded: {OperatingSystemCatalog.OperatingSystems.Count} OS entries, {DriverPackSelection.CatalogCount} driver packs.");
-            });
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Catalog refresh failed.");
-            RunOnUi(() => Session.SetStatus($"Catalog load failed: {ex.Message}"));
-        }
-        finally
-        {
-            RunOnUi(() => IsCatalogLoading = false);
-        }
-    }
-
     [RelayCommand(CanExecute = nameof(CanGoPrevious))]
     private void PreviousWizardStep()
     {
@@ -326,7 +283,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         if (!launchPreparation.IsReadyToStart || launchPreparation.Context is null)
         {
-            Session.SetStatus(launchPreparation.StatusMessage);
             return;
         }
 
@@ -403,11 +359,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         StartDeploymentCommand.NotifyCanExecuteChanged();
     }
 
-    private void OnWizardContextStatusMessageGenerated(string message)
-    {
-        Session.SetStatus(message);
-    }
-
     private void OnSessionPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (!string.IsNullOrWhiteSpace(e.PropertyName) &&
@@ -417,7 +368,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             return;
         }
 
-        RefreshCatalogsCommand.NotifyCanExecuteChanged();
         BeginWizardCommand.NotifyCanExecuteChanged();
     }
 
@@ -444,11 +394,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(IsDebugAutopilotHardwareHashUploadExpiredCertificateMode));
         OnPropertyChanged(nameof(IsDebugAutopilotHardwareHashUploadMissingCertificateMetadataMode));
         OnPropertyChanged(nameof(IsDebugAutopilotHardwareHashUploadNoDefaultGroupTagMode));
-    }
-
-    private bool CanRefreshCatalogs()
-    {
-        return Session.IsStartupReady && !IsCatalogLoading && !IsDeploymentRunning;
     }
 
     private bool CanBeginWizard()
@@ -511,13 +456,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     {
         ArgumentNullException.ThrowIfNull(startupSnapshot);
 
-        string startupStatusMessage = _wizardContext.ApplyStartupSnapshot(startupSnapshot);
+        _wizardContext.ApplyStartupSnapshot(startupSnapshot);
         Session.SetComputerName(Preparation.TargetComputerName);
-
-        Session.SetStatus(
-            !string.IsNullOrWhiteSpace(startupSnapshot.TargetDiskStatusMessage)
-                ? startupSnapshot.TargetDiskStatusMessage
-                : startupStatusMessage);
         Session.CompleteStartupInitialization();
     }
 
@@ -539,7 +479,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             return;
         }
 
-        _wizardContext.StatusMessageGenerated -= OnWizardContextStatusMessageGenerated;
         _wizardContext.StateChanged -= OnWizardContextStateChanged;
         Session.PropertyChanged -= OnSessionPropertyChanged;
         LocalizationService.LanguageChanged -= OnLocalizationLanguageChanged;

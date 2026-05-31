@@ -28,10 +28,7 @@
   <data name="Theme.Dark" xml:space="preserve"><value>Sötét</value></data>
   <data name="Language.English" xml:space="preserve"><value>angolul</value></data>
   <data name="Language.French" xml:space="preserve"><value>francia</value></data>
-  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Katalógusok frissítése</value></data>
-  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Frissítse a céllemezeket</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Nyissa meg a naplófájlt</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>A szimulációs mód aktív: a telepítési műveletek szimulálva vannak, és nem történik lemez- vagy képírás.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Cél</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operációs rendszer</value></data>
   <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Driver csomag</value></data>
@@ -74,8 +71,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Céllemezek betöltése...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>A céllemez felderítése nem sikerült: {0}</value></data>
-  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>Nem észlelhető lemez.</value></data>
-  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Betöltött céllemezek: {0} észlelve.</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operációs rendszer</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Verzió</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Nyelv</value></data>
@@ -131,9 +126,6 @@
   <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Haladás oldal</value></data>
   <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Siker oldal</value></data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Hiba oldal</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>Hibakeresési előnézet: folyamatoldal.</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>Hibakeresési előnézet: sikeroldal.</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>Hibakeresési előnézet: hibaoldal.</value></data>
   <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Hibakeresési előnézet: DISM alkalmazás sikertelen, mert a célpartíció írásvédett.
 
 ErrorCode=0x80070005
@@ -144,7 +136,6 @@ Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a közpo
   <data name="Common.Previous" xml:space="preserve"><value>Előző</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Következő</value></data>
   <data name="Common.Deploy" xml:space="preserve"><value>Telepítés</value></data>
-  <data name="Common.OpenLog" xml:space="preserve"><value>Napló megnyitása</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>N/A</value></data>
   <data name="Common.Unavailable" xml:space="preserve"><value>Nem elérhető</value></data>
   <data name="Common.None" xml:space="preserve"><value>Egyik sem</value></data>
@@ -176,7 +167,6 @@ Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a közpo
   <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Letiltva: csak olvasható</value></data>
   <data name="Disk.BlockedOffline" xml:space="preserve"><value>Letiltva: offline</value></data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>HIBAHIBA VIRTUÁLIS CÉL</value></data>
-  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>A kiválasztott lemez blokkolva: {0}</value></data>
   <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>A {0} céllemez már nincs jelen.</value></data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>A {0} céllemez le van tiltva: {1}</value></data>
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Erősítse meg a lemez törlését</value></data>
@@ -190,26 +180,11 @@ Méret: {3}
 Operációs rendszer: {4}
 
 Folytatja a telepítést?</value></data>
-  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Válasszon ki egy operációs rendszert.</value></data>
-  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Adjon meg egy érvényes számítógépnevet.</value></data>
-  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Válasszon ki egy céllemezt.</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>A telepítés megkezdése előtt válasszon egy érvényes OEM-modellt vagy -verziót.</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>A telepítés megkezdése előtt válasszon Autopilot profilt, vagy tiltsa le az Autopilot profilt.</value></data>
-  <data name="Launch.CancelledByUser" xml:space="preserve"><value>A telepítést a felhasználó megszakította.</value></data>
-  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>A telepítés előkészítése befejeződött.</value></data>
-  <data name="Status.Ready" xml:space="preserve"><value>Kész</value></data>
   <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Várakozás a telepítésre...</value></data>
   <data name="Status.WaitingForProgress" xml:space="preserve"><value>Várjuk a fejleményeket...</value></data>
   <data name="Status.PreparingDeployment" xml:space="preserve"><value>Telepítés előkészítése...</value></data>
-  <data name="Status.DeploymentStarted" xml:space="preserve"><value>Megkezdődött a telepítés.</value></data>
-  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>A telepítés befejeződött.</value></data>
-  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>A telepítési munkafolyamat befejeződött.</value></data>
   <data name="Status.DeploymentCancelled" xml:space="preserve"><value>A telepítés megszakadt.</value></data>
-  <data name="Status.DeploymentFailed" xml:space="preserve"><value>A telepítés nem sikerült.</value></data>
-  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>A telepítés sikertelen: {0}</value></data>
   <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Egy másik művelet már fut.</value></data>
-  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Hibakeresés csökkentett mód engedélyezve: a telepítési műveletek szimulálva vannak.</value></data>
-  <data name="Status.StartingOrchestration" xml:space="preserve"><value>A telepítési munkafolyamat indítása.</value></data>
   <data name="Status.StartingStep" xml:space="preserve"><value>Kezdő lépés...</value></data>
   <data name="Status.StartingStepFormat" xml:space="preserve"><value>Kezdve: {0}.</value></data>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Kezdés: {0}...</value></data>
@@ -219,10 +194,6 @@ Folytatja a telepítést?</value></data>
   <data name="Status.InProgress" xml:space="preserve"><value>Folyamatban...</value></data>
   <data name="Status.StepCounterUnknown" xml:space="preserve"><value>lépés:? a?</value></data>
   <data name="Status.StepCounterFormat" xml:space="preserve"><value>Lépés: {0}/{1}</value></data>
-  <data name="Status.RebootingNow" xml:space="preserve"><value>Újraindítás most...</value></data>
-  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>Az újraindítási parancs nem sikerült.</value></data>
-  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Az újraindítási parancs sikertelen: {0}</value></data>
-  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Nem lehet megnyitni a naplófájlt: {0}</value></data>
   <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe nem sikerült a {0} kilépési kóddal. {1}</value></data>
   <data name="Status.SystemReboot" xml:space="preserve"><value>Rendszer újraindítás</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>A szükséges újraindítási végrehajtható "wpeutil.exe" nem található.</value></data>

@@ -28,10 +28,7 @@
   <data name="Theme.Dark" xml:space="preserve"><value>Tumma</value></data>
   <data name="Language.English" xml:space="preserve"><value>englanti</value></data>
   <data name="Language.French" xml:space="preserve"><value>ranskalainen</value></data>
-  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Päivitä luettelot</value></data>
-  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Päivitä kohdelevyt</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Avaa lokitiedosto</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>Simulointitila on aktiivinen: käyttöönottotoiminnot simuloidaan, eikä levylle tai kuville kirjoiteta.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Kohde</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Käyttöjärjestelmä</value></data>
   <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Ohjainpaketti</value></data>
@@ -74,8 +71,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Ladataan kohdelevyjä...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Kohdelevyn etsintä epäonnistui: {0}</value></data>
-  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>Levyjä ei havaittu.</value></data>
-  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Ladatut kohdelevyt: {0} havaittu.</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Käyttöjärjestelmä</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versio</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Kieli</value></data>
@@ -131,9 +126,6 @@
   <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Edistyssivu</value></data>
   <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Menestyssivu</value></data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Virhesivu</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>Virheenkorjauksen esikatselu: edistymissivu.</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>Virheenkorjauksen esikatselu: menestyssivu.</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>Virheenkorjauksen esikatselu: virhesivu.</value></data>
   <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Virheenkorjauksen esikatselu: DISM soveltaminen epäonnistui, koska kohdeosio on vain luku -tilassa.
 
 ErrorCode=0x80070005
@@ -144,7 +136,6 @@ Toimi: Tarkista levyn attribuutit ja yritä käyttöönottoa uudelleen.</value><
   <data name="Common.Previous" xml:space="preserve"><value>Edellinen</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Seuraavaksi</value></data>
   <data name="Common.Deploy" xml:space="preserve"><value>Ota käyttöön</value></data>
-  <data name="Common.OpenLog" xml:space="preserve"><value>Avaa loki</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>Ei käytössä</value></data>
   <data name="Common.Unavailable" xml:space="preserve"><value>Ei saatavilla</value></data>
   <data name="Common.None" xml:space="preserve"><value>Ei mitään</value></data>
@@ -176,7 +167,6 @@ Toimi: Tarkista levyn attribuutit ja yritä käyttöönottoa uudelleen.</value><
   <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Estetty: vain luku</value></data>
   <data name="Disk.BlockedOffline" xml:space="preserve"><value>Estetty: offline-tilassa</value></data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>VIRTUAALINEN KOHDE</value></data>
-  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Valittu levy estetty: {0}</value></data>
   <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Kohdelevy {0} ei ole enää läsnä.</value></data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Kohdelevy {0} on estetty: {1}</value></data>
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Vahvista levyn tyhjennys</value></data>
@@ -190,26 +180,11 @@ Koko: {3}
 Käyttöjärjestelmä: {4}
 
 Jatketaanko käyttöönottoa?</value></data>
-  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Valitse käyttöjärjestelmä.</value></data>
-  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Anna kelvollinen tietokoneen nimi.</value></data>
-  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Valitse kohdelevy.</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Valitse kelvollinen OEM-malli tai -versio ennen käyttöönoton aloittamista.</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Valitse Autopilot-profiili tai poista Autopilot käytöstä ennen käyttöönoton aloittamista.</value></data>
-  <data name="Launch.CancelledByUser" xml:space="preserve"><value>Käyttäjä peruutti käyttöönoton.</value></data>
-  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Käyttöönoton valmistelu valmis.</value></data>
-  <data name="Status.Ready" xml:space="preserve"><value>Valmis</value></data>
   <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Odotetaan käyttöönottoa...</value></data>
   <data name="Status.WaitingForProgress" xml:space="preserve"><value>Edistystä odotellessa...</value></data>
   <data name="Status.PreparingDeployment" xml:space="preserve"><value>Valmistellaan käyttöönottoa...</value></data>
-  <data name="Status.DeploymentStarted" xml:space="preserve"><value>Käyttöönotto aloitettu.</value></data>
-  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>Käyttöönotto valmis.</value></data>
-  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>Käyttöönoton työnkulku valmis.</value></data>
   <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Käyttöönotto peruttu.</value></data>
-  <data name="Status.DeploymentFailed" xml:space="preserve"><value>Käyttöönotto epäonnistui.</value></data>
-  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Käyttöönotto epäonnistui: {0}</value></data>
   <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Toinen operaatio on jo käynnissä.</value></data>
-  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Vianetsintä vikasietotila käytössä: käyttöönottotoiminnot simuloidaan.</value></data>
-  <data name="Status.StartingOrchestration" xml:space="preserve"><value>Käyttöönoton työnkulku aloitetaan.</value></data>
   <data name="Status.StartingStep" xml:space="preserve"><value>Aloitusvaihe...</value></data>
   <data name="Status.StartingStepFormat" xml:space="preserve"><value>Alkaen {0}.</value></data>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Alkaen {0}...</value></data>
@@ -219,10 +194,6 @@ Jatketaanko käyttöönottoa?</value></data>
   <data name="Status.InProgress" xml:space="preserve"><value>Meneillään...</value></data>
   <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Vaihe:? /?</value></data>
   <data name="Status.StepCounterFormat" xml:space="preserve"><value>Vaihe: {0} / {1}</value></data>
-  <data name="Status.RebootingNow" xml:space="preserve"><value>Käynnistetään uudelleen nyt...</value></data>
-  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>Reboot-komento epäonnistui.</value></data>
-  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Uudelleenkäynnistyskomento epäonnistui: {0}</value></data>
-  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Lokitiedostoa ei voi avata: {0}</value></data>
   <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe epäonnistui poistumiskoodilla {0}. {1}</value></data>
   <data name="Status.SystemReboot" xml:space="preserve"><value>Järjestelmän uudelleenkäynnistys</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Vaadittua uudelleenkäynnistyssuoritettavaa tiedostoa 'wpeutil.exe' ei löytynyt.</value></data>

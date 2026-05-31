@@ -28,10 +28,7 @@
   <data name="Theme.Dark" xml:space="preserve"><value>Karanlık</value></data>
   <data name="Language.English" xml:space="preserve"><value>İngilizce</value></data>
   <data name="Language.French" xml:space="preserve"><value>Fransızca</value></data>
-  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Katalogları yenile</value></data>
-  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Hedef diskleri yenile</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Günlük dosyasını aç</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>Simülasyon modu etkin: dağıtım eylemleri simüle edilir ve herhangi bir disk veya görüntü yazma işlemi gerçekleştirilmez.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Hedef</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. İşletim sistemi</value></data>
   <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Sürücü paketi</value></data>
@@ -74,8 +71,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>klima</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Hedef diskler yükleniyor...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Hedef disk keşfi başarısız oldu: {0}</value></data>
-  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>Hiçbir disk algılanmadı.</value></data>
-  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Yüklenen hedef diskler: {0} algılandı.</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>İşletim sistemi</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Sürüm</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Dil</value></data>
@@ -131,9 +126,6 @@
   <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>İlerleme sayfası</value></data>
   <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Başarı sayfası</value></data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Hata sayfası</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>Hata ayıklama önizlemesi: ilerleme sayfası.</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>Hata ayıklama önizlemesi: başarı sayfası.</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>Hata ayıklama önizlemesi: hata sayfası.</value></data>
   <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Hata ayıklama önizlemesi: DISM uygulaması, hedef bölüm salt okunur olduğundan başarısız oldu.
 
 HataKodu=0x80070005
@@ -144,7 +136,6 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
   <data name="Common.Previous" xml:space="preserve"><value>Önceki</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Sonraki</value></data>
   <data name="Common.Deploy" xml:space="preserve"><value>Dağıt</value></data>
-  <data name="Common.OpenLog" xml:space="preserve"><value>Günlüğü aç</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>Yok</value></data>
   <data name="Common.Unavailable" xml:space="preserve"><value>Kullanılamıyor</value></data>
   <data name="Common.None" xml:space="preserve"><value>Yok</value></data>
@@ -176,7 +167,6 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
   <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Engellendi: salt okunur</value></data>
   <data name="Disk.BlockedOffline" xml:space="preserve"><value>Engellendi: çevrimdışı</value></data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>SANAL HEDEFTE HATA AYIKLAMA</value></data>
-  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Seçilen disk engellendi: {0}</value></data>
   <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Hedef disk {0} artık mevcut değil.</value></data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Hedef disk {0} engellendi: {1}</value></data>
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Disk silmeyi onayla</value></data>
@@ -190,26 +180,11 @@ Boyut: {3}
 İşletim sistemi: {4}
 
 Dağıtıma devam edilsin mi?</value></data>
-  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Bir işletim sistemi seçin.</value></data>
-  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Geçerli bir bilgisayar adı girin.</value></data>
-  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Bir hedef disk seçin.</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Dağıtıma başlamadan önce geçerli bir OEM modeli veya sürümü seçin.</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Dağıtıma başlamadan önce bir Autopilot profili seçin veya Autopilot'yi devre dışı bırakın.</value></data>
-  <data name="Launch.CancelledByUser" xml:space="preserve"><value>Dağıtım kullanıcı tarafından iptal edildi.</value></data>
-  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Dağıtım hazırlığı tamamlandı.</value></data>
-  <data name="Status.Ready" xml:space="preserve"><value>Hazır</value></data>
   <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Dağıtım bekleniyor...</value></data>
   <data name="Status.WaitingForProgress" xml:space="preserve"><value>İlerleme bekleniyor...</value></data>
   <data name="Status.PreparingDeployment" xml:space="preserve"><value>Dağıtım hazırlanıyor...</value></data>
-  <data name="Status.DeploymentStarted" xml:space="preserve"><value>Dağıtım başladı.</value></data>
-  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>Dağıtım tamamlandı.</value></data>
-  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>Dağıtım iş akışı tamamlandı.</value></data>
   <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Dağıtım iptal edildi.</value></data>
-  <data name="Status.DeploymentFailed" xml:space="preserve"><value>Dağıtım başarısız oldu.</value></data>
-  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Dağıtım başarısız oldu: {0}</value></data>
   <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Başka bir işlem zaten çalışıyor.</value></data>
-  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Hata ayıklama güvenli modu etkin: dağıtım eylemleri simüle edilir.</value></data>
-  <data name="Status.StartingOrchestration" xml:space="preserve"><value>Dağıtım iş akışı başlatılıyor.</value></data>
   <data name="Status.StartingStep" xml:space="preserve"><value>Başlangıç adımı...</value></data>
   <data name="Status.StartingStepFormat" xml:space="preserve"><value>{0} başlatılıyor.</value></data>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>{0} başlatılıyor...</value></data>
@@ -219,10 +194,6 @@ Dağıtıma devam edilsin mi?</value></data>
   <data name="Status.InProgress" xml:space="preserve"><value>Devam ediyor...</value></data>
   <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Adım:? ile ilgili?</value></data>
   <data name="Status.StepCounterFormat" xml:space="preserve"><value>Adım: {0} / {1}</value></data>
-  <data name="Status.RebootingNow" xml:space="preserve"><value>Şimdi yeniden başlatılıyor...</value></data>
-  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>Yeniden başlatma komutu başarısız oldu.</value></data>
-  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>Yeniden başlatma komutu başarısız oldu: {0}</value></data>
-  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Günlük dosyası açılamıyor: {0}</value></data>
   <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe {0} çıkış koduyla başarısız oldu. {1}</value></data>
   <data name="Status.SystemReboot" xml:space="preserve"><value>Sistem yeniden başlat</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Gerekli yeniden başlatma yürütülebilir dosyası 'wpeutil.exe' bulunamadı.</value></data>

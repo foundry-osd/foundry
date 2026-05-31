@@ -28,10 +28,7 @@
   <data name="Theme.Dark" xml:space="preserve"><value>Sombre</value></data>
   <data name="Language.English" xml:space="preserve"><value>Anglais</value></data>
   <data name="Language.French" xml:space="preserve"><value>Français</value></data>
-  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>Actualiser les catalogues</value></data>
-  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>Actualiser les disques cibles</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Ouvrir le fichier journal</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>Le mode simulation est actif : les actions de déploiement sont simulées et aucune écriture disque ou image n’est effectuée.</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Cible</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Système d’exploitation</value></data>
   <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Pack de pilotes</value></data>
@@ -74,8 +71,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>Secteur</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Chargement des disques cibles...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Échec de la détection des disques cibles : {0}</value></data>
-  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>Aucun disque détecté.</value></data>
-  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>Disques cibles chargés : {0} détecté(s).</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Système d’exploitation</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Version</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Langue</value></data>
@@ -131,9 +126,6 @@
   <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Page de progression</value></data>
   <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Page de succès</value></data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Page d’erreur</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>Aperçu de débogage : page de progression.</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>Aperçu de débogage : page de succès.</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>Aperçu de débogage : page d’erreur.</value></data>
   <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Aperçu de débogage : l’application DISM a échoué car la partition cible est en lecture seule.
 
 ErrorCode=0x80070005
@@ -144,7 +136,6 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
   <data name="Common.Previous" xml:space="preserve"><value>Précédent</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Suivant</value></data>
   <data name="Common.Deploy" xml:space="preserve"><value>Déployer</value></data>
-  <data name="Common.OpenLog" xml:space="preserve"><value>Ouvrir journal</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>N/D</value></data>
   <data name="Common.Unavailable" xml:space="preserve"><value>Indisponible</value></data>
   <data name="Common.None" xml:space="preserve"><value>Aucun</value></data>
@@ -176,7 +167,6 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
   <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Bloqué : lecture seule</value></data>
   <data name="Disk.BlockedOffline" xml:space="preserve"><value>Bloqué : hors ligne</value></data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>CIBLE VIRTUELLE DE DÉBOGAGE</value></data>
-  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>Disque sélectionné bloqué : {0}</value></data>
   <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Le disque cible {0} n’est plus présent.</value></data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Le disque cible {0} est bloqué : {1}</value></data>
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Confirmer l’effacement du disque</value></data>
@@ -190,26 +180,11 @@ Taille : {3}
 Système d’exploitation : {4}
 
 Continuer le déploiement ?</value></data>
-  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>Sélectionnez un système d’exploitation.</value></data>
-  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>Saisissez un nom d’ordinateur valide.</value></data>
-  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>Sélectionnez un disque cible.</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>Sélectionnez un modèle ou une version OEM valide avant de démarrer le déploiement.</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>Sélectionnez un profil Autopilot ou désactivez Autopilot avant de démarrer le déploiement.</value></data>
-  <data name="Launch.CancelledByUser" xml:space="preserve"><value>Déploiement annulé par l’utilisateur.</value></data>
-  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>Préparation du déploiement terminée.</value></data>
-  <data name="Status.Ready" xml:space="preserve"><value>Prêt</value></data>
   <data name="Status.WaitingForDeployment" xml:space="preserve"><value>En attente du déploiement...</value></data>
   <data name="Status.WaitingForProgress" xml:space="preserve"><value>En attente de progression...</value></data>
   <data name="Status.PreparingDeployment" xml:space="preserve"><value>Préparation du déploiement...</value></data>
-  <data name="Status.DeploymentStarted" xml:space="preserve"><value>Déploiement démarré.</value></data>
-  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>Déploiement terminé.</value></data>
-  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>Workflow de déploiement terminé.</value></data>
   <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Déploiement annulé.</value></data>
-  <data name="Status.DeploymentFailed" xml:space="preserve"><value>Le déploiement a échoué.</value></data>
-  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>Le déploiement a échoué : {0}</value></data>
   <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Une autre opération est déjà en cours.</value></data>
-  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>Mode simulation activé : les actions de déploiement sont simulées.</value></data>
-  <data name="Status.StartingOrchestration" xml:space="preserve"><value>Démarrage du workflow de déploiement.</value></data>
   <data name="Status.StartingStep" xml:space="preserve"><value>Démarrage de l’étape...</value></data>
   <data name="Status.StartingStepFormat" xml:space="preserve"><value>Démarrage de {0}.</value></data>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Démarrage de {0}...</value></data>
@@ -219,10 +194,6 @@ Continuer le déploiement ?</value></data>
   <data name="Status.InProgress" xml:space="preserve"><value>En cours...</value></data>
   <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Étape : ? sur ?</value></data>
   <data name="Status.StepCounterFormat" xml:space="preserve"><value>Étape : {0} sur {1}</value></data>
-  <data name="Status.RebootingNow" xml:space="preserve"><value>Redémarrage en cours...</value></data>
-  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>La commande de redémarrage a échoué.</value></data>
-  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>La commande de redémarrage a échoué : {0}</value></data>
-  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>Impossible d’ouvrir le fichier journal : {0}</value></data>
   <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe a échoué avec le code de sortie {0}. {1}</value></data>
   <data name="Status.SystemReboot" xml:space="preserve"><value>Redémarrage système</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>L’exécutable de redémarrage requis 'wpeutil.exe' est introuvable.</value></data>

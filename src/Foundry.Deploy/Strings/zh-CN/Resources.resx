@@ -28,10 +28,7 @@
   <data name="Theme.Dark" xml:space="preserve"><value>黑暗</value></data>
   <data name="Language.English" xml:space="preserve"><value>英语</value></data>
   <data name="Language.French" xml:space="preserve"><value>法语</value></data>
-  <data name="Tools.RefreshCatalogs" xml:space="preserve"><value>刷新目录</value></data>
-  <data name="Tools.RefreshTargetDisks" xml:space="preserve"><value>刷新目标磁盘</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>打开日志文件</value></data>
-  <data name="Wizard.DebugSafeModeBanner" xml:space="preserve"><value>模拟模式处于活动状态：模拟部署操作，并且不执行磁盘或映像写入。</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. 目标</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2、操作系统</value></data>
   <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3.驱动包</value></data>
@@ -74,8 +71,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>交流电</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>正在加载目标磁盘...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>目标磁盘发现失败：{0}</value></data>
-  <data name="Preparation.NoDisksDetected" xml:space="preserve"><value>未检测到磁盘。</value></data>
-  <data name="Preparation.TargetDisksLoadedFormat" xml:space="preserve"><value>已加载目标磁盘：检测到{0}。</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>操作系统</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>版本</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>语言</value></data>
@@ -131,9 +126,6 @@
   <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>进度页面</value></data>
   <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>成功页面</value></data>
   <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>错误页面</value></data>
-  <data name="Debug.ProgressPage" xml:space="preserve"><value>调试预览：进度页面。</value></data>
-  <data name="Debug.SuccessPage" xml:space="preserve"><value>调试预览：成功页面。</value></data>
-  <data name="Debug.ErrorPage" xml:space="preserve"><value>调试预览：错误页面。</value></data>
   <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>调试预览：DISM 应用失败，因为目标分区是只读的。
 
 错误代码=0x80070005
@@ -144,7 +136,6 @@
   <data name="Common.Previous" xml:space="preserve"><value>上一页</value></data>
   <data name="Common.Next" xml:space="preserve"><value>下一步</value></data>
   <data name="Common.Deploy" xml:space="preserve"><value>部署</value></data>
-  <data name="Common.OpenLog" xml:space="preserve"><value>打开日志</value></data>
   <data name="Common.NotAvailable" xml:space="preserve"><value>不适用</value></data>
   <data name="Common.Unavailable" xml:space="preserve"><value>不可用</value></data>
   <data name="Common.None" xml:space="preserve"><value>无</value></data>
@@ -176,7 +167,6 @@
   <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>已阻止：只读</value></data>
   <data name="Disk.BlockedOffline" xml:space="preserve"><value>已阻止：离线</value></data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>调试虚拟目标</value></data>
-  <data name="Disk.SelectedBlockedFormat" xml:space="preserve"><value>选定的磁盘被阻止：{0}</value></data>
   <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>目标磁盘{0} 不再存在。</value></data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>目标磁盘{0}被阻止：{1}</value></data>
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>确认磁盘擦除</value></data>
@@ -190,26 +180,11 @@
 操作系统：{4}
 
 继续部署吗？</value></data>
-  <data name="Launch.SelectOperatingSystem" xml:space="preserve"><value>选择操作系统。</value></data>
-  <data name="Launch.EnterValidComputerName" xml:space="preserve"><value>输入有效的计算机名称。</value></data>
-  <data name="Launch.SelectTargetDisk" xml:space="preserve"><value>选择目标磁盘。</value></data>
-  <data name="Launch.SelectValidOemDriverPack" xml:space="preserve"><value>在开始部署之前选择有效的 OEM 型号或版本。</value></data>
-  <data name="Launch.SelectAutopilotProfile" xml:space="preserve"><value>在开始部署之前，选择Autopilot 配置文件或禁用Autopilot。</value></data>
-  <data name="Launch.CancelledByUser" xml:space="preserve"><value>部署已被用户取消。</value></data>
-  <data name="Launch.PreparationCompleted" xml:space="preserve"><value>部署准备工作完成。</value></data>
-  <data name="Status.Ready" xml:space="preserve"><value>准备好</value></data>
   <data name="Status.WaitingForDeployment" xml:space="preserve"><value>等待部署...</value></data>
   <data name="Status.WaitingForProgress" xml:space="preserve"><value>等待进展...</value></data>
   <data name="Status.PreparingDeployment" xml:space="preserve"><value>正在准备部署...</value></data>
-  <data name="Status.DeploymentStarted" xml:space="preserve"><value>部署开始。</value></data>
-  <data name="Status.DeploymentCompleted" xml:space="preserve"><value>部署完成。</value></data>
-  <data name="Status.DeploymentOrchestrationCompleted" xml:space="preserve"><value>部署工作流程已完成。</value></data>
   <data name="Status.DeploymentCancelled" xml:space="preserve"><value>部署已取消。</value></data>
-  <data name="Status.DeploymentFailed" xml:space="preserve"><value>部署失败。</value></data>
-  <data name="Status.DeploymentFailedFormat" xml:space="preserve"><value>部署失败：{0}</value></data>
   <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>另一个操作已经在运行。</value></data>
-  <data name="Status.DebugSafeModeEnabled" xml:space="preserve"><value>启用调试安全模式：模拟部署操作。</value></data>
-  <data name="Status.StartingOrchestration" xml:space="preserve"><value>开始部署工作流程。</value></data>
   <data name="Status.StartingStep" xml:space="preserve"><value>开始步骤...</value></data>
   <data name="Status.StartingStepFormat" xml:space="preserve"><value>开始{0}。</value></data>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>开始{0}...</value></data>
@@ -219,10 +194,6 @@
   <data name="Status.InProgress" xml:space="preserve"><value>进行中...</value></data>
   <data name="Status.StepCounterUnknown" xml:space="preserve"><value>步骤：?的 ？</value></data>
   <data name="Status.StepCounterFormat" xml:space="preserve"><value>步骤：{0}的{1}</value></data>
-  <data name="Status.RebootingNow" xml:space="preserve"><value>现在正在重新启动...</value></data>
-  <data name="Status.RebootCommandFailed" xml:space="preserve"><value>重新启动命令失败。</value></data>
-  <data name="Status.RebootCommandFailedFormat" xml:space="preserve"><value>重启命令失败：{0}</value></data>
-  <data name="Status.UnableToOpenLogFileFormat" xml:space="preserve"><value>无法打开日志文件：{0}</value></data>
   <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe 失败，退出代码{0}。 {1}</value></data>
   <data name="Status.SystemReboot" xml:space="preserve"><value>系统重启</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>未找到所需的重新启动可执行文件“wpeutil.exe”。</value></data>

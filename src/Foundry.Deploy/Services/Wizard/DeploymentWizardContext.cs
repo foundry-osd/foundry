@@ -8,22 +8,18 @@ namespace Foundry.Deploy.Services.Wizard;
 
 public sealed class DeploymentWizardContext : IDisposable
 {
-    private readonly bool _isDebugSafeMode;
     private bool _isDisposed;
 
     public DeploymentWizardContext(
         DeploymentPreparationViewModel preparation,
         OperatingSystemCatalogViewModel operatingSystemCatalog,
-        DriverPackSelectionViewModel driverPackSelection,
-        bool isDebugSafeMode)
+        DriverPackSelectionViewModel driverPackSelection)
     {
         Preparation = preparation ?? throw new ArgumentNullException(nameof(preparation));
         OperatingSystemCatalog = operatingSystemCatalog ?? throw new ArgumentNullException(nameof(operatingSystemCatalog));
         DriverPackSelection = driverPackSelection ?? throw new ArgumentNullException(nameof(driverPackSelection));
-        _isDebugSafeMode = isDebugSafeMode;
 
         Preparation.StateChanged += OnPreparationStateChanged;
-        Preparation.StatusMessageGenerated += OnPreparationStatusMessageGenerated;
         OperatingSystemCatalog.StateChanged += OnOperatingSystemCatalogStateChanged;
         DriverPackSelection.StateChanged += OnDriverPackSelectionStateChanged;
 
@@ -39,9 +35,8 @@ public sealed class DeploymentWizardContext : IDisposable
     public DeployAiComponentRemovalSettings AiComponentRemoval { get; private set; } = new();
 
     public event EventHandler? StateChanged;
-    public event Action<string>? StatusMessageGenerated;
 
-    public string ApplyStartupSnapshot(DeploymentStartupSnapshot startupSnapshot)
+    public void ApplyStartupSnapshot(DeploymentStartupSnapshot startupSnapshot)
     {
         ArgumentNullException.ThrowIfNull(startupSnapshot);
 
@@ -71,12 +66,8 @@ public sealed class DeploymentWizardContext : IDisposable
             Preparation.SetHardwareDetectionFailure(startupSnapshot.HardwareDetectionFailureMessage);
         }
 
-        string targetDiskStatusMessage = Preparation.ApplyTargetDisks(startupSnapshot.TargetDisks);
+        Preparation.ApplyTargetDisks(startupSnapshot.TargetDisks);
         ApplyCatalogSnapshot(startupSnapshot.CatalogSnapshot);
-
-        return !string.IsNullOrWhiteSpace(startupSnapshot.TargetDiskStatusMessage)
-            ? startupSnapshot.TargetDiskStatusMessage
-            : targetDiskStatusMessage;
     }
 
     public void ApplyCatalogSnapshot(DeploymentCatalogSnapshot snapshot)
@@ -96,7 +87,6 @@ public sealed class DeploymentWizardContext : IDisposable
         }
 
         Preparation.StateChanged -= OnPreparationStateChanged;
-        Preparation.StatusMessageGenerated -= OnPreparationStatusMessageGenerated;
         OperatingSystemCatalog.StateChanged -= OnOperatingSystemCatalogStateChanged;
         DriverPackSelection.StateChanged -= OnDriverPackSelectionStateChanged;
         Preparation.Dispose();
@@ -131,19 +121,7 @@ public sealed class DeploymentWizardContext : IDisposable
     {
         RefreshDriverPackSelectionContext();
 
-        if (Preparation.SelectedTargetDisk is not null &&
-            !_isDebugSafeMode &&
-            !Preparation.SelectedTargetDisk.IsSelectable)
-        {
-            StatusMessageGenerated?.Invoke($"Selected disk blocked: {Preparation.SelectedTargetDisk.SelectionWarning}");
-        }
-
         StateChanged?.Invoke(this, EventArgs.Empty);
-    }
-
-    private void OnPreparationStatusMessageGenerated(string message)
-    {
-        StatusMessageGenerated?.Invoke(message);
     }
 
     private void OnOperatingSystemCatalogStateChanged(object? sender, EventArgs e)
