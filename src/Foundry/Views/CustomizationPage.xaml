@@ -57,7 +57,7 @@
                                   Description="{x:Bind ViewModel.OperatingSystemSelectionDescription, Mode=OneWay}"
                                   IsExpanded="{x:Bind ViewModel.IsOperatingSystemSelectionExpanded, Mode=TwoWay}">
                 <wct:SettingsExpander.HeaderIcon>
-                    <FontIcon Glyph="&#xE7B5;" />
+                    <FontIcon Glyph="&#xEC76;" />
                 </wct:SettingsExpander.HeaderIcon>
                 <ToggleSwitch behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True" AutomationProperties.Name="{x:Bind ViewModel.OperatingSystemSelectionHeader, Mode=OneWay}"
                               IsOn="{x:Bind ViewModel.IsOperatingSystemSelectionEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -66,14 +66,14 @@
                                           Description="{x:Bind ViewModel.OperatingSystemVersionGroupDescription, Mode=OneWay}"
                                           IsEnabled="{x:Bind ViewModel.IsOperatingSystemSelectionOptionsEnabled, Mode=OneWay}">
                         <wct:SettingsExpander.HeaderIcon>
-                            <FontIcon Glyph="&#xE787;" />
+                            <FontIcon Glyph="&#xE770;" />
                         </wct:SettingsExpander.HeaderIcon>
                         <wct:SettingsExpander.Items>
                             <wct:SettingsCard Header="{x:Bind ViewModel.OperatingSystemAllowedReleasesLabel, Mode=OneWay}"
                                               Description="{x:Bind ViewModel.OperatingSystemAllowedReleasesDescription, Mode=OneWay}"
                                               HorizontalContentAlignment="Right">
                                 <wct:SettingsCard.HeaderIcon>
-                                    <FontIcon Glyph="&#xE787;" />
+                                    <FontIcon Glyph="&#xE770;" />
                                 </wct:SettingsCard.HeaderIcon>
                                 <ItemsRepeater HorizontalAlignment="Right"
                                                ItemsSource="{x:Bind ViewModel.OperatingSystemReleaseOptions, Mode=OneWay}">
@@ -94,7 +94,7 @@
                             <wct:SettingsCard Header="{x:Bind ViewModel.OperatingSystemDefaultReleaseLabel, Mode=OneWay}"
                                               Description="{x:Bind ViewModel.OperatingSystemDefaultReleaseDescription, Mode=OneWay}">
                                 <wct:SettingsCard.HeaderIcon>
-                                    <FontIcon Glyph="&#xE8FD;" />
+                                    <FontIcon Glyph="&#xE718;" />
                                 </wct:SettingsCard.HeaderIcon>
                                 <ComboBox Width="{ThemeResource FoundryWideInputMinWidth}"
                                           DisplayMemberPath="DisplayName"
@@ -136,7 +136,7 @@
                             <wct:SettingsCard Header="{x:Bind ViewModel.OperatingSystemDefaultLanguageLabel, Mode=OneWay}"
                                               Description="{x:Bind ViewModel.OperatingSystemDefaultLanguageDescription, Mode=OneWay}">
                                 <wct:SettingsCard.HeaderIcon>
-                                    <FontIcon Glyph="&#xE774;" />
+                                    <FontIcon Glyph="&#xE718;" />
                                 </wct:SettingsCard.HeaderIcon>
                                 <ComboBox Width="{ThemeResource FoundryWideInputMinWidth}"
                                           DisplayMemberPath="DisplayName"
@@ -149,14 +149,14 @@
                                           Description="{x:Bind ViewModel.OperatingSystemLicenseChannelGroupDescription, Mode=OneWay}"
                                           IsEnabled="{x:Bind ViewModel.IsOperatingSystemSelectionOptionsEnabled, Mode=OneWay}">
                         <wct:SettingsExpander.HeaderIcon>
-                            <FontIcon Glyph="&#xE8A7;" />
+                            <FontIcon Glyph="&#xEB95;" />
                         </wct:SettingsExpander.HeaderIcon>
                         <wct:SettingsExpander.Items>
                             <wct:SettingsCard Header="{x:Bind ViewModel.OperatingSystemAllowedLicenseChannelsLabel, Mode=OneWay}"
                                               Description="{x:Bind ViewModel.OperatingSystemAllowedLicenseChannelsDescription, Mode=OneWay}"
                                               HorizontalContentAlignment="Right">
                                 <wct:SettingsCard.HeaderIcon>
-                                    <FontIcon Glyph="&#xE8A7;" />
+                                    <FontIcon Glyph="&#xEB95;" />
                                 </wct:SettingsCard.HeaderIcon>
                                 <ItemsRepeater HorizontalAlignment="Right"
                                                ItemsSource="{x:Bind ViewModel.OperatingSystemLicenseChannelOptions, Mode=OneWay}">
@@ -177,7 +177,7 @@
                             <wct:SettingsCard Header="{x:Bind ViewModel.OperatingSystemDefaultLicenseChannelLabel, Mode=OneWay}"
                                               Description="{x:Bind ViewModel.OperatingSystemDefaultLicenseChannelDescription, Mode=OneWay}">
                                 <wct:SettingsCard.HeaderIcon>
-                                    <FontIcon Glyph="&#xE8FD;" />
+                                    <FontIcon Glyph="&#xE718;" />
                                 </wct:SettingsCard.HeaderIcon>
                                 <ComboBox Width="{ThemeResource FoundryWideInputMinWidth}"
                                           DisplayMemberPath="DisplayName"
@@ -219,7 +219,7 @@
                             <wct:SettingsCard Header="{x:Bind ViewModel.OperatingSystemDefaultEditionLabel, Mode=OneWay}"
                                               Description="{x:Bind ViewModel.OperatingSystemDefaultEditionDescription, Mode=OneWay}">
                                 <wct:SettingsCard.HeaderIcon>
-                                    <FontIcon Glyph="&#xE8FD;" />
+                                    <FontIcon Glyph="&#xE718;" />
                                 </wct:SettingsCard.HeaderIcon>
                                 <ComboBox Width="{ThemeResource FoundryWideInputMinWidth}"
                                           DisplayMemberPath="DisplayName"

@@ -2026,7 +2026,7 @@
     <value>Chinese Traditional (Taiwan)</value>
   </data>
   <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Operating system selection</value>
+    <value>Operating System selection</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
     <value>Limit or preselect the Windows catalog choices shown during deployment.</value>
