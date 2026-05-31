@@ -810,12 +810,6 @@
   <data name="LocalizationPage_Title.Text" xml:space="preserve">
     <value>รองรับหลายภาษา</value>
   </data>
-  <data name="Localization.VisibleLanguages.Header" xml:space="preserve">
-    <value>ภาษาการปรับใช้ที่มองเห็นได้</value>
-  </data>
-  <data name="Localization.DefaultLanguage.Header" xml:space="preserve">
-    <value>ภาษาการปรับใช้เริ่มต้น</value>
-  </data>
   <data name="Localization.TimeZone.Header" xml:space="preserve">
     <value>เขตเวลาการปรับใช้</value>
   </data>
@@ -2030,5 +2024,83 @@
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>จีนดั้งเดิม (ไต้หวัน)</value>
+  </data>
+  <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
+    <value>การเลือกระบบปฏิบัติการ</value>
+  </data>
+  <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
+    <value>จำกัดหรือเลือกตัวเลือกแค็ตตาล็อก Windows ล่วงหน้าที่แสดงระหว่างการปรับใช้</value>
+  </data>
+  <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
+    <value>เวอร์ชัน OS</value>
+  </data>
+  <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
+    <value>ควบคุมว่าเจ้าหน้าที่สามารถปรับใช้ Windows เวอร์ชันใดได้บ้าง</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
+    <value>เวอร์ชัน OS ที่อนุญาต</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
+    <value>เว้นว่างไว้เพื่ออนุญาต Windows ทุกเวอร์ชันที่รองรับ</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
+    <value>เวอร์ชัน OS เริ่มต้น</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
+    <value>อัตโนมัติจะคงเวอร์ชันเริ่มต้นของแค็ตตาล็อกไว้</value>
+  </data>
+  <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
+    <value>ภาษา OS</value>
+  </data>
+  <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
+    <value>ควบคุมว่าเจ้าหน้าที่สามารถปรับใช้ภาษา Windows ใดได้บ้าง</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
+    <value>ภาษา OS ที่อนุญาต</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
+    <value>เว้นว่างไว้เพื่ออนุญาตภาษา Windows ทุกภาษาที่รองรับ</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
+    <value>ภาษา OS เริ่มต้น</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
+    <value>อัตโนมัติจะคงภาษาเริ่มต้นของแค็ตตาล็อกไว้</value>
+  </data>
+  <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
+    <value>ช่องทางสิทธิ์การใช้งาน</value>
+  </data>
+  <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
+    <value>ควบคุมว่าเจ้าหน้าที่สามารถปรับใช้ช่องทางสิทธิ์การใช้งาน Windows ใดได้บ้าง</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
+    <value>ช่องทางสิทธิ์การใช้งานที่อนุญาต</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
+    <value>เว้นว่างไว้เพื่ออนุญาตช่องทางสิทธิ์การใช้งานทุกช่องทางที่รองรับ</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
+    <value>ช่องทางสิทธิ์การใช้งานเริ่มต้น</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
+    <value>อัตโนมัติจะคงช่องทางสิทธิ์การใช้งานเริ่มต้นของแค็ตตาล็อกไว้</value>
+  </data>
+  <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
+    <value>รุ่น</value>
+  </data>
+  <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
+    <value>ควบคุมว่าเจ้าหน้าที่สามารถปรับใช้ Windows รุ่นใดได้บ้าง</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
+    <value>รุ่นที่อนุญาต</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
+    <value>เว้นว่างไว้เพื่ออนุญาต Windows ทุกรุ่นที่รองรับ</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
+    <value>รุ่นเริ่มต้น</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
+    <value>อัตโนมัติจะคงรุ่นเริ่มต้นของแค็ตตาล็อกไว้</value>
   </data>
 </root>

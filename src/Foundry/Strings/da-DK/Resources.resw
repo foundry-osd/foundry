@@ -810,12 +810,6 @@
   <data name="LocalizationPage_Title.Text" xml:space="preserve">
     <value>Lokalisering</value>
   </data>
-  <data name="Localization.VisibleLanguages.Header" xml:space="preserve">
-    <value>Synlige implementeringssprog</value>
-  </data>
-  <data name="Localization.DefaultLanguage.Header" xml:space="preserve">
-    <value>Standard implementeringssprog</value>
-  </data>
   <data name="Localization.TimeZone.Header" xml:space="preserve">
     <value>Tidszone for implementering</value>
   </data>
@@ -2030,5 +2024,83 @@
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Traditionel kinesisk (Taiwan)</value>
+  </data>
+  <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
+    <value>Valg af operativsystem</value>
+  </data>
+  <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
+    <value>Begræns eller forudvælg de Windows-katalogvalg, der vises under udrulning.</value>
+  </data>
+  <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
+    <value>OS-version</value>
+  </data>
+  <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
+    <value>Styr, hvilke Windows-versioner operatører kan udrulle.</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
+    <value>Tilladte OS-versioner</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
+    <value>Lad stå tom for at tillade alle understøttede Windows-versioner.</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
+    <value>Standard OS-version</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
+    <value>Automatisk bevarer katalogets standardversion.</value>
+  </data>
+  <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
+    <value>OS-sprog</value>
+  </data>
+  <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
+    <value>Styr, hvilke Windows-sprog operatører kan udrulle.</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
+    <value>Tilladte OS-sprog</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
+    <value>Lad stå tom for at tillade alle understøttede Windows-sprog.</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
+    <value>Standard OS-sprog</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
+    <value>Automatisk bevarer katalogets standardsprog.</value>
+  </data>
+  <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
+    <value>Licenskanal</value>
+  </data>
+  <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
+    <value>Styr, hvilke Windows-licenskanaler operatører kan udrulle.</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
+    <value>Tilladte licenskanaler</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
+    <value>Lad stå tom for at tillade alle understøttede licenskanaler.</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
+    <value>Standard licenskanal</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
+    <value>Automatisk bevarer katalogets standardlicenskanal.</value>
+  </data>
+  <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
+    <value>Udgave</value>
+  </data>
+  <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
+    <value>Styr, hvilke Windows-udgaver operatører kan udrulle.</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
+    <value>Tilladte udgaver</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
+    <value>Lad stå tom for at tillade alle understøttede Windows-udgaver.</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
+    <value>Standardudgave</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
+    <value>Automatisk bevarer katalogets standardudgave.</value>
   </data>
 </root>

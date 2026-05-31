@@ -810,12 +810,6 @@
   <data name="LocalizationPage_Title.Text" xml:space="preserve">
     <value>Localização</value>
   </data>
-  <data name="Localization.VisibleLanguages.Header" xml:space="preserve">
-    <value>Idiomas de implantação visíveis</value>
-  </data>
-  <data name="Localization.DefaultLanguage.Header" xml:space="preserve">
-    <value>Idioma de implantação padrão</value>
-  </data>
   <data name="Localization.TimeZone.Header" xml:space="preserve">
     <value>Fuso horário de implantação</value>
   </data>
@@ -2030,5 +2024,83 @@
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Chinês Tradicional (Taiwan)</value>
+  </data>
+  <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
+    <value>Seleção do sistema operacional</value>
+  </data>
+  <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
+    <value>Limite ou pré-selecione as opções do catálogo do Windows exibidas durante a implantação.</value>
+  </data>
+  <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
+    <value>Versão do SO</value>
+  </data>
+  <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
+    <value>Controle quais versões do Windows os operadores podem implantar.</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
+    <value>Versões de SO permitidas</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
+    <value>Deixe vazio para permitir todas as versões do Windows compatíveis.</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
+    <value>Versão de SO padrão</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
+    <value>Automático mantém a versão padrão do catálogo.</value>
+  </data>
+  <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
+    <value>Idioma do SO</value>
+  </data>
+  <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
+    <value>Controle quais idiomas do Windows os operadores podem implantar.</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
+    <value>Idiomas de SO permitidos</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
+    <value>Deixe vazio para permitir todos os idiomas do Windows compatíveis.</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
+    <value>Idioma de SO padrão</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
+    <value>Automático mantém o idioma padrão do catálogo.</value>
+  </data>
+  <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
+    <value>Canal de licença</value>
+  </data>
+  <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
+    <value>Controle quais canais de licença do Windows os operadores podem implantar.</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
+    <value>Canais de licença permitidos</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
+    <value>Deixe vazio para permitir todos os canais de licença compatíveis.</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
+    <value>Canal de licença padrão</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
+    <value>Automático mantém o canal de licença padrão do catálogo.</value>
+  </data>
+  <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
+    <value>Edição</value>
+  </data>
+  <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
+    <value>Controle quais edições do Windows os operadores podem implantar.</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
+    <value>Edições permitidas</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
+    <value>Deixe vazio para permitir todas as edições do Windows compatíveis.</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
+    <value>Edição padrão</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
+    <value>Automático mantém a edição padrão do catálogo.</value>
   </data>
 </root>

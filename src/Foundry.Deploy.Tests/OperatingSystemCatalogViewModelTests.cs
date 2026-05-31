@@ -1,4 +1,5 @@
 using Foundry.Deploy.Models;
+using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.ViewModels;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -7,7 +8,7 @@ namespace Foundry.Deploy.Tests;
 public sealed class OperatingSystemCatalogViewModelTests
 {
     [Fact]
-    public void ApplyDeployLocalization_UsesCanonicalLanguageCodesForFiltersAndSelection()
+    public void ApplyOperatingSystemSelection_UsesCanonicalLanguageCodesForFiltersAndSelection()
     {
         var viewModel = new OperatingSystemCatalogViewModel(NullLogger.Instance, "x64");
         viewModel.ApplyCatalog(
@@ -19,25 +20,124 @@ public sealed class OperatingSystemCatalogViewModelTests
         Assert.Contains("en-US", viewModel.LanguageFilters);
         Assert.Contains("fr-FR", viewModel.LanguageFilters);
 
-        viewModel.ApplyDeployLocalization([" fr_FR "], "FR-fr", forceSingleVisibleLanguageSelection: true);
+        viewModel.ApplyOperatingSystemSelection(new DeployOperatingSystemSelectionSettings
+        {
+            IsEnabled = true,
+            AllowedLanguageCodes = [" fr_FR "],
+            DefaultLanguageCode = "FR-fr"
+        });
 
         Assert.Equal(["fr-FR"], viewModel.LanguageFilters);
         Assert.Equal("fr-FR", viewModel.SelectedLanguageCode);
         Assert.False(viewModel.IsLanguageSelectionEnabled);
     }
 
-    private static OperatingSystemCatalogItem CreateOperatingSystem(string languageCode)
+    [Fact]
+    public void ApplyOperatingSystemSelection_RestrictsReleaseLicenseAndEditionAndDisablesSingleConfiguredOptions()
+    {
+        var viewModel = new OperatingSystemCatalogViewModel(NullLogger.Instance, "x64");
+        viewModel.ApplyCatalog(
+        [
+            CreateOperatingSystem("en-US", releaseId: "25H2", licenseChannel: "RET"),
+            CreateOperatingSystem("en-US", releaseId: "24H2", licenseChannel: "VOL")
+        ]);
+
+        viewModel.ApplyOperatingSystemSelection(new DeployOperatingSystemSelectionSettings
+        {
+            IsEnabled = true,
+            AllowedReleaseIds = ["24h2"],
+            DefaultReleaseId = "24H2",
+            AllowedLicenseChannels = ["volume"],
+            DefaultLicenseChannel = "vol",
+            AllowedEditions = ["Enterprise"],
+            DefaultEdition = "Enterprise"
+        });
+
+        Assert.Equal(["24H2"], viewModel.ReleaseIdFilters);
+        Assert.False(viewModel.IsReleaseIdSelectionEnabled);
+        Assert.Equal(["VOL"], viewModel.LicenseChannelFilters);
+        Assert.False(viewModel.IsLicenseChannelSelectionEnabled);
+        Assert.Equal(["Enterprise"], viewModel.EditionFilters);
+        Assert.False(viewModel.IsEditionSelectionEnabled);
+        Assert.Equal("Enterprise", viewModel.SelectedOperatingSystem?.Edition);
+    }
+
+    [Fact]
+    public void ApplyOperatingSystemSelection_WhenAllowedValuesAreUnavailable_FallsBackToCatalogScope()
+    {
+        var viewModel = new OperatingSystemCatalogViewModel(NullLogger.Instance, "x64");
+        viewModel.ApplyCatalog(
+        [
+            CreateOperatingSystem("en-US", releaseId: "25H2", licenseChannel: "RET")
+        ]);
+
+        viewModel.ApplyOperatingSystemSelection(new DeployOperatingSystemSelectionSettings
+        {
+            IsEnabled = true,
+            AllowedReleaseIds = ["23H2"],
+            DefaultReleaseId = "23H2",
+            AllowedLicenseChannels = ["VOL"],
+            DefaultLicenseChannel = "VOL",
+            AllowedEditions = ["Datacenter"],
+            DefaultEdition = "Datacenter"
+        });
+
+        Assert.Equal(["25H2"], viewModel.ReleaseIdFilters);
+        Assert.True(viewModel.IsReleaseIdSelectionEnabled);
+        Assert.Equal(["RET"], viewModel.LicenseChannelFilters);
+        Assert.True(viewModel.IsLicenseChannelSelectionEnabled);
+        Assert.Contains("Pro", viewModel.EditionFilters);
+        Assert.True(viewModel.IsEditionSelectionEnabled);
+    }
+
+    [Fact]
+    public void ApplyOperatingSystemSelection_WhenDisabled_IgnoresSavedPolicy()
+    {
+        var viewModel = new OperatingSystemCatalogViewModel(NullLogger.Instance, "x64");
+        viewModel.ApplyCatalog(
+        [
+            CreateOperatingSystem("en-US", releaseId: "25H2", licenseChannel: "RET"),
+            CreateOperatingSystem("fr-FR", releaseId: "24H2", licenseChannel: "VOL")
+        ]);
+
+        viewModel.ApplyOperatingSystemSelection(new DeployOperatingSystemSelectionSettings
+        {
+            IsEnabled = false,
+            AllowedLanguageCodes = ["fr-FR"],
+            DefaultLanguageCode = "fr-FR",
+            AllowedReleaseIds = ["24H2"],
+            DefaultReleaseId = "24H2",
+            AllowedLicenseChannels = ["VOL"],
+            DefaultLicenseChannel = "VOL",
+            AllowedEditions = ["Enterprise"],
+            DefaultEdition = "Enterprise"
+        });
+
+        Assert.Equal(["24H2", "25H2"], viewModel.ReleaseIdFilters);
+        Assert.True(viewModel.IsReleaseIdSelectionEnabled);
+        Assert.Equal(["en-US"], viewModel.LanguageFilters);
+        Assert.True(viewModel.IsLanguageSelectionEnabled);
+        Assert.Equal(["RET"], viewModel.LicenseChannelFilters);
+        Assert.True(viewModel.IsLicenseChannelSelectionEnabled);
+        Assert.Contains("Pro", viewModel.EditionFilters);
+        Assert.True(viewModel.IsEditionSelectionEnabled);
+    }
+
+    private static OperatingSystemCatalogItem CreateOperatingSystem(
+        string languageCode,
+        string releaseId = "25H2",
+        string licenseChannel = "RET")
     {
         return new OperatingSystemCatalogItem
         {
             WindowsRelease = "11",
-            ReleaseId = "25H2",
+            ReleaseId = releaseId,
             Architecture = "x64",
             LanguageCode = languageCode,
             Edition = "Pro",
-            LicenseChannel = "RET",
+            LicenseChannel = licenseChannel,
             Build = "26200",
-            Url = $"https://example.test/windows-{languageCode}.iso"
+            Url = $"https://example.test/windows-{releaseId}-{licenseChannel}-{languageCode}.iso"
         };
     }
 }

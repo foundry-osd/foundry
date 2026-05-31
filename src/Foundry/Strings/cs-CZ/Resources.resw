@@ -810,12 +810,6 @@
   <data name="LocalizationPage_Title.Text" xml:space="preserve">
     <value>Lokalizace</value>
   </data>
-  <data name="Localization.VisibleLanguages.Header" xml:space="preserve">
-    <value>Viditelné jazyky nasazení</value>
-  </data>
-  <data name="Localization.DefaultLanguage.Header" xml:space="preserve">
-    <value>Výchozí jazyk nasazení</value>
-  </data>
   <data name="Localization.TimeZone.Header" xml:space="preserve">
     <value>Časové pásmo nasazení</value>
   </data>
@@ -2030,5 +2024,83 @@
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Tradiční čínština (Tchaj-wan)</value>
+  </data>
+  <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
+    <value>Výběr operačního systému</value>
+  </data>
+  <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
+    <value>Omezte nebo předvyberte možnosti katalogu Windows zobrazené během nasazení.</value>
+  </data>
+  <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
+    <value>Verze OS</value>
+  </data>
+  <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
+    <value>Určete, které verze Windows mohou operátoři nasadit.</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
+    <value>Povolené verze OS</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
+    <value>Ponechte prázdné, chcete-li povolit všechny podporované verze Windows.</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
+    <value>Výchozí verze OS</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
+    <value>Automaticky zachová výchozí verzi katalogu.</value>
+  </data>
+  <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
+    <value>Jazyk OS</value>
+  </data>
+  <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
+    <value>Určete, které jazyky Windows mohou operátoři nasadit.</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
+    <value>Povolené jazyky OS</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
+    <value>Ponechte prázdné, chcete-li povolit všechny podporované jazyky Windows.</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
+    <value>Výchozí jazyk OS</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
+    <value>Automaticky zachová výchozí jazyk katalogu.</value>
+  </data>
+  <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
+    <value>Licenční kanál</value>
+  </data>
+  <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
+    <value>Určete, které licenční kanály Windows mohou operátoři nasadit.</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
+    <value>Povolené licenční kanály</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
+    <value>Ponechte prázdné, chcete-li povolit všechny podporované licenční kanály.</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
+    <value>Výchozí licenční kanál</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
+    <value>Automaticky zachová výchozí licenční kanál katalogu.</value>
+  </data>
+  <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
+    <value>Edice</value>
+  </data>
+  <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
+    <value>Určete, které edice Windows mohou operátoři nasadit.</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
+    <value>Povolené edice</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
+    <value>Ponechte prázdné, chcete-li povolit všechny podporované edice Windows.</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
+    <value>Výchozí edice</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
+    <value>Automaticky zachová výchozí edici katalogu.</value>
   </data>
 </root>

@@ -1,8 +1,5 @@
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Globalization;
 using Foundry.Core.Models.Configuration;
-using Foundry.Core.Services.Configuration;
 using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
 
@@ -20,19 +17,12 @@ public sealed partial class LocalizationConfigurationViewModel : ObservableObjec
 
     public LocalizationConfigurationViewModel(
         IFoundryConfigurationStateService configurationStateService,
-        ILanguageRegistryService languageRegistryService,
         IApplicationLocalizationService localizationService)
     {
         this.configurationStateService = configurationStateService;
         this.localizationService = localizationService;
 
-        PageTitle = localizationService.GetString("LocalizationPage_Title.Text");
-        VisibleLanguagesHeader = localizationService.GetString("Localization.VisibleLanguages.Header");
-        DefaultLanguageHeader = localizationService.GetString("Localization.DefaultLanguage.Header");
-        TimeZoneHeader = localizationService.GetString("Localization.TimeZone.Header");
-        AutomaticOptionText = localizationService.GetString("Localization.AutomaticOption");
-
-        BuildLanguageOptions(languageRegistryService.GetLanguages());
+        RefreshLocalizedText();
         RefreshTimeZones();
         ApplyState(configurationStateService.Current.Localization);
 
@@ -41,18 +31,10 @@ public sealed partial class LocalizationConfigurationViewModel : ObservableObjec
         isApplyingState = false;
     }
 
-    public ObservableCollection<LocalizationLanguageOptionViewModel> AvailableLanguages { get; } = [];
-    public ObservableCollection<SelectionOption<string>> DefaultLanguageOptions { get; } = [];
     public ObservableCollection<SelectionOption<string>> TimeZoneOptions { get; } = [];
 
     [ObservableProperty]
     public partial string PageTitle { get; set; }
-
-    [ObservableProperty]
-    public partial string VisibleLanguagesHeader { get; set; }
-
-    [ObservableProperty]
-    public partial string DefaultLanguageHeader { get; set; }
 
     [ObservableProperty]
     public partial string TimeZoneHeader { get; set; }
@@ -61,24 +43,12 @@ public sealed partial class LocalizationConfigurationViewModel : ObservableObjec
     public partial string AutomaticOptionText { get; set; }
 
     [ObservableProperty]
-    public partial SelectionOption<string>? SelectedDefaultLanguage { get; set; }
-
-    [ObservableProperty]
     public partial SelectionOption<string>? SelectedTimeZone { get; set; }
 
     public void Dispose()
     {
         localizationService.LanguageChanged -= OnLanguageChanged;
         configurationStateService.StateChanged -= OnConfigurationStateChanged;
-        foreach (LocalizationLanguageOptionViewModel option in AvailableLanguages)
-        {
-            option.PropertyChanged -= OnLanguageOptionPropertyChanged;
-        }
-    }
-
-    partial void OnSelectedDefaultLanguageChanged(SelectionOption<string>? value)
-    {
-        SaveState();
     }
 
     partial void OnSelectedTimeZoneChanged(SelectionOption<string>? value)
@@ -86,46 +56,16 @@ public sealed partial class LocalizationConfigurationViewModel : ObservableObjec
         SaveState();
     }
 
-    private void BuildLanguageOptions(IReadOnlyList<LanguageRegistryEntry> languages)
-    {
-        foreach (LanguageRegistryEntry language in languages
-            .OrderBy(language => language.SortOrder)
-            .ThenBy(language => language.Code, StringComparer.OrdinalIgnoreCase))
-        {
-            string code = Canonicalize(language.Code);
-            var option = new LocalizationLanguageOptionViewModel(
-                code,
-                $"{language.DisplayName} ({code})",
-                language.SortOrder,
-                false);
-            option.PropertyChanged += OnLanguageOptionPropertyChanged;
-            AvailableLanguages.Add(option);
-        }
-    }
-
     private void ApplyState(LocalizationSettings settings)
     {
         isApplyingState = true;
-        bool normalizeForceSingleVisibleLanguage = settings.ForceSingleVisibleLanguage;
-
-        HashSet<string> visibleCodes = settings.VisibleLanguageCodes
-            .Select(NormalizeForComparison)
-            .Where(code => code.Length > 0)
-            .ToHashSet(StringComparer.OrdinalIgnoreCase);
-
-        foreach (LocalizationLanguageOptionViewModel option in AvailableLanguages)
+        try
         {
-            option.IsSelected = visibleCodes.Contains(NormalizeForComparison(option.Code));
+            SelectedTimeZone = SelectStringOption(TimeZoneOptions, settings.DefaultTimeZoneId) ?? TimeZoneOptions[0];
         }
-
-        RefreshDefaultLanguageOptions(settings.DefaultLanguageCodeOverride);
-        SelectedTimeZone = SelectStringOption(TimeZoneOptions, settings.DefaultTimeZoneId) ?? TimeZoneOptions[0];
-
-        isApplyingState = false;
-
-        if (normalizeForceSingleVisibleLanguage)
+        finally
         {
-            SaveState();
+            isApplyingState = false;
         }
     }
 
@@ -136,24 +76,6 @@ public sealed partial class LocalizationConfigurationViewModel : ObservableObjec
             return;
         }
 
-        string[] visibleLanguageCodes = AvailableLanguages
-            .Where(option => option.IsSelected)
-            .OrderBy(option => option.SortOrder)
-            .ThenBy(option => option.Code, StringComparer.OrdinalIgnoreCase)
-            .Select(option => Canonicalize(option.Code))
-            .Where(code => !string.IsNullOrWhiteSpace(code))
-            .Distinct(StringComparer.OrdinalIgnoreCase)
-            .ToArray();
-
-        string? selectedDefaultLanguage = SelectedDefaultLanguage?.Value;
-        string? defaultLanguageCodeOverride = visibleLanguageCodes.Any(code =>
-            string.Equals(
-                NormalizeForComparison(code),
-                NormalizeForComparison(selectedDefaultLanguage),
-                StringComparison.OrdinalIgnoreCase))
-            ? Canonicalize(selectedDefaultLanguage)
-            : null;
-
         string? defaultTimeZoneId = string.IsNullOrWhiteSpace(SelectedTimeZone?.Value)
             ? null
             : SelectedTimeZone.Value.Trim();
@@ -163,10 +85,7 @@ public sealed partial class LocalizationConfigurationViewModel : ObservableObjec
         {
             configurationStateService.UpdateLocalization(new LocalizationSettings
             {
-                VisibleLanguageCodes = visibleLanguageCodes,
-                DefaultLanguageCodeOverride = defaultLanguageCodeOverride,
-                DefaultTimeZoneId = defaultTimeZoneId,
-                ForceSingleVisibleLanguage = false
+                DefaultTimeZoneId = defaultTimeZoneId
             });
         }
         finally
@@ -175,40 +94,11 @@ public sealed partial class LocalizationConfigurationViewModel : ObservableObjec
         }
     }
 
-    private void OnLanguageOptionPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    private void RefreshLocalizedText()
     {
-        if (isApplyingState ||
-            !string.Equals(e.PropertyName, nameof(LocalizationLanguageOptionViewModel.IsSelected), StringComparison.Ordinal))
-        {
-            return;
-        }
-
-        SelectionOption<string>? previousDefault = SelectedDefaultLanguage;
-        RefreshDefaultLanguageOptions(previousDefault?.Value);
-        SaveState();
-    }
-
-    private void RefreshDefaultLanguageOptions(string? preferredDefaultLanguageCode)
-    {
-        string? selectedValue = preferredDefaultLanguageCode;
-
-        isRefreshingOptions = true;
-        try
-        {
-            DefaultLanguageOptions.Clear();
-            DefaultLanguageOptions.Add(new(AutomaticSelectionValue, AutomaticOptionText));
-
-            foreach (LocalizationLanguageOptionViewModel option in AvailableLanguages.Where(option => option.IsSelected))
-            {
-                DefaultLanguageOptions.Add(new(option.Code, option.DisplayName));
-            }
-
-            SelectedDefaultLanguage = SelectLanguageOption(DefaultLanguageOptions, selectedValue) ?? DefaultLanguageOptions[0];
-        }
-        finally
-        {
-            isRefreshingOptions = false;
-        }
+        PageTitle = localizationService.GetString("LocalizationPage_Title.Text");
+        TimeZoneHeader = localizationService.GetString("Localization.TimeZone.Header");
+        AutomaticOptionText = localizationService.GetString("Localization.AutomaticOption");
     }
 
     private void RefreshTimeZones()
@@ -237,12 +127,7 @@ public sealed partial class LocalizationConfigurationViewModel : ObservableObjec
 
     private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e)
     {
-        PageTitle = localizationService.GetString("LocalizationPage_Title.Text");
-        VisibleLanguagesHeader = localizationService.GetString("Localization.VisibleLanguages.Header");
-        DefaultLanguageHeader = localizationService.GetString("Localization.DefaultLanguage.Header");
-        TimeZoneHeader = localizationService.GetString("Localization.TimeZone.Header");
-        AutomaticOptionText = localizationService.GetString("Localization.AutomaticOption");
-        RefreshDefaultLanguageOptions(SelectedDefaultLanguage?.Value);
+        RefreshLocalizedText();
         RefreshTimeZones();
     }
 
@@ -256,44 +141,9 @@ public sealed partial class LocalizationConfigurationViewModel : ObservableObjec
         ApplyState(configurationStateService.Current.Localization);
     }
 
-    private static SelectionOption<string>? SelectLanguageOption(IEnumerable<SelectionOption<string>> options, string? value)
-    {
-        return options.FirstOrDefault(option =>
-            string.Equals(
-                NormalizeForComparison(option.Value),
-                NormalizeForComparison(value),
-                StringComparison.OrdinalIgnoreCase));
-    }
-
     private static SelectionOption<string>? SelectStringOption(IEnumerable<SelectionOption<string>> options, string? value)
     {
         return options.FirstOrDefault(option =>
             string.Equals(option.Value, value?.Trim(), StringComparison.OrdinalIgnoreCase));
-    }
-
-    private static string Canonicalize(string? languageCode)
-    {
-        string normalized = string.IsNullOrWhiteSpace(languageCode)
-            ? string.Empty
-            : languageCode.Trim().Replace('_', '-');
-
-        if (normalized.Length == 0)
-        {
-            return string.Empty;
-        }
-
-        try
-        {
-            return CultureInfo.GetCultureInfo(normalized).Name;
-        }
-        catch (CultureNotFoundException)
-        {
-            return normalized;
-        }
-    }
-
-    private static string NormalizeForComparison(string? languageCode)
-    {
-        return Canonicalize(languageCode).ToLowerInvariant();
     }
 }

@@ -127,6 +127,15 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     }
 
     /// <inheritdoc />
+    public void UpdateOperatingSystemSelection(OperatingSystemSelectionSettings settings)
+    {
+        ArgumentNullException.ThrowIfNull(settings);
+        Current = Current with { OperatingSystemSelection = OperatingSystemSelectionSettingsNormalizer.Normalize(settings) };
+        Save();
+        StateChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    /// <inheritdoc />
     public void UpdateNetwork(NetworkSettings settings)
     {
         ArgumentNullException.ThrowIfNull(settings);
@@ -261,6 +270,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         {
             General = SanitizeGeneralForPersistence(document.General),
             Network = NetworkConfigurationValidator.SanitizeForPersistence(document.Network),
+            OperatingSystemSelection = OperatingSystemSelectionSettingsNormalizer.Normalize(document.OperatingSystemSelection),
             Customization = SanitizeCustomizationForPersistence(document.Customization),
             Autopilot = SanitizeAutopilotForPersistence(document.Autopilot)
         };

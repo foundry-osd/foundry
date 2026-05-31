@@ -80,17 +80,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Kataloogide laadimine...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Laaditud kataloogid: {0} operatsioonisüsteemi kirjed, {1} draiveripaketid.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Kataloogi laadimine ebaõnnestus: {0}</value></data>
-  <data name="Catalog.LicenseChannelRetail" xml:space="preserve"><value>Jaemüük</value></data>
-  <data name="Catalog.LicenseChannelVolume" xml:space="preserve"><value>Helitugevus</value></data>
-  <data name="Catalog.EditionHome" xml:space="preserve"><value>Kodu</value></data>
-  <data name="Catalog.EditionHomeN" xml:space="preserve"><value>Kodu N</value></data>
-  <data name="Catalog.EditionHomeSingleLanguage" xml:space="preserve"><value>Avaleht Üks keel</value></data>
-  <data name="Catalog.EditionEducation" xml:space="preserve"><value>Haridus</value></data>
-  <data name="Catalog.EditionEducationN" xml:space="preserve"><value>Haridus N</value></data>
-  <data name="Catalog.EditionPro" xml:space="preserve"><value>Pro</value></data>
-  <data name="Catalog.EditionProN" xml:space="preserve"><value>Pro N</value></data>
-  <data name="Catalog.EditionEnterprise" xml:space="preserve"><value>Ettevõtlus</value></data>
-  <data name="Catalog.EditionEnterpriseN" xml:space="preserve"><value>Ettevõte N</value></data>
   <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Draiveri allikas</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Mudel</value></data>

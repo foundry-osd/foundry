@@ -80,17 +80,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Učitavanje kataloga...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Učitani katalozi: {0} unosi operativnog sistema, {1} paketi drajvera.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Učitavanje kataloga nije uspelo: {0}</value></data>
-  <data name="Catalog.LicenseChannelRetail" xml:space="preserve"><value>Maloprodaja</value></data>
-  <data name="Catalog.LicenseChannelVolume" xml:space="preserve"><value>Volume</value></data>
-  <data name="Catalog.EditionHome" xml:space="preserve"><value>Home</value></data>
-  <data name="Catalog.EditionHomeN" xml:space="preserve"><value>Dom N</value></data>
-  <data name="Catalog.EditionHomeSingleLanguage" xml:space="preserve"><value>Home Single Language</value></data>
-  <data name="Catalog.EditionEducation" xml:space="preserve"><value>Obrazovanje</value></data>
-  <data name="Catalog.EditionEducationN" xml:space="preserve"><value>Obrazovanje N</value></data>
-  <data name="Catalog.EditionPro" xml:space="preserve"><value>Pro</value></data>
-  <data name="Catalog.EditionProN" xml:space="preserve"><value>Pro N</value></data>
-  <data name="Catalog.EditionEnterprise" xml:space="preserve"><value>Enterprise</value></data>
-  <data name="Catalog.EditionEnterpriseN" xml:space="preserve"><value>Preduzeće N</value></data>
   <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Izvor drajvera</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Model</value></data>

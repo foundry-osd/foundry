@@ -31,6 +31,46 @@ public sealed class DeployConfigurationModelTests
     }
 
     [Fact]
+    public void Deserialize_WhenOperatingSystemSelectionIsConfigured_PreservesPolicy()
+    {
+        const string json = """
+            {
+              "schemaVersion": 7,
+              "operatingSystemSelection": {
+                "isEnabled": true,
+                "allowedLanguageCodes": ["en-US", "fr-FR"],
+                "defaultLanguageCode": "fr-FR",
+                "allowedReleaseIds": ["25H2"],
+                "defaultReleaseId": "25H2",
+                "allowedLicenseChannels": ["RET"],
+                "defaultLicenseChannel": "RET",
+                "allowedEditions": ["Pro", "Enterprise"],
+                "defaultEdition": "Pro"
+              }
+            }
+            """;
+
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
+
+        FoundryDeployConfigurationDocument? document = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(json, options);
+
+        Assert.NotNull(document);
+        Assert.True(document.OperatingSystemSelection.IsEnabled);
+        Assert.Equal(["en-US", "fr-FR"], document.OperatingSystemSelection.AllowedLanguageCodes);
+        Assert.Equal("fr-FR", document.OperatingSystemSelection.DefaultLanguageCode);
+        Assert.Equal(["25H2"], document.OperatingSystemSelection.AllowedReleaseIds);
+        Assert.Equal("25H2", document.OperatingSystemSelection.DefaultReleaseId);
+        Assert.Equal(["RET"], document.OperatingSystemSelection.AllowedLicenseChannels);
+        Assert.Equal("RET", document.OperatingSystemSelection.DefaultLicenseChannel);
+        Assert.Equal(["Pro", "Enterprise"], document.OperatingSystemSelection.AllowedEditions);
+        Assert.Equal("Pro", document.OperatingSystemSelection.DefaultEdition);
+    }
+
+    [Fact]
     public void Deserialize_WhenTelemetryIsConfigured_PreservesTelemetrySettings()
     {
         const string json = """

@@ -810,12 +810,6 @@
   <data name="LocalizationPage_Title.Text" xml:space="preserve">
     <value>Lokalizáció</value>
   </data>
-  <data name="Localization.VisibleLanguages.Header" xml:space="preserve">
-    <value>Látható telepítési nyelvek</value>
-  </data>
-  <data name="Localization.DefaultLanguage.Header" xml:space="preserve">
-    <value>Alapértelmezett telepítési nyelv</value>
-  </data>
   <data name="Localization.TimeZone.Header" xml:space="preserve">
     <value>Telepítési időzóna</value>
   </data>
@@ -2030,5 +2024,83 @@
   </data>
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>hagyományos kínai (Tajvan)</value>
+  </data>
+  <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
+    <value>Operációs rendszer kiválasztása</value>
+  </data>
+  <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
+    <value>Korlátozza vagy előre válassza ki a telepítéskor megjelenő Windows-katalógus beállításait.</value>
+  </data>
+  <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
+    <value>OS-verzió</value>
+  </data>
+  <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
+    <value>Szabályozza, hogy az operátorok mely Windows-verziókat telepíthetik.</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
+    <value>Engedélyezett OS-verziók</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
+    <value>Hagyja üresen az összes támogatott Windows-verzió engedélyezéséhez.</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
+    <value>Alapértelmezett OS-verzió</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
+    <value>Az Automatikus megtartja a katalógus alapértelmezett verzióját.</value>
+  </data>
+  <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
+    <value>OS nyelve</value>
+  </data>
+  <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
+    <value>Szabályozza, hogy az operátorok mely Windows-nyelveket telepíthetik.</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
+    <value>Engedélyezett OS-nyelvek</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
+    <value>Hagyja üresen az összes támogatott Windows-nyelv engedélyezéséhez.</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
+    <value>Alapértelmezett OS-nyelv</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
+    <value>Az Automatikus megtartja a katalógus alapértelmezett nyelvét.</value>
+  </data>
+  <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
+    <value>Licenccsatorna</value>
+  </data>
+  <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
+    <value>Szabályozza, hogy az operátorok mely Windows-licenccsatornákat telepíthetik.</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
+    <value>Engedélyezett licenccsatornák</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
+    <value>Hagyja üresen az összes támogatott licenccsatorna engedélyezéséhez.</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
+    <value>Alapértelmezett licenccsatorna</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
+    <value>Az Automatikus megtartja a katalógus alapértelmezett licenccsatornáját.</value>
+  </data>
+  <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
+    <value>Kiadás</value>
+  </data>
+  <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
+    <value>Szabályozza, hogy az operátorok mely Windows-kiadásokat telepíthetik.</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
+    <value>Engedélyezett kiadások</value>
+  </data>
+  <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
+    <value>Hagyja üresen az összes támogatott Windows-kiadás engedélyezéséhez.</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
+    <value>Alapértelmezett kiadás</value>
+  </data>
+  <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
+    <value>Az Automatikus megtartja a katalógus alapértelmezett kiadását.</value>
   </data>
 </root>

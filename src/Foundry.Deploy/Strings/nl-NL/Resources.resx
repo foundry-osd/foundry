@@ -80,17 +80,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Catalogi laden...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Geladen catalogi: {0} besturingssysteemgegevens, {1} driverpakketten.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Catalogus laden mislukt: {0}</value></data>
-  <data name="Catalog.LicenseChannelRetail" xml:space="preserve"><value>Detailhandel</value></data>
-  <data name="Catalog.LicenseChannelVolume" xml:space="preserve"><value>Volume</value></data>
-  <data name="Catalog.EditionHome" xml:space="preserve"><value>Thuis</value></data>
-  <data name="Catalog.EditionHomeN" xml:space="preserve"><value>Thuis N</value></data>
-  <data name="Catalog.EditionHomeSingleLanguage" xml:space="preserve"><value>Thuis Eén taal</value></data>
-  <data name="Catalog.EditionEducation" xml:space="preserve"><value>Onderwijs</value></data>
-  <data name="Catalog.EditionEducationN" xml:space="preserve"><value>Onderwijs N</value></data>
-  <data name="Catalog.EditionPro" xml:space="preserve"><value>Pro</value></data>
-  <data name="Catalog.EditionProN" xml:space="preserve"><value>Pro N</value></data>
-  <data name="Catalog.EditionEnterprise" xml:space="preserve"><value>Onderneming</value></data>
-  <data name="Catalog.EditionEnterpriseN" xml:space="preserve"><value>Onderneming N</value></data>
   <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Bron van stuurprogramma</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Model</value></data>

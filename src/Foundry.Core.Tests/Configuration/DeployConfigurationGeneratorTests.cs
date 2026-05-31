@@ -3,6 +3,7 @@ using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
 using Foundry.Telemetry;
+using System.Text.Json;
 
 namespace Foundry.Core.Tests.Configuration;
 
@@ -271,26 +272,125 @@ public sealed class DeployConfigurationGeneratorTests
     }
 
     [Fact]
-    public void Generate_CanonicalizesVisibleLanguagesAndDropsMissingDefaultOverride()
+    public void Generate_CanonicalizesOperatingSystemSelectionAndDropsDefaultsOutsideAllowedValues()
     {
         var generator = new DeployConfigurationGenerator();
         var document = new FoundryConfigurationDocument
         {
+            OperatingSystemSelection = new OperatingSystemSelectionSettings
+            {
+                IsEnabled = true,
+                AllowedLanguageCodes = [" fr_fr ", "EN-us", "fr-FR", ""],
+                DefaultLanguageCode = "de-DE",
+                AllowedReleaseIds = ["25h2", "24H2", "25H2", ""],
+                DefaultReleaseId = "23H2",
+                AllowedLicenseChannels = ["retail", "VOL", "ret", ""],
+                DefaultLicenseChannel = "volume",
+                AllowedEditions = [" enterprise ", "Pro", "Enterprise", ""],
+                DefaultEdition = "Education"
+            },
             Localization = new LocalizationSettings
             {
-                VisibleLanguageCodes = [" fr_fr ", "EN-us", "fr-FR", ""],
-                DefaultLanguageCodeOverride = "de-DE",
-                DefaultTimeZoneId = "Romance Standard Time",
-                ForceSingleVisibleLanguage = true
+                DefaultTimeZoneId = "Romance Standard Time"
             }
         };
 
         var result = generator.Generate(document);
 
-        Assert.Equal(["fr-FR", "en-US"], result.Localization.VisibleLanguageCodes);
-        Assert.Null(result.Localization.DefaultLanguageCodeOverride);
+        Assert.True(result.OperatingSystemSelection.IsEnabled);
+        Assert.Equal(["fr-FR", "en-US"], result.OperatingSystemSelection.AllowedLanguageCodes);
+        Assert.Null(result.OperatingSystemSelection.DefaultLanguageCode);
+        Assert.Equal(["25H2", "24H2"], result.OperatingSystemSelection.AllowedReleaseIds);
+        Assert.Null(result.OperatingSystemSelection.DefaultReleaseId);
+        Assert.Equal(["RET", "VOL"], result.OperatingSystemSelection.AllowedLicenseChannels);
+        Assert.Equal("VOL", result.OperatingSystemSelection.DefaultLicenseChannel);
+        Assert.Equal(["Enterprise", "Pro"], result.OperatingSystemSelection.AllowedEditions);
+        Assert.Null(result.OperatingSystemSelection.DefaultEdition);
         Assert.Equal("Romance Standard Time", result.Localization.DefaultTimeZoneId);
-        Assert.True(result.Localization.ForceSingleVisibleLanguage);
+    }
+
+    [Fact]
+    public void Generate_WhenOperatingSystemSelectionAllowedListHasOneValue_ForcesDefaultToThatValue()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            OperatingSystemSelection = new OperatingSystemSelectionSettings
+            {
+                IsEnabled = true,
+                AllowedLanguageCodes = ["fr-FR"],
+                AllowedReleaseIds = ["24H2"],
+                AllowedLicenseChannels = ["VOL"],
+                AllowedEditions = ["Enterprise"]
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.Equal("fr-FR", result.OperatingSystemSelection.DefaultLanguageCode);
+        Assert.Equal("24H2", result.OperatingSystemSelection.DefaultReleaseId);
+        Assert.Equal("VOL", result.OperatingSystemSelection.DefaultLicenseChannel);
+        Assert.Equal("Enterprise", result.OperatingSystemSelection.DefaultEdition);
+    }
+
+    [Fact]
+    public void Generate_WhenOperatingSystemSelectionIsDisabled_DoesNotPropagatePolicy()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            OperatingSystemSelection = new OperatingSystemSelectionSettings
+            {
+                IsEnabled = false,
+                AllowedLanguageCodes = ["fr-FR"],
+                DefaultLanguageCode = "fr-FR",
+                AllowedReleaseIds = ["25H2"],
+                DefaultReleaseId = "25H2",
+                AllowedLicenseChannels = ["VOL"],
+                DefaultLicenseChannel = "VOL",
+                AllowedEditions = ["Enterprise"],
+                DefaultEdition = "Enterprise"
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.False(result.OperatingSystemSelection.IsEnabled);
+        Assert.Empty(result.OperatingSystemSelection.AllowedLanguageCodes);
+        Assert.Null(result.OperatingSystemSelection.DefaultLanguageCode);
+        Assert.Empty(result.OperatingSystemSelection.AllowedReleaseIds);
+        Assert.Null(result.OperatingSystemSelection.DefaultReleaseId);
+        Assert.Empty(result.OperatingSystemSelection.AllowedLicenseChannels);
+        Assert.Null(result.OperatingSystemSelection.DefaultLicenseChannel);
+        Assert.Empty(result.OperatingSystemSelection.AllowedEditions);
+        Assert.Null(result.OperatingSystemSelection.DefaultEdition);
+    }
+
+    [Fact]
+    public void Generate_DoesNotMigrateLegacyLocalizationLanguageSelection()
+    {
+        const string json = """
+            {
+              "schemaVersion": 8,
+              "localization": {
+                "visibleLanguageCodes": ["fr-FR"],
+                "defaultLanguageCodeOverride": "fr-FR",
+                "forceSingleVisibleLanguage": true
+              }
+            }
+            """;
+        var generator = new DeployConfigurationGenerator();
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
+        FoundryConfigurationDocument document = JsonSerializer.Deserialize<FoundryConfigurationDocument>(json, options)!;
+
+        var result = generator.Generate(document);
+
+        Assert.Empty(result.OperatingSystemSelection.AllowedLanguageCodes);
+        Assert.Null(result.OperatingSystemSelection.DefaultLanguageCode);
     }
 
     [Fact]

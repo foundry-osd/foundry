@@ -86,6 +86,12 @@ public interface IFoundryConfigurationStateService
     void UpdateNetwork(NetworkSettings settings);
 
     /// <summary>
+    /// Replaces the OS catalog selection configuration section.
+    /// </summary>
+    /// <param name="settings">New OS catalog selection settings.</param>
+    void UpdateOperatingSystemSelection(OperatingSystemSelectionSettings settings);
+
+    /// <summary>
     /// Replaces the localization configuration section.
     /// </summary>
     /// <param name="settings">New localization settings.</param>

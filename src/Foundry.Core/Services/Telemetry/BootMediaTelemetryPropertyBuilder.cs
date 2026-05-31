@@ -68,6 +68,9 @@ public static class BootMediaTelemetryPropertyBuilder
         };
 
         AddCustomizationTelemetryProperties(properties, document.Customization);
+        AddOperatingSystemSelectionTelemetryProperties(properties, document.OperatingSystemSelection);
+        properties["customization_any_enabled"] =
+            (bool)properties["customization_any_enabled"]! || document.OperatingSystemSelection.IsEnabled;
         AddLocalizationTelemetryProperties(properties, document.Localization);
         AddNetworkTelemetryProperties(properties, document.Network, options.AreRequiredSecretsReady);
 
@@ -116,18 +119,45 @@ public static class BootMediaTelemetryPropertyBuilder
         properties["customization_ai_component_removal_option_count"] = isAiComponentRemovalEnabled ? aiComponentRemovalOptionCount : 0;
     }
 
+    private static void AddOperatingSystemSelectionTelemetryProperties(
+        IDictionary<string, object?> properties,
+        OperatingSystemSelectionSettings operatingSystemSelection)
+    {
+        bool isEnabled = operatingSystemSelection.IsEnabled;
+        int allowedLanguagesCount = isEnabled ? operatingSystemSelection.AllowedLanguageCodes.Count : 0;
+        bool hasDefaultLanguage = isEnabled && !string.IsNullOrWhiteSpace(operatingSystemSelection.DefaultLanguageCode);
+        int allowedReleaseCount = isEnabled ? operatingSystemSelection.AllowedReleaseIds.Count : 0;
+        bool hasDefaultRelease = isEnabled && !string.IsNullOrWhiteSpace(operatingSystemSelection.DefaultReleaseId);
+        int allowedLicenseChannelCount = isEnabled ? operatingSystemSelection.AllowedLicenseChannels.Count : 0;
+        bool hasDefaultLicenseChannel = isEnabled && !string.IsNullOrWhiteSpace(operatingSystemSelection.DefaultLicenseChannel);
+        int allowedEditionCount = isEnabled ? operatingSystemSelection.AllowedEditions.Count : 0;
+        bool hasDefaultEdition = isEnabled && !string.IsNullOrWhiteSpace(operatingSystemSelection.DefaultEdition);
+
+        properties["os_selection_enabled"] = isEnabled;
+        properties["os_selection_any_configured"] =
+            allowedLanguagesCount > 0 ||
+            hasDefaultLanguage ||
+            allowedReleaseCount > 0 ||
+            hasDefaultRelease ||
+            allowedLicenseChannelCount > 0 ||
+            hasDefaultLicenseChannel ||
+            allowedEditionCount > 0 ||
+            hasDefaultEdition;
+        properties["os_selection_allowed_languages_count"] = allowedLanguagesCount;
+        properties["os_selection_default_language_configured"] = hasDefaultLanguage;
+        properties["os_selection_allowed_release_count"] = allowedReleaseCount;
+        properties["os_selection_default_release_configured"] = hasDefaultRelease;
+        properties["os_selection_allowed_license_channel_count"] = allowedLicenseChannelCount;
+        properties["os_selection_default_license_channel_configured"] = hasDefaultLicenseChannel;
+        properties["os_selection_allowed_edition_count"] = allowedEditionCount;
+        properties["os_selection_default_edition_configured"] = hasDefaultEdition;
+    }
+
     private static void AddLocalizationTelemetryProperties(
         IDictionary<string, object?> properties,
         LocalizationSettings localization)
     {
-        int visibleLanguagesCount = localization.VisibleLanguageCodes.Count;
-        bool hasDefaultLanguage = !string.IsNullOrWhiteSpace(localization.DefaultLanguageCodeOverride);
-        bool hasTimeZone = !string.IsNullOrWhiteSpace(localization.DefaultTimeZoneId);
-
-        properties["localization_any_enabled"] = visibleLanguagesCount > 0 || hasDefaultLanguage || hasTimeZone;
-        properties["localization_visible_languages_count"] = visibleLanguagesCount;
-        properties["localization_default_language_configured"] = hasDefaultLanguage;
-        properties["localization_time_zone_configured"] = hasTimeZone;
+        properties["localization_time_zone_configured"] = !string.IsNullOrWhiteSpace(localization.DefaultTimeZoneId);
     }
 
     private static void AddNetworkTelemetryProperties(

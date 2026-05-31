@@ -24,6 +24,18 @@ public sealed class FoundryConfigurationServiceTests
                     Passphrase = "supersecret"
                 }
             },
+            OperatingSystemSelection = new OperatingSystemSelectionSettings
+            {
+                IsEnabled = true,
+                AllowedLanguageCodes = ["en-US", "fr-FR"],
+                DefaultLanguageCode = "fr-FR",
+                AllowedReleaseIds = ["25H2"],
+                DefaultReleaseId = "25H2",
+                AllowedLicenseChannels = ["RET"],
+                DefaultLicenseChannel = "RET",
+                AllowedEditions = ["Pro"],
+                DefaultEdition = "Pro"
+            },
             Customization = new CustomizationSettings
             {
                 MachineNaming = new MachineNamingSettings
@@ -78,6 +90,15 @@ public sealed class FoundryConfigurationServiceTests
 
         Assert.True(loaded.Network.WifiProvisioned);
         Assert.Equal("CorpWiFi", loaded.Network.Wifi.Ssid);
+        Assert.True(loaded.OperatingSystemSelection.IsEnabled);
+        Assert.Equal(["en-US", "fr-FR"], loaded.OperatingSystemSelection.AllowedLanguageCodes);
+        Assert.Equal("fr-FR", loaded.OperatingSystemSelection.DefaultLanguageCode);
+        Assert.Equal(["25H2"], loaded.OperatingSystemSelection.AllowedReleaseIds);
+        Assert.Equal("25H2", loaded.OperatingSystemSelection.DefaultReleaseId);
+        Assert.Equal(["RET"], loaded.OperatingSystemSelection.AllowedLicenseChannels);
+        Assert.Equal("RET", loaded.OperatingSystemSelection.DefaultLicenseChannel);
+        Assert.Equal(["Pro"], loaded.OperatingSystemSelection.AllowedEditions);
+        Assert.Equal("Pro", loaded.OperatingSystemSelection.DefaultEdition);
         Assert.Equal("FD-", loaded.Customization.MachineNaming.Prefix);
         Assert.True(loaded.Customization.MachineNaming.AutoGenerateName);
         Assert.False(loaded.Customization.MachineNaming.AllowManualSuffixEdit);

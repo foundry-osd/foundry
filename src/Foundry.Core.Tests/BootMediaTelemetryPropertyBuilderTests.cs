@@ -70,10 +70,20 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
                     DisableNotepadAi = true
                 }
             },
+            OperatingSystemSelection = new OperatingSystemSelectionSettings
+            {
+                IsEnabled = true,
+                AllowedLanguageCodes = ["en-US", "fr-FR"],
+                DefaultLanguageCode = "en-US",
+                AllowedReleaseIds = ["25H2", "24H2"],
+                DefaultReleaseId = "25H2",
+                AllowedLicenseChannels = ["RET"],
+                DefaultLicenseChannel = "RET",
+                AllowedEditions = ["Pro", "Enterprise"],
+                DefaultEdition = "Pro"
+            },
             Localization = new LocalizationSettings
             {
-                VisibleLanguageCodes = ["en-US", "fr-FR"],
-                DefaultLanguageCodeOverride = "en-US",
                 DefaultTimeZoneId = "Romance Standard Time"
             },
             Network = new NetworkSettings
@@ -139,9 +149,16 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.True((bool)result["customization_ai_disable_paint_ai_enabled"]!);
         Assert.True((bool)result["customization_ai_disable_notepad_ai_enabled"]!);
         Assert.Equal(8, result["customization_ai_component_removal_option_count"]);
-        Assert.True((bool)result["localization_any_enabled"]!);
-        Assert.Equal(2, result["localization_visible_languages_count"]);
-        Assert.True((bool)result["localization_default_language_configured"]!);
+        Assert.True((bool)result["os_selection_enabled"]!);
+        Assert.True((bool)result["os_selection_any_configured"]!);
+        Assert.Equal(2, result["os_selection_allowed_languages_count"]);
+        Assert.True((bool)result["os_selection_default_language_configured"]!);
+        Assert.Equal(2, result["os_selection_allowed_release_count"]);
+        Assert.True((bool)result["os_selection_default_release_configured"]!);
+        Assert.Equal(1, result["os_selection_allowed_license_channel_count"]);
+        Assert.True((bool)result["os_selection_default_license_channel_configured"]!);
+        Assert.Equal(2, result["os_selection_allowed_edition_count"]);
+        Assert.True((bool)result["os_selection_default_edition_configured"]!);
         Assert.True((bool)result["localization_time_zone_configured"]!);
         Assert.True((bool)result["network_any_enabled"]!);
         Assert.True((bool)result["network_wired_dot1x_enabled"]!);
@@ -162,6 +179,104 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.DoesNotContain(result.Values.OfType<string>(), value => value.Contains("CorpWifi", StringComparison.OrdinalIgnoreCase));
         Assert.DoesNotContain(result.Values.OfType<string>(), value => value.Contains("Romance Standard Time", StringComparison.OrdinalIgnoreCase));
         Assert.DoesNotContain(result.Values.OfType<string>(), value => value.Contains("Microsoft.Xbox", StringComparison.OrdinalIgnoreCase));
+    }
+
+    [Fact]
+    public void Build_WhenOperatingSystemSelectionIsDisabled_DoesNotReportSavedPolicy()
+    {
+        var document = new FoundryConfigurationDocument
+        {
+            OperatingSystemSelection = new OperatingSystemSelectionSettings
+            {
+                IsEnabled = false,
+                AllowedLanguageCodes = ["en-US"],
+                DefaultLanguageCode = "en-US",
+                AllowedReleaseIds = ["25H2"],
+                DefaultReleaseId = "25H2",
+                AllowedLicenseChannels = ["VOL"],
+                DefaultLicenseChannel = "VOL",
+                AllowedEditions = ["Enterprise"],
+                DefaultEdition = "Enterprise"
+            }
+        };
+
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
+            new MediaPreflightOptions(),
+            document,
+            success: true,
+            failedStepName: null,
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+
+        Assert.False((bool)result["os_selection_enabled"]!);
+        Assert.False((bool)result["os_selection_any_configured"]!);
+        Assert.Equal(0, result["os_selection_allowed_languages_count"]);
+        Assert.False((bool)result["os_selection_default_language_configured"]!);
+        Assert.Equal(0, result["os_selection_allowed_release_count"]);
+        Assert.False((bool)result["os_selection_default_release_configured"]!);
+        Assert.Equal(0, result["os_selection_allowed_license_channel_count"]);
+        Assert.False((bool)result["os_selection_default_license_channel_configured"]!);
+        Assert.Equal(0, result["os_selection_allowed_edition_count"]);
+        Assert.False((bool)result["os_selection_default_edition_configured"]!);
+    }
+
+    [Fact]
+    public void Build_WhenOnlyOperatingSystemSelectionIsEnabled_ReportsCustomizationAnyEnabled()
+    {
+        var document = new FoundryConfigurationDocument
+        {
+            OperatingSystemSelection = new OperatingSystemSelectionSettings
+            {
+                IsEnabled = true
+            }
+        };
+
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
+            new MediaPreflightOptions(),
+            document,
+            success: true,
+            failedStepName: null,
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+
+        Assert.True((bool)result["customization_any_enabled"]!);
+        Assert.True((bool)result["os_selection_enabled"]!);
+        Assert.False((bool)result["os_selection_any_configured"]!);
+    }
+
+    [Fact]
+    public void Build_WhenOnlyTimeZoneIsConfigured_DoesNotReportOsSelectionConfigured()
+    {
+        var document = new FoundryConfigurationDocument
+        {
+            Localization = new LocalizationSettings
+            {
+                DefaultTimeZoneId = "Romance Standard Time"
+            }
+        };
+
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
+            new MediaPreflightOptions(),
+            document,
+            success: true,
+            failedStepName: null,
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+
+        Assert.False((bool)result["os_selection_enabled"]!);
+        Assert.False((bool)result["os_selection_any_configured"]!);
+        Assert.Equal(0, result["os_selection_allowed_languages_count"]);
+        Assert.False((bool)result["os_selection_default_language_configured"]!);
+        Assert.True((bool)result["localization_time_zone_configured"]!);
     }
 
     [Fact]

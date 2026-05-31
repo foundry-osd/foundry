@@ -80,17 +80,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>กำลังโหลดแคตตาล็อก...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>แคตตาล็อกที่โหลด: {0} รายการระบบปฏิบัติการ, {1} ชุดไดรเวอร์</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>โหลดแคตตาล็อกล้มเหลว: {0}</value></data>
-  <data name="Catalog.LicenseChannelRetail" xml:space="preserve"><value>ขายปลีก</value></data>
-  <data name="Catalog.LicenseChannelVolume" xml:space="preserve"><value>ปริมาณ</value></data>
-  <data name="Catalog.EditionHome" xml:space="preserve"><value>บ้าน</value></data>
-  <data name="Catalog.EditionHomeN" xml:space="preserve"><value>บ้าน เอ็น</value></data>
-  <data name="Catalog.EditionHomeSingleLanguage" xml:space="preserve"><value>หน้าแรกภาษาเดียว</value></data>
-  <data name="Catalog.EditionEducation" xml:space="preserve"><value>การศึกษา</value></data>
-  <data name="Catalog.EditionEducationN" xml:space="preserve"><value>การศึกษา น</value></data>
-  <data name="Catalog.EditionPro" xml:space="preserve"><value>โปร</value></data>
-  <data name="Catalog.EditionProN" xml:space="preserve"><value>โปร เอ็น</value></data>
-  <data name="Catalog.EditionEnterprise" xml:space="preserve"><value>องค์กร</value></data>
-  <data name="Catalog.EditionEnterpriseN" xml:space="preserve"><value>เอ็นเตอร์ไพรส์ เอ็น</value></data>
   <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>แหล่งที่มาของไดรเวอร์</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>รุ่น</value></data>
