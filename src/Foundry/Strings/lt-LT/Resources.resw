@@ -2031,6 +2031,18 @@
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
     <value>Limit or preselect the OS catalog choices shown during deployment.</value>
   </data>
+  <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
+    <value>OS version</value>
+  </data>
+  <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
+    <value>OS language</value>
+  </data>
+  <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
+    <value>License channel</value>
+  </data>
+  <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
+    <value>Edition</value>
+  </data>
   <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
     <value>Allowed OS languages</value>
   </data>

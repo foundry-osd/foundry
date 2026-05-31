@@ -30,6 +30,18 @@ public sealed partial class CustomizationConfigurationViewModel
     public partial string OperatingSystemSelectionDescription { get; set; }
 
     [ObservableProperty]
+    public partial string OperatingSystemVersionGroupHeader { get; set; }
+
+    [ObservableProperty]
+    public partial string OperatingSystemLanguageGroupHeader { get; set; }
+
+    [ObservableProperty]
+    public partial string OperatingSystemLicenseChannelGroupHeader { get; set; }
+
+    [ObservableProperty]
+    public partial string OperatingSystemEditionGroupHeader { get; set; }
+
+    [ObservableProperty]
     public partial string OperatingSystemAllowedLanguagesLabel { get; set; }
 
     [ObservableProperty]
@@ -160,6 +172,10 @@ public sealed partial class CustomizationConfigurationViewModel
     {
         OperatingSystemSelectionHeader = localizationService.GetString("Customization.OperatingSystemSelectionHeader");
         OperatingSystemSelectionDescription = localizationService.GetString("Customization.OperatingSystemSelectionDescription");
+        OperatingSystemVersionGroupHeader = localizationService.GetString("Customization.OperatingSystemVersionGroupHeader");
+        OperatingSystemLanguageGroupHeader = localizationService.GetString("Customization.OperatingSystemLanguageGroupHeader");
+        OperatingSystemLicenseChannelGroupHeader = localizationService.GetString("Customization.OperatingSystemLicenseChannelGroupHeader");
+        OperatingSystemEditionGroupHeader = localizationService.GetString("Customization.OperatingSystemEditionGroupHeader");
         OperatingSystemAllowedLanguagesLabel = localizationService.GetString("Customization.OperatingSystemAllowedLanguagesLabel");
         OperatingSystemDefaultLanguageLabel = localizationService.GetString("Customization.OperatingSystemDefaultLanguageLabel");
         OperatingSystemAllowedReleasesLabel = localizationService.GetString("Customization.OperatingSystemAllowedReleasesLabel");
