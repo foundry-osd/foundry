@@ -30,7 +30,7 @@
                                   IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}"
                                   IsExpanded="{x:Bind ViewModel.UseJsonProfileProvisioning, Mode=OneWay}">
                 <wct:SettingsExpander.HeaderIcon>
-                    <FontIcon Glyph="&#xECA7;" />
+                    <FontIcon Glyph="&#xE7C3;" />
                 </wct:SettingsExpander.HeaderIcon>
                 <ToggleSwitch behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True" AutomationProperties.Name="{x:Bind ViewModel.JsonProfileEnableText, Mode=OneWay}"
                               IsOn="{x:Bind ViewModel.UseJsonProfileProvisioning, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -126,7 +126,7 @@
                                   IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}"
                                   IsExpanded="{x:Bind ViewModel.UseHardwareHashUploadProvisioning, Mode=OneWay}">
                 <wct:SettingsExpander.HeaderIcon>
-                    <FontIcon Glyph="&#xE8D4;" />
+                    <FontIcon Glyph="&#xEB95;" />
                 </wct:SettingsExpander.HeaderIcon>
                 <ToggleSwitch behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True" AutomationProperties.Name="{x:Bind ViewModel.HardwareHashEnableText, Mode=OneWay}"
                               IsOn="{x:Bind ViewModel.UseHardwareHashUploadProvisioning, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -303,7 +303,7 @@
                               Description="{x:Bind ViewModel.InteractiveHardwareHashDescription, Mode=OneWay}"
                               IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}">
                 <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE8D4;" />
+                    <FontIcon Glyph="&#xE928;" />
                 </wct:SettingsCard.HeaderIcon>
                 <ToggleSwitch behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True" AutomationProperties.Name="{x:Bind ViewModel.InteractiveHardwareHashEnableText, Mode=OneWay}"
                               IsOn="{x:Bind ViewModel.UseInteractiveHardwareHashUploadProvisioning, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
