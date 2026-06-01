@@ -52,8 +52,7 @@
 
     <Grid Margin="{ThemeResource ContentPageMargin}"
           Padding="{ThemeResource ContentPagePadding}">
-        <Grid Margin="{ThemeResource FoundryPageContentInset}"
-              RowSpacing="{ThemeResource FoundrySettingsSectionSpacing}">
+        <Grid RowSpacing="{ThemeResource FoundrySettingsSectionSpacing}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
