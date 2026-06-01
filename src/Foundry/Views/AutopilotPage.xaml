@@ -13,8 +13,26 @@
                 VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="{ThemeResource FoundryPageContentInset}"
                     Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
-            <TextBlock Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
-                       Style="{ThemeResource FoundryPageTitleTextBlockStyle}" />
+            <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
+                           Style="{ThemeResource FoundryPageTitleTextBlockStyle}" />
+
+                <Button Grid.Column="1"
+                        VerticalAlignment="Center"
+                        AutomationProperties.Name="{x:Bind ViewModel.DocumentationButtonText, Mode=OneWay}"
+                        Click="DocumentationButton_Click">
+                    <StackPanel Orientation="Horizontal"
+                                Spacing="{ThemeResource FoundrySpace8}">
+                        <FontIcon Glyph="&#xE7C3;" />
+                        <TextBlock Text="{x:Bind ViewModel.DocumentationButtonText, Mode=OneWay}" />
+                    </StackPanel>
+                </Button>
+            </Grid>
 
             <wct:SettingsCard Header="{x:Bind ViewModel.AutopilotHeader, Mode=OneWay}"
                               Description="{x:Bind ViewModel.AutopilotDescription, Mode=OneWay}">

@@ -14,6 +14,11 @@ public static class FoundryApplicationInfo
     /// </summary>
     public const string DocumentationUrl = "https://foundry-osd.github.io/docs/start";
 
+    /// <summary>
+    /// Gets the Autopilot documentation URL.
+    /// </summary>
+    public const string AutopilotDocumentationUrl = "https://foundry-osd.github.io/docs/autopilot";
+
     public const string RepositoryUrl = Constants.RepositoryUrl;
 
     /// <summary>

@@ -241,6 +241,9 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public partial string PageTitle { get; set; }
 
     [ObservableProperty]
+    public partial string DocumentationButtonText { get; set; }
+
+    [ObservableProperty]
     public partial string AutopilotHeader { get; set; }
 
     [ObservableProperty]
@@ -952,6 +955,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     private void RefreshLocalizedText()
     {
         PageTitle = localizationService.GetString("AutopilotPage_Title.Text");
+        DocumentationButtonText = localizationService.GetString("Nav_DocumentationKey.Title");
         AutopilotHeader = localizationService.GetString("Autopilot.Header");
         AutopilotDescription = localizationService.GetString("Autopilot.Description");
         EnableAutopilotText = localizationService.GetString("Autopilot.EnableLabel");
