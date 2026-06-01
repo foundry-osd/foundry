@@ -1,17 +1,12 @@
-using Foundry.Core.Services.Application;
-
 namespace Foundry.Views;
 
 public sealed partial class AutopilotPage : Page
 {
-    private readonly IExternalProcessLauncher externalProcessLauncher;
-
     public AutopilotConfigurationViewModel ViewModel { get; }
 
     public AutopilotPage()
     {
         ViewModel = App.GetService<AutopilotConfigurationViewModel>();
-        externalProcessLauncher = App.GetService<IExternalProcessLauncher>();
         InitializeComponent();
         ViewModel.PropertyChanged += OnViewModelPropertyChanged;
         Unloaded += OnUnloaded;
@@ -30,11 +25,6 @@ public sealed partial class AutopilotPage : Page
         {
             ViewModel.ReplaceSelectedProfiles(tableView.SelectedItems.OfType<AutopilotProfileEntryViewModel>());
         }
-    }
-
-    private async void DocumentationButton_Click(object sender, RoutedEventArgs e)
-    {
-        await externalProcessLauncher.OpenUriAsync(new Uri(FoundryApplicationInfo.AutopilotDocumentationUrl));
     }
 
     private void CertificatesTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
