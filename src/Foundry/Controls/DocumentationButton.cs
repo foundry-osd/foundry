@@ -4,7 +4,7 @@ using Microsoft.UI.Xaml.Automation;
 
 namespace Foundry.Controls;
 
-public sealed partial class DocumentationButton : Button
+public sealed partial class DocumentationButton : UserControl
 {
     public static readonly DependencyProperty DocumentationUrlProperty = DependencyProperty.Register(
         nameof(DocumentationUrl),
@@ -14,6 +14,7 @@ public sealed partial class DocumentationButton : Button
 
     private readonly IApplicationLocalizationService localizationService;
     private readonly IExternalProcessLauncher externalProcessLauncher;
+    private readonly Button button = new();
     private readonly TextBlock labelTextBlock = new();
     private bool isLocalizationSubscribed;
 
@@ -21,10 +22,11 @@ public sealed partial class DocumentationButton : Button
     {
         localizationService = App.GetService<IApplicationLocalizationService>();
         externalProcessLauncher = App.GetService<IExternalProcessLauncher>();
-        Content = CreateContent();
+        button.Content = CreateContent();
+        Content = button;
         UpdateLocalizedText();
 
-        Click += OnClick;
+        button.Click += OnClick;
         Loaded += OnLoaded;
         Unloaded += OnUnloaded;
     }
@@ -81,7 +83,7 @@ public sealed partial class DocumentationButton : Button
     {
         string text = localizationService.GetString("Nav_DocumentationKey.Title");
         labelTextBlock.Text = text;
-        AutomationProperties.SetName(this, text);
+        AutomationProperties.SetName(button, text);
     }
 
     private async void OnClick(object sender, RoutedEventArgs e)
