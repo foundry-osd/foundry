@@ -12,7 +12,7 @@
     <ScrollView Margin="{ThemeResource ContentPageMargin}"
                 Padding="{ThemeResource ContentPagePadding}"
                 VerticalScrollBarVisibility="Auto">
-        <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+        <StackPanel>
             <Grid Margin="{ThemeResource FoundryPageHeaderMargin}"
                   ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
                 <Grid.ColumnDefinitions>
@@ -48,34 +48,35 @@
                                               DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}" />
             </Grid>
 
-            <wct:SettingsCard Header="{x:Bind ViewModel.AutopilotHeader, Mode=OneWay}"
-                              Description="{x:Bind ViewModel.AutopilotDescription, Mode=OneWay}">
-                <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE753;" />
-                </wct:SettingsCard.HeaderIcon>
-                <ToggleSwitch behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True" AutomationProperties.Name="{x:Bind ViewModel.EnableAutopilotText, Mode=OneWay}"
-                              IsOn="{x:Bind ViewModel.IsAutopilotEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            </wct:SettingsCard>
+            <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+                <wct:SettingsCard Header="{x:Bind ViewModel.AutopilotHeader, Mode=OneWay}"
+                                  Description="{x:Bind ViewModel.AutopilotDescription, Mode=OneWay}">
+                    <wct:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE753;" />
+                    </wct:SettingsCard.HeaderIcon>
+                    <ToggleSwitch behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True" AutomationProperties.Name="{x:Bind ViewModel.EnableAutopilotText, Mode=OneWay}"
+                                  IsOn="{x:Bind ViewModel.IsAutopilotEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </wct:SettingsCard>
 
-            <wct:SettingsExpander Header="{x:Bind ViewModel.JsonProfileHeader, Mode=OneWay}"
-                                  Description="{x:Bind ViewModel.JsonProfileDescription, Mode=OneWay}"
-                                  IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}"
-                                  IsExpanded="{x:Bind ViewModel.UseJsonProfileProvisioning, Mode=OneWay}">
-                <wct:SettingsExpander.HeaderIcon>
-                    <FontIcon Glyph="&#xE7C3;" />
-                </wct:SettingsExpander.HeaderIcon>
-                <ToggleSwitch behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True" AutomationProperties.Name="{x:Bind ViewModel.JsonProfileEnableText, Mode=OneWay}"
-                              IsOn="{x:Bind ViewModel.UseJsonProfileProvisioning, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <wct:SettingsExpander.Items>
-                    <wct:SettingsCard Header="{x:Bind ViewModel.ActionsHeader, Mode=OneWay}"
-                                      Description="{x:Bind ViewModel.ActionsDescription, Mode=OneWay}"
-                                      HorizontalContentAlignment="Stretch"
-                                      Visibility="{x:Bind ViewModel.JsonProfileSettingsVisibility, Mode=OneWay}">
-                        <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
+                <wct:SettingsExpander Header="{x:Bind ViewModel.JsonProfileHeader, Mode=OneWay}"
+                                      Description="{x:Bind ViewModel.JsonProfileDescription, Mode=OneWay}"
+                                      IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}"
+                                      IsExpanded="{x:Bind ViewModel.UseJsonProfileProvisioning, Mode=OneWay}">
+                    <wct:SettingsExpander.HeaderIcon>
+                        <FontIcon Glyph="&#xE7C3;" />
+                    </wct:SettingsExpander.HeaderIcon>
+                    <ToggleSwitch behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True" AutomationProperties.Name="{x:Bind ViewModel.JsonProfileEnableText, Mode=OneWay}"
+                                  IsOn="{x:Bind ViewModel.UseJsonProfileProvisioning, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <wct:SettingsExpander.Items>
+                        <wct:SettingsCard Header="{x:Bind ViewModel.ActionsHeader, Mode=OneWay}"
+                                          Description="{x:Bind ViewModel.ActionsDescription, Mode=OneWay}"
+                                          HorizontalContentAlignment="Stretch"
+                                          Visibility="{x:Bind ViewModel.JsonProfileSettingsVisibility, Mode=OneWay}">
+                            <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
 
                             <StackPanel VerticalAlignment="Center"
                                         Orientation="Horizontal"
@@ -340,6 +341,7 @@
                 <ToggleSwitch behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True" AutomationProperties.Name="{x:Bind ViewModel.InteractiveHardwareHashEnableText, Mode=OneWay}"
                               IsOn="{x:Bind ViewModel.UseInteractiveHardwareHashUploadProvisioning, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wct:SettingsCard>
+            </StackPanel>
         </StackPanel>
     </ScrollView>
 </Page>
