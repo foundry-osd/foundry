@@ -7,8 +7,7 @@
     <ScrollView Margin="{ThemeResource ContentPageMargin}"
                 Padding="{ThemeResource ContentPagePadding}"
                 VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="{ThemeResource FoundryPageContentInset}"
-                    dev:PanelAttach.ChildrenTransitions="Default"
+        <StackPanel dev:PanelAttach.ChildrenTransitions="Default"
                     Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
             <TextBlock Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
                        Style="{ThemeResource FoundryPageTitleTextBlockStyle}" />

@@ -171,6 +171,9 @@
   <data name="Autopilot.Description" xml:space="preserve">
     <value>Odaberite način Autopilot pripreme za medij za implementaciju: priprema JSON profila, WinPE zero-touch prijenos hardverskog hasha ili interaktivni prijenos hardverskog hasha.</value>
   </data>
+  <data name="Autopilot.PageDescription" xml:space="preserve">
+    <value>Konfigurirajte postavke upisa za Windows Autopilot za medije za implementaciju i registraciju hardvera.</value>
+  </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Omogući Autopilot</value>
   </data>

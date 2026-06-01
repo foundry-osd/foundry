@@ -171,6 +171,9 @@
   <data name="Autopilot.Description" xml:space="preserve">
     <value>Vali juurutusmeedia Autopiloti ettevalmistusviis: JSON-profiili ettevalmistus, WinPE zero-touch riistvararäsi üleslaadimine või interaktiivne riistvararäsi üleslaadimine.</value>
   </data>
+  <data name="Autopilot.PageDescription" xml:space="preserve">
+    <value>Konfigureerige Windows Autopiloti registreerimissätted juurutusmeediumi ja riistvara registreerimise jaoks.</value>
+  </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Luba Autopilot</value>
   </data>

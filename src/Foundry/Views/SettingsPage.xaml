@@ -15,8 +15,7 @@
                 Padding="{ThemeResource ContentPagePadding}"
                 HorizontalAlignment="Stretch"
                 VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="{ThemeResource FoundryPageContentInset}"
-                    dev:PanelAttach.ChildrenTransitions="Default"
+        <StackPanel dev:PanelAttach.ChildrenTransitions="Default"
                     Spacing="{ThemeResource FoundryCompactStackSpacing}">
             <wct:SettingsCard x:Name="GeneralSettingsCard"
                               x:Uid="SettingsPage_GeneralCard"

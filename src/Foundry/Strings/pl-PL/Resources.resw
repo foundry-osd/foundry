@@ -171,6 +171,9 @@
   <data name="Autopilot.Description" xml:space="preserve">
     <value>Wybierz metodę aprowizowania Autopilot dla nośnika wdrożeniowego: przygotowanie profilu JSON, bezobsługowe przesyłanie skrótu sprzętowego w WinPE albo interaktywne przesyłanie skrótu sprzętowego.</value>
   </data>
+  <data name="Autopilot.PageDescription" xml:space="preserve">
+    <value>Skonfiguruj ustawienia rejestracji Windows Autopilot dla nośników wdrażania i rejestracji sprzętu.</value>
+  </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Włącz Autopilot</value>
   </data>
