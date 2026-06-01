@@ -171,6 +171,9 @@
   <data name="Autopilot.Description" xml:space="preserve">
     <value>Изберете метода за Autopilot подготовка за носителя за разполагане: подготовка на JSON профил, WinPE zero-touch качване на хардуерен хеш или интерактивно качване на хардуерен хеш.</value>
   </data>
+  <data name="Autopilot.PageDescription" xml:space="preserve">
+    <value>Конфигурирайте настройките за записване в Windows Autopilot за носители за разполагане и регистрация на хардуер.</value>
+  </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Активиране на Autopilot</value>
   </data>

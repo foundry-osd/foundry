@@ -171,6 +171,9 @@
   <data name="Autopilot.Description" xml:space="preserve">
     <value>Vyberte metódu zriaďovania Autopilotu pre nasadzovacie médium: prípravu profilu JSON, bezobslužné nahratie hardvérového hashu vo WinPE alebo interaktívne nahratie hardvérového hashu.</value>
   </data>
+  <data name="Autopilot.PageDescription" xml:space="preserve">
+    <value>Nakonfigurujte nastavenia registrácie Windows Autopilot pre médiá nasadenia a registráciu hardvéru.</value>
+  </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Povoliť Autopilot</value>
   </data>

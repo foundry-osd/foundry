@@ -171,6 +171,9 @@
   <data name="Autopilot.Description" xml:space="preserve">
     <value>Виберіть метод підготовки Autopilot для носія розгортання: підготовка профілю JSON, zero-touch завантаження апаратного хешу у WinPE або інтерактивне завантаження апаратного хешу.</value>
   </data>
+  <data name="Autopilot.PageDescription" xml:space="preserve">
+    <value>Налаштуйте параметри реєстрації Windows Autopilot для носіїв розгортання та реєстрації обладнання.</value>
+  </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Увімкнути Autopilot</value>
   </data>

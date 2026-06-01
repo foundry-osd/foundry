@@ -171,6 +171,9 @@
   <data name="Autopilot.Description" xml:space="preserve">
     <value>Izvēlieties izvietošanas datu nesēja Autopilot sagatavošanas metodi: JSON profila sagatavošanu, WinPE zero-touch aparatūras jaucējkoda augšupielādi vai interaktīvu aparatūras jaucējkoda augšupielādi.</value>
   </data>
+  <data name="Autopilot.PageDescription" xml:space="preserve">
+    <value>Konfigurējiet Windows Autopilot reģistrācijas iestatījumus izvietošanas datu nesējiem un aparatūras reģistrācijai.</value>
+  </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Iespējot Autopilot</value>
   </data>

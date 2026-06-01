@@ -20,7 +20,8 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Grid VerticalAlignment="Center"
+                <Grid HorizontalAlignment="Left"
+                      VerticalAlignment="Center"
                       RowSpacing="{ThemeResource FoundryTextGroupSpacing}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -28,12 +29,15 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
+                               HorizontalAlignment="Left"
                                Style="{ThemeResource FoundryPageTitleTextBlockStyle}" />
 
                     <TextBlock Grid.Row="1"
                                MaxWidth="{ThemeResource FoundrySummaryTextMaxWidth}"
+                               HorizontalAlignment="Left"
                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                               Text="{x:Bind ViewModel.AutopilotDescription, Mode=OneWay}"
+                               Text="{x:Bind ViewModel.PageDescription, Mode=OneWay}"
+                               TextAlignment="Left"
                                TextWrapping="WrapWholeWords"
                                Style="{ThemeResource FoundryBodyTextBlockStyle}" />
                 </Grid>

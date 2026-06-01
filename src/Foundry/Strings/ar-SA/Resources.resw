@@ -171,6 +171,9 @@
   <data name="Autopilot.Description" xml:space="preserve">
     <value>اختر طريقة توفير Autopilot لوسائط النشر: تجهيز ملف تعريف JSON أو تحميل تجزئة الأجهزة بدون لمس في WinPE أو تحميل تجزئة الأجهزة التفاعلي.</value>
   </data>
+  <data name="Autopilot.PageDescription" xml:space="preserve">
+    <value>قم بتكوين إعدادات تسجيل Windows Autopilot لوسائط النشر وتسجيل الأجهزة.</value>
+  </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>تمكين Autopilot</value>
   </data>

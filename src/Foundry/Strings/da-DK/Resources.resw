@@ -171,6 +171,9 @@
   <data name="Autopilot.Description" xml:space="preserve">
     <value>Vælg Autopilot-klargøringsmetode for installationsmediet: JSON-profilklargøring, WinPE zero-touch upload af hardwarehash eller interaktiv upload af hardwarehash.</value>
   </data>
+  <data name="Autopilot.PageDescription" xml:space="preserve">
+    <value>Konfigurer indstillinger for Windows Autopilot-tilmelding til installationsmedier og hardwareregistrering.</value>
+  </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Aktiver Autopilot</value>
   </data>

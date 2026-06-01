@@ -171,6 +171,9 @@
   <data name="Autopilot.Description" xml:space="preserve">
     <value>Scegli il metodo di provisioning Autopilot per il supporto di distribuzione: staging del profilo JSON, caricamento zero-touch dell’hash hardware in WinPE o caricamento interattivo dell’hash hardware.</value>
   </data>
+  <data name="Autopilot.PageDescription" xml:space="preserve">
+    <value>Configura le impostazioni di registrazione di Windows Autopilot per i supporti di distribuzione e la registrazione hardware.</value>
+  </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Abilita Autopilot</value>
   </data>
