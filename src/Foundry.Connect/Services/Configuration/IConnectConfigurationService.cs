@@ -18,16 +18,6 @@ public interface IConnectConfigurationService
     bool IsLoadedFromDisk { get; }
 
     /// <summary>
-    /// Gets the schema version read from the configuration file before normalization.
-    /// </summary>
-    int? LoadedSchemaVersion { get; }
-
-    /// <summary>
-    /// Gets the current runtime schema version supported by Foundry.Connect.
-    /// </summary>
-    int CurrentSchemaVersion { get; }
-
-    /// <summary>
     /// Gets whether the loaded boot media should be updated for best compatibility.
     /// </summary>
     bool IsBootMediaUpdateRecommended { get; }

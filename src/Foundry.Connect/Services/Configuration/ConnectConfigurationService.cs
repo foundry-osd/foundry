@@ -41,12 +41,6 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
     public bool IsLoadedFromDisk { get; private set; }
 
     /// <inheritdoc />
-    public int? LoadedSchemaVersion { get; private set; }
-
-    /// <inheritdoc />
-    public int CurrentSchemaVersion => FoundryConnectConfiguration.CurrentSchemaVersion;
-
-    /// <inheritdoc />
     public bool IsBootMediaUpdateRecommended { get; private set; }
 
     /// <inheritdoc />
@@ -106,13 +100,11 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
 
     private void ResetSchemaCompatibilityState()
     {
-        LoadedSchemaVersion = null;
         IsBootMediaUpdateRecommended = false;
     }
 
     private void ApplySchemaCompatibilityState(int schemaVersion)
     {
-        LoadedSchemaVersion = schemaVersion;
         IsBootMediaUpdateRecommended = schemaVersion < FoundryConnectConfiguration.CurrentSchemaVersion;
         if (IsBootMediaUpdateRecommended)
         {

@@ -213,10 +213,6 @@ public sealed class MainWindowViewModelTelemetryTests
 
         public bool IsLoadedFromDisk => false;
 
-        public int? LoadedSchemaVersion => null;
-
-        public int CurrentSchemaVersion => FoundryConnectConfiguration.CurrentSchemaVersion;
-
         public bool IsBootMediaUpdateRecommended => false;
 
         public FoundryConnectConfiguration Load()

@@ -92,7 +92,6 @@ public sealed class DeployConfigurationService : IDeployConfigurationService
                 ConfigurationPath = _configurationPath,
                 Exists = true,
                 Document = document,
-                SchemaVersion = document.SchemaVersion,
                 IsBootMediaUpdateRecommended = isBootMediaUpdateRecommended
             };
         }

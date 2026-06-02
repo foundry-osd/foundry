@@ -27,8 +27,7 @@ public sealed class DeployConfigurationServiceTests
 
         Assert.True(result.Exists);
         Assert.NotNull(result.Document);
-        Assert.Equal(FoundryDeployConfigurationDocument.CurrentSchemaVersion - 1, result.SchemaVersion);
-        Assert.Equal(FoundryDeployConfigurationDocument.CurrentSchemaVersion, result.CurrentSchemaVersion);
+        Assert.Equal(FoundryDeployConfigurationDocument.CurrentSchemaVersion - 1, result.Document.SchemaVersion);
         Assert.True(result.IsBootMediaUpdateRecommended);
     }
 
@@ -53,8 +52,7 @@ public sealed class DeployConfigurationServiceTests
 
         Assert.True(result.Exists);
         Assert.NotNull(result.Document);
-        Assert.Equal(FoundryDeployConfigurationDocument.CurrentSchemaVersion, result.SchemaVersion);
-        Assert.Equal(FoundryDeployConfigurationDocument.CurrentSchemaVersion, result.CurrentSchemaVersion);
+        Assert.Equal(FoundryDeployConfigurationDocument.CurrentSchemaVersion, result.Document.SchemaVersion);
         Assert.False(result.IsBootMediaUpdateRecommended);
     }
 
