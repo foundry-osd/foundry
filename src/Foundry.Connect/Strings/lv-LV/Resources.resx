@@ -81,8 +81,8 @@
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Atvienot</value>
   </data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Boot media update recommended</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>This boot media was generated with an older Foundry OSD configuration format. Update the boot media to ensure compatibility with the latest features.</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Ieteicams atjaunināt sāknēšanas datu nesēju</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Šis sāknēšanas datu nesējs tika ģenerēts ar vecāku Foundry OSD konfigurācijas formātu. Atjauniniet sāknēšanas datu nesēju, lai nodrošinātu saderību ar jaunākajiem līdzekļiem.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Versija: {0}</value>
   </data>

@@ -81,8 +81,8 @@
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Rozłącz</value>
   </data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Boot media update recommended</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>This boot media was generated with an older Foundry OSD configuration format. Update the boot media to ensure compatibility with the latest features.</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Zalecana aktualizacja nośnika rozruchowego</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Ten nośnik rozruchowy został wygenerowany przy użyciu starszego formatu konfiguracji Foundry OSD. Zaktualizuj nośnik rozruchowy, aby zapewnić zgodność z najnowszymi funkcjami.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Wersja: {0}</value>
   </data>

@@ -121,8 +121,8 @@
 详细信息：将映像安装到目标路径时访问被拒绝。
 操作：验证磁盘属性并重试部署。</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>刷新</value></data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Boot media update recommended</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>This boot media was generated with an older Foundry OSD configuration format. Update the boot media to ensure compatibility with the latest features.</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>建议更新启动介质</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>此启动介质是使用较旧的 Foundry OSD 配置格式生成的。请更新启动介质，以确保与最新功能兼容。</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>版本：{0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>上一页</value></data>
   <data name="Common.Next" xml:space="preserve"><value>下一步</value></data>

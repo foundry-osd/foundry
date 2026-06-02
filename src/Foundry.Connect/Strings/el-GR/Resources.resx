@@ -81,8 +81,8 @@
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Αποσύνδεση</value>
   </data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Boot media update recommended</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>This boot media was generated with an older Foundry OSD configuration format. Update the boot media to ensure compatibility with the latest features.</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Συνιστάται ενημέρωση του μέσου εκκίνησης</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Αυτό το μέσο εκκίνησης δημιουργήθηκε με παλαιότερη μορφή ρύθμισης παραμέτρων Foundry OSD. Ενημερώστε το μέσο εκκίνησης για να διασφαλίσετε τη συμβατότητα με τις πιο πρόσφατες δυνατότητες.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Έκδοση: {0}</value>
   </data>

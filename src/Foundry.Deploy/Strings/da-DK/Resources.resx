@@ -121,8 +121,8 @@ ErrorCode=0x80070005
 Detaljer: Adgang nægtet under montering af billedet til målstien.
 Handling: Bekræft diskattributter, og prøv implementeringen igen.</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>Opdater</value></data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Boot media update recommended</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>This boot media was generated with an older Foundry OSD configuration format. Update the boot media to ensure compatibility with the latest features.</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Opdatering af startmedie anbefales</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Dette startmedie blev genereret med et ældre Foundry OSD-konfigurationsformat. Opdater startmediet for at sikre kompatibilitet med de nyeste funktioner.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Version: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>Forrige</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Næste</value></data>

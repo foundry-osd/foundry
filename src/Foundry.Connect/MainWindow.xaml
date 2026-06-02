@@ -72,8 +72,15 @@
                 <StackPanel
                     Margin="0,0,12,0"
                     Orientation="Horizontal"
-                    ToolTip="{Binding BootMediaUpdateRecommendedToolTip}"
                     Visibility="{Binding IsBootMediaUpdateRecommended, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <StackPanel.ToolTip>
+                        <ToolTip>
+                            <TextBlock
+                                MaxWidth="480"
+                                Text="{Binding BootMediaUpdateRecommendedToolTip}"
+                                TextWrapping="Wrap" />
+                        </ToolTip>
+                    </StackPanel.ToolTip>
                     <TextBlock
                         Margin="0,0,4,0"
                         VerticalAlignment="Center"

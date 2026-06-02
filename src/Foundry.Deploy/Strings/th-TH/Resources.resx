@@ -121,8 +121,8 @@
 รายละเอียด: การเข้าถึงถูกปฏิเสธขณะติดตั้งรูปภาพไปยังเส้นทางเป้าหมาย
 การดำเนินการ: ตรวจสอบแอตทริบิวต์ของดิสก์และลองปรับใช้อีกครั้ง</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>รีเฟรช</value></data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Boot media update recommended</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>This boot media was generated with an older Foundry OSD configuration format. Update the boot media to ensure compatibility with the latest features.</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>แนะนำให้อัปเดตสื่อบูต</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>สื่อบูตนี้ถูกสร้างด้วยรูปแบบการกำหนดค่า Foundry OSD รุ่นเก่า อัปเดตสื่อบูตเพื่อให้เข้ากันได้กับฟีเจอร์ล่าสุด</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>เวอร์ชัน: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>ก่อนหน้า</value></data>
   <data name="Common.Next" xml:space="preserve"><value>ถัดไป</value></data>

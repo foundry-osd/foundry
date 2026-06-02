@@ -121,8 +121,8 @@
 詳細資訊：將映像安裝到目標路徑時存取被拒絕。
 操作：驗證磁碟屬性並重試部署。</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>重新整理</value></data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Boot media update recommended</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>This boot media was generated with an older Foundry OSD configuration format. Update the boot media to ensure compatibility with the latest features.</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>建議更新開機媒體</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>此開機媒體是使用較舊的 Foundry OSD 設定格式產生的。請更新開機媒體，以確保與最新功能相容。</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>版本：{0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>上一頁</value></data>
   <data name="Common.Next" xml:space="preserve"><value>下一步</value></data>

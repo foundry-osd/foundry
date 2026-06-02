@@ -81,8 +81,8 @@
   <data name="Action.Disconnect" xml:space="preserve">
     <value>斷開連接</value>
   </data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Boot media update recommended</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>This boot media was generated with an older Foundry OSD configuration format. Update the boot media to ensure compatibility with the latest features.</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>建議更新開機媒體</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>此開機媒體是使用較舊的 Foundry OSD 設定格式產生的。請更新開機媒體，以確保與最新功能相容。</value></data>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>版本：{0}</value>
   </data>

@@ -81,8 +81,8 @@
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Desconectar</value>
   </data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Boot media update recommended</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>This boot media was generated with an older Foundry OSD configuration format. Update the boot media to ensure compatibility with the latest features.</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Actualización del medio de arranque recomendada</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Este medio de arranque se generó con un formato de configuración anterior de Foundry OSD. Actualiza el medio de arranque para garantizar la compatibilidad con las funciones más recientes.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Versión: {0}</value>
   </data>

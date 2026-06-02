@@ -81,8 +81,8 @@
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Прекъснете връзката</value>
   </data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Boot media update recommended</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>This boot media was generated with an older Foundry OSD configuration format. Update the boot media to ensure compatibility with the latest features.</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Препоръчва се актуализация на носителя за стартиране</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Този носител за стартиране е генериран с по-стар формат за конфигурация на Foundry OSD. Актуализирайте носителя за стартиране, за да осигурите съвместимост с най-новите функции.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Версия: {0}</value>
   </data>

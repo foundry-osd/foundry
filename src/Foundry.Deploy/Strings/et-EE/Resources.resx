@@ -121,8 +121,8 @@ ErrorCode=0x80070005
 Üksikasjad. Juurdepääs on keelatud pildi paigaldamisel sihtteele.
 Toiming: kontrollige ketta atribuute ja proovige juurutamist uuesti.</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>Värskenda</value></data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Boot media update recommended</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>This boot media was generated with an older Foundry OSD configuration format. Update the boot media to ensure compatibility with the latest features.</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Soovitatav on algkandja värskendamine</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>See algkandja loodi vanema Foundry OSD konfiguratsioonivorminguga. Värskendage algkandjat, et tagada ühilduvus uusimate funktsioonidega.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Versioon: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>Eelmine</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Edasi</value></data>
