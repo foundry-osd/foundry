@@ -57,6 +57,9 @@ public sealed class ConnectConfigurationServiceTests
 
         Assert.True(service.IsLoadedFromDisk);
         Assert.Equal(System.IO.Path.GetFullPath(configurationPath), service.ConfigurationPath);
+        Assert.Equal(0, service.LoadedSchemaVersion);
+        Assert.Equal(FoundryConnectConfiguration.CurrentSchemaVersion, service.CurrentSchemaVersion);
+        Assert.True(service.IsBootMediaUpdateRecommended);
         Assert.Equal(FoundryConnectConfiguration.CurrentSchemaVersion, configuration.SchemaVersion);
         Assert.Equal(30, configuration.InternetProbe.TimeoutSeconds);
         Assert.Equal(
@@ -90,6 +93,9 @@ public sealed class ConnectConfigurationServiceTests
         FoundryConnectConfiguration configuration = service.Load();
 
         Assert.False(configuration.Telemetry.IsEnabled);
+        Assert.Equal(FoundryConnectConfiguration.CurrentSchemaVersion, service.LoadedSchemaVersion);
+        Assert.Equal(FoundryConnectConfiguration.CurrentSchemaVersion, service.CurrentSchemaVersion);
+        Assert.False(service.IsBootMediaUpdateRecommended);
         Assert.Equal("install-id", configuration.Telemetry.InstallId);
         Assert.Equal(TelemetryDefaults.PostHogEuHost, configuration.Telemetry.HostUrl);
         Assert.Equal("project-token", configuration.Telemetry.ProjectToken);

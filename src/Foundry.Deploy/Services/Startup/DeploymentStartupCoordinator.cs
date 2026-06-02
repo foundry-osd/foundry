@@ -68,6 +68,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         {
             CacheRootPath = cacheRootPath,
             DeployConfigurationDocument = deployConfigurationDocument,
+            IsBootMediaUpdateRecommended = deployConfigLoadResult.IsBootMediaUpdateRecommended,
             AutopilotProfiles = autopilotProfiles,
             EffectiveComputerName = computerNameTask.Result,
             DetectedHardware = hardwareTask.Result.Profile,

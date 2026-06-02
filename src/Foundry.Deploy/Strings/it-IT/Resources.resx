@@ -121,6 +121,8 @@ Codice errore=0x80070005
 Dettagli: accesso negato durante il montaggio dell'immagine sul percorso di destinazione.
 Azione: verificare gli attributi del disco e riprovare la distribuzione.</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>Aggiorna</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Boot media update recommended</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>This boot media was generated with an older Foundry OSD configuration format. Update the boot media to ensure compatibility with the latest features.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Versione: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>Precedente</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Avanti</value></data>

@@ -75,6 +75,18 @@ Pull request rules:
 - Reuse existing services, models, and patterns before creating new ones
 - Respect nullable reference types and existing analyzer warnings if enabled
 
+Configuration schema rules:
+- Treat Foundry authoring configuration, Foundry.Deploy runtime configuration, and Foundry.Connect runtime configuration as separate schema contracts
+- Keep schema versions monotonic within each contract
+- Bump a schema version only when the persisted or generated configuration contract changes in a way that affects runtime behavior or compatibility
+- Bump Foundry authoring schema when the user-facing persisted Foundry configuration shape, defaults, migration behavior, or semantic meaning changes
+- Bump Foundry.Deploy runtime schema when Deploy consumes new generated configuration, requires new boot media assets, changes the meaning of an existing Deploy field, or needs older boot media to show a compatibility warning
+- Bump Foundry.Connect runtime schema when Connect consumes new generated configuration, requires new network provisioning assets, changes the meaning of an existing Connect field, or needs older boot media to show a compatibility warning
+- Do not bump schema versions for UI-only changes, localization updates, documentation changes, styling changes, internal refactors, or bug fixes that do not change the configuration contract
+- When bumping Deploy schema, update both the generator model in Foundry.Core and the runtime model in Foundry.Deploy
+- When bumping Connect schema, update both the generator model in Foundry.Core and the runtime model in Foundry.Connect
+- When bumping any schema, update the smallest relevant tests and compatibility warning expectations
+
 Logging rules:
 - Use the existing logging system when one is already in place
 - Write logs only when they add operational or diagnostic value
