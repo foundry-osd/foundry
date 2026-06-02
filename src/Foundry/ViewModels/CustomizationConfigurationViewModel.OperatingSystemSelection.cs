@@ -109,6 +109,9 @@ public sealed partial class CustomizationConfigurationViewModel
     public partial string AutomaticOptionText { get; set; }
 
     [ObservableProperty]
+    public partial bool IsOperatingSystemSelectionExpanded { get; set; }
+
+    [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsOperatingSystemSelectionOptionsEnabled))]
     [NotifyPropertyChangedFor(nameof(IsDefaultOperatingSystemLanguageSelectionEnabled))]
     [NotifyPropertyChangedFor(nameof(IsDefaultOperatingSystemReleaseSelectionEnabled))]
@@ -150,6 +153,7 @@ public sealed partial class CustomizationConfigurationViewModel
 
     partial void OnIsOperatingSystemSelectionEnabledChanged(bool value)
     {
+        IsOperatingSystemSelectionExpanded = value;
         SaveState();
     }
 
@@ -180,6 +184,7 @@ public sealed partial class CustomizationConfigurationViewModel
     private void ApplyOperatingSystemSelectionState(OperatingSystemSelectionSettings settings)
     {
         IsOperatingSystemSelectionEnabled = settings.IsEnabled;
+        IsOperatingSystemSelectionExpanded = settings.IsEnabled;
         SetSelectedOptions(OperatingSystemLanguageOptions, settings.AllowedLanguageCodes);
         SetSelectedOptions(OperatingSystemReleaseOptions, settings.AllowedReleaseIds);
         SetSelectedOptions(OperatingSystemLicenseChannelOptions, settings.AllowedLicenseChannels);
