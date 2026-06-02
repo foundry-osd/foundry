@@ -117,13 +117,43 @@
                 <MenuItem Command="{Binding ShowAboutCommand}" Header="{Binding Strings[Menu.About]}" />
             </Menu>
 
-            <TextBlock
+            <StackPanel
                 Grid.Column="1"
                 Margin="0,0,16,0"
+                HorizontalAlignment="Right"
                 VerticalAlignment="Center"
-                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                Style="{StaticResource CaptionTextBlockStyle}"
-                Text="{Binding VersionDisplay}" />
+                Orientation="Horizontal">
+                <StackPanel
+                    Margin="0,0,12,0"
+                    Orientation="Horizontal"
+                    Visibility="{Binding IsBootMediaUpdateRecommended, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <StackPanel.ToolTip>
+                        <ToolTip>
+                            <TextBlock
+                                MaxWidth="480"
+                                Text="{Binding BootMediaUpdateRecommendedToolTip}"
+                                TextWrapping="Wrap" />
+                        </ToolTip>
+                    </StackPanel.ToolTip>
+                    <TextBlock
+                        Margin="0,0,4,0"
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource SymbolThemeFontFamily}"
+                        Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="&#xE7BA;" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{Binding BootMediaUpdateRecommendedText}" />
+                </StackPanel>
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="{Binding VersionDisplay}" />
+            </StackPanel>
         </Grid>
 
         <Grid

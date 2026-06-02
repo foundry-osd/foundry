@@ -121,6 +121,8 @@
 Подробности: Доступ запрещен при подключении образа к целевому пути.
 Действие: Проверьте атрибуты диска и повторите развертывание.</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>Обновить</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Рекомендуется обновить загрузочный носитель</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Этот загрузочный носитель был создан с использованием более старого формата конфигурации Foundry OSD. Обновите загрузочный носитель, чтобы обеспечить совместимость с новейшими функциями.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Версия: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>Предыдущий</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Далее</value></data>

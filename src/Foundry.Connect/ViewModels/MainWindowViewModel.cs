@@ -196,6 +196,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     public ConnectThemeMode CurrentTheme => _themeService.CurrentTheme;
 
     public string VersionDisplay => Format("Common.VersionFormat", FoundryConnectApplicationInfo.Version);
+    public bool IsBootMediaUpdateRecommended => _configurationService.IsBootMediaUpdateRecommended;
+    public string BootMediaUpdateRecommendedText => GetString("BootMedia.UpdateRecommended");
+    public string BootMediaUpdateRecommendedToolTip => GetString("BootMedia.UpdateRecommendedToolTip");
 
     /// <summary>
     /// Gets the configuration source text shown in the footer.
@@ -1016,6 +1019,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             CurrentConnectionChipText = BuildCurrentConnectionChipText(IsEthernetConnected);
             OnPropertyChanged(nameof(CurrentCulture));
             OnPropertyChanged(nameof(VersionDisplay));
+            OnPropertyChanged(nameof(BootMediaUpdateRecommendedText));
+            OnPropertyChanged(nameof(BootMediaUpdateRecommendedToolTip));
             OnPropertyChanged(nameof(ConfigurationSourceText));
             OnPropertyChanged(nameof(RefreshIntervalText));
             OnPropertyChanged(nameof(WindowTitle));

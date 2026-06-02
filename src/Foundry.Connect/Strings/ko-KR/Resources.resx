@@ -81,6 +81,8 @@
   <data name="Action.Disconnect" xml:space="preserve">
     <value>연결 끊기</value>
   </data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>부팅 미디어 업데이트 권장</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>이 부팅 미디어는 이전 Foundry OSD 구성 형식으로 생성되었습니다. 최신 기능과의 호환성을 보장하려면 부팅 미디어를 업데이트하세요.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>버전: {0}</value>
   </data>

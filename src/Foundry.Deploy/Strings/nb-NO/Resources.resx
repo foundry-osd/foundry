@@ -121,6 +121,8 @@ ErrorCode=0x80070005
 Detaljer: Tilgang nektet under montering av bildet til målbanen.
 Handling: Bekreft diskattributter og prøv distribusjon på nytt.</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>Oppdater</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Oppdatering av oppstartsmediet anbefales</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Dette oppstartsmediet ble generert med et eldre Foundry OSD-konfigurasjonsformat. Oppdater oppstartsmediet for å sikre kompatibilitet med de nyeste funksjonene.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Versjon: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>Forrige</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Neste</value></data>

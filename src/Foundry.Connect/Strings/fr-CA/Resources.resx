@@ -81,6 +81,8 @@
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Déconnecter</value>
   </data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Mise à jour du support de démarrage recommandée</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Ce support de démarrage a été généré avec un ancien format de configuration Foundry OSD. Mettez à jour le support de démarrage pour garantir la compatibilité avec les dernières fonctionnalités.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Version: {0}</value>
   </data>

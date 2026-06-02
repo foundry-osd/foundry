@@ -121,6 +121,8 @@
 詳細: イメージをターゲット パスにマウント中にアクセスが拒否されました。
 処置: ディスク属性を確認し、デプロイメントを再試行してください。</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>リフレッシュ</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>ブート メディアの更新を推奨</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>このブート メディアは古い Foundry OSD 構成形式で生成されています。最新機能との互換性を確保するため、ブート メディアを更新してください。</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>バージョン: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>前へ</value></data>
   <data name="Common.Next" xml:space="preserve"><value>次へ</value></data>

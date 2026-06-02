@@ -213,6 +213,8 @@ public sealed class MainWindowViewModelTelemetryTests
 
         public bool IsLoadedFromDisk => false;
 
+        public bool IsBootMediaUpdateRecommended => false;
+
         public FoundryConnectConfiguration Load()
         {
             return configuration;

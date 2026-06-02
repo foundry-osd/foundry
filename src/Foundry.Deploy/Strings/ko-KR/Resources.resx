@@ -121,6 +121,8 @@
 세부정보: 대상 경로에 이미지를 마운트하는 동안 액세스가 거부되었습니다.
 조치: 디스크 속성을 확인하고 배포를 다시 시도하십시오.</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>새로고침</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>부팅 미디어 업데이트 권장</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>이 부팅 미디어는 이전 Foundry OSD 구성 형식으로 생성되었습니다. 최신 기능과의 호환성을 보장하려면 부팅 미디어를 업데이트하세요.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>버전: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>이전</value></data>
   <data name="Common.Next" xml:space="preserve"><value>다음</value></data>

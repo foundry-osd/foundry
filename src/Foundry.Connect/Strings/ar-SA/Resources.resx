@@ -81,6 +81,8 @@
   <data name="Action.Disconnect" xml:space="preserve">
     <value>قطع الاتصال</value>
   </data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>يوصى بتحديث وسيط التمهيد</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>تم إنشاء وسيط التمهيد هذا بتنسيق تكوين قديم لـ Foundry OSD. حدّث وسيط التمهيد لضمان التوافق مع أحدث الميزات.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>الإصدار: {0}</value>
   </data>

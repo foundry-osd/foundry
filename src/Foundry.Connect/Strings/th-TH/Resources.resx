@@ -81,6 +81,8 @@
   <data name="Action.Disconnect" xml:space="preserve">
     <value>ตัดการเชื่อมต่อ</value>
   </data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>แนะนำให้อัปเดตสื่อบูต</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>สื่อบูตนี้ถูกสร้างด้วยรูปแบบการกำหนดค่า Foundry OSD รุ่นเก่า อัปเดตสื่อบูตเพื่อให้เข้ากันได้กับฟีเจอร์ล่าสุด</value></data>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>เวอร์ชัน: {0}</value>
   </data>

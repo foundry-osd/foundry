@@ -121,6 +121,8 @@ Código de error=0x80070005
 Detalles: acceso denegado al montar la imagen en la ruta de destino.
 Acción: Verifique los atributos del disco y vuelva a intentar la implementación.</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>Refrescar</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Actualización del medio de arranque recomendada</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Este medio de arranque se generó con un formato de configuración anterior de Foundry OSD. Actualice el medio de arranque para garantizar la compatibilidad con las funciones más recientes.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Versión: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>Anterior</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Próximo</value></data>

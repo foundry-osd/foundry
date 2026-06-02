@@ -81,6 +81,8 @@
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Отключить</value>
   </data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Рекомендуется обновить загрузочный носитель</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Этот загрузочный носитель был создан с использованием более старого формата конфигурации Foundry OSD. Обновите загрузочный носитель, чтобы обеспечить совместимость с новейшими функциями.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Версия: {0}</value>
   </data>

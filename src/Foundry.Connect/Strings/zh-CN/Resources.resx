@@ -81,6 +81,8 @@
   <data name="Action.Disconnect" xml:space="preserve">
     <value>断开连接</value>
   </data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>建议更新启动介质</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>此启动介质是使用较旧的 Foundry OSD 配置格式生成的。请更新启动介质，以确保与最新功能兼容。</value></data>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>版本：{0}</value>
   </data>

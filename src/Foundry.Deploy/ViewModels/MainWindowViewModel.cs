@@ -63,6 +63,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     [NotifyCanExecuteChangedFor(nameof(SetDebugAutopilotModeCommand))]
     private bool isDeploymentRunning;
 
+    [ObservableProperty]
+    private bool isBootMediaUpdateRecommended;
+
     public DeploymentPreparationViewModel Preparation { get; }
     public DeploymentSessionViewModel Session { get; }
     public OperatingSystemCatalogViewModel OperatingSystemCatalog { get; }
@@ -76,6 +79,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     public OperatingSystemCatalogItem? SelectedOperatingSystem => OperatingSystemCatalog.SelectedOperatingSystem;
     public string WindowTitle => GetString("App.WindowTitle");
     public string VersionDisplay => Format("Common.VersionFormat", FoundryDeployApplicationInfo.Version);
+    public string BootMediaUpdateRecommendedText => GetString("BootMedia.UpdateRecommended");
+    public string BootMediaUpdateRecommendedToolTip => GetString("BootMedia.UpdateRecommendedToolTip");
     public string OperatingSystemArchitectureDisplay => Format("Catalog.ArchitectureFormat", OperatingSystemCatalog.EffectiveOsArchitecture);
     public string SummaryTargetDiskText => Preparation.SelectedTargetDisk?.DisplayLabel ?? GetString("Summary.NoDiskSelected");
     public string SummaryOperatingSystemText => SelectedOperatingSystem is null
@@ -457,6 +462,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         ArgumentNullException.ThrowIfNull(startupSnapshot);
 
         _wizardContext.ApplyStartupSnapshot(startupSnapshot);
+        IsBootMediaUpdateRecommended = startupSnapshot.IsBootMediaUpdateRecommended;
         Session.SetComputerName(Preparation.TargetComputerName);
         Session.CompleteStartupInitialization();
     }
@@ -496,6 +502,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             OnPropertyChanged(nameof(CurrentCulture));
             OnPropertyChanged(nameof(WindowTitle));
             OnPropertyChanged(nameof(VersionDisplay));
+            OnPropertyChanged(nameof(BootMediaUpdateRecommendedText));
+            OnPropertyChanged(nameof(BootMediaUpdateRecommendedToolTip));
             OnPropertyChanged(nameof(OperatingSystemArchitectureDisplay));
             OnPropertyChanged(nameof(SummaryTargetDiskText));
             OnPropertyChanged(nameof(SummaryOperatingSystemText));

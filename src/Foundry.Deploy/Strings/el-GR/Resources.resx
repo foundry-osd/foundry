@@ -121,6 +121,8 @@
 Λεπτομέρειες: Δεν επιτρέπεται η πρόσβαση κατά την προσάρτηση της εικόνας στη διαδρομή προορισμού.
 Ενέργεια: Επαληθεύστε τα χαρακτηριστικά του δίσκου και δοκιμάστε ξανά την ανάπτυξη.</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>Ανανέωση</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Συνιστάται ενημέρωση του μέσου εκκίνησης</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Αυτό το μέσο εκκίνησης δημιουργήθηκε με παλαιότερη μορφή ρύθμισης παραμέτρων Foundry OSD. Ενημερώστε το μέσο εκκίνησης για να διασφαλίσετε τη συμβατότητα με τις πιο πρόσφατες δυνατότητες.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Έκδοση: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>Προηγούμενο</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Επόμενο</value></data>

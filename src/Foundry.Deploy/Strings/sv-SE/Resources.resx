@@ -121,6 +121,8 @@ ErrorCode=0x80070005
 Detaljer: Åtkomst nekad vid montering av bild till målsökväg.
 Åtgärd: Verifiera diskattribut och försök distribuera igen.</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>Uppdatera</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Uppdatering av startmedia rekommenderas</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Detta startmedia skapades med ett äldre Foundry OSD-konfigurationsformat. Uppdatera startmediet för att säkerställa kompatibilitet med de senaste funktionerna.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Version: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>Föregående</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Nästa</value></data>

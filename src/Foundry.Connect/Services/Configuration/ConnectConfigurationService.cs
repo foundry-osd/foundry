@@ -41,6 +41,9 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
     public bool IsLoadedFromDisk { get; private set; }
 
     /// <inheritdoc />
+    public bool IsBootMediaUpdateRecommended { get; private set; }
+
+    /// <inheritdoc />
     public FoundryConnectConfiguration Load()
     {
         ConfigurationResolution resolution = ResolveConfigurationPath(_args);
@@ -48,6 +51,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
         if (string.IsNullOrWhiteSpace(ConfigurationPath))
         {
             IsLoadedFromDisk = false;
+            ResetSchemaCompatibilityState();
             _logger.LogInformation("No Foundry.Connect configuration file was resolved. Using built-in defaults.");
             return Normalize(new FoundryConnectConfiguration());
         }
@@ -59,6 +63,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
             {
                 ConfigurationPath = null;
                 IsLoadedFromDisk = false;
+                ResetSchemaCompatibilityState();
                 _logger.LogInformation("Foundry.Connect configuration file was not found. Using built-in defaults. ConfigurationPath={ConfigurationPath}", fullPath);
                 return Normalize(new FoundryConnectConfiguration());
             }
@@ -76,6 +81,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
                 throw new FoundryConnectConfigurationException($"Configuration file is empty or invalid: {fullPath}");
             }
 
+            ApplySchemaCompatibilityState(configuration.SchemaVersion);
             configuration = DecryptEmbeddedSecrets(configuration, fullPath);
             ConfigurationPath = fullPath;
             IsLoadedFromDisk = true;
@@ -89,6 +95,23 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
         catch (Exception ex)
         {
             throw new FoundryConnectConfigurationException($"Configuration file could not be parsed: {fullPath}", ex);
+        }
+    }
+
+    private void ResetSchemaCompatibilityState()
+    {
+        IsBootMediaUpdateRecommended = false;
+    }
+
+    private void ApplySchemaCompatibilityState(int schemaVersion)
+    {
+        IsBootMediaUpdateRecommended = schemaVersion < FoundryConnectConfiguration.CurrentSchemaVersion;
+        if (IsBootMediaUpdateRecommended)
+        {
+            _logger.LogWarning(
+                "Foundry.Connect configuration uses schema version {SchemaVersion}, older than current schema version {CurrentSchemaVersion}. Boot media update is recommended.",
+                schemaVersion,
+                FoundryConnectConfiguration.CurrentSchemaVersion);
         }
     }
 

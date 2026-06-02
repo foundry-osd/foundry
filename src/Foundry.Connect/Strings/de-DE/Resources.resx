@@ -81,6 +81,8 @@
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Trennen</value>
   </data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Aktualisierung des Startmediums empfohlen</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Dieses Startmedium wurde mit einem älteren Foundry OSD-Konfigurationsformat erstellt. Aktualisieren Sie das Startmedium, um die Kompatibilität mit den neuesten Funktionen sicherzustellen.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Version: {0}</value>
   </data>

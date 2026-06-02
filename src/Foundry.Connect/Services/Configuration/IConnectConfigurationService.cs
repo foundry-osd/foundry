@@ -18,6 +18,11 @@ public interface IConnectConfigurationService
     bool IsLoadedFromDisk { get; }
 
     /// <summary>
+    /// Gets whether the loaded boot media should be updated for best compatibility.
+    /// </summary>
+    bool IsBootMediaUpdateRecommended { get; }
+
+    /// <summary>
     /// Loads configuration from command-line, environment, or WinPE media locations.
     /// </summary>
     /// <returns>The normalized runtime configuration.</returns>
