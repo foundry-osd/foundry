@@ -38,12 +38,13 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
                 HardwareProfile hardwareProfile = context.RuntimeState.HardwareProfile
                     ?? throw new InvalidOperationException("Hardware profile is unavailable for Microsoft Update Catalog lookup.");
                 string rawDirectory = context.ResolveWorkspaceTempPath("DriverPack", "MicrosoftUpdateCatalog", "Raw");
+                string cacheDirectory = context.ResolveMicrosoftUpdateCatalogDriverCacheRoot();
                 ResetDirectory(rawDirectory);
                 context.EmitCurrentStepIndeterminate("Downloading driver pack...", "Preparing download...");
                 IProgress<double> progress = context.CreateStepPercentProgressReporter("Downloading driver pack...", "Downloading");
 
                 MicrosoftUpdateCatalogDriverResult result = await _microsoftUpdateCatalogDriverService
-                    .DownloadAsync(hardwareProfile, context.Request.OperatingSystem, rawDirectory, cancellationToken, progress)
+                    .DownloadAsync(hardwareProfile, context.Request.OperatingSystem, rawDirectory, cacheDirectory, cancellationToken, progress)
                     .ConfigureAwait(false);
 
                 context.RuntimeState.DriverPackName = "Microsoft Update Catalog";
@@ -93,6 +94,8 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
                         driverPack.DownloadUrl,
                         archivePath,
                         expectedHash: driverPack.Sha256,
+                        expectedSizeBytes: driverPack.SizeBytes,
+                        artifactKind: "OemDriverPack",
                         cancellationToken: cancellationToken,
                         progress: driverPackDownloadProgress)
                     .ConfigureAwait(false);

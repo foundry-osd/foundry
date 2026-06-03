@@ -22,6 +22,9 @@ public sealed class DeploymentStepExecutionContext
     private const string CacheFolderName = "Cache";
     private const string OperatingSystemsFolderName = "OperatingSystems";
     private const string DriverPacksFolderName = "DriverPacks";
+    private const string MicrosoftUpdateCatalogFolderName = "MicrosoftUpdateCatalog";
+    private const string DriversFolderName = "Drivers";
+    private const string FirmwareFolderName = "Firmware";
     private const string DryRunWorkspaceFolderName = "DryRun";
     private const string RuntimeWorkspaceFolderName = "Runtime";
     private const long UnknownTotalDownloadProgressIncrementBytes = 16L * 1024 * 1024;
@@ -326,6 +329,16 @@ public sealed class DeploymentStepExecutionContext
     public string ResolveDriverPackCacheRoot(long requiredBytes)
     {
         return ResolvePayloadCacheRoot(DriverPacksFolderName, requiredBytes);
+    }
+
+    public string ResolveMicrosoftUpdateCatalogDriverCacheRoot()
+    {
+        return Path.Combine(ResolvePayloadCacheRoot(MicrosoftUpdateCatalogFolderName, requiredBytes: 0), DriversFolderName);
+    }
+
+    public string ResolveMicrosoftUpdateCatalogFirmwareCacheRoot()
+    {
+        return Path.Combine(ResolvePayloadCacheRoot(MicrosoftUpdateCatalogFolderName, requiredBytes: 0), FirmwareFolderName);
     }
 
     /// <summary>

@@ -38,6 +38,8 @@ public sealed class DownloadOperatingSystemImageStep : DeploymentStepBase
                 context.Request.OperatingSystem.Url,
                 destinationPath,
                 expectedHash: expectedOsHash,
+                expectedSizeBytes: context.Request.OperatingSystem.SizeBytes,
+                artifactKind: "OperatingSystemImage",
                 cancellationToken: cancellationToken,
                 progress: osDownloadProgress)
             .ConfigureAwait(false);

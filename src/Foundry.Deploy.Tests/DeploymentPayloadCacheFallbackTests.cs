@@ -143,6 +143,8 @@ public sealed class DeploymentPayloadCacheFallbackTests
             string sourceUrl,
             string destinationPath,
             string? expectedHash = null,
+            long? expectedSizeBytes = null,
+            string? artifactKind = null,
             CancellationToken cancellationToken = default,
             IProgress<DownloadProgress>? progress = null)
         {
@@ -163,6 +165,7 @@ public sealed class DeploymentPayloadCacheFallbackTests
             HardwareProfile hardwareProfile,
             OperatingSystemCatalogItem operatingSystem,
             string destinationDirectory,
+            string cacheDirectory,
             CancellationToken cancellationToken = default,
             IProgress<double>? progress = null)
         {
