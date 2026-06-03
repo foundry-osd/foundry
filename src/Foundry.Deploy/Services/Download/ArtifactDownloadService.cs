@@ -1,6 +1,6 @@
+using System.IO;
 using System.Net.Http;
 using System.Security.Cryptography;
-using System.IO;
 using Foundry.Deploy.Services.Http;
 using Microsoft.Extensions.Logging;
 
@@ -8,21 +8,30 @@ namespace Foundry.Deploy.Services.Download;
 
 public sealed class ArtifactDownloadService : IArtifactDownloadService
 {
-    private static readonly HttpClient HttpClient = InsecureHttpClientFactory.Create(TimeSpan.FromMinutes(30));
+    private static readonly HttpClient DefaultHttpClient = InsecureHttpClientFactory.Create(TimeSpan.FromMinutes(30));
     private static readonly TimeSpan ProgressReportInterval = TimeSpan.FromMilliseconds(100);
     private const int CopyBufferSize = 80 * 1024;
 
+    private readonly HttpClient _httpClient;
     private readonly ILogger<ArtifactDownloadService> _logger;
 
     public ArtifactDownloadService(ILogger<ArtifactDownloadService> logger)
+        : this(logger, DefaultHttpClient)
+    {
+    }
+
+    internal ArtifactDownloadService(ILogger<ArtifactDownloadService> logger, HttpClient httpClient)
     {
         _logger = logger;
+        _httpClient = httpClient;
     }
 
     public async Task<ArtifactDownloadResult> DownloadAsync(
         string sourceUrl,
         string destinationPath,
         string? expectedHash = null,
+        long? expectedSizeBytes = null,
+        string? artifactKind = null,
         CancellationToken cancellationToken = default,
         IProgress<DownloadProgress>? progress = null)
     {
@@ -56,10 +65,26 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
 
         try
         {
-            if (File.Exists(destinationPath) && await ValidateHashIfRequestedAsync(destinationPath, expectedHash, cancellationToken).ConfigureAwait(false))
+            string? normalizedExpectedHash = null;
+            HashAlgorithmName? hashAlgorithm = null;
+            if (!string.IsNullOrWhiteSpace(expectedHash))
+            {
+                normalizedExpectedHash = NormalizeHash(expectedHash);
+                hashAlgorithm = ResolveHashAlgorithm(normalizedExpectedHash);
+            }
+
+            if (File.Exists(destinationPath) &&
+                await TryUseExistingArtifactAsync(
+                    sourceUrl,
+                    destinationPath,
+                    normalizedExpectedHash,
+                    hashAlgorithm,
+                    expectedSizeBytes,
+                    artifactKind,
+                    cancellationToken,
+                    progress).ConfigureAwait(false))
             {
                 long cachedSize = new FileInfo(destinationPath).Length;
-                progress?.Report(new DownloadProgress(cachedSize, cachedSize));
                 _logger.LogInformation("Artifact cache hit for DestinationPath={DestinationPath}.", destinationPath);
                 return new ArtifactDownloadResult
                 {
@@ -70,14 +95,38 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
                 };
             }
 
+            DownloadedArtifact downloadedArtifact = new(null);
             await HttpRetryPolicy
                 .ExecuteAsync(
-                    ct => DownloadWithHttpClientAsync(effectiveSourceUrl, destinationPath, progress, ct),
+                    async ct =>
+                    {
+                        downloadedArtifact = await DownloadWithHttpClientAsync(
+                                effectiveSourceUrl,
+                                destinationPath,
+                                hashAlgorithm,
+                                progress,
+                                ct)
+                            .ConfigureAwait(false);
+                    },
                     _logger,
                     "Artifact download",
                     cancellationToken)
                 .ConfigureAwait(false);
-            await EnsureHashAsync(destinationPath, expectedHash, cancellationToken).ConfigureAwait(false);
+            await EnsureDownloadedHashAsync(destinationPath, normalizedExpectedHash, hashAlgorithm, downloadedArtifact, cancellationToken).ConfigureAwait(false);
+
+            if (normalizedExpectedHash is not null && hashAlgorithm is not null)
+            {
+                await ArtifactCacheManifestService
+                    .WriteAsync(
+                        destinationPath,
+                        sourceUrl,
+                        artifactKind,
+                        normalizedExpectedHash,
+                        hashAlgorithm.Value.Name ?? string.Empty,
+                        expectedSizeBytes,
+                        cancellationToken)
+                    .ConfigureAwait(false);
+            }
 
             _logger.LogInformation("Artifact downloaded via HttpClient. DestinationPath={DestinationPath}", destinationPath);
             return new ArtifactDownloadResult
@@ -101,13 +150,74 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         }
     }
 
-    private static async Task DownloadWithHttpClientAsync(
+    private async Task<bool> TryUseExistingArtifactAsync(
         string sourceUrl,
         string destinationPath,
+        string? normalizedExpectedHash,
+        HashAlgorithmName? hashAlgorithm,
+        long? expectedSizeBytes,
+        string? artifactKind,
+        CancellationToken cancellationToken,
+        IProgress<DownloadProgress>? progress)
+    {
+        FileInfo artifact = new(destinationPath);
+        if (expectedSizeBytes is > 0 && artifact.Length != expectedSizeBytes.Value)
+        {
+            _logger.LogInformation(
+                "Artifact cache file size mismatch. DestinationPath={DestinationPath}, ExpectedSizeBytes={ExpectedSizeBytes}, ActualSizeBytes={ActualSizeBytes}",
+                destinationPath,
+                expectedSizeBytes.Value,
+                artifact.Length);
+            return false;
+        }
+
+        if (normalizedExpectedHash is null || hashAlgorithm is null)
+        {
+            progress?.Report(new DownloadProgress(artifact.Length, artifact.Length));
+            return true;
+        }
+
+        if (ArtifactCacheManifestService.TryValidate(
+                destinationPath,
+                normalizedExpectedHash,
+                hashAlgorithm.Value.Name ?? string.Empty,
+                expectedSizeBytes,
+                _logger,
+                out _))
+        {
+            progress?.Report(new DownloadProgress(artifact.Length, artifact.Length));
+            return true;
+        }
+
+        string actualHash = await ComputeHashAsync(destinationPath, hashAlgorithm.Value, cancellationToken).ConfigureAwait(false);
+        if (!string.Equals(normalizedExpectedHash, actualHash, StringComparison.OrdinalIgnoreCase))
+        {
+            return false;
+        }
+
+        await ArtifactCacheManifestService
+            .WriteAsync(
+                destinationPath,
+                sourceUrl,
+                artifactKind,
+                normalizedExpectedHash,
+                hashAlgorithm.Value.Name ?? string.Empty,
+                expectedSizeBytes,
+                cancellationToken)
+            .ConfigureAwait(false);
+
+        progress?.Report(new DownloadProgress(artifact.Length, artifact.Length));
+        return true;
+    }
+
+    private async Task<DownloadedArtifact> DownloadWithHttpClientAsync(
+        string sourceUrl,
+        string destinationPath,
+        HashAlgorithmName? hashAlgorithm,
         IProgress<DownloadProgress>? progress,
         CancellationToken cancellationToken)
     {
-        using HttpResponseMessage response = await HttpClient
+        using HttpResponseMessage response = await _httpClient
             .GetAsync(sourceUrl, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
             .ConfigureAwait(false);
 
@@ -116,6 +226,9 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
 
         await using Stream sourceStream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
         await using FileStream destinationStream = new(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None, CopyBufferSize, useAsync: true);
+        using IncrementalHash? incrementalHash = hashAlgorithm is null
+            ? null
+            : IncrementalHash.CreateHash(hashAlgorithm.Value);
         byte[] buffer = new byte[CopyBufferSize];
         long bytesDownloaded = 0;
         DateTimeOffset nextReportAt = DateTimeOffset.UtcNow;
@@ -130,6 +243,7 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
                 break;
             }
 
+            incrementalHash?.AppendData(buffer.AsSpan(0, bytesRead));
             await destinationStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken).ConfigureAwait(false);
             bytesDownloaded += bytesRead;
 
@@ -142,36 +256,30 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         }
 
         progress?.Report(new DownloadProgress(bytesDownloaded, totalBytes));
+        string? actualHash = incrementalHash is null
+            ? null
+            : Convert.ToHexString(incrementalHash.GetHashAndReset());
+        return new DownloadedArtifact(actualHash);
     }
 
-    private static async Task EnsureHashAsync(string filePath, string? expectedHash, CancellationToken cancellationToken)
+    private static async Task EnsureDownloadedHashAsync(
+        string filePath,
+        string? normalizedExpectedHash,
+        HashAlgorithmName? hashAlgorithm,
+        DownloadedArtifact downloadedArtifact,
+        CancellationToken cancellationToken)
     {
-        if (string.IsNullOrWhiteSpace(expectedHash))
+        if (normalizedExpectedHash is null || hashAlgorithm is null)
         {
             return;
         }
 
-        string expected = NormalizeHash(expectedHash);
-        HashAlgorithmName algorithm = ResolveHashAlgorithm(expected);
-        string actual = await ComputeHashAsync(filePath, algorithm, cancellationToken).ConfigureAwait(false);
-        if (!string.Equals(expected, actual, StringComparison.OrdinalIgnoreCase))
+        string actual = downloadedArtifact.Hash ?? await ComputeHashAsync(filePath, hashAlgorithm.Value, cancellationToken).ConfigureAwait(false);
+        if (!string.Equals(normalizedExpectedHash, actual, StringComparison.OrdinalIgnoreCase))
         {
             throw new InvalidOperationException(
-                $"Hash verification failed for '{filePath}' ({algorithm.Name}). Expected '{expected}', actual '{actual}'.");
+                $"Hash verification failed for '{filePath}' ({hashAlgorithm.Value.Name}). Expected '{normalizedExpectedHash}', actual '{actual}'.");
         }
-    }
-
-    private static async Task<bool> ValidateHashIfRequestedAsync(string filePath, string? expectedHash, CancellationToken cancellationToken)
-    {
-        if (string.IsNullOrWhiteSpace(expectedHash))
-        {
-            return true;
-        }
-
-        string expected = NormalizeHash(expectedHash);
-        HashAlgorithmName algorithm = ResolveHashAlgorithm(expected);
-        string actual = await ComputeHashAsync(filePath, algorithm, cancellationToken).ConfigureAwait(false);
-        return string.Equals(expected, actual, StringComparison.OrdinalIgnoreCase);
     }
 
     private static string NormalizeHash(string hash)
@@ -249,4 +357,5 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
                host.EndsWith(".dl.delivery.mp.microsoft.com", StringComparison.OrdinalIgnoreCase);
     }
 
+    private sealed record DownloadedArtifact(string? Hash);
 }

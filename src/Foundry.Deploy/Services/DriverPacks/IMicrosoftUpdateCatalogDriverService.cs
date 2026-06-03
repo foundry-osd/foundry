@@ -8,6 +8,7 @@ public interface IMicrosoftUpdateCatalogDriverService
         HardwareProfile hardwareProfile,
         OperatingSystemCatalogItem operatingSystem,
         string destinationDirectory,
+        string cacheDirectory,
         CancellationToken cancellationToken = default,
         IProgress<double>? progress = null);
 

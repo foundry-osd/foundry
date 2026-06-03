@@ -9,6 +9,7 @@ public interface IMicrosoftUpdateCatalogFirmwareService
         string targetArchitecture,
         string rawDirectory,
         string extractedDirectory,
+        string cacheDirectory,
         CancellationToken cancellationToken = default,
         IProgress<double>? progress = null);
 }

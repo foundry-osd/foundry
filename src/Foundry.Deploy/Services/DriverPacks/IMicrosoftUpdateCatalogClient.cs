@@ -9,7 +9,7 @@ public interface IMicrosoftUpdateCatalogClient
         bool descending = true,
         CancellationToken cancellationToken = default);
 
-    Task<IReadOnlyList<string>> GetDownloadUrlsAsync(
+    Task<IReadOnlyList<MicrosoftUpdateCatalogDownload>> GetDownloadsAsync(
         string updateId,
         CancellationToken cancellationToken = default);
 }

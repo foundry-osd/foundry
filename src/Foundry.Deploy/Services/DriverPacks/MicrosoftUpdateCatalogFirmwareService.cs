@@ -30,12 +30,14 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
         string targetArchitecture,
         string rawDirectory,
         string extractedDirectory,
+        string cacheDirectory,
         CancellationToken cancellationToken = default,
         IProgress<double>? progress = null)
     {
         ArgumentNullException.ThrowIfNull(hardwareProfile);
         ArgumentException.ThrowIfNullOrWhiteSpace(rawDirectory);
         ArgumentException.ThrowIfNullOrWhiteSpace(extractedDirectory);
+        ArgumentException.ThrowIfNullOrWhiteSpace(cacheDirectory);
 
         string firmwareHardwareId = hardwareProfile.SystemFirmwareHardwareId.Trim();
         if (string.IsNullOrWhiteSpace(firmwareHardwareId))
@@ -77,12 +79,12 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
         }
 
         progress?.Report(35d);
-        IReadOnlyList<string> downloadUrls = await _catalogClient
-            .GetDownloadUrlsAsync(update.UpdateId, cancellationToken)
+        IReadOnlyList<MicrosoftUpdateCatalogDownload> downloads = await _catalogClient
+            .GetDownloadsAsync(update.UpdateId, cancellationToken)
             .ConfigureAwait(false);
 
-        string? selectedUrl = MicrosoftUpdateCatalogSupport.SelectPreferredCabUrl(downloadUrls, targetArchitecture);
-        if (string.IsNullOrWhiteSpace(selectedUrl))
+        MicrosoftUpdateCatalogDownload? selectedDownload = MicrosoftUpdateCatalogSupport.SelectPreferredCab(downloads, targetArchitecture);
+        if (selectedDownload is null)
         {
             return new MicrosoftUpdateCatalogFirmwareResult
             {
@@ -97,12 +99,11 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
         string updateDirectory = Path.Combine(rawDirectory, MicrosoftUpdateCatalogSupport.SanitizePathSegment(update.UpdateId));
         Directory.CreateDirectory(updateDirectory);
 
-        string fileName = MicrosoftUpdateCatalogSupport.ResolveFileNameFromUrl(selectedUrl);
+        string fileName = ResolveFileName(selectedDownload);
         string destinationPath = Path.Combine(updateDirectory, fileName);
 
         progress?.Report(50d);
-        await _artifactDownloadService
-            .DownloadAsync(selectedUrl, destinationPath, cancellationToken: cancellationToken)
+        await DownloadToStagingAsync(update, selectedDownload, destinationPath, cacheDirectory, cancellationToken)
             .ConfigureAwait(false);
 
         progress?.Report(75d);
@@ -165,6 +166,57 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
         }
 
         return Directory.EnumerateFiles(destinationDirectory, "*.inf", SearchOption.AllDirectories).Count();
+    }
+
+    private async Task DownloadToStagingAsync(
+        MicrosoftUpdateCatalogUpdate update,
+        MicrosoftUpdateCatalogDownload download,
+        string destinationPath,
+        string cacheDirectory,
+        CancellationToken cancellationToken)
+    {
+        string expectedHash = MicrosoftUpdateCatalogSupport.ResolvePreferredHash(download);
+        if (string.IsNullOrWhiteSpace(expectedHash))
+        {
+            await _artifactDownloadService
+                .DownloadAsync(download.DownloadUrl, destinationPath, artifactKind: "MicrosoftUpdateCatalogFirmware", cancellationToken: cancellationToken)
+                .ConfigureAwait(false);
+            return;
+        }
+
+        string cachePath = Path.Combine(
+            cacheDirectory,
+            MicrosoftUpdateCatalogSupport.SanitizePathSegment(update.UpdateId),
+            ResolveFileName(download));
+
+        await _artifactDownloadService
+            .DownloadAsync(
+                download.DownloadUrl,
+                cachePath,
+                expectedHash: expectedHash,
+                artifactKind: "MicrosoftUpdateCatalogFirmware",
+                cancellationToken: cancellationToken)
+            .ConfigureAwait(false);
+
+        CopyFile(cachePath, destinationPath);
+    }
+
+    private static string ResolveFileName(MicrosoftUpdateCatalogDownload download)
+    {
+        return string.IsNullOrWhiteSpace(download.FileName)
+            ? MicrosoftUpdateCatalogSupport.ResolveFileNameFromUrl(download.DownloadUrl)
+            : MicrosoftUpdateCatalogSupport.SanitizePathSegment(download.FileName);
+    }
+
+    private static void CopyFile(string sourcePath, string destinationPath)
+    {
+        string? destinationDirectory = Path.GetDirectoryName(destinationPath);
+        if (!string.IsNullOrWhiteSpace(destinationDirectory))
+        {
+            Directory.CreateDirectory(destinationDirectory);
+        }
+
+        File.Copy(sourcePath, destinationPath, overwrite: true);
     }
 
     private static string ResolveExpandedFolderName(string cabPath, string sourceDirectory)

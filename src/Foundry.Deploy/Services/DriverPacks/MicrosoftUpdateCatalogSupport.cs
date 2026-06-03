@@ -90,37 +90,47 @@ internal static partial class MicrosoftUpdateCatalogSupport
         };
     }
 
-    public static string? SelectPreferredCabUrl(IReadOnlyList<string> downloadUrls, string targetArchitecture)
+    public static MicrosoftUpdateCatalogDownload? SelectPreferredCab(IReadOnlyList<MicrosoftUpdateCatalogDownload> downloads, string targetArchitecture)
     {
-        if (downloadUrls.Count == 0)
+        if (downloads.Count == 0)
         {
             return null;
         }
 
         string normalizedArchitecture = NormalizeArchitecture(targetArchitecture);
-        string[] cabUrls = downloadUrls
-            .Where(IsCabUrl)
-            .Distinct(StringComparer.OrdinalIgnoreCase)
+        MicrosoftUpdateCatalogDownload[] cabDownloads = downloads
+            .Where(download => IsCabUrl(download.DownloadUrl))
+            .GroupBy(download => download.DownloadUrl, StringComparer.OrdinalIgnoreCase)
+            .Select(group => group.First())
             .ToArray();
 
-        if (cabUrls.Length == 0)
+        if (cabDownloads.Length == 0)
         {
             return null;
         }
 
         if (string.IsNullOrWhiteSpace(normalizedArchitecture))
         {
-            return cabUrls[0];
+            return cabDownloads[0];
         }
 
-        string? exactMatch = cabUrls.FirstOrDefault(url => MatchesArchitecture(url, normalizedArchitecture));
-        if (!string.IsNullOrWhiteSpace(exactMatch))
+        MicrosoftUpdateCatalogDownload? exactMatch = cabDownloads.FirstOrDefault(download => MatchesArchitecture(download, normalizedArchitecture));
+        if (exactMatch is not null)
         {
             return exactMatch;
         }
 
-        string? compatibleFallback = cabUrls.FirstOrDefault(url => !HasConflictingArchitecture(url, normalizedArchitecture));
-        return compatibleFallback ?? cabUrls[0];
+        MicrosoftUpdateCatalogDownload? compatibleFallback = cabDownloads.FirstOrDefault(download => !HasConflictingArchitecture(download, normalizedArchitecture));
+        return compatibleFallback ?? cabDownloads[0];
+    }
+
+    public static string ResolvePreferredHash(MicrosoftUpdateCatalogDownload download)
+    {
+        ArgumentNullException.ThrowIfNull(download);
+
+        return !string.IsNullOrWhiteSpace(download.Sha256)
+            ? download.Sha256
+            : download.Sha1;
     }
 
     public static string ResolveFileNameFromUrl(string downloadUrl)
@@ -159,9 +169,9 @@ internal static partial class MicrosoftUpdateCatalogSupport
         return Path.GetExtension(uri.AbsolutePath).Equals(".cab", StringComparison.OrdinalIgnoreCase);
     }
 
-    private static bool MatchesArchitecture(string downloadUrl, string targetArchitecture)
+    private static bool MatchesArchitecture(MicrosoftUpdateCatalogDownload download, string targetArchitecture)
     {
-        string fileName = ResolveFileNameFromUrl(downloadUrl).ToLowerInvariant();
+        string fileName = ResolveComparableName(download);
         return targetArchitecture switch
         {
             "x64" => fileName.Contains("x64", StringComparison.Ordinal) || fileName.Contains("amd64", StringComparison.Ordinal),
@@ -171,9 +181,9 @@ internal static partial class MicrosoftUpdateCatalogSupport
         };
     }
 
-    private static bool HasConflictingArchitecture(string downloadUrl, string targetArchitecture)
+    private static bool HasConflictingArchitecture(MicrosoftUpdateCatalogDownload download, string targetArchitecture)
     {
-        string fileName = ResolveFileNameFromUrl(downloadUrl).ToLowerInvariant();
+        string fileName = ResolveComparableName(download);
         return targetArchitecture switch
         {
             "x64" => fileName.Contains("arm64", StringComparison.Ordinal) || fileName.Contains("x86", StringComparison.Ordinal),
@@ -185,6 +195,15 @@ internal static partial class MicrosoftUpdateCatalogSupport
                      fileName.Contains("amd64", StringComparison.Ordinal),
             _ => false
         };
+    }
+
+    private static string ResolveComparableName(MicrosoftUpdateCatalogDownload download)
+    {
+        string fileName = string.IsNullOrWhiteSpace(download.FileName)
+            ? ResolveFileNameFromUrl(download.DownloadUrl)
+            : download.FileName;
+
+        return $"{fileName} {download.Architectures}".ToLowerInvariant();
     }
 
     [GeneratedRegex("v[ei][dn]_([0-9a-f]){4}&[pd][ie][dv]_([0-9a-f]){4}", RegexOptions.IgnoreCase)]

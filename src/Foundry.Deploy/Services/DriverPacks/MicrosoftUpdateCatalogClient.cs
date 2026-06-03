@@ -13,8 +13,8 @@ public sealed class MicrosoftUpdateCatalogClient : IMicrosoftUpdateCatalogClient
     private static readonly HttpClient HttpClient = InsecureHttpClientFactory.Create(TimeSpan.FromMinutes(5));
     private static readonly Uri HomeUri = new("https://www.catalog.update.microsoft.com/Home.aspx");
     private static readonly Uri DownloadDialogUri = new("https://www.catalog.update.microsoft.com/DownloadDialog.aspx");
-    private static readonly Regex DownloadUrlRegex = new(
-        "(http[s]?://dl\\.delivery\\.mp\\.microsoft\\.com/[^\\'\\\"]*)|(http[s]?://download\\.windowsupdate\\.com/[^\\'\\\"]*)|(http[s]?://catalog\\.s\\.download\\.windowsupdate\\.com/[^\\'\\\"]*)",
+    private static readonly Regex DownloadPropertyRegex = new(
+        "downloadInformation\\[\\d+\\]\\.files\\[(?<index>\\d+)\\]\\.(?<name>[A-Za-z0-9_]+)\\s*=\\s*'(?<value>(?:\\\\'|[^'])*)'",
         RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
     private readonly ILogger<MicrosoftUpdateCatalogClient> _logger;
@@ -109,7 +109,7 @@ public sealed class MicrosoftUpdateCatalogClient : IMicrosoftUpdateCatalogClient
             : parsed.ToArray();
     }
 
-    public async Task<IReadOnlyList<string>> GetDownloadUrlsAsync(
+    public async Task<IReadOnlyList<MicrosoftUpdateCatalogDownload>> GetDownloadsAsync(
         string updateId,
         CancellationToken cancellationToken = default)
     {
@@ -123,14 +123,84 @@ public sealed class MicrosoftUpdateCatalogClient : IMicrosoftUpdateCatalogClient
                 cancellationToken)
             .ConfigureAwait(false);
 
-        string normalizedHtml = html.Replace("www.download.windowsupdate", "download.windowsupdate", StringComparison.OrdinalIgnoreCase);
-        MatchCollection matches = DownloadUrlRegex.Matches(normalizedHtml);
+        return ParseDownloads(html, _logger);
+    }
 
-        return matches
-            .Select(match => match.Value)
-            .Where(value => !string.IsNullOrWhiteSpace(value))
-            .Distinct(StringComparer.OrdinalIgnoreCase)
+    internal static IReadOnlyList<MicrosoftUpdateCatalogDownload> ParseDownloads(string html, ILogger<MicrosoftUpdateCatalogClient> logger)
+    {
+        if (string.IsNullOrWhiteSpace(html))
+        {
+            return [];
+        }
+
+        Dictionary<int, Dictionary<string, string>> files = [];
+        foreach (Match match in DownloadPropertyRegex.Matches(html))
+        {
+            if (!int.TryParse(match.Groups["index"].Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out int index))
+            {
+                continue;
+            }
+
+            if (!files.TryGetValue(index, out Dictionary<string, string>? properties))
+            {
+                properties = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                files[index] = properties;
+            }
+
+            properties[match.Groups["name"].Value] = UnescapeJavascriptString(match.Groups["value"].Value);
+        }
+
+        return files
+            .OrderBy(pair => pair.Key)
+            .Select(pair => CreateDownload(pair.Value, logger))
+            .Where(download => download is not null)
+            .Cast<MicrosoftUpdateCatalogDownload>()
             .ToArray();
+    }
+
+    private static MicrosoftUpdateCatalogDownload? CreateDownload(Dictionary<string, string> properties, ILogger<MicrosoftUpdateCatalogClient> logger)
+    {
+        string downloadUrl = properties.GetValueOrDefault("url") ?? string.Empty;
+        if (string.IsNullOrWhiteSpace(downloadUrl))
+        {
+            return null;
+        }
+
+        string fileName = properties.GetValueOrDefault("fileName") ?? MicrosoftUpdateCatalogSupport.ResolveFileNameFromUrl(downloadUrl);
+        return new MicrosoftUpdateCatalogDownload
+        {
+            DownloadUrl = downloadUrl.Replace("www.download.windowsupdate", "download.windowsupdate", StringComparison.OrdinalIgnoreCase),
+            FileName = MicrosoftUpdateCatalogSupport.SanitizePathSegment(fileName),
+            Sha1 = DecodeBase64Hash(properties.GetValueOrDefault("digest"), "SHA1", logger),
+            Sha256 = DecodeBase64Hash(properties.GetValueOrDefault("sha256"), "SHA256", logger),
+            Architectures = properties.GetValueOrDefault("architectures") ?? string.Empty,
+            Languages = properties.GetValueOrDefault("languages") ?? string.Empty
+        };
+    }
+
+    private static string DecodeBase64Hash(string? value, string algorithm, ILogger<MicrosoftUpdateCatalogClient> logger)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return string.Empty;
+        }
+
+        try
+        {
+            return Convert.ToHexString(Convert.FromBase64String(value));
+        }
+        catch (FormatException ex)
+        {
+            logger.LogWarning(ex, "Microsoft Update Catalog returned an invalid {HashAlgorithm} hash.", algorithm);
+            return string.Empty;
+        }
+    }
+
+    private static string UnescapeJavascriptString(string value)
+    {
+        return value
+            .Replace("\\'", "'", StringComparison.Ordinal)
+            .Replace("\\\\", "\\", StringComparison.Ordinal);
     }
 
     private async Task<HttpResponseMessage> SendAsync(

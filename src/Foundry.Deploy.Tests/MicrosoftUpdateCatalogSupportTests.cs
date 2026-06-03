@@ -36,29 +36,54 @@ public sealed class MicrosoftUpdateCatalogSupportTests
     }
 
     [Fact]
-    public void SelectPreferredCabUrl_PrefersExactArchitectureMatch()
+    public void SelectPreferredCab_PrefersExactArchitectureMatch()
     {
-        string? url = MicrosoftUpdateCatalogSupport.SelectPreferredCabUrl(
+        MicrosoftUpdateCatalogDownload? download = MicrosoftUpdateCatalogSupport.SelectPreferredCab(
             [
-                "https://example.test/driver-x86.cab",
-                "https://example.test/driver-amd64.cab",
-                "https://example.test/readme.txt"
+                CreateDownload("https://example.test/driver-x86.cab"),
+                CreateDownload("https://example.test/driver-amd64.cab"),
+                CreateDownload("https://example.test/readme.txt")
             ],
             "x64");
 
-        Assert.Equal("https://example.test/driver-amd64.cab", url);
+        Assert.Equal("https://example.test/driver-amd64.cab", download?.DownloadUrl);
     }
 
     [Fact]
-    public void SelectPreferredCabUrl_WhenNoExactMatch_FallsBackToCompatibleCab()
+    public void SelectPreferredCab_WhenNoExactMatch_FallsBackToCompatibleCab()
     {
-        string? url = MicrosoftUpdateCatalogSupport.SelectPreferredCabUrl(
+        MicrosoftUpdateCatalogDownload? download = MicrosoftUpdateCatalogSupport.SelectPreferredCab(
             [
-                "https://example.test/driver-generic.cab",
-                "https://example.test/driver-arm64.cab"
+                CreateDownload("https://example.test/driver-generic.cab"),
+                CreateDownload("https://example.test/driver-arm64.cab")
             ],
             "x64");
 
-        Assert.Equal("https://example.test/driver-generic.cab", url);
+        Assert.Equal("https://example.test/driver-generic.cab", download?.DownloadUrl);
+    }
+
+    [Fact]
+    public void ResolvePreferredHash_PrefersSha256OverSha1()
+    {
+        var download = new MicrosoftUpdateCatalogDownload
+        {
+            DownloadUrl = "https://example.test/driver.cab",
+            FileName = "driver.cab",
+            Sha1 = new string('A', 40),
+            Sha256 = new string('B', 64)
+        };
+
+        string hash = MicrosoftUpdateCatalogSupport.ResolvePreferredHash(download);
+
+        Assert.Equal(new string('B', 64), hash);
+    }
+
+    private static MicrosoftUpdateCatalogDownload CreateDownload(string url)
+    {
+        return new MicrosoftUpdateCatalogDownload
+        {
+            DownloadUrl = url,
+            FileName = MicrosoftUpdateCatalogSupport.ResolveFileNameFromUrl(url)
+        };
     }
 }

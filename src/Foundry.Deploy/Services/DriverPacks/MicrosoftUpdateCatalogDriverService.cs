@@ -37,6 +37,7 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
         HardwareProfile hardwareProfile,
         OperatingSystemCatalogItem operatingSystem,
         string destinationDirectory,
+        string cacheDirectory,
         CancellationToken cancellationToken = default,
         IProgress<double>? progress = null)
     {
@@ -46,6 +47,11 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
         if (string.IsNullOrWhiteSpace(destinationDirectory))
         {
             throw new ArgumentException("Destination directory is required.", nameof(destinationDirectory));
+        }
+
+        if (string.IsNullOrWhiteSpace(cacheDirectory))
+        {
+            throw new ArgumentException("Cache directory is required.", nameof(cacheDirectory));
         }
 
         ResetDirectory(destinationDirectory);
@@ -124,11 +130,14 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
             string updateDirectory = Path.Combine(destinationDirectory, MicrosoftUpdateCatalogSupport.SanitizePathSegment(candidate.Update.UpdateId));
             Directory.CreateDirectory(updateDirectory);
 
-            string fileName = MicrosoftUpdateCatalogSupport.ResolveFileNameFromUrl(candidate.DownloadUrl);
+            string fileName = ResolveFileName(candidate.Download);
             string destinationPath = Path.Combine(updateDirectory, fileName);
 
-            await _artifactDownloadService
-                .DownloadAsync(candidate.DownloadUrl, destinationPath, cancellationToken: cancellationToken)
+            await DownloadToStagingAsync(
+                    candidate,
+                    destinationPath,
+                    cacheDirectory,
+                    cancellationToken)
                 .ConfigureAwait(false);
 
             downloadedDrivers.Add(new MicrosoftUpdateCatalogDownloadedDriver
@@ -137,7 +146,7 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
                 Title = candidate.Update.Title,
                 Version = candidate.Update.Version,
                 Size = candidate.Update.Size,
-                DownloadUrl = candidate.DownloadUrl
+                DownloadUrl = candidate.Download.DownloadUrl
             });
 
             downloadIndex++;
@@ -268,12 +277,12 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
             return null;
         }
 
-        IReadOnlyList<string> downloadUrls = await _catalogClient
-            .GetDownloadUrlsAsync(update.UpdateId, cancellationToken)
+        IReadOnlyList<MicrosoftUpdateCatalogDownload> downloads = await _catalogClient
+            .GetDownloadsAsync(update.UpdateId, cancellationToken)
             .ConfigureAwait(false);
 
-        string? selectedUrl = MicrosoftUpdateCatalogSupport.SelectPreferredCabUrl(downloadUrls, targetArchitecture);
-        if (string.IsNullOrWhiteSpace(selectedUrl))
+        MicrosoftUpdateCatalogDownload? selectedDownload = MicrosoftUpdateCatalogSupport.SelectPreferredCab(downloads, targetArchitecture);
+        if (selectedDownload is null)
         {
             _logger.LogInformation(
                 "Microsoft Update Catalog update '{Title}' ({UpdateId}) has no CAB payload compatible with architecture '{Architecture}'.",
@@ -286,8 +295,40 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
         return new CatalogDownloadCandidate
         {
             Update = update,
-            DownloadUrl = selectedUrl
+            Download = selectedDownload
         };
+    }
+
+    private async Task DownloadToStagingAsync(
+        CatalogDownloadCandidate candidate,
+        string destinationPath,
+        string cacheDirectory,
+        CancellationToken cancellationToken)
+    {
+        string expectedHash = MicrosoftUpdateCatalogSupport.ResolvePreferredHash(candidate.Download);
+        if (string.IsNullOrWhiteSpace(expectedHash))
+        {
+            await _artifactDownloadService
+                .DownloadAsync(candidate.Download.DownloadUrl, destinationPath, artifactKind: "MicrosoftUpdateCatalogDriver", cancellationToken: cancellationToken)
+                .ConfigureAwait(false);
+            return;
+        }
+
+        string cachePath = Path.Combine(
+            cacheDirectory,
+            MicrosoftUpdateCatalogSupport.SanitizePathSegment(candidate.Update.UpdateId),
+            ResolveFileName(candidate.Download));
+
+        await _artifactDownloadService
+            .DownloadAsync(
+                candidate.Download.DownloadUrl,
+                cachePath,
+                expectedHash: expectedHash,
+                artifactKind: "MicrosoftUpdateCatalogDriver",
+                cancellationToken: cancellationToken)
+            .ConfigureAwait(false);
+
+        CopyFile(cachePath, destinationPath);
     }
 
     private async Task<MicrosoftUpdateCatalogUpdate?> SearchByReleaseAsync(
@@ -426,6 +467,24 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
             : "Unknown device";
     }
 
+    private static string ResolveFileName(MicrosoftUpdateCatalogDownload download)
+    {
+        return string.IsNullOrWhiteSpace(download.FileName)
+            ? MicrosoftUpdateCatalogSupport.ResolveFileNameFromUrl(download.DownloadUrl)
+            : MicrosoftUpdateCatalogSupport.SanitizePathSegment(download.FileName);
+    }
+
+    private static void CopyFile(string sourcePath, string destinationPath)
+    {
+        string? destinationDirectory = Path.GetDirectoryName(destinationPath);
+        if (!string.IsNullOrWhiteSpace(destinationDirectory))
+        {
+            Directory.CreateDirectory(destinationDirectory);
+        }
+
+        File.Copy(sourcePath, destinationPath, overwrite: true);
+    }
+
     private static void ResetDirectory(string path)
     {
         if (Directory.Exists(path))
@@ -446,7 +505,7 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
     private sealed record CatalogDownloadCandidate
     {
         public required MicrosoftUpdateCatalogUpdate Update { get; init; }
-        public required string DownloadUrl { get; init; }
+        public required MicrosoftUpdateCatalogDownload Download { get; init; }
     }
 
     private static IProgress<double>? CreateMappedProgress(IProgress<double>? progress, double start, double end)
