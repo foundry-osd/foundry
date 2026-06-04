@@ -174,6 +174,45 @@ function Get-FoundryWifiProfileName {
     }
 }
 
+function Set-FoundryWifiProfileConnectionMode {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$ProfilePath,
+
+        [string]$ConnectivityExpectation
+    )
+
+    if ($ConnectivityExpectation -ine 'preOobeConnectable') {
+        return
+    }
+
+    try {
+        [xml]$profile = Get-Content -LiteralPath $ProfilePath -Raw
+        $namespaceManager = New-Object System.Xml.XmlNamespaceManager($profile.NameTable)
+        $namespaceManager.AddNamespace('wlan', 'http://www.microsoft.com/networking/WLAN/profile/v1')
+        $connectionModeNode = $profile.SelectSingleNode('/wlan:WLANProfile/wlan:connectionMode', $namespaceManager)
+        if ($null -eq $connectionModeNode) {
+            $connectionTypeNode = $profile.SelectSingleNode('/wlan:WLANProfile/wlan:connectionType', $namespaceManager)
+            if ($null -eq $connectionTypeNode) {
+                Write-FoundryLog "Skipping Wi-Fi auto-connect normalization because connectionType is missing."
+                return
+            }
+
+            $connectionModeNode = $profile.CreateElement('connectionMode', 'http://www.microsoft.com/networking/WLAN/profile/v1')
+            [void]$profile.DocumentElement.InsertAfter($connectionModeNode, $connectionTypeNode)
+        }
+
+        if ($connectionModeNode.InnerText -ine 'auto') {
+            $connectionModeNode.InnerText = 'auto'
+            $profile.Save($ProfilePath)
+            Write-FoundryLog "Updated Wi-Fi profile connectionMode to auto for pre-OOBE connectivity."
+        }
+    }
+    catch {
+        Write-FoundryLog "WARNING: Wi-Fi profile connectionMode could not be updated: $($_.Exception.Message)"
+    }
+}
+
 function Connect-FoundryWifiProfile {
     param(
         [Parameter(Mandatory = $true)]
@@ -214,6 +253,7 @@ function Import-FoundryWifiProfile {
     }
 
     Write-FoundryLog "Wi-Fi profile source='$Source', connectivityExpectation='$ConnectivityExpectation'."
+    Set-FoundryWifiProfileConnectionMode -ProfilePath $profilePath -ConnectivityExpectation $ConnectivityExpectation
     Invoke-FoundryNetsh -Arguments @('wlan', 'add', 'profile', "filename=$profilePath", 'user=all') -Description 'Importing Wi-Fi profile for all users.'
     Connect-FoundryWifiProfile -ProfilePath $profilePath -ConnectivityExpectation $ConnectivityExpectation
 }

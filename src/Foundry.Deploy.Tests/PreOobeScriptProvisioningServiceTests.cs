@@ -215,7 +215,9 @@ public sealed class PreOobeScriptProvisioningServiceTests
         string stagedScript = File.ReadAllText(result.StagedScriptPaths.Single());
 
         Assert.Contains("Connect-FoundryWifiProfile", stagedScript);
+        Assert.Contains("Set-FoundryWifiProfileConnectionMode", stagedScript);
         Assert.Contains("'preOobeConnectable'", stagedScript);
+        Assert.Contains("'auto'", stagedScript);
         Assert.Contains("@('wlan', 'connect', \"name=$profileName\")", stagedScript);
     }
 
