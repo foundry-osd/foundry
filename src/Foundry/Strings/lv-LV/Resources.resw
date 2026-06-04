@@ -2107,18 +2107,18 @@
     <value>Automātiski saglabā kataloga noklusējuma izdevumu.</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
-    <value>Windows profile roaming</value>
+    <value>Windows profilu viesabonēšana</value>
   </data>
   <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Import Foundry-managed Wi-Fi and 802.1X profiles into Windows before OOBE so deployment connectivity can continue after WinPE.</value>
+    <value>Importē Foundry pārvaldītos Wi-Fi un 802.1X profilus sistēmā Windows pirms OOBE, lai izvietošanas savienojamība turpinātos pēc WinPE.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
-    <value>Roam network profiles to Windows</value>
+    <value>Pārvietot tīkla profilus uz Windows</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
-    <value>Include private-key certificate material</value>
+    <value>Iekļaut privātās atslēgas sertifikāta materiālu</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
-    <value>Copies configured PFX client certificates to Windows and imports them into the LocalMachine personal certificate store before OOBE.</value>
+    <value>Kopē konfigurētos PFX klienta sertifikātus uz Windows un pirms OOBE importē tos LocalMachine personīgajā sertifikātu krātuvē.</value>
   </data>
 </root>

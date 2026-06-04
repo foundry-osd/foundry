@@ -2107,18 +2107,18 @@
     <value>자동은 카탈로그 기본 에디션을 유지합니다.</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
-    <value>Windows profile roaming</value>
+    <value>Windows 프로필 로밍</value>
   </data>
   <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Import Foundry-managed Wi-Fi and 802.1X profiles into Windows before OOBE so deployment connectivity can continue after WinPE.</value>
+    <value>Foundry에서 관리하는 Wi-Fi 및 802.1X 프로필을 OOBE 전에 Windows로 가져와 WinPE 이후에도 배포 연결을 계속할 수 있게 합니다.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
-    <value>Roam network profiles to Windows</value>
+    <value>네트워크 프로필을 Windows로 로밍</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
-    <value>Include private-key certificate material</value>
+    <value>개인 키 인증서 자료 포함</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
-    <value>Copies configured PFX client certificates to Windows and imports them into the LocalMachine personal certificate store before OOBE.</value>
+    <value>구성된 PFX 클라이언트 인증서를 Windows로 복사하고 OOBE 전에 LocalMachine 개인 인증서 저장소로 가져옵니다.</value>
   </data>
 </root>

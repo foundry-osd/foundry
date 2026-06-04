@@ -2107,18 +2107,18 @@
     <value>Automático mantiene la edición predeterminada del catálogo.</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
-    <value>Windows profile roaming</value>
+    <value>Itinerancia de perfiles de Windows</value>
   </data>
   <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Import Foundry-managed Wi-Fi and 802.1X profiles into Windows before OOBE so deployment connectivity can continue after WinPE.</value>
+    <value>Importa en Windows los perfiles Wi-Fi y 802.1X administrados por Foundry antes de OOBE para que la conectividad de implementación continúe después de WinPE.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
-    <value>Roam network profiles to Windows</value>
+    <value>Migrar perfiles de red a Windows</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
-    <value>Include private-key certificate material</value>
+    <value>Incluir material de certificado con clave privada</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
-    <value>Copies configured PFX client certificates to Windows and imports them into the LocalMachine personal certificate store before OOBE.</value>
+    <value>Copia los certificados de cliente PFX configurados en Windows y los importa en el almacén personal de certificados LocalMachine antes de OOBE.</value>
   </data>
 </root>

@@ -2,10 +2,13 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Foundry.Deploy.Models.Configuration;
+using Foundry.Core.Models.Network;
 using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Deployment.PreOobe;
 using Microsoft.Extensions.Logging;
+using CoreDeployNetworkProfileRoamingSettings = Foundry.Core.Models.Configuration.Deploy.DeployNetworkProfileRoamingSettings;
+using CoreMediaSecretEnvelopeProtector = Foundry.Core.Services.Autopilot.MediaSecretEnvelopeProtector;
+using CoreSecretEnvelope = Foundry.Core.Models.Configuration.SecretEnvelope;
 
 namespace Foundry.Deploy.Services.Network;
 
@@ -14,9 +17,7 @@ namespace Foundry.Deploy.Services.Network;
 /// </summary>
 public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamingArtifactService
 {
-    private const string ManifestFileName = "manifest.json";
     private const string ImportSettingsRelativePath = @"NetworkProfiles\import-settings.json";
-    private const string PfxPrivateKeyKind = "pfxPrivateKey";
 
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
@@ -37,7 +38,7 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
     }
 
     public async Task<PreOobeNetworkProfileRoamingPayload?> LoadAsync(
-        DeployNetworkProfileRoamingSettings settings,
+        CoreDeployNetworkProfileRoamingSettings settings,
         string workspaceRootPath,
         CancellationToken cancellationToken = default)
     {
@@ -49,7 +50,7 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
         }
 
         string artifactRootPath = ResolveArtifactRootPath(settings);
-        string manifestPath = Path.Combine(artifactRootPath, ManifestFileName);
+        string manifestPath = Path.Combine(artifactRootPath, NetworkProfileRoamingArtifacts.ManifestFileName);
         if (!File.Exists(manifestPath))
         {
             _logger.LogDebug("Network profile roaming skipped because no manifest exists at '{ManifestPath}'.", manifestPath);
@@ -107,10 +108,10 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
         };
     }
 
-    private static string ResolveArtifactRootPath(DeployNetworkProfileRoamingSettings settings)
+    private static string ResolveArtifactRootPath(CoreDeployNetworkProfileRoamingSettings settings)
     {
         return string.IsNullOrWhiteSpace(settings.ArtifactRootPath)
-            ? DeployNetworkProfileRoamingSettings.DefaultArtifactRootPath
+            ? NetworkProfileRoamingArtifacts.DefaultArtifactRootPath
             : settings.ArtifactRootPath.Trim();
     }
 
@@ -180,7 +181,7 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
                 continue;
             }
 
-            bool isPfxPrivateKey = string.Equals(certificate.Kind, PfxPrivateKeyKind, StringComparison.OrdinalIgnoreCase);
+            bool isPfxPrivateKey = string.Equals(certificate.Kind, NetworkProfileRoamingArtifacts.PfxPrivateKeyKind, StringComparison.OrdinalIgnoreCase);
             if (isPfxPrivateKey && !includePrivateKeyMaterial)
             {
                 continue;
@@ -260,7 +261,7 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
         }
 
         await using FileStream stream = File.OpenRead(passwordSecretPath);
-        SecretEnvelope? envelope = await JsonSerializer.DeserializeAsync<SecretEnvelope>(
+        CoreSecretEnvelope? envelope = await JsonSerializer.DeserializeAsync<CoreSecretEnvelope>(
                 stream,
                 JsonOptions,
                 cancellationToken)
@@ -270,7 +271,7 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
             return null;
         }
 
-        string password = DeployMediaSecretEnvelopeProtector.DecryptString(envelope, mediaSecretKey);
+        string password = CoreMediaSecretEnvelopeProtector.DecryptString(envelope, mediaSecretKey);
         string passwordRelativePath = ToStagedDataRelativePath(certificate.RelativePath + ".password");
         dataFiles.Add(new PreOobeScriptDataFile
         {

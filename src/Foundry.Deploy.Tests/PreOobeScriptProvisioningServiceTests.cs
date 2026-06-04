@@ -34,6 +34,31 @@ public sealed class PreOobeScriptProvisioningServiceTests
     }
 
     [Fact]
+    public void Provision_RunsCleanupScriptsInFinally()
+    {
+        string windowsRoot = CreateWindowsRoot();
+        var service = new PreOobeScriptProvisioningService(new SetupCompleteScriptService());
+
+        PreOobeScriptProvisioningResult result = service.Provision(
+            windowsRoot,
+            [
+                CreateScript("cleanup", "Cleanup-PreOobe.ps1", PreOobeScriptPriority.Cleanup),
+                CreateScript("driver-pack", "Install-DriverPack.ps1", PreOobeScriptPriority.DriverProvisioning)
+            ]);
+
+        string runner = File.ReadAllText(result.RunnerPath);
+
+        int driverIndex = runner.IndexOf("Install-DriverPack.ps1", StringComparison.Ordinal);
+        int finallyIndex = runner.IndexOf("finally {", StringComparison.Ordinal);
+        int cleanupIndex = runner.IndexOf("Cleanup-PreOobe.ps1", StringComparison.Ordinal);
+
+        Assert.Contains("try {", runner);
+        Assert.True(driverIndex < finallyIndex);
+        Assert.True(finallyIndex < cleanupIndex);
+        Assert.Contains("Write-Warning $_", runner);
+    }
+
+    [Fact]
     public void Provision_OrdersSamePriorityScriptsById()
     {
         string windowsRoot = CreateWindowsRoot();

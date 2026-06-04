@@ -2107,18 +2107,18 @@
     <value>自動會保留目錄的預設版本。</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
-    <value>Windows profile roaming</value>
+    <value>Windows 設定檔漫遊</value>
   </data>
   <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Import Foundry-managed Wi-Fi and 802.1X profiles into Windows before OOBE so deployment connectivity can continue after WinPE.</value>
+    <value>在 OOBE 前將 Foundry 管理的 Wi-Fi 和 802.1X 設定檔匯入 Windows，讓部署連線可在 WinPE 後繼續。</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
-    <value>Roam network profiles to Windows</value>
+    <value>將網路設定檔漫遊至 Windows</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
-    <value>Include private-key certificate material</value>
+    <value>包含私密金鑰憑證資料</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
-    <value>Copies configured PFX client certificates to Windows and imports them into the LocalMachine personal certificate store before OOBE.</value>
+    <value>將已設定的 PFX 用戶端憑證複製到 Windows，並在 OOBE 前匯入 LocalMachine 個人憑證存放區。</value>
   </data>
 </root>

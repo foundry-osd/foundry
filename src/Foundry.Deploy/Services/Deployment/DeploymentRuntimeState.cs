@@ -2,6 +2,7 @@ using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.DriverPacks;
+using CoreDeployNetworkSettings = Foundry.Core.Models.Configuration.Deploy.DeployNetworkSettings;
 
 namespace Foundry.Deploy.Services.Deployment;
 
@@ -243,7 +244,7 @@ public sealed record DeploymentRuntimeState
     /// <summary>
     /// Gets or sets network settings used by late deployment steps without storing captured profile material.
     /// </summary>
-    public DeployNetworkSettings Network { get; set; } = new();
+    public CoreDeployNetworkSettings Network { get; set; } = new();
 
     /// <summary>
     /// Gets or sets Windows OOBE customization settings applied to the offline installation.

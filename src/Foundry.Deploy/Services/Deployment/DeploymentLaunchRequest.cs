@@ -1,5 +1,6 @@
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
+using CoreDeployNetworkSettings = Foundry.Core.Models.Configuration.Deploy.DeployNetworkSettings;
 
 namespace Foundry.Deploy.Services.Deployment;
 
@@ -18,7 +19,7 @@ public sealed record DeploymentLaunchRequest
     public required AutopilotProvisioningMode AutopilotProvisioningMode { get; init; }
     public required AutopilotProfileCatalogItem? SelectedAutopilotProfile { get; init; }
     public DeployAutopilotHardwareHashUploadSettings AutopilotHardwareHashUpload { get; init; } = new();
-    public DeployNetworkSettings Network { get; init; } = new();
+    public CoreDeployNetworkSettings Network { get; init; } = new();
     public DeployOobeSettings Oobe { get; init; } = new();
     public DeployAppxRemovalSettings AppxRemoval { get; init; } = new();
     public DeployAiComponentRemovalSettings AiComponentRemoval { get; init; } = new();

@@ -3,6 +3,7 @@ using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Catalog;
 using Foundry.Deploy.Services.Startup;
 using Foundry.Deploy.ViewModels;
+using CoreDeployNetworkSettings = Foundry.Core.Models.Configuration.Deploy.DeployNetworkSettings;
 
 namespace Foundry.Deploy.Services.Wizard;
 
@@ -30,7 +31,7 @@ public sealed class DeploymentWizardContext : IDisposable
     public OperatingSystemCatalogViewModel OperatingSystemCatalog { get; }
     public DriverPackSelectionViewModel DriverPackSelection { get; }
     public string? DefaultTimeZoneId { get; private set; }
-    public DeployNetworkSettings Network { get; private set; } = new();
+    public CoreDeployNetworkSettings Network { get; private set; } = new();
     public DeployOobeSettings Oobe { get; private set; } = new();
     public DeployAppxRemovalSettings AppxRemoval { get; private set; } = new();
     public DeployAiComponentRemovalSettings AiComponentRemoval { get; private set; } = new();
@@ -109,7 +110,7 @@ public sealed class DeploymentWizardContext : IDisposable
             string.IsNullOrWhiteSpace(Preparation.TargetComputerName)
                 ? seedComputerName
                 : Preparation.TargetComputerName);
-        Network = document.Network ?? new DeployNetworkSettings();
+        Network = document.Network ?? new CoreDeployNetworkSettings();
         Oobe = document.Customization.Oobe ?? new DeployOobeSettings();
         AppxRemoval = document.Customization.AppxRemoval ?? new DeployAppxRemovalSettings();
         AiComponentRemoval = document.Customization.AiComponentRemoval ?? new DeployAiComponentRemovalSettings();

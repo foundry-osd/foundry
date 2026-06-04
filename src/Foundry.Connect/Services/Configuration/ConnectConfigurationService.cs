@@ -2,6 +2,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text.Json;
 using Foundry.Connect.Models.Configuration;
+using CoreConnectNetworkSettings = Foundry.Core.Models.Configuration.ConnectNetworkSettings;
 using Foundry.Connect.Services.Runtime;
 using Microsoft.Extensions.Logging;
 
@@ -169,7 +170,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
             {
                 WifiProvisioned = capabilities.WifiProvisioned
             },
-            Network = configuration.Network ?? new ConnectNetworkSettings(),
+            Network = configuration.Network ?? new CoreConnectNetworkSettings(),
             Dot1x = configuration.Dot1x ?? new Dot1xSettings(),
             Wifi = NormalizeWifi(configuration.Wifi),
             InternetProbe = new InternetProbeOptions

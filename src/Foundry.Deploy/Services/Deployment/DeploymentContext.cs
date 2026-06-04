@@ -1,5 +1,6 @@
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
+using CoreDeployNetworkSettings = Foundry.Core.Models.Configuration.Deploy.DeployNetworkSettings;
 
 namespace Foundry.Deploy.Services.Deployment;
 
@@ -76,7 +77,7 @@ public sealed record DeploymentContext
     /// <summary>
     /// Gets network settings used by late deployment steps.
     /// </summary>
-    public DeployNetworkSettings Network { get; init; } = new();
+    public CoreDeployNetworkSettings Network { get; init; } = new();
 
     /// <summary>
     /// Gets Windows OOBE customization settings applied to the offline installation.

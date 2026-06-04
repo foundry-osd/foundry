@@ -2107,18 +2107,18 @@
     <value>Automatiskt behåller katalogens standardutgåva.</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
-    <value>Windows profile roaming</value>
+    <value>Roaming av Windows-profiler</value>
   </data>
   <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Import Foundry-managed Wi-Fi and 802.1X profiles into Windows before OOBE so deployment connectivity can continue after WinPE.</value>
+    <value>Importerar Foundry-hanterade Wi-Fi- och 802.1X-profiler till Windows före OOBE så att distributionsanslutningen kan fortsätta efter WinPE.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
-    <value>Roam network profiles to Windows</value>
+    <value>Roama nätverksprofiler till Windows</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
-    <value>Include private-key certificate material</value>
+    <value>Inkludera certifikatmaterial med privat nyckel</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
-    <value>Copies configured PFX client certificates to Windows and imports them into the LocalMachine personal certificate store before OOBE.</value>
+    <value>Kopierar konfigurerade PFX-klientcertifikat till Windows och importerar dem till LocalMachine personliga certifikatarkiv före OOBE.</value>
   </data>
 </root>

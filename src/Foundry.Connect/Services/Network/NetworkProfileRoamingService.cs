@@ -1,9 +1,8 @@
 using System.IO;
-using System.Security.Cryptography;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Foundry.Connect.Models.Configuration;
-using Foundry.Connect.Models.Network;
+using Foundry.Core.Models.Network;
 using Foundry.Connect.Services.Runtime;
 using Microsoft.Extensions.Logging;
 
@@ -14,15 +13,6 @@ namespace Foundry.Connect.Services.Network;
 /// </summary>
 public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
 {
-    private const string WifiProfileFileName = "wifi-profile.xml";
-    private const string WiredDot1xProfileFileName = "wired-dot1x-profile.xml";
-    private const string ManifestFileName = "manifest.json";
-    private const string PublicCertificateKind = "publicCertificate";
-    private const string PfxPrivateKeyKind = "pfxPrivateKey";
-    private const string CertificatesDirectoryName = "certificates";
-    private const string RootStoreName = "Root";
-    private const string MyStoreName = "My";
-
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
         WriteIndented = true,
@@ -33,6 +23,7 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
     private readonly FoundryConnectConfiguration _configuration;
     private readonly ILogger<NetworkProfileRoamingService> _logger;
     private readonly string _artifactRootPath;
+    private bool _artifactRootPrepared;
 
     /// <summary>
     /// Initializes a network profile roaming service.
@@ -59,13 +50,13 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
     /// <inheritdoc />
     public Task CaptureWifiProfileAsync(NetworkProfileRoamingCaptureRequest request, CancellationToken cancellationToken)
     {
-        return CaptureProfileAsync(request, WifiProfileFileName, isWifiProfile: true, cancellationToken);
+        return CaptureProfileAsync(request, NetworkProfileRoamingArtifacts.WifiProfileFileName, isWifiProfile: true, cancellationToken);
     }
 
     /// <inheritdoc />
     public Task CaptureWiredDot1xProfileAsync(NetworkProfileRoamingCaptureRequest request, CancellationToken cancellationToken)
     {
-        return CaptureProfileAsync(request, WiredDot1xProfileFileName, isWifiProfile: false, cancellationToken);
+        return CaptureProfileAsync(request, NetworkProfileRoamingArtifacts.WiredDot1xProfileFileName, isWifiProfile: false, cancellationToken);
     }
 
     private async Task CaptureProfileAsync(
@@ -87,15 +78,17 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
             return;
         }
 
-        Directory.CreateDirectory(_artifactRootPath);
+        bool startedFreshSession = PrepareArtifactRoot();
         string destinationPath = Path.Combine(_artifactRootPath, destinationFileName);
         File.Copy(request.ProfilePath, destinationPath, overwrite: true);
 
         string source = FormatSource(request.Source);
-        NetworkProfileRoamingManifest existingManifest = await LoadManifestAsync(cancellationToken).ConfigureAwait(false);
+        NetworkProfileRoamingManifest existingManifest = startedFreshSession
+            ? new NetworkProfileRoamingManifest()
+            : await LoadManifestAsync(cancellationToken).ConfigureAwait(false);
         DeleteCertificateArtifactsForSource(source);
         List<NetworkProfileRoamingCertificate> certificates = existingManifest.Certificates
-            .Where(certificate => !IsCertificateOwnedBySource(certificate, source))
+            .Where(certificate => !NetworkProfileRoamingArtifacts.IsCertificateOwnedBySource(certificate, source))
             .ToList();
         certificates.AddRange(await CopyCertificatesAsync(request, cancellationToken).ConfigureAwait(false));
 
@@ -120,9 +113,22 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
         await WriteManifestAsync(manifest, cancellationToken).ConfigureAwait(false);
     }
 
+    private bool PrepareArtifactRoot()
+    {
+        if (_artifactRootPrepared)
+        {
+            return false;
+        }
+
+        DeleteDirectory(_artifactRootPath);
+        Directory.CreateDirectory(_artifactRootPath);
+        _artifactRootPrepared = true;
+        return true;
+    }
+
     private async Task<NetworkProfileRoamingManifest> LoadManifestAsync(CancellationToken cancellationToken)
     {
-        string manifestPath = Path.Combine(_artifactRootPath, ManifestFileName);
+        string manifestPath = Path.Combine(_artifactRootPath, NetworkProfileRoamingArtifacts.ManifestFileName);
         if (!File.Exists(manifestPath))
         {
             return new NetworkProfileRoamingManifest();
@@ -146,7 +152,7 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
 
     private async Task WriteManifestAsync(NetworkProfileRoamingManifest manifest, CancellationToken cancellationToken)
     {
-        string manifestPath = Path.Combine(_artifactRootPath, ManifestFileName);
+        string manifestPath = Path.Combine(_artifactRootPath, NetworkProfileRoamingArtifacts.ManifestFileName);
         await using FileStream stream = File.Create(manifestPath);
         await JsonSerializer.SerializeAsync(stream, manifest, JsonOptions, cancellationToken).ConfigureAwait(false);
     }
@@ -165,7 +171,7 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
                 continue;
             }
 
-            if (IsPfxPath(certificatePath))
+            if (NetworkProfileRoamingArtifacts.IsPfxPath(certificatePath))
             {
                 NetworkProfileRoamingCertificate? pfxCertificate = await CopyPfxCertificateAsync(
                     request.Source,
@@ -191,17 +197,17 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
         string certificatePath)
     {
         string sourceName = FormatSource(source);
-        string certificateRootPath = Path.Combine(_artifactRootPath, CertificatesDirectoryName, RootStoreName, sourceName);
+        string certificateRootPath = Path.Combine(_artifactRootPath, NetworkProfileRoamingArtifacts.CertificatesDirectoryName, NetworkProfileRoamingArtifacts.RootStoreName, sourceName);
         Directory.CreateDirectory(certificateRootPath);
-        string fileName = CreateStableCertificateFileName(certificatePath);
+        string fileName = NetworkProfileRoamingArtifacts.CreateStableCertificateFileName(certificatePath);
         string destinationPath = Path.Combine(certificateRootPath, fileName);
         File.Copy(certificatePath, destinationPath, overwrite: true);
 
         return new NetworkProfileRoamingCertificate
         {
-            RelativePath = NormalizeRelativePath(Path.Combine(CertificatesDirectoryName, RootStoreName, sourceName, fileName)),
-            Kind = PublicCertificateKind,
-            StoreName = RootStoreName
+            RelativePath = NetworkProfileRoamingArtifacts.NormalizeRelativePath(Path.Combine(NetworkProfileRoamingArtifacts.CertificatesDirectoryName, NetworkProfileRoamingArtifacts.RootStoreName, sourceName, fileName)),
+            Kind = NetworkProfileRoamingArtifacts.PublicCertificateKind,
+            StoreName = NetworkProfileRoamingArtifacts.RootStoreName
         };
     }
 
@@ -218,9 +224,9 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
         }
 
         string sourceName = FormatSource(source);
-        string certificateRootPath = Path.Combine(_artifactRootPath, CertificatesDirectoryName, MyStoreName, sourceName);
+        string certificateRootPath = Path.Combine(_artifactRootPath, NetworkProfileRoamingArtifacts.CertificatesDirectoryName, NetworkProfileRoamingArtifacts.MyStoreName, sourceName);
         Directory.CreateDirectory(certificateRootPath);
-        string fileName = CreateStableCertificateFileName(certificatePath);
+        string fileName = NetworkProfileRoamingArtifacts.CreateStableCertificateFileName(certificatePath);
         string destinationPath = Path.Combine(certificateRootPath, fileName);
         File.Copy(certificatePath, destinationPath, overwrite: true);
 
@@ -231,24 +237,17 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
 
         return new NetworkProfileRoamingCertificate
         {
-            RelativePath = NormalizeRelativePath(Path.Combine(CertificatesDirectoryName, MyStoreName, sourceName, fileName)),
-            Kind = PfxPrivateKeyKind,
-            StoreName = MyStoreName,
-            PasswordSecretRelativePath = NormalizeRelativePath(Path.Combine(CertificatesDirectoryName, MyStoreName, sourceName, passwordSecretFileName))
+            RelativePath = NetworkProfileRoamingArtifacts.NormalizeRelativePath(Path.Combine(NetworkProfileRoamingArtifacts.CertificatesDirectoryName, NetworkProfileRoamingArtifacts.MyStoreName, sourceName, fileName)),
+            Kind = NetworkProfileRoamingArtifacts.PfxPrivateKeyKind,
+            StoreName = NetworkProfileRoamingArtifacts.MyStoreName,
+            PasswordSecretRelativePath = NetworkProfileRoamingArtifacts.NormalizeRelativePath(Path.Combine(NetworkProfileRoamingArtifacts.CertificatesDirectoryName, NetworkProfileRoamingArtifacts.MyStoreName, sourceName, passwordSecretFileName))
         };
-    }
-
-    private static bool IsPfxPath(string certificatePath)
-    {
-        string extension = Path.GetExtension(certificatePath);
-        return string.Equals(extension, ".pfx", StringComparison.OrdinalIgnoreCase) ||
-            string.Equals(extension, ".p12", StringComparison.OrdinalIgnoreCase);
     }
 
     private void DeleteCertificateArtifactsForSource(string source)
     {
-        DeleteDirectory(Path.Combine(_artifactRootPath, CertificatesDirectoryName, RootStoreName, source));
-        DeleteDirectory(Path.Combine(_artifactRootPath, CertificatesDirectoryName, MyStoreName, source));
+        DeleteDirectory(Path.Combine(_artifactRootPath, NetworkProfileRoamingArtifacts.CertificatesDirectoryName, NetworkProfileRoamingArtifacts.RootStoreName, source));
+        DeleteDirectory(Path.Combine(_artifactRootPath, NetworkProfileRoamingArtifacts.CertificatesDirectoryName, NetworkProfileRoamingArtifacts.MyStoreName, source));
     }
 
     private void DeleteDirectory(string path)
@@ -266,31 +265,13 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
         }
     }
 
-    private static bool IsCertificateOwnedBySource(NetworkProfileRoamingCertificate certificate, string source)
-    {
-        string rootPrefix = NormalizeRelativePath(Path.Combine(CertificatesDirectoryName, RootStoreName, source)) + "\\";
-        string myPrefix = NormalizeRelativePath(Path.Combine(CertificatesDirectoryName, MyStoreName, source)) + "\\";
-        return certificate.RelativePath.StartsWith(rootPrefix, StringComparison.OrdinalIgnoreCase) ||
-            certificate.RelativePath.StartsWith(myPrefix, StringComparison.OrdinalIgnoreCase);
-    }
-
-    private static string CreateStableCertificateFileName(string certificatePath)
-    {
-        string extension = Path.GetExtension(certificatePath);
-        string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(certificatePath);
-        string pathHash = Convert.ToHexString(SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(Path.GetFullPath(certificatePath))))
-            [..16]
-            .ToLowerInvariant();
-        return $"{fileNameWithoutExtension}-{pathHash}{extension}";
-    }
-
     private static string FormatSource(NetworkProfileRoamingProfileSource source)
     {
         return source switch
         {
-            NetworkProfileRoamingProfileSource.ManualWifi => "manualWifi",
-            NetworkProfileRoamingProfileSource.ProvisionedWifi => "provisionedWifi",
-            NetworkProfileRoamingProfileSource.ProvisionedWiredDot1x => "provisionedWiredDot1x",
+            NetworkProfileRoamingProfileSource.ManualWifi => NetworkProfileRoamingArtifacts.ManualWifiSource,
+            NetworkProfileRoamingProfileSource.ProvisionedWifi => NetworkProfileRoamingArtifacts.ProvisionedWifiSource,
+            NetworkProfileRoamingProfileSource.ProvisionedWiredDot1x => NetworkProfileRoamingArtifacts.ProvisionedWiredDot1xSource,
             _ => throw new InvalidOperationException($"Unsupported network profile roaming source '{source}'.")
         };
     }
@@ -299,15 +280,11 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
     {
         return expectation switch
         {
-            NetworkProfileRoamingConnectivityExpectation.PreOobeConnectable => "preOobeConnectable",
-            NetworkProfileRoamingConnectivityExpectation.ImportOnly => "importOnly",
-            NetworkProfileRoamingConnectivityExpectation.DependsOnMachineCredential => "dependsOnMachineCredential",
+            NetworkProfileRoamingConnectivityExpectation.PreOobeConnectable => NetworkProfileRoamingArtifacts.PreOobeConnectableExpectation,
+            NetworkProfileRoamingConnectivityExpectation.ImportOnly => NetworkProfileRoamingArtifacts.ImportOnlyExpectation,
+            NetworkProfileRoamingConnectivityExpectation.DependsOnMachineCredential => NetworkProfileRoamingArtifacts.DependsOnMachineCredentialExpectation,
             _ => throw new InvalidOperationException($"Unsupported network profile roaming connectivity expectation '{expectation}'.")
         };
     }
 
-    private static string NormalizeRelativePath(string relativePath)
-    {
-        return relativePath.Replace('/', '\\').TrimStart('\\');
-    }
 }

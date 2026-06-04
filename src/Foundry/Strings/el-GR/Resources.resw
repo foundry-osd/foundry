@@ -2107,18 +2107,18 @@
     <value>Η Αυτόματη επιλογή διατηρεί την προεπιλεγμένη έκδοση του καταλόγου.</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
-    <value>Windows profile roaming</value>
+    <value>Περιαγωγή προφίλ Windows</value>
   </data>
   <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Import Foundry-managed Wi-Fi and 802.1X profiles into Windows before OOBE so deployment connectivity can continue after WinPE.</value>
+    <value>Εισάγει τα προφίλ Wi-Fi και 802.1X που διαχειρίζεται το Foundry στα Windows πριν από το OOBE, ώστε η συνδεσιμότητα ανάπτυξης να συνεχιστεί μετά το WinPE.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
-    <value>Roam network profiles to Windows</value>
+    <value>Περιαγωγή προφίλ δικτύου στα Windows</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
-    <value>Include private-key certificate material</value>
+    <value>Συμπερίληψη υλικού πιστοποιητικού ιδιωτικού κλειδιού</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
-    <value>Copies configured PFX client certificates to Windows and imports them into the LocalMachine personal certificate store before OOBE.</value>
+    <value>Αντιγράφει τα διαμορφωμένα πιστοποιητικά πελάτη PFX στα Windows και τα εισάγει στον προσωπικό χώρο αποθήκευσης πιστοποιητικών LocalMachine πριν από το OOBE.</value>
   </data>
 </root>

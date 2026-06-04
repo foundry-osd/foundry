@@ -2,6 +2,8 @@ using System.Text.Json;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Services.Network;
 using Microsoft.Extensions.Logging.Abstractions;
+using CoreConnectNetworkProfileRoamingSettings = Foundry.Core.Models.Configuration.ConnectNetworkProfileRoamingSettings;
+using CoreConnectNetworkSettings = Foundry.Core.Models.Configuration.ConnectNetworkSettings;
 
 namespace Foundry.Connect.Tests;
 
@@ -53,6 +55,49 @@ public sealed class NetworkProfileRoamingServiceTests
         Assert.Equal("wifi-profile.xml", wifiProfile.GetProperty("relativePath").GetString());
         Assert.Equal("manualWifi", wifiProfile.GetProperty("source").GetString());
         Assert.Equal("preOobeConnectable", wifiProfile.GetProperty("connectivityExpectation").GetString());
+    }
+
+    [Fact]
+    public async Task CaptureWifiProfileAsync_WhenPreviousSessionManifestExists_StartsFreshManifest()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        Directory.CreateDirectory(tempDirectory.ArtifactPath);
+        File.WriteAllText(
+            Path.Combine(tempDirectory.ArtifactPath, "manifest.json"),
+            """
+            {
+              "schemaVersion": 1,
+              "wiredDot1xProfile": {
+                "relativePath": "wired-dot1x-profile.xml",
+                "source": "provisionedWiredDot1x",
+                "connectivityExpectation": "dependsOnMachineCredential"
+              },
+              "certificates": [
+                {
+                  "relativePath": "certificates\\My\\provisionedWiredDot1x\\stale.pfx",
+                  "kind": "pfxPrivateKey",
+                  "storeName": "My"
+                }
+              ]
+            }
+            """);
+        string profilePath = tempDirectory.CreateFile("source", "wifi.xml", "<WLANProfile><name>Guest</name></WLANProfile>");
+        var service = new NetworkProfileRoamingService(
+            CreateEnabledConfiguration(),
+            NullLogger<NetworkProfileRoamingService>.Instance,
+            tempDirectory.ArtifactPath);
+
+        await service.CaptureWifiProfileAsync(
+            new NetworkProfileRoamingCaptureRequest(
+                profilePath,
+                NetworkProfileRoamingProfileSource.ManualWifi,
+                NetworkProfileRoamingConnectivityExpectation.PreOobeConnectable),
+            TestContext.Current.CancellationToken);
+
+        using JsonDocument manifest = JsonDocument.Parse(File.ReadAllText(Path.Combine(tempDirectory.ArtifactPath, "manifest.json")));
+        Assert.True(manifest.RootElement.TryGetProperty("wifiProfile", out _));
+        Assert.False(manifest.RootElement.TryGetProperty("wiredDot1xProfile", out _));
+        Assert.Empty(manifest.RootElement.GetProperty("certificates").EnumerateArray());
     }
 
     [Fact]
@@ -216,9 +261,9 @@ public sealed class NetworkProfileRoamingServiceTests
     {
         return new FoundryConnectConfiguration
         {
-            Network = new ConnectNetworkSettings
+            Network = new CoreConnectNetworkSettings
             {
-                ProfileRoaming = new ConnectNetworkProfileRoamingSettings
+                ProfileRoaming = new CoreConnectNetworkProfileRoamingSettings
                 {
                     IsEnabled = true,
                     IncludePrivateKeyMaterial = includePrivateKeyMaterial

@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
+using Foundry.Core.Models.Network;
 using Foundry.Core.Services.Autopilot;
 
 namespace Foundry.Core.Services.Configuration;
@@ -40,7 +41,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                 {
                     IsEnabled = document.Network.RoamWifiProfilesToWindows,
                     IncludePrivateKeyMaterial = document.Network.RoamPrivateKeyMaterialToWindows,
-                    ArtifactRootPath = DeployNetworkProfileRoamingSettings.DefaultArtifactRootPath
+                    ArtifactRootPath = NetworkProfileRoamingArtifacts.DefaultArtifactRootPath
                 }
             },
             Customization = new DeployCustomizationSettings

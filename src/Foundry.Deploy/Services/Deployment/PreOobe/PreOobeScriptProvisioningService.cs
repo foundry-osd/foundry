@@ -229,15 +229,51 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
         builder.AppendLine("}");
         builder.AppendLine();
 
-        foreach (PreOobeScriptDefinition script in orderedScripts)
+        PreOobeScriptDefinition[] cleanupScripts = orderedScripts
+            .Where(static script => script.Priority == PreOobeScriptPriority.Cleanup)
+            .ToArray();
+        PreOobeScriptDefinition[] mainScripts = orderedScripts
+            .Where(static script => script.Priority != PreOobeScriptPriority.Cleanup)
+            .ToArray();
+
+        if (cleanupScripts.Length == 0)
         {
-            builder.Append("Invoke-FoundryScript -ScriptPath (Join-Path $scriptsRoot ");
-            builder.Append(ToPowerShellString(script.FileName));
-            builder.Append(") -Arguments ");
-            builder.AppendLine(ToPowerShellArray(script.Arguments));
+            foreach (PreOobeScriptDefinition script in mainScripts)
+            {
+                AppendInvokeFoundryScript(builder, script);
+            }
+
+            return builder.ToString();
         }
 
+        builder.AppendLine("try {");
+        foreach (PreOobeScriptDefinition script in mainScripts)
+        {
+            AppendInvokeFoundryScript(builder, script, "    ");
+        }
+        builder.AppendLine("}");
+        builder.AppendLine("finally {");
+        foreach (PreOobeScriptDefinition script in cleanupScripts)
+        {
+            builder.AppendLine("    try {");
+            AppendInvokeFoundryScript(builder, script, "        ");
+            builder.AppendLine("    }");
+            builder.AppendLine("    catch {");
+            builder.AppendLine("        Write-Warning $_");
+            builder.AppendLine("    }");
+        }
+        builder.AppendLine("}");
+
         return builder.ToString();
+    }
+
+    private static void AppendInvokeFoundryScript(StringBuilder builder, PreOobeScriptDefinition script, string indent = "")
+    {
+        builder.Append(indent);
+        builder.Append("Invoke-FoundryScript -ScriptPath (Join-Path $scriptsRoot ");
+        builder.Append(ToPowerShellString(script.FileName));
+        builder.Append(") -Arguments ");
+        builder.AppendLine(ToPowerShellArray(script.Arguments));
     }
 
     private static string BuildSetupCompleteLauncher()

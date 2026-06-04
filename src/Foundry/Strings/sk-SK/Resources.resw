@@ -2107,18 +2107,18 @@
     <value>Automaticky zachová predvolenú edíciu katalógu.</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
-    <value>Windows profile roaming</value>
+    <value>Roaming profilov Windows</value>
   </data>
   <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Import Foundry-managed Wi-Fi and 802.1X profiles into Windows before OOBE so deployment connectivity can continue after WinPE.</value>
+    <value>Importuje profily Wi-Fi a 802.1X spravované Foundry do Windows pred OOBE, aby konektivita nasadenia pokračovala po WinPE.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
-    <value>Roam network profiles to Windows</value>
+    <value>Preniesť sieťové profily do Windows</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
-    <value>Include private-key certificate material</value>
+    <value>Zahrnúť materiál certifikátu so súkromným kľúčom</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
-    <value>Copies configured PFX client certificates to Windows and imports them into the LocalMachine personal certificate store before OOBE.</value>
+    <value>Skopíruje nakonfigurované klientské certifikáty PFX do Windows a pred OOBE ich importuje do osobného úložiska certifikátov LocalMachine.</value>
   </data>
 </root>

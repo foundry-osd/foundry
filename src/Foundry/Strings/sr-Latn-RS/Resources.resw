@@ -2107,18 +2107,18 @@
     <value>Automatski zadržava podrazumevano izdanje kataloga.</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
-    <value>Windows profile roaming</value>
+    <value>Roming Windows profila</value>
   </data>
   <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Import Foundry-managed Wi-Fi and 802.1X profiles into Windows before OOBE so deployment connectivity can continue after WinPE.</value>
+    <value>Uvozi Wi-Fi i 802.1X profile kojima upravlja Foundry u Windows pre OOBE-a, kako bi se povezivanje za implementaciju nastavilo posle WinPE-a.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
-    <value>Roam network profiles to Windows</value>
+    <value>Premesti mrežne profile u Windows</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
-    <value>Include private-key certificate material</value>
+    <value>Uključi materijal sertifikata sa privatnim ključem</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
-    <value>Copies configured PFX client certificates to Windows and imports them into the LocalMachine personal certificate store before OOBE.</value>
+    <value>Kopira konfigurisane PFX klijentske sertifikate u Windows i uvozi ih u lično skladište sertifikata LocalMachine pre OOBE-a.</value>
   </data>
 </root>

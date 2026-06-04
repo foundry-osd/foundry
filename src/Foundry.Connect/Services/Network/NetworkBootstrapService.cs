@@ -16,13 +16,6 @@ namespace Foundry.Connect.Services.Network;
 /// </summary>
 public sealed class NetworkBootstrapService : INetworkBootstrapService
 {
-    private const string OpenSecurityType = "Open";
-    private const string OweSecurityType = "OWE";
-    private const string EnterpriseSecurityType = "Enterprise";
-    private const string WifiSecurityPersonal = "WPA2/WPA3-Personal";
-    private const string WifiSecurityLegacyWpa2Personal = "WPA2-Personal";
-    private const string WifiSecurityWpa3Personal = "WPA3-Personal";
-    private const string WifiSecurityLegacyPersonal = "Personal";
     private static readonly TimeSpan WifiConnectionTimeout = TimeSpan.FromSeconds(15);
     private static readonly TimeSpan WifiConnectionPollInterval = TimeSpan.FromMilliseconds(500);
     private static readonly TimeSpan WifiProfileImportRetryDelay = TimeSpan.FromSeconds(2);
@@ -145,8 +138,8 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             return "A discovered Wi-Fi network must provide an SSID before it can be connected.";
         }
 
-        string securityType = ResolveDiscoveredWifiSecurityType(authentication);
-        if (string.Equals(securityType, EnterpriseSecurityType, StringComparison.OrdinalIgnoreCase))
+        string securityType = NetworkConfigurationValidator.ResolveDiscoveredWifiSecurityType(authentication);
+        if (NetworkConfigurationValidator.IsEnterpriseSecurityType(securityType))
         {
             return "Enterprise Wi-Fi from the discovery list requires a provisioned profile template in this build.";
         }
@@ -691,38 +684,6 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         return sawDisconnectTransition
             ? WifiDisconnectAttemptResult.Failure($"Windows started the Wi-Fi disconnect workflow, but '{disconnectedSsid}' remained connected after {WifiConnectionTimeout.TotalSeconds:0} seconds.")
             : WifiDisconnectAttemptResult.Failure($"Windows accepted the request, but '{disconnectedSsid}' did not transition away from the connected state.");
-    }
-
-    private static string ResolveDiscoveredWifiSecurityType(string authentication)
-    {
-        if (authentication.Contains("enterprise", StringComparison.OrdinalIgnoreCase))
-        {
-            return EnterpriseSecurityType;
-        }
-
-        if (authentication.Contains("open", StringComparison.OrdinalIgnoreCase))
-        {
-            return OpenSecurityType;
-        }
-
-        if (authentication.Contains("owe", StringComparison.OrdinalIgnoreCase))
-        {
-            return OweSecurityType;
-        }
-
-        if (authentication.Contains("sae", StringComparison.OrdinalIgnoreCase) ||
-            authentication.Contains("wpa3", StringComparison.OrdinalIgnoreCase))
-        {
-            return WifiSecurityWpa3Personal;
-        }
-
-        if (authentication.Contains("personal", StringComparison.OrdinalIgnoreCase) ||
-            authentication.Contains("psk", StringComparison.OrdinalIgnoreCase))
-        {
-            return WifiSecurityLegacyWpa2Personal;
-        }
-
-        return EnterpriseSecurityType;
     }
 
     private static string CollapseError(ProcessExecutionResult result)

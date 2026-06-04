@@ -1,4 +1,5 @@
 using Foundry.Telemetry;
+using CoreDeployNetworkSettings = Foundry.Core.Models.Configuration.Deploy.DeployNetworkSettings;
 
 namespace Foundry.Deploy.Models.Configuration;
 
@@ -30,7 +31,7 @@ public sealed record FoundryDeployConfigurationDocument
     /// <summary>
     /// Gets network profile roaming settings used during deployment.
     /// </summary>
-    public DeployNetworkSettings Network { get; init; } = new();
+    public CoreDeployNetworkSettings Network { get; init; } = new();
 
     /// <summary>
     /// Gets Windows customization settings applied during deployment.

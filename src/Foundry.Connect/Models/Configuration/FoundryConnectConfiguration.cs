@@ -1,4 +1,5 @@
 using Foundry.Telemetry;
+using CoreConnectNetworkSettings = Foundry.Core.Models.Configuration.ConnectNetworkSettings;
 
 namespace Foundry.Connect.Models.Configuration;
 
@@ -25,7 +26,7 @@ public sealed class FoundryConnectConfiguration
     /// <summary>
     /// Gets network runtime settings.
     /// </summary>
-    public ConnectNetworkSettings Network { get; init; } = new();
+    public CoreConnectNetworkSettings Network { get; init; } = new();
 
     /// <summary>
     /// Gets wired 802.1X provisioning settings.
