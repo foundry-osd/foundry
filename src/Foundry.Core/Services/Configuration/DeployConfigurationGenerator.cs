@@ -34,6 +34,14 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             {
                 DefaultTimeZoneId = document.Localization.DefaultTimeZoneId
             },
+            Network = new DeployNetworkSettings
+            {
+                ProfileRoaming = new DeployNetworkProfileRoamingSettings
+                {
+                    IsEnabled = document.Network.RoamWifiProfilesToWindows,
+                    IncludePrivateKeyMaterial = document.Network.RoamPrivateKeyMaterialToWindows
+                }
+            },
             Customization = new DeployCustomizationSettings
             {
                 MachineNaming = new DeployMachineNamingSettings

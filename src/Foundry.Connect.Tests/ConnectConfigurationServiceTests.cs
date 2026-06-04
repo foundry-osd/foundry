@@ -73,9 +73,9 @@ public sealed class ConnectConfigurationServiceTests
         string configurationPath = CreateJsonFile(
             tempDirectory.Path,
             "telemetry.json",
-            """
+            $$"""
             {
-              "schemaVersion": 1,
+              "schemaVersion": {{FoundryConnectConfiguration.CurrentSchemaVersion}},
               "telemetry": {
                 "isEnabled": false,
                 "installId": "install-id",
@@ -146,6 +146,31 @@ public sealed class ConnectConfigurationServiceTests
         Assert.NotNull(configuration.Capabilities);
         Assert.NotNull(configuration.Wifi);
         Assert.NotNull(configuration.InternetProbe);
+    }
+
+    [Fact]
+    public void Load_WhenCoreGeneratedConfigurationContainsNetworkProfileRoaming_PreservesOptIn()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var tempDirectory = new TemporaryDirectory();
+        string configurationJson = new ConnectConfigurationGenerator().CreateProvisioningBundle(
+            new CoreConfiguration.FoundryConfigurationDocument
+            {
+                Network = new CoreConfiguration.NetworkSettings
+                {
+                    RoamWifiProfilesToWindows = true,
+                    RoamPrivateKeyMaterialToWindows = true
+                }
+            },
+            tempDirectory.Path).ConfigurationJson;
+        string configurationPath = CreateJsonFile(tempDirectory.Path, "core-generated.json", configurationJson);
+
+        var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
+
+        FoundryConnectConfiguration configuration = service.Load();
+
+        Assert.True(configuration.Network.ProfileRoaming.IsEnabled);
+        Assert.True(configuration.Network.ProfileRoaming.IncludePrivateKeyMaterial);
     }
 
     [Fact]

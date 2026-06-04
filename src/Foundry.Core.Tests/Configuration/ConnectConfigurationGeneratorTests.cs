@@ -21,16 +21,40 @@ public sealed class ConnectConfigurationGeneratorTests
         JsonElement root = document.RootElement;
         Assert.Equal(FoundryConnectConfigurationDocument.CurrentSchemaVersion, root.GetProperty("schemaVersion").GetInt32());
         Assert.True(root.TryGetProperty("capabilities", out JsonElement capabilities));
+        Assert.True(root.TryGetProperty("network", out JsonElement network));
         Assert.True(root.TryGetProperty("dot1x", out _));
         Assert.True(root.TryGetProperty("wifi", out _));
         Assert.True(root.TryGetProperty("internetProbe", out JsonElement internetProbe));
         Assert.False(capabilities.GetProperty("wifiProvisioned").GetBoolean());
+        Assert.False(network.GetProperty("profileRoaming").GetProperty("isEnabled").GetBoolean());
+        Assert.False(network.GetProperty("profileRoaming").GetProperty("includePrivateKeyMaterial").GetBoolean());
         Assert.Equal(JsonValueKind.Number, root.GetProperty("dot1x").GetProperty("authenticationMode").ValueKind);
         Assert.Equal(JsonValueKind.Number, root.GetProperty("wifi").GetProperty("enterpriseAuthenticationMode").ValueKind);
         Assert.Equal(5, internetProbe.GetProperty("timeoutSeconds").GetInt32());
         Assert.NotEmpty(internetProbe.GetProperty("probeUris").EnumerateArray());
         Assert.Empty(bundle.AssetFiles);
         Assert.Null(bundle.MediaSecretsKey);
+    }
+
+    [Fact]
+    public void Generate_WhenNetworkProfileRoamingIsEnabled_PropagatesRuntimeOptIn()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        var generator = new ConnectConfigurationGenerator();
+
+        FoundryConnectConfigurationDocument result = generator.Generate(
+            new FoundryConfigurationDocument
+            {
+                Network = new NetworkSettings
+                {
+                    RoamWifiProfilesToWindows = true,
+                    RoamPrivateKeyMaterialToWindows = true
+                }
+            },
+            tempDirectory.Path);
+
+        Assert.True(result.Network.ProfileRoaming.IsEnabled);
+        Assert.True(result.Network.ProfileRoaming.IncludePrivateKeyMaterial);
     }
 
     [Fact]

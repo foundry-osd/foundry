@@ -169,6 +169,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
             {
                 WifiProvisioned = capabilities.WifiProvisioned
             },
+            Network = configuration.Network ?? new ConnectNetworkSettings(),
             Dot1x = configuration.Dot1x ?? new Dot1xSettings(),
             Wifi = NormalizeWifi(configuration.Wifi),
             InternetProbe = new InternetProbeOptions
@@ -206,6 +207,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
         {
             SchemaVersion = configuration.SchemaVersion,
             Capabilities = configuration.Capabilities,
+            Network = configuration.Network,
             Dot1x = configuration.Dot1x,
             Wifi = wifi with
             {

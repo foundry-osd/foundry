@@ -36,6 +36,35 @@ public sealed class DeployConfigurationGeneratorTests
     }
 
     [Fact]
+    public void Generate_WhenNetworkProfileRoamingIsDisabled_DisablesDeployRoaming()
+    {
+        var generator = new DeployConfigurationGenerator();
+
+        FoundryDeployConfigurationDocument result = generator.Generate(new FoundryConfigurationDocument());
+
+        Assert.False(result.Network.ProfileRoaming.IsEnabled);
+        Assert.False(result.Network.ProfileRoaming.IncludePrivateKeyMaterial);
+    }
+
+    [Fact]
+    public void Generate_WhenNetworkProfileRoamingIsEnabled_PropagatesDeployRoaming()
+    {
+        var generator = new DeployConfigurationGenerator();
+
+        FoundryDeployConfigurationDocument result = generator.Generate(new FoundryConfigurationDocument
+        {
+            Network = new NetworkSettings
+            {
+                RoamWifiProfilesToWindows = true,
+                RoamPrivateKeyMaterialToWindows = true
+            }
+        });
+
+        Assert.True(result.Network.ProfileRoaming.IsEnabled);
+        Assert.True(result.Network.ProfileRoaming.IncludePrivateKeyMaterial);
+    }
+
+    [Fact]
     public void Generate_PropagatesTelemetrySettings()
     {
         var generator = new DeployConfigurationGenerator();

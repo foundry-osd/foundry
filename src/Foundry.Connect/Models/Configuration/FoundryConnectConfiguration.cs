@@ -10,7 +10,7 @@ public sealed class FoundryConnectConfiguration
     /// <summary>
     /// Gets the current configuration schema version.
     /// </summary>
-    public const int CurrentSchemaVersion = 1;
+    public const int CurrentSchemaVersion = 2;
 
     /// <summary>
     /// Gets the schema version of this configuration.
@@ -21,6 +21,11 @@ public sealed class FoundryConnectConfiguration
     /// Gets capabilities of the generated media.
     /// </summary>
     public NetworkCapabilitiesOptions Capabilities { get; init; } = new();
+
+    /// <summary>
+    /// Gets network runtime settings.
+    /// </summary>
+    public ConnectNetworkSettings Network { get; init; } = new();
 
     /// <summary>
     /// Gets wired 802.1X provisioning settings.

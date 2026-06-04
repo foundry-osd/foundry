@@ -56,6 +56,36 @@ public sealed class DeployConfigurationServiceTests
         Assert.False(result.IsBootMediaUpdateRecommended);
     }
 
+    [Fact]
+    public void LoadOptional_WhenConfigurationContainsNetworkProfileRoaming_PreservesOptIn()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string configurationPath = CreateJsonFile(
+            tempDirectory.Path,
+            "foundry.deploy.config.json",
+            $$"""
+            {
+              "schemaVersion": {{FoundryDeployConfigurationDocument.CurrentSchemaVersion}},
+              "network": {
+                "profileRoaming": {
+                  "isEnabled": true,
+                  "includePrivateKeyMaterial": true
+                }
+              }
+            }
+            """);
+
+        var service = new DeployConfigurationService(
+            NullLogger<DeployConfigurationService>.Instance,
+            configurationPath);
+
+        DeployConfigurationLoadResult result = service.LoadOptional();
+
+        Assert.NotNull(result.Document);
+        Assert.True(result.Document.Network.ProfileRoaming.IsEnabled);
+        Assert.True(result.Document.Network.ProfileRoaming.IncludePrivateKeyMaterial);
+    }
+
     private static string CreateJsonFile(string directoryPath, string fileName, string contents)
     {
         string filePath = Path.Combine(directoryPath, fileName);
