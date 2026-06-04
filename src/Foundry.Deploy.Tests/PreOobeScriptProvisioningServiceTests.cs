@@ -195,6 +195,31 @@ public sealed class PreOobeScriptProvisioningServiceTests
     }
 
     [Fact]
+    public void Provision_StagesNetworkImportScriptWithPreOobeWifiConnect()
+    {
+        string windowsRoot = CreateWindowsRoot();
+        var service = new PreOobeScriptProvisioningService(new SetupCompleteScriptService());
+
+        PreOobeScriptProvisioningResult result = service.Provision(
+            windowsRoot,
+            [
+                new PreOobeScriptDefinition
+                {
+                    Id = "network-profile-roaming",
+                    FileName = "Import-NetworkProfiles.ps1",
+                    ResourceName = PreOobeScriptResources.ImportNetworkProfiles,
+                    Priority = PreOobeScriptPriority.NetworkProfileImport
+                }
+            ]);
+
+        string stagedScript = File.ReadAllText(result.StagedScriptPaths.Single());
+
+        Assert.Contains("Connect-FoundryWifiProfile", stagedScript);
+        Assert.Contains("'preOobeConnectable'", stagedScript);
+        Assert.Contains("@('wlan', 'connect', \"name=$profileName\")", stagedScript);
+    }
+
+    [Fact]
     public void Provision_StagesDriverPackScriptWithTranscriptAndWaitedProcesses()
     {
         string windowsRoot = CreateWindowsRoot();

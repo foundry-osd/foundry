@@ -151,6 +151,51 @@ function Import-FoundryPfxCertificate {
     }
 }
 
+function Get-FoundryWifiProfileName {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$ProfilePath
+    )
+
+    try {
+        [xml]$profile = Get-Content -LiteralPath $ProfilePath -Raw
+        $namespaceManager = New-Object System.Xml.XmlNamespaceManager($profile.NameTable)
+        $namespaceManager.AddNamespace('wlan', 'http://www.microsoft.com/networking/WLAN/profile/v1')
+        $nameNode = $profile.SelectSingleNode('/wlan:WLANProfile/wlan:name', $namespaceManager)
+        if ($null -eq $nameNode -or [string]::IsNullOrWhiteSpace($nameNode.InnerText)) {
+            return $null
+        }
+
+        return $nameNode.InnerText.Trim()
+    }
+    catch {
+        Write-FoundryLog "WARNING: Wi-Fi profile name could not be read: $($_.Exception.Message)"
+        return $null
+    }
+}
+
+function Connect-FoundryWifiProfile {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$ProfilePath,
+
+        [string]$ConnectivityExpectation
+    )
+
+    if ($ConnectivityExpectation -ine 'preOobeConnectable') {
+        Write-FoundryLog "Skipping Wi-Fi reconnect because connectivityExpectation='$ConnectivityExpectation'."
+        return
+    }
+
+    $profileName = Get-FoundryWifiProfileName -ProfilePath $ProfilePath
+    if ([string]::IsNullOrWhiteSpace($profileName)) {
+        Write-FoundryLog "Skipping Wi-Fi reconnect because the imported profile name could not be resolved."
+        return
+    }
+
+    Invoke-FoundryNetsh -Arguments @('wlan', 'connect', "name=$profileName") -Description "Connecting Wi-Fi profile '$profileName'."
+}
+
 function Import-FoundryWifiProfile {
     param(
         [string]$RelativePath,
@@ -170,6 +215,7 @@ function Import-FoundryWifiProfile {
 
     Write-FoundryLog "Wi-Fi profile source='$Source', connectivityExpectation='$ConnectivityExpectation'."
     Invoke-FoundryNetsh -Arguments @('wlan', 'add', 'profile', "filename=$profilePath", 'user=all') -Description 'Importing Wi-Fi profile for all users.'
+    Connect-FoundryWifiProfile -ProfilePath $profilePath -ConnectivityExpectation $ConnectivityExpectation
 }
 
 function Import-FoundryWiredProfile {
