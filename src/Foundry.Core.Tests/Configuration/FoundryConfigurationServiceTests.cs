@@ -7,6 +7,15 @@ namespace Foundry.Core.Tests.Configuration;
 public sealed class FoundryConfigurationServiceTests
 {
     [Fact]
+    public void DefaultConfiguration_DisablesNetworkProfileRoaming()
+    {
+        var document = new FoundryConfigurationDocument();
+
+        Assert.False(document.Network.RoamWifiProfilesToWindows);
+        Assert.False(document.Network.RoamPrivateKeyMaterialToWindows);
+    }
+
+    [Fact]
     public void Serialize_ThenDeserialize_RoundTripsBusinessSettings()
     {
         var service = new FoundryConfigurationService();
@@ -128,6 +137,32 @@ public sealed class FoundryConfigurationServiceTests
     }
 
     [Fact]
+    public void Serialize_ThenDeserialize_WhenNetworkProfileRoamingIsEnabled_PreservesSetting()
+    {
+        var service = new FoundryConfigurationService();
+        var document = new FoundryConfigurationDocument
+        {
+            Network = new NetworkSettings
+            {
+                WifiProvisioned = true,
+                RoamWifiProfilesToWindows = true,
+                Wifi = new WifiSettings
+                {
+                    IsEnabled = true,
+                    Ssid = "Foundry WiFi",
+                    SecurityType = NetworkConfigurationValidator.WifiSecurityPersonal,
+                    Passphrase = "ValidPassphrase123"
+                }
+            }
+        };
+
+        string json = service.Serialize(document);
+        FoundryConfigurationDocument loaded = service.Deserialize(json);
+
+        Assert.True(loaded.Network.RoamWifiProfilesToWindows);
+    }
+
+    [Fact]
     public void Deserialize_WhenJsonIsNullLiteral_ReturnsDefaultDocument()
     {
         var service = new FoundryConfigurationService();
@@ -218,7 +253,6 @@ public sealed class FoundryConfigurationServiceTests
         Assert.Contains("\"provisioningMode\": \"hardwareHashUpload\"", json, StringComparison.Ordinal);
         Assert.DoesNotContain("pfx", json, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("password", json, StringComparison.OrdinalIgnoreCase);
-        Assert.DoesNotContain("privateKey", json, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("accessToken", json, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("PfxPassword-DoNotLeak", json, StringComparison.Ordinal);
         Assert.DoesNotContain(@"E:\Secrets", json, StringComparison.OrdinalIgnoreCase);

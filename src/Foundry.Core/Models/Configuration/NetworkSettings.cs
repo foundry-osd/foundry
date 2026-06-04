@@ -5,10 +5,26 @@ namespace Foundry.Core.Models.Configuration;
 /// </summary>
 public sealed record NetworkSettings
 {
+    private readonly bool _roamPrivateKeyMaterialToWindows;
+
     /// <summary>
     /// Gets whether Wi-Fi provisioning should be considered available on the target media.
     /// </summary>
     public bool WifiProvisioned { get; init; }
+
+    /// <summary>
+    /// Gets whether Foundry should stage eligible WinPE network profiles for import into the deployed Windows installation.
+    /// </summary>
+    public bool RoamWifiProfilesToWindows { get; init; }
+
+    /// <summary>
+    /// Gets whether Foundry should securely roam explicitly configured 802.1X PFX/private-key material to the deployed Windows installation.
+    /// </summary>
+    public bool RoamPrivateKeyMaterialToWindows
+    {
+        get => RoamWifiProfilesToWindows && _roamPrivateKeyMaterialToWindows;
+        init => _roamPrivateKeyMaterialToWindows = value;
+    }
 
     /// <summary>
     /// Gets wired 802.1X provisioning settings.
