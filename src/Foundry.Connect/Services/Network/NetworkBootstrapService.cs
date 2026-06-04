@@ -701,6 +701,8 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
 
     private async Task<ProcessExecutionResult> ExecuteProcessAsync(string fileName, string arguments, CancellationToken cancellationToken)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         try
         {
             using Process process = new()
@@ -725,6 +727,10 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                 process.ExitCode,
                 await outputTask.ConfigureAwait(false),
                 await errorTask.ConfigureAwait(false));
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            throw;
         }
         catch (Exception ex)
         {

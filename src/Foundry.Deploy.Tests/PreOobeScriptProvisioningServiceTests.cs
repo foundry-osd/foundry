@@ -169,6 +169,32 @@ public sealed class PreOobeScriptProvisioningServiceTests
     }
 
     [Fact]
+    public void Provision_StagesNetworkImportScriptWithPasswordlessPfxImport()
+    {
+        string windowsRoot = CreateWindowsRoot();
+        var service = new PreOobeScriptProvisioningService(new SetupCompleteScriptService());
+
+        PreOobeScriptProvisioningResult result = service.Provision(
+            windowsRoot,
+            [
+                new PreOobeScriptDefinition
+                {
+                    Id = "network-profile-roaming",
+                    FileName = "Import-NetworkProfiles.ps1",
+                    ResourceName = PreOobeScriptResources.ImportNetworkProfiles,
+                    Priority = PreOobeScriptPriority.NetworkProfileImport
+                }
+            ]);
+
+        string stagedScript = File.ReadAllText(result.StagedScriptPaths.Single());
+
+        Assert.Contains("$importArguments = @", stagedScript);
+        Assert.Contains("if ($securePassword -ne $null)", stagedScript);
+        Assert.Contains("$importArguments.Password = $securePassword", stagedScript);
+        Assert.DoesNotContain("Skipping PFX import because no password file was staged.", stagedScript);
+    }
+
+    [Fact]
     public void Provision_StagesDriverPackScriptWithTranscriptAndWaitedProcesses()
     {
         string windowsRoot = CreateWindowsRoot();

@@ -58,6 +58,22 @@ public sealed class NetworkProfileRoamingServiceTests
     }
 
     [Fact]
+    public void Constructor_WhenRoamingIsEnabled_RemovesPreviousSessionManifest()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        Directory.CreateDirectory(tempDirectory.ArtifactPath);
+        File.WriteAllText(Path.Combine(tempDirectory.ArtifactPath, "manifest.json"), "{}");
+
+        _ = new NetworkProfileRoamingService(
+            CreateEnabledConfiguration(),
+            NullLogger<NetworkProfileRoamingService>.Instance,
+            tempDirectory.ArtifactPath);
+
+        Assert.True(Directory.Exists(tempDirectory.ArtifactPath));
+        Assert.False(File.Exists(Path.Combine(tempDirectory.ArtifactPath, "manifest.json")));
+    }
+
+    [Fact]
     public async Task CaptureWifiProfileAsync_WhenPreviousSessionManifestExists_StartsFreshManifest()
     {
         using var tempDirectory = new TemporaryDirectory();
@@ -167,6 +183,35 @@ public sealed class NetworkProfileRoamingServiceTests
         Assert.Equal($"{certificateRelativePath}.password.json", passwordSecretRelativePath);
         Assert.True(File.Exists(Path.Combine(tempDirectory.ArtifactPath, certificateRelativePath)));
         Assert.True(File.Exists(Path.Combine(tempDirectory.ArtifactPath, passwordSecretRelativePath)));
+    }
+
+    [Fact]
+    public async Task CaptureWiredDot1xProfileAsync_WhenPfxHasNoPassword_CopiesPfxWithoutPasswordSecret()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string profilePath = tempDirectory.CreateFile("source", "wired.xml", "<LANProfile />");
+        string certificatePath = tempDirectory.CreateFile("source", "machine.pfx", "pfx-bytes");
+        var service = new NetworkProfileRoamingService(
+            CreateEnabledConfiguration(includePrivateKeyMaterial: true),
+            NullLogger<NetworkProfileRoamingService>.Instance,
+            tempDirectory.ArtifactPath);
+
+        await service.CaptureWiredDot1xProfileAsync(
+            new NetworkProfileRoamingCaptureRequest(
+                profilePath,
+                NetworkProfileRoamingProfileSource.ProvisionedWiredDot1x,
+                NetworkProfileRoamingConnectivityExpectation.DependsOnMachineCredential,
+                [certificatePath]),
+            TestContext.Current.CancellationToken);
+
+        using JsonDocument manifest = JsonDocument.Parse(File.ReadAllText(Path.Combine(tempDirectory.ArtifactPath, "manifest.json")));
+        JsonElement certificate = manifest.RootElement.GetProperty("certificates").EnumerateArray().Single();
+        string certificateRelativePath = certificate.GetProperty("relativePath").GetString()!;
+        Assert.StartsWith(@"certificates\My\provisionedWiredDot1x\machine-", certificateRelativePath, StringComparison.OrdinalIgnoreCase);
+        Assert.EndsWith(".pfx", certificateRelativePath, StringComparison.OrdinalIgnoreCase);
+        Assert.Equal("pfxPrivateKey", certificate.GetProperty("kind").GetString());
+        Assert.False(certificate.TryGetProperty("passwordSecretRelativePath", out _));
+        Assert.True(File.Exists(Path.Combine(tempDirectory.ArtifactPath, certificateRelativePath)));
     }
 
     [Fact]

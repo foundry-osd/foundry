@@ -45,6 +45,11 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
         _configuration = configuration;
         _logger = logger;
         _artifactRootPath = artifactRootPath;
+
+        if (_configuration.Network.ProfileRoaming.IsEnabled)
+        {
+            PrepareArtifactRoot();
+        }
     }
 
     /// <inheritdoc />
@@ -143,6 +148,10 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
                 cancellationToken).ConfigureAwait(false);
             return manifest ?? new NetworkProfileRoamingManifest();
         }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            throw;
+        }
         catch (Exception ex)
         {
             _logger.LogDebug(ex, "Existing network profile roaming manifest could not be read. It will be replaced.");
@@ -217,9 +226,9 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
         SecretEnvelope? passwordSecret,
         CancellationToken cancellationToken)
     {
-        if (!_configuration.Network.ProfileRoaming.IncludePrivateKeyMaterial || passwordSecret is null)
+        if (!_configuration.Network.ProfileRoaming.IncludePrivateKeyMaterial)
         {
-            _logger.LogDebug("PFX certificate was not copied to the network profile roaming artifact because private-key roaming is disabled or no encrypted password secret is available.");
+            _logger.LogDebug("PFX certificate was not copied to the network profile roaming artifact because private-key roaming is disabled.");
             return null;
         }
 
@@ -230,17 +239,22 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
         string destinationPath = Path.Combine(certificateRootPath, fileName);
         File.Copy(certificatePath, destinationPath, overwrite: true);
 
-        string passwordSecretFileName = $"{fileName}.password.json";
-        string passwordSecretPath = Path.Combine(certificateRootPath, passwordSecretFileName);
-        await using FileStream stream = File.Create(passwordSecretPath);
-        await JsonSerializer.SerializeAsync(stream, passwordSecret, JsonOptions, cancellationToken).ConfigureAwait(false);
+        string? passwordSecretRelativePath = null;
+        if (passwordSecret is not null)
+        {
+            string passwordSecretFileName = $"{fileName}.password.json";
+            string passwordSecretPath = Path.Combine(certificateRootPath, passwordSecretFileName);
+            await using FileStream stream = File.Create(passwordSecretPath);
+            await JsonSerializer.SerializeAsync(stream, passwordSecret, JsonOptions, cancellationToken).ConfigureAwait(false);
+            passwordSecretRelativePath = NetworkProfileRoamingArtifacts.NormalizeRelativePath(Path.Combine(NetworkProfileRoamingArtifacts.CertificatesDirectoryName, NetworkProfileRoamingArtifacts.MyStoreName, sourceName, passwordSecretFileName));
+        }
 
         return new NetworkProfileRoamingCertificate
         {
             RelativePath = NetworkProfileRoamingArtifacts.NormalizeRelativePath(Path.Combine(NetworkProfileRoamingArtifacts.CertificatesDirectoryName, NetworkProfileRoamingArtifacts.MyStoreName, sourceName, fileName)),
             Kind = NetworkProfileRoamingArtifacts.PfxPrivateKeyKind,
             StoreName = NetworkProfileRoamingArtifacts.MyStoreName,
-            PasswordSecretRelativePath = NetworkProfileRoamingArtifacts.NormalizeRelativePath(Path.Combine(NetworkProfileRoamingArtifacts.CertificatesDirectoryName, NetworkProfileRoamingArtifacts.MyStoreName, sourceName, passwordSecretFileName))
+            PasswordSecretRelativePath = passwordSecretRelativePath
         };
     }
 

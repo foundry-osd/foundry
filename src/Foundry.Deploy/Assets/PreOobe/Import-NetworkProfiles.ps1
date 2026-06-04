@@ -106,24 +106,34 @@ function Import-FoundryPfxCertificate {
     )
 
     $passwordRelativePath = [string]$Certificate.passwordRelativePath
-    if ([string]::IsNullOrWhiteSpace($passwordRelativePath)) {
-        Write-FoundryLog "Skipping PFX import because no password file was staged."
-        return
+    $passwordPath = $null
+    $securePassword = $null
+    if (-not [string]::IsNullOrWhiteSpace($passwordRelativePath)) {
+        $passwordPath = Resolve-FoundryDataPath -RelativePath $passwordRelativePath
+        if (-not (Test-Path -LiteralPath $passwordPath -PathType Leaf)) {
+            Write-FoundryLog "Skipping PFX import because the staged password file is missing."
+            return
+        }
+
+        $password = Get-Content -LiteralPath $passwordPath -Raw
+        $securePassword = ConvertTo-SecureString -String $password -AsPlainText -Force
     }
 
-    $passwordPath = Resolve-FoundryDataPath -RelativePath $passwordRelativePath
-    if (-not (Test-Path -LiteralPath $passwordPath -PathType Leaf)) {
-        Write-FoundryLog "Skipping PFX import because the staged password file is missing."
-        return
-    }
-
-    $password = Get-Content -LiteralPath $passwordPath -Raw
-    $securePassword = ConvertTo-SecureString -String $password -AsPlainText -Force
     try {
         Write-FoundryLog "Importing PFX certificate into LocalMachine\My."
         if (Get-Command -Name Import-PfxCertificate -ErrorAction SilentlyContinue) {
             try {
-                Import-PfxCertificate -FilePath $CertificatePath -CertStoreLocation 'Cert:\LocalMachine\My' -Password $securePassword -Exportable:$false -ErrorAction Stop | Out-Null
+                $importArguments = @{
+                    FilePath = $CertificatePath
+                    CertStoreLocation = 'Cert:\LocalMachine\My'
+                    Exportable = $false
+                    ErrorAction = 'Stop'
+                }
+                if ($securePassword -ne $null) {
+                    $importArguments.Password = $securePassword
+                }
+
+                Import-PfxCertificate @importArguments | Out-Null
             }
             catch {
                 Write-FoundryLog "WARNING: PFX certificate import failed: $($_.Exception.Message)"
@@ -135,7 +145,9 @@ function Import-FoundryPfxCertificate {
         Write-FoundryLog "WARNING: Import-PfxCertificate is unavailable; skipping PFX import to avoid exposing the password on a process command line."
     }
     finally {
-        Remove-Item -LiteralPath $passwordPath -Force -ErrorAction SilentlyContinue
+        if (-not [string]::IsNullOrWhiteSpace($passwordPath)) {
+            Remove-Item -LiteralPath $passwordPath -Force -ErrorAction SilentlyContinue
+        }
     }
 }
 

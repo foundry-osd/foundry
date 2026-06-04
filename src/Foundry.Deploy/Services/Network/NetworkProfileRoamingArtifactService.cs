@@ -60,6 +60,7 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
         NetworkProfileRoamingManifest? manifest = await ReadManifestAsync(manifestPath, cancellationToken).ConfigureAwait(false);
         if (manifest is null)
         {
+            _logger.LogWarning("Network profile roaming skipped because the manifest at '{ManifestPath}' could not be read.", manifestPath);
             return null;
         }
 
