@@ -39,7 +39,8 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                 ProfileRoaming = new DeployNetworkProfileRoamingSettings
                 {
                     IsEnabled = document.Network.RoamWifiProfilesToWindows,
-                    IncludePrivateKeyMaterial = document.Network.RoamPrivateKeyMaterialToWindows
+                    IncludePrivateKeyMaterial = document.Network.RoamPrivateKeyMaterialToWindows,
+                    ArtifactRootPath = DeployNetworkProfileRoamingSettings.DefaultArtifactRootPath
                 }
             },
             Customization = new DeployCustomizationSettings

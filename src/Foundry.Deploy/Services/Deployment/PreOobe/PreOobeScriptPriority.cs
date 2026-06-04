@@ -11,6 +11,11 @@ public enum PreOobeScriptPriority
     DriverProvisioning = 100,
 
     /// <summary>
+    /// Imports network profiles after drivers are available and before general customization.
+    /// </summary>
+    NetworkProfileImport = 200,
+
+    /// <summary>
     /// Runs general Windows customization scripts after driver provisioning.
     /// </summary>
     Customization = 300,

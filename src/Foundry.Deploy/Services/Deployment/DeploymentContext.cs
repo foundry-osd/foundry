@@ -74,6 +74,11 @@ public sealed record DeploymentContext
     public DeployAutopilotHardwareHashUploadSettings AutopilotHardwareHashUpload { get; init; } = new();
 
     /// <summary>
+    /// Gets network settings used by late deployment steps.
+    /// </summary>
+    public DeployNetworkSettings Network { get; init; } = new();
+
+    /// <summary>
     /// Gets Windows OOBE customization settings applied to the offline installation.
     /// </summary>
     public DeployOobeSettings Oobe { get; init; } = new();

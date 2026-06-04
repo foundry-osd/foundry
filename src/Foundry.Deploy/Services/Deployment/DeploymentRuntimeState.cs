@@ -241,6 +241,11 @@ public sealed record DeploymentRuntimeState
     public string? AutopilotHardwareHashDiagnosticsPath { get; set; }
 
     /// <summary>
+    /// Gets or sets network settings used by late deployment steps without storing captured profile material.
+    /// </summary>
+    public DeployNetworkSettings Network { get; set; } = new();
+
+    /// <summary>
     /// Gets or sets Windows OOBE customization settings applied to the offline installation.
     /// </summary>
     public DeployOobeSettings Oobe { get; set; } = new();

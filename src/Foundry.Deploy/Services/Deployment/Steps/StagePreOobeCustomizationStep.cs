@@ -2,6 +2,7 @@ using System.IO;
 using Foundry.Deploy.Services.Deployment.PreOobe;
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Logging;
+using Foundry.Deploy.Services.Network;
 
 namespace Foundry.Deploy.Services.Deployment.Steps;
 
@@ -12,13 +13,16 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
 {
     private readonly IPreOobeScriptProvisioningService _preOobeScriptProvisioningService;
     private readonly PreOobeScriptDefinitionBuilder _preOobeScriptDefinitionBuilder;
+    private readonly INetworkProfileRoamingArtifactService? _networkProfileRoamingArtifactService;
 
     public StagePreOobeCustomizationStep(
         IPreOobeScriptProvisioningService preOobeScriptProvisioningService,
-        PreOobeScriptDefinitionBuilder preOobeScriptDefinitionBuilder)
+        PreOobeScriptDefinitionBuilder preOobeScriptDefinitionBuilder,
+        INetworkProfileRoamingArtifactService? networkProfileRoamingArtifactService = null)
     {
         _preOobeScriptProvisioningService = preOobeScriptProvisioningService;
         _preOobeScriptDefinitionBuilder = preOobeScriptDefinitionBuilder;
+        _networkProfileRoamingArtifactService = networkProfileRoamingArtifactService;
     }
 
     public override int Order => 13;
@@ -27,17 +31,22 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
-        IReadOnlyList<PreOobeScriptDefinition> scripts = _preOobeScriptDefinitionBuilder.Build(
-            context.RuntimeState.AppxRemoval,
-            context.RuntimeState.AiComponentRemoval);
-        if (scripts.Count == 0)
-        {
-            return DeploymentStepResult.Skipped("No pre-OOBE customization scripts are required.");
-        }
-
         if (context.RuntimeState.DriverPackInstallMode == DriverPackInstallMode.DeferredSetupComplete)
         {
             return DeploymentStepResult.Skipped("Pre-OOBE customizations will be staged with the deferred driver pack.");
+        }
+
+        PreOobeNetworkProfileRoamingPayload? networkProfileRoaming = await LoadNetworkProfileRoamingPayloadAsync(
+                context,
+                cancellationToken)
+            .ConfigureAwait(false);
+        IReadOnlyList<PreOobeScriptDefinition> scripts = _preOobeScriptDefinitionBuilder.Build(
+            context.RuntimeState.AppxRemoval,
+            context.RuntimeState.AiComponentRemoval,
+            networkProfileRoaming: networkProfileRoaming);
+        if (scripts.Count == 0)
+        {
+            return DeploymentStepResult.Skipped("No pre-OOBE customization scripts are required.");
         }
 
         if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot))
@@ -62,19 +71,24 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
 
     protected override async Task<DeploymentStepResult> ExecuteDryRunAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
-        IReadOnlyList<PreOobeScriptDefinition> scripts = _preOobeScriptDefinitionBuilder.Build(
-            context.RuntimeState.AppxRemoval,
-            context.RuntimeState.AiComponentRemoval);
-        if (scripts.Count == 0)
-        {
-            await Task.Delay(80, cancellationToken).ConfigureAwait(false);
-            return DeploymentStepResult.Skipped("No pre-OOBE customization scripts are required.");
-        }
-
         if (context.RuntimeState.DriverPackInstallMode == DriverPackInstallMode.DeferredSetupComplete)
         {
             await Task.Delay(80, cancellationToken).ConfigureAwait(false);
             return DeploymentStepResult.Skipped("Pre-OOBE customizations will be staged with the deferred driver pack.");
+        }
+
+        PreOobeNetworkProfileRoamingPayload? networkProfileRoaming = await LoadNetworkProfileRoamingPayloadAsync(
+                context,
+                cancellationToken)
+            .ConfigureAwait(false);
+        IReadOnlyList<PreOobeScriptDefinition> scripts = _preOobeScriptDefinitionBuilder.Build(
+            context.RuntimeState.AppxRemoval,
+            context.RuntimeState.AiComponentRemoval,
+            networkProfileRoaming: networkProfileRoaming);
+        if (scripts.Count == 0)
+        {
+            await Task.Delay(80, cancellationToken).ConfigureAwait(false);
+            return DeploymentStepResult.Skipped("No pre-OOBE customization scripts are required.");
         }
 
         if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot))
@@ -123,5 +137,17 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
         runtimeState.PreOobeScriptPaths = scripts
             .Select(script => Path.Combine(preOobeRoot, "Scripts", script.FileName))
             .ToArray();
+    }
+
+    private Task<PreOobeNetworkProfileRoamingPayload?> LoadNetworkProfileRoamingPayloadAsync(
+        DeploymentStepExecutionContext context,
+        CancellationToken cancellationToken)
+    {
+        return _networkProfileRoamingArtifactService is null
+            ? Task.FromResult<PreOobeNetworkProfileRoamingPayload?>(null)
+            : _networkProfileRoamingArtifactService.LoadAsync(
+                context.RuntimeState.Network.ProfileRoaming,
+                context.RuntimeState.WorkspaceRoot,
+                cancellationToken);
     }
 }

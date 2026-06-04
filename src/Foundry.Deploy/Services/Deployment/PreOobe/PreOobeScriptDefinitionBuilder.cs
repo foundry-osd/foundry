@@ -28,7 +28,8 @@ public sealed class PreOobeScriptDefinitionBuilder
     public IReadOnlyList<PreOobeScriptDefinition> Build(
         DeployAppxRemovalSettings appxRemoval,
         DeployAiComponentRemovalSettings aiComponentRemoval,
-        PreOobeDriverPackScriptSettings? driverPack = null)
+        PreOobeDriverPackScriptSettings? driverPack = null,
+        PreOobeNetworkProfileRoamingPayload? networkProfileRoaming = null)
     {
         ArgumentNullException.ThrowIfNull(appxRemoval);
         ArgumentNullException.ThrowIfNull(aiComponentRemoval);
@@ -50,6 +51,18 @@ public sealed class PreOobeScriptDefinitionBuilder
                     "-PackagePath",
                     driverPack.RuntimePackagePath
                 ]
+            });
+        }
+
+        if (networkProfileRoaming?.DataFiles.Count > 0)
+        {
+            scripts.Add(new PreOobeScriptDefinition
+            {
+                Id = "network-profile-roaming",
+                FileName = "Import-NetworkProfiles.ps1",
+                ResourceName = PreOobeScriptResources.ImportNetworkProfiles,
+                Priority = PreOobeScriptPriority.NetworkProfileImport,
+                DataFiles = networkProfileRoaming.DataFiles
             });
         }
 
@@ -100,7 +113,8 @@ public sealed class PreOobeScriptDefinitionBuilder
             });
         }
 
-        if (driverPack is not null && driverPack.CommandKind != DeferredDriverPackageCommandKind.None)
+        if (driverPack is not null && driverPack.CommandKind != DeferredDriverPackageCommandKind.None ||
+            networkProfileRoaming?.DataFiles.Count > 0)
         {
             scripts.Add(new PreOobeScriptDefinition
             {

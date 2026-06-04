@@ -142,21 +142,17 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
 
     private static PreOobeScriptDataFile NormalizeDataFile(PreOobeScriptDataFile dataFile)
     {
-        string fileName = dataFile.FileName.Trim();
+        string fileName = NormalizeRelativeDataPath(dataFile.FileName);
         if (string.IsNullOrWhiteSpace(fileName))
         {
             throw new ArgumentException("Pre-OOBE data file name is required.", nameof(dataFile));
         }
 
-        if (!string.Equals(fileName, Path.GetFileName(fileName), StringComparison.Ordinal))
-        {
-            throw new ArgumentException($"Pre-OOBE data file name '{dataFile.FileName}' must not contain a path.", nameof(dataFile));
-        }
-
         return dataFile with
         {
             FileName = fileName,
-            Content = dataFile.Content
+            Content = dataFile.Content,
+            Bytes = dataFile.Bytes
         };
     }
 
@@ -187,7 +183,25 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
         foreach (PreOobeScriptDataFile dataFile in orderedScripts.SelectMany(script => script.DataFiles))
         {
             string destinationPath = Path.Combine(dataRoot, dataFile.FileName);
-            File.WriteAllText(destinationPath, dataFile.Content, Utf8NoBom);
+            string? destinationDirectory = Path.GetDirectoryName(destinationPath);
+            if (!string.IsNullOrWhiteSpace(destinationDirectory))
+            {
+                Directory.CreateDirectory(destinationDirectory);
+            }
+
+            if (dataFile.Bytes is not null)
+            {
+                File.WriteAllBytes(destinationPath, dataFile.Bytes);
+            }
+            else
+            {
+                File.WriteAllText(destinationPath, dataFile.Content, Utf8NoBom);
+            }
+
+            if (dataFile.IsSensitive)
+            {
+                TryMarkSensitiveFile(destinationPath);
+            }
         }
     }
 
@@ -274,5 +288,38 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
     private static string ToPowerShellString(string value)
     {
         return "'" + value.Replace("'", "''", StringComparison.Ordinal) + "'";
+    }
+
+    private static string NormalizeRelativeDataPath(string fileName)
+    {
+        string normalized = fileName.Trim().Replace('/', Path.DirectorySeparatorChar);
+        if (string.IsNullOrWhiteSpace(normalized) || Path.IsPathRooted(normalized))
+        {
+            throw new ArgumentException($"Pre-OOBE data file name '{fileName}' must be relative.", nameof(fileName));
+        }
+
+        string[] segments = normalized.Split(
+            [Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar],
+            StringSplitOptions.RemoveEmptyEntries);
+        if (segments.Length == 0 || segments.Any(segment => segment is "." or ".."))
+        {
+            throw new ArgumentException($"Pre-OOBE data file name '{fileName}' is invalid.", nameof(fileName));
+        }
+
+        return Path.Combine(segments);
+    }
+
+    private static void TryMarkSensitiveFile(string path)
+    {
+        try
+        {
+            File.SetAttributes(path, File.GetAttributes(path) | FileAttributes.Hidden);
+        }
+        catch (IOException)
+        {
+        }
+        catch (UnauthorizedAccessException)
+        {
+        }
     }
 }

@@ -10,6 +10,7 @@ using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Deployment.PreOobe;
 using Foundry.Deploy.Services.Deployment.Steps;
+using Foundry.Deploy.Services.Network;
 using Foundry.Deploy.Services.Download;
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Hardware;
@@ -96,6 +97,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<ISetupCompleteScriptService, SetupCompleteScriptService>();
         services.AddSingleton<IPreOobeScriptProvisioningService, PreOobeScriptProvisioningService>();
         services.AddSingleton<PreOobeScriptDefinitionBuilder>();
+        services.AddSingleton<INetworkProfileRoamingArtifactService, NetworkProfileRoamingArtifactService>();
         services.AddSingleton<IAutopilotProfileCatalogService, AutopilotProfileCatalogService>();
         services.AddSingleton<IAutopilotHardwareHashCaptureService, AutopilotHardwareHashCaptureService>();
         services.AddSingleton<IAutopilotInteractiveRegistrationProvisioningService, AutopilotInteractiveRegistrationProvisioningService>();

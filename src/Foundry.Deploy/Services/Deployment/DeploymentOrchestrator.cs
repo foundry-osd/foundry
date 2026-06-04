@@ -122,6 +122,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             AutopilotHardwareHashUploadState = context.IsAutopilotEnabled && context.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload
                 ? AutopilotHardwareHashUploadState.Planned
                 : AutopilotHardwareHashUploadState.NotPlanned,
+            Network = context.Network,
             Oobe = context.Oobe,
             AppxRemoval = context.AppxRemoval,
             AiComponentRemoval = context.AiComponentRemoval

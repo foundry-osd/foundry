@@ -8,6 +8,7 @@ $RootFolders = @(
     'C:\DRIVERS',
     'C:\Drivers'
 )
+$PreOobeNetworkProfileDataDirectory = Join-Path $env:SystemRoot 'Temp\Foundry\PreOobe\Data\NetworkProfiles'
 
 function Start-FoundryTranscript {
     New-Item -Path $LogDirectory -ItemType Directory -Force | Out-Null
@@ -62,6 +63,7 @@ try {
         Remove-RootFolder -Path $RootFolder
     }
 
+    Remove-RootFolder -Path $PreOobeNetworkProfileDataDirectory
     Write-FoundryLog "Foundry pre-OOBE cleanup completed."
 }
 finally {

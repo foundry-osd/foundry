@@ -21,6 +21,11 @@ public static class PreOobeScriptResources
     public const string RemoveAiComponents = "Foundry.Deploy.PreOobe.Remove-AiComponents.ps1";
 
     /// <summary>
+    /// Imports captured network profiles and certificate material before OOBE starts.
+    /// </summary>
+    public const string ImportNetworkProfiles = "Foundry.Deploy.PreOobe.Import-NetworkProfiles.ps1";
+
+    /// <summary>
     /// Removes temporary folders left by pre-OOBE provisioning scripts.
     /// </summary>
     public const string CleanupPreOobe = "Foundry.Deploy.PreOobe.Cleanup-PreOobe.ps1";

@@ -302,6 +302,49 @@ public sealed class PreOobeScriptProvisioningServiceTests
     }
 
     [Fact]
+    public void Provision_StagesNestedBinaryDataFiles()
+    {
+        string windowsRoot = CreateWindowsRoot();
+        var service = new PreOobeScriptProvisioningService(new SetupCompleteScriptService());
+
+        PreOobeScriptProvisioningResult result = service.Provision(
+            windowsRoot,
+            [
+                new PreOobeScriptDefinition
+                {
+                    Id = "network-profile-roaming",
+                    FileName = "Install-DriverPack.ps1",
+                    ResourceName = PreOobeScriptResources.InstallDriverPack,
+                    Priority = PreOobeScriptPriority.NetworkProfileImport,
+                    DataFiles =
+                    [
+                        new PreOobeScriptDataFile
+                        {
+                            FileName = @"NetworkProfiles\certificates\My\client.pfx",
+                            Bytes = [4, 5, 6],
+                            IsSensitive = true
+                        }
+                    ]
+                }
+            ]);
+
+        string dataPath = Path.Combine(
+            Path.GetDirectoryName(result.RunnerPath)!,
+            "Data",
+            "NetworkProfiles",
+            "certificates",
+            "My",
+            "client.pfx");
+
+        Assert.True(File.Exists(dataPath));
+        Assert.Equal([4, 5, 6], File.ReadAllBytes(dataPath));
+        using JsonDocument manifest = JsonDocument.Parse(File.ReadAllText(result.ManifestPath));
+        Assert.Contains(
+            @"NetworkProfiles\certificates\My\client.pfx",
+            manifest.RootElement.GetProperty("scripts")[0].GetProperty("dataFiles")[0].GetString());
+    }
+
+    [Fact]
     public void Provision_RunnerReliesOnScriptTranscriptsInsteadOfPerScriptRedirectLogs()
     {
         string windowsRoot = CreateWindowsRoot();
