@@ -2106,4 +2106,19 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Automat păstrează ediția implicită a catalogului.</value>
   </data>
+  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Roaming pentru profilurile Windows</value>
+  </data>
+  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
+    <value>Importă profilurile Wi-Fi și 802.1X gestionate de Foundry în Windows înainte de OOBE, astfel încât conectivitatea de implementare să continue după WinPE.</value>
+  </data>
+  <data name="Network.RoamProfilesLabel" xml:space="preserve">
+    <value>Transferă profilurile de rețea în Windows</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
+    <value>Include materialul certificatului cu cheie privată</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
+    <value>Copiază certificatele client PFX configurate în Windows și le importă în depozitul personal de certificate LocalMachine înainte de OOBE.</value>
+  </data>
 </root>

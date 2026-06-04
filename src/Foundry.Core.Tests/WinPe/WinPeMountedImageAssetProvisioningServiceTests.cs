@@ -328,7 +328,10 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         Assert.True(root.TryGetProperty("dot1x", out _));
         Assert.True(root.TryGetProperty("wifi", out _));
         Assert.True(root.TryGetProperty("internetProbe", out _));
-        Assert.False(root.TryGetProperty("network", out _));
+        Assert.True(root.TryGetProperty("network", out JsonElement network));
+        Assert.True(network.TryGetProperty("profileRoaming", out JsonElement profileRoaming));
+        Assert.False(profileRoaming.GetProperty("isEnabled").GetBoolean());
+        Assert.False(profileRoaming.GetProperty("includePrivateKeyMaterial").GetBoolean());
     }
 
     [Fact]

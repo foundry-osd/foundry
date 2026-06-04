@@ -2106,4 +2106,19 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Otomatik, katalog varsayılan sürümünü korur.</value>
   </data>
+  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Windows profil dolaşımı</value>
+  </data>
+  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
+    <value>Foundry tarafından yönetilen Wi-Fi ve 802.1X profillerini OOBE öncesinde Windows’a içe aktarır, böylece dağıtım bağlantısı WinPE sonrasında devam edebilir.</value>
+  </data>
+  <data name="Network.RoamProfilesLabel" xml:space="preserve">
+    <value>Ağ profillerini Windows’a taşı</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
+    <value>Özel anahtar sertifika malzemesini dahil et</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
+    <value>Yapılandırılmış PFX istemci sertifikalarını Windows’a kopyalar ve OOBE öncesinde LocalMachine kişisel sertifika deposuna içe aktarır.</value>
+  </data>
 </root>

@@ -54,6 +54,8 @@ public sealed class TelemetryEventPropertyPolicyTests
             ["network_wifi_enterprise_profile_configured"] = false,
             ["network_wifi_enterprise_certificate_required"] = false,
             ["network_wifi_enterprise_certificate_configured"] = false,
+            ["network_profile_roaming_enabled"] = true,
+            ["network_private_key_roaming_enabled"] = true,
             ["customization_any_enabled"] = true,
             ["customization_machine_naming_enabled"] = true,
             ["customization_machine_naming_mode"] = "auto_generated_editable",
@@ -132,6 +134,8 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.False((bool)result["network_wifi_enterprise_profile_configured"]!);
         Assert.False((bool)result["network_wifi_enterprise_certificate_required"]!);
         Assert.False((bool)result["network_wifi_enterprise_certificate_configured"]!);
+        Assert.True((bool)result["network_profile_roaming_enabled"]!);
+        Assert.True((bool)result["network_private_key_roaming_enabled"]!);
         Assert.True((bool)result["customization_any_enabled"]!);
         Assert.True((bool)result["customization_machine_naming_enabled"]!);
         Assert.Equal("auto_generated_editable", result["customization_machine_naming_mode"]);

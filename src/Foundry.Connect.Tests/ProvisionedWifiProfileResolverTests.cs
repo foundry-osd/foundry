@@ -40,6 +40,23 @@ public sealed class ProvisionedWifiProfileResolverTests
     }
 
     [Fact]
+    public void ResolveProfileName_WhenEnterpriseProfileNameContainsXmlEntity_DecodesProfileName()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string profilePath = CreateWifiProfile(tempDirectory.Path, "Corp &amp; Guest", "WPA3ENT");
+
+        string? profileName = ProvisionedWifiProfileResolver.ResolveProfileName(
+            new WifiSettings
+            {
+                HasEnterpriseProfile = true,
+                EnterpriseProfileTemplatePath = profilePath
+            },
+            configurationPath: null);
+
+        Assert.Equal("Corp & Guest", profileName);
+    }
+
+    [Fact]
     public void TryReadProfileAuthentication_WhenXmlContainsAuthentication_ReturnsValue()
     {
         using var tempDirectory = new TemporaryDirectory();

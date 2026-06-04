@@ -275,6 +275,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 AutopilotProvisioningMode = Preparation.AutopilotProvisioningMode,
                 SelectedAutopilotProfile = Preparation.SelectedAutopilotProfile,
                 AutopilotHardwareHashUpload = Preparation.CreateAutopilotHardwareHashUploadForLaunch(),
+                Network = _wizardContext.Network,
                 Oobe = _wizardContext.Oobe,
                 AppxRemoval = _wizardContext.AppxRemoval,
                 AiComponentRemoval = _wizardContext.AiComponentRemoval,

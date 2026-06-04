@@ -2106,4 +2106,19 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Automaattinen säilyttää luettelon oletusversion.</value>
   </data>
+  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Windows-profiilien siirto</value>
+  </data>
+  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
+    <value>Tuo Foundryn hallitsemat Wi-Fi- ja 802.1X-profiilit Windowsiin ennen OOBE-vaihetta, jotta käyttöönoton yhteys voi jatkua WinPE:n jälkeen.</value>
+  </data>
+  <data name="Network.RoamProfilesLabel" xml:space="preserve">
+    <value>Siirrä verkkoprofiilit Windowsiin</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
+    <value>Sisällytä yksityisen avaimen sertifikaattimateriaali</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
+    <value>Kopioi määritetyt PFX-asiakasvarmenteet Windowsiin ja tuo ne LocalMachine-henkilökohtaiseen varmennevarastoon ennen OOBE-vaihetta.</value>
+  </data>
 </root>

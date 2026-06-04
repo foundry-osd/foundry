@@ -58,6 +58,7 @@ public static class ServiceCollectionExtensions
                 logger);
         });
         services.AddSingleton<ILocalizationService, LocalizationService>();
+        services.AddSingleton<INetworkProfileRoamingService, NetworkProfileRoamingService>();
         services.AddSingleton<INetworkBootstrapService, NetworkBootstrapService>();
         services.AddSingleton<INetworkStatusService, NetworkStatusService>();
         services.AddSingleton<IThemeService, ThemeService>();

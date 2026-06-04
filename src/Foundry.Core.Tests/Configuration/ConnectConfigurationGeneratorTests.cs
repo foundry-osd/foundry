@@ -21,16 +21,40 @@ public sealed class ConnectConfigurationGeneratorTests
         JsonElement root = document.RootElement;
         Assert.Equal(FoundryConnectConfigurationDocument.CurrentSchemaVersion, root.GetProperty("schemaVersion").GetInt32());
         Assert.True(root.TryGetProperty("capabilities", out JsonElement capabilities));
+        Assert.True(root.TryGetProperty("network", out JsonElement network));
         Assert.True(root.TryGetProperty("dot1x", out _));
         Assert.True(root.TryGetProperty("wifi", out _));
         Assert.True(root.TryGetProperty("internetProbe", out JsonElement internetProbe));
         Assert.False(capabilities.GetProperty("wifiProvisioned").GetBoolean());
+        Assert.False(network.GetProperty("profileRoaming").GetProperty("isEnabled").GetBoolean());
+        Assert.False(network.GetProperty("profileRoaming").GetProperty("includePrivateKeyMaterial").GetBoolean());
         Assert.Equal(JsonValueKind.Number, root.GetProperty("dot1x").GetProperty("authenticationMode").ValueKind);
         Assert.Equal(JsonValueKind.Number, root.GetProperty("wifi").GetProperty("enterpriseAuthenticationMode").ValueKind);
         Assert.Equal(5, internetProbe.GetProperty("timeoutSeconds").GetInt32());
         Assert.NotEmpty(internetProbe.GetProperty("probeUris").EnumerateArray());
         Assert.Empty(bundle.AssetFiles);
         Assert.Null(bundle.MediaSecretsKey);
+    }
+
+    [Fact]
+    public void Generate_WhenNetworkProfileRoamingIsEnabled_PropagatesRuntimeOptIn()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        var generator = new ConnectConfigurationGenerator();
+
+        FoundryConnectConfigurationDocument result = generator.Generate(
+            new FoundryConfigurationDocument
+            {
+                Network = new NetworkSettings
+                {
+                    RoamWifiProfilesToWindows = true,
+                    RoamPrivateKeyMaterialToWindows = true
+                }
+            },
+            tempDirectory.Path);
+
+        Assert.True(result.Network.ProfileRoaming.IsEnabled);
+        Assert.True(result.Network.ProfileRoaming.IncludePrivateKeyMaterial);
     }
 
     [Fact]
@@ -196,6 +220,67 @@ public sealed class ConnectConfigurationGeneratorTests
         using JsonDocument document = JsonDocument.Parse(bundle.ConfigurationJson);
         Assert.Equal(@"Network\Certificates\Wired\wired.cer", document.RootElement.GetProperty("dot1x").GetProperty("certificatePath").GetString());
         Assert.Equal(@"Network\Certificates\Wifi\wifi.cer", document.RootElement.GetProperty("wifi").GetProperty("certificatePath").GetString());
+    }
+
+    [Fact]
+    public void CreateProvisioningBundle_WhenPfxCertificatePasswordsAreProvided_WritesEncryptedPasswordSecrets()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string wiredPfxPath = tempDirectory.CreateFile("source", "wired.pfx", "wired-pfx");
+        string wifiPfxPath = tempDirectory.CreateFile("source", "wifi.pfx", "wifi-pfx");
+        var generator = new ConnectConfigurationGenerator();
+
+        FoundryConnectProvisioningBundle bundle = generator.CreateProvisioningBundle(
+            new FoundryConfigurationDocument
+            {
+                Network = new NetworkSettings
+                {
+                    WifiProvisioned = true,
+                    Dot1x = new Dot1xSettings
+                    {
+                        IsEnabled = true,
+                        ProfileTemplatePath = tempDirectory.CreateFile("source", "wired.xml", "<LANProfile />"),
+                        RequiresCertificate = true,
+                        CertificatePath = wiredPfxPath,
+                        CertificatePfxPassword = "wired-password"
+                    },
+                    Wifi = new WifiSettings
+                    {
+                        IsEnabled = true,
+                        Ssid = "Corp WiFi",
+                        SecurityType = NetworkConfigurationValidator.WifiSecurityEnterprise,
+                        HasEnterpriseProfile = true,
+                        EnterpriseProfileTemplatePath = tempDirectory.CreateFile(
+                            "source",
+                            "wifi.xml",
+                            """
+                            <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
+                              <MSM>
+                                <security>
+                                  <authEncryption>
+                                    <authentication>WPA2</authentication>
+                                  </authEncryption>
+                                </security>
+                              </MSM>
+                            </WLANProfile>
+                            """),
+                        RequiresCertificate = true,
+                        CertificatePath = wifiPfxPath,
+                        CertificatePfxPassword = "wifi-password"
+                    }
+                }
+            },
+            tempDirectory.Path);
+
+        using JsonDocument document = JsonDocument.Parse(bundle.ConfigurationJson);
+        Assert.True(document.RootElement.GetProperty("dot1x").TryGetProperty("certificatePfxPasswordSecret", out JsonElement wiredEnvelope));
+        Assert.True(document.RootElement.GetProperty("wifi").TryGetProperty("certificatePfxPasswordSecret", out JsonElement wifiEnvelope));
+        Assert.Equal("encrypted", wiredEnvelope.GetProperty("kind").GetString());
+        Assert.Equal("encrypted", wifiEnvelope.GetProperty("kind").GetString());
+        Assert.DoesNotContain("wired-password", bundle.ConfigurationJson, StringComparison.Ordinal);
+        Assert.DoesNotContain("wifi-password", bundle.ConfigurationJson, StringComparison.Ordinal);
+        Assert.NotNull(bundle.MediaSecretsKey);
+        Assert.Equal(32, bundle.MediaSecretsKey.Length);
     }
 
     private static void AssertAsset(

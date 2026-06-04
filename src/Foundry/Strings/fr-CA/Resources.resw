@@ -172,7 +172,7 @@
     <value>Choisissez la méthode de provisionnement Autopilot pour le média de déploiement : préparation du profil JSON, téléversement zero-touch du hachage matériel dans WinPE ou téléversement interactif du hachage matériel.</value>
   </data>
   <data name="Autopilot.PageDescription" xml:space="preserve">
-    <value>Configurez les paramètres d&apos;inscription Windows Autopilot pour les supports de déploiement et l&apos;enregistrement matériel.</value>
+    <value>Configurez les paramètres d'inscription Windows Autopilot pour les supports de déploiement et l'enregistrement matériel.</value>
   </data>
   <data name="Autopilot.EnableLabel" xml:space="preserve">
     <value>Activer Autopilot</value>
@@ -1507,7 +1507,7 @@
     <value>Aucune cible USB n'est sélectionnée.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>La cible USB sélectionnée est trop petite. Utilisez une clé USB d&apos;au moins 16 GB.</value>
+    <value>La cible USB sélectionnée est trop petite. Utilisez une clé USB d'au moins 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.Arm64RequiresGpt" xml:space="preserve">
     <value>Le support ARM64 nécessite le style de partition GPT.</value>
@@ -2105,5 +2105,20 @@
   </data>
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Automatique conserve l'édition par défaut du catalogue.</value>
+  </data>
+  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Itinérance des profils Windows</value>
+  </data>
+  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
+    <value>Importe les profils Wi-Fi et 802.1X gérés par Foundry dans Windows avant l’OOBE afin de conserver la connectivité de déploiement après WinPE.</value>
+  </data>
+  <data name="Network.RoamProfilesLabel" xml:space="preserve">
+    <value>Itinérer les profils réseau vers Windows</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
+    <value>Inclure les certificats avec clé privée</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
+    <value>Copie les certificats clients PFX configurés vers Windows et les importe dans le magasin de certificats personnel LocalMachine avant l’OOBE.</value>
   </data>
 </root>

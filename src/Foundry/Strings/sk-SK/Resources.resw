@@ -2106,4 +2106,19 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Automaticky zachová predvolenú edíciu katalógu.</value>
   </data>
+  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Roaming profilov Windows</value>
+  </data>
+  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
+    <value>Importuje profily Wi-Fi a 802.1X spravované Foundry do Windows pred OOBE, aby konektivita nasadenia pokračovala po WinPE.</value>
+  </data>
+  <data name="Network.RoamProfilesLabel" xml:space="preserve">
+    <value>Preniesť sieťové profily do Windows</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
+    <value>Zahrnúť materiál certifikátu so súkromným kľúčom</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
+    <value>Skopíruje nakonfigurované klientské certifikáty PFX do Windows a pred OOBE ich importuje do osobného úložiska certifikátov LocalMachine.</value>
+  </data>
 </root>

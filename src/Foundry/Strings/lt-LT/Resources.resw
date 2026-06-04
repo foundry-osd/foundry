@@ -2106,4 +2106,19 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Automatinis pasirinkimas palieka numatytąjį katalogo leidimą.</value>
   </data>
+  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Windows profilių tarptinklinis perkėlimas</value>
+  </data>
+  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
+    <value>Importuoja Foundry valdomus Wi-Fi ir 802.1X profilius į Windows prieš OOBE, kad diegimo ryšys galėtų tęstis po WinPE.</value>
+  </data>
+  <data name="Network.RoamProfilesLabel" xml:space="preserve">
+    <value>Perkelti tinklo profilius į Windows</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
+    <value>Įtraukti privataus rakto sertifikato medžiagą</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
+    <value>Nukopijuoja sukonfigūruotus PFX kliento sertifikatus į Windows ir prieš OOBE importuoja juos į LocalMachine asmeninę sertifikatų saugyklą.</value>
+  </data>
 </root>

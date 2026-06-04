@@ -56,10 +56,21 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
         string? wifiCertificateRelativePath = isWifiEnabled
             ? CopyAsset(wifi.CertificatePath, assetRootPath, WifiCertificateFolder, assetFiles)
             : null;
-        byte[]? mediaSecretsKey = ResolveMediaSecretsKey(isWifiEnabled, wifi);
-        SecretEnvelope? passphraseSecret = mediaSecretsKey is not null
+        byte[]? mediaSecretsKey = ResolveMediaSecretsKey(isWifiEnabled, dot1x, wifi);
+        SecretEnvelope? passphraseSecret = mediaSecretsKey is not null &&
+            isWifiEnabled &&
+            !wifi.HasEnterpriseProfile &&
+            !string.IsNullOrWhiteSpace(wifi.Passphrase)
             ? ConnectSecretEnvelopeProtector.Encrypt(wifi.Passphrase!, mediaSecretsKey)
             : null;
+        SecretEnvelope? wiredCertificatePfxPasswordSecret = CreateCertificatePfxPasswordSecret(
+            dot1x.CertificatePath,
+            dot1x.CertificatePfxPassword,
+            mediaSecretsKey);
+        SecretEnvelope? wifiCertificatePfxPasswordSecret = CreateCertificatePfxPasswordSecret(
+            wifi.CertificatePath,
+            wifi.CertificatePfxPassword,
+            mediaSecretsKey);
 
         // The generated document uses media-relative asset paths; source file paths stay outside the runtime JSON.
         FoundryConnectConfigurationDocument configuration = new()
@@ -68,12 +79,22 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
             {
                 WifiProvisioned = network.WifiProvisioned
             },
+            Network = new ConnectNetworkSettings
+            {
+                ProfileRoaming = new ConnectNetworkProfileRoamingSettings
+                {
+                    IsEnabled = network.RoamWifiProfilesToWindows,
+                    IncludePrivateKeyMaterial = network.RoamPrivateKeyMaterialToWindows
+                }
+            },
             Dot1x = dot1x with
             {
                 ProfileTemplatePath = wiredProfileRelativePath,
                 CertificatePath = wiredCertificateRelativePath,
                 AuthenticationMode = NetworkAuthenticationMode.MachineOnly,
-                AllowRuntimeCredentials = false
+                AllowRuntimeCredentials = false,
+                CertificatePfxPassword = null,
+                CertificatePfxPasswordSecret = wiredCertificatePfxPasswordSecret
             },
             Wifi = wifi with
             {
@@ -88,7 +109,9 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
                     : null,
                 CertificatePath = wifiCertificateRelativePath,
                 EnterpriseAuthenticationMode = NetworkAuthenticationMode.UserOnly,
-                AllowRuntimeCredentials = false
+                AllowRuntimeCredentials = false,
+                CertificatePfxPassword = null,
+                CertificatePfxPasswordSecret = wifiCertificatePfxPasswordSecret
             },
             Telemetry = document.Telemetry
         };
@@ -151,14 +174,44 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
         Directory.CreateDirectory(path);
     }
 
-    private static byte[]? ResolveMediaSecretsKey(bool isWifiEnabled, WifiSettings wifi)
+    private static byte[]? ResolveMediaSecretsKey(bool isWifiEnabled, Dot1xSettings dot1x, WifiSettings wifi)
     {
-        // Personal Wi-Fi is the only current flow that needs a media secret key.
-        return isWifiEnabled &&
-               !wifi.HasEnterpriseProfile &&
-               !string.IsNullOrWhiteSpace(wifi.Passphrase)
+        bool hasPersonalWifiPassphrase = isWifiEnabled &&
+            !wifi.HasEnterpriseProfile &&
+            !string.IsNullOrWhiteSpace(wifi.Passphrase);
+        bool hasCertificatePfxPassword = HasCertificatePfxPassword(dot1x.CertificatePath, dot1x.CertificatePfxPassword) ||
+            HasCertificatePfxPassword(wifi.CertificatePath, wifi.CertificatePfxPassword);
+
+        return hasPersonalWifiPassphrase || hasCertificatePfxPassword
             ? ConnectSecretEnvelopeProtector.GenerateMediaKey()
             : null;
+    }
+
+    private static SecretEnvelope? CreateCertificatePfxPasswordSecret(
+        string? certificatePath,
+        string? certificatePfxPassword,
+        byte[]? mediaSecretsKey)
+    {
+        return mediaSecretsKey is not null && HasCertificatePfxPassword(certificatePath, certificatePfxPassword)
+            ? ConnectSecretEnvelopeProtector.Encrypt(certificatePfxPassword!, mediaSecretsKey)
+            : null;
+    }
+
+    private static bool HasCertificatePfxPassword(string? certificatePath, string? certificatePfxPassword)
+    {
+        return IsPfxPath(certificatePath) && !string.IsNullOrWhiteSpace(certificatePfxPassword);
+    }
+
+    private static bool IsPfxPath(string? certificatePath)
+    {
+        if (string.IsNullOrWhiteSpace(certificatePath))
+        {
+            return false;
+        }
+
+        string extension = Path.GetExtension(certificatePath);
+        return string.Equals(extension, ".pfx", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(extension, ".p12", StringComparison.OrdinalIgnoreCase);
     }
 
     private static string NormalizeEmbeddedRelativePath(string relativePath)

@@ -2106,4 +2106,19 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>אוטומטי שומר על מהדורת ברירת המחדל של הקטלוג.</value>
   </data>
+  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+    <value>נדידת פרופילי Windows</value>
+  </data>
+  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
+    <value>מייבא פרופילי Wi-Fi ו-802.1X המנוהלים על ידי Foundry אל Windows לפני OOBE, כדי שקישוריות הפריסה תימשך אחרי WinPE.</value>
+  </data>
+  <data name="Network.RoamProfilesLabel" xml:space="preserve">
+    <value>נדוד פרופילי רשת אל Windows</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
+    <value>כלול חומר אישור עם מפתח פרטי</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
+    <value>מעתיק אישורי לקוח PFX מוגדרים אל Windows ומייבא אותם אל מאגר האישורים האישי LocalMachine לפני OOBE.</value>
+  </data>
 </root>

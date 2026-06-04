@@ -24,6 +24,16 @@ public static class NetworkConfigurationValidator
     public const string WifiSecurityPersonal = "WPA2/WPA3-Personal";
 
     /// <summary>
+    /// Represents WPA2 personal Wi-Fi security.
+    /// </summary>
+    public const string WifiSecurityLegacyWpa2Personal = "WPA2-Personal";
+
+    /// <summary>
+    /// Represents WPA3 personal Wi-Fi security.
+    /// </summary>
+    public const string WifiSecurityWpa3Personal = "WPA3-Personal";
+
+    /// <summary>
     /// Represents WPA2/WPA3 enterprise Wi-Fi security.
     /// </summary>
     public const string WifiSecurityEnterprise = "WPA2/WPA3-Enterprise";
@@ -38,7 +48,7 @@ public static class NetworkConfigurationValidator
     /// </summary>
     public const string WifiSecurityEnterpriseWpa3192 = "WPA3ENT192";
 
-    private static readonly string[] LegacyWifiSecurityPersonalValues = ["WPA2-Personal", "WPA3-Personal", "Personal"];
+    private static readonly string[] LegacyWifiSecurityPersonalValues = [WifiSecurityLegacyWpa2Personal, WifiSecurityWpa3Personal, "Personal"];
     private static readonly string[] LegacyWifiSecurityEnterpriseValues = ["WPA2-Enterprise", "WPA3-Enterprise", "WPA3", "Enterprise"];
 
     /// <summary>
@@ -116,6 +126,43 @@ public static class NetworkConfigurationValidator
         return !string.IsNullOrWhiteSpace(settings.Passphrase)
             ? WifiSecurityPersonal
             : WifiSecurityOpen;
+    }
+
+    /// <summary>
+    /// Maps native Wi-Fi discovery authentication text to a Foundry Wi-Fi security type.
+    /// </summary>
+    /// <param name="authentication">The native authentication text.</param>
+    /// <returns>The Foundry Wi-Fi security type.</returns>
+    public static string ResolveDiscoveredWifiSecurityType(string authentication)
+    {
+        if (authentication.Contains("enterprise", StringComparison.OrdinalIgnoreCase))
+        {
+            return WifiSecurityEnterprise;
+        }
+
+        if (authentication.Contains("open", StringComparison.OrdinalIgnoreCase))
+        {
+            return WifiSecurityOpen;
+        }
+
+        if (authentication.Contains("owe", StringComparison.OrdinalIgnoreCase))
+        {
+            return WifiSecurityOwe;
+        }
+
+        if (authentication.Contains("sae", StringComparison.OrdinalIgnoreCase) ||
+            authentication.Contains("wpa3", StringComparison.OrdinalIgnoreCase))
+        {
+            return WifiSecurityWpa3Personal;
+        }
+
+        if (authentication.Contains("personal", StringComparison.OrdinalIgnoreCase) ||
+            authentication.Contains("psk", StringComparison.OrdinalIgnoreCase))
+        {
+            return WifiSecurityLegacyWpa2Personal;
+        }
+
+        return WifiSecurityEnterprise;
     }
 
     /// <summary>

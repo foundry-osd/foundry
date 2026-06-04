@@ -1,12 +1,12 @@
 using System.Diagnostics;
 using System.IO;
 using System.Net.NetworkInformation;
-using System.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Services.Configuration;
 using Foundry.Connect.Services.Runtime;
+using Foundry.Core.Services.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Connect.Services.Network;
@@ -16,13 +16,6 @@ namespace Foundry.Connect.Services.Network;
 /// </summary>
 public sealed class NetworkBootstrapService : INetworkBootstrapService
 {
-    private const string OpenSecurityType = "Open";
-    private const string OweSecurityType = "OWE";
-    private const string EnterpriseSecurityType = "Enterprise";
-    private const string WifiSecurityPersonal = "WPA2/WPA3-Personal";
-    private const string WifiSecurityLegacyWpa2Personal = "WPA2-Personal";
-    private const string WifiSecurityWpa3Personal = "WPA3-Personal";
-    private const string WifiSecurityLegacyPersonal = "Personal";
     private static readonly TimeSpan WifiConnectionTimeout = TimeSpan.FromSeconds(15);
     private static readonly TimeSpan WifiConnectionPollInterval = TimeSpan.FromMilliseconds(500);
     private static readonly TimeSpan WifiProfileImportRetryDelay = TimeSpan.FromSeconds(2);
@@ -30,22 +23,38 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
 
     private readonly FoundryConnectConfiguration _configuration;
     private readonly IConnectConfigurationService _configurationService;
+    private readonly INetworkProfileRoamingService _networkProfileRoamingService;
     private readonly ILogger<NetworkBootstrapService> _logger;
+    private readonly Func<IReadOnlyList<Guid>> _getWifiInterfaceIds;
 
     /// <summary>
     /// Initializes a network bootstrap service.
     /// </summary>
     /// <param name="configuration">The loaded runtime configuration.</param>
     /// <param name="configurationService">The configuration service used to resolve relative asset paths.</param>
+    /// <param name="networkProfileRoamingService">The service used to capture eligible profiles for Windows import.</param>
     /// <param name="logger">The logger used for network command diagnostics.</param>
     public NetworkBootstrapService(
         FoundryConnectConfiguration configuration,
         IConnectConfigurationService configurationService,
+        INetworkProfileRoamingService networkProfileRoamingService,
         ILogger<NetworkBootstrapService> logger)
+        : this(configuration, configurationService, networkProfileRoamingService, logger, NativeWifiApi.GetInterfaceIds)
+    {
+    }
+
+    internal NetworkBootstrapService(
+        FoundryConnectConfiguration configuration,
+        IConnectConfigurationService configurationService,
+        INetworkProfileRoamingService networkProfileRoamingService,
+        ILogger<NetworkBootstrapService> logger,
+        Func<IReadOnlyList<Guid>> getWifiInterfaceIds)
     {
         _configuration = configuration;
         _configurationService = configurationService;
+        _networkProfileRoamingService = networkProfileRoamingService;
         _logger = logger;
+        _getWifiInterfaceIds = getWifiInterfaceIds;
     }
 
     /// <inheritdoc />
@@ -83,7 +92,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             return $"{ensureMessage} No Wi-Fi profile is available to connect.";
         }
 
-        IReadOnlyList<Guid> wirelessInterfaceIds = NativeWifiApi.GetInterfaceIds();
+        IReadOnlyList<Guid> wirelessInterfaceIds = _getWifiInterfaceIds();
         if (wirelessInterfaceIds.Count == 0)
         {
             return $"{ensureMessage} No wireless adapter is available to connect the provisioned Wi-Fi profile.";
@@ -129,8 +138,8 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             return "A discovered Wi-Fi network must provide an SSID before it can be connected.";
         }
 
-        string securityType = ResolveDiscoveredWifiSecurityType(authentication);
-        if (string.Equals(securityType, EnterpriseSecurityType, StringComparison.OrdinalIgnoreCase))
+        string securityType = NetworkConfigurationValidator.ResolveDiscoveredWifiSecurityType(authentication);
+        if (NetworkConfigurationValidator.IsEnterpriseSecurityType(securityType))
         {
             return "Enterprise Wi-Fi from the discovery list requires a provisioned profile template in this build.";
         }
@@ -139,10 +148,10 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         try
         {
             profilePath = await WriteTemporaryWifiProfileAsync(
-                BuildWifiProfileXml(trimmedSsid, securityType, passphrase, ssidHex),
+                WifiProfileXmlBuilder.Build(trimmedSsid, securityType, passphrase, ssidHex),
                 cancellationToken).ConfigureAwait(false);
 
-            IReadOnlyList<Guid> wirelessInterfaceIds = NativeWifiApi.GetInterfaceIds();
+            IReadOnlyList<Guid> wirelessInterfaceIds = _getWifiInterfaceIds();
             if (wirelessInterfaceIds.Count == 0)
             {
                 return "No wireless adapter is available to connect the selected Wi-Fi network.";
@@ -172,9 +181,19 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                 trimmedSsid,
                 cancellationToken).ConfigureAwait(false);
 
-            return attemptResult.IsConnected
-                ? $"Wi-Fi connected to '{trimmedSsid}'."
-                : $"Wi-Fi connection failed for '{trimmedSsid}': {attemptResult.FailureMessage}";
+            if (!attemptResult.IsConnected)
+            {
+                return $"Wi-Fi connection failed for '{trimmedSsid}': {attemptResult.FailureMessage}";
+            }
+
+            await _networkProfileRoamingService.CaptureWifiProfileAsync(
+                new NetworkProfileRoamingCaptureRequest(
+                    profilePath,
+                    NetworkProfileRoamingProfileSource.ManualWifi,
+                    NetworkProfileRoamingConnectivityExpectation.PreOobeConnectable),
+                cancellationToken).ConfigureAwait(false);
+
+            return $"Wi-Fi connected to '{trimmedSsid}'.";
         }
         finally
         {
@@ -185,7 +204,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
     /// <inheritdoc />
     public async Task<string> DisconnectWifiAsync(CancellationToken cancellationToken)
     {
-        IReadOnlyList<Guid> wirelessInterfaceIds = NativeWifiApi.GetInterfaceIds();
+        IReadOnlyList<Guid> wirelessInterfaceIds = _getWifiInterfaceIds();
         if (wirelessInterfaceIds.Count == 0)
         {
             return "No wireless adapter is available to disconnect.";
@@ -232,7 +251,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             _configurationService.ConfigurationPath);
         if (!string.IsNullOrWhiteSpace(certificatePath) && File.Exists(certificatePath))
         {
-            messages.Add(ImportCertificate(certificatePath));
+            messages.Add(ImportCertificate(certificatePath, _configuration.Dot1x.CertificatePfxPassword));
         }
 
         if (_configuration.Dot1x.AllowRuntimeCredentials)
@@ -256,6 +275,14 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         }
 
         messages.Add("Wired 802.1X profile imported.");
+        await _networkProfileRoamingService.CaptureWiredDot1xProfileAsync(
+            new NetworkProfileRoamingCaptureRequest(
+                profilePath,
+                NetworkProfileRoamingProfileSource.ProvisionedWiredDot1x,
+                ResolveConnectivityExpectation(_configuration.Dot1x.AuthenticationMode),
+                ResolveExistingAssetPaths(certificatePath),
+                _configuration.Dot1x.CertificatePfxPasswordSecret),
+            cancellationToken).ConfigureAwait(false);
 
         string? ethernetInterfaceName = GetEthernetInterfaceName();
         if (!string.IsNullOrWhiteSpace(ethernetInterfaceName))
@@ -281,12 +308,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             _configurationService.ConfigurationPath);
         if (!string.IsNullOrWhiteSpace(certificatePath) && File.Exists(certificatePath))
         {
-            messages.Add(ImportCertificate(certificatePath));
-        }
-
-        if (NativeWifiApi.GetInterfaceIds().Count == 0)
-        {
-            return string.Join(" ", messages);
+            messages.Add(ImportCertificate(certificatePath, _configuration.Wifi.CertificatePfxPassword));
         }
 
         string? wifiProfilePath = await EnsureWifiProfileFileAsync(cancellationToken).ConfigureAwait(false);
@@ -298,6 +320,21 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
 
         try
         {
+            await _networkProfileRoamingService.CaptureWifiProfileAsync(
+                new NetworkProfileRoamingCaptureRequest(
+                    wifiProfilePath,
+                    NetworkProfileRoamingProfileSource.ProvisionedWifi,
+                    ResolveWifiConnectivityExpectation(),
+                    ResolveExistingAssetPaths(certificatePath),
+                    _configuration.Wifi.CertificatePfxPasswordSecret),
+                cancellationToken).ConfigureAwait(false);
+
+            if (_getWifiInterfaceIds().Count == 0)
+            {
+                messages.Add("No wireless adapter is available to import the provisioned Wi-Fi profile in WinPE.");
+                return string.Join(" ", messages);
+            }
+
             ProcessExecutionResult addProfileResult = await ImportWifiProfileAsync(wifiProfilePath, cancellationToken).ConfigureAwait(false);
 
             if (addProfileResult.ExitCode != 0)
@@ -346,7 +383,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         }
 
         return await WriteTemporaryWifiProfileAsync(
-            BuildWifiProfileXml(_configuration.Wifi.Ssid.Trim(), _configuration.Wifi.SecurityType.Trim(), _configuration.Wifi.Passphrase),
+            WifiProfileXmlBuilder.Build(_configuration.Wifi.Ssid.Trim(), _configuration.Wifi.SecurityType.Trim(), _configuration.Wifi.Passphrase),
             cancellationToken).ConfigureAwait(false);
     }
 
@@ -466,20 +503,58 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             .FirstOrDefault(static value => !string.IsNullOrWhiteSpace(value));
     }
 
-    private string ImportCertificate(string certificatePath)
+    private NetworkProfileRoamingConnectivityExpectation ResolveWifiConnectivityExpectation()
+    {
+        if (!_configuration.Wifi.HasEnterpriseProfile)
+        {
+            return NetworkProfileRoamingConnectivityExpectation.PreOobeConnectable;
+        }
+
+        return ResolveConnectivityExpectation(_configuration.Wifi.EnterpriseAuthenticationMode);
+    }
+
+    private static NetworkProfileRoamingConnectivityExpectation ResolveConnectivityExpectation(NetworkAuthenticationMode authenticationMode)
+    {
+        return authenticationMode switch
+        {
+            NetworkAuthenticationMode.MachineOnly => NetworkProfileRoamingConnectivityExpectation.DependsOnMachineCredential,
+            _ => NetworkProfileRoamingConnectivityExpectation.ImportOnly
+        };
+    }
+
+    private static IReadOnlyList<string> ResolveExistingAssetPaths(params string?[] assetPaths)
+    {
+        return assetPaths
+            .Where(static path => !string.IsNullOrWhiteSpace(path) && File.Exists(path))
+            .Select(static path => path!)
+            .ToArray();
+    }
+
+    private string ImportCertificate(string certificatePath, string? certificatePfxPassword)
     {
         try
         {
-            X509Certificate2 certificate = X509CertificateLoader.LoadCertificateFromFile(certificatePath);
+            if (IsPfxPath(certificatePath))
+            {
+                X509Certificate2 pfxCertificate = X509CertificateLoader.LoadPkcs12FromFile(
+                    certificatePath,
+                    certificatePfxPassword,
+                    X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.PersistKeySet);
+                using X509Store myStore = new(StoreName.My, StoreLocation.LocalMachine);
+                myStore.Open(OpenFlags.ReadWrite);
+                AddCertificateIfMissing(myStore, pfxCertificate);
+                return $"Certificate '{Path.GetFileName(certificatePath)}' was imported into the local machine personal store.";
+            }
+
+            X509Certificate2 publicCertificate = X509CertificateLoader.LoadCertificateFromFile(certificatePath);
             using X509Store rootStore = new(StoreName.Root, StoreLocation.LocalMachine);
             rootStore.Open(OpenFlags.ReadWrite);
-
             bool alreadyPresent = rootStore.Certificates
-                .Find(X509FindType.FindByThumbprint, certificate.Thumbprint, validOnly: false)
+                .Find(X509FindType.FindByThumbprint, publicCertificate.Thumbprint, validOnly: false)
                 .Count > 0;
             if (!alreadyPresent)
             {
-                rootStore.Add(certificate);
+                rootStore.Add(publicCertificate);
             }
 
             return alreadyPresent
@@ -491,6 +566,24 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             _logger.LogWarning(ex, "Failed to import certificate from {CertificatePath}.", certificatePath);
             return $"Certificate import failed for '{Path.GetFileName(certificatePath)}': {ex.Message}";
         }
+    }
+
+    private static void AddCertificateIfMissing(X509Store store, X509Certificate2 certificate)
+    {
+        bool alreadyPresent = store.Certificates
+            .Find(X509FindType.FindByThumbprint, certificate.Thumbprint, validOnly: false)
+            .Count > 0;
+        if (!alreadyPresent)
+        {
+            store.Add(certificate);
+        }
+    }
+
+    private static bool IsPfxPath(string certificatePath)
+    {
+        string extension = Path.GetExtension(certificatePath);
+        return string.Equals(extension, ".pfx", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(extension, ".p12", StringComparison.OrdinalIgnoreCase);
     }
 
     private static string EscapeNetshArgument(string value)
@@ -593,186 +686,6 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             : WifiDisconnectAttemptResult.Failure($"Windows accepted the request, but '{disconnectedSsid}' did not transition away from the connected state.");
     }
 
-    private static string BuildWifiProfileXml(string ssidValue, string securityType, string? passphraseValue, string? ssidHexOverride = null)
-    {
-        string ssid = SecurityElement.Escape(ssidValue.Trim()) ?? string.Empty;
-        string ssidHex = string.IsNullOrWhiteSpace(ssidHexOverride)
-            ? ConvertSsidToHex(ssidValue.Trim())
-            : ssidHexOverride.Trim();
-        bool isOpen = string.Equals(securityType, OpenSecurityType, StringComparison.OrdinalIgnoreCase);
-        bool isOwe = string.Equals(securityType, OweSecurityType, StringComparison.OrdinalIgnoreCase);
-        bool isPersonal = IsPersonalSecurityType(securityType);
-
-        // Profiles are generated as XML because netsh remains the lowest-friction API available in WinPE.
-        if (isOpen)
-        {
-            return $$"""
-<?xml version="1.0"?>
-<WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
-  <name>{{ssid}}</name>
-  <SSIDConfig>
-    <SSID>
-      <hex>{{ssidHex}}</hex>
-      <name>{{ssid}}</name>
-    </SSID>
-  </SSIDConfig>
-  <connectionType>ESS</connectionType>
-  <connectionMode>manual</connectionMode>
-  <MSM>
-    <security>
-      <authEncryption>
-        <authentication>open</authentication>
-        <encryption>none</encryption>
-        <useOneX>false</useOneX>
-      </authEncryption>
-    </security>
-  </MSM>
-  <MacRandomization xmlns="http://www.microsoft.com/networking/WLAN/profile/v3">
-    <enableRandomization>false</enableRandomization>
-  </MacRandomization>
-</WLANProfile>
-""";
-        }
-
-        if (isPersonal)
-        {
-            string passphrase = SecurityElement.Escape(passphraseValue?.Trim() ?? string.Empty) ?? string.Empty;
-            string authentication = ResolvePersonalAuthentication(securityType);
-            string transitionMode = string.Equals(securityType, WifiSecurityPersonal, StringComparison.OrdinalIgnoreCase)
-                ? """
-        <transitionMode xmlns="http://www.microsoft.com/networking/WLAN/profile/v4">true</transitionMode>
-"""
-                : string.Empty;
-            return $$"""
-<?xml version="1.0"?>
-<WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
-  <name>{{ssid}}</name>
-  <SSIDConfig>
-    <SSID>
-      <hex>{{ssidHex}}</hex>
-      <name>{{ssid}}</name>
-    </SSID>
-  </SSIDConfig>
-  <connectionType>ESS</connectionType>
-  <connectionMode>manual</connectionMode>
-  <MSM>
-    <security>
-      <authEncryption>
-        <authentication>{{authentication}}</authentication>
-        <encryption>AES</encryption>
-        <useOneX>false</useOneX>
-{{transitionMode}}      </authEncryption>
-      <sharedKey>
-        <keyType>passPhrase</keyType>
-        <protected>false</protected>
-        <keyMaterial>{{passphrase}}</keyMaterial>
-      </sharedKey>
-    </security>
-  </MSM>
-  <MacRandomization xmlns="http://www.microsoft.com/networking/WLAN/profile/v3">
-    <enableRandomization>false</enableRandomization>
-  </MacRandomization>
-</WLANProfile>
-""";
-        }
-
-        if (isOwe)
-        {
-            return $$"""
-<?xml version="1.0"?>
-<WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
-  <name>{{ssid}}</name>
-  <SSIDConfig>
-    <SSID>
-      <hex>{{ssidHex}}</hex>
-      <name>{{ssid}}</name>
-    </SSID>
-  </SSIDConfig>
-  <connectionType>ESS</connectionType>
-  <connectionMode>manual</connectionMode>
-  <MSM>
-    <security>
-      <authEncryption>
-        <authentication>OWE</authentication>
-        <encryption>AES</encryption>
-        <useOneX>false</useOneX>
-      </authEncryption>
-    </security>
-  </MSM>
-  <MacRandomization xmlns="http://www.microsoft.com/networking/WLAN/profile/v3">
-    <enableRandomization>false</enableRandomization>
-  </MacRandomization>
-</WLANProfile>
-""";
-        }
-
-        throw new InvalidOperationException($"Unsupported Wi-Fi security type '{securityType}'.");
-    }
-
-    private static string ResolveDiscoveredWifiSecurityType(string authentication)
-    {
-        if (authentication.Contains("enterprise", StringComparison.OrdinalIgnoreCase))
-        {
-            return EnterpriseSecurityType;
-        }
-
-        if (authentication.Contains("open", StringComparison.OrdinalIgnoreCase))
-        {
-            return OpenSecurityType;
-        }
-
-        if (authentication.Contains("owe", StringComparison.OrdinalIgnoreCase))
-        {
-            return OweSecurityType;
-        }
-
-        if (authentication.Contains("sae", StringComparison.OrdinalIgnoreCase) ||
-            authentication.Contains("wpa3", StringComparison.OrdinalIgnoreCase))
-        {
-            return WifiSecurityWpa3Personal;
-        }
-
-        if (authentication.Contains("personal", StringComparison.OrdinalIgnoreCase) ||
-            authentication.Contains("psk", StringComparison.OrdinalIgnoreCase))
-        {
-            return WifiSecurityLegacyWpa2Personal;
-        }
-
-        return EnterpriseSecurityType;
-    }
-
-    private static bool IsPersonalSecurityType(string securityType)
-    {
-        return string.Equals(securityType, WifiSecurityLegacyWpa2Personal, StringComparison.OrdinalIgnoreCase) ||
-               string.Equals(securityType, WifiSecurityPersonal, StringComparison.OrdinalIgnoreCase) ||
-               string.Equals(securityType, WifiSecurityWpa3Personal, StringComparison.OrdinalIgnoreCase) ||
-               string.Equals(securityType, WifiSecurityLegacyPersonal, StringComparison.OrdinalIgnoreCase);
-    }
-
-    private static string ResolvePersonalAuthentication(string securityType)
-    {
-        if (string.Equals(securityType, WifiSecurityPersonal, StringComparison.OrdinalIgnoreCase) ||
-            string.Equals(securityType, WifiSecurityWpa3Personal, StringComparison.OrdinalIgnoreCase))
-        {
-            return "WPA3SAE";
-        }
-
-        return "WPA2PSK";
-    }
-
-    private static string ConvertSsidToHex(string value)
-    {
-        byte[] bytes = Encoding.UTF8.GetBytes(value);
-        StringBuilder builder = new(bytes.Length * 2);
-
-        foreach (byte currentByte in bytes)
-        {
-            builder.Append(currentByte.ToString("X2"));
-        }
-
-        return builder.ToString();
-    }
-
     private static string CollapseError(ProcessExecutionResult result)
     {
         string message = string.IsNullOrWhiteSpace(result.StandardError)
@@ -788,6 +701,8 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
 
     private async Task<ProcessExecutionResult> ExecuteProcessAsync(string fileName, string arguments, CancellationToken cancellationToken)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         try
         {
             using Process process = new()
@@ -812,6 +727,10 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                 process.ExitCode,
                 await outputTask.ConfigureAwait(false),
                 await errorTask.ConfigureAwait(false));
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            throw;
         }
         catch (Exception ex)
         {

@@ -77,4 +77,39 @@ public sealed class PreOobeScriptDefinitionBuilderTests
 
         Assert.Empty(scripts);
     }
+
+    [Fact]
+    public void Build_WhenNetworkProfileRoamingPayloadExists_StagesImportAndCleanupScripts()
+    {
+        var builder = new PreOobeScriptDefinitionBuilder();
+
+        IReadOnlyList<PreOobeScriptDefinition> scripts = builder.Build(
+            new DeployAppxRemovalSettings(),
+            new DeployAiComponentRemovalSettings(),
+            networkProfileRoaming: new PreOobeNetworkProfileRoamingPayload
+            {
+                DataFiles =
+                [
+                    new PreOobeScriptDataFile
+                    {
+                        FileName = @"NetworkProfiles\import-settings.json",
+                        Content = "{}"
+                    }
+                ]
+            });
+
+        Assert.Collection(
+            scripts,
+            script =>
+            {
+                Assert.Equal("network-profile-roaming", script.Id);
+                Assert.Equal("Import-NetworkProfiles.ps1", script.FileName);
+                Assert.Equal(PreOobeScriptPriority.NetworkProfileImport, script.Priority);
+            },
+            script =>
+            {
+                Assert.Equal("cleanup", script.Id);
+                Assert.Equal(PreOobeScriptPriority.Cleanup, script.Priority);
+            });
+    }
 }

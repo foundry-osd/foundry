@@ -2106,4 +2106,19 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>自動ではカタログの既定エディションが保持されます。</value>
   </data>
+  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Windows プロファイルのローミング</value>
+  </data>
+  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
+    <value>Foundry 管理の Wi-Fi および 802.1X プロファイルを OOBE 前に Windows へインポートし、WinPE 後も展開接続を継続できるようにします。</value>
+  </data>
+  <data name="Network.RoamProfilesLabel" xml:space="preserve">
+    <value>ネットワーク プロファイルを Windows にローミングする</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
+    <value>秘密キー証明書素材を含める</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
+    <value>構成済みの PFX クライアント証明書を Windows にコピーし、OOBE 前に LocalMachine の個人証明書ストアへインポートします。</value>
+  </data>
 </root>

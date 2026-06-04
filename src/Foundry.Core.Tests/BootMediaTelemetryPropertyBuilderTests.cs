@@ -537,4 +537,32 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.True((bool)result["network_wired_dot1x_certificate_configured"]!);
         Assert.True((bool)result["network_wifi_enterprise_certificate_configured"]!);
     }
+
+    [Fact]
+    public void Build_WhenNetworkProfileRoamingIsEnabled_ReportsRoamingEnabled()
+    {
+        var document = new FoundryConfigurationDocument
+        {
+            Network = new NetworkSettings
+            {
+                RoamWifiProfilesToWindows = true,
+                RoamPrivateKeyMaterialToWindows = true
+            }
+        };
+
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
+            new MediaPreflightOptions(),
+            document,
+            success: true,
+            failedStepName: null,
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+
+        Assert.True((bool)result["network_any_enabled"]!);
+        Assert.True((bool)result["network_profile_roaming_enabled"]!);
+        Assert.True((bool)result["network_private_key_roaming_enabled"]!);
+    }
 }

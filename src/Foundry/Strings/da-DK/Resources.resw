@@ -2106,4 +2106,19 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Automatisk bevarer katalogets standardudgave.</value>
   </data>
+  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Roaming af Windows-profiler</value>
+  </data>
+  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
+    <value>Importerer Foundry-administrerede Wi-Fi- og 802.1X-profiler til Windows før OOBE, så udrulningsforbindelsen kan fortsætte efter WinPE.</value>
+  </data>
+  <data name="Network.RoamProfilesLabel" xml:space="preserve">
+    <value>Roam netværksprofiler til Windows</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
+    <value>Medtag certifikatmateriale med privat nøgle</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
+    <value>Kopierer konfigurerede PFX-klientcertifikater til Windows og importerer dem til det personlige LocalMachine-certifikatlager før OOBE.</value>
+  </data>
 </root>

@@ -2106,4 +2106,19 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Automatisch behoudt de standaardeditie van de catalogus.</value>
   </data>
+  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Roaming van Windows-profielen</value>
+  </data>
+  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
+    <value>Importeert door Foundry beheerde Wi-Fi- en 802.1X-profielen vóór OOBE in Windows, zodat implementatieconnectiviteit na WinPE kan doorgaan.</value>
+  </data>
+  <data name="Network.RoamProfilesLabel" xml:space="preserve">
+    <value>Netwerkprofielen naar Windows roamen</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
+    <value>Certificaatmateriaal met persoonlijke sleutel opnemen</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
+    <value>Kopieert geconfigureerde PFX-clientcertificaten naar Windows en importeert ze vóór OOBE in het persoonlijke LocalMachine-certificaatarchief.</value>
+  </data>
 </root>

@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace Foundry.Core.Models.Configuration;
 
 /// <summary>
@@ -61,4 +63,15 @@ public sealed record WifiSettings
     /// Gets the optional source certificate path.
     /// </summary>
     public string? CertificatePath { get; init; }
+
+    /// <summary>
+    /// Gets the session-only password for a configured PFX certificate.
+    /// </summary>
+    [JsonIgnore]
+    public string? CertificatePfxPassword { get; init; }
+
+    /// <summary>
+    /// Gets the encrypted PFX password envelope stored on provisioned media.
+    /// </summary>
+    public SecretEnvelope? CertificatePfxPasswordSecret { get; init; }
 }

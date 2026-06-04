@@ -2106,4 +2106,19 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>يحافظ الخيار التلقائي على الإصدار الافتراضي في الكتالوج.</value>
   </data>
+  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+    <value>تجوال ملفات تعريف Windows</value>
+  </data>
+  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
+    <value>يستورد ملفات تعريف Wi-Fi و802.1X التي تديرها Foundry إلى Windows قبل OOBE حتى تستمر اتصالية النشر بعد WinPE.</value>
+  </data>
+  <data name="Network.RoamProfilesLabel" xml:space="preserve">
+    <value>تجوال ملفات تعريف الشبكة إلى Windows</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
+    <value>تضمين مادة شهادة المفتاح الخاص</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
+    <value>ينسخ شهادات عميل PFX المكوّنة إلى Windows ويستوردها إلى مخزن الشهادات الشخصي LocalMachine قبل OOBE.</value>
+  </data>
 </root>

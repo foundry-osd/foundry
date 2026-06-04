@@ -2,6 +2,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text.Json;
 using Foundry.Connect.Models.Configuration;
+using CoreConnectNetworkSettings = Foundry.Core.Models.Configuration.ConnectNetworkSettings;
 using Foundry.Connect.Services.Runtime;
 using Microsoft.Extensions.Logging;
 
@@ -169,6 +170,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
             {
                 WifiProvisioned = capabilities.WifiProvisioned
             },
+            Network = configuration.Network ?? new CoreConnectNetworkSettings(),
             Dot1x = configuration.Dot1x ?? new Dot1xSettings(),
             Wifi = NormalizeWifi(configuration.Wifi),
             InternetProbe = new InternetProbeOptions
@@ -185,16 +187,34 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
         string configurationPath)
     {
         WifiSettings? wifi = configuration.Wifi;
-        if (wifi?.PassphraseSecret is null)
+        Dot1xSettings? dot1x = configuration.Dot1x;
+        if (wifi?.PassphraseSecret is null &&
+            wifi?.CertificatePfxPasswordSecret is null &&
+            dot1x?.CertificatePfxPasswordSecret is null)
         {
             return configuration;
         }
 
         byte[] mediaSecretsKey = LoadMediaSecretsKey(configurationPath);
-        string passphrase;
+        string? passphrase = null;
+        string? wifiCertificatePfxPassword = null;
+        string? wiredCertificatePfxPassword = null;
         try
         {
-            passphrase = ConnectSecretEnvelopeProtector.Decrypt(wifi.PassphraseSecret, mediaSecretsKey);
+            if (wifi?.PassphraseSecret is not null)
+            {
+                passphrase = ConnectSecretEnvelopeProtector.Decrypt(wifi.PassphraseSecret, mediaSecretsKey);
+            }
+
+            if (wifi?.CertificatePfxPasswordSecret is not null)
+            {
+                wifiCertificatePfxPassword = ConnectSecretEnvelopeProtector.Decrypt(wifi.CertificatePfxPasswordSecret, mediaSecretsKey);
+            }
+
+            if (dot1x?.CertificatePfxPasswordSecret is not null)
+            {
+                wiredCertificatePfxPassword = ConnectSecretEnvelopeProtector.Decrypt(dot1x.CertificatePfxPasswordSecret, mediaSecretsKey);
+            }
         }
         finally
         {
@@ -206,11 +226,20 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
         {
             SchemaVersion = configuration.SchemaVersion,
             Capabilities = configuration.Capabilities,
-            Dot1x = configuration.Dot1x,
-            Wifi = wifi with
+            Network = configuration.Network,
+            Dot1x = dot1x is null
+                ? new Dot1xSettings()
+                : dot1x with
+                {
+                    CertificatePfxPassword = wiredCertificatePfxPassword,
+                    CertificatePfxPasswordSecret = dot1x.CertificatePfxPasswordSecret
+                },
+            Wifi = (wifi ?? new WifiSettings()) with
             {
-                Passphrase = passphrase,
-                PassphraseSecret = null
+                Passphrase = passphrase ?? wifi?.Passphrase,
+                PassphraseSecret = null,
+                CertificatePfxPassword = wifiCertificatePfxPassword,
+                CertificatePfxPasswordSecret = wifi?.CertificatePfxPasswordSecret
             },
             InternetProbe = configuration.InternetProbe,
             Telemetry = configuration.Telemetry

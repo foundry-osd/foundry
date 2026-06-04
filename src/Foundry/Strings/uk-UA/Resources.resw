@@ -2106,4 +2106,19 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Автоматично зберігає випуск каталогу за замовчуванням.</value>
   </data>
+  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Роумінг профілів Windows</value>
+  </data>
+  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
+    <value>Імпортує керовані Foundry профілі Wi-Fi і 802.1X до Windows перед OOBE, щоб підключення розгортання продовжувалося після WinPE.</value>
+  </data>
+  <data name="Network.RoamProfilesLabel" xml:space="preserve">
+    <value>Перенести мережеві профілі до Windows</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
+    <value>Включити матеріал сертифіката із закритим ключем</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
+    <value>Копіює налаштовані клієнтські сертифікати PFX до Windows і імпортує їх до особистого сховища сертифікатів LocalMachine перед OOBE.</value>
+  </data>
 </root>

@@ -73,9 +73,9 @@ public sealed class ConnectConfigurationServiceTests
         string configurationPath = CreateJsonFile(
             tempDirectory.Path,
             "telemetry.json",
-            """
+            $$"""
             {
-              "schemaVersion": 1,
+              "schemaVersion": {{FoundryConnectConfiguration.CurrentSchemaVersion}},
               "telemetry": {
                 "isEnabled": false,
                 "installId": "install-id",
@@ -149,6 +149,31 @@ public sealed class ConnectConfigurationServiceTests
     }
 
     [Fact]
+    public void Load_WhenCoreGeneratedConfigurationContainsNetworkProfileRoaming_PreservesOptIn()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var tempDirectory = new TemporaryDirectory();
+        string configurationJson = new ConnectConfigurationGenerator().CreateProvisioningBundle(
+            new CoreConfiguration.FoundryConfigurationDocument
+            {
+                Network = new CoreConfiguration.NetworkSettings
+                {
+                    RoamWifiProfilesToWindows = true,
+                    RoamPrivateKeyMaterialToWindows = true
+                }
+            },
+            tempDirectory.Path).ConfigurationJson;
+        string configurationPath = CreateJsonFile(tempDirectory.Path, "core-generated.json", configurationJson);
+
+        var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
+
+        FoundryConnectConfiguration configuration = service.Load();
+
+        Assert.True(configuration.Network.ProfileRoaming.IsEnabled);
+        Assert.True(configuration.Network.ProfileRoaming.IncludePrivateKeyMaterial);
+    }
+
+    [Fact]
     public void Load_WhenCoreGeneratedConfigurationContainsEncryptedPassphrase_DecryptsPassphraseFromMediaKey()
     {
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
@@ -184,6 +209,72 @@ public sealed class ConnectConfigurationServiceTests
 
         Assert.Equal("super-secret-passphrase", configuration.Wifi.Passphrase);
         Assert.Null(configuration.Wifi.PassphraseSecret);
+    }
+
+    [Fact]
+    public void Load_WhenCoreGeneratedConfigurationContainsEncryptedPfxPasswords_DecryptsPasswordsFromMediaKey()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var tempDirectory = new TemporaryDirectory();
+        Foundry.Core.Models.Configuration.FoundryConnectProvisioningBundle bundle =
+            new ConnectConfigurationGenerator().CreateProvisioningBundle(
+                new CoreConfiguration.FoundryConfigurationDocument
+                {
+                    Network = new CoreConfiguration.NetworkSettings
+                    {
+                        WifiProvisioned = true,
+                        Dot1x = new CoreConfiguration.Dot1xSettings
+                        {
+                            IsEnabled = true,
+                            ProfileTemplatePath = CreateFile(tempDirectory.Path, "wired.xml", "<LANProfile />"),
+                            RequiresCertificate = true,
+                            CertificatePath = CreateFile(tempDirectory.Path, "wired.pfx", "wired-pfx"),
+                            CertificatePfxPassword = "wired-password"
+                        },
+                        Wifi = new CoreConfiguration.WifiSettings
+                        {
+                            IsEnabled = true,
+                            Ssid = "Corp WiFi",
+                            SecurityType = NetworkConfigurationValidator.WifiSecurityEnterprise,
+                            HasEnterpriseProfile = true,
+                            EnterpriseProfileTemplatePath = CreateFile(
+                                tempDirectory.Path,
+                                "wifi.xml",
+                                """
+                                <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
+                                  <MSM>
+                                    <security>
+                                      <authEncryption>
+                                        <authentication>WPA2</authentication>
+                                      </authEncryption>
+                                    </security>
+                                  </MSM>
+                                </WLANProfile>
+                                """),
+                            RequiresCertificate = true,
+                            CertificatePath = CreateFile(tempDirectory.Path, "wifi.pfx", "wifi-pfx"),
+                            CertificatePfxPassword = "wifi-password"
+                        }
+                    }
+                },
+                tempDirectory.Path);
+        Assert.NotNull(bundle.MediaSecretsKey);
+        Assert.DoesNotContain("wired-password", bundle.ConfigurationJson, StringComparison.Ordinal);
+        Assert.DoesNotContain("wifi-password", bundle.ConfigurationJson, StringComparison.Ordinal);
+
+        string configDirectory = System.IO.Path.Combine(tempDirectory.Path, "Config");
+        Directory.CreateDirectory(configDirectory);
+        string configurationPath = CreateJsonFile(configDirectory, "foundry.connect.config.json", bundle.ConfigurationJson);
+        CreateBinaryFile(System.IO.Path.Combine(configDirectory, "Secrets"), "media-secrets.key", bundle.MediaSecretsKey);
+
+        var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
+
+        FoundryConnectConfiguration configuration = service.Load();
+
+        Assert.Equal("wired-password", configuration.Dot1x.CertificatePfxPassword);
+        Assert.Equal("wifi-password", configuration.Wifi.CertificatePfxPassword);
+        Assert.NotNull(configuration.Dot1x.CertificatePfxPasswordSecret);
+        Assert.NotNull(configuration.Wifi.CertificatePfxPasswordSecret);
     }
 
     [Fact]

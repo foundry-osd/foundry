@@ -10,7 +10,7 @@ public sealed record FoundryDeployConfigurationDocument
     /// <summary>
     /// Gets the current schema version for Foundry.Deploy configuration documents.
     /// </summary>
-    public const int CurrentSchemaVersion = 7;
+    public const int CurrentSchemaVersion = 8;
 
     /// <summary>
     /// Gets the schema version of this deployment configuration document.
@@ -26,6 +26,11 @@ public sealed record FoundryDeployConfigurationDocument
     /// Gets Windows localization settings used during apply and unattend generation.
     /// </summary>
     public DeployLocalizationSettings Localization { get; init; } = new();
+
+    /// <summary>
+    /// Gets network profile roaming settings used during deployment.
+    /// </summary>
+    public DeployNetworkSettings Network { get; init; } = new();
 
     /// <summary>
     /// Gets Windows customization settings applied during deployment.

@@ -87,6 +87,7 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             AutopilotProvisioningMode = request.AutopilotProvisioningMode,
             SelectedAutopilotProfile = request.SelectedAutopilotProfile,
             AutopilotHardwareHashUpload = request.AutopilotHardwareHashUpload,
+            Network = request.Network,
             Oobe = request.Oobe,
             AppxRemoval = request.AppxRemoval,
             AiComponentRemoval = request.AiComponentRemoval,

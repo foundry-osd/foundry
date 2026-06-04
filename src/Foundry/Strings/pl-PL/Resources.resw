@@ -2106,4 +2106,19 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Automatycznie zachowuje domyślną edycję katalogu.</value>
   </data>
+  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Roaming profili Windows</value>
+  </data>
+  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
+    <value>Importuje profile Wi-Fi i 802.1X zarządzane przez Foundry do Windows przed OOBE, aby łączność wdrożeniowa mogła być kontynuowana po WinPE.</value>
+  </data>
+  <data name="Network.RoamProfilesLabel" xml:space="preserve">
+    <value>Przenieś profile sieciowe do Windows</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
+    <value>Dołącz materiał certyfikatu z kluczem prywatnym</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
+    <value>Kopiuje skonfigurowane certyfikaty klienta PFX do Windows i importuje je do osobistego magazynu certyfikatów LocalMachine przed OOBE.</value>
+  </data>
 </root>

@@ -1,5 +1,6 @@
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
+using CoreDeployNetworkSettings = Foundry.Core.Models.Configuration.Deploy.DeployNetworkSettings;
 
 namespace Foundry.Deploy.Services.Deployment;
 
@@ -72,6 +73,11 @@ public sealed record DeploymentContext
     /// Gets non-secret metadata for hardware hash upload mode, including the effective group tag override.
     /// </summary>
     public DeployAutopilotHardwareHashUploadSettings AutopilotHardwareHashUpload { get; init; } = new();
+
+    /// <summary>
+    /// Gets network settings used by late deployment steps.
+    /// </summary>
+    public CoreDeployNetworkSettings Network { get; init; } = new();
 
     /// <summary>
     /// Gets Windows OOBE customization settings applied to the offline installation.

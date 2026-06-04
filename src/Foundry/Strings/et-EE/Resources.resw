@@ -2106,4 +2106,19 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Automaatne säilitab kataloogi vaikeväljaande.</value>
   </data>
+  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Windowsi profiilide rändlus</value>
+  </data>
+  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
+    <value>Impordib Foundry hallatavad Wi-Fi ja 802.1X profiilid Windowsisse enne OOBE-d, et juurutuse ühenduvus jätkuks pärast WinPE-d.</value>
+  </data>
+  <data name="Network.RoamProfilesLabel" xml:space="preserve">
+    <value>Rända võrguprofiilid Windowsisse</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
+    <value>Kaasa privaatvõtmega sertifikaadimaterjal</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
+    <value>Kopeerib konfigureeritud PFX-kliendisertifikaadid Windowsisse ja impordib need enne OOBE-d LocalMachine isiklikku sertifikaadihoidlasse.</value>
+  </data>
 </root>

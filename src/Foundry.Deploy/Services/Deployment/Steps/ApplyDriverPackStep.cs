@@ -2,6 +2,7 @@ using System.IO;
 using Foundry.Deploy.Services.Deployment.PreOobe;
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Logging;
+using Foundry.Deploy.Services.Network;
 
 namespace Foundry.Deploy.Services.Deployment.Steps;
 
@@ -16,6 +17,7 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
     private readonly IPreOobeScriptProvisioningService _preOobeScriptProvisioningService;
     private readonly PreOobeScriptDefinitionBuilder _preOobeScriptDefinitionBuilder;
     private readonly IDriverPackStrategyResolver _driverPackStrategyResolver;
+    private readonly INetworkProfileRoamingArtifactService? _networkProfileRoamingArtifactService;
 
     /// <summary>
     /// Initializes the driver pack application step.
@@ -24,12 +26,14 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
         IWindowsDeploymentService windowsDeploymentService,
         IPreOobeScriptProvisioningService preOobeScriptProvisioningService,
         PreOobeScriptDefinitionBuilder preOobeScriptDefinitionBuilder,
-        IDriverPackStrategyResolver driverPackStrategyResolver)
+        IDriverPackStrategyResolver driverPackStrategyResolver,
+        INetworkProfileRoamingArtifactService? networkProfileRoamingArtifactService = null)
     {
         _windowsDeploymentService = windowsDeploymentService;
         _preOobeScriptProvisioningService = preOobeScriptProvisioningService;
         _preOobeScriptDefinitionBuilder = preOobeScriptDefinitionBuilder;
         _driverPackStrategyResolver = driverPackStrategyResolver;
+        _networkProfileRoamingArtifactService = networkProfileRoamingArtifactService;
     }
 
     /// <inheritdoc />
@@ -175,6 +179,10 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
             .ConfigureAwait(false);
 
         context.EmitCurrentStepIndeterminate("Applying driver pack...", "Updating SetupComplete hook...");
+        PreOobeNetworkProfileRoamingPayload? networkProfileRoaming = await LoadNetworkProfileRoamingPayloadAsync(
+                context,
+                cancellationToken)
+            .ConfigureAwait(false);
         IReadOnlyList<PreOobeScriptDefinition> scripts = _preOobeScriptDefinitionBuilder.Build(
             context.RuntimeState.AppxRemoval,
             context.RuntimeState.AiComponentRemoval,
@@ -182,7 +190,8 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
             {
                 CommandKind = executionPlan.DeferredCommandKind,
                 RuntimePackagePath = runtimePackagePath
-            });
+            },
+            networkProfileRoaming);
         PreOobeScriptProvisioningResult preOobeResult = _preOobeScriptProvisioningService.Provision(
             context.RuntimeState.TargetWindowsPartitionRoot,
             scripts);
@@ -357,6 +366,18 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
     {
         double normalized = Math.Clamp(percent, 0d, 100d);
         return start + (normalized / 100d * (end - start));
+    }
+
+    private Task<PreOobeNetworkProfileRoamingPayload?> LoadNetworkProfileRoamingPayloadAsync(
+        DeploymentStepExecutionContext context,
+        CancellationToken cancellationToken)
+    {
+        return _networkProfileRoamingArtifactService is null
+            ? Task.FromResult<PreOobeNetworkProfileRoamingPayload?>(null)
+            : _networkProfileRoamingArtifactService.LoadAsync(
+                context.RuntimeState.Network.ProfileRoaming,
+                context.RuntimeState.WorkspaceRoot,
+                cancellationToken);
     }
 
 }

@@ -34,6 +34,31 @@ public sealed class PreOobeScriptProvisioningServiceTests
     }
 
     [Fact]
+    public void Provision_RunsCleanupScriptsInFinally()
+    {
+        string windowsRoot = CreateWindowsRoot();
+        var service = new PreOobeScriptProvisioningService(new SetupCompleteScriptService());
+
+        PreOobeScriptProvisioningResult result = service.Provision(
+            windowsRoot,
+            [
+                CreateScript("cleanup", "Cleanup-PreOobe.ps1", PreOobeScriptPriority.Cleanup),
+                CreateScript("driver-pack", "Install-DriverPack.ps1", PreOobeScriptPriority.DriverProvisioning)
+            ]);
+
+        string runner = File.ReadAllText(result.RunnerPath);
+
+        int driverIndex = runner.IndexOf("Install-DriverPack.ps1", StringComparison.Ordinal);
+        int finallyIndex = runner.IndexOf("finally {", StringComparison.Ordinal);
+        int cleanupIndex = runner.IndexOf("Cleanup-PreOobe.ps1", StringComparison.Ordinal);
+
+        Assert.Contains("try {", runner);
+        Assert.True(driverIndex < finallyIndex);
+        Assert.True(finallyIndex < cleanupIndex);
+        Assert.Contains("Write-Warning $_", runner);
+    }
+
+    [Fact]
     public void Provision_OrdersSamePriorityScriptsById()
     {
         string windowsRoot = CreateWindowsRoot();
@@ -141,6 +166,59 @@ public sealed class PreOobeScriptProvisioningServiceTests
 
         Assert.DoesNotContain("Remove-Item -Path 'C:\\Drivers'", driverScript);
         Assert.Contains("'C:\\Drivers'", cleanupScript);
+    }
+
+    [Fact]
+    public void Provision_StagesNetworkImportScriptWithPasswordlessPfxImport()
+    {
+        string windowsRoot = CreateWindowsRoot();
+        var service = new PreOobeScriptProvisioningService(new SetupCompleteScriptService());
+
+        PreOobeScriptProvisioningResult result = service.Provision(
+            windowsRoot,
+            [
+                new PreOobeScriptDefinition
+                {
+                    Id = "network-profile-roaming",
+                    FileName = "Import-NetworkProfiles.ps1",
+                    ResourceName = PreOobeScriptResources.ImportNetworkProfiles,
+                    Priority = PreOobeScriptPriority.NetworkProfileImport
+                }
+            ]);
+
+        string stagedScript = File.ReadAllText(result.StagedScriptPaths.Single());
+
+        Assert.Contains("$importArguments = @", stagedScript);
+        Assert.Contains("if ($securePassword -ne $null)", stagedScript);
+        Assert.Contains("$importArguments.Password = $securePassword", stagedScript);
+        Assert.DoesNotContain("Skipping PFX import because no password file was staged.", stagedScript);
+    }
+
+    [Fact]
+    public void Provision_StagesNetworkImportScriptWithPreOobeWifiConnect()
+    {
+        string windowsRoot = CreateWindowsRoot();
+        var service = new PreOobeScriptProvisioningService(new SetupCompleteScriptService());
+
+        PreOobeScriptProvisioningResult result = service.Provision(
+            windowsRoot,
+            [
+                new PreOobeScriptDefinition
+                {
+                    Id = "network-profile-roaming",
+                    FileName = "Import-NetworkProfiles.ps1",
+                    ResourceName = PreOobeScriptResources.ImportNetworkProfiles,
+                    Priority = PreOobeScriptPriority.NetworkProfileImport
+                }
+            ]);
+
+        string stagedScript = File.ReadAllText(result.StagedScriptPaths.Single());
+
+        Assert.Contains("Connect-FoundryWifiProfile", stagedScript);
+        Assert.Contains("Set-FoundryWifiProfileConnectionMode", stagedScript);
+        Assert.Contains("'preOobeConnectable'", stagedScript);
+        Assert.Contains("'auto'", stagedScript);
+        Assert.Contains("@('wlan', 'connect', \"name=$profileName\")", stagedScript);
     }
 
     [Fact]
@@ -299,6 +377,49 @@ public sealed class PreOobeScriptProvisioningServiceTests
         Assert.Contains("\"packageName\": \"Microsoft.Windows.AIHub\"", stagedSettings);
         Assert.DoesNotContain("removeCopilot", stagedSettings);
         Assert.DoesNotContain("disableNotepadAi", stagedSettings);
+    }
+
+    [Fact]
+    public void Provision_StagesNestedBinaryDataFiles()
+    {
+        string windowsRoot = CreateWindowsRoot();
+        var service = new PreOobeScriptProvisioningService(new SetupCompleteScriptService());
+
+        PreOobeScriptProvisioningResult result = service.Provision(
+            windowsRoot,
+            [
+                new PreOobeScriptDefinition
+                {
+                    Id = "network-profile-roaming",
+                    FileName = "Install-DriverPack.ps1",
+                    ResourceName = PreOobeScriptResources.InstallDriverPack,
+                    Priority = PreOobeScriptPriority.NetworkProfileImport,
+                    DataFiles =
+                    [
+                        new PreOobeScriptDataFile
+                        {
+                            FileName = @"NetworkProfiles\certificates\My\client.pfx",
+                            Bytes = [4, 5, 6],
+                            IsSensitive = true
+                        }
+                    ]
+                }
+            ]);
+
+        string dataPath = Path.Combine(
+            Path.GetDirectoryName(result.RunnerPath)!,
+            "Data",
+            "NetworkProfiles",
+            "certificates",
+            "My",
+            "client.pfx");
+
+        Assert.True(File.Exists(dataPath));
+        Assert.Equal([4, 5, 6], File.ReadAllBytes(dataPath));
+        using JsonDocument manifest = JsonDocument.Parse(File.ReadAllText(result.ManifestPath));
+        Assert.Contains(
+            @"NetworkProfiles\certificates\My\client.pfx",
+            manifest.RootElement.GetProperty("scripts")[0].GetProperty("dataFiles")[0].GetString());
     }
 
     [Fact]

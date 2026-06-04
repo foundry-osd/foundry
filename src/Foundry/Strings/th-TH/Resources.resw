@@ -2106,4 +2106,19 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>อัตโนมัติจะคงรุ่นเริ่มต้นของแค็ตตาล็อกไว้</value>
   </data>
+  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+    <value>การโรมมิ่งโปรไฟล์ Windows</value>
+  </data>
+  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
+    <value>นำเข้าโปรไฟล์ Wi-Fi และ 802.1X ที่ Foundry จัดการลงใน Windows ก่อน OOBE เพื่อให้การเชื่อมต่อสำหรับการปรับใช้ดำเนินต่อได้หลัง WinPE</value>
+  </data>
+  <data name="Network.RoamProfilesLabel" xml:space="preserve">
+    <value>โรมมิ่งโปรไฟล์เครือข่ายไปยัง Windows</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
+    <value>รวมข้อมูลใบรับรองที่มีคีย์ส่วนตัว</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
+    <value>คัดลอกใบรับรองไคลเอ็นต์ PFX ที่กำหนดค่าไว้ไปยัง Windows และนำเข้าไปยังที่เก็บใบรับรองส่วนบุคคล LocalMachine ก่อน OOBE</value>
+  </data>
 </root>

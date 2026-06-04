@@ -2106,4 +2106,19 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Az Automatikus megtartja a katalógus alapértelmezett kiadását.</value>
   </data>
+  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Windows-profilok barangolása</value>
+  </data>
+  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
+    <value>Importálja a Foundry által kezelt Wi-Fi- és 802.1X-profilokat a Windowsba az OOBE előtt, hogy a telepítési kapcsolat a WinPE után is folytatódhasson.</value>
+  </data>
+  <data name="Network.RoamProfilesLabel" xml:space="preserve">
+    <value>Hálózati profilok átvitele Windowsba</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
+    <value>Privátkulcsos tanúsítványanyag felvétele</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
+    <value>Átmásolja a konfigurált PFX ügyféltanúsítványokat a Windowsba, és az OOBE előtt importálja őket a LocalMachine személyes tanúsítványtárába.</value>
+  </data>
 </root>

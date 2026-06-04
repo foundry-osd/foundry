@@ -72,21 +72,18 @@ internal static class ProvisionedWifiProfileResolver
             return null;
         }
 
-        string fileContents = File.ReadAllText(profilePath);
-        const string openTag = "<name>";
-        const string closeTag = "</name>";
-        int startIndex = fileContents.IndexOf(openTag, StringComparison.OrdinalIgnoreCase);
-        int endIndex = fileContents.IndexOf(closeTag, StringComparison.OrdinalIgnoreCase);
-        if (startIndex < 0 || endIndex <= startIndex)
+        try
+        {
+            XDocument document = XDocument.Load(profilePath);
+            return document
+                .Descendants(WlanProfileNamespace + "name")
+                .Select(static element => element.Value?.Trim())
+                .FirstOrDefault(static value => !string.IsNullOrWhiteSpace(value));
+        }
+        catch
         {
             return null;
         }
-
-        int contentStart = startIndex + openTag.Length;
-        string profileName = fileContents[contentStart..endIndex].Trim();
-        return string.IsNullOrWhiteSpace(profileName)
-            ? null
-            : profileName;
     }
 
     /// <summary>
