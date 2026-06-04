@@ -897,6 +897,21 @@
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>Importer un certificat d'autorité racine de confiance</value>
   </data>
+  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Roaming des profils Windows</value>
+  </data>
+  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
+    <value>Importe les profils Wi-Fi et 802.1X gérés par Foundry dans Windows avant l’OOBE afin de conserver la connectivité de déploiement après WinPE.</value>
+  </data>
+  <data name="Network.RoamProfilesLabel" xml:space="preserve">
+    <value>Roamer les profils réseau vers Windows</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
+    <value>Inclure les certificats avec clé privée</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
+    <value>Copie les certificats client PFX configurés vers Windows et les importe dans le magasin personnel LocalMachine avant l’OOBE.</value>
+  </data>
   <data name="Wifi.CertificateLabel" xml:space="preserve">
     <value>Fichier de certificat d'autorité racine de confiance</value>
   </data>
