@@ -172,7 +172,9 @@ public static class BootMediaTelemetryPropertyBuilder
         bool isWifiEnterpriseProfileConfigured = wifi.IsEnabled && wifi.HasEnterpriseProfile && !string.IsNullOrWhiteSpace(wifi.EnterpriseProfileTemplatePath);
         bool isWifiEnterpriseCertificateConfigured = wifi.IsEnabled && !string.IsNullOrWhiteSpace(wifi.CertificatePath);
 
-        properties["network_any_enabled"] = dot1x.IsEnabled || network.WifiProvisioned || wifi.IsEnabled;
+        properties["network_any_enabled"] = dot1x.IsEnabled || network.WifiProvisioned || wifi.IsEnabled || network.RoamWifiProfilesToWindows;
+        properties["network_profile_roaming_enabled"] = network.RoamWifiProfilesToWindows;
+        properties["network_private_key_roaming_enabled"] = network.RoamPrivateKeyMaterialToWindows;
         properties["network_wired_dot1x_enabled"] = dot1x.IsEnabled;
         properties["network_wired_dot1x_profile_configured"] = isDot1xProfileConfigured;
         properties["network_wired_dot1x_certificate_required"] = dot1x.IsEnabled && dot1x.RequiresCertificate;
