@@ -1,12 +1,12 @@
 using System.Diagnostics;
 using System.IO;
 using System.Net.NetworkInformation;
-using System.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Services.Configuration;
 using Foundry.Connect.Services.Runtime;
+using Foundry.Core.Services.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Connect.Services.Network;
@@ -139,7 +139,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         try
         {
             profilePath = await WriteTemporaryWifiProfileAsync(
-                BuildWifiProfileXml(trimmedSsid, securityType, passphrase, ssidHex),
+                WifiProfileXmlBuilder.Build(trimmedSsid, securityType, passphrase, ssidHex),
                 cancellationToken).ConfigureAwait(false);
 
             IReadOnlyList<Guid> wirelessInterfaceIds = NativeWifiApi.GetInterfaceIds();
@@ -346,7 +346,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         }
 
         return await WriteTemporaryWifiProfileAsync(
-            BuildWifiProfileXml(_configuration.Wifi.Ssid.Trim(), _configuration.Wifi.SecurityType.Trim(), _configuration.Wifi.Passphrase),
+            WifiProfileXmlBuilder.Build(_configuration.Wifi.Ssid.Trim(), _configuration.Wifi.SecurityType.Trim(), _configuration.Wifi.Passphrase),
             cancellationToken).ConfigureAwait(false);
     }
 
@@ -593,122 +593,6 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             : WifiDisconnectAttemptResult.Failure($"Windows accepted the request, but '{disconnectedSsid}' did not transition away from the connected state.");
     }
 
-    private static string BuildWifiProfileXml(string ssidValue, string securityType, string? passphraseValue, string? ssidHexOverride = null)
-    {
-        string ssid = SecurityElement.Escape(ssidValue.Trim()) ?? string.Empty;
-        string ssidHex = string.IsNullOrWhiteSpace(ssidHexOverride)
-            ? ConvertSsidToHex(ssidValue.Trim())
-            : ssidHexOverride.Trim();
-        bool isOpen = string.Equals(securityType, OpenSecurityType, StringComparison.OrdinalIgnoreCase);
-        bool isOwe = string.Equals(securityType, OweSecurityType, StringComparison.OrdinalIgnoreCase);
-        bool isPersonal = IsPersonalSecurityType(securityType);
-
-        // Profiles are generated as XML because netsh remains the lowest-friction API available in WinPE.
-        if (isOpen)
-        {
-            return $$"""
-<?xml version="1.0"?>
-<WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
-  <name>{{ssid}}</name>
-  <SSIDConfig>
-    <SSID>
-      <hex>{{ssidHex}}</hex>
-      <name>{{ssid}}</name>
-    </SSID>
-  </SSIDConfig>
-  <connectionType>ESS</connectionType>
-  <connectionMode>manual</connectionMode>
-  <MSM>
-    <security>
-      <authEncryption>
-        <authentication>open</authentication>
-        <encryption>none</encryption>
-        <useOneX>false</useOneX>
-      </authEncryption>
-    </security>
-  </MSM>
-  <MacRandomization xmlns="http://www.microsoft.com/networking/WLAN/profile/v3">
-    <enableRandomization>false</enableRandomization>
-  </MacRandomization>
-</WLANProfile>
-""";
-        }
-
-        if (isPersonal)
-        {
-            string passphrase = SecurityElement.Escape(passphraseValue?.Trim() ?? string.Empty) ?? string.Empty;
-            string authentication = ResolvePersonalAuthentication(securityType);
-            string transitionMode = string.Equals(securityType, WifiSecurityPersonal, StringComparison.OrdinalIgnoreCase)
-                ? """
-        <transitionMode xmlns="http://www.microsoft.com/networking/WLAN/profile/v4">true</transitionMode>
-"""
-                : string.Empty;
-            return $$"""
-<?xml version="1.0"?>
-<WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
-  <name>{{ssid}}</name>
-  <SSIDConfig>
-    <SSID>
-      <hex>{{ssidHex}}</hex>
-      <name>{{ssid}}</name>
-    </SSID>
-  </SSIDConfig>
-  <connectionType>ESS</connectionType>
-  <connectionMode>manual</connectionMode>
-  <MSM>
-    <security>
-      <authEncryption>
-        <authentication>{{authentication}}</authentication>
-        <encryption>AES</encryption>
-        <useOneX>false</useOneX>
-{{transitionMode}}      </authEncryption>
-      <sharedKey>
-        <keyType>passPhrase</keyType>
-        <protected>false</protected>
-        <keyMaterial>{{passphrase}}</keyMaterial>
-      </sharedKey>
-    </security>
-  </MSM>
-  <MacRandomization xmlns="http://www.microsoft.com/networking/WLAN/profile/v3">
-    <enableRandomization>false</enableRandomization>
-  </MacRandomization>
-</WLANProfile>
-""";
-        }
-
-        if (isOwe)
-        {
-            return $$"""
-<?xml version="1.0"?>
-<WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
-  <name>{{ssid}}</name>
-  <SSIDConfig>
-    <SSID>
-      <hex>{{ssidHex}}</hex>
-      <name>{{ssid}}</name>
-    </SSID>
-  </SSIDConfig>
-  <connectionType>ESS</connectionType>
-  <connectionMode>manual</connectionMode>
-  <MSM>
-    <security>
-      <authEncryption>
-        <authentication>OWE</authentication>
-        <encryption>AES</encryption>
-        <useOneX>false</useOneX>
-      </authEncryption>
-    </security>
-  </MSM>
-  <MacRandomization xmlns="http://www.microsoft.com/networking/WLAN/profile/v3">
-    <enableRandomization>false</enableRandomization>
-  </MacRandomization>
-</WLANProfile>
-""";
-        }
-
-        throw new InvalidOperationException($"Unsupported Wi-Fi security type '{securityType}'.");
-    }
-
     private static string ResolveDiscoveredWifiSecurityType(string authentication)
     {
         if (authentication.Contains("enterprise", StringComparison.OrdinalIgnoreCase))
@@ -739,38 +623,6 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         }
 
         return EnterpriseSecurityType;
-    }
-
-    private static bool IsPersonalSecurityType(string securityType)
-    {
-        return string.Equals(securityType, WifiSecurityLegacyWpa2Personal, StringComparison.OrdinalIgnoreCase) ||
-               string.Equals(securityType, WifiSecurityPersonal, StringComparison.OrdinalIgnoreCase) ||
-               string.Equals(securityType, WifiSecurityWpa3Personal, StringComparison.OrdinalIgnoreCase) ||
-               string.Equals(securityType, WifiSecurityLegacyPersonal, StringComparison.OrdinalIgnoreCase);
-    }
-
-    private static string ResolvePersonalAuthentication(string securityType)
-    {
-        if (string.Equals(securityType, WifiSecurityPersonal, StringComparison.OrdinalIgnoreCase) ||
-            string.Equals(securityType, WifiSecurityWpa3Personal, StringComparison.OrdinalIgnoreCase))
-        {
-            return "WPA3SAE";
-        }
-
-        return "WPA2PSK";
-    }
-
-    private static string ConvertSsidToHex(string value)
-    {
-        byte[] bytes = Encoding.UTF8.GetBytes(value);
-        StringBuilder builder = new(bytes.Length * 2);
-
-        foreach (byte currentByte in bytes)
-        {
-            builder.Append(currentByte.ToString("X2"));
-        }
-
-        return builder.ToString();
     }
 
     private static string CollapseError(ProcessExecutionResult result)

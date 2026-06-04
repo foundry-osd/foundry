@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Foundry.Core\Foundry.Core.csproj" />
     <ProjectReference Include="..\Foundry.Localization\Foundry.Localization.csproj" />
     <ProjectReference Include="..\Foundry.Telemetry\Foundry.Telemetry.csproj" />
   </ItemGroup>
