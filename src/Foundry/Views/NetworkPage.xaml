@@ -192,11 +192,13 @@
 
             <wct:SettingsExpander Header="{x:Bind ViewModel.WindowsRoamingHeader, Mode=OneWay}"
                                   Description="{x:Bind ViewModel.WindowsRoamingDescription, Mode=OneWay}"
+                                  IsEnabled="{x:Bind ViewModel.IsNetworkProfileRoamingAvailable, Mode=OneWay}"
                                   IsExpanded="{x:Bind ViewModel.IsWindowsRoamingExpanded, Mode=TwoWay}">
                 <wct:SettingsExpander.HeaderIcon>
                     <FontIcon Glyph="&#xE8AB;" />
                 </wct:SettingsExpander.HeaderIcon>
                 <ToggleSwitch behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True" AutomationProperties.Name="{x:Bind ViewModel.RoamNetworkProfilesText, Mode=OneWay}"
+                              IsEnabled="{x:Bind ViewModel.IsNetworkProfileRoamingAvailable, Mode=OneWay}"
                               IsOn="{x:Bind ViewModel.IsNetworkProfileRoamingEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <wct:SettingsExpander.Items>
                     <wct:SettingsCard Header="{x:Bind ViewModel.RoamPrivateKeyMaterialText, Mode=OneWay}"
