@@ -2106,4 +2106,19 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Automatic keeps the catalog default edition.</value>
   </data>
+  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Windows profile roaming</value>
+  </data>
+  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
+    <value>Import Foundry-managed Wi-Fi and 802.1X profiles into Windows before OOBE so deployment connectivity can continue after WinPE.</value>
+  </data>
+  <data name="Network.RoamProfilesLabel" xml:space="preserve">
+    <value>Roam network profiles to Windows</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialLabel" xml:space="preserve">
+    <value>Include private-key certificate material</value>
+  </data>
+  <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
+    <value>Copies configured PFX client certificates to Windows and imports them into the LocalMachine personal certificate store before OOBE.</value>
+  </data>
 </root>
