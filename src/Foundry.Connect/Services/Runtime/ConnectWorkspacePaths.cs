@@ -59,6 +59,17 @@ internal static class ConnectWorkspacePaths
         yield return Path.Combine(Path.GetTempPath(), applicationFolderName);
     }
 
+    /// <summary>
+    /// Resolves the runtime network profile roaming artifact directory.
+    /// </summary>
+    /// <returns>The artifact directory path.</returns>
+    public static string GetNetworkProfileRoamingDirectory()
+    {
+        return IsWinPeRuntime()
+            ? GetWinPeWorkspacePath("Runtime", "NetworkProfileRoaming")
+            : Path.Combine(Path.GetTempPath(), "Foundry", "Runtime", "NetworkProfileRoaming");
+    }
+
     private static string GetWinPeWorkspacePath(params string[] relativeSegments)
     {
         string currentPath = WinPeWorkspaceRoot;

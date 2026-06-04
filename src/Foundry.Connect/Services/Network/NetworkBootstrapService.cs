@@ -30,6 +30,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
 
     private readonly FoundryConnectConfiguration _configuration;
     private readonly IConnectConfigurationService _configurationService;
+    private readonly INetworkProfileRoamingService _networkProfileRoamingService;
     private readonly ILogger<NetworkBootstrapService> _logger;
 
     /// <summary>
@@ -37,14 +38,17 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
     /// </summary>
     /// <param name="configuration">The loaded runtime configuration.</param>
     /// <param name="configurationService">The configuration service used to resolve relative asset paths.</param>
+    /// <param name="networkProfileRoamingService">The service used to capture eligible profiles for Windows import.</param>
     /// <param name="logger">The logger used for network command diagnostics.</param>
     public NetworkBootstrapService(
         FoundryConnectConfiguration configuration,
         IConnectConfigurationService configurationService,
+        INetworkProfileRoamingService networkProfileRoamingService,
         ILogger<NetworkBootstrapService> logger)
     {
         _configuration = configuration;
         _configurationService = configurationService;
+        _networkProfileRoamingService = networkProfileRoamingService;
         _logger = logger;
     }
 
@@ -172,9 +176,20 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                 trimmedSsid,
                 cancellationToken).ConfigureAwait(false);
 
-            return attemptResult.IsConnected
-                ? $"Wi-Fi connected to '{trimmedSsid}'."
-                : $"Wi-Fi connection failed for '{trimmedSsid}': {attemptResult.FailureMessage}";
+            if (!attemptResult.IsConnected)
+            {
+                return $"Wi-Fi connection failed for '{trimmedSsid}': {attemptResult.FailureMessage}";
+            }
+
+            await _networkProfileRoamingService.CaptureWifiProfileAsync(
+                new NetworkProfileRoamingCaptureRequest(
+                    profilePath,
+                    NetworkProfileRoamingProfileKind.Wifi,
+                    NetworkProfileRoamingProfileSource.ManualWifi,
+                    NetworkProfileRoamingConnectivityExpectation.PreOobeConnectable),
+                cancellationToken).ConfigureAwait(false);
+
+            return $"Wi-Fi connected to '{trimmedSsid}'.";
         }
         finally
         {
@@ -256,6 +271,14 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         }
 
         messages.Add("Wired 802.1X profile imported.");
+        await _networkProfileRoamingService.CaptureWiredDot1xProfileAsync(
+            new NetworkProfileRoamingCaptureRequest(
+                profilePath,
+                NetworkProfileRoamingProfileKind.WiredDot1x,
+                NetworkProfileRoamingProfileSource.ProvisionedWiredDot1x,
+                ResolveConnectivityExpectation(_configuration.Dot1x.AuthenticationMode),
+                ResolveExistingAssetPaths(certificatePath)),
+            cancellationToken).ConfigureAwait(false);
 
         string? ethernetInterfaceName = GetEthernetInterfaceName();
         if (!string.IsNullOrWhiteSpace(ethernetInterfaceName))
@@ -310,6 +333,14 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             else
             {
                 messages.Add("Wi-Fi profile imported.");
+                await _networkProfileRoamingService.CaptureWifiProfileAsync(
+                    new NetworkProfileRoamingCaptureRequest(
+                        wifiProfilePath,
+                        NetworkProfileRoamingProfileKind.Wifi,
+                        NetworkProfileRoamingProfileSource.ProvisionedWifi,
+                        ResolveWifiConnectivityExpectation(),
+                        ResolveExistingAssetPaths(certificatePath)),
+                    cancellationToken).ConfigureAwait(false);
             }
         }
         finally
@@ -464,6 +495,33 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                 or NetworkInterfaceType.Ethernet3Megabit)
             .Select(static adapter => adapter.Name)
             .FirstOrDefault(static value => !string.IsNullOrWhiteSpace(value));
+    }
+
+    private NetworkProfileRoamingConnectivityExpectation ResolveWifiConnectivityExpectation()
+    {
+        if (!_configuration.Wifi.HasEnterpriseProfile)
+        {
+            return NetworkProfileRoamingConnectivityExpectation.PreOobeConnectable;
+        }
+
+        return ResolveConnectivityExpectation(_configuration.Wifi.EnterpriseAuthenticationMode);
+    }
+
+    private static NetworkProfileRoamingConnectivityExpectation ResolveConnectivityExpectation(NetworkAuthenticationMode authenticationMode)
+    {
+        return authenticationMode switch
+        {
+            NetworkAuthenticationMode.MachineOnly => NetworkProfileRoamingConnectivityExpectation.DependsOnMachineCredential,
+            _ => NetworkProfileRoamingConnectivityExpectation.ImportOnly
+        };
+    }
+
+    private static IReadOnlyList<string> ResolveExistingAssetPaths(params string?[] assetPaths)
+    {
+        return assetPaths
+            .Where(static path => !string.IsNullOrWhiteSpace(path) && File.Exists(path))
+            .Select(static path => path!)
+            .ToArray();
     }
 
     private string ImportCertificate(string certificatePath)
