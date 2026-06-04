@@ -71,4 +71,9 @@ public sealed record NetworkProfileRoamingCertificate
     /// Gets the target Windows certificate store name.
     /// </summary>
     public string StoreName { get; init; } = string.Empty;
+
+    /// <summary>
+    /// Gets the encrypted password secret relative path for PFX/private-key imports.
+    /// </summary>
+    public string? PasswordSecretRelativePath { get; init; }
 }

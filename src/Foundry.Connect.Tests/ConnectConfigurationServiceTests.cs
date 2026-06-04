@@ -212,6 +212,72 @@ public sealed class ConnectConfigurationServiceTests
     }
 
     [Fact]
+    public void Load_WhenCoreGeneratedConfigurationContainsEncryptedPfxPasswords_DecryptsPasswordsFromMediaKey()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var tempDirectory = new TemporaryDirectory();
+        Foundry.Core.Models.Configuration.FoundryConnectProvisioningBundle bundle =
+            new ConnectConfigurationGenerator().CreateProvisioningBundle(
+                new CoreConfiguration.FoundryConfigurationDocument
+                {
+                    Network = new CoreConfiguration.NetworkSettings
+                    {
+                        WifiProvisioned = true,
+                        Dot1x = new CoreConfiguration.Dot1xSettings
+                        {
+                            IsEnabled = true,
+                            ProfileTemplatePath = CreateFile(tempDirectory.Path, "wired.xml", "<LANProfile />"),
+                            RequiresCertificate = true,
+                            CertificatePath = CreateFile(tempDirectory.Path, "wired.pfx", "wired-pfx"),
+                            CertificatePfxPassword = "wired-password"
+                        },
+                        Wifi = new CoreConfiguration.WifiSettings
+                        {
+                            IsEnabled = true,
+                            Ssid = "Corp WiFi",
+                            SecurityType = NetworkConfigurationValidator.WifiSecurityEnterprise,
+                            HasEnterpriseProfile = true,
+                            EnterpriseProfileTemplatePath = CreateFile(
+                                tempDirectory.Path,
+                                "wifi.xml",
+                                """
+                                <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
+                                  <MSM>
+                                    <security>
+                                      <authEncryption>
+                                        <authentication>WPA2</authentication>
+                                      </authEncryption>
+                                    </security>
+                                  </MSM>
+                                </WLANProfile>
+                                """),
+                            RequiresCertificate = true,
+                            CertificatePath = CreateFile(tempDirectory.Path, "wifi.pfx", "wifi-pfx"),
+                            CertificatePfxPassword = "wifi-password"
+                        }
+                    }
+                },
+                tempDirectory.Path);
+        Assert.NotNull(bundle.MediaSecretsKey);
+        Assert.DoesNotContain("wired-password", bundle.ConfigurationJson, StringComparison.Ordinal);
+        Assert.DoesNotContain("wifi-password", bundle.ConfigurationJson, StringComparison.Ordinal);
+
+        string configDirectory = System.IO.Path.Combine(tempDirectory.Path, "Config");
+        Directory.CreateDirectory(configDirectory);
+        string configurationPath = CreateJsonFile(configDirectory, "foundry.connect.config.json", bundle.ConfigurationJson);
+        CreateBinaryFile(System.IO.Path.Combine(configDirectory, "Secrets"), "media-secrets.key", bundle.MediaSecretsKey);
+
+        var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
+
+        FoundryConnectConfiguration configuration = service.Load();
+
+        Assert.Equal("wired-password", configuration.Dot1x.CertificatePfxPassword);
+        Assert.Equal("wifi-password", configuration.Wifi.CertificatePfxPassword);
+        Assert.NotNull(configuration.Dot1x.CertificatePfxPasswordSecret);
+        Assert.NotNull(configuration.Wifi.CertificatePfxPasswordSecret);
+    }
+
+    [Fact]
     public void Load_WhenEncryptedPassphraseHasNoMediaKey_ThrowsConfigurationException()
     {
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);

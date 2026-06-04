@@ -94,7 +94,41 @@ public sealed class NetworkProfileRoamingServiceTests
         Assert.Equal("Root", certificate.GetProperty("storeName").GetString());
     }
 
-    private static FoundryConnectConfiguration CreateEnabledConfiguration()
+    [Fact]
+    public async Task CaptureWiredDot1xProfileAsync_WhenPfxRoamingIsEnabled_CopiesPfxAndEncryptedPasswordSecret()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string profilePath = tempDirectory.CreateFile("source", "wired.xml", "<LANProfile />");
+        string certificatePath = tempDirectory.CreateFile("source", "machine.pfx", "pfx-bytes");
+        var service = new NetworkProfileRoamingService(
+            CreateEnabledConfiguration(includePrivateKeyMaterial: true),
+            NullLogger<NetworkProfileRoamingService>.Instance,
+            tempDirectory.ArtifactPath);
+
+        await service.CaptureWiredDot1xProfileAsync(
+            new NetworkProfileRoamingCaptureRequest(
+                profilePath,
+                NetworkProfileRoamingProfileKind.WiredDot1x,
+                NetworkProfileRoamingProfileSource.ProvisionedWiredDot1x,
+                NetworkProfileRoamingConnectivityExpectation.DependsOnMachineCredential,
+                [certificatePath],
+                CreateSecretEnvelope()),
+            TestContext.Current.CancellationToken);
+
+        string copiedPfxPath = Path.Combine(tempDirectory.ArtifactPath, "certificates", "My", "machine.pfx");
+        string passwordSecretPath = Path.Combine(tempDirectory.ArtifactPath, "certificates", "My", "machine.pfx.password.json");
+        Assert.True(File.Exists(copiedPfxPath));
+        Assert.True(File.Exists(passwordSecretPath));
+
+        using JsonDocument manifest = JsonDocument.Parse(File.ReadAllText(Path.Combine(tempDirectory.ArtifactPath, "manifest.json")));
+        JsonElement certificate = manifest.RootElement.GetProperty("certificates").EnumerateArray().Single();
+        Assert.Equal(@"certificates\My\machine.pfx", certificate.GetProperty("relativePath").GetString());
+        Assert.Equal("pfxPrivateKey", certificate.GetProperty("kind").GetString());
+        Assert.Equal("My", certificate.GetProperty("storeName").GetString());
+        Assert.Equal(@"certificates\My\machine.pfx.password.json", certificate.GetProperty("passwordSecretRelativePath").GetString());
+    }
+
+    private static FoundryConnectConfiguration CreateEnabledConfiguration(bool includePrivateKeyMaterial = false)
     {
         return new FoundryConnectConfiguration
         {
@@ -102,9 +136,23 @@ public sealed class NetworkProfileRoamingServiceTests
             {
                 ProfileRoaming = new ConnectNetworkProfileRoamingSettings
                 {
-                    IsEnabled = true
+                    IsEnabled = true,
+                    IncludePrivateKeyMaterial = includePrivateKeyMaterial
                 }
             }
+        };
+    }
+
+    private static SecretEnvelope CreateSecretEnvelope()
+    {
+        return new SecretEnvelope
+        {
+            Kind = "encrypted",
+            Algorithm = "aes-gcm-v1",
+            KeyId = "media",
+            Nonce = "nonce",
+            Tag = "tag",
+            Ciphertext = "ciphertext"
         };
     }
 

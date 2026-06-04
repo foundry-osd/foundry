@@ -17,7 +17,9 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
     private const string WiredDot1xProfileFileName = "wired-dot1x-profile.xml";
     private const string ManifestFileName = "manifest.json";
     private const string PublicCertificateKind = "publicCertificate";
+    private const string PfxPrivateKeyKind = "pfxPrivateKey";
     private const string RootStoreName = "Root";
+    private const string MyStoreName = "My";
 
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
@@ -89,7 +91,7 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
 
         NetworkProfileRoamingManifest existingManifest = await LoadManifestAsync(cancellationToken).ConfigureAwait(false);
         List<NetworkProfileRoamingCertificate> certificates = existingManifest.Certificates.ToList();
-        certificates.AddRange(CopyPublicCertificates(request.CertificatePaths ?? [], cancellationToken));
+        certificates.AddRange(await CopyCertificatesAsync(request, cancellationToken).ConfigureAwait(false));
 
         var profile = new NetworkProfileRoamingProfile
         {
@@ -143,32 +145,92 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
         await JsonSerializer.SerializeAsync(stream, manifest, JsonOptions, cancellationToken).ConfigureAwait(false);
     }
 
-    private IEnumerable<NetworkProfileRoamingCertificate> CopyPublicCertificates(
-        IReadOnlyList<string> certificatePaths,
+    private async Task<IReadOnlyList<NetworkProfileRoamingCertificate>> CopyCertificatesAsync(
+        NetworkProfileRoamingCaptureRequest request,
         CancellationToken cancellationToken)
     {
-        string certificateRootPath = Path.Combine(_artifactRootPath, "certificates", RootStoreName);
-        foreach (string certificatePath in certificatePaths.Where(static value => !string.IsNullOrWhiteSpace(value)))
+        List<NetworkProfileRoamingCertificate> certificates = [];
+        foreach (string certificatePath in request.CertificatePaths ?? [])
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            if (!File.Exists(certificatePath))
+            if (string.IsNullOrWhiteSpace(certificatePath) || !File.Exists(certificatePath))
             {
                 continue;
             }
 
-            Directory.CreateDirectory(certificateRootPath);
-            string fileName = Path.GetFileName(certificatePath);
-            string destinationPath = Path.Combine(certificateRootPath, fileName);
-            File.Copy(certificatePath, destinationPath, overwrite: true);
-
-            yield return new NetworkProfileRoamingCertificate
+            if (IsPfxPath(certificatePath))
             {
-                RelativePath = NormalizeRelativePath(Path.Combine("certificates", RootStoreName, fileName)),
-                Kind = PublicCertificateKind,
-                StoreName = RootStoreName
-            };
+                NetworkProfileRoamingCertificate? pfxCertificate = await CopyPfxCertificateAsync(
+                    certificatePath,
+                    request.CertificatePfxPasswordSecret,
+                    cancellationToken).ConfigureAwait(false);
+                if (pfxCertificate is not null)
+                {
+                    certificates.Add(pfxCertificate);
+                }
+
+                continue;
+            }
+
+            certificates.Add(CopyPublicCertificate(certificatePath));
         }
+
+        return certificates;
+    }
+
+    private NetworkProfileRoamingCertificate CopyPublicCertificate(string certificatePath)
+    {
+        string certificateRootPath = Path.Combine(_artifactRootPath, "certificates", RootStoreName);
+        Directory.CreateDirectory(certificateRootPath);
+        string fileName = Path.GetFileName(certificatePath);
+        string destinationPath = Path.Combine(certificateRootPath, fileName);
+        File.Copy(certificatePath, destinationPath, overwrite: true);
+
+        return new NetworkProfileRoamingCertificate
+        {
+            RelativePath = NormalizeRelativePath(Path.Combine("certificates", RootStoreName, fileName)),
+            Kind = PublicCertificateKind,
+            StoreName = RootStoreName
+        };
+    }
+
+    private async Task<NetworkProfileRoamingCertificate?> CopyPfxCertificateAsync(
+        string certificatePath,
+        SecretEnvelope? passwordSecret,
+        CancellationToken cancellationToken)
+    {
+        if (!_configuration.Network.ProfileRoaming.IncludePrivateKeyMaterial || passwordSecret is null)
+        {
+            _logger.LogDebug("PFX certificate was not copied to the network profile roaming artifact because private-key roaming is disabled or no encrypted password secret is available.");
+            return null;
+        }
+
+        string certificateRootPath = Path.Combine(_artifactRootPath, "certificates", MyStoreName);
+        Directory.CreateDirectory(certificateRootPath);
+        string fileName = Path.GetFileName(certificatePath);
+        string destinationPath = Path.Combine(certificateRootPath, fileName);
+        File.Copy(certificatePath, destinationPath, overwrite: true);
+
+        string passwordSecretFileName = $"{fileName}.password.json";
+        string passwordSecretPath = Path.Combine(certificateRootPath, passwordSecretFileName);
+        await using FileStream stream = File.Create(passwordSecretPath);
+        await JsonSerializer.SerializeAsync(stream, passwordSecret, JsonOptions, cancellationToken).ConfigureAwait(false);
+
+        return new NetworkProfileRoamingCertificate
+        {
+            RelativePath = NormalizeRelativePath(Path.Combine("certificates", MyStoreName, fileName)),
+            Kind = PfxPrivateKeyKind,
+            StoreName = MyStoreName,
+            PasswordSecretRelativePath = NormalizeRelativePath(Path.Combine("certificates", MyStoreName, passwordSecretFileName))
+        };
+    }
+
+    private static bool IsPfxPath(string certificatePath)
+    {
+        string extension = Path.GetExtension(certificatePath);
+        return string.Equals(extension, ".pfx", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(extension, ".p12", StringComparison.OrdinalIgnoreCase);
     }
 
     private static string FormatSource(NetworkProfileRoamingProfileSource source)

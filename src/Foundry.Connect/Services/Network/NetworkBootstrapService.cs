@@ -247,7 +247,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             _configurationService.ConfigurationPath);
         if (!string.IsNullOrWhiteSpace(certificatePath) && File.Exists(certificatePath))
         {
-            messages.Add(ImportCertificate(certificatePath));
+            messages.Add(ImportCertificate(certificatePath, _configuration.Dot1x.CertificatePfxPassword));
         }
 
         if (_configuration.Dot1x.AllowRuntimeCredentials)
@@ -277,7 +277,8 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                 NetworkProfileRoamingProfileKind.WiredDot1x,
                 NetworkProfileRoamingProfileSource.ProvisionedWiredDot1x,
                 ResolveConnectivityExpectation(_configuration.Dot1x.AuthenticationMode),
-                ResolveExistingAssetPaths(certificatePath)),
+                ResolveExistingAssetPaths(certificatePath),
+                _configuration.Dot1x.CertificatePfxPasswordSecret),
             cancellationToken).ConfigureAwait(false);
 
         string? ethernetInterfaceName = GetEthernetInterfaceName();
@@ -304,7 +305,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             _configurationService.ConfigurationPath);
         if (!string.IsNullOrWhiteSpace(certificatePath) && File.Exists(certificatePath))
         {
-            messages.Add(ImportCertificate(certificatePath));
+            messages.Add(ImportCertificate(certificatePath, _configuration.Wifi.CertificatePfxPassword));
         }
 
         if (NativeWifiApi.GetInterfaceIds().Count == 0)
@@ -339,7 +340,8 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                         NetworkProfileRoamingProfileKind.Wifi,
                         NetworkProfileRoamingProfileSource.ProvisionedWifi,
                         ResolveWifiConnectivityExpectation(),
-                        ResolveExistingAssetPaths(certificatePath)),
+                        ResolveExistingAssetPaths(certificatePath),
+                        _configuration.Wifi.CertificatePfxPasswordSecret),
                     cancellationToken).ConfigureAwait(false);
             }
         }
@@ -524,20 +526,31 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             .ToArray();
     }
 
-    private string ImportCertificate(string certificatePath)
+    private string ImportCertificate(string certificatePath, string? certificatePfxPassword)
     {
         try
         {
-            X509Certificate2 certificate = X509CertificateLoader.LoadCertificateFromFile(certificatePath);
+            if (IsPfxPath(certificatePath))
+            {
+                X509Certificate2 pfxCertificate = X509CertificateLoader.LoadPkcs12FromFile(
+                    certificatePath,
+                    certificatePfxPassword,
+                    X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.PersistKeySet);
+                using X509Store myStore = new(StoreName.My, StoreLocation.LocalMachine);
+                myStore.Open(OpenFlags.ReadWrite);
+                AddCertificateIfMissing(myStore, pfxCertificate);
+                return $"Certificate '{Path.GetFileName(certificatePath)}' was imported into the local machine personal store.";
+            }
+
+            X509Certificate2 publicCertificate = X509CertificateLoader.LoadCertificateFromFile(certificatePath);
             using X509Store rootStore = new(StoreName.Root, StoreLocation.LocalMachine);
             rootStore.Open(OpenFlags.ReadWrite);
-
             bool alreadyPresent = rootStore.Certificates
-                .Find(X509FindType.FindByThumbprint, certificate.Thumbprint, validOnly: false)
+                .Find(X509FindType.FindByThumbprint, publicCertificate.Thumbprint, validOnly: false)
                 .Count > 0;
             if (!alreadyPresent)
             {
-                rootStore.Add(certificate);
+                rootStore.Add(publicCertificate);
             }
 
             return alreadyPresent
@@ -549,6 +562,24 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             _logger.LogWarning(ex, "Failed to import certificate from {CertificatePath}.", certificatePath);
             return $"Certificate import failed for '{Path.GetFileName(certificatePath)}': {ex.Message}";
         }
+    }
+
+    private static void AddCertificateIfMissing(X509Store store, X509Certificate2 certificate)
+    {
+        bool alreadyPresent = store.Certificates
+            .Find(X509FindType.FindByThumbprint, certificate.Thumbprint, validOnly: false)
+            .Count > 0;
+        if (!alreadyPresent)
+        {
+            store.Add(certificate);
+        }
+    }
+
+    private static bool IsPfxPath(string certificatePath)
+    {
+        string extension = Path.GetExtension(certificatePath);
+        return string.Equals(extension, ".pfx", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(extension, ".p12", StringComparison.OrdinalIgnoreCase);
     }
 
     private static string EscapeNetshArgument(string value)

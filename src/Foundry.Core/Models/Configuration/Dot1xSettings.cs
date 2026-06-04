@@ -44,4 +44,9 @@ public sealed record Dot1xSettings
     /// </summary>
     [JsonIgnore]
     public string? CertificatePfxPassword { get; init; }
+
+    /// <summary>
+    /// Gets the encrypted PFX password envelope stored on provisioned media.
+    /// </summary>
+    public SecretEnvelope? CertificatePfxPasswordSecret { get; init; }
 }

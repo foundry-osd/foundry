@@ -222,6 +222,67 @@ public sealed class ConnectConfigurationGeneratorTests
         Assert.Equal(@"Network\Certificates\Wifi\wifi.cer", document.RootElement.GetProperty("wifi").GetProperty("certificatePath").GetString());
     }
 
+    [Fact]
+    public void CreateProvisioningBundle_WhenPfxCertificatePasswordsAreProvided_WritesEncryptedPasswordSecrets()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string wiredPfxPath = tempDirectory.CreateFile("source", "wired.pfx", "wired-pfx");
+        string wifiPfxPath = tempDirectory.CreateFile("source", "wifi.pfx", "wifi-pfx");
+        var generator = new ConnectConfigurationGenerator();
+
+        FoundryConnectProvisioningBundle bundle = generator.CreateProvisioningBundle(
+            new FoundryConfigurationDocument
+            {
+                Network = new NetworkSettings
+                {
+                    WifiProvisioned = true,
+                    Dot1x = new Dot1xSettings
+                    {
+                        IsEnabled = true,
+                        ProfileTemplatePath = tempDirectory.CreateFile("source", "wired.xml", "<LANProfile />"),
+                        RequiresCertificate = true,
+                        CertificatePath = wiredPfxPath,
+                        CertificatePfxPassword = "wired-password"
+                    },
+                    Wifi = new WifiSettings
+                    {
+                        IsEnabled = true,
+                        Ssid = "Corp WiFi",
+                        SecurityType = NetworkConfigurationValidator.WifiSecurityEnterprise,
+                        HasEnterpriseProfile = true,
+                        EnterpriseProfileTemplatePath = tempDirectory.CreateFile(
+                            "source",
+                            "wifi.xml",
+                            """
+                            <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
+                              <MSM>
+                                <security>
+                                  <authEncryption>
+                                    <authentication>WPA2</authentication>
+                                  </authEncryption>
+                                </security>
+                              </MSM>
+                            </WLANProfile>
+                            """),
+                        RequiresCertificate = true,
+                        CertificatePath = wifiPfxPath,
+                        CertificatePfxPassword = "wifi-password"
+                    }
+                }
+            },
+            tempDirectory.Path);
+
+        using JsonDocument document = JsonDocument.Parse(bundle.ConfigurationJson);
+        Assert.True(document.RootElement.GetProperty("dot1x").TryGetProperty("certificatePfxPasswordSecret", out JsonElement wiredEnvelope));
+        Assert.True(document.RootElement.GetProperty("wifi").TryGetProperty("certificatePfxPasswordSecret", out JsonElement wifiEnvelope));
+        Assert.Equal("encrypted", wiredEnvelope.GetProperty("kind").GetString());
+        Assert.Equal("encrypted", wifiEnvelope.GetProperty("kind").GetString());
+        Assert.DoesNotContain("wired-password", bundle.ConfigurationJson, StringComparison.Ordinal);
+        Assert.DoesNotContain("wifi-password", bundle.ConfigurationJson, StringComparison.Ordinal);
+        Assert.NotNull(bundle.MediaSecretsKey);
+        Assert.Equal(32, bundle.MediaSecretsKey.Length);
+    }
+
     private static void AssertAsset(
         FoundryConnectProvisioningBundle bundle,
         string stagingDirectoryPath,

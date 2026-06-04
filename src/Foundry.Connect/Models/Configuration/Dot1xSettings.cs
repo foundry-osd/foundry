@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace Foundry.Connect.Models.Configuration;
 
 /// <summary>
@@ -35,4 +37,15 @@ public sealed record Dot1xSettings
     /// Gets the certificate asset path used by 802.1X authentication.
     /// </summary>
     public string? CertificatePath { get; init; }
+
+    /// <summary>
+    /// Gets the decrypted session-only PFX password.
+    /// </summary>
+    [JsonIgnore]
+    public string? CertificatePfxPassword { get; init; }
+
+    /// <summary>
+    /// Gets the sealed PFX password envelope when provisioning uses protected secrets.
+    /// </summary>
+    public SecretEnvelope? CertificatePfxPasswordSecret { get; init; }
 }
