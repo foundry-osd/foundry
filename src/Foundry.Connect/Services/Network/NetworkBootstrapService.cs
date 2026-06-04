@@ -32,6 +32,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
     private readonly IConnectConfigurationService _configurationService;
     private readonly INetworkProfileRoamingService _networkProfileRoamingService;
     private readonly ILogger<NetworkBootstrapService> _logger;
+    private readonly Func<IReadOnlyList<Guid>> _getWifiInterfaceIds;
 
     /// <summary>
     /// Initializes a network bootstrap service.
@@ -45,11 +46,22 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         IConnectConfigurationService configurationService,
         INetworkProfileRoamingService networkProfileRoamingService,
         ILogger<NetworkBootstrapService> logger)
+        : this(configuration, configurationService, networkProfileRoamingService, logger, NativeWifiApi.GetInterfaceIds)
+    {
+    }
+
+    internal NetworkBootstrapService(
+        FoundryConnectConfiguration configuration,
+        IConnectConfigurationService configurationService,
+        INetworkProfileRoamingService networkProfileRoamingService,
+        ILogger<NetworkBootstrapService> logger,
+        Func<IReadOnlyList<Guid>> getWifiInterfaceIds)
     {
         _configuration = configuration;
         _configurationService = configurationService;
         _networkProfileRoamingService = networkProfileRoamingService;
         _logger = logger;
+        _getWifiInterfaceIds = getWifiInterfaceIds;
     }
 
     /// <inheritdoc />
@@ -87,7 +99,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             return $"{ensureMessage} No Wi-Fi profile is available to connect.";
         }
 
-        IReadOnlyList<Guid> wirelessInterfaceIds = NativeWifiApi.GetInterfaceIds();
+        IReadOnlyList<Guid> wirelessInterfaceIds = _getWifiInterfaceIds();
         if (wirelessInterfaceIds.Count == 0)
         {
             return $"{ensureMessage} No wireless adapter is available to connect the provisioned Wi-Fi profile.";
@@ -146,7 +158,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                 WifiProfileXmlBuilder.Build(trimmedSsid, securityType, passphrase, ssidHex),
                 cancellationToken).ConfigureAwait(false);
 
-            IReadOnlyList<Guid> wirelessInterfaceIds = NativeWifiApi.GetInterfaceIds();
+            IReadOnlyList<Guid> wirelessInterfaceIds = _getWifiInterfaceIds();
             if (wirelessInterfaceIds.Count == 0)
             {
                 return "No wireless adapter is available to connect the selected Wi-Fi network.";
@@ -184,7 +196,6 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             await _networkProfileRoamingService.CaptureWifiProfileAsync(
                 new NetworkProfileRoamingCaptureRequest(
                     profilePath,
-                    NetworkProfileRoamingProfileKind.Wifi,
                     NetworkProfileRoamingProfileSource.ManualWifi,
                     NetworkProfileRoamingConnectivityExpectation.PreOobeConnectable),
                 cancellationToken).ConfigureAwait(false);
@@ -200,7 +211,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
     /// <inheritdoc />
     public async Task<string> DisconnectWifiAsync(CancellationToken cancellationToken)
     {
-        IReadOnlyList<Guid> wirelessInterfaceIds = NativeWifiApi.GetInterfaceIds();
+        IReadOnlyList<Guid> wirelessInterfaceIds = _getWifiInterfaceIds();
         if (wirelessInterfaceIds.Count == 0)
         {
             return "No wireless adapter is available to disconnect.";
@@ -274,7 +285,6 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         await _networkProfileRoamingService.CaptureWiredDot1xProfileAsync(
             new NetworkProfileRoamingCaptureRequest(
                 profilePath,
-                NetworkProfileRoamingProfileKind.WiredDot1x,
                 NetworkProfileRoamingProfileSource.ProvisionedWiredDot1x,
                 ResolveConnectivityExpectation(_configuration.Dot1x.AuthenticationMode),
                 ResolveExistingAssetPaths(certificatePath),
@@ -308,11 +318,6 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             messages.Add(ImportCertificate(certificatePath, _configuration.Wifi.CertificatePfxPassword));
         }
 
-        if (NativeWifiApi.GetInterfaceIds().Count == 0)
-        {
-            return string.Join(" ", messages);
-        }
-
         string? wifiProfilePath = await EnsureWifiProfileFileAsync(cancellationToken).ConfigureAwait(false);
         if (string.IsNullOrWhiteSpace(wifiProfilePath))
         {
@@ -322,6 +327,21 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
 
         try
         {
+            await _networkProfileRoamingService.CaptureWifiProfileAsync(
+                new NetworkProfileRoamingCaptureRequest(
+                    wifiProfilePath,
+                    NetworkProfileRoamingProfileSource.ProvisionedWifi,
+                    ResolveWifiConnectivityExpectation(),
+                    ResolveExistingAssetPaths(certificatePath),
+                    _configuration.Wifi.CertificatePfxPasswordSecret),
+                cancellationToken).ConfigureAwait(false);
+
+            if (_getWifiInterfaceIds().Count == 0)
+            {
+                messages.Add("No wireless adapter is available to import the provisioned Wi-Fi profile in WinPE.");
+                return string.Join(" ", messages);
+            }
+
             ProcessExecutionResult addProfileResult = await ImportWifiProfileAsync(wifiProfilePath, cancellationToken).ConfigureAwait(false);
 
             if (addProfileResult.ExitCode != 0)
@@ -334,15 +354,6 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             else
             {
                 messages.Add("Wi-Fi profile imported.");
-                await _networkProfileRoamingService.CaptureWifiProfileAsync(
-                    new NetworkProfileRoamingCaptureRequest(
-                        wifiProfilePath,
-                        NetworkProfileRoamingProfileKind.Wifi,
-                        NetworkProfileRoamingProfileSource.ProvisionedWifi,
-                        ResolveWifiConnectivityExpectation(),
-                        ResolveExistingAssetPaths(certificatePath),
-                        _configuration.Wifi.CertificatePfxPasswordSecret),
-                    cancellationToken).ConfigureAwait(false);
             }
         }
         finally

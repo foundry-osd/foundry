@@ -7,20 +7,10 @@ namespace Foundry.Connect.Services.Network;
 /// </summary>
 public sealed record NetworkProfileRoamingCaptureRequest(
     string ProfilePath,
-    NetworkProfileRoamingProfileKind ProfileKind,
     NetworkProfileRoamingProfileSource Source,
     NetworkProfileRoamingConnectivityExpectation ConnectivityExpectation,
     IReadOnlyList<string>? CertificatePaths = null,
     SecretEnvelope? CertificatePfxPasswordSecret = null);
-
-/// <summary>
-/// Identifies the profile file kind being captured.
-/// </summary>
-public enum NetworkProfileRoamingProfileKind
-{
-    Wifi,
-    WiredDot1x
-}
 
 /// <summary>
 /// Identifies the Foundry source that produced a captured profile.
