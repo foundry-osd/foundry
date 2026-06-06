@@ -810,13 +810,10 @@
   <data name="GeneralConfiguration.WinPeLanguage.Unavailable" xml:space="preserve">
     <value>Nijedan WinPE jezični paket nije otkriven za odabranu arhitekturu.</value>
   </data>
-  <data name="LocalizationPage_Title.Text" xml:space="preserve">
-    <value>Lokalizacija</value>
-  </data>
-  <data name="Localization.TimeZone.Header" xml:space="preserve">
+  <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Vremenska zona implementacije</value>
   </data>
-  <data name="Localization.AutomaticOption" xml:space="preserve">
+  <data name="Common.AutomaticOption" xml:space="preserve">
     <value>Automatski</value>
   </data>
   <data name="NetworkPage_Title.Text" xml:space="preserve">
@@ -1625,15 +1622,6 @@
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Dom</value>
-  </data>
-  <data name="Nav_LocalizationKey.Description" xml:space="preserve">
-    <value>WinPE postavke jezika i lokalizacije.</value>
-  </data>
-  <data name="Nav_LocalizationKey.Subtitle" xml:space="preserve">
-    <value>Lokalizacija</value>
-  </data>
-  <data name="Nav_LocalizationKey.Title" xml:space="preserve">
-    <value>Lokalizacija</value>
   </data>
   <data name="Nav_NetworkKey.Description" xml:space="preserve">
     <value>Konfiguracija mreže i povezivanja.</value>

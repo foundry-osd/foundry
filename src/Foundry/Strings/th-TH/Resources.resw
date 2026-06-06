@@ -810,13 +810,10 @@
   <data name="GeneralConfiguration.WinPeLanguage.Unavailable" xml:space="preserve">
     <value>ไม่พบชุดภาษา WinPE สำหรับสถาปัตยกรรมที่เลือก</value>
   </data>
-  <data name="LocalizationPage_Title.Text" xml:space="preserve">
-    <value>รองรับหลายภาษา</value>
-  </data>
-  <data name="Localization.TimeZone.Header" xml:space="preserve">
+  <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>เขตเวลาการปรับใช้</value>
   </data>
-  <data name="Localization.AutomaticOption" xml:space="preserve">
+  <data name="Common.AutomaticOption" xml:space="preserve">
     <value>อัตโนมัติ</value>
   </data>
   <data name="NetworkPage_Title.Text" xml:space="preserve">
@@ -1625,15 +1622,6 @@
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>บ้าน</value>
-  </data>
-  <data name="Nav_LocalizationKey.Description" xml:space="preserve">
-    <value>WinPE การตั้งค่าภาษาและการแปล</value>
-  </data>
-  <data name="Nav_LocalizationKey.Subtitle" xml:space="preserve">
-    <value>รองรับหลายภาษา</value>
-  </data>
-  <data name="Nav_LocalizationKey.Title" xml:space="preserve">
-    <value>รองรับหลายภาษา</value>
   </data>
   <data name="Nav_NetworkKey.Description" xml:space="preserve">
     <value>การกำหนดค่าเครือข่ายและการเชื่อมต่อ</value>

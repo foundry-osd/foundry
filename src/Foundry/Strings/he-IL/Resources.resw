@@ -810,13 +810,10 @@
   <data name="GeneralConfiguration.WinPeLanguage.Unavailable" xml:space="preserve">
     <value>לא זוהו חבילות שפה WinPE עבור הארכיטקטורה שנבחרה.</value>
   </data>
-  <data name="LocalizationPage_Title.Text" xml:space="preserve">
-    <value>לוקליזציה</value>
-  </data>
-  <data name="Localization.TimeZone.Header" xml:space="preserve">
+  <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>אזור זמן פריסה</value>
   </data>
-  <data name="Localization.AutomaticOption" xml:space="preserve">
+  <data name="Common.AutomaticOption" xml:space="preserve">
     <value>אוטומטי</value>
   </data>
   <data name="NetworkPage_Title.Text" xml:space="preserve">
@@ -1625,15 +1622,6 @@
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>בית</value>
-  </data>
-  <data name="Nav_LocalizationKey.Description" xml:space="preserve">
-    <value>WinPE הגדרות שפה ולוקליזציה.</value>
-  </data>
-  <data name="Nav_LocalizationKey.Subtitle" xml:space="preserve">
-    <value>לוקליזציה</value>
-  </data>
-  <data name="Nav_LocalizationKey.Title" xml:space="preserve">
-    <value>לוקליזציה</value>
   </data>
   <data name="Nav_NetworkKey.Description" xml:space="preserve">
     <value>תצורת רשת וקישוריות.</value>

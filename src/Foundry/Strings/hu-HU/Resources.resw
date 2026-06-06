@@ -810,13 +810,10 @@
   <data name="GeneralConfiguration.WinPeLanguage.Unavailable" xml:space="preserve">
     <value>Nem észleltünk WinPE nyelvi csomagot a kiválasztott architektúrához.</value>
   </data>
-  <data name="LocalizationPage_Title.Text" xml:space="preserve">
-    <value>Lokalizáció</value>
-  </data>
-  <data name="Localization.TimeZone.Header" xml:space="preserve">
+  <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Telepítési időzóna</value>
   </data>
-  <data name="Localization.AutomaticOption" xml:space="preserve">
+  <data name="Common.AutomaticOption" xml:space="preserve">
     <value>Automatikus</value>
   </data>
   <data name="NetworkPage_Title.Text" xml:space="preserve">
@@ -1625,15 +1622,6 @@
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Otthon</value>
-  </data>
-  <data name="Nav_LocalizationKey.Description" xml:space="preserve">
-    <value>WinPE nyelvi és lokalizációs beállítások.</value>
-  </data>
-  <data name="Nav_LocalizationKey.Subtitle" xml:space="preserve">
-    <value>Lokalizáció</value>
-  </data>
-  <data name="Nav_LocalizationKey.Title" xml:space="preserve">
-    <value>Lokalizáció</value>
   </data>
   <data name="Nav_NetworkKey.Description" xml:space="preserve">
     <value>Hálózati és csatlakozási konfiguráció.</value>

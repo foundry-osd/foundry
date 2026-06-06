@@ -15,8 +15,10 @@ namespace Foundry.ViewModels;
 /// <summary>
 /// Backs the general media settings page and persists WinPE architecture, language, and driver-source choices.
 /// </summary>
-public sealed partial class GeneralConfigurationViewModel : ObservableObject
+public sealed partial class GeneralConfigurationViewModel : ObservableObject, IDisposable
 {
+    private const string AutomaticSelectionValue = "";
+
     private readonly IFoundryConfigurationStateService configurationStateService;
     private readonly IAdkService adkService;
     private readonly IWinPeLanguageDiscoveryService winPeLanguageDiscoveryService;
@@ -24,6 +26,9 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
     private readonly IApplicationLocalizationService localizationService;
     private readonly ILogger logger;
     private bool isInitializing = true;
+    private bool isApplyingTimeZoneState;
+    private bool isRefreshingTimeZoneOptions;
+    private bool isSavingLocalizationState;
 
     public GeneralConfigurationViewModel(
         IFoundryConfigurationStateService configurationStateService,
@@ -53,6 +58,10 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
         IncludeHpDrivers = general.IncludeHpDrivers;
         CustomDriverDirectoryPath = general.CustomDriverDirectoryPath ?? string.Empty;
         WinPeLanguageUnavailableDescription = string.Empty;
+        RefreshTimeZones();
+        ApplyLocalizationState(configurationStateService.Current.Localization);
+
+        configurationStateService.StateChanged += OnConfigurationStateChanged;
         isInitializing = false;
     }
 
@@ -65,6 +74,11 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
     /// Gets the WinPE language packs discovered from the installed ADK.
     /// </summary>
     public ObservableCollection<string> AvailableWinPeLanguages { get; } = [];
+
+    /// <summary>
+    /// Gets the Windows time-zone options available for generated deployment media.
+    /// </summary>
+    public ObservableCollection<SelectionOption<string>> TimeZoneOptions { get; } = [];
 
     [ObservableProperty]
     public partial SelectionOption<WinPeArchitecture>? SelectedArchitecture { get; set; }
@@ -84,6 +98,9 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
     [ObservableProperty]
     public partial string? SelectedWinPeLanguage { get; set; }
 
+    [ObservableProperty]
+    public partial SelectionOption<string>? SelectedTimeZone { get; set; }
+
     [NotifyPropertyChangedFor(nameof(WinPeLanguageUnavailableVisibility))]
     [ObservableProperty]
     public partial bool HasWinPeLanguages { get; set; }
@@ -98,6 +115,12 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
     /// Gets whether the WinPE language picker should be hidden because no language packs are available.
     /// </summary>
     public Visibility WinPeLanguageUnavailableVisibility => HasWinPeLanguages ? Visibility.Collapsed : Visibility.Visible;
+
+    /// <inheritdoc />
+    public void Dispose()
+    {
+        configurationStateService.StateChanged -= OnConfigurationStateChanged;
+    }
 
     [RelayCommand]
     private async Task BrowseCustomDriverDirectoryAsync()
@@ -177,6 +200,33 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
     }
 
     /// <summary>
+    /// Reloads localized Windows time-zone options and keeps the selected value when possible.
+    /// </summary>
+    public void RefreshTimeZones()
+    {
+        string? selectedValue = SelectedTimeZone?.Value;
+
+        isRefreshingTimeZoneOptions = true;
+        try
+        {
+            TimeZoneOptions.Clear();
+            TimeZoneOptions.Add(new(AutomaticSelectionValue, localizationService.GetString("Common.AutomaticOption")));
+            foreach (TimeZoneInfo timeZone in TimeZoneInfo.GetSystemTimeZones()
+                         .OrderBy(timeZone => timeZone.BaseUtcOffset)
+                         .ThenBy(timeZone => timeZone.DisplayName, StringComparer.CurrentCulture))
+            {
+                TimeZoneOptions.Add(new(timeZone.Id, $"{timeZone.DisplayName} ({timeZone.Id})"));
+            }
+
+            SelectedTimeZone = SelectStringOption(TimeZoneOptions, selectedValue) ?? TimeZoneOptions[0];
+        }
+        finally
+        {
+            isRefreshingTimeZoneOptions = false;
+        }
+    }
+
+    /// <summary>
     /// Persists the selected WinPE language after normalizing it to a culture name.
     /// </summary>
     /// <param name="selectedLanguage">The selected WinPE language.</param>
@@ -248,9 +298,62 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
         });
     }
 
+    partial void OnSelectedTimeZoneChanged(SelectionOption<string>? value)
+    {
+        SaveLocalizationState();
+    }
+
     private void Save(GeneralSettings settings)
     {
         configurationStateService.UpdateGeneral(settings);
+    }
+
+    private void ApplyLocalizationState(LocalizationSettings settings)
+    {
+        isApplyingTimeZoneState = true;
+        try
+        {
+            SelectedTimeZone = SelectStringOption(TimeZoneOptions, settings.DefaultTimeZoneId) ?? TimeZoneOptions[0];
+        }
+        finally
+        {
+            isApplyingTimeZoneState = false;
+        }
+    }
+
+    private void SaveLocalizationState()
+    {
+        if (isApplyingTimeZoneState || isRefreshingTimeZoneOptions)
+        {
+            return;
+        }
+
+        string? defaultTimeZoneId = string.IsNullOrWhiteSpace(SelectedTimeZone?.Value)
+            ? null
+            : SelectedTimeZone.Value.Trim();
+
+        isSavingLocalizationState = true;
+        try
+        {
+            configurationStateService.UpdateLocalization(new LocalizationSettings
+            {
+                DefaultTimeZoneId = defaultTimeZoneId
+            });
+        }
+        finally
+        {
+            isSavingLocalizationState = false;
+        }
+    }
+
+    private void OnConfigurationStateChanged(object? sender, EventArgs e)
+    {
+        if (isSavingLocalizationState)
+        {
+            return;
+        }
+
+        ApplyLocalizationState(configurationStateService.Current.Localization);
     }
 
     private static GeneralSettings EnsureUsbPartitionStyleAllowedForArchitecture(GeneralSettings settings)
@@ -299,5 +402,11 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject
     private static SelectionOption<T>? SelectOption<T>(IEnumerable<SelectionOption<T>> options, T value)
     {
         return options.FirstOrDefault(option => EqualityComparer<T>.Default.Equals(option.Value, value));
+    }
+
+    private static SelectionOption<string>? SelectStringOption(IEnumerable<SelectionOption<string>> options, string? value)
+    {
+        return options.FirstOrDefault(option =>
+            string.Equals(option.Value, value?.Trim(), StringComparison.OrdinalIgnoreCase));
     }
 }

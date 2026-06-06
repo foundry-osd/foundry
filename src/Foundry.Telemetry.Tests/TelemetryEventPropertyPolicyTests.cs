@@ -40,7 +40,7 @@ public sealed class TelemetryEventPropertyPolicyTests
             ["os_selection_default_license_channel_configured"] = true,
             ["os_selection_allowed_edition_count"] = 2,
             ["os_selection_default_edition_configured"] = true,
-            ["localization_time_zone_configured"] = true,
+            ["deployment_time_zone_configured"] = true,
             ["network_any_enabled"] = true,
             ["network_wired_dot1x_enabled"] = true,
             ["network_wired_dot1x_profile_configured"] = true,
@@ -120,7 +120,7 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.True((bool)result["os_selection_default_license_channel_configured"]!);
         Assert.Equal(2, result["os_selection_allowed_edition_count"]);
         Assert.True((bool)result["os_selection_default_edition_configured"]!);
-        Assert.True((bool)result["localization_time_zone_configured"]!);
+        Assert.True((bool)result["deployment_time_zone_configured"]!);
         Assert.True((bool)result["network_any_enabled"]!);
         Assert.True((bool)result["network_wired_dot1x_enabled"]!);
         Assert.True((bool)result["network_wired_dot1x_profile_configured"]!);
