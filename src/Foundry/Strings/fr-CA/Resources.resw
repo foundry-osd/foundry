@@ -1825,7 +1825,7 @@
     <value>La version ADK n'est pas prise en charge</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Mettez à niveau Windows ADK vers une version 10.1.26100 prise en charge.</value>
+    <value>Installez la version Windows ADK 24H2 (10.1.26100) prise en charge.</value>
   </data>
   <data name="Adk.Status.WinPeMissingTitle" xml:space="preserve">
     <value>Windows PE Le module complémentaire est manquant</value>
@@ -1852,7 +1852,7 @@
     <value>Politique de version requise</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Nécessite Windows ADK 10.1.26100.2454+ avec le dernier correctif de maintenance ADK.</value>
+    <value>Nécessite Windows ADK 24H2 (10.1.26100).</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Module complémentaire</value>
@@ -1876,7 +1876,7 @@
     <value>Installation de Windows ADK</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
-    <value>Mise à niveau de Windows ADK</value>
+    <value>Préparation de l&apos;installation de Windows ADK 24H2</value>
   </data>
   <data name="Adk.Operation.Downloading" xml:space="preserve">
     <value>Téléchargement du programme d'installation ADK</value>
@@ -1913,6 +1913,9 @@
   </data>
   <data name="AdkPage_UpgradeButton.Content" xml:space="preserve">
     <value>Mettre à niveau Windows ADK et le module complémentaire Windows PE</value>
+  </data>
+  <data name="AdkPage_DowngradeButton.Content" xml:space="preserve">
+    <value>Rétrograder Windows ADK et le Windows PE Add-on</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arabe (Arabie Saoudite)</value>

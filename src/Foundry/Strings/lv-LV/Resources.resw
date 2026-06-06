@@ -1825,7 +1825,7 @@
     <value>ADK versija netiek atbalstīta</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Jauniniet Windows ADK uz atbalstītu 10.1.26100 būvējumu.</value>
+    <value>Install the supported Windows ADK 24H2 (10.1.26100) release.</value>
   </data>
   <data name="Adk.Status.WinPeMissingTitle" xml:space="preserve">
     <value>Windows PE Trūkst papildinājuma</value>
@@ -1852,7 +1852,7 @@
     <value>Nepieciešamā versijas politika</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Nepieciešams Windows ADK 10.1.26100.2454+ ar jaunāko ADK apkopes ielāpu.</value>
+    <value>Requires Windows ADK 24H2 (10.1.26100).</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Papildinājums</value>
@@ -1876,7 +1876,7 @@
     <value>Notiek Windows ADK instalēšana</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
-    <value>Jaunināšana Windows ADK</value>
+    <value>Preparing Windows ADK 24H2 installation</value>
   </data>
   <data name="Adk.Operation.Downloading" xml:space="preserve">
     <value>Notiek ADK instalēšanas programmas lejupielāde</value>
@@ -1913,6 +1913,9 @@
   </data>
   <data name="AdkPage_UpgradeButton.Content" xml:space="preserve">
     <value>Jauniniet Windows ADK un Windows PE papildinājumu</value>
+  </data>
+  <data name="AdkPage_DowngradeButton.Content" xml:space="preserve">
+    <value>Downgrade Windows ADK and Windows PE Add-on</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arābu (Saūda Arābija)</value>

@@ -1825,7 +1825,7 @@
     <value>ADK バージョンはサポートされていません</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Windows ADK をサポートされている 10.1.26100 ビルドにアップグレードします。</value>
+    <value>Install the supported Windows ADK 24H2 (10.1.26100) release.</value>
   </data>
   <data name="Adk.Status.WinPeMissingTitle" xml:space="preserve">
     <value>Windows PE アドオンがありません</value>
@@ -1852,7 +1852,7 @@
     <value>必要なバージョンポリシー</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>最新の ADK サービス パッチを適用した Windows ADK 10.1.26100.2454+ が必要です。</value>
+    <value>Requires Windows ADK 24H2 (10.1.26100).</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE アドオン</value>
@@ -1876,7 +1876,7 @@
     <value>インストール中 Windows ADK</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
-    <value>Windows ADK をアップグレードしています</value>
+    <value>Preparing Windows ADK 24H2 installation</value>
   </data>
   <data name="Adk.Operation.Downloading" xml:space="preserve">
     <value>ADK インストーラーをダウンロードしています</value>
@@ -1913,6 +1913,9 @@
   </data>
   <data name="AdkPage_UpgradeButton.Content" xml:space="preserve">
     <value>Windows ADK および Windows PE アドオンをアップグレードする</value>
+  </data>
+  <data name="AdkPage_DowngradeButton.Content" xml:space="preserve">
+    <value>Downgrade Windows ADK and Windows PE Add-on</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>アラビア語 (サウジアラビア)</value>

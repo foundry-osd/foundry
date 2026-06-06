@@ -78,8 +78,8 @@ public sealed class AdkInstallationDetectorTests
     }
 
     [Theory]
-    [InlineData("10.1.26100.1", false)]
-    [InlineData("10.1.26100.2453", false)]
+    [InlineData("10.1.26100.1", true)]
+    [InlineData("10.1.26100.2453", true)]
     [InlineData("10.1.26100.2454", true)]
     [InlineData("10.1.26100.3000", true)]
     [InlineData("10.1.28000.1", false)]
@@ -94,6 +94,23 @@ public sealed class AdkInstallationDetectorTests
 
         Assert.Equal(expectedCompatible, status.IsCompatible);
         Assert.Equal(expectedCompatible, status.CanCreateMedia);
+    }
+
+    [Theory]
+    [InlineData("10.1.22621.1", AdkVersionRelation.BelowSupported)]
+    [InlineData("10.1.26100.1", AdkVersionRelation.Supported)]
+    [InlineData("10.1.26100.2453", AdkVersionRelation.Supported)]
+    [InlineData("10.1.28000.1", AdkVersionRelation.AboveSupported)]
+    [InlineData("bad-version", AdkVersionRelation.Unknown)]
+    public void Detect_ClassifiesInstalledVersionAgainstSupportedBuildLine(
+        string installedVersion,
+        AdkVersionRelation expectedRelation)
+    {
+        FakeAdkInstallationProbe probe = CreateInstalledProbe(installedVersion);
+
+        AdkInstallationStatus status = new AdkInstallationDetector(probe).Detect();
+
+        Assert.Equal(expectedRelation, status.VersionRelation);
     }
 
     [Fact]

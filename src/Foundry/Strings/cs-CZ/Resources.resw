@@ -1825,7 +1825,7 @@
     <value>Verze ADK není podporována</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Upgradujte Windows ADK na podporované sestavení 10.1.26100.</value>
+    <value>Install the supported Windows ADK 24H2 (10.1.26100) release.</value>
   </data>
   <data name="Adk.Status.WinPeMissingTitle" xml:space="preserve">
     <value>Chybí doplněk Windows PE</value>
@@ -1852,7 +1852,7 @@
     <value>Zásady požadované verze</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Vyžaduje Windows ADK 10.1.26100.2454+ s nejnovější servisní opravou ADK.</value>
+    <value>Requires Windows ADK 24H2 (10.1.26100).</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE doplněk</value>
@@ -1876,7 +1876,7 @@
     <value>Instalace Windows ADK</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
-    <value>Upgrade Windows ADK</value>
+    <value>Preparing Windows ADK 24H2 installation</value>
   </data>
   <data name="Adk.Operation.Downloading" xml:space="preserve">
     <value>Stažení instalačního programu ADK</value>
@@ -1913,6 +1913,9 @@
   </data>
   <data name="AdkPage_UpgradeButton.Content" xml:space="preserve">
     <value>Upgradujte doplněk Windows ADK a Windows PE</value>
+  </data>
+  <data name="AdkPage_DowngradeButton.Content" xml:space="preserve">
+    <value>Downgrade Windows ADK and Windows PE Add-on</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arabština (Saúdská Arábie)</value>

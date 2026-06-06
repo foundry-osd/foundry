@@ -5,8 +5,8 @@ public sealed class AdkInstallationDetector(IAdkInstallationProbe probe)
     public const string DeploymentToolsRelativePath = @"Assessment and Deployment Kit\Deployment Tools";
     public const string WinPeRelativePath = @"Assessment and Deployment Kit\Windows Preinstallation Environment";
 
-    private const string RequiredVersionPolicyText = "Windows ADK 10.1.26100.2454+ with the latest ADK servicing patch";
-    private static readonly Version MinimumWindows11AdkVersion = new(10, 1, 26100, 2454);
+    private const string RequiredVersionPolicyText = "Windows ADK 24H2 / 10.1.26100";
+    private static readonly Version SupportedWindows11AdkBuild = new(10, 1, 26100);
 
     public AdkInstallationStatus Detect()
     {
@@ -17,13 +17,15 @@ public sealed class AdkInstallationDetector(IAdkInstallationProbe probe)
         bool hasWinPeAddon = hasKitsRoot && HasUsableWinPeAddon(kitsRootPath!);
         string? installedVersion = ResolveInstalledVersion(probe.GetInstalledProducts());
         bool isInstalled = hasDeploymentTools;
-        bool isCompatible = isInstalled && IsCompatibleVersion(installedVersion);
+        AdkVersionRelation versionRelation = GetVersionRelation(installedVersion);
+        bool isCompatible = isInstalled && versionRelation == AdkVersionRelation.Supported;
 
         return new(
             isInstalled,
             isCompatible,
             hasWinPeAddon,
             installedVersion,
+            versionRelation,
             kitsRootPath,
             RequiredVersionPolicyText);
     }
@@ -35,12 +37,35 @@ public sealed class AdkInstallationDetector(IAdkInstallationProbe probe)
             return false;
         }
 
-        if (Version.TryParse(versionText, out Version? version))
+        return GetVersionRelation(versionText) == AdkVersionRelation.Supported;
+    }
+
+    public static AdkVersionRelation GetVersionRelation(string? versionText)
+    {
+        if (string.IsNullOrWhiteSpace(versionText) || !Version.TryParse(versionText, out Version? version))
         {
-            return IsVersionAtLeast(version, MinimumWindows11AdkVersion);
+            return AdkVersionRelation.Unknown;
         }
 
-        return false;
+        int majorComparison = version.Major.CompareTo(SupportedWindows11AdkBuild.Major);
+        if (majorComparison != 0)
+        {
+            return majorComparison < 0 ? AdkVersionRelation.BelowSupported : AdkVersionRelation.AboveSupported;
+        }
+
+        int minorComparison = version.Minor.CompareTo(SupportedWindows11AdkBuild.Minor);
+        if (minorComparison != 0)
+        {
+            return minorComparison < 0 ? AdkVersionRelation.BelowSupported : AdkVersionRelation.AboveSupported;
+        }
+
+        int buildComparison = version.Build.CompareTo(SupportedWindows11AdkBuild.Build);
+        if (buildComparison != 0)
+        {
+            return buildComparison < 0 ? AdkVersionRelation.BelowSupported : AdkVersionRelation.AboveSupported;
+        }
+
+        return AdkVersionRelation.Supported;
     }
 
     private bool HasUsableWinPeAddon(string kitsRootPath)
@@ -101,11 +126,4 @@ public sealed class AdkInstallationDetector(IAdkInstallationProbe probe)
         return Version.TryParse(versionText, out Version? version) ? version : new Version();
     }
 
-    private static bool IsVersionAtLeast(Version version, Version minimumVersion)
-    {
-        return version.Major == minimumVersion.Major
-            && version.Minor == minimumVersion.Minor
-            && version.Build == minimumVersion.Build
-            && version.Revision >= minimumVersion.Revision;
-    }
 }
