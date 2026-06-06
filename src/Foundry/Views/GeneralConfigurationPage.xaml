@@ -48,6 +48,16 @@
                 </StackPanel>
             </wct:SettingsCard>
 
+            <wct:SettingsCard x:Name="TimeZoneCard">
+                <wct:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE823;" />
+                </wct:SettingsCard.HeaderIcon>
+                <ComboBox Width="{ThemeResource FoundryWideInputMinWidth}"
+                          DisplayMemberPath="DisplayName"
+                          ItemsSource="{x:Bind ViewModel.TimeZoneOptions, Mode=OneWay}"
+                          SelectedItem="{x:Bind ViewModel.SelectedTimeZone, Mode=TwoWay}" />
+            </wct:SettingsCard>
+
             <wct:SettingsExpander x:Name="DriverOptionsCard">
                 <wct:SettingsExpander.HeaderIcon>
                     <FontIcon Glyph="&#xE90F;" />

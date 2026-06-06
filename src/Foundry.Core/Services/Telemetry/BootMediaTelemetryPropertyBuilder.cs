@@ -157,7 +157,7 @@ public static class BootMediaTelemetryPropertyBuilder
         IDictionary<string, object?> properties,
         LocalizationSettings localization)
     {
-        properties["localization_time_zone_configured"] = !string.IsNullOrWhiteSpace(localization.DefaultTimeZoneId);
+        properties["deployment_time_zone_configured"] = !string.IsNullOrWhiteSpace(localization.DefaultTimeZoneId);
     }
 
     private static void AddNetworkTelemetryProperties(

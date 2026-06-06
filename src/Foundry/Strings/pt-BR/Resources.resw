@@ -810,13 +810,10 @@
   <data name="GeneralConfiguration.WinPeLanguage.Unavailable" xml:space="preserve">
     <value>Nenhum pacote de idiomas WinPE foi detectado para a arquitetura selecionada.</value>
   </data>
-  <data name="LocalizationPage_Title.Text" xml:space="preserve">
-    <value>Localização</value>
-  </data>
-  <data name="Localization.TimeZone.Header" xml:space="preserve">
+  <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Fuso horário de implantação</value>
   </data>
-  <data name="Localization.AutomaticOption" xml:space="preserve">
+  <data name="Common.AutomaticOption" xml:space="preserve">
     <value>Automático</value>
   </data>
   <data name="NetworkPage_Title.Text" xml:space="preserve">
@@ -1625,15 +1622,6 @@
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Página inicial</value>
-  </data>
-  <data name="Nav_LocalizationKey.Description" xml:space="preserve">
-    <value>WinPE configurações de idioma e localização.</value>
-  </data>
-  <data name="Nav_LocalizationKey.Subtitle" xml:space="preserve">
-    <value>Localização</value>
-  </data>
-  <data name="Nav_LocalizationKey.Title" xml:space="preserve">
-    <value>Localização</value>
   </data>
   <data name="Nav_NetworkKey.Description" xml:space="preserve">
     <value>Configuração de rede e conectividade.</value>

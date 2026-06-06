@@ -124,7 +124,6 @@ public static class ServiceCollectionExtensions
         services.AddTransient<MainViewModel>();
         services.AddSingleton<ContextMenuService>();
         services.AddTransient<GeneralConfigurationViewModel>();
-        services.AddTransient<LocalizationConfigurationViewModel>();
         services.AddTransient<NetworkConfigurationViewModel>();
         services.AddTransient<AutopilotConfigurationViewModel>();
         services.AddTransient<CustomizationConfigurationViewModel>();

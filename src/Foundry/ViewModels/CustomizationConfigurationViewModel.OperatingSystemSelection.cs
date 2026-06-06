@@ -237,7 +237,7 @@ public sealed partial class CustomizationConfigurationViewModel
         OperatingSystemAllowedEditionsDescription = localizationService.GetString("Customization.OperatingSystemAllowedEditionsDescription");
         OperatingSystemDefaultEditionLabel = localizationService.GetString("Customization.OperatingSystemDefaultEditionLabel");
         OperatingSystemDefaultEditionDescription = localizationService.GetString("Customization.OperatingSystemDefaultEditionDescription");
-        AutomaticOptionText = localizationService.GetString("Localization.AutomaticOption");
+        AutomaticOptionText = localizationService.GetString("Common.AutomaticOption");
         RefreshOperatingSystemDefaultOptions(BuildOperatingSystemSelectionSettings());
     }
 

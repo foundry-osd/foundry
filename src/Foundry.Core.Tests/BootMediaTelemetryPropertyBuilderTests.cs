@@ -159,7 +159,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.True((bool)result["os_selection_default_license_channel_configured"]!);
         Assert.Equal(2, result["os_selection_allowed_edition_count"]);
         Assert.True((bool)result["os_selection_default_edition_configured"]!);
-        Assert.True((bool)result["localization_time_zone_configured"]!);
+        Assert.True((bool)result["deployment_time_zone_configured"]!);
         Assert.True((bool)result["network_any_enabled"]!);
         Assert.True((bool)result["network_wired_dot1x_enabled"]!);
         Assert.True((bool)result["network_wired_dot1x_profile_configured"]!);
@@ -276,7 +276,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.False((bool)result["os_selection_any_configured"]!);
         Assert.Equal(0, result["os_selection_allowed_languages_count"]);
         Assert.False((bool)result["os_selection_default_language_configured"]!);
-        Assert.True((bool)result["localization_time_zone_configured"]!);
+        Assert.True((bool)result["deployment_time_zone_configured"]!);
     }
 
     [Fact]

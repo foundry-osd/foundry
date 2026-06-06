@@ -810,13 +810,10 @@
   <data name="GeneralConfiguration.WinPeLanguage.Unavailable" xml:space="preserve">
     <value>Er zijn geen WinPE taalpakketten gedetecteerd voor de geselecteerde architectuur.</value>
   </data>
-  <data name="LocalizationPage_Title.Text" xml:space="preserve">
-    <value>Lokalisatie</value>
-  </data>
-  <data name="Localization.TimeZone.Header" xml:space="preserve">
+  <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Tijdzone van implementatie</value>
   </data>
-  <data name="Localization.AutomaticOption" xml:space="preserve">
+  <data name="Common.AutomaticOption" xml:space="preserve">
     <value>Automatisch</value>
   </data>
   <data name="NetworkPage_Title.Text" xml:space="preserve">
@@ -1625,15 +1622,6 @@
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Thuis</value>
-  </data>
-  <data name="Nav_LocalizationKey.Description" xml:space="preserve">
-    <value>WinPE taal- en lokalisatie-instellingen.</value>
-  </data>
-  <data name="Nav_LocalizationKey.Subtitle" xml:space="preserve">
-    <value>Lokalisatie</value>
-  </data>
-  <data name="Nav_LocalizationKey.Title" xml:space="preserve">
-    <value>Lokalisatie</value>
   </data>
   <data name="Nav_NetworkKey.Description" xml:space="preserve">
     <value>Netwerk- en connectiviteitsconfiguratie.</value>

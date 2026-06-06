@@ -74,16 +74,6 @@
       "ShowItemsWithoutGroup": true,
       "Items": [
         {
-          "UniqueId": "Foundry.Views.LocalizationPage",
-          "Title": "Localization",
-          "LocalizeId": "Nav_LocalizationKey",
-          "UsexUid": true,
-          "IconGlyph": "F2B7",
-          "HideItem": true,
-          "IsNew": false,
-          "IsUpdated": false
-        },
-        {
           "UniqueId": "Foundry.Views.NetworkPage",
           "Title": "Network",
           "LocalizeId": "Nav_NetworkKey",

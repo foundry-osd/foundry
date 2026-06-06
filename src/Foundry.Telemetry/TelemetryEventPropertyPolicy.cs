@@ -99,7 +99,7 @@ public static class TelemetryEventPropertyPolicy
                 "os_selection_default_license_channel_configured",
                 "os_selection_allowed_edition_count",
                 "os_selection_default_edition_configured",
-                "localization_time_zone_configured",
+                "deployment_time_zone_configured",
                 "network_any_enabled",
                 "network_wired_dot1x_enabled",
                 "network_wired_dot1x_profile_configured",

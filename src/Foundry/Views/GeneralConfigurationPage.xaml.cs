@@ -71,6 +71,7 @@ public sealed partial class GeneralConfigurationPage : Page
 
         WinPeLanguageCard.Header = localizationService.GetString("StartMedia.WinPeLanguage.Header");
         WinPeLanguageCard.Description = localizationService.GetString("StartMedia.WinPeLanguage.Description");
+        TimeZoneCard.Header = localizationService.GetString("GeneralConfiguration.TimeZone.Header");
 
         DriverOptionsCard.Header = localizationService.GetString("StartMedia.DriverOptions.Header");
         DriverOptionsCard.Description = localizationService.GetString("StartMedia.DriverOptions.Description");
@@ -87,6 +88,7 @@ public sealed partial class GeneralConfigurationPage : Page
         CreateMediaButton.Content = localizationService.GetString("GeneralConfiguration_CreateMedia.Button");
 
         ViewModel.RefreshAdkState();
+        ViewModel.RefreshTimeZones();
 
         bool wasInitializingWinPeLanguageSelection = isInitializingWinPeLanguageSelection;
         isInitializingWinPeLanguageSelection = true;
@@ -99,5 +101,6 @@ public sealed partial class GeneralConfigurationPage : Page
     {
         localizationService.LanguageChanged -= OnLanguageChanged;
         Unloaded -= OnUnloaded;
+        ViewModel.Dispose();
     }
 }
