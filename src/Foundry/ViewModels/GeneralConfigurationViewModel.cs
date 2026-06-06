@@ -58,6 +58,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
         IncludeHpDrivers = general.IncludeHpDrivers;
         CustomDriverDirectoryPath = general.CustomDriverDirectoryPath ?? string.Empty;
         WinPeLanguageUnavailableDescription = string.Empty;
+        RefreshLocalizedText();
         RefreshTimeZones();
         ApplyLocalizationState(configurationStateService.Current.Localization);
 
@@ -79,6 +80,12 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
     /// Gets the Windows time-zone options available for generated deployment media.
     /// </summary>
     public ObservableCollection<SelectionOption<string>> TimeZoneOptions { get; } = [];
+
+    [ObservableProperty]
+    public partial string PageTitle { get; set; } = string.Empty;
+
+    [ObservableProperty]
+    public partial string PageDescription { get; set; } = string.Empty;
 
     [ObservableProperty]
     public partial SelectionOption<WinPeArchitecture>? SelectedArchitecture { get; set; }
@@ -116,6 +123,8 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
     /// </summary>
     public Visibility WinPeLanguageUnavailableVisibility => HasWinPeLanguages ? Visibility.Collapsed : Visibility.Visible;
 
+    public string DocumentationUrl => FoundryApplicationInfo.GeneralConfigurationDocumentationUrl;
+
     /// <inheritdoc />
     public void Dispose()
     {
@@ -140,6 +149,12 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
     public void RefreshAdkState()
     {
         CanCreateMedia = adkService.CurrentStatus.CanCreateMedia;
+    }
+
+    public void RefreshLocalizedText()
+    {
+        PageTitle = localizationService.GetString("GeneralConfigurationPage_Title.Text");
+        PageDescription = localizationService.GetString("GeneralConfiguration.PageDescription");
     }
 
     /// <summary>

@@ -2112,4 +2112,19 @@
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Nukopijuoja sukonfigūruotus PFX kliento sertifikatus į Windows ir prieš OOBE importuoja juos į LocalMachine asmeninę sertifikatų saugyklą.</value>
   </data>
+  <data name="Adk.PageDescription" xml:space="preserve">
+    <value>Prieš kurdami diegimo laikmeną peržiūrėkite Windows ADK ir Windows PE priedo parengtį.</value>
+  </data>
+  <data name="Customization.PageDescription" xml:space="preserve">
+    <value>Konfigūruokite kompiuterių vardus, operacinės sistemos pasirinkimą, OOBE veikimą, AI komponentų šalinimą ir parengtų AppX paketų šalinimą.</value>
+  </data>
+  <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
+    <value>Konfigūruokite laikmenos pagrindą, WinPE kalbą, paleidimo parašą, tvarkykles ir diegimo laiko juostą.</value>
+  </data>
+  <data name="Network.PageDescription" xml:space="preserve">
+    <value>Konfigūruokite laidinį 802.1X, Wi-Fi parengimą ir profilių tarptinklinį naudojimą diegimo laikmenai.</value>
+  </data>
+  <data name="StartMedia.PageDescription" xml:space="preserve">
+    <value>Peržiūrėkite parengtį, pasirinkite ISO arba USB išvestį ir pradėkite laikmenos kūrimą.</value>
+  </data>
 </root>

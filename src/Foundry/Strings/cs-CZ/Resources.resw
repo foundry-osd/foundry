@@ -2112,4 +2112,19 @@
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Zkopíruje nakonfigurované klientské certifikáty PFX do Windows a před OOBE je importuje do osobního úložiště LocalMachine.</value>
   </data>
+  <data name="Adk.PageDescription" xml:space="preserve">
+    <value>Před vytvořením nasazovacího média zkontrolujte připravenost Windows ADK a doplňku Windows PE.</value>
+  </data>
+  <data name="Customization.PageDescription" xml:space="preserve">
+    <value>Nakonfigurujte pojmenování počítačů, výběr operačního systému, chování OOBE, odebrání komponent AI a odebrání zřízených balíčků AppX.</value>
+  </data>
+  <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
+    <value>Nakonfigurujte základ média, jazyk WinPE, spouštěcí podpis, ovladače a časové pásmo nasazení.</value>
+  </data>
+  <data name="Network.PageDescription" xml:space="preserve">
+    <value>Nakonfigurujte kabelové 802.1X, zřizování Wi-Fi a roaming profilů pro nasazovací média.</value>
+  </data>
+  <data name="StartMedia.PageDescription" xml:space="preserve">
+    <value>Zkontrolujte připravenost, vyberte výstup ISO nebo USB a spusťte vytvoření média.</value>
+  </data>
 </root>

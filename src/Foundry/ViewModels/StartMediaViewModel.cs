@@ -151,6 +151,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     public partial string PageTitle { get; set; } = string.Empty;
 
     [ObservableProperty]
+    public partial string PageDescription { get; set; } = string.Empty;
+
+    [ObservableProperty]
     public partial string IsoOutputPath { get; set; }
 
     [ObservableProperty]
@@ -224,6 +227,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     [ObservableProperty]
     public partial bool IsFoundryConfigurationReadinessExpanded { get; set; }
+
+    public string DocumentationUrl => FoundryApplicationInfo.StartDocumentationUrl;
 
     /// <inheritdoc />
     public void Dispose()
@@ -1249,6 +1254,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private void ApplyLocalizedText()
     {
         PageTitle = localizationService.GetString("StartPage_Title.Text");
+        PageDescription = localizationService.GetString("StartMedia.PageDescription");
         RebuildFormatModes();
         RebuildUsbCandidateDisplayNames();
     }

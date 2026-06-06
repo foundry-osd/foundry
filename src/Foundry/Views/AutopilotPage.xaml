@@ -13,40 +13,9 @@
                 Padding="{ThemeResource ContentPagePadding}"
                 VerticalScrollBarVisibility="Auto">
         <StackPanel>
-            <Grid Margin="{ThemeResource FoundryPageHeaderMargin}"
-                  ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-
-                <Grid HorizontalAlignment="Left"
-                      VerticalAlignment="Center"
-                      RowSpacing="{ThemeResource FoundryTextGroupSpacing}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
-                               HorizontalAlignment="Left"
-                               Style="{ThemeResource FoundryPageTitleTextBlockStyle}" />
-
-                    <TextBlock Grid.Row="1"
-                               MaxWidth="{ThemeResource FoundrySummaryTextMaxWidth}"
-                               HorizontalAlignment="Left"
-                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                               Text="{x:Bind ViewModel.PageDescription, Mode=OneWay}"
-                               TextAlignment="Left"
-                               TextWrapping="WrapWholeWords"
-                               Style="{ThemeResource FoundryBodyTextBlockStyle}" />
-                </Grid>
-
-                <controls:DocumentationButton Grid.Column="1"
-                                              HorizontalAlignment="Right"
-                                              VerticalAlignment="Center"
-                                              DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}" />
-            </Grid>
+            <controls:PageHeader Title="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
+                                 Description="{x:Bind ViewModel.PageDescription, Mode=OneWay}"
+                                 DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}" />
 
             <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
                 <wct:SettingsCard Header="{x:Bind ViewModel.AutopilotHeader, Mode=OneWay}"

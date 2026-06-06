@@ -79,6 +79,25 @@ public sealed class ResourceKeyParityTests
         { "Foundry.Deploy", ".resx" }
     };
 
+    [Fact]
+    public void FoundryResources_IncludePageHeaderDescriptions()
+    {
+        string sourceRoot = FindSourceRoot();
+        string enUsPath = Path.Combine(sourceRoot, "Foundry", "Strings", "en-US", "Resources.resw");
+        SortedSet<string> enUsKeys = ReadResourceKeys(enUsPath);
+
+        string[] expectedKeys =
+        [
+            "Adk.PageDescription",
+            "Customization.PageDescription",
+            "GeneralConfiguration.PageDescription",
+            "Network.PageDescription",
+            "StartMedia.PageDescription"
+        ];
+
+        Assert.Empty(expectedKeys.Except(enUsKeys, StringComparer.Ordinal));
+    }
+
     [Theory]
     [MemberData(nameof(ResourceSets))]
     public void AdkResourceFiles_MatchEnUsKeys(string projectName, string extension)

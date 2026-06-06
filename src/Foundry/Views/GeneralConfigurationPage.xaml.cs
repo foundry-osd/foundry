@@ -64,6 +64,8 @@ public sealed partial class GeneralConfigurationPage : Page
 
     private void ApplyLocalizedText()
     {
+        ViewModel.RefreshLocalizedText();
+
         ArchitectureCard.Header = localizationService.GetString("StartMedia.Architecture.Header");
         ArchitectureCard.Description = localizationService.GetString("StartMedia.Architecture.Description");
         Ca2023Toggle.OnContent = localizationService.GetString("StartMedia.Signature.Ca2023");

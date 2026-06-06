@@ -2112,4 +2112,19 @@
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>คัดลอกใบรับรองไคลเอ็นต์ PFX ที่กำหนดค่าไว้ไปยัง Windows และนำเข้าไปยังที่เก็บใบรับรองส่วนบุคคล LocalMachine ก่อน OOBE</value>
   </data>
+  <data name="Adk.PageDescription" xml:space="preserve">
+    <value>ตรวจสอบความพร้อมของ Windows ADK และส่วนเสริม Windows PE ก่อนสร้างสื่อการปรับใช้</value>
+  </data>
+  <data name="Customization.PageDescription" xml:space="preserve">
+    <value>กำหนดค่าการตั้งชื่อเครื่อง การเลือกระบบปฏิบัติการ ลักษณะการทำงานของ OOBE การลบคอมโพเนนต์ AI และการลบ AppX ที่จัดเตรียมไว้</value>
+  </data>
+  <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
+    <value>กำหนดค่าพื้นฐานของสื่อ ภาษา WinPE ลายเซ็นการเริ่มระบบ ไดรเวอร์ และโซนเวลาการปรับใช้</value>
+  </data>
+  <data name="Network.PageDescription" xml:space="preserve">
+    <value>กำหนดค่า 802.1X แบบใช้สาย การจัดเตรียม Wi-Fi และการโรมมิ่งโปรไฟล์สำหรับสื่อการปรับใช้</value>
+  </data>
+  <data name="StartMedia.PageDescription" xml:space="preserve">
+    <value>ตรวจสอบความพร้อม เลือกเอาต์พุต ISO หรือ USB แล้วเริ่มสร้างสื่อ</value>
+  </data>
 </root>

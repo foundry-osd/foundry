@@ -2112,4 +2112,19 @@
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Kopioi määritetyt PFX-asiakasvarmenteet Windowsiin ja tuo ne LocalMachine-henkilökohtaiseen varmennevarastoon ennen OOBE-vaihetta.</value>
   </data>
+  <data name="Adk.PageDescription" xml:space="preserve">
+    <value>Tarkista Windows ADK:n ja Windows PE -lisäosan valmius ennen käyttöönoton median luontia.</value>
+  </data>
+  <data name="Customization.PageDescription" xml:space="preserve">
+    <value>Määritä tietokoneiden nimeäminen, käyttöjärjestelmän valinta, OOBE-toiminta, AI-osien poisto ja valmisteltujen AppX-pakettien poisto.</value>
+  </data>
+  <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
+    <value>Määritä median perustaso, WinPE-kieli, käynnistyksen allekirjoitus, ohjaimet ja käyttöönoton aikavyöhyke.</value>
+  </data>
+  <data name="Network.PageDescription" xml:space="preserve">
+    <value>Määritä langallinen 802.1X, Wi-Fi-valmistelu ja profiilien verkkovierailu käyttöönoton mediaa varten.</value>
+  </data>
+  <data name="StartMedia.PageDescription" xml:space="preserve">
+    <value>Tarkista valmius, valitse ISO- tai USB-tuloste ja käynnistä median luonti.</value>
+  </data>
 </root>

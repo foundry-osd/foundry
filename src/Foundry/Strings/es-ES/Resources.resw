@@ -2112,4 +2112,19 @@
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Copia los certificados de cliente PFX configurados en Windows y los importa en el almacén personal de certificados LocalMachine antes de OOBE.</value>
   </data>
+  <data name="Adk.PageDescription" xml:space="preserve">
+    <value>Revise la preparación de Windows ADK y del complemento Windows PE antes de crear medios de implementación.</value>
+  </data>
+  <data name="Customization.PageDescription" xml:space="preserve">
+    <value>Configure el nombre de equipo, la selección del sistema operativo, el comportamiento de OOBE, la eliminación de componentes AI y la eliminación de AppX aprovisionadas.</value>
+  </data>
+  <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
+    <value>Configure la línea base del medio, el idioma de WinPE, la firma de arranque, los controladores y la zona horaria de implementación.</value>
+  </data>
+  <data name="Network.PageDescription" xml:space="preserve">
+    <value>Configure 802.1X cableado, aprovisionamiento Wi-Fi e itinerancia de perfiles para medios de implementación.</value>
+  </data>
+  <data name="StartMedia.PageDescription" xml:space="preserve">
+    <value>Revise la preparación, elija una salida ISO o USB e inicie la creación del medio.</value>
+  </data>
 </root>

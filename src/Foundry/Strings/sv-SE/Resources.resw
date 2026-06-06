@@ -2112,4 +2112,19 @@
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Kopierar konfigurerade PFX-klientcertifikat till Windows och importerar dem till LocalMachine personliga certifikatarkiv före OOBE.</value>
   </data>
+  <data name="Adk.PageDescription" xml:space="preserve">
+    <value>Granska beredskapen för Windows ADK och Windows PE-tillägget innan du skapar distributionsmedia.</value>
+  </data>
+  <data name="Customization.PageDescription" xml:space="preserve">
+    <value>Konfigurera datornamn, val av operativsystem, OOBE-beteende, borttagning av AI-komponenter och borttagning av provisionerade AppX-paket.</value>
+  </data>
+  <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
+    <value>Konfigurera mediebaslinje, WinPE-språk, startsignatur, drivrutiner och distributionstidszon.</value>
+  </data>
+  <data name="Network.PageDescription" xml:space="preserve">
+    <value>Konfigurera trådbunden 802.1X, Wi-Fi-provisionering och profilroaming för distributionsmedia.</value>
+  </data>
+  <data name="StartMedia.PageDescription" xml:space="preserve">
+    <value>Granska beredskapen, välj ISO- eller USB-utdata och starta medieskapandet.</value>
+  </data>
 </root>

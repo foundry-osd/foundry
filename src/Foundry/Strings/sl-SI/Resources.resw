@@ -2112,4 +2112,19 @@
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Kopira konfigurirana odjemalska potrdila PFX v Windows in jih pred OOBE uvozi v osebno shrambo potrdil LocalMachine.</value>
   </data>
+  <data name="Adk.PageDescription" xml:space="preserve">
+    <value>Pred ustvarjanjem namestitvenega medija preverite pripravljenost Windows ADK in dodatka Windows PE.</value>
+  </data>
+  <data name="Customization.PageDescription" xml:space="preserve">
+    <value>Konfigurirajte poimenovanje računalnikov, izbiro operacijskega sistema, vedenje OOBE, odstranjevanje komponent AI in odstranjevanje omogočenih paketov AppX.</value>
+  </data>
+  <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
+    <value>Konfigurirajte osnovo medija, jezik WinPE, zagonski podpis, gonilnike in časovni pas namestitve.</value>
+  </data>
+  <data name="Network.PageDescription" xml:space="preserve">
+    <value>Konfigurirajte žični 802.1X, omogočanje Wi-Fi in gostovanje profilov za namestitveni medij.</value>
+  </data>
+  <data name="StartMedia.PageDescription" xml:space="preserve">
+    <value>Preverite pripravljenost, izberite izhod ISO ali USB in začnite ustvarjanje medija.</value>
+  </data>
 </root>

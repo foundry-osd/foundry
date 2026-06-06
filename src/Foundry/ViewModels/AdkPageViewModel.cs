@@ -24,6 +24,9 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     public partial string PageTitle { get; set; }
 
     [ObservableProperty]
+    public partial string PageDescription { get; set; }
+
+    [ObservableProperty]
     public partial string StatusTitle { get; set; }
 
     [ObservableProperty]
@@ -83,6 +86,8 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     [ObservableProperty]
     public partial bool IsActionEnabled { get; set; }
 
+    public string DocumentationUrl => FoundryApplicationInfo.AdkDocumentationUrl;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="AdkPageViewModel"/> class.
     /// </summary>
@@ -102,6 +107,7 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         this.logger = logger.ForContext<AdkPageViewModel>();
 
         PageTitle = localizationService.GetString("Adk.PageTitle");
+        PageDescription = localizationService.GetString("Adk.PageDescription");
         StatusTitle = string.Empty;
         StatusDescription = string.Empty;
         StatusSeverity = InfoBarSeverity.Informational;
@@ -197,6 +203,7 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         if (!appDispatcher.TryEnqueue(() =>
         {
             PageTitle = localizationService.GetString("Adk.PageTitle");
+            PageDescription = localizationService.GetString("Adk.PageDescription");
             ApplyStatus(adkService.CurrentStatus);
             ApplyOperationState(operationProgressService.State);
         }))

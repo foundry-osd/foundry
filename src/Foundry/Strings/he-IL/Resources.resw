@@ -2112,4 +2112,19 @@
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>מעתיק אישורי לקוח PFX מוגדרים אל Windows ומייבא אותם אל מאגר האישורים האישי LocalMachine לפני OOBE.</value>
   </data>
+  <data name="Adk.PageDescription" xml:space="preserve">
+    <value>בדוק את המוכנות של Windows ADK ושל התוספת Windows PE לפני יצירת מדיית פריסה.</value>
+  </data>
+  <data name="Customization.PageDescription" xml:space="preserve">
+    <value>הגדר מתן שמות למחשבים, בחירת מערכת הפעלה, התנהגות OOBE, הסרת רכיבי AI והסרת חבילות AppX שסופקו.</value>
+  </data>
+  <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
+    <value>הגדר את בסיס המדיה, שפת WinPE, חתימת האתחול, מנהלי ההתקנים ואזור הזמן של הפריסה.</value>
+  </data>
+  <data name="Network.PageDescription" xml:space="preserve">
+    <value>הגדר 802.1X קווי, הקצאת Wi-Fi ונדידת פרופילים עבור מדיית הפריסה.</value>
+  </data>
+  <data name="StartMedia.PageDescription" xml:space="preserve">
+    <value>בדוק מוכנות, בחר פלט ISO או USB והתחל ביצירת המדיה.</value>
+  </data>
 </root>

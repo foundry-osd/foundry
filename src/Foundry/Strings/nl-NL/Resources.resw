@@ -2112,4 +2112,19 @@
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Kopieert geconfigureerde PFX-clientcertificaten naar Windows en importeert ze vóór OOBE in het persoonlijke LocalMachine-certificaatarchief.</value>
   </data>
+  <data name="Adk.PageDescription" xml:space="preserve">
+    <value>Controleer de gereedheid van Windows ADK en de Windows PE-invoegtoepassing voordat u implementatiemedia maakt.</value>
+  </data>
+  <data name="Customization.PageDescription" xml:space="preserve">
+    <value>Configureer computernamen, besturingssysteemselectie, OOBE-gedrag, verwijdering van AI-onderdelen en verwijdering van ingerichte AppX-pakketten.</value>
+  </data>
+  <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
+    <value>Configureer de mediabasis, WinPE-taal, opstartsignatuur, stuurprogramma’s en implementatietijdzone.</value>
+  </data>
+  <data name="Network.PageDescription" xml:space="preserve">
+    <value>Configureer bekabelde 802.1X, Wi-Fi-inrichting en profielroaming voor implementatiemedia.</value>
+  </data>
+  <data name="StartMedia.PageDescription" xml:space="preserve">
+    <value>Controleer de gereedheid, kies ISO- of USB-uitvoer en start het maken van media.</value>
+  </data>
 </root>

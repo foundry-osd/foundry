@@ -2112,4 +2112,19 @@
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Copies configured PFX client certificates to Windows and imports them into the LocalMachine personal certificate store before OOBE.</value>
   </data>
+  <data name="Adk.PageDescription" xml:space="preserve">
+    <value>Review Windows ADK and Windows PE Add-on readiness before creating deployment media.</value>
+  </data>
+  <data name="Customization.PageDescription" xml:space="preserve">
+    <value>Configure machine naming, operating system selection, OOBE behaviour, AI component removal, and provisioned AppX removal.</value>
+  </data>
+  <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
+    <value>Configure the media baseline, WinPE language, boot signature, drivers, and deployment time zone.</value>
+  </data>
+  <data name="Network.PageDescription" xml:space="preserve">
+    <value>Configure wired 802.1X, Wi-Fi provisioning, and profile roaming for deployment media.</value>
+  </data>
+  <data name="StartMedia.PageDescription" xml:space="preserve">
+    <value>Review readiness, choose ISO or USB output, and start media creation.</value>
+  </data>
 </root>

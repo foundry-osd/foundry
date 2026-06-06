@@ -2112,4 +2112,19 @@
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Копіює налаштовані клієнтські сертифікати PFX до Windows і імпортує їх до особистого сховища сертифікатів LocalMachine перед OOBE.</value>
   </data>
+  <data name="Adk.PageDescription" xml:space="preserve">
+    <value>Перевірте готовність Windows ADK і додатка Windows PE перед створенням носія розгортання.</value>
+  </data>
+  <data name="Customization.PageDescription" xml:space="preserve">
+    <value>Налаштуйте іменування комп’ютерів, вибір операційної системи, поведінку OOBE, видалення компонентів AI і видалення підготовлених пакетів AppX.</value>
+  </data>
+  <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
+    <value>Налаштуйте базові параметри носія, мову WinPE, підпис завантаження, драйвери та часовий пояс розгортання.</value>
+  </data>
+  <data name="Network.PageDescription" xml:space="preserve">
+    <value>Налаштуйте дротовий 802.1X, підготовку Wi-Fi і роумінг профілів для носія розгортання.</value>
+  </data>
+  <data name="StartMedia.PageDescription" xml:space="preserve">
+    <value>Перевірте готовність, виберіть вихід ISO або USB і запустіть створення носія.</value>
+  </data>
 </root>

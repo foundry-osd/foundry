@@ -3,6 +3,7 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:behaviors="using:Foundry.Behaviors"
+      xmlns:controls="using:Foundry.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:wct="using:CommunityToolkit.WinUI.Controls"
@@ -11,8 +12,9 @@
                 Padding="{ThemeResource ContentPagePadding}"
                 VerticalScrollBarVisibility="Auto">
         <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
-            <TextBlock Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
-                       Style="{ThemeResource FoundryPageTitleTextBlockStyle}" />
+            <controls:PageHeader Title="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
+                                 Description="{x:Bind ViewModel.PageDescription, Mode=OneWay}"
+                                 DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}" />
 
             <wct:SettingsExpander Header="{x:Bind ViewModel.EthernetHeader, Mode=OneWay}"
                                   Description="{x:Bind ViewModel.EthernetDescription, Mode=OneWay}"

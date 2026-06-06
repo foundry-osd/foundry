@@ -2112,4 +2112,19 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Automatique conserve l'édition par défaut du catalogue.</value>
   </data>
+  <data name="Adk.PageDescription" xml:space="preserve">
+    <value>Vérifiez la disponibilité de Windows ADK et du module complémentaire Windows PE avant de créer le média de déploiement.</value>
+  </data>
+  <data name="Customization.PageDescription" xml:space="preserve">
+    <value>Configurez le nommage des machines, la sélection du système d’exploitation, le comportement OOBE, la suppression des composants AI et la suppression des AppX provisionnées.</value>
+  </data>
+  <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
+    <value>Configurez la base du média, la langue WinPE, la signature de démarrage, les pilotes et le fuseau horaire de déploiement.</value>
+  </data>
+  <data name="Network.PageDescription" xml:space="preserve">
+    <value>Configurez le 802.1X filaire, le provisionnement Wi-Fi et l’itinérance des profils pour le média de déploiement.</value>
+  </data>
+  <data name="StartMedia.PageDescription" xml:space="preserve">
+    <value>Vérifiez la disponibilité, choisissez une sortie ISO ou USB, puis démarrez la création du média.</value>
+  </data>
 </root>

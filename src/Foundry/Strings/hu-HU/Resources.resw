@@ -2112,4 +2112,19 @@
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Átmásolja a konfigurált PFX ügyféltanúsítványokat a Windowsba, és az OOBE előtt importálja őket a LocalMachine személyes tanúsítványtárába.</value>
   </data>
+  <data name="Adk.PageDescription" xml:space="preserve">
+    <value>Tekintse át a Windows ADK és a Windows PE bővítmény készenlétét az üzembe helyezési adathordozó létrehozása előtt.</value>
+  </data>
+  <data name="Customization.PageDescription" xml:space="preserve">
+    <value>Konfigurálja a gépnévadást, az operációsrendszer-választást, az OOBE viselkedését, az AI-összetevők eltávolítását és a kiépített AppX-csomagok eltávolítását.</value>
+  </data>
+  <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
+    <value>Konfigurálja az adathordozó alapját, a WinPE nyelvét, a rendszerindítási aláírást, az illesztőprogramokat és az üzembe helyezési időzónát.</value>
+  </data>
+  <data name="Network.PageDescription" xml:space="preserve">
+    <value>Konfigurálja a vezetékes 802.1X-et, a Wi-Fi kiépítést és a profilroamingot az üzembe helyezési adathordozóhoz.</value>
+  </data>
+  <data name="StartMedia.PageDescription" xml:space="preserve">
+    <value>Tekintse át a készenlétet, válasszon ISO vagy USB kimenetet, majd indítsa el az adathordozó létrehozását.</value>
+  </data>
 </root>

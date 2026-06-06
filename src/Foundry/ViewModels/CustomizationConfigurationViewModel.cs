@@ -58,8 +58,13 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
         ? Visibility.Visible
         : Visibility.Collapsed;
 
+    public string DocumentationUrl => FoundryApplicationInfo.CustomizationDocumentationUrl;
+
     [ObservableProperty]
     public partial string PageTitle { get; set; }
+
+    [ObservableProperty]
+    public partial string PageDescription { get; set; }
 
     [ObservableProperty]
     public partial string MachineNamingHeader { get; set; }
@@ -231,6 +236,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
     private void RefreshLocalizedText()
     {
         PageTitle = localizationService.GetString("CustomizationPage_Title.Text");
+        PageDescription = localizationService.GetString("Customization.PageDescription");
         MachineNamingHeader = localizationService.GetString("Customization.MachineNamingHeader");
         MachineNamingDescription = localizationService.GetString("Customization.MachineNamingDescription");
         MachineNamingEnableText = localizationService.GetString("Customization.MachineNamingEnableLabel");
