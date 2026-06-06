@@ -1825,7 +1825,7 @@
     <value>ADK sürümü desteklenmiyor</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Install the supported Windows ADK 24H2 (10.1.26100) release.</value>
+    <value>Desteklenen Windows ADK 24H2 (10.1.26100) sürümünü yükleyin.</value>
   </data>
   <data name="Adk.Status.WinPeMissingTitle" xml:space="preserve">
     <value>Windows PE Eklenti eksik</value>
@@ -1852,7 +1852,7 @@
     <value>Gerekli sürüm politikası</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Requires Windows ADK 24H2 (10.1.26100).</value>
+    <value>Windows ADK 24H2 (10.1.26100) gerektirir.</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Eklenti</value>
@@ -1876,7 +1876,7 @@
     <value>Windows ADK Kurulumu</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
-    <value>Preparing Windows ADK 24H2 installation</value>
+    <value>Windows ADK 24H2 yüklemesi hazırlanıyor</value>
   </data>
   <data name="Adk.Operation.Downloading" xml:space="preserve">
     <value>ADK yükleyici indiriliyor</value>
@@ -1915,7 +1915,7 @@
     <value>Windows ADK ve Windows PE Eklentisini Yükseltme</value>
   </data>
   <data name="AdkPage_DowngradeButton.Content" xml:space="preserve">
-    <value>Downgrade Windows ADK and Windows PE Add-on</value>
+    <value>Windows ADK ve Windows PE Add-on sürümünü düşür</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arapça (Suudi Arabistan)</value>

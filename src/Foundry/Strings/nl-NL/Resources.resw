@@ -1825,7 +1825,7 @@
     <value>ADK-versie wordt niet ondersteund</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Install the supported Windows ADK 24H2 (10.1.26100) release.</value>
+    <value>Installeer de ondersteunde Windows ADK 24H2-release (10.1.26100).</value>
   </data>
   <data name="Adk.Status.WinPeMissingTitle" xml:space="preserve">
     <value>Windows PE Add-on ontbreekt</value>
@@ -1852,7 +1852,7 @@
     <value>Vereist versiebeleid</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Requires Windows ADK 24H2 (10.1.26100).</value>
+    <value>Vereist Windows ADK 24H2 (10.1.26100).</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE-add-on</value>
@@ -1876,7 +1876,7 @@
     <value>Windows ADK installeren</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
-    <value>Preparing Windows ADK 24H2 installation</value>
+    <value>Installatie van Windows ADK 24H2 voorbereiden</value>
   </data>
   <data name="Adk.Operation.Downloading" xml:space="preserve">
     <value>ADK installatieprogramma downloaden</value>
@@ -1915,7 +1915,7 @@
     <value>Upgrade Windows ADK en Windows PE Add-on</value>
   </data>
   <data name="AdkPage_DowngradeButton.Content" xml:space="preserve">
-    <value>Downgrade Windows ADK and Windows PE Add-on</value>
+    <value>Windows ADK en Windows PE Add-on downgraden</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arabisch (Saoedi-Arabië)</value>

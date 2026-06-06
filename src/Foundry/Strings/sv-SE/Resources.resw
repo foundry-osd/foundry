@@ -1825,7 +1825,7 @@
     <value>ADK-versionen stöds inte</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Install the supported Windows ADK 24H2 (10.1.26100) release.</value>
+    <value>Installera den stödda Windows ADK 24H2-versionen (10.1.26100).</value>
   </data>
   <data name="Adk.Status.WinPeMissingTitle" xml:space="preserve">
     <value>Windows PE Tillägg saknas</value>
@@ -1852,7 +1852,7 @@
     <value>Obligatorisk versionspolicy</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Requires Windows ADK 24H2 (10.1.26100).</value>
+    <value>Kräver Windows ADK 24H2 (10.1.26100).</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Tillägg</value>
@@ -1876,7 +1876,7 @@
     <value>Installerar Windows ADK</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
-    <value>Preparing Windows ADK 24H2 installation</value>
+    <value>Förbereder installation av Windows ADK 24H2</value>
   </data>
   <data name="Adk.Operation.Downloading" xml:space="preserve">
     <value>Laddar ner ADK installationsprogrammet</value>
@@ -1915,7 +1915,7 @@
     <value>Uppgradera Windows ADK och Windows PE tillägg</value>
   </data>
   <data name="AdkPage_DowngradeButton.Content" xml:space="preserve">
-    <value>Downgrade Windows ADK and Windows PE Add-on</value>
+    <value>Nedgradera Windows ADK och Windows PE Add-on</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arabiska (Saudiarabien)</value>

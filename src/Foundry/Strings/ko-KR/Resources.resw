@@ -1825,7 +1825,7 @@
     <value>ADK 버전은 지원되지 않습니다.</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Install the supported Windows ADK 24H2 (10.1.26100) release.</value>
+    <value>지원되는 Windows ADK 24H2(10.1.26100) 릴리스를 설치하세요.</value>
   </data>
   <data name="Adk.Status.WinPeMissingTitle" xml:space="preserve">
     <value>Windows PE 부가기능이 없습니다</value>
@@ -1852,7 +1852,7 @@
     <value>필수 버전 정책</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Requires Windows ADK 24H2 (10.1.26100).</value>
+    <value>Windows ADK 24H2(10.1.26100)가 필요합니다.</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE 부가기능</value>
@@ -1876,7 +1876,7 @@
     <value>Windows ADK 설치</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
-    <value>Preparing Windows ADK 24H2 installation</value>
+    <value>Windows ADK 24H2 설치 준비 중</value>
   </data>
   <data name="Adk.Operation.Downloading" xml:space="preserve">
     <value>ADK 설치 프로그램 다운로드 중</value>
@@ -1915,7 +1915,7 @@
     <value>Windows ADK 및 Windows PE 추가 기능 업그레이드</value>
   </data>
   <data name="AdkPage_DowngradeButton.Content" xml:space="preserve">
-    <value>Downgrade Windows ADK and Windows PE Add-on</value>
+    <value>Windows ADK 및 Windows PE Add-on 다운그레이드</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>아랍어(사우디아라비아)</value>

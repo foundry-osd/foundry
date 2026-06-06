@@ -1825,7 +1825,7 @@
     <value>ADK版本不受支援</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Install the supported Windows ADK 24H2 (10.1.26100) release.</value>
+    <value>安裝支援的 Windows ADK 24H2 (10.1.26100) 版本。</value>
   </data>
   <data name="Adk.Status.WinPeMissingTitle" xml:space="preserve">
     <value>Windows PE 缺少附加元件</value>
@@ -1852,7 +1852,7 @@
     <value>所需版本政策</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Requires Windows ADK 24H2 (10.1.26100).</value>
+    <value>需要 Windows ADK 24H2 (10.1.26100)。</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE 附加元件</value>
@@ -1876,7 +1876,7 @@
     <value>安裝Windows ADK</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
-    <value>Preparing Windows ADK 24H2 installation</value>
+    <value>正在準備安裝 Windows ADK 24H2</value>
   </data>
   <data name="Adk.Operation.Downloading" xml:space="preserve">
     <value>正在下載ADK安裝程序</value>
@@ -1915,7 +1915,7 @@
     <value>升級Windows ADK 和Windows PE 附加元件</value>
   </data>
   <data name="AdkPage_DowngradeButton.Content" xml:space="preserve">
-    <value>Downgrade Windows ADK and Windows PE Add-on</value>
+    <value>降級 Windows ADK 和 Windows PE Add-on</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>阿拉伯語（沙烏地阿拉伯）</value>

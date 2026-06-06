@@ -1825,7 +1825,7 @@
     <value>Версия ADK не поддерживается</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Install the supported Windows ADK 24H2 (10.1.26100) release.</value>
+    <value>Установите поддерживаемый выпуск Windows ADK 24H2 (10.1.26100).</value>
   </data>
   <data name="Adk.Status.WinPeMissingTitle" xml:space="preserve">
     <value>Windows PE Дополнение отсутствует</value>
@@ -1852,7 +1852,7 @@
     <value>Требуемая политика версий</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Requires Windows ADK 24H2 (10.1.26100).</value>
+    <value>Требуется Windows ADK 24H2 (10.1.26100).</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Дополнение</value>
@@ -1876,7 +1876,7 @@
     <value>Установка Windows ADK</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
-    <value>Preparing Windows ADK 24H2 installation</value>
+    <value>Подготовка установки Windows ADK 24H2</value>
   </data>
   <data name="Adk.Operation.Downloading" xml:space="preserve">
     <value>Загрузка установщика ADK</value>
@@ -1915,7 +1915,7 @@
     <value>Обновите Windows ADK и дополнение Windows PE</value>
   </data>
   <data name="AdkPage_DowngradeButton.Content" xml:space="preserve">
-    <value>Downgrade Windows ADK and Windows PE Add-on</value>
+    <value>Понизить версию Windows ADK и Windows PE Add-on</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Арабский (Саудовская Аравия)</value>
