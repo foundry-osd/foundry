@@ -34,8 +34,8 @@
                             Style="{ThemeResource AccentButtonStyle}"
                             Visibility="{x:Bind ViewModel.IsInstallButtonVisible, Mode=OneWay}" />
                     <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
-                            x:Uid="AdkPage_UpgradeButton"
                             Command="{x:Bind ViewModel.UpgradeAdkCommand}"
+                            Content="{x:Bind ViewModel.UpgradeButtonText, Mode=OneWay}"
                             IsEnabled="{x:Bind ViewModel.IsActionEnabled, Mode=OneWay}"
                             Style="{ThemeResource AccentButtonStyle}"
                             Visibility="{x:Bind ViewModel.IsUpgradeButtonVisible, Mode=OneWay}" />

@@ -1825,7 +1825,7 @@
     <value>Versiunea ADK nu este acceptată</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Actualizați Windows ADK la o versiune 10.1.26100 acceptată.</value>
+    <value>Instalați versiunea acceptată Windows ADK 24H2 (10.1.26100).</value>
   </data>
   <data name="Adk.Status.WinPeMissingTitle" xml:space="preserve">
     <value>Windows PE Lipsește suplimentul</value>
@@ -1852,7 +1852,7 @@
     <value>Politica de versiune necesară</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Necesită Windows ADK 10.1.26100.2454+ cu cel mai recent patch de service ADK.</value>
+    <value>Necesită Windows ADK 24H2 (10.1.26100).</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Supliment</value>
@@ -1876,7 +1876,7 @@
     <value>Instalarea Windows ADK</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
-    <value>Se actualizează Windows ADK</value>
+    <value>Se pregătește instalarea Windows ADK 24H2</value>
   </data>
   <data name="Adk.Operation.Downloading" xml:space="preserve">
     <value>Se descarcă programul de instalare ADK</value>
@@ -1913,6 +1913,9 @@
   </data>
   <data name="AdkPage_UpgradeButton.Content" xml:space="preserve">
     <value>Upgrade Windows ADK și Windows PE Add-on</value>
+  </data>
+  <data name="AdkPage_DowngradeButton.Content" xml:space="preserve">
+    <value>Reveniți Windows ADK și Windows PE Add-on la o versiune anterioară</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arabă (Arabia Saudită)</value>

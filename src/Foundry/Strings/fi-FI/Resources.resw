@@ -1825,7 +1825,7 @@
     <value>ADK-versiota ei tueta</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Päivitä Windows ADK tuettuun koontiversioon 10.1.26100.</value>
+    <value>Asenna tuettu Windows ADK 24H2 -versio (10.1.26100).</value>
   </data>
   <data name="Adk.Status.WinPeMissingTitle" xml:space="preserve">
     <value>Windows PE Lisäosa puuttuu</value>
@@ -1852,7 +1852,7 @@
     <value>Vaadittu versiokäytäntö</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Vaatii Windows ADK 10.1.26100.2454+, jossa on uusin ADK huoltokorjaus.</value>
+    <value>Edellyttää Windows ADK 24H2 -versiota (10.1.26100).</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Lisäosa</value>
@@ -1876,7 +1876,7 @@
     <value>Asennetaan Windows ADK</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
-    <value>Päivitetään Windows ADK</value>
+    <value>Valmistellaan Windows ADK 24H2 -asennusta</value>
   </data>
   <data name="Adk.Operation.Downloading" xml:space="preserve">
     <value>Ladataan ADK asennusohjelmaa</value>
@@ -1913,6 +1913,9 @@
   </data>
   <data name="AdkPage_UpgradeButton.Content" xml:space="preserve">
     <value>Päivitä Windows ADK ja Windows PE -lisäosa</value>
+  </data>
+  <data name="AdkPage_DowngradeButton.Content" xml:space="preserve">
+    <value>Päivitä Windows ADK ja Windows PE Add-on vanhempaan versioon</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arabia (Saudi-Arabia)</value>

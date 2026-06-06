@@ -1825,7 +1825,7 @@
     <value>Η έκδοση ADK δεν υποστηρίζεται</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Αναβαθμίστε το Windows ADK σε μια υποστηριζόμενη έκδοση 10.1.26100.</value>
+    <value>Εγκαταστήστε την υποστηριζόμενη έκδοση Windows ADK 24H2 (10.1.26100).</value>
   </data>
   <data name="Adk.Status.WinPeMissingTitle" xml:space="preserve">
     <value>Το πρόσθετο Windows PE λείπει</value>
@@ -1852,7 +1852,7 @@
     <value>Πολιτική απαιτούμενης έκδοσης</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Απαιτείται Windows ADK 10.1.26100.2454+ με την πιο πρόσφατη ενημέρωση κώδικα σέρβις ADK.</value>
+    <value>Απαιτείται Windows ADK 24H2 (10.1.26100).</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE Πρόσθετο</value>
@@ -1876,7 +1876,7 @@
     <value>Εγκατάσταση Windows ADK</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
-    <value>Αναβάθμιση Windows ADK</value>
+    <value>Προετοιμασία εγκατάστασης Windows ADK 24H2</value>
   </data>
   <data name="Adk.Operation.Downloading" xml:space="preserve">
     <value>Λήψη του προγράμματος εγκατάστασης ADK</value>
@@ -1913,6 +1913,9 @@
   </data>
   <data name="AdkPage_UpgradeButton.Content" xml:space="preserve">
     <value>Αναβάθμιση Windows ADK και Windows PE πρόσθετο</value>
+  </data>
+  <data name="AdkPage_DowngradeButton.Content" xml:space="preserve">
+    <value>Υποβάθμιση Windows ADK και Windows PE Add-on</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Αραβικά (Σαουδική Αραβία)</value>

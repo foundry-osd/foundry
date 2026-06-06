@@ -1825,7 +1825,7 @@
     <value>גרסת ADK אינה נתמכת</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>שדרג את ה-Windows ADK לגירסה נתמכת של 10.1.26100.</value>
+    <value>התקן את גרסת Windows ADK 24H2 (10.1.26100) הנתמכת.</value>
   </data>
   <data name="Adk.Status.WinPeMissingTitle" xml:space="preserve">
     <value>חסרה תוסף Windows PE</value>
@@ -1852,7 +1852,7 @@
     <value>מדיניות גרסה נדרשת</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>דורש Windows ADK 10.1.26100.2454+ עם תיקון השירות האחרון של ADK.</value>
+    <value>נדרש Windows ADK 24H2 (10.1.26100).</value>
   </data>
   <data name="Adk.WinPeAddon.Title" xml:space="preserve">
     <value>Windows PE תוסף</value>
@@ -1876,7 +1876,7 @@
     <value>מתקין Windows ADK</value>
   </data>
   <data name="Adk.Operation.UpgradeStarted" xml:space="preserve">
-    <value>משדרג Windows ADK</value>
+    <value>מכין את התקנת Windows ADK 24H2</value>
   </data>
   <data name="Adk.Operation.Downloading" xml:space="preserve">
     <value>מוריד את תוכנית ההתקנה ADK</value>
@@ -1913,6 +1913,9 @@
   </data>
   <data name="AdkPage_UpgradeButton.Content" xml:space="preserve">
     <value>שדרג את התוסף Windows ADK ו-Windows PE</value>
+  </data>
+  <data name="AdkPage_DowngradeButton.Content" xml:space="preserve">
+    <value>שדרג לאחור את Windows ADK ואת Windows PE Add-on</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>ערבית (ערב הסעודית)</value>
