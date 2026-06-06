@@ -2112,4 +2112,19 @@
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Αντιγράφει τα διαμορφωμένα πιστοποιητικά πελάτη PFX στα Windows και τα εισάγει στον προσωπικό χώρο αποθήκευσης πιστοποιητικών LocalMachine πριν από το OOBE.</value>
   </data>
+  <data name="Adk.PageDescription" xml:space="preserve">
+    <value>Ελέγξτε την ετοιμότητα του Windows ADK και του πρόσθετου Windows PE πριν δημιουργήσετε μέσα ανάπτυξης.</value>
+  </data>
+  <data name="Customization.PageDescription" xml:space="preserve">
+    <value>Ρυθμίστε την ονομασία υπολογιστών, την επιλογή λειτουργικού συστήματος, τη συμπεριφορά OOBE, την κατάργηση στοιχείων AI και την κατάργηση προεγκατεστημένων πακέτων AppX.</value>
+  </data>
+  <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
+    <value>Ρυθμίστε τη βάση μέσου, τη γλώσσα WinPE, την υπογραφή εκκίνησης, τα προγράμματα οδήγησης και τη ζώνη ώρας ανάπτυξης.</value>
+  </data>
+  <data name="Network.PageDescription" xml:space="preserve">
+    <value>Ρυθμίστε ενσύρματο 802.1X, προετοιμασία Wi-Fi και περιαγωγή προφίλ για μέσα ανάπτυξης.</value>
+  </data>
+  <data name="StartMedia.PageDescription" xml:space="preserve">
+    <value>Ελέγξτε την ετοιμότητα, επιλέξτε έξοδο ISO ή USB και ξεκινήστε τη δημιουργία μέσου.</value>
+  </data>
 </root>

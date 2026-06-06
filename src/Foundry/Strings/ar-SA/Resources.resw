@@ -2112,4 +2112,19 @@
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>ينسخ شهادات عميل PFX المكوّنة إلى Windows ويستوردها إلى مخزن الشهادات الشخصي LocalMachine قبل OOBE.</value>
   </data>
+  <data name="Adk.PageDescription" xml:space="preserve">
+    <value>راجع جاهزية Windows ADK والملحق Windows PE قبل إنشاء وسائط النشر.</value>
+  </data>
+  <data name="Customization.PageDescription" xml:space="preserve">
+    <value>كوّن تسمية الأجهزة وتحديد نظام التشغيل وسلوك OOBE وإزالة مكونات AI وإزالة حزم AppX المجهزة.</value>
+  </data>
+  <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
+    <value>كوّن أساس الوسائط ولغة WinPE وتوقيع التمهيد وبرامج التشغيل والمنطقة الزمنية للنشر.</value>
+  </data>
+  <data name="Network.PageDescription" xml:space="preserve">
+    <value>كوّن 802.1X السلكي وتجهيز Wi-Fi وتجوال ملفات التعريف لوسائط النشر.</value>
+  </data>
+  <data name="StartMedia.PageDescription" xml:space="preserve">
+    <value>راجع الجاهزية واختر إخراج ISO أو USB ثم ابدأ إنشاء الوسائط.</value>
+  </data>
 </root>

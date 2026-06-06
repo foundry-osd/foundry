@@ -2112,4 +2112,19 @@
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>將已設定的 PFX 用戶端憑證複製到 Windows，並在 OOBE 前匯入 LocalMachine 個人憑證存放區。</value>
   </data>
+  <data name="Adk.PageDescription" xml:space="preserve">
+    <value>建立部署媒體之前，請檢閱 Windows ADK 和 Windows PE 附加元件的就緒狀態。</value>
+  </data>
+  <data name="Customization.PageDescription" xml:space="preserve">
+    <value>設定電腦命名、作業系統選擇、OOBE 行為、AI 元件移除，以及已佈建 AppX 移除。</value>
+  </data>
+  <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
+    <value>設定媒體基準、WinPE 語言、開機簽章、驅動程式和部署時區。</value>
+  </data>
+  <data name="Network.PageDescription" xml:space="preserve">
+    <value>為部署媒體設定有線 802.1X、Wi-Fi 佈建和設定檔漫遊。</value>
+  </data>
+  <data name="StartMedia.PageDescription" xml:space="preserve">
+    <value>檢閱就緒狀態，選擇 ISO 或 USB 輸出，然後開始建立媒體。</value>
+  </data>
 </root>

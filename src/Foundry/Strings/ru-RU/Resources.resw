@@ -2112,4 +2112,19 @@
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Копирует настроенные клиентские сертификаты PFX в Windows и импортирует их в личное хранилище сертификатов LocalMachine до OOBE.</value>
   </data>
+  <data name="Adk.PageDescription" xml:space="preserve">
+    <value>Проверьте готовность Windows ADK и надстройки Windows PE перед созданием носителя развертывания.</value>
+  </data>
+  <data name="Customization.PageDescription" xml:space="preserve">
+    <value>Настройте именование компьютеров, выбор операционной системы, поведение OOBE, удаление компонентов AI и удаление подготовленных пакетов AppX.</value>
+  </data>
+  <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
+    <value>Настройте базовые параметры носителя, язык WinPE, подпись загрузки, драйверы и часовой пояс развертывания.</value>
+  </data>
+  <data name="Network.PageDescription" xml:space="preserve">
+    <value>Настройте проводной 802.1X, подготовку Wi-Fi и перемещение профилей для носителя развертывания.</value>
+  </data>
+  <data name="StartMedia.PageDescription" xml:space="preserve">
+    <value>Проверьте готовность, выберите вывод ISO или USB и запустите создание носителя.</value>
+  </data>
 </root>

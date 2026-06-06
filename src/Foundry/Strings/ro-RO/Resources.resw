@@ -2112,4 +2112,19 @@
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Copiază certificatele client PFX configurate în Windows și le importă în depozitul personal de certificate LocalMachine înainte de OOBE.</value>
   </data>
+  <data name="Adk.PageDescription" xml:space="preserve">
+    <value>Revizuiți starea Windows ADK și a suplimentului Windows PE înainte de a crea suportul de implementare.</value>
+  </data>
+  <data name="Customization.PageDescription" xml:space="preserve">
+    <value>Configurați denumirea computerelor, selecția sistemului de operare, comportamentul OOBE, eliminarea componentelor AI și eliminarea pachetelor AppX aprovizionate.</value>
+  </data>
+  <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
+    <value>Configurați baza suportului, limba WinPE, semnătura de pornire, driverele și fusul orar de implementare.</value>
+  </data>
+  <data name="Network.PageDescription" xml:space="preserve">
+    <value>Configurați 802.1X cu fir, aprovizionarea Wi-Fi și roamingul profilurilor pentru suportul de implementare.</value>
+  </data>
+  <data name="StartMedia.PageDescription" xml:space="preserve">
+    <value>Revizuiți starea, alegeți ieșirea ISO sau USB și porniți crearea suportului.</value>
+  </data>
 </root>

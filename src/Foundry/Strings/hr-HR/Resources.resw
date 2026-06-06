@@ -2112,4 +2112,19 @@
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Kopira konfigurirane PFX klijentske certifikate u Windows i uvozi ih u osobnu pohranu certifikata LocalMachine prije OOBE-a.</value>
   </data>
+  <data name="Adk.PageDescription" xml:space="preserve">
+    <value>Pregledajte spremnost Windows ADK-a i dodatka Windows PE prije stvaranja implementacijskog medija.</value>
+  </data>
+  <data name="Customization.PageDescription" xml:space="preserve">
+    <value>Konfigurirajte imenovanje računala, odabir operacijskog sustava, ponašanje OOBE, uklanjanje komponenti AI i uklanjanje pripremljenih paketa AppX.</value>
+  </data>
+  <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
+    <value>Konfigurirajte osnovu medija, WinPE jezik, potpis pokretanja, upravljačke programe i vremensku zonu implementacije.</value>
+  </data>
+  <data name="Network.PageDescription" xml:space="preserve">
+    <value>Konfigurirajte žičani 802.1X, pripremu Wi-Fi i roaming profila za implementacijski medij.</value>
+  </data>
+  <data name="StartMedia.PageDescription" xml:space="preserve">
+    <value>Pregledajte spremnost, odaberite ISO ili USB izlaz i pokrenite stvaranje medija.</value>
+  </data>
 </root>

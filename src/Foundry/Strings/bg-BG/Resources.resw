@@ -2112,4 +2112,19 @@
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Копира конфигурираните PFX клиентски сертификати в Windows и ги импортира в личното хранилище LocalMachine преди OOBE.</value>
   </data>
+  <data name="Adk.PageDescription" xml:space="preserve">
+    <value>Прегледайте готовността на Windows ADK и добавката Windows PE, преди да създадете носител за разполагане.</value>
+  </data>
+  <data name="Customization.PageDescription" xml:space="preserve">
+    <value>Конфигурирайте именуване на машини, избор на операционна система, поведение на OOBE, премахване на AI компоненти и премахване на подготвени AppX пакети.</value>
+  </data>
+  <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
+    <value>Конфигурирайте базовите настройки на носителя, езика WinPE, подписа за стартиране, драйверите и часовата зона за разполагане.</value>
+  </data>
+  <data name="Network.PageDescription" xml:space="preserve">
+    <value>Конфигурирайте кабелен 802.1X, подготвяне на Wi-Fi и роуминг на профили за носителя за разполагане.</value>
+  </data>
+  <data name="StartMedia.PageDescription" xml:space="preserve">
+    <value>Прегледайте готовността, изберете ISO или USB изход и стартирайте създаването на носител.</value>
+  </data>
 </root>

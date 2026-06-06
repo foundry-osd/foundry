@@ -15,9 +15,34 @@ public static class FoundryApplicationInfo
     public const string DocumentationUrl = "https://foundry-osd.github.io/docs/start";
 
     /// <summary>
+    /// Gets the ADK documentation URL.
+    /// </summary>
+    public const string AdkDocumentationUrl = "https://foundry-osd.github.io/docs/start/requirements";
+
+    /// <summary>
     /// Gets the Autopilot documentation URL.
     /// </summary>
-    public const string AutopilotDocumentationUrl = "https://foundry-osd.github.io/docs/autopilot";
+    public const string AutopilotDocumentationUrl = "https://foundry-osd.github.io/docs/autopilot/overview";
+
+    /// <summary>
+    /// Gets the customization documentation URL.
+    /// </summary>
+    public const string CustomizationDocumentationUrl = "https://foundry-osd.github.io/docs/configure/customization";
+
+    /// <summary>
+    /// Gets the general configuration documentation URL.
+    /// </summary>
+    public const string GeneralConfigurationDocumentationUrl = "https://foundry-osd.github.io/docs/configure/general";
+
+    /// <summary>
+    /// Gets the network configuration documentation URL.
+    /// </summary>
+    public const string NetworkDocumentationUrl = "https://foundry-osd.github.io/docs/configure/network";
+
+    /// <summary>
+    /// Gets the media creation documentation URL.
+    /// </summary>
+    public const string StartDocumentationUrl = "https://foundry-osd.github.io/docs/build-media/media-creation";
 
     public const string RepositoryUrl = Constants.RepositoryUrl;
 

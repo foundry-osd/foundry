@@ -2112,4 +2112,19 @@
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Kopē konfigurētos PFX klienta sertifikātus uz Windows un pirms OOBE importē tos LocalMachine personīgajā sertifikātu krātuvē.</value>
   </data>
+  <data name="Adk.PageDescription" xml:space="preserve">
+    <value>Pirms izvietošanas datu nesēja izveides pārskatiet Windows ADK un Windows PE papildinājuma gatavību.</value>
+  </data>
+  <data name="Customization.PageDescription" xml:space="preserve">
+    <value>Konfigurējiet datoru nosaukšanu, operētājsistēmas atlasi, OOBE darbību, AI komponentu noņemšanu un sagatavoto AppX pakotņu noņemšanu.</value>
+  </data>
+  <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
+    <value>Konfigurējiet datu nesēja bāzi, WinPE valodu, sāknēšanas parakstu, draiverus un izvietošanas laika joslu.</value>
+  </data>
+  <data name="Network.PageDescription" xml:space="preserve">
+    <value>Konfigurējiet vadu 802.1X, Wi-Fi sagatavošanu un profilu viesabonēšanu izvietošanas datu nesējam.</value>
+  </data>
+  <data name="StartMedia.PageDescription" xml:space="preserve">
+    <value>Pārskatiet gatavību, izvēlieties ISO vai USB izvadi un sāciet datu nesēja izveidi.</value>
+  </data>
 </root>

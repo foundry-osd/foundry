@@ -2112,4 +2112,19 @@
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Kopierer konfigurerede PFX-klientcertifikater til Windows og importerer dem til det personlige LocalMachine-certifikatlager før OOBE.</value>
   </data>
+  <data name="Adk.PageDescription" xml:space="preserve">
+    <value>Gennemgå klarheden for Windows ADK og Windows PE-tilføjelsesprogrammet, før du opretter installationsmedier.</value>
+  </data>
+  <data name="Customization.PageDescription" xml:space="preserve">
+    <value>Konfigurer computernavngivning, valg af operativsystem, OOBE-funktionalitet, fjernelse af AI-komponenter og fjernelse af klargjorte AppX-pakker.</value>
+  </data>
+  <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
+    <value>Konfigurer mediegrundlaget, WinPE-sprog, startsignatur, drivere og tidszone for installation.</value>
+  </data>
+  <data name="Network.PageDescription" xml:space="preserve">
+    <value>Konfigurer kablet 802.1X, Wi-Fi-klargøring og profilroaming for installationsmedier.</value>
+  </data>
+  <data name="StartMedia.PageDescription" xml:space="preserve">
+    <value>Gennemgå klarheden, vælg ISO- eller USB-output, og start medieoprettelsen.</value>
+  </data>
 </root>

@@ -2112,4 +2112,19 @@
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Yapılandırılmış PFX istemci sertifikalarını Windows’a kopyalar ve OOBE öncesinde LocalMachine kişisel sertifika deposuna içe aktarır.</value>
   </data>
+  <data name="Adk.PageDescription" xml:space="preserve">
+    <value>Dağıtım medyası oluşturmadan önce Windows ADK ve Windows PE eklentisinin hazır olup olmadığını gözden geçirin.</value>
+  </data>
+  <data name="Customization.PageDescription" xml:space="preserve">
+    <value>Makine adlandırmayı, işletim sistemi seçimini, OOBE davranışını, AI bileşen kaldırmayı ve sağlanan AppX kaldırmayı yapılandırın.</value>
+  </data>
+  <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
+    <value>Medya temelini, WinPE dilini, önyükleme imzasını, sürücüleri ve dağıtım saat dilimini yapılandırın.</value>
+  </data>
+  <data name="Network.PageDescription" xml:space="preserve">
+    <value>Dağıtım medyası için kablolu 802.1X, Wi-Fi sağlama ve profil dolaşımını yapılandırın.</value>
+  </data>
+  <data name="StartMedia.PageDescription" xml:space="preserve">
+    <value>Hazırlığı gözden geçirin, ISO veya USB çıktısını seçin ve medya oluşturmayı başlatın.</value>
+  </data>
 </root>

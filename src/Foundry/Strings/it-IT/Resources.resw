@@ -2112,4 +2112,19 @@
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Copia i certificati client PFX configurati in Windows e li importa nell’archivio certificati personale LocalMachine prima di OOBE.</value>
   </data>
+  <data name="Adk.PageDescription" xml:space="preserve">
+    <value>Verifica la preparazione di Windows ADK e del componente aggiuntivo Windows PE prima di creare i supporti di distribuzione.</value>
+  </data>
+  <data name="Customization.PageDescription" xml:space="preserve">
+    <value>Configura denominazione dei computer, selezione del sistema operativo, comportamento OOBE, rimozione dei componenti AI e rimozione delle AppX con provisioning.</value>
+  </data>
+  <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
+    <value>Configura la base del supporto, la lingua WinPE, la firma di avvio, i driver e il fuso orario di distribuzione.</value>
+  </data>
+  <data name="Network.PageDescription" xml:space="preserve">
+    <value>Configura 802.1X cablato, provisioning Wi-Fi e roaming dei profili per i supporti di distribuzione.</value>
+  </data>
+  <data name="StartMedia.PageDescription" xml:space="preserve">
+    <value>Verifica la preparazione, scegli un output ISO o USB e avvia la creazione del supporto.</value>
+  </data>
 </root>

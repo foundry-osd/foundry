@@ -2112,4 +2112,19 @@
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Kopiuje skonfigurowane certyfikaty klienta PFX do Windows i importuje je do osobistego magazynu certyfikatów LocalMachine przed OOBE.</value>
   </data>
+  <data name="Adk.PageDescription" xml:space="preserve">
+    <value>Sprawdź gotowość Windows ADK i dodatku Windows PE przed utworzeniem nośnika wdrożeniowego.</value>
+  </data>
+  <data name="Customization.PageDescription" xml:space="preserve">
+    <value>Skonfiguruj nazewnictwo komputerów, wybór systemu operacyjnego, zachowanie OOBE, usuwanie składników AI i usuwanie aprowizowanych pakietów AppX.</value>
+  </data>
+  <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
+    <value>Skonfiguruj bazę nośnika, język WinPE, podpis rozruchu, sterowniki i strefę czasową wdrożenia.</value>
+  </data>
+  <data name="Network.PageDescription" xml:space="preserve">
+    <value>Skonfiguruj przewodowe 802.1X, aprowizowanie Wi-Fi i roaming profili dla nośnika wdrożeniowego.</value>
+  </data>
+  <data name="StartMedia.PageDescription" xml:space="preserve">
+    <value>Sprawdź gotowość, wybierz wyjście ISO lub USB i rozpocznij tworzenie nośnika.</value>
+  </data>
 </root>

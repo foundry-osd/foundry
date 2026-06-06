@@ -53,6 +53,9 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     public partial string PageTitle { get; set; }
 
     [ObservableProperty]
+    public partial string PageDescription { get; set; }
+
+    [ObservableProperty]
     public partial string EthernetHeader { get; set; }
 
     [ObservableProperty]
@@ -278,6 +281,8 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     public string WifiValidationMessage => FormatValidationMessage(NetworkConfigurationValidator.Validate(BuildWifiOnlySettings()), dot1xOnly: false);
     public Visibility WifiValidationVisibility => HasWifiValidationError ? Visibility.Visible : Visibility.Collapsed;
     public bool HasValidationError => HasDot1xValidationError || HasWifiValidationError;
+
+    public string DocumentationUrl => FoundryApplicationInfo.NetworkDocumentationUrl;
     public string ValidationMessage => HasDot1xValidationError ? Dot1xValidationMessage : WifiValidationMessage;
     public Visibility Dot1xSettingsVisibility => IsDot1xEnabled ? Visibility.Visible : Visibility.Collapsed;
     public Visibility Dot1xCertificatePathVisibility => IsDot1xCertificatePathEnabled ? Visibility.Visible : Visibility.Collapsed;
@@ -637,6 +642,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     private void RefreshLocalizedText()
     {
         PageTitle = localizationService.GetString("NetworkPage_Title.Text");
+        PageDescription = localizationService.GetString("Network.PageDescription");
         EthernetHeader = localizationService.GetString("Network.EthernetSectionTitle");
         EthernetDescription = localizationService.GetString("Network.EthernetHelperText");
         Dot1xEnableText = localizationService.GetString("Dot1x.EnableLabel");

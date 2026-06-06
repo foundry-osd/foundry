@@ -2112,4 +2112,19 @@
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Kopiert konfigurierte PFX-Clientzertifikate nach Windows und importiert sie vor OOBE in den persönlichen LocalMachine-Zertifikatspeicher.</value>
   </data>
+  <data name="Adk.PageDescription" xml:space="preserve">
+    <value>Prüfen Sie die Bereitschaft von Windows ADK und Windows PE-Add-On, bevor Sie Bereitstellungsmedien erstellen.</value>
+  </data>
+  <data name="Customization.PageDescription" xml:space="preserve">
+    <value>Konfigurieren Sie Computernamen, Betriebssystemauswahl, OOBE-Verhalten, Entfernung von AI-Komponenten und Entfernung bereitgestellter AppX-Pakete.</value>
+  </data>
+  <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
+    <value>Konfigurieren Sie Medienbasis, WinPE-Sprache, Startsignatur, Treiber und Bereitstellungszeitzone.</value>
+  </data>
+  <data name="Network.PageDescription" xml:space="preserve">
+    <value>Konfigurieren Sie kabelgebundenes 802.1X, Wi-Fi-Bereitstellung und Profilroaming für Bereitstellungsmedien.</value>
+  </data>
+  <data name="StartMedia.PageDescription" xml:space="preserve">
+    <value>Prüfen Sie die Bereitschaft, wählen Sie eine ISO- oder USB-Ausgabe aus, und starten Sie die Medienerstellung.</value>
+  </data>
 </root>
