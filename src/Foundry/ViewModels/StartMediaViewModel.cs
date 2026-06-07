@@ -638,6 +638,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     ExpectedDiskSerialNumber = selectedDisk.SerialNumber,
                     ExpectedDiskUniqueId = selectedDisk.UniqueId,
                     FormatMode = options.UsbFormatMode,
+                    RuntimePayloadProvisioning = workspace.RuntimePayloadProvisioning,
+                    DownloadProgress = telemetryProgressTracker.CreateDownloadProgress(
+                        new Progress<WinPeDownloadProgress>(ReportDownloadProgress)),
                     Progress = telemetryProgressTracker.CreateFinalMediaProgress(
                         new Progress<WinPeMediaProgress>(ReportFinalMediaProgress))
                 },

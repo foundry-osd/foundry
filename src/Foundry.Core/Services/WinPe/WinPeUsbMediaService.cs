@@ -380,6 +380,22 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             return WinPeResult<WinPeUsbProvisionResult>.Failure(bootLayoutResult.Error!);
         }
 
+        if (options.RuntimePayloadProvisioning is not null)
+        {
+            string cacheRootPath = $"{layout.CacheDriveLetter}\\";
+            ReportProgress(options.Progress, 92, "Provisioning USB runtime payloads.");
+            InitializeCachePartitionDirectories(cacheRootPath);
+            WinPeResult runtimePayloadResult = await _runtimePayloadProvisioningService.ProvisionAsync(
+                CreateUsbRuntimePayloadOptions(options.RuntimePayloadProvisioning, artifact, cacheRootPath),
+                options.DownloadProgress,
+                cancellationToken).ConfigureAwait(false);
+
+            if (!runtimePayloadResult.IsSuccess)
+            {
+                return WinPeResult<WinPeUsbProvisionResult>.Failure(runtimePayloadResult.Error!);
+            }
+        }
+
         ReportProgress(options.Progress, 100, "USB boot partition updated.");
         return WinPeResult<WinPeUsbProvisionResult>.Success(layout);
     }
