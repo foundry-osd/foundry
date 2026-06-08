@@ -75,14 +75,14 @@ public sealed class DeployConfigurationService : IDeployConfigurationService
 
             bool isBootMediaUpdateRecommended = ConfigurationSchemaVersions.IsBootMediaUpdateRecommended(
                 document.SchemaVersion,
-                ConfigurationSchemaVersions.DeployMinimumRecommended);
+                ConfigurationSchemaVersions.DeployCurrent);
             if (isBootMediaUpdateRecommended)
             {
                 _logger.LogWarning(
-                    "Deploy configuration at '{ConfigurationPath}' uses schema version {SchemaVersion}, older than minimum recommended schema version {MinimumRecommendedSchemaVersion}. Boot media update is recommended.",
+                    "Deploy configuration at '{ConfigurationPath}' uses schema version {SchemaVersion}, older than current schema version {CurrentSchemaVersion}. Boot media update is recommended.",
                     _configurationPath,
                     document.SchemaVersion,
-                    ConfigurationSchemaVersions.DeployMinimumRecommended);
+                    ConfigurationSchemaVersions.DeployCurrent);
             }
 
             _logger.LogInformation(

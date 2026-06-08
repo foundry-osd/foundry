@@ -66,16 +66,16 @@ public sealed class ConnectConfigurationServiceTests
     }
 
     [Fact]
-    public void Load_WhenSchemaIsOlderThanMinimumRecommended_RecommendsBootMediaUpdate()
+    public void Load_WhenSchemaIsOlderThanCurrent_RecommendsBootMediaUpdate()
     {
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
         using var tempDirectory = new TemporaryDirectory();
         string configurationPath = CreateJsonFile(
             tempDirectory.Path,
-            "older-than-minimum.json",
+            "older-than-current.json",
             $$"""
             {
-              "schemaVersion": {{CoreConfiguration.ConfigurationSchemaVersions.ConnectMinimumRecommended - 1}}
+              "schemaVersion": {{CoreConfiguration.ConfigurationSchemaVersions.ConnectCurrent - 1}}
             }
             """);
 
@@ -89,21 +89,21 @@ public sealed class ConnectConfigurationServiceTests
             logger.Entries,
             entry =>
                 entry.LogLevel == LogLevel.Warning &&
-                entry.Message.Contains("minimum recommended schema version", StringComparison.Ordinal) &&
-                entry.Message.Contains(CoreConfiguration.ConfigurationSchemaVersions.ConnectMinimumRecommended.ToString(), StringComparison.Ordinal));
+                entry.Message.Contains("current schema version", StringComparison.Ordinal) &&
+                entry.Message.Contains(CoreConfiguration.ConfigurationSchemaVersions.ConnectCurrent.ToString(), StringComparison.Ordinal));
     }
 
     [Fact]
-    public void Load_WhenSchemaMatchesMinimumRecommended_DoesNotRecommendBootMediaUpdate()
+    public void Load_WhenSchemaMatchesCurrent_DoesNotRecommendBootMediaUpdate()
     {
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
         using var tempDirectory = new TemporaryDirectory();
         string configurationPath = CreateJsonFile(
             tempDirectory.Path,
-            "minimum-recommended.json",
+            "current.json",
             $$"""
             {
-              "schemaVersion": {{CoreConfiguration.ConfigurationSchemaVersions.ConnectMinimumRecommended}}
+              "schemaVersion": {{CoreConfiguration.ConfigurationSchemaVersions.ConnectCurrent}}
             }
             """);
 

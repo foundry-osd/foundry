@@ -8,7 +8,7 @@ namespace Foundry.Deploy.Tests;
 public sealed class DeployConfigurationServiceTests
 {
     [Fact]
-    public void LoadOptional_WhenSchemaIsOlderThanMinimumRecommended_RecommendsBootMediaUpdate()
+    public void LoadOptional_WhenSchemaIsOlderThanCurrent_RecommendsBootMediaUpdate()
     {
         using var tempDirectory = new TemporaryDirectory();
         string configurationPath = CreateJsonFile(
@@ -16,7 +16,7 @@ public sealed class DeployConfigurationServiceTests
             "foundry.deploy.config.json",
             $$"""
             {
-              "schemaVersion": {{Foundry.Core.Models.Configuration.ConfigurationSchemaVersions.DeployMinimumRecommended - 1}}
+              "schemaVersion": {{Foundry.Core.Models.Configuration.ConfigurationSchemaVersions.DeployCurrent - 1}}
             }
             """);
 
@@ -30,30 +30,8 @@ public sealed class DeployConfigurationServiceTests
             logger.Entries,
             entry =>
                 entry.LogLevel == LogLevel.Warning &&
-                entry.Message.Contains("minimum recommended schema version", StringComparison.Ordinal) &&
-                entry.Message.Contains(Foundry.Core.Models.Configuration.ConfigurationSchemaVersions.DeployMinimumRecommended.ToString(), StringComparison.Ordinal));
-    }
-
-    [Fact]
-    public void LoadOptional_WhenSchemaMatchesMinimumRecommended_DoesNotRecommendBootMediaUpdate()
-    {
-        using var tempDirectory = new TemporaryDirectory();
-        string configurationPath = CreateJsonFile(
-            tempDirectory.Path,
-            "foundry.deploy.config.json",
-            $$"""
-            {
-              "schemaVersion": {{Foundry.Core.Models.Configuration.ConfigurationSchemaVersions.DeployMinimumRecommended}}
-            }
-            """);
-
-        var logger = new RecordingLogger<DeployConfigurationService>();
-        var service = new DeployConfigurationService(logger, configurationPath);
-
-        DeployConfigurationLoadResult result = service.LoadOptional();
-
-        Assert.False(result.IsBootMediaUpdateRecommended);
-        Assert.DoesNotContain(logger.Entries, entry => entry.LogLevel == LogLevel.Warning);
+                entry.Message.Contains("current schema version", StringComparison.Ordinal) &&
+                entry.Message.Contains(Foundry.Core.Models.Configuration.ConfigurationSchemaVersions.DeployCurrent.ToString(), StringComparison.Ordinal));
     }
 
     [Fact]

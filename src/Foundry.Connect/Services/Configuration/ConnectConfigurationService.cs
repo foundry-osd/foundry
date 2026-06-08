@@ -109,13 +109,13 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
     {
         IsBootMediaUpdateRecommended = ConfigurationSchemaVersions.IsBootMediaUpdateRecommended(
             schemaVersion,
-            ConfigurationSchemaVersions.ConnectMinimumRecommended);
+            ConfigurationSchemaVersions.ConnectCurrent);
         if (IsBootMediaUpdateRecommended)
         {
             _logger.LogWarning(
-                "Foundry.Connect configuration uses schema version {SchemaVersion}, older than minimum recommended schema version {MinimumRecommendedSchemaVersion}. Boot media update is recommended.",
+                "Foundry.Connect configuration uses schema version {SchemaVersion}, older than current schema version {CurrentSchemaVersion}. Boot media update is recommended.",
                 schemaVersion,
-                ConfigurationSchemaVersions.ConnectMinimumRecommended);
+                ConfigurationSchemaVersions.ConnectCurrent);
         }
     }
 
