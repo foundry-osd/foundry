@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 
@@ -30,10 +31,31 @@ public sealed class ConfigurationSchemaVersionsTests
     }
 
     [Fact]
+    public void MinimumRecommendedVersions_AreDeclaredIndependentlyFromCurrentVersions()
+    {
+        string source = File.ReadAllText(GetConfigurationSchemaVersionsSourcePath());
+
+        Assert.DoesNotContain("ConnectMinimumRecommended = ConnectCurrent", source, StringComparison.Ordinal);
+        Assert.DoesNotContain("DeployMinimumRecommended = DeployCurrent", source, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void IsBootMediaUpdateRecommended_UsesMinimumRecommendedSchemaVersion()
     {
         Assert.False(ConfigurationSchemaVersions.IsBootMediaUpdateRecommended(4, 3));
         Assert.False(ConfigurationSchemaVersions.IsBootMediaUpdateRecommended(3, 3));
         Assert.True(ConfigurationSchemaVersions.IsBootMediaUpdateRecommended(2, 3));
+    }
+
+    private static string GetConfigurationSchemaVersionsSourcePath([CallerFilePath] string testFilePath = "")
+    {
+        return Path.GetFullPath(Path.Combine(
+            Path.GetDirectoryName(testFilePath)!,
+            "..",
+            "..",
+            "Foundry.Core",
+            "Models",
+            "Configuration",
+            "ConfigurationSchemaVersions.cs"));
     }
 }

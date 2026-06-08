@@ -6,11 +6,11 @@ public static class ConfigurationSchemaVersions
 
     public const int ConnectCurrent = 2;
 
-    public const int ConnectMinimumRecommended = ConnectCurrent;
+    public const int ConnectMinimumRecommended = 2;
 
     public const int DeployCurrent = 8;
 
-    public const int DeployMinimumRecommended = DeployCurrent;
+    public const int DeployMinimumRecommended = 8;
 
     public static bool IsBootMediaUpdateRecommended(int schemaVersion, int minimumRecommendedSchemaVersion)
     {
