@@ -1,6 +1,7 @@
 using System.IO;
 using System.Text.Json;
 using Foundry.Deploy.Models.Configuration;
+using ConfigurationSchemaVersions = Foundry.Core.Models.Configuration.ConfigurationSchemaVersions;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Configuration;
@@ -63,23 +64,25 @@ public sealed class DeployConfigurationService : IDeployConfigurationService
                 };
             }
 
-            if (document.SchemaVersion > FoundryDeployConfigurationDocument.CurrentSchemaVersion)
+            if (document.SchemaVersion > ConfigurationSchemaVersions.DeployCurrent)
             {
                 _logger.LogWarning(
                     "Deploy configuration at '{ConfigurationPath}' uses schema version {SchemaVersion}, newer than supported schema version {SupportedSchemaVersion}. Unknown properties will be ignored.",
                     _configurationPath,
                     document.SchemaVersion,
-                    FoundryDeployConfigurationDocument.CurrentSchemaVersion);
+                    ConfigurationSchemaVersions.DeployCurrent);
             }
 
-            bool isBootMediaUpdateRecommended = document.SchemaVersion < FoundryDeployConfigurationDocument.CurrentSchemaVersion;
+            bool isBootMediaUpdateRecommended = ConfigurationSchemaVersions.IsBootMediaUpdateRecommended(
+                document.SchemaVersion,
+                ConfigurationSchemaVersions.DeployCurrent);
             if (isBootMediaUpdateRecommended)
             {
                 _logger.LogWarning(
                     "Deploy configuration at '{ConfigurationPath}' uses schema version {SchemaVersion}, older than current schema version {CurrentSchemaVersion}. Boot media update is recommended.",
                     _configurationPath,
                     document.SchemaVersion,
-                    FoundryDeployConfigurationDocument.CurrentSchemaVersion);
+                    ConfigurationSchemaVersions.DeployCurrent);
             }
 
             _logger.LogInformation(

@@ -1,5 +1,6 @@
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Foundry.Deploy.Tests;
@@ -15,20 +16,22 @@ public sealed class DeployConfigurationServiceTests
             "foundry.deploy.config.json",
             $$"""
             {
-              "schemaVersion": {{FoundryDeployConfigurationDocument.CurrentSchemaVersion - 1}}
+              "schemaVersion": {{Foundry.Core.Models.Configuration.ConfigurationSchemaVersions.DeployCurrent - 1}}
             }
             """);
 
-        var service = new DeployConfigurationService(
-            NullLogger<DeployConfigurationService>.Instance,
-            configurationPath);
+        var logger = new RecordingLogger<DeployConfigurationService>();
+        var service = new DeployConfigurationService(logger, configurationPath);
 
         DeployConfigurationLoadResult result = service.LoadOptional();
 
-        Assert.True(result.Exists);
-        Assert.NotNull(result.Document);
-        Assert.Equal(FoundryDeployConfigurationDocument.CurrentSchemaVersion - 1, result.Document.SchemaVersion);
         Assert.True(result.IsBootMediaUpdateRecommended);
+        Assert.Contains(
+            logger.Entries,
+            entry =>
+                entry.LogLevel == LogLevel.Warning &&
+                entry.Message.Contains("current schema version", StringComparison.Ordinal) &&
+                entry.Message.Contains(Foundry.Core.Models.Configuration.ConfigurationSchemaVersions.DeployCurrent.ToString(), StringComparison.Ordinal));
     }
 
     [Fact]
@@ -111,4 +114,32 @@ public sealed class DeployConfigurationServiceTests
             }
         }
     }
+
+    private sealed class RecordingLogger<T> : ILogger<T>
+    {
+        public List<LogEntry> Entries { get; } = [];
+
+        public IDisposable? BeginScope<TState>(TState state)
+            where TState : notnull
+        {
+            return null;
+        }
+
+        public bool IsEnabled(LogLevel logLevel)
+        {
+            return true;
+        }
+
+        public void Log<TState>(
+            LogLevel logLevel,
+            EventId eventId,
+            TState state,
+            Exception? exception,
+            Func<TState, Exception?, string> formatter)
+        {
+            Entries.Add(new LogEntry(logLevel, formatter(state, exception)));
+        }
+    }
+
+    private sealed record LogEntry(LogLevel LogLevel, string Message);
 }
