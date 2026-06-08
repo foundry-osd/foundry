@@ -46,13 +46,10 @@
     <value>Litsents</value>
   </data>
   <data name="AboutDialog.HomepageLinkFormat" xml:space="preserve">
-    <value>{0} homepage</value>
+    <value>{0} avaleht</value>
   </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
     <value>Litsentsid</value>
-  </data>
-  <data name="AboutDialog.OpenLink" xml:space="preserve">
-    <value>Avatud</value>
   </data>
   <data name="AboutDialog.OpenProfile" xml:space="preserve">
     <value>Profiil</value>
@@ -71,12 +68,6 @@
   </data>
   <data name="AboutDialog.RepositoryLink" xml:space="preserve">
     <value>Hoidla</value>
-  </data>
-  <data name="AboutDialog.SevenZipLicenseDescription" xml:space="preserve">
-    <value>Foundry OSD sisaldab 7-Zip Extra tööriistu meedia loomise toeks.</value>
-  </data>
-  <data name="AboutDialog.SevenZipLicenseTitle" xml:space="preserve">
-    <value>7-Zip Extra</value>
   </data>
   <data name="AboutDialog.Subtitle" xml:space="preserve">
     <value>Windows juurutusmeedia loomine</value>

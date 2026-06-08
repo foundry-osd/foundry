@@ -46,13 +46,10 @@
     <value>Lizenz</value>
   </data>
   <data name="AboutDialog.HomepageLinkFormat" xml:space="preserve">
-    <value>{0} homepage</value>
+    <value>{0}-Homepage</value>
   </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
     <value>Lizenzen</value>
-  </data>
-  <data name="AboutDialog.OpenLink" xml:space="preserve">
-    <value>Offen</value>
   </data>
   <data name="AboutDialog.OpenProfile" xml:space="preserve">
     <value>Profil</value>
@@ -71,12 +68,6 @@
   </data>
   <data name="AboutDialog.RepositoryLink" xml:space="preserve">
     <value>Repository</value>
-  </data>
-  <data name="AboutDialog.SevenZipLicenseDescription" xml:space="preserve">
-    <value>Foundry OSD enthält 7-Zip Extra-Tools zur Unterstützung der Medienerstellung.</value>
-  </data>
-  <data name="AboutDialog.SevenZipLicenseTitle" xml:space="preserve">
-    <value>7-Zip-Extra</value>
   </data>
   <data name="AboutDialog.Subtitle" xml:space="preserve">
     <value>Windows Erstellung von Bereitstellungsmedien</value>

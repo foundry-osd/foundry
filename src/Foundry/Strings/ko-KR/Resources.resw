@@ -46,13 +46,10 @@
     <value>라이센스</value>
   </data>
   <data name="AboutDialog.HomepageLinkFormat" xml:space="preserve">
-    <value>{0} homepage</value>
+    <value>{0} 홈페이지</value>
   </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
     <value>라이센스</value>
-  </data>
-  <data name="AboutDialog.OpenLink" xml:space="preserve">
-    <value>열기</value>
   </data>
   <data name="AboutDialog.OpenProfile" xml:space="preserve">
     <value>프로필</value>
@@ -71,12 +68,6 @@
   </data>
   <data name="AboutDialog.RepositoryLink" xml:space="preserve">
     <value>저장소</value>
-  </data>
-  <data name="AboutDialog.SevenZipLicenseDescription" xml:space="preserve">
-    <value>Foundry OSD에는 미디어 생성 지원을 위한 7-Zip Extra 도구가 포함되어 있습니다.</value>
-  </data>
-  <data name="AboutDialog.SevenZipLicenseTitle" xml:space="preserve">
-    <value>7-Zip 추가</value>
   </data>
   <data name="AboutDialog.Subtitle" xml:space="preserve">
     <value>Windows 배포 미디어 제작</value>

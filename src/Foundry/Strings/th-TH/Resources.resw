@@ -46,13 +46,10 @@
     <value>ใบอนุญาต</value>
   </data>
   <data name="AboutDialog.HomepageLinkFormat" xml:space="preserve">
-    <value>{0} homepage</value>
+    <value>หน้าแรกของ {0}</value>
   </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
     <value>ใบอนุญาต</value>
-  </data>
-  <data name="AboutDialog.OpenLink" xml:space="preserve">
-    <value>เปิด</value>
   </data>
   <data name="AboutDialog.OpenProfile" xml:space="preserve">
     <value>โปรไฟล์</value>
@@ -71,12 +68,6 @@
   </data>
   <data name="AboutDialog.RepositoryLink" xml:space="preserve">
     <value>พื้นที่เก็บข้อมูล</value>
-  </data>
-  <data name="AboutDialog.SevenZipLicenseDescription" xml:space="preserve">
-    <value>Foundry OSD รวมถึงเครื่องมือ 7-Zip Extra สำหรับการสนับสนุนการสร้างสื่อ</value>
-  </data>
-  <data name="AboutDialog.SevenZipLicenseTitle" xml:space="preserve">
-    <value>7-Zip พิเศษ</value>
   </data>
   <data name="AboutDialog.Subtitle" xml:space="preserve">
     <value>Windows การเขียนสื่อการปรับใช้งาน</value>

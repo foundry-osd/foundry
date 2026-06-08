@@ -81,7 +81,19 @@ namespace Foundry.ViewModels
                 "https://github.com/microsoft/WindowsAppSDK",
                 true),
             CreateThirdPartyLicenseItem(
-                "DevWinUI",
+                "Microsoft.Windows.CsWinRT",
+                "MIT",
+                "https://github.com/microsoft/CsWinRT/blob/master/LICENSE",
+                "https://github.com/microsoft/CsWinRT",
+                false),
+            CreateThirdPartyLicenseItem(
+                "Microsoft Windows SDK Build Tools",
+                "Microsoft Software License Terms",
+                "https://aka.ms/WindowSDKLicenseTerms",
+                "https://developer.microsoft.com/windows/downloads/windows-sdk/",
+                true),
+            CreateThirdPartyLicenseItem(
+                "DevWinUI controls and tooling",
                 "MIT",
                 "https://github.com/Ghost1372/DevWinUI/blob/main/LICENSE",
                 "https://github.com/Ghost1372/DevWinUI",
@@ -93,7 +105,7 @@ namespace Foundry.ViewModels
                 "https://github.com/CommunityToolkit/dotnet",
                 true),
             CreateThirdPartyLicenseItem(
-                "CommunityToolkit.WinUI",
+                "CommunityToolkit.WinUI SettingsControls",
                 "MIT",
                 "https://github.com/CommunityToolkit/Windows/blob/main/License.md",
                 "https://github.com/CommunityToolkit/Windows",
@@ -105,10 +117,22 @@ namespace Foundry.ViewModels
                 "https://learn.microsoft.com/dotnet/core/extensions/generic-host",
                 true),
             CreateThirdPartyLicenseItem(
-                "Serilog",
+                "Microsoft.Extensions.Logging.Abstractions",
+                "MIT",
+                "https://github.com/dotnet/runtime/blob/main/LICENSE.TXT",
+                "https://learn.microsoft.com/dotnet/core/extensions/logging",
+                false),
+            CreateThirdPartyLicenseItem(
+                "Serilog core and sinks",
                 "Apache-2.0",
                 "https://github.com/serilog/serilog/blob/dev/LICENSE",
                 "https://serilog.net/",
+                true),
+            CreateThirdPartyLicenseItem(
+                "Serilog.Extensions.Logging",
+                "Apache-2.0",
+                "https://github.com/serilog/serilog-extensions-logging/blob/dev/LICENSE",
+                "https://github.com/serilog/serilog-extensions-logging",
                 false),
             CreateThirdPartyLicenseItem(
                 "Velopack",
@@ -135,11 +159,17 @@ namespace Foundry.ViewModels
                 "https://github.com/w-ahmad/WinUI.TableView",
                 false),
             CreateThirdPartyLicenseItem(
+                "Windows ADK / Windows PE",
+                "Microsoft Software License Terms",
+                "https://learn.microsoft.com/windows-hardware/get-started/adk-install",
+                "https://learn.microsoft.com/windows-hardware/get-started/adk-install",
+                true),
+            CreateThirdPartyLicenseItem(
                 "7-Zip Extra",
                 "LGPL / BSD",
                 "https://www.7-zip.org/license.txt",
                 "https://www.7-zip.org/",
-                true)
+                false)
         };
 
         public ObservableCollection<ContributorItemViewModel> ContributorItems { get; } = [];

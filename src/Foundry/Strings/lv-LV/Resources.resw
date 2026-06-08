@@ -46,13 +46,10 @@
     <value>Licence</value>
   </data>
   <data name="AboutDialog.HomepageLinkFormat" xml:space="preserve">
-    <value>{0} homepage</value>
+    <value>{0} sākumlapa</value>
   </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
     <value>Licences</value>
-  </data>
-  <data name="AboutDialog.OpenLink" xml:space="preserve">
-    <value>Atvērt</value>
   </data>
   <data name="AboutDialog.OpenProfile" xml:space="preserve">
     <value>Profils</value>
@@ -71,12 +68,6 @@
   </data>
   <data name="AboutDialog.RepositoryLink" xml:space="preserve">
     <value>Repozitorijs</value>
-  </data>
-  <data name="AboutDialog.SevenZipLicenseDescription" xml:space="preserve">
-    <value>Foundry OSD ietver 7-Zip Extra rīkus multivides izveides atbalstam.</value>
-  </data>
-  <data name="AboutDialog.SevenZipLicenseTitle" xml:space="preserve">
-    <value>7-Zip Extra</value>
   </data>
   <data name="AboutDialog.Subtitle" xml:space="preserve">
     <value>Windows izvietošanas datu nesēja autorēšana</value>
