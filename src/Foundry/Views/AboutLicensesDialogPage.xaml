@@ -16,9 +16,25 @@
     <ScrollView Margin="{ThemeResource FoundryDialogPageMargin}"
                 VerticalScrollBarVisibility="Auto">
         <StackPanel Spacing="{ThemeResource FoundrySpace16}">
-            <TextBlock Style="{ThemeResource FoundryPageTitleTextBlockStyle}"
-                       Text="{Binding LicensesSectionText}" />
-            <ItemsControl ItemsSource="{Binding LicenseItems}">
+            <StackPanel Spacing="{ThemeResource FoundrySpace4}">
+                <TextBlock Style="{ThemeResource FoundryPageTitleTextBlockStyle}"
+                           Text="{Binding FoundryLicenseTitle}" />
+                <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           Text="{Binding FoundryLicenseDescription}"
+                           TextWrapping="WrapWholeWords" />
+                <HyperlinkButton Content="{Binding LicenseText}"
+                                 NavigateUri="{Binding LicenseUri}" />
+            </StackPanel>
+
+            <StackPanel Spacing="{ThemeResource FoundrySpace4}">
+                <TextBlock Style="{ThemeResource FoundryPageTitleTextBlockStyle}"
+                           Text="{Binding ThirdPartyLicenseTitle}" />
+                <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           Text="{Binding ThirdPartyLicenseDescription}"
+                           TextWrapping="WrapWholeWords" />
+            </StackPanel>
+
+            <ItemsControl ItemsSource="{Binding ThirdPartyLicenseItems}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border Background="{Binding IsAlternate, Converter={StaticResource LicenseRowBackgroundConverter}}"
@@ -26,26 +42,27 @@
                                 BorderThickness="0,0,0,1">
                             <Grid MinHeight="72"
                                   Padding="{ThemeResource FoundryDefaultContentPadding}"
-                                  ColumnSpacing="{ThemeResource FoundryContentGroupSpacing}">
+                                  ColumnSpacing="{ThemeResource FoundrySpace16}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <StackPanel VerticalAlignment="Center"
-                                            Spacing="{ThemeResource FoundryTextGroupSpacing}">
-                                    <TextBlock FontWeight="SemiBold"
-                                               Text="{Binding Title}"
-                                               TextWrapping="WrapWholeWords" />
-                                    <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                               Text="{Binding Description}"
-                                               TextWrapping="WrapWholeWords" />
-                                </StackPanel>
+                                <TextBlock VerticalAlignment="Center"
+                                           FontWeight="SemiBold"
+                                           Text="{Binding Name}"
+                                           TextWrapping="WrapWholeWords" />
 
                                 <HyperlinkButton Grid.Column="1"
                                                  VerticalAlignment="Center"
-                                                 Content="{Binding LinkText}"
-                                                 NavigateUri="{Binding Uri}" />
+                                                 Content="{Binding License}"
+                                                 NavigateUri="{Binding LicenseUri}" />
+
+                                <HyperlinkButton Grid.Column="2"
+                                                 VerticalAlignment="Center"
+                                                 Content="{Binding HomepageText}"
+                                                 NavigateUri="{Binding HomepageUri}" />
                             </Grid>
                         </Border>
                     </DataTemplate>
