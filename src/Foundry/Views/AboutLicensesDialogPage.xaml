@@ -11,12 +11,15 @@
         <converters:BooleanToBrushConverter x:Key="LicenseRowBackgroundConverter"
                                             FalseBrush="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                                             TrueBrush="{ThemeResource CardBackgroundFillColorSecondaryBrush}" />
+        <Thickness x:Key="LicenseActionButtonPadding">10,4</Thickness>
+        <Thickness x:Key="LicenseRowPadding">14,8</Thickness>
+        <Thickness x:Key="LicenseScrollContentMargin">0,0,16,0</Thickness>
     </Page.Resources>
 
     <ScrollView Margin="{ThemeResource FoundryDialogPageMargin}"
                 VerticalScrollBarVisibility="Auto">
         <StackPanel x:Name="ContentRoot"
-                    Margin="0,0,16,0"
+                    Margin="{StaticResource LicenseScrollContentMargin}"
                     Spacing="{ThemeResource FoundrySpace16}">
             <Grid ColumnSpacing="{ThemeResource FoundrySpace16}">
                 <Grid.ColumnDefinitions>
@@ -33,7 +36,6 @@
                 </StackPanel>
 
                 <Button Grid.Column="1"
-                        MinWidth="84"
                         VerticalAlignment="Center"
                         Command="{Binding OpenUriCommand}"
                         CommandParameter="{Binding LicenseUri}"
@@ -53,10 +55,9 @@
                     <DataTemplate>
                         <Border Background="{Binding IsAlternate, Converter={StaticResource LicenseRowBackgroundConverter}}"
                                 BorderBrush="{ThemeResource FoundrySurfaceBorderBrush}"
-                                BorderThickness="0,0,0,1"
-                                Padding="0">
+                                BorderThickness="0,0,0,1">
                             <Grid MinHeight="54"
-                                  Padding="14,8"
+                                  Padding="{StaticResource LicenseRowPadding}"
                                   ColumnSpacing="{ThemeResource FoundrySpace12}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
@@ -70,24 +71,18 @@
                                            TextWrapping="WrapWholeWords" />
 
                                 <Button Grid.Column="1"
-                                        MinWidth="64"
-                                        Padding="10,4"
+                                        Padding="{StaticResource LicenseActionButtonPadding}"
                                         VerticalAlignment="Center"
                                         Command="{Binding DataContext.OpenUriCommand, ElementName=ContentRoot}"
                                         CommandParameter="{Binding LicenseUri}"
-                                        Content="{Binding License}"
-                                        FontSize="12"
-                                        FontWeight="SemiBold" />
+                                        Content="{Binding License}" />
 
                                 <Button Grid.Column="2"
-                                        MinWidth="72"
-                                        Padding="10,4"
+                                        Padding="{StaticResource LicenseActionButtonPadding}"
                                         VerticalAlignment="Center"
                                         Command="{Binding DataContext.OpenUriCommand, ElementName=ContentRoot}"
                                         CommandParameter="{Binding HomepageUri}"
-                                        Content="{Binding HomepageText}"
-                                        FontSize="12"
-                                        FontWeight="SemiBold" />
+                                        Content="{Binding HomepageText}" />
                             </Grid>
                         </Border>
                     </DataTemplate>
