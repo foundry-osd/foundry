@@ -1,3 +1,4 @@
+using Foundry.Core.Models.Configuration;
 using Foundry.Telemetry;
 using CoreConnectNetworkSettings = Foundry.Core.Models.Configuration.ConnectNetworkSettings;
 
@@ -11,7 +12,7 @@ public sealed class FoundryConnectConfiguration
     /// <summary>
     /// Gets the current configuration schema version.
     /// </summary>
-    public const int CurrentSchemaVersion = 2;
+    public const int CurrentSchemaVersion = ConfigurationSchemaVersions.ConnectCurrent;
 
     /// <summary>
     /// Gets the schema version of this configuration.
