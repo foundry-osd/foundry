@@ -45,8 +45,8 @@
   <data name="AboutDialog.LicenseLink" xml:space="preserve">
     <value>Licence</value>
   </data>
-  <data name="AboutDialog.HomepageLinkFormat" xml:space="preserve">
-    <value>{0} sākumlapa</value>
+  <data name="AboutDialog.HomepageLink" xml:space="preserve">
+    <value>Tīmekļa vietne</value>
   </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
     <value>Licences</value>

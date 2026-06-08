@@ -45,8 +45,8 @@
   <data name="AboutDialog.LicenseLink" xml:space="preserve">
     <value>الترخيص</value>
   </data>
-  <data name="AboutDialog.HomepageLinkFormat" xml:space="preserve">
-    <value>{0} الصفحة الرئيسية</value>
+  <data name="AboutDialog.HomepageLink" xml:space="preserve">
+    <value>الموقع الإلكتروني</value>
   </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
     <value>التراخيص</value>

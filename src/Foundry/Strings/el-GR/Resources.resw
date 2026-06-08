@@ -45,8 +45,8 @@
   <data name="AboutDialog.LicenseLink" xml:space="preserve">
     <value>Άδεια</value>
   </data>
-  <data name="AboutDialog.HomepageLinkFormat" xml:space="preserve">
-    <value>Αρχική σελίδα {0}</value>
+  <data name="AboutDialog.HomepageLink" xml:space="preserve">
+    <value>Ιστότοπος</value>
   </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
     <value>Άδειες</value>

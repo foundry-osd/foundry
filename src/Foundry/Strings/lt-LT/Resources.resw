@@ -45,8 +45,8 @@
   <data name="AboutDialog.LicenseLink" xml:space="preserve">
     <value>Licencija</value>
   </data>
-  <data name="AboutDialog.HomepageLinkFormat" xml:space="preserve">
-    <value>{0} pagrindinis puslapis</value>
+  <data name="AboutDialog.HomepageLink" xml:space="preserve">
+    <value>Svetainė</value>
   </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
     <value>Licencijos</value>

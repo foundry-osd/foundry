@@ -45,8 +45,8 @@
   <data name="AboutDialog.LicenseLink" xml:space="preserve">
     <value>Licens</value>
   </data>
-  <data name="AboutDialog.HomepageLinkFormat" xml:space="preserve">
-    <value>{0}-hemsida</value>
+  <data name="AboutDialog.HomepageLink" xml:space="preserve">
+    <value>Webbplats</value>
   </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
     <value>Licenser</value>

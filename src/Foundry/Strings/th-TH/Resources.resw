@@ -45,8 +45,8 @@
   <data name="AboutDialog.LicenseLink" xml:space="preserve">
     <value>ใบอนุญาต</value>
   </data>
-  <data name="AboutDialog.HomepageLinkFormat" xml:space="preserve">
-    <value>หน้าแรกของ {0}</value>
+  <data name="AboutDialog.HomepageLink" xml:space="preserve">
+    <value>เว็บไซต์</value>
   </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
     <value>ใบอนุญาต</value>

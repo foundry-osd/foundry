@@ -45,8 +45,8 @@
   <data name="AboutDialog.LicenseLink" xml:space="preserve">
     <value>רישיון</value>
   </data>
-  <data name="AboutDialog.HomepageLinkFormat" xml:space="preserve">
-    <value>דף הבית של {0}</value>
+  <data name="AboutDialog.HomepageLink" xml:space="preserve">
+    <value>אתר</value>
   </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
     <value>רישיונות</value>

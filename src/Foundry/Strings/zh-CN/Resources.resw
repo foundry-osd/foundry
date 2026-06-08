@@ -45,8 +45,8 @@
   <data name="AboutDialog.LicenseLink" xml:space="preserve">
     <value>许可证</value>
   </data>
-  <data name="AboutDialog.HomepageLinkFormat" xml:space="preserve">
-    <value>{0} 主页</value>
+  <data name="AboutDialog.HomepageLink" xml:space="preserve">
+    <value>网站</value>
   </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
     <value>许可证</value>

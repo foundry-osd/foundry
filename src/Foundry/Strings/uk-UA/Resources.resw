@@ -45,8 +45,8 @@
   <data name="AboutDialog.LicenseLink" xml:space="preserve">
     <value>Ліцензія</value>
   </data>
-  <data name="AboutDialog.HomepageLinkFormat" xml:space="preserve">
-    <value>Домашня сторінка {0}</value>
+  <data name="AboutDialog.HomepageLink" xml:space="preserve">
+    <value>Веб-сайт</value>
   </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
     <value>Ліцензії</value>

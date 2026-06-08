@@ -69,34 +69,22 @@ namespace Foundry.ViewModels
         public IReadOnlyList<ThirdPartyLicenseItemViewModel> ThirdPartyLicenseItems => new[]
         {
             CreateThirdPartyLicenseItem(
+                "7-Zip Extra",
+                "LGPL / BSD",
+                "https://www.7-zip.org/license.txt",
+                "https://www.7-zip.org/",
+                false),
+            CreateThirdPartyLicenseItem(
                 ".NET",
                 "MIT",
                 "https://github.com/dotnet/runtime/blob/main/LICENSE.TXT",
                 "https://dotnet.microsoft.com/",
-                false),
-            CreateThirdPartyLicenseItem(
-                "Windows App SDK / WinUI 3",
-                "MIT",
-                "https://github.com/microsoft/WindowsAppSDK/blob/main/LICENSE",
-                "https://github.com/microsoft/WindowsAppSDK",
                 true),
             CreateThirdPartyLicenseItem(
-                "Microsoft.Windows.CsWinRT",
+                "Azure.Identity",
                 "MIT",
-                "https://github.com/microsoft/CsWinRT/blob/master/LICENSE",
-                "https://github.com/microsoft/CsWinRT",
-                false),
-            CreateThirdPartyLicenseItem(
-                "Microsoft Windows SDK Build Tools",
-                "Microsoft Software License Terms",
-                "https://aka.ms/WindowSDKLicenseTerms",
-                "https://developer.microsoft.com/windows/downloads/windows-sdk/",
-                true),
-            CreateThirdPartyLicenseItem(
-                "DevWinUI controls and tooling",
-                "MIT",
-                "https://github.com/Ghost1372/DevWinUI/blob/main/LICENSE",
-                "https://github.com/Ghost1372/DevWinUI",
+                "https://github.com/Azure/azure-sdk-for-net/blob/main/LICENSE.txt",
+                "https://github.com/Azure/azure-sdk-for-net",
                 false),
             CreateThirdPartyLicenseItem(
                 "CommunityToolkit.Mvvm",
@@ -111,16 +99,40 @@ namespace Foundry.ViewModels
                 "https://github.com/CommunityToolkit/Windows",
                 false),
             CreateThirdPartyLicenseItem(
+                "DevWinUI controls and tooling",
+                "MIT",
+                "https://github.com/Ghost1372/DevWinUI/blob/main/LICENSE",
+                "https://github.com/Ghost1372/DevWinUI",
+                true),
+            CreateThirdPartyLicenseItem(
+                "HtmlAgilityPack",
+                "MIT",
+                "https://github.com/zzzprojects/html-agility-pack/blob/master/LICENSE",
+                "https://html-agility-pack.net/",
+                false),
+            CreateThirdPartyLicenseItem(
+                "Microsoft Windows SDK Build Tools",
+                "Microsoft",
+                "https://aka.ms/WindowSDKLicenseTerms",
+                "https://developer.microsoft.com/windows/downloads/windows-sdk/",
+                true),
+            CreateThirdPartyLicenseItem(
                 "Microsoft.Extensions.Hosting / DependencyInjection",
                 "MIT",
                 "https://github.com/dotnet/runtime/blob/main/LICENSE.TXT",
                 "https://learn.microsoft.com/dotnet/core/extensions/generic-host",
-                true),
+                false),
             CreateThirdPartyLicenseItem(
                 "Microsoft.Extensions.Logging.Abstractions",
                 "MIT",
                 "https://github.com/dotnet/runtime/blob/main/LICENSE.TXT",
                 "https://learn.microsoft.com/dotnet/core/extensions/logging",
+                true),
+            CreateThirdPartyLicenseItem(
+                "Microsoft.Windows.CsWinRT",
+                "MIT",
+                "https://github.com/microsoft/CsWinRT/blob/master/LICENSE",
+                "https://github.com/microsoft/CsWinRT",
                 false),
             CreateThirdPartyLicenseItem(
                 "Serilog core and sinks",
@@ -141,34 +153,22 @@ namespace Foundry.ViewModels
                 "https://velopack.io/",
                 true),
             CreateThirdPartyLicenseItem(
-                "Azure.Identity",
-                "MIT",
-                "https://github.com/Azure/azure-sdk-for-net/blob/main/LICENSE.txt",
-                "https://github.com/Azure/azure-sdk-for-net",
+                "Windows ADK / Windows PE",
+                "Microsoft",
+                "https://learn.microsoft.com/windows-hardware/get-started/adk-install",
+                "https://learn.microsoft.com/windows-hardware/get-started/adk-install",
                 false),
             CreateThirdPartyLicenseItem(
-                "HtmlAgilityPack",
+                "Windows App SDK / WinUI 3",
                 "MIT",
-                "https://github.com/zzzprojects/html-agility-pack/blob/master/LICENSE",
-                "https://html-agility-pack.net/",
+                "https://github.com/microsoft/WindowsAppSDK/blob/main/LICENSE",
+                "https://github.com/microsoft/WindowsAppSDK",
                 true),
             CreateThirdPartyLicenseItem(
                 "WinUI.TableView",
                 "MIT",
                 "https://github.com/w-ahmad/WinUI.TableView/blob/master/LICENSE.md",
                 "https://github.com/w-ahmad/WinUI.TableView",
-                false),
-            CreateThirdPartyLicenseItem(
-                "Windows ADK / Windows PE",
-                "Microsoft Software License Terms",
-                "https://learn.microsoft.com/windows-hardware/get-started/adk-install",
-                "https://learn.microsoft.com/windows-hardware/get-started/adk-install",
-                true),
-            CreateThirdPartyLicenseItem(
-                "7-Zip Extra",
-                "LGPL / BSD",
-                "https://www.7-zip.org/license.txt",
-                "https://www.7-zip.org/",
                 false)
         };
 
@@ -259,7 +259,7 @@ namespace Foundry.ViewModels
                 name,
                 license,
                 new Uri(licenseUrl),
-                localizationService.FormatString("AboutDialog.HomepageLinkFormat", name),
+                localizationService.GetString("AboutDialog.HomepageLink"),
                 new Uri(homepageUrl),
                 isAlternate);
         }

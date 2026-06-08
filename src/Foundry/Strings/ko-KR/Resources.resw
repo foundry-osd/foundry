@@ -45,8 +45,8 @@
   <data name="AboutDialog.LicenseLink" xml:space="preserve">
     <value>라이센스</value>
   </data>
-  <data name="AboutDialog.HomepageLinkFormat" xml:space="preserve">
-    <value>{0} 홈페이지</value>
+  <data name="AboutDialog.HomepageLink" xml:space="preserve">
+    <value>웹사이트</value>
   </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
     <value>라이센스</value>

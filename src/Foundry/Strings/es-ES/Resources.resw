@@ -45,8 +45,8 @@
   <data name="AboutDialog.LicenseLink" xml:space="preserve">
     <value>Licencia</value>
   </data>
-  <data name="AboutDialog.HomepageLinkFormat" xml:space="preserve">
-    <value>Página principal de {0}</value>
+  <data name="AboutDialog.HomepageLink" xml:space="preserve">
+    <value>Sitio web</value>
   </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
     <value>Licencias</value>
