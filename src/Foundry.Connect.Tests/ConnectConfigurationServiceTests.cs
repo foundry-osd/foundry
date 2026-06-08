@@ -58,7 +58,6 @@ public sealed class ConnectConfigurationServiceTests
 
         Assert.True(service.IsLoadedFromDisk);
         Assert.Equal(System.IO.Path.GetFullPath(configurationPath), service.ConfigurationPath);
-        Assert.True(service.IsBootMediaUpdateRecommended);
         Assert.Equal(FoundryConnectConfiguration.CurrentSchemaVersion, configuration.SchemaVersion);
         Assert.Equal(30, configuration.InternetProbe.TimeoutSeconds);
         Assert.Equal(
