@@ -11,7 +11,6 @@
         <converters:BooleanToBrushConverter x:Key="LicenseRowBackgroundConverter"
                                             FalseBrush="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                                             TrueBrush="{ThemeResource CardBackgroundFillColorSecondaryBrush}" />
-        <Thickness x:Key="LicenseActionButtonPadding">10,4</Thickness>
         <Thickness x:Key="LicenseRowPadding">14,8</Thickness>
         <Thickness x:Key="LicenseScrollContentMargin">0,0,16,0</Thickness>
     </Page.Resources>
@@ -71,14 +70,14 @@
                                            TextWrapping="WrapWholeWords" />
 
                                 <Button Grid.Column="1"
-                                        Padding="{StaticResource LicenseActionButtonPadding}"
+                                        Padding="10,4"
                                         VerticalAlignment="Center"
                                         Command="{Binding DataContext.OpenUriCommand, ElementName=ContentRoot}"
                                         CommandParameter="{Binding LicenseUri}"
                                         Content="{Binding License}" />
 
                                 <Button Grid.Column="2"
-                                        Padding="{StaticResource LicenseActionButtonPadding}"
+                                        Padding="10,4"
                                         VerticalAlignment="Center"
                                         Command="{Binding DataContext.OpenUriCommand, ElementName=ContentRoot}"
                                         CommandParameter="{Binding HomepageUri}"
