@@ -10,7 +10,7 @@ public sealed record FoundryConnectConfigurationDocument
     /// <summary>
     /// Gets the current schema version for Foundry.Connect configuration documents.
     /// </summary>
-    public const int CurrentSchemaVersion = 2;
+    public const int CurrentSchemaVersion = ConfigurationSchemaVersions.ConnectCurrent;
 
     /// <summary>
     /// Gets the schema version of this configuration document.

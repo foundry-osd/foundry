@@ -1,3 +1,4 @@
+using Foundry.Core.Models.Configuration;
 using Foundry.Telemetry;
 using CoreDeployNetworkSettings = Foundry.Core.Models.Configuration.Deploy.DeployNetworkSettings;
 
@@ -11,7 +12,7 @@ public sealed record FoundryDeployConfigurationDocument
     /// <summary>
     /// Gets the current configuration schema version.
     /// </summary>
-    public const int CurrentSchemaVersion = 8;
+    public const int CurrentSchemaVersion = ConfigurationSchemaVersions.DeployCurrent;
 
     /// <summary>
     /// Gets the schema version of this configuration.

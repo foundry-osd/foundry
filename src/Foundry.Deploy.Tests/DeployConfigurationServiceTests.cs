@@ -1,5 +1,6 @@
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Foundry.Deploy.Tests;
@@ -7,7 +8,7 @@ namespace Foundry.Deploy.Tests;
 public sealed class DeployConfigurationServiceTests
 {
     [Fact]
-    public void LoadOptional_WhenSchemaIsOlderThanCurrent_RecommendsBootMediaUpdate()
+    public void LoadOptional_WhenSchemaIsOlderThanMinimumRecommended_RecommendsBootMediaUpdate()
     {
         using var tempDirectory = new TemporaryDirectory();
         string configurationPath = CreateJsonFile(
@@ -15,20 +16,44 @@ public sealed class DeployConfigurationServiceTests
             "foundry.deploy.config.json",
             $$"""
             {
-              "schemaVersion": {{FoundryDeployConfigurationDocument.CurrentSchemaVersion - 1}}
+              "schemaVersion": {{Foundry.Core.Models.Configuration.ConfigurationSchemaVersions.DeployMinimumRecommended - 1}}
             }
             """);
 
-        var service = new DeployConfigurationService(
-            NullLogger<DeployConfigurationService>.Instance,
-            configurationPath);
+        var logger = new RecordingLogger<DeployConfigurationService>();
+        var service = new DeployConfigurationService(logger, configurationPath);
 
         DeployConfigurationLoadResult result = service.LoadOptional();
 
-        Assert.True(result.Exists);
-        Assert.NotNull(result.Document);
-        Assert.Equal(FoundryDeployConfigurationDocument.CurrentSchemaVersion - 1, result.Document.SchemaVersion);
         Assert.True(result.IsBootMediaUpdateRecommended);
+        Assert.Contains(
+            logger.Entries,
+            entry =>
+                entry.LogLevel == LogLevel.Warning &&
+                entry.Message.Contains("minimum recommended schema version", StringComparison.Ordinal) &&
+                entry.Message.Contains(Foundry.Core.Models.Configuration.ConfigurationSchemaVersions.DeployMinimumRecommended.ToString(), StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public void LoadOptional_WhenSchemaMatchesMinimumRecommended_DoesNotRecommendBootMediaUpdate()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string configurationPath = CreateJsonFile(
+            tempDirectory.Path,
+            "foundry.deploy.config.json",
+            $$"""
+            {
+              "schemaVersion": {{Foundry.Core.Models.Configuration.ConfigurationSchemaVersions.DeployMinimumRecommended}}
+            }
+            """);
+
+        var logger = new RecordingLogger<DeployConfigurationService>();
+        var service = new DeployConfigurationService(logger, configurationPath);
+
+        DeployConfigurationLoadResult result = service.LoadOptional();
+
+        Assert.False(result.IsBootMediaUpdateRecommended);
+        Assert.DoesNotContain(logger.Entries, entry => entry.LogLevel == LogLevel.Warning);
     }
 
     [Fact]
@@ -111,4 +136,32 @@ public sealed class DeployConfigurationServiceTests
             }
         }
     }
+
+    private sealed class RecordingLogger<T> : ILogger<T>
+    {
+        public List<LogEntry> Entries { get; } = [];
+
+        public IDisposable? BeginScope<TState>(TState state)
+            where TState : notnull
+        {
+            return null;
+        }
+
+        public bool IsEnabled(LogLevel logLevel)
+        {
+            return true;
+        }
+
+        public void Log<TState>(
+            LogLevel logLevel,
+            EventId eventId,
+            TState state,
+            Exception? exception,
+            Func<TState, Exception?, string> formatter)
+        {
+            Entries.Add(new LogEntry(logLevel, formatter(state, exception)));
+        }
+    }
+
+    private sealed record LogEntry(LogLevel LogLevel, string Message);
 }

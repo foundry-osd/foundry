@@ -2,6 +2,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text.Json;
 using Foundry.Connect.Models.Configuration;
+using ConfigurationSchemaVersions = Foundry.Core.Models.Configuration.ConfigurationSchemaVersions;
 using CoreConnectNetworkSettings = Foundry.Core.Models.Configuration.ConnectNetworkSettings;
 using Foundry.Connect.Services.Runtime;
 using Microsoft.Extensions.Logging;
@@ -106,13 +107,15 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
 
     private void ApplySchemaCompatibilityState(int schemaVersion)
     {
-        IsBootMediaUpdateRecommended = schemaVersion < FoundryConnectConfiguration.CurrentSchemaVersion;
+        IsBootMediaUpdateRecommended = ConfigurationSchemaVersions.IsBootMediaUpdateRecommended(
+            schemaVersion,
+            ConfigurationSchemaVersions.ConnectMinimumRecommended);
         if (IsBootMediaUpdateRecommended)
         {
             _logger.LogWarning(
-                "Foundry.Connect configuration uses schema version {SchemaVersion}, older than current schema version {CurrentSchemaVersion}. Boot media update is recommended.",
+                "Foundry.Connect configuration uses schema version {SchemaVersion}, older than minimum recommended schema version {MinimumRecommendedSchemaVersion}. Boot media update is recommended.",
                 schemaVersion,
-                FoundryConnectConfiguration.CurrentSchemaVersion);
+                ConfigurationSchemaVersions.ConnectMinimumRecommended);
         }
     }
 

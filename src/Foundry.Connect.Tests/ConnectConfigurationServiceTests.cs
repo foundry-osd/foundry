@@ -4,6 +4,7 @@ using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Services.Configuration;
 using Foundry.Core.Services.Configuration;
 using Foundry.Telemetry;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using CoreConfiguration = Foundry.Core.Models.Configuration;
 
@@ -63,6 +64,57 @@ public sealed class ConnectConfigurationServiceTests
         Assert.Equal(
             ["https://example.com/health", "http://contoso.test/connect"],
             configuration.InternetProbe.ProbeUris);
+    }
+
+    [Fact]
+    public void Load_WhenSchemaIsOlderThanMinimumRecommended_RecommendsBootMediaUpdate()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var tempDirectory = new TemporaryDirectory();
+        string configurationPath = CreateJsonFile(
+            tempDirectory.Path,
+            "older-than-minimum.json",
+            $$"""
+            {
+              "schemaVersion": {{CoreConfiguration.ConfigurationSchemaVersions.ConnectMinimumRecommended - 1}}
+            }
+            """);
+
+        var logger = new RecordingLogger<ConnectConfigurationService>();
+        var service = new ConnectConfigurationService(["--config", configurationPath], logger);
+
+        service.Load();
+
+        Assert.True(service.IsBootMediaUpdateRecommended);
+        Assert.Contains(
+            logger.Entries,
+            entry =>
+                entry.LogLevel == LogLevel.Warning &&
+                entry.Message.Contains("minimum recommended schema version", StringComparison.Ordinal) &&
+                entry.Message.Contains(CoreConfiguration.ConfigurationSchemaVersions.ConnectMinimumRecommended.ToString(), StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public void Load_WhenSchemaMatchesMinimumRecommended_DoesNotRecommendBootMediaUpdate()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var tempDirectory = new TemporaryDirectory();
+        string configurationPath = CreateJsonFile(
+            tempDirectory.Path,
+            "minimum-recommended.json",
+            $$"""
+            {
+              "schemaVersion": {{CoreConfiguration.ConfigurationSchemaVersions.ConnectMinimumRecommended}}
+            }
+            """);
+
+        var logger = new RecordingLogger<ConnectConfigurationService>();
+        var service = new ConnectConfigurationService(["--config", configurationPath], logger);
+
+        service.Load();
+
+        Assert.False(service.IsBootMediaUpdateRecommended);
+        Assert.DoesNotContain(logger.Entries, entry => entry.LogLevel == LogLevel.Warning);
     }
 
     [Fact]
@@ -470,4 +522,32 @@ public sealed class ConnectConfigurationServiceTests
             }
         }
     }
+
+    private sealed class RecordingLogger<T> : ILogger<T>
+    {
+        public List<LogEntry> Entries { get; } = [];
+
+        public IDisposable? BeginScope<TState>(TState state)
+            where TState : notnull
+        {
+            return null;
+        }
+
+        public bool IsEnabled(LogLevel logLevel)
+        {
+            return true;
+        }
+
+        public void Log<TState>(
+            LogLevel logLevel,
+            EventId eventId,
+            TState state,
+            Exception? exception,
+            Func<TState, Exception?, string> formatter)
+        {
+            Entries.Add(new LogEntry(logLevel, formatter(state, exception)));
+        }
+    }
+
+    private sealed record LogEntry(LogLevel LogLevel, string Message);
 }
