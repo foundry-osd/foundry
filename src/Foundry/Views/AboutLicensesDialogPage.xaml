@@ -15,16 +15,29 @@
 
     <ScrollView Margin="{ThemeResource FoundryDialogPageMargin}"
                 VerticalScrollBarVisibility="Auto">
-        <StackPanel Spacing="{ThemeResource FoundrySpace16}">
-            <StackPanel Spacing="{ThemeResource FoundrySpace4}">
-                <TextBlock Style="{ThemeResource FoundryPageTitleTextBlockStyle}"
-                           Text="{Binding FoundryLicenseTitle}" />
-                <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                           Text="{Binding FoundryLicenseDescription}"
-                           TextWrapping="WrapWholeWords" />
-                <HyperlinkButton Content="{Binding LicenseText}"
-                                 NavigateUri="{Binding LicenseUri}" />
-            </StackPanel>
+        <StackPanel x:Name="ContentRoot"
+                    Spacing="{ThemeResource FoundrySpace16}">
+            <Grid ColumnSpacing="{ThemeResource FoundrySpace16}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Spacing="{ThemeResource FoundrySpace4}">
+                    <TextBlock Style="{ThemeResource FoundryPageTitleTextBlockStyle}"
+                               Text="{Binding FoundryLicenseTitle}" />
+                    <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               Text="{Binding FoundryLicenseDescription}"
+                               TextWrapping="WrapWholeWords" />
+                </StackPanel>
+
+                <Button Grid.Column="1"
+                        MinWidth="84"
+                        VerticalAlignment="Center"
+                        Command="{Binding OpenUriCommand}"
+                        CommandParameter="{Binding LicenseUri}"
+                        Content="{Binding LicenseText}" />
+            </Grid>
 
             <StackPanel Spacing="{ThemeResource FoundrySpace4}">
                 <TextBlock Style="{ThemeResource FoundryPageTitleTextBlockStyle}"
@@ -55,26 +68,25 @@
                                            Text="{Binding Name}"
                                            TextWrapping="WrapWholeWords" />
 
-                                <HyperlinkButton Grid.Column="1"
-                                                 Padding="0"
-                                                 VerticalAlignment="Center"
-                                                 NavigateUri="{Binding LicenseUri}">
-                                    <Border MinWidth="48"
-                                            Padding="10,4"
-                                            Background="{ThemeResource ControlFillColorTertiaryBrush}"
-                                            CornerRadius="4">
-                                        <TextBlock HorizontalAlignment="Center"
-                                                   FontSize="12"
-                                                   FontWeight="SemiBold"
-                                                   Text="{Binding License}" />
-                                    </Border>
-                                </HyperlinkButton>
+                                <Button Grid.Column="1"
+                                        MinWidth="64"
+                                        Padding="10,4"
+                                        VerticalAlignment="Center"
+                                        Command="{Binding DataContext.OpenUriCommand, ElementName=ContentRoot}"
+                                        CommandParameter="{Binding LicenseUri}"
+                                        Content="{Binding License}"
+                                        FontSize="12"
+                                        FontWeight="SemiBold" />
 
-                                <HyperlinkButton Grid.Column="2"
-                                                 Padding="0"
-                                                 VerticalAlignment="Center"
-                                                 Content="{Binding HomepageText}"
-                                                 NavigateUri="{Binding HomepageUri}" />
+                                <Button Grid.Column="2"
+                                        MinWidth="72"
+                                        Padding="10,4"
+                                        VerticalAlignment="Center"
+                                        Command="{Binding DataContext.OpenUriCommand, ElementName=ContentRoot}"
+                                        CommandParameter="{Binding HomepageUri}"
+                                        Content="{Binding HomepageText}"
+                                        FontSize="12"
+                                        FontWeight="SemiBold" />
                             </Grid>
                         </Border>
                     </DataTemplate>
