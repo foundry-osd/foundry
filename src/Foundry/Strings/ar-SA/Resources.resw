@@ -45,11 +45,11 @@
   <data name="AboutDialog.LicenseLink" xml:space="preserve">
     <value>الترخيص</value>
   </data>
+  <data name="AboutDialog.HomepageLink" xml:space="preserve">
+    <value>الموقع الإلكتروني</value>
+  </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
     <value>التراخيص</value>
-  </data>
-  <data name="AboutDialog.OpenLink" xml:space="preserve">
-    <value>مفتوح</value>
   </data>
   <data name="AboutDialog.OpenProfile" xml:space="preserve">
     <value>الملف الشخصي</value>
@@ -68,12 +68,6 @@
   </data>
   <data name="AboutDialog.RepositoryLink" xml:space="preserve">
     <value>مستودع</value>
-  </data>
-  <data name="AboutDialog.SevenZipLicenseDescription" xml:space="preserve">
-    <value>Foundry OSD يتضمن أدوات 7-Zip Extra لدعم إنشاء الوسائط.</value>
-  </data>
-  <data name="AboutDialog.SevenZipLicenseTitle" xml:space="preserve">
-    <value>7-الرمز البريدي اضافية</value>
   </data>
   <data name="AboutDialog.Subtitle" xml:space="preserve">
     <value>Windows تأليف وسائط النشر</value>

@@ -45,11 +45,11 @@
   <data name="AboutDialog.LicenseLink" xml:space="preserve">
     <value>Lisenssi</value>
   </data>
+  <data name="AboutDialog.HomepageLink" xml:space="preserve">
+    <value>Verkkosivusto</value>
+  </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
     <value>Lisenssit</value>
-  </data>
-  <data name="AboutDialog.OpenLink" xml:space="preserve">
-    <value>Avaa</value>
   </data>
   <data name="AboutDialog.OpenProfile" xml:space="preserve">
     <value>Profiili</value>
@@ -68,12 +68,6 @@
   </data>
   <data name="AboutDialog.RepositoryLink" xml:space="preserve">
     <value>Arkisto</value>
-  </data>
-  <data name="AboutDialog.SevenZipLicenseDescription" xml:space="preserve">
-    <value>Foundry OSD sisältää 7-Zip Extra -työkalut median luomiseen.</value>
-  </data>
-  <data name="AboutDialog.SevenZipLicenseTitle" xml:space="preserve">
-    <value>7-zip Extra</value>
   </data>
   <data name="AboutDialog.Subtitle" xml:space="preserve">
     <value>Windows käyttöönottomedian luonti</value>

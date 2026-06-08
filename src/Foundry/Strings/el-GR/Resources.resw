@@ -45,11 +45,11 @@
   <data name="AboutDialog.LicenseLink" xml:space="preserve">
     <value>Άδεια</value>
   </data>
+  <data name="AboutDialog.HomepageLink" xml:space="preserve">
+    <value>Ιστότοπος</value>
+  </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
     <value>Άδειες</value>
-  </data>
-  <data name="AboutDialog.OpenLink" xml:space="preserve">
-    <value>Ανοίξτε</value>
   </data>
   <data name="AboutDialog.OpenProfile" xml:space="preserve">
     <value>Προφίλ</value>
@@ -68,12 +68,6 @@
   </data>
   <data name="AboutDialog.RepositoryLink" xml:space="preserve">
     <value>Αποθετήριο</value>
-  </data>
-  <data name="AboutDialog.SevenZipLicenseDescription" xml:space="preserve">
-    <value>Το Foundry OSD περιλαμβάνει εργαλείο 7-Zip Extra για υποστήριξη δημιουργίας πολυμέσων.</value>
-  </data>
-  <data name="AboutDialog.SevenZipLicenseTitle" xml:space="preserve">
-    <value>7-Zip Extra</value>
   </data>
   <data name="AboutDialog.Subtitle" xml:space="preserve">
     <value>Windows ανάπτυξη μέσων συγγραφής</value>

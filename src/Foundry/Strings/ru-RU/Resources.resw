@@ -45,11 +45,11 @@
   <data name="AboutDialog.LicenseLink" xml:space="preserve">
     <value>Лицензия</value>
   </data>
+  <data name="AboutDialog.HomepageLink" xml:space="preserve">
+    <value>Веб-сайт</value>
+  </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
     <value>Лицензии</value>
-  </data>
-  <data name="AboutDialog.OpenLink" xml:space="preserve">
-    <value>Открыть</value>
   </data>
   <data name="AboutDialog.OpenProfile" xml:space="preserve">
     <value>Профиль</value>
@@ -68,12 +68,6 @@
   </data>
   <data name="AboutDialog.RepositoryLink" xml:space="preserve">
     <value>Репозиторий</value>
-  </data>
-  <data name="AboutDialog.SevenZipLicenseDescription" xml:space="preserve">
-    <value>Foundry OSD включает дополнительные инструменты 7-Zip для поддержки создания мультимедиа.</value>
-  </data>
-  <data name="AboutDialog.SevenZipLicenseTitle" xml:space="preserve">
-    <value>7-Zip Экстра</value>
   </data>
   <data name="AboutDialog.Subtitle" xml:space="preserve">
     <value>Windows создание носителя для развертывания</value>

@@ -50,6 +50,10 @@ namespace Foundry.ViewModels
         public string AuthorsText => localizationService.GetString("AboutDialog.AuthorsText");
         public string FooterText => localizationService.GetString("AboutDialog.Footer");
         public string UsefulLinksText => localizationService.GetString("AboutDialog.UsefulLinks");
+        public string FoundryLicenseTitle => localizationService.GetString("AboutDialog.FoundryLicenseTitle");
+        public string FoundryLicenseDescription => localizationService.GetString("AboutDialog.FoundryLicenseDescription");
+        public string ThirdPartyLicenseTitle => localizationService.GetString("AboutDialog.ThirdPartyLicenseTitle");
+        public string ThirdPartyLicenseDescription => localizationService.GetString("AboutDialog.ThirdPartyLicenseDescription");
         public string CloseText => localizationService.GetString("Common.Close");
         public string ReleaseNotesLoadingText => localizationService.GetString("AboutDialog.ReleaseNotesLoading");
         public string ReleaseNotesErrorText => localizationService.GetString("AboutDialog.ReleaseNotesError");
@@ -62,25 +66,109 @@ namespace Foundry.ViewModels
         public Uri SupportUri { get; } = new(FoundryApplicationInfo.SupportUrl);
         public Uri LicenseUri { get; } = new(FoundryApplicationInfo.LicenseUrl);
 
-        public IReadOnlyList<AboutLinkItemViewModel> LicenseItems => new[]
+        public IReadOnlyList<ThirdPartyLicenseItemViewModel> ThirdPartyLicenseItems => new[]
         {
-            new AboutLinkItemViewModel(
-                localizationService.GetString("AboutDialog.FoundryLicenseTitle"),
-                localizationService.GetString("AboutDialog.FoundryLicenseDescription"),
-                localizationService.GetString("AboutDialog.OpenLink"),
-                LicenseUri,
+            CreateThirdPartyLicenseItem(
+                "7-Zip Extra",
+                "LGPL / BSD",
+                "https://www.7-zip.org/license.txt",
+                "https://www.7-zip.org/",
                 false),
-            new AboutLinkItemViewModel(
-                localizationService.GetString("AboutDialog.SevenZipLicenseTitle"),
-                localizationService.GetString("AboutDialog.SevenZipLicenseDescription"),
-                localizationService.GetString("AboutDialog.OpenLink"),
-                new Uri("https://www.7-zip.org/license.txt"),
+            CreateThirdPartyLicenseItem(
+                ".NET",
+                "MIT",
+                "https://github.com/dotnet/runtime/blob/main/LICENSE.TXT",
+                "https://dotnet.microsoft.com/",
                 true),
-            new AboutLinkItemViewModel(
-                localizationService.GetString("AboutDialog.ThirdPartyLicenseTitle"),
-                localizationService.GetString("AboutDialog.ThirdPartyLicenseDescription"),
-                localizationService.GetString("AboutDialog.OpenLink"),
-                RepositoryUri,
+            CreateThirdPartyLicenseItem(
+                "Azure.Identity",
+                "MIT",
+                "https://github.com/Azure/azure-sdk-for-net/blob/main/LICENSE.txt",
+                "https://github.com/Azure/azure-sdk-for-net",
+                false),
+            CreateThirdPartyLicenseItem(
+                "CommunityToolkit.Mvvm",
+                "MIT",
+                "https://github.com/CommunityToolkit/dotnet/blob/main/License.md",
+                "https://github.com/CommunityToolkit/dotnet",
+                true),
+            CreateThirdPartyLicenseItem(
+                "CommunityToolkit.WinUI SettingsControls",
+                "MIT",
+                "https://github.com/CommunityToolkit/Windows/blob/main/License.md",
+                "https://github.com/CommunityToolkit/Windows",
+                false),
+            CreateThirdPartyLicenseItem(
+                "DevWinUI controls and tooling",
+                "MIT",
+                "https://github.com/Ghost1372/DevWinUI/blob/main/LICENSE",
+                "https://github.com/Ghost1372/DevWinUI",
+                true),
+            CreateThirdPartyLicenseItem(
+                "HtmlAgilityPack",
+                "MIT",
+                "https://github.com/zzzprojects/html-agility-pack/blob/master/LICENSE",
+                "https://html-agility-pack.net/",
+                false),
+            CreateThirdPartyLicenseItem(
+                "Microsoft Windows SDK Build Tools",
+                "Microsoft",
+                "https://aka.ms/WindowSDKLicenseTerms",
+                "https://developer.microsoft.com/windows/downloads/windows-sdk/",
+                true),
+            CreateThirdPartyLicenseItem(
+                "Microsoft.Extensions.Hosting / DependencyInjection",
+                "MIT",
+                "https://github.com/dotnet/runtime/blob/main/LICENSE.TXT",
+                "https://learn.microsoft.com/dotnet/core/extensions/generic-host",
+                false),
+            CreateThirdPartyLicenseItem(
+                "Microsoft.Extensions.Logging.Abstractions",
+                "MIT",
+                "https://github.com/dotnet/runtime/blob/main/LICENSE.TXT",
+                "https://learn.microsoft.com/dotnet/core/extensions/logging",
+                true),
+            CreateThirdPartyLicenseItem(
+                "Microsoft.Windows.CsWinRT",
+                "MIT",
+                "https://github.com/microsoft/CsWinRT/blob/master/LICENSE",
+                "https://github.com/microsoft/CsWinRT",
+                false),
+            CreateThirdPartyLicenseItem(
+                "Serilog core and sinks",
+                "Apache-2.0",
+                "https://github.com/serilog/serilog/blob/dev/LICENSE",
+                "https://serilog.net/",
+                true),
+            CreateThirdPartyLicenseItem(
+                "Serilog.Extensions.Logging",
+                "Apache-2.0",
+                "https://github.com/serilog/serilog-extensions-logging/blob/dev/LICENSE",
+                "https://github.com/serilog/serilog-extensions-logging",
+                false),
+            CreateThirdPartyLicenseItem(
+                "Velopack",
+                "MIT",
+                "https://github.com/velopack/velopack/blob/develop/LICENSE",
+                "https://velopack.io/",
+                true),
+            CreateThirdPartyLicenseItem(
+                "Windows ADK / Windows PE",
+                "Microsoft",
+                "https://learn.microsoft.com/windows-hardware/get-started/adk-install",
+                "https://learn.microsoft.com/windows-hardware/get-started/adk-install",
+                false),
+            CreateThirdPartyLicenseItem(
+                "Windows App SDK / WinUI 3",
+                "MIT",
+                "https://github.com/microsoft/WindowsAppSDK/blob/main/LICENSE",
+                "https://github.com/microsoft/WindowsAppSDK",
+                true),
+            CreateThirdPartyLicenseItem(
+                "WinUI.TableView",
+                "MIT",
+                "https://github.com/w-ahmad/WinUI.TableView/blob/master/LICENSE.md",
+                "https://github.com/w-ahmad/WinUI.TableView",
                 false)
         };
 
@@ -160,6 +248,22 @@ namespace Foundry.ViewModels
                 : $"{contributor.DisplayName} (@{contributor.Login})";
         }
 
+        private ThirdPartyLicenseItemViewModel CreateThirdPartyLicenseItem(
+            string name,
+            string license,
+            string licenseUrl,
+            string homepageUrl,
+            bool isAlternate)
+        {
+            return new ThirdPartyLicenseItemViewModel(
+                name,
+                license,
+                new Uri(licenseUrl),
+                localizationService.GetString("AboutDialog.HomepageLink"),
+                new Uri(homepageUrl),
+                isAlternate);
+        }
+
         [RelayCommand]
         private async Task OpenUriAsync(Uri uri)
         {
@@ -167,7 +271,13 @@ namespace Foundry.ViewModels
         }
     }
 
-    public sealed record AboutLinkItemViewModel(string Title, string Description, string LinkText, Uri Uri, bool IsAlternate);
+    public sealed record ThirdPartyLicenseItemViewModel(
+        string Name,
+        string License,
+        Uri LicenseUri,
+        string HomepageText,
+        Uri HomepageUri,
+        bool IsAlternate);
 
     public sealed record ContributorItemViewModel(
         string Name,

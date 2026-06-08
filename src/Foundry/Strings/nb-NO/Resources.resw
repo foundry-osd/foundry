@@ -45,11 +45,11 @@
   <data name="AboutDialog.LicenseLink" xml:space="preserve">
     <value>Lisens</value>
   </data>
+  <data name="AboutDialog.HomepageLink" xml:space="preserve">
+    <value>Nettsted</value>
+  </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
     <value>Lisenser</value>
-  </data>
-  <data name="AboutDialog.OpenLink" xml:space="preserve">
-    <value>Åpne</value>
   </data>
   <data name="AboutDialog.OpenProfile" xml:space="preserve">
     <value>Profil</value>
@@ -68,12 +68,6 @@
   </data>
   <data name="AboutDialog.RepositoryLink" xml:space="preserve">
     <value>Depot</value>
-  </data>
-  <data name="AboutDialog.SevenZipLicenseDescription" xml:space="preserve">
-    <value>Foundry OSD inkluderer 7-zip-ekstraverktøy for støtte for medieskaping.</value>
-  </data>
-  <data name="AboutDialog.SevenZipLicenseTitle" xml:space="preserve">
-    <value>7-zip ekstra</value>
   </data>
   <data name="AboutDialog.Subtitle" xml:space="preserve">
     <value>Windows redigering av distribusjonsmedier</value>

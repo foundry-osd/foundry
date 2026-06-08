@@ -45,11 +45,11 @@
   <data name="AboutDialog.LicenseLink" xml:space="preserve">
     <value>许可证</value>
   </data>
+  <data name="AboutDialog.HomepageLink" xml:space="preserve">
+    <value>网站</value>
+  </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
     <value>许可证</value>
-  </data>
-  <data name="AboutDialog.OpenLink" xml:space="preserve">
-    <value>打开</value>
   </data>
   <data name="AboutDialog.OpenProfile" xml:space="preserve">
     <value>公司简介</value>
@@ -68,12 +68,6 @@
   </data>
   <data name="AboutDialog.RepositoryLink" xml:space="preserve">
     <value>存储库</value>
-  </data>
-  <data name="AboutDialog.SevenZipLicenseDescription" xml:space="preserve">
-    <value>Foundry OSD 包括用于媒体创建支持的 7-Zip Extra 工具。</value>
-  </data>
-  <data name="AboutDialog.SevenZipLicenseTitle" xml:space="preserve">
-    <value>7 拉链额外</value>
   </data>
   <data name="AboutDialog.Subtitle" xml:space="preserve">
     <value>Windows 部署媒体创作</value>

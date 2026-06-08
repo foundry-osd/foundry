@@ -45,11 +45,11 @@
   <data name="AboutDialog.LicenseLink" xml:space="preserve">
     <value>License</value>
   </data>
+  <data name="AboutDialog.HomepageLink" xml:space="preserve">
+    <value>Website</value>
+  </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
     <value>Licenses</value>
-  </data>
-  <data name="AboutDialog.OpenLink" xml:space="preserve">
-    <value>Open</value>
   </data>
   <data name="AboutDialog.OpenProfile" xml:space="preserve">
     <value>Profile</value>
@@ -69,12 +69,6 @@
   <data name="AboutDialog.RepositoryLink" xml:space="preserve">
     <value>Repository</value>
   </data>
-  <data name="AboutDialog.SevenZipLicenseDescription" xml:space="preserve">
-    <value>Foundry OSD includes 7-Zip Extra tooling for media creation support.</value>
-  </data>
-  <data name="AboutDialog.SevenZipLicenseTitle" xml:space="preserve">
-    <value>7-Zip Extra</value>
-  </data>
   <data name="AboutDialog.Subtitle" xml:space="preserve">
     <value>Windows deployment media authoring</value>
   </data>
@@ -82,10 +76,10 @@
     <value>Support</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseDescription" xml:space="preserve">
-    <value>Third-party package licenses are tracked through the project repository and dependency manifests.</value>
+    <value>Foundry OSD uses the following libraries and tools. Their licenses and project pages are listed below.</value>
   </data>
   <data name="AboutDialog.ThirdPartyLicenseTitle" xml:space="preserve">
-    <value>Third-party dependencies</value>
+    <value>Third-party licenses</value>
   </data>
   <data name="AboutDialog.Title" xml:space="preserve">
     <value>About Foundry OSD</value>

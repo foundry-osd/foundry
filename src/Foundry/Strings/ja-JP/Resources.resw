@@ -45,11 +45,11 @@
   <data name="AboutDialog.LicenseLink" xml:space="preserve">
     <value>ライセンス</value>
   </data>
+  <data name="AboutDialog.HomepageLink" xml:space="preserve">
+    <value>Web サイト</value>
+  </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
     <value>ライセンス</value>
-  </data>
-  <data name="AboutDialog.OpenLink" xml:space="preserve">
-    <value>開く</value>
   </data>
   <data name="AboutDialog.OpenProfile" xml:space="preserve">
     <value>プロフィール</value>
@@ -68,12 +68,6 @@
   </data>
   <data name="AboutDialog.RepositoryLink" xml:space="preserve">
     <value>リポジトリ</value>
-  </data>
-  <data name="AboutDialog.SevenZipLicenseDescription" xml:space="preserve">
-    <value>Foundry OSD には、メディア作成をサポートする 7-Zip Extra ツールが含まれています。</value>
-  </data>
-  <data name="AboutDialog.SevenZipLicenseTitle" xml:space="preserve">
-    <value>7-Zip エクストラ</value>
   </data>
   <data name="AboutDialog.Subtitle" xml:space="preserve">
     <value>Windows 導入メディア オーサリング</value>

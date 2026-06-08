@@ -45,11 +45,11 @@
   <data name="AboutDialog.LicenseLink" xml:space="preserve">
     <value>Licencia</value>
   </data>
+  <data name="AboutDialog.HomepageLink" xml:space="preserve">
+    <value>Sitio web</value>
+  </data>
   <data name="AboutDialog.LicensesSection" xml:space="preserve">
     <value>Licencias</value>
-  </data>
-  <data name="AboutDialog.OpenLink" xml:space="preserve">
-    <value>Abierto</value>
   </data>
   <data name="AboutDialog.OpenProfile" xml:space="preserve">
     <value>Perfil</value>
@@ -68,12 +68,6 @@
   </data>
   <data name="AboutDialog.RepositoryLink" xml:space="preserve">
     <value>Repositorio</value>
-  </data>
-  <data name="AboutDialog.SevenZipLicenseDescription" xml:space="preserve">
-    <value>Foundry OSD incluye herramientas 7-Zip Extra para soporte de creación de medios.</value>
-  </data>
-  <data name="AboutDialog.SevenZipLicenseTitle" xml:space="preserve">
-    <value>7 cremalleras adicionales</value>
   </data>
   <data name="AboutDialog.Subtitle" xml:space="preserve">
     <value>Windows creación de medios de implementación</value>
