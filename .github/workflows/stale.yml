@@ -19,24 +19,28 @@ jobs:
       - name: Mark stale issues and PRs
         uses: actions/stale@v10
         with:
+          # Only process issues/PRs waiting for user feedback
+          only-labels: 'needs-info'
+
           # Issue settings
-          days-before-issue-stale: 60
+          days-before-issue-stale: 14
           days-before-issue-close: 14
           stale-issue-label: 'stale'
           stale-issue-message: |
-            👋 This issue has been automatically marked as **stale** because it has not had recent activity.
+            👋 We are waiting for additional information on this issue.
+
+            This issue has been automatically marked as **stale** because there has been no response for **14 days**.
 
             It will be closed in **14 days** if no further activity occurs.
 
-            If this issue is still relevant:
-            - Add a comment to keep it open
-            - Remove the `stale` label
+            If this issue is still relevant, please add a comment with the requested information.
 
-            Thank you for your contributions! 🙏
+            Thank you for your contribution! 🙏
+
           close-issue-message: |
-            🔒 This issue has been automatically closed due to inactivity.
+            🔒 This issue has been automatically closed because we did not receive the requested information.
 
-            If you believe this issue is still relevant, feel free to reopen it or create a new issue with updated information.
+            If the issue is still relevant, feel free to reopen it or create a new issue with updated details.
 
           # PR settings
           days-before-pr-stale: 30
@@ -51,18 +55,19 @@ jobs:
             - Add a comment or push new commits
             - Remove the `stale` label
 
-            Thank you for your contributions! 🙏
+            Thank you for your contribution! 🙏
+
           close-pr-message: |
             🔒 This pull request has been automatically closed due to inactivity.
 
             If you'd like to continue working on this, feel free to reopen it or create a new PR.
 
           # Labels to exempt from stale
-          exempt-issue-labels: 'pinned,security,blocked'
+          exempt-issue-labels: 'pinned,security,blocked,confirmed'
           exempt-pr-labels: 'pinned,security,blocked'
 
-          # Don't stale issues/PRs with these assignees
-          exempt-all-assignees: true
+          # Remove stale label when there is new activity
+          remove-stale-when-updated: true
 
-          # Operations per run (to avoid rate limiting)
+          # Operations per run
           operations-per-run: 100
