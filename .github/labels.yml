@@ -88,6 +88,10 @@
   color: 'b60205'
   description: Blocked by another task or external dependency
 
+- name: 'status: waiting-for-user'
+  color: 'fbca04'
+  description: Waiting for user feedback or requested information
+
 # Resolution labels
 
 - name: duplicate

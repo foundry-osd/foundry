@@ -1,0 +1,164 @@
+name: Waiting Issue Automation
+
+on:
+  issues:
+    types:
+      - labeled
+  issue_comment:
+    types:
+      - created
+  workflow_dispatch:
+  schedule:
+    - cron: '0 * * * *'
+
+permissions:
+  contents: read
+  issues: write
+
+env:
+  PROJECT_OWNER: foundry-osd
+  PROJECT_NUMBER: '1'
+  PROJECT_ID: PVT_kwDOEGlwe84BZCjF
+  STATUS_FIELD_ID: PVTSSF_lADOEGlwe84BZCjFzhUEEac
+  WAITING_STATUS_OPTION_ID: 361fd5a6
+  IN_PROGRESS_STATUS_OPTION_ID: 47fc9ee4
+  WAITING_LABEL: 'status: waiting-for-user'
+
+jobs:
+  sync-project-waiting-label:
+    name: Sync Waiting status label
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-slim
+
+    steps:
+      - name: Sync label from project status
+        env:
+          GH_TOKEN: ${{ secrets.PROJECTS_TOKEN || secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          gh project item-list "$PROJECT_NUMBER" \
+            --owner "$PROJECT_OWNER" \
+            --format json \
+            --limit 500 \
+            --jq ".items[]
+              | select(.content.type == \"Issue\")
+              | select(.content.repository == \"$GH_REPO\")
+              | select(.status == \"Waiting\")
+              | select(((.labels // []) | index(\"$WAITING_LABEL\")) | not)
+              | .content.number" \
+            | while read -r number; do
+                if [ -n "$number" ]; then
+                  gh issue edit "$number" --add-label "$WAITING_LABEL"
+                fi
+              done
+
+          gh project item-list "$PROJECT_NUMBER" \
+            --owner "$PROJECT_OWNER" \
+            --format json \
+            --limit 500 \
+            --jq ".items[]
+              | select(.content.type == \"Issue\")
+              | select(.content.repository == \"$GH_REPO\")
+              | select(.status != \"Waiting\")
+              | select((.labels // []) | index(\"$WAITING_LABEL\"))
+              | .content.number" \
+            | while read -r number; do
+                if [ -n "$number" ]; then
+                  gh issue edit "$number" --remove-label "$WAITING_LABEL" || true
+                  gh issue edit "$number" --remove-label "stale" || true
+                fi
+              done
+
+  move-labeled-issue-to-waiting:
+    name: Move labeled issue to Waiting
+    if: >
+      github.event_name == 'issues' &&
+      github.event.action == 'labeled' &&
+      github.event.label.name == 'status: waiting-for-user' &&
+      github.event.issue.pull_request == null
+    runs-on: ubuntu-slim
+
+    steps:
+      - name: Set project status to Waiting
+        env:
+          GH_TOKEN: ${{ secrets.PROJECTS_TOKEN || secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          set -euo pipefail
+
+          item_id="$(gh project item-list "$PROJECT_NUMBER" \
+            --owner "$PROJECT_OWNER" \
+            --format json \
+            --limit 500 \
+            --jq ".items[]
+              | select(.content.type == \"Issue\")
+              | select(.content.repository == \"$GH_REPO\")
+              | select(.content.number == $ISSUE_NUMBER)
+              | .id" \
+            | head -n 1)"
+
+          if [ -z "$item_id" ]; then
+            echo "::notice::Issue #$ISSUE_NUMBER is not in project $PROJECT_OWNER/$PROJECT_NUMBER."
+            exit 0
+          fi
+
+          gh project item-edit \
+            --id "$item_id" \
+            --project-id "$PROJECT_ID" \
+            --field-id "$STATUS_FIELD_ID" \
+            --single-select-option-id "$WAITING_STATUS_OPTION_ID"
+
+  move-replied-issue-to-in-progress:
+    name: Move replied issue to In Progress
+    if: >
+      github.event_name == 'issue_comment' &&
+      github.event.action == 'created' &&
+      github.event.issue.pull_request == null &&
+      github.event.comment.user.login == github.event.issue.user.login
+    runs-on: ubuntu-slim
+
+    steps:
+      - name: Clear waiting state
+        env:
+          GH_TOKEN: ${{ secrets.PROJECTS_TOKEN || secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          set -euo pipefail
+
+          has_waiting_label="$(gh issue view "$ISSUE_NUMBER" \
+            --json labels \
+            --jq ".labels[].name" \
+            | grep -Fx "$WAITING_LABEL" || true)"
+
+          if [ -z "$has_waiting_label" ]; then
+            exit 0
+          fi
+
+          gh issue edit "$ISSUE_NUMBER" --remove-label "$WAITING_LABEL"
+          gh issue edit "$ISSUE_NUMBER" --remove-label "stale" || true
+
+          item_id="$(gh project item-list "$PROJECT_NUMBER" \
+            --owner "$PROJECT_OWNER" \
+            --format json \
+            --limit 500 \
+            --jq ".items[]
+              | select(.content.type == \"Issue\")
+              | select(.content.repository == \"$GH_REPO\")
+              | select(.content.number == $ISSUE_NUMBER)
+              | .id" \
+            | head -n 1)"
+
+          if [ -z "$item_id" ]; then
+            echo "::notice::Issue #$ISSUE_NUMBER is not in project $PROJECT_OWNER/$PROJECT_NUMBER."
+            exit 0
+          fi
+
+          gh project item-edit \
+            --id "$item_id" \
+            --project-id "$PROJECT_ID" \
+            --field-id "$STATUS_FIELD_ID" \
+            --single-select-option-id "$IN_PROGRESS_STATUS_OPTION_ID"

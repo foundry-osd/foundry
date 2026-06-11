@@ -13,58 +13,39 @@ jobs:
 
     permissions:
       issues: write
-      pull-requests: write
 
     steps:
-      - name: Mark stale issues and PRs
+      - name: Mark stale waiting issues
         uses: actions/stale@v10
         with:
-          # Only process issues/PRs waiting for user feedback
-          only-labels: 'needs-info'
+          # Only process issues waiting for user feedback
+          only-labels: 'status: waiting-for-user'
 
           # Issue settings
-          days-before-issue-stale: 14
-          days-before-issue-close: 14
+          days-before-issue-stale: 7
+          days-before-issue-close: 7
           stale-issue-label: 'stale'
           stale-issue-message: |
-            👋 We are waiting for additional information on this issue.
+            We are waiting for additional information on this issue.
 
-            This issue has been automatically marked as **stale** because there has been no response for **14 days**.
+            This issue has been automatically marked as **stale** because there has been no response for **7 days**.
 
-            It will be closed in **14 days** if no further activity occurs.
+            It will be closed in **7 days** if no further activity occurs.
 
             If this issue is still relevant, please add a comment with the requested information.
 
-            Thank you for your contribution! 🙏
+            Thank you for your contribution.
 
           close-issue-message: |
-            🔒 This issue has been automatically closed because we did not receive the requested information.
+            This issue has been automatically closed because we did not receive the requested information.
 
             If the issue is still relevant, feel free to reopen it or create a new issue with updated details.
 
-          # PR settings
-          days-before-pr-stale: 30
-          days-before-pr-close: 14
-          stale-pr-label: 'stale'
-          stale-pr-message: |
-            👋 This pull request has been automatically marked as **stale** because it has not had recent activity.
-
-            It will be closed in **14 days** if no further activity occurs.
-
-            If this PR is still in progress:
-            - Add a comment or push new commits
-            - Remove the `stale` label
-
-            Thank you for your contribution! 🙏
-
-          close-pr-message: |
-            🔒 This pull request has been automatically closed due to inactivity.
-
-            If you'd like to continue working on this, feel free to reopen it or create a new PR.
-
           # Labels to exempt from stale
-          exempt-issue-labels: 'pinned,security,blocked,confirmed'
-          exempt-pr-labels: 'pinned,security,blocked'
+          exempt-issue-labels: 'pinned,security,blocked'
+
+          # Only stale issues
+          days-before-pr-stale: -1
 
           # Remove stale label when there is new activity
           remove-stale-when-updated: true
