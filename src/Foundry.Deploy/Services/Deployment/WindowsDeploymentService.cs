@@ -72,16 +72,14 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             "format quick fs=fat32 label=System",
             $"assign letter={systemLetter}",
             $"create partition msr size={MsrPartitionSizeMb}",
-            "create partition primary",
-            "format quick fs=ntfs label=Windows",
-            $"assign letter={windowsLetter}",
-            $"select volume {windowsLetter}",
-            $"shrink desired={RecoveryPartitionSizeMb} minimum={RecoveryPartitionSizeMb}",
             $"create partition primary size={RecoveryPartitionSizeMb}",
             $"set id=\"{RecoveryPartitionGuid}\"",
             $"gpt attributes={RecoveryPartitionAttributes}",
             $"format quick fs=ntfs label={RecoveryPartitionLabel}",
-            $"assign letter={recoveryLetter}"
+            $"assign letter={recoveryLetter}",
+            "create partition primary",
+            "format quick fs=ntfs label=Windows",
+            $"assign letter={windowsLetter}"
         ];
 
         string scriptPath = Path.Combine(workingDirectory, "diskpart-os-target.txt");

@@ -9,6 +9,34 @@ namespace Foundry.Deploy.Tests;
 public sealed class WindowsDeploymentServiceTests
 {
     [Fact]
+    public async Task PrepareTargetDiskAsync_CreatesPartitionsInExpectedOrder_Efi_Msr_Recovery_Windows()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string workingDirectory = Path.Combine(workspace.RootPath, "Work");
+        var processRunner = new RecordingProcessRunner();
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        await service.PrepareTargetDiskAsync(1, workingDirectory, TestContext.Current.CancellationToken);
+
+        string scriptPath = Path.Combine(workingDirectory, "diskpart-os-target.txt");
+        string[] scriptLines = await File.ReadAllLinesAsync(scriptPath, TestContext.Current.CancellationToken);
+        int efiIndex = Array.IndexOf(scriptLines, "create partition efi size=260");
+        int msrIndex = Array.IndexOf(scriptLines, "create partition msr size=16");
+        int recoveryIndex = Array.IndexOf(scriptLines, "create partition primary size=5120");
+        int windowsIndex = Array.IndexOf(scriptLines, "create partition primary");
+        int recoveryFormatIndex = Array.IndexOf(scriptLines, "format quick fs=ntfs label=Recovery");
+        int windowsFormatIndex = Array.IndexOf(scriptLines, "format quick fs=ntfs label=Windows");
+
+        Assert.True(efiIndex >= 0);
+        Assert.True(msrIndex > efiIndex);
+        Assert.True(recoveryIndex > msrIndex);
+        Assert.True(windowsIndex > recoveryIndex);
+        Assert.True(recoveryFormatIndex > recoveryIndex);
+        Assert.True(windowsFormatIndex > recoveryFormatIndex);
+        Assert.DoesNotContain(scriptLines, line => line.StartsWith("shrink ", StringComparison.OrdinalIgnoreCase));
+    }
+
+    [Fact]
     public async Task ConfigureOfflineComputerNameAsync_WhenDefaultTimeZoneIdIsProvided_WritesUnattendTimeZone()
     {
         using var workspace = new TemporaryWorkspace();
