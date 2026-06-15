@@ -529,5 +529,5 @@ Folytatja az OS helyreállítást?</value></data>
   <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>Az operációs rendszer helyreállítása biztosított.</value></data>
   <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>Az operációs rendszer helyreállítása biztosított (szimuláció).</value></data>
   <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry OSD-helyreállítás</value></data>
-  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Windows vészhelyzeti újratelepítése</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Windows vészhelyzeti telepítés</value></data>
 </root>

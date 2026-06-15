@@ -529,5 +529,5 @@ Nastaviti sa oporavkom OS-a?</value></data>
   <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>Oporavak OS-a je pripremljen.</value></data>
   <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>Oporavak OS-a je pripremljen (simulacija).</value></data>
   <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry OSD oporavak</value></data>
-  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Hitno ponovno uvođenje Windowsa</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Hitno uvođenje Windowsa</value></data>
 </root>

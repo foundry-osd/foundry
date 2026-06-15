@@ -529,5 +529,5 @@ Continuar com a recuperação do sistema operacional?</value></data>
   <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>Recuperação do sistema operacional provisionada.</value></data>
   <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>Recuperação de SO provisionada (simulação).</value></data>
   <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Recuperação Foundry OSD</value></data>
-  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Reimplementação Windows urgente</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Reinstalar Windows urgente</value></data>
 </root>

@@ -529,5 +529,5 @@ Vai turpināt ar OS atkopšanu?</value></data>
   <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>Nodrošināta OS atkopšana.</value></data>
   <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>Nodrošināta OS atkopšana (simulācija).</value></data>
   <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry OSD atkopšana</value></data>
-  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Windows ārkārtas pārizvietošana</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Windows ārkārtas izvietošana</value></data>
 </root>

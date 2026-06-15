@@ -529,5 +529,5 @@ Continuare con il ripristino del sistema operativo?</value></data>
   <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>Effettuato il provisioning del ripristino del sistema operativo.</value></data>
   <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>Provisioning del ripristino del sistema operativo (simulazione).</value></data>
   <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Ripristino Foundry OSD</value></data>
-  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Reinstallazione urgente Windows</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Ripristino Windows urgente</value></data>
 </root>

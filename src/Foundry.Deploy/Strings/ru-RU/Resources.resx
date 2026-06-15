@@ -529,5 +529,5 @@
   <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>Предусмотрено восстановление ОС.</value></data>
   <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>Предусмотрено восстановление ОС (симуляция).</value></data>
   <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Восстановление Foundry OSD</value></data>
-  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Аварийное развертывание Windows</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Аварийная установка Windows</value></data>
 </root>
