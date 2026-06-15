@@ -1844,15 +1844,38 @@ try {
 
     Write-ConsoleSection -Title 'Runtime'
 
-    # USB cache media takes precedence; otherwise the ISO-backed runtime directory is used.
-    $usbRuntimeRoot = Get-UsbCacheRuntimeRoot
-    if (-not [string]::IsNullOrWhiteSpace($usbRuntimeRoot)) {
-        $bootstrapRoot = $usbRuntimeRoot
+    $requestedDeploymentMode = [string]$env:FOUNDRY_DEPLOYMENT_MODE
+    $requestedDeploymentMode = $requestedDeploymentMode.Trim()
+
+    if ($requestedDeploymentMode -ieq 'Recovery') {
+        $bootstrapRoot = Join-Path $WinPeRoot 'Runtime'
+        $deploymentMode = 'Recovery'
+    }
+    elseif ($requestedDeploymentMode -ieq 'Iso') {
+        $bootstrapRoot = Join-Path $WinPeRoot 'Runtime'
+        $deploymentMode = 'Iso'
+    }
+    elseif ($requestedDeploymentMode -ieq 'Usb') {
+        $usbRuntimeRoot = Get-UsbCacheRuntimeRoot
+        $bootstrapRoot = if ([string]::IsNullOrWhiteSpace($usbRuntimeRoot)) {
+            Join-Path $WinPeRoot 'Runtime'
+        }
+        else {
+            $usbRuntimeRoot
+        }
         $deploymentMode = 'Usb'
     }
     else {
-        $bootstrapRoot = Join-Path $WinPeRoot 'Runtime'
-        $deploymentMode = 'Iso'
+        # USB cache media takes precedence; otherwise the ISO-backed runtime directory is used.
+        $usbRuntimeRoot = Get-UsbCacheRuntimeRoot
+        if (-not [string]::IsNullOrWhiteSpace($usbRuntimeRoot)) {
+            $bootstrapRoot = $usbRuntimeRoot
+            $deploymentMode = 'Usb'
+        }
+        else {
+            $bootstrapRoot = Join-Path $WinPeRoot 'Runtime'
+            $deploymentMode = 'Iso'
+        }
     }
 
     Ensure-Directory -Path $bootstrapRoot
@@ -1945,8 +1968,8 @@ try {
     }
     elseif ($deploymentMode -ne 'Usb') {
         Write-Log `
-            'Skipping Foundry.Connect cache verification because the deployment mode is ISO.' `
-            -ConsoleMessage 'Foundry.Connect: update check skipped in ISO mode.'
+            "Skipping Foundry.Connect cache verification because the deployment mode is $deploymentMode." `
+            -ConsoleMessage "Foundry.Connect: update check skipped in $deploymentMode mode."
     }
     else {
         try {

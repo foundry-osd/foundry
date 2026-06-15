@@ -20,6 +20,20 @@ public interface IWindowsDeploymentService
         CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Prepares the target disk with the requested layout strategy.
+    /// </summary>
+    /// <param name="diskNumber">The disk number to prepare.</param>
+    /// <param name="workingDirectory">The directory used for temporary scripts.</param>
+    /// <param name="layoutMode">The layout strategy to apply.</param>
+    /// <param name="cancellationToken">A token used to cancel diskpart execution.</param>
+    /// <returns>The resulting target partition layout.</returns>
+    Task<DeploymentTargetLayout> PrepareTargetDiskAsync(
+        int diskNumber,
+        string workingDirectory,
+        RecoveryTargetDiskLayoutMode layoutMode,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Resolves the WIM/ESD image index matching a requested edition.
     /// </summary>
     /// <param name="imagePath">Path to the WIM or ESD image.</param>

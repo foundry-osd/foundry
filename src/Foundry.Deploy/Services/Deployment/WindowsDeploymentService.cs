@@ -1,4 +1,6 @@
 using System.IO;
+using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Foundry.Deploy.Models.Configuration;
@@ -47,9 +49,28 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         string workingDirectory,
         CancellationToken cancellationToken = default)
     {
+        return await PrepareTargetDiskAsync(
+            diskNumber,
+            workingDirectory,
+            RecoveryTargetDiskLayoutMode.FullWipe,
+            cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc />
+    public async Task<DeploymentTargetLayout> PrepareTargetDiskAsync(
+        int diskNumber,
+        string workingDirectory,
+        RecoveryTargetDiskLayoutMode layoutMode,
+        CancellationToken cancellationToken = default)
+    {
         if (diskNumber < 0)
         {
             throw new ArgumentOutOfRangeException(nameof(diskNumber), "Target disk number must be 0 or greater.");
+        }
+
+        if (layoutMode == RecoveryTargetDiskLayoutMode.RecoveryRetrySafe)
+        {
+            return await PrepareRecoveryRetrySafeTargetDiskAsync(diskNumber, workingDirectory, cancellationToken).ConfigureAwait(false);
         }
 
         _logger.LogInformation(
@@ -111,6 +132,120 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             RecoveryPartitionRoot = recoveryPartitionRoot,
             RecoveryPartitionLetter = recoveryLetter
         };
+    }
+
+    private async Task<DeploymentTargetLayout> PrepareRecoveryRetrySafeTargetDiskAsync(
+        int diskNumber,
+        string workingDirectory,
+        CancellationToken cancellationToken)
+    {
+        Directory.CreateDirectory(workingDirectory);
+        (char systemLetter, char windowsLetter, char recoveryLetter) = GetPartitionLetters();
+
+        RecoveryDiskLayoutProbe probe = await ProbeRecoveryDiskLayoutAsync(diskNumber, workingDirectory, cancellationToken).ConfigureAwait(false);
+
+        string[] scriptLines =
+        [
+            $"select disk {diskNumber}",
+            "online disk noerr",
+            "attributes disk clear readonly noerr",
+            $"select partition {probe.SystemPartitionNumber}",
+            $"assign letter={systemLetter}",
+            $"select partition {probe.RecoveryPartitionNumber}",
+            $"assign letter={recoveryLetter}",
+            $"select partition {probe.WindowsPartitionNumber}",
+            "format quick fs=ntfs label=Windows",
+            $"assign letter={windowsLetter}"
+        ];
+
+        string scriptPath = Path.Combine(workingDirectory, "diskpart-os-target.txt");
+        await File.WriteAllLinesAsync(scriptPath, scriptLines, cancellationToken).ConfigureAwait(false);
+
+        await RunRequiredProcessAsync(
+            "diskpart.exe",
+            $"/s \"{scriptPath}\"",
+            workingDirectory,
+            $"Recovery disk preparation failed for disk {diskNumber}",
+            cancellationToken).ConfigureAwait(false);
+
+        return new DeploymentTargetLayout
+        {
+            DiskNumber = diskNumber,
+            SystemPartitionRoot = $"{systemLetter}:\\",
+            WindowsPartitionRoot = $"{windowsLetter}:\\",
+            RecoveryPartitionRoot = $"{recoveryLetter}:\\",
+            RecoveryPartitionLetter = recoveryLetter
+        };
+    }
+
+    private async Task<RecoveryDiskLayoutProbe> ProbeRecoveryDiskLayoutAsync(
+        int diskNumber,
+        string workingDirectory,
+        CancellationToken cancellationToken)
+    {
+        string script = $$"""
+$ErrorActionPreference = 'Stop'
+$diskNumber = {{diskNumber}}
+$recoveryGuid = '{{RecoveryPartitionGuid}}'
+$efiGuid = 'c12a7328-f81f-11d2-ba4b-00a0c93ec93b'
+
+$partitions = Get-Partition -DiskNumber $diskNumber | Sort-Object -Property PartitionNumber
+$system = $partitions | Where-Object { $_.GptType -and ([string]$_.GptType).Trim('{}').ToLowerInvariant() -eq $efiGuid } | Select-Object -First 1
+$recovery = $partitions | Where-Object { $_.GptType -and ([string]$_.GptType).Trim('{}').ToLowerInvariant() -eq $recoveryGuid } | Select-Object -First 1
+
+if ($null -eq $system) {
+    throw "The target disk does not contain an EFI system partition."
+}
+
+if ($null -eq $recovery) {
+    throw "The target disk does not contain the active OS Recovery partition."
+}
+
+$windows = $partitions |
+    Where-Object { $_.PartitionNumber -gt $recovery.PartitionNumber -and $_.Type -eq 'Basic' } |
+    Select-Object -First 1
+
+if ($null -eq $windows) {
+    throw "The target disk does not contain a Windows partition after the Recovery partition."
+}
+
+[pscustomobject]@{
+    SystemPartitionNumber = [int]$system.PartitionNumber
+    RecoveryPartitionNumber = [int]$recovery.PartitionNumber
+    WindowsPartitionNumber = [int]$windows.PartitionNumber
+} | ConvertTo-Json -Compress
+""";
+
+        string encoded = Convert.ToBase64String(Encoding.Unicode.GetBytes(script));
+        ProcessExecutionResult execution = await _processRunner
+            .RunAsync(
+                "powershell.exe",
+                $"-NoProfile -ExecutionPolicy Bypass -EncodedCommand {encoded}",
+                workingDirectory,
+                cancellationToken)
+            .ConfigureAwait(false);
+
+        if (!execution.IsSuccess || string.IsNullOrWhiteSpace(execution.StandardOutput))
+        {
+            throw new InvalidOperationException(
+                $"Unable to validate recovery disk layout for disk {diskNumber}.{Environment.NewLine}{ToDiagnostic(execution)}");
+        }
+
+        RecoveryDiskLayoutProbe? probe = JsonSerializer.Deserialize<RecoveryDiskLayoutProbe>(
+            execution.StandardOutput,
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+        if (probe is null ||
+            probe.SystemPartitionNumber <= 0 ||
+            probe.RecoveryPartitionNumber <= 0 ||
+            probe.WindowsPartitionNumber <= 0 ||
+            probe.RecoveryPartitionNumber >= probe.WindowsPartitionNumber)
+        {
+            throw new InvalidOperationException(
+                $"The target disk layout is not supported for OS Recovery. Expected EFI, MSR, Recovery, Windows on disk {diskNumber}.");
+        }
+
+        return probe;
     }
 
     /// <inheritdoc />
@@ -1099,5 +1234,12 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         public required string Name { get; init; }
         public required string Edition { get; init; }
         public required string EditionId { get; init; }
+    }
+
+    private sealed record RecoveryDiskLayoutProbe
+    {
+        public int SystemPartitionNumber { get; init; }
+        public int RecoveryPartitionNumber { get; init; }
+        public int WindowsPartitionNumber { get; init; }
     }
 }

@@ -19,6 +19,7 @@ public sealed record DeploymentLaunchRequest
     public required AutopilotProvisioningMode AutopilotProvisioningMode { get; init; }
     public required AutopilotProfileCatalogItem? SelectedAutopilotProfile { get; init; }
     public DeployAutopilotHardwareHashUploadSettings AutopilotHardwareHashUpload { get; init; } = new();
+    public DeployOsRecoverySettings OsRecovery { get; init; } = new();
     public CoreDeployNetworkSettings Network { get; init; } = new();
     public DeployOobeSettings Oobe { get; init; } = new();
     public DeployAppxRemovalSettings AppxRemoval { get; init; } = new();

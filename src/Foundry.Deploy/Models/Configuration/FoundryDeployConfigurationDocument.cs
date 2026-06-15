@@ -30,6 +30,11 @@ public sealed record FoundryDeployConfigurationDocument
     public DeployLocalizationSettings Localization { get; init; } = new();
 
     /// <summary>
+    /// Gets Windows RE OS recovery settings used during deployment.
+    /// </summary>
+    public DeployOsRecoverySettings OsRecovery { get; init; } = new();
+
+    /// <summary>
     /// Gets network profile roaming settings used during deployment.
     /// </summary>
     public CoreDeployNetworkSettings Network { get; init; } = new();

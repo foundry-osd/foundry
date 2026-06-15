@@ -19,6 +19,7 @@ public static class DeploymentStepNames
     public const string ConfigureRecoveryEnvironment = "Configure recovery environment";
     public const string StagePreOobeCustomization = "Stage pre-OOBE customization";
     public const string ApplyDriverPack = "Apply driver pack";
+    public const string ProvisionOsRecovery = "Provision OS Recovery";
     public const string DownloadFirmwareUpdate = "Download firmware update";
     public const string ApplyFirmwareUpdate = "Apply firmware update";
     public const string SealRecoveryPartition = "Seal recovery partition";
@@ -44,6 +45,7 @@ public static class DeploymentStepNames
         ExtractDriverPack,
         StagePreOobeCustomization,
         ApplyDriverPack,
+        ProvisionOsRecovery,
         DownloadFirmwareUpdate,
         ApplyFirmwareUpdate,
         SealRecoveryPartition,

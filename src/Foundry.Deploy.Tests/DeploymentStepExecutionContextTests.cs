@@ -107,6 +107,22 @@ public sealed class DeploymentStepExecutionContextTests
         Assert.Equal(Path.Combine(targetFoundryRoot, "Cache", "DriverPacks"), root);
     }
 
+    [Fact]
+    public void ResolveOperatingSystemCacheRoot_WhenRecoveryTargetRootIsResolved_UsesTargetCacheLayout()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        string targetFoundryRoot = Path.Combine(workspace.RootPath, "Windows", "Foundry");
+        DeploymentStepExecutionContext context = CreateExecutionContext(
+            workspace.RootPath,
+            resolvedCacheRootPath: Path.Combine(workspace.CacheRootPath, "Runtime"),
+            mode: DeploymentMode.Recovery,
+            targetFoundryRoot: targetFoundryRoot);
+
+        string root = context.ResolveOperatingSystemCacheRoot();
+
+        Assert.Equal(Path.Combine(targetFoundryRoot, "Cache", "OperatingSystems"), root);
+    }
+
     private static DeploymentStepExecutionContext CreateExecutionContext(
         string workspaceRoot,
         string resolvedCacheRootPath,

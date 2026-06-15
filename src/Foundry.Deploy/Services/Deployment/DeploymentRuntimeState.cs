@@ -237,6 +237,11 @@ public sealed record DeploymentRuntimeState
     public string? AutopilotHardwareHashUploadMessage { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether Foundry OS Recovery WinRE provisioning is enabled.
+    /// </summary>
+    public bool IsOsRecoveryEnabled { get; set; }
+
+    /// <summary>
     /// Gets or sets the diagnostics directory retained under the target Windows Temp\Foundry tree.
     /// </summary>
     public string? AutopilotHardwareHashDiagnosticsPath { get; set; }

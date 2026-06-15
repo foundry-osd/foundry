@@ -22,6 +22,10 @@ public sealed class FoundryConfigurationServiceTests
 
         var document = new FoundryConfigurationDocument
         {
+            OsRecovery = new OsRecoverySettings
+            {
+                IsEnabled = true
+            },
             Network = new NetworkSettings
             {
                 WifiProvisioned = true,
@@ -97,6 +101,7 @@ public sealed class FoundryConfigurationServiceTests
         string json = service.Serialize(document);
         FoundryConfigurationDocument loaded = service.Deserialize(json);
 
+        Assert.True(loaded.OsRecovery.IsEnabled);
         Assert.True(loaded.Network.WifiProvisioned);
         Assert.Equal("CorpWiFi", loaded.Network.Wifi.Ssid);
         Assert.True(loaded.OperatingSystemSelection.IsEnabled);

@@ -2121,4 +2121,61 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>준비 상태를 검토하고 ISO 또는 USB 출력을 선택한 다음 미디어 만들기를 시작합니다.</value>
   </data>
+  <data name="Nav_OsRecoveryKey.Description" xml:space="preserve">
+    <value>Configure OS Recovery availability.</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Subtitle" xml:space="preserve">
+    <value>OS Recovery</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Title" xml:space="preserve">
+    <value>OS Recovery</value>
+  </data>
+  <data name="OsRecoveryPage_Title.Text" xml:space="preserve">
+    <value>OS Recovery</value>
+  </data>
+  <data name="OsRecovery.PageDescription" xml:space="preserve">
+    <value>Enable a WinRE entry point for Foundry Recovery and review how operators reach it.</value>
+  </data>
+  <data name="OsRecovery.EnableHeader" xml:space="preserve">
+    <value>Enable OS Recovery</value>
+  </data>
+  <data name="OsRecovery.EnableDescription" xml:space="preserve">
+    <value>Add Foundry Recovery as an optional recovery action under Windows Recovery Environment.</value>
+  </data>
+  <data name="OsRecovery.EnableToggleText" xml:space="preserve">
+    <value>Enable OS Recovery</value>
+  </data>
+  <data name="OsRecovery.WhyHeader" xml:space="preserve">
+    <value>Why it exists</value>
+  </data>
+  <data name="OsRecovery.WhyDescription" xml:space="preserve">
+    <value>OS Recovery gives support teams a familiar WinRE path for launching Foundry Recovery when Windows cannot boot normally or needs repair-driven redeployment.</value>
+  </data>
+  <data name="OsRecovery.WhenHeader" xml:space="preserve">
+    <value>When to use it</value>
+  </data>
+  <data name="OsRecovery.WhenDescription" xml:space="preserve">
+    <value>Use it for break-fix workflows where an operator starts from Windows Recovery Environment instead of booting separate deployment media.</value>
+  </data>
+  <data name="OsRecovery.WinRePathHeader" xml:space="preserve">
+    <value>WinRE path</value>
+  </data>
+  <data name="OsRecovery.WinRePathDescription" xml:space="preserve">
+    <value>Troubleshoot &gt; Advanced options &gt; Foundry Recovery</value>
+  </data>
+  <data name="OsRecovery.LimitationsHeader" xml:space="preserve">
+    <value>Limitations</value>
+  </data>
+  <data name="OsRecovery.LimitationsDescription" xml:space="preserve">
+    <value>This page only controls whether the recovery entry point is requested. It does not customize menu text, configure unattended recovery, provision network authentication, enroll Autopilot, inject OA3 data, or store secrets.</value>
+  </data>
+  <data name="OsRecovery.FlowHeader" xml:space="preserve">
+    <value>Recovery flow</value>
+  </data>
+  <data name="OsRecovery.FlowDescription" xml:space="preserve">
+    <value>The placeholder image shows the intended WinRE navigation path and can be replaced later.</value>
+  </data>
+  <data name="OsRecovery.FlowImageAutomationName" xml:space="preserve">
+    <value>WinRE navigation path: Troubleshoot, Advanced options, Foundry Recovery.</value>
+  </data>
 </root>

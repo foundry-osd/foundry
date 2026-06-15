@@ -39,10 +39,11 @@ public sealed class DeploymentRuntimeContextService : IDeploymentRuntimeContextS
         {
             "usb" => DeploymentMode.Usb,
             "iso" => DeploymentMode.Iso,
+            "recovery" => DeploymentMode.Recovery,
             _ => default
         };
 
-        return normalized is "usb" or "iso";
+        return normalized is "usb" or "iso" or "recovery";
     }
 
     private static string? TryGetUsbCacheRuntimeRoot()

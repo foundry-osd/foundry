@@ -92,6 +92,10 @@ public sealed class DeploymentLaunchPreparationServiceTests
             RemoveCopilot = true,
             DisableRecall = true
         };
+        DeployOsRecoverySettings osRecovery = new()
+        {
+            IsEnabled = true
+        };
 
         DeploymentLaunchPreparationResult result = service.Prepare(
             CreateRequest(
@@ -102,6 +106,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
                 defaultTimeZoneId: " Romance Standard Time ",
                 isAutopilotEnabled: true,
                 selectedAutopilotProfile: autopilotProfile,
+                osRecovery: osRecovery,
                 oobe: oobe,
                 appxRemoval: appxRemoval,
                 aiComponentRemoval: aiComponentRemoval));
@@ -114,6 +119,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
         Assert.Equal("Romance Standard Time", result.Context?.DefaultTimeZoneId);
         Assert.Same(driverPack, result.Context?.DriverPack);
         Assert.Same(autopilotProfile, result.Context?.SelectedAutopilotProfile);
+        Assert.Same(osRecovery, result.Context?.OsRecovery);
         Assert.Same(oobe, result.Context?.Oobe);
         Assert.Same(appxRemoval, result.Context?.AppxRemoval);
         Assert.Same(aiComponentRemoval, result.Context?.AiComponentRemoval);
@@ -235,8 +241,39 @@ public sealed class DeploymentLaunchPreparationServiceTests
         }
     }
 
+    [Fact]
+    public void Prepare_WhenRecoveryModeIsUsed_ShowsRecoverySpecificWarningText()
+    {
+        CultureInfo originalCulture = CultureInfo.CurrentCulture;
+        CultureInfo originalUiCulture = CultureInfo.CurrentUICulture;
+        CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
+        CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
+
+        try
+        {
+            var shell = new FakeApplicationShellService { ConfirmationResult = true };
+            var service = new DeploymentLaunchPreparationService(shell);
+
+            DeploymentLaunchPreparationResult result = service.Prepare(CreateRequest(
+                selectedTargetDisk: CreateDisk(),
+                mode: DeploymentMode.Recovery));
+
+            Assert.True(result.IsReadyToStart);
+            Assert.Equal("Confirm OS Recovery", shell.LastConfirmationTitle);
+            Assert.Contains("preserve EFI, MSR, and Recovery partitions", shell.LastConfirmationMessage);
+            Assert.Contains("replace the Windows partition", shell.LastConfirmationMessage);
+            Assert.Contains("Continue with OS Recovery?", shell.LastConfirmationMessage);
+        }
+        finally
+        {
+            CultureInfo.CurrentCulture = originalCulture;
+            CultureInfo.CurrentUICulture = originalUiCulture;
+        }
+    }
+
     private static DeploymentLaunchRequest CreateRequest(
         TargetDiskInfo? selectedTargetDisk,
+        DeploymentMode mode = DeploymentMode.Usb,
         string targetComputerName = "LAB-01",
         string? defaultTimeZoneId = null,
         DriverPackSelectionKind driverPackSelectionKind = DriverPackSelectionKind.None,
@@ -245,6 +282,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
         AutopilotProvisioningMode autopilotProvisioningMode = AutopilotProvisioningMode.JsonProfile,
         AutopilotProfileCatalogItem? selectedAutopilotProfile = null,
         DeployAutopilotHardwareHashUploadSettings? autopilotHardwareHashUpload = null,
+        DeployOsRecoverySettings? osRecovery = null,
         DeployOobeSettings? oobe = null,
         DeployAppxRemovalSettings? appxRemoval = null,
         DeployAiComponentRemovalSettings? aiComponentRemoval = null,
@@ -252,7 +290,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
     {
         return new DeploymentLaunchRequest
         {
-            Mode = DeploymentMode.Usb,
+            Mode = mode,
             CacheRootPath = @"X:\Foundry\Runtime",
             TargetComputerName = targetComputerName,
             DefaultTimeZoneId = defaultTimeZoneId,
@@ -275,6 +313,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
             AutopilotProvisioningMode = autopilotProvisioningMode,
             SelectedAutopilotProfile = selectedAutopilotProfile,
             AutopilotHardwareHashUpload = autopilotHardwareHashUpload ?? new DeployAutopilotHardwareHashUploadSettings(),
+            OsRecovery = osRecovery ?? new DeployOsRecoverySettings(),
             Oobe = oobe ?? new DeployOobeSettings(),
             AppxRemoval = appxRemoval ?? new DeployAppxRemovalSettings(),
             AiComponentRemoval = aiComponentRemoval ?? new DeployAiComponentRemovalSettings(),

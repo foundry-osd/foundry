@@ -29,6 +29,7 @@ public sealed class CacheLocatorService : ICacheLocatorService
         CacheResolution resolution = mode switch
         {
             DeploymentMode.Iso => ResolveIso(preferredRoot),
+            DeploymentMode.Recovery => ResolveIso(preferredRoot),
             _ => ResolveUsb(preferredRoot)
         };
 

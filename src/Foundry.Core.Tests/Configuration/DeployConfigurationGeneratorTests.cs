@@ -65,6 +65,32 @@ public sealed class DeployConfigurationGeneratorTests
     }
 
     [Fact]
+    public void Generate_WhenOsRecoveryIsEnabled_PropagatesDeployOsRecoveryFlag()
+    {
+        var generator = new DeployConfigurationGenerator();
+
+        FoundryDeployConfigurationDocument result = generator.Generate(new FoundryConfigurationDocument
+        {
+            OsRecovery = new OsRecoverySettings
+            {
+                IsEnabled = true
+            }
+        });
+
+        Assert.True(result.OsRecovery.IsEnabled);
+    }
+
+    [Fact]
+    public void Generate_WhenOsRecoveryIsNotConfigured_DefaultsDeployOsRecoveryToDisabled()
+    {
+        var generator = new DeployConfigurationGenerator();
+
+        FoundryDeployConfigurationDocument result = generator.Generate(new FoundryConfigurationDocument());
+
+        Assert.False(result.OsRecovery.IsEnabled);
+    }
+
+    [Fact]
     public void Generate_PropagatesTelemetrySettings()
     {
         var generator = new DeployConfigurationGenerator();

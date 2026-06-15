@@ -14,7 +14,7 @@ public sealed class DownloadFirmwareUpdateStep : DeploymentStepBase
         _firmwareService = firmwareService;
     }
 
-    public override int Order => 15;
+    public override int Order => 16;
 
     public override string Name => DeploymentStepNames.DownloadFirmwareUpdate;
 

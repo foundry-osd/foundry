@@ -23,6 +23,8 @@ using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Services.Theme;
 using Foundry.Deploy.Services.Wizard;
 using Foundry.Deploy.ViewModels;
+using Foundry.Core.Services.WinPe;
+using Foundry.Core.Services.WinPe.OsRecovery;
 using Foundry.Telemetry;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -47,7 +49,10 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentStartupCoordinator, DeploymentStartupCoordinator>();
         services.AddSingleton<IOperationProgressService, OperationProgressService>();
         services.AddSingleton<IDeploymentRuntimeContextService, DeploymentRuntimeContextService>();
+        services.AddSingleton<IRecoveryTargetDiskResolver, RecoveryTargetDiskResolver>();
         services.AddSingleton<IDeployConfigurationService, DeployConfigurationService>();
+        services.AddSingleton<IWinPeEmbeddedAssetService, WinPeEmbeddedAssetService>();
+        services.AddSingleton<IOsRecoveryPayloadProvisioningService, OsRecoveryPayloadProvisioningService>();
         services.AddSingleton(CreateTelemetryOptions);
         services.AddSingleton(CreateTelemetryContext);
         services.AddSingleton<ITelemetryService>(sp =>
@@ -129,6 +134,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentStep, ExtractDriverPackStep>();
         services.AddSingleton<IDeploymentStep, StagePreOobeCustomizationStep>();
         services.AddSingleton<IDeploymentStep, ApplyDriverPackStep>();
+        services.AddSingleton<IDeploymentStep, ProvisionOsRecoveryStep>();
         services.AddSingleton<IDeploymentStep, DownloadFirmwareUpdateStep>();
         services.AddSingleton<IDeploymentStep, ApplyFirmwareUpdateStep>();
         services.AddSingleton<IDeploymentStep, SealRecoveryPartitionStep>();

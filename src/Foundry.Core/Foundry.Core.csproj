@@ -20,6 +20,9 @@
     <EmbeddedResource Include="Assets\WinPe\ProvisionUsbDisk.ps1">
       <LogicalName>Foundry.Core.WinPe.ProvisionUsbDisk</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Assets\WinRe\FoundryRecoveryLauncher.cmd">
+      <LogicalName>Foundry.Core.WinRe.FoundryRecoveryLauncher</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>

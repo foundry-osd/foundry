@@ -38,6 +38,10 @@ public sealed class GatherDeploymentVariablesStep : DeploymentStepBase
                 targetComputerName = context.Request.TargetComputerName,
                 driverPackSelectionKind = context.Request.DriverPackSelectionKind.ToString(),
                 applyFirmwareUpdates = context.Request.ApplyFirmwareUpdates,
+                osRecovery = new
+                {
+                    isEnabled = context.Request.OsRecovery.IsEnabled
+                },
                 autopilot = new
                 {
                     isEnabled = context.Request.IsAutopilotEnabled,
@@ -110,6 +114,7 @@ public sealed class GatherDeploymentVariablesStep : DeploymentStepBase
                 context.RuntimeState.ExtractedFirmwarePath,
                 context.RuntimeState.FirmwareUpdateId,
                 context.RuntimeState.FirmwareUpdateTitle,
+                context.RuntimeState.IsOsRecoveryEnabled,
                 context.RuntimeState.IsAutopilotEnabled,
                 context.RuntimeState.SelectedAutopilotProfileFolderName,
                 context.RuntimeState.SelectedAutopilotProfileDisplayName,

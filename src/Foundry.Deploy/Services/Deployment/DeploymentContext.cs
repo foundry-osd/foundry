@@ -75,6 +75,11 @@ public sealed record DeploymentContext
     public DeployAutopilotHardwareHashUploadSettings AutopilotHardwareHashUpload { get; init; } = new();
 
     /// <summary>
+    /// Gets Windows RE OS recovery settings used during deployment.
+    /// </summary>
+    public DeployOsRecoverySettings OsRecovery { get; init; } = new();
+
+    /// <summary>
     /// Gets network settings used by late deployment steps.
     /// </summary>
     public CoreDeployNetworkSettings Network { get; init; } = new();

@@ -102,6 +102,16 @@
           "HideItem": true,
           "IsNew": false,
           "IsUpdated": false
+        },
+        {
+          "UniqueId": "Foundry.Views.OsRecoveryPage",
+          "Title": "OS Recovery",
+          "LocalizeId": "Nav_OsRecoveryKey",
+          "UsexUid": true,
+          "IconGlyph": "E7BA",
+          "HideItem": true,
+          "IsNew": false,
+          "IsUpdated": false
         }
       ]
     },

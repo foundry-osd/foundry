@@ -24,6 +24,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
     private readonly ITargetDiskService _targetDiskService;
     private readonly IDeploymentCatalogLoadService _deploymentCatalogLoadService;
     private readonly IAutopilotGroupTagDiscoveryService _autopilotGroupTagDiscoveryService;
+    private readonly IRecoveryTargetDiskResolver _recoveryTargetDiskResolver;
     private readonly ILogger<DeploymentStartupCoordinator> _logger;
 
     public DeploymentStartupCoordinator(
@@ -34,6 +35,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         ITargetDiskService targetDiskService,
         IDeploymentCatalogLoadService deploymentCatalogLoadService,
         IAutopilotGroupTagDiscoveryService autopilotGroupTagDiscoveryService,
+        IRecoveryTargetDiskResolver recoveryTargetDiskResolver,
         ILogger<DeploymentStartupCoordinator> logger)
     {
         _deployConfigurationService = deployConfigurationService;
@@ -43,6 +45,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         _targetDiskService = targetDiskService;
         _deploymentCatalogLoadService = deploymentCatalogLoadService;
         _autopilotGroupTagDiscoveryService = autopilotGroupTagDiscoveryService;
+        _recoveryTargetDiskResolver = recoveryTargetDiskResolver;
         _logger = logger;
     }
 
@@ -59,7 +62,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
 
         Task<string> computerNameTask = ResolveComputerNameAsync(request.FallbackComputerName);
         Task<HardwareLoadResult> hardwareTask = LoadHardwareAsync();
-        Task<TargetDiskLoadResult> targetDisksTask = LoadTargetDisksAsync();
+        Task<TargetDiskLoadResult> targetDisksTask = LoadTargetDisksAsync(request.RuntimeContext.Mode);
         Task<DeploymentCatalogSnapshot> catalogTask = _deploymentCatalogLoadService.LoadAsync();
 
         await Task.WhenAll(computerNameTask, hardwareTask, targetDisksTask, catalogTask).ConfigureAwait(false);
@@ -112,12 +115,38 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         }
     }
 
-    private async Task<TargetDiskLoadResult> LoadTargetDisksAsync()
+    private async Task<TargetDiskLoadResult> LoadTargetDisksAsync(DeploymentMode mode)
     {
         try
         {
             IReadOnlyList<TargetDiskInfo> disks = await _targetDiskService.GetDisksAsync().ConfigureAwait(false);
-            return new TargetDiskLoadResult(disks);
+            if (mode != DeploymentMode.Recovery)
+            {
+                return new TargetDiskLoadResult(disks);
+            }
+
+            int? recoveryDiskNumber = await _recoveryTargetDiskResolver.ResolveAsync().ConfigureAwait(false);
+            if (!recoveryDiskNumber.HasValue)
+            {
+                _logger.LogWarning("OS Recovery mode could not resolve the active recovery target disk.");
+                return new TargetDiskLoadResult([]);
+            }
+
+            TargetDiskInfo? recoveryDisk = disks.FirstOrDefault(disk => disk.DiskNumber == recoveryDiskNumber.Value);
+            if (recoveryDisk is null)
+            {
+                _logger.LogWarning("OS Recovery target disk {DiskNumber} was not returned by disk discovery.", recoveryDiskNumber.Value);
+                return new TargetDiskLoadResult([]);
+            }
+
+            return new TargetDiskLoadResult(
+            [
+                recoveryDisk with
+                {
+                    IsSelectable = true,
+                    SelectionWarning = string.Empty
+                }
+            ]);
         }
         catch (Exception ex)
         {

@@ -37,6 +37,37 @@ public sealed class WindowsDeploymentServiceTests
     }
 
     [Fact]
+    public async Task PrepareTargetDiskAsync_WhenRecoveryMode_PreservesRecoveryAndFormatsWindows()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string workingDirectory = Path.Combine(workspace.RootPath, "Work");
+        var processRunner = new RecordingProcessRunner
+        {
+            PowerShellOutput = """
+                {"SystemPartitionNumber":1,"RecoveryPartitionNumber":3,"WindowsPartitionNumber":4}
+                """
+        };
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        await service.PrepareTargetDiskAsync(
+            1,
+            workingDirectory,
+            RecoveryTargetDiskLayoutMode.RecoveryRetrySafe,
+            TestContext.Current.CancellationToken);
+
+        string scriptPath = Path.Combine(workingDirectory, "diskpart-os-target.txt");
+        string[] scriptLines = await File.ReadAllLinesAsync(scriptPath, TestContext.Current.CancellationToken);
+
+        Assert.DoesNotContain("clean", scriptLines);
+        Assert.DoesNotContain(scriptLines, line => line.Equals("delete partition override", StringComparison.OrdinalIgnoreCase));
+        Assert.Contains("select partition 1", scriptLines);
+        Assert.Contains("select partition 3", scriptLines);
+        Assert.Contains("select partition 4", scriptLines);
+        Assert.Contains("format quick fs=ntfs label=Windows", scriptLines);
+        Assert.Contains("assign letter=R", scriptLines);
+    }
+
+    [Fact]
     public async Task ConfigureOfflineComputerNameAsync_WhenDefaultTimeZoneIdIsProvided_WritesUnattendTimeZone()
     {
         using var workspace = new TemporaryWorkspace();
@@ -268,6 +299,8 @@ public sealed class WindowsDeploymentServiceTests
     {
         public List<string> Calls { get; } = [];
 
+        public string PowerShellOutput { get; init; } = string.Empty;
+
         public Task<ProcessExecutionResult> RunAsync(
             string fileName,
             string arguments,
@@ -275,7 +308,7 @@ public sealed class WindowsDeploymentServiceTests
             CancellationToken cancellationToken = default)
         {
             Calls.Add($"{fileName} {arguments}");
-            return Task.FromResult(new ProcessExecutionResult { ExitCode = 0 });
+            return Task.FromResult(CreateResult(fileName));
         }
 
         public Task<ProcessExecutionResult> RunAsync(
@@ -285,7 +318,7 @@ public sealed class WindowsDeploymentServiceTests
             CancellationToken cancellationToken = default)
         {
             Calls.Add($"{fileName} {string.Join(' ', arguments)}");
-            return Task.FromResult(new ProcessExecutionResult { ExitCode = 0 });
+            return Task.FromResult(CreateResult(fileName));
         }
 
         public Task<ProcessExecutionResult> RunAsync(
@@ -297,7 +330,14 @@ public sealed class WindowsDeploymentServiceTests
             CancellationToken cancellationToken = default)
         {
             Calls.Add($"{fileName} {string.Join(' ', arguments)}");
-            return Task.FromResult(new ProcessExecutionResult { ExitCode = 0 });
+            return Task.FromResult(CreateResult(fileName));
+        }
+
+        private ProcessExecutionResult CreateResult(string fileName)
+        {
+            return string.Equals(fileName, "powershell.exe", StringComparison.OrdinalIgnoreCase)
+                ? new ProcessExecutionResult { ExitCode = 0, StandardOutput = PowerShellOutput }
+                : new ProcessExecutionResult { ExitCode = 0 };
         }
     }
 }
