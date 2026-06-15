@@ -1,6 +1,4 @@
 using System.IO;
-using System.Text;
-using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Foundry.Deploy.Models.Configuration;
@@ -183,46 +181,17 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         string workingDirectory,
         CancellationToken cancellationToken)
     {
-        string script = $$"""
-$ErrorActionPreference = 'Stop'
-$diskNumber = {{diskNumber}}
-$recoveryGuid = '{{RecoveryPartitionGuid}}'
-$efiGuid = 'c12a7328-f81f-11d2-ba4b-00a0c93ec93b'
+        string scriptPath = Path.Combine(workingDirectory, "diskpart-recovery-probe.txt");
+        await File.WriteAllLinesAsync(
+            scriptPath,
+            [
+                $"select disk {diskNumber}",
+                "list partition"
+            ],
+            cancellationToken).ConfigureAwait(false);
 
-$partitions = Get-Partition -DiskNumber $diskNumber | Sort-Object -Property PartitionNumber
-$system = $partitions | Where-Object { $_.GptType -and ([string]$_.GptType).Trim('{}').ToLowerInvariant() -eq $efiGuid } | Select-Object -First 1
-$recovery = $partitions | Where-Object { $_.GptType -and ([string]$_.GptType).Trim('{}').ToLowerInvariant() -eq $recoveryGuid } | Select-Object -First 1
-
-if ($null -eq $system) {
-    throw "The target disk does not contain an EFI system partition."
-}
-
-if ($null -eq $recovery) {
-    throw "The target disk does not contain the active OS Recovery partition."
-}
-
-$windows = $partitions |
-    Where-Object { $_.PartitionNumber -gt $recovery.PartitionNumber -and $_.Type -eq 'Basic' } |
-    Select-Object -First 1
-
-if ($null -eq $windows) {
-    throw "The target disk does not contain a Windows partition after the Recovery partition."
-}
-
-[pscustomobject]@{
-    SystemPartitionNumber = [int]$system.PartitionNumber
-    RecoveryPartitionNumber = [int]$recovery.PartitionNumber
-    WindowsPartitionNumber = [int]$windows.PartitionNumber
-} | ConvertTo-Json -Compress
-""";
-
-        string encoded = Convert.ToBase64String(Encoding.Unicode.GetBytes(script));
         ProcessExecutionResult execution = await _processRunner
-            .RunAsync(
-                "powershell.exe",
-                $"-NoProfile -ExecutionPolicy Bypass -EncodedCommand {encoded}",
-                workingDirectory,
-                cancellationToken)
+            .RunAsync("diskpart.exe", $"/s \"{scriptPath}\"", workingDirectory, cancellationToken)
             .ConfigureAwait(false);
 
         if (!execution.IsSuccess || string.IsNullOrWhiteSpace(execution.StandardOutput))
@@ -231,21 +200,27 @@ if ($null -eq $windows) {
                 $"Unable to validate recovery disk layout for disk {diskNumber}.{Environment.NewLine}{ToDiagnostic(execution)}");
         }
 
-        RecoveryDiskLayoutProbe? probe = JsonSerializer.Deserialize<RecoveryDiskLayoutProbe>(
-            execution.StandardOutput,
-            new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        IReadOnlyList<DiskPartPartition> partitions = DiskPartOutputParser.ParseListPartition(execution.StandardOutput);
+        DiskPartPartition? system = partitions.FirstOrDefault(partition => IsPartitionType(partition, "System"));
+        DiskPartPartition? recovery = partitions.FirstOrDefault(partition => IsPartitionType(partition, "Recovery"));
+        DiskPartPartition? windows = recovery is null
+            ? null
+            : partitions.FirstOrDefault(partition =>
+                partition.Number > recovery.Number &&
+                IsPartitionType(partition, "Primary"));
 
-        if (probe is null ||
-            probe.SystemPartitionNumber <= 0 ||
-            probe.RecoveryPartitionNumber <= 0 ||
-            probe.WindowsPartitionNumber <= 0 ||
-            probe.RecoveryPartitionNumber >= probe.WindowsPartitionNumber)
+        if (system is null || recovery is null || windows is null || recovery.Number >= windows.Number)
         {
             throw new InvalidOperationException(
                 $"The target disk layout is not supported for OS Recovery. Expected EFI, MSR, Recovery, Windows on disk {diskNumber}.");
         }
 
-        return probe;
+        return new RecoveryDiskLayoutProbe
+        {
+            SystemPartitionNumber = system.Number,
+            RecoveryPartitionNumber = recovery.Number,
+            WindowsPartitionNumber = windows.Number
+        };
     }
 
     /// <inheritdoc />
@@ -1066,6 +1041,9 @@ if ($null -eq $windows) {
 
         throw new InvalidOperationException("No drive letter is available for deployment partitions.");
     }
+
+    private static bool IsPartitionType(DiskPartPartition partition, string expectedType)
+        => partition.Type.Equals(expectedType, StringComparison.OrdinalIgnoreCase);
 
     private static void ResetWorkingDirectory(string path)
     {

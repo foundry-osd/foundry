@@ -10,7 +10,6 @@ public sealed class OsRecoveryPayloadProvisioningService : IOsRecoveryPayloadPro
     private const string LauncherResourceName = "Foundry.Core.WinRe.FoundryRecoveryLauncher";
     private const string LauncherFileName = "FoundryRecoveryLauncher.cmd";
     private const string WinReConfigFileName = "WinREConfig.xml";
-    private const string BootstrapFileName = "FoundryBootstrap.ps1";
     private static readonly UTF8Encoding Utf8NoBom = new(false);
 
     private readonly ILanguageRegistryService _languageRegistryService;
@@ -48,11 +47,9 @@ public sealed class OsRecoveryPayloadProvisioningService : IOsRecoveryPayloadPro
         {
             string mountedImagePath = Path.GetFullPath(options.MountedImagePath);
             string recoveryToolsPath = Path.Combine(mountedImagePath, "Sources", "Recovery", "Tools");
-            string system32Path = Path.Combine(mountedImagePath, "Windows", "System32");
             string foundryConfigPath = Path.Combine(mountedImagePath, "Foundry", "Config");
 
             Directory.CreateDirectory(recoveryToolsPath);
-            Directory.CreateDirectory(system32Path);
             Directory.CreateDirectory(foundryConfigPath);
 
             string launcherContent = LoadLauncherContent();
@@ -67,11 +64,6 @@ public sealed class OsRecoveryPayloadProvisioningService : IOsRecoveryPayloadPro
             await File.WriteAllTextAsync(
                 Path.Combine(recoveryToolsPath, WinReConfigFileName),
                 winReConfigXml,
-                Utf8NoBom,
-                cancellationToken).ConfigureAwait(false);
-            await File.WriteAllTextAsync(
-                Path.Combine(system32Path, BootstrapFileName),
-                options.BootstrapScriptContent,
                 Utf8NoBom,
                 cancellationToken).ConfigureAwait(false);
             await File.WriteAllTextAsync(
@@ -225,7 +217,6 @@ public sealed class OsRecoveryPayloadProvisioningService : IOsRecoveryPayloadPro
         [
             Path.Combine(mountedImagePath, "Sources", "Recovery", "Tools", LauncherFileName),
             Path.Combine(mountedImagePath, "Sources", "Recovery", "Tools", WinReConfigFileName),
-            Path.Combine(mountedImagePath, "Windows", "System32", BootstrapFileName),
             Path.Combine(mountedImagePath, "Foundry", "Config", "foundry.connect.config.json"),
             Path.Combine(mountedImagePath, "Foundry", "Config", "foundry.deploy.config.json"),
             Path.Combine(mountedImagePath, "Foundry", "Config", "iana-windows-timezones.json"),
@@ -322,14 +313,6 @@ public sealed class OsRecoveryPayloadProvisioningService : IOsRecoveryPayloadPro
                 WinPeErrorCodes.ValidationFailed,
                 "WinPE architecture value is invalid.",
                 $"Value: '{options.Architecture}'.");
-        }
-
-        if (string.IsNullOrWhiteSpace(options.BootstrapScriptContent))
-        {
-            return new WinPeDiagnostic(
-                WinPeErrorCodes.ValidationFailed,
-                "Foundry bootstrap script content is required for OS recovery payload provisioning.",
-                "Set OsRecoveryPayloadProvisioningOptions.BootstrapScriptContent.");
         }
 
         if (string.IsNullOrWhiteSpace(options.FoundryConnectConfigurationJson))

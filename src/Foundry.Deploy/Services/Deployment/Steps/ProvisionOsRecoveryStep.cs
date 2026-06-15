@@ -123,7 +123,6 @@ public sealed class ProvisionOsRecoveryStep : DeploymentStepBase
                         MountedImagePath = mountPath,
                         WorkingDirectoryPath = Path.Combine(workingDirectory, "Payload"),
                         Architecture = ResolveArchitecture(context.Request.OperatingSystem.Architecture),
-                        BootstrapScriptContent = _embeddedAssetService.GetBootstrapScriptContent(),
                         FoundryConnectConfigurationJson = connectConfigurationJson,
                         DeployConfigurationJson = deployConfigurationJson,
                         IanaWindowsTimeZoneMapJson = _embeddedAssetService.GetIanaWindowsTimeZoneMapJson(),

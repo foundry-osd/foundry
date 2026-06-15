@@ -11,16 +11,33 @@ public sealed class HardwareProfileService : IHardwareProfileService
 {
     private readonly IProcessRunner _processRunner;
     private readonly ILogger<HardwareProfileService> _logger;
+    private readonly Func<string, bool> _fileExists;
 
     public HardwareProfileService(IProcessRunner processRunner, ILogger<HardwareProfileService> logger)
+        : this(processRunner, logger, File.Exists)
+    {
+    }
+
+    internal HardwareProfileService(
+        IProcessRunner processRunner,
+        ILogger<HardwareProfileService> logger,
+        Func<string, bool> fileExists)
     {
         _processRunner = processRunner;
         _logger = logger;
+        _fileExists = fileExists;
     }
 
     public async Task<HardwareProfile> GetCurrentAsync(CancellationToken cancellationToken = default)
     {
         _logger.LogInformation("Detecting current hardware profile.");
+        string powershellPath = ResolvePowerShellPath();
+        if (!_fileExists(powershellPath))
+        {
+            _logger.LogWarning("PowerShell was not found. Using fallback hardware profile. Path={PowerShellPath}", powershellPath);
+            return BuildFallbackProfile();
+        }
+
         string script = @"
 function ConvertTo-TrimmedString {
     param (
@@ -76,7 +93,7 @@ $isOnBattery = @($battery | Where-Object { $_.BatteryStatus -eq 1 }).Count -gt 0
         string encoded = Convert.ToBase64String(Encoding.Unicode.GetBytes(script));
         string args = $"-NoProfile -ExecutionPolicy Bypass -EncodedCommand {encoded}";
         ProcessExecutionResult execution = await _processRunner
-            .RunAsync("powershell.exe", args, Path.GetTempPath(), cancellationToken)
+            .RunAsync(powershellPath, args, Path.GetTempPath(), cancellationToken)
             .ConfigureAwait(false);
 
         if (!execution.IsSuccess || string.IsNullOrWhiteSpace(execution.StandardOutput))
@@ -147,6 +164,15 @@ $isOnBattery = @($battery | Where-Object { $_.BatteryStatus -eq 1 }).Count -gt 0
             SystemFirmwareHardwareId = string.Empty,
             PnpDevices = Array.Empty<PnpDeviceInfo>()
         };
+    }
+
+    private static string ResolvePowerShellPath()
+    {
+        return Path.Combine(
+            Environment.SystemDirectory,
+            "WindowsPowerShell",
+            "v1.0",
+            "powershell.exe");
     }
 
     private static string ReadProperty(JsonElement root, string propertyName)

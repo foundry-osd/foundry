@@ -1,6 +1,4 @@
 using System.IO;
-using System.Text;
-using System.Text.Json;
 using Foundry.Deploy.Services.System;
 using Microsoft.Extensions.Logging;
 
@@ -8,119 +6,156 @@ namespace Foundry.Deploy.Services.Runtime;
 
 public sealed class RecoveryTargetDiskResolver : IRecoveryTargetDiskResolver
 {
-    private const string RecoveryPartitionGuid = "de94bba4-06d1-4d40-a16a-bfd50179d6ac";
     private const string RecoveryMarkerRelativePath = @"Recovery\WindowsRE\FoundryOsRecovery.json";
     private readonly IProcessRunner _processRunner;
     private readonly ILogger<RecoveryTargetDiskResolver> _logger;
+    private readonly Func<string, bool> _fileExists;
 
     public RecoveryTargetDiskResolver(IProcessRunner processRunner, ILogger<RecoveryTargetDiskResolver> logger)
+        : this(processRunner, logger, File.Exists)
+    {
+    }
+
+    internal RecoveryTargetDiskResolver(
+        IProcessRunner processRunner,
+        ILogger<RecoveryTargetDiskResolver> logger,
+        Func<string, bool> fileExists)
     {
         _processRunner = processRunner;
         _logger = logger;
+        _fileExists = fileExists;
     }
 
     public async Task<int?> ResolveAsync(CancellationToken cancellationToken = default)
     {
-        string script = $$"""
-$ErrorActionPreference = 'Stop'
-$recoveryGuid = '{{RecoveryPartitionGuid}}'
-$markerRelativePath = '{{RecoveryMarkerRelativePath}}'
-$assignedAccessPaths = @()
-$recoveryPartitions = Get-Partition |
-    Where-Object { $_.GptType -and ([string]$_.GptType).Trim('{}').ToLowerInvariant() -eq $recoveryGuid } |
-    Sort-Object -Property DiskNumber, PartitionNumber
+        ProcessExecutionResult listExecution = await RunDiskPartScriptAsync(
+            ["list disk"],
+            cancellationToken).ConfigureAwait(false);
 
-try {
-    $candidates = @()
-    foreach ($partition in $recoveryPartitions) {
-        $accessPath = @($partition.AccessPaths | Where-Object { $_ -match '^[A-Z]:\\$' } | Select-Object -First 1)[0]
-        if ([string]::IsNullOrWhiteSpace($accessPath)) {
-            Add-PartitionAccessPath -DiskNumber $partition.DiskNumber -PartitionNumber $partition.PartitionNumber -AssignDriveLetter | Out-Null
-            $partition = Get-Partition -DiskNumber $partition.DiskNumber -PartitionNumber $partition.PartitionNumber
-            $accessPath = @($partition.AccessPaths | Where-Object { $_ -match '^[A-Z]:\\$' } | Select-Object -First 1)[0]
-            if (-not [string]::IsNullOrWhiteSpace($accessPath)) {
-                $assignedAccessPaths += [pscustomobject]@{
-                    DiskNumber = [int]$partition.DiskNumber
-                    PartitionNumber = [int]$partition.PartitionNumber
-                    AccessPath = $accessPath
+        if (!listExecution.IsSuccess || string.IsNullOrWhiteSpace(listExecution.StandardOutput))
+        {
+            _logger.LogWarning("Unable to resolve active OS Recovery target disk. ExitCode={ExitCode}", listExecution.ExitCode);
+            return null;
+        }
+
+        var candidateDiskNumbers = new List<int>();
+        HashSet<char> usedLetters = DriveInfo.GetDrives()
+            .Select(drive => char.ToUpperInvariant(drive.Name[0]))
+            .ToHashSet();
+
+        foreach (DiskPartDisk disk in DiskPartOutputParser.ParseListDisk(listExecution.StandardOutput))
+        {
+            ProcessExecutionResult partitionExecution = await RunDiskPartScriptAsync(
+                [
+                    $"select disk {disk.Number}",
+                    "list partition"
+                ],
+                cancellationToken).ConfigureAwait(false);
+
+            if (!partitionExecution.IsSuccess || string.IsNullOrWhiteSpace(partitionExecution.StandardOutput))
+            {
+                continue;
+            }
+
+            foreach (DiskPartPartition partition in DiskPartOutputParser.ParseListPartition(partitionExecution.StandardOutput)
+                         .Where(partition => partition.Type.Equals("Recovery", StringComparison.OrdinalIgnoreCase)))
+            {
+                char? letter = GetAvailableTemporaryLetter(usedLetters);
+                if (letter is null)
+                {
+                    _logger.LogWarning("No temporary drive letter is available to inspect OS Recovery partition markers.");
+                    return null;
+                }
+
+                usedLetters.Add(letter.Value);
+                string markerPath = $@"{letter.Value}:\{RecoveryMarkerRelativePath}";
+                bool assigned = false;
+                try
+                {
+                    ProcessExecutionResult assignExecution = await RunDiskPartScriptAsync(
+                        [
+                            $"select disk {disk.Number}",
+                            $"select partition {partition.Number}",
+                            $"assign letter={letter}"
+                        ],
+                        cancellationToken).ConfigureAwait(false);
+
+                    assigned = assignExecution.IsSuccess;
+                    if (assigned && _fileExists(markerPath))
+                    {
+                        candidateDiskNumbers.Add(disk.Number);
+                    }
+                }
+                finally
+                {
+                    if (assigned)
+                    {
+                        await RunDiskPartScriptAsync(
+                            [
+                                $"select volume {letter}",
+                                $"remove letter={letter} noerr"
+                            ],
+                            CancellationToken.None).ConfigureAwait(false);
+                    }
+
+                    usedLetters.Remove(letter.Value);
                 }
             }
         }
 
-        if ([string]::IsNullOrWhiteSpace($accessPath)) {
-            continue
-        }
-
-        $markerPath = Join-Path -Path $accessPath -ChildPath $markerRelativePath
-        if (Test-Path -LiteralPath $markerPath) {
-            $candidates += [pscustomobject]@{
-                DiskNumber = [int]$partition.DiskNumber
-                PartitionNumber = [int]$partition.PartitionNumber
-                MarkerPath = $markerPath
-            }
-        }
-    }
-
-    if ($candidates.Count -eq 1) {
-        [pscustomobject]@{
-            CandidateCount = [int]$candidates.Count
-            DiskNumber = [int]$candidates[0].DiskNumber
-        } | ConvertTo-Json -Compress
-        return
-    }
-
-    [pscustomobject]@{
-        CandidateCount = [int]$candidates.Count
-    } | ConvertTo-Json -Compress
-}
-finally {
-    foreach ($assigned in $assignedAccessPaths) {
-        Remove-PartitionAccessPath -DiskNumber $assigned.DiskNumber -PartitionNumber $assigned.PartitionNumber -AccessPath $assigned.AccessPath -ErrorAction SilentlyContinue
-    }
-}
-""";
-
-        string encoded = Convert.ToBase64String(Encoding.Unicode.GetBytes(script));
-        ProcessExecutionResult execution = await _processRunner
-            .RunAsync(
-                "powershell.exe",
-                $"-NoProfile -ExecutionPolicy Bypass -EncodedCommand {encoded}",
-                Path.GetTempPath(),
-                cancellationToken)
-            .ConfigureAwait(false);
-
-        if (!execution.IsSuccess || string.IsNullOrWhiteSpace(execution.StandardOutput))
+        if (candidateDiskNumbers.Count != 1)
         {
-            _logger.LogWarning("Unable to resolve active OS Recovery target disk. ExitCode={ExitCode}", execution.ExitCode);
+            _logger.LogWarning(
+                "OS Recovery target disk resolver found {CandidateCount} Foundry recovery partition marker(s).",
+                candidateDiskNumbers.Count);
             return null;
         }
 
+        return candidateDiskNumbers[0];
+    }
+
+    private async Task<ProcessExecutionResult> RunDiskPartScriptAsync(
+        IReadOnlyList<string> scriptLines,
+        CancellationToken cancellationToken)
+    {
+        string scriptPath = Path.Combine(Path.GetTempPath(), $"foundry-recovery-diskpart-{Guid.NewGuid():N}.txt");
         try
         {
-            using JsonDocument document = JsonDocument.Parse(execution.StandardOutput);
-            int candidateCount = 0;
-            if (document.RootElement.TryGetProperty("CandidateCount", out JsonElement candidateCountElement))
-            {
-                candidateCountElement.TryGetInt32(out candidateCount);
-            }
-
-            if (candidateCount != 1)
-            {
-                _logger.LogWarning("OS Recovery target disk resolver found {CandidateCount} Foundry recovery partition marker(s).", candidateCount);
-                return null;
-            }
-
-            if (document.RootElement.TryGetProperty("DiskNumber", out JsonElement diskNumberElement) &&
-                diskNumberElement.TryGetInt32(out int diskNumber))
-            {
-                return diskNumber;
-            }
+            await File.WriteAllLinesAsync(scriptPath, scriptLines, cancellationToken).ConfigureAwait(false);
+            return await _processRunner
+                .RunAsync("diskpart.exe", $"/s \"{scriptPath}\"", Path.GetTempPath(), cancellationToken)
+                .ConfigureAwait(false);
         }
-        catch (JsonException ex)
+        finally
         {
-            _logger.LogWarning(ex, "Failed to parse OS Recovery target disk resolver output.");
+            TryDeleteFile(scriptPath);
+        }
+    }
+
+    private static char? GetAvailableTemporaryLetter(HashSet<char> usedLetters)
+    {
+        for (char letter = 'Z'; letter >= 'D'; letter--)
+        {
+            if (!usedLetters.Contains(letter))
+            {
+                return letter;
+            }
         }
 
         return null;
+    }
+
+    private static void TryDeleteFile(string path)
+    {
+        try
+        {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+        }
+        catch
+        {
+        }
     }
 }

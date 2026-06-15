@@ -14,7 +14,6 @@ public sealed class OsRecoveryPayloadProvisioningServiceTests
     {
         using TempOsRecoveryWorkspace workspace = TempOsRecoveryWorkspace.Create();
         string connectArchivePath = workspace.CreateArchive("connect.zip", "Foundry.Connect.exe", "connect");
-        string bootstrapScript = "Write-Host 'Bootstrap'";
 
         var service = new OsRecoveryPayloadProvisioningService(
             new EmbeddedLanguageRegistryService(),
@@ -26,7 +25,6 @@ public sealed class OsRecoveryPayloadProvisioningServiceTests
                 MountedImagePath = workspace.MountedImagePath,
                 WorkingDirectoryPath = workspace.WorkingDirectoryPath,
                 Architecture = WinPeArchitecture.X64,
-                BootstrapScriptContent = bootstrapScript,
                 FoundryConnectConfigurationJson = "{\"schemaVersion\":1}",
                 DeployConfigurationJson = "{\"schemaVersion\":2}",
                 IanaWindowsTimeZoneMapJson = "{\"zones\":[]}",
@@ -51,7 +49,7 @@ public sealed class OsRecoveryPayloadProvisioningServiceTests
 
         Assert.True(File.Exists(Path.Combine(toolsPath, "FoundryRecoveryLauncher.cmd")));
         Assert.True(File.Exists(Path.Combine(toolsPath, "WinREConfig.xml")));
-        Assert.Equal(bootstrapScript, await File.ReadAllTextAsync(Path.Combine(system32Path, "FoundryBootstrap.ps1")));
+        Assert.False(File.Exists(Path.Combine(system32Path, "FoundryBootstrap.ps1")));
         Assert.Equal("{\"schemaVersion\":1}", await File.ReadAllTextAsync(Path.Combine(configPath, "foundry.connect.config.json")));
         Assert.Equal("{\"schemaVersion\":2}", await File.ReadAllTextAsync(Path.Combine(configPath, "foundry.deploy.config.json")));
         Assert.Equal("{\"zones\":[]}", await File.ReadAllTextAsync(Path.Combine(configPath, "iana-windows-timezones.json")));
@@ -71,6 +69,49 @@ public sealed class OsRecoveryPayloadProvisioningServiceTests
     }
 
     [Fact]
+    public async Task ProvisionAsync_WritesCmdOnlyRecoveryLauncher()
+    {
+        using TempOsRecoveryWorkspace workspace = TempOsRecoveryWorkspace.Create();
+        string connectArchivePath = workspace.CreateArchive("connect.zip", "Foundry.Connect.exe", "connect");
+        var service = new OsRecoveryPayloadProvisioningService(
+            new EmbeddedLanguageRegistryService(),
+            new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner()));
+
+        WinPeResult<OsRecoveryPayloadProvisioningResult> result = await service.ProvisionAsync(
+            new OsRecoveryPayloadProvisioningOptions
+            {
+                MountedImagePath = workspace.MountedImagePath,
+                WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+                Architecture = WinPeArchitecture.X64,
+                FoundryConnectConfigurationJson = "{}",
+                DeployConfigurationJson = "{}",
+                IanaWindowsTimeZoneMapJson = "{}",
+                SevenZipSourceDirectoryPath = workspace.SevenZipSourcePath,
+                Connect = new WinPeRuntimePayloadApplicationOptions
+                {
+                    IsEnabled = true,
+                    ArchivePath = connectArchivePath
+                },
+                BootMenuLocalizations = CreateBootMenuLocalizations()
+            },
+            cancellationToken: CancellationToken.None);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+
+        string launcherPath = Path.Combine(workspace.MountedImagePath, "Sources", "Recovery", "Tools", "FoundryRecoveryLauncher.cmd");
+        string launcher = await File.ReadAllTextAsync(launcherPath);
+
+        Assert.Contains("FOUNDRY_DEPLOYMENT_MODE=Recovery", launcher, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("Foundry.Connect.exe", launcher, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("Foundry.Deploy-%RID%.zip", launcher, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("Foundry.Deploy.exe", launcher, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("curl.exe", launcher, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("7za.exe", launcher, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("powershell", launcher, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("FoundryBootstrap.ps1", launcher, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
     public async Task ProvisionAsync_WritesWinReConfigXmlAsUtf8WithoutBom()
     {
         using TempOsRecoveryWorkspace workspace = TempOsRecoveryWorkspace.Create();
@@ -85,7 +126,6 @@ public sealed class OsRecoveryPayloadProvisioningServiceTests
                 MountedImagePath = workspace.MountedImagePath,
                 WorkingDirectoryPath = workspace.WorkingDirectoryPath,
                 Architecture = WinPeArchitecture.X64,
-                BootstrapScriptContent = "bootstrap",
                 FoundryConnectConfigurationJson = "{}",
                 DeployConfigurationJson = "{}",
                 IanaWindowsTimeZoneMapJson = "{}",
@@ -128,7 +168,6 @@ public sealed class OsRecoveryPayloadProvisioningServiceTests
                 MountedImagePath = workspace.MountedImagePath,
                 WorkingDirectoryPath = workspace.WorkingDirectoryPath,
                 Architecture = WinPeArchitecture.X64,
-                BootstrapScriptContent = "bootstrap",
                 FoundryConnectConfigurationJson = "{}",
                 DeployConfigurationJson = "{}",
                 IanaWindowsTimeZoneMapJson = "{}",
@@ -172,7 +211,6 @@ public sealed class OsRecoveryPayloadProvisioningServiceTests
                 MountedImagePath = workspace.MountedImagePath,
                 WorkingDirectoryPath = workspace.WorkingDirectoryPath,
                 Architecture = WinPeArchitecture.X64,
-                BootstrapScriptContent = "bootstrap",
                 FoundryConnectConfigurationJson = "{}",
                 DeployConfigurationJson = "{}",
                 IanaWindowsTimeZoneMapJson = "{}",
@@ -212,7 +250,6 @@ public sealed class OsRecoveryPayloadProvisioningServiceTests
                 MountedImagePath = workspace.MountedImagePath,
                 WorkingDirectoryPath = workspace.WorkingDirectoryPath,
                 Architecture = WinPeArchitecture.X64,
-                BootstrapScriptContent = "bootstrap",
                 FoundryConnectConfigurationJson = "{}",
                 DeployConfigurationJson = "{}",
                 IanaWindowsTimeZoneMapJson = "{}",
@@ -245,7 +282,6 @@ public sealed class OsRecoveryPayloadProvisioningServiceTests
                 MountedImagePath = workspace.MountedImagePath,
                 WorkingDirectoryPath = workspace.WorkingDirectoryPath,
                 Architecture = WinPeArchitecture.X64,
-                BootstrapScriptContent = "bootstrap",
                 FoundryConnectConfigurationJson = "{}",
                 DeployConfigurationJson = "{}",
                 IanaWindowsTimeZoneMapJson = "{}",

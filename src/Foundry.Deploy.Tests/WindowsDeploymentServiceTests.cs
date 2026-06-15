@@ -65,6 +65,8 @@ public sealed class WindowsDeploymentServiceTests
         Assert.Contains("select partition 4", scriptLines);
         Assert.Contains("format quick fs=ntfs label=Windows", scriptLines);
         Assert.Contains("assign letter=R", scriptLines);
+        Assert.Contains(processRunner.Calls, call => call.StartsWith("diskpart.exe ", StringComparison.OrdinalIgnoreCase));
+        Assert.DoesNotContain(processRunner.Calls, call => call.StartsWith("powershell.exe ", StringComparison.OrdinalIgnoreCase));
     }
 
     [Fact]
@@ -300,6 +302,14 @@ public sealed class WindowsDeploymentServiceTests
         public List<string> Calls { get; } = [];
 
         public string PowerShellOutput { get; init; } = string.Empty;
+        public string DiskPartOutput { get; init; } = """
+            Partition ###  Type              Size     Offset
+            -------------  ----------------  -------  -------
+            Partition 1    System             260 MB  1024 KB
+            Partition 2    Reserved            16 MB   261 MB
+            Partition 3    Recovery          5120 MB   277 MB
+            Partition 4    Primary            470 GB  5397 MB
+            """;
 
         public Task<ProcessExecutionResult> RunAsync(
             string fileName,
@@ -335,9 +345,17 @@ public sealed class WindowsDeploymentServiceTests
 
         private ProcessExecutionResult CreateResult(string fileName)
         {
-            return string.Equals(fileName, "powershell.exe", StringComparison.OrdinalIgnoreCase)
-                ? new ProcessExecutionResult { ExitCode = 0, StandardOutput = PowerShellOutput }
-                : new ProcessExecutionResult { ExitCode = 0 };
+            if (string.Equals(fileName, "powershell.exe", StringComparison.OrdinalIgnoreCase))
+            {
+                return new ProcessExecutionResult { ExitCode = 0, StandardOutput = PowerShellOutput };
+            }
+
+            if (string.Equals(fileName, "diskpart.exe", StringComparison.OrdinalIgnoreCase))
+            {
+                return new ProcessExecutionResult { ExitCode = 0, StandardOutput = DiskPartOutput };
+            }
+
+            return new ProcessExecutionResult { ExitCode = 0 };
         }
     }
 }
