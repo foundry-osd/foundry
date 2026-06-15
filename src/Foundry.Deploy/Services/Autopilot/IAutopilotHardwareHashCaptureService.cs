@@ -1,7 +1,7 @@
 namespace Foundry.Deploy.Services.Autopilot;
 
 /// <summary>
-/// Captures an Autopilot hardware hash from WinPE without using PowerShell implementation logic.
+/// Captures an Autopilot hardware hash from WinPE using OA3Tool.
 /// </summary>
 public interface IAutopilotHardwareHashCaptureService
 {

@@ -157,7 +157,7 @@ public sealed record DeploymentRuntimeState
     public string? PreOobeSetupCompletePath { get; set; }
 
     /// <summary>
-    /// Gets or sets the offline path to the generated pre-OOBE PowerShell runner.
+    /// Gets or sets the offline path to the generated pre-OOBE runner.
     /// </summary>
     public string? PreOobeRunnerPath { get; set; }
 
@@ -167,7 +167,7 @@ public sealed record DeploymentRuntimeState
     public string? PreOobeManifestPath { get; set; }
 
     /// <summary>
-    /// Gets or sets the offline paths to staged pre-OOBE PowerShell scripts.
+    /// Gets or sets the offline paths to staged pre-OOBE scripts.
     /// </summary>
     public IReadOnlyList<string> PreOobeScriptPaths { get; set; } = [];
 
