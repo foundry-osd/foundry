@@ -70,6 +70,39 @@ public sealed class WindowsDeploymentServiceTests
     }
 
     [Fact]
+    public async Task PrepareTargetDiskAsync_WhenRecoveryMode_UsesPartitionGuidDetails()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string workingDirectory = Path.Combine(workspace.RootPath, "Work");
+        var processRunner = new RecordingProcessRunner
+        {
+            DiskPartOutput = """
+                Partition ###  Type              Size     Offset
+                -------------  ----------------  -------  -------
+                Partition 1    Système            260 MB  1024 KB
+                Partition 2    Réservé             16 MB   261 MB
+                Partition 3    Récupération      5120 MB   277 MB
+                Partition 4    Principal          470 GB  5397 MB
+                """
+        };
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        await service.PrepareTargetDiskAsync(
+            1,
+            workingDirectory,
+            RecoveryTargetDiskLayoutMode.RecoveryRetrySafe,
+            TestContext.Current.CancellationToken);
+
+        string scriptPath = Path.Combine(workingDirectory, "diskpart-os-target.txt");
+        string[] scriptLines = await File.ReadAllLinesAsync(scriptPath, TestContext.Current.CancellationToken);
+
+        Assert.Contains("select partition 1", scriptLines);
+        Assert.Contains("select partition 3", scriptLines);
+        Assert.Contains("select partition 4", scriptLines);
+        Assert.Contains(processRunner.ScriptContents, script => script.Contains("detail partition", StringComparison.OrdinalIgnoreCase));
+    }
+
+    [Fact]
     public async Task ConfigureOfflineComputerNameAsync_WhenDefaultTimeZoneIdIsProvided_WritesUnattendTimeZone()
     {
         using var workspace = new TemporaryWorkspace();
@@ -300,6 +333,7 @@ public sealed class WindowsDeploymentServiceTests
     private sealed class RecordingProcessRunner : IProcessRunner
     {
         public List<string> Calls { get; } = [];
+        public List<string> ScriptContents { get; } = [];
 
         public string PowerShellOutput { get; init; } = string.Empty;
         public string DiskPartOutput { get; init; } = """
@@ -352,10 +386,38 @@ public sealed class WindowsDeploymentServiceTests
 
             if (string.Equals(fileName, "diskpart.exe", StringComparison.OrdinalIgnoreCase))
             {
-                return new ProcessExecutionResult { ExitCode = 0, StandardOutput = DiskPartOutput };
+                return new ProcessExecutionResult { ExitCode = 0, StandardOutput = CreateDiskPartOutput() };
             }
 
             return new ProcessExecutionResult { ExitCode = 0 };
+        }
+
+        private string CreateDiskPartOutput()
+        {
+            string lastCall = Calls[^1];
+            string scriptPath = lastCall.Replace("diskpart.exe /s ", string.Empty, StringComparison.Ordinal).Trim('"');
+            string script = File.Exists(scriptPath) ? File.ReadAllText(scriptPath) : string.Empty;
+            ScriptContents.Add(script);
+
+            if (script.Contains("detail partition", StringComparison.OrdinalIgnoreCase))
+            {
+                if (script.Contains("select partition 1", StringComparison.OrdinalIgnoreCase))
+                {
+                    return "Type  : c12a7328-f81f-11d2-ba4b-00a0c93ec93b";
+                }
+
+                if (script.Contains("select partition 3", StringComparison.OrdinalIgnoreCase))
+                {
+                    return "Type  : de94bba4-06d1-4d40-a16a-bfd50179d6ac";
+                }
+
+                if (script.Contains("select partition 4", StringComparison.OrdinalIgnoreCase))
+                {
+                    return "Type  : ebd0a0a2-b9e5-4433-87c0-68b6b72699c7";
+                }
+            }
+
+            return DiskPartOutput;
         }
     }
 }

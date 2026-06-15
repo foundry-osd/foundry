@@ -6,6 +6,7 @@ namespace Foundry.Deploy.Services.Runtime;
 
 public sealed class RecoveryTargetDiskResolver : IRecoveryTargetDiskResolver
 {
+    private const string RecoveryPartitionGuid = "de94bba4-06d1-4d40-a16a-bfd50179d6ac";
     private const string RecoveryMarkerRelativePath = @"Recovery\WindowsRE\FoundryOsRecovery.json";
     private readonly IProcessRunner _processRunner;
     private readonly ILogger<RecoveryTargetDiskResolver> _logger;
@@ -57,9 +58,36 @@ public sealed class RecoveryTargetDiskResolver : IRecoveryTargetDiskResolver
                 continue;
             }
 
-            foreach (DiskPartPartition partition in DiskPartOutputParser.ParseListPartition(partitionExecution.StandardOutput)
-                         .Where(partition => partition.Type.Equals("Recovery", StringComparison.OrdinalIgnoreCase)))
+            foreach (DiskPartPartition partition in DiskPartOutputParser.ParseListPartition(partitionExecution.StandardOutput))
             {
+                ProcessExecutionResult detailExecution = await RunDiskPartScriptAsync(
+                    [
+                        $"select disk {disk.Number}",
+                        $"select partition {partition.Number}",
+                        "detail partition"
+                    ],
+                    cancellationToken).ConfigureAwait(false);
+
+                if (!detailExecution.IsSuccess || string.IsNullOrWhiteSpace(detailExecution.StandardOutput))
+                {
+                    continue;
+                }
+
+                if (!DiskPartOutputParser
+                        .ParseDetailPartitionTypeGuid(detailExecution.StandardOutput)
+                        .Equals(RecoveryPartitionGuid, StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
+                char? existingLetter = DiskPartOutputParser.ParseDetailPartitionDriveLetter(detailExecution.StandardOutput);
+                if (existingLetter.HasValue &&
+                    _fileExists($@"{existingLetter.Value}:\{RecoveryMarkerRelativePath}"))
+                {
+                    candidateDiskNumbers.Add(disk.Number);
+                    continue;
+                }
+
                 char? letter = GetAvailableTemporaryLetter(usedLetters);
                 if (letter is null)
                 {

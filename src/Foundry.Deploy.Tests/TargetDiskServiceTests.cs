@@ -10,7 +10,7 @@ public sealed class TargetDiskServiceTests
     [Fact]
     public async Task GetDisksAsync_UsesDiskPartAndParsesDiskInventory()
     {
-        var processRunner = new DiskPartProcessRunner();
+        var processRunner = new DiskPartProcessRunner(localizedOutput: false);
         var service = new TargetDiskService(processRunner, NullLogger<TargetDiskService>.Instance);
 
         IReadOnlyList<TargetDiskInfo> disks = await service.GetDisksAsync(TestContext.Current.CancellationToken);
@@ -30,7 +30,7 @@ public sealed class TargetDiskServiceTests
     [Fact]
     public async Task GetDiskNumberForPathAsync_UsesDiskPartDetailVolume()
     {
-        var processRunner = new DiskPartProcessRunner();
+        var processRunner = new DiskPartProcessRunner(localizedOutput: false);
         var service = new TargetDiskService(processRunner, NullLogger<TargetDiskService>.Instance);
 
         int? diskNumber = await service.GetDiskNumberForPathAsync(@"W:\Windows", TestContext.Current.CancellationToken);
@@ -40,8 +40,26 @@ public sealed class TargetDiskServiceTests
         Assert.DoesNotContain(processRunner.Calls, call => call.StartsWith("powershell.exe ", StringComparison.OrdinalIgnoreCase));
     }
 
-    private sealed class DiskPartProcessRunner : IProcessRunner
+    [Fact]
+    public async Task GetDisksAsync_WhenDiskPartOutputIsLocalized_ParsesDiskInventory()
     {
+        var processRunner = new DiskPartProcessRunner(localizedOutput: true);
+        var service = new TargetDiskService(processRunner, NullLogger<TargetDiskService>.Instance);
+
+        IReadOnlyList<TargetDiskInfo> disks = await service.GetDisksAsync(TestContext.Current.CancellationToken);
+
+        TargetDiskInfo disk = Assert.Single(disks);
+        Assert.Equal(0, disk.DiskNumber);
+        Assert.Equal("Disque Foundry NVMe", disk.FriendlyName);
+        Assert.Equal("NVME123", disk.SerialNumber);
+        Assert.Equal(512UL * 1024UL * 1024UL * 1024UL, disk.SizeBytes);
+        Assert.True(disk.IsSelectable);
+    }
+
+    private sealed class DiskPartProcessRunner(bool localizedOutput) : IProcessRunner
+    {
+        private readonly bool _localizedOutput = localizedOutput;
+
         public List<string> Calls { get; } = [];
 
         public Task<ProcessExecutionResult> RunAsync(
@@ -74,7 +92,7 @@ public sealed class TargetDiskServiceTests
             return RunAsync(fileName, arguments, workingDirectory, cancellationToken);
         }
 
-        private static ProcessExecutionResult CreateResult(string fileName, string arguments)
+        private ProcessExecutionResult CreateResult(string fileName, string arguments)
         {
             if (!string.Equals(fileName, "diskpart.exe", StringComparison.OrdinalIgnoreCase))
             {
@@ -83,14 +101,21 @@ public sealed class TargetDiskServiceTests
 
             string script = File.ReadAllText(arguments.Replace("/s ", string.Empty, StringComparison.Ordinal).Trim('"'));
             string output = script.Contains("detail disk", StringComparison.OrdinalIgnoreCase)
-                ? CreateDetailDiskOutput(script)
+                ? CreateDetailDiskOutput(script, _localizedOutput)
                 : script.Contains("detail volume", StringComparison.OrdinalIgnoreCase)
                     ? """
                       Disk ###  Status         Size     Free     Dyn  Gpt
                       --------  -------------  -------  -------  ---  ---
                       Disk 0    Online          512 GB      0 B        *
                       """
-                    : """
+                    : _localizedOutput
+                        ? """
+                          N° disque  Statut         Taille   Libre    Dyn  GPT
+                          ---------  -------------  -------  -------  ---  ---
+                          Disque 0    En ligne        512 G octets      0 octets        *
+                          Disque 1    En ligne         32 G octets      0 octets
+                          """
+                        : """
                       Disk ###  Status         Size     Free     Dyn  Gpt
                       --------  -------------  -------  -------  ---  ---
                       Disk 0    Online          512 GB      0 B        *
@@ -106,11 +131,21 @@ public sealed class TargetDiskServiceTests
             };
         }
 
-        private static string CreateDetailDiskOutput(string script)
+        private static string CreateDetailDiskOutput(string script, bool localizedOutput)
         {
             if (script.Contains("select disk 1", StringComparison.OrdinalIgnoreCase))
             {
-                return """
+                return localizedOutput
+                    ? """
+                  Disque USB Foundry
+                  Type   : USB
+                  Statut : En ligne
+                  État de lecture seule actuel : Non
+                  Lecture seule  : Non
+                  Disque de démarrage  : Non
+                  Numéro de série : USB123
+                  """
+                    : """
                   USB Foundry Disk
                   Type   : USB
                   Status : Online
@@ -121,7 +156,18 @@ public sealed class TargetDiskServiceTests
                   """;
             }
 
-            return """
+            return localizedOutput
+                ? """
+              Disque Foundry NVMe
+              Type   : NVMe
+              Statut : En ligne
+              État de lecture seule actuel : Non
+              Lecture seule  : Non
+              Disque de démarrage  : Non
+              Disque système  : Non
+              Numéro de série : NVME123
+              """
+                : """
               NVMe Foundry Disk
               Disk ID: {00000000-0000-0000-0000-000000000000}
               Type   : NVMe

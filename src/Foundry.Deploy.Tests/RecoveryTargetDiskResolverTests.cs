@@ -9,11 +9,11 @@ public sealed class RecoveryTargetDiskResolverTests
     [Fact]
     public async Task ResolveAsync_WhenExactlyOneFoundryRecoveryMarkerExists_ReturnsDiskNumber()
     {
-        var processRunner = new DiskPartProcessRunner();
+        var processRunner = new DiskPartProcessRunner(existingLetter: null);
         var resolver = new RecoveryTargetDiskResolver(
             processRunner,
             NullLogger<RecoveryTargetDiskResolver>.Instance,
-            path => path.Equals(@"Z:\Recovery\WindowsRE\FoundryOsRecovery.json", StringComparison.OrdinalIgnoreCase));
+            path => path.EndsWith(@"Recovery\WindowsRE\FoundryOsRecovery.json", StringComparison.OrdinalIgnoreCase));
 
         int? diskNumber = await resolver.ResolveAsync(TestContext.Current.CancellationToken);
 
@@ -25,7 +25,7 @@ public sealed class RecoveryTargetDiskResolverTests
     [Fact]
     public async Task ResolveAsync_WhenFoundryRecoveryMarkerIsMissing_ReturnsNull()
     {
-        var processRunner = new DiskPartProcessRunner();
+        var processRunner = new DiskPartProcessRunner(existingLetter: null);
         var resolver = new RecoveryTargetDiskResolver(
             processRunner,
             NullLogger<RecoveryTargetDiskResolver>.Instance,
@@ -37,9 +37,26 @@ public sealed class RecoveryTargetDiskResolverTests
         Assert.DoesNotContain(processRunner.Calls, call => call.StartsWith("powershell.exe ", StringComparison.OrdinalIgnoreCase));
     }
 
-    private sealed class DiskPartProcessRunner : IProcessRunner
+    [Fact]
+    public async Task ResolveAsync_WhenRecoveryPartitionAlreadyHasDriveLetter_UsesExistingLetter()
+    {
+        var processRunner = new DiskPartProcessRunner(existingLetter: 'R');
+        var resolver = new RecoveryTargetDiskResolver(
+            processRunner,
+            NullLogger<RecoveryTargetDiskResolver>.Instance,
+            path => path.Equals(@"R:\Recovery\WindowsRE\FoundryOsRecovery.json", StringComparison.OrdinalIgnoreCase));
+
+        int? diskNumber = await resolver.ResolveAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal(2, diskNumber);
+        Assert.DoesNotContain(processRunner.ScriptContents, script => script.Contains("assign letter=", StringComparison.OrdinalIgnoreCase));
+        Assert.DoesNotContain(processRunner.Calls, call => call.StartsWith("powershell.exe ", StringComparison.OrdinalIgnoreCase));
+    }
+
+    private sealed class DiskPartProcessRunner(char? existingLetter) : IProcessRunner
     {
         public List<string> Calls { get; } = [];
+        public List<string> ScriptContents { get; } = [];
 
         public Task<ProcessExecutionResult> RunAsync(
             string fileName,
@@ -54,7 +71,7 @@ public sealed class RecoveryTargetDiskResolverTests
                 FileName = fileName,
                 Arguments = arguments,
                 WorkingDirectory = workingDirectory,
-                StandardOutput = CreateOutput(fileName, arguments)
+                StandardOutput = CreateOutput(fileName, arguments, existingLetter)
             });
         }
 
@@ -78,7 +95,7 @@ public sealed class RecoveryTargetDiskResolverTests
             return RunAsync(fileName, arguments, workingDirectory, cancellationToken);
         }
 
-        private static string CreateOutput(string fileName, string arguments)
+        private string CreateOutput(string fileName, string arguments, char? existingLetter)
         {
             if (!string.Equals(fileName, "diskpart.exe", StringComparison.OrdinalIgnoreCase))
             {
@@ -86,6 +103,38 @@ public sealed class RecoveryTargetDiskResolverTests
             }
 
             string script = File.ReadAllText(arguments.Replace("/s ", string.Empty, StringComparison.Ordinal).Trim('"'));
+            ScriptContents.Add(script);
+            if (script.Contains("detail partition", StringComparison.OrdinalIgnoreCase))
+            {
+                if (!script.Contains("select partition 3", StringComparison.OrdinalIgnoreCase))
+                {
+                    string typeGuid = script.Contains("select partition 1", StringComparison.OrdinalIgnoreCase)
+                        ? "c12a7328-f81f-11d2-ba4b-00a0c93ec93b"
+                        : "ebd0a0a2-b9e5-4433-87c0-68b6b72699c7";
+
+                    return $$"""
+                        Partition 1
+                        Type  : {{typeGuid}}
+                        """;
+                }
+
+                string volumeLine = existingLetter.HasValue
+                    ? $"  Volume 3     {existingLetter.Value}   Recovery     NTFS   Partition   5120 MB  Healthy    Hidden"
+                    : "  Volume 3         Recovery     NTFS   Partition   5120 MB  Healthy    Hidden";
+
+                return $$"""
+                    Partition 3
+                    Type  : de94bba4-06d1-4d40-a16a-bfd50179d6ac
+                    Hidden: Yes
+                    Required: Yes
+                    Attrib: 0X8000000000000001
+
+                    Volume ###  Ltr  Label        Fs     Type        Size     Status     Info
+                    ----------  ---  -----------  -----  ----------  -------  ---------  --------
+                    {{volumeLine}}
+                    """;
+            }
+
             if (script.Contains("list partition", StringComparison.OrdinalIgnoreCase))
             {
                 return """

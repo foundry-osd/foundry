@@ -18,7 +18,9 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     private const int MsrPartitionSizeMb = 16;
     private const int RecoveryPartitionSizeMb = 5120;
     private const string RecoveryPartitionLabel = "Recovery";
+    private const string EfiPartitionGuid = "c12a7328-f81f-11d2-ba4b-00a0c93ec93b";
     private const string RecoveryPartitionGuid = "de94bba4-06d1-4d40-a16a-bfd50179d6ac";
+    private const string BasicDataPartitionGuid = "ebd0a0a2-b9e5-4433-87c0-68b6b72699c7";
     private const string RecoveryPartitionAttributes = "0x8000000000000001";
     private const string WinReImageFileName = "winre.wim";
     private readonly IProcessRunner _processRunner;
@@ -201,13 +203,19 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         }
 
         IReadOnlyList<DiskPartPartition> partitions = DiskPartOutputParser.ParseListPartition(execution.StandardOutput);
-        DiskPartPartition? system = partitions.FirstOrDefault(partition => IsPartitionType(partition, "System"));
-        DiskPartPartition? recovery = partitions.FirstOrDefault(partition => IsPartitionType(partition, "Recovery"));
+        Dictionary<int, string> partitionTypeGuids = await ReadPartitionTypeGuidsAsync(
+            diskNumber,
+            partitions,
+            workingDirectory,
+            cancellationToken).ConfigureAwait(false);
+
+        DiskPartPartition? system = partitions.FirstOrDefault(partition => IsPartitionType(partition, partitionTypeGuids, EfiPartitionGuid));
+        DiskPartPartition? recovery = partitions.FirstOrDefault(partition => IsPartitionType(partition, partitionTypeGuids, RecoveryPartitionGuid));
         DiskPartPartition? windows = recovery is null
             ? null
             : partitions.FirstOrDefault(partition =>
                 partition.Number > recovery.Number &&
-                IsPartitionType(partition, "Primary"));
+                IsPartitionType(partition, partitionTypeGuids, BasicDataPartitionGuid));
 
         if (system is null || recovery is null || windows is null || recovery.Number >= windows.Number)
         {
@@ -221,6 +229,44 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             RecoveryPartitionNumber = recovery.Number,
             WindowsPartitionNumber = windows.Number
         };
+    }
+
+    private async Task<Dictionary<int, string>> ReadPartitionTypeGuidsAsync(
+        int diskNumber,
+        IReadOnlyList<DiskPartPartition> partitions,
+        string workingDirectory,
+        CancellationToken cancellationToken)
+    {
+        var result = new Dictionary<int, string>();
+        foreach (DiskPartPartition partition in partitions)
+        {
+            string scriptPath = Path.Combine(workingDirectory, $"diskpart-partition-{partition.Number}-detail.txt");
+            await File.WriteAllLinesAsync(
+                scriptPath,
+                [
+                    $"select disk {diskNumber}",
+                    $"select partition {partition.Number}",
+                    "detail partition"
+                ],
+                cancellationToken).ConfigureAwait(false);
+
+            ProcessExecutionResult execution = await _processRunner
+                .RunAsync("diskpart.exe", $"/s \"{scriptPath}\"", workingDirectory, cancellationToken)
+                .ConfigureAwait(false);
+
+            if (!execution.IsSuccess || string.IsNullOrWhiteSpace(execution.StandardOutput))
+            {
+                continue;
+            }
+
+            string typeGuid = DiskPartOutputParser.ParseDetailPartitionTypeGuid(execution.StandardOutput);
+            if (typeGuid.Length > 0)
+            {
+                result[partition.Number] = typeGuid;
+            }
+        }
+
+        return result;
     }
 
     /// <inheritdoc />
@@ -1042,8 +1088,12 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         throw new InvalidOperationException("No drive letter is available for deployment partitions.");
     }
 
-    private static bool IsPartitionType(DiskPartPartition partition, string expectedType)
-        => partition.Type.Equals(expectedType, StringComparison.OrdinalIgnoreCase);
+    private static bool IsPartitionType(
+        DiskPartPartition partition,
+        IReadOnlyDictionary<int, string> partitionTypeGuids,
+        string expectedTypeGuid)
+        => partitionTypeGuids.TryGetValue(partition.Number, out string? typeGuid) &&
+           typeGuid.Equals(expectedTypeGuid, StringComparison.OrdinalIgnoreCase);
 
     private static void ResetWorkingDirectory(string path)
     {
