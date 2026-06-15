@@ -207,7 +207,7 @@ Fortsätt med implementeringen?</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Ladda ner firmwareuppdatering</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Applicera firmwareuppdatering</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Försegla återställningspartition</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Provision Autopilot</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Provisionera Autopilot</value></data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Slutför distributionen och skriv loggar</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Samlar in implementeringsvariabler...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Samlar in implementeringskontext...</value></data>
@@ -522,12 +522,12 @@ Fortsätt med OS Recovery?</value></data>
   <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Provisionera OS-återställning</value></data>
   <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Provisionerar OS-återställning...</value></data>
   <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Injicerar nyttolast för OS-återställning...</value></data>
-  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Committing WinRE changes...</value></data>
+  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Sparar WinRE-ändringar...</value></data>
   <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Registrerar OS Recovery startmeny...</value></data>
   <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>OS-återställning är inaktiverad.</value></data>
   <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>Provisionering av OS-återställning hoppas över i återställningsläge.</value></data>
   <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>OS-återställning tillhandahållen.</value></data>
   <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>OS-återställning tillhandahållen (simulering).</value></data>
-  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry-återställning</value></data>
-  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Distribuera Windows igen</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry OSD-återställning</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Nöddistribuera Windows</value></data>
 </root>

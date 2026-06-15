@@ -522,12 +522,12 @@ Nastaviti sa oporavkom OS-a?</value></data>
   <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Pripremi oporavak OS-a</value></data>
   <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Priprema oporavka OS-a...</value></data>
   <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Ubacivanje sadržaja oporavka OS-a...</value></data>
-  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Committing WinRE changes...</value></data>
+  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Čuvanje WinRE promena...</value></data>
   <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Registrovanje menija za pokretanje oporavka OS-a...</value></data>
   <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>Oporavak OS-a je onemogućen.</value></data>
   <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>Priprema oporavka OS-a se preskače u režimu oporavka.</value></data>
   <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>Oporavak OS-a je pripremljen.</value></data>
   <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>Oporavak OS-a je pripremljen (simulacija).</value></data>
-  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry oporavak</value></data>
-  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Ponovo uvedi Windows</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry OSD oporavak</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Hitno ponovno uvođenje Windowsa</value></data>
 </root>

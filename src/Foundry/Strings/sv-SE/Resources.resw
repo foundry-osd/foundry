@@ -64,7 +64,7 @@
     <value>Laddar versionsinformation...</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
-    <value>Release notes</value>
+    <value>Versionsinformation</value>
   </data>
   <data name="AboutDialog.RepositoryLink" xml:space="preserve">
     <value>Förvar</value>
@@ -94,7 +94,7 @@
     <value>Uppdatera och starta om</value>
   </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
-    <value>Release notes</value>
+    <value>Versionsinformation</value>
   </data>
   <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
     <value>Uppdatera källa</value>

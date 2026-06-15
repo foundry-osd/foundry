@@ -528,6 +528,6 @@ Continue with OS Recovery?</value></data>
   <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>OS Recovery provisioning is skipped in recovery mode.</value></data>
   <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>OS Recovery provisioned.</value></data>
   <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>OS Recovery provisioned (simulation).</value></data>
-  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry Recovery</value></data>
-  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Redeploy Windows</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry OSD Recovery</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Emergency Windows redeploy</value></data>
 </root>

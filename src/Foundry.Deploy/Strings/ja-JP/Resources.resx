@@ -522,12 +522,12 @@ OS リカバリを続行しますか?</value></data>
   <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>OS リカバリのプロビジョニング</value></data>
   <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>OS リカバリをプロビジョニングしています...</value></data>
   <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>OS リカバリ ペイロードを挿入しています...</value></data>
-  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Committing WinRE changes...</value></data>
+  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>WinRE の変更を保存しています...</value></data>
   <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>OS リカバリ ブート メニューを登録しています...</value></data>
   <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>OS リカバリは無効になっています。</value></data>
   <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>OS リカバリ プロビジョニングはリカバリ モードではスキップされます。</value></data>
   <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>OS リカバリがプロビジョニングされました。</value></data>
   <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>OS リカバリがプロビジョニングされました (シミュレーション)。</value></data>
-  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry 回復</value></data>
-  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Windows を再展開</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry OSD 回復</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>緊急 Windows 再展開</value></data>
 </root>

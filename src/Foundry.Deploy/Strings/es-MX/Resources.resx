@@ -522,12 +522,12 @@ Sistema operativo: {4}
   <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Aprovisionar recuperación del sistema operativo</value></data>
   <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Aprovisionando recuperación del sistema operativo...</value></data>
   <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Inyectando carga útil de recuperación del sistema operativo...</value></data>
-  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Committing WinRE changes...</value></data>
+  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Guardando cambios de WinRE...</value></data>
   <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Registrando el menú de inicio de OS Recovery...</value></data>
   <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>La recuperación del sistema operativo está deshabilitada.</value></data>
   <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>El aprovisionamiento de OS Recovery se omite en el modo de recuperación.</value></data>
   <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>Recuperación del sistema operativo aprovisionada.</value></data>
   <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>Recuperación del sistema operativo aprovisionada (simulación).</value></data>
-  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Recuperación Foundry</value></data>
-  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Reinstalar Windows</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Recuperación Foundry OSD</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Reinstalación Windows urgente</value></data>
 </root>

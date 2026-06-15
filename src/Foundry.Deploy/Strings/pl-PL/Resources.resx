@@ -522,12 +522,12 @@ Kontynuować odzyskiwanie systemu operacyjnego?</value></data>
   <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Zapewnij odzyskiwanie systemu operacyjnego</value></data>
   <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Udostępnianie odzyskiwania systemu operacyjnego...</value></data>
   <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Wstrzykiwanie ładunku odzyskiwania systemu operacyjnego...</value></data>
-  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Committing WinRE changes...</value></data>
+  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Zapisywanie zmian WinRE...</value></data>
   <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Rejestrowanie menu startowego odzyskiwania systemu operacyjnego...</value></data>
   <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>Odzyskiwanie systemu operacyjnego jest wyłączone.</value></data>
   <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>Udostępnianie systemu operacyjnego OS Recovery jest pomijane w trybie odzyskiwania.</value></data>
   <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>Zapewnione odzyskiwanie systemu operacyjnego.</value></data>
   <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>Zapewnione odzyskiwanie systemu operacyjnego (symulacja).</value></data>
-  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Odzyskiwanie Foundry</value></data>
-  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Wdróż Windows ponownie</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Odzyskiwanie Foundry OSD</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Awaryjne wdrożenie Windows</value></data>
 </root>

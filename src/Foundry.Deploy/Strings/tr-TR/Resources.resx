@@ -522,12 +522,12 @@ Boyut: {3}
   <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>İşletim Sistemi Kurtarmanın Sağlanması</value></data>
   <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>İşletim Sistemi Kurtarma Sağlanıyor...</value></data>
   <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>İşletim Sistemi Kurtarma yükü enjekte ediliyor...</value></data>
-  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Committing WinRE changes...</value></data>
+  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>WinRE değişiklikleri kaydediliyor...</value></data>
   <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>İşletim Sistemi Kurtarma önyükleme menüsü kaydediliyor...</value></data>
   <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>İşletim Sistemi Kurtarma devre dışı.</value></data>
   <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>İşletim Sistemi Kurtarma provizyonu, kurtarma modunda atlanır.</value></data>
   <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>İşletim Sistemi Kurtarma sağlandı.</value></data>
   <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>İşletim Sistemi Kurtarmanın temel hazırlığı yapıldı (simülasyon).</value></data>
-  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry Kurtarma</value></data>
-  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Windows'u yeniden dağıt</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry OSD Kurtarma</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Acil Windows yeniden dağıtımı</value></data>
 </root>

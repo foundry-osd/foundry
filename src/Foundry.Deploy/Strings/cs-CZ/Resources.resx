@@ -522,12 +522,12 @@ Pokračovat v obnově OS?</value></data>
   <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Připravit obnovení OS</value></data>
   <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Provádění obnovy OS...</value></data>
   <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Vkládání dat pro obnovu OS...</value></data>
-  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Committing WinRE changes...</value></data>
+  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Ukládání změn WinRE...</value></data>
   <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Registrace spouštěcí nabídky OS Recovery...</value></data>
   <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>Obnovení OS je zakázáno.</value></data>
   <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>Poskytování obnovy OS je v režimu obnovy přeskočeno.</value></data>
   <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>Obnovení OS zajištěno.</value></data>
   <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>Bylo zajištěno obnovení OS (simulace).</value></data>
-  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Obnova Foundry</value></data>
-  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Znovu nasadit Windows</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Obnova Foundry OSD</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Nouzově znovu nasadit Windows</value></data>
 </root>

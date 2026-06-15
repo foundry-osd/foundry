@@ -1711,7 +1711,7 @@
     <value>Updaten en opnieuw opstarten</value>
   </data>
   <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Update Foundry OSD</value>
+    <value>Foundry OSD bijwerken</value>
   </data>
   <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
     <value>De update downloaden. Foundry OSD zal opnieuw opstarten als het klaar is.</value>

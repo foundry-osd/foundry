@@ -28,7 +28,7 @@
     <value>Chargement des contributeurs...</value>
   </data>
   <data name="AboutDialog.ContributionCountFormat" xml:space="preserve">
-    <value>Contributions: {0}</value>
+    <value>Contributions : {0}</value>
   </data>
   <data name="AboutDialog.Description" xml:space="preserve">
     <value>Foundry OSD est une application moderne permettant de créer des supports de déploiement Windows optimisés par WinPE.</value>
@@ -1522,7 +1522,7 @@
     <value>Norme WinPE</value>
   </data>
   <data name="StartMedia.BootImageSource.WinReWifi" xml:space="preserve">
-    <value>WinRE Wi-Fi image</value>
+    <value>Image WinRE Wi-Fi</value>
   </data>
   <data name="StartMedia.DriverVendor.Dell" xml:space="preserve">
     <value>Dell</value>

@@ -522,12 +522,12 @@
   <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>配置操作系统恢复</value></data>
   <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>配置操作系统恢复...</value></data>
   <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>正在注入操作系统恢复负载...</value></data>
-  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Committing WinRE changes...</value></data>
+  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>正在保存 WinRE 更改...</value></data>
   <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>正在注册操作系统恢复启动菜单...</value></data>
   <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>操作系统恢复已禁用。</value></data>
   <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>在恢复模式下会跳过操作系统恢复配置。</value></data>
   <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>已配置操作系统恢复。</value></data>
   <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>已配置操作系统恢复（模拟）。</value></data>
-  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry 恢复</value></data>
-  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>重新部署 Windows</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry OSD 恢复</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>紧急重新部署 Windows</value></data>
 </root>

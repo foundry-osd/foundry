@@ -522,12 +522,12 @@
   <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Обеспечение восстановления ОС</value></data>
   <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Обеспечение восстановления ОС...</value></data>
   <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Внедрение полезных данных восстановления ОС...</value></data>
-  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Committing WinRE changes...</value></data>
+  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Сохранение изменений WinRE...</value></data>
   <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Регистрация меню загрузки OS Recovery...</value></data>
   <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>Восстановление ОС отключено.</value></data>
   <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>В режиме восстановления подготовка ОС для восстановления пропускается.</value></data>
   <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>Предусмотрено восстановление ОС.</value></data>
   <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>Предусмотрено восстановление ОС (симуляция).</value></data>
-  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Восстановление Foundry</value></data>
-  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Развернуть Windows заново</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Восстановление Foundry OSD</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Аварийное развертывание Windows</value></data>
 </root>

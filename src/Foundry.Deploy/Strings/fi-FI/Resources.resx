@@ -522,12 +522,12 @@ Jatketaanko käyttöjärjestelmän palautusta?</value></data>
   <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Tarjoa käyttöjärjestelmän palautus</value></data>
   <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Otetaan käyttöön käyttöjärjestelmän palautus...</value></data>
   <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Lisätään käyttöjärjestelmän palautusta...</value></data>
-  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Committing WinRE changes...</value></data>
+  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Tallennetaan WinRE-muutoksia...</value></data>
   <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Rekisteröidään OS Recovery -käynnistysvalikkoa...</value></data>
   <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>Käyttöjärjestelmän palautus on poistettu käytöstä.</value></data>
   <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>Käyttöjärjestelmän palautuksen hallinta ohitetaan palautustilassa.</value></data>
   <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>Käyttöjärjestelmän palautus varattu.</value></data>
   <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>Käyttöjärjestelmän palautus varusteltu (simulaatio).</value></data>
-  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry-palautus</value></data>
-  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Asenna Windows uudelleen</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry OSD -palautus</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Windowsin hätäasennus</value></data>
 </root>

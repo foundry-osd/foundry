@@ -522,12 +522,12 @@ Doorgaan met OS-herstel?</value></data>
   <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>OS-herstel inrichten</value></data>
   <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Besturingssysteemherstel inrichten...</value></data>
   <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Bezig met injecteren van de OS Recovery-payload...</value></data>
-  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Committing WinRE changes...</value></data>
+  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>WinRE-wijzigingen worden opgeslagen...</value></data>
   <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Registreren van het opstartmenu van OS Recovery...</value></data>
   <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>Besturingssysteemherstel is uitgeschakeld.</value></data>
   <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>Het inrichten van OS Recovery wordt overgeslagen in de herstelmodus.</value></data>
   <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>OS-herstel ingericht.</value></data>
   <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>OS Recovery ingericht (simulatie).</value></data>
-  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry-herstel</value></data>
-  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Windows opnieuw uitrollen</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry OSD-herstel</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Windows nooduitrol</value></data>
 </root>

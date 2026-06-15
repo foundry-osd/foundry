@@ -303,7 +303,7 @@
     <value>Onderneming</value>
   </data>
   <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
-    <value>{0} (machine)</value>
+    <value>{0} (computer)</value>
   </data>
   <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
     <value>{0} (machine of gebruiker)</value>

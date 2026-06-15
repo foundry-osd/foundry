@@ -522,12 +522,12 @@ Continuar com a recuperação do sistema operacional?</value></data>
   <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Provisionar recuperação de sistema operacional</value></data>
   <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Provisionando recuperação do sistema operacional...</value></data>
   <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Injetando carga útil de recuperação do sistema operacional...</value></data>
-  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Committing WinRE changes...</value></data>
+  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Salvando alterações do WinRE...</value></data>
   <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Registrando o menu de inicialização do OS Recovery...</value></data>
   <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>A recuperação do sistema operacional está desativada.</value></data>
   <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>O provisionamento do OS Recovery é ignorado no modo de recuperação.</value></data>
   <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>Recuperação do sistema operacional provisionada.</value></data>
   <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>Recuperação de SO provisionada (simulação).</value></data>
-  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Recuperação Foundry</value></data>
-  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Reimplantar Windows</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Recuperação Foundry OSD</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Reimplantação Windows emergencial</value></data>
 </root>

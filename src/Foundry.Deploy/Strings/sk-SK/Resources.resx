@@ -522,12 +522,12 @@ Pokračovať v obnove OS?</value></data>
   <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Poskytovanie obnovy OS</value></data>
   <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Poskytovanie obnovy OS...</value></data>
   <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Vkladá sa užitočné zaťaženie na obnovenie OS...</value></data>
-  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Committing WinRE changes...</value></data>
+  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Ukladajú sa zmeny WinRE...</value></data>
   <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Registrácia zavádzacej ponuky obnovy OS...</value></data>
   <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>Obnovenie OS je vypnuté.</value></data>
   <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>Poskytovanie obnovy OS sa v režime obnovenia preskočí.</value></data>
   <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>Zabezpečené obnovenie OS.</value></data>
   <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>Zabezpečené obnovenie OS (simulácia).</value></data>
-  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Obnova Foundry</value></data>
-  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Znovu nasadiť Windows</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Obnova Foundry OSD</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Núdzové nasadenie Windows</value></data>
 </root>

@@ -522,12 +522,12 @@ Tęsti OS atkūrimą?</value></data>
   <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Pateikite OS atkūrimą</value></data>
   <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Teikiamas OS atkūrimas...</value></data>
   <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Įvedama OS atkūrimo naudingoji apkrova...</value></data>
-  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Committing WinRE changes...</value></data>
+  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Įrašomi WinRE pakeitimai...</value></data>
   <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Registruojamas OS atkūrimo įkrovos meniu...</value></data>
   <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>OS atkūrimas išjungtas.</value></data>
   <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>Atkūrimo režimu OS atkūrimo aprūpinimas praleidžiamas.</value></data>
   <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>Suteiktas OS atkūrimas.</value></data>
   <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>OS atkūrimas numatytas (modeliavimas).</value></data>
-  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry atkūrimas</value></data>
-  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Iš naujo diegti Windows</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry OSD atkūrimas</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Avarinis Windows diegimas</value></data>
 </root>

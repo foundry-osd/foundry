@@ -1441,7 +1441,7 @@
     <value>Nahrávanie hardvérového hash je povolené, ale vybraný PFX nezodpovedá registračnému certifikátu aplikácie.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the selected certificate thumbprint is missing.</value>
+    <value>Nahrávanie hardvérového hashu je povolené, ale chýba odtlačok vybratého certifikátu.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateExpirationMissing" xml:space="preserve">
     <value>Nahrávanie hardvérového hash je povolené, ale chýba vybratý certifikát.</value>
@@ -1450,22 +1450,22 @@
     <value>Nahrávanie hardvérového hash je povolené, ale platnosť vybratého certifikátu vypršala. Pred vytvorením zavádzacieho média vyberte platný certifikát.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
-    <value>Hardware hash upload is enabled but no boot media PFX is selected.</value>
+    <value>Nahrávanie hardvérového hashu je povolené, ale nie je vybratý žiadny PFX pre zavádzacie médium.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
     <value>Odovzdávanie hardvérového hash je povolené, ale chýba heslo PFX zavádzacieho média.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the boot media PFX has not been validated.</value>
+    <value>Nahrávanie hardvérového hashu je povolené, ale PFX zavádzacieho média nebol overený.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the selected PFX does not match the active certificate.</value>
+    <value>Nahrávanie hardvérového hashu je povolené, ale vybratý PFX sa nezhoduje s aktívnym certifikátom.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpirationMissing" xml:space="preserve">
     <value>Odovzdávanie hardvérového hash je povolené, ale nebolo možné overiť platnosť spúšťacieho média PFX.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the selected boot media PFX has expired.</value>
+    <value>Nahrávanie hardvérového hashu je povolené, ale vybratému PFX zavádzacieho média vypršala platnosť.</value>
   </data>
   <data name="StartMedia.BlockingReason.AdkNotReady" xml:space="preserve">
     <value>Doplnok ADK alebo WinPE nie je pripravený.</value>
@@ -1477,7 +1477,7 @@
     <value>WinPE jazyk zavádzania nie je vybratý.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
-    <value>Selected WinPE boot language is not available for the selected architecture.</value>
+    <value>Vybraný jazyk zavádzania WinPE nie je dostupný pre vybranú architektúru.</value>
   </data>
   <data name="StartMedia.BlockingReason.NetworkConfigurationNotReady" xml:space="preserve">
     <value>Konfigurácia siete nie je pripravená.</value>
@@ -1507,7 +1507,7 @@
     <value>Vlastný priečinok ovládača neexistuje.</value>
   </data>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryHasNoInfFiles" xml:space="preserve">
-    <value>Custom driver folder does not contain .inf files.</value>
+    <value>Vlastný priečinok ovládačov neobsahuje súbory .inf.</value>
   </data>
   <data name="StartMedia.BlockingReason.FinalExecutionDeferred" xml:space="preserve">
     <value>Vytváranie médií nie je v tejto zostave povolené.</value>
@@ -1639,31 +1639,31 @@
     <value>Nastavenia</value>
   </data>
   <data name="SettingsPage_GeneralCard.Description" xml:space="preserve">
-    <value>Manage startup, language, diagnostics, and application behavior.</value>
+    <value>Spravujte spustenie, jazyk, diagnostiku a správanie aplikácie.</value>
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>generál</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Send anonymous usage telemetry to help improve Foundry. No names, secrets, SSIDs, IP addresses, file paths, disk identifiers, computer names, Autopilot profile names, or hardware identifiers are sent.</value>
+    <value>Odosielajte anonymnú telemetriu používania, ktorá pomáha zlepšovať Foundry. Neodosielajú sa žiadne mená, tajomstvá, SSID, IP adresy, cesty k súborom, identifikátory diskov, názvy počítačov, názvy profilov Autopilot ani identifikátory hardvéru.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Povoliť telemetriu</value>
   </data>
   <data name="SettingsPage_ThemeCard.Description" xml:space="preserve">
-    <value>Change theme, backdrop, and accent color preferences.</value>
+    <value>Zmeňte motív, pozadie a predvoľby farby zvýraznenia.</value>
   </data>
   <data name="SettingsPage_ThemeCard.Header" xml:space="preserve">
     <value>Vzhľad</value>
   </data>
   <data name="SettingsPage_UpdateCard.Description" xml:space="preserve">
-    <value>Check for Foundry OSD updates and review release notes.</value>
+    <value>Vyhľadajte aktualizácie Foundry OSD a pozrite si poznámky k vydaniu.</value>
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Aktualizovať aplikáciu</value>
   </data>
   <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
-    <value>Open Windows color settings to change the accent color.</value>
+    <value>Otvorte nastavenia farieb systému Windows a zmeňte farbu zvýraznenia.</value>
   </data>
   <data name="ThemeSetting_AccentCard.Header" xml:space="preserve">
     <value>Farba akcentu</value>

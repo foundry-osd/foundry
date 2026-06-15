@@ -522,12 +522,12 @@ OS 복구를 계속하시겠습니까?</value></data>
   <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>OS 복구 프로비저닝</value></data>
   <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>OS 복구 프로비저닝 중...</value></data>
   <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>OS 복구 페이로드를 삽입하는 중...</value></data>
-  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Committing WinRE changes...</value></data>
+  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>WinRE 변경 내용을 저장하는 중...</value></data>
   <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>OS 복구 부팅 메뉴 등록 중...</value></data>
   <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>OS 복구가 비활성화되었습니다.</value></data>
   <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>복구 모드에서는 OS 복구 프로비저닝을 건너뜁니다.</value></data>
   <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>OS 복구가 프로비저닝되었습니다.</value></data>
   <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>OS 복구 프로비저닝됨(시뮬레이션)</value></data>
-  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry 복구</value></data>
-  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Windows 재배포</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry OSD 복구</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>긴급 Windows 재배포</value></data>
 </root>

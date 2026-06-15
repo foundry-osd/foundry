@@ -522,12 +522,12 @@ Mit der Betriebssystemwiederherstellung fortfahren?</value></data>
   <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Bereitstellen der Betriebssystemwiederherstellung</value></data>
   <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Betriebssystemwiederherstellung wird bereitgestellt...</value></data>
   <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Nutzlast für die Betriebssystemwiederherstellung wird eingefügt...</value></data>
-  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Committing WinRE changes...</value></data>
+  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>WinRE-Änderungen werden gespeichert...</value></data>
   <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Das Bootmenü für die Betriebssystemwiederherstellung wird registriert...</value></data>
   <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>Die Betriebssystemwiederherstellung ist deaktiviert.</value></data>
   <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>Die Bereitstellung der Betriebssystemwiederherstellung wird im Wiederherstellungsmodus übersprungen.</value></data>
   <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>Betriebssystemwiederherstellung bereitgestellt.</value></data>
   <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>Betriebssystemwiederherstellung bereitgestellt (Simulation).</value></data>
-  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry-Wiederherstellung</value></data>
-  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Windows neu bereitstellen</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry OSD-Wiederherstellung</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Windows-Notfallbereitstellung</value></data>
 </root>

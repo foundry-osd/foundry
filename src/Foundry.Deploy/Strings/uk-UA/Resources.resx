@@ -522,12 +522,12 @@ ErrorCode=0x80070005
   <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Надання відновлення ОС</value></data>
   <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Ініціалізація відновлення ОС...</value></data>
   <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Впровадження корисного навантаження відновлення ОС...</value></data>
-  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Committing WinRE changes...</value></data>
+  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Збереження змін WinRE...</value></data>
   <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Реєстрація меню завантаження відновлення ОС...</value></data>
   <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>Відновлення ОС вимкнено.</value></data>
   <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>Ініціалізація відновлення ОС пропускається в режимі відновлення.</value></data>
   <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>Забезпечено відновлення ОС.</value></data>
   <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>Забезпечено відновлення ОС (симуляція).</value></data>
-  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Відновлення Foundry</value></data>
-  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Розгорнути Windows знову</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Відновлення Foundry OSD</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Аварійне розгортання Windows</value></data>
 </root>

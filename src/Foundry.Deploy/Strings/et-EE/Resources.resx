@@ -522,12 +522,12 @@ Kas jätkata OS-i taastamisega?</value></data>
   <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>OS-i taastamise pakkumine</value></data>
   <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>OS-i taastamise ettevalmistamine...</value></data>
   <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>OS-i taastamise kasuliku koormuse sisestamine...</value></data>
-  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Committing WinRE changes...</value></data>
+  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>WinRE muudatuste salvestamine...</value></data>
   <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>OS-i taastamise alglaadimismenüü registreerimine...</value></data>
   <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>OS-i taastamine on keelatud.</value></data>
   <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>OS-i taastamise varustamine jäetakse taasterežiimis vahele.</value></data>
   <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>OS-i taastamine on ette nähtud.</value></data>
   <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>OS-i taastamine on ette nähtud (simulatsioon).</value></data>
-  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry taaste</value></data>
-  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Juuruta Windows uuesti</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry OSD taaste</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Windowsi avariijuurutus</value></data>
 </root>
