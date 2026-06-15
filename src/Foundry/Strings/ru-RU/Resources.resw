@@ -2121,4 +2121,61 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Проверьте готовность, выберите вывод ISO или USB и запустите создание носителя.</value>
   </data>
+  <data name="Nav_OsRecoveryKey.Description" xml:space="preserve">
+    <value>Настройте доступность восстановления ОС.</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Subtitle" xml:space="preserve">
+    <value>Восстановление ОС</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Title" xml:space="preserve">
+    <value>Восстановление ОС</value>
+  </data>
+  <data name="OsRecoveryPage_Title.Text" xml:space="preserve">
+    <value>Восстановление ОС</value>
+  </data>
+  <data name="OsRecovery.PageDescription" xml:space="preserve">
+    <value>Включите точку входа WinRE для Foundry Recovery и проверьте, как операторы достигают ее.</value>
+  </data>
+  <data name="OsRecovery.EnableHeader" xml:space="preserve">
+    <value>Включить восстановление ОС</value>
+  </data>
+  <data name="OsRecovery.EnableDescription" xml:space="preserve">
+    <value>Добавьте Foundry Recovery в качестве дополнительного действия по восстановлению в среде восстановления Windows.</value>
+  </data>
+  <data name="OsRecovery.EnableToggleText" xml:space="preserve">
+    <value>Включить восстановление ОС</value>
+  </data>
+  <data name="OsRecovery.WhyHeader" xml:space="preserve">
+    <value>Почему это существует</value>
+  </data>
+  <data name="OsRecovery.WhyDescription" xml:space="preserve">
+    <value>OS Recovery предоставляет группам поддержки знакомый путь WinRE для запуска Foundry Recovery, когда Windows не может нормально загрузиться или требуется повторное развертывание после восстановления.</value>
+  </data>
+  <data name="OsRecovery.WhenHeader" xml:space="preserve">
+    <value>Когда его использовать</value>
+  </data>
+  <data name="OsRecovery.WhenDescription" xml:space="preserve">
+    <value>Используйте его для рабочих процессов устранения неполадок, в которых оператор запускает среду восстановления Windows вместо загрузки отдельного носителя развертывания.</value>
+  </data>
+  <data name="OsRecovery.WinRePathHeader" xml:space="preserve">
+    <value>Путь WinRE</value>
+  </data>
+  <data name="OsRecovery.WinRePathDescription" xml:space="preserve">
+    <value>Устранение неполадок &gt; Дополнительные параметры &gt; Foundry Recovery</value>
+  </data>
+  <data name="OsRecovery.LimitationsHeader" xml:space="preserve">
+    <value>Ограничения</value>
+  </data>
+  <data name="OsRecovery.LimitationsDescription" xml:space="preserve">
+    <value>Эта страница контролирует только то, запрашивается ли точка входа для восстановления. Он не настраивает текст меню, не настраивает автоматическое восстановление, не обеспечивает сетевую аутентификацию, не регистрирует Autopilot, не вводит данные OA3 и не хранит секреты.</value>
+  </data>
+  <data name="OsRecovery.FlowHeader" xml:space="preserve">
+    <value>Поток восстановления</value>
+  </data>
+  <data name="OsRecovery.FlowDescription" xml:space="preserve">
+    <value>Изображение-заполнитель показывает предполагаемый путь навигации WinRE и может быть заменено позже.</value>
+  </data>
+  <data name="OsRecovery.FlowImageAutomationName" xml:space="preserve">
+    <value>Путь навигации WinRE: Устранение неполадок, Дополнительные параметры, Foundry Recovery.</value>
+  </data>
 </root>

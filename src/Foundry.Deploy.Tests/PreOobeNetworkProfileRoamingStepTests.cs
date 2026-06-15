@@ -167,6 +167,19 @@ public sealed class PreOobeNetworkProfileRoamingStepTests
     {
         public Task<DeploymentTargetLayout> PrepareTargetDiskAsync(int diskNumber, string workingDirectory, CancellationToken cancellationToken = default)
         {
+            return PrepareTargetDiskAsync(
+                diskNumber,
+                workingDirectory,
+                RecoveryTargetDiskLayoutMode.FullWipe,
+                cancellationToken);
+        }
+
+        public Task<DeploymentTargetLayout> PrepareTargetDiskAsync(
+            int diskNumber,
+            string workingDirectory,
+            RecoveryTargetDiskLayoutMode layoutMode,
+            CancellationToken cancellationToken = default)
+        {
             throw new NotSupportedException();
         }
 

@@ -157,7 +157,7 @@ public sealed record DeploymentRuntimeState
     public string? PreOobeSetupCompletePath { get; set; }
 
     /// <summary>
-    /// Gets or sets the offline path to the generated pre-OOBE PowerShell runner.
+    /// Gets or sets the offline path to the generated pre-OOBE runner.
     /// </summary>
     public string? PreOobeRunnerPath { get; set; }
 
@@ -167,7 +167,7 @@ public sealed record DeploymentRuntimeState
     public string? PreOobeManifestPath { get; set; }
 
     /// <summary>
-    /// Gets or sets the offline paths to staged pre-OOBE PowerShell scripts.
+    /// Gets or sets the offline paths to staged pre-OOBE scripts.
     /// </summary>
     public IReadOnlyList<string> PreOobeScriptPaths { get; set; } = [];
 
@@ -235,6 +235,11 @@ public sealed record DeploymentRuntimeState
     /// Gets or sets the sanitized hardware hash upload status message retained in runtime state.
     /// </summary>
     public string? AutopilotHardwareHashUploadMessage { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether Foundry OS Recovery WinRE provisioning is enabled.
+    /// </summary>
+    public bool IsOsRecoveryEnabled { get; set; }
 
     /// <summary>
     /// Gets or sets the diagnostics directory retained under the target Windows Temp\Foundry tree.

@@ -444,7 +444,7 @@ Vai turpināt izvietošanu?</value></data>
     <value>latviešu (Latvija)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norwegian Bokmal (Norway)</value>
+    <value>norvēģu bukmols (Norvēģija)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>holandiešu (Nīderlande)</value>
@@ -509,4 +509,25 @@ Vai turpināt izvietošanu?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Interaktīvais Autopilot reģistrācijas palīgs ir sagatavots (simulācija).</value>
   </data>
+  <data name="Launch.ConfirmOsRecoveryTitle" xml:space="preserve"><value>Apstipriniet OS atkopšanu</value></data>
+  <data name="Launch.ConfirmOsRecoveryMessageFormat" xml:space="preserve"><value>OS atkopšana saglabās EFI, MSR un Recovery nodalījumus, pēc tam nomainīs Windows nodalījumu atlasītajā diskā.
+
+Disks: {0}
+Modelis: {1}
+Autobuss: {2}
+Izmērs: {3}
+Operētājsistēma: {4}
+
+Vai turpināt ar OS atkopšanu?</value></data>
+  <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Nodrošiniet OS atkopšanu</value></data>
+  <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Notiek OS atkopšanas nodrošināšana...</value></data>
+  <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Notiek OS atkopšanas derīgās slodzes ievadīšana...</value></data>
+  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Tiek saglabātas WinRE izmaiņas...</value></data>
+  <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Notiek OS atkopšanas sāknēšanas izvēlnes reģistrācija...</value></data>
+  <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>OS atkopšana ir atspējota.</value></data>
+  <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>Atkopšanas režīmā OS atkopšanas nodrošināšana tiek izlaista.</value></data>
+  <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>Nodrošināta OS atkopšana.</value></data>
+  <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>Nodrošināta OS atkopšana (simulācija).</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry OSD atkopšana</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Windows ārkārtas izvietošana</value></data>
 </root>

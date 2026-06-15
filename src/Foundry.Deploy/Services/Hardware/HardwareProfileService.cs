@@ -1,119 +1,41 @@
-using System.Text.Json;
-using System.Text;
-using System.IO;
+using System.Text.RegularExpressions;
 using Foundry.Deploy.Models;
-using Foundry.Deploy.Services.System;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Hardware;
 
-public sealed class HardwareProfileService : IHardwareProfileService
+public sealed partial class HardwareProfileService : IHardwareProfileService
 {
-    private readonly IProcessRunner _processRunner;
+    private const string SystemFirmwareClassGuid = "{f2e7dd72-6468-4e36-b6f1-6488f42c1b52}";
+
+    private readonly IHardwareProfileSource _source;
     private readonly ILogger<HardwareProfileService> _logger;
+    private readonly Func<string> _architectureProvider;
 
-    public HardwareProfileService(IProcessRunner processRunner, ILogger<HardwareProfileService> logger)
+    public HardwareProfileService(ILogger<HardwareProfileService> logger)
+        : this(new WindowsHardwareProfileSource(), logger, () => Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE") ?? string.Empty)
     {
-        _processRunner = processRunner;
+    }
+
+    internal HardwareProfileService(
+        IHardwareProfileSource source,
+        ILogger<HardwareProfileService> logger,
+        Func<string> architectureProvider)
+    {
+        _source = source;
         _logger = logger;
+        _architectureProvider = architectureProvider;
     }
 
-    public async Task<HardwareProfile> GetCurrentAsync(CancellationToken cancellationToken = default)
+    public Task<HardwareProfile> GetCurrentAsync(CancellationToken cancellationToken = default)
     {
+        cancellationToken.ThrowIfCancellationRequested();
         _logger.LogInformation("Detecting current hardware profile.");
-        string script = @"
-function ConvertTo-TrimmedString {
-    param (
-        [Parameter(ValueFromPipeline = $true)]
-        $Value
-    )
-
-    process {
-        if ($null -eq $Value) {
-            return ''
-        }
-
-        return $Value.ToString().Trim()
-    }
-}
-
-$computer = Get-CimInstance -ClassName Win32_ComputerSystem
-$product = Get-CimInstance -ClassName Win32_ComputerSystemProduct
-$bios = Get-CimInstance -ClassName Win32_BIOS
-$tpm = Get-CimInstance -Namespace 'ROOT\cimv2\Security\MicrosoftTpm' -ClassName Win32_Tpm -ErrorAction SilentlyContinue
-$battery = Get-CimInstance -ClassName Win32_Battery -ErrorAction SilentlyContinue
-$pnpDevices = @(Get-CimInstance -ClassName Win32_PnpEntity -Property Name,DeviceID,HardwareID,ClassGuid,Manufacturer,PNPClass -ErrorAction SilentlyContinue | ForEach-Object {
-    $hardwareIds = @($_.HardwareID | Where-Object { -not [string]::IsNullOrWhiteSpace($_) } | ForEach-Object { $_.ToString().Trim() })
-    [pscustomobject]@{
-        Name = [string]($_.Name | ConvertTo-TrimmedString)
-        DeviceId = [string]($_.DeviceID | ConvertTo-TrimmedString)
-        HardwareIds = $hardwareIds
-        ClassGuid = [string]($_.ClassGuid | ConvertTo-TrimmedString)
-        Manufacturer = [string]($_.Manufacturer | ConvertTo-TrimmedString)
-        PnpClass = [string]($_.PNPClass | ConvertTo-TrimmedString)
-    }
-})
-$firmwareDevice = $pnpDevices | Where-Object { $_.ClassGuid -eq '{f2e7dd72-6468-4e36-b6f1-6488f42c1b52}' } | Select-Object -First 1
-$systemFirmwareHardwareId = ''
-if ($firmwareDevice -and $firmwareDevice.DeviceId -match '\{?(([0-9a-f]){8}-([0-9a-f]){4}-([0-9a-f]){4}-([0-9a-f]){4}-([0-9a-f]){12})\}?') {
-    $systemFirmwareHardwareId = $Matches[1]
-}
-$isOnBattery = @($battery | Where-Object { $_.BatteryStatus -eq 1 }).Count -gt 0
-
-[pscustomobject]@{
-    Manufacturer = [string]$computer.Manufacturer
-    Model = [string]$computer.Model
-    Product = [string]$product.Version
-    SerialNumber = [string]$bios.SerialNumber
-    Architecture = [string]$env:PROCESSOR_ARCHITECTURE
-    IsOnBattery = [bool]$isOnBattery
-    IsTpmPresent = [bool]($null -ne $tpm)
-    SystemFirmwareHardwareId = [string]$systemFirmwareHardwareId
-    PnpDevices = $pnpDevices
-} | ConvertTo-Json -Compress -Depth 8
-";
-
-        string encoded = Convert.ToBase64String(Encoding.Unicode.GetBytes(script));
-        string args = $"-NoProfile -ExecutionPolicy Bypass -EncodedCommand {encoded}";
-        ProcessExecutionResult execution = await _processRunner
-            .RunAsync("powershell.exe", args, Path.GetTempPath(), cancellationToken)
-            .ConfigureAwait(false);
-
-        if (!execution.IsSuccess || string.IsNullOrWhiteSpace(execution.StandardOutput))
-        {
-            _logger.LogWarning("Hardware profile detection returned no data. Using fallback profile. ExitCode={ExitCode}", execution.ExitCode);
-            return BuildFallbackProfile();
-        }
 
         try
         {
-            using JsonDocument document = JsonDocument.Parse(execution.StandardOutput);
-            JsonElement root = document.RootElement;
-
-            string manufacturer = ReadProperty(root, "Manufacturer");
-            string model = ReadProperty(root, "Model");
-            string product = ReadProperty(root, "Product");
-            string serial = ReadProperty(root, "SerialNumber");
-            string architecture = NormalizeArchitecture(ReadProperty(root, "Architecture"));
-            bool isVirtualMachine = IsVirtualMachine(manufacturer, model, product);
-            bool isOnBattery = ReadBoolProperty(root, "IsOnBattery");
-            bool isTpmPresent = ReadBoolProperty(root, "IsTpmPresent");
-            string systemFirmwareHardwareId = ReadProperty(root, "SystemFirmwareHardwareId");
-            IReadOnlyList<PnpDeviceInfo> pnpDevices = ReadPnpDevices(root);
-
-            HardwareProfile profile = new()
-            {
-                Manufacturer = NormalizeManufacturer(manufacturer),
-                Model = NormalizeValue(model),
-                Product = NormalizeValue(product),
-                SerialNumber = NormalizeValue(serial),
-                Architecture = architecture,
-                IsVirtualMachine = isVirtualMachine,
-                IsOnBattery = isOnBattery,
-                IsTpmPresent = isTpmPresent,
-                SystemFirmwareHardwareId = systemFirmwareHardwareId.Trim(),
-                PnpDevices = pnpDevices
-            };
+            HardwareProfileSnapshot snapshot = _source.Capture();
+            HardwareProfile profile = BuildProfile(snapshot);
 
             _logger.LogInformation("Hardware profile detected. Manufacturer={Manufacturer}, Model={Model}, Architecture={Architecture}, IsVirtualMachine={IsVirtualMachine}, IsOnBattery={IsOnBattery}, IsTpmPresent={IsTpmPresent}",
                 profile.Manufacturer,
@@ -122,25 +44,48 @@ $isOnBattery = @($battery | Where-Object { $_.BatteryStatus -eq 1 }).Count -gt 0
                 profile.IsVirtualMachine,
                 profile.IsOnBattery,
                 profile.IsTpmPresent);
-            return profile;
+
+            return Task.FromResult(profile);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to parse hardware profile payload. Falling back to default profile.");
-            return BuildFallbackProfile();
+            _logger.LogWarning(ex, "Native hardware profile detection failed. Using fallback hardware profile.");
+            return Task.FromResult(BuildFallbackProfile());
         }
     }
 
-    private static HardwareProfile BuildFallbackProfile()
+    private HardwareProfile BuildProfile(HardwareProfileSnapshot snapshot)
     {
-        string architecture = NormalizeArchitecture(Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE") ?? string.Empty);
+        string manufacturer = NormalizeManufacturer(snapshot.Manufacturer);
+        string model = NormalizeValue(snapshot.Model);
+        string product = NormalizeValue(snapshot.Product);
+        string serial = NormalizeValue(snapshot.SerialNumber);
+        IReadOnlyList<PnpDeviceInfo> devices = snapshot.Devices;
+
+        return new HardwareProfile
+        {
+            Manufacturer = manufacturer,
+            Model = model,
+            Product = product,
+            SerialNumber = serial,
+            Architecture = NormalizeArchitecture(_architectureProvider()),
+            IsVirtualMachine = IsVirtualMachine(manufacturer, model, product),
+            IsOnBattery = snapshot.IsOnBattery,
+            IsTpmPresent = HasTpmDevice(devices),
+            SystemFirmwareHardwareId = ResolveSystemFirmwareHardwareId(devices),
+            PnpDevices = devices
+        };
+    }
+
+    private HardwareProfile BuildFallbackProfile()
+    {
         return new HardwareProfile
         {
             Manufacturer = "Unknown",
             Model = "Unknown",
             Product = "Unknown",
             SerialNumber = "Unknown",
-            Architecture = architecture,
+            Architecture = NormalizeArchitecture(_architectureProvider()),
             IsVirtualMachine = false,
             IsOnBattery = false,
             IsTpmPresent = false,
@@ -149,80 +94,33 @@ $isOnBattery = @($battery | Where-Object { $_.BatteryStatus -eq 1 }).Count -gt 0
         };
     }
 
-    private static string ReadProperty(JsonElement root, string propertyName)
+    private static string ResolveSystemFirmwareHardwareId(IReadOnlyList<PnpDeviceInfo> devices)
     {
-        return root.TryGetProperty(propertyName, out JsonElement value)
-            ? value.GetString() ?? string.Empty
-            : string.Empty;
+        PnpDeviceInfo? firmwareDevice = devices.FirstOrDefault(device =>
+            string.Equals(device.ClassGuid, SystemFirmwareClassGuid, StringComparison.OrdinalIgnoreCase));
+
+        if (firmwareDevice is null)
+        {
+            return string.Empty;
+        }
+
+        Match match = FirmwareHardwareIdRegex().Match(firmwareDevice.DeviceId);
+        if (!match.Success)
+        {
+            match = firmwareDevice.HardwareIds
+                .Select(id => FirmwareHardwareIdRegex().Match(id))
+                .FirstOrDefault(candidate => candidate.Success) ?? Match.Empty;
+        }
+
+        return match.Success ? match.Groups[1].Value : string.Empty;
     }
 
-    private static bool ReadBoolProperty(JsonElement root, string propertyName)
+    private static bool HasTpmDevice(IReadOnlyList<PnpDeviceInfo> devices)
     {
-        if (!root.TryGetProperty(propertyName, out JsonElement value))
-        {
-            return false;
-        }
-
-        return value.ValueKind == JsonValueKind.True ||
-               (value.ValueKind == JsonValueKind.String && bool.TryParse(value.GetString(), out bool parsed) && parsed);
-    }
-
-    private static IReadOnlyList<PnpDeviceInfo> ReadPnpDevices(JsonElement root)
-    {
-        if (!root.TryGetProperty("PnpDevices", out JsonElement devicesElement) ||
-            devicesElement.ValueKind != JsonValueKind.Array)
-        {
-            return Array.Empty<PnpDeviceInfo>();
-        }
-
-        var devices = new List<PnpDeviceInfo>();
-        foreach (JsonElement deviceElement in devicesElement.EnumerateArray())
-        {
-            if (deviceElement.ValueKind != JsonValueKind.Object)
-            {
-                continue;
-            }
-
-            devices.Add(new PnpDeviceInfo
-            {
-                Name = ReadProperty(deviceElement, "Name"),
-                DeviceId = ReadProperty(deviceElement, "DeviceId"),
-                HardwareIds = ReadStringArrayProperty(deviceElement, "HardwareIds"),
-                ClassGuid = ReadProperty(deviceElement, "ClassGuid"),
-                Manufacturer = ReadProperty(deviceElement, "Manufacturer"),
-                PnpClass = ReadProperty(deviceElement, "PnpClass")
-            });
-        }
-
-        return devices;
-    }
-
-    private static IReadOnlyList<string> ReadStringArrayProperty(JsonElement root, string propertyName)
-    {
-        if (!root.TryGetProperty(propertyName, out JsonElement value))
-        {
-            return Array.Empty<string>();
-        }
-
-        if (value.ValueKind == JsonValueKind.Array)
-        {
-            return value
-                .EnumerateArray()
-                .Select(item => item.ValueKind == JsonValueKind.String ? item.GetString() ?? string.Empty : string.Empty)
-                .Where(item => !string.IsNullOrWhiteSpace(item))
-                .Select(item => item.Trim())
-                .ToArray();
-        }
-
-        if (value.ValueKind == JsonValueKind.String)
-        {
-            string? stringValue = value.GetString();
-            return string.IsNullOrWhiteSpace(stringValue)
-                ? Array.Empty<string>()
-                : [stringValue.Trim()];
-        }
-
-        return Array.Empty<string>();
+        return devices.Any(device =>
+            device.HardwareIds.Any(id => id.Contains("MSFT0101", StringComparison.OrdinalIgnoreCase)) ||
+            device.Name.Contains("Trusted Platform Module", StringComparison.OrdinalIgnoreCase) ||
+            device.PnpClass.Contains("SecurityDevices", StringComparison.OrdinalIgnoreCase));
     }
 
     private static bool IsVirtualMachine(string manufacturer, string model, string product)
@@ -290,4 +188,7 @@ $isOnBattery = @($battery | Where-Object { $_.BatteryStatus -eq 1 }).Count -gt 0
         string normalized = value.Trim();
         return string.IsNullOrWhiteSpace(normalized) ? "Unknown" : normalized;
     }
+
+    [GeneratedRegex(@"\{?(([0-9a-f]){8}-([0-9a-f]){4}-([0-9a-f]){4}-([0-9a-f]){4}-([0-9a-f]){12})\}?", RegexOptions.IgnoreCase)]
+    private static partial Regex FirmwareHardwareIdRegex();
 }

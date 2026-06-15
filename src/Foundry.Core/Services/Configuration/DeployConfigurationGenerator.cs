@@ -35,6 +35,10 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             {
                 DefaultTimeZoneId = document.Localization.DefaultTimeZoneId
             },
+            OsRecovery = new DeployOsRecoverySettings
+            {
+                IsEnabled = document.OsRecovery.IsEnabled
+            },
             Network = new DeployNetworkSettings
             {
                 ProfileRoaming = new DeployNetworkProfileRoamingSettings

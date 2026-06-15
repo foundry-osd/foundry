@@ -18,7 +18,9 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     private const int MsrPartitionSizeMb = 16;
     private const int RecoveryPartitionSizeMb = 5120;
     private const string RecoveryPartitionLabel = "Recovery";
+    private const string EfiPartitionGuid = "c12a7328-f81f-11d2-ba4b-00a0c93ec93b";
     private const string RecoveryPartitionGuid = "de94bba4-06d1-4d40-a16a-bfd50179d6ac";
+    private const string BasicDataPartitionGuid = "ebd0a0a2-b9e5-4433-87c0-68b6b72699c7";
     private const string RecoveryPartitionAttributes = "0x8000000000000001";
     private const string WinReImageFileName = "winre.wim";
     private readonly IProcessRunner _processRunner;
@@ -47,9 +49,28 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         string workingDirectory,
         CancellationToken cancellationToken = default)
     {
+        return await PrepareTargetDiskAsync(
+            diskNumber,
+            workingDirectory,
+            RecoveryTargetDiskLayoutMode.FullWipe,
+            cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc />
+    public async Task<DeploymentTargetLayout> PrepareTargetDiskAsync(
+        int diskNumber,
+        string workingDirectory,
+        RecoveryTargetDiskLayoutMode layoutMode,
+        CancellationToken cancellationToken = default)
+    {
         if (diskNumber < 0)
         {
             throw new ArgumentOutOfRangeException(nameof(diskNumber), "Target disk number must be 0 or greater.");
+        }
+
+        if (layoutMode == RecoveryTargetDiskLayoutMode.RecoveryRetrySafe)
+        {
+            return await PrepareRecoveryRetrySafeTargetDiskAsync(diskNumber, workingDirectory, cancellationToken).ConfigureAwait(false);
         }
 
         _logger.LogInformation(
@@ -111,6 +132,141 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             RecoveryPartitionRoot = recoveryPartitionRoot,
             RecoveryPartitionLetter = recoveryLetter
         };
+    }
+
+    private async Task<DeploymentTargetLayout> PrepareRecoveryRetrySafeTargetDiskAsync(
+        int diskNumber,
+        string workingDirectory,
+        CancellationToken cancellationToken)
+    {
+        Directory.CreateDirectory(workingDirectory);
+        (char systemLetter, char windowsLetter, char recoveryLetter) = GetPartitionLetters();
+
+        RecoveryDiskLayoutProbe probe = await ProbeRecoveryDiskLayoutAsync(diskNumber, workingDirectory, cancellationToken).ConfigureAwait(false);
+
+        string[] scriptLines =
+        [
+            $"select disk {diskNumber}",
+            "online disk noerr",
+            "attributes disk clear readonly noerr",
+            $"select partition {probe.SystemPartitionNumber}",
+            $"assign letter={systemLetter}",
+            $"select partition {probe.RecoveryPartitionNumber}",
+            $"assign letter={recoveryLetter}",
+            $"select partition {probe.WindowsPartitionNumber}",
+            "format quick fs=ntfs label=Windows",
+            $"assign letter={windowsLetter}"
+        ];
+
+        string scriptPath = Path.Combine(workingDirectory, "diskpart-os-target.txt");
+        await File.WriteAllLinesAsync(scriptPath, scriptLines, cancellationToken).ConfigureAwait(false);
+
+        await RunRequiredProcessAsync(
+            "diskpart.exe",
+            $"/s \"{scriptPath}\"",
+            workingDirectory,
+            $"Recovery disk preparation failed for disk {diskNumber}",
+            cancellationToken).ConfigureAwait(false);
+
+        return new DeploymentTargetLayout
+        {
+            DiskNumber = diskNumber,
+            SystemPartitionRoot = $"{systemLetter}:\\",
+            WindowsPartitionRoot = $"{windowsLetter}:\\",
+            RecoveryPartitionRoot = $"{recoveryLetter}:\\",
+            RecoveryPartitionLetter = recoveryLetter
+        };
+    }
+
+    private async Task<RecoveryDiskLayoutProbe> ProbeRecoveryDiskLayoutAsync(
+        int diskNumber,
+        string workingDirectory,
+        CancellationToken cancellationToken)
+    {
+        string scriptPath = Path.Combine(workingDirectory, "diskpart-recovery-probe.txt");
+        await File.WriteAllLinesAsync(
+            scriptPath,
+            [
+                $"select disk {diskNumber}",
+                "list partition"
+            ],
+            cancellationToken).ConfigureAwait(false);
+
+        ProcessExecutionResult execution = await _processRunner
+            .RunAsync("diskpart.exe", $"/s \"{scriptPath}\"", workingDirectory, cancellationToken)
+            .ConfigureAwait(false);
+
+        if (!execution.IsSuccess || string.IsNullOrWhiteSpace(execution.StandardOutput))
+        {
+            throw new InvalidOperationException(
+                $"Unable to validate recovery disk layout for disk {diskNumber}.{Environment.NewLine}{ToDiagnostic(execution)}");
+        }
+
+        IReadOnlyList<DiskPartPartition> partitions = DiskPartOutputParser.ParseListPartition(execution.StandardOutput);
+        Dictionary<int, string> partitionTypeGuids = await ReadPartitionTypeGuidsAsync(
+            diskNumber,
+            partitions,
+            workingDirectory,
+            cancellationToken).ConfigureAwait(false);
+
+        DiskPartPartition? system = partitions.FirstOrDefault(partition => IsPartitionType(partition, partitionTypeGuids, EfiPartitionGuid));
+        DiskPartPartition? recovery = partitions.FirstOrDefault(partition => IsPartitionType(partition, partitionTypeGuids, RecoveryPartitionGuid));
+        DiskPartPartition? windows = recovery is null
+            ? null
+            : partitions.FirstOrDefault(partition =>
+                partition.Number > recovery.Number &&
+                IsPartitionType(partition, partitionTypeGuids, BasicDataPartitionGuid));
+
+        if (system is null || recovery is null || windows is null || recovery.Number >= windows.Number)
+        {
+            throw new InvalidOperationException(
+                $"The target disk layout is not supported for OS Recovery. Expected EFI, MSR, Recovery, Windows on disk {diskNumber}.");
+        }
+
+        return new RecoveryDiskLayoutProbe
+        {
+            SystemPartitionNumber = system.Number,
+            RecoveryPartitionNumber = recovery.Number,
+            WindowsPartitionNumber = windows.Number
+        };
+    }
+
+    private async Task<Dictionary<int, string>> ReadPartitionTypeGuidsAsync(
+        int diskNumber,
+        IReadOnlyList<DiskPartPartition> partitions,
+        string workingDirectory,
+        CancellationToken cancellationToken)
+    {
+        var result = new Dictionary<int, string>();
+        foreach (DiskPartPartition partition in partitions)
+        {
+            string scriptPath = Path.Combine(workingDirectory, $"diskpart-partition-{partition.Number}-detail.txt");
+            await File.WriteAllLinesAsync(
+                scriptPath,
+                [
+                    $"select disk {diskNumber}",
+                    $"select partition {partition.Number}",
+                    "detail partition"
+                ],
+                cancellationToken).ConfigureAwait(false);
+
+            ProcessExecutionResult execution = await _processRunner
+                .RunAsync("diskpart.exe", $"/s \"{scriptPath}\"", workingDirectory, cancellationToken)
+                .ConfigureAwait(false);
+
+            if (!execution.IsSuccess || string.IsNullOrWhiteSpace(execution.StandardOutput))
+            {
+                continue;
+            }
+
+            string typeGuid = DiskPartOutputParser.ParseDetailPartitionTypeGuid(execution.StandardOutput);
+            if (typeGuid.Length > 0)
+            {
+                result[partition.Number] = typeGuid;
+            }
+        }
+
+        return result;
     }
 
     /// <inheritdoc />
@@ -932,6 +1088,13 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         throw new InvalidOperationException("No drive letter is available for deployment partitions.");
     }
 
+    private static bool IsPartitionType(
+        DiskPartPartition partition,
+        IReadOnlyDictionary<int, string> partitionTypeGuids,
+        string expectedTypeGuid)
+        => partitionTypeGuids.TryGetValue(partition.Number, out string? typeGuid) &&
+           typeGuid.Equals(expectedTypeGuid, StringComparison.OrdinalIgnoreCase);
+
     private static void ResetWorkingDirectory(string path)
     {
         TryDeleteDirectory(path);
@@ -1099,5 +1262,12 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         public required string Name { get; init; }
         public required string Edition { get; init; }
         public required string EditionId { get; init; }
+    }
+
+    private sealed record RecoveryDiskLayoutProbe
+    {
+        public int SystemPartitionNumber { get; init; }
+        public int RecoveryPartitionNumber { get; init; }
+        public int WindowsPartitionNumber { get; init; }
     }
 }

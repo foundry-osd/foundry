@@ -2121,4 +2121,61 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>راجع الجاهزية واختر إخراج ISO أو USB ثم ابدأ إنشاء الوسائط.</value>
   </data>
+  <data name="Nav_OsRecoveryKey.Description" xml:space="preserve">
+    <value>تكوين توفر استرداد نظام التشغيل.</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Subtitle" xml:space="preserve">
+    <value>استرداد نظام التشغيل</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Title" xml:space="preserve">
+    <value>استرداد نظام التشغيل</value>
+  </data>
+  <data name="OsRecoveryPage_Title.Text" xml:space="preserve">
+    <value>استرداد نظام التشغيل</value>
+  </data>
+  <data name="OsRecovery.PageDescription" xml:space="preserve">
+    <value>قم بتمكين نقطة دخول WinRE لـ Foundry Recovery وراجع كيفية وصول المشغلين إليها.</value>
+  </data>
+  <data name="OsRecovery.EnableHeader" xml:space="preserve">
+    <value>تمكين استرداد نظام التشغيل</value>
+  </data>
+  <data name="OsRecovery.EnableDescription" xml:space="preserve">
+    <value>قم بإضافة Foundry Recovery كإجراء استرداد اختياري ضمن بيئة الإصلاح في Windows.</value>
+  </data>
+  <data name="OsRecovery.EnableToggleText" xml:space="preserve">
+    <value>تمكين استرداد نظام التشغيل</value>
+  </data>
+  <data name="OsRecovery.WhyHeader" xml:space="preserve">
+    <value>لماذا هو موجود</value>
+  </data>
+  <data name="OsRecovery.WhyDescription" xml:space="preserve">
+    <value>يوفر استرداد نظام التشغيل لفرق الدعم مسار WinRE مألوفًا لبدء تشغيل Foundry Recovery عندما يتعذر على Windows التمهيد بشكل طبيعي أو يحتاج إلى إعادة نشر تعتمد على الإصلاح.</value>
+  </data>
+  <data name="OsRecovery.WhenHeader" xml:space="preserve">
+    <value>متى تستخدمه</value>
+  </data>
+  <data name="OsRecovery.WhenDescription" xml:space="preserve">
+    <value>استخدمه لسير عمل إصلاح الأعطال حيث يبدأ المشغل من بيئة الاسترداد في Windows بدلاً من تشغيل وسائط نشر منفصلة.</value>
+  </data>
+  <data name="OsRecovery.WinRePathHeader" xml:space="preserve">
+    <value>مسار WinRE</value>
+  </data>
+  <data name="OsRecovery.WinRePathDescription" xml:space="preserve">
+    <value>استكشاف الأخطاء وإصلاحها &gt; الخيارات المتقدمة &gt; Foundry Recovery</value>
+  </data>
+  <data name="OsRecovery.LimitationsHeader" xml:space="preserve">
+    <value>القيود</value>
+  </data>
+  <data name="OsRecovery.LimitationsDescription" xml:space="preserve">
+    <value>تتحكم هذه الصفحة فقط فيما إذا كانت نقطة إدخال الاسترداد مطلوبة أم لا. ولا يقوم بتخصيص نص القائمة، أو تكوين الاسترداد غير المراقب، أو توفير مصادقة الشبكة، أو تسجيل Autopilot، أو إدخال بيانات OA3، أو تخزين الأسرار.</value>
+  </data>
+  <data name="OsRecovery.FlowHeader" xml:space="preserve">
+    <value>تدفق الانتعاش</value>
+  </data>
+  <data name="OsRecovery.FlowDescription" xml:space="preserve">
+    <value>تُظهر صورة العنصر النائب مسار التنقل WinRE المقصود ويمكن استبدالها لاحقًا.</value>
+  </data>
+  <data name="OsRecovery.FlowImageAutomationName" xml:space="preserve">
+    <value>مسار التنقل في WinRE: استكشاف الأخطاء وإصلاحها، الخيارات المتقدمة، استرداد Foundry.</value>
+  </data>
 </root>

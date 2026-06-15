@@ -127,6 +127,15 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     }
 
     /// <inheritdoc />
+    public void UpdateOsRecovery(OsRecoverySettings settings)
+    {
+        ArgumentNullException.ThrowIfNull(settings);
+        Current = Current with { OsRecovery = settings };
+        Save();
+        StateChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    /// <inheritdoc />
     public void UpdateOperatingSystemSelection(OperatingSystemSelectionSettings settings)
     {
         ArgumentNullException.ThrowIfNull(settings);

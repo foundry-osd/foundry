@@ -67,7 +67,7 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             return DeploymentLaunchPreparationResult.Failure(normalizedComputerName);
         }
 
-        if (!request.IsDryRun && !ConfirmDestructiveDeployment(effectiveTargetDisk, request.SelectedOperatingSystem))
+        if (!request.IsDryRun && !ConfirmDestructiveDeployment(request.Mode, effectiveTargetDisk, request.SelectedOperatingSystem))
         {
             return DeploymentLaunchPreparationResult.Failure(normalizedComputerName);
         }
@@ -87,6 +87,7 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             AutopilotProvisioningMode = request.AutopilotProvisioningMode,
             SelectedAutopilotProfile = request.SelectedAutopilotProfile,
             AutopilotHardwareHashUpload = request.AutopilotHardwareHashUpload,
+            OsRecovery = request.OsRecovery,
             Network = request.Network,
             Oobe = request.Oobe,
             AppxRemoval = request.AppxRemoval,
@@ -103,14 +104,31 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
     /// <summary>
     /// Shows the final warning that live deployments erase the selected target disk.
     /// </summary>
+    /// <param name="mode">The deployment mode used to choose the warning text.</param>
     /// <param name="targetDisk">The disk that will be repartitioned.</param>
     /// <param name="operatingSystem">The operating system image that will be applied.</param>
     /// <returns><see langword="true"/> when the user confirms the destructive operation.</returns>
-    private bool ConfirmDestructiveDeployment(TargetDiskInfo targetDisk, OperatingSystemCatalogItem operatingSystem)
+    private bool ConfirmDestructiveDeployment(
+        DeploymentMode mode,
+        TargetDiskInfo targetDisk,
+        OperatingSystemCatalogItem operatingSystem)
     {
         string sizeGiB = targetDisk.SizeBytes > 0
             ? $"{(targetDisk.SizeBytes / 1024d / 1024d / 1024d):0.0} GiB"
             : LocalizationText.GetString("Disk.UnknownSize");
+
+        if (mode == DeploymentMode.Recovery)
+        {
+            string recoveryMessage = LocalizationText.Format(
+                "Launch.ConfirmOsRecoveryMessageFormat",
+                targetDisk.DiskNumber,
+                targetDisk.FriendlyName,
+                targetDisk.BusType,
+                sizeGiB,
+                operatingSystem.DisplayLabel);
+
+            return _applicationShellService.ConfirmWarning(LocalizationText.GetString("Launch.ConfirmOsRecoveryTitle"), recoveryMessage);
+        }
 
         string message = LocalizationText.Format(
             "Launch.ConfirmDiskEraseMessageFormat",

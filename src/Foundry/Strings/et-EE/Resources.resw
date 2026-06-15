@@ -2121,4 +2121,61 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Kontrollige valmisolekut, valige ISO või USB väljund ja alustage meediumi loomist.</value>
   </data>
+  <data name="Nav_OsRecoveryKey.Description" xml:space="preserve">
+    <value>OS-i taastamise kättesaadavuse seadistamine.</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Subtitle" xml:space="preserve">
+    <value>OS-i taastamine</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Title" xml:space="preserve">
+    <value>OS-i taastamine</value>
+  </data>
+  <data name="OsRecoveryPage_Title.Text" xml:space="preserve">
+    <value>OS-i taastamine</value>
+  </data>
+  <data name="OsRecovery.PageDescription" xml:space="preserve">
+    <value>Lubage Foundry Recovery jaoks WinRE sisenemispunkt ja vaadake, kuidas operaatorid selleni jõuavad.</value>
+  </data>
+  <data name="OsRecovery.EnableHeader" xml:space="preserve">
+    <value>Luba OS-i taastamine</value>
+  </data>
+  <data name="OsRecovery.EnableDescription" xml:space="preserve">
+    <value>Lisage Foundry Recovery valikulise taastetoiminguna Windowsi taastekeskkonna alla.</value>
+  </data>
+  <data name="OsRecovery.EnableToggleText" xml:space="preserve">
+    <value>Luba OS-i taastamine</value>
+  </data>
+  <data name="OsRecovery.WhyHeader" xml:space="preserve">
+    <value>Miks see eksisteerib</value>
+  </data>
+  <data name="OsRecovery.WhyDescription" xml:space="preserve">
+    <value>OS-i taastamine annab tugimeeskondadele tuttava WinRE-tee Foundry Recovery käivitamiseks, kui Windows ei saa normaalselt käivitada või vajab remondipõhist ümberpaigutamist.</value>
+  </data>
+  <data name="OsRecovery.WhenHeader" xml:space="preserve">
+    <value>Millal seda kasutada</value>
+  </data>
+  <data name="OsRecovery.WhenDescription" xml:space="preserve">
+    <value>Kasutage seda katkestuste parandamise töövoogude jaoks, kus operaator alustab Windowsi taastekeskkonnast, selle asemel et käivitada eraldi juurutuskandjat.</value>
+  </data>
+  <data name="OsRecovery.WinRePathHeader" xml:space="preserve">
+    <value>WinRE tee</value>
+  </data>
+  <data name="OsRecovery.WinRePathDescription" xml:space="preserve">
+    <value>Veaotsing &gt; Täpsemad valikud &gt; Foundry Recovery</value>
+  </data>
+  <data name="OsRecovery.LimitationsHeader" xml:space="preserve">
+    <value>Piirangud</value>
+  </data>
+  <data name="OsRecovery.LimitationsDescription" xml:space="preserve">
+    <value>See leht juhib ainult seda, kas taastamise sisestuspunkti taotletakse. See ei kohanda menüüteksti, konfigureeri järelevalveta taastamist, võrgu autentimist, Autopilot registreerimist, OA3-andmete sisestamist ega saladuste salvestamist.</value>
+  </data>
+  <data name="OsRecovery.FlowHeader" xml:space="preserve">
+    <value>Taastumise voog</value>
+  </data>
+  <data name="OsRecovery.FlowDescription" xml:space="preserve">
+    <value>Kohatäite pilt näitab kavandatud WinRE navigatsiooniteed ja selle saab hiljem asendada.</value>
+  </data>
+  <data name="OsRecovery.FlowImageAutomationName" xml:space="preserve">
+    <value>WinRE navigeerimistee: tõrkeotsing, täpsemad valikud, Foundry Recovery.</value>
+  </data>
 </root>

@@ -2121,4 +2121,61 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Tekintse át a készenlétet, válasszon ISO vagy USB kimenetet, majd indítsa el az adathordozó létrehozását.</value>
   </data>
+  <data name="Nav_OsRecoveryKey.Description" xml:space="preserve">
+    <value>Konfigurálja az operációs rendszer helyreállításának elérhetőségét.</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Subtitle" xml:space="preserve">
+    <value>Operációs rendszer helyreállítása</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Title" xml:space="preserve">
+    <value>Operációs rendszer helyreállítása</value>
+  </data>
+  <data name="OsRecoveryPage_Title.Text" xml:space="preserve">
+    <value>Operációs rendszer helyreállítása</value>
+  </data>
+  <data name="OsRecovery.PageDescription" xml:space="preserve">
+    <value>Engedélyezze a WinRE belépési pontot a Foundry Recovery számára, és tekintse át, hogyan érik el az üzemeltetők.</value>
+  </data>
+  <data name="OsRecovery.EnableHeader" xml:space="preserve">
+    <value>Operációs rendszer helyreállításának engedélyezése</value>
+  </data>
+  <data name="OsRecovery.EnableDescription" xml:space="preserve">
+    <value>A Foundry Recovery hozzáadása opcionális helyreállítási műveletként a Windows helyreállítási környezetben.</value>
+  </data>
+  <data name="OsRecovery.EnableToggleText" xml:space="preserve">
+    <value>Operációs rendszer helyreállításának engedélyezése</value>
+  </data>
+  <data name="OsRecovery.WhyHeader" xml:space="preserve">
+    <value>Miért létezik?</value>
+  </data>
+  <data name="OsRecovery.WhyDescription" xml:space="preserve">
+    <value>Az operációs rendszer helyreállítása ismerős WinRE elérési utat biztosít a támogató csapatok számára a Foundry Recovery elindításához, amikor a Windows nem tud normál módon elindulni, vagy javítási célú átcsoportosításra van szükség.</value>
+  </data>
+  <data name="OsRecovery.WhenHeader" xml:space="preserve">
+    <value>Mikor kell használni?</value>
+  </data>
+  <data name="OsRecovery.WhenDescription" xml:space="preserve">
+    <value>Használja olyan hibaelhárítási munkafolyamatokhoz, ahol az operátor a Windows helyreállítási környezetből indul, ahelyett, hogy külön telepítési adathordozót indítana el.</value>
+  </data>
+  <data name="OsRecovery.WinRePathHeader" xml:space="preserve">
+    <value>WinRE elérési út</value>
+  </data>
+  <data name="OsRecovery.WinRePathDescription" xml:space="preserve">
+    <value>Hibaelhárítás &gt; Speciális beállítások &gt; Foundry Recovery</value>
+  </data>
+  <data name="OsRecovery.LimitationsHeader" xml:space="preserve">
+    <value>Korlátozások</value>
+  </data>
+  <data name="OsRecovery.LimitationsDescription" xml:space="preserve">
+    <value>Ez az oldal csak azt vezérli, hogy a helyreállítási belépési pont szükséges-e. Nem szabja testre a menü szövegét, nem konfigurálja a felügyelet nélküli helyreállítást, nem biztosítja a hálózati hitelesítést, nem regisztrálja az Autopilot, nem adja be az OA3-adatokat, és nem tárol titkokat.</value>
+  </data>
+  <data name="OsRecovery.FlowHeader" xml:space="preserve">
+    <value>Visszanyerési áram</value>
+  </data>
+  <data name="OsRecovery.FlowDescription" xml:space="preserve">
+    <value>A helyőrző kép a kívánt WinRE navigációs útvonalat mutatja, és később cserélhető.</value>
+  </data>
+  <data name="OsRecovery.FlowImageAutomationName" xml:space="preserve">
+    <value>WinRE navigációs útvonal: Hibaelhárítás, Speciális beállítások, Foundry Recovery.</value>
+  </data>
 </root>

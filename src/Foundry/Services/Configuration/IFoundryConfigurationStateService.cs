@@ -98,6 +98,12 @@ public interface IFoundryConfigurationStateService
     void UpdateLocalization(LocalizationSettings settings);
 
     /// <summary>
+    /// Replaces the OS recovery configuration section.
+    /// </summary>
+    /// <param name="settings">New OS recovery settings.</param>
+    void UpdateOsRecovery(OsRecoverySettings settings);
+
+    /// <summary>
     /// Replaces the customization configuration section.
     /// </summary>
     /// <param name="settings">New customization settings.</param>

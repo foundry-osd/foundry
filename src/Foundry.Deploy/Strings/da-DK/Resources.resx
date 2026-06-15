@@ -51,7 +51,7 @@
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktiv upload af hardwarehash</value></data>
   <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Tilgængelig på dette medie: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch upload af hardwarehash</value></data>
-  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Hardware hash upload status</value></data>
+  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Status for upload af hardware-hash</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Klar til at uploade hardware-hash</value></data>
   <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Ikke klar til at uploade hardware-hash</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Uploadcertifikat er udløbet</value></data>
@@ -509,4 +509,25 @@ Vil du fortsætte med implementeringen?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Den interaktive Autopilot-registreringsassistent er klargjort (simulation).</value>
   </data>
+  <data name="Launch.ConfirmOsRecoveryTitle" xml:space="preserve"><value>Bekræft OS-gendannelse</value></data>
+  <data name="Launch.ConfirmOsRecoveryMessageFormat" xml:space="preserve"><value>OS Recovery bevarer EFI-, MSR- og Recovery-partitionerne og erstatter derefter Windows-partitionen på den valgte disk.
+
+Disk: {0}
+Model: {1}
+Bus: {2}
+Størrelse: {3}
+Operativsystem: {4}
+
+Vil du fortsætte med OS Recovery?</value></data>
+  <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Provision OS Gendannelse</value></data>
+  <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Klargøring af OS-gendannelse...</value></data>
+  <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Injicerer OS-gendannelsesnyttelast...</value></data>
+  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Gemmer WinRE-ændringer...</value></data>
+  <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Registrerer OS Recovery boot-menu...</value></data>
+  <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>OS-gendannelse er deaktiveret.</value></data>
+  <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>Klargøring af OS-gendannelse springes over i gendannelsestilstand.</value></data>
+  <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>OS-gendannelse klargjort.</value></data>
+  <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>OS-gendannelse klargjort (simulering).</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry OSD-gendannelse</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Nødgenudrulning af Windows</value></data>
 </root>

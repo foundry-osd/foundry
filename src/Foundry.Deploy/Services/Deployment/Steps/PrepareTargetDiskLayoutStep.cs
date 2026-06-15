@@ -30,10 +30,15 @@ public sealed class PrepareTargetDiskLayoutStep : DeploymentStepBase
         }
 
         context.EmitCurrentStepIndeterminate("Preparing target disk layout...", "Partitioning target disk...");
+        RecoveryTargetDiskLayoutMode layoutMode = context.RuntimeState.Mode == DeploymentMode.Recovery
+            ? RecoveryTargetDiskLayoutMode.RecoveryRetrySafe
+            : RecoveryTargetDiskLayoutMode.FullWipe;
+
         DeploymentTargetLayout layout = await _windowsDeploymentService
             .PrepareTargetDiskAsync(
                 context.Request.TargetDiskNumber,
                 workingDirectory,
+                layoutMode,
                 cancellationToken)
             .ConfigureAwait(false);
 

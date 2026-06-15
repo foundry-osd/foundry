@@ -2121,4 +2121,61 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Hazırlığı gözden geçirin, ISO veya USB çıktısını seçin ve medya oluşturmayı başlatın.</value>
   </data>
+  <data name="Nav_OsRecoveryKey.Description" xml:space="preserve">
+    <value>İşletim Sistemi Kurtarma kullanılabilirliğini yapılandırın.</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Subtitle" xml:space="preserve">
+    <value>İşletim Sistemi Kurtarma</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Title" xml:space="preserve">
+    <value>İşletim Sistemi Kurtarma</value>
+  </data>
+  <data name="OsRecoveryPage_Title.Text" xml:space="preserve">
+    <value>İşletim Sistemi Kurtarma</value>
+  </data>
+  <data name="OsRecovery.PageDescription" xml:space="preserve">
+    <value>Foundry Recovery için bir WinRE giriş noktasını etkinleştirin ve operatörlerin bu noktaya nasıl ulaştığını inceleyin.</value>
+  </data>
+  <data name="OsRecovery.EnableHeader" xml:space="preserve">
+    <value>İşletim Sistemi Kurtarmayı Etkinleştir</value>
+  </data>
+  <data name="OsRecovery.EnableDescription" xml:space="preserve">
+    <value>Windows Kurtarma Ortamı altında Foundry Recovery&apos;yi isteğe bağlı bir kurtarma eylemi olarak ekleyin.</value>
+  </data>
+  <data name="OsRecovery.EnableToggleText" xml:space="preserve">
+    <value>İşletim Sistemi Kurtarmayı Etkinleştir</value>
+  </data>
+  <data name="OsRecovery.WhyHeader" xml:space="preserve">
+    <value>Neden var?</value>
+  </data>
+  <data name="OsRecovery.WhyDescription" xml:space="preserve">
+    <value>İşletim Sistemi Kurtarma, Windows&apos;un normal şekilde önyükleme yapamadığı veya onarım odaklı yeniden dağıtıma ihtiyaç duyduğu durumlarda, destek ekiplerine Foundry Recovery&apos;yi başlatmak için tanıdık bir WinRE yolu sağlar.</value>
+  </data>
+  <data name="OsRecovery.WhenHeader" xml:space="preserve">
+    <value>Ne zaman kullanılmalı?</value>
+  </data>
+  <data name="OsRecovery.WhenDescription" xml:space="preserve">
+    <value>Operatörün ayrı dağıtım ortamını önyüklemek yerine Windows Kurtarma Ortamı&apos;ndan başlattığı arıza düzeltme iş akışları için bunu kullanın.</value>
+  </data>
+  <data name="OsRecovery.WinRePathHeader" xml:space="preserve">
+    <value>WinRE yolu</value>
+  </data>
+  <data name="OsRecovery.WinRePathDescription" xml:space="preserve">
+    <value>Sorun giderme &gt; Gelişmiş seçenekler &gt; FOUNDRY_RECOVERY_product</value>
+  </data>
+  <data name="OsRecovery.LimitationsHeader" xml:space="preserve">
+    <value>Sınırlamalar</value>
+  </data>
+  <data name="OsRecovery.LimitationsDescription" xml:space="preserve">
+    <value>Bu sayfa yalnızca kurtarma giriş noktasının istenip istenmediğini kontrol eder. Menü metnini özelleştirmez, gözetimsiz kurtarmayı yapılandırmaz, ağ kimlik doğrulamasını sağlamaz, Autopilot kaydetmez, OA3 verilerini eklemez veya sırları saklamaz.</value>
+  </data>
+  <data name="OsRecovery.FlowHeader" xml:space="preserve">
+    <value>Kurtarma akışı</value>
+  </data>
+  <data name="OsRecovery.FlowDescription" xml:space="preserve">
+    <value>Yer tutucu görüntüsü amaçlanan WinRE gezinme yolunu gösterir ve daha sonra değiştirilebilir.</value>
+  </data>
+  <data name="OsRecovery.FlowImageAutomationName" xml:space="preserve">
+    <value>WinRE gezinme yolu: Sorun giderme, Gelişmiş seçenekler, FOUNDRY_RECOVERY_product.</value>
+  </data>
 </root>

@@ -2121,4 +2121,61 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Ελέγξτε την ετοιμότητα, επιλέξτε έξοδο ISO ή USB και ξεκινήστε τη δημιουργία μέσου.</value>
   </data>
+  <data name="Nav_OsRecoveryKey.Description" xml:space="preserve">
+    <value>Διαμόρφωση διαθεσιμότητας OS Recovery.</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Subtitle" xml:space="preserve">
+    <value>Ανάκτηση λειτουργικού συστήματος</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Title" xml:space="preserve">
+    <value>Ανάκτηση λειτουργικού συστήματος</value>
+  </data>
+  <data name="OsRecoveryPage_Title.Text" xml:space="preserve">
+    <value>Ανάκτηση λειτουργικού συστήματος</value>
+  </data>
+  <data name="OsRecovery.PageDescription" xml:space="preserve">
+    <value>Ενεργοποιήστε ένα σημείο εισόδου WinRE για το Foundry Recovery και ελέγξτε πώς το προσεγγίζουν οι χειριστές.</value>
+  </data>
+  <data name="OsRecovery.EnableHeader" xml:space="preserve">
+    <value>Ενεργοποιήστε την ανάκτηση λειτουργικού συστήματος</value>
+  </data>
+  <data name="OsRecovery.EnableDescription" xml:space="preserve">
+    <value>Προσθέστε το Foundry Recovery ως προαιρετική ενέργεια ανάκτησης στο Windows Recovery Environment.</value>
+  </data>
+  <data name="OsRecovery.EnableToggleText" xml:space="preserve">
+    <value>Ενεργοποιήστε την ανάκτηση λειτουργικού συστήματος</value>
+  </data>
+  <data name="OsRecovery.WhyHeader" xml:space="preserve">
+    <value>Γιατί υπάρχει</value>
+  </data>
+  <data name="OsRecovery.WhyDescription" xml:space="preserve">
+    <value>Το OS Recovery παρέχει στις ομάδες υποστήριξης μια οικεία διαδρομή WinRE για την εκκίνηση του Foundry Recovery όταν τα Windows δεν μπορούν να εκκινήσουν κανονικά ή χρειάζονται αναδιάταξη βάσει επισκευής.</value>
+  </data>
+  <data name="OsRecovery.WhenHeader" xml:space="preserve">
+    <value>Πότε να το χρησιμοποιήσετε</value>
+  </data>
+  <data name="OsRecovery.WhenDescription" xml:space="preserve">
+    <value>Χρησιμοποιήστε το για ροές εργασιών επιδιόρθωσης διακοπής, όπου ένας χειριστής ξεκινά από το περιβάλλον αποκατάστασης των Windows αντί να εκκινεί ξεχωριστά μέσα ανάπτυξης.</value>
+  </data>
+  <data name="OsRecovery.WinRePathHeader" xml:space="preserve">
+    <value>Διαδρομή WinRE</value>
+  </data>
+  <data name="OsRecovery.WinRePathDescription" xml:space="preserve">
+    <value>Αντιμετώπιση προβλημάτων &gt; Προηγμένες επιλογές &gt; Foundry Recovery</value>
+  </data>
+  <data name="OsRecovery.LimitationsHeader" xml:space="preserve">
+    <value>Περιορισμοί</value>
+  </data>
+  <data name="OsRecovery.LimitationsDescription" xml:space="preserve">
+    <value>Αυτή η σελίδα ελέγχει μόνο εάν ζητείται το σημείο εισόδου ανάκτησης. Δεν προσαρμόζει το κείμενο μενού, δεν διαμορφώνει την ανάκτηση χωρίς παρακολούθηση, δεν παρέχει έλεγχο ταυτότητας δικτύου, εγγράφει τον Autopilot, δεν εισάγει δεδομένα OA3 ή αποθηκεύει μυστικά.</value>
+  </data>
+  <data name="OsRecovery.FlowHeader" xml:space="preserve">
+    <value>Ροή ανάκτησης</value>
+  </data>
+  <data name="OsRecovery.FlowDescription" xml:space="preserve">
+    <value>Η εικόνα κράτησης θέσης δείχνει την προβλεπόμενη διαδρομή πλοήγησης WinRE και μπορεί να αντικατασταθεί αργότερα.</value>
+  </data>
+  <data name="OsRecovery.FlowImageAutomationName" xml:space="preserve">
+    <value>Διαδρομή πλοήγησης WinRE: Αντιμετώπιση προβλημάτων, Προηγμένες επιλογές, Ανάκτηση Foundry.</value>
+  </data>
 </root>

@@ -31,7 +31,7 @@
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Ανοίξτε το αρχείο καταγραφής</value></data>
   <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Στόχος</value></data>
   <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Λειτουργικό σύστημα</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Driver pack</value></data>
+  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Πακέτο προγραμμάτων οδήγησης</value></data>
   <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Περίληψη</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Όνομα υπολογιστή</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 χαρακτήρες. A-Z, a-z, 0-9 και μόνο παύλα.</value></data>
@@ -509,4 +509,25 @@
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Ο διαδραστικός βοηθός εγγραφής Autopilot προετοιμάστηκε (προσομοίωση).</value>
   </data>
+  <data name="Launch.ConfirmOsRecoveryTitle" xml:space="preserve"><value>Επιβεβαιώστε την ανάκτηση λειτουργικού συστήματος</value></data>
+  <data name="Launch.ConfirmOsRecoveryMessageFormat" xml:space="preserve"><value>Το OS Recovery θα διατηρήσει τα διαμερίσματα EFI, MSR και Recovery και, στη συνέχεια, θα αντικαταστήσει το διαμέρισμα των Windows στον επιλεγμένο δίσκο.
+
+Δίσκος: {0}
+Μοντέλο: {1}
+Λεωφορείο: {2}
+Μέγεθος: {3}
+Λειτουργικό σύστημα: {4}
+
+Συνέχεια με το OS Recovery;</value></data>
+  <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Παροχή ανάκτησης λειτουργικού συστήματος</value></data>
+  <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Παροχή ανάκτησης λειτουργικού συστήματος...</value></data>
+  <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Έγχυση ωφέλιμου φορτίου ανάκτησης λειτουργικού συστήματος...</value></data>
+  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Αποθήκευση αλλαγών WinRE...</value></data>
+  <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Εγγραφή του μενού εκκίνησης του OS Recovery...</value></data>
+  <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>Η ανάκτηση λειτουργικού συστήματος είναι απενεργοποιημένη.</value></data>
+  <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>Η παροχή ανάκτησης λειτουργικού συστήματος παραλείπεται στη λειτουργία ανάκτησης.</value></data>
+  <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>Παρέχεται ανάκτηση λειτουργικού συστήματος.</value></data>
+  <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>Παρέχεται ανάκτηση λειτουργικού συστήματος (προσομοίωση).</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Ανάκτηση Foundry OSD</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Επείγουσα ανάπτυξη Windows</value></data>
 </root>

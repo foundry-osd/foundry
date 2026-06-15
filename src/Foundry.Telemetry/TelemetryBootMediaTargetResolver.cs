@@ -22,6 +22,7 @@ public static class TelemetryBootMediaTargetResolver
         {
             "iso" => TelemetryBootMediaTargets.Iso,
             "usb" => TelemetryBootMediaTargets.Usb,
+            "recovery" => TelemetryBootMediaTargets.Recovery,
             _ => TelemetryBootMediaTargets.Unknown
         };
     }

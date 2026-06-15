@@ -1966,7 +1966,7 @@
     <value>latviešu (Latvija)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norwegian Bokmal (Norway)</value>
+    <value>norvēģu bukmols (Norvēģija)</value>
   </data>
   <data name="Language.DutchNetherlands" xml:space="preserve">
     <value>holandiešu (Nīderlande)</value>
@@ -2120,5 +2120,62 @@
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Pārskatiet gatavību, izvēlieties ISO vai USB izvadi un sāciet datu nesēja izveidi.</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Description" xml:space="preserve">
+    <value>Konfigurējiet OS atkopšanas pieejamību.</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Subtitle" xml:space="preserve">
+    <value>OS atkopšana</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Title" xml:space="preserve">
+    <value>OS atkopšana</value>
+  </data>
+  <data name="OsRecoveryPage_Title.Text" xml:space="preserve">
+    <value>OS atkopšana</value>
+  </data>
+  <data name="OsRecovery.PageDescription" xml:space="preserve">
+    <value>Iespējojiet WinRE ieejas punktu Foundry Recovery un pārskatiet, kā operatori to sasniedz.</value>
+  </data>
+  <data name="OsRecovery.EnableHeader" xml:space="preserve">
+    <value>Iespējot OS atkopšanu</value>
+  </data>
+  <data name="OsRecovery.EnableDescription" xml:space="preserve">
+    <value>Pievieno Foundry Recovery kā neobligātu atkopšanas darbību Windows Recovery Environment vidē.</value>
+  </data>
+  <data name="OsRecovery.EnableToggleText" xml:space="preserve">
+    <value>Iespējot OS atkopšanu</value>
+  </data>
+  <data name="OsRecovery.WhyHeader" xml:space="preserve">
+    <value>Kādēļ tas pastāv</value>
+  </data>
+  <data name="OsRecovery.WhyDescription" xml:space="preserve">
+    <value>OS atkopšana sniedz atbalsta komandām pazīstamu WinRE ceļu Foundry Recovery palaišanai, ja Windows nevar normāli sāknēt vai nepieciešama labošanas pārizvietošana.</value>
+  </data>
+  <data name="OsRecovery.WhenHeader" xml:space="preserve">
+    <value>Kad to lietot</value>
+  </data>
+  <data name="OsRecovery.WhenDescription" xml:space="preserve">
+    <value>Izmantojiet to labojumfailu darbplūsmām, kurās operators startē no Windows atkopšanas vides, nevis sāknē atsevišķu izvietošanas datu nesēju.</value>
+  </data>
+  <data name="OsRecovery.WinRePathHeader" xml:space="preserve">
+    <value>WinRE ceļš</value>
+  </data>
+  <data name="OsRecovery.WinRePathDescription" xml:space="preserve">
+    <value>Problēmu novēršana &gt; Papildu opcijas &gt; Foundry Recovery</value>
+  </data>
+  <data name="OsRecovery.LimitationsHeader" xml:space="preserve">
+    <value>Ierobežojumi</value>
+  </data>
+  <data name="OsRecovery.LimitationsDescription" xml:space="preserve">
+    <value>Šī lapa kontrolē tikai to, vai ir pieprasīts atkopšanas ieejas punkts. Tas nepielāgo izvēlnes tekstu, nekonfigurē neuzraudzītu atkopšanu, nenodrošina tīkla autentifikāciju, nereģistrē Autopilot, neievada OA3 datus vai neglabā noslēpumus.</value>
+  </data>
+  <data name="OsRecovery.FlowHeader" xml:space="preserve">
+    <value>Reģenerācijas plūsma</value>
+  </data>
+  <data name="OsRecovery.FlowDescription" xml:space="preserve">
+    <value>Viettura attēlā ir redzams paredzētais WinRE navigācijas ceļš, un to var aizstāt vēlāk.</value>
+  </data>
+  <data name="OsRecovery.FlowImageAutomationName" xml:space="preserve">
+    <value>WinRE navigācijas ceļš: Problēmu novēršana, Papildu opcijas, Foundry Recovery.</value>
   </data>
 </root>

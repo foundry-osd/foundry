@@ -12,7 +12,7 @@ public sealed class ApplyFirmwareUpdateStep : DeploymentStepBase
         _windowsDeploymentService = windowsDeploymentService;
     }
 
-    public override int Order => 16;
+    public override int Order => 17;
 
     public override string Name => DeploymentStepNames.ApplyFirmwareUpdate;
 

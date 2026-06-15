@@ -12,13 +12,19 @@ namespace Foundry.Deploy.Tests;
 public sealed class DeploymentOrchestratorTests
 {
     [Fact]
-    public void DeploymentStepNames_All_OrdersAutopilotProvisioningAfterRecoverySeal()
+    public void DeploymentStepNames_All_OrdersOsRecoveryAfterDriverPackAndBeforeFirmware()
     {
         List<string> steps = DeploymentStepNames.All.ToList();
+        int driverPackIndex = steps.IndexOf(DeploymentStepNames.ApplyDriverPack);
+        int osRecoveryIndex = steps.IndexOf(DeploymentStepNames.ProvisionOsRecovery);
+        int firmwareIndex = steps.IndexOf(DeploymentStepNames.DownloadFirmwareUpdate);
         int sealIndex = steps.IndexOf(DeploymentStepNames.SealRecoveryPartition);
         int autopilotIndex = steps.IndexOf(DeploymentStepNames.ProvisionAutopilot);
         int finalizeIndex = steps.IndexOf(DeploymentStepNames.FinalizeDeploymentAndWriteLogs);
 
+        Assert.True(driverPackIndex >= 0);
+        Assert.Equal(driverPackIndex + 1, osRecoveryIndex);
+        Assert.Equal(osRecoveryIndex + 1, firmwareIndex);
         Assert.True(sealIndex >= 0);
         Assert.Equal(sealIndex + 1, autopilotIndex);
         Assert.Equal(autopilotIndex + 1, finalizeIndex);

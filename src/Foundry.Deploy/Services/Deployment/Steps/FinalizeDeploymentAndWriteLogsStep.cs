@@ -6,7 +6,7 @@ namespace Foundry.Deploy.Services.Deployment.Steps;
 
 public sealed class FinalizeDeploymentAndWriteLogsStep : DeploymentStepBase
 {
-    public override int Order => 19;
+    public override int Order => 20;
 
     public override string Name => DeploymentStepNames.FinalizeDeploymentAndWriteLogs;
 
@@ -98,6 +98,7 @@ public sealed class FinalizeDeploymentAndWriteLogsStep : DeploymentStepBase
             preOobeManifestPath = runtimeState.PreOobeManifestPath,
             preOobeScriptPaths = runtimeState.PreOobeScriptPaths,
             applyFirmwareUpdates = runtimeState.ApplyFirmwareUpdates,
+            osRecoveryEnabled = runtimeState.IsOsRecoveryEnabled,
             downloadedFirmwarePath = runtimeState.DownloadedFirmwarePath,
             extractedFirmwarePath = runtimeState.ExtractedFirmwarePath,
             firmwareUpdateId = runtimeState.FirmwareUpdateId,

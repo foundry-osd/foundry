@@ -2121,4 +2121,61 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Pregledajte spremnost, odaberite ISO ili USB izlaz i pokrenite stvaranje medija.</value>
   </data>
+  <data name="Nav_OsRecoveryKey.Description" xml:space="preserve">
+    <value>Konfigurirajte dostupnost OS Recovery.</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Subtitle" xml:space="preserve">
+    <value>Oporavak OS-a</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Title" xml:space="preserve">
+    <value>Oporavak OS-a</value>
+  </data>
+  <data name="OsRecoveryPage_Title.Text" xml:space="preserve">
+    <value>Oporavak OS-a</value>
+  </data>
+  <data name="OsRecovery.PageDescription" xml:space="preserve">
+    <value>Omogućite WinRE ulaznu točku za Foundry Recovery i pregledajte kako operateri dolaze do nje.</value>
+  </data>
+  <data name="OsRecovery.EnableHeader" xml:space="preserve">
+    <value>Omogući oporavak OS-a</value>
+  </data>
+  <data name="OsRecovery.EnableDescription" xml:space="preserve">
+    <value>Dodajte Foundry Recovery kao opcionalnu radnju oporavka u Windows Recovery Environment.</value>
+  </data>
+  <data name="OsRecovery.EnableToggleText" xml:space="preserve">
+    <value>Omogući oporavak OS-a</value>
+  </data>
+  <data name="OsRecovery.WhyHeader" xml:space="preserve">
+    <value>Zašto postoji</value>
+  </data>
+  <data name="OsRecovery.WhyDescription" xml:space="preserve">
+    <value>OS Recovery daje timovima za podršku poznati WinRE put za pokretanje programa Foundry Recovery kada se Windows ne može normalno pokrenuti ili mu je potrebna ponovna implementacija na temelju popravka.</value>
+  </data>
+  <data name="OsRecovery.WhenHeader" xml:space="preserve">
+    <value>Kada ga koristiti</value>
+  </data>
+  <data name="OsRecovery.WhenDescription" xml:space="preserve">
+    <value>Koristite ga za radne tijekove popravljanja prijeloma gdje operater počinje iz okruženja za oporavak sustava Windows umjesto pokretanja zasebnog medija za implementaciju.</value>
+  </data>
+  <data name="OsRecovery.WinRePathHeader" xml:space="preserve">
+    <value>WinRE put</value>
+  </data>
+  <data name="OsRecovery.WinRePathDescription" xml:space="preserve">
+    <value>Rješavanje problema &gt; Napredne opcije &gt; Foundry Recovery</value>
+  </data>
+  <data name="OsRecovery.LimitationsHeader" xml:space="preserve">
+    <value>Ograničenja</value>
+  </data>
+  <data name="OsRecovery.LimitationsDescription" xml:space="preserve">
+    <value>Ova stranica kontrolira samo je li zatražena ulazna točka oporavka. Ne prilagođava tekst izbornika, konfigurira oporavak bez nadzora, pruža mrežnu provjeru autentičnosti, upisuje Autopilot, ubacuje OA3 podatke ili pohranjuje tajne.</value>
+  </data>
+  <data name="OsRecovery.FlowHeader" xml:space="preserve">
+    <value>Tijek oporavka</value>
+  </data>
+  <data name="OsRecovery.FlowDescription" xml:space="preserve">
+    <value>Slika rezerviranog mjesta prikazuje predviđenu navigacijsku putanju WinRE i može se zamijeniti kasnije.</value>
+  </data>
+  <data name="OsRecovery.FlowImageAutomationName" xml:space="preserve">
+    <value>WinRE navigacijski put: Rješavanje problema, Napredne opcije, Foundry Recovery.</value>
+  </data>
 </root>

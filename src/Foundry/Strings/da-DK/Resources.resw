@@ -2121,4 +2121,61 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Gennemgå klarheden, vælg ISO- eller USB-output, og start medieoprettelsen.</value>
   </data>
+  <data name="Nav_OsRecoveryKey.Description" xml:space="preserve">
+    <value>Konfigurer OS Gendannelse tilgængelighed.</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Subtitle" xml:space="preserve">
+    <value>OS Gendannelse</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Title" xml:space="preserve">
+    <value>OS Gendannelse</value>
+  </data>
+  <data name="OsRecoveryPage_Title.Text" xml:space="preserve">
+    <value>OS Gendannelse</value>
+  </data>
+  <data name="OsRecovery.PageDescription" xml:space="preserve">
+    <value>Aktiver et WinRE-indgangspunkt for Foundry Recovery og se, hvordan operatører når det.</value>
+  </data>
+  <data name="OsRecovery.EnableHeader" xml:space="preserve">
+    <value>Aktiver OS-gendannelse</value>
+  </data>
+  <data name="OsRecovery.EnableDescription" xml:space="preserve">
+    <value>Tilføj Foundry Recovery som en valgfri gendannelseshandling under Windows Recovery Environment.</value>
+  </data>
+  <data name="OsRecovery.EnableToggleText" xml:space="preserve">
+    <value>Aktiver OS-gendannelse</value>
+  </data>
+  <data name="OsRecovery.WhyHeader" xml:space="preserve">
+    <value>Hvorfor det eksisterer</value>
+  </data>
+  <data name="OsRecovery.WhyDescription" xml:space="preserve">
+    <value>OS Recovery giver supportteams en velkendt WinRE-sti til at starte Foundry Recovery, når Windows ikke kan starte normalt eller har brug for reparationsdrevet omplacering.</value>
+  </data>
+  <data name="OsRecovery.WhenHeader" xml:space="preserve">
+    <value>Hvornår skal man bruge det</value>
+  </data>
+  <data name="OsRecovery.WhenDescription" xml:space="preserve">
+    <value>Brug det til break-fix-arbejdsgange, hvor en operatør starter fra Windows Recovery Environment i stedet for at starte separate installationsmedier.</value>
+  </data>
+  <data name="OsRecovery.WinRePathHeader" xml:space="preserve">
+    <value>WinRE-sti</value>
+  </data>
+  <data name="OsRecovery.WinRePathDescription" xml:space="preserve">
+    <value>Fejlfinding &gt; Avancerede indstillinger &gt; Foundry Recovery</value>
+  </data>
+  <data name="OsRecovery.LimitationsHeader" xml:space="preserve">
+    <value>Begrænsninger</value>
+  </data>
+  <data name="OsRecovery.LimitationsDescription" xml:space="preserve">
+    <value>Denne side kontrollerer kun, om gendannelsesindgangspunktet anmodes om. Den tilpasser ikke menutekst, konfigurerer uovervåget gendannelse, leverer netværksgodkendelse, tilmelder Autopilot, injicerer OA3-data eller gemmer hemmeligheder.</value>
+  </data>
+  <data name="OsRecovery.FlowHeader" xml:space="preserve">
+    <value>Genopretningsflow</value>
+  </data>
+  <data name="OsRecovery.FlowDescription" xml:space="preserve">
+    <value>Pladsholderbilledet viser den tilsigtede WinRE-navigationssti og kan erstattes senere.</value>
+  </data>
+  <data name="OsRecovery.FlowImageAutomationName" xml:space="preserve">
+    <value>WinRE navigationssti: Fejlfinding, Avancerede indstillinger, Foundry Recovery.</value>
+  </data>
 </root>

@@ -2121,4 +2121,61 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Revizuiți starea, alegeți ieșirea ISO sau USB și porniți crearea suportului.</value>
   </data>
+  <data name="Nav_OsRecoveryKey.Description" xml:space="preserve">
+    <value>Configurați disponibilitatea recuperării OS.</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Subtitle" xml:space="preserve">
+    <value>Recuperarea sistemului de operare</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Title" xml:space="preserve">
+    <value>Recuperarea sistemului de operare</value>
+  </data>
+  <data name="OsRecoveryPage_Title.Text" xml:space="preserve">
+    <value>Recuperarea sistemului de operare</value>
+  </data>
+  <data name="OsRecovery.PageDescription" xml:space="preserve">
+    <value>Activați un punct de intrare WinRE pentru Foundry Recovery și examinați modul în care operatorii îl ajung.</value>
+  </data>
+  <data name="OsRecovery.EnableHeader" xml:space="preserve">
+    <value>Activați recuperarea sistemului de operare</value>
+  </data>
+  <data name="OsRecovery.EnableDescription" xml:space="preserve">
+    <value>Adăugați Foundry Recovery ca acțiune opțională de recuperare în Windows Recovery Environment.</value>
+  </data>
+  <data name="OsRecovery.EnableToggleText" xml:space="preserve">
+    <value>Activați recuperarea sistemului de operare</value>
+  </data>
+  <data name="OsRecovery.WhyHeader" xml:space="preserve">
+    <value>De ce există</value>
+  </data>
+  <data name="OsRecovery.WhyDescription" xml:space="preserve">
+    <value>OS Recovery oferă echipelor de asistență o cale WinRE familiară pentru lansarea Foundry Recovery atunci când Windows nu poate porni normal sau are nevoie de o redistribuire bazată pe reparații.</value>
+  </data>
+  <data name="OsRecovery.WhenHeader" xml:space="preserve">
+    <value>Când să-l folosești</value>
+  </data>
+  <data name="OsRecovery.WhenDescription" xml:space="preserve">
+    <value>Folosiți-l pentru fluxuri de lucru pentru reparații în cazul în care un operator pornește din mediul de recuperare Windows în loc să pornească medii de implementare separate.</value>
+  </data>
+  <data name="OsRecovery.WinRePathHeader" xml:space="preserve">
+    <value>Calea WinRE</value>
+  </data>
+  <data name="OsRecovery.WinRePathDescription" xml:space="preserve">
+    <value>Depanare &gt; Opțiuni avansate &gt; Foundry Recovery</value>
+  </data>
+  <data name="OsRecovery.LimitationsHeader" xml:space="preserve">
+    <value>Limitări</value>
+  </data>
+  <data name="OsRecovery.LimitationsDescription" xml:space="preserve">
+    <value>Această pagină controlează doar dacă este solicitat punctul de intrare de recuperare. Nu personalizează textul meniului, nu configurează recuperarea nesupravegheată, nu asigură autentificarea rețelei, nu înregistrează Autopilot, nu injectează date OA3 sau nu stochează secrete.</value>
+  </data>
+  <data name="OsRecovery.FlowHeader" xml:space="preserve">
+    <value>Fluxul de recuperare</value>
+  </data>
+  <data name="OsRecovery.FlowDescription" xml:space="preserve">
+    <value>Imaginea substituent arată calea de navigare WinRE intenționată și poate fi înlocuită ulterior.</value>
+  </data>
+  <data name="OsRecovery.FlowImageAutomationName" xml:space="preserve">
+    <value>Cale de navigare WinRE: Depanare, Opțiuni avansate, Recuperare Foundry.</value>
+  </data>
 </root>

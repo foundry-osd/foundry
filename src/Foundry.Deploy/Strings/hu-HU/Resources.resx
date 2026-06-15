@@ -509,4 +509,25 @@ Folytatja a telepítést?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Az interaktív Autopilot regisztrációs segéd előkészítve (szimuláció).</value>
   </data>
+  <data name="Launch.ConfirmOsRecoveryTitle" xml:space="preserve"><value>Erősítse meg az operációs rendszer helyreállítását</value></data>
+  <data name="Launch.ConfirmOsRecoveryMessageFormat" xml:space="preserve"><value>Az OS Recovery megőrzi az EFI, MSR és Recovery partíciókat, majd lecseréli a Windows partíciót a kiválasztott lemezen.
+
+Lemez: {0}
+Modell: {1}
+Busz: {2}
+Méret: {3}
+Operációs rendszer: {4}
+
+Folytatja az OS helyreállítást?</value></data>
+  <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Az operációs rendszer helyreállításának biztosítása</value></data>
+  <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Az operációs rendszer helyreállításának kiépítése...</value></data>
+  <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>OS Recovery hasznos terhelés beadása...</value></data>
+  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>WinRE-módosítások mentése...</value></data>
+  <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Az OS Recovery rendszerindító menü regisztrálása...</value></data>
+  <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>Az operációs rendszer helyreállítása le van tiltva.</value></data>
+  <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>Az OS-helyreállítás kiépítése helyreállítási módban kimarad.</value></data>
+  <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>Az operációs rendszer helyreállítása biztosított.</value></data>
+  <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>Az operációs rendszer helyreállítása biztosított (szimuláció).</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry OSD-helyreállítás</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Windows vészhelyzeti telepítés</value></data>
 </root>

@@ -509,4 +509,25 @@ ErrorCode=0x80070005
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>מסייע הרישום האינטראקטיבי של Autopilot הוכן (סימולציה).</value>
   </data>
+  <data name="Launch.ConfirmOsRecoveryTitle" xml:space="preserve"><value>אשר את שחזור מערכת ההפעלה</value></data>
+  <data name="Launch.ConfirmOsRecoveryMessageFormat" xml:space="preserve"><value>שחזור מערכת ההפעלה ישמור מחיצות EFI, MSR ושחזור, ולאחר מכן יחליף את מחיצת Windows בדיסק הנבחר.
+
+דיסק: {0}
+דגם: {1}
+אוטובוס: {2}
+גודל: {3}
+מערכת הפעלה: {4}
+
+להמשיך עם שחזור מערכת ההפעלה?</value></data>
+  <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>שחזור מערכת הפעלה אספקה</value></data>
+  <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>הקצאת שחזור מערכת ההפעלה...</value></data>
+  <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>מזריקים מטען שחזור מערכת ההפעלה...</value></data>
+  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>שומר שינויים ב-WinRE...</value></data>
+  <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>רושם את תפריט האתחול של שחזור מערכת ההפעלה...</value></data>
+  <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>שחזור מערכת ההפעלה מושבת.</value></data>
+  <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>דילוג על הקצאת שחזור מערכת ההפעלה במצב שחזור.</value></data>
+  <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>שחזור מערכת הפעלה הוקצה.</value></data>
+  <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>התאוששות מערכת הפעלה הוגדרה (סימולציה).</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>שחזור Foundry OSD</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>פריסת Windows בחירום</value></data>
 </root>

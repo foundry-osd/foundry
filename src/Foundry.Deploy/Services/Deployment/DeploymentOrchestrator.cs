@@ -122,6 +122,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             AutopilotHardwareHashUploadState = context.IsAutopilotEnabled && context.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload
                 ? AutopilotHardwareHashUploadState.Planned
                 : AutopilotHardwareHashUploadState.NotPlanned,
+            IsOsRecoveryEnabled = context.OsRecovery.IsEnabled,
             Network = context.Network,
             Oobe = context.Oobe,
             AppxRemoval = context.AppxRemoval,
@@ -291,6 +292,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 ["deploy_driver_pack_vendor"] = NormalizeTelemetryString(context.DriverPack?.Manufacturer, "none"),
                 ["deploy_driver_pack_model"] = ResolveDriverPackCatalogModel(context.DriverPack),
                 ["deploy_firmware_updates_enabled"] = context.ApplyFirmwareUpdates,
+                ["deploy_os_recovery_enabled"] = context.OsRecovery.IsEnabled,
                 ["deploy_autopilot_enabled"] = context.IsAutopilotEnabled,
                 ["deploy_autopilot_provisioning_mode"] = NormalizeTelemetryString(ResolveAutopilotProvisioningMode(context)),
                 ["deploy_autopilot_hash_upload_state"] = NormalizeTelemetryString(runtimeState?.AutopilotHardwareHashUploadState.ToString()),

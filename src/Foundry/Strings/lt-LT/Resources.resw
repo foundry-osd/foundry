@@ -2121,4 +2121,61 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Peržiūrėkite parengtį, pasirinkite ISO arba USB išvestį ir pradėkite laikmenos kūrimą.</value>
   </data>
+  <data name="Nav_OsRecoveryKey.Description" xml:space="preserve">
+    <value>Konfigūruokite OS atkūrimo prieinamumą.</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Subtitle" xml:space="preserve">
+    <value>OS atkūrimas</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Title" xml:space="preserve">
+    <value>OS atkūrimas</value>
+  </data>
+  <data name="OsRecoveryPage_Title.Text" xml:space="preserve">
+    <value>OS atkūrimas</value>
+  </data>
+  <data name="OsRecovery.PageDescription" xml:space="preserve">
+    <value>Įgalinkite Foundry Recovery WinRE įėjimo tašką ir peržiūrėkite, kaip operatoriai jį pasiekia.</value>
+  </data>
+  <data name="OsRecovery.EnableHeader" xml:space="preserve">
+    <value>Įgalinti OS atkūrimą</value>
+  </data>
+  <data name="OsRecovery.EnableDescription" xml:space="preserve">
+    <value>Pridėkite Foundry Recovery kaip pasirenkamą atkūrimo veiksmą „Windows“ atkūrimo aplinkoje.</value>
+  </data>
+  <data name="OsRecovery.EnableToggleText" xml:space="preserve">
+    <value>Įgalinti OS atkūrimą</value>
+  </data>
+  <data name="OsRecovery.WhyHeader" xml:space="preserve">
+    <value>Kodėl taip yra</value>
+  </data>
+  <data name="OsRecovery.WhyDescription" xml:space="preserve">
+    <value>„OS Recovery“ suteikia palaikymo komandoms įprastą „WinRE“ kelią paleisti „Foundry Recovery“, kai „Windows“ negali normaliai paleisti arba reikia atlikti taisomąjį pakartotinį diegimą.</value>
+  </data>
+  <data name="OsRecovery.WhenHeader" xml:space="preserve">
+    <value>Kada jį naudoti</value>
+  </data>
+  <data name="OsRecovery.WhenDescription" xml:space="preserve">
+    <value>Naudokite jį „break-fix“ darbo eigoms, kai operatorius paleidžiamas iš „Windows“ atkūrimo aplinkos, o ne įkelia atskiras diegimo laikmenas.</value>
+  </data>
+  <data name="OsRecovery.WinRePathHeader" xml:space="preserve">
+    <value>WinRE kelias</value>
+  </data>
+  <data name="OsRecovery.WinRePathDescription" xml:space="preserve">
+    <value>Trikčių šalinimas &gt; Išplėstinės parinktys &gt; Foundry Recovery</value>
+  </data>
+  <data name="OsRecovery.LimitationsHeader" xml:space="preserve">
+    <value>Apribojimai</value>
+  </data>
+  <data name="OsRecovery.LimitationsDescription" xml:space="preserve">
+    <value>Šis puslapis kontroliuoja tik tai, ar prašoma atkūrimo įėjimo taško. Ji nepritaiko meniu teksto, nekonfigūruoja neprižiūrimo atkūrimo, neteikia tinklo autentifikavimo, neužregistruoja Autopilot, neinjektuoja OA3 duomenų ar nesaugo paslapčių.</value>
+  </data>
+  <data name="OsRecovery.FlowHeader" xml:space="preserve">
+    <value>Atkūrimo srautas</value>
+  </data>
+  <data name="OsRecovery.FlowDescription" xml:space="preserve">
+    <value>Vietos rezervavimo ženklo paveikslėlyje rodomas numatytas WinRE naršymo kelias, kurį vėliau galima pakeisti.</value>
+  </data>
+  <data name="OsRecovery.FlowImageAutomationName" xml:space="preserve">
+    <value>WinRE naršymo kelias: trikčių šalinimas, išplėstinės parinktys, Foundry Recovery.</value>
+  </data>
 </root>

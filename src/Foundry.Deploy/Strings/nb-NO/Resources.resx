@@ -509,4 +509,25 @@ Vil du fortsette med distribusjonen?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Den interaktive Autopilot-registreringsassistenten er klargjort (simulering).</value>
   </data>
+  <data name="Launch.ConfirmOsRecoveryTitle" xml:space="preserve"><value>Bekreft OS-gjenoppretting</value></data>
+  <data name="Launch.ConfirmOsRecoveryMessageFormat" xml:space="preserve"><value>OS Recovery vil bevare EFI-, MSR- og Recovery-partisjonene, og erstatter deretter Windows-partisjonen på den valgte disken.
+
+Disk: {0}
+Modell: {1}
+Buss: {2}
+Størrelse: {3}
+Operativsystem: {4}
+
+Vil du fortsette med OS-gjenoppretting?</value></data>
+  <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Klargjør OS-gjenoppretting</value></data>
+  <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Klargjør OS-gjenoppretting...</value></data>
+  <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Injiserer nyttelast for OS-gjenoppretting...</value></data>
+  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Lagrer WinRE-endringer...</value></data>
+  <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Registrerer OS Recovery oppstartsmeny...</value></data>
+  <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>OS-gjenoppretting er deaktivert.</value></data>
+  <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>Klargjøring av OS-gjenoppretting hoppes over i gjenopprettingsmodus.</value></data>
+  <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>OS-gjenoppretting klargjort.</value></data>
+  <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>OS-gjenoppretting klargjort (simulering).</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry OSD-gjenoppretting</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Nødutrulling av Windows</value></data>
 </root>

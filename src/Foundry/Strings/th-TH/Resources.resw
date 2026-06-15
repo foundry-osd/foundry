@@ -2121,4 +2121,61 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>ตรวจสอบความพร้อม เลือกเอาต์พุต ISO หรือ USB แล้วเริ่มสร้างสื่อ</value>
   </data>
+  <data name="Nav_OsRecoveryKey.Description" xml:space="preserve">
+    <value>กำหนดค่าความพร้อมใช้งานของการกู้คืนระบบปฏิบัติการ</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Subtitle" xml:space="preserve">
+    <value>การกู้คืนระบบปฏิบัติการ</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Title" xml:space="preserve">
+    <value>การกู้คืนระบบปฏิบัติการ</value>
+  </data>
+  <data name="OsRecoveryPage_Title.Text" xml:space="preserve">
+    <value>การกู้คืนระบบปฏิบัติการ</value>
+  </data>
+  <data name="OsRecovery.PageDescription" xml:space="preserve">
+    <value>เปิดใช้งานจุดเข้าใช้งาน WinRE สำหรับ Foundry Recovery และตรวจสอบว่าผู้ปฏิบัติงานเข้าถึงจุดนั้นได้อย่างไร</value>
+  </data>
+  <data name="OsRecovery.EnableHeader" xml:space="preserve">
+    <value>เปิดใช้งานการกู้คืนระบบปฏิบัติการ</value>
+  </data>
+  <data name="OsRecovery.EnableDescription" xml:space="preserve">
+    <value>เพิ่ม Foundry Recovery เป็นการดำเนินการกู้คืนเสริมภายใต้ Windows Recovery Environment</value>
+  </data>
+  <data name="OsRecovery.EnableToggleText" xml:space="preserve">
+    <value>เปิดใช้งานการกู้คืนระบบปฏิบัติการ</value>
+  </data>
+  <data name="OsRecovery.WhyHeader" xml:space="preserve">
+    <value>ทำไมมันถึงมีอยู่</value>
+  </data>
+  <data name="OsRecovery.WhyDescription" xml:space="preserve">
+    <value>OS Recovery ช่วยให้ทีมสนับสนุนมีเส้นทาง WinRE ที่คุ้นเคยในการเปิดใช้ Foundry Recovery เมื่อ Windows ไม่สามารถบูตได้ตามปกติหรือจำเป็นต้องปรับใช้การซ่อมแซมใหม่</value>
+  </data>
+  <data name="OsRecovery.WhenHeader" xml:space="preserve">
+    <value>เมื่อใดจึงจะใช้มัน</value>
+  </data>
+  <data name="OsRecovery.WhenDescription" xml:space="preserve">
+    <value>ใช้สำหรับเวิร์กโฟลว์การแก้ไขที่ผู้ปฏิบัติงานเริ่มต้นจาก Windows Recovery Environment แทนที่จะบูตสื่อการปรับใช้แยกต่างหาก</value>
+  </data>
+  <data name="OsRecovery.WinRePathHeader" xml:space="preserve">
+    <value>เส้นทาง WinRE</value>
+  </data>
+  <data name="OsRecovery.WinRePathDescription" xml:space="preserve">
+    <value>แก้ไขปัญหา &gt; ตัวเลือกขั้นสูง &gt; การกู้คืน Foundry</value>
+  </data>
+  <data name="OsRecovery.LimitationsHeader" xml:space="preserve">
+    <value>ข้อจำกัด</value>
+  </data>
+  <data name="OsRecovery.LimitationsDescription" xml:space="preserve">
+    <value>หน้านี้ควบคุมเฉพาะว่าจะขอจุดเข้ากู้คืนหรือไม่ ไม่ได้ปรับแต่งข้อความเมนู กำหนดค่าการกู้คืนแบบอัตโนมัติ จัดเตรียมการตรวจสอบสิทธิ์เครือข่าย ลงทะเบียน Autopilot แทรกข้อมูล OA3 หรือเก็บข้อมูลลับ</value>
+  </data>
+  <data name="OsRecovery.FlowHeader" xml:space="preserve">
+    <value>กระแสการกู้คืน</value>
+  </data>
+  <data name="OsRecovery.FlowDescription" xml:space="preserve">
+    <value>รูปภาพตัวยึดแสดงเส้นทางการนำทาง WinRE ที่ต้องการและสามารถแทนที่ได้ในภายหลัง</value>
+  </data>
+  <data name="OsRecovery.FlowImageAutomationName" xml:space="preserve">
+    <value>เส้นทางการนำทาง WinRE: การแก้ไขปัญหา, ตัวเลือกขั้นสูง, การกู้คืน Foundry</value>
+  </data>
 </root>

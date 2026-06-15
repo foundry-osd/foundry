@@ -79,6 +79,19 @@ public sealed class PrepareTargetDiskLayoutStepTests
             string workingDirectory,
             CancellationToken cancellationToken = default)
         {
+            return PrepareTargetDiskAsync(
+                diskNumber,
+                workingDirectory,
+                RecoveryTargetDiskLayoutMode.FullWipe,
+                cancellationToken);
+        }
+
+        public Task<DeploymentTargetLayout> PrepareTargetDiskAsync(
+            int diskNumber,
+            string workingDirectory,
+            RecoveryTargetDiskLayoutMode layoutMode,
+            CancellationToken cancellationToken = default)
+        {
             Directory.CreateDirectory(workingDirectory);
 
             return Task.FromResult(new DeploymentTargetLayout

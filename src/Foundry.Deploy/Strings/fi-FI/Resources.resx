@@ -509,4 +509,25 @@ Jatketaanko käyttöönottoa?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Vuorovaikutteinen Autopilot-rekisteröintiavustaja on valmisteltu (simulointi).</value>
   </data>
+  <data name="Launch.ConfirmOsRecoveryTitle" xml:space="preserve"><value>Vahvista käyttöjärjestelmän palautus</value></data>
+  <data name="Launch.ConfirmOsRecoveryMessageFormat" xml:space="preserve"><value>OS Recovery säilyttää EFI-, MSR- ja Recovery-osiot ja korvaa sitten Windows-osion valitulla levyllä.
+
+Levy: {0}
+Malli: {1}
+Bussi: {2}
+Koko: {3}
+Käyttöjärjestelmä: {4}
+
+Jatketaanko käyttöjärjestelmän palautusta?</value></data>
+  <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Tarjoa käyttöjärjestelmän palautus</value></data>
+  <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Otetaan käyttöön käyttöjärjestelmän palautus...</value></data>
+  <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Lisätään käyttöjärjestelmän palautusta...</value></data>
+  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Tallennetaan WinRE-muutoksia...</value></data>
+  <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Rekisteröidään OS Recovery -käynnistysvalikkoa...</value></data>
+  <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>Käyttöjärjestelmän palautus on poistettu käytöstä.</value></data>
+  <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>Käyttöjärjestelmän palautuksen hallinta ohitetaan palautustilassa.</value></data>
+  <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>Käyttöjärjestelmän palautus varattu.</value></data>
+  <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>Käyttöjärjestelmän palautus varusteltu (simulaatio).</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry OSD -palautus</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Windowsin hätäasennus</value></data>
 </root>

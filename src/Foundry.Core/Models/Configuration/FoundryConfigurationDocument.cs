@@ -38,6 +38,11 @@ public sealed record FoundryConfigurationDocument
     public LocalizationSettings Localization { get; init; } = new();
 
     /// <summary>
+    /// Gets user-authored Windows RE OS recovery settings.
+    /// </summary>
+    public OsRecoverySettings OsRecovery { get; init; } = new();
+
+    /// <summary>
     /// Gets user-authored customization settings used when deployment configuration is generated.
     /// </summary>
     public CustomizationSettings Customization { get; init; } = new();

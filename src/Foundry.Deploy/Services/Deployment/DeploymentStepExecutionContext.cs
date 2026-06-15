@@ -250,7 +250,7 @@ public sealed class DeploymentStepExecutionContext
             return (null, DeploymentStepResult.Failed($"Target disk {Request.TargetDiskNumber} is no longer present."));
         }
 
-        if (!selectedDisk.IsSelectable)
+        if (!selectedDisk.IsSelectable && RuntimeState.Mode != DeploymentMode.Recovery)
         {
             return (null, DeploymentStepResult.Failed(
                 $"Target disk {Request.TargetDiskNumber} is blocked: {selectedDisk.SelectionWarning}"));
@@ -512,7 +512,7 @@ public sealed class DeploymentStepExecutionContext
 
     private string ResolvePayloadCacheRoot(string payloadFolderName, long requiredBytes)
     {
-        if (RuntimeState.Mode == DeploymentMode.Iso &&
+        if ((RuntimeState.Mode == DeploymentMode.Iso || RuntimeState.Mode == DeploymentMode.Recovery) &&
             !string.IsNullOrWhiteSpace(RuntimeState.TargetFoundryRoot))
         {
             return Path.Combine(RuntimeState.TargetFoundryRoot, CacheFolderName, payloadFolderName);

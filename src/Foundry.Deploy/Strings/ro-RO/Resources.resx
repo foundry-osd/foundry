@@ -509,4 +509,25 @@ Continuați cu implementarea?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Asistentul de înregistrare interactivă Autopilot a fost pregătit (simulare).</value>
   </data>
+  <data name="Launch.ConfirmOsRecoveryTitle" xml:space="preserve"><value>Confirmați recuperarea sistemului de operare</value></data>
+  <data name="Launch.ConfirmOsRecoveryMessageFormat" xml:space="preserve"><value>OS Recovery va păstra partițiile EFI, MSR și Recovery, apoi va înlocui partiția Windows de pe discul selectat.
+
+Disc: {0}
+Model: {1}
+Autobuz: {2}
+Dimensiune: {3}
+Sistem de operare: {4}
+
+Continuați cu OS Recovery?</value></data>
+  <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Asigurați recuperarea sistemului de operare</value></data>
+  <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Se asigură recuperarea sistemului de operare...</value></data>
+  <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Se injectează sarcina utilă de recuperare a sistemului de operare...</value></data>
+  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Se salvează modificările WinRE...</value></data>
+  <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Se înregistrează meniul de pornire OS Recovery...</value></data>
+  <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>Recuperarea sistemului de operare este dezactivată.</value></data>
+  <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>Aprovizionarea OS Recovery este omisă în modul de recuperare.</value></data>
+  <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>Recuperarea sistemului de operare a fost asigurată.</value></data>
+  <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>Recuperare OS asigurată (simulare).</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Recuperare Foundry OSD</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Redeploy Windows de urgență</value></data>
 </root>

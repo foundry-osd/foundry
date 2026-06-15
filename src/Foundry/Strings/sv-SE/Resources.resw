@@ -64,7 +64,7 @@
     <value>Laddar versionsinformation...</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
-    <value>Release notes</value>
+    <value>Versionsinformation</value>
   </data>
   <data name="AboutDialog.RepositoryLink" xml:space="preserve">
     <value>Förvar</value>
@@ -94,7 +94,7 @@
     <value>Uppdatera och starta om</value>
   </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
-    <value>Release notes</value>
+    <value>Versionsinformation</value>
   </data>
   <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
     <value>Uppdatera källa</value>
@@ -2120,5 +2120,62 @@
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Granska beredskapen, välj ISO- eller USB-utdata och starta medieskapandet.</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Description" xml:space="preserve">
+    <value>Konfigurera OS-återställningstillgänglighet.</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Subtitle" xml:space="preserve">
+    <value>OS-återställning</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Title" xml:space="preserve">
+    <value>OS-återställning</value>
+  </data>
+  <data name="OsRecoveryPage_Title.Text" xml:space="preserve">
+    <value>OS-återställning</value>
+  </data>
+  <data name="OsRecovery.PageDescription" xml:space="preserve">
+    <value>Aktivera en WinRE-ingångspunkt för Foundry Recovery och granska hur operatörerna når den.</value>
+  </data>
+  <data name="OsRecovery.EnableHeader" xml:space="preserve">
+    <value>Aktivera OS-återställning</value>
+  </data>
+  <data name="OsRecovery.EnableDescription" xml:space="preserve">
+    <value>Lägg till Foundry Recovery som en valfri återställningsåtgärd under Windows Recovery Environment.</value>
+  </data>
+  <data name="OsRecovery.EnableToggleText" xml:space="preserve">
+    <value>Aktivera OS-återställning</value>
+  </data>
+  <data name="OsRecovery.WhyHeader" xml:space="preserve">
+    <value>Varför det finns</value>
+  </data>
+  <data name="OsRecovery.WhyDescription" xml:space="preserve">
+    <value>OS Recovery ger supportteam en välbekant WinRE-sökväg för att starta Foundry Recovery när Windows inte kan starta normalt eller behöver reparationsdriven omdistribuering.</value>
+  </data>
+  <data name="OsRecovery.WhenHeader" xml:space="preserve">
+    <value>När ska man använda den</value>
+  </data>
+  <data name="OsRecovery.WhenDescription" xml:space="preserve">
+    <value>Använd den för break-fix-arbetsflöden där en operatör startar från Windows Recovery Environment istället för att starta upp separata distributionsmedia.</value>
+  </data>
+  <data name="OsRecovery.WinRePathHeader" xml:space="preserve">
+    <value>WinRE sökväg</value>
+  </data>
+  <data name="OsRecovery.WinRePathDescription" xml:space="preserve">
+    <value>Felsökning &gt; Avancerade alternativ &gt; Foundry Recovery</value>
+  </data>
+  <data name="OsRecovery.LimitationsHeader" xml:space="preserve">
+    <value>Begränsningar</value>
+  </data>
+  <data name="OsRecovery.LimitationsDescription" xml:space="preserve">
+    <value>Den här sidan styr bara om återställningsingångspunkten begärs. Den anpassar inte menytext, konfigurerar oövervakad återställning, tillhandahåller nätverksautentisering, registrerar Autopilot, injicerar OA3-data eller lagrar hemligheter.</value>
+  </data>
+  <data name="OsRecovery.FlowHeader" xml:space="preserve">
+    <value>Återhämtningsflöde</value>
+  </data>
+  <data name="OsRecovery.FlowDescription" xml:space="preserve">
+    <value>Platshållarbilden visar den avsedda WinRE-navigeringsvägen och kan ersättas senare.</value>
+  </data>
+  <data name="OsRecovery.FlowImageAutomationName" xml:space="preserve">
+    <value>WinRE-navigeringsväg: Felsökning, Avancerade alternativ, Foundry Recovery.</value>
   </data>
 </root>

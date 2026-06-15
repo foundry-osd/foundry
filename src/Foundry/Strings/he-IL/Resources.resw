@@ -2121,4 +2121,61 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>בדוק מוכנות, בחר פלט ISO או USB והתחל ביצירת המדיה.</value>
   </data>
+  <data name="Nav_OsRecoveryKey.Description" xml:space="preserve">
+    <value>הגדר את זמינות שחזור מערכת ההפעלה.</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Subtitle" xml:space="preserve">
+    <value>שחזור מערכת הפעלה</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Title" xml:space="preserve">
+    <value>שחזור מערכת הפעלה</value>
+  </data>
+  <data name="OsRecoveryPage_Title.Text" xml:space="preserve">
+    <value>שחזור מערכת הפעלה</value>
+  </data>
+  <data name="OsRecovery.PageDescription" xml:space="preserve">
+    <value>אפשר נקודת כניסה של WinRE עבור Foundry Recovery וסקור כיצד מפעילים מגיעים אליה.</value>
+  </data>
+  <data name="OsRecovery.EnableHeader" xml:space="preserve">
+    <value>אפשר שחזור מערכת הפעלה</value>
+  </data>
+  <data name="OsRecovery.EnableDescription" xml:space="preserve">
+    <value>הוסף Foundry Recovery כפעולת שחזור אופציונלית תחת סביבת השחזור של Windows.</value>
+  </data>
+  <data name="OsRecovery.EnableToggleText" xml:space="preserve">
+    <value>אפשר שחזור מערכת הפעלה</value>
+  </data>
+  <data name="OsRecovery.WhyHeader" xml:space="preserve">
+    <value>למה זה קיים</value>
+  </data>
+  <data name="OsRecovery.WhyDescription" xml:space="preserve">
+    <value>OS Recovery נותן לצוותי תמיכה נתיב WinRE מוכר להפעלת Foundry Recovery כאשר Windows אינו יכול לאתחל כרגיל או זקוק לפריסה מחדש מונעת תיקון.</value>
+  </data>
+  <data name="OsRecovery.WhenHeader" xml:space="preserve">
+    <value>מתי להשתמש בו</value>
+  </data>
+  <data name="OsRecovery.WhenDescription" xml:space="preserve">
+    <value>השתמש בו עבור זרימות עבודה של תיקון הפסקות שבהן מפעיל מתחיל מסביבת השחזור של Windows במקום לאתחל מדיית פריסה נפרדת.</value>
+  </data>
+  <data name="OsRecovery.WinRePathHeader" xml:space="preserve">
+    <value>נתיב WinRE</value>
+  </data>
+  <data name="OsRecovery.WinRePathDescription" xml:space="preserve">
+    <value>פתרון בעיות &gt; אפשרויות מתקדמות &gt; Foundry Recovery</value>
+  </data>
+  <data name="OsRecovery.LimitationsHeader" xml:space="preserve">
+    <value>מגבלות</value>
+  </data>
+  <data name="OsRecovery.LimitationsDescription" xml:space="preserve">
+    <value>דף זה שולט רק אם נקודת הכניסה לשחזור מתבקשת. הוא אינו מבצע התאמה אישית של טקסט התפריט, מגדיר שחזור ללא השגחה, מתן אימות רשת, רושם Autopilot, מזרים נתוני OA3 או מאחסן סודות.</value>
+  </data>
+  <data name="OsRecovery.FlowHeader" xml:space="preserve">
+    <value>זרימת התאוששות</value>
+  </data>
+  <data name="OsRecovery.FlowDescription" xml:space="preserve">
+    <value>תמונת מציין המיקום מציגה את נתיב הניווט המיועד של WinRE וניתן להחליפה מאוחר יותר.</value>
+  </data>
+  <data name="OsRecovery.FlowImageAutomationName" xml:space="preserve">
+    <value>נתיב ניווט WinRE: פתרון בעיות, אפשרויות מתקדמות, Foundry Recovery.</value>
+  </data>
 </root>

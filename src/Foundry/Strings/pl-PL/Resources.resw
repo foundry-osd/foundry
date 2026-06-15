@@ -2121,4 +2121,61 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Sprawdź gotowość, wybierz wyjście ISO lub USB i rozpocznij tworzenie nośnika.</value>
   </data>
+  <data name="Nav_OsRecoveryKey.Description" xml:space="preserve">
+    <value>Skonfiguruj dostępność odzyskiwania systemu operacyjnego.</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Subtitle" xml:space="preserve">
+    <value>Odzyskiwanie systemu operacyjnego</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Title" xml:space="preserve">
+    <value>Odzyskiwanie systemu operacyjnego</value>
+  </data>
+  <data name="OsRecoveryPage_Title.Text" xml:space="preserve">
+    <value>Odzyskiwanie systemu operacyjnego</value>
+  </data>
+  <data name="OsRecovery.PageDescription" xml:space="preserve">
+    <value>Włącz punkt wejścia WinRE dla Foundry Recovery i sprawdź, jak operatorzy do niego docierają.</value>
+  </data>
+  <data name="OsRecovery.EnableHeader" xml:space="preserve">
+    <value>Włącz odzyskiwanie systemu operacyjnego</value>
+  </data>
+  <data name="OsRecovery.EnableDescription" xml:space="preserve">
+    <value>Dodaj Foundry Recovery jako opcjonalną akcję odzyskiwania w środowisku odzyskiwania systemu Windows.</value>
+  </data>
+  <data name="OsRecovery.EnableToggleText" xml:space="preserve">
+    <value>Włącz odzyskiwanie systemu operacyjnego</value>
+  </data>
+  <data name="OsRecovery.WhyHeader" xml:space="preserve">
+    <value>Dlaczego istnieje</value>
+  </data>
+  <data name="OsRecovery.WhyDescription" xml:space="preserve">
+    <value>System operacyjny Recovery zapewnia zespołom wsparcia znaną ścieżkę WinRE do uruchamiania Foundry Recovery, gdy system Windows nie może się normalnie uruchomić lub wymaga ponownego uruchomienia w celu naprawy.</value>
+  </data>
+  <data name="OsRecovery.WhenHeader" xml:space="preserve">
+    <value>Kiedy go używać</value>
+  </data>
+  <data name="OsRecovery.WhenDescription" xml:space="preserve">
+    <value>Użyj go do procedur naprawczych, w których operator zaczyna od środowiska odzyskiwania systemu Windows, zamiast uruchamiać oddzielny nośnik wdrażania.</value>
+  </data>
+  <data name="OsRecovery.WinRePathHeader" xml:space="preserve">
+    <value>Ścieżka WinRE</value>
+  </data>
+  <data name="OsRecovery.WinRePathDescription" xml:space="preserve">
+    <value>Rozwiązywanie problemów &gt; Opcje zaawansowane &gt; Foundry Recovery</value>
+  </data>
+  <data name="OsRecovery.LimitationsHeader" xml:space="preserve">
+    <value>Ograniczenia</value>
+  </data>
+  <data name="OsRecovery.LimitationsDescription" xml:space="preserve">
+    <value>Ta strona kontroluje tylko, czy żądany jest punkt wejścia odzyskiwania. Nie dostosowuje tekstu menu, nie konfiguruje nienadzorowanego odzyskiwania, nie zapewnia uwierzytelniania sieciowego, nie rejestruje Autopilot, nie wstrzykuje danych OA3 ani nie przechowuje tajemnic.</value>
+  </data>
+  <data name="OsRecovery.FlowHeader" xml:space="preserve">
+    <value>Przepływ odzysku</value>
+  </data>
+  <data name="OsRecovery.FlowDescription" xml:space="preserve">
+    <value>Obraz zastępczy pokazuje zamierzoną ścieżkę nawigacji WinRE i może zostać zastąpiony później.</value>
+  </data>
+  <data name="OsRecovery.FlowImageAutomationName" xml:space="preserve">
+    <value>Ścieżka nawigacji WinRE: Rozwiązywanie problemów, Opcje zaawansowane, Foundry Recovery.</value>
+  </data>
 </root>

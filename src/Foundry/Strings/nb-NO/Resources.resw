@@ -2121,4 +2121,61 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Kontroller beredskapen, velg ISO- eller USB-utdata, og start medieopprettingen.</value>
   </data>
+  <data name="Nav_OsRecoveryKey.Description" xml:space="preserve">
+    <value>Konfigurer tilgjengelighet for OS-gjenoppretting.</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Subtitle" xml:space="preserve">
+    <value>OS-gjenoppretting</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Title" xml:space="preserve">
+    <value>OS-gjenoppretting</value>
+  </data>
+  <data name="OsRecoveryPage_Title.Text" xml:space="preserve">
+    <value>OS-gjenoppretting</value>
+  </data>
+  <data name="OsRecovery.PageDescription" xml:space="preserve">
+    <value>Aktiver et WinRE-inngangspunkt for Foundry Recovery og se hvordan operatører når det.</value>
+  </data>
+  <data name="OsRecovery.EnableHeader" xml:space="preserve">
+    <value>Aktiver OS-gjenoppretting</value>
+  </data>
+  <data name="OsRecovery.EnableDescription" xml:space="preserve">
+    <value>Legg til Foundry Recovery som en valgfri gjenopprettingshandling under Windows Recovery Environment.</value>
+  </data>
+  <data name="OsRecovery.EnableToggleText" xml:space="preserve">
+    <value>Aktiver OS-gjenoppretting</value>
+  </data>
+  <data name="OsRecovery.WhyHeader" xml:space="preserve">
+    <value>Hvorfor den eksisterer</value>
+  </data>
+  <data name="OsRecovery.WhyDescription" xml:space="preserve">
+    <value>OS Recovery gir støtteteam en kjent WinRE-bane for å starte Foundry Recovery når Windows ikke kan starte opp normalt eller trenger reparasjonsdrevet omdistribuering.</value>
+  </data>
+  <data name="OsRecovery.WhenHeader" xml:space="preserve">
+    <value>Når du skal bruke den</value>
+  </data>
+  <data name="OsRecovery.WhenDescription" xml:space="preserve">
+    <value>Bruk den til break-fix-arbeidsflyter der en operatør starter fra Windows-gjenopprettingsmiljøet i stedet for å starte opp separate distribusjonsmedier.</value>
+  </data>
+  <data name="OsRecovery.WinRePathHeader" xml:space="preserve">
+    <value>WinRE-bane</value>
+  </data>
+  <data name="OsRecovery.WinRePathDescription" xml:space="preserve">
+    <value>Feilsøking &gt; Avanserte alternativer &gt; Foundry Recovery</value>
+  </data>
+  <data name="OsRecovery.LimitationsHeader" xml:space="preserve">
+    <value>Begrensninger</value>
+  </data>
+  <data name="OsRecovery.LimitationsDescription" xml:space="preserve">
+    <value>Denne siden kontrollerer bare om gjenopprettingsinngangspunktet er forespurt. Den tilpasser ikke menytekst, konfigurerer uovervåket gjenoppretting, klargjør nettverksautentisering, registrerer Autopilot, injiserer OA3-data eller lagrer hemmeligheter.</value>
+  </data>
+  <data name="OsRecovery.FlowHeader" xml:space="preserve">
+    <value>Gjenopprettingsflyt</value>
+  </data>
+  <data name="OsRecovery.FlowDescription" xml:space="preserve">
+    <value>Plassholderbildet viser den tiltenkte WinRE-navigasjonsbanen og kan erstattes senere.</value>
+  </data>
+  <data name="OsRecovery.FlowImageAutomationName" xml:space="preserve">
+    <value>WinRE-navigasjonssti: Feilsøking, Avanserte alternativer, Foundry Recovery.</value>
+  </data>
 </root>

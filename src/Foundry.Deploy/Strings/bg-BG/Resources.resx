@@ -509,4 +509,25 @@
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Интерактивният помощник за регистрация на Autopilot е подготвен (симулация).</value>
   </data>
+  <data name="Launch.ConfirmOsRecoveryTitle" xml:space="preserve"><value>Потвърдете възстановяването на ОС</value></data>
+  <data name="Launch.ConfirmOsRecoveryMessageFormat" xml:space="preserve"><value>Възстановяването на ОС ще запази EFI, MSR и дяловете за възстановяване, след което ще замени дяла на Windows на избрания диск.
+
+Диск: {0}
+Модел: {1}
+Автобус: {2}
+Размер: {3}
+Операционна система: {4}
+
+Продължаване с възстановяване на ОС?</value></data>
+  <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Осигуряване на възстановяване на ОС</value></data>
+  <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Осигуряване на възстановяване на ОС...</value></data>
+  <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Инжектиране на полезния товар за възстановяване на ОС...</value></data>
+  <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Запазване на промените в WinRE...</value></data>
+  <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Регистриране на менюто за стартиране на възстановяване на ОС...</value></data>
+  <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>Възстановяването на ОС е деактивирано.</value></data>
+  <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>Осигуряването на възстановяване на ОС се пропуска в режим на възстановяване.</value></data>
+  <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>Осигурено възстановяване на ОС.</value></data>
+  <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>Осигурено възстановяване на ОС (симулация).</value></data>
+  <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Възстановяване Foundry OSD</value></data>
+  <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Аварийно внедряване Windows</value></data>
 </root>

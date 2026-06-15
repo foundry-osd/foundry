@@ -2121,4 +2121,61 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>檢閱就緒狀態，選擇 ISO 或 USB 輸出，然後開始建立媒體。</value>
   </data>
+  <data name="Nav_OsRecoveryKey.Description" xml:space="preserve">
+    <value>配置作業系統恢復可用性。</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Subtitle" xml:space="preserve">
+    <value>作業系統復原</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Title" xml:space="preserve">
+    <value>作業系統復原</value>
+  </data>
+  <data name="OsRecoveryPage_Title.Text" xml:space="preserve">
+    <value>作業系統復原</value>
+  </data>
+  <data name="OsRecovery.PageDescription" xml:space="preserve">
+    <value>啟用 Foundry Recovery 的 WinRE 入口點並查看操作員如何存取它。</value>
+  </data>
+  <data name="OsRecovery.EnableHeader" xml:space="preserve">
+    <value>啟用作業系統復原</value>
+  </data>
+  <data name="OsRecovery.EnableDescription" xml:space="preserve">
+    <value>將 Foundry 復原新增為 Windows 復原環境下的選用復原作業。</value>
+  </data>
+  <data name="OsRecovery.EnableToggleText" xml:space="preserve">
+    <value>啟用作業系統復原</value>
+  </data>
+  <data name="OsRecovery.WhyHeader" xml:space="preserve">
+    <value>為什麼存在</value>
+  </data>
+  <data name="OsRecovery.WhyDescription" xml:space="preserve">
+    <value>OS Recovery 為支援團隊提供了熟悉的 WinRE 路徑，可在 Windows 無法正常啟動或需要修復驅動程式的重新部署時啟動 Foundry Recovery。</value>
+  </data>
+  <data name="OsRecovery.WhenHeader" xml:space="preserve">
+    <value>何時使用它</value>
+  </data>
+  <data name="OsRecovery.WhenDescription" xml:space="preserve">
+    <value>將其用於故障修復工作流程，其中操作員從 Windows 復原環境啟動，而不是啟動單獨的部署媒體。</value>
+  </data>
+  <data name="OsRecovery.WinRePathHeader" xml:space="preserve">
+    <value>WinRE路徑</value>
+  </data>
+  <data name="OsRecovery.WinRePathDescription" xml:space="preserve">
+    <value>疑難排解 &gt; 進階選項 &gt; Foundry 恢復</value>
+  </data>
+  <data name="OsRecovery.LimitationsHeader" xml:space="preserve">
+    <value>限制</value>
+  </data>
+  <data name="OsRecovery.LimitationsDescription" xml:space="preserve">
+    <value>此頁面僅控制是否請求恢復入口點。它不會自訂選單文字、配置無人值守恢復、提供網路驗證、註冊 Autopilot、注入 OA3 資料或儲存機密。</value>
+  </data>
+  <data name="OsRecovery.FlowHeader" xml:space="preserve">
+    <value>回收流程</value>
+  </data>
+  <data name="OsRecovery.FlowDescription" xml:space="preserve">
+    <value>佔位符影像顯示預期的 WinRE 導航路徑，並且可以稍後替換。</value>
+  </data>
+  <data name="OsRecovery.FlowImageAutomationName" xml:space="preserve">
+    <value>WinRE 導覽路徑：故障排除、進階選項、Foundry 復原。</value>
+  </data>
 </root>

@@ -2121,4 +2121,61 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Prüfen Sie die Bereitschaft, wählen Sie eine ISO- oder USB-Ausgabe aus, und starten Sie die Medienerstellung.</value>
   </data>
+  <data name="Nav_OsRecoveryKey.Description" xml:space="preserve">
+    <value>Konfigurieren Sie die Verfügbarkeit der Betriebssystemwiederherstellung.</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Subtitle" xml:space="preserve">
+    <value>Betriebssystemwiederherstellung</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Title" xml:space="preserve">
+    <value>Betriebssystemwiederherstellung</value>
+  </data>
+  <data name="OsRecoveryPage_Title.Text" xml:space="preserve">
+    <value>Betriebssystemwiederherstellung</value>
+  </data>
+  <data name="OsRecovery.PageDescription" xml:space="preserve">
+    <value>Aktivieren Sie einen WinRE-Einstiegspunkt für Foundry Recovery und überprüfen Sie, wie Bediener ihn erreichen.</value>
+  </data>
+  <data name="OsRecovery.EnableHeader" xml:space="preserve">
+    <value>Aktivieren Sie die Betriebssystemwiederherstellung</value>
+  </data>
+  <data name="OsRecovery.EnableDescription" xml:space="preserve">
+    <value>Fügen Sie Foundry Recovery als optionale Wiederherstellungsaktion unter der Windows-Wiederherstellungsumgebung hinzu.</value>
+  </data>
+  <data name="OsRecovery.EnableToggleText" xml:space="preserve">
+    <value>Aktivieren Sie die Betriebssystemwiederherstellung</value>
+  </data>
+  <data name="OsRecovery.WhyHeader" xml:space="preserve">
+    <value>Warum es existiert</value>
+  </data>
+  <data name="OsRecovery.WhyDescription" xml:space="preserve">
+    <value>OS Recovery bietet Supportteams einen vertrauten WinRE-Pfad zum Starten von Foundry Recovery, wenn Windows nicht normal booten kann oder eine reparaturgesteuerte Neubereitstellung benötigt.</value>
+  </data>
+  <data name="OsRecovery.WhenHeader" xml:space="preserve">
+    <value>Wann sollte man es verwenden?</value>
+  </data>
+  <data name="OsRecovery.WhenDescription" xml:space="preserve">
+    <value>Verwenden Sie es für Break-Fix-Workflows, bei denen ein Bediener aus der Windows-Wiederherstellungsumgebung startet, anstatt separate Bereitstellungsmedien zu starten.</value>
+  </data>
+  <data name="OsRecovery.WinRePathHeader" xml:space="preserve">
+    <value>WinRE-Pfad</value>
+  </data>
+  <data name="OsRecovery.WinRePathDescription" xml:space="preserve">
+    <value>Fehlerbehebung &gt; Erweiterte Optionen &gt; Foundry Recovery</value>
+  </data>
+  <data name="OsRecovery.LimitationsHeader" xml:space="preserve">
+    <value>Einschränkungen</value>
+  </data>
+  <data name="OsRecovery.LimitationsDescription" xml:space="preserve">
+    <value>Diese Seite steuert nur, ob der Wiederherstellungseinstiegspunkt angefordert wird. Es passt keinen Menütext an, konfiguriert keine unbeaufsichtigte Wiederherstellung, stellt keine Netzwerkauthentifizierung bereit, registriert keinen Autopilot, fügt keine OA3-Daten ein und speichert keine Geheimnisse.</value>
+  </data>
+  <data name="OsRecovery.FlowHeader" xml:space="preserve">
+    <value>Erholungsfluss</value>
+  </data>
+  <data name="OsRecovery.FlowDescription" xml:space="preserve">
+    <value>Das Platzhalterbild zeigt den vorgesehenen WinRE-Navigationspfad und kann später ersetzt werden.</value>
+  </data>
+  <data name="OsRecovery.FlowImageAutomationName" xml:space="preserve">
+    <value>WinRE-Navigationspfad: Fehlerbehebung, Erweiterte Optionen, Foundry Recovery.</value>
+  </data>
 </root>

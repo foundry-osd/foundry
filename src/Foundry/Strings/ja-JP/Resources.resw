@@ -2121,4 +2121,61 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>準備状況を確認し、ISO または USB 出力を選択して、メディアの作成を開始します。</value>
   </data>
+  <data name="Nav_OsRecoveryKey.Description" xml:space="preserve">
+    <value>OSリカバリの可用性を設定します。</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Subtitle" xml:space="preserve">
+    <value>OSリカバリ</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Title" xml:space="preserve">
+    <value>OSリカバリ</value>
+  </data>
+  <data name="OsRecoveryPage_Title.Text" xml:space="preserve">
+    <value>OSリカバリ</value>
+  </data>
+  <data name="OsRecovery.PageDescription" xml:space="preserve">
+    <value>Foundry RecoveryのWinREエントリーポイントを有効にし、オペレーターがどのように到達するかを確認します。</value>
+  </data>
+  <data name="OsRecovery.EnableHeader" xml:space="preserve">
+    <value>OSリカバリを有効にする</value>
+  </data>
+  <data name="OsRecovery.EnableDescription" xml:space="preserve">
+    <value>Windowsリカバリ環境で、オプションのリカバリアクションとしてFoundryリカバリを追加します。</value>
+  </data>
+  <data name="OsRecovery.EnableToggleText" xml:space="preserve">
+    <value>OSリカバリを有効にする</value>
+  </data>
+  <data name="OsRecovery.WhyHeader" xml:space="preserve">
+    <value>なぜ存在するのか</value>
+  </data>
+  <data name="OsRecovery.WhyDescription" xml:space="preserve">
+    <value>OSリカバリは、Windowsが正常に起動できない場合、または修理主導の再展開が必要な場合に、サポートチームがFoundryリカバリを起動するための使い慣れたWinREパスを提供します。</value>
+  </data>
+  <data name="OsRecovery.WhenHeader" xml:space="preserve">
+    <value>使用するタイミング</value>
+  </data>
+  <data name="OsRecovery.WhenDescription" xml:space="preserve">
+    <value>別の展開メディアを起動する代わりに、オペレータがWindowsリカバリ環境から開始するブレークフィックスワークフローに使用します。</value>
+  </data>
+  <data name="OsRecovery.WinRePathHeader" xml:space="preserve">
+    <value>WinREパス</value>
+  </data>
+  <data name="OsRecovery.WinRePathDescription" xml:space="preserve">
+    <value>トラブルシューティング&gt;高度なオプション&gt; Foundry Recovery</value>
+  </data>
+  <data name="OsRecovery.LimitationsHeader" xml:space="preserve">
+    <value>制限事項</value>
+  </data>
+  <data name="OsRecovery.LimitationsDescription" xml:space="preserve">
+    <value>このページでは、リカバリエントリポイントが要求されるかどうかのみを制御します。 メニューテキストをカスタマイズしたり、無人リカバリを設定したり、ネットワーク認証をプロビジョニングしたり、Autopilotを登録したり、OA 3データを挿入したり、シークレットを保存したりすることはありません。</value>
+  </data>
+  <data name="OsRecovery.FlowHeader" xml:space="preserve">
+    <value>回復フロー</value>
+  </data>
+  <data name="OsRecovery.FlowDescription" xml:space="preserve">
+    <value>プレースホルダー画像は、意図されたWinREナビゲーションパスを示し、後で置き換えることができます。</value>
+  </data>
+  <data name="OsRecovery.FlowImageAutomationName" xml:space="preserve">
+    <value>WinREナビゲーションパス：トラブルシューティング、高度なオプション、Foundryリカバリ。</value>
+  </data>
 </root>

@@ -2121,4 +2121,61 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Verifica la preparazione, scegli un output ISO o USB e avvia la creazione del supporto.</value>
   </data>
+  <data name="Nav_OsRecoveryKey.Description" xml:space="preserve">
+    <value>Configurare la disponibilità del ripristino del sistema operativo.</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Subtitle" xml:space="preserve">
+    <value>Ripristino OS</value>
+  </data>
+  <data name="Nav_OsRecoveryKey.Title" xml:space="preserve">
+    <value>Ripristino OS</value>
+  </data>
+  <data name="OsRecoveryPage_Title.Text" xml:space="preserve">
+    <value>Ripristino OS</value>
+  </data>
+  <data name="OsRecovery.PageDescription" xml:space="preserve">
+    <value>Abilita un punto di ingresso WinRE per Foundry Recovery ed esamina il modo in cui gli operatori lo raggiungono.</value>
+  </data>
+  <data name="OsRecovery.EnableHeader" xml:space="preserve">
+    <value>Abilita ripristino del sistema operativo</value>
+  </data>
+  <data name="OsRecovery.EnableDescription" xml:space="preserve">
+    <value>Aggiungere Foundry Recovery come azione di ripristino opzionale in Ambiente ripristino Windows.</value>
+  </data>
+  <data name="OsRecovery.EnableToggleText" xml:space="preserve">
+    <value>Abilita ripristino del sistema operativo</value>
+  </data>
+  <data name="OsRecovery.WhyHeader" xml:space="preserve">
+    <value>Perché esiste</value>
+  </data>
+  <data name="OsRecovery.WhyDescription" xml:space="preserve">
+    <value>OS Recovery offre ai team di supporto un percorso WinRE familiare per avviare Foundry Recovery quando Windows non può avviarsi normalmente o necessita di una ridistribuzione basata sulla riparazione.</value>
+  </data>
+  <data name="OsRecovery.WhenHeader" xml:space="preserve">
+    <value>Quando usarlo</value>
+  </data>
+  <data name="OsRecovery.WhenDescription" xml:space="preserve">
+    <value>Utilizzarlo per flussi di lavoro break-fix in cui un operatore inizia da Ambiente ripristino Windows invece di avviare supporti di distribuzione separati.</value>
+  </data>
+  <data name="OsRecovery.WinRePathHeader" xml:space="preserve">
+    <value>Percorso WinRE</value>
+  </data>
+  <data name="OsRecovery.WinRePathDescription" xml:space="preserve">
+    <value>Risoluzione dei problemi &gt; Opzioni avanzate &gt; Foundry Recovery</value>
+  </data>
+  <data name="OsRecovery.LimitationsHeader" xml:space="preserve">
+    <value>Limitazioni</value>
+  </data>
+  <data name="OsRecovery.LimitationsDescription" xml:space="preserve">
+    <value>Questa pagina controlla solo se è richiesto il punto di ingresso di ripristino. Non personalizza il testo del menu, configura il ripristino automatico, esegue il provisioning dell&apos;autenticazione di rete, registra il Autopilot, inietta dati OA3 o memorizza segreti.</value>
+  </data>
+  <data name="OsRecovery.FlowHeader" xml:space="preserve">
+    <value>Flusso di recupero</value>
+  </data>
+  <data name="OsRecovery.FlowDescription" xml:space="preserve">
+    <value>L&apos;immagine segnaposto mostra il percorso di navigazione WinRE previsto e può essere sostituita in seguito.</value>
+  </data>
+  <data name="OsRecovery.FlowImageAutomationName" xml:space="preserve">
+    <value>Percorso di navigazione WinRE: risoluzione dei problemi, opzioni avanzate, Foundry Recovery.</value>
+  </data>
 </root>
