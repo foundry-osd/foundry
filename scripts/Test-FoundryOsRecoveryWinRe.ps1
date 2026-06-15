@@ -26,7 +26,10 @@ param(
     [string]$WinReConfigFile = 'WinREConfig.xml',
 
     [Parameter()]
-    [string]$BootstrapScript = 'FoundryBootstrap.ps1',
+    [string]$CurlExecutablePath = 'Windows\System32\curl.exe',
+
+    [Parameter()]
+    [string]$SevenZipExecutablePattern = 'Foundry\\Tools\\7zip\\[^\\]+\\7za\.exe$',
 
     [Parameter()]
     [string[]]$ExcludedConfigPatterns = @(
@@ -183,6 +186,14 @@ $launcher = Test-ExistsAny -Root $root -Candidates $LauncherCandidates
 if ($launcher) {
     $checkResults.Add("PASS Launcher: $launcher")
     $successCount++
+
+    $launcherContent = Get-Content -LiteralPath $launcher -Raw
+    if ($launcherContent -match '(?i)powershell|FoundryBootstrap\.ps1') {
+        $errors.Add('FAIL Launcher still references PowerShell or FoundryBootstrap.ps1')
+    } else {
+        $checkResults.Add('PASS Launcher is CMD-only')
+        $successCount++
+    }
 } else {
     $errors.Add('FAIL Missing WinRE recovery launcher')
 }
@@ -196,17 +207,26 @@ if ($winReConfigPath) {
     $errors.Add('FAIL Missing WinREConfig.xml')
 }
 
-# Bootstrap script
-$bootstrapPath = Test-ExistsAny -Root $root -Candidates @(
-    $BootstrapScript,
-    "Windows\\System32\\$BootstrapScript",
-    "Windows\\System32\\WinPe\\$BootstrapScript"
+# Obsolete recovery bootstrap artifacts
+$obsoleteBootstrapPath = Test-ExistsAny -Root $root -Candidates @(
+    'FoundryBootstrap.ps1',
+    'Windows\System32\FoundryBootstrap.ps1',
+    'Windows\System32\WinPe\FoundryBootstrap.ps1'
 ) -Recurse
-if ($bootstrapPath) {
-    $checkResults.Add("PASS Bootstrap: $bootstrapPath")
+if ($obsoleteBootstrapPath) {
+    $errors.Add("FAIL Obsolete FoundryBootstrap.ps1 artifact present: $obsoleteBootstrapPath")
+} else {
+    $checkResults.Add('PASS Obsolete FoundryBootstrap.ps1 absent')
+    $successCount++
+}
+
+# curl.exe
+$curlPath = Join-Path -Path $root -ChildPath $CurlExecutablePath
+if (Test-Path -LiteralPath $curlPath) {
+    $checkResults.Add("PASS curl.exe: $curlPath")
     $successCount++
 } else {
-    $errors.Add('FAIL Missing FoundryBootstrap')
+    $errors.Add("FAIL Missing curl.exe: $curlPath")
 }
 
 # Foundry.Connect executable
@@ -221,7 +241,7 @@ if ($connectMatches) {
 
 # 7-Zip runtime
 $sevenZipMatches = Get-ChildItem -Path $root -Recurse -File -ErrorAction SilentlyContinue |
-    Where-Object { $_.FullName -match 'Foundry\\Tools\\7zip\\[^\\]+\\7za\.exe$' }
+    Where-Object { $_.FullName -match $SevenZipExecutablePattern }
 $sevenZipLicense = Join-Path -Path $root -ChildPath 'Foundry\Tools\7zip\License.txt'
 $sevenZipReadme = Join-Path -Path $root -ChildPath 'Foundry\Tools\7zip\readme.txt'
 if ($sevenZipMatches -and (Test-Path -LiteralPath $sevenZipLicense) -and (Test-Path -LiteralPath $sevenZipReadme)) {

@@ -47,9 +47,11 @@ public sealed class OsRecoveryPayloadProvisioningService : IOsRecoveryPayloadPro
         {
             string mountedImagePath = Path.GetFullPath(options.MountedImagePath);
             string recoveryToolsPath = Path.Combine(mountedImagePath, "Sources", "Recovery", "Tools");
+            string system32Path = Path.Combine(mountedImagePath, "Windows", "System32");
             string foundryConfigPath = Path.Combine(mountedImagePath, "Foundry", "Config");
 
             Directory.CreateDirectory(recoveryToolsPath);
+            Directory.CreateDirectory(system32Path);
             Directory.CreateDirectory(foundryConfigPath);
 
             string launcherContent = LoadLauncherContent();
@@ -81,6 +83,8 @@ public sealed class OsRecoveryPayloadProvisioningService : IOsRecoveryPayloadPro
                 options.IanaWindowsTimeZoneMapJson,
                 Utf8NoBom,
                 cancellationToken).ConfigureAwait(false);
+
+            File.Copy(options.CurlExecutableSourcePath, Path.Combine(system32Path, "curl.exe"), overwrite: true);
 
             ProvisionBundledSevenZip(mountedImagePath, options);
 
@@ -217,6 +221,7 @@ public sealed class OsRecoveryPayloadProvisioningService : IOsRecoveryPayloadPro
         [
             Path.Combine(mountedImagePath, "Sources", "Recovery", "Tools", LauncherFileName),
             Path.Combine(mountedImagePath, "Sources", "Recovery", "Tools", WinReConfigFileName),
+            Path.Combine(mountedImagePath, "Windows", "System32", "curl.exe"),
             Path.Combine(mountedImagePath, "Foundry", "Config", "foundry.connect.config.json"),
             Path.Combine(mountedImagePath, "Foundry", "Config", "foundry.deploy.config.json"),
             Path.Combine(mountedImagePath, "Foundry", "Config", "iana-windows-timezones.json"),
@@ -345,6 +350,14 @@ public sealed class OsRecoveryPayloadProvisioningService : IOsRecoveryPayloadPro
                 WinPeErrorCodes.ValidationFailed,
                 "Bundled 7-Zip source directory is required for OS recovery payload provisioning.",
                 "Set OsRecoveryPayloadProvisioningOptions.SevenZipSourceDirectoryPath.");
+        }
+
+        if (string.IsNullOrWhiteSpace(options.CurlExecutableSourcePath) || !File.Exists(options.CurlExecutableSourcePath))
+        {
+            return new WinPeDiagnostic(
+                WinPeErrorCodes.ValidationFailed,
+                "curl.exe source path is required for OS recovery payload provisioning.",
+                $"Expected file: '{options.CurlExecutableSourcePath}'.");
         }
 
         if (!options.Connect.IsEnabled)

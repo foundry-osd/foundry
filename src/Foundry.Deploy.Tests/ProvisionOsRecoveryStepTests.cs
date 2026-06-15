@@ -171,6 +171,7 @@ public sealed class ProvisionOsRecoveryStepTests
         Assert.False(recoveryDeployDocument.Network.ProfileRoaming.IsEnabled);
         Assert.False(recoveryConnectDocument.Wifi.IsEnabled);
         Assert.False(recoveryConnectDocument.Dot1x.IsEnabled);
+        Assert.Equal(Path.Combine(Environment.SystemDirectory, "curl.exe"), provisioning.CapturedOptions.CurlExecutableSourcePath);
     }
 
     private static ProvisionOsRecoveryStep CreateStep(RecordingOsRecoveryPayloadProvisioningService provisioning)

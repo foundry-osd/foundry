@@ -126,6 +126,7 @@ public sealed class ProvisionOsRecoveryStep : DeploymentStepBase
                         FoundryConnectConfigurationJson = connectConfigurationJson,
                         DeployConfigurationJson = deployConfigurationJson,
                         IanaWindowsTimeZoneMapJson = _embeddedAssetService.GetIanaWindowsTimeZoneMapJson(),
+                        CurlExecutableSourcePath = ResolveCurlExecutablePath(),
                         SevenZipSourceDirectoryPath = _embeddedAssetService.GetSevenZipSourceDirectoryPath(),
                         Connect = new WinPeRuntimePayloadApplicationOptions
                         {
@@ -351,6 +352,11 @@ public sealed class ProvisionOsRecoveryStep : DeploymentStepBase
                architecture.Contains("arm", StringComparison.OrdinalIgnoreCase)
             ? WinPeArchitecture.Arm64
             : WinPeArchitecture.X64;
+    }
+
+    private static string ResolveCurlExecutablePath()
+    {
+        return Path.Combine(Environment.SystemDirectory, "curl.exe");
     }
 
     private static string ResolveWinReImagePath(string recoveryPartitionRoot)

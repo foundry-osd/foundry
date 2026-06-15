@@ -10,6 +10,7 @@ public sealed record OsRecoveryPayloadProvisioningOptions
     public string FoundryConnectConfigurationJson { get; init; } = string.Empty;
     public string DeployConfigurationJson { get; init; } = string.Empty;
     public string IanaWindowsTimeZoneMapJson { get; init; } = string.Empty;
+    public string CurlExecutableSourcePath { get; init; } = string.Empty;
     public string SevenZipSourceDirectoryPath { get; init; } = string.Empty;
     public WinPeRuntimePayloadApplicationOptions Connect { get; init; } = new();
     public IReadOnlyList<OsRecoveryBootMenuLocalization> BootMenuLocalizations { get; init; } = [];

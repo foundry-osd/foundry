@@ -28,6 +28,7 @@ public sealed class OsRecoveryPayloadProvisioningServiceTests
                 FoundryConnectConfigurationJson = "{\"schemaVersion\":1}",
                 DeployConfigurationJson = "{\"schemaVersion\":2}",
                 IanaWindowsTimeZoneMapJson = "{\"zones\":[]}",
+                CurlExecutableSourcePath = workspace.CurlExecutablePath,
                 SevenZipSourceDirectoryPath = workspace.SevenZipSourcePath,
                 Connect = new WinPeRuntimePayloadApplicationOptions
                 {
@@ -53,6 +54,7 @@ public sealed class OsRecoveryPayloadProvisioningServiceTests
         Assert.Equal("{\"schemaVersion\":1}", await File.ReadAllTextAsync(Path.Combine(configPath, "foundry.connect.config.json")));
         Assert.Equal("{\"schemaVersion\":2}", await File.ReadAllTextAsync(Path.Combine(configPath, "foundry.deploy.config.json")));
         Assert.Equal("{\"zones\":[]}", await File.ReadAllTextAsync(Path.Combine(configPath, "iana-windows-timezones.json")));
+        Assert.Equal("curl", await File.ReadAllTextAsync(Path.Combine(system32Path, "curl.exe")));
         Assert.Equal("connect", await File.ReadAllTextAsync(Path.Combine(connectRuntimePath, "Foundry.Connect.exe")));
         Assert.Equal("7za", await File.ReadAllTextAsync(Path.Combine(sevenZipToolsPath, "x64", "7za.exe")));
         Assert.Equal("license", await File.ReadAllTextAsync(Path.Combine(sevenZipToolsPath, "License.txt")));
@@ -86,6 +88,7 @@ public sealed class OsRecoveryPayloadProvisioningServiceTests
                 FoundryConnectConfigurationJson = "{}",
                 DeployConfigurationJson = "{}",
                 IanaWindowsTimeZoneMapJson = "{}",
+                CurlExecutableSourcePath = workspace.CurlExecutablePath,
                 SevenZipSourceDirectoryPath = workspace.SevenZipSourcePath,
                 Connect = new WinPeRuntimePayloadApplicationOptions
                 {
@@ -129,6 +132,7 @@ public sealed class OsRecoveryPayloadProvisioningServiceTests
                 FoundryConnectConfigurationJson = "{}",
                 DeployConfigurationJson = "{}",
                 IanaWindowsTimeZoneMapJson = "{}",
+                CurlExecutableSourcePath = workspace.CurlExecutablePath,
                 SevenZipSourceDirectoryPath = workspace.SevenZipSourcePath,
                 Connect = new WinPeRuntimePayloadApplicationOptions
                 {
@@ -171,6 +175,7 @@ public sealed class OsRecoveryPayloadProvisioningServiceTests
                 FoundryConnectConfigurationJson = "{}",
                 DeployConfigurationJson = "{}",
                 IanaWindowsTimeZoneMapJson = "{}",
+                CurlExecutableSourcePath = workspace.CurlExecutablePath,
                 SevenZipSourceDirectoryPath = workspace.SevenZipSourcePath,
                 Connect = new WinPeRuntimePayloadApplicationOptions
                 {
@@ -214,6 +219,7 @@ public sealed class OsRecoveryPayloadProvisioningServiceTests
                 FoundryConnectConfigurationJson = "{}",
                 DeployConfigurationJson = "{}",
                 IanaWindowsTimeZoneMapJson = "{}",
+                CurlExecutableSourcePath = workspace.CurlExecutablePath,
                 SevenZipSourceDirectoryPath = workspace.SevenZipSourcePath,
                 Connect = new WinPeRuntimePayloadApplicationOptions
                 {
@@ -253,6 +259,7 @@ public sealed class OsRecoveryPayloadProvisioningServiceTests
                 FoundryConnectConfigurationJson = "{}",
                 DeployConfigurationJson = "{}",
                 IanaWindowsTimeZoneMapJson = "{}",
+                CurlExecutableSourcePath = workspace.CurlExecutablePath,
                 SevenZipSourceDirectoryPath = workspace.SevenZipSourcePath,
                 Connect = new WinPeRuntimePayloadApplicationOptions
                 {
@@ -285,6 +292,7 @@ public sealed class OsRecoveryPayloadProvisioningServiceTests
                 FoundryConnectConfigurationJson = "{}",
                 DeployConfigurationJson = "{}",
                 IanaWindowsTimeZoneMapJson = "{}",
+                CurlExecutableSourcePath = workspace.CurlExecutablePath,
                 SevenZipSourceDirectoryPath = workspace.SevenZipSourcePath,
                 MaxManagedPayloadSizeBytes = 32,
                 Connect = new WinPeRuntimePayloadApplicationOptions
@@ -353,10 +361,12 @@ public sealed class OsRecoveryPayloadProvisioningServiceTests
             MountedImagePath = Path.Combine(rootPath, "mount");
             WorkingDirectoryPath = Path.Combine(rootPath, "work");
             SevenZipSourcePath = Path.Combine(rootPath, "7z");
+            CurlExecutablePath = Path.Combine(rootPath, "curl.exe");
 
             Directory.CreateDirectory(MountedImagePath);
             Directory.CreateDirectory(WorkingDirectoryPath);
             Directory.CreateDirectory(Path.Combine(SevenZipSourcePath, "x64"));
+            File.WriteAllText(CurlExecutablePath, "curl");
             File.WriteAllText(Path.Combine(SevenZipSourcePath, "x64", "7za.exe"), "7za");
             File.WriteAllText(Path.Combine(SevenZipSourcePath, "License.txt"), "license");
             File.WriteAllText(Path.Combine(SevenZipSourcePath, "readme.txt"), "readme");
@@ -366,6 +376,7 @@ public sealed class OsRecoveryPayloadProvisioningServiceTests
         public string MountedImagePath { get; }
         public string WorkingDirectoryPath { get; }
         public string SevenZipSourcePath { get; }
+        public string CurlExecutablePath { get; }
 
         public static TempOsRecoveryWorkspace Create()
         {
