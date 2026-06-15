@@ -509,25 +509,25 @@
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>対話型 Autopilot 登録アシスタントをステージングしました (シミュレーション)。</value>
   </data>
-  <data name="Launch.ConfirmOsRecoveryTitle" xml:space="preserve"><value>Confirm OS Recovery</value></data>
-  <data name="Launch.ConfirmOsRecoveryMessageFormat" xml:space="preserve"><value>OS Recovery will preserve EFI, MSR, and Recovery partitions, then replace the Windows partition on the selected disk.
+  <data name="Launch.ConfirmOsRecoveryTitle" xml:space="preserve"><value>OSリカバリの確認</value></data>
+  <data name="Launch.ConfirmOsRecoveryMessageFormat" xml:space="preserve"><value>OS リカバリでは、EFI、MSR、およびリカバリ パーティションが保存され、選択したディスク上の Windows パーティションが置き換えられます。
 
-Disk: {0}
-Model: {1}
-Bus: {2}
-Size: {3}
-Operating system: {4}
+ディスク: {0}
+モデル: {1}
+バス: {2}
+サイズ: {3}
+オペレーティング システム: {4}
 
-Continue with OS Recovery?</value></data>
-  <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Provision OS Recovery</value></data>
-  <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Provisioning OS Recovery...</value></data>
-  <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Injecting OS Recovery payload...</value></data>
+OS リカバリを続行しますか?</value></data>
+  <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>OS リカバリのプロビジョニング</value></data>
+  <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>OS リカバリをプロビジョニングしています...</value></data>
+  <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>OS リカバリ ペイロードを挿入しています...</value></data>
   <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Committing WinRE changes...</value></data>
-  <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Registering OS Recovery boot menu...</value></data>
-  <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>OS Recovery is disabled.</value></data>
-  <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>OS Recovery provisioning is skipped in recovery mode.</value></data>
-  <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>OS Recovery provisioned.</value></data>
-  <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>OS Recovery provisioned (simulation).</value></data>
+  <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>OS リカバリ ブート メニューを登録しています...</value></data>
+  <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>OS リカバリは無効になっています。</value></data>
+  <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>OS リカバリ プロビジョニングはリカバリ モードではスキップされます。</value></data>
+  <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>OS リカバリがプロビジョニングされました。</value></data>
+  <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>OS リカバリがプロビジョニングされました (シミュレーション)。</value></data>
   <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry 回復</value></data>
   <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Windows を再展開</value></data>
 </root>

@@ -2122,60 +2122,60 @@
     <value>Zkontrolujte připravenost, vyberte výstup ISO nebo USB a spusťte vytvoření média.</value>
   </data>
   <data name="Nav_OsRecoveryKey.Description" xml:space="preserve">
-    <value>Configure OS Recovery availability.</value>
+    <value>Nakonfigurujte dostupnost obnovení OS.</value>
   </data>
   <data name="Nav_OsRecoveryKey.Subtitle" xml:space="preserve">
-    <value>OS Recovery</value>
+    <value>Obnova OS</value>
   </data>
   <data name="Nav_OsRecoveryKey.Title" xml:space="preserve">
-    <value>OS Recovery</value>
+    <value>Obnova OS</value>
   </data>
   <data name="OsRecoveryPage_Title.Text" xml:space="preserve">
-    <value>OS Recovery</value>
+    <value>Obnova OS</value>
   </data>
   <data name="OsRecovery.PageDescription" xml:space="preserve">
-    <value>Enable a WinRE entry point for Foundry Recovery and review how operators reach it.</value>
+    <value>Povolte vstupní bod WinRE pro Foundry Recovery a zkontrolujte, jak jej operátoři dosáhnou.</value>
   </data>
   <data name="OsRecovery.EnableHeader" xml:space="preserve">
-    <value>Enable OS Recovery</value>
+    <value>Povolit obnovení OS</value>
   </data>
   <data name="OsRecovery.EnableDescription" xml:space="preserve">
-    <value>Add Foundry Recovery as an optional recovery action under Windows Recovery Environment.</value>
+    <value>Přidejte Foundry Recovery jako volitelnou akci obnovení do prostředí Windows Recovery Environment.</value>
   </data>
   <data name="OsRecovery.EnableToggleText" xml:space="preserve">
-    <value>Enable OS Recovery</value>
+    <value>Povolit obnovení OS</value>
   </data>
   <data name="OsRecovery.WhyHeader" xml:space="preserve">
-    <value>Why it exists</value>
+    <value>Proč existuje</value>
   </data>
   <data name="OsRecovery.WhyDescription" xml:space="preserve">
-    <value>OS Recovery gives support teams a familiar WinRE path for launching Foundry Recovery when Windows cannot boot normally or needs repair-driven redeployment.</value>
+    <value>OS Recovery poskytuje týmům podpory známou cestu WinRE pro spuštění Foundry Recovery, když Windows nelze normálně spustit nebo potřebuje přemístění řízené opravou.</value>
   </data>
   <data name="OsRecovery.WhenHeader" xml:space="preserve">
-    <value>When to use it</value>
+    <value>Kdy ji použít</value>
   </data>
   <data name="OsRecovery.WhenDescription" xml:space="preserve">
-    <value>Use it for break-fix workflows where an operator starts from Windows Recovery Environment instead of booting separate deployment media.</value>
+    <value>Použijte jej pro pracovní postupy s opravou přerušení, kdy operátor začíná z prostředí Windows Recovery Environment namísto zavádění samostatného média pro nasazení.</value>
   </data>
   <data name="OsRecovery.WinRePathHeader" xml:space="preserve">
-    <value>WinRE path</value>
+    <value>Cesta WinRE</value>
   </data>
   <data name="OsRecovery.WinRePathDescription" xml:space="preserve">
-    <value>Troubleshoot &gt; Advanced options &gt; Foundry Recovery</value>
+    <value>Odstraňování problémů &gt; Pokročilé možnosti &gt; Foundry Recovery</value>
   </data>
   <data name="OsRecovery.LimitationsHeader" xml:space="preserve">
-    <value>Limitations</value>
+    <value>Omezení</value>
   </data>
   <data name="OsRecovery.LimitationsDescription" xml:space="preserve">
-    <value>This page only controls whether the recovery entry point is requested. It does not customize menu text, configure unattended recovery, provision network authentication, enroll Autopilot, inject OA3 data, or store secrets.</value>
+    <value>Tato stránka řídí pouze to, zda je požadován vstupní bod obnovení. Nepřizpůsobuje text nabídky, nekonfiguruje bezobslužnou obnovu, zajišťuje síťové ověřování, nezařazuje Autopilot, vkládá data OA3 ani neukládá tajemství.</value>
   </data>
   <data name="OsRecovery.FlowHeader" xml:space="preserve">
-    <value>Recovery flow</value>
+    <value>Tok obnovy</value>
   </data>
   <data name="OsRecovery.FlowDescription" xml:space="preserve">
-    <value>The placeholder image shows the intended WinRE navigation path and can be replaced later.</value>
+    <value>Zástupný obrázek ukazuje zamýšlenou navigační cestu WinRE a může být později nahrazen.</value>
   </data>
   <data name="OsRecovery.FlowImageAutomationName" xml:space="preserve">
-    <value>WinRE navigation path: Troubleshoot, Advanced options, Foundry Recovery.</value>
+    <value>Navigační cesta WinRE: Odstraňování problémů, Pokročilé možnosti, Foundry Recovery.</value>
   </data>
 </root>

@@ -509,25 +509,25 @@ Continuare con la distribuzione?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Assistente di registrazione interattiva di Autopilot preparato (simulazione).</value>
   </data>
-  <data name="Launch.ConfirmOsRecoveryTitle" xml:space="preserve"><value>Confirm OS Recovery</value></data>
-  <data name="Launch.ConfirmOsRecoveryMessageFormat" xml:space="preserve"><value>OS Recovery will preserve EFI, MSR, and Recovery partitions, then replace the Windows partition on the selected disk.
+  <data name="Launch.ConfirmOsRecoveryTitle" xml:space="preserve"><value>Conferma il ripristino del sistema operativo</value></data>
+  <data name="Launch.ConfirmOsRecoveryMessageFormat" xml:space="preserve"><value>OS Recovery conserverà le partizioni EFI, MSR e Recovery, quindi sostituirà la partizione Windows sul disco selezionato.
 
-Disk: {0}
-Model: {1}
-Bus: {2}
-Size: {3}
-Operating system: {4}
+Disco: {0}
+Modello: {1}
+Autobus: {2}
+Taglia: {3}
+Sistema operativo: {4}
 
-Continue with OS Recovery?</value></data>
-  <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Provision OS Recovery</value></data>
-  <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Provisioning OS Recovery...</value></data>
-  <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Injecting OS Recovery payload...</value></data>
+Continuare con il ripristino del sistema operativo?</value></data>
+  <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Fornire il ripristino del sistema operativo</value></data>
+  <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Provisioning del ripristino del sistema operativo...</value></data>
+  <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Inserimento del payload di ripristino del sistema operativo in corso...</value></data>
   <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Committing WinRE changes...</value></data>
-  <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Registering OS Recovery boot menu...</value></data>
-  <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>OS Recovery is disabled.</value></data>
-  <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>OS Recovery provisioning is skipped in recovery mode.</value></data>
-  <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>OS Recovery provisioned.</value></data>
-  <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>OS Recovery provisioned (simulation).</value></data>
+  <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Registrazione del menu di avvio di ripristino del sistema operativo in corso...</value></data>
+  <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>Il ripristino del sistema operativo è disabilitato.</value></data>
+  <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>Il provisioning del ripristino del sistema operativo viene ignorato in modalità di ripristino.</value></data>
+  <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>Effettuato il provisioning del ripristino del sistema operativo.</value></data>
+  <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>Provisioning del ripristino del sistema operativo (simulazione).</value></data>
   <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Ripristino Foundry</value></data>
   <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Reinstalla Windows</value></data>
 </root>

@@ -2122,60 +2122,60 @@
     <value>Перевірте готовність, виберіть вихід ISO або USB і запустіть створення носія.</value>
   </data>
   <data name="Nav_OsRecoveryKey.Description" xml:space="preserve">
-    <value>Configure OS Recovery availability.</value>
+    <value>Налаштувати доступність відновлення ОС.</value>
   </data>
   <data name="Nav_OsRecoveryKey.Subtitle" xml:space="preserve">
-    <value>OS Recovery</value>
+    <value>Відновлення ОС</value>
   </data>
   <data name="Nav_OsRecoveryKey.Title" xml:space="preserve">
-    <value>OS Recovery</value>
+    <value>Відновлення ОС</value>
   </data>
   <data name="OsRecoveryPage_Title.Text" xml:space="preserve">
-    <value>OS Recovery</value>
+    <value>Відновлення ОС</value>
   </data>
   <data name="OsRecovery.PageDescription" xml:space="preserve">
-    <value>Enable a WinRE entry point for Foundry Recovery and review how operators reach it.</value>
+    <value>Увімкніть точку входу WinRE для Foundry Recovery і подивіться, як оператори досягають її.</value>
   </data>
   <data name="OsRecovery.EnableHeader" xml:space="preserve">
-    <value>Enable OS Recovery</value>
+    <value>Увімкніть відновлення ОС</value>
   </data>
   <data name="OsRecovery.EnableDescription" xml:space="preserve">
-    <value>Add Foundry Recovery as an optional recovery action under Windows Recovery Environment.</value>
+    <value>Додайте Foundry Recovery як додаткову дію відновлення в середовищі відновлення Windows.</value>
   </data>
   <data name="OsRecovery.EnableToggleText" xml:space="preserve">
-    <value>Enable OS Recovery</value>
+    <value>Увімкніть відновлення ОС</value>
   </data>
   <data name="OsRecovery.WhyHeader" xml:space="preserve">
-    <value>Why it exists</value>
+    <value>Чому він існує</value>
   </data>
   <data name="OsRecovery.WhyDescription" xml:space="preserve">
-    <value>OS Recovery gives support teams a familiar WinRE path for launching Foundry Recovery when Windows cannot boot normally or needs repair-driven redeployment.</value>
+    <value>OS Recovery надає командам підтримки знайомий шлях WinRE для запуску Foundry Recovery, коли Windows не може нормально завантажитися або потребує повторного розгортання з метою відновлення.</value>
   </data>
   <data name="OsRecovery.WhenHeader" xml:space="preserve">
-    <value>When to use it</value>
+    <value>Коли це використовувати</value>
   </data>
   <data name="OsRecovery.WhenDescription" xml:space="preserve">
-    <value>Use it for break-fix workflows where an operator starts from Windows Recovery Environment instead of booting separate deployment media.</value>
+    <value>Використовуйте його для робочих процесів усунення поломок, коли оператор починає із середовища відновлення Windows замість завантаження окремого носія для розгортання.</value>
   </data>
   <data name="OsRecovery.WinRePathHeader" xml:space="preserve">
-    <value>WinRE path</value>
+    <value>Шлях WinRE</value>
   </data>
   <data name="OsRecovery.WinRePathDescription" xml:space="preserve">
-    <value>Troubleshoot &gt; Advanced options &gt; Foundry Recovery</value>
+    <value>Усунення несправностей &gt; Додаткові параметри &gt; Foundry Recovery</value>
   </data>
   <data name="OsRecovery.LimitationsHeader" xml:space="preserve">
-    <value>Limitations</value>
+    <value>Обмеження</value>
   </data>
   <data name="OsRecovery.LimitationsDescription" xml:space="preserve">
-    <value>This page only controls whether the recovery entry point is requested. It does not customize menu text, configure unattended recovery, provision network authentication, enroll Autopilot, inject OA3 data, or store secrets.</value>
+    <value>Ця сторінка лише визначає, чи запитується точка входу для відновлення. Він не налаштовує текст меню, не налаштовує автоматичне відновлення, автентифікацію мережі, не зареєстровує Autopilot, не вводить дані OA3 і не зберігає секрети.</value>
   </data>
   <data name="OsRecovery.FlowHeader" xml:space="preserve">
-    <value>Recovery flow</value>
+    <value>Потік відновлення</value>
   </data>
   <data name="OsRecovery.FlowDescription" xml:space="preserve">
-    <value>The placeholder image shows the intended WinRE navigation path and can be replaced later.</value>
+    <value>Зображення заповнювача показує передбачуваний шлях навігації WinRE, і його можна замінити пізніше.</value>
   </data>
   <data name="OsRecovery.FlowImageAutomationName" xml:space="preserve">
-    <value>WinRE navigation path: Troubleshoot, Advanced options, Foundry Recovery.</value>
+    <value>Шлях навігації WinRE: усунення несправностей, додаткові параметри, Foundry Recovery.</value>
   </data>
 </root>

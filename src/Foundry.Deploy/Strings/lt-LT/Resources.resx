@@ -509,25 +509,25 @@ Tęsti diegimą?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Interaktyvus Autopilot registracijos pagalbininkas paruoštas (modeliavimas).</value>
   </data>
-  <data name="Launch.ConfirmOsRecoveryTitle" xml:space="preserve"><value>Confirm OS Recovery</value></data>
-  <data name="Launch.ConfirmOsRecoveryMessageFormat" xml:space="preserve"><value>OS Recovery will preserve EFI, MSR, and Recovery partitions, then replace the Windows partition on the selected disk.
+  <data name="Launch.ConfirmOsRecoveryTitle" xml:space="preserve"><value>Patvirtinkite OS atkūrimą</value></data>
+  <data name="Launch.ConfirmOsRecoveryMessageFormat" xml:space="preserve"><value>OS atkūrimas išsaugos EFI, MSR ir Recovery skaidinius, tada pakeis Windows skaidinį pasirinktame diske.
 
-Disk: {0}
-Model: {1}
-Bus: {2}
-Size: {3}
-Operating system: {4}
+Diskas: {0}
+Modelis: {1}
+Autobusas: {2}
+Dydis: {3}
+Operacinė sistema: {4}
 
-Continue with OS Recovery?</value></data>
-  <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Provision OS Recovery</value></data>
-  <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Provisioning OS Recovery...</value></data>
-  <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Injecting OS Recovery payload...</value></data>
+Tęsti OS atkūrimą?</value></data>
+  <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Pateikite OS atkūrimą</value></data>
+  <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Teikiamas OS atkūrimas...</value></data>
+  <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Įvedama OS atkūrimo naudingoji apkrova...</value></data>
   <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Committing WinRE changes...</value></data>
-  <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Registering OS Recovery boot menu...</value></data>
-  <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>OS Recovery is disabled.</value></data>
-  <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>OS Recovery provisioning is skipped in recovery mode.</value></data>
-  <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>OS Recovery provisioned.</value></data>
-  <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>OS Recovery provisioned (simulation).</value></data>
+  <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Registruojamas OS atkūrimo įkrovos meniu...</value></data>
+  <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>OS atkūrimas išjungtas.</value></data>
+  <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>Atkūrimo režimu OS atkūrimo aprūpinimas praleidžiamas.</value></data>
+  <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>Suteiktas OS atkūrimas.</value></data>
+  <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>OS atkūrimas numatytas (modeliavimas).</value></data>
   <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry atkūrimas</value></data>
   <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Iš naujo diegti Windows</value></data>
 </root>

@@ -509,25 +509,25 @@ Dağıtıma devam edilsin mi?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Etkileşimli Autopilot kayıt yardımcısı hazırlandı (simülasyon).</value>
   </data>
-  <data name="Launch.ConfirmOsRecoveryTitle" xml:space="preserve"><value>Confirm OS Recovery</value></data>
-  <data name="Launch.ConfirmOsRecoveryMessageFormat" xml:space="preserve"><value>OS Recovery will preserve EFI, MSR, and Recovery partitions, then replace the Windows partition on the selected disk.
+  <data name="Launch.ConfirmOsRecoveryTitle" xml:space="preserve"><value>İşletim Sistemi Kurtarmayı Onayla</value></data>
+  <data name="Launch.ConfirmOsRecoveryMessageFormat" xml:space="preserve"><value>İşletim Sistemi Kurtarma, EFI, MSR ve Recovery bölümlerini koruyacak, ardından seçilen diskteki Windows bölümünü değiştirecektir.
 
 Disk: {0}
-Model: {1}
-Bus: {2}
-Size: {3}
-Operating system: {4}
+Modeli: {1}
+Otobüs: {2}
+Boyut: {3}
+İşletim sistemi: {4}
 
-Continue with OS Recovery?</value></data>
-  <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Provision OS Recovery</value></data>
-  <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Provisioning OS Recovery...</value></data>
-  <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Injecting OS Recovery payload...</value></data>
+İşletim Sistemi Kurtarma işlemine devam edilsin mi?</value></data>
+  <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>İşletim Sistemi Kurtarmanın Sağlanması</value></data>
+  <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>İşletim Sistemi Kurtarma Sağlanıyor...</value></data>
+  <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>İşletim Sistemi Kurtarma yükü enjekte ediliyor...</value></data>
   <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Committing WinRE changes...</value></data>
-  <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Registering OS Recovery boot menu...</value></data>
-  <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>OS Recovery is disabled.</value></data>
-  <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>OS Recovery provisioning is skipped in recovery mode.</value></data>
-  <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>OS Recovery provisioned.</value></data>
-  <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>OS Recovery provisioned (simulation).</value></data>
+  <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>İşletim Sistemi Kurtarma önyükleme menüsü kaydediliyor...</value></data>
+  <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>İşletim Sistemi Kurtarma devre dışı.</value></data>
+  <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>İşletim Sistemi Kurtarma provizyonu, kurtarma modunda atlanır.</value></data>
+  <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>İşletim Sistemi Kurtarma sağlandı.</value></data>
+  <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>İşletim Sistemi Kurtarmanın temel hazırlığı yapıldı (simülasyon).</value></data>
   <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry Kurtarma</value></data>
   <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Windows'u yeniden dağıt</value></data>
 </root>

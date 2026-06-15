@@ -509,25 +509,25 @@ Operativni sistem: {4}
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Interaktivni pomoćnik za registraciju Autopilota je pripremljen (simulacija).</value>
   </data>
-  <data name="Launch.ConfirmOsRecoveryTitle" xml:space="preserve"><value>Confirm OS Recovery</value></data>
-  <data name="Launch.ConfirmOsRecoveryMessageFormat" xml:space="preserve"><value>OS Recovery will preserve EFI, MSR, and Recovery partitions, then replace the Windows partition on the selected disk.
+  <data name="Launch.ConfirmOsRecoveryTitle" xml:space="preserve"><value>Potvrdi oporavak OS-a</value></data>
+  <data name="Launch.ConfirmOsRecoveryMessageFormat" xml:space="preserve"><value>Oporavak OS-a će zadržati EFI, MSR i Recovery particije, zatim zameniti Windows particiju na izabranom disku.
 
 Disk: {0}
 Model: {1}
 Bus: {2}
-Size: {3}
-Operating system: {4}
+Veličina: {3}
+Operativni sistem: {4}
 
-Continue with OS Recovery?</value></data>
-  <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Provision OS Recovery</value></data>
-  <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Provisioning OS Recovery...</value></data>
-  <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Injecting OS Recovery payload...</value></data>
+Nastaviti sa oporavkom OS-a?</value></data>
+  <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Pripremi oporavak OS-a</value></data>
+  <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Priprema oporavka OS-a...</value></data>
+  <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Ubacivanje sadržaja oporavka OS-a...</value></data>
   <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Committing WinRE changes...</value></data>
-  <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Registering OS Recovery boot menu...</value></data>
-  <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>OS Recovery is disabled.</value></data>
-  <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>OS Recovery provisioning is skipped in recovery mode.</value></data>
-  <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>OS Recovery provisioned.</value></data>
-  <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>OS Recovery provisioned (simulation).</value></data>
+  <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Registrovanje menija za pokretanje oporavka OS-a...</value></data>
+  <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>Oporavak OS-a je onemogućen.</value></data>
+  <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>Priprema oporavka OS-a se preskače u režimu oporavka.</value></data>
+  <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>Oporavak OS-a je pripremljen.</value></data>
+  <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>Oporavak OS-a je pripremljen (simulacija).</value></data>
   <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry oporavak</value></data>
   <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Ponovo uvedi Windows</value></data>
 </root>

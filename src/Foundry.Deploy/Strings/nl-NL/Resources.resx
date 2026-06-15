@@ -509,25 +509,25 @@ Doorgaan met de implementatie?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Interactieve Autopilot-registratieassistent voorbereid (simulatie).</value>
   </data>
-  <data name="Launch.ConfirmOsRecoveryTitle" xml:space="preserve"><value>Confirm OS Recovery</value></data>
-  <data name="Launch.ConfirmOsRecoveryMessageFormat" xml:space="preserve"><value>OS Recovery will preserve EFI, MSR, and Recovery partitions, then replace the Windows partition on the selected disk.
+  <data name="Launch.ConfirmOsRecoveryTitle" xml:space="preserve"><value>Bevestig OS-herstel</value></data>
+  <data name="Launch.ConfirmOsRecoveryMessageFormat" xml:space="preserve"><value>OS Recovery behoudt de EFI-, MSR- en herstelpartities en vervangt vervolgens de Windows-partitie op de geselecteerde schijf.
 
-Disk: {0}
+Schijf: {0}
 Model: {1}
 Bus: {2}
-Size: {3}
-Operating system: {4}
+Maat: {3}
+Besturingssysteem: {4}
 
-Continue with OS Recovery?</value></data>
-  <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Provision OS Recovery</value></data>
-  <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Provisioning OS Recovery...</value></data>
-  <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Injecting OS Recovery payload...</value></data>
+Doorgaan met OS-herstel?</value></data>
+  <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>OS-herstel inrichten</value></data>
+  <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Besturingssysteemherstel inrichten...</value></data>
+  <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Bezig met injecteren van de OS Recovery-payload...</value></data>
   <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Committing WinRE changes...</value></data>
-  <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Registering OS Recovery boot menu...</value></data>
-  <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>OS Recovery is disabled.</value></data>
-  <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>OS Recovery provisioning is skipped in recovery mode.</value></data>
-  <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>OS Recovery provisioned.</value></data>
-  <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>OS Recovery provisioned (simulation).</value></data>
+  <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Registreren van het opstartmenu van OS Recovery...</value></data>
+  <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>Besturingssysteemherstel is uitgeschakeld.</value></data>
+  <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>Het inrichten van OS Recovery wordt overgeslagen in de herstelmodus.</value></data>
+  <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>OS-herstel ingericht.</value></data>
+  <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>OS Recovery ingericht (simulatie).</value></data>
   <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry-herstel</value></data>
   <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Windows opnieuw uitrollen</value></data>
 </root>

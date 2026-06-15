@@ -509,25 +509,25 @@ Pokračovat v nasazování?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Interaktivní asistent registrace Autopilotu byl připraven (simulace).</value>
   </data>
-  <data name="Launch.ConfirmOsRecoveryTitle" xml:space="preserve"><value>Confirm OS Recovery</value></data>
-  <data name="Launch.ConfirmOsRecoveryMessageFormat" xml:space="preserve"><value>OS Recovery will preserve EFI, MSR, and Recovery partitions, then replace the Windows partition on the selected disk.
+  <data name="Launch.ConfirmOsRecoveryTitle" xml:space="preserve"><value>Potvrďte obnovení OS</value></data>
+  <data name="Launch.ConfirmOsRecoveryMessageFormat" xml:space="preserve"><value>Obnova OS zachová oddíly EFI, MSR a Recovery a poté nahradí oddíl Windows na vybraném disku.
 
 Disk: {0}
 Model: {1}
-Bus: {2}
-Size: {3}
-Operating system: {4}
+Autobus: {2}
+Velikost: {3}
+Operační systém: {4}
 
-Continue with OS Recovery?</value></data>
-  <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Provision OS Recovery</value></data>
-  <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Provisioning OS Recovery...</value></data>
-  <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Injecting OS Recovery payload...</value></data>
+Pokračovat v obnově OS?</value></data>
+  <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Připravit obnovení OS</value></data>
+  <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Provádění obnovy OS...</value></data>
+  <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Vkládání dat pro obnovu OS...</value></data>
   <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Committing WinRE changes...</value></data>
-  <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Registering OS Recovery boot menu...</value></data>
-  <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>OS Recovery is disabled.</value></data>
-  <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>OS Recovery provisioning is skipped in recovery mode.</value></data>
-  <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>OS Recovery provisioned.</value></data>
-  <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>OS Recovery provisioned (simulation).</value></data>
+  <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Registrace spouštěcí nabídky OS Recovery...</value></data>
+  <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>Obnovení OS je zakázáno.</value></data>
+  <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>Poskytování obnovy OS je v režimu obnovy přeskočeno.</value></data>
+  <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>Obnovení OS zajištěno.</value></data>
+  <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>Bylo zajištěno obnovení OS (simulace).</value></data>
   <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Obnova Foundry</value></data>
   <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Znovu nasadit Windows</value></data>
 </root>

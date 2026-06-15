@@ -2122,60 +2122,60 @@
     <value>Prüfen Sie die Bereitschaft, wählen Sie eine ISO- oder USB-Ausgabe aus, und starten Sie die Medienerstellung.</value>
   </data>
   <data name="Nav_OsRecoveryKey.Description" xml:space="preserve">
-    <value>Configure OS Recovery availability.</value>
+    <value>Konfigurieren Sie die Verfügbarkeit der Betriebssystemwiederherstellung.</value>
   </data>
   <data name="Nav_OsRecoveryKey.Subtitle" xml:space="preserve">
-    <value>OS Recovery</value>
+    <value>Betriebssystemwiederherstellung</value>
   </data>
   <data name="Nav_OsRecoveryKey.Title" xml:space="preserve">
-    <value>OS Recovery</value>
+    <value>Betriebssystemwiederherstellung</value>
   </data>
   <data name="OsRecoveryPage_Title.Text" xml:space="preserve">
-    <value>OS Recovery</value>
+    <value>Betriebssystemwiederherstellung</value>
   </data>
   <data name="OsRecovery.PageDescription" xml:space="preserve">
-    <value>Enable a WinRE entry point for Foundry Recovery and review how operators reach it.</value>
+    <value>Aktivieren Sie einen WinRE-Einstiegspunkt für Foundry Recovery und überprüfen Sie, wie Bediener ihn erreichen.</value>
   </data>
   <data name="OsRecovery.EnableHeader" xml:space="preserve">
-    <value>Enable OS Recovery</value>
+    <value>Aktivieren Sie die Betriebssystemwiederherstellung</value>
   </data>
   <data name="OsRecovery.EnableDescription" xml:space="preserve">
-    <value>Add Foundry Recovery as an optional recovery action under Windows Recovery Environment.</value>
+    <value>Fügen Sie Foundry Recovery als optionale Wiederherstellungsaktion unter der Windows-Wiederherstellungsumgebung hinzu.</value>
   </data>
   <data name="OsRecovery.EnableToggleText" xml:space="preserve">
-    <value>Enable OS Recovery</value>
+    <value>Aktivieren Sie die Betriebssystemwiederherstellung</value>
   </data>
   <data name="OsRecovery.WhyHeader" xml:space="preserve">
-    <value>Why it exists</value>
+    <value>Warum es existiert</value>
   </data>
   <data name="OsRecovery.WhyDescription" xml:space="preserve">
-    <value>OS Recovery gives support teams a familiar WinRE path for launching Foundry Recovery when Windows cannot boot normally or needs repair-driven redeployment.</value>
+    <value>OS Recovery bietet Supportteams einen vertrauten WinRE-Pfad zum Starten von Foundry Recovery, wenn Windows nicht normal booten kann oder eine reparaturgesteuerte Neubereitstellung benötigt.</value>
   </data>
   <data name="OsRecovery.WhenHeader" xml:space="preserve">
-    <value>When to use it</value>
+    <value>Wann sollte man es verwenden?</value>
   </data>
   <data name="OsRecovery.WhenDescription" xml:space="preserve">
-    <value>Use it for break-fix workflows where an operator starts from Windows Recovery Environment instead of booting separate deployment media.</value>
+    <value>Verwenden Sie es für Break-Fix-Workflows, bei denen ein Bediener aus der Windows-Wiederherstellungsumgebung startet, anstatt separate Bereitstellungsmedien zu starten.</value>
   </data>
   <data name="OsRecovery.WinRePathHeader" xml:space="preserve">
-    <value>WinRE path</value>
+    <value>WinRE-Pfad</value>
   </data>
   <data name="OsRecovery.WinRePathDescription" xml:space="preserve">
-    <value>Troubleshoot &gt; Advanced options &gt; Foundry Recovery</value>
+    <value>Fehlerbehebung &gt; Erweiterte Optionen &gt; Foundry Recovery</value>
   </data>
   <data name="OsRecovery.LimitationsHeader" xml:space="preserve">
-    <value>Limitations</value>
+    <value>Einschränkungen</value>
   </data>
   <data name="OsRecovery.LimitationsDescription" xml:space="preserve">
-    <value>This page only controls whether the recovery entry point is requested. It does not customize menu text, configure unattended recovery, provision network authentication, enroll Autopilot, inject OA3 data, or store secrets.</value>
+    <value>Diese Seite steuert nur, ob der Wiederherstellungseinstiegspunkt angefordert wird. Es passt keinen Menütext an, konfiguriert keine unbeaufsichtigte Wiederherstellung, stellt keine Netzwerkauthentifizierung bereit, registriert keinen Autopilot, fügt keine OA3-Daten ein und speichert keine Geheimnisse.</value>
   </data>
   <data name="OsRecovery.FlowHeader" xml:space="preserve">
-    <value>Recovery flow</value>
+    <value>Erholungsfluss</value>
   </data>
   <data name="OsRecovery.FlowDescription" xml:space="preserve">
-    <value>The placeholder image shows the intended WinRE navigation path and can be replaced later.</value>
+    <value>Das Platzhalterbild zeigt den vorgesehenen WinRE-Navigationspfad und kann später ersetzt werden.</value>
   </data>
   <data name="OsRecovery.FlowImageAutomationName" xml:space="preserve">
-    <value>WinRE navigation path: Troubleshoot, Advanced options, Foundry Recovery.</value>
+    <value>WinRE-Navigationspfad: Fehlerbehebung, Erweiterte Optionen, Foundry Recovery.</value>
   </data>
 </root>

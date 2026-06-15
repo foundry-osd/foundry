@@ -509,25 +509,25 @@
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>대화형 Autopilot 등록 도우미가 준비되었습니다(시뮬레이션).</value>
   </data>
-  <data name="Launch.ConfirmOsRecoveryTitle" xml:space="preserve"><value>Confirm OS Recovery</value></data>
-  <data name="Launch.ConfirmOsRecoveryMessageFormat" xml:space="preserve"><value>OS Recovery will preserve EFI, MSR, and Recovery partitions, then replace the Windows partition on the selected disk.
+  <data name="Launch.ConfirmOsRecoveryTitle" xml:space="preserve"><value>OS 복구 확인</value></data>
+  <data name="Launch.ConfirmOsRecoveryMessageFormat" xml:space="preserve"><value>OS 복구는 EFI, MSR 및 복구 파티션을 보존한 다음 선택한 디스크의 Windows 파티션을 교체합니다.
 
-Disk: {0}
-Model: {1}
-Bus: {2}
-Size: {3}
-Operating system: {4}
+디스크: {0}
+모델: {1}
+버스: {2}
+크기: {3}
+운영 체제: {4}
 
-Continue with OS Recovery?</value></data>
-  <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>Provision OS Recovery</value></data>
-  <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>Provisioning OS Recovery...</value></data>
-  <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>Injecting OS Recovery payload...</value></data>
+OS 복구를 계속하시겠습니까?</value></data>
+  <data name="Step.ProvisionOsRecovery" xml:space="preserve"><value>OS 복구 프로비저닝</value></data>
+  <data name="StepMessage.ProvisioningOsRecovery" xml:space="preserve"><value>OS 복구 프로비저닝 중...</value></data>
+  <data name="StepMessage.InjectingOsRecoveryPayload" xml:space="preserve"><value>OS 복구 페이로드를 삽입하는 중...</value></data>
   <data name="StepMessage.CommittingWinReChanges" xml:space="preserve"><value>Committing WinRE changes...</value></data>
-  <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>Registering OS Recovery boot menu...</value></data>
-  <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>OS Recovery is disabled.</value></data>
-  <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>OS Recovery provisioning is skipped in recovery mode.</value></data>
-  <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>OS Recovery provisioned.</value></data>
-  <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>OS Recovery provisioned (simulation).</value></data>
+  <data name="StepMessage.RegisteringOsRecoveryBootMenu" xml:space="preserve"><value>OS 복구 부팅 메뉴 등록 중...</value></data>
+  <data name="StepResult.OsRecoveryDisabled" xml:space="preserve"><value>OS 복구가 비활성화되었습니다.</value></data>
+  <data name="StepResult.OsRecoverySkippedInRecoveryMode" xml:space="preserve"><value>복구 모드에서는 OS 복구 프로비저닝을 건너뜁니다.</value></data>
+  <data name="StepResult.OsRecoveryProvisioned" xml:space="preserve"><value>OS 복구가 프로비저닝되었습니다.</value></data>
+  <data name="StepResult.OsRecoveryProvisionedSimulation" xml:space="preserve"><value>OS 복구 프로비저닝됨(시뮬레이션)</value></data>
   <data name="OsRecovery.BootMenuName" xml:space="preserve"><value>Foundry 복구</value></data>
   <data name="OsRecovery.BootMenuDescription" xml:space="preserve"><value>Windows 재배포</value></data>
 </root>
