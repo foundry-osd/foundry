@@ -60,6 +60,8 @@ internal static class DiskPartOutputParser
         string friendlyName = string.Empty;
         string serialNumber = string.Empty;
         string busType = string.Empty;
+        string friendlyNameCandidate = string.Empty;
+        var busInferenceLines = new List<string>();
         bool isBoot = false;
         bool isSystem = false;
         bool isReadOnly = false;
@@ -73,10 +75,20 @@ internal static class DiskPartOutputParser
                 continue;
             }
 
-            if (friendlyName.Length == 0 && !line.Contains(':', StringComparison.Ordinal))
+            if (line.Contains(':', StringComparison.Ordinal) && friendlyName.Length == 0)
             {
-                friendlyName = line;
+                friendlyName = friendlyNameCandidate;
+            }
+
+            if (!line.Contains(':', StringComparison.Ordinal) && !IsDiskPartBoilerplateLine(line))
+            {
+                friendlyNameCandidate = line;
                 continue;
+            }
+
+            if (IsBusInferenceLine(line))
+            {
+                busInferenceLines.Add(line);
             }
 
             if (TryReadKeyValue(line, @".*serial.*|.*s.rie.*", out string serial))
@@ -113,6 +125,11 @@ internal static class DiskPartOutputParser
             {
                 isSystem = IsYes(systemDisk);
             }
+        }
+
+        if (string.IsNullOrWhiteSpace(busType))
+        {
+            busType = InferBusType(friendlyName, busInferenceLines);
         }
 
         return new DiskPartDetailDisk(
@@ -205,6 +222,74 @@ internal static class DiskPartOutputParser
 
         value = match.Groups["value"].Value.Trim();
         return true;
+    }
+
+    private static bool IsDiskPartBoilerplateLine(string line)
+    {
+        return line.StartsWith("Microsoft DiskPart", StringComparison.OrdinalIgnoreCase) ||
+               line.StartsWith("Copyright", StringComparison.OrdinalIgnoreCase) ||
+               line.StartsWith("DISKPART>", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool IsBusInferenceLine(string line)
+    {
+        if (!line.Contains(':', StringComparison.Ordinal))
+        {
+            return false;
+        }
+
+        return ResolveBusTypeFromText(line).Length > 0;
+    }
+
+    private static string InferBusType(string friendlyName, IReadOnlyList<string> inferenceLines)
+    {
+        return ResolveBusTypeFromText(string.Join('\n', inferenceLines.Prepend(friendlyName)));
+    }
+
+    private static string ResolveBusTypeFromText(string value)
+    {
+        string combined = value.ToUpperInvariant();
+        if (combined.Contains("NVME", StringComparison.Ordinal))
+        {
+            return "NVMe";
+        }
+
+        if (combined.Contains("USB", StringComparison.Ordinal))
+        {
+            return "USB";
+        }
+
+        if (combined.Contains("SATA", StringComparison.Ordinal))
+        {
+            return "SATA";
+        }
+
+        if (combined.Contains("SCSI", StringComparison.Ordinal))
+        {
+            return "SCSI";
+        }
+
+        if (combined.Contains("RAID", StringComparison.Ordinal))
+        {
+            return "RAID";
+        }
+
+        if (combined.Contains("SAS", StringComparison.Ordinal))
+        {
+            return "SAS";
+        }
+
+        if (combined.Contains("IDE", StringComparison.Ordinal))
+        {
+            return "IDE";
+        }
+
+        if (combined.Contains("EMMC", StringComparison.Ordinal))
+        {
+            return "eMMC";
+        }
+
+        return string.Empty;
     }
 
     private static bool IsYes(string value)

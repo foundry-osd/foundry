@@ -56,9 +56,52 @@ public sealed class TargetDiskServiceTests
         Assert.True(disk.IsSelectable);
     }
 
-    private sealed class DiskPartProcessRunner(bool localizedOutput) : IProcessRunner
+    [Fact]
+    public async Task GetDisksAsync_WhenDiskPartDetailIncludesBanner_UsesDiskModelAsFriendlyName()
+    {
+        var processRunner = new DiskPartProcessRunner(localizedOutput: false, includeBanner: true);
+        var service = new TargetDiskService(processRunner, NullLogger<TargetDiskService>.Instance);
+
+        IReadOnlyList<TargetDiskInfo> disks = await service.GetDisksAsync(TestContext.Current.CancellationToken);
+
+        TargetDiskInfo disk = Assert.Single(disks);
+        Assert.Equal("NVMe Foundry Disk", disk.FriendlyName);
+    }
+
+    [Fact]
+    public async Task GetDisksAsync_WhenDiskPartSelectionTextIsUnknownLanguage_UsesDiskModelAsFriendlyName()
+    {
+        var processRunner = new DiskPartProcessRunner(localizedOutput: false, includeUnknownLanguageSelectionText: true);
+        var service = new TargetDiskService(processRunner, NullLogger<TargetDiskService>.Instance);
+
+        IReadOnlyList<TargetDiskInfo> disks = await service.GetDisksAsync(TestContext.Current.CancellationToken);
+
+        TargetDiskInfo disk = Assert.Single(disks);
+        Assert.Equal("NVMe Foundry Disk", disk.FriendlyName);
+    }
+
+    [Fact]
+    public async Task GetDisksAsync_WhenDiskPartTypeKeyIsUnavailable_InfersBusTypeFromHardwareTokens()
+    {
+        var processRunner = new DiskPartProcessRunner(localizedOutput: false, omitTypeKey: true);
+        var service = new TargetDiskService(processRunner, NullLogger<TargetDiskService>.Instance);
+
+        IReadOnlyList<TargetDiskInfo> disks = await service.GetDisksAsync(TestContext.Current.CancellationToken);
+
+        TargetDiskInfo disk = Assert.Single(disks);
+        Assert.Equal("NVMe", disk.BusType);
+    }
+
+    private sealed class DiskPartProcessRunner(
+        bool localizedOutput,
+        bool includeBanner = false,
+        bool includeUnknownLanguageSelectionText = false,
+        bool omitTypeKey = false) : IProcessRunner
     {
         private readonly bool _localizedOutput = localizedOutput;
+        private readonly bool _includeBanner = includeBanner;
+        private readonly bool _includeUnknownLanguageSelectionText = includeUnknownLanguageSelectionText;
+        private readonly bool _omitTypeKey = omitTypeKey;
 
         public List<string> Calls { get; } = [];
 
@@ -101,7 +144,7 @@ public sealed class TargetDiskServiceTests
 
             string script = File.ReadAllText(arguments.Replace("/s ", string.Empty, StringComparison.Ordinal).Trim('"'));
             string output = script.Contains("detail disk", StringComparison.OrdinalIgnoreCase)
-                ? CreateDetailDiskOutput(script, _localizedOutput)
+                ? CreateDetailDiskOutput(script, _localizedOutput, _includeBanner, _includeUnknownLanguageSelectionText, _omitTypeKey)
                 : script.Contains("detail volume", StringComparison.OrdinalIgnoreCase)
                     ? """
                       Disk ###  Status         Size     Free     Dyn  Gpt
@@ -131,11 +174,16 @@ public sealed class TargetDiskServiceTests
             };
         }
 
-        private static string CreateDetailDiskOutput(string script, bool localizedOutput)
+        private static string CreateDetailDiskOutput(
+            string script,
+            bool localizedOutput,
+            bool includeBanner,
+            bool includeUnknownLanguageSelectionText,
+            bool omitTypeKey)
         {
             if (script.Contains("select disk 1", StringComparison.OrdinalIgnoreCase))
             {
-                return localizedOutput
+                string usbOutput = localizedOutput
                     ? """
                   Disque USB Foundry
                   Type   : USB
@@ -154,9 +202,11 @@ public sealed class TargetDiskServiceTests
                   Boot Disk  : No
                   Serial Number : USB123
                   """;
+
+                return WrapDetailOutput(usbOutput, includeBanner, includeUnknownLanguageSelectionText);
             }
 
-            return localizedOutput
+            string output = localizedOutput
                 ? """
               Disque Foundry NVMe
               Type   : NVMe
@@ -184,6 +234,50 @@ public sealed class TargetDiskServiceTests
               Crashdump Disk  : No
               Clustered Disk  : No
               Serial Number : NVME123
+              """;
+
+            if (omitTypeKey)
+            {
+                output = string.Join(
+                    Environment.NewLine,
+                    output
+                        .Split(["\r\n", "\n"], StringSplitOptions.None)
+                        .Where(line => !line.TrimStart().StartsWith("Type", StringComparison.OrdinalIgnoreCase)));
+            }
+
+            return WrapDetailOutput(output, includeBanner, includeUnknownLanguageSelectionText);
+        }
+
+        private static string WrapDetailOutput(
+            string detailOutput,
+            bool includeBanner,
+            bool includeUnknownLanguageSelectionText)
+        {
+            if (includeBanner)
+            {
+                return AddBanner(detailOutput, selectionText: "Disk 0 is now the selected disk.");
+            }
+
+            return includeUnknownLanguageSelectionText
+                ? AddBanner(detailOutput, selectionText: "LOCALIZED_SELECTION_CONFIRMATION_WITHOUT_COLON")
+                : detailOutput;
+        }
+
+        private static string AddBanner(string detailOutput, string selectionText)
+        {
+            return $"""
+              Microsoft DiskPart version 10.0.26100.1
+
+              Copyright (C) Microsoft Corporation.
+              On computer: MININT-FOUND
+
+              DISKPART> select disk 0
+
+              {selectionText}
+
+              DISKPART> detail disk
+
+              {detailOutput}
               """;
         }
     }
