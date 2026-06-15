@@ -19,12 +19,7 @@ param(
     [Parameter()]
     [string[]]$LauncherCandidates = @(
         'Sources\Recovery\Tools\FoundryRecoveryLauncher.cmd',
-        'FoundryRecoveryLauncher.cmd',
-        'FoundryRecovery.exe',
-        'FoundryRecoveryLauncher.exe',
-        'Foundry.RecoveryLauncher.exe',
-        'Foundry.Recovery.Tool.exe',
-        'Foundry.WinRE.Launcher.exe'
+        'FoundryRecoveryLauncher.cmd'
     ),
 
     [Parameter()]
@@ -35,7 +30,6 @@ param(
 
     [Parameter()]
     [string[]]$ExcludedConfigPatterns = @(
-        'Foundry\\Config\\foundry.deployment.config.json',
         'Foundry\\Config\\foundry.connect.provisioning-source.txt',
         'Foundry\\Config\\foundry.deploy.provisioning-source.txt',
         'Foundry\\Config\\Secrets\\*',
@@ -184,18 +178,8 @@ if ($SkipReAgentC) {
     }
 }
 
-# Launcher artifact (name-based + regex fallback)
+# Launcher artifact
 $launcher = Test-ExistsAny -Root $root -Candidates $LauncherCandidates
-if (-not $launcher) {
-    $launcherCandidatesRegex = Get-ChildItem -Path $root -Recurse -File -ErrorAction SilentlyContinue |
-        Where-Object { $_.Name -match '(?i)foundry.*recovery.*\.(exe|bat|cmd|ps1)$' } |
-        Select-Object -First 1
-
-    if ($launcherCandidatesRegex) {
-        $launcher = $launcherCandidatesRegex.FullName
-    }
-}
-
 if ($launcher) {
     $checkResults.Add("PASS Launcher: $launcher")
     $successCount++

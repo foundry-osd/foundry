@@ -40,6 +40,11 @@ public static class FoundryApplicationInfo
     public const string NetworkDocumentationUrl = "https://foundry-osd.github.io/docs/configure/network";
 
     /// <summary>
+    /// Gets the OS Recovery documentation URL.
+    /// </summary>
+    public const string OsRecoveryDocumentationUrl = "https://foundry-osd.github.io/docs/deploy/os-recovery";
+
+    /// <summary>
     /// Gets the media creation documentation URL.
     /// </summary>
     public const string StartDocumentationUrl = "https://foundry-osd.github.io/docs/build-media/media-creation";

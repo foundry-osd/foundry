@@ -76,7 +76,7 @@ public sealed partial class OsRecoveryConfigurationViewModel : ObservableObject,
     [ObservableProperty]
     public partial bool IsOsRecoveryEnabled { get; set; }
 
-    public string DocumentationUrl => string.Empty;
+    public string DocumentationUrl => FoundryApplicationInfo.OsRecoveryDocumentationUrl;
 
     /// <inheritdoc />
     public void Dispose()
