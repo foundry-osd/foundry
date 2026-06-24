@@ -316,6 +316,9 @@ internal sealed class ApplicationUpdateService(
 
     private ApplicationUpdateCheckResult PublishCheckResult(ApplicationUpdateCheckResult result)
     {
+        appSettingsService.Current.Updates.LastCheckedAt = DateTimeOffset.Now;
+        appSettingsService.Save();
+
         updateStateService.Publish(result);
         return result;
     }
