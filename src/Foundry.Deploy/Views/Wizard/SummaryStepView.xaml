@@ -10,27 +10,20 @@
             MinHeight="{Binding ViewportHeight, ElementName=SummaryScrollViewer}"
             Style="{StaticResource ScrollViewerContentGutterBorderStyle}">
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="16" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-
-                <TextBlock
-                    Style="{StaticResource TitleTextBlockStyle}"
-                    Text="{Binding Strings[Summary.Title]}" />
-
                 <Border
-                    Grid.Row="2"
-                    Width="760"
+                    MaxWidth="780"
                     Margin="0"
-                    Padding="20"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Stretch"
-                    Style="{StaticResource SectionCardBorderStyle}">
-                    <StackPanel VerticalAlignment="Center">
+                    Padding="16"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top">
+                    <StackPanel>
                         <TextBlock
                             Margin="0,0,0,12"
+                            Style="{StaticResource TitleTextBlockStyle}"
+                            Text="{Binding Strings[Summary.Title]}" />
+
+                        <TextBlock
+                            Margin="0,0,0,8"
                             Style="{StaticResource SubtitleTextBlockStyle}"
                             Text="{Binding Strings[Summary.SectionTarget]}" />
 
@@ -69,10 +62,10 @@
                                 TextWrapping="Wrap" />
                         </Grid>
 
-                        <Separator Margin="0,16,0,16" />
+                        <Separator Margin="0,8,0,8" />
 
                         <TextBlock
-                            Margin="0,0,0,12"
+                            Margin="0,0,0,8"
                             Style="{StaticResource SubtitleTextBlockStyle}"
                             Text="{Binding Strings[Summary.SectionSystem]}" />
 
@@ -109,10 +102,10 @@
                                 TextWrapping="Wrap" />
                         </Grid>
 
-                        <Separator Margin="0,16,0,16" />
+                        <Separator Margin="0,8,0,8" />
 
                         <TextBlock
-                            Margin="0,0,0,12"
+                            Margin="0,0,0,8"
                             Style="{StaticResource SubtitleTextBlockStyle}"
                             Text="{Binding Strings[Summary.SectionDeployment]}" />
 
