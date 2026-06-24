@@ -53,15 +53,15 @@ internal static class NativeWifiApi
             List<Guid> interfaceIds = ReadInterfaceIds(interfaceListPointer);
             Dictionary<string, WifiNetworkSummary> networks = new(StringComparer.OrdinalIgnoreCase);
 
-        foreach (Guid interfaceId in interfaceIds)
-        {
-            IReadOnlyList<WifiNetworkSummary> interfaceNetworks = ReadAvailableNetworks(clientHandle, interfaceId);
-            TryStartScan(clientHandle, interfaceId);
-
-            foreach (WifiNetworkSummary network in interfaceNetworks)
+            foreach (Guid interfaceId in interfaceIds)
             {
-                if (networks.TryGetValue(network.Ssid, out WifiNetworkSummary? existing) &&
-                    existing.SignalStrengthPercent >= network.SignalStrengthPercent)
+                IReadOnlyList<WifiNetworkSummary> interfaceNetworks = ReadAvailableNetworks(clientHandle, interfaceId);
+                TryStartScan(clientHandle, interfaceId);
+
+                foreach (WifiNetworkSummary network in interfaceNetworks)
+                {
+                    if (networks.TryGetValue(network.Ssid, out WifiNetworkSummary? existing) &&
+                        existing.SignalStrengthPercent >= network.SignalStrengthPercent)
                     {
                         continue;
                     }

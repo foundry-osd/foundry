@@ -271,31 +271,31 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
     {
         HardwareProfile? hardware = runtimeState?.HardwareProfile;
         var properties = new Dictionary<string, object?>
-            {
-                ["deploy_session_success"] = success,
-                ["deploy_session_cancelled"] = cancelled,
-                ["deploy_session_duration_seconds"] = Math.Round(duration.TotalSeconds, 2),
-                ["deploy_session_completed_step_count"] = runtimeState?.CompletedSteps.Count ?? 0,
-                ["deploy_session_failed_step_name"] = failedStepName,
-                ["deploy_session_mode"] = context.Mode.ToString().ToLowerInvariant(),
-                ["deploy_session_dry_run_enabled"] = context.IsDryRun,
-                ["deploy_hardware_vendor"] = NormalizeTelemetryString(hardware?.Manufacturer),
-                ["deploy_hardware_model"] = NormalizeTelemetryString(hardware?.Model),
-                ["deploy_hardware_virtual_machine"] = hardware?.IsVirtualMachine ?? false,
-                ["deploy_os_product"] = ResolveOperatingSystemProduct(context.OperatingSystem),
-                ["deploy_os_version"] = NormalizeTelemetryString(context.OperatingSystem.ReleaseId),
-                ["deploy_os_build"] = NormalizeTelemetryString(context.OperatingSystem.Build),
-                ["deploy_os_architecture"] = NormalizeTelemetryString(context.OperatingSystem.Architecture),
-                ["deploy_os_language"] = NormalizeTelemetryString(context.OperatingSystem.LanguageCode),
-                ["deploy_driver_pack_selection_kind"] = context.DriverPackSelectionKind.ToString().ToLowerInvariant(),
-                ["deploy_driver_pack_vendor"] = NormalizeTelemetryString(context.DriverPack?.Manufacturer, "none"),
-                ["deploy_driver_pack_model"] = ResolveDriverPackCatalogModel(context.DriverPack),
-                ["deploy_firmware_updates_enabled"] = context.ApplyFirmwareUpdates,
-                ["deploy_autopilot_enabled"] = context.IsAutopilotEnabled,
-                ["deploy_autopilot_provisioning_mode"] = NormalizeTelemetryString(ResolveAutopilotProvisioningMode(context)),
-                ["deploy_autopilot_hash_upload_state"] = NormalizeTelemetryString(runtimeState?.AutopilotHardwareHashUploadState.ToString()),
-                ["deploy_autopilot_hash_group_tag_selected"] = !string.IsNullOrWhiteSpace(runtimeState?.AutopilotHardwareHashGroupTag)
-            };
+        {
+            ["deploy_session_success"] = success,
+            ["deploy_session_cancelled"] = cancelled,
+            ["deploy_session_duration_seconds"] = Math.Round(duration.TotalSeconds, 2),
+            ["deploy_session_completed_step_count"] = runtimeState?.CompletedSteps.Count ?? 0,
+            ["deploy_session_failed_step_name"] = failedStepName,
+            ["deploy_session_mode"] = context.Mode.ToString().ToLowerInvariant(),
+            ["deploy_session_dry_run_enabled"] = context.IsDryRun,
+            ["deploy_hardware_vendor"] = NormalizeTelemetryString(hardware?.Manufacturer),
+            ["deploy_hardware_model"] = NormalizeTelemetryString(hardware?.Model),
+            ["deploy_hardware_virtual_machine"] = hardware?.IsVirtualMachine ?? false,
+            ["deploy_os_product"] = ResolveOperatingSystemProduct(context.OperatingSystem),
+            ["deploy_os_version"] = NormalizeTelemetryString(context.OperatingSystem.ReleaseId),
+            ["deploy_os_build"] = NormalizeTelemetryString(context.OperatingSystem.Build),
+            ["deploy_os_architecture"] = NormalizeTelemetryString(context.OperatingSystem.Architecture),
+            ["deploy_os_language"] = NormalizeTelemetryString(context.OperatingSystem.LanguageCode),
+            ["deploy_driver_pack_selection_kind"] = context.DriverPackSelectionKind.ToString().ToLowerInvariant(),
+            ["deploy_driver_pack_vendor"] = NormalizeTelemetryString(context.DriverPack?.Manufacturer, "none"),
+            ["deploy_driver_pack_model"] = ResolveDriverPackCatalogModel(context.DriverPack),
+            ["deploy_firmware_updates_enabled"] = context.ApplyFirmwareUpdates,
+            ["deploy_autopilot_enabled"] = context.IsAutopilotEnabled,
+            ["deploy_autopilot_provisioning_mode"] = NormalizeTelemetryString(ResolveAutopilotProvisioningMode(context)),
+            ["deploy_autopilot_hash_upload_state"] = NormalizeTelemetryString(runtimeState?.AutopilotHardwareHashUploadState.ToString()),
+            ["deploy_autopilot_hash_group_tag_selected"] = !string.IsNullOrWhiteSpace(runtimeState?.AutopilotHardwareHashGroupTag)
+        };
 
         _logger.LogDebug(
             "Tracking deployment telemetry event. Success={Success}, Cancelled={Cancelled}, DurationSeconds={DurationSeconds}, CompletedStepCount={CompletedStepCount}, FailedStepName={FailedStepName}, Mode={Mode}, IsDryRun={IsDryRun}, HardwareVendor={HardwareVendor}, HardwareModel={HardwareModel}, OsProduct={OsProduct}, OsVersion={OsVersion}, DriverPackSelectionKind={DriverPackSelectionKind}, DriverPackVendor={DriverPackVendor}, DriverPackModel={DriverPackModel}.",
