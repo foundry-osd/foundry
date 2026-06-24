@@ -790,10 +790,10 @@
     <value>일반</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
-    <value>다음 단계</value>
+    <value>미디어 만들기</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>미디어 출력.</value>
+    <value>준비 상태를 검토하고 미디어 출력을 선택합니다.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>검토 및 시작</value>
@@ -806,6 +806,15 @@
   </data>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>배포 시간대</value>
+  </data>
+  <data name="GeneralConfiguration.TimeZone.Description" xml:space="preserve">
+    <value>배포 중에 적용할 표준 시간대를 선택합니다.</value>
+  </data>
+  <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
+    <value>보안 부팅</value>
+  </data>
+  <data name="GeneralConfiguration.SecureBoot.Description" xml:space="preserve">
+    <value>생성된 미디어에 사용할 보안 부팅 서명 정책을 선택합니다.</value>
   </data>
   <data name="Common.AutomaticOption" xml:space="preserve">
     <value>자동</value>

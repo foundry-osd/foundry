@@ -21,11 +21,18 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <FontIcon
+                <Grid
                     Grid.Column="0"
-                    VerticalAlignment="Top"
-                    FontSize="{ThemeResource FoundryIconSizeSmall}"
-                    Glyph="{x:Bind Glyph}" />
+                    Width="{ThemeResource FoundryIconSizeDefault}"
+                    Height="{ThemeResource FoundryIconSizeDefault}"
+                    VerticalAlignment="Center">
+                    <FontIcon
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="{ThemeResource FoundryIconSizeSmall}"
+                        Foreground="{x:Bind GlyphForeground}"
+                        Glyph="{x:Bind Glyph}" />
+                </Grid>
                 <StackPanel
                     Grid.Column="1"
                     Spacing="{ThemeResource FoundryCompactStackSpacing}">
@@ -72,7 +79,8 @@
             <controls:PageHeader
                 Title="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
                 Description="{x:Bind ViewModel.PageDescription, Mode=OneWay}"
-                DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}" />
+                DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
+                IconGlyph="&#xE768;" />
 
             <InfoBar
                 Title="{x:Bind ViewModel.StatusSummary, Mode=OneWay}"
@@ -139,10 +147,11 @@
                         <FontIcon Glyph="&#xE958;" />
                     </wct:SettingsCard.HeaderIcon>
                     <StackPanel
+                        Margin="{ThemeResource FoundrySettingsExpanderTrailingAffordanceMargin}"
                         Orientation="Horizontal"
                         Spacing="{ThemeResource FoundryInlineControlSpacing}">
                         <TextBox
-                            MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                            Width="{ThemeResource FoundryWideInputMinWidth}"
                             Text="{x:Bind ViewModel.IsoOutputPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <Button x:Name="BrowseIsoButton"
                             MinWidth="{StaticResource SettingActionControlMinWidth}"
@@ -159,8 +168,9 @@
                         Orientation="Horizontal"
                         Spacing="{ThemeResource FoundryInlineControlSpacing}">
                         <ComboBox
-                            MinWidth="{ThemeResource FoundryMediumInputMinWidth}"
+                            Width="{ThemeResource FoundryWideInputMinWidth}"
                             DisplayMemberPath="DisplayName"
+                            IsEnabled="{x:Bind ViewModel.CanSelectUsbDisk, Mode=OneWay}"
                             ItemsSource="{x:Bind ViewModel.UsbCandidates, Mode=OneWay}"
                             SelectedItem="{x:Bind ViewModel.SelectedUsbDisk, Mode=TwoWay}" />
                         <Button x:Name="RefreshUsbButton"
@@ -190,6 +200,7 @@
                         <FontIcon Glyph="&#xE768;" />
                     </wct:SettingsCard.HeaderIcon>
                     <StackPanel
+                        Margin="{ThemeResource FoundrySettingsExpanderTrailingAffordanceMargin}"
                         Orientation="Horizontal"
                         Spacing="{ThemeResource FoundryInlineControlSpacing}">
                         <Button x:Name="CreateIsoButton"

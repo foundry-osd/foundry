@@ -790,10 +790,10 @@
     <value>Kenraali</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
-    <value>Seuraava askel</value>
+    <value>Median luonti</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Medialähdöt.</value>
+    <value>Tarkista valmius ja valitse mediatuotokset.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Tarkista ja aloita</value>
@@ -806,6 +806,15 @@
   </data>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Käyttöönoton aikavyöhyke</value>
+  </data>
+  <data name="GeneralConfiguration.TimeZone.Description" xml:space="preserve">
+    <value>Valitse käyttöönoton aikana käytettävä aikavyöhyke.</value>
+  </data>
+  <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
+    <value>Suojattu käynnistys</value>
+  </data>
+  <data name="GeneralConfiguration.SecureBoot.Description" xml:space="preserve">
+    <value>Valitse luodulle medialle käytettävä suojatun käynnistyksen allekirjoituskäytäntö.</value>
   </data>
   <data name="Common.AutomaticOption" xml:space="preserve">
     <value>Automaattinen</value>

@@ -790,10 +790,10 @@
     <value>Splošno</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
-    <value>Naslednji korak</value>
+    <value>Ustvarjanje medija</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Medijski izhodi.</value>
+    <value>Preglejte pripravljenost in izberite izhode medija.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Pregled in začetek</value>
@@ -806,6 +806,15 @@
   </data>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Časovni pas uvedbe</value>
+  </data>
+  <data name="GeneralConfiguration.TimeZone.Description" xml:space="preserve">
+    <value>Izberite časovni pas, uporabljen med uvedbo.</value>
+  </data>
+  <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
+    <value>Varni zagon</value>
+  </data>
+  <data name="GeneralConfiguration.SecureBoot.Description" xml:space="preserve">
+    <value>Izberite pravilnik podpisovanja za varni zagon, uporabljen za ustvarjeni medij.</value>
   </data>
   <data name="Common.AutomaticOption" xml:space="preserve">
     <value>Samodejno</value>

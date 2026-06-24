@@ -8,94 +8,106 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:wct="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d">
-    <ScrollView
+    <Grid
         Margin="{ThemeResource ContentPageMargin}"
-        Padding="{ThemeResource ContentPagePadding}"
-        VerticalScrollBarVisibility="Auto">
-        <StackPanel
-            dev:PanelAttach.ChildrenTransitions="Default"
-            Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
-            <controls:PageHeader
-                Title="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
-                Description="{x:Bind ViewModel.PageDescription, Mode=OneWay}"
-                DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}" />
+        Padding="{ThemeResource ContentPagePadding}">
+        <Grid RowSpacing="{ThemeResource FoundrySettingsSectionSpacing}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-            <wct:SettingsCard x:Name="ArchitectureCard">
-                <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE770;" />
-                </wct:SettingsCard.HeaderIcon>
+            <ScrollView VerticalScrollBarVisibility="Auto">
                 <StackPanel
-                    Orientation="Horizontal"
-                    Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                    <ComboBox
-                        MinWidth="{StaticResource SettingActionControlMinWidth}"
-                        DisplayMemberPath="DisplayName"
-                        ItemsSource="{x:Bind ViewModel.Architectures, Mode=OneWay}"
-                        SelectedItem="{x:Bind ViewModel.SelectedArchitecture, Mode=TwoWay}" />
-                    <ToggleSwitch x:Name="Ca2023Toggle"
-                        IsOn="{x:Bind ViewModel.UseCa2023Signature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                </StackPanel>
-            </wct:SettingsCard>
+                    dev:PanelAttach.ChildrenTransitions="Default"
+                    Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+                    <controls:PageHeader
+                        Title="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
+                        Description="{x:Bind ViewModel.PageDescription, Mode=OneWay}"
+                        DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
+                        IconGlyph="&#xE713;" />
 
-            <wct:SettingsCard x:Name="WinPeLanguageCard">
-                <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xF2B7;" />
-                </wct:SettingsCard.HeaderIcon>
-                <StackPanel Spacing="{ThemeResource FoundryCompactStackSpacing}">
-                    <ComboBox x:Name="WinPeLanguageComboBox"
-                        MinWidth="{StaticResource SettingActionControlMinWidth}"
-                        IsEnabled="{x:Bind ViewModel.HasWinPeLanguages, Mode=OneWay}"
-                        ItemsSource="{x:Bind ViewModel.AvailableWinPeLanguages, Mode=OneWay}"
-                        SelectedItem="{x:Bind ViewModel.SelectedWinPeLanguage, Mode=TwoWay}"
-                        SelectionChanged="WinPeLanguageComboBox_SelectionChanged" />
-                    <TextBlock
-                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        Text="{x:Bind ViewModel.WinPeLanguageUnavailableDescription, Mode=OneWay}"
-                        TextWrapping="WrapWholeWords"
-                        Visibility="{x:Bind ViewModel.WinPeLanguageUnavailableVisibility, Mode=OneWay}" />
-                </StackPanel>
-            </wct:SettingsCard>
+                    <wct:SettingsCard x:Name="ArchitectureCard">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE770;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ComboBox
+                            MinWidth="{StaticResource SettingActionControlMinWidth}"
+                            DisplayMemberPath="DisplayName"
+                            ItemsSource="{x:Bind ViewModel.Architectures, Mode=OneWay}"
+                            SelectedItem="{x:Bind ViewModel.SelectedArchitecture, Mode=TwoWay}" />
+                    </wct:SettingsCard>
 
-            <wct:SettingsCard x:Name="TimeZoneCard">
-                <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE823;" />
-                </wct:SettingsCard.HeaderIcon>
-                <ComboBox
-                    Width="{ThemeResource FoundryWideInputMinWidth}"
-                    DisplayMemberPath="DisplayName"
-                    ItemsSource="{x:Bind ViewModel.TimeZoneOptions, Mode=OneWay}"
-                    SelectedItem="{x:Bind ViewModel.SelectedTimeZone, Mode=TwoWay}" />
-            </wct:SettingsCard>
+                    <wct:SettingsCard x:Name="SecureBootCard">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE72E;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ToggleSwitch x:Name="Ca2023Toggle"
+                            IsOn="{x:Bind ViewModel.UseCa2023Signature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </wct:SettingsCard>
 
-            <wct:SettingsExpander x:Name="DriverOptionsCard">
-                <wct:SettingsExpander.HeaderIcon>
-                    <FontIcon Glyph="&#xE90F;" />
-                </wct:SettingsExpander.HeaderIcon>
-                <StackPanel
-                    Orientation="Horizontal"
-                    Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                    <ToggleSwitch x:Name="DellDriversToggle"
-                        IsOn="{x:Bind ViewModel.IncludeDellDrivers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <ToggleSwitch x:Name="HpDriversToggle"
-                        IsOn="{x:Bind ViewModel.IncludeHpDrivers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                </StackPanel>
-                <wct:SettingsExpander.Items>
-                    <wct:SettingsCard x:Name="CustomDriverDirectoryCard">
+                    <wct:SettingsCard x:Name="WinPeLanguageCard">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xF2B7;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <StackPanel Spacing="{ThemeResource FoundryCompactStackSpacing}">
+                            <ComboBox x:Name="WinPeLanguageComboBox"
+                                MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                IsEnabled="{x:Bind ViewModel.HasWinPeLanguages, Mode=OneWay}"
+                                ItemsSource="{x:Bind ViewModel.AvailableWinPeLanguages, Mode=OneWay}"
+                                SelectedItem="{x:Bind ViewModel.SelectedWinPeLanguage, Mode=TwoWay}"
+                                SelectionChanged="WinPeLanguageComboBox_SelectionChanged" />
+                            <TextBlock
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Text="{x:Bind ViewModel.WinPeLanguageUnavailableDescription, Mode=OneWay}"
+                                TextWrapping="WrapWholeWords"
+                                Visibility="{x:Bind ViewModel.WinPeLanguageUnavailableVisibility, Mode=OneWay}" />
+                        </StackPanel>
+                    </wct:SettingsCard>
+
+                    <wct:SettingsCard x:Name="TimeZoneCard">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE823;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <ComboBox
+                            Width="{ThemeResource FoundryWideInputMinWidth}"
+                            DisplayMemberPath="DisplayName"
+                            ItemsSource="{x:Bind ViewModel.TimeZoneOptions, Mode=OneWay}"
+                            SelectedItem="{x:Bind ViewModel.SelectedTimeZone, Mode=TwoWay}" />
+                    </wct:SettingsCard>
+
+                    <wct:SettingsExpander x:Name="DriverOptionsCard">
+                        <wct:SettingsExpander.HeaderIcon>
+                            <FontIcon Glyph="&#xE90F;" />
+                        </wct:SettingsExpander.HeaderIcon>
                         <StackPanel
                             Orientation="Horizontal"
                             Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                            <TextBox
-                                MinWidth="{ThemeResource FoundryWideInputMinWidth}"
-                                Text="{x:Bind ViewModel.CustomDriverDirectoryPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <Button x:Name="BrowseCustomDriversButton"
-                                MinWidth="{StaticResource SettingActionControlMinWidth}"
-                                Command="{x:Bind ViewModel.BrowseCustomDriverDirectoryCommand}" />
+                            <ToggleSwitch x:Name="DellDriversToggle"
+                                IsOn="{x:Bind ViewModel.IncludeDellDrivers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <ToggleSwitch x:Name="HpDriversToggle"
+                                IsOn="{x:Bind ViewModel.IncludeHpDrivers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
-                    </wct:SettingsCard>
-                </wct:SettingsExpander.Items>
-            </wct:SettingsExpander>
+                        <wct:SettingsExpander.Items>
+                            <wct:SettingsCard x:Name="CustomDriverDirectoryCard">
+                                <StackPanel
+                                    Orientation="Horizontal"
+                                    Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                    <TextBox
+                                        MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                        Text="{x:Bind ViewModel.CustomDriverDirectoryPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <Button x:Name="BrowseCustomDriversButton"
+                                        MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                        Command="{x:Bind ViewModel.BrowseCustomDriverDirectoryCommand}" />
+                                </StackPanel>
+                            </wct:SettingsCard>
+                        </wct:SettingsExpander.Items>
+                    </wct:SettingsExpander>
+                </StackPanel>
+            </ScrollView>
 
-            <wct:SettingsCard x:Name="CreateMediaCard">
+            <wct:SettingsCard x:Name="CreateMediaCard"
+                Grid.Row="1">
                 <wct:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xE768;" />
                 </wct:SettingsCard.HeaderIcon>
@@ -105,6 +117,6 @@
                     IsEnabled="{x:Bind ViewModel.CanCreateMedia, Mode=OneWay}"
                     Style="{ThemeResource AccentButtonStyle}" />
             </wct:SettingsCard>
-        </StackPanel>
-    </ScrollView>
+        </Grid>
+    </Grid>
 </Page>

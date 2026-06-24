@@ -15,40 +15,38 @@
                     Margin="0"
                     Padding="24"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Stretch"
-                    Style="{StaticResource SectionCardBorderStyle}">
-                    <Grid DataContext="{Binding DriverPackSelection}">
-                        <StackPanel VerticalAlignment="Center">
-                            <TextBlock
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="{Binding DataContext.Strings[DriverPack.Source], ElementName=ViewRoot}" />
-                            <ComboBox
-                                Margin="0,8,0,0"
-                                DisplayMemberPath="DisplayName"
-                                ItemsSource="{Binding DriverPackOptions}"
-                                SelectedItem="{Binding SelectedDriverPackOption}" />
+                    VerticalAlignment="Center"
+                    DataContext="{Binding DriverPackSelection}">
+                    <StackPanel>
+                        <TextBlock
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding DataContext.Strings[DriverPack.Source], ElementName=ViewRoot}" />
+                        <ComboBox
+                            Margin="0,8,0,0"
+                            DisplayMemberPath="DisplayName"
+                            ItemsSource="{Binding DriverPackOptions}"
+                            SelectedItem="{Binding SelectedDriverPackOption}" />
 
-                            <TextBlock
-                                Margin="0,20,0,0"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="{Binding DataContext.Strings[DriverPack.Model], ElementName=ViewRoot}" />
-                            <ComboBox
-                                Margin="0,8,0,0"
-                                IsEnabled="{Binding IsDriverPackModelSelectionEnabled}"
-                                ItemsSource="{Binding DriverPackModelOptions}"
-                                SelectedItem="{Binding SelectedDriverPackModel}" />
+                        <TextBlock
+                            Margin="0,20,0,0"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding DataContext.Strings[DriverPack.Model], ElementName=ViewRoot}" />
+                        <ComboBox
+                            Margin="0,8,0,0"
+                            IsEnabled="{Binding IsDriverPackModelSelectionEnabled}"
+                            ItemsSource="{Binding DriverPackModelOptions}"
+                            SelectedItem="{Binding SelectedDriverPackModel}" />
 
-                            <TextBlock
-                                Margin="0,20,0,0"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="{Binding DataContext.Strings[DriverPack.Version], ElementName=ViewRoot}" />
-                            <ComboBox
-                                Margin="0,8,0,0"
-                                IsEnabled="{Binding IsDriverPackVersionSelectionEnabled}"
-                                ItemsSource="{Binding DriverPackVersionOptions}"
-                                SelectedItem="{Binding SelectedDriverPackVersion}" />
-                        </StackPanel>
-                    </Grid>
+                        <TextBlock
+                            Margin="0,20,0,0"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding DataContext.Strings[DriverPack.Version], ElementName=ViewRoot}" />
+                        <ComboBox
+                            Margin="0,8,0,0"
+                            IsEnabled="{Binding IsDriverPackVersionSelectionEnabled}"
+                            ItemsSource="{Binding DriverPackVersionOptions}"
+                            SelectedItem="{Binding SelectedDriverPackVersion}" />
+                    </StackPanel>
                 </Border>
             </Grid>
         </Border>

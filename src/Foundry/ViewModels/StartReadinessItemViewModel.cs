@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Microsoft.UI.Xaml.Media;
+
 namespace Foundry.ViewModels;
 
 /// <summary>
@@ -52,6 +54,7 @@ public sealed class StartReadinessItemViewModel
     /// <param name="description">Readiness item description.</param>
     /// <param name="status">Current readiness status text.</param>
     /// <param name="glyph">Icon glyph shown beside the item.</param>
+    /// <param name="glyphForegroundBrushKey">Theme resource key used to color the status glyph.</param>
     /// <param name="expandsGroup">Whether activating the item expands a local readiness group.</param>
     /// <param name="navigationTarget">Optional shell navigation target.</param>
     /// <param name="actionText">Optional action button text.</param>
@@ -60,6 +63,7 @@ public sealed class StartReadinessItemViewModel
         string description,
         string status,
         string glyph,
+        string glyphForegroundBrushKey,
         bool expandsGroup,
         StartReadinessNavigationTarget navigationTarget = StartReadinessNavigationTarget.None,
         string actionText = "")
@@ -68,6 +72,7 @@ public sealed class StartReadinessItemViewModel
         Description = description;
         Status = status;
         Glyph = glyph;
+        GlyphForegroundBrushKey = glyphForegroundBrushKey;
         ExpandsGroup = expandsGroup;
         NavigationTarget = navigationTarget;
         ActionText = actionText;
@@ -92,6 +97,13 @@ public sealed class StartReadinessItemViewModel
     /// Gets the icon glyph shown beside the item.
     /// </summary>
     public string Glyph { get; }
+
+    /// <summary>
+    /// Gets the brush used to color the status glyph.
+    /// </summary>
+    public Brush GlyphForeground => (Brush)Application.Current.Resources[GlyphForegroundBrushKey];
+
+    private string GlyphForegroundBrushKey { get; }
 
     /// <summary>
     /// Gets a value indicating whether the item expands a readiness group instead of navigating.

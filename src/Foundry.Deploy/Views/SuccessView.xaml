@@ -9,6 +9,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <TextBlock
@@ -26,6 +27,7 @@
                 VerticalAlignment="Center">
                 <TextBlock
                     HorizontalAlignment="Center"
+                    Foreground="{DynamicResource SystemFillColorSuccessBrush}"
                     Style="{StaticResource TitleTextBlockStyle}"
                     Text="{Binding Strings[Success.Completed]}"
                     TextAlignment="Center" />
@@ -43,5 +45,14 @@
                     Content="{Binding Strings[Success.RebootNow]}" />
             </StackPanel>
         </Grid>
+
+        <TextBlock
+            Grid.Row="2"
+            Margin="0,12,0,0"
+            HorizontalAlignment="Center"
+            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+            Style="{StaticResource BodyTextBlockStyle}"
+            Text="{Binding StepCounterText}"
+            Visibility="Hidden" />
     </Grid>
 </UserControl>

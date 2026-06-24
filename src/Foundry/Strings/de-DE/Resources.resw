@@ -790,10 +790,10 @@
     <value>Allgemein</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
-    <value>Nächster Schritt</value>
+    <value>Medienerstellung</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Medienausgänge.</value>
+    <value>Überprüfen Sie die Bereitschaft, und wählen Sie die Medienausgaben aus.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Überprüfen und beginnen</value>
@@ -806,6 +806,15 @@
   </data>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Zeitzone der Bereitstellung</value>
+  </data>
+  <data name="GeneralConfiguration.TimeZone.Description" xml:space="preserve">
+    <value>Wählen Sie die Zeitzone aus, die während der Bereitstellung angewendet wird.</value>
+  </data>
+  <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
+    <value>Sicherer Start</value>
+  </data>
+  <data name="GeneralConfiguration.SecureBoot.Description" xml:space="preserve">
+    <value>Wählen Sie die Signaturrichtlinie für den sicheren Start aus, die für die generierten Medien verwendet wird.</value>
   </data>
   <data name="Common.AutomaticOption" xml:space="preserve">
     <value>Automatisch</value>

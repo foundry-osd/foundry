@@ -20,12 +20,19 @@ public sealed partial class PageHeader : UserControl
         typeof(PageHeader),
         new PropertyMetadata(string.Empty, OnHeaderPropertyChanged));
 
+    public static readonly DependencyProperty IconGlyphProperty = DependencyProperty.Register(
+        nameof(IconGlyph),
+        typeof(string),
+        typeof(PageHeader),
+        new PropertyMetadata(string.Empty, OnHeaderPropertyChanged));
+
     public static readonly DependencyProperty DocumentationUrlProperty = DependencyProperty.Register(
         nameof(DocumentationUrl),
         typeof(string),
         typeof(PageHeader),
         new PropertyMetadata(string.Empty, OnHeaderPropertyChanged));
 
+    private readonly FontIcon icon = new();
     private readonly TextBlock titleTextBlock = new();
     private readonly TextBlock descriptionTextBlock = new();
     private readonly DocumentationButton documentationButton = new();
@@ -48,6 +55,12 @@ public sealed partial class PageHeader : UserControl
         set => SetValue(DescriptionProperty, value);
     }
 
+    public string IconGlyph
+    {
+        get => (string)GetValue(IconGlyphProperty);
+        set => SetValue(IconGlyphProperty, value);
+    }
+
     public string DocumentationUrl
     {
         get => (string)GetValue(DocumentationUrlProperty);
@@ -64,11 +77,17 @@ public sealed partial class PageHeader : UserControl
         Grid layout = new()
         {
             Margin = (Thickness)Application.Current.Resources["FoundryPageHeaderMargin"],
-            ColumnSpacing = (double)Application.Current.Resources["FoundryInlineControlSpacing"]
+            ColumnSpacing = (double)Application.Current.Resources["FoundryPageHeaderColumnSpacing"]
         };
 
+        layout.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
         layout.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
         layout.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+
+        icon.Width = (double)Application.Current.Resources["FoundryIconSizeHero"];
+        icon.Height = (double)Application.Current.Resources["FoundryIconSizeHero"];
+        icon.FontSize = (double)Application.Current.Resources["FoundryIconSizeLarge"];
+        icon.VerticalAlignment = VerticalAlignment.Center;
 
         StackPanel textPanel = new()
         {
@@ -90,10 +109,12 @@ public sealed partial class PageHeader : UserControl
         textPanel.Children.Add(titleTextBlock);
         textPanel.Children.Add(descriptionTextBlock);
 
-        Grid.SetColumn(documentationButton, 1);
+        Grid.SetColumn(textPanel, 1);
+        Grid.SetColumn(documentationButton, 2);
         documentationButton.HorizontalAlignment = HorizontalAlignment.Right;
         documentationButton.VerticalAlignment = VerticalAlignment.Center;
 
+        layout.Children.Add(icon);
         layout.Children.Add(textPanel);
         layout.Children.Add(documentationButton);
         return layout;
@@ -101,6 +122,10 @@ public sealed partial class PageHeader : UserControl
 
     private void UpdateContent()
     {
+        icon.Glyph = IconGlyph;
+        icon.Visibility = string.IsNullOrWhiteSpace(IconGlyph)
+            ? Visibility.Collapsed
+            : Visibility.Visible;
         titleTextBlock.Text = Title;
         descriptionTextBlock.Text = Description;
         documentationButton.DocumentationUrl = DocumentationUrl;

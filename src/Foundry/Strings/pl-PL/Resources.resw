@@ -790,10 +790,10 @@
     <value>Generał</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
-    <value>Następny krok</value>
+    <value>Tworzenie nośnika</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Wyjścia multimedialne.</value>
+    <value>Przejrzyj gotowość i wybierz wyjścia nośników.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Przejrzyj i zacznij</value>
@@ -806,6 +806,15 @@
   </data>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Strefa czasowa wdrożenia</value>
+  </data>
+  <data name="GeneralConfiguration.TimeZone.Description" xml:space="preserve">
+    <value>Wybierz strefę czasową stosowaną podczas wdrażania.</value>
+  </data>
+  <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
+    <value>Bezpieczny rozruch</value>
+  </data>
+  <data name="GeneralConfiguration.SecureBoot.Description" xml:space="preserve">
+    <value>Wybierz zasady podpisywania bezpiecznego rozruchu używane dla wygenerowanych nośników.</value>
   </data>
   <data name="Common.AutomaticOption" xml:space="preserve">
     <value>Automatyczny</value>
