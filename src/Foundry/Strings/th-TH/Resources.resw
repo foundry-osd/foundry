@@ -790,10 +790,10 @@
     <value>ทั่วไป</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
-    <value>ขั้นตอนต่อไป</value>
+    <value>การสร้างสื่อ</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>เอาต์พุตสื่อ</value>
+    <value>ตรวจสอบความพร้อมและเลือกเอาต์พุตสื่อ</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>ทบทวนและเริ่มต้น</value>
@@ -806,6 +806,15 @@
   </data>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>เขตเวลาการปรับใช้</value>
+  </data>
+  <data name="GeneralConfiguration.TimeZone.Description" xml:space="preserve">
+    <value>เลือกเขตเวลาที่ใช้ระหว่างการปรับใช้</value>
+  </data>
+  <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
+    <value>การบูตแบบปลอดภัย</value>
+  </data>
+  <data name="GeneralConfiguration.SecureBoot.Description" xml:space="preserve">
+    <value>เลือกนโยบายการลงนามของการบูตแบบปลอดภัยที่ใช้สำหรับสื่อที่สร้างขึ้น</value>
   </data>
   <data name="Common.AutomaticOption" xml:space="preserve">
     <value>อัตโนมัติ</value>

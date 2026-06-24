@@ -790,10 +790,10 @@
     <value>general</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
-    <value>Următorul pas</value>
+    <value>Crearea suportului</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Ieșiri media.</value>
+    <value>Revizuiți starea de pregătire și alegeți ieșirile suportului.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Examinați și începeți</value>
@@ -806,6 +806,15 @@
   </data>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Fus orar de implementare</value>
+  </data>
+  <data name="GeneralConfiguration.TimeZone.Description" xml:space="preserve">
+    <value>Alegeți fusul orar aplicat în timpul implementării.</value>
+  </data>
+  <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
+    <value>Pornire securizată</value>
+  </data>
+  <data name="GeneralConfiguration.SecureBoot.Description" xml:space="preserve">
+    <value>Alegeți politica de semnare pentru pornirea securizată utilizată pentru suportul generat.</value>
   </data>
   <data name="Common.AutomaticOption" xml:space="preserve">
     <value>automată</value>

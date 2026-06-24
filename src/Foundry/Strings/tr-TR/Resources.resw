@@ -790,10 +790,10 @@
     <value>Genel</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
-    <value>Sonraki adım</value>
+    <value>Medya oluşturma</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Medya çıktıları.</value>
+    <value>Hazırlığı gözden geçirin ve medya çıkışlarını seçin.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>İncele ve başlat</value>
@@ -806,6 +806,15 @@
   </data>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Dağıtım saat dilimi</value>
+  </data>
+  <data name="GeneralConfiguration.TimeZone.Description" xml:space="preserve">
+    <value>Dağıtım sırasında uygulanacak saat dilimini seçin.</value>
+  </data>
+  <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
+    <value>Güvenli Önyükleme</value>
+  </data>
+  <data name="GeneralConfiguration.SecureBoot.Description" xml:space="preserve">
+    <value>Oluşturulan medya için kullanılan Güvenli Önyükleme imzalama ilkesini seçin.</value>
   </data>
   <data name="Common.AutomaticOption" xml:space="preserve">
     <value>Otomatik</value>

@@ -790,10 +790,10 @@
     <value>Generelt</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
-    <value>Næste skridt</value>
+    <value>Medieoprettelse</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Description" xml:space="preserve">
-    <value>Medieudgange.</value>
+    <value>Gennemgå parathed, og vælg medieoutput.</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Gennemgå og start</value>
@@ -806,6 +806,15 @@
   </data>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
     <value>Tidszone for implementering</value>
+  </data>
+  <data name="GeneralConfiguration.TimeZone.Description" xml:space="preserve">
+    <value>Vælg den tidszone, der anvendes under udrulningen.</value>
+  </data>
+  <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
+    <value>Sikker start</value>
+  </data>
+  <data name="GeneralConfiguration.SecureBoot.Description" xml:space="preserve">
+    <value>Vælg den signeringspolitik for sikker start, der bruges til det genererede medie.</value>
   </data>
   <data name="Common.AutomaticOption" xml:space="preserve">
     <value>Automatisk</value>

@@ -197,6 +197,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     public partial bool CanGenerateUsbSummary { get; set; }
 
     [ObservableProperty]
+    public partial bool CanSelectUsbDisk { get; set; }
+
+    [ObservableProperty]
     public partial bool CanCreateIso { get; set; }
 
     [ObservableProperty]
@@ -1288,6 +1291,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IsSelectedUsbFoundryMedia = options.SelectedUsbDisk?.IsFoundryMedia == true;
         CanGenerateIsoSummary = evaluation.CanGenerateIsoSummary;
         CanGenerateUsbSummary = evaluation.CanGenerateUsbSummary;
+        CanSelectUsbDisk = UsbCandidates.Count > 0 && !IsRefreshingUsbCandidates;
         CanCreateIso = evaluation.CanCreateIso && !IsMediaOperationRunning;
         CanCreateUsb = evaluation.CanCreateUsb && !IsMediaOperationRunning;
         FinalExecutionStatus = options.IsFinalExecutionEnabled
@@ -1674,6 +1678,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             description,
             localizationService.GetString($"StartMedia.Readiness.State.{state}"),
             GetReadinessGlyph(state),
+            GetReadinessGlyphBrushKey(state),
             state is StartReadinessState.Blocked or StartReadinessState.Warning,
             navigationTarget,
             navigationTarget == StartReadinessNavigationTarget.None
@@ -1725,6 +1730,18 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             StartReadinessState.Blocked => "\uE711",
             StartReadinessState.Loading => "\uE895",
             _ => "\uE946"
+        };
+    }
+
+    private static string GetReadinessGlyphBrushKey(StartReadinessState state)
+    {
+        return state switch
+        {
+            StartReadinessState.Ready => "FoundryStatusReadyBrush",
+            StartReadinessState.Warning => "FoundryStatusWarningBrush",
+            StartReadinessState.Blocked => "FoundryStatusBlockedBrush",
+            StartReadinessState.Loading => "FoundryStatusBusyBrush",
+            _ => "FoundryStatusNeutralBrush"
         };
     }
 

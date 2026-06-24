@@ -35,7 +35,7 @@
                     <FontIcon Glyph="&#xF2B7;" />
                 </wct:SettingsCard.HeaderIcon>
                 <ComboBox x:Name="LanguageComboBox"
-                    MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                    Width="{ThemeResource FoundryWideInputMinWidth}"
                     ItemsSource="{x:Bind ViewModel.SupportedLanguages, Mode=OneWay}"
                     SelectedItem="{x:Bind ViewModel.SelectedLanguage, Mode=TwoWay}"
                     SelectionChanged="LanguageComboBox_SelectionChanged">

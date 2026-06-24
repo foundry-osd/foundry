@@ -72,12 +72,15 @@ public sealed partial class GeneralConfigurationPage : Page
 
         ArchitectureCard.Header = localizationService.GetString("StartMedia.Architecture.Header");
         ArchitectureCard.Description = localizationService.GetString("StartMedia.Architecture.Description");
+        SecureBootCard.Header = localizationService.GetString("GeneralConfiguration.SecureBoot.Header");
+        SecureBootCard.Description = localizationService.GetString("GeneralConfiguration.SecureBoot.Description");
         Ca2023Toggle.OnContent = localizationService.GetString("StartMedia.Signature.Ca2023");
         Ca2023Toggle.OffContent = localizationService.GetString("StartMedia.Signature.Ca2011");
 
         WinPeLanguageCard.Header = localizationService.GetString("StartMedia.WinPeLanguage.Header");
         WinPeLanguageCard.Description = localizationService.GetString("StartMedia.WinPeLanguage.Description");
         TimeZoneCard.Header = localizationService.GetString("GeneralConfiguration.TimeZone.Header");
+        TimeZoneCard.Description = localizationService.GetString("GeneralConfiguration.TimeZone.Description");
 
         DriverOptionsCard.Header = localizationService.GetString("StartMedia.DriverOptions.Header");
         DriverOptionsCard.Description = localizationService.GetString("StartMedia.DriverOptions.Description");

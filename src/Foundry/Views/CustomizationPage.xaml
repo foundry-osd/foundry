@@ -17,6 +17,7 @@
             <controls:PageHeader
                 Title="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
                 Description="{x:Bind ViewModel.PageDescription, Mode=OneWay}"
+                IconGlyph="&#xE771;"
                 DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}" />
 
             <wct:SettingsExpander
