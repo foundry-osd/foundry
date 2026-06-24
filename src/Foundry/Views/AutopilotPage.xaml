@@ -17,8 +17,8 @@
             <controls:PageHeader
                 Title="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
                 Description="{x:Bind ViewModel.PageDescription, Mode=OneWay}"
-                IconGlyph="&#xE753;"
-                DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}" />
+                DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
+                IconGlyph="&#xE753;" />
 
             <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
                 <wct:SettingsCard

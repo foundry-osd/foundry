@@ -79,8 +79,8 @@
             <controls:PageHeader
                 Title="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
                 Description="{x:Bind ViewModel.PageDescription, Mode=OneWay}"
-                IconGlyph="&#xE768;"
-                DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}" />
+                DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
+                IconGlyph="&#xE768;" />
 
             <InfoBar
                 Title="{x:Bind ViewModel.StatusSummary, Mode=OneWay}"

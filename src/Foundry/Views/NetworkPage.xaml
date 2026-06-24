@@ -16,8 +16,8 @@
             <controls:PageHeader
                 Title="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
                 Description="{x:Bind ViewModel.PageDescription, Mode=OneWay}"
-                IconGlyph="&#xE774;"
-                DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}" />
+                DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
+                IconGlyph="&#xE774;" />
 
             <wct:SettingsExpander
                 Description="{x:Bind ViewModel.EthernetDescription, Mode=OneWay}"
