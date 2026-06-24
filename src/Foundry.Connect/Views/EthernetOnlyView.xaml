@@ -1,10 +1,4 @@
-<UserControl
-    x:Class="Foundry.Connect.Views.EthernetOnlyView"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+﻿<UserControl x:Class="Foundry.Connect.Views.EthernetOnlyView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
     <Grid>
         <Border VerticalAlignment="Top" Style="{StaticResource SectionCardBorderStyle}">
             <Grid>
@@ -13,27 +7,12 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock
-                    Margin="0,0,16,0"
-                    VerticalAlignment="Top"
-                    FontFamily="{StaticResource SymbolThemeFontFamily}"
-                    FontSize="28"
-                    Text="{Binding EthernetGlyph}" />
+                <TextBlock Margin="0,0,16,0" VerticalAlignment="Top" FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="28" Text="{Binding EthernetGlyph}" />
 
                 <StackPanel Grid.Column="1">
                     <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="{Binding Strings[Ethernet.Title]}" />
-                    <TextBlock
-                        Margin="0,8,0,0"
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        Text="{Binding EthernetStatusText}"
-                        TextWrapping="Wrap" />
-                    <TextBlock
-                        Margin="0,4,0,0"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        Text="{Binding EthernetSecondaryStatusText}"
-                        TextWrapping="Wrap"
-                        Visibility="{Binding HasEthernetSecondaryStatus, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <TextBlock Margin="0,8,0,0" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding EthernetStatusText}" TextWrapping="Wrap" />
+                    <TextBlock Margin="0,4,0,0" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding EthernetSecondaryStatusText}" TextWrapping="Wrap" Visibility="{Binding HasEthernetSecondaryStatus, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     <Grid Margin="0,12,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -46,34 +25,11 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Ethernet.AdapterLabel]}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Margin="8,0,0,0"
-                            Style="{StaticResource BodyTextBlockStyle}"
-                            Text="{Binding EthernetAdapterName}"
-                            TextTrimming="CharacterEllipsis" />
-                        <TextBlock
-                            Grid.Row="1"
-                            Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="{Binding Strings[Ethernet.Ipv4Label]}" />
-                        <TextBlock
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            Margin="8,0,0,0"
-                            Style="{StaticResource BodyTextBlockStyle}"
-                            Text="{Binding EthernetIpAddress}"
-                            TextTrimming="CharacterEllipsis" />
-                        <TextBlock
-                            Grid.Row="2"
-                            Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="{Binding Strings[Ethernet.GatewayLabel]}" />
-                        <TextBlock
-                            Grid.Row="2"
-                            Grid.Column="1"
-                            Margin="8,0,0,0"
-                            Style="{StaticResource BodyTextBlockStyle}"
-                            Text="{Binding EthernetGateway}"
-                            TextTrimming="CharacterEllipsis" />
+                        <TextBlock Grid.Column="1" Margin="8,0,0,0" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding EthernetAdapterName}" TextTrimming="CharacterEllipsis" />
+                        <TextBlock Grid.Row="1" Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Ethernet.Ipv4Label]}" />
+                        <TextBlock Grid.Row="1" Grid.Column="1" Margin="8,0,0,0" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding EthernetIpAddress}" TextTrimming="CharacterEllipsis" />
+                        <TextBlock Grid.Row="2" Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Strings[Ethernet.GatewayLabel]}" />
+                        <TextBlock Grid.Row="2" Grid.Column="1" Margin="8,0,0,0" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding EthernetGateway}" TextTrimming="CharacterEllipsis" />
                     </Grid>
                 </StackPanel>
             </Grid>

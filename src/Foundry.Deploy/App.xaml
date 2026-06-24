@@ -1,8 +1,4 @@
-<Application
-    x:Class="Foundry.Deploy.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converters="clr-namespace:Foundry.Deploy.Converters">
+﻿<Application x:Class="Foundry.Deploy.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:converters="clr-namespace:Foundry.Deploy.Converters">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -24,9 +20,7 @@
             <Style x:Key="ScrollViewerContentGutterBorderStyle" TargetType="Border">
                 <Setter Property="Padding" Value="0" />
                 <Style.Triggers>
-                    <DataTrigger
-                        Binding="{Binding ComputedVerticalScrollBarVisibility, RelativeSource={RelativeSource AncestorType={x:Type ScrollViewer}}}"
-                        Value="Visible">
+                    <DataTrigger Binding="{Binding ComputedVerticalScrollBarVisibility, RelativeSource={RelativeSource AncestorType={x:Type ScrollViewer}}}" Value="Visible">
                         <Setter Property="Padding" Value="0,0,24,0" />
                     </DataTrigger>
                 </Style.Triggers>

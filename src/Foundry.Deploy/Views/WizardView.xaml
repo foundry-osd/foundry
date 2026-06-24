@@ -1,12 +1,4 @@
-<UserControl
-    x:Class="Foundry.Deploy.Views.WizardView"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib"
-    xmlns:wizardViews="clr-namespace:Foundry.Deploy.Views.Wizard"
-    mc:Ignorable="d">
+﻿<UserControl x:Class="Foundry.Deploy.Views.WizardView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:wizardViews="clr-namespace:Foundry.Deploy.Views.Wizard" mc:Ignorable="d">
     <UserControl.Resources>
         <DataTemplate x:Key="TargetStepTemplate">
             <wizardViews:TargetStepView />
@@ -32,10 +24,7 @@
             <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
         </Style>
 
-        <Style
-            x:Key="WizardStepTextStyle"
-            BasedOn="{StaticResource BodyStrongTextBlockStyle}"
-            TargetType="TextBlock">
+        <Style x:Key="WizardStepTextStyle" BasedOn="{StaticResource BodyStrongTextBlockStyle}" TargetType="TextBlock">
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="TextWrapping" Value="Wrap" />
         </Style>
@@ -163,24 +152,10 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <StackPanel
-                HorizontalAlignment="Right"
-                Orientation="Horizontal">
-                <Button
-                    Width="120"
-                    Margin="0,0,8,0"
-                    Command="{Binding PreviousWizardStepCommand}"
-                    Content="{Binding Strings[Common.Previous]}" />
-                <Button
-                    Width="120"
-                    Margin="0,0,8,0"
-                    Command="{Binding NextWizardStepCommand}"
-                    Content="{Binding Strings[Common.Next]}" />
-                <Button
-                    Width="160"
-                    Command="{Binding StartDeploymentCommand}"
-                    Content="{Binding Strings[Common.Deploy]}"
-                    Style="{DynamicResource AccentButtonStyle}" />
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button Width="120" Margin="0,0,8,0" Command="{Binding PreviousWizardStepCommand}" Content="{Binding Strings[Common.Previous]}" />
+                <Button Width="120" Margin="0,0,8,0" Command="{Binding NextWizardStepCommand}" Content="{Binding Strings[Common.Next]}" />
+                <Button Width="160" Command="{Binding StartDeploymentCommand}" Content="{Binding Strings[Common.Deploy]}" Style="{DynamicResource AccentButtonStyle}" />
             </StackPanel>
         </Grid>
     </Grid>

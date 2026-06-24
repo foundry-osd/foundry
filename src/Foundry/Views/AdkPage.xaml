@@ -1,46 +1,18 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<Page x:Class="Foundry.Views.AdkPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:controls="using:Foundry.Controls"
-      xmlns:dev="using:DevWinUI"
-      xmlns:wct="using:CommunityToolkit.WinUI.Controls">
-    <ScrollView Margin="{ThemeResource ContentPageMargin}"
-                Padding="{ThemeResource ContentPagePadding}"
-                VerticalScrollBarVisibility="Auto">
-        <StackPanel dev:PanelAttach.ChildrenTransitions="Default"
-                    Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
-            <controls:PageHeader Title="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
-                                 Description="{x:Bind ViewModel.PageDescription, Mode=OneWay}"
-                                 DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}" />
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Page x:Class="Foundry.Views.AdkPage" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:controls="using:Foundry.Controls" xmlns:dev="using:DevWinUI" xmlns:wct="using:CommunityToolkit.WinUI.Controls">
+    <ScrollView Margin="{ThemeResource ContentPageMargin}" Padding="{ThemeResource ContentPagePadding}" VerticalScrollBarVisibility="Auto">
+        <StackPanel dev:PanelAttach.ChildrenTransitions="Default" Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+            <controls:PageHeader Title="{x:Bind ViewModel.PageTitle, Mode=OneWay}" Description="{x:Bind ViewModel.PageDescription, Mode=OneWay}" DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}" />
 
-            <InfoBar IsClosable="False"
-                     IsIconVisible="True"
-                     IsOpen="True"
-                     Message="{x:Bind ViewModel.StatusDescription, Mode=OneWay}"
-                     Severity="{x:Bind ViewModel.StatusSeverity, Mode=OneWay}"
-                     Title="{x:Bind ViewModel.StatusTitle, Mode=OneWay}" />
+            <InfoBar Title="{x:Bind ViewModel.StatusTitle, Mode=OneWay}" IsClosable="False" IsIconVisible="True" IsOpen="True" Message="{x:Bind ViewModel.StatusDescription, Mode=OneWay}" Severity="{x:Bind ViewModel.StatusSeverity, Mode=OneWay}" />
 
-            <wct:SettingsCard Description="{x:Bind ViewModel.SetupActionDescription, Mode=OneWay}"
-                              Header="{x:Bind ViewModel.SetupActionTitle, Mode=OneWay}"
-                              Visibility="{x:Bind ViewModel.IsSetupActionVisible, Mode=OneWay}">
+            <wct:SettingsCard Description="{x:Bind ViewModel.SetupActionDescription, Mode=OneWay}" Header="{x:Bind ViewModel.SetupActionTitle, Mode=OneWay}" Visibility="{x:Bind ViewModel.IsSetupActionVisible, Mode=OneWay}">
                 <wct:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xEC7A;" />
                 </wct:SettingsCard.HeaderIcon>
-                <StackPanel Orientation="Horizontal"
-                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                    <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
-                            x:Uid="AdkPage_InstallButton"
-                            Command="{x:Bind ViewModel.InstallAdkCommand}"
-                            IsEnabled="{x:Bind ViewModel.IsActionEnabled, Mode=OneWay}"
-                            Style="{ThemeResource AccentButtonStyle}"
-                            Visibility="{x:Bind ViewModel.IsInstallButtonVisible, Mode=OneWay}" />
-                    <Button MinWidth="{StaticResource SettingActionControlMinWidth}"
-                            Command="{x:Bind ViewModel.UpgradeAdkCommand}"
-                            Content="{x:Bind ViewModel.UpgradeButtonText, Mode=OneWay}"
-                            IsEnabled="{x:Bind ViewModel.IsActionEnabled, Mode=OneWay}"
-                            Style="{ThemeResource AccentButtonStyle}"
-                            Visibility="{x:Bind ViewModel.IsUpgradeButtonVisible, Mode=OneWay}" />
+                <StackPanel Orientation="Horizontal" Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                    <Button x:Uid="AdkPage_InstallButton" MinWidth="{StaticResource SettingActionControlMinWidth}" Command="{x:Bind ViewModel.InstallAdkCommand}" IsEnabled="{x:Bind ViewModel.IsActionEnabled, Mode=OneWay}" Style="{ThemeResource AccentButtonStyle}" Visibility="{x:Bind ViewModel.IsInstallButtonVisible, Mode=OneWay}" />
+                    <Button MinWidth="{StaticResource SettingActionControlMinWidth}" Command="{x:Bind ViewModel.UpgradeAdkCommand}" Content="{x:Bind ViewModel.UpgradeButtonText, Mode=OneWay}" IsEnabled="{x:Bind ViewModel.IsActionEnabled, Mode=OneWay}" Style="{ThemeResource AccentButtonStyle}" Visibility="{x:Bind ViewModel.IsUpgradeButtonVisible, Mode=OneWay}" />
                 </StackPanel>
             </wct:SettingsCard>
 
@@ -48,8 +20,7 @@
                 <wct:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xEC7A;" />
                 </wct:SettingsCard.HeaderIcon>
-                <Grid ColumnSpacing="{ThemeResource FoundrySpace24}"
-                      RowSpacing="{ThemeResource FoundrySpace8}">
+                <Grid ColumnSpacing="{ThemeResource FoundrySpace24}" RowSpacing="{ThemeResource FoundrySpace8}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
@@ -59,40 +30,24 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Row="0"
-                                Grid.Column="0"
-                                Spacing="{ThemeResource FoundryCompactStackSpacing}">
-                        <TextBlock Text="{x:Bind ViewModel.InstalledVersionTitle, Mode=OneWay}"
-                                   Style="{ThemeResource FoundryCaptionTextBlockStyle}" />
-                        <TextBlock Text="{x:Bind ViewModel.InstalledVersion, Mode=OneWay}"
-                                   TextWrapping="WrapWholeWords" />
+                    <StackPanel Grid.Row="0" Grid.Column="0" Spacing="{ThemeResource FoundryCompactStackSpacing}">
+                        <TextBlock Style="{ThemeResource FoundryCaptionTextBlockStyle}" Text="{x:Bind ViewModel.InstalledVersionTitle, Mode=OneWay}" />
+                        <TextBlock Text="{x:Bind ViewModel.InstalledVersion, Mode=OneWay}" TextWrapping="WrapWholeWords" />
                     </StackPanel>
 
-                    <StackPanel Grid.Row="0"
-                                Grid.Column="1"
-                                Spacing="{ThemeResource FoundryCompactStackSpacing}">
-                        <TextBlock Text="{x:Bind ViewModel.RequiredVersionPolicyTitle, Mode=OneWay}"
-                                   Style="{ThemeResource FoundryCaptionTextBlockStyle}" />
-                        <TextBlock Text="{x:Bind ViewModel.RequiredVersionPolicy, Mode=OneWay}"
-                                   TextWrapping="WrapWholeWords" />
+                    <StackPanel Grid.Row="0" Grid.Column="1" Spacing="{ThemeResource FoundryCompactStackSpacing}">
+                        <TextBlock Style="{ThemeResource FoundryCaptionTextBlockStyle}" Text="{x:Bind ViewModel.RequiredVersionPolicyTitle, Mode=OneWay}" />
+                        <TextBlock Text="{x:Bind ViewModel.RequiredVersionPolicy, Mode=OneWay}" TextWrapping="WrapWholeWords" />
                     </StackPanel>
 
-                    <StackPanel Grid.Row="1"
-                                Grid.Column="0"
-                                Spacing="{ThemeResource FoundryCompactStackSpacing}">
-                        <TextBlock Text="{x:Bind ViewModel.WinPeAddonTitle, Mode=OneWay}"
-                                   Style="{ThemeResource FoundryCaptionTextBlockStyle}" />
-                        <TextBlock Text="{x:Bind ViewModel.WinPeAddonStatus, Mode=OneWay}"
-                                   TextWrapping="WrapWholeWords" />
+                    <StackPanel Grid.Row="1" Grid.Column="0" Spacing="{ThemeResource FoundryCompactStackSpacing}">
+                        <TextBlock Style="{ThemeResource FoundryCaptionTextBlockStyle}" Text="{x:Bind ViewModel.WinPeAddonTitle, Mode=OneWay}" />
+                        <TextBlock Text="{x:Bind ViewModel.WinPeAddonStatus, Mode=OneWay}" TextWrapping="WrapWholeWords" />
                     </StackPanel>
 
-                    <StackPanel Grid.Row="1"
-                                Grid.Column="1"
-                                Spacing="{ThemeResource FoundryCompactStackSpacing}">
-                        <TextBlock Text="{x:Bind ViewModel.MediaCapabilityTitle, Mode=OneWay}"
-                                   Style="{ThemeResource FoundryCaptionTextBlockStyle}" />
-                        <TextBlock Text="{x:Bind ViewModel.MediaCapabilityStatus, Mode=OneWay}"
-                                   TextWrapping="WrapWholeWords" />
+                    <StackPanel Grid.Row="1" Grid.Column="1" Spacing="{ThemeResource FoundryCompactStackSpacing}">
+                        <TextBlock Style="{ThemeResource FoundryCaptionTextBlockStyle}" Text="{x:Bind ViewModel.MediaCapabilityTitle, Mode=OneWay}" />
+                        <TextBlock Text="{x:Bind ViewModel.MediaCapabilityStatus, Mode=OneWay}" TextWrapping="WrapWholeWords" />
                     </StackPanel>
                 </Grid>
             </wct:SettingsCard>
