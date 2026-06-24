@@ -34,6 +34,12 @@ Unit testing rules:
 - When adding new functionality, add or update the smallest relevant set of tests
 - Keep test projects aligned with the main project naming and solution structure
 
+Format and verification rules:
+- Before opening or updating a pull request, run `scripts\Test-FoundryFormat.ps1` from the repository root
+- If the format check fails, run `scripts\Format-Foundry.ps1`, review the resulting diff, and rerun `scripts\Test-FoundryFormat.ps1`
+- Treat `scripts\Test-FoundryFormat.ps1` as the source of truth for formatting checks
+- Include the format check result in pull request testing notes
+
 Git rules:
 - Follow Conventional Commits for all commit messages
 - Prefer Conventional Commit scopes when the change has a clear area, for example `feat(winpe): ...`, `fix(packaging): ...`, or `docs(readme): ...`
