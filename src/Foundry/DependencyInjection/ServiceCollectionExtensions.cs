@@ -122,7 +122,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IFilePickerService, WinUiFilePickerService>();
 
         services.AddTransient<MainViewModel>();
-        services.AddSingleton<ContextMenuService>();
+        services.AddSingleton(_ => new ContextMenuService(Windows.Storage.ApplicationData.Current.LocalFolder));
         services.AddTransient<GeneralConfigurationViewModel>();
         services.AddTransient<NetworkConfigurationViewModel>();
         services.AddTransient<AutopilotConfigurationViewModel>();

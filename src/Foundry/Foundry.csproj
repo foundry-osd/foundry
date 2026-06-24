@@ -55,10 +55,9 @@
     <PackageReference Include="Azure.Identity" Version="1.21.0" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
     <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.2.251219" />
-    <PackageReference Include="DevWinUI" Version="9.9.4" />
-    <PackageReference Include="DevWinUI.ContextMenu" Version="9.9.1" />
-    <PackageReference Include="DevWinUI.Controls" Version="9.9.4" />
-    <PackageReference Include="DevWinUI.SourceGenerator" Version="9.9.0" />
+    <PackageReference Include="DevWinUI" Version="10.0.0" />
+    <PackageReference Include="DevWinUI.ContextMenu" Version="10.0.0" />
+    <PackageReference Include="DevWinUI.SourceGenerator" Version="10.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.9" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.9" />
     <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.2.0" />
