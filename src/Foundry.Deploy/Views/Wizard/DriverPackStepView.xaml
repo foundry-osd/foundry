@@ -1,12 +1,11 @@
-<UserControl
-    x:Class="Foundry.Deploy.Views.Wizard.DriverPackStepView"
+﻿<UserControl x:Class="Foundry.Deploy.Views.Wizard.DriverPackStepView" x:Name="ViewRoot"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:Name="ViewRoot"
     mc:Ignorable="d">
-    <ScrollViewer x:Name="DriverPackScrollViewer" VerticalScrollBarVisibility="Auto">
+    <ScrollViewer x:Name="DriverPackScrollViewer"
+        VerticalScrollBarVisibility="Auto">
         <Border
             MinHeight="{Binding ViewportHeight, ElementName=DriverPackScrollViewer}"
             Style="{StaticResource ScrollViewerContentGutterBorderStyle}">
@@ -20,7 +19,9 @@
                     Style="{StaticResource SectionCardBorderStyle}">
                     <Grid DataContext="{Binding DriverPackSelection}">
                         <StackPanel VerticalAlignment="Center">
-                            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding DataContext.Strings[DriverPack.Source], ElementName=ViewRoot}" />
+                            <TextBlock
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{Binding DataContext.Strings[DriverPack.Source], ElementName=ViewRoot}" />
                             <ComboBox
                                 Margin="0,8,0,0"
                                 DisplayMemberPath="DisplayName"

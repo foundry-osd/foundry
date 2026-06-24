@@ -1,5 +1,4 @@
-<UserControl
-    x:Class="Foundry.Deploy.Views.ProgressView"
+﻿<UserControl x:Class="Foundry.Deploy.Views.ProgressView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:Foundry.Deploy.Controls"
@@ -24,7 +23,9 @@
         <Grid Grid.Row="1">
             <views:DeploymentSessionSummaryView />
 
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
                 <Grid
                     Width="180"
                     Height="180"

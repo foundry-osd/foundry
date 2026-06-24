@@ -1,11 +1,11 @@
-<UserControl
-    x:Class="Foundry.Deploy.Views.Wizard.OperatingSystemCatalogStepView"
+﻿<UserControl x:Class="Foundry.Deploy.Views.Wizard.OperatingSystemCatalogStepView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <ScrollViewer x:Name="OperatingSystemCatalogScrollViewer" VerticalScrollBarVisibility="Auto">
+    <ScrollViewer x:Name="OperatingSystemCatalogScrollViewer"
+        VerticalScrollBarVisibility="Auto">
         <Border
             MinHeight="{Binding ViewportHeight, ElementName=OperatingSystemCatalogScrollViewer}"
             Style="{StaticResource ScrollViewerContentGutterBorderStyle}">
@@ -19,7 +19,9 @@
                     Style="{StaticResource SectionCardBorderStyle}">
                     <Grid>
                         <StackPanel VerticalAlignment="Center">
-                            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding Strings[Catalog.OperatingSystem]}" />
+                            <TextBlock
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{Binding Strings[Catalog.OperatingSystem]}" />
                             <TextBox
                                 Margin="0,8,0,0"
                                 IsReadOnly="True"

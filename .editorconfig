@@ -7,7 +7,7 @@ indent_size = 4
 tab_width = 4
 trim_trailing_whitespace = true
 insert_final_newline = true
-file_header_template = Copyright (c) 2026 Foundry Project. Licensed under the MIT License.\nSee the LICENSE file in the project root for more information.
+file_header_template = Copyright (c) Foundry Project contributors.\nLicensed under the MIT License.\nSee the LICENSE file in the project root for more information.
 
 [*{_AssemblyInfo.cs,.g.cs,.g.i.cs,.designer.cs,.Designer.cs}]
 generated_code = true
@@ -29,6 +29,7 @@ trim_trailing_whitespace = false
 indent_size = 4
 
 [*.cs]
+dotnet_diagnostic.IDE0073.severity = error
 csharp_using_directive_placement = outside_namespace:silent
 csharp_style_namespace_declarations = file_scoped:suggestion
 dotnet_code_quality_unused_parameters = all:suggestion

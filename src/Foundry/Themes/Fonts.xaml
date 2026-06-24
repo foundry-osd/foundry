@@ -1,16 +1,17 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style x:Key="FoundryPageTitleTextBlockStyle"
-           TargetType="TextBlock"
-           BasedOn="{StaticResource TitleTextBlockStyle}" />
+        BasedOn="{StaticResource TitleTextBlockStyle}"
+        TargetType="TextBlock" />
     <Style x:Key="FoundrySectionTitleTextBlockStyle"
-           TargetType="TextBlock"
-           BasedOn="{StaticResource SubtitleTextBlockStyle}" />
+        BasedOn="{StaticResource SubtitleTextBlockStyle}"
+        TargetType="TextBlock" />
     <Style x:Key="FoundryBodyTextBlockStyle"
-           TargetType="TextBlock"
-           BasedOn="{StaticResource BodyTextBlockStyle}" />
+        BasedOn="{StaticResource BodyTextBlockStyle}"
+        TargetType="TextBlock" />
     <Style x:Key="FoundryCaptionTextBlockStyle"
-           TargetType="TextBlock"
-           BasedOn="{StaticResource CaptionTextBlockStyle}" />
+        BasedOn="{StaticResource CaptionTextBlockStyle}"
+        TargetType="TextBlock" />
 </ResourceDictionary>

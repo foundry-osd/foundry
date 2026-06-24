@@ -1,3 +1,7 @@
+// Copyright (c) Foundry Project contributors.
+// Licensed under the MIT License.
+// See the LICENSE file in the project root for more information.
+
 using System.Collections.ObjectModel;
 using Foundry.Core.Services.Application;
 using Foundry.Services.GitHub;
