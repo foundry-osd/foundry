@@ -131,11 +131,6 @@ namespace Foundry.ViewModels
             try
             {
                 ApplicationUpdateCheckResult result = await applicationUpdateService.CheckForUpdatesAsync();
-                DateTimeOffset checkedAt = DateTimeOffset.Now;
-                appSettingsService.Current.Updates.LastCheckedAt = checkedAt;
-                appSettingsService.Save();
-
-                LastUpdateCheck = FormatLastUpdateCheck(checkedAt);
                 ApplyCurrentUpdateState(result);
             }
             finally
@@ -242,6 +237,7 @@ namespace Foundry.ViewModels
         private void ApplyCurrentUpdateState(ApplicationUpdateCheckResult? result)
         {
             currentCheckResult = result;
+            LastUpdateCheck = FormatLastUpdateCheck(appSettingsService.Current.Updates.LastCheckedAt);
 
             if (result is null)
             {

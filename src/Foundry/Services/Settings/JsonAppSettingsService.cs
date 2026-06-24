@@ -19,6 +19,7 @@ namespace Foundry.Services.Settings;
 internal sealed partial class JsonAppSettingsService : IAppSettingsService
 {
     private readonly ILogger logger;
+    private readonly object saveLock = new();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="JsonAppSettingsService"/> class.
@@ -46,16 +47,19 @@ internal sealed partial class JsonAppSettingsService : IAppSettingsService
     /// <inheritdoc />
     public void Save()
     {
-        try
+        lock (saveLock)
         {
-            Directory.CreateDirectory(Constants.SettingsDirectoryPath);
-            string json = JsonSerializer.Serialize(Current, FoundryAppSettingsJsonContext.Default.FoundryAppSettings);
-            File.WriteAllText(Constants.AppSettingsPath, json);
-        }
-        catch (Exception ex)
-        {
-            logger.Error(ex, "Failed to save app settings. SettingsPath={SettingsPath}", Constants.AppSettingsPath);
-            throw;
+            try
+            {
+                Directory.CreateDirectory(Constants.SettingsDirectoryPath);
+                string json = JsonSerializer.Serialize(Current, FoundryAppSettingsJsonContext.Default.FoundryAppSettings);
+                File.WriteAllText(Constants.AppSettingsPath, json);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Failed to save app settings. SettingsPath={SettingsPath}", Constants.AppSettingsPath);
+                throw;
+            }
         }
     }
 
