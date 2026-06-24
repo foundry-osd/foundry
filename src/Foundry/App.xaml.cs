@@ -113,11 +113,11 @@ namespace Foundry
 
         private static async Task InitializeAppAsync()
         {
-            ContextMenuService menuService = GetService<ContextMenuService>();
             if (RuntimeHelper.IsPackaged())
             {
                 try
                 {
+                    ContextMenuService menuService = GetService<ContextMenuService>();
                     ContextMenuItem menu = new()
                     {
                         Title = "Open Foundry Here",
@@ -172,7 +172,7 @@ namespace Foundry
             BackdropType backdropType = ParseEnum(settingsService.Current.Appearance.BackdropType, BackdropType.Mica);
 
             ThemeService
-                .ConfigureAutoSave(false, Constants.AppSettingsPath)
+                .ConfigureAutoSave(false)
                 .ConfigureElementTheme(elementTheme)
                 .ConfigureBackdrop(backdropType)
                 .Initialize(MainWindow);
