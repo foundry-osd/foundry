@@ -1,4 +1,17 @@
-﻿<Window x:Class="Foundry.Deploy.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:Foundry.Deploy" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:runtime="clr-namespace:Foundry.Deploy.Services.Runtime" xmlns:views="clr-namespace:Foundry.Deploy.Views" Title="{Binding WindowTitle}" Icon="/Assets/Icons/app.ico" ResizeMode="NoResize" WindowState="Maximized" WindowStyle="None" mc:Ignorable="d">
+﻿<Window x:Class="Foundry.Deploy.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Foundry.Deploy"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:runtime="clr-namespace:Foundry.Deploy.Services.Runtime"
+    xmlns:views="clr-namespace:Foundry.Deploy.Views"
+    Title="{Binding WindowTitle}"
+    Icon="/Assets/Icons/app.ico"
+    ResizeMode="NoResize"
+    WindowState="Maximized"
+    WindowStyle="None"
+    mc:Ignorable="d">
     <Window.Resources>
         <DataTemplate x:Key="SplashPageTemplate">
             <views:SplashView />
@@ -27,7 +40,9 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Panel.ZIndex="1">
+        <Grid
+            Grid.Row="0"
+            Panel.ZIndex="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
@@ -35,82 +50,206 @@
 
             <Menu Grid.Column="0">
                 <MenuItem Header="{Binding Strings[Menu.Theme]}">
-                    <MenuItem Command="{Binding SetSystemThemeCommand}" Header="{Binding Strings[Theme.System]}" />
-                    <MenuItem Command="{Binding SetLightThemeCommand}" Header="{Binding Strings[Theme.Light]}" />
-                    <MenuItem Command="{Binding SetDarkThemeCommand}" Header="{Binding Strings[Theme.Dark]}" />
+                    <MenuItem
+                        Command="{Binding SetSystemThemeCommand}"
+                        Header="{Binding Strings[Theme.System]}" />
+                    <MenuItem
+                        Command="{Binding SetLightThemeCommand}"
+                        Header="{Binding Strings[Theme.Light]}" />
+                    <MenuItem
+                        Command="{Binding SetDarkThemeCommand}"
+                        Header="{Binding Strings[Theme.Dark]}" />
                 </MenuItem>
-                <MenuItem Header="{Binding Strings[Menu.Language]}" ItemsSource="{Binding SupportedCultures}">
+                <MenuItem
+                    Header="{Binding Strings[Menu.Language]}"
+                    ItemsSource="{Binding SupportedCultures}">
                     <MenuItem.ItemContainerStyle>
                         <Style TargetType="{x:Type MenuItem}">
-                            <Setter Property="Header" Value="{Binding DisplayName}" />
-                            <Setter Property="Command" Value="{Binding DataContext.SetCultureCommand, RelativeSource={RelativeSource AncestorType={x:Type Menu}}}" />
-                            <Setter Property="CommandParameter" Value="{Binding Code}" />
-                            <Setter Property="IsCheckable" Value="True" />
-                            <Setter Property="IsChecked" Value="{Binding IsSelected, Mode=OneWay}" />
+                            <Setter
+                                Property="Header"
+                                Value="{Binding DisplayName}" />
+                            <Setter
+                                Property="Command"
+                                Value="{Binding DataContext.SetCultureCommand, RelativeSource={RelativeSource AncestorType={x:Type Menu}}}" />
+                            <Setter
+                                Property="CommandParameter"
+                                Value="{Binding Code}" />
+                            <Setter
+                                Property="IsCheckable"
+                                Value="True" />
+                            <Setter
+                                Property="IsChecked"
+                                Value="{Binding IsSelected, Mode=OneWay}" />
                         </Style>
                     </MenuItem.ItemContainerStyle>
                 </MenuItem>
                 <MenuItem Header="{Binding Strings[Menu.Tools]}">
-                    <MenuItem Command="{Binding Session.OpenLogFileCommand}" Header="{Binding Strings[Tools.OpenLogFile]}" />
+                    <MenuItem
+                        Command="{Binding Session.OpenLogFileCommand}"
+                        Header="{Binding Strings[Tools.OpenLogFile]}" />
                 </MenuItem>
-                <MenuItem Header="{Binding Strings[Menu.Debug]}" Visibility="{Binding IsDebugSafeMode, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <MenuItem
+                    Header="{Binding Strings[Menu.Debug]}"
+                    Visibility="{Binding IsDebugSafeMode, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <MenuItem Header="{Binding Strings[Debug.Autopilot]}">
-                        <MenuItem Command="{Binding SetDebugAutopilotModeCommand}" CommandParameter="{x:Static runtime:DebugAutopilotMode.None}" Header="{Binding Strings[Debug.Autopilot.NoAutopilot]}" IsCheckable="True" IsChecked="{Binding IsDebugAutopilotNoneMode, Mode=OneWay}" />
-                        <MenuItem Command="{Binding SetDebugAutopilotModeCommand}" CommandParameter="{x:Static runtime:DebugAutopilotMode.JsonProfile}" Header="{Binding Strings[Debug.Autopilot.JsonProfile]}" IsCheckable="True" IsChecked="{Binding IsDebugAutopilotJsonProfileMode, Mode=OneWay}" />
+                        <MenuItem
+                            Command="{Binding SetDebugAutopilotModeCommand}"
+                            CommandParameter="{x:Static runtime:DebugAutopilotMode.None}"
+                            Header="{Binding Strings[Debug.Autopilot.NoAutopilot]}"
+                            IsCheckable="True"
+                            IsChecked="{Binding IsDebugAutopilotNoneMode, Mode=OneWay}" />
+                        <MenuItem
+                            Command="{Binding SetDebugAutopilotModeCommand}"
+                            CommandParameter="{x:Static runtime:DebugAutopilotMode.JsonProfile}"
+                            Header="{Binding Strings[Debug.Autopilot.JsonProfile]}"
+                            IsCheckable="True"
+                            IsChecked="{Binding IsDebugAutopilotJsonProfileMode, Mode=OneWay}" />
                         <MenuItem Header="{Binding Strings[Debug.Autopilot.HardwareHashUpload]}">
-                            <MenuItem Command="{Binding SetDebugAutopilotModeCommand}" CommandParameter="{x:Static runtime:DebugAutopilotMode.HardwareHashUploadValidCertificate}" Header="{Binding Strings[Debug.Autopilot.HardwareHashUpload.ValidCertificate]}" IsCheckable="True" IsChecked="{Binding IsDebugAutopilotHardwareHashUploadValidCertificateMode, Mode=OneWay}" />
-                            <MenuItem Command="{Binding SetDebugAutopilotModeCommand}" CommandParameter="{x:Static runtime:DebugAutopilotMode.HardwareHashUploadExpiredCertificate}" Header="{Binding Strings[Debug.Autopilot.HardwareHashUpload.ExpiredCertificate]}" IsCheckable="True" IsChecked="{Binding IsDebugAutopilotHardwareHashUploadExpiredCertificateMode, Mode=OneWay}" />
-                            <MenuItem Command="{Binding SetDebugAutopilotModeCommand}" CommandParameter="{x:Static runtime:DebugAutopilotMode.HardwareHashUploadMissingCertificateMetadata}" Header="{Binding Strings[Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata]}" IsCheckable="True" IsChecked="{Binding IsDebugAutopilotHardwareHashUploadMissingCertificateMetadataMode, Mode=OneWay}" />
-                            <MenuItem Command="{Binding SetDebugAutopilotModeCommand}" CommandParameter="{x:Static runtime:DebugAutopilotMode.HardwareHashUploadNoDefaultGroupTag}" Header="{Binding Strings[Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag]}" IsCheckable="True" IsChecked="{Binding IsDebugAutopilotHardwareHashUploadNoDefaultGroupTagMode, Mode=OneWay}" />
+                            <MenuItem
+                                Command="{Binding SetDebugAutopilotModeCommand}"
+                                CommandParameter="{x:Static runtime:DebugAutopilotMode.HardwareHashUploadValidCertificate}"
+                                Header="{Binding Strings[Debug.Autopilot.HardwareHashUpload.ValidCertificate]}"
+                                IsCheckable="True"
+                                IsChecked="{Binding IsDebugAutopilotHardwareHashUploadValidCertificateMode, Mode=OneWay}" />
+                            <MenuItem
+                                Command="{Binding SetDebugAutopilotModeCommand}"
+                                CommandParameter="{x:Static runtime:DebugAutopilotMode.HardwareHashUploadExpiredCertificate}"
+                                Header="{Binding Strings[Debug.Autopilot.HardwareHashUpload.ExpiredCertificate]}"
+                                IsCheckable="True"
+                                IsChecked="{Binding IsDebugAutopilotHardwareHashUploadExpiredCertificateMode, Mode=OneWay}" />
+                            <MenuItem
+                                Command="{Binding SetDebugAutopilotModeCommand}"
+                                CommandParameter="{x:Static runtime:DebugAutopilotMode.HardwareHashUploadMissingCertificateMetadata}"
+                                Header="{Binding Strings[Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata]}"
+                                IsCheckable="True"
+                                IsChecked="{Binding IsDebugAutopilotHardwareHashUploadMissingCertificateMetadataMode, Mode=OneWay}" />
+                            <MenuItem
+                                Command="{Binding SetDebugAutopilotModeCommand}"
+                                CommandParameter="{x:Static runtime:DebugAutopilotMode.HardwareHashUploadNoDefaultGroupTag}"
+                                Header="{Binding Strings[Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag]}"
+                                IsCheckable="True"
+                                IsChecked="{Binding IsDebugAutopilotHardwareHashUploadNoDefaultGroupTagMode, Mode=OneWay}" />
                         </MenuItem>
                     </MenuItem>
                     <MenuItem Header="{Binding Strings[Debug.DeploymentPages]}">
-                        <MenuItem Command="{Binding ShowDebugProgressPageCommand}" Header="{Binding Strings[Debug.ProgressPageCommand]}" />
-                        <MenuItem Command="{Binding ShowDebugSuccessPageCommand}" Header="{Binding Strings[Debug.SuccessPageCommand]}" />
-                        <MenuItem Command="{Binding ShowDebugErrorPageCommand}" Header="{Binding Strings[Debug.ErrorPageCommand]}" />
+                        <MenuItem
+                            Command="{Binding ShowDebugProgressPageCommand}"
+                            Header="{Binding Strings[Debug.ProgressPageCommand]}" />
+                        <MenuItem
+                            Command="{Binding ShowDebugSuccessPageCommand}"
+                            Header="{Binding Strings[Debug.SuccessPageCommand]}" />
+                        <MenuItem
+                            Command="{Binding ShowDebugErrorPageCommand}"
+                            Header="{Binding Strings[Debug.ErrorPageCommand]}" />
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Command="{Binding ShowAboutCommand}" Header="{Binding Strings[Menu.About]}" />
+                <MenuItem
+                    Command="{Binding ShowAboutCommand}"
+                    Header="{Binding Strings[Menu.About]}" />
             </Menu>
 
-            <StackPanel Grid.Column="1" Margin="0,0,16,0" HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal">
-                <StackPanel Margin="0,0,12,0" Orientation="Horizontal" Visibility="{Binding IsBootMediaUpdateRecommended, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel
+                Grid.Column="1"
+                Margin="0,0,16,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <StackPanel
+                    Margin="0,0,12,0"
+                    Orientation="Horizontal"
+                    Visibility="{Binding IsBootMediaUpdateRecommended, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <StackPanel.ToolTip>
                         <ToolTip>
-                            <TextBlock MaxWidth="480" Text="{Binding BootMediaUpdateRecommendedToolTip}" TextWrapping="Wrap" />
+                            <TextBlock
+                                MaxWidth="480"
+                                Text="{Binding BootMediaUpdateRecommendedToolTip}"
+                                TextWrapping="Wrap" />
                         </ToolTip>
                     </StackPanel.ToolTip>
-                    <TextBlock Margin="0,0,4,0" VerticalAlignment="Center" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{DynamicResource SystemFillColorCautionBrush}" Style="{StaticResource CaptionTextBlockStyle}" Text="&#xE7BA;" />
-                    <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource SystemFillColorCautionBrush}" Style="{StaticResource CaptionTextBlockStyle}" Text="{Binding BootMediaUpdateRecommendedText}" />
+                    <TextBlock
+                        Margin="0,0,4,0"
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource SymbolThemeFontFamily}"
+                        Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="&#xE7BA;" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{Binding BootMediaUpdateRecommendedText}" />
                 </StackPanel>
-                <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Style="{StaticResource CaptionTextBlockStyle}" Text="{Binding VersionDisplay}" />
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="{Binding VersionDisplay}" />
             </StackPanel>
         </Grid>
 
-        <Grid x:Name="SplashContentHost" Grid.Row="0" Grid.RowSpan="2" Margin="32" Visibility="{Binding Session.IsSplashPage, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Grid Width="{Binding ElementName=SplashContentHost, Path=ActualWidth}" Height="{Binding ElementName=SplashContentHost, Path=ActualHeight}" MaxWidth="1440" MaxHeight="900" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <ContentControl Content="{Binding}" ContentTemplate="{StaticResource SplashPageTemplate}" />
+        <Grid x:Name="SplashContentHost"
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Margin="32"
+            Visibility="{Binding Session.IsSplashPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid
+                Width="{Binding ElementName=SplashContentHost, Path=ActualWidth}"
+                Height="{Binding ElementName=SplashContentHost, Path=ActualHeight}"
+                MaxWidth="1440"
+                MaxHeight="900"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                <ContentControl
+                    Content="{Binding}"
+                    ContentTemplate="{StaticResource SplashPageTemplate}" />
             </Grid>
         </Grid>
 
-        <Grid x:Name="MainContentHost" Grid.Row="1" Margin="16" Visibility="{Binding Session.IsSplashPage, Converter={StaticResource InverseBooleanConverter}}">
-            <Grid Width="{Binding ElementName=MainContentHost, Path=ActualWidth}" Height="{Binding ElementName=MainContentHost, Path=ActualHeight}" MaxWidth="1440" MaxHeight="900" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid x:Name="MainContentHost"
+            Grid.Row="1"
+            Margin="16"
+            Visibility="{Binding Session.IsSplashPage, Converter={StaticResource InverseBooleanConverter}}">
+            <Grid
+                Width="{Binding ElementName=MainContentHost, Path=ActualWidth}"
+                Height="{Binding ElementName=MainContentHost, Path=ActualHeight}"
+                MaxWidth="1440"
+                MaxHeight="900"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
                 <ContentControl Content="{Binding}">
                     <ContentControl.Style>
                         <Style TargetType="ContentControl">
-                            <Setter Property="ContentTemplate" Value="{StaticResource WizardPageTemplate}" />
+                            <Setter
+                                Property="ContentTemplate"
+                                Value="{StaticResource WizardPageTemplate}" />
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding Session.CurrentPage}" Value="{x:Static local:DeploymentPage.Wizard}">
-                                    <Setter Property="ContentTemplate" Value="{StaticResource WizardPageTemplate}" />
+                                <DataTrigger
+                                    Binding="{Binding Session.CurrentPage}"
+                                    Value="{x:Static local:DeploymentPage.Wizard}">
+                                    <Setter
+                                        Property="ContentTemplate"
+                                        Value="{StaticResource WizardPageTemplate}" />
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding Session.CurrentPage}" Value="{x:Static local:DeploymentPage.Progress}">
-                                    <Setter Property="ContentTemplate" Value="{StaticResource ProgressPageTemplate}" />
+                                <DataTrigger
+                                    Binding="{Binding Session.CurrentPage}"
+                                    Value="{x:Static local:DeploymentPage.Progress}">
+                                    <Setter
+                                        Property="ContentTemplate"
+                                        Value="{StaticResource ProgressPageTemplate}" />
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding Session.CurrentPage}" Value="{x:Static local:DeploymentPage.Success}">
-                                    <Setter Property="ContentTemplate" Value="{StaticResource SuccessPageTemplate}" />
+                                <DataTrigger
+                                    Binding="{Binding Session.CurrentPage}"
+                                    Value="{x:Static local:DeploymentPage.Success}">
+                                    <Setter
+                                        Property="ContentTemplate"
+                                        Value="{StaticResource SuccessPageTemplate}" />
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding Session.CurrentPage}" Value="{x:Static local:DeploymentPage.Error}">
-                                    <Setter Property="ContentTemplate" Value="{StaticResource ErrorPageTemplate}" />
+                                <DataTrigger
+                                    Binding="{Binding Session.CurrentPage}"
+                                    Value="{x:Static local:DeploymentPage.Error}">
+                                    <Setter
+                                        Property="ContentTemplate"
+                                        Value="{StaticResource ErrorPageTemplate}" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>

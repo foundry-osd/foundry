@@ -1,56 +1,145 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Page x:Class="Foundry.Views.AutopilotPage" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:behaviors="using:Foundry.Behaviors" xmlns:controls="using:Foundry.Controls" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:tv="using:WinUI.TableView" xmlns:wct="using:CommunityToolkit.WinUI.Controls" mc:Ignorable="d">
-    <ScrollView Margin="{ThemeResource ContentPageMargin}" Padding="{ThemeResource ContentPagePadding}" VerticalScrollBarVisibility="Auto">
+<Page x:Class="Foundry.Views.AutopilotPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="using:Foundry.Behaviors"
+    xmlns:controls="using:Foundry.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tv="using:WinUI.TableView"
+    xmlns:wct="using:CommunityToolkit.WinUI.Controls"
+    mc:Ignorable="d">
+    <ScrollView
+        Margin="{ThemeResource ContentPageMargin}"
+        Padding="{ThemeResource ContentPagePadding}"
+        VerticalScrollBarVisibility="Auto">
         <StackPanel>
-            <controls:PageHeader Title="{x:Bind ViewModel.PageTitle, Mode=OneWay}" Description="{x:Bind ViewModel.PageDescription, Mode=OneWay}" DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}" />
+            <controls:PageHeader
+                Title="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
+                Description="{x:Bind ViewModel.PageDescription, Mode=OneWay}"
+                DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}" />
 
             <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
-                <wct:SettingsCard Description="{x:Bind ViewModel.AutopilotDescription, Mode=OneWay}" Header="{x:Bind ViewModel.AutopilotHeader, Mode=OneWay}">
+                <wct:SettingsCard
+                    Description="{x:Bind ViewModel.AutopilotDescription, Mode=OneWay}"
+                    Header="{x:Bind ViewModel.AutopilotHeader, Mode=OneWay}">
                     <wct:SettingsCard.HeaderIcon>
                         <FontIcon Glyph="&#xE753;" />
                     </wct:SettingsCard.HeaderIcon>
-                    <ToggleSwitch behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True" AutomationProperties.Name="{x:Bind ViewModel.EnableAutopilotText, Mode=OneWay}" IsOn="{x:Bind ViewModel.IsAutopilotEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <ToggleSwitch
+                        behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                        AutomationProperties.Name="{x:Bind ViewModel.EnableAutopilotText, Mode=OneWay}"
+                        IsOn="{x:Bind ViewModel.IsAutopilotEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </wct:SettingsCard>
 
-                <wct:SettingsExpander Description="{x:Bind ViewModel.JsonProfileDescription, Mode=OneWay}" Header="{x:Bind ViewModel.JsonProfileHeader, Mode=OneWay}" IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}" IsExpanded="{x:Bind ViewModel.UseJsonProfileProvisioning, Mode=OneWay}">
+                <wct:SettingsExpander
+                    Description="{x:Bind ViewModel.JsonProfileDescription, Mode=OneWay}"
+                    Header="{x:Bind ViewModel.JsonProfileHeader, Mode=OneWay}"
+                    IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}"
+                    IsExpanded="{x:Bind ViewModel.UseJsonProfileProvisioning, Mode=OneWay}">
                     <wct:SettingsExpander.HeaderIcon>
                         <FontIcon Glyph="&#xE7C3;" />
                     </wct:SettingsExpander.HeaderIcon>
-                    <ToggleSwitch behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True" AutomationProperties.Name="{x:Bind ViewModel.JsonProfileEnableText, Mode=OneWay}" IsOn="{x:Bind ViewModel.UseJsonProfileProvisioning, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <ToggleSwitch
+                        behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                        AutomationProperties.Name="{x:Bind ViewModel.JsonProfileEnableText, Mode=OneWay}"
+                        IsOn="{x:Bind ViewModel.UseJsonProfileProvisioning, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <wct:SettingsExpander.Items>
-                        <wct:SettingsCard HorizontalContentAlignment="Stretch" Description="{x:Bind ViewModel.ActionsDescription, Mode=OneWay}" Header="{x:Bind ViewModel.ActionsHeader, Mode=OneWay}" Visibility="{x:Bind ViewModel.JsonProfileSettingsVisibility, Mode=OneWay}">
+                        <wct:SettingsCard
+                            HorizontalContentAlignment="Stretch"
+                            Description="{x:Bind ViewModel.ActionsDescription, Mode=OneWay}"
+                            Header="{x:Bind ViewModel.ActionsHeader, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.JsonProfileSettingsVisibility, Mode=OneWay}">
                             <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Spacing="{ThemeResource FoundrySpace8}" Visibility="{x:Bind ViewModel.BusyStatusVisibility, Mode=OneWay}">
-                                    <ProgressRing Width="{ThemeResource FoundryIconSizeDefault}" Height="{ThemeResource FoundryIconSizeDefault}" IsActive="{x:Bind ViewModel.IsBusy, Mode=OneWay}" />
-                                    <TextBlock VerticalAlignment="Center" Text="{x:Bind ViewModel.BusyStatusText, Mode=OneWay}" />
+                                <StackPanel
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal"
+                                    Spacing="{ThemeResource FoundrySpace8}"
+                                    Visibility="{x:Bind ViewModel.BusyStatusVisibility, Mode=OneWay}">
+                                    <ProgressRing
+                                        Width="{ThemeResource FoundryIconSizeDefault}"
+                                        Height="{ThemeResource FoundryIconSizeDefault}"
+                                        IsActive="{x:Bind ViewModel.IsBusy, Mode=OneWay}" />
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Text="{x:Bind ViewModel.BusyStatusText, Mode=OneWay}" />
                                 </StackPanel>
 
-                                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                                    <Button MinWidth="{StaticResource SettingActionControlMinWidth}" Command="{x:Bind ViewModel.ImportProfileCommand}" Content="{x:Bind ViewModel.ImportButtonText, Mode=OneWay}" />
-                                    <Button MinWidth="{StaticResource SettingActionControlMinWidth}" Command="{x:Bind ViewModel.DownloadProfilesCommand}" Content="{x:Bind ViewModel.DownloadButtonText, Mode=OneWay}" />
-                                    <Button MinWidth="{StaticResource SettingActionControlMinWidth}" Command="{x:Bind ViewModel.RemoveSelectedProfilesCommand}" Content="{x:Bind ViewModel.RemoveButtonText, Mode=OneWay}" />
+                                <StackPanel
+                                    Grid.Column="1"
+                                    Orientation="Horizontal"
+                                    Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                    <Button
+                                        MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                        Command="{x:Bind ViewModel.ImportProfileCommand}"
+                                        Content="{x:Bind ViewModel.ImportButtonText, Mode=OneWay}" />
+                                    <Button
+                                        MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                        Command="{x:Bind ViewModel.DownloadProfilesCommand}"
+                                        Content="{x:Bind ViewModel.DownloadButtonText, Mode=OneWay}" />
+                                    <Button
+                                        MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                        Command="{x:Bind ViewModel.RemoveSelectedProfilesCommand}"
+                                        Content="{x:Bind ViewModel.RemoveButtonText, Mode=OneWay}" />
                                 </StackPanel>
                             </Grid>
                         </wct:SettingsCard>
 
-                        <wct:SettingsCard Description="{x:Bind ViewModel.DefaultProfileDescription, Mode=OneWay}" Header="{x:Bind ViewModel.DefaultProfileLabel, Mode=OneWay}" Visibility="{x:Bind ViewModel.JsonProfileSettingsVisibility, Mode=OneWay}">
-                            <ComboBox Width="{ThemeResource FoundryWideInputMinWidth}" DisplayMemberPath="DisplayName" ItemsSource="{x:Bind ViewModel.Profiles, Mode=OneWay}" SelectedItem="{x:Bind ViewModel.SelectedDefaultProfile, Mode=TwoWay}" />
+                        <wct:SettingsCard
+                            Description="{x:Bind ViewModel.DefaultProfileDescription, Mode=OneWay}"
+                            Header="{x:Bind ViewModel.DefaultProfileLabel, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.JsonProfileSettingsVisibility, Mode=OneWay}">
+                            <ComboBox
+                                Width="{ThemeResource FoundryWideInputMinWidth}"
+                                DisplayMemberPath="DisplayName"
+                                ItemsSource="{x:Bind ViewModel.Profiles, Mode=OneWay}"
+                                SelectedItem="{x:Bind ViewModel.SelectedDefaultProfile, Mode=TwoWay}" />
                         </wct:SettingsCard>
 
-                        <wct:SettingsCard HorizontalContentAlignment="Stretch" Description="{x:Bind ViewModel.ProfilesDescription, Mode=OneWay}" Header="{x:Bind ViewModel.ProfilesLabel, Mode=OneWay}" Visibility="{x:Bind ViewModel.JsonProfileSettingsVisibility, Mode=OneWay}">
+                        <wct:SettingsCard
+                            HorizontalContentAlignment="Stretch"
+                            Description="{x:Bind ViewModel.ProfilesDescription, Mode=OneWay}"
+                            Header="{x:Bind ViewModel.ProfilesLabel, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.JsonProfileSettingsVisibility, Mode=OneWay}">
                             <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
-                                <TextBlock Text="{x:Bind ViewModel.EmptyProfilesText, Mode=OneWay}" TextWrapping="Wrap" Visibility="{x:Bind ViewModel.EmptyProfilesVisibility, Mode=OneWay}" />
-                                <tv:TableView x:Name="ProfilesTable" MaxHeight="{ThemeResource FoundryTableMaxHeight}" AutoGenerateColumns="False" CanFilterColumns="False" CanReorderColumns="False" CanResizeColumns="False" CanSortColumns="False" CornerButtonMode="None" HeadersVisibility="Columns" IsReadOnly="True" ItemsSource="{x:Bind ViewModel.Profiles, Mode=OneWay}" SelectionChanged="ProfilesTable_SelectionChanged" SelectionMode="Multiple" SelectionUnit="Row" ShowExportOptions="False" Visibility="{x:Bind ViewModel.ProfilesVisibility, Mode=OneWay}">
+                                <TextBlock
+                                    Text="{x:Bind ViewModel.EmptyProfilesText, Mode=OneWay}"
+                                    TextWrapping="Wrap"
+                                    Visibility="{x:Bind ViewModel.EmptyProfilesVisibility, Mode=OneWay}" />
+                                <tv:TableView x:Name="ProfilesTable"
+                                    MaxHeight="{ThemeResource FoundryTableMaxHeight}"
+                                    AutoGenerateColumns="False"
+                                    CanFilterColumns="False"
+                                    CanReorderColumns="False"
+                                    CanResizeColumns="False"
+                                    CanSortColumns="False"
+                                    CornerButtonMode="None"
+                                    HeadersVisibility="Columns"
+                                    IsReadOnly="True"
+                                    ItemsSource="{x:Bind ViewModel.Profiles, Mode=OneWay}"
+                                    SelectionChanged="ProfilesTable_SelectionChanged"
+                                    SelectionMode="Multiple"
+                                    SelectionUnit="Row"
+                                    ShowExportOptions="False"
+                                    Visibility="{x:Bind ViewModel.ProfilesVisibility, Mode=OneWay}">
                                     <tv:TableView.Columns>
-                                        <tv:TableViewTextColumn Binding="{Binding DisplayName}" Header="{x:Bind ViewModel.ProfileNameColumnHeader, Mode=OneWay}" />
-                                        <tv:TableViewTextColumn Binding="{Binding Source}" Header="{x:Bind ViewModel.ProfileSourceColumnHeader, Mode=OneWay}" />
-                                        <tv:TableViewTextColumn Binding="{Binding ImportedAtDisplay}" Header="{x:Bind ViewModel.ProfileImportedColumnHeader, Mode=OneWay}" />
-                                        <tv:TableViewTextColumn Binding="{Binding FolderName}" Header="{x:Bind ViewModel.ProfileFolderColumnHeader, Mode=OneWay}" />
+                                        <tv:TableViewTextColumn
+                                            Binding="{Binding DisplayName}"
+                                            Header="{x:Bind ViewModel.ProfileNameColumnHeader, Mode=OneWay}" />
+                                        <tv:TableViewTextColumn
+                                            Binding="{Binding Source}"
+                                            Header="{x:Bind ViewModel.ProfileSourceColumnHeader, Mode=OneWay}" />
+                                        <tv:TableViewTextColumn
+                                            Binding="{Binding ImportedAtDisplay}"
+                                            Header="{x:Bind ViewModel.ProfileImportedColumnHeader, Mode=OneWay}" />
+                                        <tv:TableViewTextColumn
+                                            Binding="{Binding FolderName}"
+                                            Header="{x:Bind ViewModel.ProfileFolderColumnHeader, Mode=OneWay}" />
                                     </tv:TableView.Columns>
                                 </tv:TableView>
                             </StackPanel>
@@ -58,27 +147,72 @@
                     </wct:SettingsExpander.Items>
                 </wct:SettingsExpander>
 
-                <wct:SettingsExpander Description="{x:Bind ViewModel.HardwareHashDescription, Mode=OneWay}" Header="{x:Bind ViewModel.HardwareHashHeader, Mode=OneWay}" IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}" IsExpanded="{x:Bind ViewModel.UseHardwareHashUploadProvisioning, Mode=OneWay}">
+                <wct:SettingsExpander
+                    Description="{x:Bind ViewModel.HardwareHashDescription, Mode=OneWay}"
+                    Header="{x:Bind ViewModel.HardwareHashHeader, Mode=OneWay}"
+                    IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}"
+                    IsExpanded="{x:Bind ViewModel.UseHardwareHashUploadProvisioning, Mode=OneWay}">
                     <wct:SettingsExpander.HeaderIcon>
                         <FontIcon Glyph="&#xEB95;" />
                     </wct:SettingsExpander.HeaderIcon>
-                    <ToggleSwitch behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True" AutomationProperties.Name="{x:Bind ViewModel.HardwareHashEnableText, Mode=OneWay}" IsOn="{x:Bind ViewModel.UseHardwareHashUploadProvisioning, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <ToggleSwitch
+                        behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                        AutomationProperties.Name="{x:Bind ViewModel.HardwareHashEnableText, Mode=OneWay}"
+                        IsOn="{x:Bind ViewModel.UseHardwareHashUploadProvisioning, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <wct:SettingsExpander.Items>
-                        <wct:SettingsCard HorizontalContentAlignment="Stretch" Description="{x:Bind ViewModel.TenantStatusDescription, Mode=OneWay}" Header="{x:Bind ViewModel.TenantStatusLabel, Mode=OneWay}" Visibility="{x:Bind ViewModel.HardwareHashSettingsVisibility, Mode=OneWay}">
-                            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                                <TextBlock VerticalAlignment="Center" Foreground="{x:Bind ViewModel.TenantStatusForeground, Mode=OneWay}" Text="{x:Bind ViewModel.TenantStatusText, Mode=OneWay}" />
-                                <Button MinWidth="{StaticResource SettingActionControlMinWidth}" Command="{x:Bind ViewModel.ConnectTenantCommand}" Content="{x:Bind ViewModel.TenantConnectionButtonText, Mode=OneWay}" />
+                        <wct:SettingsCard
+                            HorizontalContentAlignment="Stretch"
+                            Description="{x:Bind ViewModel.TenantStatusDescription, Mode=OneWay}"
+                            Header="{x:Bind ViewModel.TenantStatusLabel, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.HardwareHashSettingsVisibility, Mode=OneWay}">
+                            <StackPanel
+                                HorizontalAlignment="Right"
+                                Orientation="Horizontal"
+                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Foreground="{x:Bind ViewModel.TenantStatusForeground, Mode=OneWay}"
+                                    Text="{x:Bind ViewModel.TenantStatusText, Mode=OneWay}" />
+                                <Button
+                                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    Command="{x:Bind ViewModel.ConnectTenantCommand}"
+                                    Content="{x:Bind ViewModel.TenantConnectionButtonText, Mode=OneWay}" />
                             </StackPanel>
                         </wct:SettingsCard>
 
-                        <wct:SettingsCard HorizontalContentAlignment="Stretch" Description="{x:Bind ViewModel.TenantReadinessDescription, Mode=OneWay}" Header="{x:Bind ViewModel.TenantReadinessLabel, Mode=OneWay}" Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
-                            <tv:TableView MinWidth="{ThemeResource FoundryWideInputMinWidth}" MaxHeight="{ThemeResource FoundryTableMaxHeight}" HorizontalAlignment="Right" AutoGenerateColumns="False" CanFilterColumns="False" CanReorderColumns="False" CanResizeColumns="False" CanSortColumns="False" CornerButtonMode="None" HeadersVisibility="Columns" IsReadOnly="True" ItemsSource="{x:Bind ViewModel.TenantReadinessEntries, Mode=OneWay}" SelectionMode="None" SelectionUnit="Row" ShowExportOptions="False">
+                        <wct:SettingsCard
+                            HorizontalContentAlignment="Stretch"
+                            Description="{x:Bind ViewModel.TenantReadinessDescription, Mode=OneWay}"
+                            Header="{x:Bind ViewModel.TenantReadinessLabel, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
+                            <tv:TableView
+                                MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                MaxHeight="{ThemeResource FoundryTableMaxHeight}"
+                                HorizontalAlignment="Right"
+                                AutoGenerateColumns="False"
+                                CanFilterColumns="False"
+                                CanReorderColumns="False"
+                                CanResizeColumns="False"
+                                CanSortColumns="False"
+                                CornerButtonMode="None"
+                                HeadersVisibility="Columns"
+                                IsReadOnly="True"
+                                ItemsSource="{x:Bind ViewModel.TenantReadinessEntries, Mode=OneWay}"
+                                SelectionMode="None"
+                                SelectionUnit="Row"
+                                ShowExportOptions="False">
                                 <tv:TableView.Columns>
-                                    <tv:TableViewTextColumn Binding="{Binding Name}" Header="{x:Bind ViewModel.TenantReadinessNameColumnHeader, Mode=OneWay}" />
+                                    <tv:TableViewTextColumn
+                                        Binding="{Binding Name}"
+                                        Header="{x:Bind ViewModel.TenantReadinessNameColumnHeader, Mode=OneWay}" />
                                     <tv:TableViewTemplateColumn Header="{x:Bind ViewModel.TenantReadinessValueColumnHeader, Mode=OneWay}">
                                         <tv:TableViewTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock Margin="12,0,12,0" Foreground="{Binding ValueForeground}" Text="{Binding Value}" TextTrimming="CharacterEllipsis" />
+                                                <TextBlock
+                                                    Margin="12,0,12,0"
+                                                    Foreground="{Binding ValueForeground}"
+                                                    Text="{Binding Value}"
+                                                    TextTrimming="CharacterEllipsis" />
                                             </DataTemplate>
                                         </tv:TableViewTemplateColumn.CellTemplate>
                                     </tv:TableViewTemplateColumn>
@@ -86,60 +220,152 @@
                             </tv:TableView>
                         </wct:SettingsCard>
 
-                        <wct:SettingsCard HorizontalContentAlignment="Stretch" Description="{x:Bind ViewModel.CertificateActionsDescription, Mode=OneWay}" Header="{x:Bind ViewModel.CertificateActionsLabel, Mode=OneWay}" Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
-                            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                                <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}" DisplayMemberPath="DisplayName" ItemsSource="{x:Bind ViewModel.CertificateValidityOptions, Mode=OneWay}" SelectedItem="{x:Bind ViewModel.SelectedCertificateValidityOption, Mode=TwoWay}" />
-                                <Button MinWidth="{StaticResource SettingActionControlMinWidth}" VerticalAlignment="Bottom" Command="{x:Bind ViewModel.CreateCertificateCommand}" Content="{x:Bind ViewModel.CreateCertificateButtonText, Mode=OneWay}" />
-                                <Button MinWidth="{StaticResource SettingActionControlMinWidth}" VerticalAlignment="Bottom" Command="{x:Bind ViewModel.RetireActiveCertificateCommand}" Content="{x:Bind ViewModel.RetireCertificateButtonText, Mode=OneWay}" />
+                        <wct:SettingsCard
+                            HorizontalContentAlignment="Stretch"
+                            Description="{x:Bind ViewModel.CertificateActionsDescription, Mode=OneWay}"
+                            Header="{x:Bind ViewModel.CertificateActionsLabel, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
+                            <StackPanel
+                                HorizontalAlignment="Right"
+                                Orientation="Horizontal"
+                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                <ComboBox
+                                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    DisplayMemberPath="DisplayName"
+                                    ItemsSource="{x:Bind ViewModel.CertificateValidityOptions, Mode=OneWay}"
+                                    SelectedItem="{x:Bind ViewModel.SelectedCertificateValidityOption, Mode=TwoWay}" />
+                                <Button
+                                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    VerticalAlignment="Bottom"
+                                    Command="{x:Bind ViewModel.CreateCertificateCommand}"
+                                    Content="{x:Bind ViewModel.CreateCertificateButtonText, Mode=OneWay}" />
+                                <Button
+                                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    VerticalAlignment="Bottom"
+                                    Command="{x:Bind ViewModel.RetireActiveCertificateCommand}"
+                                    Content="{x:Bind ViewModel.RetireCertificateButtonText, Mode=OneWay}" />
                             </StackPanel>
                         </wct:SettingsCard>
 
-                        <wct:SettingsCard HorizontalContentAlignment="Stretch" Description="{x:Bind ViewModel.ProvisionedCertificatesDescription, Mode=OneWay}" Header="{x:Bind ViewModel.ProvisionedCertificatesLabel, Mode=OneWay}" Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
-                            <StackPanel HorizontalAlignment="Right" Spacing="{ThemeResource FoundrySpace8}">
-                                <TextBlock HorizontalAlignment="Right" Text="{x:Bind ViewModel.EmptyCertificatesText, Mode=OneWay}" TextWrapping="WrapWholeWords" Visibility="{x:Bind ViewModel.EmptyCertificatesVisibility, Mode=OneWay}" />
-                                <tv:TableView x:Name="CertificatesTable" MaxHeight="{ThemeResource FoundryTableMaxHeight}" AutoGenerateColumns="False" CanFilterColumns="False" CanReorderColumns="False" CanResizeColumns="False" CanSortColumns="False" CornerButtonMode="None" HeadersVisibility="Columns" IsReadOnly="True" ItemsSource="{x:Bind ViewModel.Certificates, Mode=OneWay}" SelectionChanged="CertificatesTable_SelectionChanged" SelectionMode="Multiple" SelectionUnit="Row" ShowExportOptions="False" Visibility="{x:Bind ViewModel.CertificatesVisibility, Mode=OneWay}">
+                        <wct:SettingsCard
+                            HorizontalContentAlignment="Stretch"
+                            Description="{x:Bind ViewModel.ProvisionedCertificatesDescription, Mode=OneWay}"
+                            Header="{x:Bind ViewModel.ProvisionedCertificatesLabel, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
+                            <StackPanel
+                                HorizontalAlignment="Right"
+                                Spacing="{ThemeResource FoundrySpace8}">
+                                <TextBlock
+                                    HorizontalAlignment="Right"
+                                    Text="{x:Bind ViewModel.EmptyCertificatesText, Mode=OneWay}"
+                                    TextWrapping="WrapWholeWords"
+                                    Visibility="{x:Bind ViewModel.EmptyCertificatesVisibility, Mode=OneWay}" />
+                                <tv:TableView x:Name="CertificatesTable"
+                                    MaxHeight="{ThemeResource FoundryTableMaxHeight}"
+                                    AutoGenerateColumns="False"
+                                    CanFilterColumns="False"
+                                    CanReorderColumns="False"
+                                    CanResizeColumns="False"
+                                    CanSortColumns="False"
+                                    CornerButtonMode="None"
+                                    HeadersVisibility="Columns"
+                                    IsReadOnly="True"
+                                    ItemsSource="{x:Bind ViewModel.Certificates, Mode=OneWay}"
+                                    SelectionChanged="CertificatesTable_SelectionChanged"
+                                    SelectionMode="Multiple"
+                                    SelectionUnit="Row"
+                                    ShowExportOptions="False"
+                                    Visibility="{x:Bind ViewModel.CertificatesVisibility, Mode=OneWay}">
                                     <tv:TableView.Columns>
-                                        <tv:TableViewTextColumn Binding="{Binding Thumbprint}" Header="{x:Bind ViewModel.CertificateThumbprintColumnHeader, Mode=OneWay}" />
-                                        <tv:TableViewTextColumn Binding="{Binding StartsOnDisplay}" Header="{x:Bind ViewModel.CertificateCreatedColumnHeader, Mode=OneWay}" />
+                                        <tv:TableViewTextColumn
+                                            Binding="{Binding Thumbprint}"
+                                            Header="{x:Bind ViewModel.CertificateThumbprintColumnHeader, Mode=OneWay}" />
+                                        <tv:TableViewTextColumn
+                                            Binding="{Binding StartsOnDisplay}"
+                                            Header="{x:Bind ViewModel.CertificateCreatedColumnHeader, Mode=OneWay}" />
                                         <tv:TableViewTemplateColumn Header="{x:Bind ViewModel.CertificateExpiresColumnHeader, Mode=OneWay}">
                                             <tv:TableViewTemplateColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Margin="12,0,12,0" Foreground="{Binding ValidityForeground}" Text="{Binding ExpiresOnDisplay}" TextTrimming="CharacterEllipsis" />
+                                                    <TextBlock
+                                                        Margin="12,0,12,0"
+                                                        Foreground="{Binding ValidityForeground}"
+                                                        Text="{Binding ExpiresOnDisplay}"
+                                                        TextTrimming="CharacterEllipsis" />
                                                 </DataTemplate>
                                             </tv:TableViewTemplateColumn.CellTemplate>
                                         </tv:TableViewTemplateColumn>
-                                        <tv:TableViewTextColumn Binding="{Binding KeyId}" Header="{x:Bind ViewModel.CertificateIdColumnHeader, Mode=OneWay}" />
+                                        <tv:TableViewTextColumn
+                                            Binding="{Binding KeyId}"
+                                            Header="{x:Bind ViewModel.CertificateIdColumnHeader, Mode=OneWay}" />
                                     </tv:TableView.Columns>
                                 </tv:TableView>
                             </StackPanel>
                         </wct:SettingsCard>
 
-                        <wct:SettingsCard HorizontalContentAlignment="Stretch" Description="{x:Bind ViewModel.BootMediaCertificateDescription, Mode=OneWay}" Header="{x:Bind ViewModel.BootMediaCertificateLabel, Mode=OneWay}" Visibility="{x:Bind ViewModel.BootMediaCertificateVisibility, Mode=OneWay}">
-                            <StackPanel HorizontalAlignment="Right" Spacing="{ThemeResource FoundrySpace8}">
+                        <wct:SettingsCard
+                            HorizontalContentAlignment="Stretch"
+                            Description="{x:Bind ViewModel.BootMediaCertificateDescription, Mode=OneWay}"
+                            Header="{x:Bind ViewModel.BootMediaCertificateLabel, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.BootMediaCertificateVisibility, Mode=OneWay}">
+                            <StackPanel
+                                HorizontalAlignment="Right"
+                                Spacing="{ThemeResource FoundrySpace8}">
                                 <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBox MinWidth="{ThemeResource FoundryWideInputMinWidth}" Header="{x:Bind ViewModel.BootMediaCertificatePfxPathLabel, Mode=OneWay}" IsReadOnly="True" Text="{x:Bind ViewModel.BootMediaCertificatePfxPath, Mode=OneWay}" />
-                                    <Button Grid.Column="1" MinWidth="{StaticResource SettingActionControlMinWidth}" VerticalAlignment="Bottom" Command="{x:Bind ViewModel.SelectBootMediaCertificatePfxCommand}" Content="{x:Bind ViewModel.SelectBootMediaCertificateButtonText, Mode=OneWay}" />
+                                    <TextBox
+                                        MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                        Header="{x:Bind ViewModel.BootMediaCertificatePfxPathLabel, Mode=OneWay}"
+                                        IsReadOnly="True"
+                                        Text="{x:Bind ViewModel.BootMediaCertificatePfxPath, Mode=OneWay}" />
+                                    <Button
+                                        Grid.Column="1"
+                                        MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                        VerticalAlignment="Bottom"
+                                        Command="{x:Bind ViewModel.SelectBootMediaCertificatePfxCommand}"
+                                        Content="{x:Bind ViewModel.SelectBootMediaCertificateButtonText, Mode=OneWay}" />
                                 </Grid>
-                                <PasswordBox x:Name="BootMediaCertificatePasswordBox" MinWidth="{ThemeResource FoundryWideInputMinWidth}" Header="{x:Bind ViewModel.BootMediaCertificatePasswordLabel, Mode=OneWay}" Loaded="BootMediaCertificatePasswordBox_OnLoaded" PasswordChanged="BootMediaCertificatePasswordBox_OnPasswordChanged" />
-                                <TextBlock Foreground="{x:Bind ViewModel.BootMediaCertificateStatusForeground, Mode=OneWay}" Text="{x:Bind ViewModel.BootMediaCertificateStatusText, Mode=OneWay}" TextWrapping="WrapWholeWords" />
+                                <PasswordBox x:Name="BootMediaCertificatePasswordBox"
+                                    MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                    Header="{x:Bind ViewModel.BootMediaCertificatePasswordLabel, Mode=OneWay}"
+                                    Loaded="BootMediaCertificatePasswordBox_OnLoaded"
+                                    PasswordChanged="BootMediaCertificatePasswordBox_OnPasswordChanged" />
+                                <TextBlock
+                                    Foreground="{x:Bind ViewModel.BootMediaCertificateStatusForeground, Mode=OneWay}"
+                                    Text="{x:Bind ViewModel.BootMediaCertificateStatusText, Mode=OneWay}"
+                                    TextWrapping="WrapWholeWords" />
                             </StackPanel>
                         </wct:SettingsCard>
 
-                        <wct:SettingsCard HorizontalContentAlignment="Stretch" Description="{x:Bind ViewModel.GroupTagDescription, Mode=OneWay}" Header="{x:Bind ViewModel.GroupTagLabel, Mode=OneWay}" Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
-                            <ComboBox MinWidth="{StaticResource SettingActionControlMinWidth}" HorizontalAlignment="Right" DisplayMemberPath="DisplayName" ItemsSource="{x:Bind ViewModel.DefaultGroupTagOptions, Mode=OneWay}" PlaceholderText="{x:Bind ViewModel.DefaultGroupTagText, Mode=OneWay}" SelectedItem="{x:Bind ViewModel.SelectedDefaultGroupTag, Mode=TwoWay}" />
+                        <wct:SettingsCard
+                            HorizontalContentAlignment="Stretch"
+                            Description="{x:Bind ViewModel.GroupTagDescription, Mode=OneWay}"
+                            Header="{x:Bind ViewModel.GroupTagLabel, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
+                            <ComboBox
+                                MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                HorizontalAlignment="Right"
+                                DisplayMemberPath="DisplayName"
+                                ItemsSource="{x:Bind ViewModel.DefaultGroupTagOptions, Mode=OneWay}"
+                                PlaceholderText="{x:Bind ViewModel.DefaultGroupTagText, Mode=OneWay}"
+                                SelectedItem="{x:Bind ViewModel.SelectedDefaultGroupTag, Mode=TwoWay}" />
                         </wct:SettingsCard>
                     </wct:SettingsExpander.Items>
                 </wct:SettingsExpander>
 
-                <wct:SettingsCard Description="{x:Bind ViewModel.InteractiveHardwareHashDescription, Mode=OneWay}" Header="{x:Bind ViewModel.InteractiveHardwareHashHeader, Mode=OneWay}" IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}">
+                <wct:SettingsCard
+                    Description="{x:Bind ViewModel.InteractiveHardwareHashDescription, Mode=OneWay}"
+                    Header="{x:Bind ViewModel.InteractiveHardwareHashHeader, Mode=OneWay}"
+                    IsEnabled="{x:Bind ViewModel.IsAutopilotSectionEnabled, Mode=OneWay}">
                     <wct:SettingsCard.HeaderIcon>
                         <FontIcon Glyph="&#xE928;" />
                     </wct:SettingsCard.HeaderIcon>
-                    <ToggleSwitch behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True" AutomationProperties.Name="{x:Bind ViewModel.InteractiveHardwareHashEnableText, Mode=OneWay}" IsOn="{x:Bind ViewModel.UseInteractiveHardwareHashUploadProvisioning, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <ToggleSwitch
+                        behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                        AutomationProperties.Name="{x:Bind ViewModel.InteractiveHardwareHashEnableText, Mode=OneWay}"
+                        IsOn="{x:Bind ViewModel.UseInteractiveHardwareHashUploadProvisioning, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </wct:SettingsCard>
             </StackPanel>
         </StackPanel>
