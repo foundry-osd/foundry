@@ -29,7 +29,7 @@ public sealed record GeneralSettings
     /// <summary>
     /// Gets a value indicating whether generated media should use the CA 2023 boot signature.
     /// </summary>
-    public bool UseCa2023 { get; init; }
+    public bool UseCa2023 { get; init; } = true;
 
     /// <summary>
     /// Gets the partition style used when creating USB media.
