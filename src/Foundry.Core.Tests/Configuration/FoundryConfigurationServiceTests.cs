@@ -20,6 +20,14 @@ public sealed class FoundryConfigurationServiceTests
     }
 
     [Fact]
+    public void DefaultConfiguration_EnablesPca2023Signature()
+    {
+        var document = new FoundryConfigurationDocument();
+
+        Assert.True(document.General.UseCa2023);
+    }
+
+    [Fact]
     public void Serialize_ThenDeserialize_RoundTripsBusinessSettings()
     {
         var service = new FoundryConfigurationService();
