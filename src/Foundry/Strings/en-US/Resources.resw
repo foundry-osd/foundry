@@ -2130,4 +2130,10 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Review readiness, choose ISO or USB output, and start media creation.</value>
   </data>
+  <data name="StartMedia.Operation.TaskProgressFormat" xml:space="preserve">
+    <value>Task {0} of {1}: {2}</value>
+  </data>
+  <data name="StartMedia.Operation.DriverPackageProgressFormat" xml:space="preserve">
+    <value>Driver package {0} of {1}</value>
+  </data>
 </root>

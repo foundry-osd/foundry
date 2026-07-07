@@ -2130,4 +2130,10 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>检查就绪情况，选择 ISO 或 USB 输出，然后开始创建媒体。</value>
   </data>
+  <data name="StartMedia.Operation.TaskProgressFormat" xml:space="preserve">
+    <value>Task {0} of {1}: {2}</value>
+  </data>
+  <data name="StartMedia.Operation.DriverPackageProgressFormat" xml:space="preserve">
+    <value>Driver package {0} of {1}</value>
+  </data>
 </root>

@@ -2130,4 +2130,10 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Pregledajte spremnost, izaberite ISO ili USB izlaz i pokrenite kreiranje medija.</value>
   </data>
+  <data name="StartMedia.Operation.TaskProgressFormat" xml:space="preserve">
+    <value>Task {0} of {1}: {2}</value>
+  </data>
+  <data name="StartMedia.Operation.DriverPackageProgressFormat" xml:space="preserve">
+    <value>Driver package {0} of {1}</value>
+  </data>
 </root>

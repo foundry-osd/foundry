@@ -55,6 +55,19 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         WinPeBuildArtifact artifact = options.Artifact!;
         WinPeToolPaths tools = options.Tools!;
 
+        // Outer "Task X of N" progress. Mount, drivers, language, and commit always run; the two
+        // provisioning stages are conditional, so the total task count and the commit index shift.
+        int taskCount = 4
+            + (options.AssetProvisioning is not null ? 1 : 0)
+            + (options.RuntimePayloadProvisioning is not null ? 1 : 0);
+        const int mountTask = 1;
+        const int driversTask = 2;
+        const int internationalizationTask = 3;
+        int nextTask = 4;
+        int assetsTask = options.AssetProvisioning is not null ? nextTask++ : 0;
+        int runtimeTask = options.RuntimePayloadProvisioning is not null ? nextTask++ : 0;
+        int commitTask = nextTask;
+
         ReportProgress(options.Progress, 0, "Preparing boot image customization.");
         WinReBootImagePreparationResult? winRePreparationResult = null;
         if (options.BootImageSource == WinPeBootImageSource.WinReWifi)
@@ -81,7 +94,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
             winRePreparationResult = replaceResult.Value!;
         }
 
-        ReportProgress(options.Progress, 30, "Mounting boot image.");
+        ReportProgress(options.Progress, 30, "Mounting boot image.", mountTask, taskCount);
         WinPeResult<WinPeMountSession> mountResult = await WinPeMountSession.MountAsync(
             _processRunner,
             tools.DismPath,
@@ -89,7 +102,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
             artifact.MountDirectoryPath,
             artifact.WorkingDirectoryPath,
             cancellationToken,
-            CreateDismProgress(options.Progress, 30, "Mounting boot image.")).ConfigureAwait(false);
+            CreateDismProgress(options.Progress, 30, "Mounting boot image.", mountTask, taskCount)).ConfigureAwait(false);
 
         if (!mountResult.IsSuccess)
         {
@@ -118,13 +131,14 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
             }
         }
 
-        ReportProgress(options.Progress, 45, "Injecting drivers into mounted image.");
         WinPeResult driverInjectionResult = await InjectDriversAsync(
             session.MountDirectoryPath,
             options.DriverPackagePaths,
             tools.DismPath,
             artifact.WorkingDirectoryPath,
             options.Progress,
+            driversTask,
+            taskCount,
             cancellationToken).ConfigureAwait(false);
 
         if (!driverInjectionResult.IsSuccess)
@@ -132,7 +146,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
             return await FailWithDiscardAsync(driverInjectionResult.Error!, session, cancellationToken).ConfigureAwait(false);
         }
 
-        ReportProgress(options.Progress, 65, "Applying language and optional components.");
+        ReportProgress(options.Progress, 65, "Applying language and optional components.", internationalizationTask, taskCount);
         WinPeResult internationalizationResult = await _imageInternationalizationService.ApplyAsync(
             new WinPeImageInternationalizationOptions
             {
@@ -141,7 +155,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
                 Tools = tools,
                 WinPeLanguage = options.WinPeLanguage,
                 WorkingDirectoryPath = artifact.WorkingDirectoryPath,
-                DismProgress = CreateDismProgress(options.Progress, 65, "Applying language and optional components.")
+                DismProgress = CreateDismProgress(options.Progress, 65, "Applying language and optional components.", internationalizationTask, taskCount)
             },
             cancellationToken).ConfigureAwait(false);
 
@@ -152,7 +166,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
 
         if (options.AssetProvisioning is not null)
         {
-            ReportProgress(options.Progress, 80, "Provisioning Foundry boot assets.");
+            ReportProgress(options.Progress, 80, "Provisioning Foundry boot assets.", assetsTask, taskCount);
             WinPeResult assetProvisioningResult = await _assetProvisioningService.ProvisionAsync(
                 options.AssetProvisioning with
                 {
@@ -169,7 +183,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
 
         if (options.RuntimePayloadProvisioning is not null)
         {
-            ReportProgress(options.Progress, 85, "Provisioning Foundry runtime payloads.");
+            ReportProgress(options.Progress, 85, "Provisioning Foundry runtime payloads.", runtimeTask, taskCount);
             WinPeResult runtimePayloadResult = await _runtimePayloadProvisioningService.ProvisionAsync(
                 options.RuntimePayloadProvisioning with
                 {
@@ -185,10 +199,10 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
             }
         }
 
-        ReportProgress(options.Progress, 90, "Committing image changes.");
+        ReportProgress(options.Progress, 90, "Committing image changes.", commitTask, taskCount);
         WinPeResult commitResult = await session.CommitAsync(
             cancellationToken,
-            CreateDismProgress(options.Progress, 90, "Committing image changes.")).ConfigureAwait(false);
+            CreateDismProgress(options.Progress, 90, "Committing image changes.", commitTask, taskCount)).ConfigureAwait(false);
         if (commitResult.IsSuccess)
         {
             ReportProgress(options.Progress, 100, "Image customization completed.");
@@ -203,6 +217,8 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         string dismPath,
         string workingDirectoryPath,
         IProgress<WinPeMountedImageCustomizationProgress>? progress,
+        int taskIndex,
+        int taskCount,
         CancellationToken cancellationToken)
     {
         if (driverPackagePaths.Count == 0)
@@ -210,17 +226,33 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
             return WinPeResult.Success();
         }
 
-        return await _driverInjectionService.InjectAsync(
-            new WinPeDriverInjectionOptions
+        // Inject one package at a time so the UI can report "Driver package X of N" (inner item
+        // progress) while DISM's own per-package percent flows through as detail progress.
+        int itemCount = driverPackagePaths.Count;
+        for (int index = 0; index < itemCount; index++)
+        {
+            int itemIndex = index + 1;
+            ReportProgress(progress, 45, "Injecting drivers into mounted image.", taskIndex, taskCount, itemIndex, itemCount);
+
+            WinPeResult result = await _driverInjectionService.InjectAsync(
+                new WinPeDriverInjectionOptions
+                {
+                    MountedImagePath = mountedImagePath,
+                    DriverPackagePaths = [driverPackagePaths[index]],
+                    RecurseSubdirectories = true,
+                    DismExecutablePath = dismPath,
+                    WorkingDirectoryPath = workingDirectoryPath,
+                    DismProgress = CreateDismProgress(progress, 45, "Injecting drivers into mounted image.", taskIndex, taskCount, itemIndex, itemCount)
+                },
+                cancellationToken).ConfigureAwait(false);
+
+            if (!result.IsSuccess)
             {
-                MountedImagePath = mountedImagePath,
-                DriverPackagePaths = driverPackagePaths,
-                RecurseSubdirectories = true,
-                DismExecutablePath = dismPath,
-                WorkingDirectoryPath = workingDirectoryPath,
-                DismProgress = CreateDismProgress(progress, 45, "Injecting drivers into mounted image.")
-            },
-            cancellationToken).ConfigureAwait(false);
+                return result;
+            }
+        }
+
+        return WinPeResult.Success();
     }
 
     private static WinPeResult ApplyWinReWifiAdjustments(
@@ -359,20 +391,34 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
     private static void ReportProgress(
         IProgress<WinPeMountedImageCustomizationProgress>? progress,
         int percent,
-        string status)
+        string status,
+        int? taskIndex = null,
+        int? taskCount = null,
+        int? itemIndex = null,
+        int? itemCount = null)
     {
         progress?.Report(new WinPeMountedImageCustomizationProgress
         {
             Percent = percent,
-            Status = status
+            Status = status,
+            TaskIndex = taskIndex,
+            TaskCount = taskCount,
+            ItemIndex = itemIndex,
+            ItemCount = itemCount
         });
     }
 
     private static IProgress<WinPeDismProgress>? CreateDismProgress(
         IProgress<WinPeMountedImageCustomizationProgress>? progress,
         int percent,
-        string status)
+        string status,
+        int? taskIndex = null,
+        int? taskCount = null,
+        int? itemIndex = null,
+        int? itemCount = null)
     {
-        return progress is null ? null : new WinPeDismProgressForwarder(progress, percent, status);
+        return progress is null
+            ? null
+            : new WinPeDismProgressForwarder(progress, percent, status, taskIndex, taskCount, itemIndex, itemCount);
     }
 }

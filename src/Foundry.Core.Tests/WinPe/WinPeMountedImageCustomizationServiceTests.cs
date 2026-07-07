@@ -154,6 +154,61 @@ public sealed class WinPeMountedImageCustomizationServiceTests
         Assert.Single(driverInjection.Options);
     }
 
+    [Fact]
+    public async Task CustomizeAsync_ReportsTaskAndDriverPackageProgress()
+    {
+        using TempWinPeArtifact temp = TempWinPeArtifact.Create();
+        string driverA = Path.Combine(temp.RootPath, "drivers", "a");
+        string driverB = Path.Combine(temp.RootPath, "drivers", "b");
+        Directory.CreateDirectory(driverA);
+        Directory.CreateDirectory(driverB);
+
+        var progress = new CollectingProgress();
+        var service = new WinPeMountedImageCustomizationService(
+            new FakeCustomizationRunner(),
+            new FakeDriverInjectionService(),
+            new FakeInternationalizationService(),
+            new FakeAssetProvisioningService(),
+            new FakeRuntimePayloadProvisioningService(),
+            new FakeWinRePreparationService());
+
+        WinPeResult result = await service.CustomizeAsync(
+            new WinPeMountedImageCustomizationOptions
+            {
+                Artifact = temp.Artifact,
+                Tools = temp.Tools,
+                BootImageSource = WinPeBootImageSource.WinPe,
+                WinPeLanguage = "en-US",
+                DriverPackagePaths = [driverA, driverB],
+                WinReCacheDirectoryPath = Path.Combine(temp.RootPath, "cache"),
+                Progress = progress
+            },
+            CancellationToken.None);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+
+        // Numbered tasks share a single TaskCount; driver injection reports per-package item progress.
+        List<WinPeMountedImageCustomizationProgress> numbered = progress.Reports.Where(report => report.TaskIndex.HasValue).ToList();
+        Assert.NotEmpty(numbered);
+        int taskCount = numbered[0].TaskCount!.Value;
+        Assert.All(numbered, report => Assert.Equal(taskCount, report.TaskCount));
+
+        List<WinPeMountedImageCustomizationProgress> driverReports = progress.Reports.Where(report => report.ItemCount.HasValue).ToList();
+        Assert.All(driverReports, report => Assert.Equal(2, report.ItemCount));
+        Assert.Contains(driverReports, report => report.ItemIndex == 1);
+        Assert.Contains(driverReports, report => report.ItemIndex == 2);
+    }
+
+    private sealed class CollectingProgress : IProgress<WinPeMountedImageCustomizationProgress>
+    {
+        public List<WinPeMountedImageCustomizationProgress> Reports { get; } = [];
+
+        public void Report(WinPeMountedImageCustomizationProgress value)
+        {
+            Reports.Add(value);
+        }
+    }
+
     private sealed class TempWinPeArtifact : IDisposable
     {
         private TempWinPeArtifact(string rootPath, WinPeBuildArtifact artifact, WinPeToolPaths tools)

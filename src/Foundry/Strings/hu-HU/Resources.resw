@@ -2130,4 +2130,10 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Tekintse át a készenlétet, válasszon ISO vagy USB kimenetet, majd indítsa el az adathordozó létrehozását.</value>
   </data>
+  <data name="StartMedia.Operation.TaskProgressFormat" xml:space="preserve">
+    <value>Task {0} of {1}: {2}</value>
+  </data>
+  <data name="StartMedia.Operation.DriverPackageProgressFormat" xml:space="preserve">
+    <value>Driver package {0} of {1}</value>
+  </data>
 </root>
