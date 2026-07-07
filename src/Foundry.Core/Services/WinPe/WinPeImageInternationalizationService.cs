@@ -6,19 +6,6 @@ namespace Foundry.Core.Services.WinPe;
 
 public sealed class WinPeImageInternationalizationService : IWinPeImageInternationalizationService
 {
-    private static readonly string[] RequiredOptionalComponents =
-    [
-        "WinPE-WMI",
-        "WinPE-NetFX",
-        "WinPE-Scripting",
-        "WinPE-PowerShell",
-        "WinPE-WinReCfg",
-        "WinPE-DismCmdlets",
-        "WinPE-StorageWMI",
-        "WinPE-Dot3Svc",
-        "WinPE-EnhancedStorage",
-        "WinPE-SecureStartup"
-    ];
     private static readonly string[] BlockingOptionalComponents =
     [
         "WinPE-SecureStartup"
@@ -58,7 +45,7 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
                 $"Language: '{options.WinPeLanguage}'.");
         }
 
-        string optionalComponentsRoot = GetOptionalComponentsRootPath(tools.KitsRootPath, options.Architecture);
+        string optionalComponentsRoot = WinPeOptionalComponentPaths.GetOptionalComponentsRootPath(tools.KitsRootPath, options.Architecture);
         if (!Directory.Exists(optionalComponentsRoot))
         {
             return WinPeResult.Failure(
@@ -67,11 +54,16 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
                 $"Expected path: '{optionalComponentsRoot}'.");
         }
 
+        IReadOnlyList<string> optionalComponents = options.OptionalComponents.Count > 0
+            ? options.OptionalComponents
+            : WinPeOptionalComponentDefaults.RecommendedComponentNames;
+
         WinPeResult packageResult = await AddRequiredOptionalComponentsAsync(
             options.MountedImagePath,
             tools.DismPath,
             optionalComponentsRoot,
             normalizedLocale,
+            optionalComponents,
             options.WorkingDirectoryPath,
             options.DismProgress,
             cancellationToken).ConfigureAwait(false);
@@ -96,6 +88,7 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
         string dismPath,
         string optionalComponentsRoot,
         string normalizedLocale,
+        IReadOnlyList<string> optionalComponents,
         string workingDirectoryPath,
         IProgress<WinPeDismProgress>? dismProgress,
         CancellationToken cancellationToken)
@@ -126,7 +119,7 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
         }
 
         int neutralComponentsFound = 0;
-        foreach (string component in RequiredOptionalComponents)
+        foreach (string component in optionalComponents)
         {
             bool isBlockingComponent = BlockingOptionalComponents.Contains(component, StringComparer.OrdinalIgnoreCase);
             string neutralPackagePath = Path.Combine(optionalComponentsRoot, $"{component}.cab");
@@ -324,16 +317,6 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
         }
 
         return null;
-    }
-
-    private static string GetOptionalComponentsRootPath(string kitsRootPath, WinPeArchitecture architecture)
-    {
-        return Path.Combine(
-            kitsRootPath,
-            "Assessment and Deployment Kit",
-            "Windows Preinstallation Environment",
-            architecture.ToCopypeArchitecture(),
-            "WinPE_OCs");
     }
 
     private static bool IsAlreadyInstalledPackageFailure(WinPeProcessExecution execution)

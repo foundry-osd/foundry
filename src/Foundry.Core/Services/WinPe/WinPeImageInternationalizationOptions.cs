@@ -11,5 +11,11 @@ public sealed record WinPeImageInternationalizationOptions
     public WinPeToolPaths? Tools { get; init; }
     public string WinPeLanguage { get; init; } = string.Empty;
     public string WorkingDirectoryPath { get; init; } = string.Empty;
+
+    /// <summary>
+    /// Gets the WinPE optional component names to add. When empty, Foundry's recommended defaults are used.
+    /// </summary>
+    public IReadOnlyList<string> OptionalComponents { get; init; } = [];
+
     public IProgress<WinPeDismProgress>? DismProgress { get; init; }
 }
