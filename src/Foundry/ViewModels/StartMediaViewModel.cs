@@ -831,6 +831,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         {
             BootstrapScriptContent = embeddedAssetService.GetBootstrapScriptContent(),
             CurlExecutableSourcePath = ResolveCurlExecutablePath(),
+            PSBootstrapperSourceExecutablePath = embeddedAssetService.GetPSBootstrapperSourceExecutablePath(options.Architecture),
             SevenZipSourceDirectoryPath = embeddedAssetService.GetSevenZipSourceDirectoryPath(),
             IanaWindowsTimeZoneMapJson = embeddedAssetService.GetIanaWindowsTimeZoneMapJson(),
             FoundryConnectConfigurationJson = connectBundle.ConfigurationJson,
@@ -893,21 +894,48 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             ? localizationService.GetString("StartMedia.Operation.PreparingWorkspace")
             : LocalizeCustomizationStatus(progress.Status);
 
+        // Outer "Task X of N" wrapper on the primary status line.
+        if (progress.TaskIndex.HasValue && progress.TaskCount.HasValue)
+        {
+            status = localizationService.FormatString(
+                "StartMedia.Operation.TaskProgressFormat",
+                progress.TaskIndex.Value,
+                progress.TaskCount.Value,
+                status);
+        }
+
+        // Inner action line: "Driver package X of N" prepended to any DISM detail.
+        string detailStatus = LocalizeDismProgressStatus(progress.DetailStatus);
+        if (progress.ItemIndex.HasValue && progress.ItemCount.HasValue)
+        {
+            string itemStatus = localizationService.FormatString(
+                "StartMedia.Operation.DriverPackageProgressFormat",
+                progress.ItemIndex.Value,
+                progress.ItemCount.Value);
+            detailStatus = string.IsNullOrWhiteSpace(detailStatus)
+                ? itemStatus
+                : $"{itemStatus} — {detailStatus}";
+        }
+
         logger.Debug(
-            "WinPE image customization progress changed. CoreStatus={CoreStatus}, Percent={Percent}, NormalizedProgress={NormalizedProgress}, DetailStatus={DetailStatus}, DetailPercent={DetailPercent}",
+            "WinPE image customization progress changed. CoreStatus={CoreStatus}, Percent={Percent}, NormalizedProgress={NormalizedProgress}, TaskIndex={TaskIndex}, TaskCount={TaskCount}, ItemIndex={ItemIndex}, ItemCount={ItemCount}, DetailStatus={DetailStatus}, DetailPercent={DetailPercent}",
             progress.Status,
             progress.Percent,
             normalizedProgress,
+            progress.TaskIndex,
+            progress.TaskCount,
+            progress.ItemIndex,
+            progress.ItemCount,
             progress.DetailStatus,
             progress.DetailPercent);
 
-        if (progress.DetailPercent.HasValue || !string.IsNullOrWhiteSpace(progress.DetailStatus))
+        if (progress.DetailPercent.HasValue || !string.IsNullOrWhiteSpace(detailStatus))
         {
             operationProgressService.Report(
                 normalizedProgress,
                 status,
                 progress.DetailPercent,
-                LocalizeDismProgressStatus(progress.DetailStatus));
+                detailStatus);
             return;
         }
 
