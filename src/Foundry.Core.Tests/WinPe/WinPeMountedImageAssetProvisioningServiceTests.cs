@@ -66,7 +66,8 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                 BootstrapScriptContent = "bootstrap",
                 CurlExecutableSourcePath = curlSourcePath,
                 PSBootstrapperSourceExecutablePath = image.PSBootstrapperSourcePath,
-                IanaWindowsTimeZoneMapJson = "{}"
+                IanaWindowsTimeZoneMapJson = "{}",
+                IncludeTroubleshootingConsole = true
             },
             CancellationToken.None);
 
@@ -92,6 +93,35 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         Assert.Contains("powershell.exe", asyncPath, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("-NoExit", asyncPath, StringComparison.Ordinal);
         Assert.Contains("-WindowStyle Minimized", asyncPath, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task ProvisionAsync_ByDefault_OmitsTroubleshootingConsoleFromUnattend()
+    {
+        using TempMountedImage image = TempMountedImage.Create();
+        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
+        File.WriteAllText(curlSourcePath, "curl");
+
+        var service = new WinPeMountedImageAssetProvisioningService();
+
+        WinPeResult result = await service.ProvisionAsync(
+            new WinPeMountedImageAssetProvisioningOptions
+            {
+                MountedImagePath = image.MountedImagePath,
+                Architecture = WinPeArchitecture.X64,
+                BootstrapScriptContent = "bootstrap",
+                CurlExecutableSourcePath = curlSourcePath,
+                PSBootstrapperSourceExecutablePath = image.PSBootstrapperSourcePath,
+                IanaWindowsTimeZoneMapJson = "{}"
+            },
+            CancellationToken.None);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+
+        XDocument document = XDocument.Load(Path.Combine(image.MountedImagePath, "Unattend.xml"));
+        XNamespace ns = "urn:schemas-microsoft-com:unattend";
+        Assert.Empty(document.Descendants(ns + "RunAsynchronousCommand"));
+        Assert.Single(document.Descendants(ns + "RunSynchronousCommand"));
     }
 
     [Fact]

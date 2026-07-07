@@ -13,6 +13,12 @@ public sealed record WinPeMountedImageAssetProvisioningOptions
     public string BootstrapScriptContent { get; init; } = string.Empty;
     public string CurlExecutableSourcePath { get; init; } = string.Empty;
     public string PSBootstrapperSourceExecutablePath { get; init; } = string.Empty;
+
+    /// <summary>
+    /// Gets a value indicating whether the boot Unattend.xml includes a minimized, interactive
+    /// PowerShell troubleshooting console (debug mode). Off by default to prevent tampering.
+    /// </summary>
+    public bool IncludeTroubleshootingConsole { get; init; }
     public string SevenZipSourceDirectoryPath { get; init; } = string.Empty;
     public string IanaWindowsTimeZoneMapJson { get; init; } = string.Empty;
     public string FoundryConnectConfigurationJson { get; init; } = string.Empty;

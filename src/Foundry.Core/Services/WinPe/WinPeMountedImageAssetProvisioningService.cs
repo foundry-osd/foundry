@@ -78,7 +78,7 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
 
             ProvisionBundledSevenZip(mountedImagePath, options);
             await WriteStartnetAsync(system32Path, cancellationToken).ConfigureAwait(false);
-            await WriteUnattendAsync(mountedImagePath, options.Architecture, cancellationToken).ConfigureAwait(false);
+            await WriteUnattendAsync(mountedImagePath, options.Architecture, options.IncludeTroubleshootingConsole, cancellationToken).ConfigureAwait(false);
             await WriteConfigurationAssetsAsync(mountedImagePath, foundryConfigPath, options, cancellationToken).ConfigureAwait(false);
 
             return WinPeResult.Success();
@@ -117,41 +117,51 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
     private static async Task WriteUnattendAsync(
         string mountedImagePath,
         WinPeArchitecture architecture,
+        bool includeTroubleshootingConsole,
         CancellationToken cancellationToken)
     {
         // wpeinit (invoked from startnet.cmd) auto-discovers X:\Unattend.xml, i.e. the root of the
         // mounted boot image. The windowsPE-pass RunSynchronous command launches the Foundry
-        // bootstrap hidden via psbootstrapper.exe; the RunAsynchronous command opens a minimized,
-        // alt-tab-able troubleshooting console without blocking the bootstrap.
+        // bootstrap hidden via psbootstrapper.exe. When debug mode is enabled, a RunAsynchronous
+        // command also opens a minimized, alt-tab-able troubleshooting console without blocking the
+        // bootstrap; it is omitted by default to prevent tampering.
         XNamespace ns = UnattendNamespaceUri;
         XNamespace wcm = WcmNamespaceUri;
         string processorArchitecture = architecture.ToCopypeArchitecture();
 
-        XElement component = new(
-            ns + "component",
+        List<XObject> componentContent =
+        [
             new XAttribute("name", SetupComponentName),
             new XAttribute("processorArchitecture", processorArchitecture),
             new XAttribute("publicKeyToken", SetupPublicKeyToken),
             new XAttribute("language", "neutral"),
             new XAttribute("versionScope", "nonSxS"),
             new XAttribute(XNamespace.Xmlns + "wcm", WcmNamespaceUri),
-            new XElement(ns + "EnableNetwork", "true"),
-            new XElement(
+            new XElement(ns + "EnableNetwork", "true")
+        ];
+
+        if (includeTroubleshootingConsole)
+        {
+            componentContent.Add(new XElement(
                 ns + "RunAsynchronous",
                 new XElement(
                     ns + "RunAsynchronousCommand",
                     new XAttribute(wcm + "action", "add"),
                     new XElement(ns + "Order", "1"),
                     new XElement(ns + "Description", "Foundry troubleshooting console"),
-                    new XElement(ns + "Path", TroubleshootingConsoleCommand))),
+                    new XElement(ns + "Path", TroubleshootingConsoleCommand))));
+        }
+
+        componentContent.Add(new XElement(
+            ns + "RunSynchronous",
             new XElement(
-                ns + "RunSynchronous",
-                new XElement(
-                    ns + "RunSynchronousCommand",
-                    new XAttribute(wcm + "action", "add"),
-                    new XElement(ns + "Order", "1"),
-                    new XElement(ns + "Description", "Launch Foundry bootstrap"),
-                    new XElement(ns + "Path", BootstrapLaunchCommand))));
+                ns + "RunSynchronousCommand",
+                new XAttribute(wcm + "action", "add"),
+                new XElement(ns + "Order", "1"),
+                new XElement(ns + "Description", "Launch Foundry bootstrap"),
+                new XElement(ns + "Path", BootstrapLaunchCommand))));
+
+        XElement component = new(ns + "component", componentContent);
 
         XDocument document = new(
             new XDeclaration("1.0", "utf-8", null),
