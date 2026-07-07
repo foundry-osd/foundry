@@ -153,6 +153,13 @@ Community involvement is welcome.
 
 ## Third-Party Notices
 
+### PowershellBootstrapper
+
+Foundry bundles `psbootstrapper.exe` to launch the WinPE bootstrap PowerShell script silently.
+
+- Upstream: [https://github.com/Grace-Solutions/PowershellBootstrapper](https://github.com/Grace-Solutions/PowershellBootstrapper)
+- Included license file: `src/Foundry.Core/Assets/PSBootstrapper/LICENSE`
+
 ### 7-Zip Extra
 
 This project uses parts of the 7-Zip program (`7za.exe`) from the 7-Zip Extra package.

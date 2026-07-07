@@ -1,0 +1,5 @@
+PowershellBootstrapper (psbootstrapper.exe)
+Upstream: https://github.com/Grace-Solutions/PowershellBootstrapper
+
+Replace this file with the upstream project's LICENSE text for the exact version of
+psbootstrapper.exe bundled in the x64/ and arm64/ folders.

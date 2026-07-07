@@ -10,4 +10,5 @@ public interface IWinPeEmbeddedAssetService
     string GetUsbProvisioningScriptTemplateContent();
     string GetIanaWindowsTimeZoneMapJson();
     string GetSevenZipSourceDirectoryPath();
+    string GetPSBootstrapperSourceExecutablePath(WinPeArchitecture architecture);
 }
