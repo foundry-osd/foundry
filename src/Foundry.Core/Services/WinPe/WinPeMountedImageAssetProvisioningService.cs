@@ -4,6 +4,7 @@
 
 using System.Text;
 using System.Text.Json;
+using System.Xml.Linq;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Autopilot;
@@ -14,7 +15,14 @@ namespace Foundry.Core.Services.WinPe;
 public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedImageAssetProvisioningService
 {
     private const string BootstrapFileName = "FoundryBootstrap.ps1";
-    private const string BootstrapInvocation = @"powershell.exe -ExecutionPolicy Bypass -NoProfile -File X:\Windows\System32\FoundryBootstrap.ps1";
+    private const string PSBootstrapperFileName = "psbootstrapper.exe";
+    private const string UnattendFileName = "Unattend.xml";
+    private const string UnattendNamespaceUri = "urn:schemas-microsoft-com:unattend";
+    private const string WcmNamespaceUri = "http://schemas.microsoft.com/WMIConfig/2002/State";
+    private const string SetupComponentName = "Microsoft-Windows-Setup";
+    private const string SetupPublicKeyToken = "31bf3856ad364e35";
+    private const string BootstrapLaunchCommand = @"%WINDIR%\System32\psbootstrapper.exe --script-path %WINDIR%\System32\FoundryBootstrap.ps1";
+    private const string TroubleshootingConsoleCommand = "powershell.exe -NoExit -NoProfile -ExecutionPolicy Bypass -WindowStyle Minimized";
     private const string Oa3CfgTemplate = """
         <?xml version="1.0" encoding="utf-8"?>
         <OA3>
@@ -66,9 +74,11 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
                 cancellationToken).ConfigureAwait(false);
 
             File.Copy(options.CurlExecutableSourcePath, Path.Combine(system32Path, "curl.exe"), overwrite: true);
+            File.Copy(options.PSBootstrapperSourceExecutablePath, Path.Combine(system32Path, PSBootstrapperFileName), overwrite: true);
 
             ProvisionBundledSevenZip(mountedImagePath, options);
             await WriteStartnetAsync(system32Path, cancellationToken).ConfigureAwait(false);
+            await WriteUnattendAsync(mountedImagePath, options.Architecture, cancellationToken).ConfigureAwait(false);
             await WriteConfigurationAssetsAsync(mountedImagePath, foundryConfigPath, options, cancellationToken).ConfigureAwait(false);
 
             return WinPeResult.Success();
@@ -84,22 +94,81 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
 
     private static async Task WriteStartnetAsync(string system32Path, CancellationToken cancellationToken)
     {
+        // startnet.cmd must contain only wpeinit. The Foundry bootstrap is launched from the
+        // auto-discovered X:\Unattend.xml so no PowerShell window flashes at boot. Any previously
+        // provisioned bootstrap launch line is removed to keep re-provisioning idempotent.
         string startnetPath = Path.Combine(system32Path, "startnet.cmd");
         List<string> lines = File.Exists(startnetPath)
             ? [.. await File.ReadAllLinesAsync(startnetPath, cancellationToken).ConfigureAwait(false)]
             : [];
+
+        lines.RemoveAll(line =>
+            line.Contains(BootstrapFileName, StringComparison.OrdinalIgnoreCase) ||
+            line.Contains(PSBootstrapperFileName, StringComparison.OrdinalIgnoreCase));
 
         if (!lines.Any(line => line.Trim().Equals("wpeinit", StringComparison.OrdinalIgnoreCase)))
         {
             lines.Insert(0, "wpeinit");
         }
 
-        if (!lines.Any(line => line.Contains(BootstrapFileName, StringComparison.OrdinalIgnoreCase)))
-        {
-            lines.Add(BootstrapInvocation);
-        }
-
         await File.WriteAllLinesAsync(startnetPath, lines, Utf8NoBom, cancellationToken).ConfigureAwait(false);
+    }
+
+    private static async Task WriteUnattendAsync(
+        string mountedImagePath,
+        WinPeArchitecture architecture,
+        CancellationToken cancellationToken)
+    {
+        // wpeinit (invoked from startnet.cmd) auto-discovers X:\Unattend.xml, i.e. the root of the
+        // mounted boot image. The windowsPE-pass RunSynchronous command launches the Foundry
+        // bootstrap hidden via psbootstrapper.exe; the RunAsynchronous command opens a minimized,
+        // alt-tab-able troubleshooting console without blocking the bootstrap.
+        XNamespace ns = UnattendNamespaceUri;
+        XNamespace wcm = WcmNamespaceUri;
+        string processorArchitecture = architecture.ToCopypeArchitecture();
+
+        XElement component = new(
+            ns + "component",
+            new XAttribute("name", SetupComponentName),
+            new XAttribute("processorArchitecture", processorArchitecture),
+            new XAttribute("publicKeyToken", SetupPublicKeyToken),
+            new XAttribute("language", "neutral"),
+            new XAttribute("versionScope", "nonSxS"),
+            new XAttribute(XNamespace.Xmlns + "wcm", WcmNamespaceUri),
+            new XElement(ns + "EnableNetwork", "true"),
+            new XElement(
+                ns + "RunAsynchronous",
+                new XElement(
+                    ns + "RunAsynchronousCommand",
+                    new XAttribute(wcm + "action", "add"),
+                    new XElement(ns + "Order", "1"),
+                    new XElement(ns + "Description", "Foundry troubleshooting console"),
+                    new XElement(ns + "Path", TroubleshootingConsoleCommand))),
+            new XElement(
+                ns + "RunSynchronous",
+                new XElement(
+                    ns + "RunSynchronousCommand",
+                    new XAttribute(wcm + "action", "add"),
+                    new XElement(ns + "Order", "1"),
+                    new XElement(ns + "Description", "Launch Foundry bootstrap"),
+                    new XElement(ns + "Path", BootstrapLaunchCommand))));
+
+        XDocument document = new(
+            new XDeclaration("1.0", "utf-8", null),
+            new XElement(
+                ns + "unattend",
+                new XElement(
+                    ns + "settings",
+                    new XAttribute("pass", "windowsPE"),
+                    component)));
+
+        string unattendPath = Path.Combine(mountedImagePath, UnattendFileName);
+        string unattendXml = document.Declaration!.ToString() + Environment.NewLine + document.ToString();
+        await File.WriteAllTextAsync(
+            unattendPath,
+            unattendXml,
+            Utf8NoBom,
+            cancellationToken).ConfigureAwait(false);
     }
 
     private static async Task WriteConfigurationAssetsAsync(
@@ -388,6 +457,14 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
                 WinPeErrorCodes.ValidationFailed,
                 "curl.exe source path is required.",
                 $"Expected file: '{options.CurlExecutableSourcePath}'.");
+        }
+
+        if (string.IsNullOrWhiteSpace(options.PSBootstrapperSourceExecutablePath) || !File.Exists(options.PSBootstrapperSourceExecutablePath))
+        {
+            return new WinPeDiagnostic(
+                WinPeErrorCodes.ValidationFailed,
+                "psbootstrapper.exe source path is required.",
+                $"Expected file: '{options.PSBootstrapperSourceExecutablePath}'.");
         }
 
         if (string.IsNullOrWhiteSpace(options.IanaWindowsTimeZoneMapJson))
