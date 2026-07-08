@@ -57,12 +57,12 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
 
         foreach (PowerShellModuleSelection module in settings.PowerShellModules)
         {
-            SelectedModules.Add(new BootImageModuleViewModel(module));
+            SelectedModules.Add(new BootImageModuleViewModel(module, RemoveLabel));
         }
 
         foreach (string folder in settings.AdditionalRootFolderPaths)
         {
-            AdditionalRootFolders.Add(folder);
+            AdditionalRootFolders.Add(new BootImageRootFolderViewModel(folder, RemoveLabel));
         }
 
         RefreshLocalizedText();
@@ -85,7 +85,7 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
     /// <summary>
     /// Gets the PowerShell Gallery search results for the current search term.
     /// </summary>
-    public ObservableCollection<PowerShellGalleryModule> ModuleSearchResults { get; } = [];
+    public ObservableCollection<BootImageModuleSearchResultViewModel> ModuleSearchResults { get; } = [];
 
     /// <summary>
     /// Gets the PowerShell modules selected for integration.
@@ -95,7 +95,11 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
     /// <summary>
     /// Gets the additional folders whose contents are copied into the boot image root.
     /// </summary>
-    public ObservableCollection<string> AdditionalRootFolders { get; } = [];
+    public ObservableCollection<BootImageRootFolderViewModel> AdditionalRootFolders { get; } = [];
+
+    private string AddLabel => localizationService.GetString("Common.Add");
+
+    private string RemoveLabel => localizationService.GetString("Common.Remove");
 
     [ObservableProperty]
     public partial string PageTitle { get; set; } = string.Empty;
@@ -284,7 +288,7 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
 
             foreach (PowerShellGalleryModule module in modules)
             {
-                ModuleSearchResults.Add(module);
+                ModuleSearchResults.Add(new BootImageModuleSearchResultViewModel(module, AddLabel));
             }
 
             ModuleSearchStatus = string.Empty;
@@ -312,12 +316,14 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
             return;
         }
 
-        SelectedModules.Add(new BootImageModuleViewModel(new PowerShellModuleSelection
-        {
-            Source = PowerShellModuleSource.Gallery,
-            Name = module.Name,
-            Version = module.Version
-        }));
+        SelectedModules.Add(new BootImageModuleViewModel(
+            new PowerShellModuleSelection
+            {
+                Source = PowerShellModuleSource.Gallery,
+                Name = module.Name,
+                Version = module.Version
+            },
+            RemoveLabel));
         SaveModules();
     }
 
@@ -333,12 +339,14 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
         }
 
         string name = new DirectoryInfo(path).Name;
-        SelectedModules.Add(new BootImageModuleViewModel(new PowerShellModuleSelection
-        {
-            Source = PowerShellModuleSource.Local,
-            Name = name,
-            LocalPath = path
-        }));
+        SelectedModules.Add(new BootImageModuleViewModel(
+            new PowerShellModuleSelection
+            {
+                Source = PowerShellModuleSource.Local,
+                Name = name,
+                LocalPath = path
+            },
+            RemoveLabel));
         SaveModules();
     }
 
@@ -360,19 +368,19 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
             new FolderPickerRequest(localizationService.GetString("BootImage.RootFolders.Picker.Title")));
 
         if (string.IsNullOrWhiteSpace(path) ||
-            AdditionalRootFolders.Contains(path, StringComparer.OrdinalIgnoreCase))
+            AdditionalRootFolders.Any(folder => string.Equals(folder.Path, path, StringComparison.OrdinalIgnoreCase)))
         {
             return;
         }
 
-        AdditionalRootFolders.Add(path);
+        AdditionalRootFolders.Add(new BootImageRootFolderViewModel(path, RemoveLabel));
         SaveRootFolders();
     }
 
     /// <summary>
     /// Removes a folder from the additional root folders list.
     /// </summary>
-    public void RemoveRootFolder(string folder)
+    public void RemoveRootFolder(BootImageRootFolderViewModel folder)
     {
         if (AdditionalRootFolders.Remove(folder))
         {
@@ -439,7 +447,7 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
 
     private void SaveRootFolders()
     {
-        Save(current => current with { AdditionalRootFolderPaths = AdditionalRootFolders.ToList() });
+        Save(current => current with { AdditionalRootFolderPaths = AdditionalRootFolders.Select(folder => folder.Path).ToList() });
     }
 
     private void Save(Func<WinPeBootImageContentSettings, WinPeBootImageContentSettings> transform)

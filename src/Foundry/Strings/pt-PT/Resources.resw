@@ -2241,4 +2241,10 @@
   <data name="BootImage.RootFolders.Picker.Title" xml:space="preserve">
     <value>Select a folder to copy</value>
   </data>
+  <data name="Common.Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Common.Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
 </root>

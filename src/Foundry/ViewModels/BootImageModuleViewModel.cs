@@ -11,15 +11,21 @@ namespace Foundry.ViewModels;
 /// </summary>
 public sealed partial class BootImageModuleViewModel : ObservableObject
 {
-    public BootImageModuleViewModel(PowerShellModuleSelection selection)
+    public BootImageModuleViewModel(PowerShellModuleSelection selection, string removeLabel)
     {
         Selection = selection;
+        RemoveLabel = removeLabel;
     }
 
     /// <summary>
     /// Gets the underlying module selection persisted in configuration.
     /// </summary>
     public PowerShellModuleSelection Selection { get; }
+
+    /// <summary>
+    /// Gets the localized label for the remove action.
+    /// </summary>
+    public string RemoveLabel { get; }
 
     /// <summary>
     /// Gets the module display name.

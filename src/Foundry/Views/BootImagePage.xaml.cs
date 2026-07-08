@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Foundry.Core.Services.WinPe;
 using Foundry.Services.Localization;
 using Foundry.ViewModels;
 using Serilog;
@@ -34,9 +33,9 @@ public sealed partial class BootImagePage : Page
 
     private void AddGalleryModuleButton_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is FrameworkElement { Tag: PowerShellGalleryModule module })
+        if (sender is FrameworkElement { Tag: BootImageModuleSearchResultViewModel result })
         {
-            ViewModel.AddGalleryModule(module);
+            ViewModel.AddGalleryModule(result.Module);
         }
     }
 
@@ -50,7 +49,7 @@ public sealed partial class BootImagePage : Page
 
     private void RemoveRootFolderButton_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is FrameworkElement { Tag: string folder })
+        if (sender is FrameworkElement { Tag: BootImageRootFolderViewModel folder })
         {
             ViewModel.RemoveRootFolder(folder);
         }

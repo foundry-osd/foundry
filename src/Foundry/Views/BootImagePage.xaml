@@ -7,7 +7,6 @@
     xmlns:dev="using:DevWinUI"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="using:Foundry.ViewModels"
-    xmlns:winpe="using:Foundry.Core.Services.WinPe"
     xmlns:wct="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d">
     <Page.Resources>
@@ -19,7 +18,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="ModuleSearchResultTemplate"
-            x:DataType="winpe:PowerShellGalleryModule">
+            x:DataType="viewModels:BootImageModuleSearchResultViewModel">
             <Grid
                 MinHeight="48"
                 Padding="0,6"
@@ -45,12 +44,11 @@
                 </StackPanel>
                 <Button
                     Grid.Column="1"
+                    MinWidth="{StaticResource SettingActionControlMinWidth}"
                     VerticalAlignment="Center"
                     Click="AddGalleryModuleButton_Click"
-                    Content="&#xE710;"
-                    FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                    Tag="{x:Bind}"
-                    ToolTipService.ToolTip="Add" />
+                    Content="{x:Bind AddLabel}"
+                    Tag="{x:Bind}" />
             </Grid>
         </DataTemplate>
 
@@ -78,17 +76,16 @@
                 </StackPanel>
                 <Button
                     Grid.Column="1"
+                    MinWidth="{StaticResource SettingActionControlMinWidth}"
                     VerticalAlignment="Center"
                     Click="RemoveModuleButton_Click"
-                    Content="&#xE74D;"
-                    FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                    Tag="{x:Bind}"
-                    ToolTipService.ToolTip="Remove" />
+                    Content="{x:Bind RemoveLabel}"
+                    Tag="{x:Bind}" />
             </Grid>
         </DataTemplate>
 
         <DataTemplate x:Key="RootFolderTemplate"
-            x:DataType="x:String">
+            x:DataType="viewModels:BootImageRootFolderViewModel">
             <Grid
                 MinHeight="40"
                 Padding="0,4"
@@ -100,16 +97,15 @@
                 <TextBlock
                     Grid.Column="0"
                     VerticalAlignment="Center"
-                    Text="{x:Bind}"
+                    Text="{x:Bind Path}"
                     TextWrapping="WrapWholeWords" />
                 <Button
                     Grid.Column="1"
+                    MinWidth="{StaticResource SettingActionControlMinWidth}"
                     VerticalAlignment="Center"
                     Click="RemoveRootFolderButton_Click"
-                    Content="&#xE74D;"
-                    FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                    Tag="{x:Bind}"
-                    ToolTipService.ToolTip="Remove" />
+                    Content="{x:Bind RemoveLabel}"
+                    Tag="{x:Bind}" />
             </Grid>
         </DataTemplate>
     </Page.Resources>
