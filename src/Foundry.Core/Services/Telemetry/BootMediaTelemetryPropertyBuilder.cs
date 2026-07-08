@@ -71,6 +71,7 @@ public static class BootMediaTelemetryPropertyBuilder
             ["autopilot_provisioning_mode"] = ResolveAutopilotProvisioningMode(options)
         };
 
+        AddBootImageContentTelemetryProperties(properties, options);
         AddCustomizationTelemetryProperties(properties, document.Customization);
         AddOperatingSystemSelectionTelemetryProperties(properties, document.OperatingSystemSelection);
         properties["customization_any_enabled"] =
@@ -79,6 +80,19 @@ public static class BootMediaTelemetryPropertyBuilder
         AddNetworkTelemetryProperties(properties, document.Network, options.AreRequiredSecretsReady);
 
         return properties;
+    }
+
+    private static void AddBootImageContentTelemetryProperties(
+        IDictionary<string, object?> properties,
+        MediaPreflightOptions options)
+    {
+        properties["boot_image_firewall_enabled"] = options.EnableFirewall;
+        properties["boot_image_troubleshooting_console_enabled"] = options.IncludeTroubleshootingConsole;
+        properties["boot_image_keep_wim_enabled"] = options.KeepBootWimCopy;
+        properties["boot_image_optional_components_count"] = options.OptionalComponents.Count;
+        properties["boot_image_powershell7_enabled"] = options.IncludePowerShell7;
+        properties["boot_image_powershell_module_count"] = options.PowerShellModules.Count;
+        properties["boot_image_additional_root_folder_count"] = options.AdditionalRootFolderPaths.Count;
     }
 
     private static void AddCustomizationTelemetryProperties(

@@ -28,7 +28,17 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             CustomDriverDirectoryPath = @"C:\Drivers",
             IsAutopilotEnabled = true,
             AutopilotProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
-            AreRequiredSecretsReady = true
+            AreRequiredSecretsReady = true,
+            EnableFirewall = true,
+            IncludeTroubleshootingConsole = true,
+            KeepBootWimCopy = true,
+            OptionalComponents = ["WinPE-WMI", "WinPE-NetFX"],
+            IncludePowerShell7 = true,
+            PowerShellModules =
+            [
+                new PowerShellModuleSelection { Source = PowerShellModuleSource.Gallery, Name = "Pester", Version = "5.5.0" }
+            ],
+            AdditionalRootFolderPaths = [@"C:\Overlay"]
         };
         var document = new FoundryConfigurationDocument
         {
@@ -138,6 +148,13 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.Equal(TelemetryRuntimePayloadSources.Debug, result["boot_media_deploy_runtime_payload_source"]);
         Assert.True((bool)result["autopilot_enabled"]!);
         Assert.Equal("hardware_hash_upload", result["autopilot_provisioning_mode"]);
+        Assert.True((bool)result["boot_image_firewall_enabled"]!);
+        Assert.True((bool)result["boot_image_troubleshooting_console_enabled"]!);
+        Assert.True((bool)result["boot_image_keep_wim_enabled"]!);
+        Assert.Equal(2, result["boot_image_optional_components_count"]);
+        Assert.True((bool)result["boot_image_powershell7_enabled"]!);
+        Assert.Equal(1, result["boot_image_powershell_module_count"]);
+        Assert.Equal(1, result["boot_image_additional_root_folder_count"]);
         Assert.True((bool)result["customization_any_enabled"]!);
         Assert.Equal("auto_generated_editable", result["customization_machine_naming_mode"]);
         Assert.True((bool)result["customization_appx_removal_enabled"]!);
