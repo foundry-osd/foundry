@@ -19,4 +19,15 @@ public interface IPowerShellGalleryModuleSearchService
         string searchTerm,
         int count = 20,
         CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Gets the published stable versions of a module, ordered newest first (so the first entry is the latest).
+    /// </summary>
+    /// <param name="moduleName">The exact module id.</param>
+    /// <param name="count">The maximum number of versions to return.</param>
+    /// <param name="cancellationToken">Token that cancels the lookup.</param>
+    Task<WinPeResult<IReadOnlyList<string>>> GetVersionsAsync(
+        string moduleName,
+        int count = 30,
+        CancellationToken cancellationToken = default);
 }

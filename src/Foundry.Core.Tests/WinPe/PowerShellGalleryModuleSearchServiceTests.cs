@@ -64,13 +64,67 @@ public sealed class PowerShellGalleryModuleSearchServiceTests
         Assert.False(handler.WasCalled);
     }
 
+    [Fact]
+    public async Task SearchAsync_StripsWildcardsFromTerm()
+    {
+        var handler = new StubHandler(HttpStatusCode.OK, SampleFeed);
+        var service = new PowerShellGalleryModuleSearchService(new HttpClient(handler));
+
+        WinPeResult<IReadOnlyList<PowerShellGalleryModule>> result =
+            await service.SearchAsync("*Az*", 20, CancellationToken.None);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.NotNull(handler.LastRequestUri);
+        Assert.Contains("searchTerm='Az'", Uri.UnescapeDataString(handler.LastRequestUri!.ToString()));
+    }
+
+    [Fact]
+    public async Task SearchAsync_WhenTermIsOnlyWildcards_ReturnsEmptyWithoutRequest()
+    {
+        var handler = new StubHandler(HttpStatusCode.InternalServerError, string.Empty);
+        var service = new PowerShellGalleryModuleSearchService(new HttpClient(handler));
+
+        WinPeResult<IReadOnlyList<PowerShellGalleryModule>> result =
+            await service.SearchAsync("***", 20, CancellationToken.None);
+
+        Assert.True(result.IsSuccess);
+        Assert.Empty(result.Value!);
+        Assert.False(handler.WasCalled);
+    }
+
+    [Fact]
+    public async Task GetVersionsAsync_ReturnsStableVersionsNewestFirst()
+    {
+        const string versionsFeed = """
+        <feed xmlns="http://www.w3.org/2005/Atom"
+              xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
+              xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+          <entry><m:properties><d:Version>5.2.0</d:Version><d:IsPrerelease>false</d:IsPrerelease></m:properties></entry>
+          <entry><m:properties><d:Version>5.10.1</d:Version><d:IsPrerelease>false</d:IsPrerelease></m:properties></entry>
+          <entry><m:properties><d:Version>6.0.0-beta1</d:Version><d:IsPrerelease>true</d:IsPrerelease></m:properties></entry>
+          <entry><m:properties><d:Version>5.9.0</d:Version><d:IsPrerelease>false</d:IsPrerelease></m:properties></entry>
+        </feed>
+        """;
+        var service = new PowerShellGalleryModuleSearchService(
+            new HttpClient(new StubHandler(HttpStatusCode.OK, versionsFeed)));
+
+        WinPeResult<IReadOnlyList<string>> result =
+            await service.GetVersionsAsync("Pester", 30, CancellationToken.None);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Equal(["5.10.1", "5.9.0", "5.2.0"], result.Value!);
+    }
+
     private sealed class StubHandler(HttpStatusCode statusCode, string content) : HttpMessageHandler
     {
         public bool WasCalled { get; private set; }
 
+        public Uri? LastRequestUri { get; private set; }
+
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             WasCalled = true;
+            LastRequestUri = request.RequestUri;
             return Task.FromResult(new HttpResponseMessage(statusCode) { Content = new StringContent(content) });
         }
     }
