@@ -95,6 +95,29 @@ public sealed class WinPeIsoMediaServiceTests
         }
     }
 
+    [Fact]
+    public async Task CreateAsync_WhenKeepBootWimCopyRequested_WritesWimNextToIso()
+    {
+        using TempPreparedWorkspace temp = TempPreparedWorkspace.Create(useBootEx: false);
+        string outputIsoPath = Path.Combine(temp.RootPath, "out", "foundry.iso");
+        var runner = new FakeIsoRunner();
+        var service = new WinPeIsoMediaService(runner);
+
+        WinPeResult result = await service.CreateAsync(
+            new WinPeIsoMediaOptions
+            {
+                PreparedWorkspace = temp.PreparedWorkspace,
+                OutputIsoPath = outputIsoPath,
+                IsoTempDirectoryPath = Path.Combine(temp.RootPath, "iso-temp"),
+                KeepBootWimCopy = true
+            },
+            CancellationToken.None);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.True(File.Exists(outputIsoPath));
+        Assert.True(File.Exists(Path.Combine(temp.RootPath, "out", "foundry.wim")));
+    }
+
     private sealed class TempPreparedWorkspace : IDisposable
     {
         private TempPreparedWorkspace(string rootPath, WinPeWorkspacePreparationResult preparedWorkspace)
