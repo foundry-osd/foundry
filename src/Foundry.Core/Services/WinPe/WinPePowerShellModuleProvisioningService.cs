@@ -9,8 +9,10 @@ namespace Foundry.Core.Services.WinPe;
 /// <inheritdoc />
 public sealed class WinPePowerShellModuleProvisioningService : IWinPePowerShellModuleProvisioningService
 {
-    // Windows PowerShell modules path; also included in PowerShell 7's PSModulePath for compatibility.
-    private const string ModulesRelativePath = @"Program Files\WindowsPowerShell\Modules";
+    // Windows PowerShell module path inside the boot image: %WINDIR%\System32\WindowsPowerShell\v1.0\Modules.
+    // This is on the default WinPE PSModulePath, and modules are laid out as ModuleName\ModuleVersion
+    // (the structure produced by Save-Module).
+    private const string ModulesRelativePath = @"Windows\System32\WindowsPowerShell\v1.0\Modules";
 
     // Metadata entries present in a .nupkg that are not part of the module payload.
     private static readonly string[] PackageMetadataPrefixes = ["_rels", "package"];

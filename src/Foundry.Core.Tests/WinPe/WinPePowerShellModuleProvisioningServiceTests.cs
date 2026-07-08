@@ -37,7 +37,7 @@ public sealed class WinPePowerShellModuleProvisioningServiceTests
             CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
-        string moduleRoot = Path.Combine(image.MountedImagePath, "Program Files", "WindowsPowerShell", "Modules", "Pester", "5.5.0");
+        string moduleRoot = Path.Combine(image.MountedImagePath, "Windows", "System32", "WindowsPowerShell", "v1.0", "Modules", "Pester", "5.5.0");
         Assert.True(File.Exists(Path.Combine(moduleRoot, "Pester.psm1")));
         Assert.False(File.Exists(Path.Combine(moduleRoot, "Pester.nuspec")));
         Assert.False(Directory.Exists(Path.Combine(moduleRoot, "_rels")));
@@ -71,7 +71,7 @@ public sealed class WinPePowerShellModuleProvisioningServiceTests
             CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
-        Assert.True(File.Exists(Path.Combine(image.MountedImagePath, "Program Files", "WindowsPowerShell", "Modules", "LocalMod", "LocalMod.psd1")));
+        Assert.True(File.Exists(Path.Combine(image.MountedImagePath, "Windows", "System32", "WindowsPowerShell", "v1.0", "Modules", "LocalMod", "LocalMod.psd1")));
     }
 
     private static byte[] CreateNupkg()
