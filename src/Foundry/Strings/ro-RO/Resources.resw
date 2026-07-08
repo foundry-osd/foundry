@@ -2295,4 +2295,31 @@
   <data name="BootImage.PowerShell7.CopyButton" xml:space="preserve">
     <value>Copy</value>
   </data>
+  <data name="BootImage.Section.Drivers" xml:space="preserve">
+    <value>Drivers</value>
+  </data>
+  <data name="BootImage.Drivers.VendorsHeader" xml:space="preserve">
+    <value>Driver packs</value>
+  </data>
+  <data name="BootImage.Drivers.VendorsDescription" xml:space="preserve">
+    <value>Include vendor WinPE driver packs.</value>
+  </data>
+  <data name="BootImage.Drivers.Dell" xml:space="preserve">
+    <value>Dell</value>
+  </data>
+  <data name="BootImage.Drivers.Hp" xml:space="preserve">
+    <value>HP</value>
+  </data>
+  <data name="BootImage.Drivers.FoldersHeader" xml:space="preserve">
+    <value>Driver folders</value>
+  </data>
+  <data name="BootImage.Drivers.FoldersDescription" xml:space="preserve">
+    <value>Add folders that contain drivers (.inf packages) to inject into the boot image.</value>
+  </data>
+  <data name="BootImage.Drivers.AddButton" xml:space="preserve">
+    <value>Add driver folder</value>
+  </data>
+  <data name="BootImage.Drivers.Picker.Title" xml:space="preserve">
+    <value>Select a folder that contains drivers</value>
+  </data>
 </root>
