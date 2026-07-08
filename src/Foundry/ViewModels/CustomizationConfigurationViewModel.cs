@@ -43,7 +43,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
     /// <summary>
     /// Gets the maximum computer-name prefix length accepted by Windows naming rules.
     /// </summary>
-    public int MachineNamePrefixMaxLength => ComputerNameRules.MaxLength;
+    public int MachineNamePrefixMaxLength => ComputerNameTemplate.MaxTemplateLength;
 
     /// <summary>
     /// Gets whether machine naming controls should be enabled.
@@ -131,7 +131,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
                 return string.Empty;
             }
 
-            return ComputerNameRules.IsValid(MachineNamePrefix.Trim())
+            return ComputerNameTemplate.IsValidPrefix(MachineNamePrefix.Trim())
                 ? string.Empty
                 : localizationService.GetString("Customization.MachineNamingPrefixValidation");
         }
@@ -278,7 +278,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
 
     private static string NormalizePrefix(string? value)
     {
-        return ComputerNameRules.Normalize(value?.Trim());
+        return ComputerNameTemplate.NormalizePrefix(value?.Trim());
     }
 
     private MachineNamingSettings BuildMachineNamingSettings()
