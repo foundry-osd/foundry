@@ -12,6 +12,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
     private readonly IWinPeMountedImageAssetProvisioningService _assetProvisioningService;
     private readonly IWinPeRuntimePayloadProvisioningService _runtimePayloadProvisioningService;
     private readonly IWinReBootImagePreparationService _winReBootImagePreparationService;
+    private readonly IWinPePowerShell7ProvisioningService _powerShell7ProvisioningService;
 
     public WinPeMountedImageCustomizationService()
         : this(
@@ -20,7 +21,8 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
             new WinPeImageInternationalizationService(),
             new WinPeMountedImageAssetProvisioningService(),
             new WinPeRuntimePayloadProvisioningService(),
-            new WinReBootImagePreparationService())
+            new WinReBootImagePreparationService(),
+            new WinPePowerShell7ProvisioningService())
     {
     }
 
@@ -30,7 +32,8 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         IWinPeImageInternationalizationService imageInternationalizationService,
         IWinPeMountedImageAssetProvisioningService assetProvisioningService,
         IWinPeRuntimePayloadProvisioningService runtimePayloadProvisioningService,
-        IWinReBootImagePreparationService winReBootImagePreparationService)
+        IWinReBootImagePreparationService winReBootImagePreparationService,
+        IWinPePowerShell7ProvisioningService powerShell7ProvisioningService)
     {
         _processRunner = processRunner;
         _driverInjectionService = driverInjectionService;
@@ -38,6 +41,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         _assetProvisioningService = assetProvisioningService;
         _runtimePayloadProvisioningService = runtimePayloadProvisioningService;
         _winReBootImagePreparationService = winReBootImagePreparationService;
+        _powerShell7ProvisioningService = powerShell7ProvisioningService;
     }
 
     public async Task<WinPeResult> CustomizeAsync(
@@ -55,15 +59,19 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         WinPeBuildArtifact artifact = options.Artifact!;
         WinPeToolPaths tools = options.Tools!;
 
-        // Outer "Task X of N" progress. Mount, drivers, language, and commit always run; the two
-        // provisioning stages are conditional, so the total task count and the commit index shift.
+        // Outer "Task X of N" progress. Mount, drivers, language, and commit always run; the
+        // PowerShell 7 and provisioning stages are conditional, so the total task count and the
+        // commit index shift.
+        bool integratePowerShell7 = options.PowerShell7 is { IsEnabled: true, Release: not null };
         int taskCount = 4
+            + (integratePowerShell7 ? 1 : 0)
             + (options.AssetProvisioning is not null ? 1 : 0)
             + (options.RuntimePayloadProvisioning is not null ? 1 : 0);
         const int mountTask = 1;
         const int driversTask = 2;
         const int internationalizationTask = 3;
         int nextTask = 4;
+        int powerShell7Task = integratePowerShell7 ? nextTask++ : 0;
         int assetsTask = options.AssetProvisioning is not null ? nextTask++ : 0;
         int runtimeTask = options.RuntimePayloadProvisioning is not null ? nextTask++ : 0;
         int commitTask = nextTask;
@@ -154,6 +162,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
                 Architecture = artifact.Architecture,
                 Tools = tools,
                 WinPeLanguage = options.WinPeLanguage,
+                OptionalComponents = options.OptionalComponents,
                 WorkingDirectoryPath = artifact.WorkingDirectoryPath,
                 DismProgress = CreateDismProgress(options.Progress, 65, "Applying language and optional components.", internationalizationTask, taskCount)
             },
@@ -162,6 +171,28 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         if (!internationalizationResult.IsSuccess)
         {
             return await FailWithDiscardAsync(internationalizationResult.Error!, session, cancellationToken).ConfigureAwait(false);
+        }
+
+        if (integratePowerShell7)
+        {
+            ReportProgress(options.Progress, 75, "Integrating PowerShell 7.", powerShell7Task, taskCount);
+            WinPeResult powerShell7Result = await _powerShell7ProvisioningService.ProvisionAsync(
+                new WinPePowerShell7ProvisioningOptions
+                {
+                    MountedImagePath = session.MountDirectoryPath,
+                    Architecture = artifact.Architecture,
+                    Release = options.PowerShell7!.Release,
+                    FallbackRelease = options.PowerShell7.FallbackRelease,
+                    CacheDirectoryPath = options.PowerShell7.CacheDirectoryPath,
+                    WorkingDirectoryPath = artifact.WorkingDirectoryPath,
+                    DownloadProgress = options.DownloadProgress
+                },
+                cancellationToken).ConfigureAwait(false);
+
+            if (!powerShell7Result.IsSuccess)
+            {
+                return await FailWithDiscardAsync(powerShell7Result.Error!, session, cancellationToken).ConfigureAwait(false);
+            }
         }
 
         if (options.AssetProvisioning is not null)

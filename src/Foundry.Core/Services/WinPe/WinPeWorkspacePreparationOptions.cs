@@ -45,6 +45,16 @@ public sealed record WinPeWorkspacePreparationOptions
     public string? CustomDriverDirectoryPath { get; init; }
 
     /// <summary>
+    /// Gets the WinPE optional component names to add. When empty, Foundry's recommended defaults are used.
+    /// </summary>
+    public IReadOnlyList<string> OptionalComponents { get; init; } = [];
+
+    /// <summary>
+    /// Gets the optional PowerShell 7 integration settings.
+    /// </summary>
+    public WinPePowerShell7Settings? PowerShell7 { get; init; }
+
+    /// <summary>
     /// Gets the WinPE language selected for the boot image.
     /// </summary>
     public string WinPeLanguage { get; init; } = string.Empty;

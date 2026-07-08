@@ -35,6 +35,16 @@ public sealed record WinPeMountedImageCustomizationOptions
     public IReadOnlyList<string> DriverPackagePaths { get; init; } = [];
 
     /// <summary>
+    /// Gets the WinPE optional component names to add. When empty, Foundry's recommended defaults are used.
+    /// </summary>
+    public IReadOnlyList<string> OptionalComponents { get; init; } = [];
+
+    /// <summary>
+    /// Gets the optional PowerShell 7 integration settings.
+    /// </summary>
+    public WinPePowerShell7Settings? PowerShell7 { get; init; }
+
+    /// <summary>
     /// Gets optional asset provisioning settings.
     /// </summary>
     public WinPeMountedImageAssetProvisioningOptions? AssetProvisioning { get; init; }

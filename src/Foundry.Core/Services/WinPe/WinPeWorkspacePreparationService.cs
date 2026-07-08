@@ -82,6 +82,8 @@ public sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparatio
                 BootImageSource = options.BootImageSource,
                 WinPeLanguage = options.WinPeLanguage,
                 DriverPackagePaths = drivers.Value!,
+                OptionalComponents = options.OptionalComponents,
+                PowerShell7 = options.PowerShell7,
                 AssetProvisioning = options.AssetProvisioning,
                 RuntimePayloadProvisioning = options.RuntimePayloadProvisioning,
                 WinReCacheDirectoryPath = options.WinReCacheDirectoryPath,
