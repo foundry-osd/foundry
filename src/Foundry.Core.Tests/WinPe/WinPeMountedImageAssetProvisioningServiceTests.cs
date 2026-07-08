@@ -85,6 +85,14 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         XElement settings = document.Descendants(ns + "settings").Single();
         Assert.Equal("windowsPE", (string?)settings.Attribute("pass"));
 
+        Assert.Equal("true", component.Element(ns + "EnableFirewall")?.Value);
+        Assert.Equal("true", component.Element(ns + "EnableNetwork")?.Value);
+        XElement display = component.Element(ns + "Display")!;
+        Assert.Equal("32", display.Element(ns + "ColorDepth")?.Value);
+        Assert.Equal("1280", display.Element(ns + "HorizontalResolution")?.Value);
+        Assert.Equal("720", display.Element(ns + "VerticalResolution")?.Value);
+        Assert.Equal("60", display.Element(ns + "RefreshRate")?.Value);
+
         string syncPath = component.Descendants(ns + "RunSynchronousCommand").Single().Element(ns + "Path")!.Value;
         Assert.Contains("psbootstrapper.exe", syncPath, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("FoundryBootstrap.ps1", syncPath, StringComparison.OrdinalIgnoreCase);
@@ -122,6 +130,34 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         XNamespace ns = "urn:schemas-microsoft-com:unattend";
         Assert.Empty(document.Descendants(ns + "RunAsynchronousCommand"));
         Assert.Single(document.Descendants(ns + "RunSynchronousCommand"));
+    }
+
+    [Fact]
+    public async Task ProvisionAsync_WhenFirewallDisabled_WritesEnableFirewallFalse()
+    {
+        using TempMountedImage image = TempMountedImage.Create();
+        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
+        File.WriteAllText(curlSourcePath, "curl");
+
+        var service = new WinPeMountedImageAssetProvisioningService();
+
+        WinPeResult result = await service.ProvisionAsync(
+            new WinPeMountedImageAssetProvisioningOptions
+            {
+                MountedImagePath = image.MountedImagePath,
+                Architecture = WinPeArchitecture.X64,
+                BootstrapScriptContent = "bootstrap",
+                CurlExecutableSourcePath = curlSourcePath,
+                PSBootstrapperSourceExecutablePath = image.PSBootstrapperSourcePath,
+                IanaWindowsTimeZoneMapJson = "{}",
+                EnableFirewall = false
+            },
+            CancellationToken.None);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        XDocument document = XDocument.Load(Path.Combine(image.MountedImagePath, "Unattend.xml"));
+        XNamespace ns = "urn:schemas-microsoft-com:unattend";
+        Assert.Equal("false", document.Descendants(ns + "EnableFirewall").Single().Value);
     }
 
     [Fact]

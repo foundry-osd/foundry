@@ -19,6 +19,11 @@ public sealed record WinPeMountedImageAssetProvisioningOptions
     /// PowerShell troubleshooting console (debug mode). Off by default to prevent tampering.
     /// </summary>
     public bool IncludeTroubleshootingConsole { get; init; }
+
+    /// <summary>
+    /// Gets a value indicating whether the WinPE firewall is enabled via Unattend.xml. On by default.
+    /// </summary>
+    public bool EnableFirewall { get; init; } = true;
     public string SevenZipSourceDirectoryPath { get; init; } = string.Empty;
     public string IanaWindowsTimeZoneMapJson { get; init; } = string.Empty;
     public string FoundryConnectConfigurationJson { get; init; } = string.Empty;

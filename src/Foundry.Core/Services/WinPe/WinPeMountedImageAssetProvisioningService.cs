@@ -78,7 +78,7 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
 
             ProvisionBundledSevenZip(mountedImagePath, options);
             await WriteStartnetAsync(system32Path, cancellationToken).ConfigureAwait(false);
-            await WriteUnattendAsync(mountedImagePath, options.Architecture, options.IncludeTroubleshootingConsole, cancellationToken).ConfigureAwait(false);
+            await WriteUnattendAsync(mountedImagePath, options.Architecture, options.IncludeTroubleshootingConsole, options.EnableFirewall, cancellationToken).ConfigureAwait(false);
             await WriteConfigurationAssetsAsync(mountedImagePath, foundryConfigPath, options, cancellationToken).ConfigureAwait(false);
 
             return WinPeResult.Success();
@@ -118,6 +118,7 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
         string mountedImagePath,
         WinPeArchitecture architecture,
         bool includeTroubleshootingConsole,
+        bool enableFirewall,
         CancellationToken cancellationToken)
     {
         // wpeinit (invoked from startnet.cmd) auto-discovers X:\Unattend.xml, i.e. the root of the
@@ -137,6 +138,13 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
             new XAttribute("language", "neutral"),
             new XAttribute("versionScope", "nonSxS"),
             new XAttribute(XNamespace.Xmlns + "wcm", WcmNamespaceUri),
+            new XElement(
+                ns + "Display",
+                new XElement(ns + "ColorDepth", "32"),
+                new XElement(ns + "HorizontalResolution", "1280"),
+                new XElement(ns + "RefreshRate", "60"),
+                new XElement(ns + "VerticalResolution", "720")),
+            new XElement(ns + "EnableFirewall", enableFirewall ? "true" : "false"),
             new XElement(ns + "EnableNetwork", "true")
         ];
 
