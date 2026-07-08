@@ -24,7 +24,8 @@
                 Padding="0,6"
                 ColumnSpacing="{ThemeResource FoundrySpace12}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="0.5*" MinWidth="160" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
@@ -38,21 +39,29 @@
                         TextTrimming="CharacterEllipsis" />
                     <TextBlock
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        MaxLines="2"
+                        MaxLines="{x:Bind DescriptionMaxLines, Mode=OneWay}"
                         Style="{ThemeResource FoundryCaptionTextBlockStyle}"
                         Text="{x:Bind Description}"
-                        TextTrimming="CharacterEllipsis"
+                        TextTrimming="{x:Bind DescriptionTrimming, Mode=OneWay}"
                         TextWrapping="Wrap" />
                 </StackPanel>
-                <ComboBox
+                <ToggleButton
                     Grid.Column="1"
-                    Width="{ThemeResource FoundryStatusTextMinWidth}"
+                    VerticalAlignment="Center"
+                    IsChecked="{x:Bind IsDescriptionExpanded, Mode=TwoWay}"
+                    ToolTipService.ToolTip="{x:Bind Description}"
+                    Visibility="{x:Bind ExpandDescriptionVisibility}">
+                    <FontIcon FontSize="{ThemeResource FoundryIconSizeSmall}" Glyph="&#xE70D;" />
+                </ToggleButton>
+                <ComboBox
+                    Grid.Column="2"
+                    MinWidth="{StaticResource SettingActionControlMinWidth}"
                     VerticalAlignment="Center"
                     DropDownOpened="VersionComboBox_DropDownOpened"
                     ItemsSource="{x:Bind Versions}"
                     SelectedItem="{x:Bind SelectedVersion, Mode=TwoWay}" />
                 <Button
-                    Grid.Column="2"
+                    Grid.Column="3"
                     MinWidth="{StaticResource SettingActionControlMinWidth}"
                     VerticalAlignment="Center"
                     Click="AddGalleryModuleButton_Click"
@@ -250,7 +259,7 @@
                     <StackPanel
                         Spacing="{ThemeResource FoundrySettingsSectionSpacing}"
                         Visibility="{x:Bind ViewModel.ModulesVisibility, Mode=OneWay}">
-                        <!--  Gallery  -->
+                        <!--  PowerShell Gallery  -->
                         <StackPanel Spacing="{ThemeResource FoundryCompactStackSpacing}">
                             <TextBlock x:Name="GalleryTitle"
                                 Style="{ThemeResource FoundrySectionTitleTextBlockStyle}" />
@@ -275,7 +284,20 @@
                             <ItemsControl
                                 ItemTemplate="{StaticResource ModuleSearchResultTemplate}"
                                 ItemsSource="{x:Bind ViewModel.ModuleSearchResults, Mode=OneWay}" />
+                            <TextBlock x:Name="SelectedGalleryModulesTitle"
+                                Margin="0,8,0,0"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Style="{ThemeResource FoundryBodyTextBlockStyle}" />
+                            <ItemsControl
+                                ItemTemplate="{StaticResource SelectedModuleTemplate}"
+                                ItemsSource="{x:Bind ViewModel.SelectedGalleryModules, Mode=OneWay}" />
                         </StackPanel>
+
+                        <!--  Divider  -->
+                        <Border
+                            Height="1"
+                            Margin="0,4"
+                            Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
 
                         <!--  Local folder  -->
                         <StackPanel Spacing="{ThemeResource FoundryCompactStackSpacing}">
@@ -287,15 +309,13 @@
                             <Button x:Name="AddLocalModuleButton"
                                 MinWidth="{StaticResource SettingActionControlMinWidth}"
                                 Command="{x:Bind ViewModel.AddLocalModuleCommand}" />
-                        </StackPanel>
-
-                        <!--  Selected modules  -->
-                        <StackPanel Spacing="{ThemeResource FoundryCompactStackSpacing}">
-                            <TextBlock x:Name="SelectedModulesTitle"
-                                Style="{ThemeResource FoundrySectionTitleTextBlockStyle}" />
+                            <TextBlock x:Name="SelectedLocalModulesTitle"
+                                Margin="0,8,0,0"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Style="{ThemeResource FoundryBodyTextBlockStyle}" />
                             <ItemsControl
                                 ItemTemplate="{StaticResource SelectedModuleTemplate}"
-                                ItemsSource="{x:Bind ViewModel.SelectedModules, Mode=OneWay}" />
+                                ItemsSource="{x:Bind ViewModel.SelectedLocalModules, Mode=OneWay}" />
                         </StackPanel>
                     </StackPanel>
 

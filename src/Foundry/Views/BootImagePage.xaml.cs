@@ -103,10 +103,11 @@ public sealed partial class BootImagePage : Page
         GalleryTitle.Text = localizationService.GetString("BootImage.Modules.GalleryHeader");
         ModuleSearchBox.PlaceholderText = localizationService.GetString("BootImage.Modules.SearchPlaceholder");
         SearchModulesButton.Content = localizationService.GetString("BootImage.Modules.SearchButton");
+        SelectedGalleryModulesTitle.Text = localizationService.GetString("BootImage.Modules.SelectedGalleryHeader");
         LocalTitle.Text = localizationService.GetString("BootImage.Modules.LocalHeader");
         LocalSubtitle.Text = localizationService.GetString("BootImage.Modules.LocalDescription");
         AddLocalModuleButton.Content = localizationService.GetString("BootImage.Modules.AddLocalButton");
-        SelectedModulesTitle.Text = localizationService.GetString("BootImage.Modules.SelectedHeader");
+        SelectedLocalModulesTitle.Text = localizationService.GetString("BootImage.Modules.SelectedLocalHeader");
 
         RootFoldersTitle.Text = localizationService.GetString("BootImage.RootFolders.Header");
         RootFoldersSubtitle.Text = localizationService.GetString("BootImage.RootFolders.Description");

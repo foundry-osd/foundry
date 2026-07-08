@@ -58,7 +58,7 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
 
         foreach (PowerShellModuleSelection module in settings.PowerShellModules)
         {
-            SelectedModules.Add(new BootImageModuleViewModel(module, RemoveLabel));
+            ModuleListFor(module.Source).Add(new BootImageModuleViewModel(module, RemoveLabel));
         }
 
         foreach (string folder in settings.AdditionalRootFolderPaths)
@@ -95,9 +95,14 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
     public ObservableCollection<BootImageModuleSearchResultViewModel> ModuleSearchResults { get; } = [];
 
     /// <summary>
-    /// Gets the PowerShell modules selected for integration.
+    /// Gets the selected PowerShell Gallery modules.
     /// </summary>
-    public ObservableCollection<BootImageModuleViewModel> SelectedModules { get; } = [];
+    public ObservableCollection<BootImageModuleViewModel> SelectedGalleryModules { get; } = [];
+
+    /// <summary>
+    /// Gets the selected local-folder modules.
+    /// </summary>
+    public ObservableCollection<BootImageModuleViewModel> SelectedLocalModules { get; } = [];
 
     /// <summary>
     /// Gets the additional folders whose contents are copied into the boot image root.
@@ -347,15 +352,14 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
     public void AddGalleryModule(BootImageModuleSearchResultViewModel result)
     {
         string version = result.SelectedVersion ?? result.Module.Version;
-        if (SelectedModules.Any(selected =>
-                selected.Selection.Source == PowerShellModuleSource.Gallery &&
+        if (SelectedGalleryModules.Any(selected =>
                 string.Equals(selected.Selection.Name, result.Name, StringComparison.OrdinalIgnoreCase) &&
                 string.Equals(selected.Selection.Version, version, StringComparison.OrdinalIgnoreCase)))
         {
             return;
         }
 
-        SelectedModules.Add(new BootImageModuleViewModel(
+        SelectedGalleryModules.Add(new BootImageModuleViewModel(
             new PowerShellModuleSelection
             {
                 Source = PowerShellModuleSource.Gallery,
@@ -382,14 +386,13 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
         string version = versionFolder.Name;
         string name = versionFolder.Parent?.Name ?? version;
 
-        if (SelectedModules.Any(selected =>
-                selected.Selection.Source == PowerShellModuleSource.Local &&
+        if (SelectedLocalModules.Any(selected =>
                 string.Equals(selected.Selection.LocalPath, path, StringComparison.OrdinalIgnoreCase)))
         {
             return;
         }
 
-        SelectedModules.Add(new BootImageModuleViewModel(
+        SelectedLocalModules.Add(new BootImageModuleViewModel(
             new PowerShellModuleSelection
             {
                 Source = PowerShellModuleSource.Local,
@@ -402,15 +405,18 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
     }
 
     /// <summary>
-    /// Removes a module from the selected modules list.
+    /// Removes a module from whichever selected modules list contains it.
     /// </summary>
     public void RemoveModule(BootImageModuleViewModel module)
     {
-        if (SelectedModules.Remove(module))
+        if (ModuleListFor(module.Selection.Source).Remove(module))
         {
             SaveModules();
         }
     }
+
+    private ObservableCollection<BootImageModuleViewModel> ModuleListFor(PowerShellModuleSource source) =>
+        source == PowerShellModuleSource.Local ? SelectedLocalModules : SelectedGalleryModules;
 
     [RelayCommand]
     private async Task AddRootFolderAsync()
@@ -492,7 +498,10 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
 
     private void SaveModules()
     {
-        List<PowerShellModuleSelection> modules = SelectedModules.Select(module => module.Selection).ToList();
+        List<PowerShellModuleSelection> modules = SelectedGalleryModules
+            .Concat(SelectedLocalModules)
+            .Select(module => module.Selection)
+            .ToList();
         Save(current => current with { PowerShellModules = modules });
     }
 

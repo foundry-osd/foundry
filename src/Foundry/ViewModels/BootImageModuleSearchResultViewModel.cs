@@ -4,6 +4,7 @@
 
 using System.Collections.ObjectModel;
 using Foundry.Core.Services.WinPe;
+using Microsoft.UI.Xaml;
 using Serilog;
 
 namespace Foundry.ViewModels;
@@ -53,6 +54,27 @@ public sealed partial class BootImageModuleSearchResultViewModel : ObservableObj
     /// Gets the module description.
     /// </summary>
     public string Description => Module.Description;
+
+    /// <summary>
+    /// Gets whether an expand toggle is offered for the description (only when there is text to reveal).
+    /// </summary>
+    public bool CanExpandDescription => !string.IsNullOrWhiteSpace(Description);
+
+    public Visibility ExpandDescriptionVisibility =>
+        CanExpandDescription ? Visibility.Visible : Visibility.Collapsed;
+
+    [NotifyPropertyChangedFor(nameof(DescriptionMaxLines))]
+    [NotifyPropertyChangedFor(nameof(DescriptionTrimming))]
+    [ObservableProperty]
+    public partial bool IsDescriptionExpanded { get; set; }
+
+    /// <summary>
+    /// Gets the description line limit; a single trimmed line when collapsed, unlimited when expanded.
+    /// </summary>
+    public int DescriptionMaxLines => IsDescriptionExpanded ? 0 : 1;
+
+    public TextTrimming DescriptionTrimming =>
+        IsDescriptionExpanded ? TextTrimming.None : TextTrimming.CharacterEllipsis;
 
     /// <summary>
     /// Gets the published versions, newest first (index 0 is the latest).
