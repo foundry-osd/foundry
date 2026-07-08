@@ -134,6 +134,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<NetworkConfigurationViewModel>();
         services.AddTransient<AutopilotConfigurationViewModel>();
         services.AddTransient<CustomizationConfigurationViewModel>();
+        services.AddTransient<BootImageConfigurationViewModel>();
         services.AddTransient<StartMediaViewModel>();
         services.AddTransient<HomeLandingViewModel>();
         services.AddTransient<SettingsPageViewModel>();
