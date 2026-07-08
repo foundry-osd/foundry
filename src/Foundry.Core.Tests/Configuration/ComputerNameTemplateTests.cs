@@ -9,10 +9,11 @@ namespace Foundry.Core.Tests.Configuration;
 public sealed class ComputerNameTemplateTests
 {
     [Theory]
-    [InlineData("PC-$SERIALNUMBER", true)]
+    [InlineData("PC-${SERIALNUMBER}", true)]
+    [InlineData("${SERIALNUMBER}", true)]
     [InlineData("PC-001", false)]
     [InlineData("", false)]
-    public void ContainsVariable_DetectsDollarToken(string value, bool expected)
+    public void ContainsVariable_DetectsBraceToken(string value, bool expected)
     {
         Assert.Equal(expected, ComputerNameTemplate.ContainsVariable(value));
     }
@@ -25,7 +26,18 @@ public sealed class ComputerNameTemplateTests
             ["SERIALNUMBER"] = "5CG1234ABC"
         };
 
-        Assert.Equal("PC-5CG1234ABC", ComputerNameTemplate.Expand("PC-$serialnumber", variables));
+        Assert.Equal("PC-5CG1234ABC", ComputerNameTemplate.Expand("PC-${serialnumber}", variables));
+    }
+
+    [Fact]
+    public void Expand_SupportsVariableOnlyName()
+    {
+        var variables = new Dictionary<string, string?>(StringComparer.OrdinalIgnoreCase)
+        {
+            ["SERIALNUMBER"] = "5CG1234ABC"
+        };
+
+        Assert.Equal("5CG1234ABC", ComputerNameTemplate.Expand("${SERIALNUMBER}", variables));
     }
 
     [Fact]
@@ -36,7 +48,7 @@ public sealed class ComputerNameTemplateTests
             ["SERIALNUMBER"] = "ABC"
         };
 
-        Assert.Equal("PC-ABC", ComputerNameTemplate.Expand("PC-$UNKNOWN$SERIALNUMBER", variables));
+        Assert.Equal("PC-ABC", ComputerNameTemplate.Expand("PC-${UNKNOWN}${SERIALNUMBER}", variables));
     }
 
     [Fact]
@@ -47,7 +59,7 @@ public sealed class ComputerNameTemplateTests
             ["SERIALNUMBER"] = "0123456789ABCDEF"
         };
 
-        string result = ComputerNameTemplate.ExpandAndNormalize("$SERIALNUMBER", variables);
+        string result = ComputerNameTemplate.ExpandAndNormalize("${SERIALNUMBER}", variables);
 
         Assert.Equal("0123456789ABCDE", result);
         Assert.Equal(ComputerNameRules.MaxLength, result.Length);
@@ -62,13 +74,14 @@ public sealed class ComputerNameTemplateTests
             ["SERIALNUMBER"] = "5CG 12/34"
         };
 
-        Assert.Equal("PC-5CG1234", ComputerNameTemplate.ExpandAndNormalize("PC-$SERIALNUMBER", variables));
+        Assert.Equal("PC-5CG1234", ComputerNameTemplate.ExpandAndNormalize("PC-${SERIALNUMBER}", variables));
     }
 
     [Fact]
     public void NormalizePrefix_KeepsVariableTokenIntact()
     {
-        Assert.Equal("PC-$SERIALNUMBER", ComputerNameTemplate.NormalizePrefix("PC-$SERIALNUMBER"));
+        Assert.Equal("PC-${SERIALNUMBER}", ComputerNameTemplate.NormalizePrefix("PC-${SERIALNUMBER}"));
+        Assert.Equal("${SERIALNUMBER}", ComputerNameTemplate.NormalizePrefix("${SERIALNUMBER}"));
     }
 
     [Fact]
@@ -78,8 +91,9 @@ public sealed class ComputerNameTemplateTests
     }
 
     [Theory]
-    [InlineData("PC-$SERIALNUMBER", true)]
-    [InlineData("PC$MODEL-01", true)]
+    [InlineData("PC-${SERIALNUMBER}", true)]
+    [InlineData("${SERIALNUMBER}", true)]
+    [InlineData("${MODEL}-01", true)]
     [InlineData("with space", false)]
     [InlineData("PC-001", true)]
     public void IsValidPrefix_ValidatesTemplatesAndPlainNames(string value, bool expected)

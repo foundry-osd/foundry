@@ -12,15 +12,15 @@ namespace Foundry.Deploy.Validation;
 /// </summary>
 public static partial class ComputerNameTemplate
 {
-    [GeneratedRegex(@"\$([A-Za-z][A-Za-z0-9]*)")]
+    [GeneratedRegex(@"\$\{([A-Za-z][A-Za-z0-9]*)\}")]
     private static partial Regex VariableTokenRegex();
 
     /// <summary>
-    /// Gets whether the supplied prefix contains a <c>$VARIABLE</c> token.
+    /// Gets whether the supplied prefix contains a <c>${VARIABLE}</c> token.
     /// </summary>
     public static bool ContainsVariable(string? value)
     {
-        return !string.IsNullOrEmpty(value) && value.Contains('$', StringComparison.Ordinal);
+        return !string.IsNullOrEmpty(value) && value.Contains("${", StringComparison.Ordinal);
     }
 
     /// <summary>

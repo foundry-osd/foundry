@@ -31,15 +31,20 @@ public static partial class ComputerNameTemplate
     /// </summary>
     public const int MaxTemplateLength = 63;
 
-    [GeneratedRegex(@"\$([A-Za-z][A-Za-z0-9]*)")]
+    [GeneratedRegex(@"\$\{([A-Za-z][A-Za-z0-9]*)\}")]
     private static partial Regex VariableTokenRegex();
 
     /// <summary>
-    /// Gets whether the supplied prefix contains a <c>$VARIABLE</c> token.
+    /// Gets whether the supplied prefix contains a <c>${VARIABLE}</c> token (or the start of one being typed).
     /// </summary>
     public static bool ContainsVariable(string? value)
     {
-        return !string.IsNullOrEmpty(value) && value.Contains('$', StringComparison.Ordinal);
+        return !string.IsNullOrEmpty(value) && value.Contains("${", StringComparison.Ordinal);
+    }
+
+    private static bool IsTemplateCharacter(char character)
+    {
+        return character is '$' or '{' or '}';
     }
 
     /// <summary>
@@ -78,7 +83,7 @@ public static partial class ComputerNameTemplate
         var builder = new StringBuilder(MaxTemplateLength);
         foreach (char character in value)
         {
-            if (!ComputerNameRules.IsAllowedCharacter(character) && character != '$')
+            if (!ComputerNameRules.IsAllowedCharacter(character) && !IsTemplateCharacter(character))
             {
                 continue;
             }
@@ -105,7 +110,7 @@ public static partial class ComputerNameTemplate
 
         foreach (char character in value)
         {
-            if (!ComputerNameRules.IsAllowedCharacter(character) && character != '$')
+            if (!ComputerNameRules.IsAllowedCharacter(character) && !IsTemplateCharacter(character))
             {
                 return false;
             }
