@@ -84,10 +84,16 @@
                     Grid.Column="0"
                     VerticalAlignment="Center"
                     Spacing="{ThemeResource FoundryCompactStackSpacing}">
+                    <HyperlinkButton
+                        Padding="0"
+                        Content="{x:Bind Name}"
+                        NavigateUri="{x:Bind GalleryUri}"
+                        Visibility="{x:Bind GalleryLinkVisibility}" />
                     <TextBlock
                         FontWeight="SemiBold"
                         Text="{x:Bind Name}"
-                        TextTrimming="CharacterEllipsis" />
+                        TextTrimming="CharacterEllipsis"
+                        Visibility="{x:Bind NameTextVisibility}" />
                     <TextBlock
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         MaxLines="2"
