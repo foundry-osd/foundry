@@ -686,6 +686,39 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         Assert.Equal("readme", await File.ReadAllTextAsync(Path.Combine(toolsPath, "readme.txt")));
     }
 
+    [Fact]
+    public async Task ProvisionAsync_WhenAdditionalRootFoldersProvided_CopiesContentsPreservingStructure()
+    {
+        using TempMountedImage image = TempMountedImage.Create();
+        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
+        File.WriteAllText(curlSourcePath, "curl");
+
+        string extrasRoot = Path.Combine(image.RootPath, "extras");
+        string nestedDir = Path.Combine(extrasRoot, "Windows", "System32");
+        Directory.CreateDirectory(nestedDir);
+        File.WriteAllText(Path.Combine(extrasRoot, "root.txt"), "root");
+        File.WriteAllText(Path.Combine(nestedDir, "tool.dll"), "tool");
+
+        var service = new WinPeMountedImageAssetProvisioningService();
+
+        WinPeResult result = await service.ProvisionAsync(
+            new WinPeMountedImageAssetProvisioningOptions
+            {
+                MountedImagePath = image.MountedImagePath,
+                Architecture = WinPeArchitecture.X64,
+                BootstrapScriptContent = "bootstrap",
+                CurlExecutableSourcePath = curlSourcePath,
+                PSBootstrapperSourceExecutablePath = image.PSBootstrapperSourcePath,
+                IanaWindowsTimeZoneMapJson = "{}",
+                AdditionalRootFolderSourcePaths = [extrasRoot]
+            },
+            CancellationToken.None);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Equal("root", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "root.txt")));
+        Assert.Equal("tool", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Windows", "System32", "tool.dll")));
+    }
+
     private sealed class TempMountedImage : IDisposable
     {
         private TempMountedImage(string rootPath, string mountedImagePath)

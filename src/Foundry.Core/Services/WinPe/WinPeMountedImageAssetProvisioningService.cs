@@ -77,6 +77,7 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
             File.Copy(options.PSBootstrapperSourceExecutablePath, Path.Combine(system32Path, PSBootstrapperFileName), overwrite: true);
 
             ProvisionBundledSevenZip(mountedImagePath, options);
+            CopyAdditionalRootFolders(mountedImagePath, options.AdditionalRootFolderSourcePaths);
             await WriteStartnetAsync(system32Path, cancellationToken).ConfigureAwait(false);
             await WriteUnattendAsync(mountedImagePath, options.Architecture, options.IncludeTroubleshootingConsole, options.EnableFirewall, cancellationToken).ConfigureAwait(false);
             await WriteConfigurationAssetsAsync(mountedImagePath, foundryConfigPath, options, cancellationToken).ConfigureAwait(false);
@@ -310,6 +311,35 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
             string destinationPath = ResolveSafeRelativePath(mountedImagePath, assetFile.RelativeDestinationPath);
             Directory.CreateDirectory(Path.GetDirectoryName(destinationPath)!);
             File.Copy(assetFile.SourcePath, destinationPath, overwrite: true);
+        }
+    }
+
+    private static void CopyAdditionalRootFolders(
+        string mountedImagePath,
+        IReadOnlyList<string> sourceFolderPaths)
+    {
+        foreach (string sourceFolderPath in sourceFolderPaths)
+        {
+            if (string.IsNullOrWhiteSpace(sourceFolderPath))
+            {
+                throw new ArgumentException("Additional root folder source path is required.");
+            }
+
+            if (!Directory.Exists(sourceFolderPath))
+            {
+                throw new IOException($"Additional root folder source was not found: '{sourceFolderPath}'.");
+            }
+
+            // The folder's contents are laid over the image root, so the caller controls the exact
+            // destination structure (e.g. Windows\System32\... within the selected folder).
+            string fullSourceRoot = Path.GetFullPath(sourceFolderPath);
+            foreach (string filePath in Directory.EnumerateFiles(fullSourceRoot, "*", SearchOption.AllDirectories))
+            {
+                string relativePath = Path.GetRelativePath(fullSourceRoot, filePath);
+                string destinationPath = ResolveSafeRelativePath(mountedImagePath, relativePath);
+                Directory.CreateDirectory(Path.GetDirectoryName(destinationPath)!);
+                File.Copy(filePath, destinationPath, overwrite: true);
+            }
         }
     }
 

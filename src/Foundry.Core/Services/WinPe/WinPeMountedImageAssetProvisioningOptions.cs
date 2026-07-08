@@ -24,6 +24,12 @@ public sealed record WinPeMountedImageAssetProvisioningOptions
     /// Gets a value indicating whether the WinPE firewall is enabled via Unattend.xml. On by default.
     /// </summary>
     public bool EnableFirewall { get; init; } = true;
+
+    /// <summary>
+    /// Gets source folders whose contents are copied into the boot image root, preserving the
+    /// destination folder structure they contain (for example, a <c>Windows\System32</c> subtree).
+    /// </summary>
+    public IReadOnlyList<string> AdditionalRootFolderSourcePaths { get; init; } = [];
     public string SevenZipSourceDirectoryPath { get; init; } = string.Empty;
     public string IanaWindowsTimeZoneMapJson { get; init; } = string.Empty;
     public string FoundryConnectConfigurationJson { get; init; } = string.Empty;
