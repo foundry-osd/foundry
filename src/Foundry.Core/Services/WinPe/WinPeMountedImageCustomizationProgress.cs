@@ -4,6 +4,16 @@
 
 namespace Foundry.Core.Services.WinPe;
 
+/// <summary>
+/// Identifies the kind of item counted by the inner "item X of N" progress so the UI can label it correctly.
+/// </summary>
+public enum WinPeCustomizationItemCategory
+{
+    None,
+    DriverPackage,
+    OptionalComponent
+}
+
 public sealed record WinPeMountedImageCustomizationProgress
 {
     public int Percent { get; init; }
@@ -30,4 +40,9 @@ public sealed record WinPeMountedImageCustomizationProgress
     /// Gets the total number of items within the current task.
     /// </summary>
     public int? ItemCount { get; init; }
+
+    /// <summary>
+    /// Gets the kind of item counted by <see cref="ItemIndex"/>/<see cref="ItemCount"/>.
+    /// </summary>
+    public WinPeCustomizationItemCategory ItemCategory { get; init; } = WinPeCustomizationItemCategory.None;
 }

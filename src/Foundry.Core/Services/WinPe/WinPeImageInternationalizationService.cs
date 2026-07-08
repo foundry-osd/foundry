@@ -54,9 +54,10 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
                 $"Expected path: '{optionalComponentsRoot}'.");
         }
 
-        IReadOnlyList<string> optionalComponents = options.OptionalComponents.Count > 0
+        IReadOnlyList<string> selectedOptionalComponents = options.OptionalComponents.Count > 0
             ? options.OptionalComponents
             : WinPeOptionalComponentDefaults.RecommendedComponentNames;
+        IReadOnlyList<string> optionalComponents = WinPeOptionalComponentDefaults.OrderForIntegration(selectedOptionalComponents);
 
         WinPeResult packageResult = await AddRequiredOptionalComponentsAsync(
             options.MountedImagePath,
@@ -119,9 +120,14 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
         }
 
         int neutralComponentsFound = 0;
+        int componentIndex = 0;
+        int componentCount = optionalComponents.Count;
         foreach (string component in optionalComponents)
         {
+            componentIndex++;
             bool isBlockingComponent = BlockingOptionalComponents.Contains(component, StringComparer.OrdinalIgnoreCase);
+            // Keep the generic (localized) detail status; the outer pipeline adds the "Optional component X of N" count.
+            const string componentStatus = "Applying optional components with DISM.";
             string neutralPackagePath = Path.Combine(optionalComponentsRoot, $"{component}.cab");
             if (File.Exists(neutralPackagePath))
             {
@@ -132,10 +138,12 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
                     neutralPackagePath,
                     workingDirectoryPath,
                     $"Failed to add the '{component}' WinPE optional component.",
-                    "Applying optional components with DISM.",
+                    componentStatus,
                     allowNonBlockingPackageFailure: !isBlockingComponent,
                     dismProgress,
-                    cancellationToken).ConfigureAwait(false);
+                    cancellationToken,
+                    componentIndex,
+                    componentCount).ConfigureAwait(false);
 
                 if (!neutralResult.IsSuccess)
                 {
@@ -159,10 +167,12 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
                     localizedPackagePath,
                     workingDirectoryPath,
                     $"Failed to add the localized '{component}' WinPE optional component.",
-                    "Applying optional components with DISM.",
+                    componentStatus,
                     allowNonBlockingPackageFailure: !isBlockingComponent,
                     dismProgress,
-                    cancellationToken).ConfigureAwait(false);
+                    cancellationToken,
+                    componentIndex,
+                    componentCount).ConfigureAwait(false);
 
                 if (!localizedResult.IsSuccess)
                 {
@@ -188,7 +198,9 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
         string progressStatus,
         bool allowNonBlockingPackageFailure,
         IProgress<WinPeDismProgress>? dismProgress,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken,
+        int? itemIndex = null,
+        int? itemCount = null)
     {
         WinPeProcessExecution execution = await WinPeDismProcessRunner.RunAsync(
             _processRunner,
@@ -196,7 +208,7 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
             $"/Image:{WinPeProcessRunner.Quote(mountedImagePath)} /Add-Package /PackagePath:{WinPeProcessRunner.Quote(packagePath)}",
             workingDirectoryPath,
             progressStatus,
-            dismProgress,
+            WrapWithItemContext(dismProgress, itemIndex, itemCount),
             cancellationToken).ConfigureAwait(false);
 
         if (execution.IsSuccess ||
@@ -210,6 +222,28 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
             WinPeErrorCodes.BuildFailed,
             failureMessage,
             execution.ToDiagnosticText());
+    }
+
+    private static IProgress<WinPeDismProgress>? WrapWithItemContext(
+        IProgress<WinPeDismProgress>? inner,
+        int? itemIndex,
+        int? itemCount)
+    {
+        if (inner is null || itemIndex is null || itemCount is null)
+        {
+            return inner;
+        }
+
+        return new DismItemProgress(inner, itemIndex.Value, itemCount.Value);
+    }
+
+    private sealed class DismItemProgress(IProgress<WinPeDismProgress> inner, int itemIndex, int itemCount)
+        : IProgress<WinPeDismProgress>
+    {
+        public void Report(WinPeDismProgress value)
+        {
+            inner.Report(value with { ItemIndex = itemIndex, ItemCount = itemCount });
+        }
     }
 
     private async Task<WinPeResult> ApplyInternationalSettingsAsync(

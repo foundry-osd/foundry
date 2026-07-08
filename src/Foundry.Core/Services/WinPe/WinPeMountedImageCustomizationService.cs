@@ -171,7 +171,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
                 WinPeLanguage = options.WinPeLanguage,
                 OptionalComponents = options.OptionalComponents,
                 WorkingDirectoryPath = artifact.WorkingDirectoryPath,
-                DismProgress = CreateDismProgress(options.Progress, 65, "Applying language and optional components.", internationalizationTask, taskCount)
+                DismProgress = CreateDismProgress(options.Progress, 65, "Applying language and optional components.", internationalizationTask, taskCount, itemCategory: WinPeCustomizationItemCategory.OptionalComponent)
             },
             cancellationToken).ConfigureAwait(false);
 
@@ -289,7 +289,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         for (int index = 0; index < itemCount; index++)
         {
             int itemIndex = index + 1;
-            ReportProgress(progress, 45, "Injecting drivers into mounted image.", taskIndex, taskCount, itemIndex, itemCount);
+            ReportProgress(progress, 45, "Injecting drivers into mounted image.", taskIndex, taskCount, itemIndex, itemCount, WinPeCustomizationItemCategory.DriverPackage);
 
             WinPeResult result = await _driverInjectionService.InjectAsync(
                 new WinPeDriverInjectionOptions
@@ -299,7 +299,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
                     RecurseSubdirectories = true,
                     DismExecutablePath = dismPath,
                     WorkingDirectoryPath = workingDirectoryPath,
-                    DismProgress = CreateDismProgress(progress, 45, "Injecting drivers into mounted image.", taskIndex, taskCount, itemIndex, itemCount)
+                    DismProgress = CreateDismProgress(progress, 45, "Injecting drivers into mounted image.", taskIndex, taskCount, itemIndex, itemCount, WinPeCustomizationItemCategory.DriverPackage)
                 },
                 cancellationToken).ConfigureAwait(false);
 
@@ -452,7 +452,8 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         int? taskIndex = null,
         int? taskCount = null,
         int? itemIndex = null,
-        int? itemCount = null)
+        int? itemCount = null,
+        WinPeCustomizationItemCategory itemCategory = WinPeCustomizationItemCategory.None)
     {
         progress?.Report(new WinPeMountedImageCustomizationProgress
         {
@@ -461,7 +462,8 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
             TaskIndex = taskIndex,
             TaskCount = taskCount,
             ItemIndex = itemIndex,
-            ItemCount = itemCount
+            ItemCount = itemCount,
+            ItemCategory = itemCategory
         });
     }
 
@@ -472,10 +474,11 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         int? taskIndex = null,
         int? taskCount = null,
         int? itemIndex = null,
-        int? itemCount = null)
+        int? itemCount = null,
+        WinPeCustomizationItemCategory itemCategory = WinPeCustomizationItemCategory.None)
     {
         return progress is null
             ? null
-            : new WinPeDismProgressForwarder(progress, percent, status, taskIndex, taskCount, itemIndex, itemCount);
+            : new WinPeDismProgressForwarder(progress, percent, status, taskIndex, taskCount, itemIndex, itemCount, itemCategory);
     }
 }

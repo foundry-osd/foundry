@@ -13,6 +13,7 @@ internal sealed class WinPeDismProgressForwarder : IProgress<WinPeDismProgress>
     private readonly int? _taskCount;
     private readonly int? _itemIndex;
     private readonly int? _itemCount;
+    private readonly WinPeCustomizationItemCategory _itemCategory;
 
     public WinPeDismProgressForwarder(
         IProgress<WinPeMountedImageCustomizationProgress> progress,
@@ -21,7 +22,8 @@ internal sealed class WinPeDismProgressForwarder : IProgress<WinPeDismProgress>
         int? taskIndex = null,
         int? taskCount = null,
         int? itemIndex = null,
-        int? itemCount = null)
+        int? itemCount = null,
+        WinPeCustomizationItemCategory itemCategory = WinPeCustomizationItemCategory.None)
     {
         _progress = progress;
         _percent = percent;
@@ -30,6 +32,7 @@ internal sealed class WinPeDismProgressForwarder : IProgress<WinPeDismProgress>
         _taskCount = taskCount;
         _itemIndex = itemIndex;
         _itemCount = itemCount;
+        _itemCategory = itemCategory;
     }
 
     public void Report(WinPeDismProgress value)
@@ -42,8 +45,9 @@ internal sealed class WinPeDismProgressForwarder : IProgress<WinPeDismProgress>
             DetailStatus = value.Status,
             TaskIndex = _taskIndex,
             TaskCount = _taskCount,
-            ItemIndex = _itemIndex,
-            ItemCount = _itemCount
+            ItemIndex = value.ItemIndex ?? _itemIndex,
+            ItemCount = value.ItemCount ?? _itemCount,
+            ItemCategory = _itemCategory
         });
     }
 }

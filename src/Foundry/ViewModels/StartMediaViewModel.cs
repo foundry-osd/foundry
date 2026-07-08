@@ -967,12 +967,15 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 status);
         }
 
-        // Inner action line: "Driver package X of N" prepended to any DISM detail.
+        // Inner action line: "Driver package X of N" / "Optional component X of N" prepended to any DISM detail.
         string detailStatus = LocalizeDismProgressStatus(progress.DetailStatus);
         if (progress.ItemIndex.HasValue && progress.ItemCount.HasValue)
         {
+            string itemFormatKey = progress.ItemCategory == WinPeCustomizationItemCategory.OptionalComponent
+                ? "StartMedia.Operation.OptionalComponentProgressFormat"
+                : "StartMedia.Operation.DriverPackageProgressFormat";
             string itemStatus = localizationService.FormatString(
-                "StartMedia.Operation.DriverPackageProgressFormat",
+                itemFormatKey,
                 progress.ItemIndex.Value,
                 progress.ItemCount.Value);
             detailStatus = string.IsNullOrWhiteSpace(detailStatus)
