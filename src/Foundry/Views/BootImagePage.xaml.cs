@@ -35,7 +35,15 @@ public sealed partial class BootImagePage : Page
     {
         if (sender is FrameworkElement { Tag: BootImageModuleSearchResultViewModel result })
         {
-            ViewModel.AddGalleryModule(result.Module);
+            ViewModel.AddGalleryModule(result);
+        }
+    }
+
+    private async void VersionComboBox_DropDownOpened(object sender, object e)
+    {
+        if (sender is FrameworkElement { DataContext: BootImageModuleSearchResultViewModel result })
+        {
+            await result.EnsureVersionsLoadedAsync();
         }
     }
 
@@ -76,8 +84,8 @@ public sealed partial class BootImagePage : Page
     {
         ViewModel.RefreshLocalizedText();
 
-        BootBehaviorCard.Header = localizationService.GetString("BootImage.BootBehavior.Header");
-        BootBehaviorCard.Description = localizationService.GetString("BootImage.BootBehavior.Description");
+        FirewallCard.Header = localizationService.GetString("BootImage.Firewall.Header");
+        FirewallCard.Description = localizationService.GetString("BootImage.Firewall.Description");
         FirewallToggle.OnContent = localizationService.GetString("BootImage.Firewall.On");
         FirewallToggle.OffContent = localizationService.GetString("BootImage.Firewall.Off");
         KeepWimCard.Header = localizationService.GetString("BootImage.KeepWim.Header");
@@ -85,21 +93,23 @@ public sealed partial class BootImagePage : Page
         TroubleshootingConsoleCard.Header = localizationService.GetString("BootImage.TroubleshootingConsole.Header");
         TroubleshootingConsoleCard.Description = localizationService.GetString("BootImage.TroubleshootingConsole.Description");
 
-        OptionalComponentsCard.Header = localizationService.GetString("BootImage.OptionalComponents.Header");
-        OptionalComponentsCard.Description = localizationService.GetString("BootImage.OptionalComponents.Description");
+        OptionalComponentsTitle.Text = localizationService.GetString("BootImage.OptionalComponents.Header");
+        OptionalComponentsSubtitle.Text = localizationService.GetString("BootImage.OptionalComponents.Description");
 
         PowerShell7Card.Header = localizationService.GetString("BootImage.PowerShell7.Header");
         PowerShell7Card.Description = localizationService.GetString("BootImage.PowerShell7.Description");
         PowerShell7VersionCard.Header = localizationService.GetString("BootImage.PowerShell7.VersionHeader");
 
-        ModulesCard.Header = localizationService.GetString("BootImage.Modules.Header");
-        ModulesCard.Description = localizationService.GetString("BootImage.Modules.Description");
+        GalleryTitle.Text = localizationService.GetString("BootImage.Modules.GalleryHeader");
         ModuleSearchBox.PlaceholderText = localizationService.GetString("BootImage.Modules.SearchPlaceholder");
         SearchModulesButton.Content = localizationService.GetString("BootImage.Modules.SearchButton");
+        LocalTitle.Text = localizationService.GetString("BootImage.Modules.LocalHeader");
+        LocalSubtitle.Text = localizationService.GetString("BootImage.Modules.LocalDescription");
         AddLocalModuleButton.Content = localizationService.GetString("BootImage.Modules.AddLocalButton");
+        SelectedModulesTitle.Text = localizationService.GetString("BootImage.Modules.SelectedHeader");
 
-        RootFoldersCard.Header = localizationService.GetString("BootImage.RootFolders.Header");
-        RootFoldersCard.Description = localizationService.GetString("BootImage.RootFolders.Description");
+        RootFoldersTitle.Text = localizationService.GetString("BootImage.RootFolders.Header");
+        RootFoldersSubtitle.Text = localizationService.GetString("BootImage.RootFolders.Description");
         AddRootFolderButton.Content = localizationService.GetString("BootImage.RootFolders.AddButton");
     }
 

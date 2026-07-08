@@ -15,8 +15,9 @@ using Serilog;
 namespace Foundry.ViewModels;
 
 /// <summary>
-/// Backs the expert boot image page and persists optional components, PowerShell integration,
-/// extra modules, root folder overlays, and boot behavior toggles.
+/// Backs the expert Boot Image page and persists optional components, PowerShell integration, extra modules,
+/// root folder overlays, and boot behavior toggles. The page is organized into in-page sub-sections navigated
+/// by a left section rail.
 /// </summary>
 public sealed partial class BootImageConfigurationViewModel : ObservableObject, IDisposable
 {
@@ -66,11 +67,17 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
         }
 
         RefreshLocalizedText();
+        SelectedSectionItem = Sections.FirstOrDefault();
         LoadOptionalComponents();
 
         configurationStateService.StateChanged += OnConfigurationStateChanged;
         isInitializing = false;
     }
+
+    /// <summary>
+    /// Gets the sub-section entries shown in the left section rail.
+    /// </summary>
+    public ObservableCollection<SelectionOption<BootImageSection>> Sections { get; } = [];
 
     /// <summary>
     /// Gets the WinPE optional components discovered from the ADK, with recommended defaults pre-checked.
@@ -107,6 +114,24 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
     [ObservableProperty]
     public partial string PageDescription { get; set; } = string.Empty;
 
+    [NotifyPropertyChangedFor(nameof(SettingsVisibility))]
+    [NotifyPropertyChangedFor(nameof(OptionalComponentsVisibility))]
+    [NotifyPropertyChangedFor(nameof(PowerShellVisibility))]
+    [NotifyPropertyChangedFor(nameof(ModulesVisibility))]
+    [NotifyPropertyChangedFor(nameof(AdditionalFoldersVisibility))]
+    [ObservableProperty]
+    public partial SelectionOption<BootImageSection>? SelectedSectionItem { get; set; }
+
+    public Visibility SettingsVisibility => VisibilityFor(BootImageSection.Settings);
+
+    public Visibility OptionalComponentsVisibility => VisibilityFor(BootImageSection.OptionalComponents);
+
+    public Visibility PowerShellVisibility => VisibilityFor(BootImageSection.PowerShell);
+
+    public Visibility ModulesVisibility => VisibilityFor(BootImageSection.Modules);
+
+    public Visibility AdditionalFoldersVisibility => VisibilityFor(BootImageSection.AdditionalFolders);
+
     [ObservableProperty]
     public partial bool EnableFirewall { get; set; }
 
@@ -129,9 +154,6 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
     [ObservableProperty]
     public partial bool HasOptionalComponents { get; set; }
 
-    /// <summary>
-    /// Gets whether the optional component status message is shown (when no components are available).
-    /// </summary>
     public Visibility OptionalComponentStatusVisibility =>
         HasOptionalComponents ? Visibility.Collapsed : Visibility.Visible;
 
@@ -148,9 +170,6 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
     [ObservableProperty]
     public partial bool IsSearchingModules { get; set; }
 
-    /// <summary>
-    /// Gets whether the module search progress indicator is shown.
-    /// </summary>
     public Visibility ModuleSearchProgressVisibility =>
         IsSearchingModules ? Visibility.Visible : Visibility.Collapsed;
 
@@ -170,6 +189,7 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
     {
         PageTitle = localizationService.GetString("BootImagePage_Title.Text");
         PageDescription = localizationService.GetString("BootImage.PageDescription");
+        RebuildSections();
     }
 
     /// <summary>
@@ -183,6 +203,23 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
             await RefreshPowerShell7VersionsAsync();
         }
     }
+
+    private void RebuildSections()
+    {
+        BootImageSection? previous = SelectedSectionItem?.Value;
+
+        Sections.Clear();
+        Sections.Add(new SelectionOption<BootImageSection>(BootImageSection.Settings, localizationService.GetString("BootImage.Section.Settings")));
+        Sections.Add(new SelectionOption<BootImageSection>(BootImageSection.OptionalComponents, localizationService.GetString("BootImage.Section.OptionalComponents")));
+        Sections.Add(new SelectionOption<BootImageSection>(BootImageSection.PowerShell, localizationService.GetString("BootImage.Section.PowerShell")));
+        Sections.Add(new SelectionOption<BootImageSection>(BootImageSection.Modules, localizationService.GetString("BootImage.Section.Modules")));
+        Sections.Add(new SelectionOption<BootImageSection>(BootImageSection.AdditionalFolders, localizationService.GetString("BootImage.Section.AdditionalFolders")));
+
+        SelectedSectionItem = Sections.FirstOrDefault(section => section.Value == previous) ?? Sections[0];
+    }
+
+    private Visibility VisibilityFor(BootImageSection section) =>
+        SelectedSectionItem?.Value == section ? Visibility.Visible : Visibility.Collapsed;
 
     private void LoadOptionalComponents()
     {
@@ -288,7 +325,7 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
 
             foreach (PowerShellGalleryModule module in modules)
             {
-                ModuleSearchResults.Add(new BootImageModuleSearchResultViewModel(module, AddLabel));
+                ModuleSearchResults.Add(new BootImageModuleSearchResultViewModel(module, AddLabel, moduleSearchService, logger));
             }
 
             ModuleSearchStatus = string.Empty;
@@ -305,13 +342,15 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
     }
 
     /// <summary>
-    /// Adds a Gallery module search result to the selected modules list.
+    /// Adds a Gallery search result (with its selected version) to the selected modules list.
     /// </summary>
-    public void AddGalleryModule(PowerShellGalleryModule module)
+    public void AddGalleryModule(BootImageModuleSearchResultViewModel result)
     {
+        string version = result.SelectedVersion ?? result.Module.Version;
         if (SelectedModules.Any(selected =>
                 selected.Selection.Source == PowerShellModuleSource.Gallery &&
-                string.Equals(selected.Selection.Name, module.Name, StringComparison.OrdinalIgnoreCase)))
+                string.Equals(selected.Selection.Name, result.Name, StringComparison.OrdinalIgnoreCase) &&
+                string.Equals(selected.Selection.Version, version, StringComparison.OrdinalIgnoreCase)))
         {
             return;
         }
@@ -320,8 +359,8 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
             new PowerShellModuleSelection
             {
                 Source = PowerShellModuleSource.Gallery,
-                Name = module.Name,
-                Version = module.Version
+                Name = result.Name,
+                Version = version
             },
             RemoveLabel));
         SaveModules();
@@ -330,6 +369,7 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
     [RelayCommand]
     private async Task AddLocalModuleAsync()
     {
+        // The user selects a module version folder (Save-Module layout: ModuleName\ModuleVersion).
         string? path = await filePickerService.PickFolderAsync(
             new FolderPickerRequest(localizationService.GetString("BootImage.Modules.LocalPicker.Title")));
 
@@ -338,12 +378,23 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
             return;
         }
 
-        string name = new DirectoryInfo(path).Name;
+        DirectoryInfo versionFolder = new(path);
+        string version = versionFolder.Name;
+        string name = versionFolder.Parent?.Name ?? version;
+
+        if (SelectedModules.Any(selected =>
+                selected.Selection.Source == PowerShellModuleSource.Local &&
+                string.Equals(selected.Selection.LocalPath, path, StringComparison.OrdinalIgnoreCase)))
+        {
+            return;
+        }
+
         SelectedModules.Add(new BootImageModuleViewModel(
             new PowerShellModuleSelection
             {
                 Source = PowerShellModuleSource.Local,
                 Name = name,
+                Version = version,
                 LocalPath = path
             },
             RemoveLabel));
