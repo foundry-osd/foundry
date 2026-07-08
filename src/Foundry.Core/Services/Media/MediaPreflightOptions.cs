@@ -128,4 +128,45 @@ public sealed record MediaPreflightOptions
     /// Gets the selected USB target disk, if USB creation is requested.
     /// </summary>
     public WinPeUsbDiskCandidate? SelectedUsbDisk { get; init; }
+
+    /// <summary>
+    /// Gets the WinPE optional component names selected for the boot image. When empty, Foundry's
+    /// recommended defaults are applied.
+    /// </summary>
+    public IReadOnlyList<string> OptionalComponents { get; init; } = [];
+
+    /// <summary>
+    /// Gets a value indicating whether the boot image firewall is enabled.
+    /// </summary>
+    public bool EnableFirewall { get; init; } = true;
+
+    /// <summary>
+    /// Gets a value indicating whether the minimized troubleshooting PowerShell console is included.
+    /// </summary>
+    public bool IncludeTroubleshootingConsole { get; init; }
+
+    /// <summary>
+    /// Gets a value indicating whether a copy of the boot.wim is kept next to the ISO after creation.
+    /// </summary>
+    public bool KeepBootWimCopy { get; init; }
+
+    /// <summary>
+    /// Gets a value indicating whether PowerShell 7 is integrated into the boot image.
+    /// </summary>
+    public bool IncludePowerShell7 { get; init; }
+
+    /// <summary>
+    /// Gets the selected PowerShell 7 release version. When empty, the latest stable release is resolved.
+    /// </summary>
+    public string? PowerShell7Version { get; init; }
+
+    /// <summary>
+    /// Gets the PowerShell modules selected for integration into the boot image.
+    /// </summary>
+    public IReadOnlyList<PowerShellModuleSelection> PowerShellModules { get; init; } = [];
+
+    /// <summary>
+    /// Gets the additional folders whose contents are copied into the boot image root.
+    /// </summary>
+    public IReadOnlyList<string> AdditionalRootFolderPaths { get; init; } = [];
 }

@@ -34,6 +34,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IWinPeLanguageDiscoveryService languageDiscoveryService;
     private readonly IWinPeEmbeddedAssetService embeddedAssetService;
     private readonly IWinPeBuildService buildService;
+    private readonly IPowerShell7ReleaseService powerShell7ReleaseService;
     private readonly IWinPeWorkspacePreparationService workspacePreparationService;
     private readonly IWinPeIsoMediaService isoMediaService;
     private readonly IWinPeUsbMediaService usbMediaService;
@@ -59,6 +60,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IWinPeLanguageDiscoveryService languageDiscoveryService,
         IWinPeEmbeddedAssetService embeddedAssetService,
         IWinPeBuildService buildService,
+        IPowerShell7ReleaseService powerShell7ReleaseService,
         IWinPeWorkspacePreparationService workspacePreparationService,
         IWinPeIsoMediaService isoMediaService,
         IWinPeUsbMediaService usbMediaService,
@@ -77,6 +79,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         this.languageDiscoveryService = languageDiscoveryService;
         this.embeddedAssetService = embeddedAssetService;
         this.buildService = buildService;
+        this.powerShell7ReleaseService = powerShell7ReleaseService;
         this.workspacePreparationService = workspacePreparationService;
         this.isoMediaService = isoMediaService;
         this.usbMediaService = usbMediaService;
@@ -525,6 +528,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     PreparedWorkspace = workspace.PreparedWorkspace,
                     OutputIsoPath = options.IsoOutputPath,
                     IsoTempDirectoryPath = Path.Combine(Constants.TempDirectoryPath, "Iso"),
+                    KeepBootWimCopy = options.KeepBootWimCopy,
                     Progress = telemetryProgressTracker.CreateFinalMediaProgress(
                         new Progress<WinPeMediaProgress>(ReportFinalMediaProgress))
                 },
@@ -771,6 +775,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     DriverVendors = options.DriverVendors,
                     CustomDriverDirectoryPath = options.CustomDriverDirectoryPath,
                     WinPeLanguage = options.WinPeLanguage,
+                    OptionalComponents = options.OptionalComponents,
+                    PowerShell7 = await ResolvePowerShell7SettingsAsync(options, cancellationToken),
+                    PowerShellModules = CreatePowerShellModuleSettings(options),
                     AssetProvisioning = CreateAssetProvisioningOptions(options, tools, connectBundle, runtimePayloadProvisioning, deployTelemetrySettings),
                     RuntimePayloadProvisioning = includeRuntimePayloadInImage ? artifactRuntimePayloadProvisioning : null,
                     WinReCacheDirectoryPath = Constants.WinReTempDirectoryPath,
@@ -846,7 +853,63 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 ? foundryConfigurationStateService.Current.Autopilot.Profiles
                 : [],
             ConnectProvisioningSource = ResolveProvisioningSource(runtimePayloadProvisioning.Connect),
-            DeployProvisioningSource = ResolveProvisioningSource(runtimePayloadProvisioning.Deploy)
+            DeployProvisioningSource = ResolveProvisioningSource(runtimePayloadProvisioning.Deploy),
+            EnableFirewall = options.EnableFirewall,
+            IncludeTroubleshootingConsole = options.IncludeTroubleshootingConsole,
+            AdditionalRootFolderSourcePaths = options.AdditionalRootFolderPaths
+        };
+    }
+
+    private async Task<WinPePowerShell7Settings?> ResolvePowerShell7SettingsAsync(
+        MediaPreflightOptions options,
+        CancellationToken cancellationToken)
+    {
+        if (!options.IncludePowerShell7)
+        {
+            return null;
+        }
+
+        WinPeResult<IReadOnlyList<PowerShell7Release>> releasesResult =
+            await powerShell7ReleaseService.GetLatestStableReleasesAsync(options.Architecture, 3, cancellationToken);
+
+        if (!releasesResult.IsSuccess || releasesResult.Value is not { Count: > 0 } releases)
+        {
+            logger.Warning(
+                "PowerShell 7 release lookup returned no releases; skipping integration. ErrorCode={ErrorCode}",
+                releasesResult.Error?.Code);
+            return null;
+        }
+
+        PowerShell7Release fallback = releases[0];
+        PowerShell7Release selected = releases.FirstOrDefault(release =>
+            string.Equals(release.Version, options.PowerShell7Version, StringComparison.OrdinalIgnoreCase)) ?? fallback;
+
+        logger.Debug(
+            "Resolved PowerShell 7 integration. RequestedVersion={RequestedVersion}, SelectedVersion={SelectedVersion}, FallbackVersion={FallbackVersion}",
+            options.PowerShell7Version,
+            selected.Version,
+            fallback.Version);
+
+        return new WinPePowerShell7Settings
+        {
+            IsEnabled = true,
+            Release = selected,
+            FallbackRelease = fallback,
+            CacheDirectoryPath = Path.Combine(Constants.TempDirectoryPath, "PowerShell7")
+        };
+    }
+
+    private static WinPePowerShellModuleSettings? CreatePowerShellModuleSettings(MediaPreflightOptions options)
+    {
+        if (options.PowerShellModules.Count == 0)
+        {
+            return null;
+        }
+
+        return new WinPePowerShellModuleSettings
+        {
+            Modules = options.PowerShellModules,
+            CacheDirectoryPath = Path.Combine(Constants.TempDirectoryPath, "PowerShellModules")
         };
     }
 
@@ -1359,6 +1422,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
 
         AutopilotConfigurationValidationResult autopilotValidation = foundryConfigurationStateService.AutopilotConfigurationValidation;
+        WinPeBootImageContentSettings bootImage = foundryConfigurationStateService.Current.General.BootImageContent;
 
         return new MediaPreflightOptions
         {
@@ -1384,7 +1448,15 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             BootImageSource = ResolveBootImageSource(),
             DriverVendors = vendors,
             CustomDriverDirectoryPath = CustomDriverDirectoryPath,
-            SelectedUsbDisk = SelectedUsbDisk?.Value
+            SelectedUsbDisk = SelectedUsbDisk?.Value,
+            OptionalComponents = bootImage.OptionalComponents,
+            EnableFirewall = bootImage.EnableFirewall,
+            IncludeTroubleshootingConsole = bootImage.IncludeTroubleshootingConsole,
+            KeepBootWimCopy = bootImage.KeepBootWimCopy,
+            IncludePowerShell7 = bootImage.IncludePowerShell7,
+            PowerShell7Version = bootImage.PowerShell7Version,
+            PowerShellModules = bootImage.PowerShellModules,
+            AdditionalRootFolderPaths = bootImage.AdditionalRootFolderPaths
         };
     }
 
