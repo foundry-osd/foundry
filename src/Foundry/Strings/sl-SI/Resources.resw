@@ -2247,4 +2247,40 @@
   <data name="Common.Remove" xml:space="preserve">
     <value>Remove</value>
   </data>
+  <data name="BootImage.Firewall.Header" xml:space="preserve">
+    <value>Firewall</value>
+  </data>
+  <data name="BootImage.Firewall.Description" xml:space="preserve">
+    <value>Enable the boot image firewall.</value>
+  </data>
+  <data name="BootImage.Section.Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="BootImage.Section.OptionalComponents" xml:space="preserve">
+    <value>Optional Components</value>
+  </data>
+  <data name="BootImage.Section.PowerShell" xml:space="preserve">
+    <value>PowerShell</value>
+  </data>
+  <data name="BootImage.Section.Modules" xml:space="preserve">
+    <value>Modules</value>
+  </data>
+  <data name="BootImage.Section.AdditionalFolders" xml:space="preserve">
+    <value>Additional Folders</value>
+  </data>
+  <data name="BootImage.Modules.GalleryHeader" xml:space="preserve">
+    <value>PowerShell Gallery</value>
+  </data>
+  <data name="BootImage.Modules.LocalHeader" xml:space="preserve">
+    <value>Local folder</value>
+  </data>
+  <data name="BootImage.Modules.LocalDescription" xml:space="preserve">
+    <value>Add a module from a local folder in Save-Module layout (ModuleName\ModuleVersion). Select the version folder.</value>
+  </data>
+  <data name="BootImage.Modules.SelectedHeader" xml:space="preserve">
+    <value>Selected modules</value>
+  </data>
+  <data name="StartMedia.Operation.OptionalComponentProgressFormat" xml:space="preserve">
+    <value>Optional component {0} of {1}</value>
+  </data>
 </root>
