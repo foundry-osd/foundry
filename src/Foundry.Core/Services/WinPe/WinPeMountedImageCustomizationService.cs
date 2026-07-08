@@ -13,6 +13,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
     private readonly IWinPeRuntimePayloadProvisioningService _runtimePayloadProvisioningService;
     private readonly IWinReBootImagePreparationService _winReBootImagePreparationService;
     private readonly IWinPePowerShell7ProvisioningService _powerShell7ProvisioningService;
+    private readonly IWinPePowerShellModuleProvisioningService _powerShellModuleProvisioningService;
 
     public WinPeMountedImageCustomizationService()
         : this(
@@ -22,7 +23,8 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
             new WinPeMountedImageAssetProvisioningService(),
             new WinPeRuntimePayloadProvisioningService(),
             new WinReBootImagePreparationService(),
-            new WinPePowerShell7ProvisioningService())
+            new WinPePowerShell7ProvisioningService(),
+            new WinPePowerShellModuleProvisioningService())
     {
     }
 
@@ -33,7 +35,8 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         IWinPeMountedImageAssetProvisioningService assetProvisioningService,
         IWinPeRuntimePayloadProvisioningService runtimePayloadProvisioningService,
         IWinReBootImagePreparationService winReBootImagePreparationService,
-        IWinPePowerShell7ProvisioningService powerShell7ProvisioningService)
+        IWinPePowerShell7ProvisioningService powerShell7ProvisioningService,
+        IWinPePowerShellModuleProvisioningService powerShellModuleProvisioningService)
     {
         _processRunner = processRunner;
         _driverInjectionService = driverInjectionService;
@@ -42,6 +45,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         _runtimePayloadProvisioningService = runtimePayloadProvisioningService;
         _winReBootImagePreparationService = winReBootImagePreparationService;
         _powerShell7ProvisioningService = powerShell7ProvisioningService;
+        _powerShellModuleProvisioningService = powerShellModuleProvisioningService;
     }
 
     public async Task<WinPeResult> CustomizeAsync(
@@ -63,8 +67,10 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         // PowerShell 7 and provisioning stages are conditional, so the total task count and the
         // commit index shift.
         bool integratePowerShell7 = options.PowerShell7 is { IsEnabled: true, Release: not null };
+        bool integratePowerShellModules = options.PowerShellModules is { Modules.Count: > 0 };
         int taskCount = 4
             + (integratePowerShell7 ? 1 : 0)
+            + (integratePowerShellModules ? 1 : 0)
             + (options.AssetProvisioning is not null ? 1 : 0)
             + (options.RuntimePayloadProvisioning is not null ? 1 : 0);
         const int mountTask = 1;
@@ -72,6 +78,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         const int internationalizationTask = 3;
         int nextTask = 4;
         int powerShell7Task = integratePowerShell7 ? nextTask++ : 0;
+        int powerShellModulesTask = integratePowerShellModules ? nextTask++ : 0;
         int assetsTask = options.AssetProvisioning is not null ? nextTask++ : 0;
         int runtimeTask = options.RuntimePayloadProvisioning is not null ? nextTask++ : 0;
         int commitTask = nextTask;
@@ -192,6 +199,25 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
             if (!powerShell7Result.IsSuccess)
             {
                 return await FailWithDiscardAsync(powerShell7Result.Error!, session, cancellationToken).ConfigureAwait(false);
+            }
+        }
+
+        if (integratePowerShellModules)
+        {
+            ReportProgress(options.Progress, 78, "Integrating PowerShell modules.", powerShellModulesTask, taskCount);
+            WinPeResult moduleResult = await _powerShellModuleProvisioningService.ProvisionAsync(
+                new WinPePowerShellModuleProvisioningOptions
+                {
+                    MountedImagePath = session.MountDirectoryPath,
+                    Modules = options.PowerShellModules!.Modules,
+                    CacheDirectoryPath = options.PowerShellModules.CacheDirectoryPath,
+                    DownloadProgress = options.DownloadProgress
+                },
+                cancellationToken).ConfigureAwait(false);
+
+            if (!moduleResult.IsSuccess)
+            {
+                return await FailWithDiscardAsync(moduleResult.Error!, session, cancellationToken).ConfigureAwait(false);
             }
         }
 

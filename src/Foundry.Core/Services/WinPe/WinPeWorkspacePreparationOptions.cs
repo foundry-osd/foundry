@@ -55,6 +55,11 @@ public sealed record WinPeWorkspacePreparationOptions
     public WinPePowerShell7Settings? PowerShell7 { get; init; }
 
     /// <summary>
+    /// Gets the optional PowerShell module integration settings.
+    /// </summary>
+    public WinPePowerShellModuleSettings? PowerShellModules { get; init; }
+
+    /// <summary>
     /// Gets the WinPE language selected for the boot image.
     /// </summary>
     public string WinPeLanguage { get; init; } = string.Empty;

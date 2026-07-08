@@ -45,6 +45,11 @@ public sealed record WinPeMountedImageCustomizationOptions
     public WinPePowerShell7Settings? PowerShell7 { get; init; }
 
     /// <summary>
+    /// Gets the optional PowerShell module integration settings.
+    /// </summary>
+    public WinPePowerShellModuleSettings? PowerShellModules { get; init; }
+
+    /// <summary>
     /// Gets optional asset provisioning settings.
     /// </summary>
     public WinPeMountedImageAssetProvisioningOptions? AssetProvisioning { get; init; }

@@ -28,7 +28,8 @@ public sealed class WinPeMountedImageCustomizationServiceTests
             assetProvisioning,
             runtimePayloadProvisioning,
             winRePreparation,
-            new FakePowerShell7ProvisioningService());
+            new FakePowerShell7ProvisioningService(),
+            new FakePowerShellModuleProvisioningService());
         var runtimePayloadOptions = new WinPeRuntimePayloadProvisioningOptions
         {
             WorkingDirectoryPath = Path.Combine(temp.RootPath, "runtime-work"),
@@ -82,7 +83,8 @@ public sealed class WinPeMountedImageCustomizationServiceTests
             new FakeAssetProvisioningService(),
             new FakeRuntimePayloadProvisioningService(),
             new FakeWinRePreparationService(),
-            new FakePowerShell7ProvisioningService());
+            new FakePowerShell7ProvisioningService(),
+            new FakePowerShellModuleProvisioningService());
 
         WinPeResult result = await service.CustomizeAsync(
             new WinPeMountedImageCustomizationOptions
@@ -139,7 +141,8 @@ public sealed class WinPeMountedImageCustomizationServiceTests
                     }
                 ]
             }),
-            new FakePowerShell7ProvisioningService());
+            new FakePowerShell7ProvisioningService(),
+            new FakePowerShellModuleProvisioningService());
 
         WinPeResult result = await service.CustomizeAsync(
             new WinPeMountedImageCustomizationOptions
@@ -174,7 +177,8 @@ public sealed class WinPeMountedImageCustomizationServiceTests
             new FakeAssetProvisioningService(),
             new FakeRuntimePayloadProvisioningService(),
             new FakeWinRePreparationService(),
-            new FakePowerShell7ProvisioningService());
+            new FakePowerShell7ProvisioningService(),
+            new FakePowerShellModuleProvisioningService());
 
         WinPeResult result = await service.CustomizeAsync(
             new WinPeMountedImageCustomizationOptions
@@ -215,7 +219,8 @@ public sealed class WinPeMountedImageCustomizationServiceTests
             new FakeAssetProvisioningService(),
             new FakeRuntimePayloadProvisioningService(),
             new FakeWinRePreparationService(),
-            powerShell7);
+            powerShell7,
+            new FakePowerShellModuleProvisioningService());
 
         WinPeResult result = await service.CustomizeAsync(
             new WinPeMountedImageCustomizationOptions
@@ -413,6 +418,19 @@ public sealed class WinPeMountedImageCustomizationServiceTests
 
         public Task<WinPeResult> ProvisionAsync(
             WinPePowerShell7ProvisioningOptions options,
+            CancellationToken cancellationToken = default)
+        {
+            Options.Add(options);
+            return Task.FromResult(WinPeResult.Success());
+        }
+    }
+
+    private sealed class FakePowerShellModuleProvisioningService : IWinPePowerShellModuleProvisioningService
+    {
+        public List<WinPePowerShellModuleProvisioningOptions> Options { get; } = [];
+
+        public Task<WinPeResult> ProvisionAsync(
+            WinPePowerShellModuleProvisioningOptions options,
             CancellationToken cancellationToken = default)
         {
             Options.Add(options);
