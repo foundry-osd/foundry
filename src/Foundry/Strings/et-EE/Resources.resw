@@ -2233,7 +2233,7 @@
     <value>Additional root folders</value>
   </data>
   <data name="BootImage.RootFolders.Description" xml:space="preserve">
-    <value>Copy folder contents into the boot image root, preserving structure.</value>
+    <value>Copy each folder into a relative destination inside the boot image. Set the destination to \ for the image root, or for example \Windows to copy into the image Windows folder.</value>
   </data>
   <data name="BootImage.RootFolders.AddButton" xml:space="preserve">
     <value>Add folder</value>

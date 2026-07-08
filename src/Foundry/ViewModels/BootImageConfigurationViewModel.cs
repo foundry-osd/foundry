@@ -67,9 +67,10 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
             ModuleListFor(module.Source).Add(new BootImageModuleViewModel(module, RemoveLabel));
         }
 
-        foreach (string folder in settings.AdditionalRootFolderPaths)
+        foreach (WinPeAdditionalRootFolder folder in settings.AdditionalRootFolders)
         {
-            AdditionalRootFolders.Add(new BootImageRootFolderViewModel(folder, RemoveLabel));
+            AdditionalRootFolders.Add(new BootImageAdditionalFolderViewModel(
+                folder.SourcePath, folder.DestinationRelativePath, RemoveLabel, SaveRootFolders));
         }
 
         // Migrate a legacy single custom driver directory into the driver folder list on first use.
@@ -130,9 +131,9 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
     public ObservableCollection<BootImageModuleViewModel> SelectedLocalModules { get; } = [];
 
     /// <summary>
-    /// Gets the additional folders whose contents are copied into the boot image root.
+    /// Gets the additional folders whose contents are copied into a relative destination inside the boot image.
     /// </summary>
-    public ObservableCollection<BootImageRootFolderViewModel> AdditionalRootFolders { get; } = [];
+    public ObservableCollection<BootImageAdditionalFolderViewModel> AdditionalRootFolders { get; } = [];
 
     /// <summary>
     /// Gets the folders that contain drivers (.inf packages) to inject into the boot image.
@@ -501,19 +502,19 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
             new FolderPickerRequest(localizationService.GetString("BootImage.RootFolders.Picker.Title")));
 
         if (string.IsNullOrWhiteSpace(path) ||
-            AdditionalRootFolders.Any(folder => string.Equals(folder.Path, path, StringComparison.OrdinalIgnoreCase)))
+            AdditionalRootFolders.Any(folder => string.Equals(folder.SourcePath, path, StringComparison.OrdinalIgnoreCase)))
         {
             return;
         }
 
-        AdditionalRootFolders.Add(new BootImageRootFolderViewModel(path, RemoveLabel));
+        AdditionalRootFolders.Add(new BootImageAdditionalFolderViewModel(path, @"\", RemoveLabel, SaveRootFolders));
         SaveRootFolders();
     }
 
     /// <summary>
     /// Removes a folder from the additional root folders list.
     /// </summary>
-    public void RemoveRootFolder(BootImageRootFolderViewModel folder)
+    public void RemoveRootFolder(BootImageAdditionalFolderViewModel folder)
     {
         if (AdditionalRootFolders.Remove(folder))
         {
@@ -618,7 +619,7 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
 
     private void SaveRootFolders()
     {
-        Save(current => current with { AdditionalRootFolderPaths = AdditionalRootFolders.Select(folder => folder.Path).ToList() });
+        Save(current => current with { AdditionalRootFolders = AdditionalRootFolders.Select(folder => folder.ToModel()).ToList() });
     }
 
     private void SaveDriverFolders()

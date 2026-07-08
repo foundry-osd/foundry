@@ -694,10 +694,14 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         File.WriteAllText(curlSourcePath, "curl");
 
         string extrasRoot = Path.Combine(image.RootPath, "extras");
-        string nestedDir = Path.Combine(extrasRoot, "Windows", "System32");
+        string nestedDir = Path.Combine(extrasRoot, "System32");
         Directory.CreateDirectory(nestedDir);
         File.WriteAllText(Path.Combine(extrasRoot, "root.txt"), "root");
         File.WriteAllText(Path.Combine(nestedDir, "tool.dll"), "tool");
+
+        string toolsRoot = Path.Combine(image.RootPath, "tools");
+        Directory.CreateDirectory(toolsRoot);
+        File.WriteAllText(Path.Combine(toolsRoot, "extra.txt"), "extra");
 
         var service = new WinPeMountedImageAssetProvisioningService();
 
@@ -710,13 +714,20 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                 CurlExecutableSourcePath = curlSourcePath,
                 PSBootstrapperSourceExecutablePath = image.PSBootstrapperSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}",
-                AdditionalRootFolderSourcePaths = [extrasRoot]
+                AdditionalRootFolders =
+                [
+                    new WinPeAdditionalRootFolder { SourcePath = extrasRoot, DestinationRelativePath = @"\Windows" },
+                    new WinPeAdditionalRootFolder { SourcePath = toolsRoot, DestinationRelativePath = @"\" }
+                ]
             },
             CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
-        Assert.Equal("root", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "root.txt")));
+        // extrasRoot copied beneath \Windows.
+        Assert.Equal("root", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Windows", "root.txt")));
         Assert.Equal("tool", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Windows", "System32", "tool.dll")));
+        // toolsRoot copied to the image root.
+        Assert.Equal("extra", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "extra.txt")));
     }
 
     private sealed class TempMountedImage : IDisposable

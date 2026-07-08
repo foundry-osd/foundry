@@ -171,7 +171,7 @@ public sealed record MediaPreflightOptions
     public IReadOnlyList<PowerShellModuleSelection> PowerShellModules { get; init; } = [];
 
     /// <summary>
-    /// Gets the additional folders whose contents are copied into the boot image root.
+    /// Gets the additional folders whose contents are copied into a relative destination inside the boot image.
     /// </summary>
-    public IReadOnlyList<string> AdditionalRootFolderPaths { get; init; } = [];
+    public IReadOnlyList<WinPeAdditionalRootFolder> AdditionalRootFolders { get; init; } = [];
 }

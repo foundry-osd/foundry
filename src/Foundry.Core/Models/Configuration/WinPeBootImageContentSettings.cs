@@ -51,10 +51,10 @@ public sealed record WinPeBootImageContentSettings
     public IReadOnlyList<PowerShellModuleSelection> PowerShellModules { get; init; } = [];
 
     /// <summary>
-    /// Gets the additional folders whose contents are copied into the boot image root, preserving the
-    /// destination folder structure each folder contains.
+    /// Gets the additional folders whose contents are copied into a relative destination inside the boot
+    /// image (the destination is relative to the image root).
     /// </summary>
-    public IReadOnlyList<string> AdditionalRootFolderPaths { get; init; } = [];
+    public IReadOnlyList<WinPeAdditionalRootFolder> AdditionalRootFolders { get; init; } = [];
 
     /// <summary>
     /// Gets the folders that contain drivers (.inf packages) to inject into the boot image.

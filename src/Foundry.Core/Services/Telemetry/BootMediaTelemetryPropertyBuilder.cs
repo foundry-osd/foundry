@@ -94,7 +94,7 @@ public static class BootMediaTelemetryPropertyBuilder
         properties["boot_image_optional_components_count"] = options.OptionalComponents.Count;
         properties["boot_image_powershell7_enabled"] = options.IncludePowerShell7;
         properties["boot_image_powershell_module_count"] = options.PowerShellModules.Count;
-        properties["boot_image_additional_root_folder_count"] = options.AdditionalRootFolderPaths.Count;
+        properties["boot_image_additional_root_folder_count"] = options.AdditionalRootFolders.Count;
     }
 
     private static void AddCustomizationTelemetryProperties(

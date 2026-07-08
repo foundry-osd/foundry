@@ -106,23 +106,31 @@
             </Grid>
         </DataTemplate>
 
-        <DataTemplate x:Key="RootFolderTemplate"
-            x:DataType="viewModels:BootImageRootFolderViewModel">
+        <DataTemplate x:Key="AdditionalFolderTemplate"
+            x:DataType="viewModels:BootImageAdditionalFolderViewModel">
             <Grid
-                MinHeight="40"
+                MinHeight="44"
                 Padding="0,4"
                 ColumnSpacing="{ThemeResource FoundrySpace12}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" MinWidth="140" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <TextBlock
                     Grid.Column="0"
                     VerticalAlignment="Center"
-                    Text="{x:Bind Path}"
-                    TextTrimming="CharacterEllipsis" />
-                <Button
+                    Text="{x:Bind SourcePath}"
+                    TextTrimming="CharacterEllipsis"
+                    ToolTipService.ToolTip="{x:Bind SourcePath}" />
+                <TextBox
                     Grid.Column="1"
+                    Width="{ThemeResource FoundryWideInputMinWidth}"
+                    VerticalAlignment="Center"
+                    PlaceholderText="\"
+                    Text="{x:Bind DestinationRelativePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <Button
+                    Grid.Column="2"
                     MinWidth="{StaticResource SettingActionControlMinWidth}"
                     VerticalAlignment="Center"
                     Click="RemoveRootFolderButton_Click"
@@ -420,7 +428,7 @@
                             Command="{x:Bind ViewModel.AddRootFolderCommand}" />
                         <ItemsControl
                             Margin="0,8,0,0"
-                            ItemTemplate="{StaticResource RootFolderTemplate}"
+                            ItemTemplate="{StaticResource AdditionalFolderTemplate}"
                             ItemsSource="{x:Bind ViewModel.AdditionalRootFolders, Mode=OneWay}" />
                     </StackPanel>
                 </Grid>

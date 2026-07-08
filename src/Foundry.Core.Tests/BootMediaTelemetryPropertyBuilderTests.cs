@@ -38,7 +38,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             [
                 new PowerShellModuleSelection { Source = PowerShellModuleSource.Gallery, Name = "Pester", Version = "5.5.0" }
             ],
-            AdditionalRootFolderPaths = [@"C:\Overlay"]
+            AdditionalRootFolders = [new WinPeAdditionalRootFolder { SourcePath = @"C:\Overlay" }]
         };
         var document = new FoundryConfigurationDocument
         {

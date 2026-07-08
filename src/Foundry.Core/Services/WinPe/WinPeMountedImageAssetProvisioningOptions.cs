@@ -26,10 +26,10 @@ public sealed record WinPeMountedImageAssetProvisioningOptions
     public bool EnableFirewall { get; init; } = true;
 
     /// <summary>
-    /// Gets source folders whose contents are copied into the boot image root, preserving the
-    /// destination folder structure they contain (for example, a <c>Windows\System32</c> subtree).
+    /// Gets source folders whose contents are copied into a relative destination inside the boot image
+    /// (the destination is relative to the image root).
     /// </summary>
-    public IReadOnlyList<string> AdditionalRootFolderSourcePaths { get; init; } = [];
+    public IReadOnlyList<WinPeAdditionalRootFolder> AdditionalRootFolders { get; init; } = [];
     public string SevenZipSourceDirectoryPath { get; init; } = string.Empty;
     public string IanaWindowsTimeZoneMapJson { get; init; } = string.Empty;
     public string FoundryConnectConfigurationJson { get; init; } = string.Empty;

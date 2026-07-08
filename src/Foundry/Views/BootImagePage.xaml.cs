@@ -57,7 +57,7 @@ public sealed partial class BootImagePage : Page
 
     private void RemoveRootFolderButton_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is FrameworkElement { Tag: BootImageRootFolderViewModel folder })
+        if (sender is FrameworkElement { Tag: BootImageAdditionalFolderViewModel folder })
         {
             ViewModel.RemoveRootFolder(folder);
         }

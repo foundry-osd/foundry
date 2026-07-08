@@ -853,7 +853,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             DeployProvisioningSource = ResolveProvisioningSource(runtimePayloadProvisioning.Deploy),
             EnableFirewall = options.EnableFirewall,
             IncludeTroubleshootingConsole = options.IncludeTroubleshootingConsole,
-            AdditionalRootFolderSourcePaths = options.AdditionalRootFolderPaths
+            AdditionalRootFolders = options.AdditionalRootFolders
         };
     }
 
@@ -1456,7 +1456,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             IncludePowerShell7 = bootImage.IncludePowerShell7,
             PowerShell7Version = bootImage.PowerShell7Version,
             PowerShellModules = bootImage.PowerShellModules,
-            AdditionalRootFolderPaths = bootImage.AdditionalRootFolderPaths
+            AdditionalRootFolders = bootImage.AdditionalRootFolders
         };
     }
 

@@ -77,7 +77,7 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
             File.Copy(options.PSBootstrapperSourceExecutablePath, Path.Combine(system32Path, PSBootstrapperFileName), overwrite: true);
 
             ProvisionBundledSevenZip(mountedImagePath, options);
-            CopyAdditionalRootFolders(mountedImagePath, options.AdditionalRootFolderSourcePaths);
+            CopyAdditionalRootFolders(mountedImagePath, options.AdditionalRootFolders);
             await WriteStartnetAsync(system32Path, cancellationToken).ConfigureAwait(false);
             await WriteUnattendAsync(mountedImagePath, options.Architecture, options.IncludeTroubleshootingConsole, options.EnableFirewall, cancellationToken).ConfigureAwait(false);
             await WriteConfigurationAssetsAsync(mountedImagePath, foundryConfigPath, options, cancellationToken).ConfigureAwait(false);
@@ -316,31 +316,49 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
 
     private static void CopyAdditionalRootFolders(
         string mountedImagePath,
-        IReadOnlyList<string> sourceFolderPaths)
+        IReadOnlyList<WinPeAdditionalRootFolder> folders)
     {
-        foreach (string sourceFolderPath in sourceFolderPaths)
+        foreach (WinPeAdditionalRootFolder folder in folders)
         {
-            if (string.IsNullOrWhiteSpace(sourceFolderPath))
+            if (string.IsNullOrWhiteSpace(folder.SourcePath))
             {
                 throw new ArgumentException("Additional root folder source path is required.");
             }
 
-            if (!Directory.Exists(sourceFolderPath))
+            if (!Directory.Exists(folder.SourcePath))
             {
-                throw new IOException($"Additional root folder source was not found: '{sourceFolderPath}'.");
+                throw new IOException($"Additional root folder source was not found: '{folder.SourcePath}'.");
             }
 
-            // The folder's contents are laid over the image root, so the caller controls the exact
-            // destination structure (e.g. Windows\System32\... within the selected folder).
-            string fullSourceRoot = Path.GetFullPath(sourceFolderPath);
+            // The source contents are copied beneath a relative destination inside the image (\ = image root,
+            // \Windows = the image Windows folder, and so on), so multiple folders can target different locations.
+            string destinationPrefix = NormalizeRelativeDestination(folder.DestinationRelativePath);
+            string fullSourceRoot = Path.GetFullPath(folder.SourcePath);
             foreach (string filePath in Directory.EnumerateFiles(fullSourceRoot, "*", SearchOption.AllDirectories))
             {
                 string relativePath = Path.GetRelativePath(fullSourceRoot, filePath);
-                string destinationPath = ResolveSafeRelativePath(mountedImagePath, relativePath);
+                string combinedRelativePath = string.IsNullOrEmpty(destinationPrefix)
+                    ? relativePath
+                    : Path.Combine(destinationPrefix, relativePath);
+                string destinationPath = ResolveSafeRelativePath(mountedImagePath, combinedRelativePath);
                 Directory.CreateDirectory(Path.GetDirectoryName(destinationPath)!);
                 File.Copy(filePath, destinationPath, overwrite: true);
             }
         }
+    }
+
+    private static string NormalizeRelativeDestination(string? destinationRelativePath)
+    {
+        if (string.IsNullOrWhiteSpace(destinationRelativePath))
+        {
+            return string.Empty;
+        }
+
+        // Treat the destination as relative to the image root: strip leading/trailing separators.
+        return destinationRelativePath
+            .Replace('/', '\\')
+            .Trim()
+            .Trim('\\');
     }
 
     private static void ProvisionBundledSevenZip(
