@@ -58,9 +58,6 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
         GeneralSettings general = configurationStateService.Current.General;
         SelectedArchitecture = SelectOption(Architectures, general.Architecture);
         UseCa2023Signature = general.UseCa2023;
-        IncludeDellDrivers = general.IncludeDellDrivers;
-        IncludeHpDrivers = general.IncludeHpDrivers;
-        CustomDriverDirectoryPath = general.CustomDriverDirectoryPath ?? string.Empty;
         WinPeLanguageUnavailableDescription = string.Empty;
         RefreshLocalizedText();
         RefreshTimeZones();
@@ -98,15 +95,6 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
     public partial bool UseCa2023Signature { get; set; }
 
     [ObservableProperty]
-    public partial bool IncludeDellDrivers { get; set; }
-
-    [ObservableProperty]
-    public partial bool IncludeHpDrivers { get; set; }
-
-    [ObservableProperty]
-    public partial string CustomDriverDirectoryPath { get; set; }
-
-    [ObservableProperty]
     public partial string? SelectedWinPeLanguage { get; set; }
 
     [ObservableProperty]
@@ -133,18 +121,6 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
     public void Dispose()
     {
         configurationStateService.StateChanged -= OnConfigurationStateChanged;
-    }
-
-    [RelayCommand]
-    private async Task BrowseCustomDriverDirectoryAsync()
-    {
-        string? path = await filePickerService.PickFolderAsync(
-            new FolderPickerRequest(localizationService.GetString("StartMedia.CustomDriversPicker.Title")));
-
-        if (!string.IsNullOrWhiteSpace(path))
-        {
-            CustomDriverDirectoryPath = path;
-        }
     }
 
     /// <summary>
@@ -282,39 +258,6 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
         }
 
         Save(configurationStateService.Current.General with { UseCa2023 = value });
-    }
-
-    partial void OnIncludeDellDriversChanged(bool value)
-    {
-        if (isInitializing)
-        {
-            return;
-        }
-
-        Save(configurationStateService.Current.General with { IncludeDellDrivers = value });
-    }
-
-    partial void OnIncludeHpDriversChanged(bool value)
-    {
-        if (isInitializing)
-        {
-            return;
-        }
-
-        Save(configurationStateService.Current.General with { IncludeHpDrivers = value });
-    }
-
-    partial void OnCustomDriverDirectoryPathChanged(string value)
-    {
-        if (isInitializing)
-        {
-            return;
-        }
-
-        Save(configurationStateService.Current.General with
-        {
-            CustomDriverDirectoryPath = string.IsNullOrWhiteSpace(value) ? null : value
-        });
     }
 
     partial void OnSelectedTimeZoneChanged(SelectionOption<string>? value)

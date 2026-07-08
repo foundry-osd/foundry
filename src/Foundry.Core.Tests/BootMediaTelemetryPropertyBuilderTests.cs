@@ -25,7 +25,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             BootImageSource = WinPeBootImageSource.WinReWifi,
             SignatureMode = WinPeSignatureMode.Pca2023,
             DriverVendors = [WinPeVendorSelection.Dell],
-            CustomDriverDirectoryPath = @"C:\Drivers",
+            CustomDriverDirectoryPaths = [@"C:\Drivers"],
             IsAutopilotEnabled = true,
             AutopilotProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
             AreRequiredSecretsReady = true,

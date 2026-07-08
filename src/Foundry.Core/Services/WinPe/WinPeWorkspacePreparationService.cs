@@ -62,7 +62,7 @@ public sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparatio
                 Architecture = artifact.Architecture,
                 BootImageSource = options.BootImageSource,
                 DriverVendors = options.DriverVendors,
-                CustomDriverDirectoryPath = options.CustomDriverDirectoryPath,
+                CustomDriverDirectoryPaths = options.CustomDriverDirectoryPaths,
                 Artifact = artifact,
                 DownloadProgress = options.DownloadProgress
             },

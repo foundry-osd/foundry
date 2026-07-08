@@ -55,4 +55,9 @@ public sealed record WinPeBootImageContentSettings
     /// destination folder structure each folder contains.
     /// </summary>
     public IReadOnlyList<string> AdditionalRootFolderPaths { get; init; } = [];
+
+    /// <summary>
+    /// Gets the folders that contain drivers (.inf packages) to inject into the boot image.
+    /// </summary>
+    public IReadOnlyList<string> DriverFolderPaths { get; init; } = [];
 }

@@ -76,33 +76,6 @@
                             SelectedItem="{x:Bind ViewModel.SelectedTimeZone, Mode=TwoWay}" />
                     </wct:SettingsCard>
 
-                    <wct:SettingsExpander x:Name="DriverOptionsCard">
-                        <wct:SettingsExpander.HeaderIcon>
-                            <FontIcon Glyph="&#xE90F;" />
-                        </wct:SettingsExpander.HeaderIcon>
-                        <StackPanel
-                            Orientation="Horizontal"
-                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                            <ToggleSwitch x:Name="DellDriversToggle"
-                                IsOn="{x:Bind ViewModel.IncludeDellDrivers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <ToggleSwitch x:Name="HpDriversToggle"
-                                IsOn="{x:Bind ViewModel.IncludeHpDrivers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </StackPanel>
-                        <wct:SettingsExpander.Items>
-                            <wct:SettingsCard x:Name="CustomDriverDirectoryCard">
-                                <StackPanel
-                                    Orientation="Horizontal"
-                                    Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                                    <TextBox
-                                        MinWidth="{ThemeResource FoundryWideInputMinWidth}"
-                                        Text="{x:Bind ViewModel.CustomDriverDirectoryPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    <Button x:Name="BrowseCustomDriversButton"
-                                        MinWidth="{StaticResource SettingActionControlMinWidth}"
-                                        Command="{x:Bind ViewModel.BrowseCustomDriverDirectoryCommand}" />
-                                </StackPanel>
-                            </wct:SettingsCard>
-                        </wct:SettingsExpander.Items>
-                    </wct:SettingsExpander>
                 </StackPanel>
             </ScrollView>
 

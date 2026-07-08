@@ -52,11 +52,14 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
         this.localizationService = localizationService;
         this.logger = logger.ForContext<BootImageConfigurationViewModel>();
 
-        WinPeBootImageContentSettings settings = configurationStateService.Current.General.BootImageContent;
+        GeneralSettings general = configurationStateService.Current.General;
+        WinPeBootImageContentSettings settings = general.BootImageContent;
         EnableFirewall = settings.EnableFirewall;
         IncludeTroubleshootingConsole = settings.IncludeTroubleshootingConsole;
         KeepBootWimCopy = settings.KeepBootWimCopy;
         IncludePowerShell7 = settings.IncludePowerShell7;
+        IncludeDellDrivers = general.IncludeDellDrivers;
+        IncludeHpDrivers = general.IncludeHpDrivers;
 
         foreach (PowerShellModuleSelection module in settings.PowerShellModules)
         {
@@ -66,6 +69,25 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
         foreach (string folder in settings.AdditionalRootFolderPaths)
         {
             AdditionalRootFolders.Add(new BootImageRootFolderViewModel(folder, RemoveLabel));
+        }
+
+        // Migrate a legacy single custom driver directory into the driver folder list on first use.
+        bool migrateLegacyDriverFolder = settings.DriverFolderPaths.Count == 0
+            && !string.IsNullOrWhiteSpace(general.CustomDriverDirectoryPath);
+        IReadOnlyList<string> driverFolders = migrateLegacyDriverFolder
+            ? [general.CustomDriverDirectoryPath!]
+            : settings.DriverFolderPaths;
+        foreach (string folder in driverFolders)
+        {
+            DriverFolders.Add(new BootImageRootFolderViewModel(folder, RemoveLabel));
+        }
+
+        if (migrateLegacyDriverFolder)
+        {
+            configurationStateService.UpdateGeneral(general with
+            {
+                BootImageContent = settings with { DriverFolderPaths = driverFolders.ToList() }
+            });
         }
 
         RefreshLocalizedText();
@@ -111,6 +133,11 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
     /// </summary>
     public ObservableCollection<BootImageRootFolderViewModel> AdditionalRootFolders { get; } = [];
 
+    /// <summary>
+    /// Gets the folders that contain drivers (.inf packages) to inject into the boot image.
+    /// </summary>
+    public ObservableCollection<BootImageRootFolderViewModel> DriverFolders { get; } = [];
+
     private string AddLabel => localizationService.GetString("Common.Add");
 
     private string RemoveLabel => localizationService.GetString("Common.Remove");
@@ -122,6 +149,7 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
     public partial string PageDescription { get; set; } = string.Empty;
 
     [NotifyPropertyChangedFor(nameof(SettingsVisibility))]
+    [NotifyPropertyChangedFor(nameof(DriversVisibility))]
     [NotifyPropertyChangedFor(nameof(OptionalComponentsVisibility))]
     [NotifyPropertyChangedFor(nameof(PowerShellVisibility))]
     [NotifyPropertyChangedFor(nameof(ModulesVisibility))]
@@ -130,6 +158,8 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
     public partial SelectionOption<BootImageSection>? SelectedSectionItem { get; set; }
 
     public Visibility SettingsVisibility => VisibilityFor(BootImageSection.Settings);
+
+    public Visibility DriversVisibility => VisibilityFor(BootImageSection.Drivers);
 
     public Visibility OptionalComponentsVisibility => VisibilityFor(BootImageSection.OptionalComponents);
 
@@ -147,6 +177,12 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
 
     [ObservableProperty]
     public partial bool KeepBootWimCopy { get; set; }
+
+    [ObservableProperty]
+    public partial bool IncludeDellDrivers { get; set; }
+
+    [ObservableProperty]
+    public partial bool IncludeHpDrivers { get; set; }
 
     [ObservableProperty]
     public partial bool IncludePowerShell7 { get; set; }
@@ -227,6 +263,7 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
 
         Sections.Clear();
         Sections.Add(new SelectionOption<BootImageSection>(BootImageSection.Settings, localizationService.GetString("BootImage.Section.Settings")));
+        Sections.Add(new SelectionOption<BootImageSection>(BootImageSection.Drivers, localizationService.GetString("BootImage.Section.Drivers")));
         Sections.Add(new SelectionOption<BootImageSection>(BootImageSection.OptionalComponents, localizationService.GetString("BootImage.Section.OptionalComponents")));
         Sections.Add(new SelectionOption<BootImageSection>(BootImageSection.PowerShell, localizationService.GetString("BootImage.Section.PowerShell")));
         Sections.Add(new SelectionOption<BootImageSection>(BootImageSection.Modules, localizationService.GetString("BootImage.Section.Modules")));
@@ -480,6 +517,37 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
         }
     }
 
+    [RelayCommand]
+    private async Task AddDriverFolderAsync()
+    {
+        string? path = await filePickerService.PickFolderAsync(
+            new FolderPickerRequest(localizationService.GetString("BootImage.Drivers.Picker.Title")));
+
+        if (string.IsNullOrWhiteSpace(path) ||
+            DriverFolders.Any(folder => string.Equals(folder.Path, path, StringComparison.OrdinalIgnoreCase)))
+        {
+            return;
+        }
+
+        DriverFolders.Add(new BootImageRootFolderViewModel(path, RemoveLabel));
+        SaveDriverFolders();
+    }
+
+    /// <summary>
+    /// Removes a folder from the driver folders list.
+    /// </summary>
+    public void RemoveDriverFolder(BootImageRootFolderViewModel folder)
+    {
+        if (DriverFolders.Remove(folder))
+        {
+            SaveDriverFolders();
+        }
+    }
+
+    partial void OnIncludeDellDriversChanged(bool value) => SaveGeneral(general => general with { IncludeDellDrivers = value });
+
+    partial void OnIncludeHpDriversChanged(bool value) => SaveGeneral(general => general with { IncludeHpDrivers = value });
+
     partial void OnEnableFirewallChanged(bool value) => Save(current => current with { EnableFirewall = value });
 
     partial void OnIncludeTroubleshootingConsoleChanged(bool value) =>
@@ -547,6 +615,11 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
         Save(current => current with { AdditionalRootFolderPaths = AdditionalRootFolders.Select(folder => folder.Path).ToList() });
     }
 
+    private void SaveDriverFolders()
+    {
+        Save(current => current with { DriverFolderPaths = DriverFolders.Select(folder => folder.Path).ToList() });
+    }
+
     private void Save(Func<WinPeBootImageContentSettings, WinPeBootImageContentSettings> transform)
     {
         if (isInitializing)
@@ -559,6 +632,16 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
         {
             BootImageContent = transform(general.BootImageContent)
         });
+    }
+
+    private void SaveGeneral(Func<GeneralSettings, GeneralSettings> transform)
+    {
+        if (isInitializing)
+        {
+            return;
+        }
+
+        configurationStateService.UpdateGeneral(transform(configurationStateService.Current.General));
     }
 
     private void OnConfigurationStateChanged(object? sender, EventArgs e)

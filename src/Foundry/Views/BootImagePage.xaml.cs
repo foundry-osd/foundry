@@ -63,6 +63,14 @@ public sealed partial class BootImagePage : Page
         }
     }
 
+    private void RemoveDriverFolderButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is FrameworkElement { Tag: BootImageRootFolderViewModel folder })
+        {
+            ViewModel.RemoveDriverFolder(folder);
+        }
+    }
+
     private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e)
     {
         if (DispatcherQueue.HasThreadAccess)
@@ -92,6 +100,16 @@ public sealed partial class BootImagePage : Page
         KeepWimCard.Description = localizationService.GetString("BootImage.KeepWim.Description");
         TroubleshootingConsoleCard.Header = localizationService.GetString("BootImage.TroubleshootingConsole.Header");
         TroubleshootingConsoleCard.Description = localizationService.GetString("BootImage.TroubleshootingConsole.Description");
+
+        DriverVendorsCard.Header = localizationService.GetString("BootImage.Drivers.VendorsHeader");
+        DriverVendorsCard.Description = localizationService.GetString("BootImage.Drivers.VendorsDescription");
+        DellDriversToggle.OnContent = localizationService.GetString("BootImage.Drivers.Dell");
+        DellDriversToggle.OffContent = localizationService.GetString("BootImage.Drivers.Dell");
+        HpDriversToggle.OnContent = localizationService.GetString("BootImage.Drivers.Hp");
+        HpDriversToggle.OffContent = localizationService.GetString("BootImage.Drivers.Hp");
+        DriverFoldersTitle.Text = localizationService.GetString("BootImage.Drivers.FoldersHeader");
+        DriverFoldersSubtitle.Text = localizationService.GetString("BootImage.Drivers.FoldersDescription");
+        AddDriverFolderButton.Content = localizationService.GetString("BootImage.Drivers.AddButton");
 
         OptionalComponentsTitle.Text = localizationService.GetString("BootImage.OptionalComponents.Header");
         OptionalComponentsSubtitle.Text = localizationService.GetString("BootImage.OptionalComponents.Description");

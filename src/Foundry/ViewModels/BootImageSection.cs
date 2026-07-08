@@ -10,6 +10,7 @@ namespace Foundry.ViewModels;
 public enum BootImageSection
 {
     Settings,
+    Drivers,
     OptionalComponents,
     PowerShell,
     Modules,

@@ -40,9 +40,9 @@ public sealed record WinPeWorkspacePreparationOptions
     public IReadOnlyList<WinPeVendorSelection> DriverVendors { get; init; } = [];
 
     /// <summary>
-    /// Gets an optional custom driver directory.
+    /// Gets optional folders that contain drivers to inject into the boot image.
     /// </summary>
-    public string? CustomDriverDirectoryPath { get; init; }
+    public IReadOnlyList<string> CustomDriverDirectoryPaths { get; init; } = [];
 
     /// <summary>
     /// Gets the WinPE optional component names to add. When empty, Foundry's recommended defaults are used.

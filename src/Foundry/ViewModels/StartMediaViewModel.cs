@@ -108,7 +108,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         RebuildPartitionStyles();
         IncludeDellDrivers = general.IncludeDellDrivers;
         IncludeHpDrivers = general.IncludeHpDrivers;
-        CustomDriverDirectoryPath = general.CustomDriverDirectoryPath ?? string.Empty;
 
         adkService.StatusChanged += OnAdkStatusChanged;
         foundryConfigurationStateService.StateChanged += OnFoundryConfigurationStateChanged;
@@ -180,9 +179,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     [ObservableProperty]
     public partial bool IncludeHpDrivers { get; set; }
-
-    [ObservableProperty]
-    public partial string CustomDriverDirectoryPath { get; set; }
 
     [ObservableProperty]
     public partial SelectionOption<WinPeUsbDiskCandidate>? SelectedUsbDisk { get; set; }
@@ -710,7 +706,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 options.BootImageSource,
                 includeRuntimePayloadInImage,
                 options.DriverVendors.Count,
-                !string.IsNullOrWhiteSpace(options.CustomDriverDirectoryPath),
+                options.CustomDriverDirectoryPaths.Count > 0,
                 options.IsAutopilotEnabled,
                 runtimePayloadProvisioning.Connect.IsEnabled,
                 ResolveProvisioningSource(runtimePayloadProvisioning.Connect),
@@ -773,7 +769,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     BootImageSource = options.BootImageSource,
                     DriverCatalogUri = new WinPeDriverCatalogOptions().CatalogUri,
                     DriverVendors = options.DriverVendors,
-                    CustomDriverDirectoryPath = options.CustomDriverDirectoryPath,
+                    CustomDriverDirectoryPaths = options.CustomDriverDirectoryPaths,
                     WinPeLanguage = options.WinPeLanguage,
                     OptionalComponents = options.OptionalComponents,
                     PowerShell7 = await ResolvePowerShell7SettingsAsync(options, cancellationToken),
@@ -1408,7 +1404,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         SelectedFormatMode = SelectOption(FormatModes, general.UsbFormatMode);
         IncludeDellDrivers = general.IncludeDellDrivers;
         IncludeHpDrivers = general.IncludeHpDrivers;
-        CustomDriverDirectoryPath = general.CustomDriverDirectoryPath ?? string.Empty;
     }
 
     private MediaPreflightOptions CreatePreflightOptions()
@@ -1450,7 +1445,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             AvailableWinPeLanguages = availableWinPeLanguages,
             BootImageSource = ResolveBootImageSource(),
             DriverVendors = vendors,
-            CustomDriverDirectoryPath = CustomDriverDirectoryPath,
+            CustomDriverDirectoryPaths = bootImage.DriverFolderPaths,
             SelectedUsbDisk = SelectedUsbDisk?.Value,
             OptionalComponents = bootImage.OptionalComponents,
             EnableFirewall = bootImage.EnableFirewall,
@@ -1861,7 +1856,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Signature")}: {FormatSignatureMode(options.SignatureMode)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.PartitionStyle")}: {evaluation.EffectiveUsbPartitionStyle}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.FormatMode")}: {FormatUsbFormatMode(options.UsbFormatMode)}");
-        builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Drivers")}: {FormatDriverOptions(options.DriverVendors, options.CustomDriverDirectoryPath)}");
+        builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Drivers")}: {FormatDriverOptions(options.DriverVendors, options.CustomDriverDirectoryPaths)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Network")}: {FormatReady(options.IsNetworkConfigurationReady)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Deploy")}: {FormatReady(options.IsDeployConfigurationReady)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Connect")}: {FormatReady(options.IsConnectProvisioningReady)}");
@@ -2086,13 +2081,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
     }
 
-    private string FormatDriverOptions(IReadOnlyList<WinPeVendorSelection> vendors, string? customDriverDirectoryPath)
+    private string FormatDriverOptions(IReadOnlyList<WinPeVendorSelection> vendors, IReadOnlyList<string> customDriverDirectoryPaths)
     {
         List<string> parts = vendors.Select(FormatDriverVendor).ToList();
-        if (!string.IsNullOrWhiteSpace(customDriverDirectoryPath))
-        {
-            parts.Add(customDriverDirectoryPath);
-        }
+        parts.AddRange(customDriverDirectoryPaths.Where(path => !string.IsNullOrWhiteSpace(path)));
 
         return parts.Count == 0 ? "-" : string.Join(", ", parts);
     }
