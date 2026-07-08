@@ -870,7 +870,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
 
         WinPeResult<IReadOnlyList<PowerShell7Release>> releasesResult =
-            await powerShell7ReleaseService.GetLatestStableReleasesAsync(options.Architecture, 3, cancellationToken);
+            await powerShell7ReleaseService.GetLatestStableReleasesAsync(options.Architecture, 10, cancellationToken);
 
         if (!releasesResult.IsSuccess || releasesResult.Value is not { Count: > 0 } releases)
         {

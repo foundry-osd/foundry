@@ -11,6 +11,7 @@ using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
 using Microsoft.UI.Xaml;
 using Serilog;
+using Windows.ApplicationModel.DataTransfer;
 
 namespace Foundry.ViewModels;
 
@@ -30,6 +31,7 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
     private readonly IApplicationLocalizationService localizationService;
     private readonly ILogger logger;
     private bool isInitializing = true;
+    private IReadOnlyList<PowerShell7Release> _powerShell7Releases = [];
 
     public BootImageConfigurationViewModel(
         IFoundryConfigurationStateService configurationStateService,
@@ -151,6 +153,16 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
 
     [ObservableProperty]
     public partial SelectionOption<string>? SelectedPowerShell7Version { get; set; }
+
+    [NotifyPropertyChangedFor(nameof(PowerShell7DownloadVisibility))]
+    [ObservableProperty]
+    public partial string SelectedPowerShell7DownloadUrl { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets whether the download link for the selected PowerShell 7 release is shown.
+    /// </summary>
+    public Visibility PowerShell7DownloadVisibility =>
+        string.IsNullOrWhiteSpace(SelectedPowerShell7DownloadUrl) ? Visibility.Collapsed : Visibility.Visible;
 
     [ObservableProperty]
     public partial string OptionalComponentStatus { get; set; } = string.Empty;
@@ -283,10 +295,11 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
     {
         PowerShell7Status = localizationService.GetString("BootImage.PowerShell7.Loading");
         PowerShell7Versions.Clear();
+        _powerShell7Releases = [];
 
         WinPeArchitecture architecture = configurationStateService.Current.General.Architecture;
         WinPeResult<IReadOnlyList<PowerShell7Release>> result =
-            await powerShell7ReleaseService.GetLatestStableReleasesAsync(architecture, 3);
+            await powerShell7ReleaseService.GetLatestStableReleasesAsync(architecture, 10);
 
         if (!result.IsSuccess || result.Value is not { Count: > 0 } releases)
         {
@@ -295,6 +308,7 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
             return;
         }
 
+        _powerShell7Releases = releases;
         foreach (PowerShell7Release release in releases)
         {
             PowerShell7Versions.Add(new SelectionOption<string>(release.Version, release.Version));
@@ -303,7 +317,28 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
         string? persistedVersion = configurationStateService.Current.General.BootImageContent.PowerShell7Version;
         SelectedPowerShell7Version = PowerShell7Versions.FirstOrDefault(option =>
             string.Equals(option.Value, persistedVersion, StringComparison.OrdinalIgnoreCase)) ?? PowerShell7Versions[0];
+        UpdateSelectedDownloadUrl();
         PowerShell7Status = string.Empty;
+    }
+
+    private void UpdateSelectedDownloadUrl()
+    {
+        SelectedPowerShell7DownloadUrl = _powerShell7Releases
+            .FirstOrDefault(release => string.Equals(release.Version, SelectedPowerShell7Version?.Value, StringComparison.OrdinalIgnoreCase))?
+            .DownloadUrl ?? string.Empty;
+    }
+
+    [RelayCommand]
+    private void CopyDownloadUrl()
+    {
+        if (string.IsNullOrWhiteSpace(SelectedPowerShell7DownloadUrl))
+        {
+            return;
+        }
+
+        DataPackage package = new();
+        package.SetText(SelectedPowerShell7DownloadUrl);
+        Clipboard.SetContent(package);
     }
 
     [RelayCommand]
@@ -468,6 +503,8 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
 
     partial void OnSelectedPowerShell7VersionChanged(SelectionOption<string>? value)
     {
+        UpdateSelectedDownloadUrl();
+
         if (isInitializing || value is null)
         {
             return;

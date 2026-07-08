@@ -251,6 +251,28 @@
                                             TextWrapping="Wrap" />
                                     </StackPanel>
                                 </wct:SettingsCard>
+                                <wct:SettingsCard x:Name="PowerShell7DownloadCard"
+                                    HorizontalContentAlignment="Stretch"
+                                    Visibility="{x:Bind ViewModel.PowerShell7DownloadVisibility, Mode=OneWay}">
+                                    <StackPanel
+                                        Orientation="Horizontal"
+                                        Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                        <TextBox
+                                            MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                            IsReadOnly="True"
+                                            IsSpellCheckEnabled="False"
+                                            Text="{x:Bind ViewModel.SelectedPowerShell7DownloadUrl, Mode=OneWay}" />
+                                        <Button x:Name="CopyDownloadUrlButton"
+                                            Command="{x:Bind ViewModel.CopyDownloadUrlCommand}">
+                                            <StackPanel
+                                                Orientation="Horizontal"
+                                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                                <FontIcon FontSize="{ThemeResource FoundryIconSizeSmall}" Glyph="&#xE8C8;" />
+                                                <TextBlock x:Name="CopyDownloadUrlButtonText" />
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+                                </wct:SettingsCard>
                             </wct:SettingsExpander.Items>
                         </wct:SettingsExpander>
                     </StackPanel>

@@ -99,6 +99,8 @@ public sealed partial class BootImagePage : Page
         PowerShell7Card.Header = localizationService.GetString("BootImage.PowerShell7.Header");
         PowerShell7Card.Description = localizationService.GetString("BootImage.PowerShell7.Description");
         PowerShell7VersionCard.Header = localizationService.GetString("BootImage.PowerShell7.VersionHeader");
+        PowerShell7DownloadCard.Header = localizationService.GetString("BootImage.PowerShell7.DownloadHeader");
+        CopyDownloadUrlButtonText.Text = localizationService.GetString("BootImage.PowerShell7.CopyButton");
 
         GalleryTitle.Text = localizationService.GetString("BootImage.Modules.GalleryHeader");
         ModuleSearchBox.PlaceholderText = localizationService.GetString("BootImage.Modules.SearchPlaceholder");
