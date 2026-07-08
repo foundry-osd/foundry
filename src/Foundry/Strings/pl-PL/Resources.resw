@@ -2136,4 +2136,109 @@
   <data name="StartMedia.Operation.DriverPackageProgressFormat" xml:space="preserve">
     <value>Driver package {0} of {1}</value>
   </data>
+  <data name="Nav_BootImageKey.Title" xml:space="preserve">
+    <value>Boot Image</value>
+  </data>
+  <data name="Nav_BootImageKey.Subtitle" xml:space="preserve">
+    <value>Boot Image</value>
+  </data>
+  <data name="Nav_BootImageKey.Description" xml:space="preserve">
+    <value>Optional components, PowerShell, and boot image content.</value>
+  </data>
+  <data name="BootImagePage_Title.Text" xml:space="preserve">
+    <value>Boot Image</value>
+  </data>
+  <data name="BootImage.PageDescription" xml:space="preserve">
+    <value>Customize optional components, PowerShell integration, and boot image content.</value>
+  </data>
+  <data name="BootImage.BootBehavior.Header" xml:space="preserve">
+    <value>Boot behavior</value>
+  </data>
+  <data name="BootImage.BootBehavior.Description" xml:space="preserve">
+    <value>Firewall, recovery image, and troubleshooting console options.</value>
+  </data>
+  <data name="BootImage.Firewall.On" xml:space="preserve">
+    <value>Firewall enabled</value>
+  </data>
+  <data name="BootImage.Firewall.Off" xml:space="preserve">
+    <value>Firewall disabled</value>
+  </data>
+  <data name="BootImage.KeepWim.Header" xml:space="preserve">
+    <value>Keep a copy of boot.wim</value>
+  </data>
+  <data name="BootImage.KeepWim.Description" xml:space="preserve">
+    <value>Save a copy of boot.wim next to the ISO after creation.</value>
+  </data>
+  <data name="BootImage.TroubleshootingConsole.Header" xml:space="preserve">
+    <value>Troubleshooting console</value>
+  </data>
+  <data name="BootImage.TroubleshootingConsole.Description" xml:space="preserve">
+    <value>Include a minimized PowerShell console for debugging. Off by default.</value>
+  </data>
+  <data name="BootImage.OptionalComponents.Header" xml:space="preserve">
+    <value>Optional components</value>
+  </data>
+  <data name="BootImage.OptionalComponents.Description" xml:space="preserve">
+    <value>WinPE optional components discovered from the installed ADK.</value>
+  </data>
+  <data name="BootImage.OptionalComponents.AdkBlocked" xml:space="preserve">
+    <value>Install the Windows ADK to select optional components.</value>
+  </data>
+  <data name="BootImage.OptionalComponents.Unavailable" xml:space="preserve">
+    <value>No optional components were found for the selected architecture.</value>
+  </data>
+  <data name="BootImage.PowerShell7.Header" xml:space="preserve">
+    <value>PowerShell 7</value>
+  </data>
+  <data name="BootImage.PowerShell7.Description" xml:space="preserve">
+    <value>Integrate PowerShell 7 into the boot image.</value>
+  </data>
+  <data name="BootImage.PowerShell7.VersionHeader" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="BootImage.PowerShell7.Loading" xml:space="preserve">
+    <value>Loading available releases...</value>
+  </data>
+  <data name="BootImage.PowerShell7.Unavailable" xml:space="preserve">
+    <value>Could not load PowerShell 7 releases. The latest release will be used.</value>
+  </data>
+  <data name="BootImage.Modules.Header" xml:space="preserve">
+    <value>PowerShell modules</value>
+  </data>
+  <data name="BootImage.Modules.Description" xml:space="preserve">
+    <value>Add modules from the PowerShell Gallery or a local folder.</value>
+  </data>
+  <data name="BootImage.Modules.SearchPlaceholder" xml:space="preserve">
+    <value>Search the PowerShell Gallery</value>
+  </data>
+  <data name="BootImage.Modules.SearchButton" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="BootImage.Modules.AddLocalButton" xml:space="preserve">
+    <value>Add local folder</value>
+  </data>
+  <data name="BootImage.Modules.Searching" xml:space="preserve">
+    <value>Searching the PowerShell Gallery...</value>
+  </data>
+  <data name="BootImage.Modules.NoResults" xml:space="preserve">
+    <value>No modules matched your search.</value>
+  </data>
+  <data name="BootImage.Modules.SearchFailed" xml:space="preserve">
+    <value>The PowerShell Gallery search failed.</value>
+  </data>
+  <data name="BootImage.Modules.LocalPicker.Title" xml:space="preserve">
+    <value>Select a module folder</value>
+  </data>
+  <data name="BootImage.RootFolders.Header" xml:space="preserve">
+    <value>Additional root folders</value>
+  </data>
+  <data name="BootImage.RootFolders.Description" xml:space="preserve">
+    <value>Copy folder contents into the boot image root, preserving structure.</value>
+  </data>
+  <data name="BootImage.RootFolders.AddButton" xml:space="preserve">
+    <value>Add folder</value>
+  </data>
+  <data name="BootImage.RootFolders.Picker.Title" xml:space="preserve">
+    <value>Select a folder to copy</value>
+  </data>
 </root>
