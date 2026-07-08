@@ -2289,4 +2289,10 @@
   <data name="BootImage.Modules.SelectedLocalHeader" xml:space="preserve">
     <value>Selected local modules</value>
   </data>
+  <data name="BootImage.PowerShell7.DownloadHeader" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="BootImage.PowerShell7.CopyButton" xml:space="preserve">
+    <value>Copy</value>
+  </data>
 </root>
