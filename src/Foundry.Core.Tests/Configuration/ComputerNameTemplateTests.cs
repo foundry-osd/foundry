@@ -91,6 +91,17 @@ public sealed class ComputerNameTemplateTests
     }
 
     [Theory]
+    [InlineData("$")]
+    [InlineData("${")]
+    [InlineData("${SERIAL")]
+    [InlineData("PC-${SERIALNUMBER}")]
+    public void NormalizePrefix_PreservesTemplateCharactersWhileTyping(string value)
+    {
+        // A lone $ (or partial token) must survive so the user can finish typing ${VARIABLE}.
+        Assert.Equal(value, ComputerNameTemplate.NormalizePrefix(value));
+    }
+
+    [Theory]
     [InlineData("PC-${SERIALNUMBER}", true)]
     [InlineData("${SERIALNUMBER}", true)]
     [InlineData("${MODEL}-01", true)]

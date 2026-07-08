@@ -48,13 +48,22 @@ public static partial class ComputerNameTemplate
     }
 
     /// <summary>
+    /// Gets whether the value contains any template character (<c>$</c>, <c>{</c>, or <c>}</c>). Used while a
+    /// variable is being typed so a lone <c>$</c> or <c>{</c> is not stripped before the token is completed.
+    /// </summary>
+    private static bool ContainsTemplateCharacter(string? value)
+    {
+        return !string.IsNullOrEmpty(value) && value.Any(IsTemplateCharacter);
+    }
+
+    /// <summary>
     /// Normalizes a prefix for authoring. Plain prefixes are normalized by <see cref="ComputerNameRules"/>
-    /// (valid characters, truncated to 15). Prefixes containing a variable are normalized as templates, keeping
-    /// <c>$</c> and the token characters and allowing the longer template length.
+    /// (valid characters, truncated to 15). Prefixes containing template characters are normalized as templates,
+    /// keeping <c>${...}</c> tokens and allowing the longer template length.
     /// </summary>
     public static string NormalizePrefix(string? value)
     {
-        return ContainsVariable(value)
+        return ContainsTemplateCharacter(value)
             ? NormalizeTemplate(value)
             : ComputerNameRules.Normalize(value);
     }
@@ -64,7 +73,7 @@ public static partial class ComputerNameTemplate
     /// </summary>
     public static bool IsValidPrefix(string? value)
     {
-        return ContainsVariable(value)
+        return ContainsTemplateCharacter(value)
             ? IsValidTemplate(value)
             : ComputerNameRules.IsValid(value);
     }
