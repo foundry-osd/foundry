@@ -571,7 +571,7 @@
     <value>Predpona názvu počítača</value>
   </data>
   <data name="Customization.MachineNamingPrefixDescription" xml:space="preserve">
-    <value>Predpona použitá pred vygenerovanou alebo upraviteľnou príponou nasadenia.</value>
+    <value>Prefix applied before the generated or editable deployment suffix. Use a variable such as $SERIALNUMBER (also $MODEL, $MANUFACTURER, $PRODUCT) to insert device values; the final name is truncated to 15 characters.</value>
   </data>
   <data name="Customization.MachineNamingAutoGenerateLabel" xml:space="preserve">
     <value>Automaticky vygenerovať príponu názvu počítača</value>
@@ -586,7 +586,7 @@
     <value>Umožnite operátorovi nasadenia upraviť príponu za predponou.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>Prefix musí obsahovať 1 až 15 znakov od A-Z, a-z, 0-9 alebo -.</value>
+    <value>Prefix must use A-Z, a-z, 0-9, -, or a variable such as $SERIALNUMBER.</value>
   </data>
   <data name="Customization.OobeHeader" xml:space="preserve">
     <value>Skúsenosti mimo krabice</value>
@@ -2282,5 +2282,11 @@
   </data>
   <data name="StartMedia.Operation.OptionalComponentProgressFormat" xml:space="preserve">
     <value>Optional component {0} of {1}</value>
+  </data>
+  <data name="BootImage.Modules.SelectedGalleryHeader" xml:space="preserve">
+    <value>Selected Gallery modules</value>
+  </data>
+  <data name="BootImage.Modules.SelectedLocalHeader" xml:space="preserve">
+    <value>Selected local modules</value>
   </data>
 </root>

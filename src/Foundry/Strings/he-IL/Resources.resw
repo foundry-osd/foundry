@@ -571,7 +571,7 @@
     <value>קידומת שם המחשב</value>
   </data>
   <data name="Customization.MachineNamingPrefixDescription" xml:space="preserve">
-    <value>קידומת הוחל לפני סיומת הפריסה שנוצרה או הניתנת לעריכה.</value>
+    <value>Prefix applied before the generated or editable deployment suffix. Use a variable such as $SERIALNUMBER (also $MODEL, $MANUFACTURER, $PRODUCT) to insert device values; the final name is truncated to 15 characters.</value>
   </data>
   <data name="Customization.MachineNamingAutoGenerateLabel" xml:space="preserve">
     <value>יצירה אוטומטית של סיומת שם מחשב</value>
@@ -586,7 +586,7 @@
     <value>אפשר למפעיל הפריסה לערוך את הסיומת אחרי הקידומת.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>הקידומת חייבת להשתמש ב-1 עד 15 תווים מ-A-Z, a-z, 0-9 או -.</value>
+    <value>Prefix must use A-Z, a-z, 0-9, -, or a variable such as $SERIALNUMBER.</value>
   </data>
   <data name="Customization.OobeHeader" xml:space="preserve">
     <value>חוויה מחוץ לקופסה</value>
@@ -2282,5 +2282,11 @@
   </data>
   <data name="StartMedia.Operation.OptionalComponentProgressFormat" xml:space="preserve">
     <value>Optional component {0} of {1}</value>
+  </data>
+  <data name="BootImage.Modules.SelectedGalleryHeader" xml:space="preserve">
+    <value>Selected Gallery modules</value>
+  </data>
+  <data name="BootImage.Modules.SelectedLocalHeader" xml:space="preserve">
+    <value>Selected local modules</value>
   </data>
 </root>

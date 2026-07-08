@@ -571,7 +571,7 @@
     <value>Πρόθεμα ονόματος υπολογιστή</value>
   </data>
   <data name="Customization.MachineNamingPrefixDescription" xml:space="preserve">
-    <value>Το πρόθεμα εφαρμόζεται πριν από το δημιουργημένο ή επεξεργάσιμο επίθημα ανάπτυξης.</value>
+    <value>Prefix applied before the generated or editable deployment suffix. Use a variable such as $SERIALNUMBER (also $MODEL, $MANUFACTURER, $PRODUCT) to insert device values; the final name is truncated to 15 characters.</value>
   </data>
   <data name="Customization.MachineNamingAutoGenerateLabel" xml:space="preserve">
     <value>Αυτόματη δημιουργία επιθήματος ονόματος υπολογιστή</value>
@@ -586,7 +586,7 @@
     <value>Επιτρέψτε στον χειριστή ανάπτυξης να επεξεργαστεί το επίθημα μετά το πρόθεμα.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>Το πρόθεμα πρέπει να χρησιμοποιεί 1 έως 15 χαρακτήρες από A-Z, a-z, 0-9 ή -.</value>
+    <value>Prefix must use A-Z, a-z, 0-9, -, or a variable such as $SERIALNUMBER.</value>
   </data>
   <data name="Customization.OobeHeader" xml:space="preserve">
     <value>Εμπειρία εκτός συσκευασίας</value>
@@ -2282,5 +2282,11 @@
   </data>
   <data name="StartMedia.Operation.OptionalComponentProgressFormat" xml:space="preserve">
     <value>Optional component {0} of {1}</value>
+  </data>
+  <data name="BootImage.Modules.SelectedGalleryHeader" xml:space="preserve">
+    <value>Selected Gallery modules</value>
+  </data>
+  <data name="BootImage.Modules.SelectedLocalHeader" xml:space="preserve">
+    <value>Selected local modules</value>
   </data>
 </root>

@@ -571,7 +571,7 @@
     <value>คำนำหน้าชื่อคอมพิวเตอร์</value>
   </data>
   <data name="Customization.MachineNamingPrefixDescription" xml:space="preserve">
-    <value>ใช้คำนำหน้าก่อนส่วนต่อท้ายการปรับใช้ที่สร้างขึ้นหรือแก้ไขได้</value>
+    <value>Prefix applied before the generated or editable deployment suffix. Use a variable such as $SERIALNUMBER (also $MODEL, $MANUFACTURER, $PRODUCT) to insert device values; the final name is truncated to 15 characters.</value>
   </data>
   <data name="Customization.MachineNamingAutoGenerateLabel" xml:space="preserve">
     <value>สร้างส่วนต่อท้ายชื่อคอมพิวเตอร์อัตโนมัติ</value>
@@ -586,7 +586,7 @@
     <value>อนุญาตให้ผู้ดำเนินการปรับใช้แก้ไขส่วนต่อท้ายหลังคำนำหน้า</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>คำนำหน้าต้องใช้อักขระ 1 ถึง 15 ตัวตั้งแต่ A-Z, a-z, 0-9 หรือ -</value>
+    <value>Prefix must use A-Z, a-z, 0-9, -, or a variable such as $SERIALNUMBER.</value>
   </data>
   <data name="Customization.OobeHeader" xml:space="preserve">
     <value>ประสบการณ์นอกกรอบ</value>
@@ -2282,5 +2282,11 @@
   </data>
   <data name="StartMedia.Operation.OptionalComponentProgressFormat" xml:space="preserve">
     <value>Optional component {0} of {1}</value>
+  </data>
+  <data name="BootImage.Modules.SelectedGalleryHeader" xml:space="preserve">
+    <value>Selected Gallery modules</value>
+  </data>
+  <data name="BootImage.Modules.SelectedLocalHeader" xml:space="preserve">
+    <value>Selected local modules</value>
   </data>
 </root>

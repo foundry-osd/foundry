@@ -571,7 +571,7 @@
     <value>Bilgisayar adı öneki</value>
   </data>
   <data name="Customization.MachineNamingPrefixDescription" xml:space="preserve">
-    <value>Oluşturulan veya düzenlenebilir dağıtım son ekinden önce uygulanan önek.</value>
+    <value>Prefix applied before the generated or editable deployment suffix. Use a variable such as $SERIALNUMBER (also $MODEL, $MANUFACTURER, $PRODUCT) to insert device values; the final name is truncated to 15 characters.</value>
   </data>
   <data name="Customization.MachineNamingAutoGenerateLabel" xml:space="preserve">
     <value>Bilgisayar adı son ekini otomatik oluştur</value>
@@ -586,7 +586,7 @@
     <value>Dağıtım operatörünün önekten sonraki son eki düzenlemesine izin verin.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>Ön ekte A-Z, a-z, 0-9 veya - arasında 1 ila 15 karakter kullanılmalıdır.</value>
+    <value>Prefix must use A-Z, a-z, 0-9, -, or a variable such as $SERIALNUMBER.</value>
   </data>
   <data name="Customization.OobeHeader" xml:space="preserve">
     <value>Kullanıma hazır deneyim</value>
@@ -2282,5 +2282,11 @@
   </data>
   <data name="StartMedia.Operation.OptionalComponentProgressFormat" xml:space="preserve">
     <value>Optional component {0} of {1}</value>
+  </data>
+  <data name="BootImage.Modules.SelectedGalleryHeader" xml:space="preserve">
+    <value>Selected Gallery modules</value>
+  </data>
+  <data name="BootImage.Modules.SelectedLocalHeader" xml:space="preserve">
+    <value>Selected local modules</value>
   </data>
 </root>
