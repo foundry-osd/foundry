@@ -125,6 +125,11 @@ public sealed record MediaPreflightOptions
     public IReadOnlyList<string> CustomDriverDirectoryPaths { get; init; } = [];
 
     /// <summary>
+    /// Gets a value indicating whether a driver package that fails to inject is skipped so the build continues.
+    /// </summary>
+    public bool ContinueOnDriverError { get; init; } = true;
+
+    /// <summary>
     /// Gets the selected USB target disk, if USB creation is requested.
     /// </summary>
     public WinPeUsbDiskCandidate? SelectedUsbDisk { get; init; }

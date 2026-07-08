@@ -35,6 +35,11 @@ public sealed record WinPeMountedImageCustomizationOptions
     public IReadOnlyList<string> DriverPackagePaths { get; init; } = [];
 
     /// <summary>
+    /// Gets a value indicating whether a driver package that fails to inject is skipped so the build continues.
+    /// </summary>
+    public bool ContinueOnDriverError { get; init; } = true;
+
+    /// <summary>
     /// Gets the WinPE optional component names to add. When empty, Foundry's recommended defaults are used.
     /// </summary>
     public IReadOnlyList<string> OptionalComponents { get; init; } = [];

@@ -110,6 +110,8 @@ public sealed partial class BootImagePage : Page
         DriverFoldersTitle.Text = localizationService.GetString("BootImage.Drivers.FoldersHeader");
         DriverFoldersSubtitle.Text = localizationService.GetString("BootImage.Drivers.FoldersDescription");
         AddDriverFolderButton.Content = localizationService.GetString("BootImage.Drivers.AddButton");
+        ContinueOnDriverErrorCard.Header = localizationService.GetString("BootImage.Drivers.ContinueOnErrorHeader");
+        ContinueOnDriverErrorCard.Description = localizationService.GetString("BootImage.Drivers.ContinueOnErrorDescription");
 
         OptionalComponentsTitle.Text = localizationService.GetString("BootImage.OptionalComponents.Header");
         OptionalComponentsSubtitle.Text = localizationService.GetString("BootImage.OptionalComponents.Description");

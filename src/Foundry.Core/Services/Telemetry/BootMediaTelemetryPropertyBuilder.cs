@@ -66,6 +66,7 @@ public static class BootMediaTelemetryPropertyBuilder
             ["boot_media_drivers_hp_enabled"] = options.DriverVendors.Contains(WinPeVendorSelection.Hp),
             ["boot_media_drivers_custom_enabled"] = options.CustomDriverDirectoryPaths.Count > 0,
             ["boot_media_drivers_custom_folder_count"] = options.CustomDriverDirectoryPaths.Count,
+            ["boot_media_drivers_continue_on_error"] = options.ContinueOnDriverError,
             ["boot_media_connect_runtime_payload_source"] = connectRuntimePayloadSource,
             ["boot_media_deploy_runtime_payload_source"] = deployRuntimePayloadSource,
             ["autopilot_enabled"] = options.IsAutopilotEnabled,

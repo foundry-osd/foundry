@@ -154,6 +154,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
             options.Progress,
             driversTask,
             taskCount,
+            options.ContinueOnDriverError,
             cancellationToken).ConfigureAwait(false);
 
         if (!driverInjectionResult.IsSuccess)
@@ -276,6 +277,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         IProgress<WinPeMountedImageCustomizationProgress>? progress,
         int taskIndex,
         int taskCount,
+        bool continueOnError,
         CancellationToken cancellationToken)
     {
         if (driverPackagePaths.Count == 0)
@@ -299,6 +301,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
                     RecurseSubdirectories = true,
                     DismExecutablePath = dismPath,
                     WorkingDirectoryPath = workingDirectoryPath,
+                    ContinueOnError = continueOnError,
                     DismProgress = CreateDismProgress(progress, 45, "Injecting drivers into mounted image.", taskIndex, taskCount, itemIndex, itemCount, WinPeCustomizationItemCategory.DriverPackage)
                 },
                 cancellationToken).ConfigureAwait(false);

@@ -2322,4 +2322,10 @@
   <data name="BootImage.Drivers.Picker.Title" xml:space="preserve">
     <value>Select a folder that contains drivers</value>
   </data>
+  <data name="BootImage.Drivers.ContinueOnErrorHeader" xml:space="preserve">
+    <value>Continue on driver error</value>
+  </data>
+  <data name="BootImage.Drivers.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Skip a driver that fails to inject and continue the build instead of failing.</value>
+  </data>
 </root>

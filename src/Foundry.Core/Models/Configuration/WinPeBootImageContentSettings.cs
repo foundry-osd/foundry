@@ -60,4 +60,10 @@ public sealed record WinPeBootImageContentSettings
     /// Gets the folders that contain drivers (.inf packages) to inject into the boot image.
     /// </summary>
     public IReadOnlyList<string> DriverFolderPaths { get; init; } = [];
+
+    /// <summary>
+    /// Gets a value indicating whether a driver package that fails to inject is skipped (with a warning)
+    /// so the build continues, instead of failing media creation. On by default.
+    /// </summary>
+    public bool ContinueOnDriverError { get; init; } = true;
 }

@@ -246,6 +246,14 @@
                             Margin="0,8,0,0"
                             ItemTemplate="{StaticResource DriverFolderTemplate}"
                             ItemsSource="{x:Bind ViewModel.DriverFolders, Mode=OneWay}" />
+                        <wct:SettingsCard x:Name="ContinueOnDriverErrorCard"
+                            Margin="0,8,0,0">
+                            <wct:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xE7BA;" />
+                            </wct:SettingsCard.HeaderIcon>
+                            <ToggleSwitch
+                                IsOn="{x:Bind ViewModel.ContinueOnDriverError, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </wct:SettingsCard>
                     </StackPanel>
 
                     <!--  Optional Components  -->

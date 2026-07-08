@@ -82,6 +82,7 @@ public sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparatio
                 BootImageSource = options.BootImageSource,
                 WinPeLanguage = options.WinPeLanguage,
                 DriverPackagePaths = drivers.Value!,
+                ContinueOnDriverError = options.ContinueOnDriverError,
                 OptionalComponents = options.OptionalComponents,
                 PowerShell7 = options.PowerShell7,
                 PowerShellModules = options.PowerShellModules,

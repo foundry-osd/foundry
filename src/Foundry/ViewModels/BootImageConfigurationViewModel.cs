@@ -60,6 +60,7 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
         IncludePowerShell7 = settings.IncludePowerShell7;
         IncludeDellDrivers = general.IncludeDellDrivers;
         IncludeHpDrivers = general.IncludeHpDrivers;
+        ContinueOnDriverError = settings.ContinueOnDriverError;
 
         foreach (PowerShellModuleSelection module in settings.PowerShellModules)
         {
@@ -183,6 +184,9 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
 
     [ObservableProperty]
     public partial bool IncludeHpDrivers { get; set; }
+
+    [ObservableProperty]
+    public partial bool ContinueOnDriverError { get; set; }
 
     [ObservableProperty]
     public partial bool IncludePowerShell7 { get; set; }
@@ -547,6 +551,8 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
     partial void OnIncludeDellDriversChanged(bool value) => SaveGeneral(general => general with { IncludeDellDrivers = value });
 
     partial void OnIncludeHpDriversChanged(bool value) => SaveGeneral(general => general with { IncludeHpDrivers = value });
+
+    partial void OnContinueOnDriverErrorChanged(bool value) => Save(current => current with { ContinueOnDriverError = value });
 
     partial void OnEnableFirewallChanged(bool value) => Save(current => current with { EnableFirewall = value });
 
