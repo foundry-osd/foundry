@@ -586,7 +586,7 @@
     <value>배포 운영자가 접두사 뒤의 접미사를 편집할 수 있도록 허용합니다.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>Prefix must use A-Z, a-z, 0-9, -, or a variable such as $SERIALNUMBER.</value>
+    <value>Prefix must use A-Z, a-z, 0-9, -, or a variable such as ${SERIALNUMBER}.</value>
   </data>
   <data name="Customization.OobeHeader" xml:space="preserve">
     <value>즉시 사용 가능한 경험</value>

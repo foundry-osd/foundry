@@ -586,7 +586,7 @@
     <value>Consentire all'operatore di distribuzione di modificare il suffisso dopo il prefisso.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>Prefix must use A-Z, a-z, 0-9, -, or a variable such as $SERIALNUMBER.</value>
+    <value>Prefix must use A-Z, a-z, 0-9, -, or a variable such as ${SERIALNUMBER}.</value>
   </data>
   <data name="Customization.OobeHeader" xml:space="preserve">
     <value>Esperienza fuori dagli schemi</value>
