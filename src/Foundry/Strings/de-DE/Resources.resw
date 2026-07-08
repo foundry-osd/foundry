@@ -571,7 +571,7 @@
     <value>Präfix für den Computernamen</value>
   </data>
   <data name="Customization.MachineNamingPrefixDescription" xml:space="preserve">
-    <value>Prefix applied before the generated or editable deployment suffix. Use a variable such as $SERIALNUMBER (also $MODEL, $MANUFACTURER, $PRODUCT) to insert device values; the final name is truncated to 15 characters.</value>
+    <value>Prefix applied before the generated or editable deployment suffix. The final name is truncated to 15 characters. Use variables such as:</value>
   </data>
   <data name="Customization.MachineNamingAutoGenerateLabel" xml:space="preserve">
     <value>Computernamenssuffix automatisch generieren</value>

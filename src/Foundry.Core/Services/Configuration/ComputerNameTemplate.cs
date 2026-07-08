@@ -20,8 +20,8 @@ public static partial class ComputerNameTemplate
     public static readonly IReadOnlyList<string> SupportedVariables =
     [
         "SERIALNUMBER",
-        "MANUFACTURER",
         "MODEL",
+        "MANUFACTURER",
         "PRODUCT"
     ];
 
