@@ -399,12 +399,14 @@
                                         <HyperlinkButton
                                             Grid.Column="0"
                                             Padding="0"
-                                            HorizontalAlignment="Left"
+                                            HorizontalAlignment="Stretch"
                                             HorizontalContentAlignment="Left"
                                             VerticalAlignment="Center"
                                             NavigateUri="{x:Bind ViewModel.SelectedPowerShell7DownloadUri, Mode=OneWay}"
                                             ToolTipService.ToolTip="{x:Bind ViewModel.SelectedPowerShell7DownloadUrl, Mode=OneWay}">
                                             <TextBlock
+                                                MaxWidth="420"
+                                                HorizontalAlignment="Left"
                                                 Text="{x:Bind ViewModel.SelectedPowerShell7DownloadUrl, Mode=OneWay}"
                                                 TextWrapping="Wrap" />
                                         </HyperlinkButton>
