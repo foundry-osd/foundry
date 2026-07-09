@@ -126,7 +126,7 @@
             x:DataType="viewModels:BootImageAdditionalFolderViewModel">
             <Grid
                 MinHeight="44"
-                Padding="12,8"
+                Padding="12,14"
                 ColumnSpacing="{ThemeResource FoundrySpace12}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" MinWidth="160" />
@@ -135,7 +135,7 @@
                 <StackPanel
                     Grid.Column="0"
                     VerticalAlignment="Center"
-                    Spacing="{ThemeResource FoundryCompactStackSpacing}">
+                    Spacing="{ThemeResource FoundrySpace8}">
                     <StackPanel
                         Orientation="Horizontal"
                         Spacing="{ThemeResource FoundryInlineControlSpacing}">
@@ -391,20 +391,26 @@
                                 <wct:SettingsCard x:Name="PowerShell7DownloadCard"
                                     HorizontalContentAlignment="Stretch"
                                     Visibility="{x:Bind ViewModel.PowerShell7DownloadVisibility, Mode=OneWay}">
-                                    <StackPanel
-                                        Orientation="Horizontal"
-                                        Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                    <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
                                         <HyperlinkButton
-                                            MaxWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                            Grid.Column="0"
                                             Padding="0"
+                                            HorizontalAlignment="Left"
+                                            HorizontalContentAlignment="Left"
                                             VerticalAlignment="Center"
                                             NavigateUri="{x:Bind ViewModel.SelectedPowerShell7DownloadUri, Mode=OneWay}"
                                             ToolTipService.ToolTip="{x:Bind ViewModel.SelectedPowerShell7DownloadUrl, Mode=OneWay}">
                                             <TextBlock
                                                 Text="{x:Bind ViewModel.SelectedPowerShell7DownloadUrl, Mode=OneWay}"
-                                                TextTrimming="CharacterEllipsis" />
+                                                TextWrapping="Wrap" />
                                         </HyperlinkButton>
                                         <Button x:Name="CopyDownloadUrlButton"
+                                            Grid.Column="1"
+                                            VerticalAlignment="Center"
                                             Command="{x:Bind ViewModel.CopyDownloadUrlCommand}">
                                             <StackPanel
                                                 Orientation="Horizontal"
@@ -413,7 +419,7 @@
                                                 <TextBlock x:Name="CopyDownloadUrlButtonText" />
                                             </StackPanel>
                                         </Button>
-                                    </StackPanel>
+                                    </Grid>
                                 </wct:SettingsCard>
                             </wct:SettingsExpander.Items>
                         </wct:SettingsExpander>
