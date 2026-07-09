@@ -21,7 +21,7 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
     private const string WcmNamespaceUri = "http://schemas.microsoft.com/WMIConfig/2002/State";
     private const string SetupComponentName = "Microsoft-Windows-Setup";
     private const string SetupPublicKeyToken = "31bf3856ad364e35";
-    private const string BootstrapLaunchCommand = @"%WINDIR%\System32\psbootstrapper.exe --script-path %WINDIR%\System32\FoundryBootstrap.ps1";
+    private const string BootstrapLaunchCommand = @"psbootstrapper.exe --script-path ""%WINDIR%\System32\FoundryBootstrap.ps1""";
     private const string TroubleshootingConsoleCommand = "powershell.exe -NoExit -NoProfile -ExecutionPolicy Bypass -WindowStyle Minimized";
     private const string Oa3CfgTemplate = """
         <?xml version="1.0" encoding="utf-8"?>
@@ -158,7 +158,7 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
                     new XAttribute(wcm + "action", "add"),
                     new XElement(ns + "Order", "1"),
                     new XElement(ns + "Description", "Foundry troubleshooting console"),
-                    new XElement(ns + "Path", TroubleshootingConsoleCommand))));
+                    new XElement(ns + "Path", new XCData(TroubleshootingConsoleCommand)))));
         }
 
         componentContent.Add(new XElement(
@@ -168,7 +168,7 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
                 new XAttribute(wcm + "action", "add"),
                 new XElement(ns + "Order", "1"),
                 new XElement(ns + "Description", "Launch Foundry bootstrap"),
-                new XElement(ns + "Path", BootstrapLaunchCommand))));
+                new XElement(ns + "Path", new XCData(BootstrapLaunchCommand)))));
 
         XElement component = new(ns + "component", componentContent);
 

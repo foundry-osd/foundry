@@ -95,7 +95,11 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
 
         string syncPath = component.Descendants(ns + "RunSynchronousCommand").Single().Element(ns + "Path")!.Value;
         Assert.Contains("psbootstrapper.exe", syncPath, StringComparison.OrdinalIgnoreCase);
-        Assert.Contains("FoundryBootstrap.ps1", syncPath, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("--script-path \"%WINDIR%\\System32\\FoundryBootstrap.ps1\"", syncPath, StringComparison.OrdinalIgnoreCase);
+
+        // The command is emitted as CDATA so its quotes and environment variables are not XML-escaped.
+        string unattendXml = await File.ReadAllTextAsync(unattendPath);
+        Assert.Contains("<![CDATA[", unattendXml, StringComparison.Ordinal);
 
         string asyncPath = component.Descendants(ns + "RunAsynchronousCommand").Single().Element(ns + "Path")!.Value;
         Assert.Contains("powershell.exe", asyncPath, StringComparison.OrdinalIgnoreCase);
