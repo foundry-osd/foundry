@@ -89,6 +89,7 @@
                         Padding="0"
                         Content="{x:Bind Name}"
                         NavigateUri="{x:Bind GalleryUri}"
+                        ToolTipService.ToolTip="{x:Bind GalleryUri}"
                         Visibility="{x:Bind GalleryLinkVisibility}" />
                     <TextBlock
                         FontWeight="SemiBold"
@@ -97,11 +98,19 @@
                         Visibility="{x:Bind NameTextVisibility}" />
                     <TextBlock
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        MaxLines="2"
                         Style="{ThemeResource FoundryCaptionTextBlockStyle}"
                         Text="{x:Bind Detail}"
                         TextTrimming="CharacterEllipsis"
-                        TextWrapping="Wrap" />
+                        Visibility="{x:Bind GalleryLinkVisibility}" />
+                    <HyperlinkButton
+                        Padding="0"
+                        HorizontalContentAlignment="Left"
+                        Click="OpenFolderButton_Click"
+                        Tag="{x:Bind LocalPath}"
+                        ToolTipService.ToolTip="{x:Bind LocalPath}"
+                        Visibility="{x:Bind NameTextVisibility}">
+                        <TextBlock Text="{x:Bind LocalPath}" TextTrimming="CharacterEllipsis" />
+                    </HyperlinkButton>
                 </StackPanel>
                 <Button
                     Grid.Column="1"
@@ -127,13 +136,23 @@
                     Grid.Column="0"
                     VerticalAlignment="Center"
                     Spacing="{ThemeResource FoundryCompactStackSpacing}">
-                    <TextBlock
-                        TextTrimming="CharacterEllipsis"
-                        ToolTipService.ToolTip="{x:Bind SourcePath}">
-                        <Run FontWeight="SemiBold" Text="{x:Bind SourceLabel}" />
-                        <Run Text=" " />
-                        <Run Text="{x:Bind SourcePath}" />
-                    </TextBlock>
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontWeight="SemiBold"
+                            Text="{x:Bind SourceLabel}" />
+                        <HyperlinkButton
+                            Padding="0"
+                            HorizontalContentAlignment="Left"
+                            VerticalAlignment="Center"
+                            Click="OpenFolderButton_Click"
+                            Tag="{x:Bind SourcePath}"
+                            ToolTipService.ToolTip="{x:Bind SourcePath}">
+                            <TextBlock Text="{x:Bind SourcePath}" TextTrimming="CharacterEllipsis" />
+                        </HyperlinkButton>
+                    </StackPanel>
                     <StackPanel
                         Orientation="Horizontal"
                         Spacing="{ThemeResource FoundryInlineControlSpacing}">
@@ -175,12 +194,17 @@
                     MinWidth="0"
                     VerticalAlignment="Center"
                     IsChecked="{x:Bind IsEnabled, Mode=TwoWay}" />
-                <TextBlock
+                <HyperlinkButton
                     Grid.Column="1"
+                    Padding="0"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Left"
                     VerticalAlignment="Center"
-                    Text="{x:Bind Path}"
-                    TextTrimming="CharacterEllipsis"
-                    ToolTipService.ToolTip="{x:Bind Path}" />
+                    Click="OpenFolderButton_Click"
+                    Tag="{x:Bind Path}"
+                    ToolTipService.ToolTip="{x:Bind Path}">
+                    <TextBlock Text="{x:Bind Path}" TextTrimming="CharacterEllipsis" />
+                </HyperlinkButton>
                 <Button
                     Grid.Column="2"
                     MinWidth="{StaticResource SettingActionControlMinWidth}"
@@ -370,11 +394,16 @@
                                     <StackPanel
                                         Orientation="Horizontal"
                                         Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                                        <TextBox
-                                            MinWidth="{ThemeResource FoundryWideInputMinWidth}"
-                                            IsReadOnly="True"
-                                            IsSpellCheckEnabled="False"
-                                            Text="{x:Bind ViewModel.SelectedPowerShell7DownloadUrl, Mode=OneWay}" />
+                                        <HyperlinkButton
+                                            MaxWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                            Padding="0"
+                                            VerticalAlignment="Center"
+                                            NavigateUri="{x:Bind ViewModel.SelectedPowerShell7DownloadUri, Mode=OneWay}"
+                                            ToolTipService.ToolTip="{x:Bind ViewModel.SelectedPowerShell7DownloadUrl, Mode=OneWay}">
+                                            <TextBlock
+                                                Text="{x:Bind ViewModel.SelectedPowerShell7DownloadUrl, Mode=OneWay}"
+                                                TextTrimming="CharacterEllipsis" />
+                                        </HyperlinkButton>
                                         <Button x:Name="CopyDownloadUrlButton"
                                             Command="{x:Bind ViewModel.CopyDownloadUrlCommand}">
                                             <StackPanel
@@ -416,16 +445,32 @@
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                 Text="{x:Bind ViewModel.ModuleSearchStatus, Mode=OneWay}"
                                 TextWrapping="Wrap" />
-                            <ItemsControl
-                                ItemTemplate="{StaticResource ModuleSearchResultTemplate}"
-                                ItemsSource="{x:Bind ViewModel.ModuleSearchResults, Mode=OneWay}" />
+                            <Border
+                                Padding="12,0"
+                                Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}"
+                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                BorderThickness="1"
+                                CornerRadius="{ThemeResource ControlCornerRadius}"
+                                Visibility="{x:Bind ViewModel.HasModuleSearchResults, Mode=OneWay}">
+                                <ItemsControl
+                                    ItemTemplate="{StaticResource ModuleSearchResultTemplate}"
+                                    ItemsSource="{x:Bind ViewModel.ModuleSearchResults, Mode=OneWay}" />
+                            </Border>
                             <TextBlock x:Name="SelectedGalleryModulesTitle"
                                 Margin="0,8,0,0"
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                 Style="{ThemeResource FoundryBodyTextBlockStyle}" />
-                            <ItemsControl
-                                ItemTemplate="{StaticResource SelectedModuleTemplate}"
-                                ItemsSource="{x:Bind ViewModel.SelectedGalleryModules, Mode=OneWay}" />
+                            <Border
+                                Padding="12,0"
+                                Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}"
+                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                BorderThickness="1"
+                                CornerRadius="{ThemeResource ControlCornerRadius}"
+                                Visibility="{x:Bind ViewModel.HasSelectedGalleryModules, Mode=OneWay}">
+                                <ItemsControl
+                                    ItemTemplate="{StaticResource SelectedModuleTemplate}"
+                                    ItemsSource="{x:Bind ViewModel.SelectedGalleryModules, Mode=OneWay}" />
+                            </Border>
                         </StackPanel>
 
                         <!--  Divider  -->
@@ -448,9 +493,17 @@
                                 Margin="0,8,0,0"
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                 Style="{ThemeResource FoundryBodyTextBlockStyle}" />
-                            <ItemsControl
-                                ItemTemplate="{StaticResource SelectedModuleTemplate}"
-                                ItemsSource="{x:Bind ViewModel.SelectedLocalModules, Mode=OneWay}" />
+                            <Border
+                                Padding="12,0"
+                                Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}"
+                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                BorderThickness="1"
+                                CornerRadius="{ThemeResource ControlCornerRadius}"
+                                Visibility="{x:Bind ViewModel.HasSelectedLocalModules, Mode=OneWay}">
+                                <ItemsControl
+                                    ItemTemplate="{StaticResource SelectedModuleTemplate}"
+                                    ItemsSource="{x:Bind ViewModel.SelectedLocalModules, Mode=OneWay}" />
+                            </Border>
                         </StackPanel>
                     </StackPanel>
 

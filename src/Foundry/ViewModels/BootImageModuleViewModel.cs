@@ -34,11 +34,16 @@ public sealed partial class BootImageModuleViewModel : ObservableObject
     public string Name => Selection.Name;
 
     /// <summary>
-    /// Gets the secondary line describing the module source and version or local path.
+    /// Gets the secondary line describing a Gallery module's source and version.
     /// </summary>
     public string Detail => Selection.Source == PowerShellModuleSource.Gallery
         ? $"PowerShell Gallery · {Selection.Version}"
         : $"Local · {Selection.LocalPath}";
+
+    /// <summary>
+    /// Gets the local module folder path (clickable for local modules).
+    /// </summary>
+    public string LocalPath => Selection.LocalPath;
 
     /// <summary>
     /// Gets the PowerShell Gallery version page URL for a Gallery module, or <see langword="null"/> otherwise.

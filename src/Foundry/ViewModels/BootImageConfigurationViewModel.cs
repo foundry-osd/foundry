@@ -95,6 +95,9 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
 
         DriverFolders.CollectionChanged += (_, _) => OnPropertyChanged(nameof(HasDriverFolders));
         AdditionalRootFolders.CollectionChanged += (_, _) => OnPropertyChanged(nameof(HasAdditionalRootFolders));
+        ModuleSearchResults.CollectionChanged += (_, _) => OnPropertyChanged(nameof(HasModuleSearchResults));
+        SelectedGalleryModules.CollectionChanged += (_, _) => OnPropertyChanged(nameof(HasSelectedGalleryModules));
+        SelectedLocalModules.CollectionChanged += (_, _) => OnPropertyChanged(nameof(HasSelectedLocalModules));
 
         RefreshLocalizedText();
         SelectedSectionItem = Sections.FirstOrDefault();
@@ -203,8 +206,15 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
     public partial SelectionOption<string>? SelectedPowerShell7Version { get; set; }
 
     [NotifyPropertyChangedFor(nameof(PowerShell7DownloadVisibility))]
+    [NotifyPropertyChangedFor(nameof(SelectedPowerShell7DownloadUri))]
     [ObservableProperty]
     public partial string SelectedPowerShell7DownloadUrl { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets the download URL as a navigable URI, or <see langword="null"/> when there is none.
+    /// </summary>
+    public Uri? SelectedPowerShell7DownloadUri =>
+        Uri.TryCreate(SelectedPowerShell7DownloadUrl, UriKind.Absolute, out Uri? uri) ? uri : null;
 
     /// <summary>
     /// Gets whether the download link for the selected PowerShell 7 release is shown.
@@ -237,6 +247,21 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
 
     public Visibility ModuleSearchProgressVisibility =>
         IsSearchingModules ? Visibility.Visible : Visibility.Collapsed;
+
+    /// <summary>
+    /// Gets whether the search results list (and its backdrop) is shown.
+    /// </summary>
+    public Visibility HasModuleSearchResults => ModuleSearchResults.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+
+    /// <summary>
+    /// Gets whether the selected Gallery modules list (and its backdrop) is shown.
+    /// </summary>
+    public Visibility HasSelectedGalleryModules => SelectedGalleryModules.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+
+    /// <summary>
+    /// Gets whether the selected local modules list (and its backdrop) is shown.
+    /// </summary>
+    public Visibility HasSelectedLocalModules => SelectedLocalModules.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
 
     /// <summary>
     /// Gets whether the driver folder list (and its backdrop) is shown.

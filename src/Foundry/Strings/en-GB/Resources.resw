@@ -2338,6 +2338,6 @@
     <value>Source:</value>
   </data>
   <data name="BootImage.Folders.DestinationLabel" xml:space="preserve">
-    <value>Destination:</value>
+    <value>Boot Image Relative Destination:</value>
   </data>
 </root>

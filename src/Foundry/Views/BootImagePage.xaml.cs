@@ -47,6 +47,27 @@ public sealed partial class BootImagePage : Page
         }
     }
 
+    private void OpenFolderButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not FrameworkElement { Tag: string path } || string.IsNullOrWhiteSpace(path))
+        {
+            return;
+        }
+
+        try
+        {
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = path,
+                UseShellExecute = true
+            });
+        }
+        catch (Exception ex)
+        {
+            logger.Warning(ex, "Failed to open folder in Explorer. Path={Path}", path);
+        }
+    }
+
     private void RemoveModuleButton_Click(object sender, RoutedEventArgs e)
     {
         if (sender is FrameworkElement { Tag: BootImageModuleViewModel module })
