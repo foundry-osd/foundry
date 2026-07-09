@@ -57,9 +57,10 @@ public sealed record WinPeBootImageContentSettings
     public IReadOnlyList<WinPeAdditionalRootFolder> AdditionalRootFolders { get; init; } = [];
 
     /// <summary>
-    /// Gets the folders that contain drivers (.inf packages) to inject into the boot image.
+    /// Gets the folders that contain drivers (.inf packages) to inject into the boot image. Each folder can be
+    /// individually enabled or disabled without removing it.
     /// </summary>
-    public IReadOnlyList<string> DriverFolderPaths { get; init; } = [];
+    public IReadOnlyList<WinPeDriverFolder> DriverFolders { get; init; } = [];
 
     /// <summary>
     /// Gets a value indicating whether a driver package that fails to inject is skipped (with a warning)

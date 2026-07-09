@@ -70,27 +70,30 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
         foreach (WinPeAdditionalRootFolder folder in settings.AdditionalRootFolders)
         {
             AdditionalRootFolders.Add(new BootImageAdditionalFolderViewModel(
-                folder.SourcePath, folder.DestinationRelativePath, RemoveLabel, SaveRootFolders));
+                folder.SourcePath, folder.DestinationRelativePath, RemoveLabel, SourceLabel, DestinationLabel, SaveRootFolders));
         }
 
         // Migrate a legacy single custom driver directory into the driver folder list on first use.
-        bool migrateLegacyDriverFolder = settings.DriverFolderPaths.Count == 0
+        bool migrateLegacyDriverFolder = settings.DriverFolders.Count == 0
             && !string.IsNullOrWhiteSpace(general.CustomDriverDirectoryPath);
-        IReadOnlyList<string> driverFolders = migrateLegacyDriverFolder
-            ? [general.CustomDriverDirectoryPath!]
-            : settings.DriverFolderPaths;
-        foreach (string folder in driverFolders)
+        IReadOnlyList<WinPeDriverFolder> driverFolders = migrateLegacyDriverFolder
+            ? [new WinPeDriverFolder { Path = general.CustomDriverDirectoryPath! }]
+            : settings.DriverFolders;
+        foreach (WinPeDriverFolder folder in driverFolders)
         {
-            DriverFolders.Add(new BootImageRootFolderViewModel(folder, RemoveLabel));
+            DriverFolders.Add(new BootImageDriverFolderViewModel(folder.Path, folder.IsEnabled, RemoveLabel, SaveDriverFolders));
         }
 
         if (migrateLegacyDriverFolder)
         {
             configurationStateService.UpdateGeneral(general with
             {
-                BootImageContent = settings with { DriverFolderPaths = driverFolders.ToList() }
+                BootImageContent = settings with { DriverFolders = driverFolders.ToList() }
             });
         }
+
+        DriverFolders.CollectionChanged += (_, _) => OnPropertyChanged(nameof(HasDriverFolders));
+        AdditionalRootFolders.CollectionChanged += (_, _) => OnPropertyChanged(nameof(HasAdditionalRootFolders));
 
         RefreshLocalizedText();
         SelectedSectionItem = Sections.FirstOrDefault();
@@ -138,11 +141,15 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
     /// <summary>
     /// Gets the folders that contain drivers (.inf packages) to inject into the boot image.
     /// </summary>
-    public ObservableCollection<BootImageRootFolderViewModel> DriverFolders { get; } = [];
+    public ObservableCollection<BootImageDriverFolderViewModel> DriverFolders { get; } = [];
 
     private string AddLabel => localizationService.GetString("Common.Add");
 
     private string RemoveLabel => localizationService.GetString("Common.Remove");
+
+    private string SourceLabel => localizationService.GetString("BootImage.Folders.SourceLabel");
+
+    private string DestinationLabel => localizationService.GetString("BootImage.Folders.DestinationLabel");
 
     [ObservableProperty]
     public partial string PageTitle { get; set; } = string.Empty;
@@ -230,6 +237,16 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
 
     public Visibility ModuleSearchProgressVisibility =>
         IsSearchingModules ? Visibility.Visible : Visibility.Collapsed;
+
+    /// <summary>
+    /// Gets whether the driver folder list (and its backdrop) is shown.
+    /// </summary>
+    public Visibility HasDriverFolders => DriverFolders.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+
+    /// <summary>
+    /// Gets whether the additional folder list (and its backdrop) is shown.
+    /// </summary>
+    public Visibility HasAdditionalRootFolders => AdditionalRootFolders.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
 
     public string DocumentationUrl => FoundryApplicationInfo.GeneralConfigurationDocumentationUrl;
 
@@ -507,7 +524,7 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
             return;
         }
 
-        AdditionalRootFolders.Add(new BootImageAdditionalFolderViewModel(path, @"\", RemoveLabel, SaveRootFolders));
+        AdditionalRootFolders.Add(new BootImageAdditionalFolderViewModel(path, @"\", RemoveLabel, SourceLabel, DestinationLabel, SaveRootFolders));
         SaveRootFolders();
     }
 
@@ -534,14 +551,14 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
             return;
         }
 
-        DriverFolders.Add(new BootImageRootFolderViewModel(path, RemoveLabel));
+        DriverFolders.Add(new BootImageDriverFolderViewModel(path, isEnabled: true, RemoveLabel, SaveDriverFolders));
         SaveDriverFolders();
     }
 
     /// <summary>
     /// Removes a folder from the driver folders list.
     /// </summary>
-    public void RemoveDriverFolder(BootImageRootFolderViewModel folder)
+    public void RemoveDriverFolder(BootImageDriverFolderViewModel folder)
     {
         if (DriverFolders.Remove(folder))
         {
@@ -624,7 +641,7 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
 
     private void SaveDriverFolders()
     {
-        Save(current => current with { DriverFolderPaths = DriverFolders.Select(folder => folder.Path).ToList() });
+        Save(current => current with { DriverFolders = DriverFolders.Select(folder => folder.ToModel()).ToList() });
     }
 
     private void Save(Func<WinPeBootImageContentSettings, WinPeBootImageContentSettings> transform)

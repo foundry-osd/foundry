@@ -2328,4 +2328,16 @@
   <data name="BootImage.Drivers.ContinueOnErrorDescription" xml:space="preserve">
     <value>Skip a driver that fails to inject and continue the build instead of failing.</value>
   </data>
+  <data name="BootImage.Drivers.DellDescription" xml:space="preserve">
+    <value>Include Dell WinPE driver packs.</value>
+  </data>
+  <data name="BootImage.Drivers.HpDescription" xml:space="preserve">
+    <value>Include HP WinPE driver packs.</value>
+  </data>
+  <data name="BootImage.Folders.SourceLabel" xml:space="preserve">
+    <value>Source:</value>
+  </data>
+  <data name="BootImage.Folders.DestinationLabel" xml:space="preserve">
+    <value>Destination:</value>
+  </data>
 </root>

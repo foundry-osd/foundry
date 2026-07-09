@@ -116,27 +116,40 @@
             x:DataType="viewModels:BootImageAdditionalFolderViewModel">
             <Grid
                 MinHeight="44"
-                Padding="0,4"
+                Padding="12,8"
                 ColumnSpacing="{ThemeResource FoundrySpace12}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" MinWidth="140" />
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" MinWidth="160" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBlock
+                <StackPanel
                     Grid.Column="0"
                     VerticalAlignment="Center"
-                    Text="{x:Bind SourcePath}"
-                    TextTrimming="CharacterEllipsis"
-                    ToolTipService.ToolTip="{x:Bind SourcePath}" />
-                <TextBox
-                    Grid.Column="1"
-                    Width="{ThemeResource FoundryWideInputMinWidth}"
-                    VerticalAlignment="Center"
-                    PlaceholderText="\"
-                    Text="{x:Bind DestinationRelativePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    Spacing="{ThemeResource FoundryCompactStackSpacing}">
+                    <TextBlock
+                        TextTrimming="CharacterEllipsis"
+                        ToolTipService.ToolTip="{x:Bind SourcePath}">
+                        <Run FontWeight="SemiBold" Text="{x:Bind SourceLabel}" />
+                        <Run Text=" " />
+                        <Run Text="{x:Bind SourcePath}" />
+                    </TextBlock>
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontWeight="SemiBold"
+                            Text="{x:Bind DestinationLabel}" />
+                        <TextBox
+                            Width="{ThemeResource FoundryWideInputMinWidth}"
+                            VerticalAlignment="Center"
+                            PlaceholderText="\"
+                            Text="{x:Bind DestinationRelativePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            ToolTipService.ToolTip="{x:Bind DestinationRelativePath, Mode=OneWay}" />
+                    </StackPanel>
+                </StackPanel>
                 <Button
-                    Grid.Column="2"
+                    Grid.Column="1"
                     MinWidth="{StaticResource SettingActionControlMinWidth}"
                     VerticalAlignment="Center"
                     Click="RemoveRootFolderButton_Click"
@@ -146,22 +159,29 @@
         </DataTemplate>
 
         <DataTemplate x:Key="DriverFolderTemplate"
-            x:DataType="viewModels:BootImageRootFolderViewModel">
+            x:DataType="viewModels:BootImageDriverFolderViewModel">
             <Grid
                 MinHeight="40"
-                Padding="0,4"
+                Padding="12,6"
                 ColumnSpacing="{ThemeResource FoundrySpace12}">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBlock
+                <CheckBox
                     Grid.Column="0"
+                    MinWidth="0"
+                    VerticalAlignment="Center"
+                    IsChecked="{x:Bind IsEnabled, Mode=TwoWay}" />
+                <TextBlock
+                    Grid.Column="1"
                     VerticalAlignment="Center"
                     Text="{x:Bind Path}"
-                    TextTrimming="CharacterEllipsis" />
+                    TextTrimming="CharacterEllipsis"
+                    ToolTipService.ToolTip="{x:Bind Path}" />
                 <Button
-                    Grid.Column="1"
+                    Grid.Column="2"
                     MinWidth="{StaticResource SettingActionControlMinWidth}"
                     VerticalAlignment="Center"
                     Click="RemoveDriverFolderButton_Click"
@@ -234,21 +254,25 @@
                     <StackPanel
                         Spacing="{ThemeResource FoundrySettingsSectionSpacing}"
                         Visibility="{x:Bind ViewModel.DriversVisibility, Mode=OneWay}">
-                        <wct:SettingsExpander x:Name="DriverVendorsCard"
-                            IsExpanded="True">
-                            <wct:SettingsExpander.HeaderIcon>
+                        <TextBlock x:Name="DriverPacksTitle"
+                            Style="{ThemeResource FoundrySectionTitleTextBlockStyle}" />
+                        <wct:SettingsCard x:Name="DellDriverCard">
+                            <wct:SettingsCard.HeaderIcon>
                                 <FontIcon Glyph="&#xE90F;" />
-                            </wct:SettingsExpander.HeaderIcon>
-                            <StackPanel
-                                Orientation="Horizontal"
-                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                                <ToggleSwitch x:Name="DellDriversToggle"
-                                    IsOn="{x:Bind ViewModel.IncludeDellDrivers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <ToggleSwitch x:Name="HpDriversToggle"
-                                    IsOn="{x:Bind ViewModel.IncludeHpDrivers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            </StackPanel>
-                        </wct:SettingsExpander>
+                            </wct:SettingsCard.HeaderIcon>
+                            <ToggleSwitch
+                                IsOn="{x:Bind ViewModel.IncludeDellDrivers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </wct:SettingsCard>
+                        <wct:SettingsCard x:Name="HpDriverCard">
+                            <wct:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xE90F;" />
+                            </wct:SettingsCard.HeaderIcon>
+                            <ToggleSwitch
+                                IsOn="{x:Bind ViewModel.IncludeHpDrivers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </wct:SettingsCard>
+
                         <TextBlock x:Name="DriverFoldersTitle"
+                            Margin="0,8,0,0"
                             Style="{ThemeResource FoundrySectionTitleTextBlockStyle}" />
                         <TextBlock x:Name="DriverFoldersSubtitle"
                             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -256,10 +280,16 @@
                         <Button x:Name="AddDriverFolderButton"
                             MinWidth="{StaticResource SettingActionControlMinWidth}"
                             Command="{x:Bind ViewModel.AddDriverFolderCommand}" />
-                        <ItemsControl
-                            Margin="0,8,0,0"
-                            ItemTemplate="{StaticResource DriverFolderTemplate}"
-                            ItemsSource="{x:Bind ViewModel.DriverFolders, Mode=OneWay}" />
+                        <Border
+                            Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="{ThemeResource ControlCornerRadius}"
+                            Visibility="{x:Bind ViewModel.HasDriverFolders, Mode=OneWay}">
+                            <ItemsControl
+                                ItemTemplate="{StaticResource DriverFolderTemplate}"
+                                ItemsSource="{x:Bind ViewModel.DriverFolders, Mode=OneWay}" />
+                        </Border>
                         <wct:SettingsCard x:Name="ContinueOnDriverErrorCard"
                             Margin="0,8,0,0">
                             <wct:SettingsCard.HeaderIcon>
@@ -432,10 +462,16 @@
                         <Button x:Name="AddRootFolderButton"
                             MinWidth="{StaticResource SettingActionControlMinWidth}"
                             Command="{x:Bind ViewModel.AddRootFolderCommand}" />
-                        <ItemsControl
-                            Margin="0,8,0,0"
-                            ItemTemplate="{StaticResource AdditionalFolderTemplate}"
-                            ItemsSource="{x:Bind ViewModel.AdditionalRootFolders, Mode=OneWay}" />
+                        <Border
+                            Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="{ThemeResource ControlCornerRadius}"
+                            Visibility="{x:Bind ViewModel.HasAdditionalRootFolders, Mode=OneWay}">
+                            <ItemsControl
+                                ItemTemplate="{StaticResource AdditionalFolderTemplate}"
+                                ItemsSource="{x:Bind ViewModel.AdditionalRootFolders, Mode=OneWay}" />
+                        </Border>
                     </StackPanel>
                 </Grid>
             </ScrollView>

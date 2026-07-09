@@ -65,7 +65,7 @@ public sealed partial class BootImagePage : Page
 
     private void RemoveDriverFolderButton_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is FrameworkElement { Tag: BootImageRootFolderViewModel folder })
+        if (sender is FrameworkElement { Tag: BootImageDriverFolderViewModel folder })
         {
             ViewModel.RemoveDriverFolder(folder);
         }
@@ -101,12 +101,11 @@ public sealed partial class BootImagePage : Page
         TroubleshootingConsoleCard.Header = localizationService.GetString("BootImage.TroubleshootingConsole.Header");
         TroubleshootingConsoleCard.Description = localizationService.GetString("BootImage.TroubleshootingConsole.Description");
 
-        DriverVendorsCard.Header = localizationService.GetString("BootImage.Drivers.VendorsHeader");
-        DriverVendorsCard.Description = localizationService.GetString("BootImage.Drivers.VendorsDescription");
-        DellDriversToggle.OnContent = localizationService.GetString("BootImage.Drivers.Dell");
-        DellDriversToggle.OffContent = localizationService.GetString("BootImage.Drivers.Dell");
-        HpDriversToggle.OnContent = localizationService.GetString("BootImage.Drivers.Hp");
-        HpDriversToggle.OffContent = localizationService.GetString("BootImage.Drivers.Hp");
+        DriverPacksTitle.Text = localizationService.GetString("BootImage.Drivers.VendorsHeader");
+        DellDriverCard.Header = localizationService.GetString("BootImage.Drivers.Dell");
+        DellDriverCard.Description = localizationService.GetString("BootImage.Drivers.DellDescription");
+        HpDriverCard.Header = localizationService.GetString("BootImage.Drivers.Hp");
+        HpDriverCard.Description = localizationService.GetString("BootImage.Drivers.HpDescription");
         DriverFoldersTitle.Text = localizationService.GetString("BootImage.Drivers.FoldersHeader");
         DriverFoldersSubtitle.Text = localizationService.GetString("BootImage.Drivers.FoldersDescription");
         AddDriverFolderButton.Content = localizationService.GetString("BootImage.Drivers.AddButton");

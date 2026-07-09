@@ -1446,7 +1446,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             AvailableWinPeLanguages = availableWinPeLanguages,
             BootImageSource = ResolveBootImageSource(),
             DriverVendors = vendors,
-            CustomDriverDirectoryPaths = bootImage.DriverFolderPaths,
+            CustomDriverDirectoryPaths = bootImage.DriverFolders
+                .Where(folder => folder.IsEnabled && !string.IsNullOrWhiteSpace(folder.Path))
+                .Select(folder => folder.Path)
+                .ToList(),
             ContinueOnDriverError = bootImage.ContinueOnDriverError,
             SelectedUsbDisk = SelectedUsbDisk?.Value,
             OptionalComponents = bootImage.OptionalComponents,

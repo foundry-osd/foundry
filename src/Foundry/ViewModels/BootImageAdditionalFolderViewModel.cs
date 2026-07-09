@@ -18,10 +18,14 @@ public sealed partial class BootImageAdditionalFolderViewModel : ObservableObjec
         string sourcePath,
         string destinationRelativePath,
         string removeLabel,
+        string sourceLabel,
+        string destinationLabel,
         Action onDestinationChanged)
     {
         SourcePath = sourcePath;
         RemoveLabel = removeLabel;
+        SourceLabel = sourceLabel;
+        DestinationLabel = destinationLabel;
         _onDestinationChanged = onDestinationChanged;
         DestinationRelativePath = string.IsNullOrWhiteSpace(destinationRelativePath) ? @"\" : destinationRelativePath;
     }
@@ -35,6 +39,16 @@ public sealed partial class BootImageAdditionalFolderViewModel : ObservableObjec
     /// Gets the localized label for the remove action.
     /// </summary>
     public string RemoveLabel { get; }
+
+    /// <summary>
+    /// Gets the localized "Source:" caption.
+    /// </summary>
+    public string SourceLabel { get; }
+
+    /// <summary>
+    /// Gets the localized "Destination:" caption.
+    /// </summary>
+    public string DestinationLabel { get; }
 
     /// <summary>
     /// Gets or sets the destination path relative to the boot image root.
