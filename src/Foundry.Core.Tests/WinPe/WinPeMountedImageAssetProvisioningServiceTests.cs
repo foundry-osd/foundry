@@ -101,6 +101,13 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         string unattendXml = await File.ReadAllTextAsync(unattendPath);
         Assert.Contains("<![CDATA[", unattendXml, StringComparison.Ordinal);
 
+        // winpeshl.ini launches only wpeinit (no cmd window); wpeinit then processes the unattend, which
+        // launches the bootstrap. It must not launch psbootstrapper directly.
+        string winpeshl = await File.ReadAllTextAsync(Path.Combine(image.System32Path, "winpeshl.ini"));
+        Assert.Contains("[LaunchApps]", winpeshl, StringComparison.Ordinal);
+        Assert.Contains("wpeinit.exe", winpeshl, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("psbootstrapper", winpeshl, StringComparison.OrdinalIgnoreCase);
+
         string asyncPath = component.Descendants(ns + "RunAsynchronousCommand").Single().Element(ns + "Path")!.Value;
         Assert.Contains("powershell.exe", asyncPath, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("-NoExit", asyncPath, StringComparison.Ordinal);

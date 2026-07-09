@@ -16,6 +16,7 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
 {
     private const string BootstrapFileName = "FoundryBootstrap.ps1";
     private const string PSBootstrapperFileName = "psbootstrapper.exe";
+    private const string WinpeshlFileName = "winpeshl.ini";
     private const string UnattendFileName = "Unattend.xml";
     private const string UnattendNamespaceUri = "urn:schemas-microsoft-com:unattend";
     private const string WcmNamespaceUri = "http://schemas.microsoft.com/WMIConfig/2002/State";
@@ -23,6 +24,13 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
     private const string SetupPublicKeyToken = "31bf3856ad364e35";
     private const string BootstrapLaunchCommand = @"psbootstrapper.exe --script-path ""%WINDIR%\System32\FoundryBootstrap.ps1""";
     private const string TroubleshootingConsoleCommand = "powershell.exe -NoExit -NoProfile -ExecutionPolicy Bypass -WindowStyle Minimized";
+
+    // winpeshl.ini replaces the default `cmd /k startnet.cmd` shell so no console window flashes at boot.
+    // It only launches wpeinit, which initializes WinPE and auto-discovers and processes X:\Unattend.xml
+    // (the Display/network/firewall settings plus the RunSynchronous command that launches the bootstrap).
+    private const string WinpeshlContent =
+        "[LaunchApps]\r\n" +
+        "%SYSTEMROOT%\\System32\\wpeinit.exe\r\n";
     private const string Oa3CfgTemplate = """
         <?xml version="1.0" encoding="utf-8"?>
         <OA3>
@@ -79,6 +87,7 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
             ProvisionBundledSevenZip(mountedImagePath, options);
             CopyAdditionalRootFolders(mountedImagePath, options.AdditionalRootFolders);
             await WriteStartnetAsync(system32Path, cancellationToken).ConfigureAwait(false);
+            await WriteWinpeshlIniAsync(system32Path, cancellationToken).ConfigureAwait(false);
             await WriteUnattendAsync(mountedImagePath, options.Architecture, options.IncludeTroubleshootingConsole, options.EnableFirewall, cancellationToken).ConfigureAwait(false);
             await WriteConfigurationAssetsAsync(mountedImagePath, foundryConfigPath, options, cancellationToken).ConfigureAwait(false);
 
@@ -93,11 +102,19 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
         }
     }
 
+    private static async Task WriteWinpeshlIniAsync(string system32Path, CancellationToken cancellationToken)
+    {
+        // Provisioning winpeshl.ini makes WinPE launch wpeinit + psbootstrapper directly instead of
+        // `cmd /k startnet.cmd`, so no console window is shown while the Foundry bootstrap runs.
+        string winpeshlPath = Path.Combine(system32Path, WinpeshlFileName);
+        await File.WriteAllTextAsync(winpeshlPath, WinpeshlContent, Utf8NoBom, cancellationToken).ConfigureAwait(false);
+    }
+
     private static async Task WriteStartnetAsync(string system32Path, CancellationToken cancellationToken)
     {
-        // startnet.cmd must contain only wpeinit. The Foundry bootstrap is launched from the
-        // auto-discovered X:\Unattend.xml so no PowerShell window flashes at boot. Any previously
-        // provisioned bootstrap launch line is removed to keep re-provisioning idempotent.
+        // startnet.cmd is only used as a fallback when winpeshl.ini is absent; it must contain only
+        // wpeinit. Any previously provisioned bootstrap launch line is removed to keep re-provisioning
+        // idempotent.
         string startnetPath = Path.Combine(system32Path, "startnet.cmd");
         List<string> lines = File.Exists(startnetPath)
             ? [.. await File.ReadAllLinesAsync(startnetPath, cancellationToken).ConfigureAwait(false)]
@@ -122,11 +139,11 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
         bool enableFirewall,
         CancellationToken cancellationToken)
     {
-        // wpeinit (invoked from startnet.cmd) auto-discovers X:\Unattend.xml, i.e. the root of the
-        // mounted boot image. The windowsPE-pass RunSynchronous command launches the Foundry
-        // bootstrap hidden via psbootstrapper.exe. When debug mode is enabled, a RunAsynchronous
-        // command also opens a minimized, alt-tab-able troubleshooting console without blocking the
-        // bootstrap; it is omitted by default to prevent tampering.
+        // wpeinit (invoked from winpeshl.ini) auto-discovers X:\Unattend.xml, i.e. the root of the
+        // mounted boot image. The windowsPE-pass RunSynchronous command launches the Foundry bootstrap
+        // hidden via psbootstrapper.exe. When debug mode is enabled, a RunAsynchronous command also opens
+        // a minimized, alt-tab-able troubleshooting console without blocking the bootstrap; it is omitted
+        // by default to prevent tampering.
         XNamespace ns = UnattendNamespaceUri;
         XNamespace wcm = WcmNamespaceUri;
         string processorArchitecture = architecture.ToCopypeArchitecture();
