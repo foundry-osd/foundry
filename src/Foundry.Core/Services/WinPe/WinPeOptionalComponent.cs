@@ -23,4 +23,9 @@ public sealed record WinPeOptionalComponent
     /// Gets a value indicating whether this component is part of Foundry's recommended default selection.
     /// </summary>
     public bool IsRecommendedDefault { get; init; }
+
+    /// <summary>
+    /// Gets a short human-readable description of what the component adds, or an empty string when unknown.
+    /// </summary>
+    public string Description { get; init; } = string.Empty;
 }

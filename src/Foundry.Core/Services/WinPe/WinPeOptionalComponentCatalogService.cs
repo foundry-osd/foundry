@@ -53,7 +53,8 @@ public sealed class WinPeOptionalComponentCatalogService : IWinPeOptionalCompone
             {
                 Name = name,
                 NeutralCabPath = cabPath,
-                IsRecommendedDefault = WinPeOptionalComponentDefaults.IsRecommendedDefault(name)
+                IsRecommendedDefault = WinPeOptionalComponentDefaults.IsRecommendedDefault(name),
+                Description = WinPeOptionalComponentDescriptions.GetDescription(name)
             });
         }
 

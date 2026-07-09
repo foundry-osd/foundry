@@ -14,7 +14,8 @@
             <CheckBox
                 MinWidth="0"
                 Content="{x:Bind DisplayName}"
-                IsChecked="{x:Bind IsSelected, Mode=TwoWay}" />
+                IsChecked="{x:Bind IsSelected, Mode=TwoWay}"
+                ToolTipService.ToolTip="{x:Bind ToolTip}" />
         </DataTemplate>
 
         <DataTemplate x:Key="ModuleSearchResultTemplate"
@@ -256,20 +257,23 @@
                         Visibility="{x:Bind ViewModel.DriversVisibility, Mode=OneWay}">
                         <TextBlock x:Name="DriverPacksTitle"
                             Style="{ThemeResource FoundrySectionTitleTextBlockStyle}" />
-                        <wct:SettingsCard x:Name="DellDriverCard">
-                            <wct:SettingsCard.HeaderIcon>
-                                <FontIcon Glyph="&#xE90F;" />
-                            </wct:SettingsCard.HeaderIcon>
-                            <ToggleSwitch
-                                IsOn="{x:Bind ViewModel.IncludeDellDrivers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </wct:SettingsCard>
-                        <wct:SettingsCard x:Name="HpDriverCard">
-                            <wct:SettingsCard.HeaderIcon>
-                                <FontIcon Glyph="&#xE90F;" />
-                            </wct:SettingsCard.HeaderIcon>
-                            <ToggleSwitch
-                                IsOn="{x:Bind ViewModel.IncludeHpDrivers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </wct:SettingsCard>
+                        <TextBlock x:Name="DriverPacksSubtitle"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            TextWrapping="Wrap" />
+                        <ItemsRepeater
+                            Margin="0,4,0,0"
+                            ItemTemplate="{StaticResource OptionalComponentTemplate}"
+                            ItemsSource="{x:Bind ViewModel.DriverVendors, Mode=OneWay}">
+                            <ItemsRepeater.Layout>
+                                <UniformGridLayout
+                                    ItemsStretch="Fill"
+                                    MaximumRowsOrColumns="4"
+                                    MinColumnSpacing="{ThemeResource FoundrySpace12}"
+                                    MinItemWidth="220"
+                                    MinRowSpacing="{ThemeResource FoundrySpace8}"
+                                    Orientation="Horizontal" />
+                            </ItemsRepeater.Layout>
+                        </ItemsRepeater>
 
                         <TextBlock x:Name="DriverFoldersTitle"
                             Margin="0,8,0,0"

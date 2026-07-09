@@ -102,10 +102,7 @@ public sealed partial class BootImagePage : Page
         TroubleshootingConsoleCard.Description = localizationService.GetString("BootImage.TroubleshootingConsole.Description");
 
         DriverPacksTitle.Text = localizationService.GetString("BootImage.Drivers.VendorsHeader");
-        DellDriverCard.Header = localizationService.GetString("BootImage.Drivers.Dell");
-        DellDriverCard.Description = localizationService.GetString("BootImage.Drivers.DellDescription");
-        HpDriverCard.Header = localizationService.GetString("BootImage.Drivers.Hp");
-        HpDriverCard.Description = localizationService.GetString("BootImage.Drivers.HpDescription");
+        DriverPacksSubtitle.Text = localizationService.GetString("BootImage.Drivers.VendorsDescription");
         DriverFoldersTitle.Text = localizationService.GetString("BootImage.Drivers.FoldersHeader");
         DriverFoldersSubtitle.Text = localizationService.GetString("BootImage.Drivers.FoldersDescription");
         AddDriverFolderButton.Content = localizationService.GetString("BootImage.Drivers.AddButton");

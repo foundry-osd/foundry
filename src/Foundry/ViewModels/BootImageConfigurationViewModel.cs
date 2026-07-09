@@ -58,9 +58,10 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
         IncludeTroubleshootingConsole = settings.IncludeTroubleshootingConsole;
         KeepBootWimCopy = settings.KeepBootWimCopy;
         IncludePowerShell7 = settings.IncludePowerShell7;
-        IncludeDellDrivers = general.IncludeDellDrivers;
-        IncludeHpDrivers = general.IncludeHpDrivers;
         ContinueOnDriverError = settings.ContinueOnDriverError;
+
+        AddDriverVendor("Dell", general.IncludeDellDrivers, "BootImage.Drivers.Dell", "BootImage.Drivers.DellDescription");
+        AddDriverVendor("Hp", general.IncludeHpDrivers, "BootImage.Drivers.Hp", "BootImage.Drivers.HpDescription");
 
         foreach (PowerShellModuleSelection module in settings.PowerShellModules)
         {
@@ -107,6 +108,11 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
     /// Gets the sub-section entries shown in the left section rail.
     /// </summary>
     public ObservableCollection<SelectionOption<BootImageSection>> Sections { get; } = [];
+
+    /// <summary>
+    /// Gets the vendor driver packs (Dell, HP) shown as a checkbox grid.
+    /// </summary>
+    public ObservableCollection<SelectableStringOptionViewModel> DriverVendors { get; } = [];
 
     /// <summary>
     /// Gets the WinPE optional components discovered from the ADK, with recommended defaults pre-checked.
@@ -188,12 +194,6 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
     public partial bool KeepBootWimCopy { get; set; }
 
     [ObservableProperty]
-    public partial bool IncludeDellDrivers { get; set; }
-
-    [ObservableProperty]
-    public partial bool IncludeHpDrivers { get; set; }
-
-    [ObservableProperty]
     public partial bool ContinueOnDriverError { get; set; }
 
     [ObservableProperty]
@@ -257,6 +257,11 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
         foreach (SelectableStringOptionViewModel component in OptionalComponents)
         {
             component.PropertyChanged -= OnOptionalComponentChanged;
+        }
+
+        foreach (SelectableStringOptionViewModel vendor in DriverVendors)
+        {
+            vendor.PropertyChanged -= OnDriverVendorChanged;
         }
     }
 
@@ -338,7 +343,7 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
                 ? component.IsRecommendedDefault
                 : persisted.Contains(component.Name, StringComparer.OrdinalIgnoreCase);
 
-            SelectableStringOptionViewModel option = new(component.Name, component.Name, sortOrder++, isSelected);
+            SelectableStringOptionViewModel option = new(component.Name, component.Name, sortOrder++, isSelected, component.Description);
             option.PropertyChanged += OnOptionalComponentChanged;
             OptionalComponents.Add(option);
         }
@@ -566,9 +571,32 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
         }
     }
 
-    partial void OnIncludeDellDriversChanged(bool value) => SaveGeneral(general => general with { IncludeDellDrivers = value });
+    private void AddDriverVendor(string value, bool isSelected, string displayNameKey, string descriptionKey)
+    {
+        SelectableStringOptionViewModel vendor = new(
+            value,
+            localizationService.GetString(displayNameKey),
+            DriverVendors.Count,
+            isSelected,
+            localizationService.GetString(descriptionKey));
+        vendor.PropertyChanged += OnDriverVendorChanged;
+        DriverVendors.Add(vendor);
+    }
 
-    partial void OnIncludeHpDriversChanged(bool value) => SaveGeneral(general => general with { IncludeHpDrivers = value });
+    private void OnDriverVendorChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (isInitializing
+            || e.PropertyName != nameof(SelectableStringOptionViewModel.IsSelected)
+            || sender is not SelectableStringOptionViewModel vendor)
+        {
+            return;
+        }
+
+        bool isDell = string.Equals(vendor.Value, "Dell", StringComparison.OrdinalIgnoreCase);
+        SaveGeneral(general => isDell
+            ? general with { IncludeDellDrivers = vendor.IsSelected }
+            : general with { IncludeHpDrivers = vendor.IsSelected });
+    }
 
     partial void OnContinueOnDriverErrorChanged(bool value) => Save(current => current with { ContinueOnDriverError = value });
 
