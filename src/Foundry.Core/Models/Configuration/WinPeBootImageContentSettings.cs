@@ -29,6 +29,12 @@ public sealed record WinPeBootImageContentSettings
     public bool KeepBootWimCopy { get; init; }
 
     /// <summary>
+    /// Gets the JPEG image used as the WinPE desktop background. It is copied into the boot image as
+    /// <c>%WINDIR%\System32\winpe.jpg</c>. When empty, the stock background is kept.
+    /// </summary>
+    public string? WallpaperPath { get; init; }
+
+    /// <summary>
     /// Gets the WinPE optional component names selected by the user. When empty, Foundry's recommended
     /// defaults are applied during customization.
     /// </summary>

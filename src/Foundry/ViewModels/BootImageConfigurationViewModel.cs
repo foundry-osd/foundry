@@ -59,6 +59,7 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
         KeepBootWimCopy = settings.KeepBootWimCopy;
         IncludePowerShell7 = settings.IncludePowerShell7;
         ContinueOnDriverError = settings.ContinueOnDriverError;
+        WallpaperPath = settings.WallpaperPath ?? string.Empty;
 
         AddDriverVendor("Dell", general.IncludeDellDrivers, "BootImage.Drivers.Dell", "BootImage.Drivers.DellDescription");
         AddDriverVendor("Hp", general.IncludeHpDrivers, "BootImage.Drivers.Hp", "BootImage.Drivers.HpDescription");
@@ -198,6 +199,26 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
 
     [ObservableProperty]
     public partial bool ContinueOnDriverError { get; set; }
+
+    [NotifyPropertyChangedFor(nameof(HasWallpaper))]
+    [NotifyPropertyChangedFor(nameof(WallpaperDisplayText))]
+    [NotifyPropertyChangedFor(nameof(ClearWallpaperVisibility))]
+    [ObservableProperty]
+    public partial string WallpaperPath { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets whether a custom WinPE background has been selected.
+    /// </summary>
+    public bool HasWallpaper => !string.IsNullOrWhiteSpace(WallpaperPath);
+
+    public Visibility ClearWallpaperVisibility => HasWallpaper ? Visibility.Visible : Visibility.Collapsed;
+
+    /// <summary>
+    /// Gets the wallpaper path shown on the page, or the stock-background placeholder when none is selected.
+    /// </summary>
+    public string WallpaperDisplayText => HasWallpaper
+        ? WallpaperPath
+        : localizationService.GetString("BootImage.Wallpaper.None");
 
     [ObservableProperty]
     public partial bool IncludePowerShell7 { get; set; }
@@ -568,6 +589,30 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
             SaveRootFolders();
         }
     }
+
+    [RelayCommand]
+    private async Task BrowseWallpaperAsync()
+    {
+        string? path = await filePickerService.PickOpenFileAsync(
+            new FileOpenPickerRequest(
+                localizationService.GetString("BootImage.Wallpaper.Picker.Title"),
+                [".jpg", ".jpeg", ".png", ".bmp"]));
+
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            return;
+        }
+
+        WallpaperPath = path;
+    }
+
+    [RelayCommand]
+    private void ClearWallpaper() => WallpaperPath = string.Empty;
+
+    partial void OnWallpaperPathChanged(string value) => Save(current => current with
+    {
+        WallpaperPath = string.IsNullOrWhiteSpace(value) ? null : value.Trim()
+    });
 
     [RelayCommand]
     private async Task AddDriverFolderAsync()

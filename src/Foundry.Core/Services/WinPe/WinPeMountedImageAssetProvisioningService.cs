@@ -2,6 +2,10 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 using System.Text;
 using System.Text.Json;
 using System.Xml.Linq;
@@ -17,6 +21,7 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
     private const string BootstrapFileName = "FoundryBootstrap.ps1";
     private const string PSBootstrapperFileName = "psbootstrapper.exe";
     private const string WinpeshlFileName = "winpeshl.ini";
+    private const string WallpaperFileName = "winpe.jpg";
     private const string UnattendFileName = "Unattend.xml";
     private const string UnattendNamespaceUri = "urn:schemas-microsoft-com:unattend";
     private const string WcmNamespaceUri = "http://schemas.microsoft.com/WMIConfig/2002/State";
@@ -86,7 +91,8 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
 
             ProvisionBundledSevenZip(mountedImagePath, options);
             CopyAdditionalRootFolders(mountedImagePath, options.AdditionalRootFolders);
-            await WriteStartnetAsync(system32Path, cancellationToken).ConfigureAwait(false);
+            ApplyWallpaper(system32Path, options.WallpaperSourcePath);
+            RemoveStartnet(system32Path);
             await WriteWinpeshlIniAsync(system32Path, cancellationToken).ConfigureAwait(false);
             await WriteUnattendAsync(mountedImagePath, options.Architecture, options.IncludeTroubleshootingConsole, options.EnableFirewall, cancellationToken).ConfigureAwait(false);
             await WriteConfigurationAssetsAsync(mountedImagePath, foundryConfigPath, options, cancellationToken).ConfigureAwait(false);
@@ -104,32 +110,73 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
 
     private static async Task WriteWinpeshlIniAsync(string system32Path, CancellationToken cancellationToken)
     {
-        // Provisioning winpeshl.ini makes WinPE launch wpeinit + psbootstrapper directly instead of
-        // `cmd /k startnet.cmd`, so no console window is shown while the Foundry bootstrap runs.
+        // Provisioning winpeshl.ini makes WinPE launch wpeinit directly instead of `cmd /k startnet.cmd`,
+        // so no console window is shown while the Foundry bootstrap runs.
         string winpeshlPath = Path.Combine(system32Path, WinpeshlFileName);
         await File.WriteAllTextAsync(winpeshlPath, WinpeshlContent, Utf8NoBom, cancellationToken).ConfigureAwait(false);
     }
 
-    private static async Task WriteStartnetAsync(string system32Path, CancellationToken cancellationToken)
+    private static void RemoveStartnet(string system32Path)
     {
-        // startnet.cmd is only used as a fallback when winpeshl.ini is absent; it must contain only
-        // wpeinit. Any previously provisioned bootstrap launch line is removed to keep re-provisioning
-        // idempotent.
+        // winpeshl.ini replaces the default `cmd /k startnet.cmd` shell, so startnet.cmd is never executed.
+        // The stock file is removed so no stale launch line can run behind the configured shell.
         string startnetPath = Path.Combine(system32Path, "startnet.cmd");
-        List<string> lines = File.Exists(startnetPath)
-            ? [.. await File.ReadAllLinesAsync(startnetPath, cancellationToken).ConfigureAwait(false)]
-            : [];
-
-        lines.RemoveAll(line =>
-            line.Contains(BootstrapFileName, StringComparison.OrdinalIgnoreCase) ||
-            line.Contains(PSBootstrapperFileName, StringComparison.OrdinalIgnoreCase));
-
-        if (!lines.Any(line => line.Trim().Equals("wpeinit", StringComparison.OrdinalIgnoreCase)))
+        if (!File.Exists(startnetPath))
         {
-            lines.Insert(0, "wpeinit");
+            return;
         }
 
-        await File.WriteAllLinesAsync(startnetPath, lines, Utf8NoBom, cancellationToken).ConfigureAwait(false);
+        File.SetAttributes(startnetPath, FileAttributes.Normal);
+        File.Delete(startnetPath);
+    }
+
+    private static void ApplyWallpaper(string system32Path, string? wallpaperSourcePath)
+    {
+        if (string.IsNullOrWhiteSpace(wallpaperSourcePath))
+        {
+            return;
+        }
+
+        // WinPE paints the desktop background from %WINDIR%\System32\winpe.jpg and only renders JPEG, so a
+        // PNG or BMP selection is transcoded on the way in.
+        string destinationPath = Path.Combine(system32Path, WallpaperFileName);
+        if (File.Exists(destinationPath))
+        {
+            File.SetAttributes(destinationPath, FileAttributes.Normal);
+        }
+
+        if (IsJpegFile(wallpaperSourcePath))
+        {
+            File.Copy(wallpaperSourcePath, destinationPath, overwrite: true);
+            return;
+        }
+
+        ConvertImageToJpeg(wallpaperSourcePath, destinationPath);
+    }
+
+    [SupportedOSPlatform("windows")]
+    private static void ConvertImageToJpeg(string sourcePath, string destinationPath)
+    {
+        try
+        {
+            using Image image = Image.FromFile(sourcePath);
+
+            // Drawing onto an opaque bitmap first keeps transparent PNG regions from turning black.
+            using Bitmap bitmap = new(image.Width, image.Height, PixelFormat.Format24bppRgb);
+            using (Graphics graphics = Graphics.FromImage(bitmap))
+            {
+                graphics.Clear(Color.Black);
+                graphics.DrawImage(image, 0, 0, image.Width, image.Height);
+            }
+
+            bitmap.Save(destinationPath, ImageFormat.Jpeg);
+        }
+        catch (Exception ex) when (ex is ExternalException or InvalidOperationException)
+        {
+            throw new IOException(
+                $"Failed to convert the boot image wallpaper '{sourcePath}' to JPEG: {ex.Message}",
+                ex);
+        }
     }
 
     private static async Task WriteUnattendAsync(
@@ -500,6 +547,34 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
         return JsonSerializer.Serialize(new FoundryDeployConfigurationDocument(), ConfigurationJsonDefaults.SerializerOptions);
     }
 
+    /// <summary>
+    /// Identifies the wallpaper by content rather than extension so a mislabeled file still converts correctly.
+    /// </summary>
+    private static bool IsSupportedWallpaperFile(string path) => ReadWallpaperHeader(path) switch
+    {
+        [0xFF, 0xD8, 0xFF, ..] => true,                          // JPEG
+        [0x89, 0x50, 0x4E, 0x47, ..] => true,                    // PNG
+        [0x42, 0x4D, ..] => true,                                // BMP
+        _ => false
+    };
+
+    private static bool IsJpegFile(string path) => ReadWallpaperHeader(path) is [0xFF, 0xD8, 0xFF, ..];
+
+    private static byte[] ReadWallpaperHeader(string path)
+    {
+        try
+        {
+            using FileStream stream = File.OpenRead(path);
+            byte[] header = new byte[4];
+            int read = stream.ReadAtLeast(header, header.Length, throwOnEndOfStream: false);
+            return read == header.Length ? header : [];
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            return [];
+        }
+    }
+
     private static WinPeDiagnostic? ValidateOptions(WinPeMountedImageAssetProvisioningOptions? options)
     {
         if (options is null)
@@ -548,6 +623,25 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
                 WinPeErrorCodes.ValidationFailed,
                 "psbootstrapper.exe source path is required.",
                 $"Expected file: '{options.PSBootstrapperSourceExecutablePath}'.");
+        }
+
+        if (!string.IsNullOrWhiteSpace(options.WallpaperSourcePath))
+        {
+            if (!File.Exists(options.WallpaperSourcePath))
+            {
+                return new WinPeDiagnostic(
+                    WinPeErrorCodes.ValidationFailed,
+                    "The selected boot image wallpaper was not found.",
+                    $"Expected file: '{options.WallpaperSourcePath}'.");
+            }
+
+            if (!IsSupportedWallpaperFile(options.WallpaperSourcePath))
+            {
+                return new WinPeDiagnostic(
+                    WinPeErrorCodes.ValidationFailed,
+                    "The boot image wallpaper must be a JPEG, PNG, or BMP image.",
+                    $"File: '{options.WallpaperSourcePath}'.");
+            }
         }
 
         if (string.IsNullOrWhiteSpace(options.IanaWindowsTimeZoneMapJson))

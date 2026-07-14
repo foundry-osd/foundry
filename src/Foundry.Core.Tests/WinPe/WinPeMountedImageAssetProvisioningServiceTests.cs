@@ -12,7 +12,7 @@ namespace Foundry.Core.Tests.WinPe;
 public sealed class WinPeMountedImageAssetProvisioningServiceTests
 {
     [Fact]
-    public async Task ProvisionAsync_WritesBootstrapPSBootstrapperCurlAndStartnet()
+    public async Task ProvisionAsync_WritesBootstrapPSBootstrapperAndCurlAndRemovesStartnet()
     {
         using TempMountedImage image = TempMountedImage.Create();
         string curlSourcePath = Path.Combine(image.RootPath, "tools", "curl.exe");
@@ -40,13 +40,143 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         Assert.Equal("curl", await File.ReadAllTextAsync(Path.Combine(image.System32Path, "curl.exe")));
         Assert.Equal("psbootstrapper", await File.ReadAllTextAsync(Path.Combine(image.System32Path, "psbootstrapper.exe")));
 
-        // startnet.cmd must contain only wpeinit (plus any unrelated pre-existing lines); the
-        // bootstrap is launched from X:\Unattend.xml, not startnet.
-        string[] startnetLines = await File.ReadAllLinesAsync(startnetPath);
-        Assert.Contains(startnetLines, line => line.Equals("wpeinit", StringComparison.OrdinalIgnoreCase));
-        Assert.Contains(startnetLines, line => line.Equals("echo existing", StringComparison.OrdinalIgnoreCase));
-        Assert.DoesNotContain(startnetLines, line => line.Contains("FoundryBootstrap.ps1", StringComparison.OrdinalIgnoreCase));
-        Assert.DoesNotContain(startnetLines, line => line.Contains("psbootstrapper.exe", StringComparison.OrdinalIgnoreCase));
+        // winpeshl.ini is the configured shell, so startnet.cmd is never executed and must not linger.
+        Assert.False(File.Exists(startnetPath));
+    }
+
+    [Fact]
+    public async Task ProvisionAsync_WhenWallpaperIsJpeg_CopiesItAsWinpeJpg()
+    {
+        using TempMountedImage image = TempMountedImage.Create();
+        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
+        File.WriteAllText(curlSourcePath, "curl");
+
+        byte[] jpeg = CreateJpegBytes();
+        string wallpaperSourcePath = Path.Combine(image.RootPath, "custom.jpg");
+        await File.WriteAllBytesAsync(wallpaperSourcePath, jpeg);
+
+        var service = new WinPeMountedImageAssetProvisioningService();
+
+        WinPeResult result = await service.ProvisionAsync(
+            new WinPeMountedImageAssetProvisioningOptions
+            {
+                MountedImagePath = image.MountedImagePath,
+                Architecture = WinPeArchitecture.X64,
+                BootstrapScriptContent = "Write-Host 'Foundry'",
+                CurlExecutableSourcePath = curlSourcePath,
+                PSBootstrapperSourceExecutablePath = image.PSBootstrapperSourcePath,
+                IanaWindowsTimeZoneMapJson = "{}",
+                WallpaperSourcePath = wallpaperSourcePath
+            },
+            CancellationToken.None);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Equal(jpeg, await File.ReadAllBytesAsync(Path.Combine(image.System32Path, "winpe.jpg")));
+    }
+
+    [Fact]
+    public async Task ProvisionAsync_WhenWallpaperIsPng_ConvertsItToJpeg()
+    {
+        using TempMountedImage image = TempMountedImage.Create();
+        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
+        File.WriteAllText(curlSourcePath, "curl");
+
+        string wallpaperSourcePath = Path.Combine(image.RootPath, "custom.png");
+        await File.WriteAllBytesAsync(wallpaperSourcePath, CreatePngBytes());
+
+        var service = new WinPeMountedImageAssetProvisioningService();
+
+        WinPeResult result = await service.ProvisionAsync(
+            new WinPeMountedImageAssetProvisioningOptions
+            {
+                MountedImagePath = image.MountedImagePath,
+                Architecture = WinPeArchitecture.X64,
+                BootstrapScriptContent = "Write-Host 'Foundry'",
+                CurlExecutableSourcePath = curlSourcePath,
+                PSBootstrapperSourceExecutablePath = image.PSBootstrapperSourcePath,
+                IanaWindowsTimeZoneMapJson = "{}",
+                WallpaperSourcePath = wallpaperSourcePath
+            },
+            CancellationToken.None);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+
+        byte[] provisioned = await File.ReadAllBytesAsync(Path.Combine(image.System32Path, "winpe.jpg"));
+        Assert.Equal([0xFF, 0xD8, 0xFF], provisioned[..3]);
+    }
+
+    [Fact]
+    public async Task ProvisionAsync_WhenWallpaperIsNotAnImage_FailsValidation()
+    {
+        using TempMountedImage image = TempMountedImage.Create();
+        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
+        File.WriteAllText(curlSourcePath, "curl");
+
+        string wallpaperSourcePath = Path.Combine(image.RootPath, "notes.txt");
+        await File.WriteAllTextAsync(wallpaperSourcePath, "not an image");
+
+        var service = new WinPeMountedImageAssetProvisioningService();
+
+        WinPeResult result = await service.ProvisionAsync(
+            new WinPeMountedImageAssetProvisioningOptions
+            {
+                MountedImagePath = image.MountedImagePath,
+                Architecture = WinPeArchitecture.X64,
+                BootstrapScriptContent = "Write-Host 'Foundry'",
+                CurlExecutableSourcePath = curlSourcePath,
+                PSBootstrapperSourceExecutablePath = image.PSBootstrapperSourcePath,
+                IanaWindowsTimeZoneMapJson = "{}",
+                WallpaperSourcePath = wallpaperSourcePath
+            },
+            CancellationToken.None);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.ValidationFailed, result.Error?.Code);
+    }
+
+    [Fact]
+    public async Task ProvisionAsync_WhenNoWallpaperIsSelected_LeavesTheStockBackground()
+    {
+        using TempMountedImage image = TempMountedImage.Create();
+        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
+        File.WriteAllText(curlSourcePath, "curl");
+
+        string stockWallpaperPath = Path.Combine(image.System32Path, "winpe.jpg");
+        await File.WriteAllBytesAsync(stockWallpaperPath, CreateJpegBytes());
+        byte[] stock = await File.ReadAllBytesAsync(stockWallpaperPath);
+
+        var service = new WinPeMountedImageAssetProvisioningService();
+
+        WinPeResult result = await service.ProvisionAsync(
+            new WinPeMountedImageAssetProvisioningOptions
+            {
+                MountedImagePath = image.MountedImagePath,
+                Architecture = WinPeArchitecture.X64,
+                BootstrapScriptContent = "Write-Host 'Foundry'",
+                CurlExecutableSourcePath = curlSourcePath,
+                PSBootstrapperSourceExecutablePath = image.PSBootstrapperSourcePath,
+                IanaWindowsTimeZoneMapJson = "{}"
+            },
+            CancellationToken.None);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Equal(stock, await File.ReadAllBytesAsync(stockWallpaperPath));
+    }
+
+    private static byte[] CreateJpegBytes()
+    {
+        using System.Drawing.Bitmap bitmap = new(8, 8);
+        using MemoryStream stream = new();
+        bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
+        return stream.ToArray();
+    }
+
+    private static byte[] CreatePngBytes()
+    {
+        using System.Drawing.Bitmap bitmap = new(8, 8);
+        using MemoryStream stream = new();
+        bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+        return stream.ToArray();
     }
 
     [Fact]
@@ -224,7 +354,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
     }
 
     [Fact]
-    public async Task ProvisionAsync_WhenRunTwice_KeepsStartnetToWpeinitOnly()
+    public async Task ProvisionAsync_WhenRunTwice_LeavesNoStartnetBehind()
     {
         using TempMountedImage image = TempMountedImage.Create();
         string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
@@ -246,11 +376,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
 
         Assert.True(firstResult.IsSuccess, firstResult.Error?.Details);
         Assert.True(secondResult.IsSuccess, secondResult.Error?.Details);
-
-        string[] startnetLines = await File.ReadAllLinesAsync(Path.Combine(image.System32Path, "startnet.cmd"));
-        Assert.Single(startnetLines, line => line.Equals("wpeinit", StringComparison.OrdinalIgnoreCase));
-        Assert.DoesNotContain(startnetLines, line => line.Contains("FoundryBootstrap.ps1", StringComparison.OrdinalIgnoreCase));
-        Assert.DoesNotContain(startnetLines, line => line.Contains("psbootstrapper.exe", StringComparison.OrdinalIgnoreCase));
+        Assert.False(File.Exists(Path.Combine(image.System32Path, "startnet.cmd")));
     }
 
     [Fact]

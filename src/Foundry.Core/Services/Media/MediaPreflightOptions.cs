@@ -174,4 +174,10 @@ public sealed record MediaPreflightOptions
     /// Gets the additional folders whose contents are copied into a relative destination inside the boot image.
     /// </summary>
     public IReadOnlyList<WinPeAdditionalRootFolder> AdditionalRootFolders { get; init; } = [];
+
+    /// <summary>
+    /// Gets the image used as the WinPE desktop background. It is provisioned as
+    /// <c>%WINDIR%\System32\winpe.jpg</c>, converting PNG or BMP input to JPEG.
+    /// </summary>
+    public string? WallpaperPath { get; init; }
 }

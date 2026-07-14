@@ -1777,14 +1777,23 @@ function Resolve-ApplicationExecutable {
     return Resolve-SingleExecutable -Candidate $executable
 }
 
-function Start-DeployExecutable {
+function Invoke-DeployExecutable {
     param(
         [Parameter(Mandatory = $true)]
         [System.IO.FileInfo]$Executable
     )
 
+    # The bootstrap must not return while Foundry.Deploy is running. winpeshl.ini launches wpeinit, which
+    # runs this script synchronously through the Unattend.xml RunSynchronous command; once winpeshl has no
+    # running app left, WinPE tears the session down and would take a detached Foundry.Deploy with it.
     Write-Log "Launching '$($Executable.FullName)'." -ConsoleMessage 'Foundry.Deploy: launching...'
-    Start-Process -FilePath $Executable.FullName -WorkingDirectory $Executable.DirectoryName | Out-Null
+    $process = Start-Process `
+        -FilePath $Executable.FullName `
+        -WorkingDirectory $Executable.DirectoryName `
+        -Wait `
+        -PassThru
+
+    return $process.ExitCode
 }
 
 function Invoke-ConnectExecutable {
@@ -1977,7 +1986,13 @@ try {
         -Headers $headers `
         -SkipReleaseLookup:$skipDeployReleaseLookup
 
-    Start-DeployExecutable -Executable $deployExecutable
+    $deployExitCode = Invoke-DeployExecutable -Executable $deployExecutable
+
+    if ($deployExitCode -ne 0) {
+        throw "Foundry.Deploy exited with code $deployExitCode."
+    }
+
+    Write-Log 'Foundry.Deploy completed successfully.' -ConsoleMessage 'Foundry.Deploy: completed successfully.'
 
     Write-ConsoleSection -Title 'Completed'
     Write-Log 'Foundry bootstrap completed successfully.' -ConsoleMessage 'Foundry bootstrap completed successfully.'

@@ -273,6 +273,28 @@
                             <ToggleSwitch
                                 IsOn="{x:Bind ViewModel.IncludeTroubleshootingConsole, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </wct:SettingsCard>
+                        <wct:SettingsCard x:Name="WallpaperCard">
+                            <wct:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xEB9F;" />
+                            </wct:SettingsCard.HeaderIcon>
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                <TextBlock
+                                    MaxWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Text="{x:Bind ViewModel.WallpaperDisplayText, Mode=OneWay}"
+                                    TextTrimming="CharacterEllipsis"
+                                    ToolTipService.ToolTip="{x:Bind ViewModel.WallpaperDisplayText, Mode=OneWay}" />
+                                <Button x:Name="BrowseWallpaperButton"
+                                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    Command="{x:Bind ViewModel.BrowseWallpaperCommand}" />
+                                <Button x:Name="ClearWallpaperButton"
+                                    Command="{x:Bind ViewModel.ClearWallpaperCommand}"
+                                    Visibility="{x:Bind ViewModel.ClearWallpaperVisibility, Mode=OneWay}" />
+                            </StackPanel>
+                        </wct:SettingsCard>
                     </StackPanel>
 
                     <!--  Drivers  -->

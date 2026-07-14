@@ -26,6 +26,12 @@ public sealed record WinPeMountedImageAssetProvisioningOptions
     public bool EnableFirewall { get; init; } = true;
 
     /// <summary>
+    /// Gets the JPEG image copied into the boot image as the WinPE desktop background
+    /// (<c>%WINDIR%\System32\winpe.jpg</c>). When empty, the stock background is left in place.
+    /// </summary>
+    public string? WallpaperSourcePath { get; init; }
+
+    /// <summary>
     /// Gets source folders whose contents are copied into a relative destination inside the boot image
     /// (the destination is relative to the image root).
     /// </summary>

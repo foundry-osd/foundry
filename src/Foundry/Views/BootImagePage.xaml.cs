@@ -121,6 +121,10 @@ public sealed partial class BootImagePage : Page
         KeepWimCard.Description = localizationService.GetString("BootImage.KeepWim.Description");
         TroubleshootingConsoleCard.Header = localizationService.GetString("BootImage.TroubleshootingConsole.Header");
         TroubleshootingConsoleCard.Description = localizationService.GetString("BootImage.TroubleshootingConsole.Description");
+        WallpaperCard.Header = localizationService.GetString("BootImage.Wallpaper.Header");
+        WallpaperCard.Description = localizationService.GetString("BootImage.Wallpaper.Description");
+        BrowseWallpaperButton.Content = localizationService.GetString("Common.Browse");
+        ClearWallpaperButton.Content = localizationService.GetString("BootImage.Wallpaper.ClearButton");
 
         DriverPacksTitle.Text = localizationService.GetString("BootImage.Drivers.VendorsHeader");
         DriverPacksSubtitle.Text = localizationService.GetString("BootImage.Drivers.VendorsDescription");

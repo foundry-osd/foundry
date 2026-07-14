@@ -2355,4 +2355,19 @@
   <data name="Network.AutoContinueDelayHelperText" xml:space="preserve">
     <value>Foundry Connect waits this long before continuing. Use 0 to continue immediately; the maximum is 300 seconds.</value>
   </data>
+  <data name="BootImage.Wallpaper.Header" xml:space="preserve">
+    <value>Boot image wallpaper</value>
+  </data>
+  <data name="BootImage.Wallpaper.Description" xml:space="preserve">
+    <value>Replaces the WinPE desktop background. JPEG, PNG, and BMP images are accepted; PNG and BMP are converted to JPEG when the image is built.</value>
+  </data>
+  <data name="BootImage.Wallpaper.None" xml:space="preserve">
+    <value>Default WinPE background</value>
+  </data>
+  <data name="BootImage.Wallpaper.ClearButton" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="BootImage.Wallpaper.Picker.Title" xml:space="preserve">
+    <value>Select a boot image wallpaper</value>
+  </data>
 </root>

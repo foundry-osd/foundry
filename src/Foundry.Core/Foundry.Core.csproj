@@ -38,6 +38,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!-- Transcodes a selected PNG/BMP boot image wallpaper into the JPEG that WinPE requires. -->
+    <PackageReference Include="System.Drawing.Common" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Foundry.Telemetry\Foundry.Telemetry.csproj" />
   </ItemGroup>
 
