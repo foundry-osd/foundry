@@ -2340,4 +2340,19 @@
   <data name="BootImage.Folders.DestinationLabel" xml:space="preserve">
     <value>Boot Image Relative Destination:</value>
   </data>
+  <data name="Network.AutoContinueSectionTitle" xml:space="preserve">
+    <value>Auto-continue</value>
+  </data>
+  <data name="Network.AutoContinueHelperText" xml:space="preserve">
+    <value>Controls whether Foundry Connect continues the deployment automatically after it validates Internet access.</value>
+  </data>
+  <data name="Network.AutoContinueEnableLabel" xml:space="preserve">
+    <value>Continue automatically once connected</value>
+  </data>
+  <data name="Network.AutoContinueDelayLabel" xml:space="preserve">
+    <value>Countdown before continuing (seconds)</value>
+  </data>
+  <data name="Network.AutoContinueDelayHelperText" xml:space="preserve">
+    <value>Foundry Connect waits this long before continuing. Use 0 to continue immediately; the maximum is 300 seconds.</value>
+  </data>
 </root>

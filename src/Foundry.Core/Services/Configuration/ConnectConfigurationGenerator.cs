@@ -89,6 +89,11 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
                 {
                     IsEnabled = network.RoamWifiProfilesToWindows,
                     IncludePrivateKeyMaterial = network.RoamPrivateKeyMaterialToWindows
+                },
+                AutoContinue = new ConnectAutoContinueSettings
+                {
+                    IsEnabled = network.AutoContinueEnabled,
+                    DelaySeconds = ConnectAutoContinueSettings.ClampDelaySeconds(network.AutoContinueDelaySeconds)
                 }
             },
             Dot1x = dot1x with

@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text.Json;
 using Foundry.Connect.Models.Configuration;
 using ConfigurationSchemaVersions = Foundry.Core.Models.Configuration.ConfigurationSchemaVersions;
+using ConnectAutoContinueSettings = Foundry.Core.Models.Configuration.ConnectAutoContinueSettings;
 using CoreConnectNetworkSettings = Foundry.Core.Models.Configuration.ConnectNetworkSettings;
 using Foundry.Connect.Services.Runtime;
 using Microsoft.Extensions.Logging;
@@ -150,6 +151,8 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
     {
         NetworkCapabilitiesOptions capabilities = configuration.Capabilities ?? new NetworkCapabilitiesOptions();
         InternetProbeOptions probe = configuration.InternetProbe ?? new InternetProbeOptions();
+        CoreConnectNetworkSettings network = configuration.Network ?? new CoreConnectNetworkSettings();
+        ConnectAutoContinueSettings autoContinue = network.AutoContinue ?? new ConnectAutoContinueSettings();
 
         string[] probeUris = probe.ProbeUris
             .Where(static value => !string.IsNullOrWhiteSpace(value))
@@ -177,7 +180,13 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
             {
                 WifiProvisioned = capabilities.WifiProvisioned
             },
-            Network = configuration.Network ?? new CoreConnectNetworkSettings(),
+            Network = network with
+            {
+                AutoContinue = autoContinue with
+                {
+                    DelaySeconds = ConnectAutoContinueSettings.ClampDelaySeconds(autoContinue.DelaySeconds)
+                }
+            },
             Dot1x = configuration.Dot1x ?? new Dot1xSettings(),
             Wifi = NormalizeWifi(configuration.Wifi),
             InternetProbe = new InternetProbeOptions

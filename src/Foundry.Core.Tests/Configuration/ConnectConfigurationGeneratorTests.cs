@@ -301,6 +301,64 @@ public sealed class ConnectConfigurationGeneratorTests
         Assert.True(File.Exists(expectedSourcePath));
     }
 
+    [Fact]
+    public void Generate_WhenAutoContinueIsNotConfigured_KeepsTheDefaultCountdown()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        var generator = new ConnectConfigurationGenerator();
+
+        FoundryConnectConfigurationDocument result = generator.Generate(
+            new FoundryConfigurationDocument(),
+            tempDirectory.Path);
+
+        Assert.True(result.Network.AutoContinue.IsEnabled);
+        Assert.Equal(ConnectAutoContinueSettings.DefaultDelaySeconds, result.Network.AutoContinue.DelaySeconds);
+    }
+
+    [Fact]
+    public void Generate_WhenAutoContinueIsDisabled_PropagatesTheOptOut()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        var generator = new ConnectConfigurationGenerator();
+
+        FoundryConnectConfigurationDocument result = generator.Generate(
+            new FoundryConfigurationDocument
+            {
+                Network = new NetworkSettings
+                {
+                    AutoContinueEnabled = false,
+                    AutoContinueDelaySeconds = 45
+                }
+            },
+            tempDirectory.Path);
+
+        Assert.False(result.Network.AutoContinue.IsEnabled);
+        Assert.Equal(45, result.Network.AutoContinue.DelaySeconds);
+    }
+
+    [Theory]
+    [InlineData(-5, ConnectAutoContinueSettings.MinimumDelaySeconds)]
+    [InlineData(0, 0)]
+    [InlineData(300, 300)]
+    [InlineData(3_600, ConnectAutoContinueSettings.MaximumDelaySeconds)]
+    public void Generate_WhenAutoContinueDelayIsOutOfRange_ClampsToTheSupportedRange(int configured, int expected)
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        var generator = new ConnectConfigurationGenerator();
+
+        FoundryConnectConfigurationDocument result = generator.Generate(
+            new FoundryConfigurationDocument
+            {
+                Network = new NetworkSettings
+                {
+                    AutoContinueDelaySeconds = configured
+                }
+            },
+            tempDirectory.Path);
+
+        Assert.Equal(expected, result.Network.AutoContinue.DelaySeconds);
+    }
+
     private sealed class TemporaryDirectory : IDisposable
     {
         public TemporaryDirectory()

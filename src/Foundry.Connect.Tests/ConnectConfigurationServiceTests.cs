@@ -70,6 +70,64 @@ public sealed class ConnectConfigurationServiceTests
     }
 
     [Fact]
+    public void Load_WhenConfigurationFileOmitsAutoContinue_KeepsTheDefaultCountdown()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var tempDirectory = new TemporaryDirectory();
+        string configurationPath = CreateJsonFile(
+            tempDirectory.Path,
+            "no-auto-continue.json",
+            """
+            {
+              "network": {
+                "profileRoaming": {
+                  "isEnabled": true
+                }
+              }
+            }
+            """);
+
+        var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
+
+        FoundryConnectConfiguration configuration = service.Load();
+
+        Assert.True(configuration.Network.ProfileRoaming.IsEnabled);
+        Assert.True(configuration.Network.AutoContinue.IsEnabled);
+        Assert.Equal(
+            CoreConfiguration.ConnectAutoContinueSettings.DefaultDelaySeconds,
+            configuration.Network.AutoContinue.DelaySeconds);
+    }
+
+    [Fact]
+    public void Load_WhenAutoContinueIsConfigured_NormalizesTheCountdown()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var tempDirectory = new TemporaryDirectory();
+        string configurationPath = CreateJsonFile(
+            tempDirectory.Path,
+            "auto-continue.json",
+            """
+            {
+              "network": {
+                "autoContinue": {
+                  "isEnabled": false,
+                  "delaySeconds": 9000
+                }
+              }
+            }
+            """);
+
+        var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
+
+        FoundryConnectConfiguration configuration = service.Load();
+
+        Assert.False(configuration.Network.AutoContinue.IsEnabled);
+        Assert.Equal(
+            CoreConfiguration.ConnectAutoContinueSettings.MaximumDelaySeconds,
+            configuration.Network.AutoContinue.DelaySeconds);
+    }
+
+    [Fact]
     public void Load_WhenSchemaIsOlderThanCurrent_RecommendsBootMediaUpdate()
     {
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
