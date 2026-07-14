@@ -271,7 +271,27 @@
                                 <FontIcon Glyph="&#xE756;" />
                             </wct:SettingsCard.HeaderIcon>
                             <ToggleSwitch
-                                IsOn="{x:Bind ViewModel.IncludeTroubleshootingConsole, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                IsOn="{x:Bind ViewModel.EnableTroubleshootingConsole, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </wct:SettingsCard>
+                        <wct:SettingsCard x:Name="TroubleshootingConsoleShortcutCard"
+                            Visibility="{x:Bind ViewModel.TroubleshootingConsoleShortcutVisibility, Mode=OneWay}">
+                            <wct:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xE765;" />
+                            </wct:SettingsCard.HeaderIcon>
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                <ComboBox x:Name="TroubleshootingConsoleModifierBox"
+                                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    DisplayMemberPath="DisplayName"
+                                    ItemsSource="{x:Bind ViewModel.TroubleshootingConsoleModifiers, Mode=OneWay}"
+                                    SelectedItem="{x:Bind ViewModel.SelectedTroubleshootingConsoleModifier, Mode=TwoWay}" />
+                                <ComboBox x:Name="TroubleshootingConsoleKeyBox"
+                                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    DisplayMemberPath="DisplayName"
+                                    ItemsSource="{x:Bind ViewModel.TroubleshootingConsoleKeys, Mode=OneWay}"
+                                    SelectedItem="{x:Bind ViewModel.SelectedTroubleshootingConsoleKey, Mode=TwoWay}" />
+                            </StackPanel>
                         </wct:SettingsCard>
                         <wct:SettingsCard x:Name="WallpaperCard">
                             <wct:SettingsCard.HeaderIcon>

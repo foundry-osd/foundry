@@ -122,6 +122,7 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
                 CertificatePfxPassword = null,
                 CertificatePfxPasswordSecret = wifiCertificatePfxPasswordSecret
             },
+            TroubleshootingConsole = document.General.BootImageContent.TroubleshootingConsole,
             Telemetry = document.Telemetry
         };
 

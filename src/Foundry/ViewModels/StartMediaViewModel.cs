@@ -852,7 +852,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             ConnectProvisioningSource = ResolveProvisioningSource(runtimePayloadProvisioning.Connect),
             DeployProvisioningSource = ResolveProvisioningSource(runtimePayloadProvisioning.Deploy),
             EnableFirewall = options.EnableFirewall,
-            IncludeTroubleshootingConsole = options.IncludeTroubleshootingConsole,
             AdditionalRootFolders = options.AdditionalRootFolders,
             WallpaperSourcePath = options.WallpaperPath
         };
@@ -1455,7 +1454,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             SelectedUsbDisk = SelectedUsbDisk?.Value,
             OptionalComponents = bootImage.OptionalComponents,
             EnableFirewall = bootImage.EnableFirewall,
-            IncludeTroubleshootingConsole = bootImage.IncludeTroubleshootingConsole,
+            IncludeTroubleshootingConsole = bootImage.TroubleshootingConsole.IsEnabled,
             KeepBootWimCopy = bootImage.KeepBootWimCopy,
             IncludePowerShell7 = bootImage.IncludePowerShell7,
             PowerShell7Version = bootImage.PowerShell7Version,

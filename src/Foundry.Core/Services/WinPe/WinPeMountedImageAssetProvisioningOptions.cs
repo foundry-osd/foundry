@@ -15,12 +15,6 @@ public sealed record WinPeMountedImageAssetProvisioningOptions
     public string PSBootstrapperSourceExecutablePath { get; init; } = string.Empty;
 
     /// <summary>
-    /// Gets a value indicating whether the boot Unattend.xml includes a minimized, interactive
-    /// PowerShell troubleshooting console (debug mode). Off by default to prevent tampering.
-    /// </summary>
-    public bool IncludeTroubleshootingConsole { get; init; }
-
-    /// <summary>
     /// Gets a value indicating whether the WinPE firewall is enabled via Unattend.xml. On by default.
     /// </summary>
     public bool EnableFirewall { get; init; } = true;

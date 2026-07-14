@@ -13,10 +13,10 @@ namespace Foundry.Core.Models.Configuration;
 public sealed record WinPeBootImageContentSettings
 {
     /// <summary>
-    /// Gets a value indicating whether the minimized troubleshooting PowerShell console is included
-    /// in the generated Unattend.xml. Off by default to discourage tampering.
+    /// Gets the shortcut that opens an interactive PowerShell troubleshooting console from Foundry.Connect
+    /// and Foundry.Deploy. Off by default to discourage tampering.
     /// </summary>
-    public bool IncludeTroubleshootingConsole { get; init; }
+    public TroubleshootingConsoleSettings TroubleshootingConsole { get; init; } = new();
 
     /// <summary>
     /// Gets a value indicating whether the boot image firewall is enabled. On by default.

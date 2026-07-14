@@ -2173,7 +2173,7 @@
     <value>Troubleshooting console</value>
   </data>
   <data name="BootImage.TroubleshootingConsole.Description" xml:space="preserve">
-    <value>Include a minimized PowerShell console for debugging. Off by default.</value>
+    <value>Lets an operator open an interactive PowerShell console from Foundry Connect or Foundry Deploy with a keyboard shortcut. Off by default.</value>
   </data>
   <data name="BootImage.OptionalComponents.Header" xml:space="preserve">
     <value>Optional components</value>
@@ -2369,5 +2369,29 @@
   </data>
   <data name="BootImage.Wallpaper.Picker.Title" xml:space="preserve">
     <value>Select a boot image wallpaper</value>
+  </data>
+  <data name="BootImage.TroubleshootingConsole.ShortcutHeader" xml:space="preserve">
+    <value>Console shortcut</value>
+  </data>
+  <data name="BootImage.TroubleshootingConsole.ShortcutDescription" xml:space="preserve">
+    <value>The key combination that opens the console while Foundry Connect or Foundry Deploy is on screen.</value>
+  </data>
+  <data name="BootImage.TroubleshootingConsole.Modifier.None" xml:space="preserve">
+    <value>No modifier</value>
+  </data>
+  <data name="BootImage.TroubleshootingConsole.Modifier.Control" xml:space="preserve">
+    <value>Ctrl</value>
+  </data>
+  <data name="BootImage.TroubleshootingConsole.Modifier.Alt" xml:space="preserve">
+    <value>Alt</value>
+  </data>
+  <data name="BootImage.TroubleshootingConsole.Modifier.Shift" xml:space="preserve">
+    <value>Shift</value>
+  </data>
+  <data name="BootImage.TroubleshootingConsole.Modifier.ControlShift" xml:space="preserve">
+    <value>Ctrl+Shift</value>
+  </data>
+  <data name="BootImage.TroubleshootingConsole.Modifier.ControlAlt" xml:space="preserve">
+    <value>Ctrl+Alt</value>
   </data>
 </root>

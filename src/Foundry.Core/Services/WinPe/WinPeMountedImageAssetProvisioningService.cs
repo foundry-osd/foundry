@@ -28,7 +28,6 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
     private const string SetupComponentName = "Microsoft-Windows-Setup";
     private const string SetupPublicKeyToken = "31bf3856ad364e35";
     private const string BootstrapLaunchCommand = @"psbootstrapper.exe --script-path ""%WINDIR%\System32\FoundryBootstrap.ps1""";
-    private const string TroubleshootingConsoleCommand = "powershell.exe -NoExit -NoProfile -ExecutionPolicy Bypass -WindowStyle Minimized";
 
     // winpeshl.ini replaces the default `cmd /k startnet.cmd` shell so no console window flashes at boot.
     // It only launches wpeinit, which initializes WinPE and auto-discovers and processes X:\Unattend.xml
@@ -94,7 +93,7 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
             ApplyWallpaper(system32Path, options.WallpaperSourcePath);
             RemoveStartnet(system32Path);
             await WriteWinpeshlIniAsync(system32Path, cancellationToken).ConfigureAwait(false);
-            await WriteUnattendAsync(mountedImagePath, options.Architecture, options.IncludeTroubleshootingConsole, options.EnableFirewall, cancellationToken).ConfigureAwait(false);
+            await WriteUnattendAsync(mountedImagePath, options.Architecture, options.EnableFirewall, cancellationToken).ConfigureAwait(false);
             await WriteConfigurationAssetsAsync(mountedImagePath, foundryConfigPath, options, cancellationToken).ConfigureAwait(false);
 
             return WinPeResult.Success();
@@ -182,15 +181,13 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
     private static async Task WriteUnattendAsync(
         string mountedImagePath,
         WinPeArchitecture architecture,
-        bool includeTroubleshootingConsole,
         bool enableFirewall,
         CancellationToken cancellationToken)
     {
         // wpeinit (invoked from winpeshl.ini) auto-discovers X:\Unattend.xml, i.e. the root of the
         // mounted boot image. The windowsPE-pass RunSynchronous command launches the Foundry bootstrap
-        // hidden via psbootstrapper.exe. When debug mode is enabled, a RunAsynchronous command also opens
-        // a minimized, alt-tab-able troubleshooting console without blocking the bootstrap; it is omitted
-        // by default to prevent tampering.
+        // hidden via psbootstrapper.exe. Troubleshooting consoles are opened by the runtime apps from the
+        // configured shortcut instead of being started here.
         XNamespace ns = UnattendNamespaceUri;
         XNamespace wcm = WcmNamespaceUri;
         string processorArchitecture = architecture.ToCopypeArchitecture();
@@ -212,18 +209,6 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
             new XElement(ns + "EnableFirewall", enableFirewall ? "true" : "false"),
             new XElement(ns + "EnableNetwork", "true")
         ];
-
-        if (includeTroubleshootingConsole)
-        {
-            componentContent.Add(new XElement(
-                ns + "RunAsynchronous",
-                new XElement(
-                    ns + "RunAsynchronousCommand",
-                    new XAttribute(wcm + "action", "add"),
-                    new XElement(ns + "Order", "1"),
-                    new XElement(ns + "Description", "Foundry troubleshooting console"),
-                    new XElement(ns + "Path", new XCData(TroubleshootingConsoleCommand)))));
-        }
 
         componentContent.Add(new XElement(
             ns + "RunSynchronous",

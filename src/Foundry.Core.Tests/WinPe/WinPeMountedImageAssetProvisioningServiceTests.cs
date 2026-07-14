@@ -196,8 +196,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                 BootstrapScriptContent = "bootstrap",
                 CurlExecutableSourcePath = curlSourcePath,
                 PSBootstrapperSourceExecutablePath = image.PSBootstrapperSourcePath,
-                IanaWindowsTimeZoneMapJson = "{}",
-                IncludeTroubleshootingConsole = true
+                IanaWindowsTimeZoneMapJson = "{}"
             },
             CancellationToken.None);
 
@@ -237,15 +236,10 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         Assert.Contains("[LaunchApps]", winpeshl, StringComparison.Ordinal);
         Assert.Contains("wpeinit.exe", winpeshl, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("psbootstrapper", winpeshl, StringComparison.OrdinalIgnoreCase);
-
-        string asyncPath = component.Descendants(ns + "RunAsynchronousCommand").Single().Element(ns + "Path")!.Value;
-        Assert.Contains("powershell.exe", asyncPath, StringComparison.OrdinalIgnoreCase);
-        Assert.Contains("-NoExit", asyncPath, StringComparison.Ordinal);
-        Assert.Contains("-WindowStyle Minimized", asyncPath, StringComparison.Ordinal);
     }
 
     [Fact]
-    public async Task ProvisionAsync_ByDefault_OmitsTroubleshootingConsoleFromUnattend()
+    public async Task ProvisionAsync_NeverWritesAConsoleCommandIntoTheUnattend()
     {
         using TempMountedImage image = TempMountedImage.Create();
         string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");

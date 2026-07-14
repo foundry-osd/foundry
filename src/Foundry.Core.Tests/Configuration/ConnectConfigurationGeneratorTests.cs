@@ -359,6 +359,48 @@ public sealed class ConnectConfigurationGeneratorTests
         Assert.Equal(expected, result.Network.AutoContinue.DelaySeconds);
     }
 
+    [Fact]
+    public void Generate_PropagatesTheTroubleshootingConsoleShortcut()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        var generator = new ConnectConfigurationGenerator();
+
+        FoundryConnectConfigurationDocument result = generator.Generate(
+            new FoundryConfigurationDocument
+            {
+                General = new GeneralSettings
+                {
+                    BootImageContent = new WinPeBootImageContentSettings
+                    {
+                        TroubleshootingConsole = new TroubleshootingConsoleSettings
+                        {
+                            IsEnabled = true,
+                            Key = TroubleshootingConsoleKey.F10,
+                            Modifier = TroubleshootingConsoleModifier.ControlShift
+                        }
+                    }
+                }
+            },
+            tempDirectory.Path);
+
+        Assert.True(result.TroubleshootingConsole.IsEnabled);
+        Assert.Equal(TroubleshootingConsoleKey.F10, result.TroubleshootingConsole.Key);
+        Assert.Equal(TroubleshootingConsoleModifier.ControlShift, result.TroubleshootingConsole.Modifier);
+    }
+
+    [Fact]
+    public void Generate_WhenTheTroubleshootingConsoleIsNotConfigured_LeavesItDisabled()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        var generator = new ConnectConfigurationGenerator();
+
+        FoundryConnectConfigurationDocument result = generator.Generate(
+            new FoundryConfigurationDocument(),
+            tempDirectory.Path);
+
+        Assert.False(result.TroubleshootingConsole.IsEnabled);
+    }
+
     private sealed class TemporaryDirectory : IDisposable
     {
         public TemporaryDirectory()

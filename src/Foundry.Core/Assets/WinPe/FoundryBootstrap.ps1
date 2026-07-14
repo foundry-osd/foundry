@@ -1777,6 +1777,26 @@ function Resolve-ApplicationExecutable {
     return Resolve-SingleExecutable -Candidate $executable
 }
 
+function Start-TroubleshootingConsole {
+    param()
+
+    # The bootstrap runs hidden under psbootstrapper, so a failure would otherwise leave the operator with a
+    # blank WinPE session. Open an interactive console and block on it: the boot image only tears the session
+    # down once this script returns, which keeps the failure inspectable and the logs reachable.
+    try {
+        Write-Log 'Opening a troubleshooting console. Close it to restart.' -Level Warning -ConsoleMessage 'Opening a troubleshooting console. Close it to restart.'
+        Start-Process `
+            -FilePath 'powershell.exe' `
+            -ArgumentList '-NoExit', '-NoProfile', '-ExecutionPolicy', 'Bypass' `
+            -WorkingDirectory $WinPeRoot `
+            -WindowStyle Normal `
+            -Wait | Out-Null
+    }
+    catch {
+        Write-Log "Failed to open the troubleshooting console: $($_.Exception.Message)." -Level Error
+    }
+}
+
 function Invoke-DeployExecutable {
     param(
         [Parameter(Mandatory = $true)]
@@ -1999,6 +2019,7 @@ try {
 }
 catch {
     Write-Log "Foundry bootstrap failed: $($_.Exception.Message)" -Level Error -ConsoleMessage 'Foundry bootstrap failed.'
+    Start-TroubleshootingConsole
     exit 1
 }
 #endregion

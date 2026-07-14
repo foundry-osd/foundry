@@ -9,6 +9,7 @@ using Foundry.Connect.Models.Configuration;
 using ConfigurationSchemaVersions = Foundry.Core.Models.Configuration.ConfigurationSchemaVersions;
 using ConnectAutoContinueSettings = Foundry.Core.Models.Configuration.ConnectAutoContinueSettings;
 using CoreConnectNetworkSettings = Foundry.Core.Models.Configuration.ConnectNetworkSettings;
+using TroubleshootingConsoleSettings = Foundry.Core.Models.Configuration.TroubleshootingConsoleSettings;
 using Foundry.Connect.Services.Runtime;
 using Microsoft.Extensions.Logging;
 
@@ -194,6 +195,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
                 ProbeUris = probeUris,
                 TimeoutSeconds = Math.Clamp(probe.TimeoutSeconds, 1, 30)
             },
+            TroubleshootingConsole = configuration.TroubleshootingConsole ?? new TroubleshootingConsoleSettings(),
             Telemetry = configuration.Telemetry
         };
     }
@@ -258,6 +260,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
                 CertificatePfxPasswordSecret = wifi?.CertificatePfxPasswordSecret
             },
             InternetProbe = configuration.InternetProbe,
+            TroubleshootingConsole = configuration.TroubleshootingConsole,
             Telemetry = configuration.Telemetry
         };
     }

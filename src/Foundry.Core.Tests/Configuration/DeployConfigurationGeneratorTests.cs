@@ -69,6 +69,32 @@ public sealed class DeployConfigurationGeneratorTests
     }
 
     [Fact]
+    public void Generate_PropagatesTheTroubleshootingConsoleShortcut()
+    {
+        var generator = new DeployConfigurationGenerator();
+
+        FoundryDeployConfigurationDocument result = generator.Generate(new FoundryConfigurationDocument
+        {
+            General = new GeneralSettings
+            {
+                BootImageContent = new WinPeBootImageContentSettings
+                {
+                    TroubleshootingConsole = new TroubleshootingConsoleSettings
+                    {
+                        IsEnabled = true,
+                        Key = TroubleshootingConsoleKey.F6,
+                        Modifier = TroubleshootingConsoleModifier.Alt
+                    }
+                }
+            }
+        });
+
+        Assert.True(result.TroubleshootingConsole.IsEnabled);
+        Assert.Equal(TroubleshootingConsoleKey.F6, result.TroubleshootingConsole.Key);
+        Assert.Equal(TroubleshootingConsoleModifier.Alt, result.TroubleshootingConsole.Modifier);
+    }
+
+    [Fact]
     public void Generate_PropagatesTelemetrySettings()
     {
         var generator = new DeployConfigurationGenerator();

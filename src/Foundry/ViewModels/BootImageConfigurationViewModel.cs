@@ -55,7 +55,7 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
         GeneralSettings general = configurationStateService.Current.General;
         WinPeBootImageContentSettings settings = general.BootImageContent;
         EnableFirewall = settings.EnableFirewall;
-        IncludeTroubleshootingConsole = settings.IncludeTroubleshootingConsole;
+        EnableTroubleshootingConsole = settings.TroubleshootingConsole.IsEnabled;
         KeepBootWimCopy = settings.KeepBootWimCopy;
         IncludePowerShell7 = settings.IncludePowerShell7;
         ContinueOnDriverError = settings.ContinueOnDriverError;
@@ -191,8 +191,28 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
     [ObservableProperty]
     public partial bool EnableFirewall { get; set; }
 
+    [NotifyPropertyChangedFor(nameof(TroubleshootingConsoleShortcutVisibility))]
     [ObservableProperty]
-    public partial bool IncludeTroubleshootingConsole { get; set; }
+    public partial bool EnableTroubleshootingConsole { get; set; }
+
+    [ObservableProperty]
+    public partial SelectionOption<TroubleshootingConsoleKey>? SelectedTroubleshootingConsoleKey { get; set; }
+
+    [ObservableProperty]
+    public partial SelectionOption<TroubleshootingConsoleModifier>? SelectedTroubleshootingConsoleModifier { get; set; }
+
+    /// <summary>
+    /// Gets the function keys offered for the troubleshooting console shortcut.
+    /// </summary>
+    public ObservableCollection<SelectionOption<TroubleshootingConsoleKey>> TroubleshootingConsoleKeys { get; } = [];
+
+    /// <summary>
+    /// Gets the modifiers offered for the troubleshooting console shortcut.
+    /// </summary>
+    public ObservableCollection<SelectionOption<TroubleshootingConsoleModifier>> TroubleshootingConsoleModifiers { get; } = [];
+
+    public Visibility TroubleshootingConsoleShortcutVisibility =>
+        EnableTroubleshootingConsole ? Visibility.Visible : Visibility.Collapsed;
 
     [ObservableProperty]
     public partial bool KeepBootWimCopy { get; set; }
@@ -316,6 +336,32 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
         PageTitle = localizationService.GetString("BootImagePage_Title.Text");
         PageDescription = localizationService.GetString("BootImage.PageDescription");
         RebuildSections();
+        RebuildTroubleshootingConsoleShortcut();
+    }
+
+    private void RebuildTroubleshootingConsoleShortcut()
+    {
+        TroubleshootingConsoleSettings shortcut = configurationStateService.Current.General.BootImageContent.TroubleshootingConsole;
+        TroubleshootingConsoleKey selectedKey = SelectedTroubleshootingConsoleKey?.Value ?? shortcut.Key;
+        TroubleshootingConsoleModifier selectedModifier = SelectedTroubleshootingConsoleModifier?.Value ?? shortcut.Modifier;
+
+        TroubleshootingConsoleKeys.Clear();
+        foreach (TroubleshootingConsoleKey key in Enum.GetValues<TroubleshootingConsoleKey>())
+        {
+            // Function key names need no translation; the modifiers below do.
+            TroubleshootingConsoleKeys.Add(new SelectionOption<TroubleshootingConsoleKey>(key, key.ToString()));
+        }
+
+        TroubleshootingConsoleModifiers.Clear();
+        foreach (TroubleshootingConsoleModifier modifier in Enum.GetValues<TroubleshootingConsoleModifier>())
+        {
+            TroubleshootingConsoleModifiers.Add(new SelectionOption<TroubleshootingConsoleModifier>(
+                modifier,
+                localizationService.GetString($"BootImage.TroubleshootingConsole.Modifier.{modifier}")));
+        }
+
+        SelectedTroubleshootingConsoleKey = TroubleshootingConsoleKeys.First(option => option.Value == selectedKey);
+        SelectedTroubleshootingConsoleModifier = TroubleshootingConsoleModifiers.First(option => option.Value == selectedModifier);
     }
 
     /// <summary>
@@ -672,8 +718,23 @@ public sealed partial class BootImageConfigurationViewModel : ObservableObject, 
 
     partial void OnEnableFirewallChanged(bool value) => Save(current => current with { EnableFirewall = value });
 
-    partial void OnIncludeTroubleshootingConsoleChanged(bool value) =>
-        Save(current => current with { IncludeTroubleshootingConsole = value });
+    partial void OnEnableTroubleshootingConsoleChanged(bool value) => SaveTroubleshootingConsole();
+
+    partial void OnSelectedTroubleshootingConsoleKeyChanged(SelectionOption<TroubleshootingConsoleKey>? value) =>
+        SaveTroubleshootingConsole();
+
+    partial void OnSelectedTroubleshootingConsoleModifierChanged(SelectionOption<TroubleshootingConsoleModifier>? value) =>
+        SaveTroubleshootingConsole();
+
+    private void SaveTroubleshootingConsole() => Save(current => current with
+    {
+        TroubleshootingConsole = new TroubleshootingConsoleSettings
+        {
+            IsEnabled = EnableTroubleshootingConsole,
+            Key = SelectedTroubleshootingConsoleKey?.Value ?? TroubleshootingConsoleKey.F8,
+            Modifier = SelectedTroubleshootingConsoleModifier?.Value ?? TroubleshootingConsoleModifier.None
+        }
+    });
 
     partial void OnKeepBootWimCopyChanged(bool value) => Save(current => current with { KeepBootWimCopy = value });
 
