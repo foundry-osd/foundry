@@ -571,7 +571,7 @@
     <value>Predpona názvu počítača</value>
   </data>
   <data name="Customization.MachineNamingPrefixDescription" xml:space="preserve">
-    <value>Predpona použitá pred vygenerovanou alebo upraviteľnou príponou nasadenia.</value>
+    <value>Prefix applied before the generated or editable deployment suffix. The final name is truncated to 15 characters. Use variables such as:</value>
   </data>
   <data name="Customization.MachineNamingAutoGenerateLabel" xml:space="preserve">
     <value>Automaticky vygenerovať príponu názvu počítača</value>
@@ -586,7 +586,7 @@
     <value>Umožnite operátorovi nasadenia upraviť príponu za predponou.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>Prefix musí obsahovať 1 až 15 znakov od A-Z, a-z, 0-9 alebo -.</value>
+    <value>Prefix must use A-Z, a-z, 0-9, -, or a variable such as ${SERIALNUMBER}.</value>
   </data>
   <data name="Customization.OobeHeader" xml:space="preserve">
     <value>Skúsenosti mimo krabice</value>
@@ -2129,5 +2129,269 @@
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Skontrolujte pripravenosť, vyberte výstup ISO alebo USB a spustite vytvorenie média.</value>
+  </data>
+  <data name="StartMedia.Operation.TaskProgressFormat" xml:space="preserve">
+    <value>Task {0} of {1}: {2}</value>
+  </data>
+  <data name="StartMedia.Operation.DriverPackageProgressFormat" xml:space="preserve">
+    <value>Driver package {0} of {1}</value>
+  </data>
+  <data name="Nav_BootImageKey.Title" xml:space="preserve">
+    <value>Boot Image</value>
+  </data>
+  <data name="Nav_BootImageKey.Subtitle" xml:space="preserve">
+    <value>Boot Image</value>
+  </data>
+  <data name="Nav_BootImageKey.Description" xml:space="preserve">
+    <value>Optional components, PowerShell, and boot image content.</value>
+  </data>
+  <data name="BootImagePage_Title.Text" xml:space="preserve">
+    <value>Boot Image</value>
+  </data>
+  <data name="BootImage.PageDescription" xml:space="preserve">
+    <value>Customize optional components, PowerShell integration, and boot image content.</value>
+  </data>
+  <data name="BootImage.BootBehavior.Header" xml:space="preserve">
+    <value>Boot behavior</value>
+  </data>
+  <data name="BootImage.BootBehavior.Description" xml:space="preserve">
+    <value>Firewall, recovery image, and troubleshooting console options.</value>
+  </data>
+  <data name="BootImage.Firewall.On" xml:space="preserve">
+    <value>Firewall enabled</value>
+  </data>
+  <data name="BootImage.Firewall.Off" xml:space="preserve">
+    <value>Firewall disabled</value>
+  </data>
+  <data name="BootImage.KeepWim.Header" xml:space="preserve">
+    <value>Keep a copy of boot.wim</value>
+  </data>
+  <data name="BootImage.KeepWim.Description" xml:space="preserve">
+    <value>Save a copy of boot.wim next to the ISO after creation.</value>
+  </data>
+  <data name="BootImage.TroubleshootingConsole.Header" xml:space="preserve">
+    <value>Troubleshooting console</value>
+  </data>
+  <data name="BootImage.TroubleshootingConsole.Description" xml:space="preserve">
+    <value>Lets an operator open an interactive PowerShell console from Foundry Connect or Foundry Deploy with a keyboard shortcut. Off by default.</value>
+  </data>
+  <data name="BootImage.OptionalComponents.Header" xml:space="preserve">
+    <value>Optional components</value>
+  </data>
+  <data name="BootImage.OptionalComponents.Description" xml:space="preserve">
+    <value>WinPE optional components discovered from the installed ADK.</value>
+  </data>
+  <data name="BootImage.OptionalComponents.AdkBlocked" xml:space="preserve">
+    <value>Install the Windows ADK to select optional components.</value>
+  </data>
+  <data name="BootImage.OptionalComponents.Unavailable" xml:space="preserve">
+    <value>No optional components were found for the selected architecture.</value>
+  </data>
+  <data name="BootImage.PowerShell7.Header" xml:space="preserve">
+    <value>PowerShell 7</value>
+  </data>
+  <data name="BootImage.PowerShell7.Description" xml:space="preserve">
+    <value>Integrate PowerShell 7 into the boot image.</value>
+  </data>
+  <data name="BootImage.PowerShell7.VersionHeader" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="BootImage.PowerShell7.Loading" xml:space="preserve">
+    <value>Loading available releases...</value>
+  </data>
+  <data name="BootImage.PowerShell7.Unavailable" xml:space="preserve">
+    <value>Could not load PowerShell 7 releases. The latest release will be used.</value>
+  </data>
+  <data name="BootImage.Modules.Header" xml:space="preserve">
+    <value>PowerShell modules</value>
+  </data>
+  <data name="BootImage.Modules.Description" xml:space="preserve">
+    <value>Add modules from the PowerShell Gallery or a local folder.</value>
+  </data>
+  <data name="BootImage.Modules.SearchPlaceholder" xml:space="preserve">
+    <value>Search the PowerShell Gallery</value>
+  </data>
+  <data name="BootImage.Modules.SearchButton" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="BootImage.Modules.AddLocalButton" xml:space="preserve">
+    <value>Add local folder</value>
+  </data>
+  <data name="BootImage.Modules.Searching" xml:space="preserve">
+    <value>Searching the PowerShell Gallery...</value>
+  </data>
+  <data name="BootImage.Modules.NoResults" xml:space="preserve">
+    <value>No modules matched your search.</value>
+  </data>
+  <data name="BootImage.Modules.SearchFailed" xml:space="preserve">
+    <value>The PowerShell Gallery search failed.</value>
+  </data>
+  <data name="BootImage.Modules.LocalPicker.Title" xml:space="preserve">
+    <value>Select a module folder</value>
+  </data>
+  <data name="BootImage.RootFolders.Header" xml:space="preserve">
+    <value>Additional root folders</value>
+  </data>
+  <data name="BootImage.RootFolders.Description" xml:space="preserve">
+    <value>Copy each folder into a relative destination inside the boot image. Set the destination to \ for the image root, or for example \Windows to copy into the image Windows folder.</value>
+  </data>
+  <data name="BootImage.RootFolders.AddButton" xml:space="preserve">
+    <value>Add folder</value>
+  </data>
+  <data name="BootImage.RootFolders.Picker.Title" xml:space="preserve">
+    <value>Select a folder to copy</value>
+  </data>
+  <data name="Common.Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Common.Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="BootImage.Firewall.Header" xml:space="preserve">
+    <value>Firewall</value>
+  </data>
+  <data name="BootImage.Firewall.Description" xml:space="preserve">
+    <value>Enable the boot image firewall.</value>
+  </data>
+  <data name="BootImage.Section.Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="BootImage.Section.OptionalComponents" xml:space="preserve">
+    <value>Optional Components</value>
+  </data>
+  <data name="BootImage.Section.PowerShell" xml:space="preserve">
+    <value>PowerShell</value>
+  </data>
+  <data name="BootImage.Section.Modules" xml:space="preserve">
+    <value>Modules</value>
+  </data>
+  <data name="BootImage.Section.AdditionalFolders" xml:space="preserve">
+    <value>Additional Folders</value>
+  </data>
+  <data name="BootImage.Modules.GalleryHeader" xml:space="preserve">
+    <value>PowerShell Gallery</value>
+  </data>
+  <data name="BootImage.Modules.LocalHeader" xml:space="preserve">
+    <value>Local folder</value>
+  </data>
+  <data name="BootImage.Modules.LocalDescription" xml:space="preserve">
+    <value>Add a module from a local folder in Save-Module layout (ModuleName\ModuleVersion). Select the version folder.</value>
+  </data>
+  <data name="BootImage.Modules.SelectedHeader" xml:space="preserve">
+    <value>Selected modules</value>
+  </data>
+  <data name="StartMedia.Operation.OptionalComponentProgressFormat" xml:space="preserve">
+    <value>Optional component {0} of {1}</value>
+  </data>
+  <data name="BootImage.Modules.SelectedGalleryHeader" xml:space="preserve">
+    <value>Selected Gallery modules</value>
+  </data>
+  <data name="BootImage.Modules.SelectedLocalHeader" xml:space="preserve">
+    <value>Selected local modules</value>
+  </data>
+  <data name="BootImage.PowerShell7.DownloadHeader" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="BootImage.PowerShell7.CopyButton" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="BootImage.Section.Drivers" xml:space="preserve">
+    <value>Drivers</value>
+  </data>
+  <data name="BootImage.Drivers.VendorsHeader" xml:space="preserve">
+    <value>Driver packs</value>
+  </data>
+  <data name="BootImage.Drivers.VendorsDescription" xml:space="preserve">
+    <value>Include vendor WinPE driver packs.</value>
+  </data>
+  <data name="BootImage.Drivers.Dell" xml:space="preserve">
+    <value>Dell</value>
+  </data>
+  <data name="BootImage.Drivers.Hp" xml:space="preserve">
+    <value>HP</value>
+  </data>
+  <data name="BootImage.Drivers.FoldersHeader" xml:space="preserve">
+    <value>Driver folders</value>
+  </data>
+  <data name="BootImage.Drivers.FoldersDescription" xml:space="preserve">
+    <value>Add folders that contain drivers (.inf packages) to inject into the boot image.</value>
+  </data>
+  <data name="BootImage.Drivers.AddButton" xml:space="preserve">
+    <value>Add driver folder</value>
+  </data>
+  <data name="BootImage.Drivers.Picker.Title" xml:space="preserve">
+    <value>Select a folder that contains drivers</value>
+  </data>
+  <data name="BootImage.Drivers.ContinueOnErrorHeader" xml:space="preserve">
+    <value>Continue on driver error</value>
+  </data>
+  <data name="BootImage.Drivers.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Skip a driver that fails to inject and continue the build instead of failing.</value>
+  </data>
+  <data name="BootImage.Drivers.DellDescription" xml:space="preserve">
+    <value>Include Dell WinPE driver packs.</value>
+  </data>
+  <data name="BootImage.Drivers.HpDescription" xml:space="preserve">
+    <value>Include HP WinPE driver packs.</value>
+  </data>
+  <data name="BootImage.Folders.SourceLabel" xml:space="preserve">
+    <value>Source:</value>
+  </data>
+  <data name="BootImage.Folders.DestinationLabel" xml:space="preserve">
+    <value>Boot Image Relative Destination:</value>
+  </data>
+  <data name="Network.AutoContinueSectionTitle" xml:space="preserve">
+    <value>Auto-continue</value>
+  </data>
+  <data name="Network.AutoContinueHelperText" xml:space="preserve">
+    <value>Controls whether Foundry Connect continues the deployment automatically after it validates Internet access.</value>
+  </data>
+  <data name="Network.AutoContinueEnableLabel" xml:space="preserve">
+    <value>Continue automatically once connected</value>
+  </data>
+  <data name="Network.AutoContinueDelayLabel" xml:space="preserve">
+    <value>Countdown before continuing (seconds)</value>
+  </data>
+  <data name="Network.AutoContinueDelayHelperText" xml:space="preserve">
+    <value>Foundry Connect waits this long before continuing. Use 0 to continue immediately; the maximum is 300 seconds.</value>
+  </data>
+  <data name="BootImage.Wallpaper.Header" xml:space="preserve">
+    <value>Boot image wallpaper</value>
+  </data>
+  <data name="BootImage.Wallpaper.Description" xml:space="preserve">
+    <value>Replaces the WinPE desktop background. JPEG, PNG, and BMP images are accepted; PNG and BMP are converted to JPEG when the image is built.</value>
+  </data>
+  <data name="BootImage.Wallpaper.None" xml:space="preserve">
+    <value>Default WinPE background</value>
+  </data>
+  <data name="BootImage.Wallpaper.ClearButton" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="BootImage.Wallpaper.Picker.Title" xml:space="preserve">
+    <value>Select a boot image wallpaper</value>
+  </data>
+  <data name="BootImage.TroubleshootingConsole.ShortcutHeader" xml:space="preserve">
+    <value>Console shortcut</value>
+  </data>
+  <data name="BootImage.TroubleshootingConsole.ShortcutDescription" xml:space="preserve">
+    <value>The key combination that opens the console while Foundry Connect or Foundry Deploy is on screen.</value>
+  </data>
+  <data name="BootImage.TroubleshootingConsole.Modifier.None" xml:space="preserve">
+    <value>No modifier</value>
+  </data>
+  <data name="BootImage.TroubleshootingConsole.Modifier.Control" xml:space="preserve">
+    <value>Ctrl</value>
+  </data>
+  <data name="BootImage.TroubleshootingConsole.Modifier.Alt" xml:space="preserve">
+    <value>Alt</value>
+  </data>
+  <data name="BootImage.TroubleshootingConsole.Modifier.Shift" xml:space="preserve">
+    <value>Shift</value>
+  </data>
+  <data name="BootImage.TroubleshootingConsole.Modifier.ControlShift" xml:space="preserve">
+    <value>Ctrl+Shift</value>
+  </data>
+  <data name="BootImage.TroubleshootingConsole.Modifier.ControlAlt" xml:space="preserve">
+    <value>Ctrl+Alt</value>
   </data>
 </root>

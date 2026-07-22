@@ -49,6 +49,11 @@ public sealed record FoundryDeployConfigurationDocument
     public DeployAutopilotSettings Autopilot { get; init; } = new();
 
     /// <summary>
+    /// Gets the shortcut that opens an interactive PowerShell troubleshooting console.
+    /// </summary>
+    public TroubleshootingConsoleSettings TroubleshootingConsole { get; init; } = new();
+
+    /// <summary>
     /// Gets telemetry policy and runtime settings for Foundry.Deploy.
     /// </summary>
     public TelemetrySettings Telemetry { get; init; } = new();

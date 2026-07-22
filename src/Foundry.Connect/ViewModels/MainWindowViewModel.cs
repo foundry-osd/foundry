@@ -21,6 +21,7 @@ using Foundry.Connect.Services.Theme;
 using Foundry.Localization;
 using Foundry.Telemetry;
 using Microsoft.Extensions.Logging;
+using ConnectAutoContinueSettings = Foundry.Core.Models.Configuration.ConnectAutoContinueSettings;
 using ConnectThemeMode = Foundry.Connect.Services.Theme.ThemeMode;
 
 namespace Foundry.Connect.ViewModels;
@@ -54,6 +55,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly SemaphoreSlim _successfulExitGate = new(1, 1);
     private readonly CancellationTokenSource _disposeCts = new();
     private readonly bool _isAutoCloseEnabled;
+    private readonly int _autoContinueDelaySeconds;
 
     private CancellationTokenSource? _countdownCts;
     private bool _isInitialized;
@@ -172,7 +174,11 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _telemetryService = telemetryService;
         _logger = logger;
         _dispatcher = Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
-        _isAutoCloseEnabled = !Debugger.IsAttached;
+
+        ConnectAutoContinueSettings autoContinue = configuration.Network?.AutoContinue ?? new ConnectAutoContinueSettings();
+        _isAutoCloseEnabled = autoContinue.IsEnabled && !Debugger.IsAttached;
+        _autoContinueDelaySeconds = ConnectAutoContinueSettings.ClampDelaySeconds(autoContinue.DelaySeconds);
+
         LayoutMode = NetworkLayoutMode.EthernetOnly;
         LocalizationService.LanguageChanged += OnLanguageChanged;
         RefreshSupportedCultures();
@@ -724,7 +730,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     {
         CancelCountdown();
 
-        CountdownSecondsRemaining = FoundryConnectApplicationInfo.DefaultAutoContinueDelaySeconds;
+        CountdownSecondsRemaining = _autoContinueDelaySeconds;
         IsCountdownActive = true;
         OnPropertyChanged(nameof(AutoContinueText));
 

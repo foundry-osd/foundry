@@ -82,16 +82,6 @@ public sealed partial class GeneralConfigurationPage : Page
         TimeZoneCard.Header = localizationService.GetString("GeneralConfiguration.TimeZone.Header");
         TimeZoneCard.Description = localizationService.GetString("GeneralConfiguration.TimeZone.Description");
 
-        DriverOptionsCard.Header = localizationService.GetString("StartMedia.DriverOptions.Header");
-        DriverOptionsCard.Description = localizationService.GetString("StartMedia.DriverOptions.Description");
-        DellDriversToggle.OnContent = localizationService.GetString("StartMedia.DriverOptions.Dell");
-        DellDriversToggle.OffContent = localizationService.GetString("StartMedia.DriverOptions.Dell");
-        HpDriversToggle.OnContent = localizationService.GetString("StartMedia.DriverOptions.Hp");
-        HpDriversToggle.OffContent = localizationService.GetString("StartMedia.DriverOptions.Hp");
-        CustomDriverDirectoryCard.Header = localizationService.GetString("StartMedia.CustomDrivers.Header");
-        CustomDriverDirectoryCard.Description = localizationService.GetString("StartMedia.CustomDrivers.Description");
-        BrowseCustomDriversButton.Content = localizationService.GetString("Common.Browse");
-
         CreateMediaCard.Header = localizationService.GetString("GeneralConfiguration_CreateMedia.Header");
         CreateMediaCard.Description = localizationService.GetString("GeneralConfiguration_CreateMedia.Description");
         CreateMediaButton.Content = localizationService.GetString("GeneralConfiguration_CreateMedia.Button");

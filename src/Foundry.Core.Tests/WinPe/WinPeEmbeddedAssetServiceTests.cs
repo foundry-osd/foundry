@@ -61,6 +61,18 @@ public sealed class WinPeEmbeddedAssetServiceTests
     }
 
     [Fact]
+    public void GetPSBootstrapperSourceExecutablePath_ReturnsArchitectureSpecificPath()
+    {
+        var service = new WinPeEmbeddedAssetService();
+
+        string x64Path = service.GetPSBootstrapperSourceExecutablePath(WinPeArchitecture.X64);
+        string arm64Path = service.GetPSBootstrapperSourceExecutablePath(WinPeArchitecture.Arm64);
+
+        Assert.EndsWith(Path.Combine("Assets", "PSBootstrapper", "x64", "psbootstrapper.exe"), x64Path, StringComparison.OrdinalIgnoreCase);
+        Assert.EndsWith(Path.Combine("Assets", "PSBootstrapper", "arm64", "psbootstrapper.exe"), arm64Path, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
     public void GetBootstrapScriptContent_KeepsWiredNetworkStartupNonFatal()
     {
         var service = new WinPeEmbeddedAssetService();

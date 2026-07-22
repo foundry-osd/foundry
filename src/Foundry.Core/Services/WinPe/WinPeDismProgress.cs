@@ -9,4 +9,15 @@ public sealed record WinPeDismProgress
     public int Percent { get; init; }
 
     public string Status { get; init; } = string.Empty;
+
+    /// <summary>
+    /// Gets the optional 1-based index of the current item within a multi-item stage (for example the
+    /// optional component being applied).
+    /// </summary>
+    public int? ItemIndex { get; init; }
+
+    /// <summary>
+    /// Gets the optional total number of items within a multi-item stage.
+    /// </summary>
+    public int? ItemCount { get; init; }
 }

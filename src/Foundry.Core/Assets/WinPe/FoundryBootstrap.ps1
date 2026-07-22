@@ -1777,14 +1777,43 @@ function Resolve-ApplicationExecutable {
     return Resolve-SingleExecutable -Candidate $executable
 }
 
-function Start-DeployExecutable {
+function Start-TroubleshootingConsole {
+    param()
+
+    # The bootstrap runs hidden under psbootstrapper, so a failure would otherwise leave the operator with a
+    # blank WinPE session. Open an interactive console and block on it: the boot image only tears the session
+    # down once this script returns, which keeps the failure inspectable and the logs reachable.
+    try {
+        Write-Log 'Opening a troubleshooting console. Close it to restart.' -Level Warning -ConsoleMessage 'Opening a troubleshooting console. Close it to restart.'
+        Start-Process `
+            -FilePath 'powershell.exe' `
+            -ArgumentList '-NoExit', '-NoProfile', '-ExecutionPolicy', 'Bypass' `
+            -WorkingDirectory $WinPeRoot `
+            -WindowStyle Normal `
+            -Wait | Out-Null
+    }
+    catch {
+        Write-Log "Failed to open the troubleshooting console: $($_.Exception.Message)." -Level Error
+    }
+}
+
+function Invoke-DeployExecutable {
     param(
         [Parameter(Mandatory = $true)]
         [System.IO.FileInfo]$Executable
     )
 
+    # The bootstrap must not return while Foundry.Deploy is running. winpeshl.ini launches wpeinit, which
+    # runs this script synchronously through the Unattend.xml RunSynchronous command; once winpeshl has no
+    # running app left, WinPE tears the session down and would take a detached Foundry.Deploy with it.
     Write-Log "Launching '$($Executable.FullName)'." -ConsoleMessage 'Foundry.Deploy: launching...'
-    Start-Process -FilePath $Executable.FullName -WorkingDirectory $Executable.DirectoryName | Out-Null
+    $process = Start-Process `
+        -FilePath $Executable.FullName `
+        -WorkingDirectory $Executable.DirectoryName `
+        -Wait `
+        -PassThru
+
+    return $process.ExitCode
 }
 
 function Invoke-ConnectExecutable {
@@ -1977,13 +2006,20 @@ try {
         -Headers $headers `
         -SkipReleaseLookup:$skipDeployReleaseLookup
 
-    Start-DeployExecutable -Executable $deployExecutable
+    $deployExitCode = Invoke-DeployExecutable -Executable $deployExecutable
+
+    if ($deployExitCode -ne 0) {
+        throw "Foundry.Deploy exited with code $deployExitCode."
+    }
+
+    Write-Log 'Foundry.Deploy completed successfully.' -ConsoleMessage 'Foundry.Deploy: completed successfully.'
 
     Write-ConsoleSection -Title 'Completed'
     Write-Log 'Foundry bootstrap completed successfully.' -ConsoleMessage 'Foundry bootstrap completed successfully.'
 }
 catch {
     Write-Log "Foundry bootstrap failed: $($_.Exception.Message)" -Level Error -ConsoleMessage 'Foundry bootstrap failed.'
+    Start-TroubleshootingConsole
     exit 1
 }
 #endregion

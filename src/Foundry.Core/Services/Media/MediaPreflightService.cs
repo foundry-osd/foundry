@@ -46,14 +46,14 @@ public static class MediaPreflightService
             usbReasons.Add(MediaPreflightBlockingReason.Arm64RequiresGpt);
         }
 
-        if (!string.IsNullOrWhiteSpace(options.CustomDriverDirectoryPath))
+        foreach (string driverDirectory in options.CustomDriverDirectoryPaths.Where(path => !string.IsNullOrWhiteSpace(path)))
         {
-            if (!Directory.Exists(options.CustomDriverDirectoryPath))
+            if (!Directory.Exists(driverDirectory))
             {
                 isoReasons.Add(MediaPreflightBlockingReason.CustomDriverDirectoryNotFound);
                 usbReasons.Add(MediaPreflightBlockingReason.CustomDriverDirectoryNotFound);
             }
-            else if (!Directory.EnumerateFiles(options.CustomDriverDirectoryPath, "*.inf", SearchOption.AllDirectories).Any())
+            else if (!Directory.EnumerateFiles(driverDirectory, "*.inf", SearchOption.AllDirectories).Any())
             {
                 isoReasons.Add(MediaPreflightBlockingReason.CustomDriverDirectoryHasNoInfFiles);
                 usbReasons.Add(MediaPreflightBlockingReason.CustomDriverDirectoryHasNoInfFiles);

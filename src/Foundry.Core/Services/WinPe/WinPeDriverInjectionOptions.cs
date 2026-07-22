@@ -12,4 +12,10 @@ public sealed record WinPeDriverInjectionOptions
     public string? DismExecutablePath { get; init; }
     public string WorkingDirectoryPath { get; init; } = string.Empty;
     public IProgress<WinPeDismProgress>? DismProgress { get; init; }
+
+    /// <summary>
+    /// Gets a value indicating whether a driver package that fails to inject is skipped (with a warning)
+    /// so remaining packages continue, instead of failing the whole operation.
+    /// </summary>
+    public bool ContinueOnError { get; init; }
 }

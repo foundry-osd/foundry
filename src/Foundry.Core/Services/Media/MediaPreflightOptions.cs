@@ -120,12 +120,64 @@ public sealed record MediaPreflightOptions
     public IReadOnlyList<WinPeVendorSelection> DriverVendors { get; init; } = [];
 
     /// <summary>
-    /// Gets an optional custom driver directory.
+    /// Gets optional folders that contain drivers to inject into the boot image.
     /// </summary>
-    public string? CustomDriverDirectoryPath { get; init; }
+    public IReadOnlyList<string> CustomDriverDirectoryPaths { get; init; } = [];
+
+    /// <summary>
+    /// Gets a value indicating whether a driver package that fails to inject is skipped so the build continues.
+    /// </summary>
+    public bool ContinueOnDriverError { get; init; } = true;
 
     /// <summary>
     /// Gets the selected USB target disk, if USB creation is requested.
     /// </summary>
     public WinPeUsbDiskCandidate? SelectedUsbDisk { get; init; }
+
+    /// <summary>
+    /// Gets the WinPE optional component names selected for the boot image. When empty, Foundry's
+    /// recommended defaults are applied.
+    /// </summary>
+    public IReadOnlyList<string> OptionalComponents { get; init; } = [];
+
+    /// <summary>
+    /// Gets a value indicating whether the boot image firewall is enabled.
+    /// </summary>
+    public bool EnableFirewall { get; init; } = true;
+
+    /// <summary>
+    /// Gets a value indicating whether the minimized troubleshooting PowerShell console is included.
+    /// </summary>
+    public bool IncludeTroubleshootingConsole { get; init; }
+
+    /// <summary>
+    /// Gets a value indicating whether a copy of the boot.wim is kept next to the ISO after creation.
+    /// </summary>
+    public bool KeepBootWimCopy { get; init; }
+
+    /// <summary>
+    /// Gets a value indicating whether PowerShell 7 is integrated into the boot image.
+    /// </summary>
+    public bool IncludePowerShell7 { get; init; }
+
+    /// <summary>
+    /// Gets the selected PowerShell 7 release version. When empty, the latest stable release is resolved.
+    /// </summary>
+    public string? PowerShell7Version { get; init; }
+
+    /// <summary>
+    /// Gets the PowerShell modules selected for integration into the boot image.
+    /// </summary>
+    public IReadOnlyList<PowerShellModuleSelection> PowerShellModules { get; init; } = [];
+
+    /// <summary>
+    /// Gets the additional folders whose contents are copied into a relative destination inside the boot image.
+    /// </summary>
+    public IReadOnlyList<WinPeAdditionalRootFolder> AdditionalRootFolders { get; init; } = [];
+
+    /// <summary>
+    /// Gets the image used as the WinPE desktop background. It is provisioned as
+    /// <c>%WINDIR%\System32\winpe.jpg</c>, converting PNG or BMP input to JPEG.
+    /// </summary>
+    public string? WallpaperPath { get; init; }
 }

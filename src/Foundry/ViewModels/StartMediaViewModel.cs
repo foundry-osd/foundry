@@ -34,6 +34,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IWinPeLanguageDiscoveryService languageDiscoveryService;
     private readonly IWinPeEmbeddedAssetService embeddedAssetService;
     private readonly IWinPeBuildService buildService;
+    private readonly IPowerShell7ReleaseService powerShell7ReleaseService;
     private readonly IWinPeWorkspacePreparationService workspacePreparationService;
     private readonly IWinPeIsoMediaService isoMediaService;
     private readonly IWinPeUsbMediaService usbMediaService;
@@ -59,6 +60,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IWinPeLanguageDiscoveryService languageDiscoveryService,
         IWinPeEmbeddedAssetService embeddedAssetService,
         IWinPeBuildService buildService,
+        IPowerShell7ReleaseService powerShell7ReleaseService,
         IWinPeWorkspacePreparationService workspacePreparationService,
         IWinPeIsoMediaService isoMediaService,
         IWinPeUsbMediaService usbMediaService,
@@ -77,6 +79,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         this.languageDiscoveryService = languageDiscoveryService;
         this.embeddedAssetService = embeddedAssetService;
         this.buildService = buildService;
+        this.powerShell7ReleaseService = powerShell7ReleaseService;
         this.workspacePreparationService = workspacePreparationService;
         this.isoMediaService = isoMediaService;
         this.usbMediaService = usbMediaService;
@@ -105,7 +108,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         RebuildPartitionStyles();
         IncludeDellDrivers = general.IncludeDellDrivers;
         IncludeHpDrivers = general.IncludeHpDrivers;
-        CustomDriverDirectoryPath = general.CustomDriverDirectoryPath ?? string.Empty;
 
         adkService.StatusChanged += OnAdkStatusChanged;
         foundryConfigurationStateService.StateChanged += OnFoundryConfigurationStateChanged;
@@ -177,9 +179,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     [ObservableProperty]
     public partial bool IncludeHpDrivers { get; set; }
-
-    [ObservableProperty]
-    public partial string CustomDriverDirectoryPath { get; set; }
 
     [ObservableProperty]
     public partial SelectionOption<WinPeUsbDiskCandidate>? SelectedUsbDisk { get; set; }
@@ -525,6 +524,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     PreparedWorkspace = workspace.PreparedWorkspace,
                     OutputIsoPath = options.IsoOutputPath,
                     IsoTempDirectoryPath = Path.Combine(Constants.TempDirectoryPath, "Iso"),
+                    KeepBootWimCopy = options.KeepBootWimCopy,
                     Progress = telemetryProgressTracker.CreateFinalMediaProgress(
                         new Progress<WinPeMediaProgress>(ReportFinalMediaProgress))
                 },
@@ -706,7 +706,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 options.BootImageSource,
                 includeRuntimePayloadInImage,
                 options.DriverVendors.Count,
-                !string.IsNullOrWhiteSpace(options.CustomDriverDirectoryPath),
+                options.CustomDriverDirectoryPaths.Count > 0,
                 options.IsAutopilotEnabled,
                 runtimePayloadProvisioning.Connect.IsEnabled,
                 ResolveProvisioningSource(runtimePayloadProvisioning.Connect),
@@ -769,8 +769,12 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     BootImageSource = options.BootImageSource,
                     DriverCatalogUri = new WinPeDriverCatalogOptions().CatalogUri,
                     DriverVendors = options.DriverVendors,
-                    CustomDriverDirectoryPath = options.CustomDriverDirectoryPath,
+                    CustomDriverDirectoryPaths = options.CustomDriverDirectoryPaths,
+                    ContinueOnDriverError = options.ContinueOnDriverError,
                     WinPeLanguage = options.WinPeLanguage,
+                    OptionalComponents = options.OptionalComponents,
+                    PowerShell7 = await ResolvePowerShell7SettingsAsync(options, cancellationToken),
+                    PowerShellModules = CreatePowerShellModuleSettings(options),
                     AssetProvisioning = CreateAssetProvisioningOptions(options, tools, connectBundle, runtimePayloadProvisioning, deployTelemetrySettings),
                     RuntimePayloadProvisioning = includeRuntimePayloadInImage ? artifactRuntimePayloadProvisioning : null,
                     WinReCacheDirectoryPath = Constants.WinReTempDirectoryPath,
@@ -831,6 +835,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         {
             BootstrapScriptContent = embeddedAssetService.GetBootstrapScriptContent(),
             CurlExecutableSourcePath = ResolveCurlExecutablePath(),
+            PSBootstrapperSourceExecutablePath = embeddedAssetService.GetPSBootstrapperSourceExecutablePath(options.Architecture),
             SevenZipSourceDirectoryPath = embeddedAssetService.GetSevenZipSourceDirectoryPath(),
             IanaWindowsTimeZoneMapJson = embeddedAssetService.GetIanaWindowsTimeZoneMapJson(),
             FoundryConnectConfigurationJson = connectBundle.ConfigurationJson,
@@ -845,7 +850,63 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 ? foundryConfigurationStateService.Current.Autopilot.Profiles
                 : [],
             ConnectProvisioningSource = ResolveProvisioningSource(runtimePayloadProvisioning.Connect),
-            DeployProvisioningSource = ResolveProvisioningSource(runtimePayloadProvisioning.Deploy)
+            DeployProvisioningSource = ResolveProvisioningSource(runtimePayloadProvisioning.Deploy),
+            EnableFirewall = options.EnableFirewall,
+            AdditionalRootFolders = options.AdditionalRootFolders,
+            WallpaperSourcePath = options.WallpaperPath
+        };
+    }
+
+    private async Task<WinPePowerShell7Settings?> ResolvePowerShell7SettingsAsync(
+        MediaPreflightOptions options,
+        CancellationToken cancellationToken)
+    {
+        if (!options.IncludePowerShell7)
+        {
+            return null;
+        }
+
+        WinPeResult<IReadOnlyList<PowerShell7Release>> releasesResult =
+            await powerShell7ReleaseService.GetLatestStableReleasesAsync(options.Architecture, 10, cancellationToken);
+
+        if (!releasesResult.IsSuccess || releasesResult.Value is not { Count: > 0 } releases)
+        {
+            logger.Warning(
+                "PowerShell 7 release lookup returned no releases; skipping integration. ErrorCode={ErrorCode}",
+                releasesResult.Error?.Code);
+            return null;
+        }
+
+        PowerShell7Release fallback = releases[0];
+        PowerShell7Release selected = releases.FirstOrDefault(release =>
+            string.Equals(release.Version, options.PowerShell7Version, StringComparison.OrdinalIgnoreCase)) ?? fallback;
+
+        logger.Debug(
+            "Resolved PowerShell 7 integration. RequestedVersion={RequestedVersion}, SelectedVersion={SelectedVersion}, FallbackVersion={FallbackVersion}",
+            options.PowerShell7Version,
+            selected.Version,
+            fallback.Version);
+
+        return new WinPePowerShell7Settings
+        {
+            IsEnabled = true,
+            Release = selected,
+            FallbackRelease = fallback,
+            CacheDirectoryPath = Path.Combine(Constants.TempDirectoryPath, "PowerShell7")
+        };
+    }
+
+    private static WinPePowerShellModuleSettings? CreatePowerShellModuleSettings(MediaPreflightOptions options)
+    {
+        if (options.PowerShellModules.Count == 0)
+        {
+            return null;
+        }
+
+        return new WinPePowerShellModuleSettings
+        {
+            Modules = options.PowerShellModules,
+            CacheDirectoryPath = Path.Combine(Constants.TempDirectoryPath, "PowerShellModules")
         };
     }
 
@@ -893,21 +954,51 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             ? localizationService.GetString("StartMedia.Operation.PreparingWorkspace")
             : LocalizeCustomizationStatus(progress.Status);
 
+        // Outer "Task X of N" wrapper on the primary status line.
+        if (progress.TaskIndex.HasValue && progress.TaskCount.HasValue)
+        {
+            status = localizationService.FormatString(
+                "StartMedia.Operation.TaskProgressFormat",
+                progress.TaskIndex.Value,
+                progress.TaskCount.Value,
+                status);
+        }
+
+        // Inner action line: "Driver package X of N" / "Optional component X of N" prepended to any DISM detail.
+        string detailStatus = LocalizeDismProgressStatus(progress.DetailStatus);
+        if (progress.ItemIndex.HasValue && progress.ItemCount.HasValue)
+        {
+            string itemFormatKey = progress.ItemCategory == WinPeCustomizationItemCategory.OptionalComponent
+                ? "StartMedia.Operation.OptionalComponentProgressFormat"
+                : "StartMedia.Operation.DriverPackageProgressFormat";
+            string itemStatus = localizationService.FormatString(
+                itemFormatKey,
+                progress.ItemIndex.Value,
+                progress.ItemCount.Value);
+            detailStatus = string.IsNullOrWhiteSpace(detailStatus)
+                ? itemStatus
+                : $"{itemStatus} — {detailStatus}";
+        }
+
         logger.Debug(
-            "WinPE image customization progress changed. CoreStatus={CoreStatus}, Percent={Percent}, NormalizedProgress={NormalizedProgress}, DetailStatus={DetailStatus}, DetailPercent={DetailPercent}",
+            "WinPE image customization progress changed. CoreStatus={CoreStatus}, Percent={Percent}, NormalizedProgress={NormalizedProgress}, TaskIndex={TaskIndex}, TaskCount={TaskCount}, ItemIndex={ItemIndex}, ItemCount={ItemCount}, DetailStatus={DetailStatus}, DetailPercent={DetailPercent}",
             progress.Status,
             progress.Percent,
             normalizedProgress,
+            progress.TaskIndex,
+            progress.TaskCount,
+            progress.ItemIndex,
+            progress.ItemCount,
             progress.DetailStatus,
             progress.DetailPercent);
 
-        if (progress.DetailPercent.HasValue || !string.IsNullOrWhiteSpace(progress.DetailStatus))
+        if (progress.DetailPercent.HasValue || !string.IsNullOrWhiteSpace(detailStatus))
         {
             operationProgressService.Report(
                 normalizedProgress,
                 status,
                 progress.DetailPercent,
-                LocalizeDismProgressStatus(progress.DetailStatus));
+                detailStatus);
             return;
         }
 
@@ -1314,7 +1405,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         SelectedFormatMode = SelectOption(FormatModes, general.UsbFormatMode);
         IncludeDellDrivers = general.IncludeDellDrivers;
         IncludeHpDrivers = general.IncludeHpDrivers;
-        CustomDriverDirectoryPath = general.CustomDriverDirectoryPath ?? string.Empty;
     }
 
     private MediaPreflightOptions CreatePreflightOptions()
@@ -1331,6 +1421,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
 
         AutopilotConfigurationValidationResult autopilotValidation = foundryConfigurationStateService.AutopilotConfigurationValidation;
+        WinPeBootImageContentSettings bootImage = foundryConfigurationStateService.Current.General.BootImageContent;
 
         return new MediaPreflightOptions
         {
@@ -1355,8 +1446,21 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             AvailableWinPeLanguages = availableWinPeLanguages,
             BootImageSource = ResolveBootImageSource(),
             DriverVendors = vendors,
-            CustomDriverDirectoryPath = CustomDriverDirectoryPath,
-            SelectedUsbDisk = SelectedUsbDisk?.Value
+            CustomDriverDirectoryPaths = bootImage.DriverFolders
+                .Where(folder => folder.IsEnabled && !string.IsNullOrWhiteSpace(folder.Path))
+                .Select(folder => folder.Path)
+                .ToList(),
+            ContinueOnDriverError = bootImage.ContinueOnDriverError,
+            SelectedUsbDisk = SelectedUsbDisk?.Value,
+            OptionalComponents = bootImage.OptionalComponents,
+            EnableFirewall = bootImage.EnableFirewall,
+            IncludeTroubleshootingConsole = bootImage.TroubleshootingConsole.IsEnabled,
+            KeepBootWimCopy = bootImage.KeepBootWimCopy,
+            IncludePowerShell7 = bootImage.IncludePowerShell7,
+            PowerShell7Version = bootImage.PowerShell7Version,
+            PowerShellModules = bootImage.PowerShellModules,
+            AdditionalRootFolders = bootImage.AdditionalRootFolders,
+            WallpaperPath = bootImage.WallpaperPath
         };
     }
 
@@ -1758,7 +1862,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Signature")}: {FormatSignatureMode(options.SignatureMode)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.PartitionStyle")}: {evaluation.EffectiveUsbPartitionStyle}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.FormatMode")}: {FormatUsbFormatMode(options.UsbFormatMode)}");
-        builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Drivers")}: {FormatDriverOptions(options.DriverVendors, options.CustomDriverDirectoryPath)}");
+        builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Drivers")}: {FormatDriverOptions(options.DriverVendors, options.CustomDriverDirectoryPaths)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Network")}: {FormatReady(options.IsNetworkConfigurationReady)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Deploy")}: {FormatReady(options.IsDeployConfigurationReady)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Connect")}: {FormatReady(options.IsConnectProvisioningReady)}");
@@ -1983,13 +2087,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
     }
 
-    private string FormatDriverOptions(IReadOnlyList<WinPeVendorSelection> vendors, string? customDriverDirectoryPath)
+    private string FormatDriverOptions(IReadOnlyList<WinPeVendorSelection> vendors, IReadOnlyList<string> customDriverDirectoryPaths)
     {
         List<string> parts = vendors.Select(FormatDriverVendor).ToList();
-        if (!string.IsNullOrWhiteSpace(customDriverDirectoryPath))
-        {
-            parts.Add(customDriverDirectoryPath);
-        }
+        parts.AddRange(customDriverDirectoryPaths.Where(path => !string.IsNullOrWhiteSpace(path)));
 
         return parts.Count == 0 ? "-" : string.Join(", ", parts);
     }

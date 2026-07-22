@@ -360,7 +360,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
 
     private static CustomizationSettings SanitizeCustomizationForPersistence(CustomizationSettings settings)
     {
-        string normalizedPrefix = ComputerNameRules.Normalize(settings.MachineNaming.Prefix?.Trim());
+        string normalizedPrefix = ComputerNameTemplate.NormalizePrefix(settings.MachineNaming.Prefix?.Trim());
         string? prefix = string.IsNullOrWhiteSpace(normalizedPrefix)
             ? null
             : normalizedPrefix;
