@@ -2023,86 +2023,86 @@
     <value>traditsiooniline hiina keel (Taiwan)</value>
   </data>
   <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Operatsioonisüsteemi valik</value>
+    <value>Windowsi juurutussuvandid</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Piirake või eelvalige Windowsi kataloogivalikud, mida juurutamise ajal kuvatakse.</value>
+    <value>Määrake juurutamise ajal pakutavad Windowsi versioonid, installikandjad, keeled ja väljaanded.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
-    <value>OS-i versioon</value>
+    <value>Windowsi versioon</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
-    <value>Määrake, milliseid Windowsi versioone operaatorid saavad juurutada.</value>
+    <value>Konfigureerige juurutamise ajal pakutavad Windows 11 versioonid.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
-    <value>Lubatud OS-i versioonid</value>
+    <value>Saadaolevad Windowsi versioonid</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
-    <value>Jätke tühjaks, et lubada kõik toetatud Windowsi versioonid.</value>
+    <value>Valige pakutavad versioonid, näiteks Windows 11, versioon 25H2. Kõigi toetatud versioonide pakkumiseks jätke väli tühjaks.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
-    <value>OS-i vaikeversioon</value>
+    <value>Eelvalitud Windowsi versioon</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
-    <value>Automaatne säilitab kataloogi vaikeversiooni.</value>
+    <value>Valige vaikimisi valitud versioon. Automaatne kasutab Foundry soovitatud versiooni.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Vaikemeedium</value></data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>0 valib uusima meediumi; suuremad väärtused valivad vanema saadaoleva meediumi.</value></data>
-  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Uusim</value></data>
-  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Uusim - {0}</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Eelvalitud installikandja</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Valige, kui uus peaks eelvalitud installikandja olema. Kui soovitud ajalugu pole saadaval, kasutatakse vanimat saadaolevat kandjat.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Uusim installikandja</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Eelmine installikandja ({0})</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
-    <value>OS-i keel</value>
+    <value>Windowsi keel</value>
   </data>
   <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
-    <value>Määrake, milliseid Windowsi keeli operaatorid saavad juurutada.</value>
+    <value>Konfigureerige juurutamise ajal pakutavad Windowsi keeled.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
-    <value>Lubatud OS-i keeled</value>
+    <value>Saadaolevad Windowsi keeled</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
-    <value>Jätke tühjaks, et lubada kõik toetatud Windowsi keeled.</value>
+    <value>Valige juurutamise ajal pakutavad keeled. Kõigi toetatud Windowsi keelte pakkumiseks jätke väli tühjaks.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
-    <value>OS-i vaikekeel</value>
+    <value>Eelvalitud Windowsi keel</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
-    <value>Automaatne säilitab kataloogi vaikekeele.</value>
+    <value>Valige vaikimisi valitud keel. Automaatne kasutab Foundry soovitatud keelt.</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
-    <value>Litsentsikanal</value>
+    <value>Windowsi litsentsikanal</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
-    <value>Määrake, milliseid Windowsi litsentsikanaleid operaatorid saavad juurutada.</value>
+    <value>Konfigureerige juurutamise ajal pakutavad Windowsi litsentsikanalid.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
-    <value>Lubatud litsentsikanalid</value>
+    <value>Saadaolevad Windowsi litsentsikanalid</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
-    <value>Jätke tühjaks, et lubada kõik toetatud litsentsikanalid.</value>
+    <value>Valige juurutamise ajal pakutavad litsentsikanalid. Kõigi toetatud kanalite pakkumiseks jätke väli tühjaks.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
-    <value>Vaikelitsentsikanal</value>
+    <value>Eelvalitud Windowsi litsentsikanal</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
-    <value>Automaatne säilitab kataloogi vaikelitsentsikanali.</value>
+    <value>Valige vaikimisi valitud litsentsikanal. Automaatne kasutab Foundry soovitatud kanalit.</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
-    <value>Väljaanne</value>
+    <value>Windowsi väljaanne</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
-    <value>Määrake, milliseid Windowsi väljaandeid operaatorid saavad juurutada.</value>
+    <value>Konfigureerige juurutamise ajal pakutavad Windowsi väljaanded.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
-    <value>Lubatud väljaanded</value>
+    <value>Saadaolevad Windowsi väljaanded</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
-    <value>Jätke tühjaks, et lubada kõik toetatud Windowsi väljaanded.</value>
+    <value>Valige juurutamise ajal pakutavad väljaanded. Kõigi toetatud Windowsi väljaannete pakkumiseks jätke väli tühjaks.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
-    <value>Vaikeväljaanne</value>
+    <value>Eelvalitud Windowsi väljaanne</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
-    <value>Automaatne säilitab kataloogi vaikeväljaande.</value>
+    <value>Valige vaikimisi valitud väljaanne. Automaatne kasutab Foundry soovitatud väljaannet.</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windowsi profiilide rändlus</value>

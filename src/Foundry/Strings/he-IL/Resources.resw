@@ -2023,86 +2023,86 @@
     <value>סינית מסורתית (טייוואן)</value>
   </data>
   <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>בחירת מערכת הפעלה</value>
+    <value>אפשרויות פריסת Windows</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>הגבל או בחר מראש את אפשרויות קטלוג Windows המוצגות במהלך הפריסה.</value>
+    <value>הגדר את גרסאות Windows, מדיית ההתקנה, השפות והמהדורות שיוצעו במהלך הפריסה.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
-    <value>גרסת מערכת הפעלה</value>
+    <value>גרסת Windows</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
-    <value>קבע אילו גרסאות Windows מפעילים יכולים לפרוס.</value>
+    <value>הגדר את גרסאות Windows 11 שיוצעו במהלך הפריסה.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
-    <value>גרסאות מערכת הפעלה מותרות</value>
+    <value>גרסאות Windows זמינות</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
-    <value>השאר ריק כדי לאפשר כל גרסת Windows נתמכת.</value>
+    <value>בחר את הגרסאות שיוצעו, כגון Windows 11, גרסה 25H2. השאר ריק כדי להציע את כל הגרסאות הנתמכות.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
-    <value>גרסת מערכת הפעלה ברירת מחדל</value>
+    <value>גרסת Windows שנבחרה מראש</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
-    <value>אוטומטי שומר על גרסת ברירת המחדל של הקטלוג.</value>
+    <value>בחר את הגרסה שתיבחר כברירת מחדל. האפשרות אוטומטי משתמשת בגרסה המומלצת על-ידי Foundry.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>מדיית ברירת מחדל</value></data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>0 בוחר את המדיה העדכנית ביותר; ערכים גבוהים יותר בוחרים מדיה זמינה ישנה יותר.</value></data>
-  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>העדכנית ביותר</value></data>
-  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>העדכנית ביותר - {0}</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>מדיית התקנה שנבחרה מראש</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>בחר עד כמה מדיית ההתקנה שנבחרה מראש צריכה להיות עדכנית. אם ההיסטוריה המבוקשת אינה זמינה, ייעשה שימוש במדיה הזמינה הישנה ביותר.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>מדיית ההתקנה העדכנית ביותר</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>מדיית ההתקנה הקודמת ({0})</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
-    <value>שפת מערכת הפעלה</value>
+    <value>שפת Windows</value>
   </data>
   <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
-    <value>קבע אילו שפות Windows מפעילים יכולים לפרוס.</value>
+    <value>הגדר את שפות Windows שיוצעו במהלך הפריסה.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
-    <value>שפות מערכת הפעלה מותרות</value>
+    <value>שפות Windows זמינות</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
-    <value>השאר ריק כדי לאפשר כל שפת Windows נתמכת.</value>
+    <value>בחר את השפות שיוצעו במהלך הפריסה. השאר ריק כדי להציע את כל שפות Windows הנתמכות.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
-    <value>שפת מערכת הפעלה ברירת מחדל</value>
+    <value>שפת Windows שנבחרה מראש</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
-    <value>אוטומטי שומר על שפת ברירת המחדל של הקטלוג.</value>
+    <value>בחר את השפה שתיבחר כברירת מחדל. האפשרות אוטומטי משתמשת בשפה המומלצת על-ידי Foundry.</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
-    <value>ערוץ רישוי</value>
+    <value>ערוץ הרישוי של Windows</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
-    <value>קבע אילו ערוצי רישוי של Windows מפעילים יכולים לפרוס.</value>
+    <value>הגדר את ערוצי הרישוי של Windows שיוצעו במהלך הפריסה.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
-    <value>ערוצי רישוי מותרים</value>
+    <value>ערוצי רישוי זמינים של Windows</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
-    <value>השאר ריק כדי לאפשר כל ערוץ רישוי נתמך.</value>
+    <value>בחר את ערוצי הרישוי שיוצעו במהלך הפריסה. השאר ריק כדי להציע את כל הערוצים הנתמכים.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
-    <value>ערוץ רישוי ברירת מחדל</value>
+    <value>ערוץ הרישוי של Windows שנבחר מראש</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
-    <value>אוטומטי שומר על ערוץ הרישוי המוגדר כברירת מחדל בקטלוג.</value>
+    <value>בחר את ערוץ הרישוי שייבחר כברירת מחדל. האפשרות אוטומטי משתמשת בערוץ המומלץ על-ידי Foundry.</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
-    <value>מהדורה</value>
+    <value>מהדורת Windows</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
-    <value>קבע אילו מהדורות Windows מפעילים יכולים לפרוס.</value>
+    <value>הגדר את מהדורות Windows שיוצעו במהלך הפריסה.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
-    <value>מהדורות מותרות</value>
+    <value>מהדורות Windows זמינות</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
-    <value>השאר ריק כדי לאפשר כל מהדורת Windows נתמכת.</value>
+    <value>בחר את המהדורות שיוצעו במהלך הפריסה. השאר ריק כדי להציע את כל מהדורות Windows הנתמכות.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
-    <value>מהדורת ברירת מחדל</value>
+    <value>מהדורת Windows שנבחרה מראש</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
-    <value>אוטומטי שומר על מהדורת ברירת המחדל של הקטלוג.</value>
+    <value>בחר את המהדורה שתיבחר כברירת מחדל. האפשרות אוטומטי משתמשת במהדורה המומלצת על-ידי Foundry.</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
     <value>נדידת פרופילי Windows</value>

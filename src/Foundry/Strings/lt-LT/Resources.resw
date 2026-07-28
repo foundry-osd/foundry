@@ -2023,86 +2023,86 @@
     <value>tradicinė kinų kalba (Taivanas)</value>
   </data>
   <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Operacinės sistemos pasirinkimas</value>
+    <value>Windows diegimo parinktys</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Apribokite arba iš anksto pasirinkite diegimo metu rodomas Windows katalogo parinktis.</value>
+    <value>Nurodykite diegimo metu siūlomas Windows versijas, diegimo laikmenas, kalbas ir leidimus.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
-    <value>OS versija</value>
+    <value>Windows versija</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
-    <value>Valdykite, kurias Windows versijas operatoriai gali diegti.</value>
+    <value>Konfigūruokite diegimo metu siūlomas Windows 11 versijas.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
-    <value>Leidžiamos OS versijos</value>
+    <value>Galimos Windows versijos</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
-    <value>Palikite tuščią, kad būtų leidžiamos visos palaikomos Windows versijos.</value>
+    <value>Pasirinkite siūlomas versijas, pvz., Windows 11, 25H2 versiją. Palikite tuščią, kad būtų siūlomos visos palaikomos versijos.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
-    <value>Numatytoji OS versija</value>
+    <value>Iš anksto pasirinkta Windows versija</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
-    <value>Automatinis pasirinkimas palieka numatytąją katalogo versiją.</value>
+    <value>Pasirinkite pagal numatytuosius parametrus pažymėtą versiją. Automatinis pasirinkimas naudoja Foundry rekomenduojamą versiją.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Numatytoji laikmena</value></data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>0 parenka naujausią laikmeną; didesnės reikšmės parenka senesnę pasiekiamą laikmeną.</value></data>
-  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Naujausia</value></data>
-  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Naujausia - {0}</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Iš anksto pasirinkta diegimo laikmena</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Pasirinkite, kokio naujumo turi būti iš anksto pasirinkta diegimo laikmena. Jei prašoma retrospektyva nepasiekiama, naudojama seniausia pasiekiama laikmena.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Naujausia diegimo laikmena</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Ankstesnė diegimo laikmena ({0})</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
-    <value>OS kalba</value>
+    <value>Windows kalba</value>
   </data>
   <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
-    <value>Valdykite, kurias Windows kalbas operatoriai gali diegti.</value>
+    <value>Konfigūruokite diegimo metu siūlomas Windows kalbas.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
-    <value>Leidžiamos OS kalbos</value>
+    <value>Galimos Windows kalbos</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
-    <value>Palikite tuščią, kad būtų leidžiamos visos palaikomos Windows kalbos.</value>
+    <value>Pasirinkite diegimo metu siūlomas kalbas. Palikite tuščią, kad būtų siūlomos visos palaikomos Windows kalbos.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
-    <value>Numatytoji OS kalba</value>
+    <value>Iš anksto pasirinkta Windows kalba</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
-    <value>Automatinis pasirinkimas palieka numatytąją katalogo kalbą.</value>
+    <value>Pasirinkite pagal numatytuosius parametrus pažymėtą kalbą. Automatinis pasirinkimas naudoja Foundry rekomenduojamą kalbą.</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
-    <value>Licencijos kanalas</value>
+    <value>Windows licencijos kanalas</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
-    <value>Valdykite, kuriuos Windows licencijos kanalus operatoriai gali diegti.</value>
+    <value>Konfigūruokite diegimo metu siūlomus Windows licencijos kanalus.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
-    <value>Leidžiami licencijos kanalai</value>
+    <value>Galimi Windows licencijos kanalai</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
-    <value>Palikite tuščią, kad būtų leidžiami visi palaikomi licencijos kanalai.</value>
+    <value>Pasirinkite diegimo metu siūlomus licencijos kanalus. Palikite tuščią, kad būtų siūlomi visi palaikomi kanalai.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
-    <value>Numatytasis licencijos kanalas</value>
+    <value>Iš anksto pasirinktas Windows licencijos kanalas</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
-    <value>Automatinis pasirinkimas palieka numatytąjį katalogo licencijos kanalą.</value>
+    <value>Pasirinkite pagal numatytuosius parametrus pažymėtą licencijos kanalą. Automatinis pasirinkimas naudoja Foundry rekomenduojamą kanalą.</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
-    <value>Leidimas</value>
+    <value>Windows leidimas</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
-    <value>Valdykite, kuriuos Windows leidimus operatoriai gali diegti.</value>
+    <value>Konfigūruokite diegimo metu siūlomus Windows leidimus.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
-    <value>Leidžiami leidimai</value>
+    <value>Galimi Windows leidimai</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
-    <value>Palikite tuščią, kad būtų leidžiami visi palaikomi Windows leidimai.</value>
+    <value>Pasirinkite diegimo metu siūlomus leidimus. Palikite tuščią, kad būtų siūlomi visi palaikomi Windows leidimai.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
-    <value>Numatytasis leidimas</value>
+    <value>Iš anksto pasirinktas Windows leidimas</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
-    <value>Automatinis pasirinkimas palieka numatytąjį katalogo leidimą.</value>
+    <value>Pasirinkite pagal numatytuosius parametrus pažymėtą leidimą. Automatinis pasirinkimas naudoja Foundry rekomenduojamą leidimą.</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows profilių tarptinklinis perkėlimas</value>

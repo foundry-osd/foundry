@@ -73,7 +73,7 @@
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Mērķa diska atklāšana neizdevās: {0}</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operētājsistēma</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versija</value></data>
-  <data name="Catalog.Media" xml:space="preserve"><value>Datu nesējs</value></data>
+  <data name="Catalog.Media" xml:space="preserve"><value>Instalācijas datu nesējs</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Jaunākais)</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Valoda</value></data>
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Licences kanāls</value></data>

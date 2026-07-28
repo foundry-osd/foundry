@@ -73,7 +73,7 @@
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>대상 디스크 검색 실패: {0}</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>운영 체제</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>버전</value></data>
-  <data name="Catalog.Media" xml:space="preserve"><value>미디어</value></data>
+  <data name="Catalog.Media" xml:space="preserve"><value>설치 미디어</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (최신)</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>언어</value></data>
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>라이선스 채널</value></data>

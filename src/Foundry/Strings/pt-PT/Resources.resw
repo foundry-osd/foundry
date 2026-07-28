@@ -2022,87 +2022,87 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Chinês Tradicional (Taiwan)</value>
   </data>
-  <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Seleção do sistema operativo</value>
+<data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
+    <value>Opções de implementação do Windows</value>
   </data>
-  <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Limite ou pré-selecione as opções do catálogo do Windows apresentadas durante a implementação.</value>
+<data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
+    <value>Defina as versões do Windows, os suportes de instalação, os idiomas e as edições disponibilizados durante a implementação.</value>
   </data>
-  <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
-    <value>Versão do SO</value>
+<data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
+    <value>Versão do Windows</value>
   </data>
-  <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
-    <value>Controle que versões do Windows os operadores podem implementar.</value>
+<data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
+    <value>Configure as versões do Windows 11 disponibilizadas durante a implementação.</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
-    <value>Versões de SO permitidas</value>
+<data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
+    <value>Versões disponíveis do Windows</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
-    <value>Deixe em branco para permitir todas as versões do Windows suportadas.</value>
+<data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
+    <value>Selecione as versões a disponibilizar, como Windows 11, versão 25H2. Deixe em branco para disponibilizar todas as versões suportadas.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
-    <value>Versão de SO predefinida</value>
+<data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
+    <value>Versão do Windows pré-selecionada</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
-    <value>Automático mantém a versão predefinida do catálogo.</value>
+<data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
+    <value>Escolha a versão selecionada por predefinição. A opção Automático utiliza a versão recomendada pelo Foundry.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Suporte predefinido</value></data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>0 seleciona o suporte mais recente; valores superiores selecionam suportes disponíveis mais antigos.</value></data>
-  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Mais recente</value></data>
-  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Mais recente - {0}</value></data>
-  <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
-    <value>Idioma do SO</value>
+<data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Suporte de instalação pré-selecionado</value></data>
+<data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Escolha o quão recente deve ser o suporte de instalação pré-selecionado. Se o histórico solicitado não estiver disponível, será utilizado o suporte disponível mais antigo.</value></data>
+<data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Suporte de instalação mais recente</value></data>
+<data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Suporte de instalação anterior ({0})</value></data>
+<data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
+    <value>Idioma do Windows</value>
   </data>
-  <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
-    <value>Controle que idiomas do Windows os operadores podem implementar.</value>
+<data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
+    <value>Configure os idiomas do Windows disponibilizados durante a implementação.</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
-    <value>Idiomas de SO permitidos</value>
+<data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
+    <value>Idiomas disponíveis do Windows</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
-    <value>Deixe em branco para permitir todos os idiomas do Windows suportados.</value>
+<data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
+    <value>Selecione os idiomas disponibilizados durante a implementação. Deixe em branco para disponibilizar todos os idiomas do Windows suportados.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
-    <value>Idioma de SO predefinido</value>
+<data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
+    <value>Idioma do Windows pré-selecionado</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
-    <value>Automático mantém o idioma predefinido do catálogo.</value>
+<data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
+    <value>Escolha o idioma selecionado por predefinição. A opção Automático utiliza o idioma recomendado pelo Foundry.</value>
   </data>
-  <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
-    <value>Canal de licença</value>
+<data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
+    <value>Canal de licença do Windows</value>
   </data>
-  <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
-    <value>Controle que canais de licença do Windows os operadores podem implementar.</value>
+<data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
+    <value>Configure os canais de licença do Windows disponibilizados durante a implementação.</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
-    <value>Canais de licença permitidos</value>
+<data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
+    <value>Canais de licença disponíveis do Windows</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
-    <value>Deixe em branco para permitir todos os canais de licença suportados.</value>
+<data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
+    <value>Selecione os canais de licença disponibilizados durante a implementação. Deixe em branco para disponibilizar todos os canais suportados.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
-    <value>Canal de licença predefinido</value>
+<data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
+    <value>Canal de licença do Windows pré-selecionado</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
-    <value>Automático mantém o canal de licença predefinido do catálogo.</value>
+<data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
+    <value>Escolha o canal de licença selecionado por predefinição. A opção Automático utiliza o canal recomendado pelo Foundry.</value>
   </data>
-  <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
-    <value>Edição</value>
+<data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
+    <value>Edição do Windows</value>
   </data>
-  <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
-    <value>Controle que edições do Windows os operadores podem implementar.</value>
+<data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
+    <value>Configure as edições do Windows disponibilizadas durante a implementação.</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
-    <value>Edições permitidas</value>
+<data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
+    <value>Edições disponíveis do Windows</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
-    <value>Deixe em branco para permitir todas as edições do Windows suportadas.</value>
+<data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
+    <value>Selecione as edições disponibilizadas durante a implementação. Deixe em branco para disponibilizar todas as edições do Windows suportadas.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
-    <value>Edição predefinida</value>
+<data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
+    <value>Edição do Windows pré-selecionada</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
-    <value>Automático mantém a edição predefinida do catálogo.</value>
+<data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
+    <value>Escolha a edição selecionada por predefinição. A opção Automático utiliza a edição recomendada pelo Foundry.</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming de perfis do Windows</value>

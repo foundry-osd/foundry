@@ -73,8 +73,8 @@
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Неуспешно откриване на целевия диск: {0}</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Операционна система</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Версия</value></data>
-  <data name="Catalog.Media" xml:space="preserve"><value>Носител</value></data>
-  <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (най-ново)</value></data>
+  <data name="Catalog.Media" xml:space="preserve"><value>Инсталационен носител</value></data>
+  <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (най-скорошен)</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>език</value></data>
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Канал за лиценз</value></data>
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>Издание (целево)</value></data>

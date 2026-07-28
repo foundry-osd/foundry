@@ -73,8 +73,8 @@
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Sihtketta leidmine ebaõnnestus: {0}</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operatsioonisüsteem</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versioon</value></data>
-  <data name="Catalog.Media" xml:space="preserve"><value>Andmekandja</value></data>
-  <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Uusim)</value></data>
+  <data name="Catalog.Media" xml:space="preserve"><value>Installikandja</value></data>
+  <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (uusim)</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Keel</value></data>
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Litsentsi kanal</value></data>
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>Väljaanne (sihtmärk)</value></data>

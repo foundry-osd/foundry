@@ -2023,86 +2023,86 @@
     <value>繁體中文（台灣）</value>
   </data>
   <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>作業系統選取</value>
+    <value>Windows 部署選項</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>限制或預先選取部署期間顯示的 Windows 目錄選項。</value>
+    <value>定義部署期間提供的 Windows 版本、安裝媒體、語言和版本類型。</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
-    <value>OS 版本</value>
+    <value>Windows 版本</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
-    <value>控制操作員可以部署哪些 Windows 版本。</value>
+    <value>設定部署期間提供的 Windows 11 版本。</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
-    <value>允許的 OS 版本</value>
+    <value>可用的 Windows 版本</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
-    <value>留空可允許所有支援的 Windows 版本。</value>
+    <value>選取要提供的版本，例如 Windows 11 版本 25H2。留空以提供所有支援的版本。</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
-    <value>預設 OS 版本</value>
+    <value>預先選取的 Windows 版本</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
-    <value>自動會保留目錄的預設版本。</value>
+    <value>選取預設版本。「自動」會使用 Foundry 建議的版本。</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>預設媒體</value></data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>0 會選取最新媒體；較大的值會選取較舊的可用媒體。</value></data>
-  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>最新</value></data>
-  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>最新 - {0}</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>預先選取的安裝媒體</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>選擇預先選取之安裝媒體的新舊程度。如果沒有足夠的歷程記錄，則使用最舊的可用媒體。</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>最新的安裝媒體</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>上一個安裝媒體 ({0})</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
-    <value>OS 語言</value>
+    <value>Windows 語言</value>
   </data>
   <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
-    <value>控制操作員可以部署哪些 Windows 語言。</value>
+    <value>設定部署期間提供的 Windows 語言。</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
-    <value>允許的 OS 語言</value>
+    <value>可用的 Windows 語言</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
-    <value>留空可允許所有支援的 Windows 語言。</value>
+    <value>選取部署期間提供的語言。留空以提供所有支援的 Windows 語言。</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
-    <value>預設 OS 語言</value>
+    <value>預先選取的 Windows 語言</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
-    <value>自動會保留目錄的預設語言。</value>
+    <value>選取預設語言。「自動」會使用 Foundry 建議的語言。</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
-    <value>授權通道</value>
+    <value>Windows 授權通道</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
-    <value>控制操作員可以部署哪些 Windows 授權通道。</value>
+    <value>設定部署期間提供的 Windows 授權通道。</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
-    <value>允許的授權通道</value>
+    <value>可用的 Windows 授權通道</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
-    <value>留空可允許所有支援的授權通道。</value>
+    <value>選取部署期間提供的授權通道。留空以提供所有支援的通道。</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
-    <value>預設授權通道</value>
+    <value>預先選取的 Windows 授權通道</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
-    <value>自動會保留目錄的預設授權通道。</value>
+    <value>選取預設授權通道。「自動」會使用 Foundry 建議的通道。</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
-    <value>版本</value>
+    <value>Windows 版本類型</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
-    <value>控制操作員可以部署哪些 Windows 版本。</value>
+    <value>設定部署期間提供的 Windows 版本類型。</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
-    <value>允許的版本</value>
+    <value>可用的 Windows 版本類型</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
-    <value>留空可允許所有支援的 Windows 版本。</value>
+    <value>選取部署期間提供的版本類型。留空以提供所有支援的 Windows 版本類型。</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
-    <value>預設版本</value>
+    <value>預先選取的 Windows 版本類型</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
-    <value>自動會保留目錄的預設版本。</value>
+    <value>選取預設版本類型。「自動」會使用 Foundry 建議的版本類型。</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows 設定檔漫遊</value>

@@ -2023,86 +2023,86 @@
     <value>kineski tradicionalni (Tajvan)</value>
   </data>
   <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Odabir operacijskog sustava</value>
+    <value>Mogućnosti implementacije sustava Windows</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Ograničite ili unaprijed odaberite mogućnosti Windows kataloga prikazane tijekom implementacije.</value>
+    <value>Odredite verzije sustava Windows, instalacijske medije, jezike i izdanja koja se nude tijekom implementacije.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
-    <value>Verzija OS-a</value>
+    <value>Verzija sustava Windows</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
-    <value>Odredite koje verzije sustava Windows operateri mogu implementirati.</value>
+    <value>Konfigurirajte verzije sustava Windows 11 koje se nude tijekom implementacije.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
-    <value>Dopuštene verzije OS-a</value>
+    <value>Dostupne verzije sustava Windows</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
-    <value>Ostavite prazno za dopuštanje svih podržanih verzija sustava Windows.</value>
+    <value>Odaberite verzije koje želite ponuditi, kao što je Windows 11, verzija 25H2. Ostavite prazno da biste ponudili sve podržane verzije.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
-    <value>Zadana verzija OS-a</value>
+    <value>Unaprijed odabrana verzija sustava Windows</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
-    <value>Automatski zadržava zadanu verziju kataloga.</value>
+    <value>Odaberite verziju koja je odabrana prema zadanim postavkama. Automatski koristi verziju koju preporučuje Foundry.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Zadani medij</value></data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>0 odabire najnoviji medij; veće vrijednosti odabiru stariji dostupni medij.</value></data>
-  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Najnovije</value></data>
-  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Najnovije - {0}</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Unaprijed odabrani instalacijski medij</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Odaberite koliko nov treba biti unaprijed odabrani instalacijski medij. Ako tražena povijest nije dostupna, koristi se najstariji dostupni medij.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Najnoviji instalacijski medij</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Prethodni instalacijski medij ({0})</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
-    <value>Jezik OS-a</value>
+    <value>Jezik sustava Windows</value>
   </data>
   <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
-    <value>Odredite koje jezike sustava Windows operateri mogu implementirati.</value>
+    <value>Konfigurirajte jezike sustava Windows koji se nude tijekom implementacije.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
-    <value>Dopušteni jezici OS-a</value>
+    <value>Dostupni jezici sustava Windows</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
-    <value>Ostavite prazno za dopuštanje svih podržanih jezika sustava Windows.</value>
+    <value>Odaberite jezike koji se nude tijekom implementacije. Ostavite prazno da biste ponudili sve podržane jezike sustava Windows.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
-    <value>Zadani jezik OS-a</value>
+    <value>Unaprijed odabrani jezik sustava Windows</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
-    <value>Automatski zadržava zadani jezik kataloga.</value>
+    <value>Odaberite jezik koji je odabran prema zadanim postavkama. Automatski koristi jezik koji preporučuje Foundry.</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
-    <value>Licencni kanal</value>
+    <value>Licencni kanal sustava Windows</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
-    <value>Odredite koje licencne kanale sustava Windows operateri mogu implementirati.</value>
+    <value>Konfigurirajte licencne kanale sustava Windows koji se nude tijekom implementacije.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
-    <value>Dopušteni licencni kanali</value>
+    <value>Dostupni licencni kanali sustava Windows</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
-    <value>Ostavite prazno za dopuštanje svih podržanih licencnih kanala.</value>
+    <value>Odaberite licencne kanale koji se nude tijekom implementacije. Ostavite prazno da biste ponudili sve podržane kanale.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
-    <value>Zadani licencni kanal</value>
+    <value>Unaprijed odabrani licencni kanal sustava Windows</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
-    <value>Automatski zadržava zadani licencni kanal kataloga.</value>
+    <value>Odaberite licencni kanal koji je odabran prema zadanim postavkama. Automatski koristi kanal koji preporučuje Foundry.</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
-    <value>Izdanje</value>
+    <value>Izdanje sustava Windows</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
-    <value>Odredite koja izdanja sustava Windows operateri mogu implementirati.</value>
+    <value>Konfigurirajte izdanja sustava Windows koja se nude tijekom implementacije.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
-    <value>Dopuštena izdanja</value>
+    <value>Dostupna izdanja sustava Windows</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
-    <value>Ostavite prazno za dopuštanje svih podržanih izdanja sustava Windows.</value>
+    <value>Odaberite izdanja koja se nude tijekom implementacije. Ostavite prazno da biste ponudili sva podržana izdanja sustava Windows.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
-    <value>Zadano izdanje</value>
+    <value>Unaprijed odabrano izdanje sustava Windows</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
-    <value>Automatski zadržava zadano izdanje kataloga.</value>
+    <value>Odaberite izdanje koje je odabrano prema zadanim postavkama. Automatski koristi izdanje koje preporučuje Foundry.</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming Windows profila</value>

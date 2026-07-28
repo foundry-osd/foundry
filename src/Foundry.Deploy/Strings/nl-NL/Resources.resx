@@ -73,8 +73,8 @@
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Detectie van doelschijf mislukt: {0}</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Besturingssysteem</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versie</value></data>
-  <data name="Catalog.Media" xml:space="preserve"><value>Medium</value></data>
-  <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Nieuwste)</value></data>
+  <data name="Catalog.Media" xml:space="preserve"><value>Installatiemedium</value></data>
+  <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Meest recent)</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Taal</value></data>
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Licentie kanaal</value></data>
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>Editie (Doel)</value></data>

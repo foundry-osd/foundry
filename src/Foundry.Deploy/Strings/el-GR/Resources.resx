@@ -73,7 +73,7 @@
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Ο εντοπισμός δίσκου στόχου απέτυχε: {0}</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Λειτουργικό σύστημα</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Έκδοση</value></data>
-  <data name="Catalog.Media" xml:space="preserve"><value>Μέσο</value></data>
+  <data name="Catalog.Media" xml:space="preserve"><value>Μέσο εγκατάστασης</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Πιο πρόσφατο)</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Γλώσσα</value></data>
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Κανάλι άδειας χρήσης</value></data>

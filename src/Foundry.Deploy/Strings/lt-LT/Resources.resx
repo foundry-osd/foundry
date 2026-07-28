@@ -73,7 +73,7 @@
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Nepavyko aptikti tikslinio disko: {0}</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operacinė sistema</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versija</value></data>
-  <data name="Catalog.Media" xml:space="preserve"><value>Laikmena</value></data>
+  <data name="Catalog.Media" xml:space="preserve"><value>Diegimo laikmena</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Naujausia)</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Kalba</value></data>
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Licencijos kanalas</value></data>

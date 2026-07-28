@@ -2023,86 +2023,86 @@
     <value>الصينية التقليدية (تايوان)</value>
   </data>
   <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>تحديد نظام التشغيل</value>
+    <value>خيارات نشر Windows</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>قيّد أو حدد مسبقًا خيارات كتالوج Windows المعروضة أثناء النشر.</value>
+    <value>حدد إصدارات Windows ووسائط التثبيت واللغات والنسخ التي يتم تقديمها أثناء النشر.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
-    <value>إصدار نظام التشغيل</value>
+    <value>إصدار Windows</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
-    <value>تحكم في إصدارات Windows التي يمكن للمشغلين نشرها.</value>
+    <value>قم بتكوين إصدارات Windows 11 المقدمة أثناء النشر.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
-    <value>إصدارات نظام التشغيل المسموح بها</value>
+    <value>إصدارات Windows المتاحة</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
-    <value>اتركه فارغًا للسماح بكل إصدار Windows مدعوم.</value>
+    <value>حدد الإصدارات المراد تقديمها، مثل Windows 11، الإصدار 25H2. اتركه فارغًا لتقديم جميع الإصدارات المدعومة.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
-    <value>إصدار نظام التشغيل الافتراضي</value>
+    <value>إصدار Windows المحدد مسبقًا</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
-    <value>يحافظ الخيار التلقائي على إصدار الكتالوج الافتراضي.</value>
+    <value>اختر الإصدار المحدد افتراضيًا. يستخدم الخيار التلقائي الإصدار الذي توصي به Foundry.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>الوسائط الافتراضية</value></data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>يحدد 0 أحدث وسيط؛ وتحدد القيم الأعلى وسائط أقدم متاحة.</value></data>
-  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>الأحدث</value></data>
-  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>الأحدث - {0}</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>وسائط التثبيت المحددة مسبقًا</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>اختر مدى حداثة وسائط التثبيت المحددة مسبقًا. إذا لم يتوفر السجل المطلوب، فسيتم استخدام أقدم وسائط متاحة.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>أحدث وسائط تثبيت</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>وسائط التثبيت السابقة ({0})</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
-    <value>لغة نظام التشغيل</value>
+    <value>لغة Windows</value>
   </data>
   <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
-    <value>تحكم في لغات Windows التي يمكن للمشغلين نشرها.</value>
+    <value>قم بتكوين لغات Windows المقدمة أثناء النشر.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
-    <value>لغات نظام التشغيل المسموح بها</value>
+    <value>لغات Windows المتاحة</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
-    <value>اتركه فارغًا للسماح بكل لغة Windows مدعومة.</value>
+    <value>حدد اللغات المقدمة أثناء النشر. اتركه فارغًا لتقديم جميع لغات Windows المدعومة.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
-    <value>لغة نظام التشغيل الافتراضية</value>
+    <value>لغة Windows المحددة مسبقًا</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
-    <value>يحافظ الخيار التلقائي على لغة الكتالوج الافتراضية.</value>
+    <value>اختر اللغة المحددة افتراضيًا. يستخدم الخيار التلقائي اللغة التي توصي بها Foundry.</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
-    <value>قناة الترخيص</value>
+    <value>قناة ترخيص Windows</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
-    <value>تحكم في قنوات ترخيص Windows التي يمكن للمشغلين نشرها.</value>
+    <value>قم بتكوين قنوات ترخيص Windows المقدمة أثناء النشر.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
-    <value>قنوات الترخيص المسموح بها</value>
+    <value>قنوات ترخيص Windows المتاحة</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
-    <value>اتركه فارغًا للسماح بكل قناة ترخيص مدعومة.</value>
+    <value>حدد قنوات الترخيص المقدمة أثناء النشر. اتركه فارغًا لتقديم جميع القنوات المدعومة.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
-    <value>قناة الترخيص الافتراضية</value>
+    <value>قناة ترخيص Windows المحددة مسبقًا</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
-    <value>يحافظ الخيار التلقائي على قناة الترخيص الافتراضية في الكتالوج.</value>
+    <value>اختر قناة الترخيص المحددة افتراضيًا. يستخدم الخيار التلقائي القناة التي توصي بها Foundry.</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
-    <value>الإصدار</value>
+    <value>نسخة Windows</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
-    <value>تحكم في إصدارات Windows التي يمكن للمشغلين نشرها.</value>
+    <value>قم بتكوين نسخ Windows المقدمة أثناء النشر.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
-    <value>الإصدارات المسموح بها</value>
+    <value>نسخ Windows المتاحة</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
-    <value>اتركه فارغًا للسماح بكل إصدار Windows مدعوم.</value>
+    <value>حدد النسخ المقدمة أثناء النشر. اتركه فارغًا لتقديم جميع نسخ Windows المدعومة.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
-    <value>الإصدار الافتراضي</value>
+    <value>نسخة Windows المحددة مسبقًا</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
-    <value>يحافظ الخيار التلقائي على الإصدار الافتراضي في الكتالوج.</value>
+    <value>اختر النسخة المحددة افتراضيًا. يستخدم الخيار التلقائي النسخة التي توصي بها Foundry.</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
     <value>تجوال ملفات تعريف Windows</value>

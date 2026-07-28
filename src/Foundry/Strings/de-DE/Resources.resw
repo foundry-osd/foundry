@@ -2023,86 +2023,86 @@
     <value>Traditionelles Chinesisch (Taiwan)</value>
   </data>
   <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Betriebssystemauswahl</value>
+    <value>Windows-Bereitstellungsoptionen</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Begrenzen Sie die während der Bereitstellung angezeigten Windows-Katalogoptionen oder wählen Sie sie vor.</value>
+    <value>Legen Sie die Windows-Versionen, Installationsmedien, Sprachen und Editionen fest, die während der Bereitstellung angeboten werden.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
-    <value>Betriebssystemversion</value>
+    <value>Windows-Version</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
-    <value>Legen Sie fest, welche Windows-Versionen Operatoren bereitstellen können.</value>
+    <value>Konfigurieren Sie die während der Bereitstellung angebotenen Windows 11-Versionen.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
-    <value>Zulässige Betriebssystemversionen</value>
+    <value>Verfügbare Windows-Versionen</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
-    <value>Leer lassen, um jede unterstützte Windows-Version zuzulassen.</value>
+    <value>Wählen Sie die anzubietenden Versionen aus, z. B. Windows 11, Version 25H2. Lassen Sie das Feld leer, um alle unterstützten Versionen anzubieten.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
-    <value>Standard-Betriebssystemversion</value>
+    <value>Vorausgewählte Windows-Version</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
-    <value>Automatisch behält die Standardversion des Katalogs bei.</value>
+    <value>Wählen Sie die standardmäßig ausgewählte Version. Automatisch verwendet die von Foundry empfohlene Version.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Standardmedium</value></data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>0 wählt das neueste Medium; höhere Werte wählen ältere verfügbare Medien.</value></data>
-  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Neueste</value></data>
-  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Neueste - {0}</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Vorausgewähltes Installationsmedium</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Wählen Sie, wie aktuell das vorausgewählte Installationsmedium sein soll. Wenn der angeforderte Verlauf nicht verfügbar ist, wird das älteste verfügbare Medium verwendet.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Aktuellstes Installationsmedium</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Vorheriges Installationsmedium ({0})</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
-    <value>Betriebssystemsprache</value>
+    <value>Windows-Sprache</value>
   </data>
   <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
-    <value>Legen Sie fest, welche Windows-Sprachen Operatoren bereitstellen können.</value>
+    <value>Konfigurieren Sie die während der Bereitstellung angebotenen Windows-Sprachen.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
-    <value>Zulässige Betriebssystemsprachen</value>
+    <value>Verfügbare Windows-Sprachen</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
-    <value>Leer lassen, um jede unterstützte Windows-Sprache zuzulassen.</value>
+    <value>Wählen Sie die während der Bereitstellung angebotenen Sprachen aus. Lassen Sie das Feld leer, um alle unterstützten Windows-Sprachen anzubieten.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
-    <value>Standard-Betriebssystemsprache</value>
+    <value>Vorausgewählte Windows-Sprache</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
-    <value>Automatisch behält die Standardsprache des Katalogs bei.</value>
+    <value>Wählen Sie die standardmäßig ausgewählte Sprache. Automatisch verwendet die von Foundry empfohlene Sprache.</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
-    <value>Lizenzkanal</value>
+    <value>Windows-Lizenzkanal</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
-    <value>Legen Sie fest, welche Windows-Lizenzkanäle Operatoren bereitstellen können.</value>
+    <value>Konfigurieren Sie die während der Bereitstellung angebotenen Windows-Lizenzkanäle.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
-    <value>Zulässige Lizenzkanäle</value>
+    <value>Verfügbare Windows-Lizenzkanäle</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
-    <value>Leer lassen, um jeden unterstützten Lizenzkanal zuzulassen.</value>
+    <value>Wählen Sie die während der Bereitstellung angebotenen Lizenzkanäle aus. Lassen Sie das Feld leer, um alle unterstützten Kanäle anzubieten.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
-    <value>Standard-Lizenzkanal</value>
+    <value>Vorausgewählter Windows-Lizenzkanal</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
-    <value>Automatisch behält den Standardlizenzkanal des Katalogs bei.</value>
+    <value>Wählen Sie den standardmäßig ausgewählten Lizenzkanal. Automatisch verwendet den von Foundry empfohlenen Kanal.</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
-    <value>Edition</value>
+    <value>Windows-Edition</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
-    <value>Legen Sie fest, welche Windows-Editionen Operatoren bereitstellen können.</value>
+    <value>Konfigurieren Sie die während der Bereitstellung angebotenen Windows-Editionen.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
-    <value>Zulässige Editionen</value>
+    <value>Verfügbare Windows-Editionen</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
-    <value>Leer lassen, um jede unterstützte Windows-Edition zuzulassen.</value>
+    <value>Wählen Sie die während der Bereitstellung angebotenen Editionen aus. Lassen Sie das Feld leer, um alle unterstützten Windows-Editionen anzubieten.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
-    <value>Standardedition</value>
+    <value>Vorausgewählte Windows-Edition</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
-    <value>Automatisch behält die Standardedition des Katalogs bei.</value>
+    <value>Wählen Sie die standardmäßig ausgewählte Edition. Automatisch verwendet die von Foundry empfohlene Edition.</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming von Windows-Profilen</value>

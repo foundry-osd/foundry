@@ -2022,87 +2022,87 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Chineză tradițională (Taiwan)</value>
   </data>
-  <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Selectarea sistemului de operare</value>
+<data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
+    <value>Opțiuni de implementare Windows</value>
   </data>
-  <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Limitați sau preselectați opțiunile catalogului Windows afișate în timpul implementării.</value>
+<data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
+    <value>Definiți versiunile Windows, suporturile de instalare, limbile și edițiile oferite în timpul implementării.</value>
   </data>
-  <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
-    <value>Versiune OS</value>
+<data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
+    <value>Versiune Windows</value>
   </data>
-  <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
-    <value>Controlați ce versiuni Windows pot implementa operatorii.</value>
+<data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
+    <value>Configurați versiunile Windows 11 oferite în timpul implementării.</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
-    <value>Versiuni OS permise</value>
+<data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
+    <value>Versiuni Windows disponibile</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
-    <value>Lăsați necompletat pentru a permite toate versiunile Windows acceptate.</value>
+<data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
+    <value>Selectați versiunile care vor fi oferite, cum ar fi Windows 11, versiunea 25H2. Lăsați necompletat pentru a oferi toate versiunile acceptate.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
-    <value>Versiune OS implicită</value>
+<data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
+    <value>Versiune Windows preselectată</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
-    <value>Automat păstrează versiunea implicită a catalogului.</value>
+<data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
+    <value>Alegeți versiunea selectată în mod implicit. Opțiunea Automat utilizează versiunea recomandată de Foundry.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Suport media implicit</value></data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>0 selectează cel mai recent suport; valorile mai mari selectează suporturi disponibile mai vechi.</value></data>
-  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Cea mai recentă</value></data>
-  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Cea mai recentă - {0}</value></data>
-  <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
-    <value>Limbă OS</value>
+<data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Suport de instalare preselectat</value></data>
+<data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Alegeți cât de recent trebuie să fie suportul de instalare preselectat. Dacă istoricul solicitat nu este disponibil, se utilizează cel mai vechi suport disponibil.</value></data>
+<data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Cel mai recent suport de instalare</value></data>
+<data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Suport de instalare anterior ({0})</value></data>
+<data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
+    <value>Limbă Windows</value>
   </data>
-  <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
-    <value>Controlați ce limbi Windows pot implementa operatorii.</value>
+<data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
+    <value>Configurați limbile Windows oferite în timpul implementării.</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
-    <value>Limbi OS permise</value>
+<data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
+    <value>Limbi Windows disponibile</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
-    <value>Lăsați necompletat pentru a permite toate limbile Windows acceptate.</value>
+<data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
+    <value>Selectați limbile oferite în timpul implementării. Lăsați necompletat pentru a oferi toate limbile Windows acceptate.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
-    <value>Limbă OS implicită</value>
+<data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
+    <value>Limbă Windows preselectată</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
-    <value>Automat păstrează limba implicită a catalogului.</value>
+<data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
+    <value>Alegeți limba selectată în mod implicit. Opțiunea Automat utilizează limba recomandată de Foundry.</value>
   </data>
-  <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
-    <value>Canal de licență</value>
+<data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
+    <value>Canal de licențiere Windows</value>
   </data>
-  <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
-    <value>Controlați ce canale de licență Windows pot implementa operatorii.</value>
+<data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
+    <value>Configurați canalele de licențiere Windows oferite în timpul implementării.</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
-    <value>Canale de licență permise</value>
+<data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
+    <value>Canale de licențiere Windows disponibile</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
-    <value>Lăsați necompletat pentru a permite toate canalele de licență acceptate.</value>
+<data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
+    <value>Selectați canalele de licențiere oferite în timpul implementării. Lăsați necompletat pentru a oferi toate canalele acceptate.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
-    <value>Canal de licență implicit</value>
+<data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
+    <value>Canal de licențiere Windows preselectat</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
-    <value>Automat păstrează canalul de licență implicit al catalogului.</value>
+<data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
+    <value>Alegeți canalul de licențiere selectat în mod implicit. Opțiunea Automat utilizează canalul recomandat de Foundry.</value>
   </data>
-  <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
-    <value>Ediție</value>
+<data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
+    <value>Ediție Windows</value>
   </data>
-  <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
-    <value>Controlați ce ediții Windows pot implementa operatorii.</value>
+<data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
+    <value>Configurați edițiile Windows oferite în timpul implementării.</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
-    <value>Ediții permise</value>
+<data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
+    <value>Ediții Windows disponibile</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
-    <value>Lăsați necompletat pentru a permite toate edițiile Windows acceptate.</value>
+<data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
+    <value>Selectați edițiile oferite în timpul implementării. Lăsați necompletat pentru a oferi toate edițiile Windows acceptate.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
-    <value>Ediție implicită</value>
+<data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
+    <value>Ediție Windows preselectată</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
-    <value>Automat păstrează ediția implicită a catalogului.</value>
+<data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
+    <value>Alegeți ediția selectată în mod implicit. Opțiunea Automat utilizează ediția recomandată de Foundry.</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming pentru profilurile Windows</value>

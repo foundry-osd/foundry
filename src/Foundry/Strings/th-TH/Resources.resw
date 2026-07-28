@@ -2022,87 +2022,87 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>จีนดั้งเดิม (ไต้หวัน)</value>
   </data>
-  <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>การเลือกระบบปฏิบัติการ</value>
+<data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
+    <value>ตัวเลือกการปรับใช้ Windows</value>
   </data>
-  <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>จำกัดหรือเลือกตัวเลือกแค็ตตาล็อก Windows ล่วงหน้าที่แสดงระหว่างการปรับใช้</value>
+<data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
+    <value>กำหนดเวอร์ชัน Windows สื่อการติดตั้ง ภาษา และรุ่นที่มีให้เลือกระหว่างการปรับใช้</value>
   </data>
-  <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
-    <value>เวอร์ชัน OS</value>
+<data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
+    <value>เวอร์ชัน Windows</value>
   </data>
-  <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
-    <value>ควบคุมว่าเจ้าหน้าที่สามารถปรับใช้ Windows เวอร์ชันใดได้บ้าง</value>
+<data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
+    <value>กำหนดค่าเวอร์ชัน Windows 11 ที่มีให้เลือกระหว่างการปรับใช้</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
-    <value>เวอร์ชัน OS ที่อนุญาต</value>
+<data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
+    <value>เวอร์ชัน Windows ที่พร้อมใช้งาน</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
-    <value>เว้นว่างไว้เพื่ออนุญาต Windows ทุกเวอร์ชันที่รองรับ</value>
+<data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
+    <value>เลือกเวอร์ชันที่จะนำเสนอ เช่น Windows 11 เวอร์ชัน 25H2 เว้นว่างไว้เพื่อนำเสนอเวอร์ชันที่รองรับทั้งหมด</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
-    <value>เวอร์ชัน OS เริ่มต้น</value>
+<data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
+    <value>เวอร์ชัน Windows ที่เลือกไว้ล่วงหน้า</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
-    <value>อัตโนมัติจะคงเวอร์ชันเริ่มต้นของแค็ตตาล็อกไว้</value>
+<data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
+    <value>เลือกเวอร์ชันที่จะเลือกตามค่าเริ่มต้น ตัวเลือกอัตโนมัติจะใช้เวอร์ชันที่ Foundry แนะนำ</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>สื่อเริ่มต้น</value></data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>0 เลือกสื่อล่าสุด ค่าที่สูงกว่าจะเลือกสื่อเก่าที่ยังพร้อมใช้งาน</value></data>
-  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>ล่าสุด</value></data>
-  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>ล่าสุด - {0}</value></data>
-  <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
-    <value>ภาษา OS</value>
+<data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>สื่อการติดตั้งที่เลือกไว้ล่วงหน้า</value></data>
+<data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>เลือกว่าสื่อการติดตั้งที่เลือกไว้ล่วงหน้าควรใหม่เพียงใด หากไม่มีประวัติตามที่ร้องขอ ระบบจะใช้สื่อที่เก่าที่สุดที่พร้อมใช้งาน</value></data>
+<data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>สื่อการติดตั้งล่าสุด</value></data>
+<data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>สื่อการติดตั้งก่อนหน้า ({0})</value></data>
+<data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
+    <value>ภาษา Windows</value>
   </data>
-  <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
-    <value>ควบคุมว่าเจ้าหน้าที่สามารถปรับใช้ภาษา Windows ใดได้บ้าง</value>
+<data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
+    <value>กำหนดค่าภาษา Windows ที่มีให้เลือกระหว่างการปรับใช้</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
-    <value>ภาษา OS ที่อนุญาต</value>
+<data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
+    <value>ภาษา Windows ที่พร้อมใช้งาน</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
-    <value>เว้นว่างไว้เพื่ออนุญาตภาษา Windows ทุกภาษาที่รองรับ</value>
+<data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
+    <value>เลือกภาษาที่มีให้เลือกระหว่างการปรับใช้ เว้นว่างไว้เพื่อนำเสนอภาษา Windows ที่รองรับทั้งหมด</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
-    <value>ภาษา OS เริ่มต้น</value>
+<data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
+    <value>ภาษา Windows ที่เลือกไว้ล่วงหน้า</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
-    <value>อัตโนมัติจะคงภาษาเริ่มต้นของแค็ตตาล็อกไว้</value>
+<data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
+    <value>เลือกภาษาที่จะเลือกตามค่าเริ่มต้น ตัวเลือกอัตโนมัติจะใช้ภาษาที่ Foundry แนะนำ</value>
   </data>
-  <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
-    <value>ช่องทางสิทธิ์การใช้งาน</value>
+<data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
+    <value>ช่องทางสิทธิ์การใช้งาน Windows</value>
   </data>
-  <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
-    <value>ควบคุมว่าเจ้าหน้าที่สามารถปรับใช้ช่องทางสิทธิ์การใช้งาน Windows ใดได้บ้าง</value>
+<data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
+    <value>กำหนดค่าช่องทางสิทธิ์การใช้งาน Windows ที่มีให้เลือกระหว่างการปรับใช้</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
-    <value>ช่องทางสิทธิ์การใช้งานที่อนุญาต</value>
+<data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
+    <value>ช่องทางสิทธิ์การใช้งาน Windows ที่พร้อมใช้งาน</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
-    <value>เว้นว่างไว้เพื่ออนุญาตช่องทางสิทธิ์การใช้งานทุกช่องทางที่รองรับ</value>
+<data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
+    <value>เลือกช่องทางสิทธิ์การใช้งานที่มีให้เลือกระหว่างการปรับใช้ เว้นว่างไว้เพื่อนำเสนอช่องทางที่รองรับทั้งหมด</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
-    <value>ช่องทางสิทธิ์การใช้งานเริ่มต้น</value>
+<data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
+    <value>ช่องทางสิทธิ์การใช้งาน Windows ที่เลือกไว้ล่วงหน้า</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
-    <value>อัตโนมัติจะคงช่องทางสิทธิ์การใช้งานเริ่มต้นของแค็ตตาล็อกไว้</value>
+<data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
+    <value>เลือกช่องทางสิทธิ์การใช้งานที่จะเลือกตามค่าเริ่มต้น ตัวเลือกอัตโนมัติจะใช้ช่องทางที่ Foundry แนะนำ</value>
   </data>
-  <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
-    <value>รุ่น</value>
+<data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
+    <value>รุ่น Windows</value>
   </data>
-  <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
-    <value>ควบคุมว่าเจ้าหน้าที่สามารถปรับใช้ Windows รุ่นใดได้บ้าง</value>
+<data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
+    <value>กำหนดค่ารุ่น Windows ที่มีให้เลือกระหว่างการปรับใช้</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
-    <value>รุ่นที่อนุญาต</value>
+<data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
+    <value>รุ่น Windows ที่พร้อมใช้งาน</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
-    <value>เว้นว่างไว้เพื่ออนุญาต Windows ทุกรุ่นที่รองรับ</value>
+<data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
+    <value>เลือกรุ่นที่มีให้เลือกระหว่างการปรับใช้ เว้นว่างไว้เพื่อนำเสนอรุ่น Windows ที่รองรับทั้งหมด</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
-    <value>รุ่นเริ่มต้น</value>
+<data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
+    <value>รุ่น Windows ที่เลือกไว้ล่วงหน้า</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
-    <value>อัตโนมัติจะคงรุ่นเริ่มต้นของแค็ตตาล็อกไว้</value>
+<data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
+    <value>เลือกรุ่นที่จะเลือกตามค่าเริ่มต้น ตัวเลือกอัตโนมัติจะใช้รุ่นที่ Foundry แนะนำ</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
     <value>การโรมมิ่งโปรไฟล์ Windows</value>

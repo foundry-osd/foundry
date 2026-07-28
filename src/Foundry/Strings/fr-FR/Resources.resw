@@ -2038,86 +2038,86 @@
     <value>Chinois traditionnel (Taïwan)</value>
   </data>
   <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Sélection du système d'exploitation</value>
+    <value>Options de déploiement Windows</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Limitez ou présélectionnez les choix du catalogue Windows affichés pendant le déploiement.</value>
+    <value>Définissez les versions, médias d&apos;installation, langues et éditions Windows proposés pendant le déploiement.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
-    <value>Version de l'OS</value>
+    <value>Version de Windows</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
-    <value>Contrôlez les versions de Windows que les opérateurs peuvent déployer.</value>
+    <value>Configurez les versions de Windows 11 proposées pendant le déploiement.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
-    <value>Versions d'OS autorisées</value>
+    <value>Versions de Windows disponibles</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
-    <value>Laissez vide pour autoriser toutes les versions de Windows prises en charge.</value>
+    <value>Sélectionnez les versions proposées, par exemple Windows 11, version 25H2. Laissez vide pour proposer toutes les versions prises en charge.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
-    <value>Version d'OS par défaut</value>
+    <value>Version de Windows présélectionnée</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
-    <value>Automatique conserve la version par défaut du catalogue.</value>
+    <value>Choisissez la version sélectionnée par défaut. Automatique utilise la version recommandée par Foundry.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Média par défaut</value></data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>0 sélectionne le média le plus récent ; les valeurs supérieures sélectionnent un média disponible plus ancien.</value></data>
-  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Dernier</value></data>
-  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Dernier - {0}</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Média d&apos;installation présélectionné</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Choisissez l&apos;ancienneté du média d&apos;installation présélectionné. Si l&apos;historique demandé n&apos;est pas disponible, le média disponible le plus ancien est utilisé.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Média d&apos;installation le plus récent</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Média d&apos;installation précédent ({0})</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
-    <value>Langue de l'OS</value>
+    <value>Langue de Windows</value>
   </data>
   <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
-    <value>Contrôlez les langues de Windows que les opérateurs peuvent déployer.</value>
+    <value>Configurez les langues Windows proposées pendant le déploiement.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
-    <value>Langues d'OS autorisées</value>
+    <value>Langues Windows disponibles</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
-    <value>Laissez vide pour autoriser toutes les langues de Windows prises en charge.</value>
+    <value>Sélectionnez les langues proposées pendant le déploiement. Laissez vide pour proposer toutes les langues Windows prises en charge.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
-    <value>Langue d'OS par défaut</value>
+    <value>Langue Windows présélectionnée</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
-    <value>Automatique conserve la langue par défaut du catalogue.</value>
+    <value>Choisissez la langue sélectionnée par défaut. Automatique utilise la langue recommandée par Foundry.</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
-    <value>Canal de licence</value>
+    <value>Canal de licence Windows</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
-    <value>Contrôlez les canaux de licence Windows que les opérateurs peuvent déployer.</value>
+    <value>Configurez les canaux de licence Windows proposés pendant le déploiement.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
-    <value>Canaux de licence autorisés</value>
+    <value>Canaux de licence Windows disponibles</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
-    <value>Laissez vide pour autoriser tous les canaux de licence pris en charge.</value>
+    <value>Sélectionnez les canaux de licence proposés pendant le déploiement. Laissez vide pour proposer tous les canaux pris en charge.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
-    <value>Canal de licence par défaut</value>
+    <value>Canal de licence Windows présélectionné</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
-    <value>Automatique conserve le canal de licence par défaut du catalogue.</value>
+    <value>Choisissez le canal de licence sélectionné par défaut. Automatique utilise le canal recommandé par Foundry.</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
-    <value>Édition</value>
+    <value>Édition de Windows</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
-    <value>Contrôlez les éditions de Windows que les opérateurs peuvent déployer.</value>
+    <value>Configurez les éditions de Windows proposées pendant le déploiement.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
-    <value>Éditions autorisées</value>
+    <value>Éditions de Windows disponibles</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
-    <value>Laissez vide pour autoriser toutes les éditions de Windows prises en charge.</value>
+    <value>Sélectionnez les éditions proposées pendant le déploiement. Laissez vide pour proposer toutes les éditions de Windows prises en charge.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
-    <value>Édition par défaut</value>
+    <value>Édition de Windows présélectionnée</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
-    <value>Automatique conserve l'édition par défaut du catalogue.</value>
+    <value>Choisissez l&apos;édition sélectionnée par défaut. Automatique utilise l&apos;édition recommandée par Foundry.</value>
   </data>
   <data name="Adk.PageDescription" xml:space="preserve">
     <value>Vérifiez la disponibilité de Windows ADK et du module complémentaire Windows PE avant de créer le média de déploiement.</value>

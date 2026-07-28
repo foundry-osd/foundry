@@ -73,7 +73,7 @@
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Zjištění cílového disku se nezdařilo: {0}</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operační systém</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Verze</value></data>
-  <data name="Catalog.Media" xml:space="preserve"><value>Médium</value></data>
+  <data name="Catalog.Media" xml:space="preserve"><value>Instalační médium</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (nejnovější)</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Jazyk</value></data>
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Licenční kanál</value></data>

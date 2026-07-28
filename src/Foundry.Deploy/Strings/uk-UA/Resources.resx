@@ -73,7 +73,7 @@
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Не вдалося знайти цільовий диск: {0}</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Операційна система</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Версія</value></data>
-  <data name="Catalog.Media" xml:space="preserve"><value>Носій</value></data>
+  <data name="Catalog.Media" xml:space="preserve"><value>Інсталяційний носій</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Найновіший)</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Мова</value></data>
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Ліцензійний канал</value></data>

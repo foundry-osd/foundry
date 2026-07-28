@@ -73,7 +73,7 @@
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>การค้นพบดิสก์เป้าหมายล้มเหลว: {0}</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>ระบบปฏิบัติการ</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>เวอร์ชัน</value></data>
-  <data name="Catalog.Media" xml:space="preserve"><value>สื่อ</value></data>
+<data name="Catalog.Media" xml:space="preserve"><value>สื่อการติดตั้ง</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (ล่าสุด)</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>ภาษา</value></data>
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>ช่องทางการอนุญาต</value></data>
