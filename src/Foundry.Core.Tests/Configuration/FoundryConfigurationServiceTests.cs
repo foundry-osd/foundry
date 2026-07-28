@@ -52,6 +52,7 @@ public sealed class FoundryConfigurationServiceTests
                 DefaultLanguageCode = "fr-FR",
                 AllowedReleaseIds = ["25H2"],
                 DefaultReleaseId = "25H2",
+                DefaultMediaOffset = 2,
                 AllowedLicenseChannels = ["RET"],
                 DefaultLicenseChannel = "RET",
                 AllowedEditions = ["Pro"],
@@ -116,6 +117,7 @@ public sealed class FoundryConfigurationServiceTests
         Assert.Equal("fr-FR", loaded.OperatingSystemSelection.DefaultLanguageCode);
         Assert.Equal(["25H2"], loaded.OperatingSystemSelection.AllowedReleaseIds);
         Assert.Equal("25H2", loaded.OperatingSystemSelection.DefaultReleaseId);
+        Assert.Equal(2, loaded.OperatingSystemSelection.DefaultMediaOffset);
         Assert.Equal(["RET"], loaded.OperatingSystemSelection.AllowedLicenseChannels);
         Assert.Equal("RET", loaded.OperatingSystemSelection.DefaultLicenseChannel);
         Assert.Equal(["Pro"], loaded.OperatingSystemSelection.AllowedEditions);

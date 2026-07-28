@@ -2023,82 +2023,87 @@
     <value>perinteinen kiina (Taiwan)</value>
   </data>
   <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Käyttöjärjestelmän valinta</value>
+    <value>Windowsin käyttöönottoasetukset</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Rajoita tai esivalitse käyttöönotossa näytettävät Windows-luettelon valinnat.</value>
+    <value>Määritä käyttöönoton aikana tarjottavat Windows-versiot, päivitystasot, kielet ja versiot.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
-    <value>Käyttöjärjestelmäversio</value>
+    <value>Windows-versio</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
-    <value>Määritä, mitä Windows-versioita operaattorit voivat ottaa käyttöön.</value>
+    <value>Määritä käyttöönoton aikana tarjottavat Windows 11 -versiot.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
-    <value>Sallitut käyttöjärjestelmäversiot</value>
+    <value>Saatavilla olevat Windows-versiot</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
-    <value>Jätä tyhjäksi, jos kaikki tuetut Windows-versiot sallitaan.</value>
+    <value>Valitse tarjottavat versiot, kuten Windows 11, versio 25H2. Jätä tyhjäksi, jos haluat tarjota kaikki tuetut versiot.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
-    <value>Oletuskäyttöjärjestelmäversio</value>
+    <value>Esivalittu Windows-versio</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
-    <value>Automaattinen säilyttää luettelon oletusversion.</value>
+    <value>Valitse oletuksena valittu versio. Automaattinen käyttää Foundryn suosittelemaa versiota.</value>
   </data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Esivalittu Windowsin päivitystaso</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Valitse, kuinka uusi oletuksena valitun Windowsin kuukausipäivityksen tulee olla. Jos päivitystä ei ole saatavilla, käytetään vanhinta saatavilla olevaa päivitystä.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Uusin saatavilla oleva päivitys</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>1 päivitys aiempi</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>{0} päivitystä aiempi</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
-    <value>Käyttöjärjestelmän kieli</value>
+    <value>Windowsin kieli</value>
   </data>
   <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
-    <value>Määritä, mitä Windows-kieliä operaattorit voivat ottaa käyttöön.</value>
+    <value>Määritä käyttöönoton aikana tarjottavat Windowsin kielet.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
-    <value>Sallitut käyttöjärjestelmän kielet</value>
+    <value>Saatavilla olevat Windowsin kielet</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
-    <value>Jätä tyhjäksi, jos kaikki tuetut Windows-kielet sallitaan.</value>
+    <value>Valitse käyttöönoton aikana tarjottavat kielet. Jätä tyhjäksi, jos haluat tarjota kaikki tuetut Windowsin kielet.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
-    <value>Oletuskäyttöjärjestelmän kieli</value>
+    <value>Esivalittu Windowsin kieli</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
-    <value>Automaattinen säilyttää luettelon oletuskielen.</value>
+    <value>Valitse oletuksena valittu kieli. Automaattinen käyttää Foundryn suosittelemaa kieltä.</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
-    <value>Lisenssikanava</value>
+    <value>Windowsin lisenssikanava</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
-    <value>Määritä, mitä Windows-lisenssikanavia operaattorit voivat ottaa käyttöön.</value>
+    <value>Määritä käyttöönoton aikana tarjottavat Windowsin lisenssikanavat.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
-    <value>Sallitut lisenssikanavat</value>
+    <value>Saatavilla olevat Windowsin lisenssikanavat</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
-    <value>Jätä tyhjäksi, jos kaikki tuetut lisenssikanavat sallitaan.</value>
+    <value>Valitse käyttöönoton aikana tarjottavat lisenssikanavat. Jätä tyhjäksi, jos haluat tarjota kaikki tuetut kanavat.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
-    <value>Oletuslisenssikanava</value>
+    <value>Esivalittu Windowsin lisenssikanava</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
-    <value>Automaattinen säilyttää luettelon oletuslisenssikanavan.</value>
+    <value>Valitse oletuksena valittu lisenssikanava. Automaattinen käyttää Foundryn suosittelemaa kanavaa.</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
-    <value>Versio</value>
+    <value>Windows-versio</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
-    <value>Määritä, mitä Windows-versioita operaattorit voivat ottaa käyttöön.</value>
+    <value>Määritä käyttöönoton aikana tarjottavat Windows-versiot.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
-    <value>Sallitut versiot</value>
+    <value>Saatavilla olevat Windows-versiot</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
-    <value>Jätä tyhjäksi, jos kaikki tuetut Windows-versiot sallitaan.</value>
+    <value>Valitse käyttöönoton aikana tarjottavat versiot. Jätä tyhjäksi, jos haluat tarjota kaikki tuetut Windows-versiot.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
-    <value>Oletusversio</value>
+    <value>Esivalittu Windows-versio</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
-    <value>Automaattinen säilyttää luettelon oletusversion.</value>
+    <value>Valitse oletuksena valittu versio. Automaattinen käyttää Foundryn suosittelemaa versiota.</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows-profiilien siirto</value>

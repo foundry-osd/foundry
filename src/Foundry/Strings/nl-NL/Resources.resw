@@ -2023,82 +2023,87 @@
     <value>Traditioneel Chinees (Taiwan)</value>
   </data>
   <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Besturingssysteemselectie</value>
+    <value>Windows-implementatieopties</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Beperk of selecteer vooraf de Windows-cataloguskeuzes die tijdens de implementatie worden weergegeven.</value>
+    <value>Definieer de Windows-versies, updateniveaus, talen en edities die tijdens de implementatie worden aangeboden.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
-    <value>Besturingssysteemversie</value>
+    <value>Windows-versie</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
-    <value>Bepaal welke Windows-versies operators kunnen implementeren.</value>
+    <value>Configureer de Windows 11-versies die tijdens de implementatie worden aangeboden.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
-    <value>Toegestane besturingssysteemversies</value>
+    <value>Beschikbare Windows-versies</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
-    <value>Laat leeg om elke ondersteunde Windows-versie toe te staan.</value>
+    <value>Selecteer de versies die u wilt aanbieden, zoals Windows 11, versie 25H2. Laat leeg om alle ondersteunde versies aan te bieden.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
-    <value>Standaard besturingssysteemversie</value>
+    <value>Vooraf geselecteerde Windows-versie</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
-    <value>Automatisch behoudt de standaardversie van de catalogus.</value>
+    <value>Kies de versie die standaard is geselecteerd. Automatisch gebruikt de versie die wordt aanbevolen door Foundry.</value>
   </data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Vooraf geselecteerd Windows-updateniveau</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Kies hoe recent de maandelijkse Windows-update die standaard is geselecteerd, moet zijn. Als die update niet beschikbaar is, wordt de oudste beschikbare update gebruikt.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Meest recente beschikbare update</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>{0} updates eerder</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>1 update eerder</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
-    <value>Besturingssysteemtaal</value>
+    <value>Windows-taal</value>
   </data>
   <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
-    <value>Bepaal welke Windows-talen operators kunnen implementeren.</value>
+    <value>Configureer de Windows-talen die tijdens de implementatie worden aangeboden.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
-    <value>Toegestane besturingssysteemtalen</value>
+    <value>Beschikbare Windows-talen</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
-    <value>Laat leeg om elke ondersteunde Windows-taal toe te staan.</value>
+    <value>Selecteer de talen die tijdens de implementatie worden aangeboden. Laat leeg om alle ondersteunde Windows-talen aan te bieden.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
-    <value>Standaard besturingssysteemtaal</value>
+    <value>Vooraf geselecteerde Windows-taal</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
-    <value>Automatisch behoudt de standaardtaal van de catalogus.</value>
+    <value>Kies de taal die standaard is geselecteerd. Automatisch gebruikt de taal die wordt aanbevolen door Foundry.</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
-    <value>Licentiekanaal</value>
+    <value>Windows-licentiekanaal</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
-    <value>Bepaal welke Windows-licentiekanalen operators kunnen implementeren.</value>
+    <value>Configureer de Windows-licentiekanalen die tijdens de implementatie worden aangeboden.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
-    <value>Toegestane licentiekanalen</value>
+    <value>Beschikbare Windows-licentiekanalen</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
-    <value>Laat leeg om elk ondersteund licentiekanaal toe te staan.</value>
+    <value>Selecteer de licentiekanalen die tijdens de implementatie worden aangeboden. Laat leeg om alle ondersteunde kanalen aan te bieden.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
-    <value>Standaard licentiekanaal</value>
+    <value>Vooraf geselecteerd Windows-licentiekanaal</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
-    <value>Automatisch behoudt het standaardlicentiekanaal van de catalogus.</value>
+    <value>Kies het licentiekanaal dat standaard is geselecteerd. Automatisch gebruikt het kanaal dat wordt aanbevolen door Foundry.</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
-    <value>Editie</value>
+    <value>Windows-editie</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
-    <value>Bepaal welke Windows-edities operators kunnen implementeren.</value>
+    <value>Configureer de Windows-edities die tijdens de implementatie worden aangeboden.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
-    <value>Toegestane edities</value>
+    <value>Beschikbare Windows-edities</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
-    <value>Laat leeg om elke ondersteunde Windows-editie toe te staan.</value>
+    <value>Selecteer de edities die tijdens de implementatie worden aangeboden. Laat leeg om alle ondersteunde Windows-edities aan te bieden.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
-    <value>Standaardeditie</value>
+    <value>Vooraf geselecteerde Windows-editie</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
-    <value>Automatisch behoudt de standaardeditie van de catalogus.</value>
+    <value>Kies de editie die standaard is geselecteerd. Automatisch gebruikt de editie die wordt aanbevolen door Foundry.</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming van Windows-profielen</value>

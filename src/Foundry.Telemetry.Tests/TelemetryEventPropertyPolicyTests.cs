@@ -40,6 +40,7 @@ public sealed class TelemetryEventPropertyPolicyTests
             ["os_selection_default_language_configured"] = true,
             ["os_selection_allowed_release_count"] = 2,
             ["os_selection_default_release_configured"] = true,
+            ["os_selection_default_update_offset"] = 2,
             ["os_selection_allowed_license_channel_count"] = 1,
             ["os_selection_default_license_channel_configured"] = true,
             ["os_selection_allowed_edition_count"] = 2,
@@ -120,6 +121,7 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.True((bool)result["os_selection_default_language_configured"]!);
         Assert.Equal(2, result["os_selection_allowed_release_count"]);
         Assert.True((bool)result["os_selection_default_release_configured"]!);
+        Assert.Equal(2, result["os_selection_default_update_offset"]);
         Assert.Equal(1, result["os_selection_allowed_license_channel_count"]);
         Assert.True((bool)result["os_selection_default_license_channel_configured"]!);
         Assert.Equal(2, result["os_selection_allowed_edition_count"]);
@@ -191,6 +193,7 @@ public sealed class TelemetryEventPropertyPolicyTests
             ["deploy_os_product"] = "windows_11",
             ["deploy_os_version"] = "24h2",
             ["deploy_os_build"] = "26100",
+            ["deploy_os_update_month"] = "2026-07",
             ["deploy_os_architecture"] = "x64",
             ["deploy_os_language"] = "en-us",
             ["deploy_driver_pack_selection_kind"] = "oemcatalog",
@@ -220,6 +223,7 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.Equal("ApplyOperatingSystemImage", result["deploy_session_failed_step_name"]);
         Assert.Equal("iso", result["deploy_session_mode"]);
         Assert.Equal("windows_11", result["deploy_os_product"]);
+        Assert.Equal("2026-07", result["deploy_os_update_month"]);
         Assert.Equal("dell", result["deploy_driver_pack_vendor"]);
         Assert.Equal("latitude 5450", result["deploy_driver_pack_model"]);
         Assert.True((bool)result["deploy_firmware_updates_enabled"]!);

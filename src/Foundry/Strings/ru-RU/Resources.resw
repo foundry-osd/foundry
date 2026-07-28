@@ -2022,83 +2022,88 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Китайский традиционный (Тайвань)</value>
   </data>
-  <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Выбор операционной системы</value>
+<data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
+    <value>Параметры развертывания Windows</value>
   </data>
-  <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Ограничьте или предварительно выберите варианты каталога Windows, отображаемые во время развертывания.</value>
+<data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
+    <value>Укажите версии Windows, уровни обновления, языки и выпуски, предлагаемые во время развертывания.</value>
   </data>
-  <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
-    <value>Версия ОС</value>
+<data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
+    <value>Версия Windows</value>
   </data>
-  <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
-    <value>Укажите, какие версии Windows могут развертывать операторы.</value>
+<data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
+    <value>Настройте версии Windows 11, предлагаемые во время развертывания.</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
-    <value>Разрешенные версии ОС</value>
+<data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
+    <value>Доступные версии Windows</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
-    <value>Оставьте пустым, чтобы разрешить все поддерживаемые версии Windows.</value>
+<data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
+    <value>Выберите предлагаемые версии, например Windows 11 версии 25H2. Оставьте поле пустым, чтобы предлагать все поддерживаемые версии.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
-    <value>Версия ОС по умолчанию</value>
+<data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
+    <value>Предварительно выбранная версия Windows</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
-    <value>Автоматически сохраняет версию каталога по умолчанию.</value>
+<data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
+    <value>Выберите версию, используемую по умолчанию. При выборе параметра «Автоматически» используется версия, рекомендованная Foundry.</value>
   </data>
-  <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
-    <value>Язык ОС</value>
+<data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Предварительно выбранный уровень обновления Windows</value></data>
+<data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Укажите, насколько новым должно быть ежемесячное обновление Windows, выбранное по умолчанию. Если это обновление недоступно, используется самое старое доступное обновление.</value></data>
+<data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Последнее доступное обновление</value></data>
+<data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>На {0} обновл. раньше</value></data>
+<data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>На 1 обновление раньше</value></data>
+<data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
+    <value>Язык Windows</value>
   </data>
-  <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
-    <value>Укажите, какие языки Windows могут развертывать операторы.</value>
+<data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
+    <value>Настройте языки Windows, предлагаемые во время развертывания.</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
-    <value>Разрешенные языки ОС</value>
+<data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
+    <value>Доступные языки Windows</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
-    <value>Оставьте пустым, чтобы разрешить все поддерживаемые языки Windows.</value>
+<data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
+    <value>Выберите языки, предлагаемые во время развертывания. Оставьте поле пустым, чтобы предлагать все поддерживаемые языки Windows.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
-    <value>Язык ОС по умолчанию</value>
+<data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
+    <value>Предварительно выбранный язык Windows</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
-    <value>Автоматически сохраняет язык каталога по умолчанию.</value>
+<data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
+    <value>Выберите язык, используемый по умолчанию. При выборе параметра «Автоматически» используется язык, рекомендованный Foundry.</value>
   </data>
-  <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
-    <value>Канал лицензирования</value>
+<data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
+    <value>Канал лицензирования Windows</value>
   </data>
-  <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
-    <value>Укажите, какие каналы лицензирования Windows могут развертывать операторы.</value>
+<data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
+    <value>Настройте каналы лицензирования Windows, предлагаемые во время развертывания.</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
-    <value>Разрешенные каналы лицензирования</value>
+<data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
+    <value>Доступные каналы лицензирования Windows</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
-    <value>Оставьте пустым, чтобы разрешить все поддерживаемые каналы лицензирования.</value>
+<data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
+    <value>Выберите каналы лицензирования, предлагаемые во время развертывания. Оставьте поле пустым, чтобы предлагать все поддерживаемые каналы.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
-    <value>Канал лицензирования по умолчанию</value>
+<data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
+    <value>Предварительно выбранный канал лицензирования Windows</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
-    <value>Автоматически сохраняет канал лицензирования каталога по умолчанию.</value>
+<data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
+    <value>Выберите канал лицензирования, используемый по умолчанию. При выборе параметра «Автоматически» используется канал, рекомендованный Foundry.</value>
   </data>
-  <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
-    <value>Выпуск</value>
+<data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
+    <value>Выпуск Windows</value>
   </data>
-  <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
-    <value>Укажите, какие выпуски Windows могут развертывать операторы.</value>
+<data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
+    <value>Настройте выпуски Windows, предлагаемые во время развертывания.</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
-    <value>Разрешенные выпуски</value>
+<data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
+    <value>Доступные выпуски Windows</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
-    <value>Оставьте пустым, чтобы разрешить все поддерживаемые выпуски Windows.</value>
+<data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
+    <value>Выберите выпуски, предлагаемые во время развертывания. Оставьте поле пустым, чтобы предлагать все поддерживаемые выпуски Windows.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
-    <value>Выпуск по умолчанию</value>
+<data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
+    <value>Предварительно выбранный выпуск Windows</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
-    <value>Автоматически сохраняет выпуск каталога по умолчанию.</value>
+<data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
+    <value>Выберите выпуск, используемый по умолчанию. При выборе параметра «Автоматически» используется выпуск, рекомендованный Foundry.</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
     <value>Перенос профилей Windows</value>

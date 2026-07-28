@@ -73,6 +73,8 @@
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>ターゲット ディスクの検出に失敗しました: {0}</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>オペレーティングシステム</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>バージョン</value></data>
+  <data name="Catalog.Media" xml:space="preserve"><value>Windows 更新プログラム</value></data>
+  <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (最新)</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>言語</value></data>
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>ライセンスチャネル</value></data>
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>エディション（ターゲット）</value></data>

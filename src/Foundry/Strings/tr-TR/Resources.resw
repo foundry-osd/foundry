@@ -2023,82 +2023,87 @@
     <value>Geleneksel Çince (Tayvan)</value>
   </data>
   <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>İşletim sistemi seçimi</value>
+    <value>Windows dağıtım seçenekleri</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Dağıtım sırasında gösterilen Windows katalog seçeneklerini sınırlayın veya önceden seçin.</value>
+    <value>Dağıtım sırasında sunulan Windows sürümlerini, güncelleştirme düzeylerini, dilleri ve edisyonları belirleyin.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
-    <value>OS sürümü</value>
+    <value>Windows sürümü</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
-    <value>Operatörlerin dağıtabileceği Windows sürümlerini denetleyin.</value>
+    <value>Dağıtım sırasında sunulan Windows 11 sürümlerini yapılandırın.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
-    <value>İzin verilen OS sürümleri</value>
+    <value>Kullanılabilir Windows sürümleri</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
-    <value>Desteklenen tüm Windows sürümlerine izin vermek için boş bırakın.</value>
+    <value>Sunulacak sürümleri seçin; örneğin Windows 11, sürüm 25H2. Desteklenen tüm sürümleri sunmak için boş bırakın.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
-    <value>Varsayılan OS sürümü</value>
+    <value>Önceden seçili Windows sürümü</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
-    <value>Otomatik, katalog varsayılan sürümünü korur.</value>
+    <value>Varsayılan olarak seçilecek sürümü belirleyin. Otomatik, Foundry tarafından önerilen sürümü kullanır.</value>
   </data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Önceden seçili Windows güncelleştirme düzeyi</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Varsayılan olarak seçilecek aylık Windows güncelleştirmesinin ne kadar güncel olacağını belirleyin. Bu güncelleştirme kullanılamıyorsa kullanılabilir en eski güncelleştirme kullanılır.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Kullanılabilir en son güncelleştirme</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>1 güncelleştirme geride</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>{0} güncelleştirme geride</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
-    <value>OS dili</value>
+    <value>Windows dili</value>
   </data>
   <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
-    <value>Operatörlerin dağıtabileceği Windows dillerini denetleyin.</value>
+    <value>Dağıtım sırasında sunulan Windows dillerini yapılandırın.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
-    <value>İzin verilen OS dilleri</value>
+    <value>Kullanılabilir Windows dilleri</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
-    <value>Desteklenen tüm Windows dillerine izin vermek için boş bırakın.</value>
+    <value>Dağıtım sırasında sunulacak dilleri seçin. Desteklenen tüm Windows dillerini sunmak için boş bırakın.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
-    <value>Varsayılan OS dili</value>
+    <value>Önceden seçili Windows dili</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
-    <value>Otomatik, katalog varsayılan dilini korur.</value>
+    <value>Varsayılan olarak seçilecek dili belirleyin. Otomatik, Foundry tarafından önerilen dili kullanır.</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
-    <value>Lisans kanalı</value>
+    <value>Windows lisans kanalı</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
-    <value>Operatörlerin dağıtabileceği Windows lisans kanallarını denetleyin.</value>
+    <value>Dağıtım sırasında sunulan Windows lisans kanallarını yapılandırın.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
-    <value>İzin verilen lisans kanalları</value>
+    <value>Kullanılabilir Windows lisans kanalları</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
-    <value>Desteklenen tüm lisans kanallarına izin vermek için boş bırakın.</value>
+    <value>Dağıtım sırasında sunulacak lisans kanallarını seçin. Desteklenen tüm kanalları sunmak için boş bırakın.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
-    <value>Varsayılan lisans kanalı</value>
+    <value>Önceden seçili Windows lisans kanalı</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
-    <value>Otomatik, katalog varsayılan lisans kanalını korur.</value>
+    <value>Varsayılan olarak seçilecek lisans kanalını belirleyin. Otomatik, Foundry tarafından önerilen kanalı kullanır.</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
-    <value>Sürüm</value>
+    <value>Windows edisyonu</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
-    <value>Operatörlerin dağıtabileceği Windows sürümlerini denetleyin.</value>
+    <value>Dağıtım sırasında sunulan Windows edisyonlarını yapılandırın.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
-    <value>İzin verilen sürümler</value>
+    <value>Kullanılabilir Windows edisyonları</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
-    <value>Desteklenen tüm Windows sürümlerine izin vermek için boş bırakın.</value>
+    <value>Dağıtım sırasında sunulacak edisyonları seçin. Desteklenen tüm Windows edisyonlarını sunmak için boş bırakın.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
-    <value>Varsayılan sürüm</value>
+    <value>Önceden seçili Windows edisyonu</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
-    <value>Otomatik, katalog varsayılan sürümünü korur.</value>
+    <value>Varsayılan olarak seçilecek edisyonu belirleyin. Otomatik, Foundry tarafından önerilen edisyonu kullanır.</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows profil dolaşımı</value>

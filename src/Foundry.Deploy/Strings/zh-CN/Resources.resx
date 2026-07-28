@@ -73,6 +73,8 @@
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>目标磁盘发现失败：{0}</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>操作系统</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>版本</value></data>
+  <data name="Catalog.Media" xml:space="preserve"><value>Windows 更新</value></data>
+  <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0}（最新）</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>语言</value></data>
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>授权渠道</value></data>
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>版本（目标）</value></data>

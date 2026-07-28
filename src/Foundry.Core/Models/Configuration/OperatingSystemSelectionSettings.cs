@@ -35,6 +35,11 @@ public sealed record OperatingSystemSelectionSettings
     public string? DefaultReleaseId { get; init; }
 
     /// <summary>
+    /// Gets the zero-based offset into available media builds, where zero selects the latest build.
+    /// </summary>
+    public int DefaultMediaOffset { get; init; }
+
+    /// <summary>
     /// Gets license channel tokens that remain selectable in Foundry.Deploy. An empty list allows all catalog channels.
     /// </summary>
     public IReadOnlyList<string> AllowedLicenseChannels { get; init; } = Array.Empty<string>();

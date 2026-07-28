@@ -6,6 +6,7 @@ using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.ViewModels;
 using Microsoft.Extensions.Logging.Abstractions;
+using System.Globalization;
 
 namespace Foundry.Deploy.Tests;
 
@@ -127,21 +128,118 @@ public sealed class OperatingSystemCatalogViewModelTests
         Assert.True(viewModel.IsEditionSelectionEnabled);
     }
 
+    [Fact]
+    public void ApplyOperatingSystemSelection_WhenMediaOffsetExceedsHistory_ClampsToOldestAvailableMedia()
+    {
+        var viewModel = new OperatingSystemCatalogViewModel(NullLogger.Instance, "x64");
+        viewModel.ApplyCatalog(
+        [
+            CreateOperatingSystem("en-US", sourceId: "july", mediaDate: new DateOnly(2026, 7, 10), build: "26200.8873"),
+            CreateOperatingSystem("en-US", sourceId: "june", mediaDate: new DateOnly(2026, 6, 6), build: "26200.8653"),
+            CreateOperatingSystem("en-US", sourceId: "may", mediaDate: new DateOnly(2026, 5, 7), build: "26200.8457")
+        ]);
+
+        viewModel.ApplyOperatingSystemSelection(new DeployOperatingSystemSelectionSettings
+        {
+            IsEnabled = true,
+            DefaultReleaseId = "25H2",
+            DefaultMediaOffset = 11
+        });
+
+        Assert.Equal(3, viewModel.MediaFilters.Count);
+        Assert.Equal("may", viewModel.SelectedMediaSourceId);
+        Assert.Equal(new DateOnly(2026, 5, 7), viewModel.SelectedOperatingSystem?.MediaDate);
+    }
+
+    [Theory]
+    [InlineData(0, "july")]
+    [InlineData(1, "june")]
+    public void ApplyOperatingSystemSelection_SelectsRequestedAvailableMediaOffset(int offset, string expectedSourceId)
+    {
+        var viewModel = new OperatingSystemCatalogViewModel(NullLogger.Instance, "x64");
+        viewModel.ApplyOperatingSystemSelection(new DeployOperatingSystemSelectionSettings
+        {
+            IsEnabled = true,
+            DefaultReleaseId = "25H2",
+            DefaultMediaOffset = offset
+        });
+        viewModel.ApplyCatalog(
+        [
+            CreateOperatingSystem("en-US", sourceId: "july", mediaDate: new DateOnly(2026, 7, 10), build: "26200.8873"),
+            CreateOperatingSystem("en-US", sourceId: "june", mediaDate: new DateOnly(2026, 6, 6), build: "26200.8653")
+        ]);
+
+        Assert.Equal(expectedSourceId, viewModel.SelectedMediaSourceId);
+    }
+
+    [Fact]
+    public void ApplyCatalog_WhenMonthContainsMultipleBuilds_IncludesBuildInMediaLabels()
+    {
+        CultureInfo originalCulture = CultureInfo.CurrentUICulture;
+        try
+        {
+            CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
+            var viewModel = new OperatingSystemCatalogViewModel(NullLogger.Instance, "x64");
+
+            viewModel.ApplyCatalog(
+            [
+                CreateOperatingSystem("en-US", sourceId: "july-new", mediaDate: new DateOnly(2026, 7, 20), build: "26200.9000"),
+                CreateOperatingSystem("en-US", sourceId: "july-old", mediaDate: new DateOnly(2026, 7, 10), build: "26200.8873")
+            ]);
+
+            Assert.StartsWith("July 2026", viewModel.MediaFilters[0].DisplayName);
+            Assert.EndsWith("(Latest)", viewModel.MediaFilters[0].DisplayName);
+            Assert.Contains("26200.9000", viewModel.MediaFilters[0].DisplayName);
+            Assert.Contains("26200.8873", viewModel.MediaFilters[1].DisplayName);
+        }
+        finally
+        {
+            CultureInfo.CurrentUICulture = originalCulture;
+        }
+    }
+
+    [Fact]
+    public void ApplyCatalog_WithLowercaseLocalizedMonth_CapitalizesMediaLabel()
+    {
+        CultureInfo originalCulture = CultureInfo.CurrentUICulture;
+        try
+        {
+            CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("fr-FR");
+            var viewModel = new OperatingSystemCatalogViewModel(NullLogger.Instance, "x64");
+
+            viewModel.ApplyCatalog(
+            [
+                CreateOperatingSystem("fr-FR", sourceId: "july", mediaDate: new DateOnly(2026, 7, 10))
+            ]);
+
+            Assert.StartsWith("Juillet 2026", viewModel.MediaFilters[0].DisplayName);
+        }
+        finally
+        {
+            CultureInfo.CurrentUICulture = originalCulture;
+        }
+    }
+
     private static OperatingSystemCatalogItem CreateOperatingSystem(
         string languageCode,
         string releaseId = "25H2",
-        string licenseChannel = "RET")
+        string licenseChannel = "RET",
+        string? sourceId = null,
+        DateOnly? mediaDate = null,
+        string build = "26200.8873")
     {
         return new OperatingSystemCatalogItem
         {
+            SourceId = sourceId ?? $"{releaseId}-{licenseChannel}",
             WindowsRelease = "11",
             ReleaseId = releaseId,
             Architecture = "x64",
             LanguageCode = languageCode,
             Edition = "Pro",
             LicenseChannel = licenseChannel,
-            Build = "26200",
-            Url = $"https://example.test/windows-{releaseId}-{licenseChannel}-{languageCode}.iso"
+            Build = build,
+            MediaDate = mediaDate ?? new DateOnly(2026, 7, 10),
+            Url = $"https://example.test/windows-{sourceId ?? releaseId}-{licenseChannel}-{languageCode}.iso"
         };
     }
 }

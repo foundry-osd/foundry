@@ -2023,82 +2023,87 @@
     <value>hagyományos kínai (Tajvan)</value>
   </data>
   <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Operációs rendszer kiválasztása</value>
+    <value>Windows-telepítési lehetőségek</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Korlátozza vagy előre válassza ki a telepítéskor megjelenő Windows-katalógus beállításait.</value>
+    <value>Adja meg a telepítés során felkínált Windows-verziókat, frissítési szinteket, nyelveket és kiadásokat.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
-    <value>OS-verzió</value>
+    <value>Windows-verzió</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
-    <value>Szabályozza, hogy az operátorok mely Windows-verziókat telepíthetik.</value>
+    <value>Konfigurálja a telepítés során felkínált Windows 11-verziókat.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
-    <value>Engedélyezett OS-verziók</value>
+    <value>Elérhető Windows-verziók</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
-    <value>Hagyja üresen az összes támogatott Windows-verzió engedélyezéséhez.</value>
+    <value>Válassza ki a felkínálni kívánt verziókat, például: Windows 11, 25H2 verzió. Hagyja üresen az összes támogatott verzió felkínálásához.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
-    <value>Alapértelmezett OS-verzió</value>
+    <value>Előre kiválasztott Windows-verzió</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
-    <value>Az Automatikus megtartja a katalógus alapértelmezett verzióját.</value>
+    <value>Válassza ki az alapértelmezés szerint kijelölt verziót. Az Automatikus beállítás a Foundry által ajánlott verziót használja.</value>
   </data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Előre kiválasztott Windows-frissítési szint</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Válassza ki, milyen friss legyen az alapértelmezés szerint kijelölt havi Windows-frissítés. Ha ez a frissítés nem érhető el, a rendszer a legrégebbi elérhető frissítést használja.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Legújabb elérhető frissítés</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>{0} frissítéssel korábbi</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>1 frissítéssel korábbi</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
-    <value>OS nyelve</value>
+    <value>Windows nyelve</value>
   </data>
   <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
-    <value>Szabályozza, hogy az operátorok mely Windows-nyelveket telepíthetik.</value>
+    <value>Konfigurálja a telepítés során felkínált Windows-nyelveket.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
-    <value>Engedélyezett OS-nyelvek</value>
+    <value>Elérhető Windows-nyelvek</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
-    <value>Hagyja üresen az összes támogatott Windows-nyelv engedélyezéséhez.</value>
+    <value>Válassza ki a telepítés során felkínált nyelveket. Hagyja üresen az összes támogatott Windows-nyelv felkínálásához.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
-    <value>Alapértelmezett OS-nyelv</value>
+    <value>Előre kiválasztott Windows-nyelv</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
-    <value>Az Automatikus megtartja a katalógus alapértelmezett nyelvét.</value>
+    <value>Válassza ki az alapértelmezés szerint kijelölt nyelvet. Az Automatikus beállítás a Foundry által ajánlott nyelvet használja.</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
-    <value>Licenccsatorna</value>
+    <value>Windows-licenccsatorna</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
-    <value>Szabályozza, hogy az operátorok mely Windows-licenccsatornákat telepíthetik.</value>
+    <value>Konfigurálja a telepítés során felkínált Windows-licenccsatornákat.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
-    <value>Engedélyezett licenccsatornák</value>
+    <value>Elérhető Windows-licenccsatornák</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
-    <value>Hagyja üresen az összes támogatott licenccsatorna engedélyezéséhez.</value>
+    <value>Válassza ki a telepítés során felkínált licenccsatornákat. Hagyja üresen az összes támogatott csatorna felkínálásához.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
-    <value>Alapértelmezett licenccsatorna</value>
+    <value>Előre kiválasztott Windows-licenccsatorna</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
-    <value>Az Automatikus megtartja a katalógus alapértelmezett licenccsatornáját.</value>
+    <value>Válassza ki az alapértelmezés szerint kijelölt licenccsatornát. Az Automatikus beállítás a Foundry által ajánlott csatornát használja.</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
-    <value>Kiadás</value>
+    <value>Windows-kiadás</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
-    <value>Szabályozza, hogy az operátorok mely Windows-kiadásokat telepíthetik.</value>
+    <value>Konfigurálja a telepítés során felkínált Windows-kiadásokat.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
-    <value>Engedélyezett kiadások</value>
+    <value>Elérhető Windows-kiadások</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
-    <value>Hagyja üresen az összes támogatott Windows-kiadás engedélyezéséhez.</value>
+    <value>Válassza ki a telepítés során felkínált kiadásokat. Hagyja üresen az összes támogatott Windows-kiadás felkínálásához.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
-    <value>Alapértelmezett kiadás</value>
+    <value>Előre kiválasztott Windows-kiadás</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
-    <value>Az Automatikus megtartja a katalógus alapértelmezett kiadását.</value>
+    <value>Válassza ki az alapértelmezés szerint kijelölt kiadást. Az Automatikus beállítás a Foundry által ajánlott kiadást használja.</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows-profilok barangolása</value>

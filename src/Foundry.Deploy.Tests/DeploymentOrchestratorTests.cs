@@ -85,6 +85,7 @@ public sealed class DeploymentOrchestratorTests
                 WindowsRelease = "11",
                 ReleaseId = "24H2",
                 Build = "26100",
+                MediaDate = new DateOnly(2026, 7, 10),
                 Architecture = "x64",
                 LanguageCode = "en-US"
             },
@@ -110,6 +111,7 @@ public sealed class DeploymentOrchestratorTests
         Assert.False((bool)telemetryEvent.Properties["deploy_session_cancelled"]!);
         Assert.Equal(DeploymentStepNames.DownloadOperatingSystemImage, telemetryEvent.Properties["deploy_session_failed_step_name"]);
         Assert.Equal("windows_11", telemetryEvent.Properties["deploy_os_product"]);
+        Assert.Equal("2026-07", telemetryEvent.Properties["deploy_os_update_month"]);
         Assert.Equal("dell", telemetryEvent.Properties["deploy_driver_pack_vendor"]);
         Assert.Equal("latitude 5450", telemetryEvent.Properties["deploy_driver_pack_model"]);
         Assert.True((bool)telemetryEvent.Properties["deploy_firmware_updates_enabled"]!);

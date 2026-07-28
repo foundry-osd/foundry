@@ -38,6 +38,18 @@
                         <TextBlock
                             Margin="0,20,0,0"
                             Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding Strings[Catalog.Media]}" />
+                        <ComboBox
+                            Margin="0,8,0,0"
+                            DisplayMemberPath="DisplayName"
+                            IsEnabled="{Binding OperatingSystemCatalog.IsMediaSelectionEnabled}"
+                            ItemsSource="{Binding OperatingSystemCatalog.MediaFilters}"
+                            SelectedValue="{Binding OperatingSystemCatalog.SelectedMediaSourceId}"
+                            SelectedValuePath="SourceId" />
+
+                        <TextBlock
+                            Margin="0,20,0,0"
+                            Style="{StaticResource BodyTextBlockStyle}"
                             Text="{Binding Strings[Catalog.Language]}" />
                         <ComboBox
                             Margin="0,8,0,0"

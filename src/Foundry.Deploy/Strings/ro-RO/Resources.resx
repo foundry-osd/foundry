@@ -73,6 +73,8 @@
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Descoperirea discului țintă a eșuat: {0}</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Sistem de operare</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versiune</value></data>
+<data name="Catalog.Media" xml:space="preserve"><value>Actualizare Windows</value></data>
+<data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Cea mai recentă)</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Limba</value></data>
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Canal de licență</value></data>
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>Ediție (țintă)</value></data>

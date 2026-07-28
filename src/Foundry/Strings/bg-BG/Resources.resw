@@ -2023,82 +2023,87 @@
     <value>традиционен китайски (Тайван)</value>
   </data>
   <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Избор на операционна система</value>
+    <value>Опции за разполагане на Windows</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Ограничете или предварително изберете опциите от каталога на Windows, показвани по време на разполагане.</value>
+    <value>Определете версиите на Windows, нивата на актуализация, езиците и изданията, предлагани по време на разполагането.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
-    <value>Версия на ОС</value>
+    <value>Версия на Windows</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
-    <value>Контролирайте кои версии на Windows могат да разполагат операторите.</value>
+    <value>Конфигурирайте версиите на Windows 11, предлагани по време на разполагането.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
-    <value>Разрешени версии на ОС</value>
+    <value>Налични версии на Windows</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
-    <value>Оставете празно, за да разрешите всички поддържани версии на Windows.</value>
+    <value>Изберете версиите, които да се предлагат, например Windows 11, версия 25H2. Оставете празно, за да се предлагат всички поддържани версии.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
-    <value>Версия на ОС по подразбиране</value>
+    <value>Предварително избрана версия на Windows</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
-    <value>Автоматично запазва версията по подразбиране от каталога.</value>
+    <value>Изберете версията, избрана по подразбиране. Автоматично използва версията, препоръчана от Foundry.</value>
   </data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Предварително избрано ниво на актуализация на Windows</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Изберете колко скорошна да бъде месечната актуализация на Windows, избрана по подразбиране. Ако тази актуализация не е налична, се използва най-старата налична актуализация.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Най-новата налична актуализация</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>1 актуализация по-рано</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>{0} актуализации по-рано</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
-    <value>Език на ОС</value>
+    <value>Език на Windows</value>
   </data>
   <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
-    <value>Контролирайте кои езици на Windows могат да разполагат операторите.</value>
+    <value>Конфигурирайте езиците на Windows, предлагани по време на разполагането.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
-    <value>Разрешени езици на ОС</value>
+    <value>Налични езици на Windows</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
-    <value>Оставете празно, за да разрешите всички поддържани езици на Windows.</value>
+    <value>Изберете езиците, предлагани по време на разполагането. Оставете празно, за да се предлагат всички поддържани езици на Windows.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
-    <value>Език на ОС по подразбиране</value>
+    <value>Предварително избран език на Windows</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
-    <value>Автоматично запазва езика по подразбиране от каталога.</value>
+    <value>Изберете езика, избран по подразбиране. Автоматично използва езика, препоръчан от Foundry.</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
-    <value>Лицензионен канал</value>
+    <value>Лицензионен канал на Windows</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
-    <value>Контролирайте кои лицензионни канали на Windows могат да разполагат операторите.</value>
+    <value>Конфигурирайте лицензионните канали на Windows, предлагани по време на разполагането.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
-    <value>Разрешени лицензионни канали</value>
+    <value>Налични лицензионни канали на Windows</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
-    <value>Оставете празно, за да разрешите всички поддържани лицензионни канали.</value>
+    <value>Изберете лицензионните канали, предлагани по време на разполагането. Оставете празно, за да се предлагат всички поддържани канали.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
-    <value>Лицензионен канал по подразбиране</value>
+    <value>Предварително избран лицензионен канал на Windows</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
-    <value>Автоматично запазва лицензионния канал по подразбиране от каталога.</value>
+    <value>Изберете лицензионния канал, избран по подразбиране. Автоматично използва канала, препоръчан от Foundry.</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
-    <value>Издание</value>
+    <value>Издание на Windows</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
-    <value>Контролирайте кои издания на Windows могат да разполагат операторите.</value>
+    <value>Конфигурирайте изданията на Windows, предлагани по време на разполагането.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
-    <value>Разрешени издания</value>
+    <value>Налични издания на Windows</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
-    <value>Оставете празно, за да разрешите всички поддържани издания на Windows.</value>
+    <value>Изберете изданията, предлагани по време на разполагането. Оставете празно, за да се предлагат всички поддържани издания на Windows.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
-    <value>Издание по подразбиране</value>
+    <value>Предварително избрано издание на Windows</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
-    <value>Автоматично запазва изданието по подразбиране от каталога.</value>
+    <value>Изберете изданието, избрано по подразбиране. Автоматично използва изданието, препоръчано от Foundry.</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
     <value>Роуминг на профили на Windows</value>

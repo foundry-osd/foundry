@@ -2023,82 +2023,87 @@
     <value>Tradisjonell kinesisk (Taiwan)</value>
   </data>
   <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Valg av operativsystem</value>
+    <value>Alternativer for Windows-utrulling</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Begrens eller forhåndsvelg Windows-katalogvalgene som vises under utrulling.</value>
+    <value>Definer Windows-versjonene, oppdateringsnivåene, språkene og utgavene som tilbys under utrulling.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
-    <value>OS-versjon</value>
+    <value>Windows-versjon</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
-    <value>Kontroller hvilke Windows-versjoner operatører kan rulle ut.</value>
+    <value>Konfigurer Windows 11-versjonene som tilbys under utrulling.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
-    <value>Tillatte OS-versjoner</value>
+    <value>Tilgjengelige Windows-versjoner</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
-    <value>La stå tomt for å tillate alle støttede Windows-versjoner.</value>
+    <value>Velg versjonene som skal tilbys, for eksempel Windows 11, versjon 25H2. La stå tomt for å tilby alle støttede versjoner.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
-    <value>Standard OS-versjon</value>
+    <value>Forhåndsvalgt Windows-versjon</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
-    <value>Automatisk beholder katalogens standardversjon.</value>
+    <value>Velg versjonen som er valgt som standard. Automatisk bruker versjonen som anbefales av Foundry.</value>
   </data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Forhåndsvalgt Windows-oppdateringsnivå</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Velg hvor ny den månedlige Windows-oppdateringen som er valgt som standard, skal være. Hvis denne oppdateringen ikke er tilgjengelig, brukes den eldste tilgjengelige oppdateringen.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Nyeste tilgjengelige oppdatering</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>{0} oppdateringer tidligere</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>1 oppdatering tidligere</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
-    <value>OS-språk</value>
+    <value>Windows-språk</value>
   </data>
   <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
-    <value>Kontroller hvilke Windows-språk operatører kan rulle ut.</value>
+    <value>Konfigurer Windows-språkene som tilbys under utrulling.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
-    <value>Tillatte OS-språk</value>
+    <value>Tilgjengelige Windows-språk</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
-    <value>La stå tomt for å tillate alle støttede Windows-språk.</value>
+    <value>Velg språkene som tilbys under utrulling. La stå tomt for å tilby alle støttede Windows-språk.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
-    <value>Standard OS-språk</value>
+    <value>Forhåndsvalgt Windows-språk</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
-    <value>Automatisk beholder katalogens standardspråk.</value>
+    <value>Velg språket som er valgt som standard. Automatisk bruker språket som anbefales av Foundry.</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
-    <value>Lisenskanal</value>
+    <value>Windows-lisenskanal</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
-    <value>Kontroller hvilke Windows-lisenskanaler operatører kan rulle ut.</value>
+    <value>Konfigurer Windows-lisenskanalene som tilbys under utrulling.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
-    <value>Tillatte lisenskanaler</value>
+    <value>Tilgjengelige Windows-lisenskanaler</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
-    <value>La stå tomt for å tillate alle støttede lisenskanaler.</value>
+    <value>Velg lisenskanalene som tilbys under utrulling. La stå tomt for å tilby alle støttede kanaler.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
-    <value>Standard lisenskanal</value>
+    <value>Forhåndsvalgt Windows-lisenskanal</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
-    <value>Automatisk beholder katalogens standard lisenskanal.</value>
+    <value>Velg lisenskanalen som er valgt som standard. Automatisk bruker kanalen som anbefales av Foundry.</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
-    <value>Utgave</value>
+    <value>Windows-utgave</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
-    <value>Kontroller hvilke Windows-utgaver operatører kan rulle ut.</value>
+    <value>Konfigurer Windows-utgavene som tilbys under utrulling.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
-    <value>Tillatte utgaver</value>
+    <value>Tilgjengelige Windows-utgaver</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
-    <value>La stå tomt for å tillate alle støttede Windows-utgaver.</value>
+    <value>Velg utgavene som tilbys under utrulling. La stå tomt for å tilby alle støttede Windows-utgaver.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
-    <value>Standardutgave</value>
+    <value>Forhåndsvalgt Windows-utgave</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
-    <value>Automatisk beholder katalogens standardutgave.</value>
+    <value>Velg utgaven som er valgt som standard. Automatisk bruker utgaven som anbefales av Foundry.</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming av Windows-profiler</value>

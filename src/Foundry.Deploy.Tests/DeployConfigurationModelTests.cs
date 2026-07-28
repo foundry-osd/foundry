@@ -46,6 +46,7 @@ public sealed class DeployConfigurationModelTests
                 "defaultLanguageCode": "fr-FR",
                 "allowedReleaseIds": ["25H2"],
                 "defaultReleaseId": "25H2",
+                "defaultMediaOffset": 2,
                 "allowedLicenseChannels": ["RET"],
                 "defaultLicenseChannel": "RET",
                 "allowedEditions": ["Pro", "Enterprise"],
@@ -68,6 +69,7 @@ public sealed class DeployConfigurationModelTests
         Assert.Equal("fr-FR", document.OperatingSystemSelection.DefaultLanguageCode);
         Assert.Equal(["25H2"], document.OperatingSystemSelection.AllowedReleaseIds);
         Assert.Equal("25H2", document.OperatingSystemSelection.DefaultReleaseId);
+        Assert.Equal(2, document.OperatingSystemSelection.DefaultMediaOffset);
         Assert.Equal(["RET"], document.OperatingSystemSelection.AllowedLicenseChannels);
         Assert.Equal("RET", document.OperatingSystemSelection.DefaultLicenseChannel);
         Assert.Equal(["Pro", "Enterprise"], document.OperatingSystemSelection.AllowedEditions);

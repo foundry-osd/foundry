@@ -2022,83 +2022,88 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>tradičná čínština (Taiwan)</value>
   </data>
-  <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Výber operačného systému</value>
+<data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
+    <value>Možnosti nasadenia Windows</value>
   </data>
-  <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Obmedzte alebo predvyberte možnosti katalógu Windows zobrazené počas nasadenia.</value>
+<data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
+    <value>Definujte verzie Windows, úrovne aktualizácií, jazyky a edície ponúkané počas nasadenia.</value>
   </data>
-  <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
-    <value>Verzia OS</value>
+<data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
+    <value>Verzia Windows</value>
   </data>
-  <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
-    <value>Určite, ktoré verzie Windows môžu operátori nasadiť.</value>
+<data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
+    <value>Nakonfigurujte verzie Windows 11 ponúkané počas nasadenia.</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
-    <value>Povolené verzie OS</value>
+<data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
+    <value>Dostupné verzie Windows</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
-    <value>Ponechajte prázdne, ak chcete povoliť všetky podporované verzie Windows.</value>
+<data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
+    <value>Vyberte verzie, ktoré sa majú ponúkať, napríklad Windows 11, verzia 25H2. Ak chcete ponúkať všetky podporované verzie, ponechajte pole prázdne.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
-    <value>Predvolená verzia OS</value>
+<data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
+    <value>Predvolená vybratá verzia Windows</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
-    <value>Automaticky zachová predvolenú verziu katalógu.</value>
+<data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
+    <value>Vyberte verziu, ktorá sa vyberie predvolene. Možnosť Automaticky použije verziu odporúčanú službou Foundry.</value>
   </data>
-  <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
-    <value>Jazyk OS</value>
+<data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Predvolená vybratá úroveň aktualizácie Windows</value></data>
+<data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Vyberte, aká aktuálna má byť mesačná aktualizácia Windows vybratá predvolene. Ak táto aktualizácia nie je k dispozícii, použije sa najstaršia dostupná aktualizácia.</value></data>
+<data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Najnovšia dostupná aktualizácia</value></data>
+<data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>O {0} aktualizácií skôr</value></data>
+<data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>O 1 aktualizáciu skôr</value></data>
+<data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
+    <value>Jazyk Windows</value>
   </data>
-  <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
-    <value>Určite, ktoré jazyky Windows môžu operátori nasadiť.</value>
+<data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
+    <value>Nakonfigurujte jazyky Windows ponúkané počas nasadenia.</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
-    <value>Povolené jazyky OS</value>
+<data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
+    <value>Dostupné jazyky Windows</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
-    <value>Ponechajte prázdne, ak chcete povoliť všetky podporované jazyky Windows.</value>
+<data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
+    <value>Vyberte jazyky ponúkané počas nasadenia. Ak chcete ponúkať všetky podporované jazyky Windows, ponechajte pole prázdne.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
-    <value>Predvolený jazyk OS</value>
+<data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
+    <value>Predvolený vybratý jazyk Windows</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
-    <value>Automaticky zachová predvolený jazyk katalógu.</value>
+<data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
+    <value>Vyberte jazyk, ktorý sa vyberie predvolene. Možnosť Automaticky použije jazyk odporúčaný službou Foundry.</value>
   </data>
-  <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
-    <value>Licenčný kanál</value>
+<data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
+    <value>Licenčný kanál Windows</value>
   </data>
-  <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
-    <value>Určite, ktoré licenčné kanály Windows môžu operátori nasadiť.</value>
+<data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
+    <value>Nakonfigurujte licenčné kanály Windows ponúkané počas nasadenia.</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
-    <value>Povolené licenčné kanály</value>
+<data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
+    <value>Dostupné licenčné kanály Windows</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
-    <value>Ponechajte prázdne, ak chcete povoliť všetky podporované licenčné kanály.</value>
+<data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
+    <value>Vyberte licenčné kanály ponúkané počas nasadenia. Ak chcete ponúkať všetky podporované kanály, ponechajte pole prázdne.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
-    <value>Predvolený licenčný kanál</value>
+<data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
+    <value>Predvolený vybratý licenčný kanál Windows</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
-    <value>Automaticky zachová predvolený licenčný kanál katalógu.</value>
+<data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
+    <value>Vyberte licenčný kanál, ktorý sa vyberie predvolene. Možnosť Automaticky použije kanál odporúčaný službou Foundry.</value>
   </data>
-  <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
-    <value>Edícia</value>
+<data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
+    <value>Edícia Windows</value>
   </data>
-  <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
-    <value>Určite, ktoré edície Windows môžu operátori nasadiť.</value>
+<data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
+    <value>Nakonfigurujte edície Windows ponúkané počas nasadenia.</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
-    <value>Povolené edície</value>
+<data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
+    <value>Dostupné edície Windows</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
-    <value>Ponechajte prázdne, ak chcete povoliť všetky podporované edície Windows.</value>
+<data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
+    <value>Vyberte edície ponúkané počas nasadenia. Ak chcete ponúkať všetky podporované edície Windows, ponechajte pole prázdne.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
-    <value>Predvolená edícia</value>
+<data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
+    <value>Predvolená vybratá edícia Windows</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
-    <value>Automaticky zachová predvolenú edíciu katalógu.</value>
+<data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
+    <value>Vyberte edíciu, ktorá sa vyberie predvolene. Možnosť Automaticky použije edíciu odporúčanú službou Foundry.</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming profilov Windows</value>

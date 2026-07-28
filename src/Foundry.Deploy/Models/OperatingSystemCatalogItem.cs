@@ -13,6 +13,7 @@ public sealed record OperatingSystemCatalogItem
     public string Build { get; init; } = string.Empty;
     public int BuildMajor { get; init; }
     public int BuildUbr { get; init; }
+    public DateOnly MediaDate { get; init; }
     public string Architecture { get; init; } = string.Empty;
     public string LanguageCode { get; init; } = string.Empty;
     public string Language { get; init; } = string.Empty;

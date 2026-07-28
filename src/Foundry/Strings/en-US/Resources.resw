@@ -2038,82 +2038,87 @@
     <value>Chinese Traditional (Taiwan)</value>
   </data>
   <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Operating System selection</value>
+    <value>Windows deployment options</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Limit or preselect the Windows catalog choices shown during deployment.</value>
+    <value>Define the Windows versions, update levels, languages, and editions offered during deployment.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
-    <value>OS version</value>
+    <value>Windows version</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
-    <value>Control which Windows versions operators can deploy.</value>
+    <value>Configure the Windows 11 versions offered during deployment.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
-    <value>Allowed OS versions</value>
+    <value>Available Windows versions</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
-    <value>Leave empty to allow every supported Windows version.</value>
+    <value>Select the versions to offer, such as Windows 11, version 25H2. Leave empty to offer all supported versions.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
-    <value>Default OS version</value>
+    <value>Preselected Windows version</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
-    <value>Automatic keeps the catalog default version.</value>
+    <value>Choose the version selected by default. Automatic uses the version recommended by Foundry.</value>
   </data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Preselected Windows update level</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Choose how recent the Windows monthly update selected by default should be. If that update is unavailable, the oldest available update is used.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Latest available update</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>1 update earlier</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>{0} updates earlier</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
-    <value>OS language</value>
+    <value>Windows language</value>
   </data>
   <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
-    <value>Control which Windows languages operators can deploy.</value>
+    <value>Configure the Windows languages offered during deployment.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
-    <value>Allowed OS languages</value>
+    <value>Available Windows languages</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
-    <value>Leave empty to allow every supported Windows language.</value>
+    <value>Select the languages offered during deployment. Leave empty to offer all supported Windows languages.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
-    <value>Default OS language</value>
+    <value>Preselected Windows language</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
-    <value>Automatic keeps the catalog default language.</value>
+    <value>Choose the language selected by default. Automatic uses the language recommended by Foundry.</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
-    <value>License channel</value>
+    <value>Windows license channel</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
-    <value>Control which Windows license channels operators can deploy.</value>
+    <value>Configure the Windows license channels offered during deployment.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
-    <value>Allowed license channels</value>
+    <value>Available Windows license channels</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
-    <value>Leave empty to allow every supported license channel.</value>
+    <value>Select the license channels offered during deployment. Leave empty to offer all supported channels.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
-    <value>Default license channel</value>
+    <value>Preselected Windows license channel</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
-    <value>Automatic keeps the catalog default license channel.</value>
+    <value>Choose the license channel selected by default. Automatic uses the channel recommended by Foundry.</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
-    <value>Edition</value>
+    <value>Windows edition</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
-    <value>Control which Windows editions operators can deploy.</value>
+    <value>Configure the Windows editions offered during deployment.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
-    <value>Allowed editions</value>
+    <value>Available Windows editions</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
-    <value>Leave empty to allow every supported Windows edition.</value>
+    <value>Select the editions offered during deployment. Leave empty to offer all supported Windows editions.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
-    <value>Default edition</value>
+    <value>Preselected Windows edition</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
-    <value>Automatic keeps the catalog default edition.</value>
+    <value>Choose the edition selected by default. Automatic uses the edition recommended by Foundry.</value>
   </data>
   <data name="Adk.PageDescription" xml:space="preserve">
     <value>Review Windows ADK and Windows PE Add-on readiness before creating deployment media.</value>

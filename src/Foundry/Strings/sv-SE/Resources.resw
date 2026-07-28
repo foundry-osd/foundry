@@ -2022,83 +2022,88 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Traditionell kinesisk (Taiwan)</value>
   </data>
-  <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Val av operativsystem</value>
+<data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
+    <value>Distributionsalternativ för Windows</value>
   </data>
-  <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Begränsa eller förvälj de Windows-katalogval som visas under distribution.</value>
+<data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
+    <value>Ange Windows-versioner, uppdateringsnivåer, språk och utgåvor som erbjuds under distributionen.</value>
   </data>
-  <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
-    <value>OS-version</value>
+<data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
+    <value>Windows-version</value>
   </data>
-  <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
-    <value>Styr vilka Windows-versioner operatörer kan distribuera.</value>
+<data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
+    <value>Konfigurera de Windows 11-versioner som erbjuds under distributionen.</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
-    <value>Tillåtna OS-versioner</value>
+<data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
+    <value>Tillgängliga Windows-versioner</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
-    <value>Lämna tomt för att tillåta alla Windows-versioner som stöds.</value>
+<data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
+    <value>Välj vilka versioner som ska erbjudas, till exempel Windows 11, version 25H2. Lämna tomt för att erbjuda alla versioner som stöds.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
-    <value>Standardversion av OS</value>
+<data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
+    <value>Förvald Windows-version</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
-    <value>Automatiskt behåller katalogens standardversion.</value>
+<data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
+    <value>Välj den version som är vald som standard. Alternativet Automatiskt använder den version som rekommenderas av Foundry.</value>
   </data>
-  <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
-    <value>OS-språk</value>
+<data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Förvald uppdateringsnivå för Windows</value></data>
+<data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Välj hur aktuell den månatliga Windows-uppdatering som valts som standard ska vara. Om uppdateringen inte är tillgänglig används den äldsta tillgängliga uppdateringen.</value></data>
+<data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Senaste tillgängliga uppdateringen</value></data>
+<data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>{0} uppdateringar tidigare</value></data>
+<data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>1 uppdatering tidigare</value></data>
+<data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
+    <value>Windows-språk</value>
   </data>
-  <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
-    <value>Styr vilka Windows-språk operatörer kan distribuera.</value>
+<data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
+    <value>Konfigurera de Windows-språk som erbjuds under distributionen.</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
-    <value>Tillåtna OS-språk</value>
+<data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
+    <value>Tillgängliga Windows-språk</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
-    <value>Lämna tomt för att tillåta alla Windows-språk som stöds.</value>
+<data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
+    <value>Välj vilka språk som erbjuds under distributionen. Lämna tomt för att erbjuda alla Windows-språk som stöds.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
-    <value>Standardspråk för OS</value>
+<data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
+    <value>Förvalt Windows-språk</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
-    <value>Automatiskt behåller katalogens standardspråk.</value>
+<data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
+    <value>Välj det språk som är valt som standard. Alternativet Automatiskt använder det språk som rekommenderas av Foundry.</value>
   </data>
-  <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
-    <value>Licenskanal</value>
+<data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
+    <value>Windows-licenskanal</value>
   </data>
-  <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
-    <value>Styr vilka Windows-licenskanaler operatörer kan distribuera.</value>
+<data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
+    <value>Konfigurera de Windows-licenskanaler som erbjuds under distributionen.</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
-    <value>Tillåtna licenskanaler</value>
+<data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
+    <value>Tillgängliga Windows-licenskanaler</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
-    <value>Lämna tomt för att tillåta alla licenskanaler som stöds.</value>
+<data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
+    <value>Välj vilka licenskanaler som erbjuds under distributionen. Lämna tomt för att erbjuda alla kanaler som stöds.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
-    <value>Standardlicenskanal</value>
+<data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
+    <value>Förvald Windows-licenskanal</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
-    <value>Automatiskt behåller katalogens standardlicenskanal.</value>
+<data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
+    <value>Välj den licenskanal som är vald som standard. Alternativet Automatiskt använder den kanal som rekommenderas av Foundry.</value>
   </data>
-  <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
-    <value>Utgåva</value>
+<data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
+    <value>Windows-utgåva</value>
   </data>
-  <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
-    <value>Styr vilka Windows-utgåvor operatörer kan distribuera.</value>
+<data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
+    <value>Konfigurera de Windows-utgåvor som erbjuds under distributionen.</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
-    <value>Tillåtna utgåvor</value>
+<data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
+    <value>Tillgängliga Windows-utgåvor</value>
   </data>
-  <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
-    <value>Lämna tomt för att tillåta alla Windows-utgåvor som stöds.</value>
+<data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
+    <value>Välj vilka utgåvor som erbjuds under distributionen. Lämna tomt för att erbjuda alla Windows-utgåvor som stöds.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
-    <value>Standardutgåva</value>
+<data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
+    <value>Förvald Windows-utgåva</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
-    <value>Automatiskt behåller katalogens standardutgåva.</value>
+<data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
+    <value>Välj den utgåva som är vald som standard. Alternativet Automatiskt använder den utgåva som rekommenderas av Foundry.</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming av Windows-profiler</value>

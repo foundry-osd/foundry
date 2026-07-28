@@ -8,6 +8,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Catalog;
+using Foundry.Deploy.Services.Localization;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.ViewModels;
@@ -59,6 +60,7 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
     private readonly HashSet<string> _configuredAllowedEditions = new(StringComparer.OrdinalIgnoreCase);
     private string? _configuredDefaultLanguageCode;
     private string? _configuredDefaultReleaseId;
+    private int _configuredDefaultMediaOffset;
     private string? _configuredDefaultLicenseChannel;
     private string? _configuredDefaultEdition;
     private bool _isReleaseIdRestrictedToSingleOption;
@@ -71,9 +73,11 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
     private bool _hasLoggedUnavailableConfiguredEditions;
     private bool _hasLoggedUnavailableDefaultLanguage;
     private bool _hasLoggedUnavailableDefaultReleaseId;
+    private bool _hasLoggedClampedDefaultMediaOffset;
     private bool _hasLoggedUnavailableDefaultLicenseChannel;
     private bool _hasLoggedUnavailableDefaultEdition;
     private bool _isUpdatingFilters;
+    private bool _applyConfiguredMediaDefault = true;
 
     public OperatingSystemCatalogViewModel(ILogger logger, string initialArchitecture)
     {
@@ -93,6 +97,9 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
     private string selectedReleaseId = DefaultReleaseId;
 
     [ObservableProperty]
+    private string selectedMediaSourceId = string.Empty;
+
+    [ObservableProperty]
     private string selectedLanguageCode = DefaultLanguageCode;
 
     [ObservableProperty]
@@ -105,6 +112,8 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
 
     public ObservableCollection<string> ReleaseIdFilters { get; } = [];
 
+    public ObservableCollection<OperatingSystemMediaOption> MediaFilters { get; } = [];
+
     public ObservableCollection<string> LanguageFilters { get; } = [];
 
     public ObservableCollection<string> LicenseChannelFilters { get; } = [];
@@ -112,6 +121,8 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
     public ObservableCollection<string> EditionFilters { get; } = [];
 
     public bool IsReleaseIdSelectionEnabled => !_isReleaseIdRestrictedToSingleOption;
+
+    public bool IsMediaSelectionEnabled => MediaFilters.Count > 1;
 
     public bool IsLanguageSelectionEnabled => !_isLanguageRestrictedToSingleOption;
 
@@ -143,6 +154,7 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
         RefreshFilterOptions();
         ApplySelection();
         OnPropertyChanged(nameof(IsReleaseIdSelectionEnabled));
+        OnPropertyChanged(nameof(IsMediaSelectionEnabled));
         OnPropertyChanged(nameof(IsLanguageSelectionEnabled));
         OnPropertyChanged(nameof(IsLicenseChannelSelectionEnabled));
         OnPropertyChanged(nameof(IsEditionSelectionEnabled));
@@ -160,10 +172,18 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
         EffectiveOsArchitecture = normalized;
     }
 
+    public void RefreshLocalizedMediaOptions()
+    {
+        RefreshFilterOptions();
+        ApplySelection();
+        RaiseStateChanged();
+    }
+
     public bool IsReadyForNavigation()
     {
         return OperatingSystems.Count > 0 &&
                ReleaseIdFilters.Count > 0 &&
+               MediaFilters.Count > 0 &&
                LanguageFilters.Count > 0 &&
                LicenseChannelFilters.Count > 0 &&
                EditionFilters.Count > 0 &&
@@ -188,6 +208,16 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
     }
 
     partial void OnSelectedReleaseIdChanged(string value)
+    {
+        if (!_isUpdatingFilters)
+        {
+            _applyConfiguredMediaDefault = true;
+        }
+
+        HandleFilterSelectionChanged();
+    }
+
+    partial void OnSelectedMediaSourceIdChanged(string value)
     {
         HandleFilterSelectionChanged();
     }
@@ -244,6 +274,7 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
         try
         {
             string previousReleaseId = SelectedReleaseId;
+            string previousMediaSourceId = SelectedMediaSourceId;
             string previousLanguageCode = SelectedLanguageCode;
             string previousLicenseChannel = SelectedLicenseChannel;
             string previousEdition = SelectedEdition;
@@ -269,7 +300,13 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
                 "release ID",
                 ref _hasLoggedUnavailableDefaultReleaseId);
 
-            IEnumerable<OperatingSystemCatalogItem> languageScope = ApplyReleaseIdFilter(releaseScope);
+            IEnumerable<OperatingSystemCatalogItem> mediaScope = ApplyReleaseIdFilter(releaseScope);
+            OperatingSystemMediaOption[] mediaOptions = BuildMediaOptions(mediaScope);
+            UpdateMediaFilterCollection(mediaOptions);
+            SelectedMediaSourceId = SelectMediaSourceId(mediaOptions, previousMediaSourceId);
+            _applyConfiguredMediaDefault = false;
+
+            IEnumerable<OperatingSystemCatalogItem> languageScope = ApplyMediaFilter(mediaScope);
             IEnumerable<string> effectiveLanguageValues = BuildEffectiveLanguageFilterValues(
                 languageScope,
                 out _isLanguageRestrictedToSingleOption);
@@ -323,6 +360,7 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
         {
             _isUpdatingFilters = false;
             OnPropertyChanged(nameof(IsReleaseIdSelectionEnabled));
+            OnPropertyChanged(nameof(IsMediaSelectionEnabled));
             OnPropertyChanged(nameof(IsLanguageSelectionEnabled));
             OnPropertyChanged(nameof(IsLicenseChannelSelectionEnabled));
             OnPropertyChanged(nameof(IsEditionSelectionEnabled));
@@ -346,6 +384,98 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
         return IsFilterUnset(SelectedReleaseId)
             ? source
             : source.Where(item => item.ReleaseId.Equals(SelectedReleaseId, StringComparison.OrdinalIgnoreCase));
+    }
+
+    private IEnumerable<OperatingSystemCatalogItem> ApplyMediaFilter(IEnumerable<OperatingSystemCatalogItem> source)
+    {
+        return IsFilterUnset(SelectedMediaSourceId)
+            ? source
+            : source.Where(item => item.SourceId.Equals(SelectedMediaSourceId, StringComparison.OrdinalIgnoreCase));
+    }
+
+    private static OperatingSystemMediaOption[] BuildMediaOptions(IEnumerable<OperatingSystemCatalogItem> source)
+    {
+        OperatingSystemCatalogItem[] media = source
+            .Where(item => !string.IsNullOrWhiteSpace(item.SourceId))
+            .GroupBy(item => item.SourceId, StringComparer.OrdinalIgnoreCase)
+            .Select(group => group.First())
+            .OrderByDescending(item => item.MediaDate)
+            .ThenByDescending(item => item.BuildMajor)
+            .ThenByDescending(item => item.BuildUbr)
+            .ToArray();
+        HashSet<(int Year, int Month)> duplicateMonths = media
+            .GroupBy(item => (item.MediaDate.Year, item.MediaDate.Month))
+            .Where(group => group.Count() > 1)
+            .Select(group => group.Key)
+            .ToHashSet();
+        return media
+            .Select((item, index) =>
+            {
+                string displayName = FormatMediaMonth(item.MediaDate);
+                if (duplicateMonths.Contains((item.MediaDate.Year, item.MediaDate.Month)))
+                {
+                    displayName = $"{displayName} | {item.Build}";
+                }
+
+                if (index == 0)
+                {
+                    displayName = LocalizationText.Format("Catalog.MediaLatestFormat", displayName);
+                }
+
+                return new OperatingSystemMediaOption(item.SourceId, displayName);
+            })
+            .ToArray();
+    }
+
+    private static string FormatMediaMonth(DateOnly mediaDate)
+    {
+        CultureInfo culture = CultureInfo.CurrentUICulture;
+        string displayName = mediaDate.ToString("Y", culture);
+        return string.IsNullOrEmpty(displayName)
+            ? displayName
+            : culture.TextInfo.ToUpper(displayName[..1]) + displayName[1..];
+    }
+
+    private void UpdateMediaFilterCollection(IEnumerable<OperatingSystemMediaOption> options)
+    {
+        MediaFilters.Clear();
+        foreach (OperatingSystemMediaOption option in options)
+        {
+            MediaFilters.Add(option);
+        }
+    }
+
+    private string SelectMediaSourceId(
+        IReadOnlyList<OperatingSystemMediaOption> options,
+        string previousMediaSourceId)
+    {
+        if (options.Count == 0)
+        {
+            return string.Empty;
+        }
+
+        if (!_applyConfiguredMediaDefault)
+        {
+            OperatingSystemMediaOption? previous = options.FirstOrDefault(option =>
+                option.SourceId.Equals(previousMediaSourceId, StringComparison.OrdinalIgnoreCase));
+            if (previous is not null)
+            {
+                return previous.SourceId;
+            }
+        }
+
+        int effectiveOffset = Math.Min(_configuredDefaultMediaOffset, options.Count - 1);
+        if (effectiveOffset != _configuredDefaultMediaOffset && !_hasLoggedClampedDefaultMediaOffset)
+        {
+            _logger.LogInformation(
+                "Configured default media offset was clamped to the available history. RequestedOffset={RequestedOffset}, EffectiveOffset={EffectiveOffset}, ReleaseId={ReleaseId}.",
+                _configuredDefaultMediaOffset,
+                effectiveOffset,
+                SelectedReleaseId);
+            _hasLoggedClampedDefaultMediaOffset = true;
+        }
+
+        return options[effectiveOffset].SourceId;
     }
 
     private IEnumerable<OperatingSystemCatalogItem> ApplyLanguageFilter(IEnumerable<OperatingSystemCatalogItem> source)
@@ -486,6 +616,7 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
     {
         IEnumerable<OperatingSystemCatalogItem> query = BuildOsQueryWithArchitecture(OperatingSystems);
         query = ApplyReleaseIdFilter(query);
+        query = ApplyMediaFilter(query);
         query = ApplyLanguageFilter(query);
         query = ApplyLicenseChannelFilter(query);
 
@@ -539,8 +670,10 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
             ResetConfiguredValues(_configuredAllowedEditions, [], static value => value.Trim());
             _configuredDefaultLanguageCode = null;
             _configuredDefaultReleaseId = null;
+            _configuredDefaultMediaOffset = 0;
             _configuredDefaultLicenseChannel = null;
             _configuredDefaultEdition = null;
+            _applyConfiguredMediaDefault = true;
             ResetOperatingSystemSelectionLogState();
             return;
         }
@@ -552,8 +685,10 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
 
         _configuredDefaultLanguageCode = NormalizeOptionalLanguageCode(settings.DefaultLanguageCode);
         _configuredDefaultReleaseId = NormalizeOptionalKnownValue(settings.DefaultReleaseId, OperatingSystemSupportMatrix.ReleaseSearchOrder, static value => value.Trim());
+        _configuredDefaultMediaOffset = Math.Clamp(settings.DefaultMediaOffset, 0, 11);
         _configuredDefaultLicenseChannel = NormalizeOptionalKnownValue(settings.DefaultLicenseChannel, OperatingSystemSupportMatrix.LicenseChannelOrder, NormalizeLicenseChannel);
         _configuredDefaultEdition = NormalizeOptionalKnownValue(settings.DefaultEdition, OperatingSystemSupportMatrix.EditionOrder, static value => value.Trim());
+        _applyConfiguredMediaDefault = true;
 
         ResetOperatingSystemSelectionLogState();
     }
@@ -566,6 +701,7 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
         _hasLoggedUnavailableConfiguredEditions = false;
         _hasLoggedUnavailableDefaultLanguage = false;
         _hasLoggedUnavailableDefaultReleaseId = false;
+        _hasLoggedClampedDefaultMediaOffset = false;
         _hasLoggedUnavailableDefaultLicenseChannel = false;
         _hasLoggedUnavailableDefaultEdition = false;
     }

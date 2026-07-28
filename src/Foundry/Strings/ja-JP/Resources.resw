@@ -2023,82 +2023,87 @@
     <value>繁体字中国語 (台湾)</value>
   </data>
   <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>オペレーティング システムの選択</value>
+    <value>Windows 展開オプション</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>展開時に表示される Windows カタログの選択肢を制限または事前選択します。</value>
+    <value>展開時に提供する Windows のバージョン、更新レベル、言語、エディションを定義します。</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
-    <value>OS バージョン</value>
+    <value>Windows バージョン</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
-    <value>オペレーターが展開できる Windows バージョンを制御します。</value>
+    <value>展開時に提供する Windows 11 のバージョンを構成します。</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
-    <value>許可する OS バージョン</value>
+    <value>利用可能な Windows バージョン</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
-    <value>サポートされるすべての Windows バージョンを許可する場合は空のままにします。</value>
+    <value>Windows 11、バージョン 25H2 など、提供するバージョンを選択します。サポートされているすべてのバージョンを提供する場合は空のままにします。</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
-    <value>既定の OS バージョン</value>
+    <value>事前選択された Windows バージョン</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
-    <value>自動ではカタログの既定バージョンが保持されます。</value>
+    <value>既定で選択されるバージョンを選びます。[自動] では Foundry が推奨するバージョンが使用されます。</value>
   </data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>事前選択された Windows 更新レベル</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>既定で選択される Windows の月例更新プログラムの新しさを選びます。その更新プログラムが利用できない場合は、利用可能な最も古い更新プログラムが使用されます。</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>利用可能な最新の更新プログラム</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>{0} 個前の更新プログラム</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>1 個前の更新プログラム</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
-    <value>OS 言語</value>
+    <value>Windows の言語</value>
   </data>
   <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
-    <value>オペレーターが展開できる Windows 言語を制御します。</value>
+    <value>展開時に提供する Windows の言語を構成します。</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
-    <value>許可する OS 言語</value>
+    <value>利用可能な Windows の言語</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
-    <value>サポートされるすべての Windows 言語を許可する場合は空のままにします。</value>
+    <value>展開時に提供する言語を選択します。サポートされているすべての Windows 言語を提供する場合は空のままにします。</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
-    <value>既定の OS 言語</value>
+    <value>事前選択された Windows の言語</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
-    <value>自動ではカタログの既定言語が保持されます。</value>
+    <value>既定で選択される言語を選びます。[自動] では Foundry が推奨する言語が使用されます。</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
-    <value>ライセンス チャネル</value>
+    <value>Windows ライセンス チャネル</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
-    <value>オペレーターが展開できる Windows ライセンス チャネルを制御します。</value>
+    <value>展開時に提供する Windows ライセンス チャネルを構成します。</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
-    <value>許可するライセンス チャネル</value>
+    <value>利用可能な Windows ライセンス チャネル</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
-    <value>サポートされるすべてのライセンス チャネルを許可する場合は空のままにします。</value>
+    <value>展開時に提供するライセンス チャネルを選択します。サポートされているすべてのチャネルを提供する場合は空のままにします。</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
-    <value>既定のライセンス チャネル</value>
+    <value>事前選択された Windows ライセンス チャネル</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
-    <value>自動ではカタログの既定ライセンス チャネルが保持されます。</value>
+    <value>既定で選択されるライセンス チャネルを選びます。[自動] では Foundry が推奨するチャネルが使用されます。</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
-    <value>エディション</value>
+    <value>Windows エディション</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
-    <value>オペレーターが展開できる Windows エディションを制御します。</value>
+    <value>展開時に提供する Windows エディションを構成します。</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
-    <value>許可するエディション</value>
+    <value>利用可能な Windows エディション</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
-    <value>サポートされるすべての Windows エディションを許可する場合は空のままにします。</value>
+    <value>展開時に提供するエディションを選択します。サポートされているすべての Windows エディションを提供する場合は空のままにします。</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
-    <value>既定のエディション</value>
+    <value>事前選択された Windows エディション</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
-    <value>自動ではカタログの既定エディションが保持されます。</value>
+    <value>既定で選択されるエディションを選びます。[自動] では Foundry が推奨するエディションが使用されます。</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows プロファイルのローミング</value>

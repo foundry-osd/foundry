@@ -2023,82 +2023,87 @@
     <value>Ķīniešu tradicionālā (Taivāna)</value>
   </data>
   <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Operētājsistēmas atlase</value>
+    <value>Windows izvietošanas opcijas</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Ierobežojiet vai iepriekš atlasiet Windows kataloga izvēles, kas tiek rādītas izvietošanas laikā.</value>
+    <value>Definējiet izvietošanas laikā piedāvātās Windows versijas, atjauninājumu līmeņus, valodas un izdevumus.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
-    <value>OS versija</value>
+    <value>Windows versija</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupDescription" xml:space="preserve">
-    <value>Kontrolējiet, kuras Windows versijas operatori var izvietot.</value>
+    <value>Konfigurējiet izvietošanas laikā piedāvātās Windows 11 versijas.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesLabel" xml:space="preserve">
-    <value>Atļautās OS versijas</value>
+    <value>Pieejamās Windows versijas</value>
   </data>
   <data name="Customization.OperatingSystemAllowedReleasesDescription" xml:space="preserve">
-    <value>Atstājiet tukšu, lai atļautu visas atbalstītās Windows versijas.</value>
+    <value>Atlasiet piedāvājamās versijas, piemēram, Windows 11 versiju 25H2. Atstājiet tukšu, lai piedāvātu visas atbalstītās versijas.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseLabel" xml:space="preserve">
-    <value>Noklusējuma OS versija</value>
+    <value>Iepriekš atlasītā Windows versija</value>
   </data>
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
-    <value>Automātiski saglabā kataloga noklusējuma versiju.</value>
+    <value>Izvēlieties versiju, kas atlasīta pēc noklusējuma. Automātiskā opcija izmanto Foundry ieteikto versiju.</value>
   </data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Iepriekš atlasītais Windows atjauninājumu līmenis</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Izvēlieties, cik jaunam jābūt pēc noklusējuma atlasītajam Windows ikmēneša atjauninājumam. Ja šis atjauninājums nav pieejams, tiek izmantots vecākais pieejamais atjauninājums.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Jaunākais pieejamais atjauninājums</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Par {0} atjauninājumiem agrāks</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>Par 1 atjauninājumu agrāks</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
-    <value>OS valoda</value>
+    <value>Windows valoda</value>
   </data>
   <data name="Customization.OperatingSystemLanguageGroupDescription" xml:space="preserve">
-    <value>Kontrolējiet, kuras Windows valodas operatori var izvietot.</value>
+    <value>Konfigurējiet izvietošanas laikā piedāvātās Windows valodas.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesLabel" xml:space="preserve">
-    <value>Atļautās OS valodas</value>
+    <value>Pieejamās Windows valodas</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLanguagesDescription" xml:space="preserve">
-    <value>Atstājiet tukšu, lai atļautu visas atbalstītās Windows valodas.</value>
+    <value>Atlasiet izvietošanas laikā piedāvātās valodas. Atstājiet tukšu, lai piedāvātu visas atbalstītās Windows valodas.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageLabel" xml:space="preserve">
-    <value>Noklusējuma OS valoda</value>
+    <value>Iepriekš atlasītā Windows valoda</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLanguageDescription" xml:space="preserve">
-    <value>Automātiski saglabā kataloga noklusējuma valodu.</value>
+    <value>Izvēlieties valodu, kas atlasīta pēc noklusējuma. Automātiskā opcija izmanto Foundry ieteikto valodu.</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupHeader" xml:space="preserve">
-    <value>Licences kanāls</value>
+    <value>Windows licences kanāls</value>
   </data>
   <data name="Customization.OperatingSystemLicenseChannelGroupDescription" xml:space="preserve">
-    <value>Kontrolējiet, kurus Windows licences kanālus operatori var izvietot.</value>
+    <value>Konfigurējiet izvietošanas laikā piedāvātos Windows licences kanālus.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsLabel" xml:space="preserve">
-    <value>Atļautie licences kanāli</value>
+    <value>Pieejamie Windows licences kanāli</value>
   </data>
   <data name="Customization.OperatingSystemAllowedLicenseChannelsDescription" xml:space="preserve">
-    <value>Atstājiet tukšu, lai atļautu visus atbalstītos licences kanālus.</value>
+    <value>Atlasiet izvietošanas laikā piedāvātos licences kanālus. Atstājiet tukšu, lai piedāvātu visus atbalstītos kanālus.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelLabel" xml:space="preserve">
-    <value>Noklusējuma licences kanāls</value>
+    <value>Iepriekš atlasītais Windows licences kanāls</value>
   </data>
   <data name="Customization.OperatingSystemDefaultLicenseChannelDescription" xml:space="preserve">
-    <value>Automātiski saglabā kataloga noklusējuma licences kanālu.</value>
+    <value>Izvēlieties licences kanālu, kas atlasīts pēc noklusējuma. Automātiskā opcija izmanto Foundry ieteikto kanālu.</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupHeader" xml:space="preserve">
-    <value>Izdevums</value>
+    <value>Windows izdevums</value>
   </data>
   <data name="Customization.OperatingSystemEditionGroupDescription" xml:space="preserve">
-    <value>Kontrolējiet, kurus Windows izdevumus operatori var izvietot.</value>
+    <value>Konfigurējiet izvietošanas laikā piedāvātos Windows izdevumus.</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsLabel" xml:space="preserve">
-    <value>Atļautie izdevumi</value>
+    <value>Pieejamie Windows izdevumi</value>
   </data>
   <data name="Customization.OperatingSystemAllowedEditionsDescription" xml:space="preserve">
-    <value>Atstājiet tukšu, lai atļautu visus atbalstītos Windows izdevumus.</value>
+    <value>Atlasiet izvietošanas laikā piedāvātos izdevumus. Atstājiet tukšu, lai piedāvātu visus atbalstītos Windows izdevumus.</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionLabel" xml:space="preserve">
-    <value>Noklusējuma izdevums</value>
+    <value>Iepriekš atlasītais Windows izdevums</value>
   </data>
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
-    <value>Automātiski saglabā kataloga noklusējuma izdevumu.</value>
+    <value>Izvēlieties izdevumu, kas atlasīts pēc noklusējuma. Automātiskā opcija izmanto Foundry ieteikto izdevumu.</value>
   </data>
   <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows profilu viesabonēšana</value>
