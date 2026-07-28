@@ -2026,7 +2026,7 @@
     <value>Windowsin käyttöönottoasetukset</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Määritä käyttöönoton aikana tarjottavat Windows-versiot, asennustietovälineet, kielet ja versiot.</value>
+    <value>Määritä käyttöönoton aikana tarjottavat Windows-versiot, päivitystasot, kielet ja versiot.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>Windows-versio</value>
@@ -2046,10 +2046,11 @@
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
     <value>Valitse oletuksena valittu versio. Automaattinen käyttää Foundryn suosittelemaa versiota.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Esivalittu asennustietoväline</value></data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Valitse, kuinka uusi esivalitun asennustietovälineen tulee olla. Jos pyydettyä historiaa ei ole saatavilla, käytetään vanhinta saatavilla olevaa tietovälinettä.</value></data>
-  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Uusin asennustietoväline</value></data>
-  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Edellinen asennustietoväline ({0})</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Esivalittu Windowsin päivitystaso</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Valitse, kuinka uusi oletuksena valitun Windowsin kuukausipäivityksen tulee olla. Jos päivitystä ei ole saatavilla, käytetään vanhinta saatavilla olevaa päivitystä.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Uusin saatavilla oleva päivitys</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>1 päivitys aiempi</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>{0} päivitystä aiempi</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
     <value>Windowsin kieli</value>
   </data>

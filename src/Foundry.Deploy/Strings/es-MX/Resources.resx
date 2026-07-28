@@ -73,7 +73,7 @@
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Error al descubrir el disco de destino: {0}</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Sistema operativo</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versión</value></data>
-  <data name="Catalog.Media" xml:space="preserve"><value>Medio de instalación</value></data>
+  <data name="Catalog.Media" xml:space="preserve"><value>Actualización de Windows</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Más reciente)</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Idioma</value></data>
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Canal de licencia</value></data>

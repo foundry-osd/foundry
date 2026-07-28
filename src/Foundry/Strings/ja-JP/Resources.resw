@@ -2026,7 +2026,7 @@
     <value>Windows 展開オプション</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>展開時に提供する Windows のバージョン、インストール メディア、言語、エディションを定義します。</value>
+    <value>展開時に提供する Windows のバージョン、更新レベル、言語、エディションを定義します。</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>Windows バージョン</value>
@@ -2046,10 +2046,11 @@
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
     <value>既定で選択されるバージョンを選びます。[自動] では Foundry が推奨するバージョンが使用されます。</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>事前選択されたインストール メディア</value></data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>事前選択するインストール メディアの新しさを選びます。要求した履歴が利用できない場合は、利用可能な最も古いメディアが使用されます。</value></data>
-  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>最新のインストール メディア</value></data>
-  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>以前のインストール メディア ({0})</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>事前選択された Windows 更新レベル</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>既定で選択される Windows の月例更新プログラムの新しさを選びます。その更新プログラムが利用できない場合は、利用可能な最も古い更新プログラムが使用されます。</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>利用可能な最新の更新プログラム</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>{0} 個前の更新プログラム</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>1 個前の更新プログラム</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
     <value>Windows の言語</value>
   </data>

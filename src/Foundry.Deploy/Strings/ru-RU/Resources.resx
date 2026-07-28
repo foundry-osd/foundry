@@ -73,8 +73,8 @@
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Не удалось обнаружить целевой диск: {0}</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Операционная система</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Версия</value></data>
-<data name="Catalog.Media" xml:space="preserve"><value>Установочный носитель</value></data>
-<data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Самый новый)</value></data>
+<data name="Catalog.Media" xml:space="preserve"><value>Обновление Windows</value></data>
+<data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Последнее)</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Язык</value></data>
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Лицензионный канал</value></data>
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>Издание (Цель)</value></data>

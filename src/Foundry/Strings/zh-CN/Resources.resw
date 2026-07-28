@@ -2026,7 +2026,7 @@
     <value>Windows 部署选项</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>定义部署期间提供的 Windows 版本、安装介质、语言和版本类型。</value>
+    <value>定义部署期间提供的 Windows 版本、更新级别、语言和版本类型。</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>Windows 版本</value>
@@ -2046,10 +2046,11 @@
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
     <value>选择默认选中的版本。“自动”使用 Foundry 推荐的版本。</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>预选安装介质</value></data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>选择预选安装介质的新旧程度。如果没有足够的历史记录，则使用最早的可用介质。</value></data>
-  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>最新安装介质</value></data>
-  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>上一个安装介质 ({0})</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>预选 Windows 更新级别</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>选择默认预选的 Windows 每月更新的新旧程度。如果该更新不可用，则使用最早的可用更新。</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>最新可用更新</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>提前 1 个更新</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>提前 {0} 个更新</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
     <value>Windows 语言</value>
   </data>

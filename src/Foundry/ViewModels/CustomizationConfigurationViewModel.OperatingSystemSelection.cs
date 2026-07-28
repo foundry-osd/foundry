@@ -272,13 +272,14 @@ public sealed partial class CustomizationConfigurationViewModel
             new(0, localizationService.GetString("Customization.OperatingSystemMediaLatestOption")));
         for (int offset = 1; offset <= 11; offset++)
         {
+            string label = offset == 1
+                ? localizationService.GetString("Customization.OperatingSystemMediaPreviousSingleOption")
+                : string.Format(
+                    CultureInfo.CurrentUICulture,
+                    localizationService.GetString("Customization.OperatingSystemMediaPreviousOptionFormat"),
+                    offset);
             DefaultOperatingSystemMediaOffsetOptions.Add(
-                new(
-                    offset,
-                    string.Format(
-                        CultureInfo.CurrentUICulture,
-                        localizationService.GetString("Customization.OperatingSystemMediaPreviousOptionFormat"),
-                        offset)));
+                new(offset, label));
         }
 
         int effectiveOffset = Math.Clamp(selectedOffset, 0, 11);

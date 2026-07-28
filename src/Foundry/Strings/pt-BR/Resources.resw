@@ -2026,7 +2026,7 @@
     <value>Opções de implantação do Windows</value>
   </data>
 <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Defina as versões do Windows, as mídias de instalação, os idiomas e as edições oferecidos durante a implantação.</value>
+    <value>Defina as versões do Windows, os níveis de atualização, os idiomas e as edições oferecidos durante a implantação.</value>
   </data>
 <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>Versão do Windows</value>
@@ -2046,10 +2046,11 @@
 <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
     <value>Escolha a versão selecionada por padrão. A opção Automático usa a versão recomendada pelo Foundry.</value>
   </data>
-<data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Mídia de instalação pré-selecionada</value></data>
-<data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Escolha quão recente deve ser a mídia de instalação pré-selecionada. Se o histórico solicitado não estiver disponível, a mídia mais antiga disponível será usada.</value></data>
-<data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Mídia de instalação mais recente</value></data>
-<data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Mídia de instalação anterior ({0})</value></data>
+<data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Nível de atualização do Windows pré-selecionado</value></data>
+<data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Escolha quão recente deve ser a atualização mensal do Windows selecionada por padrão. Se essa atualização não estiver disponível, será usada a atualização mais antiga disponível.</value></data>
+<data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Atualização mais recente disponível</value></data>
+<data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>{0} atualizações antes</value></data>
+<data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>1 atualização antes</value></data>
 <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
     <value>Idioma do Windows</value>
   </data>

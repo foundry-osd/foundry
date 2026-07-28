@@ -73,7 +73,7 @@
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>A céllemez felderítése nem sikerült: {0}</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operációs rendszer</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Verzió</value></data>
-  <data name="Catalog.Media" xml:space="preserve"><value>Telepítési adathordozó</value></data>
+  <data name="Catalog.Media" xml:space="preserve"><value>Windows-frissítés</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Legfrissebb)</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Nyelv</value></data>
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Licenc csatorna</value></data>

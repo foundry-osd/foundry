@@ -2026,7 +2026,7 @@
     <value>Параметры развертывания Windows</value>
   </data>
 <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Укажите версии Windows, установочные носители, языки и выпуски, предлагаемые во время развертывания.</value>
+    <value>Укажите версии Windows, уровни обновления, языки и выпуски, предлагаемые во время развертывания.</value>
   </data>
 <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>Версия Windows</value>
@@ -2046,10 +2046,11 @@
 <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
     <value>Выберите версию, используемую по умолчанию. При выборе параметра «Автоматически» используется версия, рекомендованная Foundry.</value>
   </data>
-<data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Предварительно выбранный установочный носитель</value></data>
-<data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Укажите, насколько новым должен быть предварительно выбранный установочный носитель. Если запрошенная глубина истории недоступна, используется самый старый доступный носитель.</value></data>
-<data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Самый новый установочный носитель</value></data>
-<data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Предыдущий установочный носитель ({0})</value></data>
+<data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Предварительно выбранный уровень обновления Windows</value></data>
+<data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Укажите, насколько новым должно быть ежемесячное обновление Windows, выбранное по умолчанию. Если это обновление недоступно, используется самое старое доступное обновление.</value></data>
+<data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Последнее доступное обновление</value></data>
+<data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>На {0} обновл. раньше</value></data>
+<data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>На 1 обновление раньше</value></data>
 <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
     <value>Язык Windows</value>
   </data>

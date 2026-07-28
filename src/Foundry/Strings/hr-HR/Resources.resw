@@ -2026,7 +2026,7 @@
     <value>Mogućnosti implementacije sustava Windows</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Odredite verzije sustava Windows, instalacijske medije, jezike i izdanja koja se nude tijekom implementacije.</value>
+    <value>Odredite verzije sustava Windows, razine ažuriranja, jezike i izdanja koja se nude tijekom implementacije.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>Verzija sustava Windows</value>
@@ -2046,10 +2046,11 @@
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
     <value>Odaberite verziju koja je odabrana prema zadanim postavkama. Automatski koristi verziju koju preporučuje Foundry.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Unaprijed odabrani instalacijski medij</value></data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Odaberite koliko nov treba biti unaprijed odabrani instalacijski medij. Ako tražena povijest nije dostupna, koristi se najstariji dostupni medij.</value></data>
-  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Najnoviji instalacijski medij</value></data>
-  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Prethodni instalacijski medij ({0})</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Unaprijed odabrana razina ažuriranja sustava Windows</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Odaberite koliko novo treba biti mjesečno ažuriranje sustava Windows odabrano prema zadanim postavkama. Ako to ažuriranje nije dostupno, koristi se najstarije dostupno ažuriranje.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Najnovije dostupno ažuriranje</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>{0} ažuriranja ranije</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>Jedno ažuriranje ranije</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
     <value>Jezik sustava Windows</value>
   </data>

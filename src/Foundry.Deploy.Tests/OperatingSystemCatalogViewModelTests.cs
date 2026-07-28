@@ -188,7 +188,7 @@ public sealed class OperatingSystemCatalogViewModelTests
             ]);
 
             Assert.StartsWith("July 2026", viewModel.MediaFilters[0].DisplayName);
-            Assert.EndsWith("(Most recent)", viewModel.MediaFilters[0].DisplayName);
+            Assert.EndsWith("(Latest)", viewModel.MediaFilters[0].DisplayName);
             Assert.Contains("26200.9000", viewModel.MediaFilters[0].DisplayName);
             Assert.Contains("26200.8873", viewModel.MediaFilters[1].DisplayName);
         }

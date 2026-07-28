@@ -2026,7 +2026,7 @@
     <value>Windows 배포 옵션</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>배포 중 제공할 Windows 버전, 설치 미디어, 언어 및 에디션을 정의합니다.</value>
+    <value>배포 중 제공할 Windows 버전, 업데이트 수준, 언어 및 에디션을 정의합니다.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>Windows 버전</value>
@@ -2046,10 +2046,11 @@
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
     <value>기본적으로 선택할 버전을 선택합니다. 자동은 Foundry에서 권장하는 버전을 사용합니다.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>미리 선택된 설치 미디어</value></data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>미리 선택할 설치 미디어의 최신 수준을 선택합니다. 요청한 기록을 사용할 수 없는 경우 사용 가능한 가장 오래된 미디어가 사용됩니다.</value></data>
-  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>최신 설치 미디어</value></data>
-  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>이전 설치 미디어 ({0})</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>미리 선택된 Windows 업데이트 수준</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>기본적으로 선택할 Windows 월별 업데이트의 최신 수준을 선택합니다. 해당 업데이트를 사용할 수 없는 경우 사용 가능한 가장 오래된 업데이트가 사용됩니다.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>사용 가능한 최신 업데이트</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>{0}개 이전 업데이트</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>1개 이전 업데이트</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
     <value>Windows 언어</value>
   </data>

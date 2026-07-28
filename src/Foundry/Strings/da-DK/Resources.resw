@@ -2026,7 +2026,7 @@
     <value>Indstillinger for Windows-udrulning</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Definer de Windows-versioner, installationsmedier, sprog og udgaver, der tilbydes under udrulning.</value>
+    <value>Definer de Windows-versioner, opdateringsniveauer, sprog og udgaver, der tilbydes under udrulning.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>Windows-version</value>
@@ -2046,10 +2046,11 @@
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
     <value>Vælg den version, der er valgt som standard. Automatisk bruger den version, som Foundry anbefaler.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Forudvalgt installationsmedie</value></data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Vælg, hvor nyt det forudvalgte installationsmedie skal være. Hvis den ønskede historik ikke er tilgængelig, bruges det ældste tilgængelige medie.</value></data>
-  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Nyeste installationsmedie</value></data>
-  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Forrige installationsmedie ({0})</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Forudvalgt Windows-opdateringsniveau</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Vælg, hvor ny den Windows-månedsopdatering, der er valgt som standard, skal være. Hvis opdateringen ikke er tilgængelig, bruges den ældste tilgængelige opdatering.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Seneste tilgængelige opdatering</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>1 opdatering tidligere</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>{0} opdateringer tidligere</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
     <value>Windows-sprog</value>
   </data>

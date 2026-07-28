@@ -73,7 +73,7 @@
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Måldiskopdagelse mislykkedes: {0}</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operativsystem</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>version</value></data>
-  <data name="Catalog.Media" xml:space="preserve"><value>Installationsmedie</value></data>
+  <data name="Catalog.Media" xml:space="preserve"><value>Windows-opdatering</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (nyeste)</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Sprog</value></data>
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Licens kanal</value></data>

@@ -2026,7 +2026,7 @@
     <value>ตัวเลือกการปรับใช้ Windows</value>
   </data>
 <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>กำหนดเวอร์ชัน Windows สื่อการติดตั้ง ภาษา และรุ่นที่มีให้เลือกระหว่างการปรับใช้</value>
+    <value>กำหนดเวอร์ชัน Windows ระดับการอัปเดต ภาษา และรุ่นที่มีให้เลือกระหว่างการปรับใช้</value>
   </data>
 <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>เวอร์ชัน Windows</value>
@@ -2046,10 +2046,11 @@
 <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
     <value>เลือกเวอร์ชันที่จะเลือกตามค่าเริ่มต้น ตัวเลือกอัตโนมัติจะใช้เวอร์ชันที่ Foundry แนะนำ</value>
   </data>
-<data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>สื่อการติดตั้งที่เลือกไว้ล่วงหน้า</value></data>
-<data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>เลือกว่าสื่อการติดตั้งที่เลือกไว้ล่วงหน้าควรใหม่เพียงใด หากไม่มีประวัติตามที่ร้องขอ ระบบจะใช้สื่อที่เก่าที่สุดที่พร้อมใช้งาน</value></data>
-<data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>สื่อการติดตั้งล่าสุด</value></data>
-<data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>สื่อการติดตั้งก่อนหน้า ({0})</value></data>
+<data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>ระดับการอัปเดต Windows ที่เลือกไว้ล่วงหน้า</value></data>
+<data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>เลือกว่าการอัปเดตรายเดือนของ Windows ที่เลือกตามค่าเริ่มต้นควรใหม่เพียงใด หากไม่มีการอัปเดตนั้น ระบบจะใช้การอัปเดตที่เก่าที่สุดที่พร้อมใช้งาน</value></data>
+<data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>การอัปเดตล่าสุดที่พร้อมใช้งาน</value></data>
+<data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>ย้อนหลัง {0} การอัปเดต</value></data>
+<data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>ย้อนหลัง 1 การอัปเดต</value></data>
 <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
     <value>ภาษา Windows</value>
   </data>

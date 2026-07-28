@@ -2026,7 +2026,7 @@
     <value>Windows izvietošanas opcijas</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Definējiet izvietošanas laikā piedāvātās Windows versijas, instalācijas datu nesējus, valodas un izdevumus.</value>
+    <value>Definējiet izvietošanas laikā piedāvātās Windows versijas, atjauninājumu līmeņus, valodas un izdevumus.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>Windows versija</value>
@@ -2046,10 +2046,11 @@
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
     <value>Izvēlieties versiju, kas atlasīta pēc noklusējuma. Automātiskā opcija izmanto Foundry ieteikto versiju.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Iepriekš atlasītais instalācijas datu nesējs</value></data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Izvēlieties, cik jaunam jābūt iepriekš atlasītajam instalācijas datu nesējam. Ja pieprasītā vēsture nav pieejama, tiek izmantots vecākais pieejamais datu nesējs.</value></data>
-  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Jaunākais instalācijas datu nesējs</value></data>
-  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Iepriekšējais instalācijas datu nesējs ({0})</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Iepriekš atlasītais Windows atjauninājumu līmenis</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Izvēlieties, cik jaunam jābūt pēc noklusējuma atlasītajam Windows ikmēneša atjauninājumam. Ja šis atjauninājums nav pieejams, tiek izmantots vecākais pieejamais atjauninājums.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Jaunākais pieejamais atjauninājums</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Par {0} atjauninājumiem agrāks</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>Par 1 atjauninājumu agrāks</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
     <value>Windows valoda</value>
   </data>

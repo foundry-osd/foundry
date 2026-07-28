@@ -2026,7 +2026,7 @@
     <value>Možnosti uvajanja sistema Windows</value>
   </data>
 <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Določite različice sistema Windows, namestitvene medije, jezike in izdaje, ki so na voljo med uvajanjem.</value>
+    <value>Določite različice sistema Windows, ravni posodobitev, jezike in izdaje, ki so na voljo med uvajanjem.</value>
   </data>
 <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>Različica sistema Windows</value>
@@ -2046,10 +2046,11 @@
 <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
     <value>Izberite različico, ki je privzeto izbrana. Možnost Samodejno uporabi različico, ki jo priporoča Foundry.</value>
   </data>
-<data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Vnaprej izbran namestitveni medij</value></data>
-<data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Izberite, kako nov naj bo vnaprej izbran namestitveni medij. Če zahtevana zgodovina ni na voljo, se uporabi najstarejši razpoložljivi medij.</value></data>
-<data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Najnovejši namestitveni medij</value></data>
-<data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Prejšnji namestitveni medij ({0})</value></data>
+<data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Vnaprej izbrana raven posodobitve sistema Windows</value></data>
+<data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Izberite, kako nova naj bo mesečna posodobitev sistema Windows, ki je privzeto izbrana. Če ta posodobitev ni na voljo, se uporabi najstarejša razpoložljiva posodobitev.</value></data>
+<data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Najnovejša razpoložljiva posodobitev</value></data>
+<data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>{0} posodobitev prej</value></data>
+<data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>1 posodobitev prej</value></data>
 <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
     <value>Jezik sistema Windows</value>
   </data>

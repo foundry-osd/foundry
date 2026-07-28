@@ -2026,7 +2026,7 @@
     <value>Opțiuni de implementare Windows</value>
   </data>
 <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Definiți versiunile Windows, suporturile de instalare, limbile și edițiile oferite în timpul implementării.</value>
+    <value>Definiți versiunile Windows, nivelurile de actualizare, limbile și edițiile oferite în timpul implementării.</value>
   </data>
 <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>Versiune Windows</value>
@@ -2046,10 +2046,11 @@
 <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
     <value>Alegeți versiunea selectată în mod implicit. Opțiunea Automat utilizează versiunea recomandată de Foundry.</value>
   </data>
-<data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Suport de instalare preselectat</value></data>
-<data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Alegeți cât de recent trebuie să fie suportul de instalare preselectat. Dacă istoricul solicitat nu este disponibil, se utilizează cel mai vechi suport disponibil.</value></data>
-<data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Cel mai recent suport de instalare</value></data>
-<data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Suport de instalare anterior ({0})</value></data>
+<data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Nivel de actualizare Windows preselectat</value></data>
+<data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Alegeți cât de recentă trebuie să fie actualizarea lunară Windows selectată în mod implicit. Dacă actualizarea respectivă nu este disponibilă, se utilizează cea mai veche actualizare disponibilă.</value></data>
+<data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Cea mai recentă actualizare disponibilă</value></data>
+<data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Cu {0} actualizări în urmă</value></data>
+<data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>Cu 1 actualizare în urmă</value></data>
 <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
     <value>Limbă Windows</value>
   </data>

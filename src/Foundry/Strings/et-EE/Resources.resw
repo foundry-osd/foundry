@@ -2026,7 +2026,7 @@
     <value>Windowsi juurutussuvandid</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Määrake juurutamise ajal pakutavad Windowsi versioonid, installikandjad, keeled ja väljaanded.</value>
+    <value>Määrake juurutamise ajal pakutavad Windowsi versioonid, värskendustasemed, keeled ja väljaanded.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>Windowsi versioon</value>
@@ -2046,10 +2046,11 @@
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
     <value>Valige vaikimisi valitud versioon. Automaatne kasutab Foundry soovitatud versiooni.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Eelvalitud installikandja</value></data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Valige, kui uus peaks eelvalitud installikandja olema. Kui soovitud ajalugu pole saadaval, kasutatakse vanimat saadaolevat kandjat.</value></data>
-  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Uusim installikandja</value></data>
-  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Eelmine installikandja ({0})</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Eelvalitud Windowsi värskendustase</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Valige, kui värske peaks olema vaikimisi valitud Windowsi kuuvärskendus. Kui see värskendus pole saadaval, kasutatakse vanimat saadaolevat värskendust.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Uusim saadaolev värskendus</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>1 värskendus varasem</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>{0} värskendust varasem</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
     <value>Windowsi keel</value>
   </data>

@@ -73,7 +73,7 @@
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Oppdaging av måldisk mislyktes: {0}</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operativsystem</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versjon</value></data>
-  <data name="Catalog.Media" xml:space="preserve"><value>Installasjonsmedium</value></data>
+  <data name="Catalog.Media" xml:space="preserve"><value>Windows-oppdatering</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Nyeste)</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Språk</value></data>
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Lisenskanal</value></data>

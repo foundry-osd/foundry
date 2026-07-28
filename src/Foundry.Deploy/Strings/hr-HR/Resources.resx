@@ -73,7 +73,7 @@
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Otkrivanje ciljnog diska nije uspjelo: {0}</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operativni sustav</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Verzija</value></data>
-  <data name="Catalog.Media" xml:space="preserve"><value>Instalacijski medij</value></data>
+  <data name="Catalog.Media" xml:space="preserve"><value>Ažuriranje sustava Windows</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Najnoviji)</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Jezik</value></data>
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Licencni kanal</value></data>

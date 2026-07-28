@@ -2026,7 +2026,7 @@
     <value>Windows-telepítési lehetőségek</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Adja meg a telepítés során felkínált Windows-verziókat, telepítési adathordozókat, nyelveket és kiadásokat.</value>
+    <value>Adja meg a telepítés során felkínált Windows-verziókat, frissítési szinteket, nyelveket és kiadásokat.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>Windows-verzió</value>
@@ -2046,10 +2046,11 @@
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
     <value>Válassza ki az alapértelmezés szerint kijelölt verziót. Az Automatikus beállítás a Foundry által ajánlott verziót használja.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Előre kiválasztott telepítési adathordozó</value></data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Válassza ki, milyen friss legyen az előre kiválasztott telepítési adathordozó. Ha a kért előzmény nem érhető el, a rendszer a legrégebbi elérhető adathordozót használja.</value></data>
-  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Legfrissebb telepítési adathordozó</value></data>
-  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Előző telepítési adathordozó ({0})</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Előre kiválasztott Windows-frissítési szint</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Válassza ki, milyen friss legyen az alapértelmezés szerint kijelölt havi Windows-frissítés. Ha ez a frissítés nem érhető el, a rendszer a legrégebbi elérhető frissítést használja.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Legújabb elérhető frissítés</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>{0} frissítéssel korábbi</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>1 frissítéssel korábbi</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
     <value>Windows nyelve</value>
   </data>

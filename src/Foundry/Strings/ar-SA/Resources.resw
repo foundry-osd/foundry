@@ -2026,7 +2026,7 @@
     <value>خيارات نشر Windows</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>حدد إصدارات Windows ووسائط التثبيت واللغات والنسخ التي يتم تقديمها أثناء النشر.</value>
+    <value>حدد إصدارات Windows ومستويات التحديث واللغات والنسخ التي يتم تقديمها أثناء النشر.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>إصدار Windows</value>
@@ -2046,10 +2046,11 @@
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
     <value>اختر الإصدار المحدد افتراضيًا. يستخدم الخيار التلقائي الإصدار الذي توصي به Foundry.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>وسائط التثبيت المحددة مسبقًا</value></data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>اختر مدى حداثة وسائط التثبيت المحددة مسبقًا. إذا لم يتوفر السجل المطلوب، فسيتم استخدام أقدم وسائط متاحة.</value></data>
-  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>أحدث وسائط تثبيت</value></data>
-  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>وسائط التثبيت السابقة ({0})</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>مستوى تحديث Windows المحدد مسبقًا</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>اختر مدى حداثة تحديث Windows الشهري المحدد افتراضيًا. إذا لم يتوفر هذا التحديث، فسيتم استخدام أقدم تحديث متاح.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>أحدث تحديث متاح</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>تحديث واحد سابق</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>{0} تحديثات سابقة</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
     <value>لغة Windows</value>
   </data>

@@ -2026,7 +2026,7 @@
     <value>Windows diegimo parinktys</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Nurodykite diegimo metu siūlomas Windows versijas, diegimo laikmenas, kalbas ir leidimus.</value>
+    <value>Nurodykite diegimo metu siūlomas Windows versijas, naujinimo lygius, kalbas ir leidimus.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>Windows versija</value>
@@ -2046,10 +2046,11 @@
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
     <value>Pasirinkite pagal numatytuosius parametrus pažymėtą versiją. Automatinis pasirinkimas naudoja Foundry rekomenduojamą versiją.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Iš anksto pasirinkta diegimo laikmena</value></data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Pasirinkite, kokio naujumo turi būti iš anksto pasirinkta diegimo laikmena. Jei prašoma retrospektyva nepasiekiama, naudojama seniausia pasiekiama laikmena.</value></data>
-  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Naujausia diegimo laikmena</value></data>
-  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Ankstesnė diegimo laikmena ({0})</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Iš anksto pasirinktas Windows naujinimo lygis</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Pasirinkite, kokio naujumo turi būti pagal numatytuosius parametrus pasirinktas mėnesinis Windows naujinimas. Jei šis naujinimas nepasiekiamas, naudojamas seniausias pasiekiamas naujinimas.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Naujausias pasiekiamas naujinimas</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>{0} naujinimais ankstesnis</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>1 naujinimu ankstesnis</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
     <value>Windows kalba</value>
   </data>

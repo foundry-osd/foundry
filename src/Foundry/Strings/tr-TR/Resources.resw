@@ -2026,7 +2026,7 @@
     <value>Windows dağıtım seçenekleri</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Dağıtım sırasında sunulan Windows sürümlerini, yükleme medyalarını, dilleri ve edisyonları belirleyin.</value>
+    <value>Dağıtım sırasında sunulan Windows sürümlerini, güncelleştirme düzeylerini, dilleri ve edisyonları belirleyin.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>Windows sürümü</value>
@@ -2046,10 +2046,11 @@
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
     <value>Varsayılan olarak seçilecek sürümü belirleyin. Otomatik, Foundry tarafından önerilen sürümü kullanır.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Önceden seçili yükleme medyası</value></data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Önceden seçili yükleme medyasının ne kadar güncel olacağını belirleyin. İstenen geçmiş kullanılamıyorsa kullanılabilir en eski medya seçilir.</value></data>
-  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>En güncel yükleme medyası</value></data>
-  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Önceki yükleme medyası ({0})</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Önceden seçili Windows güncelleştirme düzeyi</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Varsayılan olarak seçilecek aylık Windows güncelleştirmesinin ne kadar güncel olacağını belirleyin. Bu güncelleştirme kullanılamıyorsa kullanılabilir en eski güncelleştirme kullanılır.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Kullanılabilir en son güncelleştirme</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>1 güncelleştirme geride</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>{0} güncelleştirme geride</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
     <value>Windows dili</value>
   </data>

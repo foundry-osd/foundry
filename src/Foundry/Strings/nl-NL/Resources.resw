@@ -2026,7 +2026,7 @@
     <value>Windows-implementatieopties</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Definieer de Windows-versies, installatiemedia, talen en edities die tijdens de implementatie worden aangeboden.</value>
+    <value>Definieer de Windows-versies, updateniveaus, talen en edities die tijdens de implementatie worden aangeboden.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>Windows-versie</value>
@@ -2046,10 +2046,11 @@
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
     <value>Kies de versie die standaard is geselecteerd. Automatisch gebruikt de versie die wordt aanbevolen door Foundry.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Vooraf geselecteerd installatiemedium</value></data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Kies hoe recent het vooraf geselecteerde installatiemedium moet zijn. Als de gevraagde geschiedenis niet beschikbaar is, wordt het oudste beschikbare medium gebruikt.</value></data>
-  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Meest recente installatiemedium</value></data>
-  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Vorig installatiemedium ({0})</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Vooraf geselecteerd Windows-updateniveau</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Kies hoe recent de maandelijkse Windows-update die standaard is geselecteerd, moet zijn. Als die update niet beschikbaar is, wordt de oudste beschikbare update gebruikt.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Meest recente beschikbare update</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>{0} updates eerder</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>1 update eerder</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
     <value>Windows-taal</value>
   </data>

@@ -2026,7 +2026,7 @@
     <value>אפשרויות פריסת Windows</value>
   </data>
   <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>הגדר את גרסאות Windows, מדיית ההתקנה, השפות והמהדורות שיוצעו במהלך הפריסה.</value>
+    <value>הגדר את גרסאות Windows, רמות העדכון, השפות והמהדורות שיוצעו במהלך הפריסה.</value>
   </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>גרסת Windows</value>
@@ -2046,10 +2046,11 @@
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
     <value>בחר את הגרסה שתיבחר כברירת מחדל. האפשרות אוטומטי משתמשת בגרסה המומלצת על-ידי Foundry.</value>
   </data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>מדיית התקנה שנבחרה מראש</value></data>
-  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>בחר עד כמה מדיית ההתקנה שנבחרה מראש צריכה להיות עדכנית. אם ההיסטוריה המבוקשת אינה זמינה, ייעשה שימוש במדיה הזמינה הישנה ביותר.</value></data>
-  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>מדיית ההתקנה העדכנית ביותר</value></data>
-  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>מדיית ההתקנה הקודמת ({0})</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>רמת עדכון של Windows שנבחרה מראש</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>בחר עד כמה עדכני צריך להיות העדכון החודשי של Windows שנבחר כברירת מחדל. אם עדכון זה אינו זמין, נעשה שימוש בעדכון הזמין הישן ביותר.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>העדכון הזמין העדכני ביותר</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>{0} עדכונים קודם לכן</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>עדכון אחד קודם לכן</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
     <value>שפת Windows</value>
   </data>

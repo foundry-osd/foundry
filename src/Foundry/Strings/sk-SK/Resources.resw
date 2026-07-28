@@ -2026,7 +2026,7 @@
     <value>Možnosti nasadenia Windows</value>
   </data>
 <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Definujte verzie Windows, inštalačné médiá, jazyky a edície ponúkané počas nasadenia.</value>
+    <value>Definujte verzie Windows, úrovne aktualizácií, jazyky a edície ponúkané počas nasadenia.</value>
   </data>
 <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>Verzia Windows</value>
@@ -2046,10 +2046,11 @@
 <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
     <value>Vyberte verziu, ktorá sa vyberie predvolene. Možnosť Automaticky použije verziu odporúčanú službou Foundry.</value>
   </data>
-<data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Predvolené vybraté inštalačné médium</value></data>
-<data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Vyberte, aké aktuálne má byť predvolené vybraté inštalačné médium. Ak požadovaná história nie je k dispozícii, použije sa najstaršie dostupné médium.</value></data>
-<data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Najnovšie inštalačné médium</value></data>
-<data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>Predchádzajúce inštalačné médium ({0})</value></data>
+<data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>Predvolená vybratá úroveň aktualizácie Windows</value></data>
+<data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>Vyberte, aká aktuálna má byť mesačná aktualizácia Windows vybratá predvolene. Ak táto aktualizácia nie je k dispozícii, použije sa najstaršia dostupná aktualizácia.</value></data>
+<data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>Najnovšia dostupná aktualizácia</value></data>
+<data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>O {0} aktualizácií skôr</value></data>
+<data name="Customization.OperatingSystemMediaPreviousSingleOption" xml:space="preserve"><value>O 1 aktualizáciu skôr</value></data>
 <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
     <value>Jazyk Windows</value>
   </data>

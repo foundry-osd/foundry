@@ -73,7 +73,7 @@
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Kohdelevyn etsintä epäonnistui: {0}</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Käyttöjärjestelmä</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versio</value></data>
-  <data name="Catalog.Media" xml:space="preserve"><value>Asennustietoväline</value></data>
+  <data name="Catalog.Media" xml:space="preserve"><value>Windows-päivitys</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (uusin)</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Kieli</value></data>
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Lisenssikanava</value></data>
