@@ -32,7 +32,7 @@
     <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">True</PublishTrimmed>
   </PropertyGroup>
   <ItemGroup>
-    <AdditionalFiles Include="**\*.xaml" Link="%(RecursiveDir)%(Filename)%(Extension)" />
+    <AdditionalFiles Include="**\*.xaml" Exclude="$(DefaultItemExcludes)" Link="%(RecursiveDir)%(Filename)%(Extension)" />
     <AdditionalFiles Include="Assets\NavViewMenu\AppData.json" Link="Assets\NavViewMenu\%(Filename)%(Extension)" />
     <AdditionalFiles Include="Strings\**\*.resw" Link="Strings\%(RecursiveDir)%(Filename)%(Extension)" />
   </ItemGroup>
