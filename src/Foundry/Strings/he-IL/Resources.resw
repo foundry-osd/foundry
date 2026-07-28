@@ -2046,6 +2046,10 @@
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
     <value>אוטומטי שומר על גרסת ברירת המחדל של הקטלוג.</value>
   </data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>מדיית ברירת מחדל</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>0 בוחר את המדיה העדכנית ביותר; ערכים גבוהים יותר בוחרים מדיה זמינה ישנה יותר.</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>העדכנית ביותר</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>העדכנית ביותר - {0}</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
     <value>שפת מערכת הפעלה</value>
   </data>

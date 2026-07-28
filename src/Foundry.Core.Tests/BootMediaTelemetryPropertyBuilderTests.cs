@@ -81,6 +81,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
                 DefaultLanguageCode = "en-US",
                 AllowedReleaseIds = ["25H2", "24H2"],
                 DefaultReleaseId = "25H2",
+                DefaultMediaOffset = 2,
                 AllowedLicenseChannels = ["RET"],
                 DefaultLicenseChannel = "RET",
                 AllowedEditions = ["Pro", "Enterprise"],
@@ -159,6 +160,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.True((bool)result["os_selection_default_language_configured"]!);
         Assert.Equal(2, result["os_selection_allowed_release_count"]);
         Assert.True((bool)result["os_selection_default_release_configured"]!);
+        Assert.Equal(2, result["os_selection_default_media_offset"]);
         Assert.Equal(1, result["os_selection_allowed_license_channel_count"]);
         Assert.True((bool)result["os_selection_default_license_channel_configured"]!);
         Assert.Equal(2, result["os_selection_allowed_edition_count"]);
@@ -197,6 +199,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
                 DefaultLanguageCode = "en-US",
                 AllowedReleaseIds = ["25H2"],
                 DefaultReleaseId = "25H2",
+                DefaultMediaOffset = 5,
                 AllowedLicenseChannels = ["VOL"],
                 DefaultLicenseChannel = "VOL",
                 AllowedEditions = ["Enterprise"],
@@ -221,6 +224,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.False((bool)result["os_selection_default_language_configured"]!);
         Assert.Equal(0, result["os_selection_allowed_release_count"]);
         Assert.False((bool)result["os_selection_default_release_configured"]!);
+        Assert.Equal(0, result["os_selection_default_media_offset"]);
         Assert.Equal(0, result["os_selection_allowed_license_channel_count"]);
         Assert.False((bool)result["os_selection_default_license_channel_configured"]!);
         Assert.Equal(0, result["os_selection_allowed_edition_count"]);

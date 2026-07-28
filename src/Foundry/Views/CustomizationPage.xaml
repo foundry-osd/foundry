@@ -130,6 +130,18 @@
                                         ItemsSource="{x:Bind ViewModel.DefaultOperatingSystemReleaseOptions, Mode=OneWay}"
                                         SelectedItem="{x:Bind ViewModel.SelectedDefaultOperatingSystemRelease, Mode=TwoWay}" />
                                 </wct:SettingsCard>
+                                <wct:SettingsCard
+                                    Description="{x:Bind ViewModel.OperatingSystemDefaultMediaOffsetDescription, Mode=OneWay}"
+                                    Header="{x:Bind ViewModel.OperatingSystemDefaultMediaOffsetLabel, Mode=OneWay}">
+                                    <wct:SettingsCard.HeaderIcon>
+                                        <FontIcon Glyph="&#xE823;" />
+                                    </wct:SettingsCard.HeaderIcon>
+                                    <ComboBox
+                                        Width="{ThemeResource FoundryWideInputMinWidth}"
+                                        DisplayMemberPath="DisplayName"
+                                        ItemsSource="{x:Bind ViewModel.DefaultOperatingSystemMediaOffsetOptions, Mode=OneWay}"
+                                        SelectedItem="{x:Bind ViewModel.SelectedDefaultOperatingSystemMediaOffset, Mode=TwoWay}" />
+                                </wct:SettingsCard>
                             </wct:SettingsExpander.Items>
                         </wct:SettingsExpander>
                         <wct:SettingsExpander

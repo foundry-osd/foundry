@@ -2046,6 +2046,10 @@
   <data name="Customization.OperatingSystemDefaultReleaseDescription" xml:space="preserve">
     <value>อัตโนมัติจะคงเวอร์ชันเริ่มต้นของแค็ตตาล็อกไว้</value>
   </data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetLabel" xml:space="preserve"><value>สื่อเริ่มต้น</value></data>
+  <data name="Customization.OperatingSystemDefaultMediaOffsetDescription" xml:space="preserve"><value>0 เลือกสื่อล่าสุด ค่าที่สูงกว่าจะเลือกสื่อเก่าที่ยังพร้อมใช้งาน</value></data>
+  <data name="Customization.OperatingSystemMediaLatestOption" xml:space="preserve"><value>ล่าสุด</value></data>
+  <data name="Customization.OperatingSystemMediaPreviousOptionFormat" xml:space="preserve"><value>ล่าสุด - {0}</value></data>
   <data name="Customization.OperatingSystemLanguageGroupHeader" xml:space="preserve">
     <value>ภาษา OS</value>
   </data>

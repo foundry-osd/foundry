@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
@@ -289,6 +290,9 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             ["deploy_os_product"] = ResolveOperatingSystemProduct(context.OperatingSystem),
             ["deploy_os_version"] = NormalizeTelemetryString(context.OperatingSystem.ReleaseId),
             ["deploy_os_build"] = NormalizeTelemetryString(context.OperatingSystem.Build),
+            ["deploy_os_media_month"] = context.OperatingSystem.MediaDate == default
+                ? "unknown"
+                : context.OperatingSystem.MediaDate.ToString("yyyy-MM", CultureInfo.InvariantCulture),
             ["deploy_os_architecture"] = NormalizeTelemetryString(context.OperatingSystem.Architecture),
             ["deploy_os_language"] = NormalizeTelemetryString(context.OperatingSystem.LanguageCode),
             ["deploy_driver_pack_selection_kind"] = context.DriverPackSelectionKind.ToString().ToLowerInvariant(),

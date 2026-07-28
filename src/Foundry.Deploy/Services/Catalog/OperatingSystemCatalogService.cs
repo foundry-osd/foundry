@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Globalization;
+using System.IO;
 using System.Net.Http;
 using System.Xml.Linq;
 using Foundry.Deploy.Models;
@@ -13,6 +14,7 @@ namespace Foundry.Deploy.Services.Catalog;
 
 public sealed class OperatingSystemCatalogService : IOperatingSystemCatalogService
 {
+    private const int SupportedSchemaVersion = 4;
     private const string CatalogUri = "https://raw.githubusercontent.com/foundry-osd/catalog/refs/heads/main/Cache/OS/OperatingSystem.xml";
     private static readonly HttpClient HttpClient = InsecureHttpClientFactory.Create(TimeSpan.FromMinutes(60));
     private readonly ILogger<OperatingSystemCatalogService> _logger;
@@ -35,13 +37,7 @@ public sealed class OperatingSystemCatalogService : IOperatingSystemCatalogServi
                     "Operating system catalog download",
                     cancellationToken)
                 .ConfigureAwait(false);
-            XDocument document = XDocument.Parse(xmlContent);
-
-            OperatingSystemCatalogItem[] parsedItems = document
-                .Descendants("Item")
-                .Select(ParseItem)
-                .Where(item => !string.IsNullOrWhiteSpace(item.Url))
-                .ToArray();
+            IReadOnlyList<OperatingSystemCatalogItem> parsedItems = ParseCatalog(xmlContent);
 
             OperatingSystemCatalogItem[] items = parsedItems
                 .Where(OperatingSystemSupportMatrix.IsSupported)
@@ -52,7 +48,7 @@ public sealed class OperatingSystemCatalogService : IOperatingSystemCatalogServi
                 .ThenBy(item => item.Edition, StringComparer.OrdinalIgnoreCase)
                 .ToArray();
 
-            int filteredCount = parsedItems.Length - items.Length;
+            int filteredCount = parsedItems.Count - items.Length;
             if (filteredCount > 0)
             {
                 _logger.LogInformation(
@@ -72,7 +68,58 @@ public sealed class OperatingSystemCatalogService : IOperatingSystemCatalogServi
         }
     }
 
-    private static OperatingSystemCatalogItem ParseItem(XElement item)
+    internal static IReadOnlyList<OperatingSystemCatalogItem> ParseCatalog(string xmlContent)
+    {
+        XDocument document = XDocument.Parse(xmlContent);
+        XElement root = document.Root
+            ?? throw new InvalidDataException("Operating system catalog root element is missing.");
+        if (!int.TryParse(root.Attribute("schemaVersion")?.Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out int schemaVersion) ||
+            schemaVersion != SupportedSchemaVersion)
+        {
+            throw new InvalidDataException(
+                $"Operating system catalog schema version {SupportedSchemaVersion} is required.");
+        }
+
+        var sourcesById = new Dictionary<string, SourceMetadata>(StringComparer.OrdinalIgnoreCase);
+        foreach (XElement source in root.Element("Sources")?.Elements("Source") ?? [])
+        {
+            string sourceId = (source.Attribute("id")?.Value ?? string.Empty).Trim();
+            string build = (source.Attribute("build")?.Value ?? string.Empty).Trim();
+            string mediaDateText = (source.Attribute("mediaDate")?.Value ?? string.Empty).Trim();
+            if (string.IsNullOrWhiteSpace(sourceId) ||
+                string.IsNullOrWhiteSpace(build) ||
+                !int.TryParse(source.Attribute("buildMajor")?.Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out int buildMajor) ||
+                !int.TryParse(source.Attribute("buildUbr")?.Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out int buildUbr) ||
+                !DateOnly.TryParseExact(
+                    mediaDateText,
+                    "yyyy-MM-dd",
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.None,
+                    out DateOnly mediaDate) ||
+                !sourcesById.TryAdd(sourceId, new SourceMetadata(build, buildMajor, buildUbr, mediaDate)))
+            {
+                throw new InvalidDataException("Operating system catalog source metadata is invalid.");
+            }
+        }
+
+        IEnumerable<XElement> itemElements = root.Element("Items")?.Elements("Item") ?? [];
+        return itemElements
+            .Where(item => !string.IsNullOrWhiteSpace(ReadElement(item, "url")))
+            .Select(item =>
+            {
+                string sourceId = ReadElement(item, "sourceId");
+                if (!sourcesById.TryGetValue(sourceId, out SourceMetadata? source))
+                {
+                    throw new InvalidDataException(
+                        $"Operating system catalog item references unknown source '{sourceId}'.");
+                }
+
+                return ParseItem(item, source);
+            })
+            .ToArray();
+    }
+
+    private static OperatingSystemCatalogItem ParseItem(XElement item, SourceMetadata source)
     {
         return new OperatingSystemCatalogItem
         {
@@ -80,9 +127,10 @@ public sealed class OperatingSystemCatalogService : IOperatingSystemCatalogServi
             ClientType = ReadElement(item, "clientType"),
             WindowsRelease = ReadElement(item, "windowsRelease"),
             ReleaseId = ReadElement(item, "releaseId"),
-            Build = ReadElement(item, "build"),
-            BuildMajor = ParseInt(ReadElement(item, "buildMajor")),
-            BuildUbr = ParseInt(ReadElement(item, "buildUbr")),
+            Build = source.Build,
+            BuildMajor = source.BuildMajor,
+            BuildUbr = source.BuildUbr,
+            MediaDate = source.MediaDate,
             Architecture = NormalizeArchitecture(ReadElement(item, "architecture")),
             LanguageCode = ReadElement(item, "languageCode"),
             Language = ReadElement(item, "language"),
@@ -126,4 +174,5 @@ public sealed class OperatingSystemCatalogService : IOperatingSystemCatalogServi
         };
     }
 
+    private sealed record SourceMetadata(string Build, int BuildMajor, int BuildUbr, DateOnly MediaDate);
 }

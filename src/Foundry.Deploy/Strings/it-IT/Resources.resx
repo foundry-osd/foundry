@@ -73,6 +73,8 @@
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Individuazione del disco di destinazione non riuscita: {0}</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Sistema operativo</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versione</value></data>
+  <data name="Catalog.Media" xml:space="preserve"><value>Supporto</value></data>
+  <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Più recente)</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Lingua</value></data>
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Canale di licenza</value></data>
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>Edizione (destinazione)</value></data>

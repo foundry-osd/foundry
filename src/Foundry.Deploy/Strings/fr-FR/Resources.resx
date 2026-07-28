@@ -73,6 +73,8 @@
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Échec de la détection des disques cibles : {0}</value></data>
   <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Système d’exploitation</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Version</value></data>
+  <data name="Catalog.Media" xml:space="preserve"><value>Média</value></data>
+  <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Dernier)</value></data>
   <data name="Catalog.Language" xml:space="preserve"><value>Langue</value></data>
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Canal de licence</value></data>
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>Édition (cible)</value></data>

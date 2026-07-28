@@ -320,7 +320,8 @@ public sealed class DeployConfigurationGeneratorTests
                 AllowedLicenseChannels = ["retail", "VOL", "ret", ""],
                 DefaultLicenseChannel = "volume",
                 AllowedEditions = [" enterprise ", "Pro", "Enterprise", ""],
-                DefaultEdition = "Education"
+                DefaultEdition = "Education",
+                DefaultMediaOffset = 15
             },
             Localization = new LocalizationSettings
             {
@@ -339,6 +340,7 @@ public sealed class DeployConfigurationGeneratorTests
         Assert.Equal("VOL", result.OperatingSystemSelection.DefaultLicenseChannel);
         Assert.Equal(["Enterprise", "Pro"], result.OperatingSystemSelection.AllowedEditions);
         Assert.Null(result.OperatingSystemSelection.DefaultEdition);
+        Assert.Equal(11, result.OperatingSystemSelection.DefaultMediaOffset);
         Assert.Equal("Romance Standard Time", result.Localization.DefaultTimeZoneId);
     }
 

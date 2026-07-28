@@ -24,6 +24,7 @@ public sealed partial class CustomizationConfigurationViewModel
     public ObservableCollection<SelectionOption<string>> DefaultOperatingSystemLicenseChannelOptions { get; } = [];
     public ObservableCollection<SelectableStringOptionViewModel> OperatingSystemEditionOptions { get; } = [];
     public ObservableCollection<SelectionOption<string>> DefaultOperatingSystemEditionOptions { get; } = [];
+    public ObservableCollection<SelectionOption<int>> DefaultOperatingSystemMediaOffsetOptions { get; } = [];
 
     public bool IsOperatingSystemSelectionOptionsEnabled => IsOperatingSystemSelectionEnabled;
     public bool IsDefaultOperatingSystemLanguageSelectionEnabled => IsOperatingSystemSelectionOptionsEnabled && !HasSingleSelectedOption(OperatingSystemLanguageOptions);
@@ -86,6 +87,12 @@ public sealed partial class CustomizationConfigurationViewModel
     public partial string OperatingSystemDefaultReleaseDescription { get; set; }
 
     [ObservableProperty]
+    public partial string OperatingSystemDefaultMediaOffsetLabel { get; set; }
+
+    [ObservableProperty]
+    public partial string OperatingSystemDefaultMediaOffsetDescription { get; set; }
+
+    [ObservableProperty]
     public partial string OperatingSystemAllowedLicenseChannelsLabel { get; set; }
 
     [ObservableProperty]
@@ -135,12 +142,20 @@ public sealed partial class CustomizationConfigurationViewModel
     [ObservableProperty]
     public partial SelectionOption<string>? SelectedDefaultOperatingSystemEdition { get; set; }
 
+    [ObservableProperty]
+    public partial SelectionOption<int>? SelectedDefaultOperatingSystemMediaOffset { get; set; }
+
     partial void OnSelectedDefaultOperatingSystemLanguageChanged(SelectionOption<string>? value)
     {
         SaveState();
     }
 
     partial void OnSelectedDefaultOperatingSystemReleaseChanged(SelectionOption<string>? value)
+    {
+        SaveState();
+    }
+
+    partial void OnSelectedDefaultOperatingSystemMediaOffsetChanged(SelectionOption<int>? value)
     {
         SaveState();
     }
@@ -194,6 +209,7 @@ public sealed partial class CustomizationConfigurationViewModel
         SetSelectedOptions(OperatingSystemLicenseChannelOptions, settings.AllowedLicenseChannels);
         SetSelectedOptions(OperatingSystemEditionOptions, settings.AllowedEditions);
 
+        RefreshOperatingSystemMediaOffsetOptions(settings.DefaultMediaOffset);
         RefreshOperatingSystemDefaultOptions(settings);
     }
 
@@ -206,6 +222,7 @@ public sealed partial class CustomizationConfigurationViewModel
             DefaultLanguageCode = NormalizeDefaultOption(SelectedDefaultOperatingSystemLanguage?.Value),
             AllowedReleaseIds = GetSelectedOptionValues(OperatingSystemReleaseOptions),
             DefaultReleaseId = NormalizeDefaultOption(SelectedDefaultOperatingSystemRelease?.Value),
+            DefaultMediaOffset = SelectedDefaultOperatingSystemMediaOffset?.Value ?? 0,
             AllowedLicenseChannels = GetSelectedOptionValues(OperatingSystemLicenseChannelOptions),
             DefaultLicenseChannel = NormalizeDefaultOption(SelectedDefaultOperatingSystemLicenseChannel?.Value),
             AllowedEditions = GetSelectedOptionValues(OperatingSystemEditionOptions),
@@ -233,6 +250,8 @@ public sealed partial class CustomizationConfigurationViewModel
         OperatingSystemAllowedReleasesDescription = localizationService.GetString("Customization.OperatingSystemAllowedReleasesDescription");
         OperatingSystemDefaultReleaseLabel = localizationService.GetString("Customization.OperatingSystemDefaultReleaseLabel");
         OperatingSystemDefaultReleaseDescription = localizationService.GetString("Customization.OperatingSystemDefaultReleaseDescription");
+        OperatingSystemDefaultMediaOffsetLabel = localizationService.GetString("Customization.OperatingSystemDefaultMediaOffsetLabel");
+        OperatingSystemDefaultMediaOffsetDescription = localizationService.GetString("Customization.OperatingSystemDefaultMediaOffsetDescription");
         OperatingSystemAllowedLicenseChannelsLabel = localizationService.GetString("Customization.OperatingSystemAllowedLicenseChannelsLabel");
         OperatingSystemAllowedLicenseChannelsDescription = localizationService.GetString("Customization.OperatingSystemAllowedLicenseChannelsDescription");
         OperatingSystemDefaultLicenseChannelLabel = localizationService.GetString("Customization.OperatingSystemDefaultLicenseChannelLabel");
@@ -242,7 +261,29 @@ public sealed partial class CustomizationConfigurationViewModel
         OperatingSystemDefaultEditionLabel = localizationService.GetString("Customization.OperatingSystemDefaultEditionLabel");
         OperatingSystemDefaultEditionDescription = localizationService.GetString("Customization.OperatingSystemDefaultEditionDescription");
         AutomaticOptionText = localizationService.GetString("Common.AutomaticOption");
+        RefreshOperatingSystemMediaOffsetOptions(BuildOperatingSystemSelectionSettings().DefaultMediaOffset);
         RefreshOperatingSystemDefaultOptions(BuildOperatingSystemSelectionSettings());
+    }
+
+    private void RefreshOperatingSystemMediaOffsetOptions(int selectedOffset)
+    {
+        DefaultOperatingSystemMediaOffsetOptions.Clear();
+        DefaultOperatingSystemMediaOffsetOptions.Add(
+            new(0, localizationService.GetString("Customization.OperatingSystemMediaLatestOption")));
+        for (int offset = 1; offset <= 11; offset++)
+        {
+            DefaultOperatingSystemMediaOffsetOptions.Add(
+                new(
+                    offset,
+                    string.Format(
+                        CultureInfo.CurrentUICulture,
+                        localizationService.GetString("Customization.OperatingSystemMediaPreviousOptionFormat"),
+                        offset)));
+        }
+
+        int effectiveOffset = Math.Clamp(selectedOffset, 0, 11);
+        SelectedDefaultOperatingSystemMediaOffset =
+            DefaultOperatingSystemMediaOffsetOptions.First(option => option.Value == effectiveOffset);
     }
 
     private void RefreshOperatingSystemDefaultOptions(OperatingSystemSelectionSettings settings)
