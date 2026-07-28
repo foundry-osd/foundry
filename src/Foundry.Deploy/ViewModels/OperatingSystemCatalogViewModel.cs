@@ -422,7 +422,7 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
                     displayName = LocalizationText.Format("Catalog.MediaLatestFormat", displayName);
                 }
 
-                return new OperatingSystemMediaOption(item.SourceId, item.MediaDate, item.Build, displayName);
+                return new OperatingSystemMediaOption(item.SourceId, displayName);
             })
             .ToArray();
     }

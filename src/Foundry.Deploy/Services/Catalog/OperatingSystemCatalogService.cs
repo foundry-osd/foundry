@@ -149,13 +149,6 @@ public sealed class OperatingSystemCatalogService : IOperatingSystemCatalogServi
         return (parent.Element(elementName)?.Value ?? string.Empty).Trim();
     }
 
-    private static int ParseInt(string value)
-    {
-        return int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out int parsed)
-            ? parsed
-            : 0;
-    }
-
     private static long ParseLong(string value)
     {
         return long.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out long parsed)

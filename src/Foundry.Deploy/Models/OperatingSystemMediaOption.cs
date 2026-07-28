@@ -6,6 +6,4 @@ namespace Foundry.Deploy.Models;
 
 public sealed record OperatingSystemMediaOption(
     string SourceId,
-    DateOnly MediaDate,
-    string Build,
     string DisplayName);
