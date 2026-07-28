@@ -290,7 +290,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             ["deploy_os_product"] = ResolveOperatingSystemProduct(context.OperatingSystem),
             ["deploy_os_version"] = NormalizeTelemetryString(context.OperatingSystem.ReleaseId),
             ["deploy_os_build"] = NormalizeTelemetryString(context.OperatingSystem.Build),
-            ["deploy_os_media_month"] = context.OperatingSystem.MediaDate == default
+            ["deploy_os_update_month"] = context.OperatingSystem.MediaDate == default
                 ? "unknown"
                 : context.OperatingSystem.MediaDate.ToString("yyyy-MM", CultureInfo.InvariantCulture),
             ["deploy_os_architecture"] = NormalizeTelemetryString(context.OperatingSystem.Architecture),

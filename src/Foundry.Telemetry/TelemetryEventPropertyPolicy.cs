@@ -147,7 +147,7 @@ public static class TelemetryEventPropertyPolicy
                 "deploy_os_product",
                 "deploy_os_version",
                 "deploy_os_build",
-                "deploy_os_media_month",
+                "deploy_os_update_month",
                 "deploy_os_architecture",
                 "deploy_os_language",
                 "deploy_driver_pack_selection_kind",
