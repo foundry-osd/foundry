@@ -99,7 +99,7 @@ public static class TelemetryEventPropertyPolicy
                 "os_selection_default_language_configured",
                 "os_selection_allowed_release_count",
                 "os_selection_default_release_configured",
-                "os_selection_default_media_offset",
+                "os_selection_default_update_offset",
                 "os_selection_allowed_license_channel_count",
                 "os_selection_default_license_channel_configured",
                 "os_selection_allowed_edition_count",

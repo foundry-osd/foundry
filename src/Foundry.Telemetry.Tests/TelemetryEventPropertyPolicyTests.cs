@@ -40,7 +40,7 @@ public sealed class TelemetryEventPropertyPolicyTests
             ["os_selection_default_language_configured"] = true,
             ["os_selection_allowed_release_count"] = 2,
             ["os_selection_default_release_configured"] = true,
-            ["os_selection_default_media_offset"] = 2,
+            ["os_selection_default_update_offset"] = 2,
             ["os_selection_allowed_license_channel_count"] = 1,
             ["os_selection_default_license_channel_configured"] = true,
             ["os_selection_allowed_edition_count"] = 2,
@@ -121,7 +121,7 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.True((bool)result["os_selection_default_language_configured"]!);
         Assert.Equal(2, result["os_selection_allowed_release_count"]);
         Assert.True((bool)result["os_selection_default_release_configured"]!);
-        Assert.Equal(2, result["os_selection_default_media_offset"]);
+        Assert.Equal(2, result["os_selection_default_update_offset"]);
         Assert.Equal(1, result["os_selection_allowed_license_channel_count"]);
         Assert.True((bool)result["os_selection_default_license_channel_configured"]!);
         Assert.Equal(2, result["os_selection_allowed_edition_count"]);

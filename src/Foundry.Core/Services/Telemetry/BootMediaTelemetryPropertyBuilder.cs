@@ -132,7 +132,7 @@ public static class BootMediaTelemetryPropertyBuilder
         bool hasDefaultLanguage = isEnabled && !string.IsNullOrWhiteSpace(operatingSystemSelection.DefaultLanguageCode);
         int allowedReleaseCount = isEnabled ? operatingSystemSelection.AllowedReleaseIds.Count : 0;
         bool hasDefaultRelease = isEnabled && !string.IsNullOrWhiteSpace(operatingSystemSelection.DefaultReleaseId);
-        int defaultMediaOffset = isEnabled ? Math.Clamp(operatingSystemSelection.DefaultMediaOffset, 0, 11) : 0;
+        int defaultUpdateOffset = isEnabled ? Math.Clamp(operatingSystemSelection.DefaultMediaOffset, 0, 11) : 0;
         int allowedLicenseChannelCount = isEnabled ? operatingSystemSelection.AllowedLicenseChannels.Count : 0;
         bool hasDefaultLicenseChannel = isEnabled && !string.IsNullOrWhiteSpace(operatingSystemSelection.DefaultLicenseChannel);
         int allowedEditionCount = isEnabled ? operatingSystemSelection.AllowedEditions.Count : 0;
@@ -144,7 +144,7 @@ public static class BootMediaTelemetryPropertyBuilder
             hasDefaultLanguage ||
             allowedReleaseCount > 0 ||
             hasDefaultRelease ||
-            defaultMediaOffset > 0 ||
+            defaultUpdateOffset > 0 ||
             allowedLicenseChannelCount > 0 ||
             hasDefaultLicenseChannel ||
             allowedEditionCount > 0 ||
@@ -153,7 +153,7 @@ public static class BootMediaTelemetryPropertyBuilder
         properties["os_selection_default_language_configured"] = hasDefaultLanguage;
         properties["os_selection_allowed_release_count"] = allowedReleaseCount;
         properties["os_selection_default_release_configured"] = hasDefaultRelease;
-        properties["os_selection_default_media_offset"] = defaultMediaOffset;
+        properties["os_selection_default_update_offset"] = defaultUpdateOffset;
         properties["os_selection_allowed_license_channel_count"] = allowedLicenseChannelCount;
         properties["os_selection_default_license_channel_configured"] = hasDefaultLicenseChannel;
         properties["os_selection_allowed_edition_count"] = allowedEditionCount;
