@@ -411,7 +411,7 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
         return media
             .Select((item, index) =>
             {
-                string displayName = item.MediaDate.ToString("Y", CultureInfo.CurrentUICulture);
+                string displayName = FormatMediaMonth(item.MediaDate);
                 if (duplicateMonths.Contains((item.MediaDate.Year, item.MediaDate.Month)))
                 {
                     displayName = $"{displayName} | {item.Build}";
@@ -425,6 +425,15 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
                 return new OperatingSystemMediaOption(item.SourceId, displayName);
             })
             .ToArray();
+    }
+
+    private static string FormatMediaMonth(DateOnly mediaDate)
+    {
+        CultureInfo culture = CultureInfo.CurrentUICulture;
+        string displayName = mediaDate.ToString("Y", culture);
+        return string.IsNullOrEmpty(displayName)
+            ? displayName
+            : culture.TextInfo.ToUpper(displayName[..1]) + displayName[1..];
     }
 
     private void UpdateMediaFilterCollection(IEnumerable<OperatingSystemMediaOption> options)

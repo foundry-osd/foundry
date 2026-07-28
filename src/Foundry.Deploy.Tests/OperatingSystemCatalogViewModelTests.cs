@@ -198,6 +198,28 @@ public sealed class OperatingSystemCatalogViewModelTests
         }
     }
 
+    [Fact]
+    public void ApplyCatalog_WithLowercaseLocalizedMonth_CapitalizesMediaLabel()
+    {
+        CultureInfo originalCulture = CultureInfo.CurrentUICulture;
+        try
+        {
+            CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("fr-FR");
+            var viewModel = new OperatingSystemCatalogViewModel(NullLogger.Instance, "x64");
+
+            viewModel.ApplyCatalog(
+            [
+                CreateOperatingSystem("fr-FR", sourceId: "july", mediaDate: new DateOnly(2026, 7, 10))
+            ]);
+
+            Assert.StartsWith("Juillet 2026", viewModel.MediaFilters[0].DisplayName);
+        }
+        finally
+        {
+            CultureInfo.CurrentUICulture = originalCulture;
+        }
+    }
+
     private static OperatingSystemCatalogItem CreateOperatingSystem(
         string languageCode,
         string releaseId = "25H2",
