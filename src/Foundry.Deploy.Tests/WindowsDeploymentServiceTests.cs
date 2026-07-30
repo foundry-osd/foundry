@@ -12,28 +12,6 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class WindowsDeploymentServiceTests
 {
-    [Theory]
-    [InlineData(26199, "/c /v")]
-    [InlineData(26200, "/c /bootex /v")]
-    public async Task ConfigureBootAsync_UsesExpectedDiagnosticArguments(
-        int build,
-        string expectedArguments)
-    {
-        using var workspace = new TemporaryWorkspace();
-        var processRunner = new RecordingProcessRunner();
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
-
-        await service.ConfigureBootAsync(
-            @"W:\",
-            @"S:\",
-            build,
-            workspace.RootPath,
-            TestContext.Current.CancellationToken);
-
-        string call = Assert.Single(processRunner.Calls);
-        Assert.Contains(expectedArguments, call, StringComparison.Ordinal);
-    }
-
     [Fact]
     public async Task PrepareTargetDiskAsync_CreatesPartitionsInExpectedOrder_Efi_Msr_Recovery_Windows()
     {
@@ -60,6 +38,94 @@ public sealed class WindowsDeploymentServiceTests
         Assert.True(recoveryFormatIndex > recoveryIndex);
         Assert.True(windowsFormatIndex > recoveryFormatIndex);
         Assert.DoesNotContain(scriptLines, line => line.StartsWith("shrink ", StringComparison.OrdinalIgnoreCase));
+    }
+
+    [Theory]
+    [InlineData(26199, "/c /v")]
+    [InlineData(26200, "/c /bootex /v")]
+    public async Task ConfigureBootAsync_UsesAppliedWindowsBcdBootWithExpectedArguments(
+        int operatingSystemBuildMajor,
+        string expectedArguments)
+    {
+        using var workspace = new TemporaryWorkspace();
+        string windowsRoot = Path.Combine(workspace.RootPath, "Target Windows");
+        string windowsPath = Path.Combine(windowsRoot, "Windows");
+        string bcdBootPath = Path.Combine(windowsPath, "System32", "bcdboot.exe");
+        string workingDirectory = Path.Combine(workspace.RootPath, "Work");
+        const string systemRoot = @"S:\";
+        Directory.CreateDirectory(Path.GetDirectoryName(bcdBootPath)!);
+        await File.WriteAllTextAsync(bcdBootPath, string.Empty, TestContext.Current.CancellationToken);
+        var processRunner = new RecordingProcessRunner();
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        await service.ConfigureBootAsync(
+            windowsRoot,
+            systemRoot,
+            operatingSystemBuildMajor,
+            workingDirectory,
+            TestContext.Current.CancellationToken);
+
+        Assert.Equal(bcdBootPath, processRunner.LastFileName);
+        Assert.Equal(
+            $"\"{windowsPath}\" /s \"{systemRoot}\" /f UEFI {expectedArguments}",
+            processRunner.LastArguments);
+        Assert.Equal(workingDirectory, processRunner.LastWorkingDirectory);
+    }
+
+    [Fact]
+    public async Task ConfigureBootAsync_WhenAppliedBcdBootIsMissing_ThrowsFileNotFoundException()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string windowsRoot = Path.Combine(workspace.RootPath, "WindowsRoot");
+        string expectedBcdBootPath = Path.Combine(windowsRoot, "Windows", "System32", "bcdboot.exe");
+        var processRunner = new RecordingProcessRunner();
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        FileNotFoundException exception = await Assert.ThrowsAsync<FileNotFoundException>(() =>
+            service.ConfigureBootAsync(
+                windowsRoot,
+                @"S:\",
+                26200,
+                Path.Combine(workspace.RootPath, "Work"),
+                TestContext.Current.CancellationToken));
+
+        Assert.Equal(expectedBcdBootPath, exception.FileName);
+        Assert.Null(processRunner.LastFileName);
+    }
+
+    [Fact]
+    public async Task ConfigureBootAsync_WhenAppliedBcdBootFails_PropagatesDiagnostic()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string windowsRoot = Path.Combine(workspace.RootPath, "WindowsRoot");
+        string bcdBootPath = Path.Combine(windowsRoot, "Windows", "System32", "bcdboot.exe");
+        Directory.CreateDirectory(Path.GetDirectoryName(bcdBootPath)!);
+        await File.WriteAllTextAsync(bcdBootPath, string.Empty, TestContext.Current.CancellationToken);
+        var processRunner = new RecordingProcessRunner
+        {
+            Result = new ProcessExecutionResult
+            {
+                ExitCode = 193,
+                StandardOutput = "Failure when attempting to copy boot files.",
+                StandardError = "diagnostic"
+            }
+        };
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        DeploymentProcessException exception = await Assert.ThrowsAsync<DeploymentProcessException>(() =>
+            service.ConfigureBootAsync(
+                windowsRoot,
+                @"S:\",
+                26200,
+                Path.Combine(workspace.RootPath, "Work"),
+                TestContext.Current.CancellationToken));
+
+        Assert.IsAssignableFrom<InvalidOperationException>(exception);
+        Assert.Equal(bcdBootPath, processRunner.LastFileName);
+        Assert.Contains("BCDBoot configuration failed", exception.Message, StringComparison.Ordinal);
+        Assert.Contains("ExitCode=193", exception.Message, StringComparison.Ordinal);
+        Assert.Contains("Failure when attempting to copy boot files.", exception.Message, StringComparison.Ordinal);
+        Assert.Contains("diagnostic", exception.Message, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -293,6 +359,10 @@ public sealed class WindowsDeploymentServiceTests
     private sealed class RecordingProcessRunner : IProcessRunner
     {
         public List<string> Calls { get; } = [];
+        public string? LastFileName { get; private set; }
+        public string? LastArguments { get; private set; }
+        public string? LastWorkingDirectory { get; private set; }
+        public ProcessExecutionResult Result { get; init; } = new() { ExitCode = 0 };
 
         public Task<ProcessExecutionResult> RunAsync(
             string fileName,
@@ -301,7 +371,10 @@ public sealed class WindowsDeploymentServiceTests
             CancellationToken cancellationToken = default)
         {
             Calls.Add($"{fileName} {arguments}");
-            return Task.FromResult(new ProcessExecutionResult { ExitCode = 0 });
+            LastFileName = fileName;
+            LastArguments = arguments;
+            LastWorkingDirectory = workingDirectory;
+            return Task.FromResult(Result);
         }
 
         public Task<ProcessExecutionResult> RunAsync(
