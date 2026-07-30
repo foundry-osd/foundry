@@ -827,6 +827,14 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         CancellationToken cancellationToken = default)
     {
         string windowsPath = Path.Combine(windowsPartitionRoot, "Windows");
+        string bcdBootPath = Path.Combine(windowsPath, "System32", "bcdboot.exe");
+        if (!File.Exists(bcdBootPath))
+        {
+            throw new FileNotFoundException(
+                "The applied Windows image does not contain bcdboot.exe.",
+                bcdBootPath);
+        }
+
         _logger.LogInformation("Configuring boot files. WindowsPath={WindowsPath}, SystemPartitionRoot={SystemPartitionRoot}", windowsPath, systemPartitionRoot);
 
         string arguments = operatingSystemBuildMajor >= 26200
@@ -834,7 +842,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             : $"\"{windowsPath}\" /s \"{systemPartitionRoot}\" /f UEFI /c /v";
 
         await RunRequiredProcessAsync(
-            "bcdboot.exe",
+            bcdBootPath,
             arguments,
             workingDirectory,
             "BCDBoot configuration failed",
