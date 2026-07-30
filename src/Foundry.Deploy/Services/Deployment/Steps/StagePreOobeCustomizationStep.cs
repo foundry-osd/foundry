@@ -58,7 +58,7 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
             return DeploymentStepResult.Failed("Target Windows partition is unavailable.");
         }
 
-        context.EmitCurrentStepIndeterminate("Staging pre-OOBE customizations...", "Updating SetupComplete hook...");
+        context.EmitCurrentStepIndeterminate("Staging pre-OOBE customizations...", "Updating SetupComplete hook...", DeploymentOperationNames.StagePreOobe);
         PreOobeScriptProvisioningResult result = _preOobeScriptProvisioningService.Provision(
             context.RuntimeState.TargetWindowsPartitionRoot,
             scripts);

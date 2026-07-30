@@ -4,6 +4,7 @@
 
 using System.IO;
 using System.Runtime.InteropServices;
+using Foundry.Deploy.Services.Deployment;
 
 namespace Foundry.Deploy.Services.System;
 
@@ -67,8 +68,9 @@ public sealed class ArchiveExtractionService : IArchiveExtractionService
 
         if (!execution.IsSuccess)
         {
-            throw new InvalidOperationException(
-                $"7-Zip extraction failed for '{archivePath}'.{Environment.NewLine}{ToDiagnostic(execution)}");
+            throw new DeploymentProcessException(
+                $"7-Zip extraction failed for '{archivePath}'.{Environment.NewLine}{ToDiagnostic(execution)}",
+                execution.ExitCode);
         }
 
         progress?.Report(100d);

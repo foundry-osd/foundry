@@ -32,7 +32,7 @@ public sealed class SealRecoveryPartitionStep : DeploymentStepBase
         string workingDirectory = Path.Combine(targetFoundryRoot, "Temp", "Deployment");
         Directory.CreateDirectory(workingDirectory);
 
-        context.EmitCurrentStepIndeterminate("Sealing recovery partition...", "Removing recovery drive letter...");
+        context.EmitCurrentStepIndeterminate("Sealing recovery partition...", "Removing recovery drive letter...", DeploymentOperationNames.SealRecovery);
         await _windowsDeploymentService
             .SealRecoveryPartitionAsync(
                 context.RuntimeState.TargetRecoveryPartitionRoot,
@@ -56,7 +56,7 @@ public sealed class SealRecoveryPartitionStep : DeploymentStepBase
             return DeploymentStepResult.Failed("Recovery partition is unavailable.");
         }
 
-        context.EmitCurrentStepIndeterminate("Sealing recovery partition...", "Removing recovery drive letter...");
+        context.EmitCurrentStepIndeterminate("Sealing recovery partition...", "Removing recovery drive letter...", DeploymentOperationNames.SealRecovery);
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
             $"[DRY-RUN] Simulated recovery partition seal: {context.RuntimeState.TargetRecoveryPartitionRoot}",

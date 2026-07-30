@@ -168,8 +168,9 @@ public sealed class DriverPackExtractionService : IDriverPackExtractionService
 
         if (!execution.IsSuccess)
         {
-            throw new InvalidOperationException(
-                $"Dell driver pack extraction failed for '{packagePath}'.{Environment.NewLine}{ToDiagnostic(execution)}");
+            throw new DeploymentProcessException(
+                $"Dell driver pack extraction failed for '{packagePath}'.{Environment.NewLine}{ToDiagnostic(execution)}",
+                execution.ExitCode);
         }
 
         progress?.Report(95d);

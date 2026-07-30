@@ -39,7 +39,10 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
         Directory.CreateDirectory(workingDirectory);
         const string applyStepMessage = "Applying OS image...";
 
-        context.EmitCurrentStepIndeterminate(applyStepMessage, "Inspecting image...");
+        context.EmitCurrentStepIndeterminate(
+            applyStepMessage,
+            "Inspecting image...",
+            DeploymentOperationNames.InspectOperatingSystemImage);
         int imageIndex = await _windowsDeploymentService
             .ResolveImageIndexAsync(imagePath, context.Request.OperatingSystem.Edition, workingDirectory, cancellationToken)
             .ConfigureAwait(false);
@@ -47,7 +50,10 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
         context.RuntimeState.AppliedImageIndex = imageIndex;
 
         string scratchDirectory = Path.Combine(targetFoundryRoot, "Temp", "Dism");
-        context.EmitCurrentStepIndeterminate(applyStepMessage, "Applying image...");
+        context.EmitCurrentStepIndeterminate(
+            applyStepMessage,
+            "Applying image...",
+            DeploymentOperationNames.ApplyOperatingSystemImage);
         IProgress<double> applyImageProgress = context.CreateStepPercentProgressReporter(applyStepMessage, "Applying image");
 
         await _windowsDeploymentService
@@ -61,7 +67,10 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
                 applyImageProgress)
             .ConfigureAwait(false);
 
-        context.EmitCurrentStepIndeterminate(applyStepMessage, "Configuring boot...");
+        context.EmitCurrentStepIndeterminate(
+            applyStepMessage,
+            "Configuring boot...",
+            DeploymentOperationNames.ConfigureBoot);
         await _windowsDeploymentService
             .ConfigureBootAsync(
                 context.RuntimeState.TargetWindowsPartitionRoot,
@@ -71,7 +80,10 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
                 cancellationToken)
             .ConfigureAwait(false);
 
-        context.EmitCurrentStepIndeterminate(applyStepMessage, "Verifying image...");
+        context.EmitCurrentStepIndeterminate(
+            applyStepMessage,
+            "Verifying image...",
+            DeploymentOperationNames.VerifyOperatingSystemEdition);
         try
         {
             string? appliedEdition = await _windowsDeploymentService

@@ -44,7 +44,7 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
                 string rawDirectory = context.ResolveWorkspaceTempPath("DriverPack", "MicrosoftUpdateCatalog", "Raw");
                 string cacheDirectory = context.ResolveMicrosoftUpdateCatalogDriverCacheRoot();
                 ResetDirectory(rawDirectory);
-                context.EmitCurrentStepIndeterminate("Downloading driver pack...", "Preparing download...");
+                context.EmitCurrentStepIndeterminate("Downloading driver pack...", "Preparing download...", DeploymentOperationNames.ResolveDriverPack);
                 IProgress<double> progress = context.CreateStepPercentProgressReporter("Downloading driver pack...", "Downloading");
 
                 MicrosoftUpdateCatalogDriverResult result = await _microsoftUpdateCatalogDriverService
@@ -90,8 +90,10 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
 
                 string archiveName = DeploymentStepExecutionContext.ResolveFileName(driverPack.FileName, driverPack.DownloadUrl);
                 string archivePath = Path.Combine(driverPackDirectory, archiveName);
-                context.EmitCurrentStepIndeterminate("Downloading driver pack...", "Checking cache...");
-                IProgress<DownloadProgress> driverPackDownloadProgress = context.CreateDownloadProgressReporter("Driver pack");
+                context.EmitCurrentStepIndeterminate("Downloading driver pack...", "Checking cache...", DeploymentOperationNames.DownloadDriverPack);
+                IProgress<DownloadProgress> driverPackDownloadProgress = context.CreateDownloadProgressReporter(
+                    "Driver pack",
+                    DeploymentOperationNames.DownloadDriverPack);
 
                 ArtifactDownloadResult download = await _artifactDownloadService
                     .DownloadAsync(

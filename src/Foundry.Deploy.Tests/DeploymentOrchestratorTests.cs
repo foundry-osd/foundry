@@ -110,6 +110,10 @@ public sealed class DeploymentOrchestratorTests
         Assert.False((bool)telemetryEvent.Properties["deploy_session_success"]!);
         Assert.False((bool)telemetryEvent.Properties["deploy_session_cancelled"]!);
         Assert.Equal(DeploymentStepNames.DownloadOperatingSystemImage, telemetryEvent.Properties["deploy_session_failed_step_name"]);
+        Assert.Equal("os_image.download", telemetryEvent.Properties["deploy_session_failed_operation_name"]);
+        Assert.Equal("validation", telemetryEvent.Properties["deploy_session_failure_kind"]);
+        Assert.Equal("invalid_state", telemetryEvent.Properties["deploy_session_failure_reason"]);
+        Assert.Equal("synthetic_failure", telemetryEvent.Properties["deploy_session_failure_code"]);
         Assert.Equal("windows_11", telemetryEvent.Properties["deploy_os_product"]);
         Assert.Equal("2026-07", telemetryEvent.Properties["deploy_os_update_month"]);
         Assert.Equal("dell", telemetryEvent.Properties["deploy_driver_pack_vendor"]);
@@ -161,7 +165,13 @@ public sealed class DeploymentOrchestratorTests
             DeploymentStepExecutionContext context,
             CancellationToken cancellationToken)
         {
-            return Task.FromResult(DeploymentStepResult.Failed("Synthetic failure after target layout."));
+            return Task.FromResult(DeploymentStepResult.Failed(
+                "Synthetic failure after target layout.",
+                new DeploymentFailure(
+                    "os_image.download",
+                    DeploymentFailureKinds.Validation,
+                    DeploymentFailureReasons.InvalidState,
+                    "synthetic_failure")));
         }
     }
 

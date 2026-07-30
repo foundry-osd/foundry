@@ -20,6 +20,11 @@ public sealed record DeploymentStepResult
     public required string Message { get; init; }
 
     /// <summary>
+    /// Gets optional structured failure details for a failed step.
+    /// </summary>
+    public DeploymentFailure? Failure { get; init; }
+
+    /// <summary>
     /// Creates a successful step result.
     /// </summary>
     /// <param name="message">Result message.</param>
@@ -42,4 +47,13 @@ public sealed record DeploymentStepResult
     /// <returns>A failed step result.</returns>
     public static DeploymentStepResult Failed(string message)
         => new() { State = DeploymentStepState.Failed, Message = message };
+
+    /// <summary>
+    /// Creates a failed step result with structured failure details.
+    /// </summary>
+    /// <param name="message">Result message.</param>
+    /// <param name="failure">Telemetry-safe failure details.</param>
+    /// <returns>A failed step result.</returns>
+    public static DeploymentStepResult Failed(string message, DeploymentFailure failure)
+        => new() { State = DeploymentStepState.Failed, Message = message, Failure = failure };
 }

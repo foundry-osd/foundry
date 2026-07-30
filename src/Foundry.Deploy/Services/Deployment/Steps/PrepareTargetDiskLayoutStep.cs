@@ -26,14 +26,20 @@ public sealed class PrepareTargetDiskLayoutStep : DeploymentStepBase
         string workingDirectory = context.ResolveWorkspaceTempPath("Deployment");
         Directory.CreateDirectory(workingDirectory);
 
-        context.EmitCurrentStepIndeterminate("Preparing target disk layout...", "Revalidating target disk...");
+        context.EmitCurrentStepIndeterminate(
+            "Preparing target disk layout...",
+            "Revalidating target disk...",
+            DeploymentOperationNames.ValidateTargetDisk);
         (_, DeploymentStepResult? validationFailure) = await context.TryGetValidatedTargetDiskAsync(cancellationToken).ConfigureAwait(false);
         if (validationFailure is not null)
         {
             return validationFailure;
         }
 
-        context.EmitCurrentStepIndeterminate("Preparing target disk layout...", "Partitioning target disk...");
+        context.EmitCurrentStepIndeterminate(
+            "Preparing target disk layout...",
+            "Partitioning target disk...",
+            DeploymentOperationNames.PartitionTargetDisk);
         DeploymentTargetLayout layout = await _windowsDeploymentService
             .PrepareTargetDiskAsync(
                 context.Request.TargetDiskNumber,
@@ -47,7 +53,10 @@ public sealed class PrepareTargetDiskLayoutStep : DeploymentStepBase
         context.RuntimeState.TargetRecoveryPartitionLetter = layout.RecoveryPartitionLetter;
         context.RuntimeState.TargetFoundryRoot = Path.Combine(layout.WindowsPartitionRoot, "Foundry");
 
-        context.EmitCurrentStepIndeterminate("Preparing target disk layout...", "Preparing target workspace...");
+        context.EmitCurrentStepIndeterminate(
+            "Preparing target disk layout...",
+            "Preparing target workspace...",
+            DeploymentOperationNames.PrepareTargetWorkspace);
         await context.RebindLogSessionToTargetAsync(context.RuntimeState.TargetFoundryRoot, cancellationToken).ConfigureAwait(false);
 
         await context.AppendLogAsync(
@@ -65,7 +74,10 @@ public sealed class PrepareTargetDiskLayoutStep : DeploymentStepBase
         string windowsRoot = Path.Combine(targetRoot, "Windows");
         string recoveryRoot = Path.Combine(targetRoot, "Recovery");
 
-        context.EmitCurrentStepIndeterminate("Preparing target disk layout...", "Creating simulated partitions...");
+        context.EmitCurrentStepIndeterminate(
+            "Preparing target disk layout...",
+            "Creating simulated partitions...",
+            DeploymentOperationNames.PartitionTargetDisk);
         Directory.CreateDirectory(systemRoot);
         Directory.CreateDirectory(windowsRoot);
         Directory.CreateDirectory(recoveryRoot);
@@ -76,7 +88,10 @@ public sealed class PrepareTargetDiskLayoutStep : DeploymentStepBase
         context.RuntimeState.TargetRecoveryPartitionLetter = 'R';
         context.RuntimeState.TargetFoundryRoot = Path.Combine(windowsRoot, "Foundry");
 
-        context.EmitCurrentStepIndeterminate("Preparing target disk layout...", "Preparing target workspace...");
+        context.EmitCurrentStepIndeterminate(
+            "Preparing target disk layout...",
+            "Preparing target workspace...",
+            DeploymentOperationNames.PrepareTargetWorkspace);
         await context.RebindLogSessionToTargetAsync(context.RuntimeState.TargetFoundryRoot, cancellationToken).ConfigureAwait(false);
 
         await context.AppendLogAsync(

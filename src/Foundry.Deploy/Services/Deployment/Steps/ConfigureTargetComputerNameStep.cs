@@ -27,7 +27,7 @@ public sealed class ConfigureTargetComputerNameStep : DeploymentStepBase
             return DeploymentStepResult.Failed("Target Windows partition is unavailable.");
         }
 
-        context.EmitCurrentStepIndeterminate("Configuring target computer name...", "Writing offline computer name...");
+        context.EmitCurrentStepIndeterminate("Configuring target computer name...", "Writing offline computer name...", DeploymentOperationNames.ConfigureComputerName);
         await _windowsDeploymentService
             .ConfigureOfflineComputerNameAsync(
                 context.RuntimeState.TargetWindowsPartitionRoot,
@@ -52,7 +52,7 @@ public sealed class ConfigureTargetComputerNameStep : DeploymentStepBase
             return DeploymentStepResult.Failed("Target Windows partition is unavailable.");
         }
 
-        context.EmitCurrentStepIndeterminate("Configuring target computer name...", "Writing offline computer name...");
+        context.EmitCurrentStepIndeterminate("Configuring target computer name...", "Writing offline computer name...", DeploymentOperationNames.ConfigureComputerName);
         await _windowsDeploymentService
             .ConfigureOfflineComputerNameAsync(
                 context.RuntimeState.TargetWindowsPartitionRoot,

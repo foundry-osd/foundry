@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Text.Json.Serialization;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Cache;
@@ -29,6 +30,12 @@ public sealed record DeploymentRuntimeState
     /// Gets or sets the current deployment step name.
     /// </summary>
     public string CurrentStep { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the active logical operation name.
+    /// </summary>
+    [JsonIgnore]
+    public string CurrentOperation { get; set; } = "deployment.unknown";
 
     /// <summary>
     /// Gets the deployment source mode.

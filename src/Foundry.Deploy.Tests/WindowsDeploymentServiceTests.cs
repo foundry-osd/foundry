@@ -12,6 +12,28 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class WindowsDeploymentServiceTests
 {
+    [Theory]
+    [InlineData(26199, "/c /v")]
+    [InlineData(26200, "/c /bootex /v")]
+    public async Task ConfigureBootAsync_UsesExpectedDiagnosticArguments(
+        int build,
+        string expectedArguments)
+    {
+        using var workspace = new TemporaryWorkspace();
+        var processRunner = new RecordingProcessRunner();
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        await service.ConfigureBootAsync(
+            @"W:\",
+            @"S:\",
+            build,
+            workspace.RootPath,
+            TestContext.Current.CancellationToken);
+
+        string call = Assert.Single(processRunner.Calls);
+        Assert.Contains(expectedArguments, call, StringComparison.Ordinal);
+    }
+
     [Fact]
     public async Task PrepareTargetDiskAsync_CreatesPartitionsInExpectedOrder_Efi_Msr_Recovery_Windows()
     {

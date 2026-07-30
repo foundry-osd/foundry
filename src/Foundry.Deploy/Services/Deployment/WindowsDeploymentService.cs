@@ -141,8 +141,9 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         if (!execution.IsSuccess)
         {
             _logger.LogError("Failed to resolve OS image index for {ImagePath}. Diagnostic={Diagnostic}", imagePath, ToDiagnostic(execution));
-            throw new InvalidOperationException(
-                $"Unable to resolve image index for '{imagePath}'.{Environment.NewLine}{ToDiagnostic(execution)}");
+            throw new DeploymentProcessException(
+                $"Unable to resolve image index for '{imagePath}'.{Environment.NewLine}{ToDiagnostic(execution)}",
+                execution.ExitCode);
         }
 
         IReadOnlyList<ImageIndexDescriptor> descriptors = ParseImageDescriptors(execution.StandardOutput);
@@ -789,9 +790,12 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                     _logger.LogError("Failed to unmount the Windows RE image. Diagnostic={Diagnostic}", diagnostic);
 
                     pendingException = pendingException is null
-                        ? new InvalidOperationException($"Failed to unmount the Windows RE image.{Environment.NewLine}{diagnostic}")
-                        : new InvalidOperationException(
+                        ? new DeploymentProcessException(
+                            $"Failed to unmount the Windows RE image.{Environment.NewLine}{diagnostic}",
+                            unmountExecution.ExitCode)
+                        : new DeploymentProcessException(
                             $"Windows RE servicing failed and the image could not be unmounted cleanly.{Environment.NewLine}{diagnostic}",
+                            unmountExecution.ExitCode,
                             pendingException);
                 }
                 else
@@ -826,7 +830,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         _logger.LogInformation("Configuring boot files. WindowsPath={WindowsPath}, SystemPartitionRoot={SystemPartitionRoot}", windowsPath, systemPartitionRoot);
 
         string arguments = operatingSystemBuildMajor >= 26200
-            ? $"\"{windowsPath}\" /s \"{systemPartitionRoot}\" /f UEFI /c /bootex"
+            ? $"\"{windowsPath}\" /s \"{systemPartitionRoot}\" /f UEFI /c /bootex /v"
             : $"\"{windowsPath}\" /s \"{systemPartitionRoot}\" /f UEFI /c /v";
 
         await RunRequiredProcessAsync(
@@ -853,7 +857,9 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         if (!execution.IsSuccess)
         {
             _logger.LogError("{FailureSummary}. Diagnostic={Diagnostic}", failureSummary, ToDiagnostic(execution));
-            throw new InvalidOperationException($"{failureSummary}.{Environment.NewLine}{ToDiagnostic(execution)}");
+            throw new DeploymentProcessException(
+                $"{failureSummary}.{Environment.NewLine}{ToDiagnostic(execution)}",
+                execution.ExitCode);
         }
 
         return execution;
@@ -892,7 +898,9 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         if (!execution.IsSuccess)
         {
             _logger.LogError("{FailureSummary}. Diagnostic={Diagnostic}", failureSummary, ToDiagnostic(execution));
-            throw new InvalidOperationException($"{failureSummary}.{Environment.NewLine}{ToDiagnostic(execution)}");
+            throw new DeploymentProcessException(
+                $"{failureSummary}.{Environment.NewLine}{ToDiagnostic(execution)}",
+                execution.ExitCode);
         }
 
         return execution;

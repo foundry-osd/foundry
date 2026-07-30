@@ -89,7 +89,7 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
         bool applyRecovery = context.RuntimeState.WinReConfigured &&
                              !string.IsNullOrWhiteSpace(context.RuntimeState.TargetRecoveryPartitionRoot);
 
-        context.EmitCurrentStepIndeterminate(stepMessage, "Applying Windows drivers...");
+        context.EmitCurrentStepIndeterminate(stepMessage, "Applying Windows drivers...", DeploymentOperationNames.ApplyDriverPack);
         IProgress<double> windowsProgress = context.CreateStepPercentProgressReporter(stepMessage, "Applying Windows drivers");
 
         await _windowsDeploymentService
@@ -118,9 +118,9 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
                     mountProgress: mountRecoveryProgress,
                     applyProgress: applyRecoveryProgress,
                     unmountProgress: unmountRecoveryProgress,
-                    onMountStarted: () => context.EmitCurrentStepIndeterminate(stepMessage, "Mounting WinRE..."),
-                    onApplyStarted: () => context.EmitCurrentStepIndeterminate(stepMessage, "Applying WinRE drivers..."),
-                    onUnmountStarted: () => context.EmitCurrentStepIndeterminate(stepMessage, "Unmounting WinRE..."))
+                    onMountStarted: () => context.EmitCurrentStepIndeterminate(stepMessage, "Mounting WinRE...", DeploymentOperationNames.MountRecoveryImage),
+                    onApplyStarted: () => context.EmitCurrentStepIndeterminate(stepMessage, "Applying WinRE drivers...", DeploymentOperationNames.ApplyRecoveryDrivers),
+                    onUnmountStarted: () => context.EmitCurrentStepIndeterminate(stepMessage, "Unmounting WinRE...", DeploymentOperationNames.UnmountRecoveryImage))
                 .ConfigureAwait(false);
         }
 
@@ -174,7 +174,7 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
             "DriverPack",
             "Packages",
             packageFileName);
-        context.EmitCurrentStepIndeterminate("Applying driver pack...", "Staging package...");
+        context.EmitCurrentStepIndeterminate("Applying driver pack...", "Staging package...", DeploymentOperationNames.StageDeferredDriverPack);
         await CopyFileWithProgressAsync(
                 sourcePath,
                 targetPackagePath,
@@ -182,7 +182,7 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
                 cancellationToken)
             .ConfigureAwait(false);
 
-        context.EmitCurrentStepIndeterminate("Applying driver pack...", "Updating SetupComplete hook...");
+        context.EmitCurrentStepIndeterminate("Applying driver pack...", "Updating SetupComplete hook...", DeploymentOperationNames.UpdateSetupComplete);
         PreOobeNetworkProfileRoamingPayload? networkProfileRoaming = await LoadNetworkProfileRoamingPayloadAsync(
                 context,
                 cancellationToken)
