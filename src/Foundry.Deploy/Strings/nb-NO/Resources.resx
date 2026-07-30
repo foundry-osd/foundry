@@ -511,4 +511,40 @@ Vil du fortsette med distribusjonen?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Den interaktive Autopilot-registreringsassistenten er klargjort (simulering).</value>
   </data>
+  <data name="Deployment.LayoutValidationProcessFailureFormat" xml:space="preserve">
+    <value>Validering av måldiskoppsettet mislyktes for disk {0}.</value>
+  </data>
+  <data name="Deployment.LayoutValidationInvalidDataFormat" xml:space="preserve">
+    <value>Validering av måldiskoppsettet returnerte ugyldige data for disk {0}.</value>
+  </data>
+  <data name="Deployment.LayoutNotGptFormat" xml:space="preserve">
+    <value>Måldisk {0} er ikke en gyldig GPT-disk etter partisjonering.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidEfiFormat" xml:space="preserve">
+    <value>EFI-systempartisjonen på disk {0} er ugyldig. Forventet FAT32, EFI GPT-type, stasjon {1}: og minst {2} MiB.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidWindowsFormat" xml:space="preserve">
+    <value>Windows-partisjonen på disk {0} er ikke et tilgjengelig NTFS-volum.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidRecoveryFormat" xml:space="preserve">
+    <value>Gjenopprettingspartisjonen på disk {0} er ikke et tilgjengelig NTFS-volum.</value>
+  </data>
+  <data name="Deployment.BcdBootMissingFormat" xml:space="preserve">
+    <value>Det anvendte Windows-avbildningen inneholder ikke BCDBoot: {0}</value>
+  </data>
+  <data name="Deployment.BcdTemplateMissingFormat" xml:space="preserve">
+    <value>Det anvendte Windows-avbildningen inneholder ikke BCD-Template: {0}</value>
+  </data>
+  <data name="Deployment.EfiUnavailableFormat" xml:space="preserve">
+    <value>EFI-systempartisjonen er ikke tilgjengelig på {0}.</value>
+  </data>
+  <data name="Deployment.EfiNotWritableFormat" xml:space="preserve">
+    <value>EFI-systempartisjonen er ikke skrivbar på {0}.</value>
+  </data>
+  <data name="Deployment.DiskPartFailureFormat" xml:space="preserve">
+    <value>Partisjonering av disk {0} med DiskPart mislyktes</value>
+  </data>
+  <data name="Deployment.BcdBootFailure" xml:space="preserve">
+    <value>Konfigurasjon av BCDBoot mislyktes</value>
+  </data>
 </root>

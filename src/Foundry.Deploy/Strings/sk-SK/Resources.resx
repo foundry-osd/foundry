@@ -511,4 +511,40 @@ Pokračovať v nasadzovaní?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Interaktívny asistent registrácie Autopilotu bol pripravený (simulácia).</value>
   </data>
+  <data name="Deployment.LayoutValidationProcessFailureFormat" xml:space="preserve">
+    <value>Overenie rozloženia cieľového disku zlyhalo pre disk {0}.</value>
+  </data>
+  <data name="Deployment.LayoutValidationInvalidDataFormat" xml:space="preserve">
+    <value>Overenie rozloženia cieľového disku vrátilo neplatné údaje pre disk {0}.</value>
+  </data>
+  <data name="Deployment.LayoutNotGptFormat" xml:space="preserve">
+    <value>Cieľový disk {0} nie je po rozdelení platným diskom GPT.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidEfiFormat" xml:space="preserve">
+    <value>Systémová oblasť EFI na disku {0} je neplatná. Očakáva sa FAT32, typ EFI GPT, jednotka {1}: a aspoň {2} MiB.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidWindowsFormat" xml:space="preserve">
+    <value>Oblasť Windows na disku {0} nie je dostupný zväzok NTFS.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidRecoveryFormat" xml:space="preserve">
+    <value>Oblasť na obnovenie na disku {0} nie je dostupný zväzok NTFS.</value>
+  </data>
+  <data name="Deployment.BcdBootMissingFormat" xml:space="preserve">
+    <value>Použitý obraz Windows neobsahuje BCDBoot: {0}</value>
+  </data>
+  <data name="Deployment.BcdTemplateMissingFormat" xml:space="preserve">
+    <value>Použitý obraz Windows neobsahuje BCD-Template: {0}</value>
+  </data>
+  <data name="Deployment.EfiUnavailableFormat" xml:space="preserve">
+    <value>Systémová oblasť EFI nie je dostupná v umiestnení {0}.</value>
+  </data>
+  <data name="Deployment.EfiNotWritableFormat" xml:space="preserve">
+    <value>Do systémovej oblasti EFI nemožno zapisovať v umiestnení {0}.</value>
+  </data>
+  <data name="Deployment.DiskPartFailureFormat" xml:space="preserve">
+    <value>Rozdelenie disku {0} pomocou nástroja DiskPart zlyhalo</value>
+  </data>
+  <data name="Deployment.BcdBootFailure" xml:space="preserve">
+    <value>Konfigurácia BCDBoot zlyhala</value>
+  </data>
 </root>

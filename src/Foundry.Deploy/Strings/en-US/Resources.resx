@@ -511,4 +511,40 @@ Continue with deployment?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Interactive Autopilot registration assistant staged (simulation).</value>
   </data>
+  <data name="Deployment.LayoutValidationProcessFailureFormat" xml:space="preserve">
+    <value>Target disk layout validation failed for disk {0}</value>
+  </data>
+  <data name="Deployment.LayoutValidationInvalidDataFormat" xml:space="preserve">
+    <value>Target disk layout validation returned invalid data for disk {0}.</value>
+  </data>
+  <data name="Deployment.LayoutNotGptFormat" xml:space="preserve">
+    <value>Target disk {0} is not a valid GPT disk after partitioning.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidEfiFormat" xml:space="preserve">
+    <value>The EFI system partition on disk {0} is invalid. Expected FAT32, EFI GPT type, drive {1}:, and at least {2} MiB.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidWindowsFormat" xml:space="preserve">
+    <value>The Windows partition on disk {0} is not an accessible NTFS volume.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidRecoveryFormat" xml:space="preserve">
+    <value>The recovery partition on disk {0} is not an accessible NTFS volume.</value>
+  </data>
+  <data name="Deployment.BcdBootMissingFormat" xml:space="preserve">
+    <value>The applied Windows image does not contain BCDBoot: {0}</value>
+  </data>
+  <data name="Deployment.BcdTemplateMissingFormat" xml:space="preserve">
+    <value>The applied Windows image does not contain BCD-Template: {0}</value>
+  </data>
+  <data name="Deployment.EfiUnavailableFormat" xml:space="preserve">
+    <value>The EFI system partition is not accessible at {0}.</value>
+  </data>
+  <data name="Deployment.EfiNotWritableFormat" xml:space="preserve">
+    <value>The EFI system partition is not writable at {0}.</value>
+  </data>
+  <data name="Deployment.DiskPartFailureFormat" xml:space="preserve">
+    <value>Disk partitioning failed for disk {0}</value>
+  </data>
+  <data name="Deployment.BcdBootFailure" xml:space="preserve">
+    <value>BCDBoot configuration failed</value>
+  </data>
 </root>

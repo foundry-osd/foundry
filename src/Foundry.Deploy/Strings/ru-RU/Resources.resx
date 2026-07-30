@@ -511,4 +511,40 @@
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Интерактивный помощник регистрации Autopilot подготовлен (симуляция).</value>
   </data>
+  <data name="Deployment.LayoutValidationProcessFailureFormat" xml:space="preserve">
+    <value>Проверка структуры целевого диска завершилась сбоем для диска {0}.</value>
+  </data>
+  <data name="Deployment.LayoutValidationInvalidDataFormat" xml:space="preserve">
+    <value>Проверка структуры целевого диска вернула недопустимые данные для диска {0}.</value>
+  </data>
+  <data name="Deployment.LayoutNotGptFormat" xml:space="preserve">
+    <value>Целевой диск {0} не является допустимым GPT-диском после создания разделов.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidEfiFormat" xml:space="preserve">
+    <value>Системный раздел EFI на диске {0} недопустим. Ожидаются FAT32, тип GPT EFI, диск {1}: и размер не менее {2} MiB.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidWindowsFormat" xml:space="preserve">
+    <value>Раздел Windows на диске {0} не является доступным томом NTFS.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidRecoveryFormat" xml:space="preserve">
+    <value>Раздел восстановления на диске {0} не является доступным томом NTFS.</value>
+  </data>
+  <data name="Deployment.BcdBootMissingFormat" xml:space="preserve">
+    <value>Примененный образ Windows не содержит BCDBoot: {0}</value>
+  </data>
+  <data name="Deployment.BcdTemplateMissingFormat" xml:space="preserve">
+    <value>Примененный образ Windows не содержит BCD-Template: {0}</value>
+  </data>
+  <data name="Deployment.EfiUnavailableFormat" xml:space="preserve">
+    <value>Системный раздел EFI недоступен по адресу {0}.</value>
+  </data>
+  <data name="Deployment.EfiNotWritableFormat" xml:space="preserve">
+    <value>Системный раздел EFI недоступен для записи по адресу {0}.</value>
+  </data>
+  <data name="Deployment.DiskPartFailureFormat" xml:space="preserve">
+    <value>Не удалось разбить диск {0} на разделы с помощью DiskPart</value>
+  </data>
+  <data name="Deployment.BcdBootFailure" xml:space="preserve">
+    <value>Не удалось настроить BCDBoot</value>
+  </data>
 </root>

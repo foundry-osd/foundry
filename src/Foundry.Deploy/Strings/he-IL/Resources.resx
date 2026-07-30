@@ -511,4 +511,40 @@ ErrorCode=0x80070005
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>מסייע הרישום האינטראקטיבי של Autopilot הוכן (סימולציה).</value>
   </data>
+  <data name="Deployment.LayoutValidationProcessFailureFormat" xml:space="preserve">
+    <value>אימות פריסת דיסק היעד נכשל עבור דיסק {0}.</value>
+  </data>
+  <data name="Deployment.LayoutValidationInvalidDataFormat" xml:space="preserve">
+    <value>אימות פריסת דיסק היעד החזיר נתונים לא חוקיים עבור דיסק {0}.</value>
+  </data>
+  <data name="Deployment.LayoutNotGptFormat" xml:space="preserve">
+    <value>דיסק היעד {0} אינו דיסק GPT חוקי לאחר החלוקה למחיצות.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidEfiFormat" xml:space="preserve">
+    <value>מחיצת המערכת EFI בדיסק {0} אינה חוקית. נדרשים FAT32, סוג EFI GPT, כונן {1}: וגודל של לפחות {2} MiB.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidWindowsFormat" xml:space="preserve">
+    <value>מחיצת Windows בדיסק {0} אינה אמצעי אחסון NTFS נגיש.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidRecoveryFormat" xml:space="preserve">
+    <value>מחיצת השחזור בדיסק {0} אינה אמצעי אחסון NTFS נגיש.</value>
+  </data>
+  <data name="Deployment.BcdBootMissingFormat" xml:space="preserve">
+    <value>תמונת Windows שהוחלה אינה מכילה את BCDBoot: {0}</value>
+  </data>
+  <data name="Deployment.BcdTemplateMissingFormat" xml:space="preserve">
+    <value>תמונת Windows שהוחלה אינה מכילה את BCD-Template: {0}</value>
+  </data>
+  <data name="Deployment.EfiUnavailableFormat" xml:space="preserve">
+    <value>מחיצת המערכת EFI אינה נגישה ב-{0}.</value>
+  </data>
+  <data name="Deployment.EfiNotWritableFormat" xml:space="preserve">
+    <value>מחיצת המערכת EFI אינה ניתנת לכתיבה ב-{0}.</value>
+  </data>
+  <data name="Deployment.DiskPartFailureFormat" xml:space="preserve">
+    <value>חלוקת דיסק {0} למחיצות באמצעות DiskPart נכשלה</value>
+  </data>
+  <data name="Deployment.BcdBootFailure" xml:space="preserve">
+    <value>קביעת התצורה של BCDBoot נכשלה</value>
+  </data>
 </root>

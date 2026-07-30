@@ -511,4 +511,40 @@ Mit der Bereitstellung fortfahren?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Der interaktive Autopilot-Registrierungsassistent wurde bereitgestellt (Simulation).</value>
   </data>
+  <data name="Deployment.LayoutValidationProcessFailureFormat" xml:space="preserve">
+    <value>Die Überprüfung des Ziellaufwerklayouts ist für Datenträger {0} fehlgeschlagen.</value>
+  </data>
+  <data name="Deployment.LayoutValidationInvalidDataFormat" xml:space="preserve">
+    <value>Die Überprüfung des Ziellaufwerklayouts hat ungültige Daten für Datenträger {0} zurückgegeben.</value>
+  </data>
+  <data name="Deployment.LayoutNotGptFormat" xml:space="preserve">
+    <value>Der Zieldatenträger {0} ist nach der Partitionierung kein gültiger GPT-Datenträger.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidEfiFormat" xml:space="preserve">
+    <value>Die EFI-Systempartition auf Datenträger {0} ist ungültig. Erwartet werden FAT32, der EFI-GPT-Typ, Laufwerk {1}: und mindestens {2} MiB.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidWindowsFormat" xml:space="preserve">
+    <value>Die Windows-Partition auf Datenträger {0} ist kein zugängliches NTFS-Volume.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidRecoveryFormat" xml:space="preserve">
+    <value>Die Wiederherstellungspartition auf Datenträger {0} ist kein zugängliches NTFS-Volume.</value>
+  </data>
+  <data name="Deployment.BcdBootMissingFormat" xml:space="preserve">
+    <value>Das angewendete Windows-Abbild enthält BCDBoot nicht: {0}</value>
+  </data>
+  <data name="Deployment.BcdTemplateMissingFormat" xml:space="preserve">
+    <value>Das angewendete Windows-Abbild enthält BCD-Template nicht: {0}</value>
+  </data>
+  <data name="Deployment.EfiUnavailableFormat" xml:space="preserve">
+    <value>Auf die EFI-Systempartition unter {0} kann nicht zugegriffen werden.</value>
+  </data>
+  <data name="Deployment.EfiNotWritableFormat" xml:space="preserve">
+    <value>Die EFI-Systempartition unter {0} ist nicht beschreibbar.</value>
+  </data>
+  <data name="Deployment.DiskPartFailureFormat" xml:space="preserve">
+    <value>Die Partitionierung von Datenträger {0} mit DiskPart ist fehlgeschlagen</value>
+  </data>
+  <data name="Deployment.BcdBootFailure" xml:space="preserve">
+    <value>Die BCDBoot-Konfiguration ist fehlgeschlagen</value>
+  </data>
 </root>

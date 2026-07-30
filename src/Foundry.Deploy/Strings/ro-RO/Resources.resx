@@ -511,4 +511,40 @@ Continuați cu implementarea?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Asistentul de înregistrare interactivă Autopilot a fost pregătit (simulare).</value>
   </data>
+  <data name="Deployment.LayoutValidationProcessFailureFormat" xml:space="preserve">
+    <value>Validarea structurii discului țintă a eșuat pentru discul {0}.</value>
+  </data>
+  <data name="Deployment.LayoutValidationInvalidDataFormat" xml:space="preserve">
+    <value>Validarea structurii discului țintă a returnat date nevalide pentru discul {0}.</value>
+  </data>
+  <data name="Deployment.LayoutNotGptFormat" xml:space="preserve">
+    <value>Discul țintă {0} nu este un disc GPT valid după partiționare.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidEfiFormat" xml:space="preserve">
+    <value>Partiția de sistem EFI de pe discul {0} nu este validă. Se așteaptă FAT32, tip GPT EFI, unitatea {1}: și cel puțin {2} MiB.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidWindowsFormat" xml:space="preserve">
+    <value>Partiția Windows de pe discul {0} nu este un volum NTFS accesibil.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidRecoveryFormat" xml:space="preserve">
+    <value>Partiția de recuperare de pe discul {0} nu este un volum NTFS accesibil.</value>
+  </data>
+  <data name="Deployment.BcdBootMissingFormat" xml:space="preserve">
+    <value>Imaginea Windows aplicată nu conține BCDBoot: {0}</value>
+  </data>
+  <data name="Deployment.BcdTemplateMissingFormat" xml:space="preserve">
+    <value>Imaginea Windows aplicată nu conține BCD-Template: {0}</value>
+  </data>
+  <data name="Deployment.EfiUnavailableFormat" xml:space="preserve">
+    <value>Partiția de sistem EFI nu este accesibilă la {0}.</value>
+  </data>
+  <data name="Deployment.EfiNotWritableFormat" xml:space="preserve">
+    <value>Partiția de sistem EFI nu permite scrierea la {0}.</value>
+  </data>
+  <data name="Deployment.DiskPartFailureFormat" xml:space="preserve">
+    <value>Partiționarea discului {0} cu DiskPart a eșuat</value>
+  </data>
+  <data name="Deployment.BcdBootFailure" xml:space="preserve">
+    <value>Configurarea BCDBoot a eșuat</value>
+  </data>
 </root>

@@ -511,4 +511,40 @@
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Ο διαδραστικός βοηθός εγγραφής Autopilot προετοιμάστηκε (προσομοίωση).</value>
   </data>
+  <data name="Deployment.LayoutValidationProcessFailureFormat" xml:space="preserve">
+    <value>Η επικύρωση της διάταξης του δίσκου προορισμού απέτυχε για τον δίσκο {0}.</value>
+  </data>
+  <data name="Deployment.LayoutValidationInvalidDataFormat" xml:space="preserve">
+    <value>Η επικύρωση της διάταξης του δίσκου προορισμού επέστρεψε μη έγκυρα δεδομένα για τον δίσκο {0}.</value>
+  </data>
+  <data name="Deployment.LayoutNotGptFormat" xml:space="preserve">
+    <value>Ο δίσκος προορισμού {0} δεν είναι έγκυρος δίσκος GPT μετά τη διαμέριση.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidEfiFormat" xml:space="preserve">
+    <value>Το διαμέρισμα συστήματος EFI στον δίσκο {0} δεν είναι έγκυρο. Αναμένονται FAT32, τύπος EFI GPT, μονάδα {1}: και τουλάχιστον {2} MiB.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidWindowsFormat" xml:space="preserve">
+    <value>Το διαμέρισμα Windows στον δίσκο {0} δεν είναι προσβάσιμος τόμος NTFS.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidRecoveryFormat" xml:space="preserve">
+    <value>Το διαμέρισμα αποκατάστασης στον δίσκο {0} δεν είναι προσβάσιμος τόμος NTFS.</value>
+  </data>
+  <data name="Deployment.BcdBootMissingFormat" xml:space="preserve">
+    <value>Το εφαρμοσμένο είδωλο Windows δεν περιέχει το BCDBoot: {0}</value>
+  </data>
+  <data name="Deployment.BcdTemplateMissingFormat" xml:space="preserve">
+    <value>Το εφαρμοσμένο είδωλο Windows δεν περιέχει το BCD-Template: {0}</value>
+  </data>
+  <data name="Deployment.EfiUnavailableFormat" xml:space="preserve">
+    <value>Το διαμέρισμα συστήματος EFI δεν είναι προσβάσιμο στη θέση {0}.</value>
+  </data>
+  <data name="Deployment.EfiNotWritableFormat" xml:space="preserve">
+    <value>Δεν είναι δυνατή η εγγραφή στο διαμέρισμα συστήματος EFI στη θέση {0}.</value>
+  </data>
+  <data name="Deployment.DiskPartFailureFormat" xml:space="preserve">
+    <value>Η διαμέριση του δίσκου {0} με το DiskPart απέτυχε</value>
+  </data>
+  <data name="Deployment.BcdBootFailure" xml:space="preserve">
+    <value>Η ρύθμιση παραμέτρων του BCDBoot απέτυχε</value>
+  </data>
 </root>

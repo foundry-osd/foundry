@@ -511,4 +511,40 @@ Tęsti diegimą?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Interaktyvus Autopilot registracijos pagalbininkas paruoštas (modeliavimas).</value>
   </data>
+  <data name="Deployment.LayoutValidationProcessFailureFormat" xml:space="preserve">
+    <value>Tikslinio disko išdėstymo tikrinimas nepavyko diskui {0}.</value>
+  </data>
+  <data name="Deployment.LayoutValidationInvalidDataFormat" xml:space="preserve">
+    <value>Tikslinio disko išdėstymo tikrinimas grąžino netinkamus disko {0} duomenis.</value>
+  </data>
+  <data name="Deployment.LayoutNotGptFormat" xml:space="preserve">
+    <value>Tikslinis diskas {0} po skaidymo nėra tinkamas GPT diskas.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidEfiFormat" xml:space="preserve">
+    <value>Disko {0} EFI sistemos skaidinys netinkamas. Tikėtasi FAT32, EFI GPT tipo, {1}: disko ir bent {2} MiB.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidWindowsFormat" xml:space="preserve">
+    <value>Disko {0} „Windows“ skaidinys nėra pasiekiamas NTFS tomas.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidRecoveryFormat" xml:space="preserve">
+    <value>Disko {0} atkūrimo skaidinys nėra pasiekiamas NTFS tomas.</value>
+  </data>
+  <data name="Deployment.BcdBootMissingFormat" xml:space="preserve">
+    <value>Pritaikytame „Windows“ atvaizde nėra BCDBoot: {0}</value>
+  </data>
+  <data name="Deployment.BcdTemplateMissingFormat" xml:space="preserve">
+    <value>Pritaikytame „Windows“ atvaizde nėra BCD-Template: {0}</value>
+  </data>
+  <data name="Deployment.EfiUnavailableFormat" xml:space="preserve">
+    <value>EFI sistemos skaidinys nepasiekiamas vietoje {0}.</value>
+  </data>
+  <data name="Deployment.EfiNotWritableFormat" xml:space="preserve">
+    <value>EFI sistemos skaidinys vietoje {0} nėra įrašomas.</value>
+  </data>
+  <data name="Deployment.DiskPartFailureFormat" xml:space="preserve">
+    <value>Disko {0} skaidymas naudojant DiskPart nepavyko</value>
+  </data>
+  <data name="Deployment.BcdBootFailure" xml:space="preserve">
+    <value>BCDBoot konfigūravimas nepavyko</value>
+  </data>
 </root>

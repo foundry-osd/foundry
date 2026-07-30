@@ -511,4 +511,40 @@ Continuare con la distribuzione?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Assistente di registrazione interattiva di Autopilot preparato (simulazione).</value>
   </data>
+  <data name="Deployment.LayoutValidationProcessFailureFormat" xml:space="preserve">
+    <value>La convalida del layout del disco di destinazione non è riuscita per il disco {0}.</value>
+  </data>
+  <data name="Deployment.LayoutValidationInvalidDataFormat" xml:space="preserve">
+    <value>La convalida del layout del disco di destinazione ha restituito dati non validi per il disco {0}.</value>
+  </data>
+  <data name="Deployment.LayoutNotGptFormat" xml:space="preserve">
+    <value>Il disco di destinazione {0} non è un disco GPT valido dopo il partizionamento.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidEfiFormat" xml:space="preserve">
+    <value>La partizione di sistema EFI sul disco {0} non è valida. Sono previsti FAT32, tipo GPT EFI, unità {1}: e almeno {2} MiB.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidWindowsFormat" xml:space="preserve">
+    <value>La partizione Windows sul disco {0} non è un volume NTFS accessibile.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidRecoveryFormat" xml:space="preserve">
+    <value>La partizione di ripristino sul disco {0} non è un volume NTFS accessibile.</value>
+  </data>
+  <data name="Deployment.BcdBootMissingFormat" xml:space="preserve">
+    <value>L’immagine Windows applicata non contiene BCDBoot: {0}</value>
+  </data>
+  <data name="Deployment.BcdTemplateMissingFormat" xml:space="preserve">
+    <value>L’immagine Windows applicata non contiene BCD-Template: {0}</value>
+  </data>
+  <data name="Deployment.EfiUnavailableFormat" xml:space="preserve">
+    <value>La partizione di sistema EFI non è accessibile in {0}.</value>
+  </data>
+  <data name="Deployment.EfiNotWritableFormat" xml:space="preserve">
+    <value>La partizione di sistema EFI non è scrivibile in {0}.</value>
+  </data>
+  <data name="Deployment.DiskPartFailureFormat" xml:space="preserve">
+    <value>Il partizionamento del disco {0} con DiskPart non è riuscito</value>
+  </data>
+  <data name="Deployment.BcdBootFailure" xml:space="preserve">
+    <value>La configurazione di BCDBoot non è riuscita</value>
+  </data>
 </root>

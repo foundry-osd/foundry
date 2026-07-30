@@ -511,4 +511,40 @@
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Интерактивният помощник за регистрация на Autopilot е подготвен (симулация).</value>
   </data>
+  <data name="Deployment.LayoutValidationProcessFailureFormat" xml:space="preserve">
+    <value>Проверката на оформлението на целевия диск е неуспешна за диск {0}.</value>
+  </data>
+  <data name="Deployment.LayoutValidationInvalidDataFormat" xml:space="preserve">
+    <value>Проверката на оформлението на целевия диск върна невалидни данни за диск {0}.</value>
+  </data>
+  <data name="Deployment.LayoutNotGptFormat" xml:space="preserve">
+    <value>Целевият диск {0} не е валиден GPT диск след разделянето.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidEfiFormat" xml:space="preserve">
+    <value>Системният EFI дял на диск {0} е невалиден. Очакват се FAT32, EFI GPT тип, устройство {1}: и поне {2} MiB.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidWindowsFormat" xml:space="preserve">
+    <value>Дялът на Windows на диск {0} не е достъпен NTFS том.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidRecoveryFormat" xml:space="preserve">
+    <value>Дялът за възстановяване на диск {0} не е достъпен NTFS том.</value>
+  </data>
+  <data name="Deployment.BcdBootMissingFormat" xml:space="preserve">
+    <value>Приложеният образ на Windows не съдържа BCDBoot: {0}</value>
+  </data>
+  <data name="Deployment.BcdTemplateMissingFormat" xml:space="preserve">
+    <value>Приложеният образ на Windows не съдържа BCD-Template: {0}</value>
+  </data>
+  <data name="Deployment.EfiUnavailableFormat" xml:space="preserve">
+    <value>Системният EFI дял не е достъпен на {0}.</value>
+  </data>
+  <data name="Deployment.EfiNotWritableFormat" xml:space="preserve">
+    <value>В системния EFI дял не може да се записва на {0}.</value>
+  </data>
+  <data name="Deployment.DiskPartFailureFormat" xml:space="preserve">
+    <value>Разделянето на диск {0} с DiskPart е неуспешно</value>
+  </data>
+  <data name="Deployment.BcdBootFailure" xml:space="preserve">
+    <value>Конфигурирането на BCDBoot е неуспешно</value>
+  </data>
 </root>

@@ -65,4 +65,35 @@ public sealed class LocalizationResourceTests
         Assert.NotNull(resourceSet);
         Assert.Equal("Foundry Deploy", resourceSet.GetString("App.Name"));
     }
+
+    [Theory]
+    [MemberData(nameof(SatelliteCultures))]
+    public void SatelliteResourceSet_ContainsDeploymentValidationMessages(string cultureName)
+    {
+        ResourceSet resourceSet = Assert.IsAssignableFrom<ResourceSet>(
+            LocalizationText.ResourceManager.GetResourceSet(
+                CultureInfo.GetCultureInfo(cultureName),
+                createIfNotExists: true,
+                tryParents: false));
+        string[] keys =
+        [
+            "Deployment.DiskPartFailureFormat",
+            "Deployment.LayoutValidationProcessFailureFormat",
+            "Deployment.LayoutValidationInvalidDataFormat",
+            "Deployment.LayoutNotGptFormat",
+            "Deployment.LayoutInvalidEfiFormat",
+            "Deployment.LayoutInvalidWindowsFormat",
+            "Deployment.LayoutInvalidRecoveryFormat",
+            "Deployment.BcdBootMissingFormat",
+            "Deployment.BcdTemplateMissingFormat",
+            "Deployment.EfiUnavailableFormat",
+            "Deployment.EfiNotWritableFormat",
+            "Deployment.BcdBootFailure"
+        ];
+
+        foreach (string key in keys)
+        {
+            Assert.False(string.IsNullOrWhiteSpace(resourceSet.GetString(key)));
+        }
+    }
 }

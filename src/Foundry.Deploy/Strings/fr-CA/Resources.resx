@@ -511,4 +511,40 @@ Continuer le déploiement?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Assistant d&apos;enregistrement Autopilot interactif préparé (simulation).</value>
   </data>
+  <data name="Deployment.LayoutValidationProcessFailureFormat" xml:space="preserve">
+    <value>La validation de la disposition du disque cible a échoué pour le disque {0}.</value>
+  </data>
+  <data name="Deployment.LayoutValidationInvalidDataFormat" xml:space="preserve">
+    <value>La validation de la disposition du disque cible a retourné des données non valides pour le disque {0}.</value>
+  </data>
+  <data name="Deployment.LayoutNotGptFormat" xml:space="preserve">
+    <value>Le disque cible {0} n’est pas un disque GPT valide après le partitionnement.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidEfiFormat" xml:space="preserve">
+    <value>La partition système EFI du disque {0} n’est pas valide. Sont attendus : FAT32, le type GPT EFI, le lecteur {1}: et au moins {2} MiB.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidWindowsFormat" xml:space="preserve">
+    <value>La partition Windows du disque {0} n’est pas un volume NTFS accessible.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidRecoveryFormat" xml:space="preserve">
+    <value>La partition de récupération du disque {0} n’est pas un volume NTFS accessible.</value>
+  </data>
+  <data name="Deployment.BcdBootMissingFormat" xml:space="preserve">
+    <value>L’image Windows appliquée ne contient pas BCDBoot : {0}</value>
+  </data>
+  <data name="Deployment.BcdTemplateMissingFormat" xml:space="preserve">
+    <value>L’image Windows appliquée ne contient pas BCD-Template : {0}</value>
+  </data>
+  <data name="Deployment.EfiUnavailableFormat" xml:space="preserve">
+    <value>La partition système EFI n’est pas accessible à l’emplacement {0}.</value>
+  </data>
+  <data name="Deployment.EfiNotWritableFormat" xml:space="preserve">
+    <value>La partition système EFI n’est pas accessible en écriture à l’emplacement {0}.</value>
+  </data>
+  <data name="Deployment.DiskPartFailureFormat" xml:space="preserve">
+    <value>Le partitionnement du disque {0} avec DiskPart a échoué</value>
+  </data>
+  <data name="Deployment.BcdBootFailure" xml:space="preserve">
+    <value>La configuration de BCDBoot a échoué</value>
+  </data>
 </root>

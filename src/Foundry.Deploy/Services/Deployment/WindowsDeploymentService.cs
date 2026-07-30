@@ -3,9 +3,12 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
+using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Foundry.Deploy.Models.Configuration;
+using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Services.Deployment.Unattend;
 using Foundry.Deploy.Validation;
@@ -18,11 +21,12 @@ namespace Foundry.Deploy.Services.Deployment;
 /// </summary>
 public sealed class WindowsDeploymentService : IWindowsDeploymentService
 {
-    private const int EfiPartitionSizeMb = 260;
+    private const int EfiPartitionSizeMb = 300;
     private const int MsrPartitionSizeMb = 16;
     private const int RecoveryPartitionSizeMb = 5120;
     private const string RecoveryPartitionLabel = "Recovery";
     private const string RecoveryPartitionGuid = "de94bba4-06d1-4d40-a16a-bfd50179d6ac";
+    private const string EfiPartitionGuid = "c12a7328-f81f-11d2-ba4b-00a0c93ec93b";
     private const string RecoveryPartitionAttributes = "0x8000000000000001";
     private const string WinReImageFileName = "winre.wim";
     private readonly IProcessRunner _processRunner;
@@ -93,12 +97,19 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             "diskpart.exe",
             $"/s \"{scriptPath}\"",
             workingDirectory,
-            $"Disk partitioning failed for disk {diskNumber}",
+            LocalizationText.Format("Deployment.DiskPartFailureFormat", diskNumber),
             cancellationToken).ConfigureAwait(false);
 
         string systemPartitionRoot = $"{systemLetter}:\\";
         string windowsPartitionRoot = $"{windowsLetter}:\\";
         string recoveryPartitionRoot = $"{recoveryLetter}:\\";
+        await ValidateTargetDiskLayoutAsync(
+            diskNumber,
+            systemLetter,
+            windowsLetter,
+            recoveryLetter,
+            workingDirectory,
+            cancellationToken).ConfigureAwait(false);
 
         _logger.LogInformation(
             "Target disk layout prepared. DiskNumber={DiskNumber}, SystemPartition={SystemPartition}, WindowsPartition={WindowsPartition}, RecoveryPartition={RecoveryPartition}",
@@ -115,6 +126,111 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             RecoveryPartitionRoot = recoveryPartitionRoot,
             RecoveryPartitionLetter = recoveryLetter
         };
+    }
+
+    private async Task ValidateTargetDiskLayoutAsync(
+        int diskNumber,
+        char systemLetter,
+        char windowsLetter,
+        char recoveryLetter,
+        string workingDirectory,
+        CancellationToken cancellationToken)
+    {
+        string script = $$"""
+            $ErrorActionPreference = 'Stop'
+            Import-Module Storage
+
+            $deadline = (Get-Date).AddSeconds(30)
+            do {
+                Update-HostStorageCache -ErrorAction SilentlyContinue
+                Update-Disk -Number {{diskNumber}} -ErrorAction SilentlyContinue
+                $disk = Get-Disk -Number {{diskNumber}} -ErrorAction SilentlyContinue
+                $systemPartition = Get-Partition -DriveLetter '{{systemLetter}}' -ErrorAction SilentlyContinue
+                $windowsPartition = Get-Partition -DriveLetter '{{windowsLetter}}' -ErrorAction SilentlyContinue
+                $recoveryPartition = Get-Partition -DriveLetter '{{recoveryLetter}}' -ErrorAction SilentlyContinue
+                $systemVolume = $systemPartition | Get-Volume -ErrorAction SilentlyContinue
+                $windowsVolume = $windowsPartition | Get-Volume -ErrorAction SilentlyContinue
+                $recoveryVolume = $recoveryPartition | Get-Volume -ErrorAction SilentlyContinue
+
+                if ($disk -and $systemPartition -and $windowsPartition -and $recoveryPartition -and $systemVolume -and $windowsVolume -and $recoveryVolume) {
+                    break
+                }
+
+                Start-Sleep -Milliseconds 500
+            } while ((Get-Date) -lt $deadline)
+
+            if (-not ($disk -and $systemPartition -and $windowsPartition -and $recoveryPartition -and $systemVolume -and $windowsVolume -and $recoveryVolume)) {
+                throw 'Timed out waiting for the target disk layout to become available.'
+            }
+
+            [pscustomobject]@{
+                DiskNumber = [int]$disk.Number
+                PartitionStyle = [string]$disk.PartitionStyle
+                SystemDiskNumber = [int]$systemPartition.DiskNumber
+                SystemGptType = [string]$systemPartition.GptType
+                SystemSizeBytes = [long]$systemPartition.Size
+                SystemFileSystem = [string]$systemVolume.FileSystem
+                SystemDriveLetter = [string]$systemPartition.DriveLetter
+                WindowsDiskNumber = [int]$windowsPartition.DiskNumber
+                WindowsFileSystem = [string]$windowsVolume.FileSystem
+                RecoveryDiskNumber = [int]$recoveryPartition.DiskNumber
+                RecoveryFileSystem = [string]$recoveryVolume.FileSystem
+            } | ConvertTo-Json -Compress
+            """;
+        string encoded = Convert.ToBase64String(Encoding.Unicode.GetBytes(script));
+        ProcessExecutionResult execution = await RunRequiredProcessAsync(
+            "powershell.exe",
+            $"-NoProfile -ExecutionPolicy Bypass -EncodedCommand {encoded}",
+            workingDirectory,
+            LocalizationText.Format("Deployment.LayoutValidationProcessFailureFormat", diskNumber),
+            cancellationToken).ConfigureAwait(false);
+
+        TargetDiskLayoutValidation? validation;
+        try
+        {
+            validation = JsonSerializer.Deserialize<TargetDiskLayoutValidation>(execution.StandardOutput);
+        }
+        catch (JsonException exception)
+        {
+            throw new InvalidOperationException(
+                LocalizationText.Format("Deployment.LayoutValidationInvalidDataFormat", diskNumber),
+                exception);
+        }
+
+        if (validation is null ||
+            validation.DiskNumber != diskNumber ||
+            !validation.PartitionStyle.Equals("GPT", StringComparison.OrdinalIgnoreCase))
+        {
+            throw new InvalidOperationException(LocalizationText.Format("Deployment.LayoutNotGptFormat", diskNumber));
+        }
+
+        ulong minimumEfiBytes = (ulong)EfiPartitionSizeMb * 1024UL * 1024UL;
+        bool isValidEfi =
+            validation.SystemDiskNumber == diskNumber &&
+            NormalizeGuid(validation.SystemGptType).Equals(EfiPartitionGuid, StringComparison.OrdinalIgnoreCase) &&
+            validation.SystemSizeBytes >= minimumEfiBytes &&
+            validation.SystemFileSystem.Equals("FAT32", StringComparison.OrdinalIgnoreCase) &&
+            validation.SystemDriveLetter.Equals(systemLetter.ToString(), StringComparison.OrdinalIgnoreCase);
+        if (!isValidEfi)
+        {
+            throw new InvalidOperationException(LocalizationText.Format(
+                "Deployment.LayoutInvalidEfiFormat",
+                diskNumber,
+                systemLetter,
+                EfiPartitionSizeMb));
+        }
+
+        if (validation.WindowsDiskNumber != diskNumber ||
+            !validation.WindowsFileSystem.Equals("NTFS", StringComparison.OrdinalIgnoreCase))
+        {
+            throw new InvalidOperationException(LocalizationText.Format("Deployment.LayoutInvalidWindowsFormat", diskNumber));
+        }
+
+        if (validation.RecoveryDiskNumber != diskNumber ||
+            !validation.RecoveryFileSystem.Equals("NTFS", StringComparison.OrdinalIgnoreCase))
+        {
+            throw new InvalidOperationException(LocalizationText.Format("Deployment.LayoutInvalidRecoveryFormat", diskNumber));
+        }
     }
 
     /// <inheritdoc />
@@ -828,12 +944,22 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     {
         string windowsPath = Path.Combine(windowsPartitionRoot, "Windows");
         string bcdBootPath = Path.Combine(windowsPath, "System32", "bcdboot.exe");
+        string bcdTemplatePath = Path.Combine(windowsPath, "System32", "Config", "BCD-Template");
         if (!File.Exists(bcdBootPath))
         {
             throw new FileNotFoundException(
-                "The applied Windows image does not contain bcdboot.exe.",
+                LocalizationText.Format("Deployment.BcdBootMissingFormat", bcdBootPath),
                 bcdBootPath);
         }
+
+        if (!File.Exists(bcdTemplatePath))
+        {
+            throw new FileNotFoundException(
+                LocalizationText.Format("Deployment.BcdTemplateMissingFormat", bcdTemplatePath),
+                bcdTemplatePath);
+        }
+
+        EnsureSystemPartitionIsWritable(systemPartitionRoot);
 
         _logger.LogInformation("Configuring boot files. WindowsPath={WindowsPath}, SystemPartitionRoot={SystemPartitionRoot}", windowsPath, systemPartitionRoot);
 
@@ -845,10 +971,42 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             bcdBootPath,
             arguments,
             workingDirectory,
-            "BCDBoot configuration failed",
+            LocalizationText.GetString("Deployment.BcdBootFailure"),
             cancellationToken).ConfigureAwait(false);
 
         _logger.LogInformation("BCDBoot configuration completed successfully.");
+    }
+
+    private static void EnsureSystemPartitionIsWritable(string systemPartitionRoot)
+    {
+        if (!Directory.Exists(systemPartitionRoot))
+        {
+            throw new DirectoryNotFoundException(
+                LocalizationText.Format("Deployment.EfiUnavailableFormat", systemPartitionRoot));
+        }
+
+        string probePath = Path.Combine(systemPartitionRoot, $".foundry-write-test-{Guid.NewGuid():N}.tmp");
+        try
+        {
+            using FileStream stream = new(
+                probePath,
+                FileMode.CreateNew,
+                FileAccess.Write,
+                FileShare.None,
+                bufferSize: 1,
+                FileOptions.DeleteOnClose);
+            stream.WriteByte(0);
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+        {
+            throw new IOException(
+                LocalizationText.Format("Deployment.EfiNotWritableFormat", systemPartitionRoot),
+                exception);
+        }
+        finally
+        {
+            TryDeleteFile(probePath);
+        }
     }
 
     private async Task<ProcessExecutionResult> RunRequiredProcessAsync(
@@ -975,9 +1133,46 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         }
     }
 
+    private static void TryDeleteFile(string path)
+    {
+        if (!File.Exists(path))
+        {
+            return;
+        }
+
+        try
+        {
+            File.Delete(path);
+        }
+        catch
+        {
+            // Best effort cleanup for transient validation files.
+        }
+    }
+
+    private static string NormalizeGuid(string value)
+    {
+        return value.Trim().Trim('{', '}');
+    }
+
     private static string GetRecoveryDirectoryPath(string recoveryPartitionRoot)
     {
         return Path.Combine(recoveryPartitionRoot, "Recovery", "WindowsRE");
+    }
+
+    private sealed record TargetDiskLayoutValidation
+    {
+        public int DiskNumber { get; init; }
+        public string PartitionStyle { get; init; } = string.Empty;
+        public int SystemDiskNumber { get; init; }
+        public string SystemGptType { get; init; } = string.Empty;
+        public ulong SystemSizeBytes { get; init; }
+        public string SystemFileSystem { get; init; } = string.Empty;
+        public string SystemDriveLetter { get; init; } = string.Empty;
+        public int WindowsDiskNumber { get; init; }
+        public string WindowsFileSystem { get; init; } = string.Empty;
+        public int RecoveryDiskNumber { get; init; }
+        public string RecoveryFileSystem { get; init; } = string.Empty;
     }
 
     private static string GetRecoveryImagePath(string recoveryPartitionRoot)

@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Xml.Linq;
+using System.Text;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.System;
@@ -24,7 +25,7 @@ public sealed class WindowsDeploymentServiceTests
 
         string scriptPath = Path.Combine(workingDirectory, "diskpart-os-target.txt");
         string[] scriptLines = await File.ReadAllLinesAsync(scriptPath, TestContext.Current.CancellationToken);
-        int efiIndex = Array.IndexOf(scriptLines, "create partition efi size=260");
+        int efiIndex = Array.IndexOf(scriptLines, "create partition efi size=300");
         int msrIndex = Array.IndexOf(scriptLines, "create partition msr size=16");
         int recoveryIndex = Array.IndexOf(scriptLines, "create partition primary size=5120");
         int windowsIndex = Array.IndexOf(scriptLines, "create partition primary");
@@ -38,6 +39,82 @@ public sealed class WindowsDeploymentServiceTests
         Assert.True(recoveryFormatIndex > recoveryIndex);
         Assert.True(windowsFormatIndex > recoveryFormatIndex);
         Assert.DoesNotContain(scriptLines, line => line.StartsWith("shrink ", StringComparison.OrdinalIgnoreCase));
+        string encodedScript = processRunner.LastArguments!.Split(' ', StringSplitOptions.RemoveEmptyEntries).Last();
+        string validationScript = Encoding.Unicode.GetString(Convert.FromBase64String(encodedScript));
+        Assert.Contains("Update-HostStorageCache", validationScript, StringComparison.Ordinal);
+        Assert.Contains("AddSeconds(30)", validationScript, StringComparison.Ordinal);
+        Assert.Contains("Start-Sleep -Milliseconds 500", validationScript, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task PrepareTargetDiskAsync_WhenResultingDiskIsNotGpt_ThrowsInvalidOperationException()
+    {
+        using var workspace = new TemporaryWorkspace();
+        var processRunner = new RecordingProcessRunner
+        {
+            LayoutValidationResult = new ProcessExecutionResult
+            {
+                ExitCode = 0,
+                StandardOutput = CreateLayoutValidationJson(partitionStyle: "MBR")
+            }
+        };
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            service.PrepareTargetDiskAsync(
+                1,
+                Path.Combine(workspace.RootPath, "Work"),
+                TestContext.Current.CancellationToken));
+
+        Assert.Contains("GPT", exception.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public async Task PrepareTargetDiskAsync_WhenResultingEfiPartitionIsNotFat32_ThrowsInvalidOperationException()
+    {
+        using var workspace = new TemporaryWorkspace();
+        var processRunner = new RecordingProcessRunner
+        {
+            LayoutValidationResult = new ProcessExecutionResult
+            {
+                ExitCode = 0,
+                StandardOutput = CreateLayoutValidationJson().Replace(
+                    "\"SystemFileSystem\": \"FAT32\"",
+                    "\"SystemFileSystem\": \"NTFS\"",
+                    StringComparison.Ordinal)
+            }
+        };
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            service.PrepareTargetDiskAsync(
+                1,
+                Path.Combine(workspace.RootPath, "Work"),
+                TestContext.Current.CancellationToken));
+
+        Assert.Contains("EFI", exception.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("FAT32", exception.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public async Task PrepareTargetDiskAsync_WhenLayoutValidationReturnsInvalidJson_ThrowsInvalidOperationException()
+    {
+        using var workspace = new TemporaryWorkspace();
+        var processRunner = new RecordingProcessRunner
+        {
+            LayoutValidationResult = new ProcessExecutionResult
+            {
+                ExitCode = 0,
+                StandardOutput = "not-json"
+            }
+        };
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            service.PrepareTargetDiskAsync(
+                1,
+                Path.Combine(workspace.RootPath, "Work"),
+                TestContext.Current.CancellationToken));
     }
 
     [Theory]
@@ -51,10 +128,17 @@ public sealed class WindowsDeploymentServiceTests
         string windowsRoot = Path.Combine(workspace.RootPath, "Target Windows");
         string windowsPath = Path.Combine(windowsRoot, "Windows");
         string bcdBootPath = Path.Combine(windowsPath, "System32", "bcdboot.exe");
+        string bcdTemplatePath = Path.Combine(windowsPath, "System32", "Config", "BCD-Template");
         string workingDirectory = Path.Combine(workspace.RootPath, "Work");
-        const string systemRoot = @"S:\";
+        string systemRoot = Path.Combine(workspace.RootPath, "System");
         Directory.CreateDirectory(Path.GetDirectoryName(bcdBootPath)!);
+        Directory.CreateDirectory(Path.GetDirectoryName(bcdTemplatePath)!);
+        Directory.CreateDirectory(systemRoot);
         await File.WriteAllTextAsync(bcdBootPath, string.Empty, TestContext.Current.CancellationToken);
+        await File.WriteAllTextAsync(
+            bcdTemplatePath,
+            string.Empty,
+            TestContext.Current.CancellationToken);
         var processRunner = new RecordingProcessRunner();
         var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
 
@@ -94,13 +178,76 @@ public sealed class WindowsDeploymentServiceTests
     }
 
     [Fact]
+    public async Task ConfigureBootAsync_WhenBcdTemplateIsMissing_ThrowsFileNotFoundException()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string windowsRoot = Path.Combine(workspace.RootPath, "WindowsRoot");
+        string bcdBootPath = Path.Combine(windowsRoot, "Windows", "System32", "bcdboot.exe");
+        string expectedTemplatePath = Path.Combine(windowsRoot, "Windows", "System32", "Config", "BCD-Template");
+        string systemRoot = Path.Combine(workspace.RootPath, "System");
+        Directory.CreateDirectory(Path.GetDirectoryName(bcdBootPath)!);
+        Directory.CreateDirectory(systemRoot);
+        await File.WriteAllTextAsync(bcdBootPath, string.Empty, TestContext.Current.CancellationToken);
+        var processRunner = new RecordingProcessRunner();
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        FileNotFoundException exception = await Assert.ThrowsAsync<FileNotFoundException>(() =>
+            service.ConfigureBootAsync(
+                windowsRoot,
+                systemRoot,
+                26200,
+                Path.Combine(workspace.RootPath, "Work"),
+                TestContext.Current.CancellationToken));
+
+        Assert.Equal(expectedTemplatePath, exception.FileName);
+        Assert.Null(processRunner.LastFileName);
+    }
+
+    [Fact]
+    public async Task ConfigureBootAsync_WhenSystemPartitionIsUnavailable_ThrowsDirectoryNotFoundException()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string windowsRoot = Path.Combine(workspace.RootPath, "WindowsRoot");
+        string windowsPath = Path.Combine(windowsRoot, "Windows");
+        string bcdBootPath = Path.Combine(windowsPath, "System32", "bcdboot.exe");
+        string bcdTemplatePath = Path.Combine(windowsPath, "System32", "Config", "BCD-Template");
+        Directory.CreateDirectory(Path.GetDirectoryName(bcdBootPath)!);
+        Directory.CreateDirectory(Path.GetDirectoryName(bcdTemplatePath)!);
+        await File.WriteAllTextAsync(bcdBootPath, string.Empty, TestContext.Current.CancellationToken);
+        await File.WriteAllTextAsync(
+            bcdTemplatePath,
+            string.Empty,
+            TestContext.Current.CancellationToken);
+        var processRunner = new RecordingProcessRunner();
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        await Assert.ThrowsAsync<DirectoryNotFoundException>(() =>
+            service.ConfigureBootAsync(
+                windowsRoot,
+                Path.Combine(workspace.RootPath, "MissingSystem"),
+                26200,
+                Path.Combine(workspace.RootPath, "Work"),
+                TestContext.Current.CancellationToken));
+
+        Assert.Null(processRunner.LastFileName);
+    }
+
+    [Fact]
     public async Task ConfigureBootAsync_WhenAppliedBcdBootFails_PropagatesDiagnostic()
     {
         using var workspace = new TemporaryWorkspace();
         string windowsRoot = Path.Combine(workspace.RootPath, "WindowsRoot");
         string bcdBootPath = Path.Combine(windowsRoot, "Windows", "System32", "bcdboot.exe");
+        string bcdTemplatePath = Path.Combine(windowsRoot, "Windows", "System32", "Config", "BCD-Template");
+        string systemRoot = Path.Combine(workspace.RootPath, "System");
         Directory.CreateDirectory(Path.GetDirectoryName(bcdBootPath)!);
+        Directory.CreateDirectory(Path.GetDirectoryName(bcdTemplatePath)!);
+        Directory.CreateDirectory(systemRoot);
         await File.WriteAllTextAsync(bcdBootPath, string.Empty, TestContext.Current.CancellationToken);
+        await File.WriteAllTextAsync(
+            bcdTemplatePath,
+            string.Empty,
+            TestContext.Current.CancellationToken);
         var processRunner = new RecordingProcessRunner
         {
             Result = new ProcessExecutionResult
@@ -115,14 +262,14 @@ public sealed class WindowsDeploymentServiceTests
         DeploymentProcessException exception = await Assert.ThrowsAsync<DeploymentProcessException>(() =>
             service.ConfigureBootAsync(
                 windowsRoot,
-                @"S:\",
+                systemRoot,
                 26200,
                 Path.Combine(workspace.RootPath, "Work"),
                 TestContext.Current.CancellationToken));
 
         Assert.IsAssignableFrom<InvalidOperationException>(exception);
         Assert.Equal(bcdBootPath, processRunner.LastFileName);
-        Assert.Contains("BCDBoot configuration failed", exception.Message, StringComparison.Ordinal);
+        Assert.Contains("BCDBoot", exception.Message, StringComparison.Ordinal);
         Assert.Contains("ExitCode=193", exception.Message, StringComparison.Ordinal);
         Assert.Contains("Failure when attempting to copy boot files.", exception.Message, StringComparison.Ordinal);
         Assert.Contains("diagnostic", exception.Message, StringComparison.Ordinal);
@@ -305,6 +452,25 @@ public sealed class WindowsDeploymentServiceTests
         return windowsRoot;
     }
 
+    private static string CreateLayoutValidationJson(string partitionStyle = "GPT")
+    {
+        return $$"""
+            {
+              "DiskNumber": 1,
+              "PartitionStyle": "{{partitionStyle}}",
+              "SystemDiskNumber": 1,
+              "SystemGptType": "{c12a7328-f81f-11d2-ba4b-00a0c93ec93b}",
+              "SystemSizeBytes": 314572800,
+              "SystemFileSystem": "FAT32",
+              "SystemDriveLetter": "S",
+              "WindowsDiskNumber": 1,
+              "WindowsFileSystem": "NTFS",
+              "RecoveryDiskNumber": 1,
+              "RecoveryFileSystem": "NTFS"
+            }
+            """;
+    }
+
     private sealed class TemporaryWorkspace : IDisposable
     {
         public TemporaryWorkspace()
@@ -363,6 +529,7 @@ public sealed class WindowsDeploymentServiceTests
         public string? LastArguments { get; private set; }
         public string? LastWorkingDirectory { get; private set; }
         public ProcessExecutionResult Result { get; init; } = new() { ExitCode = 0 };
+        public ProcessExecutionResult? LayoutValidationResult { get; init; }
 
         public Task<ProcessExecutionResult> RunAsync(
             string fileName,
@@ -374,6 +541,15 @@ public sealed class WindowsDeploymentServiceTests
             LastFileName = fileName;
             LastArguments = arguments;
             LastWorkingDirectory = workingDirectory;
+            if (fileName.Equals("powershell.exe", StringComparison.OrdinalIgnoreCase))
+            {
+                return Task.FromResult(LayoutValidationResult ?? new ProcessExecutionResult
+                {
+                    ExitCode = 0,
+                    StandardOutput = CreateLayoutValidationJson()
+                });
+            }
+
             return Task.FromResult(Result);
         }
 

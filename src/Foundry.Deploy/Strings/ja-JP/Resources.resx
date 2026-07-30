@@ -511,4 +511,40 @@
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>対話型 Autopilot 登録アシスタントをステージングしました (シミュレーション)。</value>
   </data>
+  <data name="Deployment.LayoutValidationProcessFailureFormat" xml:space="preserve">
+    <value>ディスク {0} のターゲット ディスク レイアウト検証に失敗しました。</value>
+  </data>
+  <data name="Deployment.LayoutValidationInvalidDataFormat" xml:space="preserve">
+    <value>ターゲット ディスク レイアウト検証でディスク {0} の無効なデータが返されました。</value>
+  </data>
+  <data name="Deployment.LayoutNotGptFormat" xml:space="preserve">
+    <value>ターゲット ディスク {0} は、パーティション分割後に有効な GPT ディスクではありません。</value>
+  </data>
+  <data name="Deployment.LayoutInvalidEfiFormat" xml:space="preserve">
+    <value>ディスク {0} の EFI システム パーティションが無効です。FAT32、EFI GPT タイプ、ドライブ {1}:、および {2} MiB 以上が必要です。</value>
+  </data>
+  <data name="Deployment.LayoutInvalidWindowsFormat" xml:space="preserve">
+    <value>ディスク {0} の Windows パーティションはアクセス可能な NTFS ボリュームではありません。</value>
+  </data>
+  <data name="Deployment.LayoutInvalidRecoveryFormat" xml:space="preserve">
+    <value>ディスク {0} の回復パーティションはアクセス可能な NTFS ボリュームではありません。</value>
+  </data>
+  <data name="Deployment.BcdBootMissingFormat" xml:space="preserve">
+    <value>適用された Windows イメージに BCDBoot が含まれていません: {0}</value>
+  </data>
+  <data name="Deployment.BcdTemplateMissingFormat" xml:space="preserve">
+    <value>適用された Windows イメージに BCD-Template が含まれていません: {0}</value>
+  </data>
+  <data name="Deployment.EfiUnavailableFormat" xml:space="preserve">
+    <value>{0} の EFI システム パーティションにアクセスできません。</value>
+  </data>
+  <data name="Deployment.EfiNotWritableFormat" xml:space="preserve">
+    <value>{0} の EFI システム パーティションに書き込めません。</value>
+  </data>
+  <data name="Deployment.DiskPartFailureFormat" xml:space="preserve">
+    <value>DiskPart によるディスク {0} のパーティション分割に失敗しました</value>
+  </data>
+  <data name="Deployment.BcdBootFailure" xml:space="preserve">
+    <value>BCDBoot の構成に失敗しました</value>
+  </data>
 </root>

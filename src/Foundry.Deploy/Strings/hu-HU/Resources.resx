@@ -511,4 +511,40 @@ Folytatja a telepítést?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Az interaktív Autopilot regisztrációs segéd előkészítve (szimuláció).</value>
   </data>
+  <data name="Deployment.LayoutValidationProcessFailureFormat" xml:space="preserve">
+    <value>A céllemez elrendezésének ellenőrzése sikertelen a(z) {0}. lemeznél.</value>
+  </data>
+  <data name="Deployment.LayoutValidationInvalidDataFormat" xml:space="preserve">
+    <value>A céllemez elrendezésének ellenőrzése érvénytelen adatokat adott vissza a(z) {0}. lemezhez.</value>
+  </data>
+  <data name="Deployment.LayoutNotGptFormat" xml:space="preserve">
+    <value>A(z) {0}. céllemez a particionálás után nem érvényes GPT-lemez.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidEfiFormat" xml:space="preserve">
+    <value>A(z) {0}. lemez EFI rendszerpartíciója érvénytelen. Az elvárt formátum FAT32, EFI GPT-típus, {1}: meghajtó és legalább {2} MiB méret.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidWindowsFormat" xml:space="preserve">
+    <value>A(z) {0}. lemez Windows-partíciója nem elérhető NTFS-kötet.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidRecoveryFormat" xml:space="preserve">
+    <value>A(z) {0}. lemez helyreállítási partíciója nem elérhető NTFS-kötet.</value>
+  </data>
+  <data name="Deployment.BcdBootMissingFormat" xml:space="preserve">
+    <value>Az alkalmazott Windows-rendszerkép nem tartalmazza a BCDBoot fájlt: {0}</value>
+  </data>
+  <data name="Deployment.BcdTemplateMissingFormat" xml:space="preserve">
+    <value>Az alkalmazott Windows-rendszerkép nem tartalmazza a BCD-Template fájlt: {0}</value>
+  </data>
+  <data name="Deployment.EfiUnavailableFormat" xml:space="preserve">
+    <value>Az EFI rendszerpartíció nem érhető el itt: {0}.</value>
+  </data>
+  <data name="Deployment.EfiNotWritableFormat" xml:space="preserve">
+    <value>Az EFI rendszerpartíció nem írható itt: {0}.</value>
+  </data>
+  <data name="Deployment.DiskPartFailureFormat" xml:space="preserve">
+    <value>A(z) {0}. lemez particionálása a DiskPart használatával sikertelen</value>
+  </data>
+  <data name="Deployment.BcdBootFailure" xml:space="preserve">
+    <value>A BCDBoot konfigurálása sikertelen</value>
+  </data>
 </root>

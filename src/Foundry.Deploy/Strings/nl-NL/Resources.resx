@@ -511,4 +511,40 @@ Doorgaan met de implementatie?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Interactieve Autopilot-registratieassistent voorbereid (simulatie).</value>
   </data>
+  <data name="Deployment.LayoutValidationProcessFailureFormat" xml:space="preserve">
+    <value>Validatie van de indeling van de doelschijf is mislukt voor schijf {0}.</value>
+  </data>
+  <data name="Deployment.LayoutValidationInvalidDataFormat" xml:space="preserve">
+    <value>Validatie van de indeling van de doelschijf heeft ongeldige gegevens geretourneerd voor schijf {0}.</value>
+  </data>
+  <data name="Deployment.LayoutNotGptFormat" xml:space="preserve">
+    <value>Doelschijf {0} is na partitionering geen geldige GPT-schijf.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidEfiFormat" xml:space="preserve">
+    <value>De EFI-systeempartitie op schijf {0} is ongeldig. Verwacht: FAT32, EFI GPT-type, station {1}: en minimaal {2} MiB.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidWindowsFormat" xml:space="preserve">
+    <value>De Windows-partitie op schijf {0} is geen toegankelijk NTFS-volume.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidRecoveryFormat" xml:space="preserve">
+    <value>De herstelpartitie op schijf {0} is geen toegankelijk NTFS-volume.</value>
+  </data>
+  <data name="Deployment.BcdBootMissingFormat" xml:space="preserve">
+    <value>De toegepaste Windows-installatiekopie bevat geen BCDBoot: {0}</value>
+  </data>
+  <data name="Deployment.BcdTemplateMissingFormat" xml:space="preserve">
+    <value>De toegepaste Windows-installatiekopie bevat geen BCD-Template: {0}</value>
+  </data>
+  <data name="Deployment.EfiUnavailableFormat" xml:space="preserve">
+    <value>De EFI-systeempartitie is niet toegankelijk op {0}.</value>
+  </data>
+  <data name="Deployment.EfiNotWritableFormat" xml:space="preserve">
+    <value>De EFI-systeempartitie is niet beschrijfbaar op {0}.</value>
+  </data>
+  <data name="Deployment.DiskPartFailureFormat" xml:space="preserve">
+    <value>Partitionering van schijf {0} met DiskPart is mislukt</value>
+  </data>
+  <data name="Deployment.BcdBootFailure" xml:space="preserve">
+    <value>Configuratie van BCDBoot is mislukt</value>
+  </data>
 </root>

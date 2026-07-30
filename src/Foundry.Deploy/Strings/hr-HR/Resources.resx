@@ -511,4 +511,40 @@ Nastaviti s implementacijom?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Interaktivni pomoćnik za registraciju Autopilota je pripremljen (simulacija).</value>
   </data>
+  <data name="Deployment.LayoutValidationProcessFailureFormat" xml:space="preserve">
+    <value>Provjera rasporeda ciljnog diska nije uspjela za disk {0}.</value>
+  </data>
+  <data name="Deployment.LayoutValidationInvalidDataFormat" xml:space="preserve">
+    <value>Provjera rasporeda ciljnog diska vratila je nevaljane podatke za disk {0}.</value>
+  </data>
+  <data name="Deployment.LayoutNotGptFormat" xml:space="preserve">
+    <value>Ciljni disk {0} nakon particioniranja nije valjan GPT disk.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidEfiFormat" xml:space="preserve">
+    <value>EFI sistemska particija na disku {0} nije valjana. Očekuju se FAT32, EFI GPT vrsta, pogon {1}: i najmanje {2} MiB.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidWindowsFormat" xml:space="preserve">
+    <value>Windows particija na disku {0} nije dostupan NTFS volumen.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidRecoveryFormat" xml:space="preserve">
+    <value>Particija za oporavak na disku {0} nije dostupan NTFS volumen.</value>
+  </data>
+  <data name="Deployment.BcdBootMissingFormat" xml:space="preserve">
+    <value>Primijenjena slika sustava Windows ne sadrži BCDBoot: {0}</value>
+  </data>
+  <data name="Deployment.BcdTemplateMissingFormat" xml:space="preserve">
+    <value>Primijenjena slika sustava Windows ne sadrži BCD-Template: {0}</value>
+  </data>
+  <data name="Deployment.EfiUnavailableFormat" xml:space="preserve">
+    <value>EFI sistemska particija nije dostupna na lokaciji {0}.</value>
+  </data>
+  <data name="Deployment.EfiNotWritableFormat" xml:space="preserve">
+    <value>U EFI sistemsku particiju nije moguće pisati na lokaciji {0}.</value>
+  </data>
+  <data name="Deployment.DiskPartFailureFormat" xml:space="preserve">
+    <value>Particioniranje diska {0} pomoću alata DiskPart nije uspjelo</value>
+  </data>
+  <data name="Deployment.BcdBootFailure" xml:space="preserve">
+    <value>Konfiguracija BCDBoot nije uspjela</value>
+  </data>
 </root>

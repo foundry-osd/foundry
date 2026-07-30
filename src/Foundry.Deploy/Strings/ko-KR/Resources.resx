@@ -511,4 +511,40 @@
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>대화형 Autopilot 등록 도우미가 준비되었습니다(시뮬레이션).</value>
   </data>
+  <data name="Deployment.LayoutValidationProcessFailureFormat" xml:space="preserve">
+    <value>디스크 {0}의 대상 디스크 레이아웃 유효성 검사에 실패했습니다.</value>
+  </data>
+  <data name="Deployment.LayoutValidationInvalidDataFormat" xml:space="preserve">
+    <value>대상 디스크 레이아웃 유효성 검사에서 디스크 {0}에 대한 잘못된 데이터를 반환했습니다.</value>
+  </data>
+  <data name="Deployment.LayoutNotGptFormat" xml:space="preserve">
+    <value>대상 디스크 {0}은(는) 파티션 구성 후 유효한 GPT 디스크가 아닙니다.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidEfiFormat" xml:space="preserve">
+    <value>디스크 {0}의 EFI 시스템 파티션이 잘못되었습니다. FAT32, EFI GPT 유형, 드라이브 {1}: 및 최소 {2}MiB가 필요합니다.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidWindowsFormat" xml:space="preserve">
+    <value>디스크 {0}의 Windows 파티션이 액세스 가능한 NTFS 볼륨이 아닙니다.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidRecoveryFormat" xml:space="preserve">
+    <value>디스크 {0}의 복구 파티션이 액세스 가능한 NTFS 볼륨이 아닙니다.</value>
+  </data>
+  <data name="Deployment.BcdBootMissingFormat" xml:space="preserve">
+    <value>적용된 Windows 이미지에 BCDBoot가 없습니다: {0}</value>
+  </data>
+  <data name="Deployment.BcdTemplateMissingFormat" xml:space="preserve">
+    <value>적용된 Windows 이미지에 BCD-Template이 없습니다: {0}</value>
+  </data>
+  <data name="Deployment.EfiUnavailableFormat" xml:space="preserve">
+    <value>{0}에서 EFI 시스템 파티션에 액세스할 수 없습니다.</value>
+  </data>
+  <data name="Deployment.EfiNotWritableFormat" xml:space="preserve">
+    <value>{0}에서 EFI 시스템 파티션에 쓸 수 없습니다.</value>
+  </data>
+  <data name="Deployment.DiskPartFailureFormat" xml:space="preserve">
+    <value>DiskPart를 사용한 디스크 {0} 파티션 구성에 실패했습니다</value>
+  </data>
+  <data name="Deployment.BcdBootFailure" xml:space="preserve">
+    <value>BCDBoot 구성에 실패했습니다</value>
+  </data>
 </root>

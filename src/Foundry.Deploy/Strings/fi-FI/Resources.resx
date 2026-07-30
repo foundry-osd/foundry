@@ -511,4 +511,40 @@ Jatketaanko käyttöönottoa?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Vuorovaikutteinen Autopilot-rekisteröintiavustaja on valmisteltu (simulointi).</value>
   </data>
+  <data name="Deployment.LayoutValidationProcessFailureFormat" xml:space="preserve">
+    <value>Kohdelevyn asettelun vahvistus epäonnistui levyllä {0}.</value>
+  </data>
+  <data name="Deployment.LayoutValidationInvalidDataFormat" xml:space="preserve">
+    <value>Kohdelevyn asettelun vahvistus palautti virheellisiä tietoja levylle {0}.</value>
+  </data>
+  <data name="Deployment.LayoutNotGptFormat" xml:space="preserve">
+    <value>Kohdelevy {0} ei ole kelvollinen GPT-levy osioinnin jälkeen.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidEfiFormat" xml:space="preserve">
+    <value>Levyn {0} EFI-järjestelmäosio on virheellinen. Odotettiin FAT32-muotoa, EFI GPT -tyyppiä, asemaa {1}: ja vähintään {2} MiB:n kokoa.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidWindowsFormat" xml:space="preserve">
+    <value>Levyn {0} Windows-osio ei ole käytettävissä oleva NTFS-taltio.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidRecoveryFormat" xml:space="preserve">
+    <value>Levyn {0} palautusosio ei ole käytettävissä oleva NTFS-taltio.</value>
+  </data>
+  <data name="Deployment.BcdBootMissingFormat" xml:space="preserve">
+    <value>Käytetty Windows-näköistiedosto ei sisällä BCDBootia: {0}</value>
+  </data>
+  <data name="Deployment.BcdTemplateMissingFormat" xml:space="preserve">
+    <value>Käytetty Windows-näköistiedosto ei sisällä BCD-Templatea: {0}</value>
+  </data>
+  <data name="Deployment.EfiUnavailableFormat" xml:space="preserve">
+    <value>EFI-järjestelmäosio ei ole käytettävissä sijainnissa {0}.</value>
+  </data>
+  <data name="Deployment.EfiNotWritableFormat" xml:space="preserve">
+    <value>EFI-järjestelmäosioon ei voi kirjoittaa sijainnissa {0}.</value>
+  </data>
+  <data name="Deployment.DiskPartFailureFormat" xml:space="preserve">
+    <value>Levyn {0} osiointi DiskPartilla epäonnistui</value>
+  </data>
+  <data name="Deployment.BcdBootFailure" xml:space="preserve">
+    <value>BCDBoot-määritys epäonnistui</value>
+  </data>
 </root>

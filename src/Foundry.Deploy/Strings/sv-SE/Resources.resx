@@ -511,4 +511,40 @@ Fortsätt med implementeringen?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Den interaktiva Autopilot-registreringsassistenten har förberetts (simulering).</value>
   </data>
+  <data name="Deployment.LayoutValidationProcessFailureFormat" xml:space="preserve">
+    <value>Valideringen av måldiskens layout misslyckades för disk {0}.</value>
+  </data>
+  <data name="Deployment.LayoutValidationInvalidDataFormat" xml:space="preserve">
+    <value>Valideringen av måldiskens layout returnerade ogiltiga data för disk {0}.</value>
+  </data>
+  <data name="Deployment.LayoutNotGptFormat" xml:space="preserve">
+    <value>Måldisken {0} är inte en giltig GPT-disk efter partitioneringen.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidEfiFormat" xml:space="preserve">
+    <value>EFI-systempartitionen på disk {0} är ogiltig. FAT32, EFI GPT-typ, enhet {1}: och minst {2} MiB förväntades.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidWindowsFormat" xml:space="preserve">
+    <value>Windows-partitionen på disk {0} är inte en tillgänglig NTFS-volym.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidRecoveryFormat" xml:space="preserve">
+    <value>Återställningspartitionen på disk {0} är inte en tillgänglig NTFS-volym.</value>
+  </data>
+  <data name="Deployment.BcdBootMissingFormat" xml:space="preserve">
+    <value>Den tillämpade Windows-avbildningen innehåller inte BCDBoot: {0}</value>
+  </data>
+  <data name="Deployment.BcdTemplateMissingFormat" xml:space="preserve">
+    <value>Den tillämpade Windows-avbildningen innehåller inte BCD-Template: {0}</value>
+  </data>
+  <data name="Deployment.EfiUnavailableFormat" xml:space="preserve">
+    <value>EFI-systempartitionen är inte tillgänglig på {0}.</value>
+  </data>
+  <data name="Deployment.EfiNotWritableFormat" xml:space="preserve">
+    <value>EFI-systempartitionen är inte skrivbar på {0}.</value>
+  </data>
+  <data name="Deployment.DiskPartFailureFormat" xml:space="preserve">
+    <value>Partitioneringen av disk {0} med DiskPart misslyckades</value>
+  </data>
+  <data name="Deployment.BcdBootFailure" xml:space="preserve">
+    <value>Konfigurationen av BCDBoot misslyckades</value>
+  </data>
 </root>

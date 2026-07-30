@@ -511,4 +511,40 @@
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>互動式 Autopilot 註冊助理已暫存 (模擬)。</value>
   </data>
+  <data name="Deployment.LayoutValidationProcessFailureFormat" xml:space="preserve">
+    <value>磁碟 {0} 的目標磁碟配置驗證失敗。</value>
+  </data>
+  <data name="Deployment.LayoutValidationInvalidDataFormat" xml:space="preserve">
+    <value>目標磁碟配置驗證為磁碟 {0} 傳回無效資料。</value>
+  </data>
+  <data name="Deployment.LayoutNotGptFormat" xml:space="preserve">
+    <value>目標磁碟 {0} 在分割後不是有效的 GPT 磁碟。</value>
+  </data>
+  <data name="Deployment.LayoutInvalidEfiFormat" xml:space="preserve">
+    <value>磁碟 {0} 上的 EFI 系統分割區無效。應為 FAT32、EFI GPT 類型、磁碟機 {1}:，且至少為 {2} MiB。</value>
+  </data>
+  <data name="Deployment.LayoutInvalidWindowsFormat" xml:space="preserve">
+    <value>磁碟 {0} 上的 Windows 分割區不是可存取的 NTFS 磁碟區。</value>
+  </data>
+  <data name="Deployment.LayoutInvalidRecoveryFormat" xml:space="preserve">
+    <value>磁碟 {0} 上的復原分割區不是可存取的 NTFS 磁碟區。</value>
+  </data>
+  <data name="Deployment.BcdBootMissingFormat" xml:space="preserve">
+    <value>套用的 Windows 映像不包含 BCDBoot: {0}</value>
+  </data>
+  <data name="Deployment.BcdTemplateMissingFormat" xml:space="preserve">
+    <value>套用的 Windows 映像不包含 BCD-Template: {0}</value>
+  </data>
+  <data name="Deployment.EfiUnavailableFormat" xml:space="preserve">
+    <value>無法存取 {0} 的 EFI 系統分割區。</value>
+  </data>
+  <data name="Deployment.EfiNotWritableFormat" xml:space="preserve">
+    <value>無法寫入 {0} 的 EFI 系統分割區。</value>
+  </data>
+  <data name="Deployment.DiskPartFailureFormat" xml:space="preserve">
+    <value>使用 DiskPart 對磁碟 {0} 進行分割失敗</value>
+  </data>
+  <data name="Deployment.BcdBootFailure" xml:space="preserve">
+    <value>BCDBoot 設定失敗</value>
+  </data>
 </root>

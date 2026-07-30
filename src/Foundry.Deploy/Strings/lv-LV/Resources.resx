@@ -511,4 +511,40 @@ Vai turpināt izvietošanu?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Interaktīvais Autopilot reģistrācijas palīgs ir sagatavots (simulācija).</value>
   </data>
+  <data name="Deployment.LayoutValidationProcessFailureFormat" xml:space="preserve">
+    <value>Mērķa diska izkārtojuma validācija neizdevās diskam {0}.</value>
+  </data>
+  <data name="Deployment.LayoutValidationInvalidDataFormat" xml:space="preserve">
+    <value>Mērķa diska izkārtojuma validācija atgrieza nederīgus datus diskam {0}.</value>
+  </data>
+  <data name="Deployment.LayoutNotGptFormat" xml:space="preserve">
+    <value>Mērķa disks {0} pēc sadalīšanas nav derīgs GPT disks.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidEfiFormat" xml:space="preserve">
+    <value>Diska {0} EFI sistēmas nodalījums nav derīgs. Paredzēts FAT32, EFI GPT tips, disks {1}: un vismaz {2} MiB.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidWindowsFormat" xml:space="preserve">
+    <value>Diska {0} Windows nodalījums nav pieejams NTFS sējums.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidRecoveryFormat" xml:space="preserve">
+    <value>Diska {0} atkopšanas nodalījums nav pieejams NTFS sējums.</value>
+  </data>
+  <data name="Deployment.BcdBootMissingFormat" xml:space="preserve">
+    <value>Lietotajā Windows attēlā nav BCDBoot: {0}</value>
+  </data>
+  <data name="Deployment.BcdTemplateMissingFormat" xml:space="preserve">
+    <value>Lietotajā Windows attēlā nav BCD-Template: {0}</value>
+  </data>
+  <data name="Deployment.EfiUnavailableFormat" xml:space="preserve">
+    <value>EFI sistēmas nodalījums nav pieejams vietā {0}.</value>
+  </data>
+  <data name="Deployment.EfiNotWritableFormat" xml:space="preserve">
+    <value>EFI sistēmas nodalījums nav rakstāms vietā {0}.</value>
+  </data>
+  <data name="Deployment.DiskPartFailureFormat" xml:space="preserve">
+    <value>Diska {0} sadalīšana ar DiskPart neizdevās</value>
+  </data>
+  <data name="Deployment.BcdBootFailure" xml:space="preserve">
+    <value>BCDBoot konfigurēšana neizdevās</value>
+  </data>
 </root>

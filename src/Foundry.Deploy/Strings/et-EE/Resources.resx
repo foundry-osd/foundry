@@ -511,4 +511,40 @@ Kas jätkata juurutamisega?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Interaktiivne Autopiloti registreerimisabiline on ette valmistatud (simulatsioon).</value>
   </data>
+  <data name="Deployment.LayoutValidationProcessFailureFormat" xml:space="preserve">
+    <value>Sihtketta paigutuse valideerimine nurjus kettal {0}.</value>
+  </data>
+  <data name="Deployment.LayoutValidationInvalidDataFormat" xml:space="preserve">
+    <value>Sihtketta paigutuse valideerimine tagastas ketta {0} kohta sobimatud andmed.</value>
+  </data>
+  <data name="Deployment.LayoutNotGptFormat" xml:space="preserve">
+    <value>Sihtketas {0} ei ole pärast partitsioneerimist kehtiv GPT-ketas.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidEfiFormat" xml:space="preserve">
+    <value>Ketta {0} EFI-süsteemipartitsioon ei sobi. Eeldatud on FAT32, EFI GPT tüüp, draiv {1}: ja vähemalt {2} MiB.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidWindowsFormat" xml:space="preserve">
+    <value>Ketta {0} Windowsi partitsioon ei ole juurdepääsetav NTFS-köide.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidRecoveryFormat" xml:space="preserve">
+    <value>Ketta {0} taastepartitsioon ei ole juurdepääsetav NTFS-köide.</value>
+  </data>
+  <data name="Deployment.BcdBootMissingFormat" xml:space="preserve">
+    <value>Rakendatud Windowsi tõmmis ei sisalda BCDBooti: {0}</value>
+  </data>
+  <data name="Deployment.BcdTemplateMissingFormat" xml:space="preserve">
+    <value>Rakendatud Windowsi tõmmis ei sisalda BCD-Template&apos;i: {0}</value>
+  </data>
+  <data name="Deployment.EfiUnavailableFormat" xml:space="preserve">
+    <value>EFI-süsteemipartitsioon pole asukohas {0} juurdepääsetav.</value>
+  </data>
+  <data name="Deployment.EfiNotWritableFormat" xml:space="preserve">
+    <value>EFI-süsteemipartitsioon pole asukohas {0} kirjutatav.</value>
+  </data>
+  <data name="Deployment.DiskPartFailureFormat" xml:space="preserve">
+    <value>Ketta {0} partitsioneerimine DiskPartiga nurjus</value>
+  </data>
+  <data name="Deployment.BcdBootFailure" xml:space="preserve">
+    <value>BCDBooti konfigureerimine nurjus</value>
+  </data>
 </root>

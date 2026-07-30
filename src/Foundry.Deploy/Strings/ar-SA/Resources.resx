@@ -511,4 +511,40 @@
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>تم تجهيز مساعد تسجيل Autopilot التفاعلي (محاكاة).</value>
   </data>
+  <data name="Deployment.LayoutValidationProcessFailureFormat" xml:space="preserve">
+    <value>فشل التحقق من تخطيط القرص الهدف للقرص {0}.</value>
+  </data>
+  <data name="Deployment.LayoutValidationInvalidDataFormat" xml:space="preserve">
+    <value>أرجع التحقق من تخطيط القرص الهدف بيانات غير صالحة للقرص {0}.</value>
+  </data>
+  <data name="Deployment.LayoutNotGptFormat" xml:space="preserve">
+    <value>القرص الهدف {0} ليس قرص GPT صالحًا بعد التقسيم.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidEfiFormat" xml:space="preserve">
+    <value>قسم نظام EFI على القرص {0} غير صالح. المتوقع FAT32 ونوع EFI GPT ومحرك الأقراص {1}: وحجم لا يقل عن {2} MiB.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidWindowsFormat" xml:space="preserve">
+    <value>قسم Windows على القرص {0} ليس وحدة تخزين NTFS يمكن الوصول إليها.</value>
+  </data>
+  <data name="Deployment.LayoutInvalidRecoveryFormat" xml:space="preserve">
+    <value>قسم الاسترداد على القرص {0} ليس وحدة تخزين NTFS يمكن الوصول إليها.</value>
+  </data>
+  <data name="Deployment.BcdBootMissingFormat" xml:space="preserve">
+    <value>لا تحتوي صورة Windows المطبقة على BCDBoot: {0}</value>
+  </data>
+  <data name="Deployment.BcdTemplateMissingFormat" xml:space="preserve">
+    <value>لا تحتوي صورة Windows المطبقة على BCD-Template: {0}</value>
+  </data>
+  <data name="Deployment.EfiUnavailableFormat" xml:space="preserve">
+    <value>لا يمكن الوصول إلى قسم نظام EFI في {0}.</value>
+  </data>
+  <data name="Deployment.EfiNotWritableFormat" xml:space="preserve">
+    <value>قسم نظام EFI غير قابل للكتابة في {0}.</value>
+  </data>
+  <data name="Deployment.DiskPartFailureFormat" xml:space="preserve">
+    <value>فشل تقسيم القرص {0} باستخدام DiskPart</value>
+  </data>
+  <data name="Deployment.BcdBootFailure" xml:space="preserve">
+    <value>فشل تكوين BCDBoot</value>
+  </data>
 </root>

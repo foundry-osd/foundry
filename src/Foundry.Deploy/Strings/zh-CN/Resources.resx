@@ -511,4 +511,40 @@
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>交互式 Autopilot 注册助手已暂存（模拟）。</value>
   </data>
+  <data name="Deployment.LayoutValidationProcessFailureFormat" xml:space="preserve">
+    <value>磁盘 {0} 的目标磁盘布局验证失败。</value>
+  </data>
+  <data name="Deployment.LayoutValidationInvalidDataFormat" xml:space="preserve">
+    <value>目标磁盘布局验证为磁盘 {0} 返回了无效数据。</value>
+  </data>
+  <data name="Deployment.LayoutNotGptFormat" xml:space="preserve">
+    <value>目标磁盘 {0} 在分区后不是有效的 GPT 磁盘。</value>
+  </data>
+  <data name="Deployment.LayoutInvalidEfiFormat" xml:space="preserve">
+    <value>磁盘 {0} 上的 EFI 系统分区无效。应为 FAT32、EFI GPT 类型、驱动器 {1}:，且至少为 {2} MiB。</value>
+  </data>
+  <data name="Deployment.LayoutInvalidWindowsFormat" xml:space="preserve">
+    <value>磁盘 {0} 上的 Windows 分区不是可访问的 NTFS 卷。</value>
+  </data>
+  <data name="Deployment.LayoutInvalidRecoveryFormat" xml:space="preserve">
+    <value>磁盘 {0} 上的恢复分区不是可访问的 NTFS 卷。</value>
+  </data>
+  <data name="Deployment.BcdBootMissingFormat" xml:space="preserve">
+    <value>应用的 Windows 映像不包含 BCDBoot: {0}</value>
+  </data>
+  <data name="Deployment.BcdTemplateMissingFormat" xml:space="preserve">
+    <value>应用的 Windows 映像不包含 BCD-Template: {0}</value>
+  </data>
+  <data name="Deployment.EfiUnavailableFormat" xml:space="preserve">
+    <value>无法访问 {0} 处的 EFI 系统分区。</value>
+  </data>
+  <data name="Deployment.EfiNotWritableFormat" xml:space="preserve">
+    <value>无法写入 {0} 处的 EFI 系统分区。</value>
+  </data>
+  <data name="Deployment.DiskPartFailureFormat" xml:space="preserve">
+    <value>使用 DiskPart 对磁盘 {0} 进行分区失败</value>
+  </data>
+  <data name="Deployment.BcdBootFailure" xml:space="preserve">
+    <value>BCDBoot 配置失败</value>
+  </data>
 </root>
