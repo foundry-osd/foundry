@@ -18,4 +18,5 @@ public sealed record DeploymentWizardStateSnapshot
     public required bool HasValidDriverPackSelection { get; init; }
     public required bool HasValidAutopilotSelection { get; init; }
     public required bool IsOperatingSystemCatalogReadyForNavigation { get; init; }
+    public required bool HasBlockingPreflightFindings { get; init; }
 }

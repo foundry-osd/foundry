@@ -511,4 +511,27 @@
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>対話型 Autopilot 登録アシスタントをステージングしました (シミュレーション)。</value>
   </data>
+  <data name="Preflight.SectionTitle" xml:space="preserve"><value>導入の準備</value></data>
+  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>ファームウェア モード</value></data>
+  <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>レガシー BIOS/CSM</value></data>
+  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>アーキテクチャ</value></data>
+  <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
+  <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>セキュア ブート</value></data>
+  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>ディスク容量</value></data>
+  <data name="Preflight.StatusBlocked" xml:space="preserve"><value>ブロックされました</value></data>
+  <data name="Preflight.StatusWarning" xml:space="preserve"><value>警告</value></data>
+  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>このデバイスは、Windows 11 展開の前提条件を満たしています。</value></data>
+  <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>続行する前に、次の警告を確認してください:</value></data>
+  <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>Windows 11 の展開には UEFI が必要です。レガシー BIOS/CSM はサポートされていません。</value></data>
+  <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>選択した Windows アーキテクチャ ({0}) はデバイス アーキテクチャ ({1}) と一致しません。</value></data>
+  <data name="Preflight.TpmMissingBlocking" xml:space="preserve"><value>TPM 2.0 が必要ですが、TPM が検出されませんでした。</value></data>
+  <data name="Preflight.TpmVersionBlocking" xml:space="preserve"><value>TPM 2.0が必要です。検出された TPM 仕様: {0}。</value></data>
+  <data name="Preflight.TpmDisabledBlocking" xml:space="preserve"><value>TPM 2.0 は存在しますが、ファームウェアで無効になっています。</value></data>
+  <data name="Preflight.TpmDeactivatedBlocking" xml:space="preserve"><value>TPM 2.0 は存在しますが、アクティブ化されていません。</value></data>
+  <data name="Preflight.SecureBootDisabledWarning" xml:space="preserve"><value>セキュアブートが無効になっています。続行できますが、Windows 11 はセキュア ブートを使用するように設計されています。</value></data>
+  <data name="Preflight.SecureBootUnavailableBlocking" xml:space="preserve"><value>セキュア ブートのサポートを確認できませんでした。 Windows 11 の展開には、セキュア ブート機能を備えた UEFI ファームウェアが必要です。</value></data>
+  <data name="Preflight.DiskSizeUnknownBlocking" xml:space="preserve"><value>ターゲットのディスク容量を決定できませんでした。</value></data>
+  <data name="Preflight.DiskBelowRecommendedSizeWarning" xml:space="preserve"><value>ターゲット ディスクは {0} GiB です。 Windows 11 では、少なくとも {1} GiB を推奨します。選択した画像が適合する場合は続行できます。</value></data>
+  <data name="Preflight.ArchitectureValueFormat" xml:space="preserve"><value>{0} (Windows 11: {1})</value></data>
+  <data name="Preflight.TpmValueFormat" xml:space="preserve"><value>{0} ({1})</value></data>
 </root>

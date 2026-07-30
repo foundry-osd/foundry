@@ -511,4 +511,27 @@
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Интерактивният помощник за регистрация на Autopilot е подготвен (симулация).</value>
   </data>
+  <data name="Preflight.SectionTitle" xml:space="preserve"><value>Готовност за разгръщане</value></data>
+  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>Режим на фърмуера</value></data>
+  <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>Наследен BIOS/CSM</value></data>
+  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>Архитектура</value></data>
+  <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
+  <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>Сигурно зареждане</value></data>
+  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>Капацитет на диска</value></data>
+  <data name="Preflight.StatusBlocked" xml:space="preserve"><value>Блокиран</value></data>
+  <data name="Preflight.StatusWarning" xml:space="preserve"><value>Предупреждение</value></data>
+  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>Това устройство отговаря на предпоставките за внедряване на Windows 11.</value></data>
+  <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>Прегледайте тези предупреждения, преди да продължите:</value></data>
+  <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>Внедряването на Windows 11 изисква UEFI. Наследеният BIOS/CSM не се поддържа.</value></data>
+  <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>Избраната архитектура на Windows ({0}) не съответства на архитектурата на устройството ({1}).</value></data>
+  <data name="Preflight.TpmMissingBlocking" xml:space="preserve"><value>Изисква се TPM 2.0, но не е открит TPM.</value></data>
+  <data name="Preflight.TpmVersionBlocking" xml:space="preserve"><value>Изисква се TPM 2.0. Открита TPM спецификация: {0}.</value></data>
+  <data name="Preflight.TpmDisabledBlocking" xml:space="preserve"><value>TPM 2.0 присъства, но е деактивиран във фърмуера.</value></data>
+  <data name="Preflight.TpmDeactivatedBlocking" xml:space="preserve"><value>TPM 2.0 е наличен, но не е активиран.</value></data>
+  <data name="Preflight.SecureBootDisabledWarning" xml:space="preserve"><value>Сигурното зареждане е деактивирано. Можете да продължите, но Windows 11 е проектиран да използва Secure Boot.</value></data>
+  <data name="Preflight.SecureBootUnavailableBlocking" xml:space="preserve"><value>Поддръжката на Secure Boot не можа да бъде потвърдена. Внедряването на Windows 11 изисква UEFI фърмуер с възможност за защитено зареждане.</value></data>
+  <data name="Preflight.DiskSizeUnknownBlocking" xml:space="preserve"><value>Целевият капацитет на диска не може да бъде определен.</value></data>
+  <data name="Preflight.DiskBelowRecommendedSizeWarning" xml:space="preserve"><value>Целевият диск е {0} GiB. Windows 11 препоръчва поне {1} GiB. Можете да продължите, ако избраното изображение пасва.</value></data>
+  <data name="Preflight.ArchitectureValueFormat" xml:space="preserve"><value>{0} (Windows 11: {1})</value></data>
+  <data name="Preflight.TpmValueFormat" xml:space="preserve"><value>{0} ({1})</value></data>
 </root>

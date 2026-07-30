@@ -511,4 +511,27 @@ Kas jätkata juurutamisega?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Interaktiivne Autopiloti registreerimisabiline on ette valmistatud (simulatsioon).</value>
   </data>
+  <data name="Preflight.SectionTitle" xml:space="preserve"><value>Kasutusvalmidus</value></data>
+  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>Püsivararežiim</value></data>
+  <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>Pärand BIOS/CSM</value></data>
+  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>Arhitektuur</value></data>
+  <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
+  <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>Turvaline alglaadimine</value></data>
+  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>Ketta maht</value></data>
+  <data name="Preflight.StatusBlocked" xml:space="preserve"><value>Blokeeritud</value></data>
+  <data name="Preflight.StatusWarning" xml:space="preserve"><value>Hoiatus</value></data>
+  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>See seade vastab Windows 11 juurutamise eeltingimustele.</value></data>
+  <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>Enne jätkamist vaadake need hoiatused üle:</value></data>
+  <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>Windows 11 juurutamine nõuab UEFI-t. Pärand-BIOS/CSM ei ole toetatud.</value></data>
+  <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>Valitud Windowsi arhitektuur ({0}) ei ühti seadme arhitektuuriga ({1}).</value></data>
+  <data name="Preflight.TpmMissingBlocking" xml:space="preserve"><value>TPM 2.0 on nõutav, kuid TPM-i ei tuvastatud.</value></data>
+  <data name="Preflight.TpmVersionBlocking" xml:space="preserve"><value>Nõutav on TPM 2.0. Tuvastatud TPM-i spetsifikatsioon: {0}.</value></data>
+  <data name="Preflight.TpmDisabledBlocking" xml:space="preserve"><value>TPM 2.0 on olemas, kuid püsivara on keelatud.</value></data>
+  <data name="Preflight.TpmDeactivatedBlocking" xml:space="preserve"><value>TPM 2.0 on olemas, kuid pole aktiveeritud.</value></data>
+  <data name="Preflight.SecureBootDisabledWarning" xml:space="preserve"><value>Turvaline alglaadimine on keelatud. Võite jätkata, kuid Windows 11 on loodud kasutama turvalist alglaadimist.</value></data>
+  <data name="Preflight.SecureBootUnavailableBlocking" xml:space="preserve"><value>Turvalist alglaadimise tuge ei saanud kontrollida. Windows 11 juurutamiseks on vaja turvalise alglaadimise võimalusega UEFI püsivara.</value></data>
+  <data name="Preflight.DiskSizeUnknownBlocking" xml:space="preserve"><value>Sihtketta mahtu ei õnnestunud määrata.</value></data>
+  <data name="Preflight.DiskBelowRecommendedSizeWarning" xml:space="preserve"><value>Sihtketas on {0} GiB. Windows 11 soovitab vähemalt {1} GiB. Saate jätkata, kui valitud pilt sobib.</value></data>
+  <data name="Preflight.ArchitectureValueFormat" xml:space="preserve"><value>{0} (Windows 11: {1})</value></data>
+  <data name="Preflight.TpmValueFormat" xml:space="preserve"><value>{0} ({1})</value></data>
 </root>

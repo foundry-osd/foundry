@@ -511,4 +511,27 @@ Dağıtıma devam edilsin mi?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Etkileşimli Autopilot kayıt yardımcısı hazırlandı (simülasyon).</value>
   </data>
+  <data name="Preflight.SectionTitle" xml:space="preserve"><value>Dağıtıma hazırlık</value></data>
+  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>Donanım yazılımı modu</value></data>
+  <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>Eski BIOS/CSM</value></data>
+  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>Mimarlık</value></data>
+  <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
+  <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>Güvenli Önyükleme</value></data>
+  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>Disk kapasitesi</value></data>
+  <data name="Preflight.StatusBlocked" xml:space="preserve"><value>Engellendi</value></data>
+  <data name="Preflight.StatusWarning" xml:space="preserve"><value>Uyarı</value></data>
+  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>Bu cihaz Windows 11 dağıtım ön koşullarını karşılamaktadır.</value></data>
+  <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>Devam etmeden önce bu uyarıları inceleyin:</value></data>
+  <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>Windows 11 dağıtımı UEFI gerektirir. Eski BIOS/CSM desteklenmez.</value></data>
+  <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>Seçilen Windows mimarisi ({0}), cihaz mimarisiyle ({1}) eşleşmiyor.</value></data>
+  <data name="Preflight.TpmMissingBlocking" xml:space="preserve"><value>TPM 2.0 gerekli ancak TPM algılanmadı.</value></data>
+  <data name="Preflight.TpmVersionBlocking" xml:space="preserve"><value>TPM 2.0 gereklidir. Algılanan TPM spesifikasyonu: {0}.</value></data>
+  <data name="Preflight.TpmDisabledBlocking" xml:space="preserve"><value>TPM 2.0 mevcut ancak ürün yazılımında devre dışı.</value></data>
+  <data name="Preflight.TpmDeactivatedBlocking" xml:space="preserve"><value>TPM 2.0 mevcut ancak etkinleştirilmedi.</value></data>
+  <data name="Preflight.SecureBootDisabledWarning" xml:space="preserve"><value>Güvenli Önyükleme devre dışı. Devam edebilirsiniz ancak Windows 11, Güvenli Önyüklemeyi kullanacak şekilde tasarlanmıştır.</value></data>
+  <data name="Preflight.SecureBootUnavailableBlocking" xml:space="preserve"><value>Güvenli Önyükleme desteği doğrulanamadı. Windows 11 dağıtımı, Güvenli Önyükleme özelliğine sahip UEFI ürün yazılımını gerektirir.</value></data>
+  <data name="Preflight.DiskSizeUnknownBlocking" xml:space="preserve"><value>Hedef disk kapasitesi belirlenemedi.</value></data>
+  <data name="Preflight.DiskBelowRecommendedSizeWarning" xml:space="preserve"><value>Hedef disk {0} GiB&apos;dir. Windows 11 en az {1} GiB önerir. Seçilen görsel uyuyorsa devam edebilirsiniz.</value></data>
+  <data name="Preflight.ArchitectureValueFormat" xml:space="preserve"><value>{0} (Windows 11: {1})</value></data>
+  <data name="Preflight.TpmValueFormat" xml:space="preserve"><value>{0} ({1})</value></data>
 </root>

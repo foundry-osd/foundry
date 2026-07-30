@@ -511,4 +511,27 @@ Vil du fortsætte med implementeringen?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Den interaktive Autopilot-registreringsassistent er klargjort (simulation).</value>
   </data>
+  <data name="Preflight.SectionTitle" xml:space="preserve"><value>Udrulningsberedskab</value></data>
+  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>Firmware-tilstand</value></data>
+  <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>Ældre BIOS/CSM</value></data>
+  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>Arkitektur</value></data>
+  <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
+  <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>Sikker opstart</value></data>
+  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>Diskkapacitet</value></data>
+  <data name="Preflight.StatusBlocked" xml:space="preserve"><value>Blokeret</value></data>
+  <data name="Preflight.StatusWarning" xml:space="preserve"><value>Advarsel</value></data>
+  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>Denne enhed opfylder Windows 11-implementeringskravene.</value></data>
+  <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>Gennemgå disse advarsler, før du fortsætter:</value></data>
+  <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>Windows 11-implementering kræver UEFI. Ældre BIOS/CSM understøttes ikke.</value></data>
+  <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>Den valgte Windows-arkitektur ({0}) matcher ikke enhedsarkitekturen ({1}).</value></data>
+  <data name="Preflight.TpmMissingBlocking" xml:space="preserve"><value>TPM 2.0 er påkrævet, men der blev ikke fundet nogen TPM.</value></data>
+  <data name="Preflight.TpmVersionBlocking" xml:space="preserve"><value>TPM 2.0 er påkrævet. Registreret TPM-specifikation: {0}.</value></data>
+  <data name="Preflight.TpmDisabledBlocking" xml:space="preserve"><value>TPM 2.0 er til stede, men deaktiveret i firmware.</value></data>
+  <data name="Preflight.TpmDeactivatedBlocking" xml:space="preserve"><value>TPM 2.0 er til stede, men ikke aktiveret.</value></data>
+  <data name="Preflight.SecureBootDisabledWarning" xml:space="preserve"><value>Secure Boot er deaktiveret. Du kan fortsætte, men Windows 11 er designet til at bruge Secure Boot.</value></data>
+  <data name="Preflight.SecureBootUnavailableBlocking" xml:space="preserve"><value>Secure Boot-understøttelse kunne ikke bekræftes. Windows 11-implementering kræver UEFI-firmware med Secure Boot-funktion.</value></data>
+  <data name="Preflight.DiskSizeUnknownBlocking" xml:space="preserve"><value>Måldiskens kapacitet kunne ikke bestemmes.</value></data>
+  <data name="Preflight.DiskBelowRecommendedSizeWarning" xml:space="preserve"><value>Måldisken er {0} GiB. Windows 11 anbefaler mindst {1} GiB. Du kan fortsætte, hvis det valgte billede passer.</value></data>
+  <data name="Preflight.ArchitectureValueFormat" xml:space="preserve"><value>{0} (Windows 11: {1})</value></data>
+  <data name="Preflight.TpmValueFormat" xml:space="preserve"><value>{0} ({1})</value></data>
 </root>

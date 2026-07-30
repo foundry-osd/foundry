@@ -511,4 +511,27 @@
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Ο διαδραστικός βοηθός εγγραφής Autopilot προετοιμάστηκε (προσομοίωση).</value>
   </data>
+  <data name="Preflight.SectionTitle" xml:space="preserve"><value>Ετοιμότητα ανάπτυξης</value></data>
+  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>Λειτουργία υλικολογισμικού</value></data>
+  <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>Παλιό BIOS/CSM</value></data>
+  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>Αρχιτεκτονική</value></data>
+  <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
+  <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>Ασφαλής εκκίνηση</value></data>
+  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>Χωρητικότητα δίσκου</value></data>
+  <data name="Preflight.StatusBlocked" xml:space="preserve"><value>Αποκλείστηκε</value></data>
+  <data name="Preflight.StatusWarning" xml:space="preserve"><value>Προειδοποίηση</value></data>
+  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>Αυτή η συσκευή πληροί τις προϋποθέσεις ανάπτυξης των Windows 11.</value></data>
+  <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>Διαβάστε αυτές τις προειδοποιήσεις πριν συνεχίσετε:</value></data>
+  <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>Η ανάπτυξη των Windows 11 απαιτεί UEFI. Το BIOS/CSM παλαιού τύπου δεν υποστηρίζεται.</value></data>
+  <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>Η επιλεγμένη αρχιτεκτονική των Windows ({0}) δεν ταιριάζει με την αρχιτεκτονική της συσκευής ({1}).</value></data>
+  <data name="Preflight.TpmMissingBlocking" xml:space="preserve"><value>Απαιτείται TPM 2.0, αλλά δεν εντοπίστηκε TPM.</value></data>
+  <data name="Preflight.TpmVersionBlocking" xml:space="preserve"><value>Απαιτείται TPM 2.0. Εντοπίστηκε προδιαγραφή TPM: {0}.</value></data>
+  <data name="Preflight.TpmDisabledBlocking" xml:space="preserve"><value>Το TPM 2.0 υπάρχει αλλά είναι απενεργοποιημένο στο υλικολογισμικό.</value></data>
+  <data name="Preflight.TpmDeactivatedBlocking" xml:space="preserve"><value>Το TPM 2.0 υπάρχει αλλά δεν είναι ενεργοποιημένο.</value></data>
+  <data name="Preflight.SecureBootDisabledWarning" xml:space="preserve"><value>Η ασφαλής εκκίνηση είναι απενεργοποιημένη. Μπορείτε να συνεχίσετε, αλλά τα Windows 11 έχουν σχεδιαστεί για χρήση Ασφαλούς εκκίνησης.</value></data>
+  <data name="Preflight.SecureBootUnavailableBlocking" xml:space="preserve"><value>Δεν ήταν δυνατή η επαλήθευση της υποστήριξης Secure Boot. Η ανάπτυξη των Windows 11 απαιτεί υλικολογισμικό UEFI με δυνατότητα Ασφαλούς εκκίνησης.</value></data>
+  <data name="Preflight.DiskSizeUnknownBlocking" xml:space="preserve"><value>Δεν ήταν δυνατός ο προσδιορισμός της χωρητικότητας του δίσκου στόχου.</value></data>
+  <data name="Preflight.DiskBelowRecommendedSizeWarning" xml:space="preserve"><value>Ο δίσκος στόχος είναι {0} GiB. Τα Windows 11 συνιστούν τουλάχιστον {1} GiB. Μπορείτε να συνεχίσετε εάν η επιλεγμένη εικόνα ταιριάζει.</value></data>
+  <data name="Preflight.ArchitectureValueFormat" xml:space="preserve"><value>{0} (Windows 11: {1})</value></data>
+  <data name="Preflight.TpmValueFormat" xml:space="preserve"><value>{0} ({1})</value></data>
 </root>

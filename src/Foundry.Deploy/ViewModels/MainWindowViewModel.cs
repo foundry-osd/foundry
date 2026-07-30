@@ -14,6 +14,7 @@ using Foundry.Deploy;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Deployment;
+using Foundry.Deploy.Services.Deployment.Preflight;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.Services.Startup;
@@ -36,6 +37,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly IDeploymentLaunchPreparationService _deploymentLaunchPreparationService;
     private readonly IDeploymentExecutionService _deploymentExecutionService;
     private readonly IDeploymentWizardStateService _deploymentWizardStateService;
+    private readonly IDeploymentPreflightService _deploymentPreflightService;
     private readonly IDeploymentOrchestrator _deploymentOrchestrator;
     private readonly IApplicationShellService _applicationShellService;
     private readonly ILogger<MainWindowViewModel> _logger;
@@ -95,6 +97,37 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     public string SummaryAutopilotModeText => Preparation.AutopilotModeText;
     public string SummaryAutopilotProfileText => Preparation.SelectedAutopilotProfile?.DisplayName ?? GetString("Common.None");
     public string SummaryAutopilotGroupTagText => Preparation.EffectiveHardwareHashGroupTagText;
+    public string SummaryFirmwareModeText => Preparation.DetectedHardware?.FirmwareMode switch
+    {
+        FirmwareMode.Uefi => "UEFI",
+        FirmwareMode.Bios => GetString("Preflight.FirmwareModeLegacy"),
+        _ => GetString("Common.Unknown")
+    };
+    public string SummaryArchitectureText => Format(
+        "Preflight.ArchitectureValueFormat",
+        Preparation.DetectedHardware?.Architecture ?? GetString("Common.Unknown"),
+        SelectedOperatingSystem?.Architecture ?? GetString("Common.Unknown"));
+    public string SummaryTpmText => Preparation.DetectedHardware is { IsTpmPresent: true } hardware
+        ? Format("Preflight.TpmValueFormat", hardware.TpmSpecVersion, hardware.IsTpmEnabled && hardware.IsTpmActivated ? GetString("Common.Enabled") : GetString("Common.Disabled"))
+        : GetString("Common.Unavailable");
+    public string SummarySecureBootText => Preparation.DetectedHardware?.SecureBootState switch
+    {
+        SecureBootState.Enabled => GetString("Common.Enabled"),
+        SecureBootState.Disabled => GetString("Common.Disabled"),
+        SecureBootState.Unsupported => GetString("Common.Unavailable"),
+        _ => GetString("Common.Unknown")
+    };
+    public string SummaryDiskCapacityText => Preparation.SelectedTargetDisk is { SizeBytes: > 0 } disk
+        ? $"{disk.SizeBytes / 1024d / 1024d / 1024d:0.0} GiB"
+        : GetString("Disk.UnknownSize");
+    public string SummaryPreflightStatusText => CurrentPreflight.HasBlockingFindings
+        ? GetString("Preflight.StatusBlocked")
+        : CurrentPreflight.HasWarnings
+            ? GetString("Preflight.StatusWarning")
+            : GetString("Common.Ready");
+    public string SummaryPreflightDetailsText => CurrentPreflight.Findings.Count == 0
+        ? GetString("Preflight.ReadyDetails")
+        : string.Join(Environment.NewLine, CurrentPreflight.Findings.Select(DeploymentPreflightLocalization.FormatFinding));
     public bool IsDebugAutopilotNoneMode => IsDebugAutopilotMode(DebugAutopilotMode.None);
     public bool IsDebugAutopilotJsonProfileMode => IsDebugAutopilotMode(DebugAutopilotMode.JsonProfile);
     public bool IsDebugAutopilotHardwareHashUploadValidCertificateMode => IsDebugAutopilotMode(DebugAutopilotMode.HardwareHashUploadValidCertificate);
@@ -111,6 +144,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         IDeploymentLaunchPreparationService deploymentLaunchPreparationService,
         IDeploymentExecutionService deploymentExecutionService,
         IDeploymentWizardStateService deploymentWizardStateService,
+        IDeploymentPreflightService deploymentPreflightService,
         IDeploymentOrchestrator deploymentOrchestrator,
         IApplicationShellService applicationShellService,
         IDeploymentWizardContextFactory deploymentWizardContextFactory,
@@ -123,6 +157,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _deploymentLaunchPreparationService = deploymentLaunchPreparationService;
         _deploymentExecutionService = deploymentExecutionService;
         _deploymentWizardStateService = deploymentWizardStateService;
+        _deploymentPreflightService = deploymentPreflightService;
         _deploymentOrchestrator = deploymentOrchestrator;
         _applicationShellService = applicationShellService;
         _logger = logger;
@@ -272,6 +307,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 DefaultTimeZoneId = _wizardContext.DefaultTimeZoneId,
                 SelectedTargetDisk = Preparation.SelectedTargetDisk,
                 SelectedOperatingSystem = OperatingSystemCatalog.SelectedOperatingSystem,
+                DetectedHardware = Preparation.DetectedHardware,
                 DriverPackSelectionKind = effectiveDriverPackKind,
                 SelectedDriverPack = effectiveDriverPack,
                 ApplyFirmwareUpdates = Preparation.ApplyFirmwareUpdates,
@@ -365,6 +401,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(SummaryAutopilotModeText));
         OnPropertyChanged(nameof(SummaryAutopilotProfileText));
         OnPropertyChanged(nameof(SummaryAutopilotGroupTagText));
+        RaisePreflightPropertiesChanged();
         NextWizardStepCommand.NotifyCanExecuteChanged();
         StartDeploymentCommand.NotifyCanExecuteChanged();
     }
@@ -450,7 +487,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 Preparation.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload ||
                 Preparation.AutopilotProvisioningMode == AutopilotProvisioningMode.InteractiveHardwareHashUpload ||
                 Preparation.SelectedAutopilotProfile is not null,
-            IsOperatingSystemCatalogReadyForNavigation = !IsCatalogLoading && OperatingSystemCatalog.IsReadyForNavigation()
+            IsOperatingSystemCatalogReadyForNavigation = !IsCatalogLoading && OperatingSystemCatalog.IsReadyForNavigation(),
+            HasBlockingPreflightFindings = CurrentPreflight.HasBlockingFindings
         };
     }
 
@@ -518,7 +556,26 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             OnPropertyChanged(nameof(SummaryAutopilotModeText));
             OnPropertyChanged(nameof(SummaryAutopilotProfileText));
             OnPropertyChanged(nameof(SummaryAutopilotGroupTagText));
+            RaisePreflightPropertiesChanged();
         });
+    }
+
+    private DeploymentPreflightResult CurrentPreflight => IsDebugSafeMode
+        ? new DeploymentPreflightResult { Findings = [] }
+        : _deploymentPreflightService.Evaluate(
+            Preparation.DetectedHardware,
+            Preparation.SelectedTargetDisk,
+            SelectedOperatingSystem);
+
+    private void RaisePreflightPropertiesChanged()
+    {
+        OnPropertyChanged(nameof(SummaryFirmwareModeText));
+        OnPropertyChanged(nameof(SummaryArchitectureText));
+        OnPropertyChanged(nameof(SummaryTpmText));
+        OnPropertyChanged(nameof(SummarySecureBootText));
+        OnPropertyChanged(nameof(SummaryDiskCapacityText));
+        OnPropertyChanged(nameof(SummaryPreflightStatusText));
+        OnPropertyChanged(nameof(SummaryPreflightDetailsText));
     }
 
     private string GetString(string key)

@@ -41,6 +41,44 @@ function ConvertTo-TrimmedString {
     }
 }
 
+$wpeutil = Get-Command -Name wpeutil.exe -ErrorAction SilentlyContinue
+if ($wpeutil) {
+    & $wpeutil.Source UpdateBootInfo | Out-Null
+}
+
+$firmwareType = (Get-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control' -Name PEFirmwareType -ErrorAction SilentlyContinue).PEFirmwareType
+$firmwareMode = 'Unknown'
+$firmwareMode = switch ($firmwareType) {
+    1 { 'Bios' }
+    2 { 'Uefi' }
+    default { 'Unknown' }
+}
+
+$secureBootState = 'Unknown'
+if ($firmwareMode -eq 'Bios') {
+    $secureBootState = 'Unsupported'
+}
+elseif ($firmwareMode -eq 'Uefi') {
+    $confirmSecureBootCommand = Get-Command -Name Confirm-SecureBootUEFI -ErrorAction SilentlyContinue
+    if ($confirmSecureBootCommand) {
+        try {
+            $secureBootState = if (Confirm-SecureBootUEFI -ErrorAction Stop) { 'Enabled' } else { 'Disabled' }
+        }
+        catch [System.PlatformNotSupportedException] {
+            $secureBootState = 'Unsupported'
+        }
+        catch {
+            $secureBootState = 'Unknown'
+        }
+    }
+    else {
+        $secureBootRegistry = Get-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\State' -Name UEFISecureBootEnabled -ErrorAction SilentlyContinue
+        if ($null -ne $secureBootRegistry) {
+            $secureBootState = if ([int]$secureBootRegistry.UEFISecureBootEnabled -eq 1) { 'Enabled' } else { 'Disabled' }
+        }
+    }
+}
+
 $computer = Get-CimInstance -ClassName Win32_ComputerSystem
 $product = Get-CimInstance -ClassName Win32_ComputerSystemProduct
 $bios = Get-CimInstance -ClassName Win32_BIOS
@@ -72,6 +110,11 @@ $isOnBattery = @($battery | Where-Object { $_.BatteryStatus -eq 1 }).Count -gt 0
     Architecture = [string]$env:PROCESSOR_ARCHITECTURE
     IsOnBattery = [bool]$isOnBattery
     IsTpmPresent = [bool]($null -ne $tpm)
+    TpmSpecVersion = [string]($tpm.SpecVersion | ConvertTo-TrimmedString)
+    IsTpmEnabled = [bool]($tpm.IsEnabled_InitialValue)
+    IsTpmActivated = [bool]($tpm.IsActivated_InitialValue)
+    FirmwareMode = [string]$firmwareMode
+    SecureBootState = [string]$secureBootState
     SystemFirmwareHardwareId = [string]$systemFirmwareHardwareId
     PnpDevices = $pnpDevices
 } | ConvertTo-Json -Compress -Depth 8
@@ -102,6 +145,11 @@ $isOnBattery = @($battery | Where-Object { $_.BatteryStatus -eq 1 }).Count -gt 0
             bool isVirtualMachine = IsVirtualMachine(manufacturer, model, product);
             bool isOnBattery = ReadBoolProperty(root, "IsOnBattery");
             bool isTpmPresent = ReadBoolProperty(root, "IsTpmPresent");
+            string tpmSpecVersion = ReadProperty(root, "TpmSpecVersion");
+            bool isTpmEnabled = ReadBoolProperty(root, "IsTpmEnabled");
+            bool isTpmActivated = ReadBoolProperty(root, "IsTpmActivated");
+            FirmwareMode firmwareMode = ReadEnumProperty<FirmwareMode>(root, "FirmwareMode");
+            SecureBootState secureBootState = ReadEnumProperty<SecureBootState>(root, "SecureBootState");
             string systemFirmwareHardwareId = ReadProperty(root, "SystemFirmwareHardwareId");
             IReadOnlyList<PnpDeviceInfo> pnpDevices = ReadPnpDevices(root);
 
@@ -115,17 +163,27 @@ $isOnBattery = @($battery | Where-Object { $_.BatteryStatus -eq 1 }).Count -gt 0
                 IsVirtualMachine = isVirtualMachine,
                 IsOnBattery = isOnBattery,
                 IsTpmPresent = isTpmPresent,
+                TpmSpecVersion = tpmSpecVersion,
+                IsTpmEnabled = isTpmEnabled,
+                IsTpmActivated = isTpmActivated,
+                FirmwareMode = firmwareMode,
+                SecureBootState = secureBootState,
                 SystemFirmwareHardwareId = systemFirmwareHardwareId.Trim(),
                 PnpDevices = pnpDevices
             };
 
-            _logger.LogInformation("Hardware profile detected. Manufacturer={Manufacturer}, Model={Model}, Architecture={Architecture}, IsVirtualMachine={IsVirtualMachine}, IsOnBattery={IsOnBattery}, IsTpmPresent={IsTpmPresent}",
+            _logger.LogInformation("Hardware profile detected. Manufacturer={Manufacturer}, Model={Model}, Architecture={Architecture}, FirmwareMode={FirmwareMode}, SecureBootState={SecureBootState}, IsVirtualMachine={IsVirtualMachine}, IsOnBattery={IsOnBattery}, IsTpmPresent={IsTpmPresent}, TpmSpecVersion={TpmSpecVersion}, IsTpmEnabled={IsTpmEnabled}, IsTpmActivated={IsTpmActivated}",
                 profile.Manufacturer,
                 profile.Model,
                 profile.Architecture,
+                profile.FirmwareMode,
+                profile.SecureBootState,
                 profile.IsVirtualMachine,
                 profile.IsOnBattery,
-                profile.IsTpmPresent);
+                profile.IsTpmPresent,
+                profile.TpmSpecVersion,
+                profile.IsTpmEnabled,
+                profile.IsTpmActivated);
             return profile;
         }
         catch (Exception ex)
@@ -169,6 +227,15 @@ $isOnBattery = @($battery | Where-Object { $_.BatteryStatus -eq 1 }).Count -gt 0
 
         return value.ValueKind == JsonValueKind.True ||
                (value.ValueKind == JsonValueKind.String && bool.TryParse(value.GetString(), out bool parsed) && parsed);
+    }
+
+    private static TEnum ReadEnumProperty<TEnum>(JsonElement root, string propertyName)
+        where TEnum : struct, Enum
+    {
+        string value = ReadProperty(root, propertyName);
+        return Enum.TryParse(value, ignoreCase: true, out TEnum parsed)
+            ? parsed
+            : default;
     }
 
     private static IReadOnlyList<PnpDeviceInfo> ReadPnpDevices(JsonElement root)

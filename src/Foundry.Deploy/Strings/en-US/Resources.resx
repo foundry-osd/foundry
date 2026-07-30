@@ -511,4 +511,27 @@ Continue with deployment?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Interactive Autopilot registration assistant staged (simulation).</value>
   </data>
+  <data name="Preflight.SectionTitle" xml:space="preserve"><value>Deployment readiness</value></data>
+  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>Firmware mode</value></data>
+  <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>Legacy BIOS/CSM</value></data>
+  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>Architecture</value></data>
+  <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
+  <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>Secure Boot</value></data>
+  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>Disk capacity</value></data>
+  <data name="Preflight.StatusBlocked" xml:space="preserve"><value>Blocked</value></data>
+  <data name="Preflight.StatusWarning" xml:space="preserve"><value>Warning</value></data>
+  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>This device meets the Windows 11 deployment prerequisites.</value></data>
+  <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>Review these warnings before continuing:</value></data>
+  <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>Windows 11 deployment requires UEFI. Legacy BIOS/CSM is not supported.</value></data>
+  <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>The selected Windows architecture ({0}) does not match the device architecture ({1}).</value></data>
+  <data name="Preflight.TpmMissingBlocking" xml:space="preserve"><value>TPM 2.0 is required, but no TPM was detected.</value></data>
+  <data name="Preflight.TpmVersionBlocking" xml:space="preserve"><value>TPM 2.0 is required. Detected TPM specification: {0}.</value></data>
+  <data name="Preflight.TpmDisabledBlocking" xml:space="preserve"><value>TPM 2.0 is present but disabled in firmware.</value></data>
+  <data name="Preflight.TpmDeactivatedBlocking" xml:space="preserve"><value>TPM 2.0 is present but not activated.</value></data>
+  <data name="Preflight.SecureBootDisabledWarning" xml:space="preserve"><value>Secure Boot is disabled. You can continue, but Windows 11 is designed to use Secure Boot.</value></data>
+  <data name="Preflight.SecureBootUnavailableBlocking" xml:space="preserve"><value>Secure Boot support could not be verified. Windows 11 deployment requires UEFI firmware with Secure Boot capability.</value></data>
+  <data name="Preflight.DiskSizeUnknownBlocking" xml:space="preserve"><value>The target disk capacity could not be determined.</value></data>
+  <data name="Preflight.DiskBelowRecommendedSizeWarning" xml:space="preserve"><value>The target disk is {0} GiB. Windows 11 recommends at least {1} GiB. You can continue if the selected image fits.</value></data>
+  <data name="Preflight.ArchitectureValueFormat" xml:space="preserve"><value>{0} (Windows 11: {1})</value></data>
+  <data name="Preflight.TpmValueFormat" xml:space="preserve"><value>{0} ({1})</value></data>
 </root>

@@ -511,4 +511,27 @@ Pokračovat v nasazování?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Interaktivní asistent registrace Autopilotu byl připraven (simulace).</value>
   </data>
+  <data name="Preflight.SectionTitle" xml:space="preserve"><value>Připravenost k nasazení</value></data>
+  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>Režim firmwaru</value></data>
+  <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>Starší BIOS/CSM</value></data>
+  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>Architektura</value></data>
+  <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
+  <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>Secure Boot</value></data>
+  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>Kapacita disku</value></data>
+  <data name="Preflight.StatusBlocked" xml:space="preserve"><value>Zablokováno</value></data>
+  <data name="Preflight.StatusWarning" xml:space="preserve"><value>Upozornění</value></data>
+  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>Toto zařízení splňuje předpoklady nasazení Windows 11.</value></data>
+  <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>Než budete pokračovat, přečtěte si tato varování:</value></data>
+  <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>Nasazení Windows 11 vyžaduje UEFI. Starší systém BIOS/CSM není podporován.</value></data>
+  <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>Vybraná architektura systému Windows ({0}) neodpovídá architektuře zařízení ({1}).</value></data>
+  <data name="Preflight.TpmMissingBlocking" xml:space="preserve"><value>Je vyžadován TPM 2.0, ale nebyl detekován žádný TPM.</value></data>
+  <data name="Preflight.TpmVersionBlocking" xml:space="preserve"><value>Je vyžadován TPM 2.0. Zjištěná specifikace TPM: {0}.</value></data>
+  <data name="Preflight.TpmDisabledBlocking" xml:space="preserve"><value>TPM 2.0 je přítomen, ale ve firmwaru je zakázán.</value></data>
+  <data name="Preflight.TpmDeactivatedBlocking" xml:space="preserve"><value>TPM 2.0 je přítomen, ale není aktivován.</value></data>
+  <data name="Preflight.SecureBootDisabledWarning" xml:space="preserve"><value>Zabezpečené spouštění je zakázáno. Můžete pokračovat, ale Windows 11 je navržen tak, aby používal zabezpečené spouštění.</value></data>
+  <data name="Preflight.SecureBootUnavailableBlocking" xml:space="preserve"><value>Podporu zabezpečeného spouštění nebylo možné ověřit. Nasazení Windows 11 vyžaduje firmware UEFI s funkcí Secure Boot.</value></data>
+  <data name="Preflight.DiskSizeUnknownBlocking" xml:space="preserve"><value>Cílovou kapacitu disku nebylo možné určit.</value></data>
+  <data name="Preflight.DiskBelowRecommendedSizeWarning" xml:space="preserve"><value>Cílový disk je {0} GiB. Windows 11 doporučuje alespoň {1} GiB. Pokud se vám vybraný obrázek vejde, můžete pokračovat.</value></data>
+  <data name="Preflight.ArchitectureValueFormat" xml:space="preserve"><value>{0} (Windows 11: {1})</value></data>
+  <data name="Preflight.TpmValueFormat" xml:space="preserve"><value>{0} ({1})</value></data>
 </root>

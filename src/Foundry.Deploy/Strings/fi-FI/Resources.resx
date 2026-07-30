@@ -511,4 +511,27 @@ Jatketaanko käyttöönottoa?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Vuorovaikutteinen Autopilot-rekisteröintiavustaja on valmisteltu (simulointi).</value>
   </data>
+  <data name="Preflight.SectionTitle" xml:space="preserve"><value>Käyttöönottovalmius</value></data>
+  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>Laiteohjelmistotila</value></data>
+  <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>Vanha BIOS/CSM</value></data>
+  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>Arkkitehtuuri</value></data>
+  <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
+  <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>Secure Boot</value></data>
+  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>Levyn kapasiteetti</value></data>
+  <data name="Preflight.StatusBlocked" xml:space="preserve"><value>Estetty</value></data>
+  <data name="Preflight.StatusWarning" xml:space="preserve"><value>Varoitus</value></data>
+  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>Tämä laite täyttää Windows 11:n käyttöönoton edellytykset.</value></data>
+  <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>Tarkista nämä varoitukset ennen kuin jatkat:</value></data>
+  <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>Windows 11:n käyttöönotto vaatii UEFI:n. Vanhaa BIOS/CSM:ää ei tueta.</value></data>
+  <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>Valittu Windows-arkkitehtuuri ({0}) ei vastaa laitteen arkkitehtuuria ({1}).</value></data>
+  <data name="Preflight.TpmMissingBlocking" xml:space="preserve"><value>TPM 2.0 vaaditaan, mutta TPM:ää ei havaittu.</value></data>
+  <data name="Preflight.TpmVersionBlocking" xml:space="preserve"><value>TPM 2.0 vaaditaan. Havaittu TPM-määritys: {0}.</value></data>
+  <data name="Preflight.TpmDisabledBlocking" xml:space="preserve"><value>TPM 2.0 on olemassa, mutta se ei ole käytössä laiteohjelmistossa.</value></data>
+  <data name="Preflight.TpmDeactivatedBlocking" xml:space="preserve"><value>TPM 2.0 on olemassa, mutta ei aktivoitu.</value></data>
+  <data name="Preflight.SecureBootDisabledWarning" xml:space="preserve"><value>Suojattu käynnistys on poistettu käytöstä. Voit jatkaa, mutta Windows 11 on suunniteltu käyttämään suojattua käynnistystä.</value></data>
+  <data name="Preflight.SecureBootUnavailableBlocking" xml:space="preserve"><value>Secure Boot -tukea ei voitu vahvistaa. Windows 11:n käyttöönotto vaatii UEFI-laiteohjelmiston, jossa on Secure Boot -ominaisuus.</value></data>
+  <data name="Preflight.DiskSizeUnknownBlocking" xml:space="preserve"><value>Kohdelevyn kapasiteettia ei voitu määrittää.</value></data>
+  <data name="Preflight.DiskBelowRecommendedSizeWarning" xml:space="preserve"><value>Kohdelevy on {0} GiB. Windows 11 suosittelee vähintään {1} GiB:tä. Voit jatkaa, jos valittu kuva sopii.</value></data>
+  <data name="Preflight.ArchitectureValueFormat" xml:space="preserve"><value>{0} (Windows 11: {1})</value></data>
+  <data name="Preflight.TpmValueFormat" xml:space="preserve"><value>{0} ({1})</value></data>
 </root>

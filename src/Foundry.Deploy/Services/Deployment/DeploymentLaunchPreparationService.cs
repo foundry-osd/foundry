@@ -5,6 +5,7 @@
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.ApplicationShell;
+using Foundry.Deploy.Services.Deployment.Preflight;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Validation;
 
@@ -16,10 +17,14 @@ namespace Foundry.Deploy.Services.Deployment;
 public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPreparationService
 {
     private readonly IApplicationShellService _applicationShellService;
+    private readonly IDeploymentPreflightService _deploymentPreflightService;
 
-    public DeploymentLaunchPreparationService(IApplicationShellService applicationShellService)
+    public DeploymentLaunchPreparationService(
+        IApplicationShellService applicationShellService,
+        IDeploymentPreflightService deploymentPreflightService)
     {
         _applicationShellService = applicationShellService;
+        _deploymentPreflightService = deploymentPreflightService;
     }
 
     /// <summary>
@@ -71,7 +76,15 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             return DeploymentLaunchPreparationResult.Failure(normalizedComputerName);
         }
 
-        if (!request.IsDryRun && !ConfirmDestructiveDeployment(effectiveTargetDisk, request.SelectedOperatingSystem))
+        DeploymentPreflightResult preflight = request.IsDryRun
+            ? new DeploymentPreflightResult { Findings = [] }
+            : _deploymentPreflightService.Evaluate(request.DetectedHardware, effectiveTargetDisk, request.SelectedOperatingSystem);
+        if (preflight.HasBlockingFindings)
+        {
+            return DeploymentLaunchPreparationResult.Failure(normalizedComputerName);
+        }
+
+        if (!request.IsDryRun && !ConfirmDestructiveDeployment(effectiveTargetDisk, request.SelectedOperatingSystem, preflight))
         {
             return DeploymentLaunchPreparationResult.Failure(normalizedComputerName);
         }
@@ -84,6 +97,10 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             TargetComputerName = normalizedComputerName,
             DefaultTimeZoneId = string.IsNullOrWhiteSpace(request.DefaultTimeZoneId) ? null : request.DefaultTimeZoneId.Trim(),
             OperatingSystem = request.SelectedOperatingSystem,
+            AcknowledgedPreflightWarnings = preflight.Findings
+                .Where(finding => finding.Severity == DeploymentPreflightSeverity.Warning)
+                .Select(finding => finding.AcknowledgementKey)
+                .ToArray(),
             DriverPackSelectionKind = request.DriverPackSelectionKind,
             DriverPack = request.SelectedDriverPack,
             ApplyFirmwareUpdates = request.ApplyFirmwareUpdates,
@@ -109,8 +126,12 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
     /// </summary>
     /// <param name="targetDisk">The disk that will be repartitioned.</param>
     /// <param name="operatingSystem">The operating system image that will be applied.</param>
+    /// <param name="preflight">The readiness result whose warnings require acknowledgement.</param>
     /// <returns><see langword="true"/> when the user confirms the destructive operation.</returns>
-    private bool ConfirmDestructiveDeployment(TargetDiskInfo targetDisk, OperatingSystemCatalogItem operatingSystem)
+    private bool ConfirmDestructiveDeployment(
+        TargetDiskInfo targetDisk,
+        OperatingSystemCatalogItem operatingSystem,
+        DeploymentPreflightResult preflight)
     {
         string sizeGiB = targetDisk.SizeBytes > 0
             ? $"{(targetDisk.SizeBytes / 1024d / 1024d / 1024d):0.0} GiB"
@@ -123,6 +144,16 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             targetDisk.BusType,
             sizeGiB,
             operatingSystem.DisplayLabel);
+
+        if (preflight.HasWarnings)
+        {
+            string warnings = string.Join(
+                Environment.NewLine,
+                preflight.Findings
+                    .Where(finding => finding.Severity == DeploymentPreflightSeverity.Warning)
+                    .Select(finding => $"• {DeploymentPreflightLocalization.FormatFinding(finding)}"));
+            message = $"{message}{Environment.NewLine}{Environment.NewLine}{LocalizationText.GetString("Preflight.WarningConfirmationIntro")}{Environment.NewLine}{warnings}";
+        }
 
         return _applicationShellService.ConfirmWarning(LocalizationText.GetString("Launch.ConfirmDiskEraseTitle"), message);
     }

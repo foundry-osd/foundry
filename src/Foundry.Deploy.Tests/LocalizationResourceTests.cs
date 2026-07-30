@@ -3,7 +3,9 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Globalization;
+using System.Collections;
 using System.Resources;
+using System.Text.RegularExpressions;
 using Foundry.Deploy.Services.Localization;
 
 namespace Foundry.Deploy.Tests;
@@ -64,5 +66,49 @@ public sealed class LocalizationResourceTests
 
         Assert.NotNull(resourceSet);
         Assert.Equal("Foundry Deploy", resourceSet.GetString("App.Name"));
+    }
+
+    [Theory]
+    [MemberData(nameof(SatelliteCultures))]
+    public void SatelliteResourceSet_HasSameKeysAndFormatArgumentsAsDefaultCulture(string cultureName)
+    {
+        ResourceSet baseline = Assert.IsAssignableFrom<ResourceSet>(
+            LocalizationText.ResourceManager.GetResourceSet(
+                CultureInfo.GetCultureInfo("en-US"),
+                createIfNotExists: true,
+                tryParents: false));
+        ResourceSet localized = Assert.IsAssignableFrom<ResourceSet>(
+            LocalizationText.ResourceManager.GetResourceSet(
+                CultureInfo.GetCultureInfo(cultureName),
+                createIfNotExists: true,
+                tryParents: false));
+        IReadOnlyDictionary<string, string> baselineValues = ReadValues(baseline);
+        IReadOnlyDictionary<string, string> localizedValues = ReadValues(localized);
+
+        Assert.Equal(baselineValues.Keys.Order(), localizedValues.Keys.Order());
+        foreach ((string key, string value) in baselineValues)
+        {
+            Assert.Equal(
+                ReadFormatArgumentIndexes(value),
+                ReadFormatArgumentIndexes(localizedValues[key]));
+        }
+    }
+
+    private static IReadOnlyDictionary<string, string> ReadValues(ResourceSet resourceSet)
+    {
+        return resourceSet
+            .Cast<DictionaryEntry>()
+            .ToDictionary(
+                entry => Assert.IsType<string>(entry.Key),
+                entry => Assert.IsType<string>(entry.Value),
+                StringComparer.Ordinal);
+    }
+
+    private static string[] ReadFormatArgumentIndexes(string value)
+    {
+        return Regex.Matches(value, @"\{(?<index>\d+)(?:[^}]*)\}")
+            .Select(match => match.Groups["index"].Value)
+            .Order(StringComparer.Ordinal)
+            .ToArray();
     }
 }

@@ -511,4 +511,27 @@ Vai turpināt izvietošanu?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Interaktīvais Autopilot reģistrācijas palīgs ir sagatavots (simulācija).</value>
   </data>
+  <data name="Preflight.SectionTitle" xml:space="preserve"><value>Izvēršanas gatavība</value></data>
+  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>Programmaparatūras režīms</value></data>
+  <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>Mantotais BIOS/CSM</value></data>
+  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>Arhitektūra</value></data>
+  <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
+  <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>Droša sāknēšana</value></data>
+  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>Diska ietilpība</value></data>
+  <data name="Preflight.StatusBlocked" xml:space="preserve"><value>Bloķēts</value></data>
+  <data name="Preflight.StatusWarning" xml:space="preserve"><value>Brīdinājums</value></data>
+  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>Šī ierīce atbilst Windows 11 izvietošanas priekšnosacījumiem.</value></data>
+  <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>Pirms turpināt, pārskatiet šos brīdinājumus:</value></data>
+  <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>Windows 11 izvietošanai nepieciešams UEFI. Mantotais BIOS/CSM netiek atbalstīts.</value></data>
+  <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>Atlasītā Windows arhitektūra ({0}) neatbilst ierīces arhitektūrai ({1}).</value></data>
+  <data name="Preflight.TpmMissingBlocking" xml:space="preserve"><value>Nepieciešams TPM 2.0, taču TPM netika atklāts.</value></data>
+  <data name="Preflight.TpmVersionBlocking" xml:space="preserve"><value>Nepieciešams TPM 2.0. Konstatētā TPM specifikācija: {0}.</value></data>
+  <data name="Preflight.TpmDisabledBlocking" xml:space="preserve"><value>TPM 2.0 ir pieejams, taču programmaparatūrā tas ir atspējots.</value></data>
+  <data name="Preflight.TpmDeactivatedBlocking" xml:space="preserve"><value>TPM 2.0 ir pieejams, bet nav aktivizēts.</value></data>
+  <data name="Preflight.SecureBootDisabledWarning" xml:space="preserve"><value>Drošā sāknēšana ir atspējota. Varat turpināt, taču operētājsistēmā Windows 11 ir paredzēts izmantot drošo sāknēšanu.</value></data>
+  <data name="Preflight.SecureBootUnavailableBlocking" xml:space="preserve"><value>Drošas sāknēšanas atbalstu nevarēja pārbaudīt. Windows 11 izvietošanai nepieciešama UEFI programmaparatūra ar drošās sāknēšanas iespēju.</value></data>
+  <data name="Preflight.DiskSizeUnknownBlocking" xml:space="preserve"><value>Mērķa diska ietilpību nevarēja noteikt.</value></data>
+  <data name="Preflight.DiskBelowRecommendedSizeWarning" xml:space="preserve"><value>Mērķa disks ir {0} GiB. Windows 11 iesaka vismaz {1} GiB. Varat turpināt, ja atlasītais attēls ietilpst.</value></data>
+  <data name="Preflight.ArchitectureValueFormat" xml:space="preserve"><value>{0} (Windows 11: {1})</value></data>
+  <data name="Preflight.TpmValueFormat" xml:space="preserve"><value>{0} ({1})</value></data>
 </root>

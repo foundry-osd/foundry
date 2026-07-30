@@ -511,4 +511,27 @@ Continuați cu implementarea?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Asistentul de înregistrare interactivă Autopilot a fost pregătit (simulare).</value>
   </data>
+  <data name="Preflight.SectionTitle" xml:space="preserve"><value>Pregătirea pentru implementare</value></data>
+  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>Modul firmware</value></data>
+  <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>BIOS/CSM vechi</value></data>
+  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>Arhitectura</value></data>
+  <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
+  <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>Pornire sigură</value></data>
+  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>Capacitatea discului</value></data>
+  <data name="Preflight.StatusBlocked" xml:space="preserve"><value>Blocat</value></data>
+  <data name="Preflight.StatusWarning" xml:space="preserve"><value>Avertisment</value></data>
+  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>Acest dispozitiv îndeplinește cerințele prealabile de implementare Windows 11.</value></data>
+  <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>Consultați aceste avertismente înainte de a continua:</value></data>
+  <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>Implementarea Windows 11 necesită UEFI. BIOS/CSM vechi nu este acceptat.</value></data>
+  <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>Arhitectura Windows selectată ({0}) nu se potrivește cu arhitectura dispozitivului ({1}).</value></data>
+  <data name="Preflight.TpmMissingBlocking" xml:space="preserve"><value>Este necesar TPM 2.0, dar nu a fost detectat niciun TPM.</value></data>
+  <data name="Preflight.TpmVersionBlocking" xml:space="preserve"><value>Este necesar TPM 2.0. Specificație TPM detectată: {0}.</value></data>
+  <data name="Preflight.TpmDisabledBlocking" xml:space="preserve"><value>TPM 2.0 este prezent, dar este dezactivat în firmware.</value></data>
+  <data name="Preflight.TpmDeactivatedBlocking" xml:space="preserve"><value>TPM 2.0 este prezent, dar nu este activat.</value></data>
+  <data name="Preflight.SecureBootDisabledWarning" xml:space="preserve"><value>Secure Boot este dezactivată. Puteți continua, dar Windows 11 este conceput pentru a utiliza Secure Boot.</value></data>
+  <data name="Preflight.SecureBootUnavailableBlocking" xml:space="preserve"><value>Asistența pentru pornire securizată nu a putut fi verificată. Implementarea Windows 11 necesită firmware UEFI cu capacitate Secure Boot.</value></data>
+  <data name="Preflight.DiskSizeUnknownBlocking" xml:space="preserve"><value>Capacitatea discului țintă nu a putut fi determinată.</value></data>
+  <data name="Preflight.DiskBelowRecommendedSizeWarning" xml:space="preserve"><value>Discul țintă este de {0} GiB. Windows 11 recomandă cel puțin {1} GiB. Puteți continua dacă imaginea selectată se potrivește.</value></data>
+  <data name="Preflight.ArchitectureValueFormat" xml:space="preserve"><value>{0} (Windows 11: {1})</value></data>
+  <data name="Preflight.TpmValueFormat" xml:space="preserve"><value>{0} ({1})</value></data>
 </root>

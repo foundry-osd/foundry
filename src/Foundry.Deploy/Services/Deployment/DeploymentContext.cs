@@ -44,6 +44,11 @@ public sealed record DeploymentContext
     public required OperatingSystemCatalogItem OperatingSystem { get; init; }
 
     /// <summary>
+    /// Gets the exact preflight warnings acknowledged before destructive deployment.
+    /// </summary>
+    public IReadOnlyList<string> AcknowledgedPreflightWarnings { get; init; } = [];
+
+    /// <summary>
     /// Gets the selected driver pack strategy.
     /// </summary>
     public required DriverPackSelectionKind DriverPackSelectionKind { get; init; }

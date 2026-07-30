@@ -12,6 +12,7 @@ using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Catalog;
 using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Deployment;
+using Foundry.Deploy.Services.Deployment.Preflight;
 using Foundry.Deploy.Services.Deployment.PreOobe;
 using Foundry.Deploy.Services.Deployment.Steps;
 using Foundry.Deploy.Services.Network;
@@ -79,6 +80,7 @@ public static class ServiceCollectionExtensions
                 logger);
         });
         services.AddSingleton<IDeploymentLaunchPreparationService, DeploymentLaunchPreparationService>();
+        services.AddSingleton<IDeploymentPreflightService, DeploymentPreflightService>();
         services.AddSingleton<IDeploymentExecutionService, DeploymentExecutionService>();
         services.AddSingleton<IProcessRunner, ProcessRunner>();
         services.AddSingleton<IArchiveExtractionService, ArchiveExtractionService>();

@@ -49,6 +49,7 @@ public sealed class DeploymentWizardStateService : IDeploymentWizardStateService
                snapshot.IsTargetComputerNameValid &&
                snapshot.HasSelectedOperatingSystem &&
                hasTargetDisk &&
+               (snapshot.IsDebugSafeMode || !snapshot.HasBlockingPreflightFindings) &&
                snapshot.HasValidDriverPackSelection &&
                snapshot.HasValidAutopilotSelection;
     }

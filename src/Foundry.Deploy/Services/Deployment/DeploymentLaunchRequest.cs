@@ -16,6 +16,7 @@ public sealed record DeploymentLaunchRequest
     public string? DefaultTimeZoneId { get; init; }
     public required TargetDiskInfo? SelectedTargetDisk { get; init; }
     public required OperatingSystemCatalogItem? SelectedOperatingSystem { get; init; }
+    public HardwareProfile? DetectedHardware { get; init; }
     public required DriverPackSelectionKind DriverPackSelectionKind { get; init; }
     public required DriverPackCatalogItem? SelectedDriverPack { get; init; }
     public required bool ApplyFirmwareUpdates { get; init; }

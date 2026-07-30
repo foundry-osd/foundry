@@ -511,4 +511,27 @@ Folytatja a telepítést?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Az interaktív Autopilot regisztrációs segéd előkészítve (szimuláció).</value>
   </data>
+  <data name="Preflight.SectionTitle" xml:space="preserve"><value>Bevetési készenlét</value></data>
+  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>Firmware mód</value></data>
+  <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>Örökös BIOS/CSM</value></data>
+  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>Építészet</value></data>
+  <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
+  <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>Biztonságos rendszerindítás</value></data>
+  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>Lemezkapacitás</value></data>
+  <data name="Preflight.StatusBlocked" xml:space="preserve"><value>Letiltva</value></data>
+  <data name="Preflight.StatusWarning" xml:space="preserve"><value>Figyelmeztetés</value></data>
+  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>Ez az eszköz megfelel a Windows 11 központi telepítési előfeltételeinek.</value></data>
+  <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>A folytatás előtt tekintse át ezeket a figyelmeztetéseket:</value></data>
+  <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>A Windows 11 telepítéséhez UEFI szükséges. A régi BIOS/CSM nem támogatott.</value></data>
+  <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>A kiválasztott Windows architektúra ({0}) nem egyezik az eszköz architektúrával ({1}).</value></data>
+  <data name="Preflight.TpmMissingBlocking" xml:space="preserve"><value>TPM 2.0 szükséges, de a rendszer nem észlelt TPM-et.</value></data>
+  <data name="Preflight.TpmVersionBlocking" xml:space="preserve"><value>TPM 2.0 szükséges. Észlelt TPM-specifikáció: {0}.</value></data>
+  <data name="Preflight.TpmDisabledBlocking" xml:space="preserve"><value>A TPM 2.0 jelen van, de a firmware-ben le van tiltva.</value></data>
+  <data name="Preflight.TpmDeactivatedBlocking" xml:space="preserve"><value>A TPM 2.0 jelen van, de nincs aktiválva.</value></data>
+  <data name="Preflight.SecureBootDisabledWarning" xml:space="preserve"><value>A biztonságos rendszerindítás le van tiltva. Folytathatja, de a Windows 11 biztonságos rendszerindításra készült.</value></data>
+  <data name="Preflight.SecureBootUnavailableBlocking" xml:space="preserve"><value>A biztonságos rendszerindítás támogatása nem ellenőrizhető. A Windows 11 üzembe helyezéséhez biztonságos rendszerindítási képességgel rendelkező UEFI firmware szükséges.</value></data>
+  <data name="Preflight.DiskSizeUnknownBlocking" xml:space="preserve"><value>A céllemez kapacitása nem határozható meg.</value></data>
+  <data name="Preflight.DiskBelowRecommendedSizeWarning" xml:space="preserve"><value>A céllemez {0} GiB. A Windows 11 legalább {1} GiB-ot ajánl. Folytathatja, ha a kiválasztott kép megfelel.</value></data>
+  <data name="Preflight.ArchitectureValueFormat" xml:space="preserve"><value>{0} (Windows 11: {1})</value></data>
+  <data name="Preflight.TpmValueFormat" xml:space="preserve"><value>{0} ({1})</value></data>
 </root>

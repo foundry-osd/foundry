@@ -511,4 +511,27 @@ Nastaviti s implementacijom?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Interaktivni pomoćnik za registraciju Autopilota je pripremljen (simulacija).</value>
   </data>
+  <data name="Preflight.SectionTitle" xml:space="preserve"><value>Spremnost za raspoređivanje</value></data>
+  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>Firmware mod</value></data>
+  <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>Naslijeđeni BIOS/CSM</value></data>
+  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>Arhitektura</value></data>
+  <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
+  <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>Sigurno pokretanje</value></data>
+  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>Kapacitet diska</value></data>
+  <data name="Preflight.StatusBlocked" xml:space="preserve"><value>Blokirano</value></data>
+  <data name="Preflight.StatusWarning" xml:space="preserve"><value>Upozorenje</value></data>
+  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>Ovaj uređaj ispunjava preduvjete za implementaciju sustava Windows 11.</value></data>
+  <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>Prije nastavka pregledajte ova upozorenja:</value></data>
+  <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>Za implementaciju sustava Windows 11 potreban je UEFI. Naslijeđeni BIOS/CSM nije podržan.</value></data>
+  <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>Odabrana Windows arhitektura ({0}) ne odgovara arhitekturi uređaja ({1}).</value></data>
+  <data name="Preflight.TpmMissingBlocking" xml:space="preserve"><value>Potreban je TPM 2.0, ali TPM nije otkriven.</value></data>
+  <data name="Preflight.TpmVersionBlocking" xml:space="preserve"><value>Potreban je TPM 2.0. Otkrivena TPM specifikacija: {0}.</value></data>
+  <data name="Preflight.TpmDisabledBlocking" xml:space="preserve"><value>TPM 2.0 je prisutan, ali je onemogućen u firmveru.</value></data>
+  <data name="Preflight.TpmDeactivatedBlocking" xml:space="preserve"><value>TPM 2.0 je prisutan, ali nije aktiviran.</value></data>
+  <data name="Preflight.SecureBootDisabledWarning" xml:space="preserve"><value>Sigurno pokretanje je onemogućeno. Možete nastaviti, ali Windows 11 je dizajniran za korištenje sigurnog pokretanja.</value></data>
+  <data name="Preflight.SecureBootUnavailableBlocking" xml:space="preserve"><value>Podršku za sigurno pokretanje nije moguće provjeriti. Za implementaciju sustava Windows 11 potreban je UEFI firmware s mogućnošću Secure Boot.</value></data>
+  <data name="Preflight.DiskSizeUnknownBlocking" xml:space="preserve"><value>Nije moguće odrediti ciljni kapacitet diska.</value></data>
+  <data name="Preflight.DiskBelowRecommendedSizeWarning" xml:space="preserve"><value>Ciljni disk je {0} GiB. Windows 11 preporučuje najmanje {1} GiB. Možete nastaviti ako odabrana slika odgovara.</value></data>
+  <data name="Preflight.ArchitectureValueFormat" xml:space="preserve"><value>{0} (Windows 11: {1})</value></data>
+  <data name="Preflight.TpmValueFormat" xml:space="preserve"><value>{0} ({1})</value></data>
 </root>

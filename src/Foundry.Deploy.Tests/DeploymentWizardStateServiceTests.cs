@@ -54,6 +54,43 @@ public sealed class DeploymentWizardStateServiceTests
         Assert.False(canStart);
     }
 
+    [Fact]
+    public void CanStartDeployment_WhenPreflightHasBlockingFindings_ReturnsFalse()
+    {
+        var service = new DeploymentWizardStateService();
+
+        bool canStart = service.CanStartDeployment(
+            CreateSnapshot(
+                wizardStepIndex: 3,
+                hasSelectedOperatingSystem: true,
+                hasTargetDiskSelection: true,
+                isTargetComputerNameValid: true,
+                hasValidDriverPackSelection: true,
+                hasValidAutopilotSelection: true,
+                hasBlockingPreflightFindings: true));
+
+        Assert.False(canStart);
+    }
+
+    [Fact]
+    public void CanStartDeployment_WhenDebugSafeModeHasBlockingPreflightFindings_ReturnsTrue()
+    {
+        var service = new DeploymentWizardStateService();
+
+        bool canStart = service.CanStartDeployment(
+            CreateSnapshot(
+                wizardStepIndex: 3,
+                isDebugSafeMode: true,
+                hasSelectedOperatingSystem: true,
+                hasTargetDiskSelection: false,
+                isTargetComputerNameValid: true,
+                hasValidDriverPackSelection: true,
+                hasValidAutopilotSelection: true,
+                hasBlockingPreflightFindings: true));
+
+        Assert.True(canStart);
+    }
+
     private static DeploymentWizardStateSnapshot CreateSnapshot(
         int wizardStepIndex,
         bool isDeploymentRunning = false,
@@ -66,7 +103,8 @@ public sealed class DeploymentWizardStateServiceTests
         bool isSelectedTargetDiskSelectable = true,
         bool hasValidDriverPackSelection = false,
         bool hasValidAutopilotSelection = false,
-        bool isOperatingSystemCatalogReadyForNavigation = true)
+        bool isOperatingSystemCatalogReadyForNavigation = true,
+        bool hasBlockingPreflightFindings = false)
     {
         return new DeploymentWizardStateSnapshot
         {
@@ -81,7 +119,8 @@ public sealed class DeploymentWizardStateServiceTests
             IsSelectedTargetDiskSelectable = isSelectedTargetDiskSelectable,
             HasValidDriverPackSelection = hasValidDriverPackSelection,
             HasValidAutopilotSelection = hasValidAutopilotSelection,
-            IsOperatingSystemCatalogReadyForNavigation = isOperatingSystemCatalogReadyForNavigation
+            IsOperatingSystemCatalogReadyForNavigation = isOperatingSystemCatalogReadyForNavigation,
+            HasBlockingPreflightFindings = hasBlockingPreflightFindings
         };
     }
 }

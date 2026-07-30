@@ -14,6 +14,11 @@ public sealed record HardwareProfile
     public bool IsVirtualMachine { get; init; }
     public bool IsOnBattery { get; init; }
     public bool IsTpmPresent { get; init; }
+    public string TpmSpecVersion { get; init; } = string.Empty;
+    public bool IsTpmEnabled { get; init; }
+    public bool IsTpmActivated { get; init; }
+    public FirmwareMode FirmwareMode { get; init; }
+    public SecureBootState SecureBootState { get; init; }
     public string SystemFirmwareHardwareId { get; init; } = string.Empty;
     public IReadOnlyList<PnpDeviceInfo> PnpDevices { get; init; } = Array.Empty<PnpDeviceInfo>();
 

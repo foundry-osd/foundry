@@ -511,4 +511,27 @@
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>互動式 Autopilot 註冊助理已暫存 (模擬)。</value>
   </data>
+  <data name="Preflight.SectionTitle" xml:space="preserve"><value>部署準備</value></data>
+  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>韌體模式</value></data>
+  <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>傳統 BIOS/CSM</value></data>
+  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>架構</value></data>
+  <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
+  <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>安全啟動</value></data>
+  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>磁碟容量</value></data>
+  <data name="Preflight.StatusBlocked" xml:space="preserve"><value>被阻止</value></data>
+  <data name="Preflight.StatusWarning" xml:space="preserve"><value>警告</value></data>
+  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>此設備滿足 Windows 11 部署先決條件。</value></data>
+  <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>在繼續之前先查看這些警告：</value></data>
+  <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>Windows 11 部署需要 UEFI。不支援舊版 BIOS/CSM。</value></data>
+  <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>所選的 Windows 體系結構 ({0}) 與裝置體系結構 ({1}) 不符。</value></data>
+  <data name="Preflight.TpmMissingBlocking" xml:space="preserve"><value>需要 TPM 2.0，但未偵測到 TPM。</value></data>
+  <data name="Preflight.TpmVersionBlocking" xml:space="preserve"><value>需要 TPM 2.0。偵測到的 TPM 規格：{0}。</value></data>
+  <data name="Preflight.TpmDisabledBlocking" xml:space="preserve"><value>TPM 2.0 存在，但在韌體中被停用。</value></data>
+  <data name="Preflight.TpmDeactivatedBlocking" xml:space="preserve"><value>TPM 2.0 存在但未啟動。</value></data>
+  <data name="Preflight.SecureBootDisabledWarning" xml:space="preserve"><value>安全啟動已停用。您可以繼續，但 Windows 11 設計為使用安全啟動。</value></data>
+  <data name="Preflight.SecureBootUnavailableBlocking" xml:space="preserve"><value>無法驗證安全啟動支援。 Windows 11 部署需要具有安全啟動功能的 UEFI 韌體。</value></data>
+  <data name="Preflight.DiskSizeUnknownBlocking" xml:space="preserve"><value>無法確定目標磁碟容量。</value></data>
+  <data name="Preflight.DiskBelowRecommendedSizeWarning" xml:space="preserve"><value>目標磁碟為 {0} GiB。 Windows 11 建議至少 {1} GiB。如果所選圖像適合，您可以繼續。</value></data>
+  <data name="Preflight.ArchitectureValueFormat" xml:space="preserve"><value>{0} (Windows 11: {1})</value></data>
+  <data name="Preflight.TpmValueFormat" xml:space="preserve"><value>{0} ({1})</value></data>
 </root>

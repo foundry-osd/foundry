@@ -6,6 +6,7 @@ using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.ApplicationShell;
 using Foundry.Deploy.Services.Deployment;
+using Foundry.Deploy.Services.Deployment.Preflight;
 using System.Globalization;
 
 namespace Foundry.Deploy.Tests;
@@ -16,7 +17,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
     public void Prepare_WhenDryRunAndTargetDiskMissing_UsesDebugVirtualDisk()
     {
         var shell = new FakeApplicationShellService();
-        var service = new DeploymentLaunchPreparationService(shell);
+        DeploymentLaunchPreparationService service = CreateService(shell);
 
         DeploymentLaunchPreparationResult result = service.Prepare(CreateRequest(selectedTargetDisk: null, isDryRun: true));
 
@@ -30,7 +31,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
     public void Prepare_WhenSelectedDiskIsBlocked_FailsBeforeConfirmation()
     {
         var shell = new FakeApplicationShellService();
-        var service = new DeploymentLaunchPreparationService(shell);
+        DeploymentLaunchPreparationService service = CreateService(shell);
         TargetDiskInfo blockedDisk = CreateDisk(isSelectable: false, selectionWarning: "System disk");
 
         DeploymentLaunchPreparationResult result = service.Prepare(CreateRequest(selectedTargetDisk: blockedDisk));
@@ -44,7 +45,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
     public void Prepare_WhenOemDriverPackSelectionHasNoPackage_FailsValidation()
     {
         var shell = new FakeApplicationShellService();
-        var service = new DeploymentLaunchPreparationService(shell);
+        DeploymentLaunchPreparationService service = CreateService(shell);
 
         DeploymentLaunchPreparationResult result = service.Prepare(
             CreateRequest(
@@ -60,7 +61,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
     public void Prepare_WhenRequestIsValidAndConfirmed_ReturnsDeploymentContext()
     {
         var shell = new FakeApplicationShellService { ConfirmationResult = true };
-        var service = new DeploymentLaunchPreparationService(shell);
+        DeploymentLaunchPreparationService service = CreateService(shell);
         TargetDiskInfo targetDisk = CreateDisk();
         DriverPackCatalogItem driverPack = new()
         {
@@ -127,7 +128,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
     public void Prepare_WhenHardwareHashUploadModeHasNoJsonProfile_ReturnsDeploymentContext()
     {
         var shell = new FakeApplicationShellService { ConfirmationResult = true };
-        var service = new DeploymentLaunchPreparationService(shell);
+        DeploymentLaunchPreparationService service = CreateService(shell);
 
         DeploymentLaunchPreparationResult result = service.Prepare(
             CreateRequest(
@@ -146,7 +147,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
     public void Prepare_WhenInteractiveHardwareHashUploadModeHasNoJsonProfile_ReturnsDeploymentContext()
     {
         var shell = new FakeApplicationShellService { ConfirmationResult = true };
-        var service = new DeploymentLaunchPreparationService(shell);
+        DeploymentLaunchPreparationService service = CreateService(shell);
 
         DeploymentLaunchPreparationResult result = service.Prepare(
             CreateRequest(
@@ -165,7 +166,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
     public void Prepare_WhenLiveHardwareHashUploadModeIsSelected_DoesNotRequireJsonProfile()
     {
         var shell = new FakeApplicationShellService { ConfirmationResult = true };
-        var service = new DeploymentLaunchPreparationService(shell);
+        DeploymentLaunchPreparationService service = CreateService(shell);
         DeployAutopilotHardwareHashUploadSettings hardwareHashUpload = new()
         {
             TenantId = "tenant-id",
@@ -195,7 +196,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
     public void Prepare_WhenJsonProfileModeHasNoProfile_FailsValidation()
     {
         var shell = new FakeApplicationShellService();
-        var service = new DeploymentLaunchPreparationService(shell);
+        DeploymentLaunchPreparationService service = CreateService(shell);
 
         DeploymentLaunchPreparationResult result = service.Prepare(
             CreateRequest(
@@ -220,16 +221,16 @@ public sealed class DeploymentLaunchPreparationServiceTests
         try
         {
             var shell = new FakeApplicationShellService { ConfirmationResult = true };
-            var service = new DeploymentLaunchPreparationService(shell);
+            DeploymentLaunchPreparationService service = CreateService(shell);
 
-            TargetDiskInfo targetDisk = CreateDisk(sizeBytes: 0);
+            TargetDiskInfo targetDisk = CreateDisk();
 
             service.Prepare(CreateRequest(selectedTargetDisk: targetDisk));
 
             Assert.Equal("Confirmer l’effacement du disque", shell.LastConfirmationTitle);
             Assert.Contains("Cela effacera toutes les données du disque sélectionné et installera le système d’exploitation sélectionné.", shell.LastConfirmationMessage);
             Assert.Contains("Disque : 3", shell.LastConfirmationMessage);
-            Assert.Contains("Taille : Taille inconnue", shell.LastConfirmationMessage);
+            Assert.Contains("Taille : 256,0 GiB", shell.LastConfirmationMessage);
             Assert.Contains("Continuer le déploiement ?", shell.LastConfirmationMessage);
         }
         finally
@@ -237,6 +238,41 @@ public sealed class DeploymentLaunchPreparationServiceTests
             CultureInfo.CurrentCulture = originalCulture;
             CultureInfo.CurrentUICulture = originalUiCulture;
         }
+    }
+
+    [Fact]
+    public void Prepare_WhenPreflightHasBlockingFinding_FailsBeforeConfirmation()
+    {
+        var shell = new FakeApplicationShellService();
+        DeploymentLaunchPreparationService service = CreateService(shell);
+        HardwareProfile hardware = CreateReadyHardware() with { FirmwareMode = FirmwareMode.Bios };
+
+        DeploymentLaunchPreparationResult result = service.Prepare(
+            CreateRequest(selectedTargetDisk: CreateDisk(), detectedHardware: hardware));
+
+        Assert.False(result.IsReadyToStart);
+        Assert.Equal(0, shell.ConfirmationCallCount);
+    }
+
+    [Fact]
+    public void Prepare_WhenDiskIsBelowRecommendedSize_IncludesWarningInConfirmation()
+    {
+        var shell = new FakeApplicationShellService { ConfirmationResult = true };
+        DeploymentLaunchPreparationService service = CreateService(shell);
+
+        DeploymentLaunchPreparationResult result = service.Prepare(
+            CreateRequest(selectedTargetDisk: CreateDisk(sizeBytes: 48UL * 1024UL * 1024UL * 1024UL)));
+
+        Assert.True(result.IsReadyToStart);
+        Assert.Equal(1, shell.ConfirmationCallCount);
+        Assert.Contains("64", shell.LastConfirmationMessage);
+        Assert.Contains("GiB", shell.LastConfirmationMessage);
+        Assert.Single(result.Context!.AcknowledgedPreflightWarnings);
+    }
+
+    private static DeploymentLaunchPreparationService CreateService(IApplicationShellService shell)
+    {
+        return new DeploymentLaunchPreparationService(shell, new DeploymentPreflightService());
     }
 
     private static DeploymentLaunchRequest CreateRequest(
@@ -252,7 +288,8 @@ public sealed class DeploymentLaunchPreparationServiceTests
         DeployOobeSettings? oobe = null,
         DeployAppxRemovalSettings? appxRemoval = null,
         DeployAiComponentRemovalSettings? aiComponentRemoval = null,
-        bool isDryRun = false)
+        bool isDryRun = false,
+        HardwareProfile? detectedHardware = null)
     {
         return new DeploymentLaunchRequest
         {
@@ -272,6 +309,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
                 LicenseChannel = "Retail",
                 Build = "26100"
             },
+            DetectedHardware = detectedHardware ?? CreateReadyHardware(),
             DriverPackSelectionKind = driverPackSelectionKind,
             SelectedDriverPack = selectedDriverPack,
             ApplyFirmwareUpdates = false,
@@ -283,6 +321,20 @@ public sealed class DeploymentLaunchPreparationServiceTests
             AppxRemoval = appxRemoval ?? new DeployAppxRemovalSettings(),
             AiComponentRemoval = aiComponentRemoval ?? new DeployAiComponentRemovalSettings(),
             IsDryRun = isDryRun
+        };
+    }
+
+    private static HardwareProfile CreateReadyHardware()
+    {
+        return new HardwareProfile
+        {
+            Architecture = "x64",
+            FirmwareMode = FirmwareMode.Uefi,
+            IsTpmPresent = true,
+            TpmSpecVersion = "2.0",
+            IsTpmEnabled = true,
+            IsTpmActivated = true,
+            SecureBootState = SecureBootState.Enabled
         };
     }
 

@@ -511,4 +511,27 @@
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>تم تجهيز مساعد تسجيل Autopilot التفاعلي (محاكاة).</value>
   </data>
+  <data name="Preflight.SectionTitle" xml:space="preserve"><value>جاهزية النشر</value></data>
+  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>وضع البرامج الثابتة</value></data>
+  <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>BIOS/CSM القديم</value></data>
+  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>الهندسة المعمارية</value></data>
+  <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
+  <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>التمهيد الآمن</value></data>
+  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>سعة القرص</value></data>
+  <data name="Preflight.StatusBlocked" xml:space="preserve"><value>محظور</value></data>
+  <data name="Preflight.StatusWarning" xml:space="preserve"><value>تحذير</value></data>
+  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>يلبي هذا الجهاز متطلبات نشر Windows 11 الأساسية.</value></data>
+  <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>راجع هذه التحذيرات قبل المتابعة:</value></data>
+  <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>يتطلب نشر Windows 11 UEFI. BIOS/CSM القديم غير مدعوم.</value></data>
+  <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>لا تتطابق بنية Windows المحددة ({0}) مع بنية الجهاز ({1}).</value></data>
+  <data name="Preflight.TpmMissingBlocking" xml:space="preserve"><value>مطلوب TPM 2.0، ولكن لم يتم اكتشاف TPM.</value></data>
+  <data name="Preflight.TpmVersionBlocking" xml:space="preserve"><value>مطلوب TPM 2.0. مواصفات TPM التي تم اكتشافها: {0}.</value></data>
+  <data name="Preflight.TpmDisabledBlocking" xml:space="preserve"><value>TPM 2.0 موجود ولكنه معطل في البرامج الثابتة.</value></data>
+  <data name="Preflight.TpmDeactivatedBlocking" xml:space="preserve"><value>TPM 2.0 موجود ولكن لم يتم تنشيطه.</value></data>
+  <data name="Preflight.SecureBootDisabledWarning" xml:space="preserve"><value>تم تعطيل التمهيد الآمن. يمكنك المتابعة، ولكن Windows 11 مصمم لاستخدام Secure Boot.</value></data>
+  <data name="Preflight.SecureBootUnavailableBlocking" xml:space="preserve"><value>تعذر التحقق من دعم التمهيد الآمن. يتطلب نشر نظام التشغيل Windows 11 وجود برامج ثابتة لـ UEFI مع إمكانية التمهيد الآمن.</value></data>
+  <data name="Preflight.DiskSizeUnknownBlocking" xml:space="preserve"><value>لا يمكن تحديد سعة القرص الهدف.</value></data>
+  <data name="Preflight.DiskBelowRecommendedSizeWarning" xml:space="preserve"><value>سعة القرص المستهدف {0} GiB. يوصي Windows 11 بسعة {1} GiB على الأقل. يمكنك المتابعة إذا كانت الصورة المحددة مناسبة.</value></data>
+  <data name="Preflight.ArchitectureValueFormat" xml:space="preserve"><value>{0} (Windows 11: {1})</value></data>
+  <data name="Preflight.TpmValueFormat" xml:space="preserve"><value>{0} ({1})</value></data>
 </root>

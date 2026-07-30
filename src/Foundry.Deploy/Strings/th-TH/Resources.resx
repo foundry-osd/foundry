@@ -511,4 +511,27 @@
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>จัดเตรียมผู้ช่วยลงทะเบียน Autopilot แบบโต้ตอบแล้ว (การจำลอง)</value>
   </data>
+  <data name="Preflight.SectionTitle" xml:space="preserve"><value>ความพร้อมในการใช้งาน</value></data>
+  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>โหมดเฟิร์มแวร์</value></data>
+  <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>BIOS/CSM รุ่นเก่า</value></data>
+  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>สถาปัตยกรรม</value></data>
+  <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
+  <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>บูตอย่างปลอดภัย</value></data>
+  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>ความจุของดิสก์</value></data>
+  <data name="Preflight.StatusBlocked" xml:space="preserve"><value>ถูกบล็อก</value></data>
+  <data name="Preflight.StatusWarning" xml:space="preserve"><value>คำเตือน</value></data>
+  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>อุปกรณ์นี้ตรงตามข้อกำหนดเบื้องต้นในการปรับใช้ Windows 11</value></data>
+  <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>ตรวจสอบคำเตือนเหล่านี้ก่อนดำเนินการต่อ:</value></data>
+  <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>การปรับใช้ Windows 11 ต้องใช้ UEFI ไม่รองรับ BIOS/CSM รุ่นเก่า</value></data>
+  <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>สถาปัตยกรรม Windows ที่เลือก ({0}) ไม่ตรงกับสถาปัตยกรรมอุปกรณ์ ({1})</value></data>
+  <data name="Preflight.TpmMissingBlocking" xml:space="preserve"><value>จำเป็นต้องมี TPM 2.0 แต่ตรวจไม่พบ TPM</value></data>
+  <data name="Preflight.TpmVersionBlocking" xml:space="preserve"><value>จำเป็นต้องมี TPM 2.0 ข้อมูลจำเพาะ TPM ที่ตรวจพบ: {0}</value></data>
+  <data name="Preflight.TpmDisabledBlocking" xml:space="preserve"><value>มี TPM 2.0 แต่ปิดใช้งานในเฟิร์มแวร์</value></data>
+  <data name="Preflight.TpmDeactivatedBlocking" xml:space="preserve"><value>มี TPM 2.0 แต่ไม่ได้เปิดใช้งาน</value></data>
+  <data name="Preflight.SecureBootDisabledWarning" xml:space="preserve"><value>Secure Boot ถูกปิดใช้งาน คุณสามารถดำเนินการต่อได้ แต่ Windows 11 ได้รับการออกแบบให้ใช้ Secure Boot</value></data>
+  <data name="Preflight.SecureBootUnavailableBlocking" xml:space="preserve"><value>ไม่สามารถตรวจสอบการสนับสนุน Secure Boot ได้ การใช้งาน Windows 11 ต้องใช้เฟิร์มแวร์ UEFI ที่มีความสามารถ Secure Boot</value></data>
+  <data name="Preflight.DiskSizeUnknownBlocking" xml:space="preserve"><value>ไม่สามารถกำหนดความจุของดิสก์เป้าหมายได้</value></data>
+  <data name="Preflight.DiskBelowRecommendedSizeWarning" xml:space="preserve"><value>ดิสก์เป้าหมายคือ {0} GiB Windows 11 แนะนำอย่างน้อย {1} GiB คุณสามารถดำเนินการต่อได้หากรูปภาพที่เลือกพอดี</value></data>
+  <data name="Preflight.ArchitectureValueFormat" xml:space="preserve"><value>{0} (Windows 11: {1})</value></data>
+  <data name="Preflight.TpmValueFormat" xml:space="preserve"><value>{0} ({1})</value></data>
 </root>
