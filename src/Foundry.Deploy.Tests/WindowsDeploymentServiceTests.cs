@@ -12,28 +12,6 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class WindowsDeploymentServiceTests
 {
-    [Theory]
-    [InlineData(26199, "/c /v")]
-    [InlineData(26200, "/c /bootex /v")]
-    public async Task ConfigureBootAsync_UsesExpectedDiagnosticArguments(
-        int build,
-        string expectedArguments)
-    {
-        using var workspace = new TemporaryWorkspace();
-        var processRunner = new RecordingProcessRunner();
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
-
-        await service.ConfigureBootAsync(
-            @"W:\",
-            @"S:\",
-            build,
-            workspace.RootPath,
-            TestContext.Current.CancellationToken);
-
-        string call = Assert.Single(processRunner.Calls);
-        Assert.Contains(expectedArguments, call, StringComparison.Ordinal);
-    }
-
     [Fact]
     public async Task PrepareTargetDiskAsync_CreatesPartitionsInExpectedOrder_Efi_Msr_Recovery_Windows()
     {
@@ -63,11 +41,11 @@ public sealed class WindowsDeploymentServiceTests
     }
 
     [Theory]
-    [InlineData(26199, "/v")]
-    [InlineData(26200, "/bootex")]
+    [InlineData(26199, "/c /v")]
+    [InlineData(26200, "/c /bootex /v")]
     public async Task ConfigureBootAsync_UsesAppliedWindowsBcdBootWithExpectedArguments(
         int operatingSystemBuildMajor,
-        string expectedFinalSwitch)
+        string expectedArguments)
     {
         using var workspace = new TemporaryWorkspace();
         string windowsRoot = Path.Combine(workspace.RootPath, "Target Windows");
@@ -89,7 +67,7 @@ public sealed class WindowsDeploymentServiceTests
 
         Assert.Equal(bcdBootPath, processRunner.LastFileName);
         Assert.Equal(
-            $"\"{windowsPath}\" /s \"{systemRoot}\" /f UEFI /c {expectedFinalSwitch}",
+            $"\"{windowsPath}\" /s \"{systemRoot}\" /f UEFI {expectedArguments}",
             processRunner.LastArguments);
         Assert.Equal(workingDirectory, processRunner.LastWorkingDirectory);
     }
@@ -134,7 +112,7 @@ public sealed class WindowsDeploymentServiceTests
         };
         var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
 
-        InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+        DeploymentProcessException exception = await Assert.ThrowsAsync<DeploymentProcessException>(() =>
             service.ConfigureBootAsync(
                 windowsRoot,
                 @"S:\",
@@ -142,6 +120,7 @@ public sealed class WindowsDeploymentServiceTests
                 Path.Combine(workspace.RootPath, "Work"),
                 TestContext.Current.CancellationToken));
 
+        Assert.IsAssignableFrom<InvalidOperationException>(exception);
         Assert.Equal(bcdBootPath, processRunner.LastFileName);
         Assert.Contains("BCDBoot configuration failed", exception.Message, StringComparison.Ordinal);
         Assert.Contains("ExitCode=193", exception.Message, StringComparison.Ordinal);
