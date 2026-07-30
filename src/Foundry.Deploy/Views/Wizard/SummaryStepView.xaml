@@ -1,4 +1,4 @@
-<UserControl x:Class="Foundry.Deploy.Views.Wizard.SummaryStepView"
+﻿<UserControl x:Class="Foundry.Deploy.Views.Wizard.SummaryStepView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -72,9 +72,9 @@
                         <TextBlock TextWrapping="Wrap">
                             <Run
                                 FontWeight="SemiBold"
-                                Text="{Binding SummaryPreflightStatusText}" />
-                            <Run Text="{Binding SummaryPreflightSeparatorText}" />
-                            <Run Text="{Binding SummaryPreflightDisplayText}" />
+                                Text="{Binding SummaryPreflightStatusText, Mode=OneWay}" />
+                            <Run Text="{Binding SummaryPreflightSeparatorText, Mode=OneWay}" />
+                            <Run Text="{Binding SummaryPreflightDisplayText, Mode=OneWay}" />
                         </TextBlock>
 
                         <Separator Margin="0,8,0,8" />
