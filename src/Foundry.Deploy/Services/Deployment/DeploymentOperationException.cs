@@ -21,21 +21,6 @@ public sealed class DeploymentOperationException : Exception
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DeploymentOperationException"/> class.
-    /// </summary>
-    /// <param name="failure">Telemetry-safe failure details.</param>
-    /// <param name="message">Detailed local diagnostic message.</param>
-    /// <param name="innerException">Underlying exception.</param>
-    public DeploymentOperationException(
-        DeploymentFailure failure,
-        string message,
-        Exception innerException)
-        : base(message, innerException)
-    {
-        Failure = failure;
-    }
-
-    /// <summary>
     /// Gets the telemetry-safe failure details.
     /// </summary>
     public DeploymentFailure Failure { get; }

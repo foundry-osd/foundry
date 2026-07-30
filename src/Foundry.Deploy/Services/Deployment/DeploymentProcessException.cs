@@ -7,7 +7,7 @@ namespace Foundry.Deploy.Services.Deployment;
 /// <summary>
 /// Represents a required deployment process that returned a non-zero exit code.
 /// </summary>
-public sealed class DeploymentProcessException : Exception
+public sealed class DeploymentProcessException : InvalidOperationException
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DeploymentProcessException"/> class.

@@ -16,7 +16,6 @@ public static class DeploymentOperationNames
     public const string WriteSummary = "deployment.write_summary";
     public const string CleanupWorkspace = "deployment.cleanup_workspace";
     public const string ValidateTarget = "target.validate";
-    public const string EnumerateTargetDisk = "target_disk.enumerate";
     public const string ValidateTargetDisk = "target_disk.validate";
     public const string DetectHardware = "hardware.detect";
     public const string ResolveCache = "cache.resolve";
@@ -25,7 +24,6 @@ public static class DeploymentOperationNames
     public const string PartitionTargetDisk = "target_disk.partition";
     public const string PrepareTargetWorkspace = "target_workspace.prepare";
     public const string DownloadOperatingSystemImage = "os_image.download";
-    public const string ResolveOperatingSystemImageIndex = "os_image.resolve_index";
     public const string InspectOperatingSystemImage = "os_image.inspect";
     public const string DownloadDriverPack = "driver_pack.download";
     public const string ResolveDriverPack = "driver_pack.resolve";
@@ -39,7 +37,6 @@ public static class DeploymentOperationNames
     public const string WriteOobeRegistry = "oobe.write_registry";
     public const string WriteAiPolicyRegistry = "ai_policy.write_registry";
     public const string ConfigureRecovery = "recovery.configure";
-    public const string CopyRecoveryImage = "recovery.copy_image";
     public const string StagePreOobe = "pre_oobe.stage";
     public const string ApplyDriverPack = "driver_pack.apply";
     public const string ApplyRecoveryDrivers = "driver_pack.apply_recovery";
