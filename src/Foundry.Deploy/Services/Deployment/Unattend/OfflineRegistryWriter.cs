@@ -78,7 +78,9 @@ internal sealed class OfflineRegistryWriter
 
         if (!result.IsSuccess)
         {
-            throw new InvalidOperationException($"{fileName} failed with exit code {result.ExitCode}.{Environment.NewLine}{result.StandardError}");
+            throw new DeploymentProcessException(
+                $"{fileName} failed with exit code {result.ExitCode}.{Environment.NewLine}{result.StandardError}",
+                result.ExitCode);
         }
     }
 

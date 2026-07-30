@@ -38,15 +38,15 @@ public sealed class FinalizeDeploymentAndWriteLogsStep : DeploymentStepBase
         string resultMessage,
         CancellationToken cancellationToken)
     {
-        context.EmitCurrentStepIndeterminate("Finalizing deployment...", "Writing completion logs...");
+        context.EmitCurrentStepIndeterminate("Finalizing deployment...", "Writing completion logs...", DeploymentOperationNames.WriteLogs);
         await context.AppendLogAsync(DeploymentLogLevel.Info, stepLogMessage, cancellationToken).ConfigureAwait(false);
         await context.AppendLogAsync(DeploymentLogLevel.Info, "[SUCCESS] Deployment orchestration completed.", cancellationToken).ConfigureAwait(false);
 
-        context.EmitCurrentStepIndeterminate("Finalizing deployment...", "Writing deployment summary...");
+        context.EmitCurrentStepIndeterminate("Finalizing deployment...", "Writing deployment summary...", DeploymentOperationNames.WriteSummary);
         string summaryPath = await PersistFinalArtifactsAsync(context, cancellationToken).ConfigureAwait(false);
         context.RuntimeState.DeploymentSummaryPath = summaryPath;
 
-        context.EmitCurrentStepIndeterminate("Finalizing deployment...", "Cleaning temporary workspace...");
+        context.EmitCurrentStepIndeterminate("Finalizing deployment...", "Cleaning temporary workspace...", DeploymentOperationNames.CleanupWorkspace);
         CleanupTargetFoundryRoot(context.RuntimeState, context.LogSession);
         return DeploymentStepResult.Succeeded(resultMessage);
     }

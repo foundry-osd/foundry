@@ -23,7 +23,10 @@ public sealed class ValidateTargetConfigurationStep : DeploymentStepBase
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
-        context.EmitCurrentStepIndeterminate("Validating target configuration...", "Revalidating target disk...");
+        context.EmitCurrentStepIndeterminate(
+            "Validating target configuration...",
+            "Revalidating target disk...",
+            DeploymentOperationNames.ValidateTargetDisk);
         (_, DeploymentStepResult? validationFailure) = await context.TryGetValidatedTargetDiskAsync(cancellationToken).ConfigureAwait(false);
         if (validationFailure is not null)
         {
@@ -40,7 +43,10 @@ public sealed class ValidateTargetConfigurationStep : DeploymentStepBase
             return DeploymentStepResult.Failed("Target disk number is required.");
         }
 
-        context.EmitCurrentStepIndeterminate("Validating target configuration...", "Detecting hardware profile...");
+        context.EmitCurrentStepIndeterminate(
+            "Validating target configuration...",
+            "Detecting hardware profile...",
+            DeploymentOperationNames.DetectHardware);
         HardwareProfile hardware = await _hardwareProfileService.GetCurrentAsync(cancellationToken).ConfigureAwait(false);
         context.RuntimeState.HardwareProfile = hardware;
         await context.AppendLogAsync(DeploymentLogLevel.Info, $"Detected hardware: {hardware.DisplayLabel}", cancellationToken).ConfigureAwait(false);
@@ -50,7 +56,10 @@ public sealed class ValidateTargetConfigurationStep : DeploymentStepBase
 
     protected override async Task<DeploymentStepResult> ExecuteDryRunAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
-        context.EmitCurrentStepIndeterminate("Validating target configuration...", "Detecting hardware profile...");
+        context.EmitCurrentStepIndeterminate(
+            "Validating target configuration...",
+            "Detecting hardware profile...",
+            DeploymentOperationNames.DetectHardware);
         HardwareProfile hardware = await _hardwareProfileService.GetCurrentAsync(cancellationToken).ConfigureAwait(false);
         context.RuntimeState.HardwareProfile = hardware;
         await context.AppendLogAsync(DeploymentLogLevel.Info, $"[DRY-RUN] Hardware detected: {hardware.DisplayLabel}", cancellationToken).ConfigureAwait(false);

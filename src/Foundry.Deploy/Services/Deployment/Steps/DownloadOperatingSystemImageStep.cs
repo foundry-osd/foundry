@@ -35,8 +35,13 @@ public sealed class DownloadOperatingSystemImageStep : DeploymentStepBase
             context.Request.OperatingSystem.Sha256,
             context.Request.OperatingSystem.Sha1);
 
-        context.EmitCurrentStepIndeterminate(stepMessage, "Checking cache...");
-        IProgress<DownloadProgress> osDownloadProgress = context.CreateDownloadProgressReporter("OS image");
+        context.EmitCurrentStepIndeterminate(
+            stepMessage,
+            "Checking cache...",
+            DeploymentOperationNames.DownloadOperatingSystemImage);
+        IProgress<DownloadProgress> osDownloadProgress = context.CreateDownloadProgressReporter(
+            "OS image",
+            DeploymentOperationNames.DownloadOperatingSystemImage);
         ArtifactDownloadResult result = await _artifactDownloadService
             .DownloadAsync(
                 context.Request.OperatingSystem.Url,

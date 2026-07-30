@@ -54,7 +54,7 @@ public sealed class DownloadFirmwareUpdateStep : DeploymentStepBase
         string extractedDirectory = Path.Combine(targetFoundryRoot, "Extracted", "Firmware");
         string cacheDirectory = context.ResolveMicrosoftUpdateCatalogFirmwareCacheRoot();
 
-        context.EmitCurrentStepIndeterminate("Downloading firmware update...", "Preparing Microsoft Update Catalog lookup...");
+        context.EmitCurrentStepIndeterminate("Downloading firmware update...", "Preparing Microsoft Update Catalog lookup...", DeploymentOperationNames.ResolveFirmware);
         IProgress<double> progress = context.CreateStepPercentProgressReporter("Downloading firmware update...", "Downloading");
 
         MicrosoftUpdateCatalogFirmwareResult result = await _firmwareService

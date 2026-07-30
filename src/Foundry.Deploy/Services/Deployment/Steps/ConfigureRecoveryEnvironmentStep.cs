@@ -33,7 +33,7 @@ public sealed class ConfigureRecoveryEnvironmentStep : DeploymentStepBase
         string workingDirectory = Path.Combine(targetFoundryRoot, "Temp", "Deployment");
         Directory.CreateDirectory(workingDirectory);
 
-        context.EmitCurrentStepIndeterminate("Configuring recovery environment...", "Preparing Windows Recovery Environment...");
+        context.EmitCurrentStepIndeterminate("Configuring recovery environment...", "Preparing Windows Recovery Environment...", DeploymentOperationNames.ConfigureRecovery);
         await _windowsDeploymentService
             .ConfigureRecoveryEnvironmentAsync(
                 context.RuntimeState.TargetWindowsPartitionRoot,
@@ -58,7 +58,7 @@ public sealed class ConfigureRecoveryEnvironmentStep : DeploymentStepBase
             return DeploymentStepResult.Failed("Recovery partition is unavailable.");
         }
 
-        context.EmitCurrentStepIndeterminate("Configuring recovery environment...", "Preparing Windows Recovery Environment...");
+        context.EmitCurrentStepIndeterminate("Configuring recovery environment...", "Preparing Windows Recovery Environment...", DeploymentOperationNames.ConfigureRecovery);
         context.RuntimeState.WinReConfigured = true;
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,

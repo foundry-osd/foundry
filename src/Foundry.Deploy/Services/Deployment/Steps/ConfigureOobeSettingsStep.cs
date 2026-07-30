@@ -50,7 +50,7 @@ public sealed class ConfigureOobeSettingsStep : DeploymentStepBase
 
         if (shouldConfigureOobe)
         {
-            context.EmitCurrentStepIndeterminate("Configuring OOBE settings...", "Writing first-run privacy defaults...");
+            context.EmitCurrentStepIndeterminate("Configuring OOBE settings...", "Writing first-run privacy defaults...", DeploymentOperationNames.WriteOobeRegistry);
             await _windowsDeploymentService
                 .ConfigureOfflineOobeAsync(
                     context.RuntimeState.TargetWindowsPartitionRoot,
@@ -63,7 +63,7 @@ public sealed class ConfigureOobeSettingsStep : DeploymentStepBase
 
         if (shouldConfigureAiPolicies)
         {
-            context.EmitCurrentStepIndeterminate("Configuring AI component removal...", "Writing offline AI policies...");
+            context.EmitCurrentStepIndeterminate("Configuring AI component removal...", "Writing offline AI policies...", DeploymentOperationNames.WriteAiPolicyRegistry);
             await _windowsDeploymentService
                 .ConfigureOfflineAiComponentRemovalAsync(
                     context.RuntimeState.TargetWindowsPartitionRoot,
@@ -96,7 +96,7 @@ public sealed class ConfigureOobeSettingsStep : DeploymentStepBase
             return DeploymentStepResult.Failed("Target Windows partition is unavailable.");
         }
 
-        context.EmitCurrentStepIndeterminate("Configuring offline customizations...", "Writing first-run defaults...");
+        context.EmitCurrentStepIndeterminate("Configuring offline customizations...", "Writing first-run defaults...", DeploymentOperationNames.WriteOobeUnattend);
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
             "[DRY-RUN] Simulated offline customization.",

@@ -92,6 +92,10 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 success: false,
                 cancelled: false,
                 failedStepName: "operation_busy",
+                failure: new DeploymentFailure(
+                    DeploymentOperationNames.AcquireGate,
+                    DeploymentFailureKinds.Busy,
+                    DeploymentFailureReasons.OperationBusy),
                 stopwatch.Elapsed,
                 CancellationToken.None).ConfigureAwait(false);
 
@@ -180,7 +184,11 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 if (result.State == DeploymentStepState.Failed)
                 {
                     _logger.LogWarning("Deployment step failed. StepName={StepName}, Message={Message}", step.Name, result.Message);
-                    throw new InvalidOperationException(result.Message);
+                    DeploymentFailure failure = result.Failure ?? new DeploymentFailure(
+                        DeploymentOperationNames.ForStep(step.Name),
+                        DeploymentFailureKinds.Validation,
+                        DeploymentFailureReasons.InvalidState);
+                    throw new DeploymentOperationException(failure, result.Message);
                 }
 
                 if (result.State == DeploymentStepState.Succeeded)
@@ -199,6 +207,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 success: true,
                 cancelled: false,
                 failedStepName: null,
+                failure: null,
                 stopwatch.Elapsed,
                 CancellationToken.None).ConfigureAwait(false);
 
@@ -226,6 +235,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 success: false,
                 cancelled: true,
                 failedStepName: ResolveFailedStepName(runtimeState),
+                failure: null,
                 stopwatch.Elapsed,
                 CancellationToken.None).ConfigureAwait(false);
 
@@ -238,6 +248,9 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         }
         catch (Exception ex)
         {
+            DeploymentFailure failure = DeploymentFailureClassifier.Classify(
+                ex,
+                runtimeState.CurrentOperation);
             _operationProgressService.Fail("Deployment failed.");
             _logger.LogError(ex, "Deployment orchestration failed.");
             if (executionContext is not null)
@@ -253,6 +266,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 success: false,
                 cancelled: false,
                 failedStepName: ResolveFailedStepName(runtimeState),
+                failure,
                 stopwatch.Elapsed,
                 CancellationToken.None).ConfigureAwait(false);
 
@@ -271,6 +285,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         bool success,
         bool cancelled,
         string? failedStepName,
+        DeploymentFailure? failure,
         TimeSpan duration,
         CancellationToken cancellationToken)
     {
@@ -304,6 +319,14 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             ["deploy_autopilot_hash_upload_state"] = NormalizeTelemetryString(runtimeState?.AutopilotHardwareHashUploadState.ToString()),
             ["deploy_autopilot_hash_group_tag_selected"] = !string.IsNullOrWhiteSpace(runtimeState?.AutopilotHardwareHashGroupTag)
         };
+
+        if (failure is not null)
+        {
+            properties["deploy_session_failed_operation_name"] = failure.OperationName;
+            properties["deploy_session_failure_kind"] = failure.Kind;
+            properties["deploy_session_failure_reason"] = failure.Reason;
+            properties["deploy_session_failure_code"] = failure.Code;
+        }
 
         _logger.LogDebug(
             "Tracking deployment telemetry event. Success={Success}, Cancelled={Cancelled}, DurationSeconds={DurationSeconds}, CompletedStepCount={CompletedStepCount}, FailedStepName={FailedStepName}, Mode={Mode}, IsDryRun={IsDryRun}, HardwareVendor={HardwareVendor}, HardwareModel={HardwareModel}, OsProduct={OsProduct}, OsVersion={OsVersion}, DriverPackSelectionKind={DriverPackSelectionKind}, DriverPackVendor={DriverPackVendor}, DriverPackModel={DriverPackModel}.",

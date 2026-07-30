@@ -150,7 +150,7 @@ public sealed class ProcessRunner : IProcessRunner
 
         if (!process.Start())
         {
-            throw new InvalidOperationException($"Unable to start process '{fileName}'.");
+            throw new ProcessStartException($"Unable to start process '{fileName}'.");
         }
 
         process.BeginOutputReadLine();

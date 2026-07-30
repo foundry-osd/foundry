@@ -128,6 +128,17 @@ public sealed class DeploymentStepExecutionContext
         StepIndex = stepIndex;
         StepCount = PlannedSteps.Count;
         RuntimeState.CurrentStep = step.Name;
+        RuntimeState.CurrentOperation = DeploymentOperationNames.ForStep(step.Name);
+    }
+
+    /// <summary>
+    /// Updates the active logical operation used for failure telemetry.
+    /// </summary>
+    /// <param name="operationName">Stable logical operation name.</param>
+    public void SetCurrentOperation(string operationName)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(operationName);
+        RuntimeState.CurrentOperation = operationName;
     }
 
     /// <summary>
@@ -165,8 +176,13 @@ public sealed class DeploymentStepExecutionContext
     /// </summary>
     /// <param name="stepMessage">Primary progress message.</param>
     /// <param name="stepSubProgressLabel">Nested indeterminate progress label.</param>
-    public void EmitCurrentStepIndeterminate(string stepMessage, string stepSubProgressLabel)
+    /// <param name="operationName">Stable logical operation name.</param>
+    public void EmitCurrentStepIndeterminate(
+        string stepMessage,
+        string stepSubProgressLabel,
+        string operationName)
     {
+        SetCurrentOperation(operationName);
         EmitCurrentStep(
             DeploymentStepState.Running,
             stepMessage,
@@ -360,9 +376,13 @@ public sealed class DeploymentStepExecutionContext
     /// Creates a progress adapter that maps artifact download progress to shell and step progress.
     /// </summary>
     /// <param name="artifactLabel">User-facing artifact label.</param>
+    /// <param name="operationName">Stable logical operation name.</param>
     /// <returns>A download progress reporter.</returns>
-    public IProgress<DownloadProgress> CreateDownloadProgressReporter(string artifactLabel)
+    public IProgress<DownloadProgress> CreateDownloadProgressReporter(
+        string artifactLabel,
+        string operationName)
     {
+        SetCurrentOperation(operationName);
         double? lastReportedPercent = null;
         long nextUnknownTotalReportThreshold = 0;
 

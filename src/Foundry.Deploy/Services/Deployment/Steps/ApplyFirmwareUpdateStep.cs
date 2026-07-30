@@ -44,7 +44,7 @@ public sealed class ApplyFirmwareUpdateStep : DeploymentStepBase
         string scratchDirectory = Path.Combine(targetFoundryRoot, "Temp", "Dism");
         const string stepMessage = "Applying firmware update...";
 
-        context.EmitCurrentStepIndeterminate(stepMessage, "Injecting firmware payload into offline Windows...");
+        context.EmitCurrentStepIndeterminate(stepMessage, "Injecting firmware payload into offline Windows...", DeploymentOperationNames.ApplyFirmware);
         IProgress<double> progress = context.CreateStepPercentProgressReporter(stepMessage, "Applying");
 
         await _windowsDeploymentService

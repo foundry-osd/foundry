@@ -185,6 +185,10 @@ public sealed class TelemetryEventPropertyPolicyTests
             ["deploy_session_duration_seconds"] = 30,
             ["deploy_session_completed_step_count"] = 4,
             ["deploy_session_failed_step_name"] = "ApplyOperatingSystemImage",
+            ["deploy_session_failed_operation_name"] = "boot.configure",
+            ["deploy_session_failure_kind"] = "process",
+            ["deploy_session_failure_code"] = "-193",
+            ["deploy_session_failure_reason"] = "non_zero_exit",
             ["deploy_session_mode"] = "iso",
             ["deploy_session_dry_run_enabled"] = false,
             ["deploy_hardware_vendor"] = "dell",
@@ -221,6 +225,10 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.False(result.ContainsKey("deploy_runtime_payload_source"));
         Assert.Equal(false, result["deploy_session_success"]);
         Assert.Equal("ApplyOperatingSystemImage", result["deploy_session_failed_step_name"]);
+        Assert.Equal("boot.configure", result["deploy_session_failed_operation_name"]);
+        Assert.Equal("process", result["deploy_session_failure_kind"]);
+        Assert.Equal("-193", result["deploy_session_failure_code"]);
+        Assert.Equal("non_zero_exit", result["deploy_session_failure_reason"]);
         Assert.Equal("iso", result["deploy_session_mode"]);
         Assert.Equal("windows_11", result["deploy_os_product"]);
         Assert.Equal("2026-07", result["deploy_os_update_month"]);

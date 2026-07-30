@@ -83,7 +83,7 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
             return DeploymentStepResult.Failed("Failed to resolve the target Autopilot directory.");
         }
 
-        context.EmitCurrentStepIndeterminate("Staging Autopilot profile...", "Copying AutopilotConfigurationFile.json...");
+        context.EmitCurrentStepIndeterminate("Staging Autopilot profile...", "Copying AutopilotConfigurationFile.json...", DeploymentOperationNames.StageAutopilotProfile);
         Directory.CreateDirectory(targetDirectoryPath);
         File.Copy(sourceConfigurationPath, targetConfigurationPath, overwrite: true);
 
@@ -140,7 +140,7 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
             WriteIndented = true
         });
 
-        context.EmitCurrentStepIndeterminate("Staging Autopilot profile...", "Writing dry-run Autopilot manifest...");
+        context.EmitCurrentStepIndeterminate("Staging Autopilot profile...", "Writing dry-run Autopilot manifest...", DeploymentOperationNames.WriteAutopilotManifest);
         await File.WriteAllTextAsync(manifestPath, manifest, cancellationToken).ConfigureAwait(false);
         context.RuntimeState.StagedAutopilotConfigurationPath = manifestPath;
         context.RuntimeState.AutopilotHardwareHashUploadState = AutopilotHardwareHashUploadState.NotPlanned;
@@ -162,7 +162,7 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
             return DeploymentStepResult.Failed("Target Windows partition is unavailable for interactive Autopilot registration assistant staging.");
         }
 
-        context.EmitCurrentStepIndeterminate("Staging Autopilot registration assistant...", "Copying interactive registration files...");
+        context.EmitCurrentStepIndeterminate("Staging Autopilot registration assistant...", "Copying interactive registration files...", DeploymentOperationNames.StageAutopilotAssistant);
         AutopilotInteractiveRegistrationProvisioningResult provisioningResult =
             _interactiveRegistrationProvisioningService.Provision(context.RuntimeState.TargetWindowsPartitionRoot);
 
@@ -219,7 +219,7 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
         }
 
         string diagnosticsPath = ResolveHardwareHashDiagnosticsPath(context);
-        context.EmitCurrentStepIndeterminate("Capturing Autopilot hardware hash...", "Running OA3Tool...");
+        context.EmitCurrentStepIndeterminate("Capturing Autopilot hardware hash...", "Running OA3Tool...", DeploymentOperationNames.CaptureAutopilotHash);
         AutopilotHardwareHashCaptureResult captureResult = await _hardwareHashCaptureService
             .CaptureAsync(
                 new AutopilotHardwareHashCaptureRequest
@@ -237,7 +237,9 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
         {
             string failureMessage = $"Autopilot hardware hash capture failed: {captureResult.Message}";
             DeploymentStepResult stepResult = IsBlockingHardwareHashCaptureFailure(captureResult.FailureCode)
-                ? DeploymentStepResult.Failed(failureMessage)
+                ? DeploymentStepResult.Failed(
+                    failureMessage,
+                    CreateHardwareHashCaptureFailure(captureResult.FailureCode))
                 : DeploymentStepResult.Skipped(failureMessage);
             await WriteHardwareHashStatusAsync(
                 context,
@@ -248,7 +250,7 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
             return stepResult;
         }
 
-        context.EmitCurrentStepIndeterminate("Uploading Autopilot hardware hash...", "Preparing Microsoft Graph import...");
+        context.EmitCurrentStepIndeterminate("Uploading Autopilot hardware hash...", "Preparing Microsoft Graph import...", DeploymentOperationNames.UploadAutopilotHash);
         AutopilotHardwareHashUploadResult uploadResult = await _hardwareHashUploadService.UploadAsync(
             new AutopilotHardwareHashUploadRequest
             {
@@ -311,7 +313,7 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
             WriteIndented = true
         });
 
-        context.EmitCurrentStepIndeterminate("Preparing Autopilot hardware hash upload...", "Writing dry-run Autopilot hash manifest...");
+        context.EmitCurrentStepIndeterminate("Preparing Autopilot hardware hash upload...", "Writing dry-run Autopilot hash manifest...", DeploymentOperationNames.WriteAutopilotManifest);
         await File.WriteAllTextAsync(hashUploadManifestPath, hashUploadManifest, cancellationToken).ConfigureAwait(false);
         context.RuntimeState.StagedAutopilotConfigurationPath = hashUploadManifestPath;
         await WriteHardwareHashStatusAsync(
@@ -351,7 +353,7 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
             WriteIndented = true
         });
 
-        context.EmitCurrentStepIndeterminate("Staging Autopilot registration assistant...", "Writing dry-run interactive registration manifest...");
+        context.EmitCurrentStepIndeterminate("Staging Autopilot registration assistant...", "Writing dry-run interactive registration manifest...", DeploymentOperationNames.WriteAutopilotManifest);
         await File.WriteAllTextAsync(manifestPath, manifest, cancellationToken).ConfigureAwait(false);
         context.RuntimeState.StagedAutopilotConfigurationPath = manifestPath;
         context.RuntimeState.AutopilotHardwareHashUploadState = AutopilotHardwareHashUploadState.NotPlanned;
@@ -455,6 +457,29 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
         return failureCode is AutopilotHardwareHashCaptureFailureCode.SupportLibraryMissing
             or AutopilotHardwareHashCaptureFailureCode.SupportLibraryCopyFailed
             or AutopilotHardwareHashCaptureFailureCode.SupportLibraryLoadFailed;
+    }
+
+    private static DeploymentFailure CreateHardwareHashCaptureFailure(
+        AutopilotHardwareHashCaptureFailureCode failureCode)
+    {
+        return failureCode switch
+        {
+            AutopilotHardwareHashCaptureFailureCode.SupportLibraryMissing => new(
+                DeploymentOperationNames.CaptureAutopilotHash,
+                DeploymentFailureKinds.Validation,
+                DeploymentFailureReasons.MissingResource,
+                "support_library_missing"),
+            AutopilotHardwareHashCaptureFailureCode.SupportLibraryCopyFailed => new(
+                DeploymentOperationNames.CaptureAutopilotHash,
+                DeploymentFailureKinds.Io,
+                DeploymentFailureReasons.UnexpectedException,
+                "support_library_copy_failed"),
+            _ => new(
+                DeploymentOperationNames.CaptureAutopilotHash,
+                DeploymentFailureKinds.Process,
+                DeploymentFailureReasons.StartFailed,
+                "support_library_load_failed")
+        };
     }
 
     private static string FormatGroupTagForLog(string? groupTag)

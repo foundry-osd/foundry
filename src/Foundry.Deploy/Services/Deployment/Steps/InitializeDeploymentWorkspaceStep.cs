@@ -14,7 +14,7 @@ public sealed class InitializeDeploymentWorkspaceStep : DeploymentStepBase
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
-        context.EmitCurrentStepIndeterminate("Initializing deployment workspace...", "Creating workspace folders...");
+        context.EmitCurrentStepIndeterminate("Initializing deployment workspace...", "Creating workspace folders...", DeploymentOperationNames.InitializeWorkspace);
         context.EnsureWorkspaceFolders();
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
@@ -26,7 +26,7 @@ public sealed class InitializeDeploymentWorkspaceStep : DeploymentStepBase
 
     protected override async Task<DeploymentStepResult> ExecuteDryRunAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
-        context.EmitCurrentStepIndeterminate("Initializing deployment workspace...", "Creating workspace folders...");
+        context.EmitCurrentStepIndeterminate("Initializing deployment workspace...", "Creating workspace folders...", DeploymentOperationNames.InitializeWorkspace);
         context.EnsureWorkspaceFolders();
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
