@@ -512,15 +512,11 @@ Vai turpināt izvietošanu?</value></data>
     <value>Interaktīvais Autopilot reģistrācijas palīgs ir sagatavots (simulācija).</value>
   </data>
   <data name="Preflight.SectionTitle" xml:space="preserve"><value>Izvēršanas gatavība</value></data>
-  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>Programmaparatūras režīms</value></data>
   <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>Mantotais BIOS/CSM</value></data>
-  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>Arhitektūra</value></data>
   <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
   <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>Droša sāknēšana</value></data>
-  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>Diska ietilpība</value></data>
   <data name="Preflight.StatusBlocked" xml:space="preserve"><value>Bloķēts</value></data>
   <data name="Preflight.StatusWarning" xml:space="preserve"><value>Brīdinājums</value></data>
-  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>Šī ierīce atbilst Windows 11 izvietošanas priekšnosacījumiem.</value></data>
   <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>Pirms turpināt, pārskatiet šos brīdinājumus:</value></data>
   <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>Windows 11 izvietošanai nepieciešams UEFI. Mantotais BIOS/CSM netiek atbalstīts.</value></data>
   <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>Atlasītā Windows arhitektūra ({0}) neatbilst ierīces arhitektūrai ({1}).</value></data>

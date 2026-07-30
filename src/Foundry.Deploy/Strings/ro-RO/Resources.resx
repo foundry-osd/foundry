@@ -512,15 +512,11 @@ Continuați cu implementarea?</value></data>
     <value>Asistentul de înregistrare interactivă Autopilot a fost pregătit (simulare).</value>
   </data>
   <data name="Preflight.SectionTitle" xml:space="preserve"><value>Pregătirea pentru implementare</value></data>
-  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>Modul firmware</value></data>
   <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>BIOS/CSM vechi</value></data>
-  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>Arhitectura</value></data>
   <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
   <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>Pornire sigură</value></data>
-  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>Capacitatea discului</value></data>
   <data name="Preflight.StatusBlocked" xml:space="preserve"><value>Blocat</value></data>
   <data name="Preflight.StatusWarning" xml:space="preserve"><value>Avertisment</value></data>
-  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>Acest dispozitiv îndeplinește cerințele prealabile de implementare Windows 11.</value></data>
   <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>Consultați aceste avertismente înainte de a continua:</value></data>
   <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>Implementarea Windows 11 necesită UEFI. BIOS/CSM vechi nu este acceptat.</value></data>
   <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>Arhitectura Windows selectată ({0}) nu se potrivește cu arhitectura dispozitivului ({1}).</value></data>

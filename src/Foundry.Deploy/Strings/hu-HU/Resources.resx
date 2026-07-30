@@ -512,15 +512,11 @@ Folytatja a telepítést?</value></data>
     <value>Az interaktív Autopilot regisztrációs segéd előkészítve (szimuláció).</value>
   </data>
   <data name="Preflight.SectionTitle" xml:space="preserve"><value>Bevetési készenlét</value></data>
-  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>Firmware mód</value></data>
   <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>Örökös BIOS/CSM</value></data>
-  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>Építészet</value></data>
   <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
   <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>Biztonságos rendszerindítás</value></data>
-  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>Lemezkapacitás</value></data>
   <data name="Preflight.StatusBlocked" xml:space="preserve"><value>Letiltva</value></data>
   <data name="Preflight.StatusWarning" xml:space="preserve"><value>Figyelmeztetés</value></data>
-  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>Ez az eszköz megfelel a Windows 11 központi telepítési előfeltételeinek.</value></data>
   <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>A folytatás előtt tekintse át ezeket a figyelmeztetéseket:</value></data>
   <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>A Windows 11 telepítéséhez UEFI szükséges. A régi BIOS/CSM nem támogatott.</value></data>
   <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>A kiválasztott Windows architektúra ({0}) nem egyezik az eszköz architektúrával ({1}).</value></data>

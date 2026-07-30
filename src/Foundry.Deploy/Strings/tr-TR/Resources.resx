@@ -512,15 +512,11 @@ Dağıtıma devam edilsin mi?</value></data>
     <value>Etkileşimli Autopilot kayıt yardımcısı hazırlandı (simülasyon).</value>
   </data>
   <data name="Preflight.SectionTitle" xml:space="preserve"><value>Dağıtıma hazırlık</value></data>
-  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>Donanım yazılımı modu</value></data>
   <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>Eski BIOS/CSM</value></data>
-  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>Mimarlık</value></data>
   <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
   <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>Güvenli Önyükleme</value></data>
-  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>Disk kapasitesi</value></data>
   <data name="Preflight.StatusBlocked" xml:space="preserve"><value>Engellendi</value></data>
   <data name="Preflight.StatusWarning" xml:space="preserve"><value>Uyarı</value></data>
-  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>Bu cihaz Windows 11 dağıtım ön koşullarını karşılamaktadır.</value></data>
   <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>Devam etmeden önce bu uyarıları inceleyin:</value></data>
   <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>Windows 11 dağıtımı UEFI gerektirir. Eski BIOS/CSM desteklenmez.</value></data>
   <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>Seçilen Windows mimarisi ({0}), cihaz mimarisiyle ({1}) eşleşmiyor.</value></data>

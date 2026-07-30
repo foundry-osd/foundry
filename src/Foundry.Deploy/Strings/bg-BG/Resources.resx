@@ -512,15 +512,11 @@
     <value>Интерактивният помощник за регистрация на Autopilot е подготвен (симулация).</value>
   </data>
   <data name="Preflight.SectionTitle" xml:space="preserve"><value>Готовност за разгръщане</value></data>
-  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>Режим на фърмуера</value></data>
   <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>Наследен BIOS/CSM</value></data>
-  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>Архитектура</value></data>
   <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
   <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>Сигурно зареждане</value></data>
-  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>Капацитет на диска</value></data>
   <data name="Preflight.StatusBlocked" xml:space="preserve"><value>Блокиран</value></data>
   <data name="Preflight.StatusWarning" xml:space="preserve"><value>Предупреждение</value></data>
-  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>Това устройство отговаря на предпоставките за внедряване на Windows 11.</value></data>
   <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>Прегледайте тези предупреждения, преди да продължите:</value></data>
   <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>Внедряването на Windows 11 изисква UEFI. Наследеният BIOS/CSM не се поддържа.</value></data>
   <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>Избраната архитектура на Windows ({0}) не съответства на архитектурата на устройството ({1}).</value></data>

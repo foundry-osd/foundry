@@ -512,15 +512,11 @@ Pokračovat v nasazování?</value></data>
     <value>Interaktivní asistent registrace Autopilotu byl připraven (simulace).</value>
   </data>
   <data name="Preflight.SectionTitle" xml:space="preserve"><value>Připravenost k nasazení</value></data>
-  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>Režim firmwaru</value></data>
   <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>Starší BIOS/CSM</value></data>
-  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>Architektura</value></data>
   <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
   <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>Secure Boot</value></data>
-  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>Kapacita disku</value></data>
   <data name="Preflight.StatusBlocked" xml:space="preserve"><value>Zablokováno</value></data>
   <data name="Preflight.StatusWarning" xml:space="preserve"><value>Upozornění</value></data>
-  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>Toto zařízení splňuje předpoklady nasazení Windows 11.</value></data>
   <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>Než budete pokračovat, přečtěte si tato varování:</value></data>
   <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>Nasazení Windows 11 vyžaduje UEFI. Starší systém BIOS/CSM není podporován.</value></data>
   <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>Vybraná architektura systému Windows ({0}) neodpovídá architektuře zařízení ({1}).</value></data>

@@ -512,15 +512,11 @@ Tęsti diegimą?</value></data>
     <value>Interaktyvus Autopilot registracijos pagalbininkas paruoštas (modeliavimas).</value>
   </data>
   <data name="Preflight.SectionTitle" xml:space="preserve"><value>Parengtis dislokuoti</value></data>
-  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>Firmware režimas</value></data>
   <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>Pasenęs BIOS / CSM (Legacy BIOS/CSM)</value></data>
-  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>Architektūra</value></data>
   <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
   <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>Saugus įkrovimas</value></data>
-  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>Disko talpa</value></data>
   <data name="Preflight.StatusBlocked" xml:space="preserve"><value>Užblokuotas</value></data>
   <data name="Preflight.StatusWarning" xml:space="preserve"><value>Įspėjimas</value></data>
-  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>Šis įrenginys atitinka būtinas „Windows 11“ diegimo sąlygas.</value></data>
   <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>Prieš tęsdami peržiūrėkite šiuos įspėjimus:</value></data>
   <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>Windows 11 diegimui būtinas UEFI. Senasis BIOS/CSM nepalaikomas.</value></data>
   <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>Pasirinkta „Windows“ architektūra ({0}) neatitinka įrenginio architektūros ({1}).</value></data>

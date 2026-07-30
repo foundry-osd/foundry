@@ -512,15 +512,11 @@ Vil du fortsette med distribusjonen?</value></data>
     <value>Den interaktive Autopilot-registreringsassistenten er klargjort (simulering).</value>
   </data>
   <data name="Preflight.SectionTitle" xml:space="preserve"><value>Utplasseringsberedskap</value></data>
-  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>Fastvaremodus</value></data>
   <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>Eldre BIOS/CSM</value></data>
-  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>Arkitektur</value></data>
   <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
   <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>Sikker oppstart</value></data>
-  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>Diskkapasitet</value></data>
   <data name="Preflight.StatusBlocked" xml:space="preserve"><value>Blokkert</value></data>
   <data name="Preflight.StatusWarning" xml:space="preserve"><value>Advarsel</value></data>
-  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>Denne enheten oppfyller Windows 11-distribusjonskravene.</value></data>
   <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>Les disse advarslene før du fortsetter:</value></data>
   <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>Windows 11-distribusjon krever UEFI. Eldre BIOS/CSM støttes ikke.</value></data>
   <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>Den valgte Windows-arkitekturen ({0}) samsvarer ikke med enhetsarkitekturen ({1}).</value></data>

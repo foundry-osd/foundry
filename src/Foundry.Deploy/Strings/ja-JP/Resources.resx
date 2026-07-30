@@ -512,15 +512,11 @@
     <value>対話型 Autopilot 登録アシスタントをステージングしました (シミュレーション)。</value>
   </data>
   <data name="Preflight.SectionTitle" xml:space="preserve"><value>導入の準備</value></data>
-  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>ファームウェア モード</value></data>
   <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>レガシー BIOS/CSM</value></data>
-  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>アーキテクチャ</value></data>
   <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
   <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>セキュア ブート</value></data>
-  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>ディスク容量</value></data>
   <data name="Preflight.StatusBlocked" xml:space="preserve"><value>ブロックされました</value></data>
   <data name="Preflight.StatusWarning" xml:space="preserve"><value>警告</value></data>
-  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>このデバイスは、Windows 11 展開の前提条件を満たしています。</value></data>
   <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>続行する前に、次の警告を確認してください:</value></data>
   <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>Windows 11 の展開には UEFI が必要です。レガシー BIOS/CSM はサポートされていません。</value></data>
   <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>選択した Windows アーキテクチャ ({0}) はデバイス アーキテクチャ ({1}) と一致しません。</value></data>

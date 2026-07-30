@@ -512,15 +512,11 @@
     <value>互動式 Autopilot 註冊助理已暫存 (模擬)。</value>
   </data>
   <data name="Preflight.SectionTitle" xml:space="preserve"><value>部署準備</value></data>
-  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>韌體模式</value></data>
   <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>傳統 BIOS/CSM</value></data>
-  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>架構</value></data>
   <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
   <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>安全啟動</value></data>
-  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>磁碟容量</value></data>
   <data name="Preflight.StatusBlocked" xml:space="preserve"><value>被阻止</value></data>
   <data name="Preflight.StatusWarning" xml:space="preserve"><value>警告</value></data>
-  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>此設備滿足 Windows 11 部署先決條件。</value></data>
   <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>在繼續之前先查看這些警告：</value></data>
   <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>Windows 11 部署需要 UEFI。不支援舊版 BIOS/CSM。</value></data>
   <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>所選的 Windows 體系結構 ({0}) 與裝置體系結構 ({1}) 不符。</value></data>

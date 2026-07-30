@@ -512,15 +512,11 @@ Operativni sistem: {4}
     <value>Interaktivni pomoćnik za registraciju Autopilota je pripremljen (simulacija).</value>
   </data>
   <data name="Preflight.SectionTitle" xml:space="preserve"><value>Spremnost za primenu</value></data>
-  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>Režim firmvera</value></data>
   <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>Zastareli BIOS/CSM</value></data>
-  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>Arhitektura</value></data>
   <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
   <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>Bezbedno pokretanje</value></data>
-  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>Kapacitet diska</value></data>
   <data name="Preflight.StatusBlocked" xml:space="preserve"><value>Blokirano</value></data>
   <data name="Preflight.StatusWarning" xml:space="preserve"><value>Upozorenje</value></data>
-  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>Ovaj uređaj ispunjava preduslove za primenu sistema Windows 11.</value></data>
   <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>Pregledajte ova upozorenja pre nego što nastavite:</value></data>
   <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>Primena sistema Windows 11 zahteva UEFI. Zastareli BIOS/CSM nije podržan.</value></data>
   <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>Izabrana Windows arhitektura ({0}) ne odgovara arhitekturi uređaja ({1}).</value></data>

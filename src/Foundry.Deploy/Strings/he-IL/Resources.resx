@@ -512,15 +512,11 @@ ErrorCode=0x80070005
     <value>מסייע הרישום האינטראקטיבי של Autopilot הוכן (סימולציה).</value>
   </data>
   <data name="Preflight.SectionTitle" xml:space="preserve"><value>מוכנות לפריסה</value></data>
-  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>מצב קושחה</value></data>
   <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>BIOS/CSM מדור קודם</value></data>
-  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>אדריכלות</value></data>
   <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
   <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>אתחול מאובטח</value></data>
-  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>קיבולת דיסק</value></data>
   <data name="Preflight.StatusBlocked" xml:space="preserve"><value>חסום</value></data>
   <data name="Preflight.StatusWarning" xml:space="preserve"><value>אזהרה</value></data>
-  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>מכשיר זה עומד בדרישות הפריסה של Windows 11.</value></data>
   <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>עיין באזהרות אלה לפני שתמשיך:</value></data>
   <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>פריסת Windows 11 דורשת UEFI. BIOS/CSM מדור קודם אינו נתמך.</value></data>
   <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>ארכיטקטורת Windows שנבחרה ({0}) אינה תואמת לארכיטקטורת המכשיר ({1}).</value></data>

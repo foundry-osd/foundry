@@ -512,15 +512,11 @@ Continuare con la distribuzione?</value></data>
     <value>Assistente di registrazione interattiva di Autopilot preparato (simulazione).</value>
   </data>
   <data name="Preflight.SectionTitle" xml:space="preserve"><value>Prontezza per la distribuzione</value></data>
-  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>Modalità firmware</value></data>
   <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>BIOS/CSM legacy</value></data>
-  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>Architettura</value></data>
   <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
   <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>Avvio sicuro</value></data>
-  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>Capacità del disco</value></data>
   <data name="Preflight.StatusBlocked" xml:space="preserve"><value>Bloccato</value></data>
   <data name="Preflight.StatusWarning" xml:space="preserve"><value>Attenzione</value></data>
-  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>Questo dispositivo soddisfa i prerequisiti di distribuzione di Windows 11.</value></data>
   <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>Rivedere questi avvisi prima di continuare:</value></data>
   <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>La distribuzione di Windows 11 richiede UEFI. Il BIOS/CSM legacy non è supportato.</value></data>
   <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>L&apos;architettura Windows selezionata ({0}) non corrisponde all&apos;architettura del dispositivo ({1}).</value></data>

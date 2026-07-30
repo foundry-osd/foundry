@@ -97,27 +97,27 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     public string SummaryAutopilotModeText => Preparation.AutopilotModeText;
     public string SummaryAutopilotProfileText => Preparation.SelectedAutopilotProfile?.DisplayName ?? GetString("Common.None");
     public string SummaryAutopilotGroupTagText => Preparation.EffectiveHardwareHashGroupTagText;
-    public string SummaryFirmwareModeText => Preparation.DetectedHardware?.FirmwareMode switch
+    private string SummaryFirmwareModeText => Preparation.DetectedHardware?.FirmwareMode switch
     {
         FirmwareMode.Uefi => "UEFI",
         FirmwareMode.Bios => GetString("Preflight.FirmwareModeLegacy"),
         _ => GetString("Common.Unknown")
     };
-    public string SummaryArchitectureText => Format(
+    private string SummaryArchitectureText => Format(
         "Preflight.ArchitectureValueFormat",
         Preparation.DetectedHardware?.Architecture ?? GetString("Common.Unknown"),
         SelectedOperatingSystem?.Architecture ?? GetString("Common.Unknown"));
-    public string SummaryTpmText => Preparation.DetectedHardware is { IsTpmPresent: true } hardware
+    private string SummaryTpmText => Preparation.DetectedHardware is { IsTpmPresent: true } hardware
         ? Format("Preflight.TpmValueFormat", hardware.TpmSpecVersion, hardware.IsTpmEnabled && hardware.IsTpmActivated ? GetString("Common.Enabled") : GetString("Common.Disabled"))
         : GetString("Common.Unavailable");
-    public string SummarySecureBootText => Preparation.DetectedHardware?.SecureBootState switch
+    private string SummarySecureBootText => Preparation.DetectedHardware?.SecureBootState switch
     {
         SecureBootState.Enabled => GetString("Common.Enabled"),
         SecureBootState.Disabled => GetString("Common.Disabled"),
         SecureBootState.Unsupported => GetString("Common.Unavailable"),
         _ => GetString("Common.Unknown")
     };
-    public string SummaryDiskCapacityText => Preparation.SelectedTargetDisk is { SizeBytes: > 0 } disk
+    private string SummaryDiskCapacityText => Preparation.SelectedTargetDisk is { SizeBytes: > 0 } disk
         ? $"{disk.SizeBytes / 1024d / 1024d / 1024d:0.0} GiB"
         : GetString("Disk.UnknownSize");
     public string SummaryPreflightStatusText => CurrentPreflight.HasBlockingFindings
@@ -125,9 +125,28 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         : CurrentPreflight.HasWarnings
             ? GetString("Preflight.StatusWarning")
             : GetString("Common.Ready");
-    public string SummaryPreflightDetailsText => CurrentPreflight.Findings.Count == 0
-        ? GetString("Preflight.ReadyDetails")
-        : string.Join(Environment.NewLine, CurrentPreflight.Findings.Select(DeploymentPreflightLocalization.FormatFinding));
+    public string SummaryPreflightSeparatorText => CurrentPreflight.Findings.Count > 0
+        ? Environment.NewLine
+        : " · ";
+    public string SummaryPreflightDisplayText
+    {
+        get
+        {
+            DeploymentPreflightResult preflight = CurrentPreflight;
+            if (preflight.Findings.Count > 0)
+            {
+                return string.Join(Environment.NewLine, preflight.Findings.Select(DeploymentPreflightLocalization.FormatFinding));
+            }
+
+            return string.Join(
+                " · ",
+                SummaryFirmwareModeText,
+                SummaryArchitectureText,
+                $"{GetString("Preflight.TpmLabel")}: {SummaryTpmText}",
+                $"{GetString("Preflight.SecureBootLabel")}: {SummarySecureBootText}",
+                SummaryDiskCapacityText);
+        }
+    }
     public bool IsDebugAutopilotNoneMode => IsDebugAutopilotMode(DebugAutopilotMode.None);
     public bool IsDebugAutopilotJsonProfileMode => IsDebugAutopilotMode(DebugAutopilotMode.JsonProfile);
     public bool IsDebugAutopilotHardwareHashUploadValidCertificateMode => IsDebugAutopilotMode(DebugAutopilotMode.HardwareHashUploadValidCertificate);
@@ -569,13 +588,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
     private void RaisePreflightPropertiesChanged()
     {
-        OnPropertyChanged(nameof(SummaryFirmwareModeText));
-        OnPropertyChanged(nameof(SummaryArchitectureText));
-        OnPropertyChanged(nameof(SummaryTpmText));
-        OnPropertyChanged(nameof(SummarySecureBootText));
-        OnPropertyChanged(nameof(SummaryDiskCapacityText));
         OnPropertyChanged(nameof(SummaryPreflightStatusText));
-        OnPropertyChanged(nameof(SummaryPreflightDetailsText));
+        OnPropertyChanged(nameof(SummaryPreflightSeparatorText));
+        OnPropertyChanged(nameof(SummaryPreflightDisplayText));
     }
 
     private string GetString(string key)

@@ -512,15 +512,11 @@ Kas jätkata juurutamisega?</value></data>
     <value>Interaktiivne Autopiloti registreerimisabiline on ette valmistatud (simulatsioon).</value>
   </data>
   <data name="Preflight.SectionTitle" xml:space="preserve"><value>Kasutusvalmidus</value></data>
-  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>Püsivararežiim</value></data>
   <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>Pärand BIOS/CSM</value></data>
-  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>Arhitektuur</value></data>
   <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
   <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>Turvaline alglaadimine</value></data>
-  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>Ketta maht</value></data>
   <data name="Preflight.StatusBlocked" xml:space="preserve"><value>Blokeeritud</value></data>
   <data name="Preflight.StatusWarning" xml:space="preserve"><value>Hoiatus</value></data>
-  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>See seade vastab Windows 11 juurutamise eeltingimustele.</value></data>
   <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>Enne jätkamist vaadake need hoiatused üle:</value></data>
   <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>Windows 11 juurutamine nõuab UEFI-t. Pärand-BIOS/CSM ei ole toetatud.</value></data>
   <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>Valitud Windowsi arhitektuur ({0}) ei ühti seadme arhitektuuriga ({1}).</value></data>

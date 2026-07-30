@@ -512,15 +512,11 @@ Continuer le déploiement?</value></data>
     <value>Assistant d&apos;enregistrement Autopilot interactif préparé (simulation).</value>
   </data>
   <data name="Preflight.SectionTitle" xml:space="preserve"><value>Préparation au déploiement</value></data>
-  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>Mode micrologiciel</value></data>
   <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>BIOS/CSM hérités</value></data>
-  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>Architecture</value></data>
   <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
   <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>Démarrage sécurisé</value></data>
-  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>Capacité du disque</value></data>
   <data name="Preflight.StatusBlocked" xml:space="preserve"><value>Bloqué</value></data>
   <data name="Preflight.StatusWarning" xml:space="preserve"><value>Avertissement</value></data>
-  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>Cet appareil répond aux prérequis de déploiement de Windows 11.</value></data>
   <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>Lisez ces avertissements avant de continuer :</value></data>
   <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>Le déploiement de Windows 11 nécessite UEFI. Le BIOS/CSM hérité n&apos;est pas pris en charge.</value></data>
   <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>L&apos;architecture Windows sélectionnée ({0}) ne correspond pas à l&apos;architecture de l&apos;appareil ({1}).</value></data>

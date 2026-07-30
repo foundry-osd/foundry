@@ -512,15 +512,11 @@
     <value>จัดเตรียมผู้ช่วยลงทะเบียน Autopilot แบบโต้ตอบแล้ว (การจำลอง)</value>
   </data>
   <data name="Preflight.SectionTitle" xml:space="preserve"><value>ความพร้อมในการใช้งาน</value></data>
-  <data name="Preflight.FirmwareModeLabel" xml:space="preserve"><value>โหมดเฟิร์มแวร์</value></data>
   <data name="Preflight.FirmwareModeLegacy" xml:space="preserve"><value>BIOS/CSM รุ่นเก่า</value></data>
-  <data name="Preflight.ArchitectureLabel" xml:space="preserve"><value>สถาปัตยกรรม</value></data>
   <data name="Preflight.TpmLabel" xml:space="preserve"><value>TPM 2.0</value></data>
   <data name="Preflight.SecureBootLabel" xml:space="preserve"><value>บูตอย่างปลอดภัย</value></data>
-  <data name="Preflight.DiskCapacityLabel" xml:space="preserve"><value>ความจุของดิสก์</value></data>
   <data name="Preflight.StatusBlocked" xml:space="preserve"><value>ถูกบล็อก</value></data>
   <data name="Preflight.StatusWarning" xml:space="preserve"><value>คำเตือน</value></data>
-  <data name="Preflight.ReadyDetails" xml:space="preserve"><value>อุปกรณ์นี้ตรงตามข้อกำหนดเบื้องต้นในการปรับใช้ Windows 11</value></data>
   <data name="Preflight.WarningConfirmationIntro" xml:space="preserve"><value>ตรวจสอบคำเตือนเหล่านี้ก่อนดำเนินการต่อ:</value></data>
   <data name="Preflight.FirmwareModeBlocking" xml:space="preserve"><value>การปรับใช้ Windows 11 ต้องใช้ UEFI ไม่รองรับ BIOS/CSM รุ่นเก่า</value></data>
   <data name="Preflight.ArchitectureMismatchBlocking" xml:space="preserve"><value>สถาปัตยกรรม Windows ที่เลือก ({0}) ไม่ตรงกับสถาปัตยกรรมอุปกรณ์ ({1})</value></data>
