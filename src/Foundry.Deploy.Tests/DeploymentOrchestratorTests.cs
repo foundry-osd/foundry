@@ -87,7 +87,9 @@ public sealed class DeploymentOrchestratorTests
                 Build = "26100",
                 MediaDate = new DateOnly(2026, 7, 10),
                 Architecture = "x64",
-                LanguageCode = "en-US"
+                LanguageCode = "en-US",
+                Edition = "Pro",
+                LicenseChannel = "RET"
             },
             DriverPackSelectionKind = DriverPackSelectionKind.OemCatalog,
             DriverPack = new DriverPackCatalogItem
@@ -116,6 +118,9 @@ public sealed class DeploymentOrchestratorTests
         Assert.Equal("synthetic_failure", telemetryEvent.Properties["deploy_session_failure_code"]);
         Assert.Equal("windows_11", telemetryEvent.Properties["deploy_os_product"]);
         Assert.Equal("2026-07", telemetryEvent.Properties["deploy_os_update_month"]);
+        Assert.Equal("pro", telemetryEvent.Properties["deploy_os_edition"]);
+        Assert.Equal("ret", telemetryEvent.Properties["deploy_os_license_channel"]);
+        Assert.Equal(6, telemetryEvent.Properties["deploy_os_image_index"]);
         Assert.Equal("dell", telemetryEvent.Properties["deploy_driver_pack_vendor"]);
         Assert.Equal("latitude 5450", telemetryEvent.Properties["deploy_driver_pack_model"]);
         Assert.True((bool)telemetryEvent.Properties["deploy_firmware_updates_enabled"]!);
@@ -150,6 +155,7 @@ public sealed class DeploymentOrchestratorTests
         {
             context.RuntimeState.TargetWindowsPartitionRoot = targetWindowsRoot;
             context.RuntimeState.TargetFoundryRoot = Path.Combine(targetWindowsRoot, "Foundry");
+            context.RuntimeState.AppliedImageIndex = 6;
             Directory.CreateDirectory(context.RuntimeState.TargetFoundryRoot);
             await context.RebindLogSessionToTargetAsync(context.RuntimeState.TargetFoundryRoot, cancellationToken);
             return DeploymentStepResult.Succeeded("Prepared target layout.");

@@ -200,6 +200,9 @@ public sealed class TelemetryEventPropertyPolicyTests
             ["deploy_os_update_month"] = "2026-07",
             ["deploy_os_architecture"] = "x64",
             ["deploy_os_language"] = "en-us",
+            ["deploy_os_edition"] = "pro",
+            ["deploy_os_license_channel"] = "ret",
+            ["deploy_os_image_index"] = 6,
             ["deploy_driver_pack_selection_kind"] = "oemcatalog",
             ["deploy_driver_pack_vendor"] = "dell",
             ["deploy_driver_pack_model"] = "latitude 5450",
@@ -232,6 +235,9 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.Equal("iso", result["deploy_session_mode"]);
         Assert.Equal("windows_11", result["deploy_os_product"]);
         Assert.Equal("2026-07", result["deploy_os_update_month"]);
+        Assert.Equal("pro", result["deploy_os_edition"]);
+        Assert.Equal("ret", result["deploy_os_license_channel"]);
+        Assert.Equal(6, result["deploy_os_image_index"]);
         Assert.Equal("dell", result["deploy_driver_pack_vendor"]);
         Assert.Equal("latitude 5450", result["deploy_driver_pack_model"]);
         Assert.True((bool)result["deploy_firmware_updates_enabled"]!);
