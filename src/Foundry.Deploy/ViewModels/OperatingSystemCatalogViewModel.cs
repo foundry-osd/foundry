@@ -28,9 +28,7 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
         "Education",
         "Education N",
         "Pro",
-        "Pro N",
-        "Enterprise",
-        "Enterprise N"
+        "Pro N"
     ];
     private static readonly string[] VolumeEditionOptions =
     [
@@ -44,8 +42,7 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
     private static readonly string[] Arm64RetailEditionOptions =
     [
         "Home",
-        "Pro",
-        "Enterprise"
+        "Pro"
     ];
     private static readonly string[] Arm64VolumeEditionOptions =
     [

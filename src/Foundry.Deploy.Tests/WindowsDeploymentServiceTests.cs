@@ -13,6 +13,165 @@ namespace Foundry.Deploy.Tests;
 public sealed class WindowsDeploymentServiceTests
 {
     [Fact]
+    public async Task ResolveImageIndexAsync_WhenRequestedEditionIsMissing_ThrowsBeforeImageApplication()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string imagePath = Path.Combine(workspace.RootPath, "consumer.esd");
+        await File.WriteAllTextAsync(imagePath, string.Empty, TestContext.Current.CancellationToken);
+        var processRunner = new RecordingProcessRunner
+        {
+            Result = new ProcessExecutionResult
+            {
+                ExitCode = 0,
+                StandardOutput = """
+                    Index : 1
+                    Name : Windows Setup Media
+
+                    Index : 4
+                    Name : Windows 11 Home
+
+                    Index : 9
+                    Name : Windows 11 Pro
+                    """
+            }
+        };
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            service.ResolveImageIndexAsync(
+                imagePath,
+                "Enterprise",
+                workspace.RootPath,
+                TestContext.Current.CancellationToken));
+
+        Assert.Contains("Enterprise", exception.Message, StringComparison.Ordinal);
+        Assert.Contains("Windows 11 Home", exception.Message, StringComparison.Ordinal);
+        Assert.Contains("Windows 11 Pro", exception.Message, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task ResolveImageIndexAsync_WhenSingleImageDoesNotMatchRequestedEdition_Throws()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string imagePath = Path.Combine(workspace.RootPath, "setup-media.esd");
+        await File.WriteAllTextAsync(imagePath, string.Empty, TestContext.Current.CancellationToken);
+        var processRunner = new RecordingProcessRunner
+        {
+            Result = new ProcessExecutionResult
+            {
+                ExitCode = 0,
+                StandardOutput = """
+                    Index : 1
+                    Name : Windows Setup Media
+                    """
+            }
+        };
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            service.ResolveImageIndexAsync(
+                imagePath,
+                "Enterprise",
+                workspace.RootPath,
+                TestContext.Current.CancellationToken));
+    }
+
+    [Fact]
+    public async Task ResolveImageIndexAsync_DoesNotSelectNVariantForNonNEdition()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string imagePath = Path.Combine(workspace.RootPath, "consumer.esd");
+        await File.WriteAllTextAsync(imagePath, string.Empty, TestContext.Current.CancellationToken);
+        var processRunner = new RecordingProcessRunner
+        {
+            Result = new ProcessExecutionResult
+            {
+                ExitCode = 0,
+                StandardOutput = """
+                    Index : 5
+                    Name : Windows 11 Pro N
+
+                    Index : 9
+                    Name : Windows 11 Pro
+                    """
+            }
+        };
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        int imageIndex = await service.ResolveImageIndexAsync(
+            imagePath,
+            "Pro",
+            workspace.RootPath,
+            TestContext.Current.CancellationToken);
+
+        Assert.Equal(9, imageIndex);
+    }
+
+    [Theory]
+    [InlineData("Home", 4)]
+    [InlineData("Home N", 5)]
+    [InlineData("Home Single Language", 6)]
+    [InlineData("Education", 7)]
+    [InlineData("Education N", 8)]
+    [InlineData("Pro", 9)]
+    [InlineData("Pro N", 10)]
+    [InlineData("Enterprise", 11)]
+    [InlineData("Enterprise N", 12)]
+    public async Task ResolveImageIndexAsync_ResolvesEachSupportedEdition(string edition, int expectedIndex)
+    {
+        using var workspace = new TemporaryWorkspace();
+        string imagePath = Path.Combine(workspace.RootPath, "windows.esd");
+        await File.WriteAllTextAsync(imagePath, string.Empty, TestContext.Current.CancellationToken);
+        var processRunner = new RecordingProcessRunner
+        {
+            Result = new ProcessExecutionResult
+            {
+                ExitCode = 0,
+                StandardOutput = """
+                    Index : 1
+                    Name : Windows Setup Media
+
+                    Index : 4
+                    Name : Windows 11 Home
+
+                    Index : 5
+                    Name : Windows 11 Home N
+
+                    Index : 6
+                    Name : Windows 11 Home Single Language
+
+                    Index : 7
+                    Name : Windows 11 Education
+
+                    Index : 8
+                    Name : Windows 11 Education N
+
+                    Index : 9
+                    Name : Windows 11 Pro
+
+                    Index : 10
+                    Name : Windows 11 Pro N
+
+                    Index : 11
+                    Name : Windows 11 Enterprise
+
+                    Index : 12
+                    Name : Windows 11 Enterprise N
+                    """
+            }
+        };
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        int imageIndex = await service.ResolveImageIndexAsync(
+            imagePath,
+            edition,
+            workspace.RootPath,
+            TestContext.Current.CancellationToken);
+
+        Assert.Equal(expectedIndex, imageIndex);
+    }
+
+    [Fact]
     public async Task PrepareTargetDiskAsync_CreatesPartitionsInExpectedOrder_Efi_Msr_Recovery_Windows()
     {
         using var workspace = new TemporaryWorkspace();

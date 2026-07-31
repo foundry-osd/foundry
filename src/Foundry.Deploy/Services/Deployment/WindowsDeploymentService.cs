@@ -149,12 +149,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         IReadOnlyList<ImageIndexDescriptor> descriptors = ParseImageDescriptors(execution.StandardOutput);
         if (descriptors.Count == 0)
         {
-            return 1;
-        }
-
-        if (descriptors.Count == 1)
-        {
-            return descriptors[0].Index;
+            throw new InvalidOperationException($"The operating system image does not expose any image indexes: '{imagePath}'.");
         }
 
         string requested = NormalizeToken(requestedEdition);
@@ -164,11 +159,21 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         }
 
         ImageIndexDescriptor? bestMatch = descriptors.FirstOrDefault(item =>
-            ContainsNormalized(item.Name, requested) ||
-            ContainsNormalized(item.Edition, requested) ||
-            ContainsNormalized(item.EditionId, requested));
+            MatchesEdition(item.Name, requested) ||
+            MatchesEdition(item.Edition, requested) ||
+            MatchesEdition(item.EditionId, requested));
 
-        int resolvedIndex = bestMatch?.Index ?? descriptors[0].Index;
+        if (bestMatch is null)
+        {
+            string availableImages = string.Join(
+                ", ",
+                descriptors.Select(item => $"{item.Index}: {GetImageDescriptorDisplayName(item)}"));
+
+            throw new InvalidOperationException(
+                $"Windows edition '{requestedEdition}' was not found in '{imagePath}'. Available images: {availableImages}.");
+        }
+
+        int resolvedIndex = bestMatch.Index;
         _logger.LogInformation("Resolved OS image index {ImageIndex} for ImagePath={ImagePath}", resolvedIndex, imagePath);
         return resolvedIndex;
     }
@@ -1079,16 +1084,52 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         return descriptors;
     }
 
-    private static bool ContainsNormalized(string source, string expected)
+    private static bool MatchesEdition(string source, string expected)
     {
-        string normalized = NormalizeToken(source);
-        if (normalized.Length == 0 || expected.Length == 0)
+        string normalizedSource = NormalizeEditionToken(source);
+        string normalizedExpected = NormalizeEditionToken(expected);
+        if (normalizedSource.Length == 0 || normalizedExpected.Length == 0)
         {
             return false;
         }
 
-        return normalized.Contains(expected, StringComparison.OrdinalIgnoreCase) ||
-               expected.Contains(normalized, StringComparison.OrdinalIgnoreCase);
+        return normalizedSource.Equals(normalizedExpected, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static string NormalizeEditionToken(string value)
+    {
+        string normalized = NormalizeToken(value);
+        normalized = Regex.Replace(normalized, @"^(?:microsoft)?windows\d+", string.Empty, RegexOptions.IgnoreCase);
+
+        return normalized switch
+        {
+            "core" => "home",
+            "coren" => "homen",
+            "coresinglelanguage" => "homesinglelanguage",
+            "professional" => "pro",
+            "professionaln" => "pron",
+            _ => normalized
+        };
+    }
+
+    private static string GetImageDescriptorDisplayName(ImageIndexDescriptor descriptor)
+    {
+        if (!string.IsNullOrWhiteSpace(descriptor.Name))
+        {
+            return descriptor.Name;
+        }
+
+        if (!string.IsNullOrWhiteSpace(descriptor.Edition))
+        {
+            return descriptor.Edition;
+        }
+
+        if (!string.IsNullOrWhiteSpace(descriptor.EditionId))
+        {
+            return descriptor.EditionId;
+        }
+
+        return "Unnamed image";
     }
 
     private static string NormalizeToken(string value)

@@ -12,6 +12,37 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class OperatingSystemCatalogViewModelTests
 {
+    [Theory]
+    [InlineData("x64")]
+    [InlineData("arm64")]
+    public void ApplyCatalog_ForRetailMedia_DoesNotOfferEnterprise(string architecture)
+    {
+        var viewModel = new OperatingSystemCatalogViewModel(NullLogger.Instance, architecture);
+
+        viewModel.ApplyCatalog(
+        [
+            CreateOperatingSystem("en-US", licenseChannel: "RET", architecture: architecture)
+        ]);
+
+        Assert.Contains("Pro", viewModel.EditionFilters);
+        Assert.DoesNotContain("Enterprise", viewModel.EditionFilters);
+        Assert.DoesNotContain("Enterprise N", viewModel.EditionFilters);
+    }
+
+    [Fact]
+    public void ApplyCatalog_ForVolumeMedia_OffersEnterprise()
+    {
+        var viewModel = new OperatingSystemCatalogViewModel(NullLogger.Instance, "x64");
+
+        viewModel.ApplyCatalog(
+        [
+            CreateOperatingSystem("en-US", licenseChannel: "VOL")
+        ]);
+
+        Assert.Contains("Enterprise", viewModel.EditionFilters);
+        Assert.Contains("Enterprise N", viewModel.EditionFilters);
+    }
+
     [Fact]
     public void ApplyOperatingSystemSelection_UsesCanonicalLanguageCodesForFiltersAndSelection()
     {
@@ -226,14 +257,15 @@ public sealed class OperatingSystemCatalogViewModelTests
         string licenseChannel = "RET",
         string? sourceId = null,
         DateOnly? mediaDate = null,
-        string build = "26200.8873")
+        string build = "26200.8873",
+        string architecture = "x64")
     {
         return new OperatingSystemCatalogItem
         {
             SourceId = sourceId ?? $"{releaseId}-{licenseChannel}",
             WindowsRelease = "11",
             ReleaseId = releaseId,
-            Architecture = "x64",
+            Architecture = architecture,
             LanguageCode = languageCode,
             Edition = "Pro",
             LicenseChannel = licenseChannel,
