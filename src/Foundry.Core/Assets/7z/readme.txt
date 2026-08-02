@@ -1,9 +1,9 @@
-7-Zip Extra 25.01
+7-Zip Extra 26.02
 -----------------
 
 7-Zip Extra is package of extra modules of 7-Zip. 
 
-7-Zip Copyright (C) 1999-2025 Igor Pavlov.
+7-Zip Copyright (C) 1999-2026 Igor Pavlov.
 
 7-Zip is free software. Read License.txt for more information about license.
 
@@ -17,6 +17,7 @@ This package contains the following files:
 7zxa.dll    - library for extracting from 7z archives
 License.txt - license information
 readme.txt  - this file
+7-zip.chm   - Help file
 
 Far\        - plugin for Far Manager
 x64\        - binaries for x64

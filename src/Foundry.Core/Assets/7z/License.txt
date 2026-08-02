@@ -3,7 +3,7 @@
   License for use and distribution
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Copyright (C) 1999-2025 Igor Pavlov.
+  Copyright (C) 1999-2026 Igor Pavlov.
 
   The licenses for files are:
 
