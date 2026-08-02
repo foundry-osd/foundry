@@ -223,7 +223,8 @@
                                             <DataTemplate x:DataType="viewModels:SelectableStringOptionViewModel">
                                                 <CheckBox
                                                     Content="{x:Bind DisplayName, Mode=OneWay}"
-                                                    IsChecked="{x:Bind IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                    IsChecked="{x:Bind IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    IsEnabled="{x:Bind IsEnabled, Mode=OneWay}" />
                                             </DataTemplate>
                                         </ItemsRepeater.ItemTemplate>
                                     </ItemsRepeater>

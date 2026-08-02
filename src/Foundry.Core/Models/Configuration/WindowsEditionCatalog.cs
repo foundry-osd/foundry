@@ -38,6 +38,14 @@ public static class WindowsEditionCatalog
     public static IReadOnlyList<WindowsEditionDefinition> SupportedDefinitions => Definitions;
 
     /// <summary>
+    /// Gets all supported license channels in display order.
+    /// </summary>
+    public static IReadOnlyList<string> SupportedLicenseChannels { get; } = Definitions
+        .SelectMany(definition => definition.LicenseChannels)
+        .Distinct(StringComparer.OrdinalIgnoreCase)
+        .ToArray();
+
+    /// <summary>
     /// Gets all supported friendly edition names in display order.
     /// </summary>
     public static IReadOnlyList<string> SupportedEditions { get; } = Definitions.Select(definition => definition.Name).ToArray();
@@ -54,6 +62,38 @@ public static class WindowsEditionCatalog
 
         return Definitions.FirstOrDefault(definition =>
             definition.Name.Equals(edition.Trim(), StringComparison.OrdinalIgnoreCase));
+    }
+
+    /// <summary>
+    /// Gets the license channels supported by at least one selected edition.
+    /// </summary>
+    public static IReadOnlyList<string> GetCompatibleLicenseChannels(IEnumerable<string> editions)
+    {
+        HashSet<string> channels = editions
+            .Select(Find)
+            .Where(definition => definition is not null)
+            .SelectMany(definition => definition!.LicenseChannels)
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+        return SupportedLicenseChannels
+            .Where(channels.Contains)
+            .ToArray();
+    }
+
+    /// <summary>
+    /// Gets the license channels required by selected editions that only exist in one channel.
+    /// </summary>
+    public static IReadOnlyList<string> GetRequiredLicenseChannels(IEnumerable<string> editions)
+    {
+        HashSet<string> channels = editions
+            .Select(Find)
+            .Where(definition => definition?.LicenseChannels.Count == 1)
+            .Select(definition => definition!.LicenseChannels[0])
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+        return SupportedLicenseChannels
+            .Where(channels.Contains)
+            .ToArray();
     }
 
     /// <summary>

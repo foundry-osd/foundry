@@ -124,16 +124,8 @@ public static class OperatingSystemSelectionSettingsNormalizer
             return configuredChannels.ToArray();
         }
 
-        HashSet<string> compatibleChannels = allowedEditions
-            .Select(WindowsEditionCatalog.Find)
-            .Where(definition => definition is not null)
-            .SelectMany(definition => definition!.LicenseChannels)
-            .ToHashSet(StringComparer.OrdinalIgnoreCase);
-        HashSet<string> requiredChannels = allowedEditions
-            .Select(WindowsEditionCatalog.Find)
-            .Where(definition => definition?.LicenseChannels.Count == 1)
-            .Select(definition => definition!.LicenseChannels[0])
-            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+        IReadOnlyList<string> compatibleChannels = WindowsEditionCatalog.GetCompatibleLicenseChannels(allowedEditions);
+        IReadOnlyList<string> requiredChannels = WindowsEditionCatalog.GetRequiredLicenseChannels(allowedEditions);
 
         return OperatingSystemSelectionCatalog.SupportedLicenseChannels
             .Where(channel =>

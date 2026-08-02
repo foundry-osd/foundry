@@ -37,11 +37,7 @@ public static class OperatingSystemSelectionCatalog
     /// <summary>
     /// Gets the supported catalog license channel tokens.
     /// </summary>
-    public static IReadOnlyList<string> SupportedLicenseChannels { get; } =
-    [
-        "RET",
-        "VOL"
-    ];
+    public static IReadOnlyList<string> SupportedLicenseChannels => WindowsEditionCatalog.SupportedLicenseChannels;
 
     /// <summary>
     /// Gets the supported target editions shown in the deployment catalog.

@@ -29,7 +29,7 @@ public sealed partial class CustomizationConfigurationViewModel
     public bool IsOperatingSystemSelectionOptionsEnabled => IsOperatingSystemSelectionEnabled;
     public bool IsDefaultOperatingSystemLanguageSelectionEnabled => IsOperatingSystemSelectionOptionsEnabled && !HasSingleSelectedOption(OperatingSystemLanguageOptions);
     public bool IsDefaultOperatingSystemReleaseSelectionEnabled => IsOperatingSystemSelectionOptionsEnabled && !HasSingleSelectedOption(OperatingSystemReleaseOptions);
-    public bool IsDefaultOperatingSystemLicenseChannelSelectionEnabled => IsOperatingSystemSelectionOptionsEnabled && !HasSingleSelectedOption(OperatingSystemLicenseChannelOptions);
+    public bool IsDefaultOperatingSystemLicenseChannelSelectionEnabled => IsOperatingSystemSelectionOptionsEnabled && DefaultOperatingSystemLicenseChannelOptions.Count > 1;
     public bool IsDefaultOperatingSystemEditionSelectionEnabled => IsOperatingSystemSelectionOptionsEnabled && !HasSingleSelectedOption(OperatingSystemEditionOptions);
 
     [ObservableProperty]
@@ -167,7 +167,6 @@ public sealed partial class CustomizationConfigurationViewModel
             return;
         }
 
-        RefreshOperatingSystemDefaultOptions(BuildOperatingSystemSelectionSettings());
         SaveState();
     }
 
@@ -178,7 +177,7 @@ public sealed partial class CustomizationConfigurationViewModel
             return;
         }
 
-        RefreshOperatingSystemDefaultOptions(BuildOperatingSystemSelectionSettings());
+        RefreshOperatingSystemDefaultLicenseChannelOptions(BuildOperatingSystemSelectionSettings());
         SaveState();
     }
 
@@ -220,6 +219,7 @@ public sealed partial class CustomizationConfigurationViewModel
         SetSelectedOptions(OperatingSystemReleaseOptions, settings.AllowedReleaseIds);
         SetSelectedOptions(OperatingSystemLicenseChannelOptions, settings.AllowedLicenseChannels);
         SetSelectedOptions(OperatingSystemEditionOptions, settings.AllowedEditions);
+        RefreshOperatingSystemLicenseChannelAvailability();
 
         RefreshOperatingSystemMediaOffsetOptions(settings.DefaultMediaOffset);
         RefreshOperatingSystemDefaultOptions(settings);
@@ -310,8 +310,7 @@ public sealed partial class CustomizationConfigurationViewModel
             RefreshDefaultOptions(DefaultOperatingSystemReleaseOptions, OperatingSystemReleaseOptions);
             SelectedDefaultOperatingSystemRelease = SelectStringOption(DefaultOperatingSystemReleaseOptions, settings.DefaultReleaseId) ?? DefaultOperatingSystemReleaseOptions[0];
 
-            RefreshDefaultOptions(DefaultOperatingSystemLicenseChannelOptions, OperatingSystemLicenseChannelOptions);
-            SelectedDefaultOperatingSystemLicenseChannel = SelectStringOption(DefaultOperatingSystemLicenseChannelOptions, settings.DefaultLicenseChannel) ?? DefaultOperatingSystemLicenseChannelOptions[0];
+            RefreshOperatingSystemDefaultLicenseChannelOptions(settings);
 
             RefreshDefaultOptions(DefaultOperatingSystemEditionOptions, OperatingSystemEditionOptions);
             SelectedDefaultOperatingSystemEdition = SelectStringOption(DefaultOperatingSystemEditionOptions, settings.DefaultEdition) ?? DefaultOperatingSystemEditionOptions[0];
@@ -341,6 +340,7 @@ public sealed partial class CustomizationConfigurationViewModel
         try
         {
             SetSelectedOptions(OperatingSystemLicenseChannelOptions, normalized.AllowedLicenseChannels);
+            RefreshOperatingSystemLicenseChannelAvailability();
         }
         finally
         {
@@ -349,6 +349,43 @@ public sealed partial class CustomizationConfigurationViewModel
 
         RefreshOperatingSystemDefaultOptions(normalized);
         SaveState();
+    }
+
+    private void RefreshOperatingSystemDefaultLicenseChannelOptions(OperatingSystemSelectionSettings settings)
+    {
+        WindowsEditionDefinition? defaultEdition = WindowsEditionCatalog.Find(settings.DefaultEdition);
+        IEnumerable<SelectableStringOptionViewModel> compatibleOptions = defaultEdition is null
+            ? OperatingSystemLicenseChannelOptions
+            : OperatingSystemLicenseChannelOptions.Where(option =>
+                defaultEdition.LicenseChannels.Contains(option.Value, StringComparer.OrdinalIgnoreCase));
+
+        RefreshDefaultOptions(DefaultOperatingSystemLicenseChannelOptions, compatibleOptions);
+        SelectedDefaultOperatingSystemLicenseChannel =
+            SelectStringOption(DefaultOperatingSystemLicenseChannelOptions, settings.DefaultLicenseChannel) ??
+            DefaultOperatingSystemLicenseChannelOptions[0];
+        OnPropertyChanged(nameof(IsDefaultOperatingSystemLicenseChannelSelectionEnabled));
+    }
+
+    private void RefreshOperatingSystemLicenseChannelAvailability()
+    {
+        string[] selectedEditions = GetSelectedOptionValues(OperatingSystemEditionOptions);
+        if (selectedEditions.Length == 0)
+        {
+            foreach (SelectableStringOptionViewModel option in OperatingSystemLicenseChannelOptions)
+            {
+                option.IsEnabled = true;
+            }
+
+            return;
+        }
+
+        IReadOnlyList<string> compatibleChannels = WindowsEditionCatalog.GetCompatibleLicenseChannels(selectedEditions);
+        IReadOnlyList<string> requiredChannels = WindowsEditionCatalog.GetRequiredLicenseChannels(selectedEditions);
+        foreach (SelectableStringOptionViewModel option in OperatingSystemLicenseChannelOptions)
+        {
+            option.IsEnabled = compatibleChannels.Contains(option.Value, StringComparer.OrdinalIgnoreCase) &&
+                               !requiredChannels.Contains(option.Value, StringComparer.OrdinalIgnoreCase);
+        }
     }
 
     private void AddOperatingSystemSelectionOptions(
