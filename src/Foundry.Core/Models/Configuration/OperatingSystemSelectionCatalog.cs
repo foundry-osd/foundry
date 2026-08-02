@@ -46,16 +46,5 @@ public static class OperatingSystemSelectionCatalog
     /// <summary>
     /// Gets the supported target editions shown in the deployment catalog.
     /// </summary>
-    public static IReadOnlyList<string> SupportedEditions { get; } =
-    [
-        "Home",
-        "Home N",
-        "Home Single Language",
-        "Education",
-        "Education N",
-        "Pro",
-        "Pro N",
-        "Enterprise",
-        "Enterprise N"
-    ];
+    public static IReadOnlyList<string> SupportedEditions => WindowsEditionCatalog.SupportedEditions;
 }

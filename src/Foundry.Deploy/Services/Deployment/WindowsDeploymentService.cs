@@ -5,6 +5,7 @@
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using Foundry.Core.Models.Configuration;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Services.Deployment.Unattend;
@@ -146,34 +147,60 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                 execution.ExitCode);
         }
 
-        IReadOnlyList<ImageIndexDescriptor> descriptors = ParseImageDescriptors(execution.StandardOutput);
-        if (descriptors.Count == 0)
+        IReadOnlyList<int> imageIndexes = ParseImageIndexes(execution.StandardOutput);
+        if (imageIndexes.Count == 0)
         {
             throw new InvalidOperationException($"The operating system image does not expose any image indexes: '{imagePath}'.");
         }
 
-        string requested = NormalizeToken(requestedEdition);
-        if (requested.Length == 0)
+        WindowsEditionDefinition? requestedDefinition = WindowsEditionCatalog.Find(requestedEdition);
+        if (requestedDefinition is null)
         {
-            return descriptors[0].Index;
+            throw new InvalidOperationException($"Windows edition '{requestedEdition}' is not supported.");
         }
 
-        ImageIndexDescriptor? bestMatch = descriptors.FirstOrDefault(item =>
-            MatchesEdition(item.Name, requested) ||
-            MatchesEdition(item.Edition, requested) ||
-            MatchesEdition(item.EditionId, requested));
-
-        if (bestMatch is null)
+        var imageMetadata = new List<ImageIndexMetadata>(imageIndexes.Count);
+        foreach (int imageIndex in imageIndexes)
         {
-            string availableImages = string.Join(
+            ProcessExecutionResult detailedExecution = await _processRunner
+                .RunAsync(
+                    "dism.exe",
+                    $"/English /Get-ImageInfo /ImageFile:\"{imagePath}\" /Index:{imageIndex}",
+                    workingDirectory,
+                    cancellationToken)
+                .ConfigureAwait(false);
+
+            if (!detailedExecution.IsSuccess)
+            {
+                _logger.LogError(
+                    "Failed to inspect OS image index {ImageIndex} for {ImagePath}. Diagnostic={Diagnostic}",
+                    imageIndex,
+                    imagePath,
+                    ToDiagnostic(detailedExecution));
+                throw new DeploymentProcessException(
+                    $"Unable to inspect image index {imageIndex} in '{imagePath}'.{Environment.NewLine}{ToDiagnostic(detailedExecution)}",
+                    detailedExecution.ExitCode);
+            }
+
+            imageMetadata.Add(new ImageIndexMetadata(imageIndex, ParseEditionId(detailedExecution.StandardOutput)));
+        }
+
+        ImageIndexMetadata[] matches = imageMetadata
+            .Where(item => item.EditionId.Equals(requestedDefinition.EditionId, StringComparison.OrdinalIgnoreCase))
+            .ToArray();
+
+        if (matches.Length != 1)
+        {
+            string availableEditionIds = string.Join(
                 ", ",
-                descriptors.Select(item => $"{item.Index}: {GetImageDescriptorDisplayName(item)}"));
+                imageMetadata.Select(item => $"{item.Index}: {item.EditionId}"));
 
             throw new InvalidOperationException(
-                $"Windows edition '{requestedEdition}' was not found in '{imagePath}'. Available images: {availableImages}.");
+                $"Expected exactly one '{requestedDefinition.EditionId}' image for Windows edition '{requestedDefinition.Name}' in '{imagePath}', " +
+                $"but found {matches.Length}. Available edition IDs: {availableEditionIds}.");
         }
 
-        int resolvedIndex = bestMatch.Index;
+        int resolvedIndex = matches[0].Index;
         _logger.LogInformation("Resolved OS image index {ImageIndex} for ImagePath={ImagePath}", resolvedIndex, imagePath);
         return resolvedIndex;
     }
@@ -1019,132 +1046,34 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         parent.Element(elementNamespace + elementName)?.Remove();
     }
 
-    private static IReadOnlyList<ImageIndexDescriptor> ParseImageDescriptors(string output)
+    private static IReadOnlyList<int> ParseImageIndexes(string output)
     {
         if (string.IsNullOrWhiteSpace(output))
         {
             return [];
         }
 
-        var descriptors = new List<ImageIndexDescriptor>();
-        ImageIndexDescriptor? current = null;
-
-        foreach (string line in output.Split(["\r\n", "\n"], StringSplitOptions.None))
-        {
-            Match indexMatch = Regex.Match(line, @"^\s*Index\s*:\s*(\d+)\s*$", RegexOptions.IgnoreCase);
-            if (indexMatch.Success)
-            {
-                if (current is not null)
-                {
-                    descriptors.Add(current);
-                }
-
-                current = new ImageIndexDescriptor
-                {
-                    Index = int.Parse(indexMatch.Groups[1].Value),
-                    Name = string.Empty,
-                    Edition = string.Empty,
-                    EditionId = string.Empty
-                };
-
-                continue;
-            }
-
-            if (current is null)
-            {
-                continue;
-            }
-
-            Match nameMatch = Regex.Match(line, @"^\s*Name\s*:\s*(.+)\s*$", RegexOptions.IgnoreCase);
-            if (nameMatch.Success)
-            {
-                current = current with { Name = nameMatch.Groups[1].Value.Trim() };
-                continue;
-            }
-
-            Match editionMatch = Regex.Match(line, @"^\s*Edition\s*:\s*(.+)\s*$", RegexOptions.IgnoreCase);
-            if (editionMatch.Success)
-            {
-                current = current with { Edition = editionMatch.Groups[1].Value.Trim() };
-                continue;
-            }
-
-            Match editionIdMatch = Regex.Match(line, @"^\s*Edition\s+ID\s*:\s*(.+)\s*$", RegexOptions.IgnoreCase);
-            if (editionIdMatch.Success)
-            {
-                current = current with { EditionId = editionIdMatch.Groups[1].Value.Trim() };
-            }
-        }
-
-        if (current is not null)
-        {
-            descriptors.Add(current);
-        }
-
-        return descriptors;
-    }
-
-    private static bool MatchesEdition(string source, string expected)
-    {
-        string normalizedSource = NormalizeEditionToken(source);
-        string normalizedExpected = NormalizeEditionToken(expected);
-        if (normalizedSource.Length == 0 || normalizedExpected.Length == 0)
-        {
-            return false;
-        }
-
-        return normalizedSource.Equals(normalizedExpected, StringComparison.OrdinalIgnoreCase);
-    }
-
-    private static string NormalizeEditionToken(string value)
-    {
-        string normalized = NormalizeToken(value);
-        normalized = Regex.Replace(normalized, @"^(?:microsoft)?windows\d+", string.Empty, RegexOptions.IgnoreCase);
-
-        return normalized switch
-        {
-            "core" => "home",
-            "coren" => "homen",
-            "coresinglelanguage" => "homesinglelanguage",
-            "professional" => "pro",
-            "professionaln" => "pron",
-            _ => normalized
-        };
-    }
-
-    private static string GetImageDescriptorDisplayName(ImageIndexDescriptor descriptor)
-    {
-        if (!string.IsNullOrWhiteSpace(descriptor.Name))
-        {
-            return descriptor.Name;
-        }
-
-        if (!string.IsNullOrWhiteSpace(descriptor.Edition))
-        {
-            return descriptor.Edition;
-        }
-
-        if (!string.IsNullOrWhiteSpace(descriptor.EditionId))
-        {
-            return descriptor.EditionId;
-        }
-
-        return "Unnamed image";
-    }
-
-    private static string NormalizeToken(string value)
-    {
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            return string.Empty;
-        }
-
-        char[] filtered = value
-            .ToLowerInvariant()
-            .Where(char.IsLetterOrDigit)
+        return Regex.Matches(output, @"^\s*Index\s*:\s*(\d+)\s*$", RegexOptions.IgnoreCase | RegexOptions.Multiline)
+            .Select(match => int.Parse(match.Groups[1].Value))
+            .Distinct()
             .ToArray();
+    }
 
-        return new string(filtered);
+    private static string ParseEditionId(string output)
+    {
+        string editionId = ParseImageProperty(output, "Edition ID");
+        return !string.IsNullOrWhiteSpace(editionId)
+            ? editionId
+            : ParseImageProperty(output, "Edition");
+    }
+
+    private static string ParseImageProperty(string output, string propertyName)
+    {
+        Match match = Regex.Match(
+            output,
+            $@"^\s*{Regex.Escape(propertyName)}\s*:\s*(.+)\s*$",
+            RegexOptions.IgnoreCase | RegexOptions.Multiline);
+        return match.Success ? match.Groups[1].Value.Trim() : string.Empty;
     }
 
     private static string ToDiagnostic(ProcessExecutionResult execution)
@@ -1154,11 +1083,5 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                $"StdErr:{Environment.NewLine}{execution.StandardError}";
     }
 
-    private sealed record ImageIndexDescriptor
-    {
-        public required int Index { get; init; }
-        public required string Name { get; init; }
-        public required string Edition { get; init; }
-        public required string EditionId { get; init; }
-    }
+    private sealed record ImageIndexMetadata(int Index, string EditionId);
 }

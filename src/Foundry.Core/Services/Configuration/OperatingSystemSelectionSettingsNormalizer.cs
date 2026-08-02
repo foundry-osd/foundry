@@ -35,16 +35,10 @@ public static class OperatingSystemSelectionSettingsNormalizer
                 OperatingSystemSelectionCatalog.SupportedReleaseIds,
                 static value => value.Trim()),
             allowedReleaseIds);
-        string[] allowedLicenseChannels = CanonicalizeKnownValues(
+        string[] configuredLicenseChannels = CanonicalizeKnownValues(
             settings.AllowedLicenseChannels,
             OperatingSystemSelectionCatalog.SupportedLicenseChannels,
             NormalizeLicenseChannel);
-        string? defaultLicenseChannel = NormalizeDefault(
-            CanonicalizeKnownValue(
-                settings.DefaultLicenseChannel,
-                OperatingSystemSelectionCatalog.SupportedLicenseChannels,
-                NormalizeLicenseChannel),
-            allowedLicenseChannels);
         string[] allowedEditions = CanonicalizeKnownValues(
             settings.AllowedEditions,
             OperatingSystemSelectionCatalog.SupportedEditions,
@@ -55,6 +49,12 @@ public static class OperatingSystemSelectionSettingsNormalizer
                 OperatingSystemSelectionCatalog.SupportedEditions,
                 static value => value.Trim()),
             allowedEditions);
+        string[] allowedLicenseChannels = EnsureCompatibleLicenseChannels(configuredLicenseChannels, allowedEditions);
+        defaultEdition = EnsureCompatibleDefaultEdition(defaultEdition, allowedEditions, allowedLicenseChannels);
+        string? defaultLicenseChannel = ResolveDefaultLicenseChannel(
+            settings.DefaultLicenseChannel,
+            allowedLicenseChannels,
+            defaultEdition);
 
         return new OperatingSystemSelectionSettings
         {
@@ -113,6 +113,77 @@ public static class OperatingSystemSelectionSettingsNormalizer
             "VOLUME" => "VOL",
             _ => normalized
         };
+    }
+
+    private static string[] EnsureCompatibleLicenseChannels(
+        IReadOnlyList<string> configuredChannels,
+        IReadOnlyList<string> allowedEditions)
+    {
+        if (configuredChannels.Count == 0 || allowedEditions.Count == 0)
+        {
+            return configuredChannels.ToArray();
+        }
+
+        HashSet<string> compatibleChannels = allowedEditions
+            .Select(WindowsEditionCatalog.Find)
+            .Where(definition => definition is not null)
+            .SelectMany(definition => definition!.LicenseChannels)
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+        HashSet<string> requiredChannels = allowedEditions
+            .Select(WindowsEditionCatalog.Find)
+            .Where(definition => definition?.LicenseChannels.Count == 1)
+            .Select(definition => definition!.LicenseChannels[0])
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+        return OperatingSystemSelectionCatalog.SupportedLicenseChannels
+            .Where(channel =>
+                requiredChannels.Contains(channel) ||
+                (compatibleChannels.Contains(channel) && configuredChannels.Contains(channel, StringComparer.OrdinalIgnoreCase)))
+            .ToArray();
+    }
+
+    private static string? ResolveDefaultLicenseChannel(
+        string? configuredDefault,
+        IReadOnlyList<string> allowedChannels,
+        string? defaultEdition)
+    {
+        string? canonicalDefault = CanonicalizeKnownValue(
+            configuredDefault,
+            OperatingSystemSelectionCatalog.SupportedLicenseChannels,
+            NormalizeLicenseChannel);
+        WindowsEditionDefinition? edition = WindowsEditionCatalog.Find(defaultEdition);
+
+        if (edition is not null)
+        {
+            string[] compatibleAllowedChannels = edition.LicenseChannels
+                .Where(channel => allowedChannels.Count == 0 || allowedChannels.Contains(channel, StringComparer.OrdinalIgnoreCase))
+                .ToArray();
+            if (canonicalDefault is not null && compatibleAllowedChannels.Contains(canonicalDefault, StringComparer.OrdinalIgnoreCase))
+            {
+                return canonicalDefault;
+            }
+
+            return compatibleAllowedChannels.FirstOrDefault() ?? edition.LicenseChannels[0];
+        }
+
+        return NormalizeDefault(canonicalDefault, allowedChannels);
+    }
+
+    private static string? EnsureCompatibleDefaultEdition(
+        string? defaultEdition,
+        IReadOnlyList<string> allowedEditions,
+        IReadOnlyList<string> allowedChannels)
+    {
+        if (defaultEdition is null || allowedEditions.Count > 0 || allowedChannels.Count == 0)
+        {
+            return defaultEdition;
+        }
+
+        WindowsEditionDefinition? definition = WindowsEditionCatalog.Find(defaultEdition);
+        return definition is not null &&
+               definition.LicenseChannels.Any(channel => allowedChannels.Contains(channel, StringComparer.OrdinalIgnoreCase))
+            ? defaultEdition
+            : null;
     }
 
     private static string[] CanonicalizeLanguageCodes(IEnumerable<string> languageCodes)

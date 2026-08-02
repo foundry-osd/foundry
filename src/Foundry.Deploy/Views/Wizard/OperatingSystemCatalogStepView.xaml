@@ -60,6 +60,16 @@
                         <TextBlock
                             Margin="0,20,0,0"
                             Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding Strings[Catalog.EditionTarget]}" />
+                        <ComboBox
+                            Margin="0,8,0,0"
+                            IsEnabled="{Binding OperatingSystemCatalog.IsEditionSelectionEnabled}"
+                            ItemsSource="{Binding OperatingSystemCatalog.EditionFilters}"
+                            SelectedItem="{Binding OperatingSystemCatalog.SelectedEdition}" />
+
+                        <TextBlock
+                            Margin="0,20,0,0"
+                            Style="{StaticResource BodyTextBlockStyle}"
                             Text="{Binding Strings[Catalog.LicenseChannel]}" />
                         <ComboBox
                             Margin="0,8,0,0"
@@ -72,16 +82,6 @@
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-
-                        <TextBlock
-                            Margin="0,20,0,0"
-                            Style="{StaticResource BodyTextBlockStyle}"
-                            Text="{Binding Strings[Catalog.EditionTarget]}" />
-                        <ComboBox
-                            Margin="0,8,0,0"
-                            IsEnabled="{Binding OperatingSystemCatalog.IsEditionSelectionEnabled}"
-                            ItemsSource="{Binding OperatingSystemCatalog.EditionFilters}"
-                            SelectedItem="{Binding OperatingSystemCatalog.SelectedEdition}" />
                     </StackPanel>
                 </Border>
             </Grid>

@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
+using Foundry.Core.Models.Configuration;
 using Foundry.Deploy.Services.Logging;
 
 namespace Foundry.Deploy.Services.Deployment.Steps;
@@ -92,13 +93,15 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
 
             if (!string.IsNullOrWhiteSpace(appliedEdition))
             {
-                DeploymentLogLevel editionLogLevel = EditionsMatch(context.Request.OperatingSystem.Edition, appliedEdition)
+                WindowsEditionDefinition? requestedEdition = WindowsEditionCatalog.Find(context.Request.OperatingSystem.Edition);
+                DeploymentLogLevel editionLogLevel = requestedEdition is not null &&
+                    requestedEdition.EditionId.Equals(appliedEdition, StringComparison.OrdinalIgnoreCase)
                     ? DeploymentLogLevel.Info
                     : DeploymentLogLevel.Warning;
 
                 string message = editionLogLevel == DeploymentLogLevel.Info
                     ? $"Applied Windows edition verified: {appliedEdition}."
-                    : $"Applied Windows edition '{appliedEdition}' does not closely match requested edition '{context.Request.OperatingSystem.Edition}'.";
+                    : $"Applied Windows edition ID '{appliedEdition}' does not match requested edition '{context.Request.OperatingSystem.Edition}'.";
 
                 await context.AppendLogAsync(editionLogLevel, message, cancellationToken).ConfigureAwait(false);
             }
@@ -144,32 +147,4 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
         return DeploymentStepResult.Succeeded("Operating system image applied (simulation).");
     }
 
-    private static bool EditionsMatch(string requestedEdition, string appliedEdition)
-    {
-        string requested = NormalizeEditionToken(requestedEdition);
-        string applied = NormalizeEditionToken(appliedEdition);
-
-        if (requested.Length == 0 || applied.Length == 0)
-        {
-            return false;
-        }
-
-        return requested.Contains(applied, StringComparison.OrdinalIgnoreCase) ||
-               applied.Contains(requested, StringComparison.OrdinalIgnoreCase);
-    }
-
-    private static string NormalizeEditionToken(string value)
-    {
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            return string.Empty;
-        }
-
-        char[] filtered = value
-            .ToLowerInvariant()
-            .Where(char.IsLetterOrDigit)
-            .ToArray();
-
-        return new string(filtered);
-    }
 }

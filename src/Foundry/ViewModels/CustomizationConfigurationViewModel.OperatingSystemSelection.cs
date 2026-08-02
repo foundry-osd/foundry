@@ -162,11 +162,23 @@ public sealed partial class CustomizationConfigurationViewModel
 
     partial void OnSelectedDefaultOperatingSystemLicenseChannelChanged(SelectionOption<string>? value)
     {
+        if (isRefreshingOperatingSystemSelectionOptions)
+        {
+            return;
+        }
+
+        RefreshOperatingSystemDefaultOptions(BuildOperatingSystemSelectionSettings());
         SaveState();
     }
 
     partial void OnSelectedDefaultOperatingSystemEditionChanged(SelectionOption<string>? value)
     {
+        if (isRefreshingOperatingSystemSelectionOptions)
+        {
+            return;
+        }
+
+        RefreshOperatingSystemDefaultOptions(BuildOperatingSystemSelectionSettings());
         SaveState();
     }
 
@@ -318,12 +330,24 @@ public sealed partial class CustomizationConfigurationViewModel
     private void OnOperatingSystemSelectionOptionPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (isApplyingState ||
+            isRefreshingOperatingSystemSelectionOptions ||
             !string.Equals(e.PropertyName, nameof(SelectableStringOptionViewModel.IsSelected), StringComparison.Ordinal))
         {
             return;
         }
 
-        RefreshOperatingSystemDefaultOptions(BuildOperatingSystemSelectionSettings());
+        OperatingSystemSelectionSettings normalized = BuildOperatingSystemSelectionSettings();
+        isRefreshingOperatingSystemSelectionOptions = true;
+        try
+        {
+            SetSelectedOptions(OperatingSystemLicenseChannelOptions, normalized.AllowedLicenseChannels);
+        }
+        finally
+        {
+            isRefreshingOperatingSystemSelectionOptions = false;
+        }
+
+        RefreshOperatingSystemDefaultOptions(normalized);
         SaveState();
     }
 
