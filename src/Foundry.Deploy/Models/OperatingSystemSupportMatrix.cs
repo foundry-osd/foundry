@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.Generic;
+using Foundry.Core.Models.Configuration;
 
 namespace Foundry.Deploy.Models;
 
@@ -28,24 +29,11 @@ internal static class OperatingSystemSupportMatrix
         "VOL"
     ];
 
-    private static readonly string[] SupportedEditionOrder =
-    [
-        "Home",
-        "Home N",
-        "Home Single Language",
-        "Education",
-        "Education N",
-        "Pro",
-        "Pro N",
-        "Enterprise",
-        "Enterprise N"
-    ];
-
     public static IReadOnlyList<string> ReleaseSearchOrder => SupportedReleaseIdOrder;
 
     public static IReadOnlyList<string> LicenseChannelOrder => SupportedLicenseChannelOrder;
 
-    public static IReadOnlyList<string> EditionOrder => SupportedEditionOrder;
+    public static IReadOnlyList<string> EditionOrder => WindowsEditionCatalog.SupportedEditions;
 
     public static bool IsSupported(OperatingSystemCatalogItem item)
     {

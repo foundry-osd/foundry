@@ -34,4 +34,7 @@ public sealed partial class SelectableStringOptionViewModel : ObservableObject
 
     [ObservableProperty]
     public partial bool IsSelected { get; set; }
+
+    [ObservableProperty]
+    public partial bool IsEnabled { get; set; } = true;
 }

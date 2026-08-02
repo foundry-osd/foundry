@@ -12,6 +12,141 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class OperatingSystemCatalogViewModelTests
 {
+    [Theory]
+    [InlineData("x64")]
+    [InlineData("arm64")]
+    public void ApplyCatalog_ForRetailMedia_DoesNotOfferEnterprise(string architecture)
+    {
+        var viewModel = new OperatingSystemCatalogViewModel(NullLogger.Instance, architecture);
+
+        viewModel.ApplyCatalog(
+        [
+            CreateOperatingSystem("en-US", licenseChannel: "RET", architecture: architecture)
+        ]);
+
+        Assert.Contains("Pro", viewModel.EditionFilters);
+        Assert.DoesNotContain("Enterprise", viewModel.EditionFilters);
+        Assert.DoesNotContain("Enterprise N", viewModel.EditionFilters);
+    }
+
+    [Fact]
+    public void ApplyCatalog_ForVolumeMedia_OffersEnterprise()
+    {
+        var viewModel = new OperatingSystemCatalogViewModel(NullLogger.Instance, "x64");
+
+        viewModel.ApplyCatalog(
+        [
+            CreateOperatingSystem("en-US", licenseChannel: "VOL")
+        ]);
+
+        Assert.Contains("Enterprise", viewModel.EditionFilters);
+        Assert.Contains("Enterprise N", viewModel.EditionFilters);
+    }
+
+    [Theory]
+    [InlineData("Home", "RET")]
+    [InlineData("Home N", "RET")]
+    [InlineData("Home Single Language", "RET")]
+    [InlineData("Enterprise", "VOL")]
+    [InlineData("Enterprise N", "VOL")]
+    public void SelectingChannelSpecificEdition_ForcesItsLicenseChannel(string edition, string expectedChannel)
+    {
+        var viewModel = new OperatingSystemCatalogViewModel(NullLogger.Instance, "x64");
+        viewModel.ApplyCatalog(
+        [
+            CreateOperatingSystem("en-US", licenseChannel: "RET", sourceId: "media"),
+            CreateOperatingSystem("en-US", licenseChannel: "VOL", sourceId: "media")
+        ]);
+
+        viewModel.SelectedEdition = edition;
+
+        Assert.Equal([expectedChannel], viewModel.LicenseChannelFilters);
+        Assert.Equal(expectedChannel, viewModel.SelectedLicenseChannel);
+        Assert.False(viewModel.IsLicenseChannelSelectionEnabled);
+        Assert.Equal(edition, viewModel.SelectedOperatingSystem?.Edition);
+    }
+
+    [Theory]
+    [InlineData("Pro")]
+    [InlineData("Pro N")]
+    [InlineData("Education")]
+    [InlineData("Education N")]
+    public void SelectingDualChannelEdition_OffersRetailAndVolume(string edition)
+    {
+        var viewModel = new OperatingSystemCatalogViewModel(NullLogger.Instance, "x64");
+        viewModel.ApplyCatalog(
+        [
+            CreateOperatingSystem("en-US", licenseChannel: "RET", sourceId: "media"),
+            CreateOperatingSystem("en-US", licenseChannel: "VOL", sourceId: "media")
+        ]);
+
+        viewModel.SelectedEdition = edition;
+
+        Assert.Equal(["RET", "VOL"], viewModel.LicenseChannelFilters);
+        Assert.True(viewModel.IsLicenseChannelSelectionEnabled);
+    }
+
+    [Fact]
+    public void SelectingHomeChina_SelectsOnlyCountrySpecificMedia()
+    {
+        var viewModel = new OperatingSystemCatalogViewModel(NullLogger.Instance, "x64");
+        viewModel.ApplyCatalog(
+        [
+            CreateOperatingSystem("zh-CN", licenseChannel: "RET", catalogEdition: "UltimateN", sourceSuffix: "consumer"),
+            CreateOperatingSystem("zh-CN", licenseChannel: "RET", catalogEdition: "CoreCountrySpecific", sourceSuffix: "china")
+        ]);
+
+        Assert.Contains("Home China", viewModel.EditionFilters);
+
+        viewModel.SelectedEdition = "Home China";
+
+        Assert.Contains("china", viewModel.SelectedOperatingSystem?.Url, StringComparison.Ordinal);
+        Assert.Equal("Home China", viewModel.SelectedOperatingSystem?.Edition);
+    }
+
+    [Fact]
+    public void ApplyCatalog_ForArm64_OffersOnlyAvailableArm64Editions()
+    {
+        var viewModel = new OperatingSystemCatalogViewModel(NullLogger.Instance, "arm64");
+        viewModel.ApplyCatalog(
+        [
+            CreateOperatingSystem("en-US", licenseChannel: "RET", architecture: "arm64", sourceId: "media"),
+            CreateOperatingSystem("en-US", licenseChannel: "VOL", architecture: "arm64", sourceId: "media")
+        ]);
+
+        Assert.Equal(
+            ["Education", "Education N", "Enterprise", "Enterprise N", "Home", "Home N", "Home Single Language", "Pro", "Pro N"],
+            viewModel.EditionFilters);
+
+        viewModel.SelectedEdition = "Enterprise";
+
+        Assert.Equal(["VOL"], viewModel.LicenseChannelFilters);
+        Assert.Equal("VOL", viewModel.SelectedLicenseChannel);
+    }
+
+    [Fact]
+    public void ApplyOperatingSystemSelection_WithVolumeOnlyPolicy_DoesNotOfferRetailOnlyEditions()
+    {
+        var viewModel = new OperatingSystemCatalogViewModel(NullLogger.Instance, "x64");
+        viewModel.ApplyCatalog(
+        [
+            CreateOperatingSystem("en-US", licenseChannel: "RET", sourceId: "media"),
+            CreateOperatingSystem("en-US", licenseChannel: "VOL", sourceId: "media")
+        ]);
+
+        viewModel.ApplyOperatingSystemSelection(new DeployOperatingSystemSelectionSettings
+        {
+            IsEnabled = true,
+            AllowedLicenseChannels = ["VOL"]
+        });
+
+        Assert.DoesNotContain("Home", viewModel.EditionFilters);
+        Assert.DoesNotContain("Home N", viewModel.EditionFilters);
+        Assert.DoesNotContain("Home Single Language", viewModel.EditionFilters);
+        Assert.Contains("Enterprise", viewModel.EditionFilters);
+        Assert.Equal(["VOL"], viewModel.LicenseChannelFilters);
+    }
+
     [Fact]
     public void ApplyOperatingSystemSelection_UsesCanonicalLanguageCodesForFiltersAndSelection()
     {
@@ -90,7 +225,7 @@ public sealed class OperatingSystemCatalogViewModelTests
         Assert.Equal(["25H2"], viewModel.ReleaseIdFilters);
         Assert.True(viewModel.IsReleaseIdSelectionEnabled);
         Assert.Equal(["RET"], viewModel.LicenseChannelFilters);
-        Assert.True(viewModel.IsLicenseChannelSelectionEnabled);
+        Assert.False(viewModel.IsLicenseChannelSelectionEnabled);
         Assert.Contains("Pro", viewModel.EditionFilters);
         Assert.True(viewModel.IsEditionSelectionEnabled);
     }
@@ -123,7 +258,7 @@ public sealed class OperatingSystemCatalogViewModelTests
         Assert.Equal(["en-US"], viewModel.LanguageFilters);
         Assert.True(viewModel.IsLanguageSelectionEnabled);
         Assert.Equal(["RET"], viewModel.LicenseChannelFilters);
-        Assert.True(viewModel.IsLicenseChannelSelectionEnabled);
+        Assert.False(viewModel.IsLicenseChannelSelectionEnabled);
         Assert.Contains("Pro", viewModel.EditionFilters);
         Assert.True(viewModel.IsEditionSelectionEnabled);
     }
@@ -226,20 +361,26 @@ public sealed class OperatingSystemCatalogViewModelTests
         string licenseChannel = "RET",
         string? sourceId = null,
         DateOnly? mediaDate = null,
-        string build = "26200.8873")
+        string build = "26200.8873",
+        string architecture = "x64",
+        string catalogEdition = "Pro",
+        string? sourceSuffix = null)
     {
         return new OperatingSystemCatalogItem
         {
             SourceId = sourceId ?? $"{releaseId}-{licenseChannel}",
+            ClientType = licenseChannel.Equals("VOL", StringComparison.OrdinalIgnoreCase)
+                ? "CLIENTBUSINESS"
+                : "CLIENTCONSUMER",
             WindowsRelease = "11",
             ReleaseId = releaseId,
-            Architecture = "x64",
+            Architecture = architecture,
             LanguageCode = languageCode,
-            Edition = "Pro",
+            Edition = catalogEdition,
             LicenseChannel = licenseChannel,
             Build = build,
             MediaDate = mediaDate ?? new DateOnly(2026, 7, 10),
-            Url = $"https://example.test/windows-{sourceId ?? releaseId}-{licenseChannel}-{languageCode}.iso"
+            Url = $"https://example.test/windows-{sourceId ?? releaseId}-{licenseChannel}-{languageCode}{sourceSuffix}.iso"
         };
     }
 }

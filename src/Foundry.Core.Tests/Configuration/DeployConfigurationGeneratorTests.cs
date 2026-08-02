@@ -368,6 +368,55 @@ public sealed class DeployConfigurationGeneratorTests
         Assert.Equal("Enterprise", result.OperatingSystemSelection.DefaultEdition);
     }
 
+    [Theory]
+    [InlineData("Home", "VOL", "RET")]
+    [InlineData("Home China", "VOL", "RET")]
+    [InlineData("Enterprise", "RET", "VOL")]
+    public void Generate_WhenEditionAndLicenseChannelConflict_PreservesEditionAndForcesCompatibleChannel(
+        string edition,
+        string configuredChannel,
+        string expectedChannel)
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            OperatingSystemSelection = new OperatingSystemSelectionSettings
+            {
+                IsEnabled = true,
+                AllowedLicenseChannels = [configuredChannel],
+                AllowedEditions = [edition]
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.Equal([edition], result.OperatingSystemSelection.AllowedEditions);
+        Assert.Equal([expectedChannel], result.OperatingSystemSelection.AllowedLicenseChannels);
+        Assert.Equal(expectedChannel, result.OperatingSystemSelection.DefaultLicenseChannel);
+    }
+
+    [Fact]
+    public void Generate_WhenDefaultEditionConflictsWithChannelOnlyPolicy_DropsTheDefaultEdition()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            OperatingSystemSelection = new OperatingSystemSelectionSettings
+            {
+                IsEnabled = true,
+                AllowedLicenseChannels = ["VOL"],
+                DefaultLicenseChannel = "VOL",
+                DefaultEdition = "Home"
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.Equal(["VOL"], result.OperatingSystemSelection.AllowedLicenseChannels);
+        Assert.Equal("VOL", result.OperatingSystemSelection.DefaultLicenseChannel);
+        Assert.Null(result.OperatingSystemSelection.DefaultEdition);
+    }
+
     [Fact]
     public void Generate_WhenOperatingSystemSelectionIsDisabled_DoesNotPropagatePolicy()
     {

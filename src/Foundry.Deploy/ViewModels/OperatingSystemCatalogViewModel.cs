@@ -5,6 +5,7 @@
 using System.Collections.ObjectModel;
 using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Foundry.Core.Models.Configuration;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Catalog;
@@ -20,39 +21,6 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
     private const string DefaultEdition = OperatingSystemSupportMatrix.DefaultEdition;
     private const string FallbackLanguageCode = "en-US";
     private static readonly string DefaultLanguageCode = ResolveDefaultLanguageCode();
-    private static readonly string[] RetailEditionOptions =
-    [
-        "Home",
-        "Home N",
-        "Home Single Language",
-        "Education",
-        "Education N",
-        "Pro",
-        "Pro N",
-        "Enterprise",
-        "Enterprise N"
-    ];
-    private static readonly string[] VolumeEditionOptions =
-    [
-        "Education",
-        "Education N",
-        "Pro",
-        "Pro N",
-        "Enterprise",
-        "Enterprise N"
-    ];
-    private static readonly string[] Arm64RetailEditionOptions =
-    [
-        "Home",
-        "Pro",
-        "Enterprise"
-    ];
-    private static readonly string[] Arm64VolumeEditionOptions =
-    [
-        "Pro",
-        "Enterprise"
-    ];
-
     private readonly ILogger _logger;
     private readonly HashSet<string> _configuredAllowedLanguageCodes = new(StringComparer.OrdinalIgnoreCase);
     private readonly HashSet<string> _configuredAllowedReleaseIds = new(StringComparer.OrdinalIgnoreCase);
@@ -317,7 +285,27 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
                 _configuredDefaultLanguageCode);
             LogUnavailableDefaultLanguage();
 
-            IEnumerable<OperatingSystemCatalogItem> licenseScope = ApplyLanguageFilter(languageScope);
+            IEnumerable<OperatingSystemCatalogItem> editionScope = ApplyLanguageFilter(languageScope);
+            IEnumerable<string> availableEditions = BuildAvailableEditionOptions(editionScope);
+            IEnumerable<string> effectiveEditionValues = BuildEffectiveFilterValues(
+                availableEditions,
+                _configuredAllowedEditions,
+                "editions",
+                ref _hasLoggedUnavailableConfiguredEditions,
+                out _isEditionRestrictedToSingleOption);
+            SelectedEdition = UpdateFilterSelection(
+                EditionFilters,
+                effectiveEditionValues,
+                previousEdition,
+                _configuredDefaultEdition ?? DefaultEdition,
+                selectFirstWhenNoMatch: true);
+            LogUnavailableDefault(
+                _configuredDefaultEdition,
+                EditionFilters,
+                "edition",
+                ref _hasLoggedUnavailableDefaultEdition);
+
+            IEnumerable<OperatingSystemCatalogItem> licenseScope = ApplyEditionMediaFilter(editionScope);
             IEnumerable<string> effectiveLicenseChannelValues = BuildEffectiveFilterValues(
                 licenseScope.Select(item => item.LicenseChannel),
                 _configuredAllowedLicenseChannels,
@@ -335,26 +323,7 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
                 LicenseChannelFilters,
                 "license channel",
                 ref _hasLoggedUnavailableDefaultLicenseChannel);
-
-            IEnumerable<OperatingSystemCatalogItem> editionScope = ApplyLicenseChannelFilter(licenseScope);
-            IEnumerable<string> recommendedEditions = BuildRecommendedEditionOptions(editionScope);
-            IEnumerable<string> effectiveEditionValues = BuildEffectiveFilterValues(
-                recommendedEditions,
-                _configuredAllowedEditions,
-                "editions",
-                ref _hasLoggedUnavailableConfiguredEditions,
-                out _isEditionRestrictedToSingleOption);
-            SelectedEdition = UpdateFilterSelection(
-                EditionFilters,
-                effectiveEditionValues,
-                previousEdition,
-                _configuredDefaultEdition ?? DefaultEdition,
-                selectFirstWhenNoMatch: true);
-            LogUnavailableDefault(
-                _configuredDefaultEdition,
-                EditionFilters,
-                "edition",
-                ref _hasLoggedUnavailableDefaultEdition);
+            _isLicenseChannelRestrictedToSingleOption = LicenseChannelFilters.Count == 1;
         }
         finally
         {
@@ -579,37 +548,19 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
             : source.Where(item => item.LicenseChannel.Equals(SelectedLicenseChannel, StringComparison.OrdinalIgnoreCase));
     }
 
-    private IEnumerable<string> BuildRecommendedEditionOptions(IEnumerable<OperatingSystemCatalogItem> scope)
+    private IEnumerable<string> BuildAvailableEditionOptions(IEnumerable<OperatingSystemCatalogItem> scope)
     {
         string architecture = NormalizeArchitecture(EffectiveOsArchitecture);
-        bool hasRetail = scope.Any(item => item.LicenseChannel.Equals("RET", StringComparison.OrdinalIgnoreCase));
-        bool hasVolume = scope.Any(item => item.LicenseChannel.Equals("VOL", StringComparison.OrdinalIgnoreCase));
+        OperatingSystemCatalogItem[] availableMedia = scope.ToArray();
 
-        List<string> recommended = [];
-
-        if (IsFilterUnset(SelectedLicenseChannel))
-        {
-            if (hasRetail)
-            {
-                recommended.AddRange(GetEditionOptionsForChannel("RET", architecture));
-            }
-
-            if (hasVolume)
-            {
-                recommended.AddRange(GetEditionOptionsForChannel("VOL", architecture));
-            }
-        }
-        else
-        {
-            recommended.AddRange(GetEditionOptionsForChannel(SelectedLicenseChannel, architecture));
-        }
-
-        if (recommended.Count == 0)
-        {
-            recommended.AddRange(scope.Select(item => item.Edition));
-        }
-
-        return recommended;
+        return WindowsEditionCatalog.SupportedDefinitions
+            .Where(definition => definition.Architectures.Contains(architecture, StringComparer.OrdinalIgnoreCase))
+            .Where(definition =>
+                _configuredAllowedEditions.Count > 0 ||
+                _configuredAllowedLicenseChannels.Count == 0 ||
+                definition.LicenseChannels.Any(_configuredAllowedLicenseChannels.Contains))
+            .Where(definition => availableMedia.Any(item => CatalogItemContainsEdition(item, definition)))
+            .Select(definition => definition.Name);
     }
 
     private OperatingSystemCatalogItem[] BuildFilteredOperatingSystems()
@@ -618,6 +569,7 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
         query = ApplyReleaseIdFilter(query);
         query = ApplyMediaFilter(query);
         query = ApplyLanguageFilter(query);
+        query = ApplyEditionMediaFilter(query);
         query = ApplyLicenseChannelFilter(query);
 
         return query
@@ -643,21 +595,34 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
         return item with { Edition = SelectedEdition };
     }
 
-    private static IEnumerable<string> GetEditionOptionsForChannel(string licenseChannel, string architecture)
+    private IEnumerable<OperatingSystemCatalogItem> ApplyEditionMediaFilter(IEnumerable<OperatingSystemCatalogItem> source)
     {
-        bool isArm64 = architecture.Equals("arm64", StringComparison.OrdinalIgnoreCase);
-
-        if (licenseChannel.Equals("VOL", StringComparison.OrdinalIgnoreCase))
+        WindowsEditionDefinition? definition = WindowsEditionCatalog.Find(SelectedEdition);
+        if (definition is null)
         {
-            return isArm64 ? Arm64VolumeEditionOptions : VolumeEditionOptions;
+            return [];
         }
 
-        if (licenseChannel.Equals("RET", StringComparison.OrdinalIgnoreCase))
+        return source.Where(item => CatalogItemContainsEdition(item, definition));
+    }
+
+    private static bool CatalogItemContainsEdition(
+        OperatingSystemCatalogItem item,
+        WindowsEditionDefinition definition)
+    {
+        bool isCountrySpecificMedia = item.Edition.Equals("CoreCountrySpecific", StringComparison.OrdinalIgnoreCase);
+        bool isCountrySpecificEdition = definition.EditionId.Equals("CoreCountrySpecific", StringComparison.OrdinalIgnoreCase);
+        if (isCountrySpecificMedia || isCountrySpecificEdition)
         {
-            return isArm64 ? Arm64RetailEditionOptions : RetailEditionOptions;
+            return isCountrySpecificMedia && isCountrySpecificEdition;
         }
 
-        return [];
+        string expectedClientType = item.LicenseChannel.Equals("RET", StringComparison.OrdinalIgnoreCase)
+            ? "CLIENTCONSUMER"
+            : "CLIENTBUSINESS";
+
+        return item.ClientType.Equals(expectedClientType, StringComparison.OrdinalIgnoreCase) &&
+               definition.LicenseChannels.Contains(item.LicenseChannel, StringComparer.OrdinalIgnoreCase);
     }
 
     private void ResetOperatingSystemSelectionPolicy(DeployOperatingSystemSelectionSettings settings)

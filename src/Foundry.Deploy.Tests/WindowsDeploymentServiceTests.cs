@@ -13,6 +13,197 @@ namespace Foundry.Deploy.Tests;
 public sealed class WindowsDeploymentServiceTests
 {
     [Fact]
+    public async Task ResolveImageIndexAsync_WhenRequestedEditionIsMissing_ThrowsBeforeImageApplication()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string imagePath = Path.Combine(workspace.RootPath, "consumer.esd");
+        await File.WriteAllTextAsync(imagePath, string.Empty, TestContext.Current.CancellationToken);
+        var processRunner = new RecordingProcessRunner
+        {
+            ResultFactory = arguments => arguments.Contains("/Index:4", StringComparison.OrdinalIgnoreCase)
+                ? new ProcessExecutionResult { ExitCode = 0, StandardOutput = "Index : 4\nEdition : Core" }
+                : arguments.Contains("/Index:9", StringComparison.OrdinalIgnoreCase)
+                    ? new ProcessExecutionResult { ExitCode = 0, StandardOutput = "Index : 9\nEdition : Professional" }
+                    : new ProcessExecutionResult
+                    {
+                        ExitCode = 0,
+                        StandardOutput = """
+                    Index : 1
+                    Name : Windows Setup Media
+
+                    Index : 4
+                    Name : Windows 11 Home
+
+                    Index : 9
+                    Name : Windows 11 Pro
+                    """
+                    }
+        };
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            service.ResolveImageIndexAsync(
+                imagePath,
+                "Enterprise",
+                workspace.RootPath,
+                TestContext.Current.CancellationToken));
+
+        Assert.Contains("Enterprise", exception.Message, StringComparison.Ordinal);
+        Assert.Contains("4: Core", exception.Message, StringComparison.Ordinal);
+        Assert.Contains("9: Professional", exception.Message, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task ResolveImageIndexAsync_WhenSingleImageDoesNotMatchRequestedEdition_Throws()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string imagePath = Path.Combine(workspace.RootPath, "setup-media.esd");
+        await File.WriteAllTextAsync(imagePath, string.Empty, TestContext.Current.CancellationToken);
+        var processRunner = new RecordingProcessRunner
+        {
+            Result = new ProcessExecutionResult
+            {
+                ExitCode = 0,
+                StandardOutput = """
+                    Index : 1
+                    Name : Windows Setup Media
+                    """
+            }
+        };
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            service.ResolveImageIndexAsync(
+                imagePath,
+                "Enterprise",
+                workspace.RootPath,
+                TestContext.Current.CancellationToken));
+    }
+
+    [Fact]
+    public async Task ResolveImageIndexAsync_DoesNotSelectNVariantForNonNEdition()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string imagePath = Path.Combine(workspace.RootPath, "consumer.esd");
+        await File.WriteAllTextAsync(imagePath, string.Empty, TestContext.Current.CancellationToken);
+        var processRunner = new RecordingProcessRunner
+        {
+            ResultFactory = arguments => arguments.Contains("/Index:5", StringComparison.OrdinalIgnoreCase)
+                ? new ProcessExecutionResult { ExitCode = 0, StandardOutput = "Index : 5\nEdition : ProfessionalN" }
+                : arguments.Contains("/Index:9", StringComparison.OrdinalIgnoreCase)
+                    ? new ProcessExecutionResult { ExitCode = 0, StandardOutput = "Index : 9\nEdition : Professional" }
+                    : new ProcessExecutionResult
+                    {
+                        ExitCode = 0,
+                        StandardOutput = """
+                    Index : 5
+                    Name : Windows 11 Pro N
+
+                    Index : 9
+                    Name : Windows 11 Pro
+                    """
+                    }
+        };
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        int imageIndex = await service.ResolveImageIndexAsync(
+            imagePath,
+            "Pro",
+            workspace.RootPath,
+            TestContext.Current.CancellationToken);
+
+        Assert.Equal(9, imageIndex);
+    }
+
+    [Theory]
+    [InlineData("Home", "Core", 4)]
+    [InlineData("Home N", "CoreN", 5)]
+    [InlineData("Home Single Language", "CoreSingleLanguage", 6)]
+    [InlineData("Home China", "CoreCountrySpecific", 7)]
+    [InlineData("Education", "Education", 8)]
+    [InlineData("Education N", "EducationN", 9)]
+    [InlineData("Pro", "Professional", 10)]
+    [InlineData("Pro N", "ProfessionalN", 11)]
+    [InlineData("Enterprise", "Enterprise", 12)]
+    [InlineData("Enterprise N", "EnterpriseN", 13)]
+    public async Task ResolveImageIndexAsync_ResolvesExactEditionIdFromDetailedImageMetadata(
+        string edition,
+        string editionId,
+        int expectedIndex)
+    {
+        using var workspace = new TemporaryWorkspace();
+        string imagePath = Path.Combine(workspace.RootPath, "windows.esd");
+        await File.WriteAllTextAsync(imagePath, string.Empty, TestContext.Current.CancellationToken);
+        var processRunner = new RecordingProcessRunner
+        {
+            ResultFactory = arguments => arguments.Contains($"/Index:{expectedIndex}", StringComparison.OrdinalIgnoreCase)
+                ? new ProcessExecutionResult
+                {
+                    ExitCode = 0,
+                    StandardOutput = $"""
+                        Index : {expectedIndex}
+                        Name : Nom Windows localise arbitraire
+                        Edition : {editionId}
+                        """
+                }
+                : arguments.Contains("/Index:", StringComparison.OrdinalIgnoreCase)
+                    ? new ProcessExecutionResult
+                    {
+                        ExitCode = 0,
+                        StandardOutput = """
+                            Index : 1
+                            Name : Windows Setup Media
+                            """
+                    }
+                    : new ProcessExecutionResult
+                    {
+                        ExitCode = 0,
+                        StandardOutput = $"""
+                        Index : 1
+                        Name : Windows Setup Media
+
+                        Index : {expectedIndex}
+                        Name : Nom Windows localise arbitraire
+                        """
+                    }
+        };
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        int imageIndex = await service.ResolveImageIndexAsync(
+            imagePath,
+            edition,
+            workspace.RootPath,
+            TestContext.Current.CancellationToken);
+
+        Assert.Equal(expectedIndex, imageIndex);
+        Assert.Contains(processRunner.Calls, call => call.Contains($"/Index:{expectedIndex}", StringComparison.OrdinalIgnoreCase));
+    }
+
+    [Fact]
+    public async Task ResolveImageIndexAsync_WhenEditionIdOccursMoreThanOnce_ThrowsWithoutFallback()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string imagePath = Path.Combine(workspace.RootPath, "windows.esd");
+        await File.WriteAllTextAsync(imagePath, string.Empty, TestContext.Current.CancellationToken);
+        var processRunner = new RecordingProcessRunner
+        {
+            ResultFactory = arguments => arguments.Contains("/Index:", StringComparison.OrdinalIgnoreCase)
+                ? new ProcessExecutionResult { ExitCode = 0, StandardOutput = $"Index : {ParseRequestedIndex(arguments)}\nEdition : Professional" }
+                : new ProcessExecutionResult { ExitCode = 0, StandardOutput = "Index : 8\nName : Pro first\n\nIndex : 9\nName : Pro second" }
+        };
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            service.ResolveImageIndexAsync(
+                imagePath,
+                "Pro",
+                workspace.RootPath,
+                TestContext.Current.CancellationToken));
+
+        Assert.Contains("found 2", exception.Message, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public async Task PrepareTargetDiskAsync_CreatesPartitionsInExpectedOrder_Efi_Msr_Recovery_Windows()
     {
         using var workspace = new TemporaryWorkspace();
@@ -305,6 +496,12 @@ public sealed class WindowsDeploymentServiceTests
         return windowsRoot;
     }
 
+    private static int ParseRequestedIndex(string arguments)
+    {
+        string value = arguments[(arguments.LastIndexOf("/Index:", StringComparison.OrdinalIgnoreCase) + 7)..];
+        return int.Parse(value);
+    }
+
     private sealed class TemporaryWorkspace : IDisposable
     {
         public TemporaryWorkspace()
@@ -363,6 +560,7 @@ public sealed class WindowsDeploymentServiceTests
         public string? LastArguments { get; private set; }
         public string? LastWorkingDirectory { get; private set; }
         public ProcessExecutionResult Result { get; init; } = new() { ExitCode = 0 };
+        public Func<string, ProcessExecutionResult>? ResultFactory { get; init; }
 
         public Task<ProcessExecutionResult> RunAsync(
             string fileName,
@@ -374,7 +572,7 @@ public sealed class WindowsDeploymentServiceTests
             LastFileName = fileName;
             LastArguments = arguments;
             LastWorkingDirectory = workingDirectory;
-            return Task.FromResult(Result);
+            return Task.FromResult(ResultFactory?.Invoke(arguments) ?? Result);
         }
 
         public Task<ProcessExecutionResult> RunAsync(
