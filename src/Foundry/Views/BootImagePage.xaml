@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page x:Class="Foundry.Views.BootImagePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Foundry.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:Foundry.ViewModels"
+    xmlns:wct="using:CommunityToolkit.WinUI.Controls"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <DataTemplate x:Key="OptionalComponentTemplate"
+            x:DataType="viewModels:SelectableStringOptionViewModel">
+            <CheckBox
+                MinWidth="0"
+                Content="{x:Bind DisplayName}"
+                IsChecked="{x:Bind IsSelected, Mode=TwoWay}"
+                ToolTipService.ToolTip="{x:Bind ToolTip}" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="ModuleSearchResultTemplate"
+            x:DataType="viewModels:BootImageModuleSearchResultViewModel">
+            <Grid
+                MinHeight="52"
+                Padding="0,6"
+                ColumnSpacing="{ThemeResource FoundrySpace12}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*" MinWidth="160" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Spacing="{ThemeResource FoundryCompactStackSpacing}">
+                    <TextBlock
+                        FontWeight="SemiBold"
+                        Text="{x:Bind Name}"
+                        TextTrimming="CharacterEllipsis" />
+                    <TextBlock
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        MaxLines="{x:Bind DescriptionMaxLines, Mode=OneWay}"
+                        Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                        Text="{x:Bind Description}"
+                        TextTrimming="{x:Bind DescriptionTrimming, Mode=OneWay}"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+                <ToggleButton
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    IsChecked="{x:Bind IsDescriptionExpanded, Mode=TwoWay}"
+                    ToolTipService.ToolTip="{x:Bind Description}"
+                    Visibility="{x:Bind ExpandDescriptionVisibility}">
+                    <FontIcon FontSize="{ThemeResource FoundryIconSizeSmall}" Glyph="&#xE70D;" />
+                </ToggleButton>
+                <ComboBox
+                    Grid.Column="2"
+                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                    VerticalAlignment="Center"
+                    DropDownOpened="VersionComboBox_DropDownOpened"
+                    ItemsSource="{x:Bind Versions}"
+                    SelectedItem="{x:Bind SelectedVersion, Mode=TwoWay}" />
+                <Button
+                    Grid.Column="3"
+                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                    VerticalAlignment="Center"
+                    Click="AddGalleryModuleButton_Click"
+                    Content="{x:Bind AddLabel}"
+                    Tag="{x:Bind}" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="SelectedModuleTemplate"
+            x:DataType="viewModels:BootImageModuleViewModel">
+            <Grid
+                MinHeight="48"
+                Padding="0,6"
+                ColumnSpacing="{ThemeResource FoundrySpace12}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Spacing="{ThemeResource FoundryCompactStackSpacing}">
+                    <HyperlinkButton
+                        Padding="0"
+                        Content="{x:Bind Name}"
+                        NavigateUri="{x:Bind GalleryUri}"
+                        ToolTipService.ToolTip="{x:Bind GalleryUri}"
+                        Visibility="{x:Bind GalleryLinkVisibility}" />
+                    <TextBlock
+                        FontWeight="SemiBold"
+                        Text="{x:Bind Name}"
+                        TextTrimming="CharacterEllipsis"
+                        Visibility="{x:Bind NameTextVisibility}" />
+                    <TextBlock
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                        Text="{x:Bind Detail}"
+                        TextTrimming="CharacterEllipsis"
+                        Visibility="{x:Bind GalleryLinkVisibility}" />
+                    <HyperlinkButton
+                        Padding="0"
+                        HorizontalContentAlignment="Left"
+                        Click="OpenFolderButton_Click"
+                        Tag="{x:Bind LocalPath}"
+                        ToolTipService.ToolTip="{x:Bind LocalPath}"
+                        Visibility="{x:Bind NameTextVisibility}">
+                        <TextBlock Text="{x:Bind LocalPath}" TextTrimming="CharacterEllipsis" />
+                    </HyperlinkButton>
+                </StackPanel>
+                <Button
+                    Grid.Column="1"
+                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                    VerticalAlignment="Center"
+                    Click="RemoveModuleButton_Click"
+                    Content="{x:Bind RemoveLabel}"
+                    Tag="{x:Bind}" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="AdditionalFolderTemplate"
+            x:DataType="viewModels:BootImageAdditionalFolderViewModel">
+            <Grid
+                MinHeight="44"
+                Padding="12,14"
+                ColumnSpacing="{ThemeResource FoundrySpace12}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" MinWidth="160" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Spacing="{ThemeResource FoundrySpace8}">
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontWeight="SemiBold"
+                            Text="{x:Bind SourceLabel}" />
+                        <HyperlinkButton
+                            Padding="0"
+                            HorizontalContentAlignment="Left"
+                            VerticalAlignment="Center"
+                            Click="OpenFolderButton_Click"
+                            Tag="{x:Bind SourcePath}"
+                            ToolTipService.ToolTip="{x:Bind SourcePath}">
+                            <TextBlock Text="{x:Bind SourcePath}" TextTrimming="CharacterEllipsis" />
+                        </HyperlinkButton>
+                    </StackPanel>
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontWeight="SemiBold"
+                            Text="{x:Bind DestinationLabel}" />
+                        <TextBox
+                            Width="{ThemeResource FoundryWideInputMinWidth}"
+                            VerticalAlignment="Center"
+                            PlaceholderText="\"
+                            Text="{x:Bind DestinationRelativePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            ToolTipService.ToolTip="{x:Bind DestinationRelativePath, Mode=OneWay}" />
+                    </StackPanel>
+                </StackPanel>
+                <Button
+                    Grid.Column="1"
+                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                    VerticalAlignment="Center"
+                    Click="RemoveRootFolderButton_Click"
+                    Content="{x:Bind RemoveLabel}"
+                    Tag="{x:Bind}" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="DriverFolderTemplate"
+            x:DataType="viewModels:BootImageDriverFolderViewModel">
+            <Grid
+                MinHeight="40"
+                Padding="12,6"
+                ColumnSpacing="{ThemeResource FoundrySpace12}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <CheckBox
+                    Grid.Column="0"
+                    MinWidth="0"
+                    VerticalAlignment="Center"
+                    IsChecked="{x:Bind IsEnabled, Mode=TwoWay}" />
+                <HyperlinkButton
+                    Grid.Column="1"
+                    Padding="0"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Left"
+                    VerticalAlignment="Center"
+                    Click="OpenFolderButton_Click"
+                    Tag="{x:Bind Path}"
+                    ToolTipService.ToolTip="{x:Bind Path}">
+                    <TextBlock Text="{x:Bind Path}" TextTrimming="CharacterEllipsis" />
+                </HyperlinkButton>
+                <Button
+                    Grid.Column="2"
+                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                    VerticalAlignment="Center"
+                    Click="RemoveDriverFolderButton_Click"
+                    Content="{x:Bind RemoveLabel}"
+                    Tag="{x:Bind}" />
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid
+        Margin="{ThemeResource ContentPageMargin}"
+        Padding="{ThemeResource ContentPagePadding}"
+        RowSpacing="{ThemeResource FoundrySettingsSectionSpacing}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <controls:PageHeader
+            Title="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
+            Description="{x:Bind ViewModel.PageDescription, Mode=OneWay}"
+            DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
+            IconGlyph="&#xE950;" />
+
+        <Grid Grid.Row="1"
+            ColumnSpacing="{ThemeResource FoundrySettingsSectionSpacing}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <ListView x:Name="SectionRail"
+                Grid.Column="0"
+                Width="{ThemeResource FoundryWideInputMinWidth}"
+                DisplayMemberPath="DisplayName"
+                ItemsSource="{x:Bind ViewModel.Sections, Mode=OneWay}"
+                SelectedItem="{x:Bind ViewModel.SelectedSectionItem, Mode=TwoWay}" />
+
+            <ScrollView Grid.Column="1"
+                VerticalScrollBarVisibility="Auto">
+                <Grid>
+                    <!--  Settings  -->
+                    <StackPanel
+                        Spacing="{ThemeResource FoundrySettingsSectionSpacing}"
+                        Visibility="{x:Bind ViewModel.SettingsVisibility, Mode=OneWay}">
+                        <wct:SettingsCard x:Name="FirewallCard">
+                            <wct:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xE7BA;" />
+                            </wct:SettingsCard.HeaderIcon>
+                            <ToggleSwitch x:Name="FirewallToggle"
+                                IsOn="{x:Bind ViewModel.EnableFirewall, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </wct:SettingsCard>
+                        <wct:SettingsCard x:Name="KeepWimCard">
+                            <wct:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xE8A5;" />
+                            </wct:SettingsCard.HeaderIcon>
+                            <ToggleSwitch
+                                IsOn="{x:Bind ViewModel.KeepBootWimCopy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </wct:SettingsCard>
+                        <wct:SettingsCard x:Name="TroubleshootingConsoleCard">
+                            <wct:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xE756;" />
+                            </wct:SettingsCard.HeaderIcon>
+                            <ToggleSwitch
+                                IsOn="{x:Bind ViewModel.EnableTroubleshootingConsole, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </wct:SettingsCard>
+                        <wct:SettingsCard x:Name="TroubleshootingConsoleShortcutCard"
+                            Visibility="{x:Bind ViewModel.TroubleshootingConsoleShortcutVisibility, Mode=OneWay}">
+                            <wct:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xE765;" />
+                            </wct:SettingsCard.HeaderIcon>
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                <ComboBox x:Name="TroubleshootingConsoleModifierBox"
+                                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    DisplayMemberPath="DisplayName"
+                                    ItemsSource="{x:Bind ViewModel.TroubleshootingConsoleModifiers, Mode=OneWay}"
+                                    SelectedItem="{x:Bind ViewModel.SelectedTroubleshootingConsoleModifier, Mode=TwoWay}" />
+                                <ComboBox x:Name="TroubleshootingConsoleKeyBox"
+                                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    DisplayMemberPath="DisplayName"
+                                    ItemsSource="{x:Bind ViewModel.TroubleshootingConsoleKeys, Mode=OneWay}"
+                                    SelectedItem="{x:Bind ViewModel.SelectedTroubleshootingConsoleKey, Mode=TwoWay}" />
+                            </StackPanel>
+                        </wct:SettingsCard>
+                        <wct:SettingsCard x:Name="WallpaperCard">
+                            <wct:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xEB9F;" />
+                            </wct:SettingsCard.HeaderIcon>
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                <TextBlock
+                                    MaxWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Text="{x:Bind ViewModel.WallpaperDisplayText, Mode=OneWay}"
+                                    TextTrimming="CharacterEllipsis"
+                                    ToolTipService.ToolTip="{x:Bind ViewModel.WallpaperDisplayText, Mode=OneWay}" />
+                                <Button x:Name="BrowseWallpaperButton"
+                                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    Command="{x:Bind ViewModel.BrowseWallpaperCommand}" />
+                                <Button x:Name="ClearWallpaperButton"
+                                    Command="{x:Bind ViewModel.ClearWallpaperCommand}"
+                                    Visibility="{x:Bind ViewModel.ClearWallpaperVisibility, Mode=OneWay}" />
+                            </StackPanel>
+                        </wct:SettingsCard>
+                    </StackPanel>
+
+                    <!--  Drivers  -->
+                    <StackPanel
+                        Spacing="{ThemeResource FoundrySettingsSectionSpacing}"
+                        Visibility="{x:Bind ViewModel.DriversVisibility, Mode=OneWay}">
+                        <TextBlock x:Name="DriverPacksTitle"
+                            Style="{ThemeResource FoundrySectionTitleTextBlockStyle}" />
+                        <TextBlock x:Name="DriverPacksSubtitle"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            TextWrapping="Wrap" />
+                        <ItemsRepeater
+                            Margin="0,4,0,0"
+                            ItemTemplate="{StaticResource OptionalComponentTemplate}"
+                            ItemsSource="{x:Bind ViewModel.DriverVendors, Mode=OneWay}">
+                            <ItemsRepeater.Layout>
+                                <UniformGridLayout
+                                    ItemsStretch="Fill"
+                                    MaximumRowsOrColumns="4"
+                                    MinColumnSpacing="{ThemeResource FoundrySpace12}"
+                                    MinItemWidth="220"
+                                    MinRowSpacing="{ThemeResource FoundrySpace8}"
+                                    Orientation="Horizontal" />
+                            </ItemsRepeater.Layout>
+                        </ItemsRepeater>
+
+                        <TextBlock x:Name="DriverFoldersTitle"
+                            Margin="0,8,0,0"
+                            Style="{ThemeResource FoundrySectionTitleTextBlockStyle}" />
+                        <TextBlock x:Name="DriverFoldersSubtitle"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            TextWrapping="Wrap" />
+                        <Button x:Name="AddDriverFolderButton"
+                            MinWidth="{StaticResource SettingActionControlMinWidth}"
+                            Command="{x:Bind ViewModel.AddDriverFolderCommand}" />
+                        <Border
+                            Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="{ThemeResource ControlCornerRadius}"
+                            Visibility="{x:Bind ViewModel.HasDriverFolders, Mode=OneWay}">
+                            <ItemsControl
+                                ItemTemplate="{StaticResource DriverFolderTemplate}"
+                                ItemsSource="{x:Bind ViewModel.DriverFolders, Mode=OneWay}" />
+                        </Border>
+                        <wct:SettingsCard x:Name="ContinueOnDriverErrorCard"
+                            Margin="0,8,0,0">
+                            <wct:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xE7BA;" />
+                            </wct:SettingsCard.HeaderIcon>
+                            <ToggleSwitch
+                                IsOn="{x:Bind ViewModel.ContinueOnDriverError, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </wct:SettingsCard>
+                    </StackPanel>
+
+                    <!--  Optional Components  -->
+                    <StackPanel
+                        Spacing="{ThemeResource FoundryCompactStackSpacing}"
+                        Visibility="{x:Bind ViewModel.OptionalComponentsVisibility, Mode=OneWay}">
+                        <TextBlock x:Name="OptionalComponentsTitle"
+                            Style="{ThemeResource FoundrySectionTitleTextBlockStyle}" />
+                        <TextBlock x:Name="OptionalComponentsSubtitle"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            TextWrapping="Wrap" />
+                        <TextBlock
+                            Margin="0,8,0,0"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Text="{x:Bind ViewModel.OptionalComponentStatus, Mode=OneWay}"
+                            TextWrapping="Wrap"
+                            Visibility="{x:Bind ViewModel.OptionalComponentStatusVisibility, Mode=OneWay}" />
+                        <ItemsRepeater
+                            Margin="0,8,0,0"
+                            ItemTemplate="{StaticResource OptionalComponentTemplate}"
+                            ItemsSource="{x:Bind ViewModel.OptionalComponents, Mode=OneWay}">
+                            <ItemsRepeater.Layout>
+                                <UniformGridLayout
+                                    ItemsStretch="Fill"
+                                    MaximumRowsOrColumns="4"
+                                    MinColumnSpacing="{ThemeResource FoundrySpace12}"
+                                    MinItemWidth="220"
+                                    MinRowSpacing="{ThemeResource FoundrySpace8}"
+                                    Orientation="Horizontal" />
+                            </ItemsRepeater.Layout>
+                        </ItemsRepeater>
+                    </StackPanel>
+
+                    <!--  PowerShell  -->
+                    <StackPanel
+                        Spacing="{ThemeResource FoundrySettingsSectionSpacing}"
+                        Visibility="{x:Bind ViewModel.PowerShellVisibility, Mode=OneWay}">
+                        <wct:SettingsExpander x:Name="PowerShell7Card"
+                            IsExpanded="True">
+                            <wct:SettingsExpander.HeaderIcon>
+                                <FontIcon Glyph="&#xE756;" />
+                            </wct:SettingsExpander.HeaderIcon>
+                            <ToggleSwitch
+                                IsOn="{x:Bind ViewModel.IncludePowerShell7, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <wct:SettingsExpander.Items>
+                                <wct:SettingsCard x:Name="PowerShell7VersionCard">
+                                    <StackPanel
+                                        Orientation="Horizontal"
+                                        Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                        <ComboBox
+                                            MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                            DisplayMemberPath="DisplayName"
+                                            IsEnabled="{x:Bind ViewModel.IncludePowerShell7, Mode=OneWay}"
+                                            ItemsSource="{x:Bind ViewModel.PowerShell7Versions, Mode=OneWay}"
+                                            SelectedItem="{x:Bind ViewModel.SelectedPowerShell7Version, Mode=TwoWay}" />
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                            Text="{x:Bind ViewModel.PowerShell7Status, Mode=OneWay}"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </wct:SettingsCard>
+                                <wct:SettingsCard x:Name="PowerShell7DownloadCard"
+                                    HorizontalContentAlignment="Stretch"
+                                    Visibility="{x:Bind ViewModel.PowerShell7DownloadVisibility, Mode=OneWay}">
+                                    <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <HyperlinkButton
+                                            Grid.Column="0"
+                                            Padding="0"
+                                            HorizontalAlignment="Stretch"
+                                            HorizontalContentAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            NavigateUri="{x:Bind ViewModel.SelectedPowerShell7DownloadUri, Mode=OneWay}"
+                                            ToolTipService.ToolTip="{x:Bind ViewModel.SelectedPowerShell7DownloadUrl, Mode=OneWay}">
+                                            <TextBlock
+                                                MaxWidth="420"
+                                                HorizontalAlignment="Left"
+                                                Text="{x:Bind ViewModel.SelectedPowerShell7DownloadUrl, Mode=OneWay}"
+                                                TextWrapping="Wrap" />
+                                        </HyperlinkButton>
+                                        <Button x:Name="CopyDownloadUrlButton"
+                                            Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            Command="{x:Bind ViewModel.CopyDownloadUrlCommand}">
+                                            <StackPanel
+                                                Orientation="Horizontal"
+                                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                                <FontIcon FontSize="{ThemeResource FoundryIconSizeSmall}" Glyph="&#xE8C8;" />
+                                                <TextBlock x:Name="CopyDownloadUrlButtonText" />
+                                            </StackPanel>
+                                        </Button>
+                                    </Grid>
+                                </wct:SettingsCard>
+                            </wct:SettingsExpander.Items>
+                        </wct:SettingsExpander>
+                    </StackPanel>
+
+                    <!--  Modules  -->
+                    <StackPanel
+                        Spacing="{ThemeResource FoundrySettingsSectionSpacing}"
+                        Visibility="{x:Bind ViewModel.ModulesVisibility, Mode=OneWay}">
+                        <!--  PowerShell Gallery  -->
+                        <StackPanel Spacing="{ThemeResource FoundryCompactStackSpacing}">
+                            <TextBlock x:Name="GalleryTitle"
+                                Style="{ThemeResource FoundrySectionTitleTextBlockStyle}" />
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                <TextBox x:Name="ModuleSearchBox"
+                                    MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                    Text="{x:Bind ViewModel.ModuleSearchTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <Button x:Name="SearchModulesButton"
+                                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    Command="{x:Bind ViewModel.SearchModulesCommand}"
+                                    Style="{ThemeResource AccentButtonStyle}" />
+                            </StackPanel>
+                            <ProgressBar
+                                IsIndeterminate="True"
+                                Visibility="{x:Bind ViewModel.ModuleSearchProgressVisibility, Mode=OneWay}" />
+                            <TextBlock
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Text="{x:Bind ViewModel.ModuleSearchStatus, Mode=OneWay}"
+                                TextWrapping="Wrap" />
+                            <Border
+                                Padding="12,0"
+                                Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}"
+                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                BorderThickness="1"
+                                CornerRadius="{ThemeResource ControlCornerRadius}"
+                                Visibility="{x:Bind ViewModel.HasModuleSearchResults, Mode=OneWay}">
+                                <ItemsControl
+                                    ItemTemplate="{StaticResource ModuleSearchResultTemplate}"
+                                    ItemsSource="{x:Bind ViewModel.ModuleSearchResults, Mode=OneWay}" />
+                            </Border>
+                            <TextBlock x:Name="SelectedGalleryModulesTitle"
+                                Margin="0,8,0,0"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Style="{ThemeResource FoundryBodyTextBlockStyle}" />
+                            <Border
+                                Padding="12,0"
+                                Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}"
+                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                BorderThickness="1"
+                                CornerRadius="{ThemeResource ControlCornerRadius}"
+                                Visibility="{x:Bind ViewModel.HasSelectedGalleryModules, Mode=OneWay}">
+                                <ItemsControl
+                                    ItemTemplate="{StaticResource SelectedModuleTemplate}"
+                                    ItemsSource="{x:Bind ViewModel.SelectedGalleryModules, Mode=OneWay}" />
+                            </Border>
+                        </StackPanel>
+
+                        <!--  Divider  -->
+                        <Border
+                            Height="1"
+                            Margin="0,4"
+                            Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+                        <!--  Local folder  -->
+                        <StackPanel Spacing="{ThemeResource FoundryCompactStackSpacing}">
+                            <TextBlock x:Name="LocalTitle"
+                                Style="{ThemeResource FoundrySectionTitleTextBlockStyle}" />
+                            <TextBlock x:Name="LocalSubtitle"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                TextWrapping="Wrap" />
+                            <Button x:Name="AddLocalModuleButton"
+                                MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                Command="{x:Bind ViewModel.AddLocalModuleCommand}" />
+                            <TextBlock x:Name="SelectedLocalModulesTitle"
+                                Margin="0,8,0,0"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Style="{ThemeResource FoundryBodyTextBlockStyle}" />
+                            <Border
+                                Padding="12,0"
+                                Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}"
+                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                BorderThickness="1"
+                                CornerRadius="{ThemeResource ControlCornerRadius}"
+                                Visibility="{x:Bind ViewModel.HasSelectedLocalModules, Mode=OneWay}">
+                                <ItemsControl
+                                    ItemTemplate="{StaticResource SelectedModuleTemplate}"
+                                    ItemsSource="{x:Bind ViewModel.SelectedLocalModules, Mode=OneWay}" />
+                            </Border>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!--  Additional Folders  -->
+                    <StackPanel
+                        Spacing="{ThemeResource FoundryCompactStackSpacing}"
+                        Visibility="{x:Bind ViewModel.AdditionalFoldersVisibility, Mode=OneWay}">
+                        <TextBlock x:Name="RootFoldersTitle"
+                            Style="{ThemeResource FoundrySectionTitleTextBlockStyle}" />
+                        <TextBlock x:Name="RootFoldersSubtitle"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            TextWrapping="Wrap" />
+                        <Button x:Name="AddRootFolderButton"
+                            MinWidth="{StaticResource SettingActionControlMinWidth}"
+                            Command="{x:Bind ViewModel.AddRootFolderCommand}" />
+                        <Border
+                            Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="{ThemeResource ControlCornerRadius}"
+                            Visibility="{x:Bind ViewModel.HasAdditionalRootFolders, Mode=OneWay}">
+                            <ItemsControl
+                                ItemTemplate="{StaticResource AdditionalFolderTemplate}"
+                                ItemsSource="{x:Bind ViewModel.AdditionalRootFolders, Mode=OneWay}" />
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </ScrollView>
+        </Grid>
+    </Grid>
+</Page>

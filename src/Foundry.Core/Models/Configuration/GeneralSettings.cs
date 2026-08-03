@@ -55,4 +55,10 @@ public sealed record GeneralSettings
     /// Gets an optional directory containing additional WinPE drivers.
     /// </summary>
     public string? CustomDriverDirectoryPath { get; init; }
+
+    /// <summary>
+    /// Gets the expert boot image content choices (optional components, PowerShell integration,
+    /// extra modules, root folder overlays, and boot behavior toggles).
+    /// </summary>
+    public WinPeBootImageContentSettings BootImageContent { get; init; } = new();
 }

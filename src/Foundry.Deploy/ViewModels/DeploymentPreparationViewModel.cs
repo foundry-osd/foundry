@@ -242,7 +242,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     public void ApplyMachineNamingConfiguration(DeployMachineNamingSettings settings, string seed)
     {
         _machineNamingConfiguration = settings ?? new DeployMachineNamingSettings();
-        _lockedComputerNamePrefix = ComputerNameRules.Normalize(_machineNamingConfiguration.Prefix);
+        RefreshLockedComputerNamePrefix();
         IsTargetComputerNameReadOnly = _machineNamingConfiguration.IsEnabled && !_machineNamingConfiguration.AllowManualSuffixEdit;
 
         if (_machineNamingConfiguration.IsEnabled)
@@ -307,6 +307,15 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
             profile.SystemFirmwareHardwareId.Length > 0 ? GetString("Common.Detected") : GetString("Common.Unavailable"));
         DetectedHardwareSummary = _detectedHardwareSummaryRaw;
         OnPropertyChanged(nameof(IsFirmwareUpdatesOptionEnabled));
+
+        // Re-expand a variable prefix (for example $SERIALNUMBER) now that hardware details are available.
+        if (_machineNamingConfiguration.IsEnabled &&
+            ComputerNameTemplate.ContainsVariable(_machineNamingConfiguration.Prefix))
+        {
+            RefreshLockedComputerNamePrefix();
+            ApplyManagedComputerNameValue(BuildConfiguredComputerName(TargetComputerName));
+        }
+
         RaiseStateChanged();
     }
 
@@ -548,6 +557,24 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
             : normalized;
 
         return CombineComputerName(_lockedComputerNamePrefix, suffix);
+    }
+
+    private void RefreshLockedComputerNamePrefix()
+    {
+        _lockedComputerNamePrefix = ComputerNameTemplate.ExpandAndNormalize(
+            _machineNamingConfiguration.Prefix,
+            BuildComputerNameVariables());
+    }
+
+    private IReadOnlyDictionary<string, string?> BuildComputerNameVariables()
+    {
+        return new Dictionary<string, string?>(StringComparer.OrdinalIgnoreCase)
+        {
+            ["SERIALNUMBER"] = _detectedHardware?.SerialNumber,
+            ["MANUFACTURER"] = _detectedHardware?.Manufacturer,
+            ["MODEL"] = _detectedHardware?.Model,
+            ["PRODUCT"] = _detectedHardware?.Product
+        };
     }
 
     private string BuildConfiguredComputerName(string seed)

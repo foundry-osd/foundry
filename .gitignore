@@ -425,7 +425,16 @@ obj/
 *.lscache
 
 # Keep bundled 7-Zip architecture folders tracked.
-!src/Foundry/Assets/7z/[xX]64/
-!src/Foundry/Assets/7z/[xX]64/**
-!src/Foundry/Assets/7z/[aA][rR][mM]64/
-!src/Foundry/Assets/7z/[aA][rR][mM]64/**
+!src/Foundry.Core/Assets/7z/[xX]64/
+!src/Foundry.Core/Assets/7z/[xX]64/**
+!src/Foundry.Core/Assets/7z/[aA][rR][mM]64/
+!src/Foundry.Core/Assets/7z/[aA][rR][mM]64/**
+
+# Keep bundled PSBootstrapper architecture folders tracked.
+!src/Foundry.Core/Assets/PSBootstrapper/[xX]64/
+!src/Foundry.Core/Assets/PSBootstrapper/[xX]64/**
+!src/Foundry.Core/Assets/PSBootstrapper/[aA][rR][mM]64/
+!src/Foundry.Core/Assets/PSBootstrapper/[aA][rR][mM]64/**
+
+# Local scratch / reference output (repo root only).
+/Generated/

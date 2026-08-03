@@ -122,7 +122,7 @@ public sealed class WinPeDriverResolutionServiceTests
                     BootImageSource = WinPeBootImageSource.WinPe,
                     CatalogUri = "catalog.xml",
                     DriverVendors = [WinPeVendorSelection.Dell],
-                    CustomDriverDirectoryPath = customDirectory
+                    CustomDriverDirectoryPaths = [customDirectory]
                 },
                 CancellationToken.None);
 

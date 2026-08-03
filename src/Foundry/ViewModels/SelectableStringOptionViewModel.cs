@@ -9,13 +9,24 @@ namespace Foundry.ViewModels;
 /// </summary>
 public sealed partial class SelectableStringOptionViewModel : ObservableObject
 {
-    public SelectableStringOptionViewModel(string value, string displayName, int sortOrder, bool isSelected)
+    public SelectableStringOptionViewModel(string value, string displayName, int sortOrder, bool isSelected, string? description = null)
     {
         Value = value;
         DisplayName = displayName;
         SortOrder = sortOrder;
         IsSelected = isSelected;
+        Description = description ?? string.Empty;
     }
+
+    /// <summary>
+    /// Gets an optional description shown as a tooltip.
+    /// </summary>
+    public string Description { get; }
+
+    /// <summary>
+    /// Gets the tooltip content (the description), or <see langword="null"/> when there is no description.
+    /// </summary>
+    public string? ToolTip => string.IsNullOrWhiteSpace(Description) ? null : Description;
 
     /// <summary>
     /// Gets the invariant value persisted in configuration.

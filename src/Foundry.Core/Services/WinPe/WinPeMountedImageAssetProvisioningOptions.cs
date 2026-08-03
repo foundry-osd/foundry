@@ -12,6 +12,24 @@ public sealed record WinPeMountedImageAssetProvisioningOptions
     public WinPeArchitecture Architecture { get; init; } = WinPeArchitecture.X64;
     public string BootstrapScriptContent { get; init; } = string.Empty;
     public string CurlExecutableSourcePath { get; init; } = string.Empty;
+    public string PSBootstrapperSourceExecutablePath { get; init; } = string.Empty;
+
+    /// <summary>
+    /// Gets a value indicating whether the WinPE firewall is enabled via Unattend.xml. On by default.
+    /// </summary>
+    public bool EnableFirewall { get; init; } = true;
+
+    /// <summary>
+    /// Gets the JPEG image copied into the boot image as the WinPE desktop background
+    /// (<c>%WINDIR%\System32\winpe.jpg</c>). When empty, the stock background is left in place.
+    /// </summary>
+    public string? WallpaperSourcePath { get; init; }
+
+    /// <summary>
+    /// Gets source folders whose contents are copied into a relative destination inside the boot image
+    /// (the destination is relative to the image root).
+    /// </summary>
+    public IReadOnlyList<WinPeAdditionalRootFolder> AdditionalRootFolders { get; init; } = [];
     public string SevenZipSourceDirectoryPath { get; init; } = string.Empty;
     public string IanaWindowsTimeZoneMapJson { get; init; } = string.Empty;
     public string FoundryConnectConfigurationJson { get; init; } = string.Empty;

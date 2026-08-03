@@ -80,6 +80,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                     document.Autopilot,
                     mediaSecretsKey)
             },
+            TroubleshootingConsole = document.General.BootImageContent.TroubleshootingConsole,
             Telemetry = document.Telemetry
         };
     }

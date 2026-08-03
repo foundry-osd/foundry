@@ -72,6 +72,12 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
 
             ReportProgress(options.Progress, 90, "Finalizing ISO output.");
             FinalizeOutput(preparedOutputPath, requestedOutputPath);
+
+            if (options.KeepBootWimCopy)
+            {
+                KeepBootWimNextToIso(preparedWorkspace.Artifact.BootWimPath, requestedOutputPath);
+            }
+
             ReportProgress(options.Progress, 100, "ISO media completed.");
             return WinPeResult.Success();
         }
@@ -193,6 +199,20 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
 
         EnsureOutputDirectoryExists(requestedOutputPath);
         File.Copy(preparedOutputPath, requestedOutputPath, overwrite: true);
+    }
+
+    private static void KeepBootWimNextToIso(string bootWimPath, string requestedOutputPath)
+    {
+        if (string.IsNullOrWhiteSpace(bootWimPath) || !File.Exists(bootWimPath))
+        {
+            return;
+        }
+
+        string outputDirectory = Path.GetDirectoryName(requestedOutputPath) ?? ".";
+        string isoBaseName = Path.GetFileNameWithoutExtension(requestedOutputPath);
+        string destinationPath = Path.Combine(outputDirectory, $"{isoBaseName}.wim");
+        Directory.CreateDirectory(outputDirectory);
+        File.Copy(bootWimPath, destinationPath, overwrite: true);
     }
 
     private static void CleanupPreparedOutput(string requestedOutputPath, string? preparedOutputPath)

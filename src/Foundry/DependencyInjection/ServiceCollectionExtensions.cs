@@ -105,6 +105,9 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IWinPeLanguageDiscoveryService, WinPeLanguageDiscoveryService>();
         services.AddSingleton<IWinPeEmbeddedAssetService, WinPeEmbeddedAssetService>();
         services.AddSingleton<IWinPeBuildService, WinPeBuildService>();
+        services.AddSingleton<IPowerShell7ReleaseService, PowerShell7ReleaseService>();
+        services.AddSingleton<IPowerShellGalleryModuleSearchService, PowerShellGalleryModuleSearchService>();
+        services.AddSingleton<IWinPeOptionalComponentCatalogService, WinPeOptionalComponentCatalogService>();
         services.AddSingleton<IWinPeWorkspacePreparationService, WinPeWorkspacePreparationService>();
         services.AddSingleton<IWinPeIsoMediaService, WinPeIsoMediaService>();
         services.AddSingleton<IWinPeUsbMediaService, WinPeUsbMediaService>();
@@ -131,6 +134,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<NetworkConfigurationViewModel>();
         services.AddTransient<AutopilotConfigurationViewModel>();
         services.AddTransient<CustomizationConfigurationViewModel>();
+        services.AddTransient<BootImageConfigurationViewModel>();
         services.AddTransient<StartMediaViewModel>();
         services.AddTransient<HomeLandingViewModel>();
         services.AddTransient<SettingsPageViewModel>();

@@ -33,6 +33,16 @@ public sealed class WinPeEmbeddedAssetService : IWinPeEmbeddedAssetService
         return Path.Combine(AppContext.BaseDirectory, "Assets", "7z");
     }
 
+    public string GetPSBootstrapperSourceExecutablePath(WinPeArchitecture architecture)
+    {
+        return Path.Combine(
+            AppContext.BaseDirectory,
+            "Assets",
+            "PSBootstrapper",
+            architecture.ToPSBootstrapperRuntimeFolder(),
+            "psbootstrapper.exe");
+    }
+
     internal static string ReadEmbeddedText(string resourceName)
     {
         Assembly assembly = typeof(WinPeEmbeddedAssetService).Assembly;

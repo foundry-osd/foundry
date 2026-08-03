@@ -106,7 +106,7 @@ public sealed class WinPeDriverInjectionServiceTests
         }
     }
 
-    private sealed class FakeInjectionRunner(IReadOnlyList<string>? outputLines = null) : IWinPeProcessOutputRunner
+    private sealed class FakeInjectionRunner(IReadOnlyList<string>? outputLines = null, int exitCode = 0) : IWinPeProcessOutputRunner
     {
         public List<WinPeProcessExecution> Executions { get; } = [];
 
@@ -121,7 +121,8 @@ public sealed class WinPeDriverInjectionServiceTests
             {
                 FileName = fileName,
                 Arguments = arguments,
-                WorkingDirectory = workingDirectory
+                WorkingDirectory = workingDirectory,
+                ExitCode = exitCode
             };
 
             Executions.Add(execution);
@@ -171,6 +172,95 @@ public sealed class WinPeDriverInjectionServiceTests
         public void Report(T value)
         {
             Reports.Add(value);
+        }
+    }
+
+    [Fact]
+    public async Task InjectAsync_WhenExitCodeIs50_TreatsAsSuccess()
+    {
+        using DriverInjectionFixture fixture = DriverInjectionFixture.Create();
+        var service = new WinPeDriverInjectionService(new FakeInjectionRunner(exitCode: 50));
+
+        WinPeResult result = await service.InjectAsync(fixture.Options(), CancellationToken.None);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+    }
+
+    [Fact]
+    public async Task InjectAsync_WhenPackageFailsAndContinueOnError_SkipsAndSucceeds()
+    {
+        using DriverInjectionFixture fixture = DriverInjectionFixture.Create();
+        var service = new WinPeDriverInjectionService(new FakeInjectionRunner(exitCode: 1));
+
+        WinPeResult result = await service.InjectAsync(
+            fixture.Options() with { ContinueOnError = true },
+            CancellationToken.None);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+    }
+
+    [Fact]
+    public async Task InjectAsync_WhenPackageFailsAndNotContinueOnError_Fails()
+    {
+        using DriverInjectionFixture fixture = DriverInjectionFixture.Create();
+        var service = new WinPeDriverInjectionService(new FakeInjectionRunner(exitCode: 1));
+
+        WinPeResult result = await service.InjectAsync(
+            fixture.Options() with { ContinueOnError = false },
+            CancellationToken.None);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.DriverInjectionFailed, result.Error?.Code);
+    }
+
+    private sealed class DriverInjectionFixture : IDisposable
+    {
+        private readonly string _root;
+
+        private DriverInjectionFixture(string root, string mountedImagePath, string workingDirectory, string driverDirectory)
+        {
+            _root = root;
+            MountedImagePath = mountedImagePath;
+            WorkingDirectory = workingDirectory;
+            DriverDirectory = driverDirectory;
+        }
+
+        public string MountedImagePath { get; }
+
+        public string WorkingDirectory { get; }
+
+        public string DriverDirectory { get; }
+
+        public static DriverInjectionFixture Create()
+        {
+            string root = Path.Combine(Path.GetTempPath(), $"foundry-driver-injection-{Guid.NewGuid():N}");
+            string mountedImagePath = Path.Combine(root, "mount");
+            string workingDirectory = Path.Combine(root, "work");
+            string driverDirectory = Path.Combine(root, "drivers");
+            Directory.CreateDirectory(mountedImagePath);
+            Directory.CreateDirectory(workingDirectory);
+            Directory.CreateDirectory(driverDirectory);
+            return new DriverInjectionFixture(root, mountedImagePath, workingDirectory, driverDirectory);
+        }
+
+        public WinPeDriverInjectionOptions Options()
+        {
+            return new WinPeDriverInjectionOptions
+            {
+                MountedImagePath = MountedImagePath,
+                WorkingDirectoryPath = WorkingDirectory,
+                DriverPackagePaths = [DriverDirectory],
+                DismExecutablePath = "dism.exe",
+                RecurseSubdirectories = true
+            };
+        }
+
+        public void Dispose()
+        {
+            if (Directory.Exists(_root))
+            {
+                Directory.Delete(_root, recursive: true);
+            }
         }
     }
 }

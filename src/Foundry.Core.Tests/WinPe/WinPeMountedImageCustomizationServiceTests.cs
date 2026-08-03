@@ -27,7 +27,9 @@ public sealed class WinPeMountedImageCustomizationServiceTests
             internationalization,
             assetProvisioning,
             runtimePayloadProvisioning,
-            winRePreparation);
+            winRePreparation,
+            new FakePowerShell7ProvisioningService(),
+            new FakePowerShellModuleProvisioningService());
         var runtimePayloadOptions = new WinPeRuntimePayloadProvisioningOptions
         {
             WorkingDirectoryPath = Path.Combine(temp.RootPath, "runtime-work"),
@@ -80,7 +82,9 @@ public sealed class WinPeMountedImageCustomizationServiceTests
             new FakeInternationalizationService(WinPeResult.Failure(WinPeErrorCodes.BuildFailed, "intl failed")),
             new FakeAssetProvisioningService(),
             new FakeRuntimePayloadProvisioningService(),
-            new FakeWinRePreparationService());
+            new FakeWinRePreparationService(),
+            new FakePowerShell7ProvisioningService(),
+            new FakePowerShellModuleProvisioningService());
 
         WinPeResult result = await service.CustomizeAsync(
             new WinPeMountedImageCustomizationOptions
@@ -136,7 +140,9 @@ public sealed class WinPeMountedImageCustomizationServiceTests
                         StagedPath = stagedDependency
                     }
                 ]
-            }));
+            }),
+            new FakePowerShell7ProvisioningService(),
+            new FakePowerShellModuleProvisioningService());
 
         WinPeResult result = await service.CustomizeAsync(
             new WinPeMountedImageCustomizationOptions
@@ -152,6 +158,107 @@ public sealed class WinPeMountedImageCustomizationServiceTests
 
         Assert.True(result.IsSuccess, result.Error?.Details);
         Assert.Single(driverInjection.Options);
+    }
+
+    [Fact]
+    public async Task CustomizeAsync_ReportsTaskAndDriverPackageProgress()
+    {
+        using TempWinPeArtifact temp = TempWinPeArtifact.Create();
+        string driverA = Path.Combine(temp.RootPath, "drivers", "a");
+        string driverB = Path.Combine(temp.RootPath, "drivers", "b");
+        Directory.CreateDirectory(driverA);
+        Directory.CreateDirectory(driverB);
+
+        var progress = new CollectingProgress();
+        var service = new WinPeMountedImageCustomizationService(
+            new FakeCustomizationRunner(),
+            new FakeDriverInjectionService(),
+            new FakeInternationalizationService(),
+            new FakeAssetProvisioningService(),
+            new FakeRuntimePayloadProvisioningService(),
+            new FakeWinRePreparationService(),
+            new FakePowerShell7ProvisioningService(),
+            new FakePowerShellModuleProvisioningService());
+
+        WinPeResult result = await service.CustomizeAsync(
+            new WinPeMountedImageCustomizationOptions
+            {
+                Artifact = temp.Artifact,
+                Tools = temp.Tools,
+                BootImageSource = WinPeBootImageSource.WinPe,
+                WinPeLanguage = "en-US",
+                DriverPackagePaths = [driverA, driverB],
+                WinReCacheDirectoryPath = Path.Combine(temp.RootPath, "cache"),
+                Progress = progress
+            },
+            CancellationToken.None);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+
+        // Numbered tasks share a single TaskCount; driver injection reports per-package item progress.
+        List<WinPeMountedImageCustomizationProgress> numbered = progress.Reports.Where(report => report.TaskIndex.HasValue).ToList();
+        Assert.NotEmpty(numbered);
+        int taskCount = numbered[0].TaskCount!.Value;
+        Assert.All(numbered, report => Assert.Equal(taskCount, report.TaskCount));
+
+        List<WinPeMountedImageCustomizationProgress> driverReports = progress.Reports.Where(report => report.ItemCount.HasValue).ToList();
+        Assert.All(driverReports, report => Assert.Equal(2, report.ItemCount));
+        Assert.Contains(driverReports, report => report.ItemIndex == 1);
+        Assert.Contains(driverReports, report => report.ItemIndex == 2);
+    }
+
+    [Fact]
+    public async Task CustomizeAsync_WhenPowerShell7Enabled_InvokesPowerShell7Provisioning()
+    {
+        using TempWinPeArtifact temp = TempWinPeArtifact.Create();
+        var powerShell7 = new FakePowerShell7ProvisioningService();
+        var service = new WinPeMountedImageCustomizationService(
+            new FakeCustomizationRunner(),
+            new FakeDriverInjectionService(),
+            new FakeInternationalizationService(),
+            new FakeAssetProvisioningService(),
+            new FakeRuntimePayloadProvisioningService(),
+            new FakeWinRePreparationService(),
+            powerShell7,
+            new FakePowerShellModuleProvisioningService());
+
+        WinPeResult result = await service.CustomizeAsync(
+            new WinPeMountedImageCustomizationOptions
+            {
+                Artifact = temp.Artifact,
+                Tools = temp.Tools,
+                BootImageSource = WinPeBootImageSource.WinPe,
+                WinPeLanguage = "en-US",
+                WinReCacheDirectoryPath = Path.Combine(temp.RootPath, "cache"),
+                PowerShell7 = new WinPePowerShell7Settings
+                {
+                    IsEnabled = true,
+                    CacheDirectoryPath = Path.Combine(temp.RootPath, "ps7cache"),
+                    Release = new PowerShell7Release
+                    {
+                        Version = "7.5.8",
+                        Tag = "v7.5.8",
+                        AssetName = "PowerShell-7.5.8-win-x64.zip",
+                        DownloadUrl = "https://example/ps7.zip"
+                    }
+                }
+            },
+            CancellationToken.None);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        WinPePowerShell7ProvisioningOptions captured = Assert.Single(powerShell7.Options);
+        Assert.Equal(temp.Artifact.MountDirectoryPath, captured.MountedImagePath);
+        Assert.Equal("7.5.8", captured.Release!.Version);
+    }
+
+    private sealed class CollectingProgress : IProgress<WinPeMountedImageCustomizationProgress>
+    {
+        public List<WinPeMountedImageCustomizationProgress> Reports { get; } = [];
+
+        public void Report(WinPeMountedImageCustomizationProgress value)
+        {
+            Reports.Add(value);
+        }
     }
 
     private sealed class TempWinPeArtifact : IDisposable
@@ -302,6 +409,32 @@ public sealed class WinPeMountedImageCustomizationServiceTests
             Options.Add(options);
             DownloadProgressItems.Add(downloadProgress);
             return Task.FromResult(result ?? WinPeResult.Success());
+        }
+    }
+
+    private sealed class FakePowerShell7ProvisioningService : IWinPePowerShell7ProvisioningService
+    {
+        public List<WinPePowerShell7ProvisioningOptions> Options { get; } = [];
+
+        public Task<WinPeResult> ProvisionAsync(
+            WinPePowerShell7ProvisioningOptions options,
+            CancellationToken cancellationToken = default)
+        {
+            Options.Add(options);
+            return Task.FromResult(WinPeResult.Success());
+        }
+    }
+
+    private sealed class FakePowerShellModuleProvisioningService : IWinPePowerShellModuleProvisioningService
+    {
+        public List<WinPePowerShellModuleProvisioningOptions> Options { get; } = [];
+
+        public Task<WinPeResult> ProvisionAsync(
+            WinPePowerShellModuleProvisioningOptions options,
+            CancellationToken cancellationToken = default)
+        {
+            Options.Add(options);
+            return Task.FromResult(WinPeResult.Success());
         }
     }
 

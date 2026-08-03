@@ -40,9 +40,29 @@ public sealed record WinPeWorkspacePreparationOptions
     public IReadOnlyList<WinPeVendorSelection> DriverVendors { get; init; } = [];
 
     /// <summary>
-    /// Gets an optional custom driver directory.
+    /// Gets optional folders that contain drivers to inject into the boot image.
     /// </summary>
-    public string? CustomDriverDirectoryPath { get; init; }
+    public IReadOnlyList<string> CustomDriverDirectoryPaths { get; init; } = [];
+
+    /// <summary>
+    /// Gets a value indicating whether a driver package that fails to inject is skipped so the build continues.
+    /// </summary>
+    public bool ContinueOnDriverError { get; init; } = true;
+
+    /// <summary>
+    /// Gets the WinPE optional component names to add. When empty, Foundry's recommended defaults are used.
+    /// </summary>
+    public IReadOnlyList<string> OptionalComponents { get; init; } = [];
+
+    /// <summary>
+    /// Gets the optional PowerShell 7 integration settings.
+    /// </summary>
+    public WinPePowerShell7Settings? PowerShell7 { get; init; }
+
+    /// <summary>
+    /// Gets the optional PowerShell module integration settings.
+    /// </summary>
+    public WinPePowerShellModuleSettings? PowerShellModules { get; init; }
 
     /// <summary>
     /// Gets the WinPE language selected for the boot image.

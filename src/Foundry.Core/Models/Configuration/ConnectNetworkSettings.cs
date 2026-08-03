@@ -13,4 +13,9 @@ public sealed record ConnectNetworkSettings
     /// Gets network profile roaming settings.
     /// </summary>
     public ConnectNetworkProfileRoamingSettings ProfileRoaming { get; init; } = new();
+
+    /// <summary>
+    /// Gets the auto-continue behavior applied once Internet connectivity is validated.
+    /// </summary>
+    public ConnectAutoContinueSettings AutoContinue { get; init; } = new();
 }

@@ -102,6 +102,16 @@
           "HideItem": true,
           "IsNew": false,
           "IsUpdated": false
+        },
+        {
+          "UniqueId": "Foundry.Views.BootImagePage",
+          "Title": "Boot Image",
+          "LocalizeId": "Nav_BootImageKey",
+          "UsexUid": true,
+          "IconGlyph": "E950",
+          "HideItem": true,
+          "IsNew": false,
+          "IsUpdated": false
         }
       ]
     },

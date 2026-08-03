@@ -31,6 +31,16 @@ public sealed record NetworkSettings
     }
 
     /// <summary>
+    /// Gets whether Foundry.Connect continues the bootstrap automatically once it has Internet access.
+    /// </summary>
+    public bool AutoContinueEnabled { get; init; } = true;
+
+    /// <summary>
+    /// Gets the countdown Foundry.Connect shows before it continues automatically.
+    /// </summary>
+    public int AutoContinueDelaySeconds { get; init; } = ConnectAutoContinueSettings.DefaultDelaySeconds;
+
+    /// <summary>
     /// Gets wired 802.1X provisioning settings.
     /// </summary>
     public Dot1xSettings Dot1x { get; init; } = new();

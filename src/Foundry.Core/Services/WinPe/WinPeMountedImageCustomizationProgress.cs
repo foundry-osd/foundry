@@ -4,10 +4,45 @@
 
 namespace Foundry.Core.Services.WinPe;
 
+/// <summary>
+/// Identifies the kind of item counted by the inner "item X of N" progress so the UI can label it correctly.
+/// </summary>
+public enum WinPeCustomizationItemCategory
+{
+    None,
+    DriverPackage,
+    OptionalComponent
+}
+
 public sealed record WinPeMountedImageCustomizationProgress
 {
     public int Percent { get; init; }
     public string Status { get; init; } = string.Empty;
     public int? DetailPercent { get; init; }
     public string DetailStatus { get; init; } = string.Empty;
+
+    /// <summary>
+    /// Gets the 1-based index of the current customization task (outer "Task X of N" progress).
+    /// </summary>
+    public int? TaskIndex { get; init; }
+
+    /// <summary>
+    /// Gets the total number of customization tasks for this build.
+    /// </summary>
+    public int? TaskCount { get; init; }
+
+    /// <summary>
+    /// Gets the 1-based index of the current item within a task (inner "item X of N" progress), such as a driver package.
+    /// </summary>
+    public int? ItemIndex { get; init; }
+
+    /// <summary>
+    /// Gets the total number of items within the current task.
+    /// </summary>
+    public int? ItemCount { get; init; }
+
+    /// <summary>
+    /// Gets the kind of item counted by <see cref="ItemIndex"/>/<see cref="ItemCount"/>.
+    /// </summary>
+    public WinPeCustomizationItemCategory ItemCategory { get; init; } = WinPeCustomizationItemCategory.None;
 }

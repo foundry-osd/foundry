@@ -309,6 +309,9 @@ namespace Foundry.Views
                 DefaultButton = ContentDialogButton.None
             };
 
+            // Widen beyond the default content dialog cap so the status text fits on fewer lines.
+            dialog.Resources["ContentDialogMaxWidth"] = 760.0;
+
             operationDialogCanClose = false;
             dialog.Closing += OnOperationDialogClosing;
             operationDialog = dialog;
@@ -335,7 +338,7 @@ namespace Foundry.Views
             {
                 Text = GetOperationDialogStatusText(),
                 TextWrapping = TextWrapping.Wrap,
-                MaxWidth = 440,
+                MaxWidth = 620,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 TextAlignment = TextAlignment.Left
             };
@@ -354,7 +357,7 @@ namespace Foundry.Views
             {
                 Text = GetSecondaryOperationDialogStatusText(),
                 TextWrapping = TextWrapping.Wrap,
-                MaxWidth = 440,
+                MaxWidth = 620,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 TextAlignment = TextAlignment.Left
             };
@@ -390,10 +393,10 @@ namespace Foundry.Views
 
             return new StackPanel
             {
-                MinWidth = 420,
-                MaxWidth = 520,
-                Padding = new Thickness(0, 8, 0, 0),
-                Spacing = 16,
+                MinWidth = 560,
+                MaxWidth = 680,
+                Padding = new Thickness(0, 12, 0, 4),
+                Spacing = 18,
                 Children =
                 {
                     operationProgressRing,

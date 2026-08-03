@@ -28,19 +28,26 @@ public sealed class WinPeDriverResolutionService : IWinPeDriverResolutionService
             .Distinct()
             .ToArray();
 
-        string normalizedCustomDirectory = request.CustomDriverDirectoryPath?.Trim() ?? string.Empty;
-        bool hasCustomDirectory = !string.IsNullOrWhiteSpace(normalizedCustomDirectory);
+        string[] normalizedCustomDirectories = request.CustomDriverDirectoryPaths
+            .Select(path => path?.Trim() ?? string.Empty)
+            .Where(path => !string.IsNullOrWhiteSpace(path))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+        bool hasCustomDirectories = normalizedCustomDirectories.Length > 0;
         bool includeWifiSupplement = request.BootImageSource == WinPeBootImageSource.WinReWifi;
 
-        if (normalizedVendors.Length == 0 && !hasCustomDirectory && !includeWifiSupplement)
+        if (normalizedVendors.Length == 0 && !hasCustomDirectories && !includeWifiSupplement)
         {
             return WinPeResult<IReadOnlyList<string>>.Success([]);
         }
 
-        WinPeDiagnostic? customDirectoryError = ValidateCustomDirectory(normalizedCustomDirectory, hasCustomDirectory);
-        if (customDirectoryError is not null)
+        foreach (string customDirectory in normalizedCustomDirectories)
         {
-            return WinPeResult<IReadOnlyList<string>>.Failure(customDirectoryError);
+            WinPeDiagnostic? customDirectoryError = ValidateCustomDirectory(customDirectory, hasCustomDirectory: true);
+            if (customDirectoryError is not null)
+            {
+                return WinPeResult<IReadOnlyList<string>>.Failure(customDirectoryError);
+            }
         }
 
         var resolvedPaths = new List<string>();
@@ -83,9 +90,9 @@ public sealed class WinPeDriverResolutionService : IWinPeDriverResolutionService
             }
         }
 
-        if (hasCustomDirectory)
+        if (hasCustomDirectories)
         {
-            resolvedPaths.Add(normalizedCustomDirectory);
+            resolvedPaths.AddRange(normalizedCustomDirectories);
         }
 
         return WinPeResult<IReadOnlyList<string>>.Success(

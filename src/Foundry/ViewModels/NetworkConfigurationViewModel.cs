@@ -141,6 +141,31 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     public partial bool IsWindowsRoamingExpanded { get; set; }
 
     [ObservableProperty]
+    public partial bool IsAutoContinueExpanded { get; set; }
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsAutoContinueDelayEnabled))]
+    public partial bool IsAutoContinueEnabled { get; set; } = true;
+
+    [ObservableProperty]
+    public partial double AutoContinueDelaySeconds { get; set; } = ConnectAutoContinueSettings.DefaultDelaySeconds;
+
+    [ObservableProperty]
+    public partial string AutoContinueHeader { get; set; }
+
+    [ObservableProperty]
+    public partial string AutoContinueDescription { get; set; }
+
+    [ObservableProperty]
+    public partial string AutoContinueEnableText { get; set; }
+
+    [ObservableProperty]
+    public partial string AutoContinueDelayText { get; set; }
+
+    [ObservableProperty]
+    public partial string AutoContinueDelayDescription { get; set; }
+
+    [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsDot1xSectionEnabled))]
     [NotifyPropertyChangedFor(nameof(IsDot1xCertificatePathEnabled))]
     [NotifyPropertyChangedFor(nameof(IsNetworkProfileRoamingAvailable))]
@@ -278,6 +303,9 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     public bool IsWifiEnterpriseSelected => NetworkConfigurationValidator.IsEnterpriseSecurityType(SelectedWifiSecurityType?.Value);
     public bool IsNetworkProfileRoamingAvailable => IsDot1xEnabled || IsWifiProvisioned;
     public bool IsPrivateKeyMaterialRoamingEnabled => IsNetworkProfileRoamingAvailable && IsNetworkProfileRoamingEnabled;
+    public bool IsAutoContinueDelayEnabled => IsAutoContinueEnabled;
+    public double AutoContinueDelayMinimum => ConnectAutoContinueSettings.MinimumDelaySeconds;
+    public double AutoContinueDelayMaximum => ConnectAutoContinueSettings.MaximumDelaySeconds;
     public bool HasDot1xValidationError => !string.IsNullOrWhiteSpace(Dot1xValidationMessage);
     public string Dot1xValidationMessage => FormatValidationMessage(NetworkConfigurationValidator.Validate(BuildDot1xOnlySettings()), dot1xOnly: true);
     public Visibility Dot1xValidationVisibility => HasDot1xValidationError ? Visibility.Visible : Visibility.Collapsed;
@@ -531,6 +559,36 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         RefreshPresentationState();
     }
 
+    partial void OnIsAutoContinueEnabledChanged(bool value)
+    {
+        SaveState();
+        RefreshPresentationState();
+    }
+
+    partial void OnAutoContinueDelaySecondsChanged(double value)
+    {
+        // The number box reports NaN while the field is empty; keep the last valid delay until a number is committed.
+        if (double.IsNaN(value))
+        {
+            return;
+        }
+
+        int clamped = ConnectAutoContinueSettings.ClampDelaySeconds(ToDelaySeconds(value));
+        if (clamped != value)
+        {
+            // Re-entry through the setter saves the corrected value.
+            AutoContinueDelaySeconds = clamped;
+            return;
+        }
+
+        SaveState();
+        RefreshPresentationState();
+    }
+
+    private static int ToDelaySeconds(double value) => double.IsNaN(value)
+        ? ConnectAutoContinueSettings.DefaultDelaySeconds
+        : (int)Math.Round(value, MidpointRounding.AwayFromZero);
+
     private async Task<string?> PickOpenFileAsync(string titleKey, IReadOnlyList<string> filters)
     {
         return await filePickerService.PickOpenFileAsync(
@@ -555,6 +613,8 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         WifiCertificatePath = settings.Wifi.CertificatePath ?? string.Empty;
         IsNetworkProfileRoamingEnabled = IsNetworkProfileRoamingAvailable && settings.RoamWifiProfilesToWindows;
         IsPrivateKeyMaterialRoamingRequested = IsNetworkProfileRoamingEnabled && settings.RoamPrivateKeyMaterialToWindows;
+        IsAutoContinueEnabled = settings.AutoContinueEnabled;
+        AutoContinueDelaySeconds = ConnectAutoContinueSettings.ClampDelaySeconds(settings.AutoContinueDelaySeconds);
         isApplyingState = false;
         RefreshPresentationState();
     }
@@ -586,6 +646,8 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         {
             RoamWifiProfilesToWindows = roamNetworkProfiles,
             RoamPrivateKeyMaterialToWindows = roamNetworkProfiles && IsPrivateKeyMaterialRoamingRequested,
+            AutoContinueEnabled = IsAutoContinueEnabled,
+            AutoContinueDelaySeconds = ConnectAutoContinueSettings.ClampDelaySeconds(ToDelaySeconds(AutoContinueDelaySeconds)),
             Dot1x = new Dot1xSettings
             {
                 IsEnabled = IsDot1xEnabled,
@@ -670,6 +732,11 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         RoamNetworkProfilesText = localizationService.GetString("Network.RoamProfilesLabel");
         RoamPrivateKeyMaterialText = localizationService.GetString("Network.RoamPrivateKeyMaterialLabel");
         RoamPrivateKeyMaterialDescription = localizationService.GetString("Network.RoamPrivateKeyMaterialHelperText");
+        AutoContinueHeader = localizationService.GetString("Network.AutoContinueSectionTitle");
+        AutoContinueDescription = localizationService.GetString("Network.AutoContinueHelperText");
+        AutoContinueEnableText = localizationService.GetString("Network.AutoContinueEnableLabel");
+        AutoContinueDelayText = localizationService.GetString("Network.AutoContinueDelayLabel");
+        AutoContinueDelayDescription = localizationService.GetString("Network.AutoContinueDelayHelperText");
         BrowseButtonText = localizationService.GetString("Common.Browse");
         RefreshPresentationState();
     }

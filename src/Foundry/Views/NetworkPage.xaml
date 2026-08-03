@@ -267,6 +267,35 @@
                     </wct:SettingsCard>
                 </wct:SettingsExpander.Items>
             </wct:SettingsExpander>
+
+            <wct:SettingsExpander
+                Description="{x:Bind ViewModel.AutoContinueDescription, Mode=OneWay}"
+                Header="{x:Bind ViewModel.AutoContinueHeader, Mode=OneWay}"
+                IsExpanded="{x:Bind ViewModel.IsAutoContinueExpanded, Mode=TwoWay}">
+                <wct:SettingsExpander.HeaderIcon>
+                    <FontIcon Glyph="&#xE916;" />
+                </wct:SettingsExpander.HeaderIcon>
+                <ToggleSwitch
+                    behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                    AutomationProperties.Name="{x:Bind ViewModel.AutoContinueEnableText, Mode=OneWay}"
+                    IsOn="{x:Bind ViewModel.IsAutoContinueEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <wct:SettingsExpander.Items>
+                    <wct:SettingsCard
+                        Description="{x:Bind ViewModel.AutoContinueDelayDescription, Mode=OneWay}"
+                        Header="{x:Bind ViewModel.AutoContinueDelayText, Mode=OneWay}"
+                        IsEnabled="{x:Bind ViewModel.IsAutoContinueDelayEnabled, Mode=OneWay}">
+                        <NumberBox
+                            MinWidth="{StaticResource SettingActionControlMinWidth}"
+                            LargeChange="10"
+                            Maximum="{x:Bind ViewModel.AutoContinueDelayMaximum}"
+                            Minimum="{x:Bind ViewModel.AutoContinueDelayMinimum}"
+                            SmallChange="1"
+                            SpinButtonPlacementMode="Compact"
+                            ValidationMode="InvalidInputOverwritten"
+                            Value="{x:Bind ViewModel.AutoContinueDelaySeconds, Mode=TwoWay}" />
+                    </wct:SettingsCard>
+                </wct:SettingsExpander.Items>
+            </wct:SettingsExpander>
         </StackPanel>
     </ScrollView>
 </Page>

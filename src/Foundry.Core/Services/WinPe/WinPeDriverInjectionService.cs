@@ -41,20 +41,40 @@ public sealed class WinPeDriverInjectionService : IWinPeDriverInjectionService
                 dismPath,
                 $"/Image:{WinPeProcessRunner.Quote(options.MountedImagePath)} /Add-Driver /Driver:{WinPeProcessRunner.Quote(normalizedPath)}{recurse}",
                 options.WorkingDirectoryPath,
-                "Injecting drivers with DISM.",
+                $"Injecting drivers from '{normalizedPath}'.",
                 options.DismProgress,
                 cancellationToken).ConfigureAwait(false);
 
-            if (!result.IsSuccess)
+            if (IsAcceptableDriverExitCode(result.ExitCode))
             {
-                return WinPeResult.Failure(
-                    WinPeErrorCodes.DriverInjectionFailed,
-                    "Failed to inject driver package into the mounted image.",
-                    result.ToDiagnosticText());
+                continue;
             }
+
+            if (options.ContinueOnError)
+            {
+                // Skip this package but keep going; surface the failure as a non-fatal progress warning.
+                options.DismProgress?.Report(new WinPeDismProgress
+                {
+                    Status = $"Skipped driver package '{normalizedPath}' (DISM exit code {result.ExitCode})."
+                });
+                continue;
+            }
+
+            return WinPeResult.Failure(
+                WinPeErrorCodes.DriverInjectionFailed,
+                "Failed to inject driver package into the mounted image.",
+                result.ToDiagnosticText());
         }
 
         return WinPeResult.Success();
+    }
+
+    // DISM /Add-Driver exit codes treated as success. 0 = success; 50 is returned when a recursive folder
+    // contains drivers DISM does not apply to WinPE (applicable drivers are still injected); 3010 = benign
+    // "reboot required".
+    private static bool IsAcceptableDriverExitCode(int exitCode)
+    {
+        return exitCode is 0 or 50 or 3010;
     }
 
     private static WinPeDiagnostic? ValidateInjectionOptions(WinPeDriverInjectionOptions? options)
