@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Mark stale waiting issues
-        uses: actions/stale@v10
+        uses: actions/stale@v11
         with:
           # Only process issues waiting for user feedback
           only-labels: 'status: waiting-for-user'
