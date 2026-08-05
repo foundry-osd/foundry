@@ -42,6 +42,16 @@ public sealed record GeneralSettings
     public UsbFormatMode UsbFormatMode { get; init; } = UsbFormatMode.Quick;
 
     /// <summary>
+    /// Gets a value indicating whether Foundry.Deploy automatically reboots after a successful deployment.
+    /// </summary>
+    public bool AutomaticRebootEnabled { get; init; } = true;
+
+    /// <summary>
+    /// Gets the delay, in seconds, before an automatic post-deployment reboot.
+    /// </summary>
+    public int AutomaticRebootDelaySeconds { get; init; } = 10;
+
+    /// <summary>
     /// Gets a value indicating whether Dell WinPE drivers are included.
     /// </summary>
     public bool IncludeDellDrivers { get; init; }

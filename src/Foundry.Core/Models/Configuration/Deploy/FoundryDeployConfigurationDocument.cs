@@ -23,6 +23,11 @@ public sealed record FoundryDeployConfigurationDocument
     public int SchemaVersion { get; init; } = CurrentSchemaVersion;
 
     /// <summary>
+    /// Gets successful deployment completion behavior.
+    /// </summary>
+    public DeployCompletionSettings Completion { get; init; } = new();
+
+    /// <summary>
     /// Gets Windows catalog selection settings used during apply image selection.
     /// </summary>
     public DeployOperatingSystemSelectionSettings OperatingSystemSelection { get; init; } = new();
