@@ -468,6 +468,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         _wizardContext.ApplyStartupSnapshot(startupSnapshot);
         IsBootMediaUpdateRecommended = startupSnapshot.IsBootMediaUpdateRecommended;
+        Session.ConfigureRebootPolicy(DeploymentRebootPolicy.Create(_wizardContext.Completion));
         Session.SetComputerName(Preparation.TargetComputerName);
         Session.CompleteStartupInitialization();
     }

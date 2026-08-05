@@ -35,6 +35,7 @@ public sealed class DeploymentWizardContext : IDisposable
     public OperatingSystemCatalogViewModel OperatingSystemCatalog { get; }
     public DriverPackSelectionViewModel DriverPackSelection { get; }
     public string? DefaultTimeZoneId { get; private set; }
+    public DeployCompletionSettings Completion { get; private set; } = new();
     public CoreDeployNetworkSettings Network { get; private set; } = new();
     public DeployOobeSettings Oobe { get; private set; } = new();
     public DeployAppxRemovalSettings AppxRemoval { get; private set; } = new();
@@ -105,6 +106,7 @@ public sealed class DeploymentWizardContext : IDisposable
         string seedComputerName,
         IReadOnlyList<AutopilotProfileCatalogItem> autopilotProfiles)
     {
+        Completion = document.Completion ?? new DeployCompletionSettings();
         OperatingSystemCatalog.ApplyOperatingSystemSelection(document.OperatingSystemSelection);
         DefaultTimeZoneId = string.IsNullOrWhiteSpace(document.Localization.DefaultTimeZoneId)
             ? null
