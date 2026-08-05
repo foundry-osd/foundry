@@ -511,4 +511,5 @@ Pokračovat v nasazování?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Interaktivní asistent registrace Autopilotu byl připraven (simulace).</value>
   </data>
+  <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Odeberte spouštěcí médium a potom vyberte Restartovat.</value></data>
 </root>

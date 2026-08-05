@@ -14,6 +14,44 @@ namespace Foundry.Core.Tests.Configuration;
 public sealed class DeployConfigurationGeneratorTests
 {
     [Fact]
+    public void Generate_MapsDeploymentCompletionSettings()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            General = new GeneralSettings
+            {
+                AutomaticRebootEnabled = false,
+                AutomaticRebootDelaySeconds = 42
+            }
+        };
+
+        FoundryDeployConfigurationDocument result = generator.Generate(document);
+
+        Assert.False(result.Completion.AutomaticRebootEnabled);
+        Assert.Equal(42, result.Completion.AutomaticRebootDelaySeconds);
+    }
+
+    [Theory]
+    [InlineData(-1)]
+    [InlineData(3601)]
+    public void Generate_WhenDeploymentRebootDelayIsInvalid_UsesDefault(int configuredDelaySeconds)
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            General = new GeneralSettings
+            {
+                AutomaticRebootDelaySeconds = configuredDelaySeconds
+            }
+        };
+
+        FoundryDeployConfigurationDocument result = generator.Generate(document);
+
+        Assert.Equal(DeploymentRebootDelay.DefaultSeconds, result.Completion.AutomaticRebootDelaySeconds);
+    }
+
+    [Fact]
     public void Generate_WhenMachineNamingIsDisabled_ClearsPrefixAndKeepsManualSuffixEditable()
     {
         var generator = new DeployConfigurationGenerator();

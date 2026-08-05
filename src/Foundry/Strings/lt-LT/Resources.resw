@@ -810,6 +810,21 @@
   <data name="GeneralConfiguration.TimeZone.Description" xml:space="preserve">
     <value>Pasirinkite diegimo metu taikomą laiko juostą.</value>
   </data>
+  <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
+    <value>Po sėkmingo diegimo</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
+    <value>Pasirinkite, ar ir kada įrenginys bus paleistas iš naujo po diegimo.</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
+    <value>Paleisti iš naujo automatiškai</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
+    <value>Delsa prieš paleidžiant iš naujo</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
+    <value>Įveskite delsą nuo 0 iki 3600 sekundžių. Norėdami paleisti iš naujo iš karto, naudokite 0.</value>
+  </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Saugioji įkrova</value>
   </data>

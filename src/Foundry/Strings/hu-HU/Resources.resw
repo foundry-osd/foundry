@@ -810,6 +810,21 @@
   <data name="GeneralConfiguration.TimeZone.Description" xml:space="preserve">
     <value>Válassza ki a telepítés során alkalmazott időzónát.</value>
   </data>
+  <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
+    <value>Sikeres üzembe helyezés után</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
+    <value>Válassza ki, hogy az eszköz újrainduljon-e az üzembe helyezés után, és mikor.</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
+    <value>Automatikus újraindítás</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
+    <value>Késleltetés újraindítás előtt</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
+    <value>Adjon meg 0 és 3600 másodperc közötti késleltetést. A 0 azonnali újraindítást jelent.</value>
+  </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Biztonságos rendszerindítás</value>
   </data>

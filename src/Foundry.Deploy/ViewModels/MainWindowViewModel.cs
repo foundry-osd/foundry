@@ -283,6 +283,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 Oobe = _wizardContext.Oobe,
                 AppxRemoval = _wizardContext.AppxRemoval,
                 AiComponentRemoval = _wizardContext.AiComponentRemoval,
+                Completion = _wizardContext.Completion,
                 IsDryRun = IsDebugSafeMode
             });
 
@@ -468,6 +469,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         _wizardContext.ApplyStartupSnapshot(startupSnapshot);
         IsBootMediaUpdateRecommended = startupSnapshot.IsBootMediaUpdateRecommended;
+        Session.ConfigureRebootPolicy(DeploymentRebootPolicy.Create(_wizardContext.Completion));
         Session.SetComputerName(Preparation.TargetComputerName);
         Session.CompleteStartupInitialization();
     }

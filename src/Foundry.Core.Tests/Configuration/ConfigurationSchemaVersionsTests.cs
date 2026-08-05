@@ -24,4 +24,12 @@ public sealed class ConfigurationSchemaVersionsTests
         Assert.False(ConfigurationSchemaVersions.IsBootMediaUpdateRecommended(3, 3));
         Assert.True(ConfigurationSchemaVersions.IsBootMediaUpdateRecommended(2, 3));
     }
+
+    [Fact]
+    public void DeploymentCompletionPolicy_AdvancesAffectedSchemaContracts()
+    {
+        Assert.Equal(12, ConfigurationSchemaVersions.FoundryCurrent);
+        Assert.Equal(10, ConfigurationSchemaVersions.DeployCurrent);
+        Assert.Equal(2, ConfigurationSchemaVersions.ConnectCurrent);
+    }
 }

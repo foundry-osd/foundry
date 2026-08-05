@@ -511,4 +511,5 @@ Fortsätt med implementeringen?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Den interaktiva Autopilot-registreringsassistenten har förberetts (simulering).</value>
   </data>
+  <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Ta bort startmediet och välj sedan Starta om.</value></data>
 </root>

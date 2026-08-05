@@ -511,4 +511,5 @@ Kontynuować wdrażanie?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Interaktywny asystent rejestracji Autopilot został przygotowany (symulacja).</value>
   </data>
+  <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Usuń nośnik rozruchowy, a następnie wybierz Uruchom ponownie.</value></data>
 </root>

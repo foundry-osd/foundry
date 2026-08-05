@@ -810,6 +810,21 @@
   <data name="GeneralConfiguration.TimeZone.Description" xml:space="preserve">
     <value>اختر المنطقة الزمنية المطبقة أثناء النشر.</value>
   </data>
+  <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
+    <value>بعد النشر الناجح</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
+    <value>اختر ما إذا كان الجهاز سيُعاد تشغيله بعد النشر وموعد ذلك.</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
+    <value>إعادة التشغيل تلقائيًا</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
+    <value>التأخير قبل إعادة التشغيل</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
+    <value>أدخل مهلة من 0 إلى 3600 ثانية. استخدم 0 لإعادة التشغيل فورًا.</value>
+  </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>التمهيد الآمن</value>
   </data>

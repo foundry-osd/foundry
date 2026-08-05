@@ -810,6 +810,21 @@
   <data name="GeneralConfiguration.TimeZone.Description" xml:space="preserve">
     <value>Odaberite vremensku zonu koja se primjenjuje tijekom implementacije.</value>
   </data>
+  <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
+    <value>Nakon uspješne implementacije</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
+    <value>Odaberite hoće li se i kada uređaj ponovno pokrenuti nakon implementacije.</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
+    <value>Automatski ponovno pokreni</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
+    <value>Odgoda prije ponovnog pokretanja</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
+    <value>Unesite odgodu od 0 do 3600 sekundi. Upotrijebite 0 za trenutačno ponovno pokretanje.</value>
+  </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Sigurno pokretanje</value>
   </data>

@@ -76,6 +76,27 @@
                             SelectedItem="{x:Bind ViewModel.SelectedTimeZone, Mode=TwoWay}" />
                     </wct:SettingsCard>
 
+                    <wct:SettingsExpander x:Name="DeploymentCompletionCard">
+                        <wct:SettingsExpander.HeaderIcon>
+                            <FontIcon Glyph="&#xE777;" />
+                        </wct:SettingsExpander.HeaderIcon>
+                        <ToggleSwitch x:Name="AutomaticRebootToggle"
+                            IsOn="{x:Bind ViewModel.AutomaticRebootEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <wct:SettingsExpander.Items>
+                            <wct:SettingsCard x:Name="RebootDelayCard">
+                                <NumberBox
+                                    Width="{ThemeResource SettingActionControlMinWidth}"
+                                    IsEnabled="{x:Bind ViewModel.AutomaticRebootEnabled, Mode=OneWay}"
+                                    Maximum="3600"
+                                    Minimum="0"
+                                    SmallChange="1"
+                                    SpinButtonPlacementMode="Compact"
+                                    ValidationMode="InvalidInputOverwritten"
+                                    Value="{x:Bind ViewModel.AutomaticRebootDelaySeconds, Mode=TwoWay}" />
+                            </wct:SettingsCard>
+                        </wct:SettingsExpander.Items>
+                    </wct:SettingsExpander>
+
                     <wct:SettingsExpander x:Name="DriverOptionsCard">
                         <wct:SettingsExpander.HeaderIcon>
                             <FontIcon Glyph="&#xE90F;" />

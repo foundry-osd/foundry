@@ -810,6 +810,21 @@
   <data name="GeneralConfiguration.TimeZone.Description" xml:space="preserve">
     <value>בחר את אזור הזמן שיוחל במהלך הפריסה.</value>
   </data>
+  <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
+    <value>לאחר פריסה מוצלחת</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
+    <value>בחר אם ומתי המכשיר יופעל מחדש לאחר הפריסה.</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
+    <value>הפעל מחדש באופן אוטומטי</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
+    <value>השהיה לפני הפעלה מחדש</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
+    <value>הזן השהיה של 0 עד 3600 שניות. השתמש ב-0 להפעלה מחדש מיידית.</value>
+  </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>אתחול מאובטח</value>
   </data>

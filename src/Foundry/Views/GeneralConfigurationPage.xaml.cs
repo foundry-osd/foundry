@@ -81,6 +81,13 @@ public sealed partial class GeneralConfigurationPage : Page
         WinPeLanguageCard.Description = localizationService.GetString("StartMedia.WinPeLanguage.Description");
         TimeZoneCard.Header = localizationService.GetString("GeneralConfiguration.TimeZone.Header");
         TimeZoneCard.Description = localizationService.GetString("GeneralConfiguration.TimeZone.Description");
+        DeploymentCompletionCard.Header = localizationService.GetString("GeneralConfiguration.Completion.Header");
+        DeploymentCompletionCard.Description = localizationService.GetString("GeneralConfiguration.Completion.Description");
+        string automaticRebootText = localizationService.GetString("GeneralConfiguration.Completion.AutomaticReboot");
+        AutomaticRebootToggle.OnContent = automaticRebootText;
+        AutomaticRebootToggle.OffContent = automaticRebootText;
+        RebootDelayCard.Header = localizationService.GetString("GeneralConfiguration.Completion.Delay.Header");
+        RebootDelayCard.Description = localizationService.GetString("GeneralConfiguration.Completion.Delay.Description");
 
         DriverOptionsCard.Header = localizationService.GetString("StartMedia.DriverOptions.Header");
         DriverOptionsCard.Description = localizationService.GetString("StartMedia.DriverOptions.Description");

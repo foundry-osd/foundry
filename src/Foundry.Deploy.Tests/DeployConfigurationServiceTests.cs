@@ -64,6 +64,30 @@ public sealed class DeployConfigurationServiceTests
     }
 
     [Fact]
+    public void LoadOptional_WhenCompletionSettingsAreMissing_UsesAutomaticTenSecondReboot()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string configurationPath = CreateJsonFile(
+            tempDirectory.Path,
+            "foundry.deploy.config.json",
+            $$"""
+            {
+              "schemaVersion": {{FoundryDeployConfigurationDocument.CurrentSchemaVersion}}
+            }
+            """);
+
+        var service = new DeployConfigurationService(
+            NullLogger<DeployConfigurationService>.Instance,
+            configurationPath);
+
+        DeployConfigurationLoadResult result = service.LoadOptional();
+
+        Assert.NotNull(result.Document);
+        Assert.True(result.Document.Completion.AutomaticRebootEnabled);
+        Assert.Equal(10, result.Document.Completion.AutomaticRebootDelaySeconds);
+    }
+
+    [Fact]
     public void LoadOptional_WhenConfigurationContainsNetworkProfileRoaming_PreservesOptIn()
     {
         using var tempDirectory = new TemporaryDirectory();

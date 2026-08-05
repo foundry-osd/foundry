@@ -34,6 +34,11 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
 
         return new FoundryDeployConfigurationDocument
         {
+            Completion = new DeployCompletionSettings
+            {
+                AutomaticRebootEnabled = document.General.AutomaticRebootEnabled,
+                AutomaticRebootDelaySeconds = DeploymentRebootDelay.NormalizeRuntime(document.General.AutomaticRebootDelaySeconds)
+            },
             OperatingSystemSelection = OperatingSystemSelectionSettingsNormalizer.ToDeploySettings(document.OperatingSystemSelection),
             Localization = new DeployLocalizationSettings
             {

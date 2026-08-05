@@ -9,6 +9,7 @@ using System.Net.NetworkInformation;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Foundry.Core.Models.Configuration;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.Logging;
@@ -39,6 +40,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     private bool _isDeploymentInProgress;
     private bool _isRebootInProgress;
     private bool _isDisposed;
+    private DeploymentRebootPolicy _rebootPolicy = DeploymentRebootPolicy.Create(settings: null);
 
     public DeploymentSessionViewModel(
         Dispatcher dispatcher,
@@ -118,8 +120,8 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(RebootNowCommand))]
-    [NotifyPropertyChangedFor(nameof(RebootCountdownText))]
-    private int rebootCountdownSeconds = 10;
+    [NotifyPropertyChangedFor(nameof(CompletionInstructionText))]
+    private int rebootCountdownSeconds = DeploymentRebootDelay.DefaultSeconds;
 
     [ObservableProperty]
     private string failedStepName = string.Empty;
@@ -134,7 +136,17 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     public bool IsStartupReady => !IsStartupInitializing;
 
     public int PlannedStepCount => _deploymentOrchestrator.PlannedSteps.Count;
-    public string RebootCountdownText => Format("Success.RebootCountdownFormat", RebootCountdownSeconds);
+    public string CompletionInstructionText => _rebootPolicy.AutomaticRebootEnabled && !_isDebugSafeMode
+        ? Format("Success.RebootCountdownFormat", RebootCountdownSeconds)
+        : GetString("Success.ManualRebootInstruction");
+
+    public void ConfigureRebootPolicy(DeploymentRebootPolicy rebootPolicy)
+    {
+        ArgumentNullException.ThrowIfNull(rebootPolicy);
+        _rebootPolicy = rebootPolicy;
+        RebootCountdownSeconds = rebootPolicy.DelaySeconds;
+        OnPropertyChanged(nameof(CompletionInstructionText));
+    }
 
     public void SetComputerName(string computerName)
     {
@@ -357,7 +369,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     {
         if (value == DeploymentPage.Success)
         {
-            StartRebootCountdown();
+            StartConfiguredReboot();
         }
         else
         {
@@ -460,10 +472,28 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         return startTime.ToLocalTime().ToString("G", CultureInfo.CurrentCulture);
     }
 
-    private void StartRebootCountdown()
+    private void StartConfiguredReboot()
     {
         StopRebootCountdown(resetSeconds: false);
-        RebootCountdownSeconds = 10;
+        RebootCountdownSeconds = _rebootPolicy.DelaySeconds;
+        if (_isDebugSafeMode)
+        {
+            return;
+        }
+
+        switch (_rebootPolicy.Action)
+        {
+            case DeploymentRebootAction.WaitForManualReboot:
+                return;
+            case DeploymentRebootAction.RebootImmediately:
+                _ = ExecuteRebootAsync();
+                return;
+            case DeploymentRebootAction.StartCountdown:
+                break;
+            default:
+                throw new InvalidOperationException($"Unsupported reboot action: {_rebootPolicy.Action}.");
+        }
+
         _rebootCountdownTimer = new DispatcherTimer(DispatcherPriority.Background, _dispatcher)
         {
             Interval = TimeSpan.FromSeconds(1)
@@ -483,7 +513,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
 
         if (resetSeconds)
         {
-            RebootCountdownSeconds = 10;
+            RebootCountdownSeconds = _rebootPolicy.DelaySeconds;
         }
     }
 
@@ -688,7 +718,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
                 ? string.Empty
                 : DeploymentUiTextLocalizer.LocalizeMessage(_rawFailedStepErrorMessage);
             StepCounterText = BuildStepCounterText(_activeStepIndex);
-            OnPropertyChanged(nameof(RebootCountdownText));
+            OnPropertyChanged(nameof(CompletionInstructionText));
             CaptureNetworkSnapshot();
         });
     }

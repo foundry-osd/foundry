@@ -810,6 +810,21 @@
   <data name="GeneralConfiguration.TimeZone.Description" xml:space="preserve">
     <value>Επιλέξτε τη ζώνη ώρας που εφαρμόζεται κατά την ανάπτυξη.</value>
   </data>
+  <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
+    <value>Μετά την επιτυχή ανάπτυξη</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
+    <value>Επιλέξτε αν και πότε θα γίνει επανεκκίνηση της συσκευής μετά την ανάπτυξη.</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
+    <value>Αυτόματη επανεκκίνηση</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
+    <value>Καθυστέρηση πριν από την επανεκκίνηση</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
+    <value>Εισαγάγετε καθυστέρηση από 0 έως 3600 δευτερόλεπτα. Χρησιμοποιήστε το 0 για άμεση επανεκκίνηση.</value>
+  </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Ασφαλής εκκίνηση</value>
   </data>

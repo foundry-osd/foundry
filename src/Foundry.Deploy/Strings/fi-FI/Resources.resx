@@ -511,4 +511,5 @@ Jatketaanko käyttöönottoa?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Vuorovaikutteinen Autopilot-rekisteröintiavustaja on valmisteltu (simulointi).</value>
   </data>
+  <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Poista käynnistysmedia ja valitse sitten Käynnistä uudelleen.</value></data>
 </root>

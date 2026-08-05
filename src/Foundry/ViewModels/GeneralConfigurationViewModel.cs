@@ -60,6 +60,8 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
         UseCa2023Signature = general.UseCa2023;
         IncludeDellDrivers = general.IncludeDellDrivers;
         IncludeHpDrivers = general.IncludeHpDrivers;
+        AutomaticRebootEnabled = general.AutomaticRebootEnabled;
+        AutomaticRebootDelaySeconds = DeploymentRebootDelay.NormalizeRuntime(general.AutomaticRebootDelaySeconds);
         CustomDriverDirectoryPath = general.CustomDriverDirectoryPath ?? string.Empty;
         WinPeLanguageUnavailableDescription = string.Empty;
         RefreshLocalizedText();
@@ -102,6 +104,12 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
 
     [ObservableProperty]
     public partial bool IncludeHpDrivers { get; set; }
+
+    [ObservableProperty]
+    public partial bool AutomaticRebootEnabled { get; set; }
+
+    [ObservableProperty]
+    public partial double AutomaticRebootDelaySeconds { get; set; }
 
     [ObservableProperty]
     public partial string CustomDriverDirectoryPath { get; set; }
@@ -302,6 +310,33 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
         }
 
         Save(configurationStateService.Current.General with { IncludeHpDrivers = value });
+    }
+
+    partial void OnAutomaticRebootEnabledChanged(bool value)
+    {
+        if (isInitializing)
+        {
+            return;
+        }
+
+        Save(configurationStateService.Current.General with { AutomaticRebootEnabled = value });
+    }
+
+    partial void OnAutomaticRebootDelaySecondsChanged(double value)
+    {
+        if (isInitializing || !double.IsFinite(value))
+        {
+            return;
+        }
+
+        int delaySeconds = DeploymentRebootDelay.NormalizeAuthoring(value);
+        if (value != delaySeconds)
+        {
+            AutomaticRebootDelaySeconds = delaySeconds;
+            return;
+        }
+
+        Save(configurationStateService.Current.General with { AutomaticRebootDelaySeconds = delaySeconds });
     }
 
     partial void OnCustomDriverDirectoryPathChanged(string value)

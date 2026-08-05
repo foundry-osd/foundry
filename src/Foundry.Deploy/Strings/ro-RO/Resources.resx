@@ -511,4 +511,5 @@ Continuați cu implementarea?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Asistentul de înregistrare interactivă Autopilot a fost pregătit (simulare).</value>
   </data>
+  <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Scoateți suportul de pornire, apoi selectați Repornire.</value></data>
 </root>

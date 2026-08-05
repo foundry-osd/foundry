@@ -511,4 +511,5 @@ Continue with deployment?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Interactive Autopilot registration assistant staged (simulation).</value>
   </data>
+  <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Remove the boot media, then select Reboot.</value></data>
 </root>

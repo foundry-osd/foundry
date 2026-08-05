@@ -99,6 +99,11 @@ public sealed record DeploymentContext
     public DeployAiComponentRemovalSettings AiComponentRemoval { get; init; } = new();
 
     /// <summary>
+    /// Gets the completion settings used after deployment finishes.
+    /// </summary>
+    public DeployCompletionSettings Completion { get; init; } = new();
+
+    /// <summary>
     /// Gets a value indicating whether deployment runs against a temporary workspace instead of mutating a target disk.
     /// </summary>
     public bool IsDryRun { get; init; }

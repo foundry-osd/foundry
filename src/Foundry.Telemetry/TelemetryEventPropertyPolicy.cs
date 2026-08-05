@@ -67,6 +67,8 @@ public static class TelemetryEventPropertyPolicy
                 "boot_media_deploy_runtime_payload_source",
                 "autopilot_enabled",
                 "autopilot_provisioning_mode",
+                "deployment_reboot_mode",
+                "deployment_reboot_delay_seconds",
                 "customization_any_enabled",
                 "customization_machine_naming_enabled",
                 "customization_machine_naming_mode",
@@ -164,7 +166,9 @@ public static class TelemetryEventPropertyPolicy
                 "deploy_autopilot_enabled",
                 "deploy_autopilot_provisioning_mode",
                 "deploy_autopilot_hash_upload_state",
-                "deploy_autopilot_hash_group_tag_selected"
+                "deploy_autopilot_hash_group_tag_selected",
+                "deploy_completion_reboot_mode",
+                "deploy_completion_reboot_delay_seconds"
             }
         };
 

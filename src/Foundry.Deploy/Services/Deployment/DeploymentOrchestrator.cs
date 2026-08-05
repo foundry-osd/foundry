@@ -5,6 +5,7 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using Foundry.Core.Services.Telemetry;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Hardware;
@@ -290,6 +291,9 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         CancellationToken cancellationToken)
     {
         HardwareProfile? hardware = runtimeState?.HardwareProfile;
+        DeploymentRebootTelemetryValue rebootPolicy = DeploymentRebootTelemetryValueResolver.Resolve(
+            context.Completion.AutomaticRebootEnabled,
+            context.Completion.AutomaticRebootDelaySeconds);
         var properties = new Dictionary<string, object?>
         {
             ["deploy_session_success"] = success,
@@ -320,8 +324,14 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             ["deploy_autopilot_enabled"] = context.IsAutopilotEnabled,
             ["deploy_autopilot_provisioning_mode"] = NormalizeTelemetryString(ResolveAutopilotProvisioningMode(context)),
             ["deploy_autopilot_hash_upload_state"] = NormalizeTelemetryString(runtimeState?.AutopilotHardwareHashUploadState.ToString()),
-            ["deploy_autopilot_hash_group_tag_selected"] = !string.IsNullOrWhiteSpace(runtimeState?.AutopilotHardwareHashGroupTag)
+            ["deploy_autopilot_hash_group_tag_selected"] = !string.IsNullOrWhiteSpace(runtimeState?.AutopilotHardwareHashGroupTag),
+            ["deploy_completion_reboot_mode"] = rebootPolicy.Mode
         };
+
+        if (rebootPolicy.DelaySeconds is not null)
+        {
+            properties["deploy_completion_reboot_delay_seconds"] = rebootPolicy.DelaySeconds.Value;
+        }
 
         if (failure is not null)
         {

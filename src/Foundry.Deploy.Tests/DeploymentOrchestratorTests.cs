@@ -132,6 +132,55 @@ public sealed class DeploymentOrchestratorTests
         Assert.False(telemetryEvent.Properties.ContainsKey("autopilot_enabled"));
     }
 
+    [Theory]
+    [InlineData(false, 42, "manual", null)]
+    [InlineData(true, 0, "immediate", null)]
+    [InlineData(true, 42, "countdown", 42)]
+    public async Task RunAsync_TracksConfiguredCompletionRebootTelemetry(
+        bool automaticRebootEnabled,
+        int delaySeconds,
+        string expectedMode,
+        int? expectedDelaySeconds)
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var telemetryService = new RecordingTelemetryService();
+        var orchestrator = new DeploymentOrchestrator(
+            new FakeOperationProgressService(),
+            new FakeDeploymentLogService(),
+            new FakeTargetDiskService(),
+            CreateSteps(Path.Combine(workspace.RootPath, "TargetWindows")),
+            telemetryService,
+            NullLogger<DeploymentOrchestrator>.Instance);
+
+        await orchestrator.RunAsync(new DeploymentContext
+        {
+            Mode = DeploymentMode.Iso,
+            IsDryRun = false,
+            CacheRootPath = workspace.RootPath,
+            TargetDiskNumber = 1,
+            TargetComputerName = "LAB01",
+            OperatingSystem = new OperatingSystemCatalogItem(),
+            DriverPackSelectionKind = DriverPackSelectionKind.None,
+            Completion = new DeployCompletionSettings
+            {
+                AutomaticRebootEnabled = automaticRebootEnabled,
+                AutomaticRebootDelaySeconds = delaySeconds
+            }
+        });
+
+        TelemetryEvent telemetryEvent = Assert.Single(telemetryService.Events);
+
+        Assert.Equal(expectedMode, telemetryEvent.Properties["deploy_completion_reboot_mode"]);
+        if (expectedDelaySeconds is null)
+        {
+            Assert.False(telemetryEvent.Properties.ContainsKey("deploy_completion_reboot_delay_seconds"));
+        }
+        else
+        {
+            Assert.Equal(expectedDelaySeconds, telemetryEvent.Properties["deploy_completion_reboot_delay_seconds"]);
+        }
+    }
+
     private static IDeploymentStep[] CreateSteps(string targetWindowsRoot)
     {
         return DeploymentStepNames.All

@@ -511,4 +511,5 @@ Folytatja a telepítést?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Az interaktív Autopilot regisztrációs segéd előkészítve (szimuláció).</value>
   </data>
+  <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Távolítsa el a rendszerindító adathordozót, majd válassza az Újraindítás lehetőséget.</value></data>
 </root>

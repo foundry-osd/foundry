@@ -43,6 +43,10 @@ public static class BootMediaTelemetryPropertyBuilder
         ArgumentNullException.ThrowIfNull(options);
         ArgumentNullException.ThrowIfNull(document);
 
+        DeploymentRebootTelemetryValue rebootPolicy = DeploymentRebootTelemetryValueResolver.Resolve(
+            document.General.AutomaticRebootEnabled,
+            document.General.AutomaticRebootDelaySeconds);
+
         var properties = new Dictionary<string, object?>
         {
             ["boot_media_target"] = bootMediaTarget,
@@ -68,8 +72,14 @@ public static class BootMediaTelemetryPropertyBuilder
             ["boot_media_connect_runtime_payload_source"] = connectRuntimePayloadSource,
             ["boot_media_deploy_runtime_payload_source"] = deployRuntimePayloadSource,
             ["autopilot_enabled"] = options.IsAutopilotEnabled,
-            ["autopilot_provisioning_mode"] = ResolveAutopilotProvisioningMode(options)
+            ["autopilot_provisioning_mode"] = ResolveAutopilotProvisioningMode(options),
+            ["deployment_reboot_mode"] = rebootPolicy.Mode
         };
+
+        if (rebootPolicy.DelaySeconds.HasValue)
+        {
+            properties["deployment_reboot_delay_seconds"] = rebootPolicy.DelaySeconds.Value;
+        }
 
         AddCustomizationTelemetryProperties(properties, document.Customization);
         AddOperatingSystemSelectionTelemetryProperties(properties, document.OperatingSystemSelection);

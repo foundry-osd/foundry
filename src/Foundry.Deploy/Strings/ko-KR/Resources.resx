@@ -511,4 +511,5 @@
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>대화형 Autopilot 등록 도우미가 준비되었습니다(시뮬레이션).</value>
   </data>
+  <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>부팅 미디어를 제거한 다음 다시 시작을 선택하세요.</value></data>
 </root>

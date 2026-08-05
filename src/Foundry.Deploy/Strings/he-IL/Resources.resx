@@ -511,4 +511,5 @@ ErrorCode=0x80070005
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>מסייע הרישום האינטראקטיבי של Autopilot הוכן (סימולציה).</value>
   </data>
+  <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>הסר את מדיית האתחול ולאחר מכן בחר הפעל מחדש.</value></data>
 </root>

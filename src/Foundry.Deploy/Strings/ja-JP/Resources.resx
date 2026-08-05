@@ -511,4 +511,5 @@
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>対話型 Autopilot 登録アシスタントをステージングしました (シミュレーション)。</value>
   </data>
+  <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>ブート メディアを取り外してから、[再起動] を選択してください。</value></data>
 </root>

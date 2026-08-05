@@ -511,4 +511,5 @@
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Ο διαδραστικός βοηθός εγγραφής Autopilot προετοιμάστηκε (προσομοίωση).</value>
   </data>
+  <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Αφαιρέστε το μέσο εκκίνησης και, στη συνέχεια, επιλέξτε Επανεκκίνηση.</value></data>
 </root>

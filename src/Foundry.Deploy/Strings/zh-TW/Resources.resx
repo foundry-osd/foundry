@@ -511,4 +511,5 @@
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>互動式 Autopilot 註冊助理已暫存 (模擬)。</value>
   </data>
+  <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>移除開機媒體，然後選取「重新啟動」。</value></data>
 </root>
