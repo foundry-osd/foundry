@@ -49,7 +49,7 @@ public sealed record GeneralSettings
     /// <summary>
     /// Gets the delay, in seconds, before an automatic post-deployment reboot.
     /// </summary>
-    public int AutomaticRebootDelaySeconds { get; init; } = 10;
+    public int AutomaticRebootDelaySeconds { get; init; } = DeploymentRebootDelay.DefaultSeconds;
 
     /// <summary>
     /// Gets a value indicating whether Dell WinPE drivers are included.

@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Core.Models.Configuration;
+
 namespace Foundry.Deploy.Models.Configuration;
 
 /// <summary>
@@ -17,5 +19,5 @@ public sealed record DeployCompletionSettings
     /// <summary>
     /// Gets the configured automatic reboot delay in seconds.
     /// </summary>
-    public int AutomaticRebootDelaySeconds { get; init; } = 10;
+    public int AutomaticRebootDelaySeconds { get; init; } = DeploymentRebootDelay.DefaultSeconds;
 }

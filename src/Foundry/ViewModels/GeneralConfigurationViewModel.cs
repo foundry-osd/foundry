@@ -61,7 +61,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
         IncludeDellDrivers = general.IncludeDellDrivers;
         IncludeHpDrivers = general.IncludeHpDrivers;
         AutomaticRebootEnabled = general.AutomaticRebootEnabled;
-        AutomaticRebootDelaySeconds = general.AutomaticRebootDelaySeconds;
+        AutomaticRebootDelaySeconds = DeploymentRebootDelay.NormalizeRuntime(general.AutomaticRebootDelaySeconds);
         CustomDriverDirectoryPath = general.CustomDriverDirectoryPath ?? string.Empty;
         WinPeLanguageUnavailableDescription = string.Empty;
         RefreshLocalizedText();
@@ -329,7 +329,13 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
             return;
         }
 
-        int delaySeconds = (int)Math.Clamp(Math.Round(value), 0, 3600);
+        int delaySeconds = DeploymentRebootDelay.NormalizeAuthoring(value);
+        if (value != delaySeconds)
+        {
+            AutomaticRebootDelaySeconds = delaySeconds;
+            return;
+        }
+
         Save(configurationStateService.Current.General with { AutomaticRebootDelaySeconds = delaySeconds });
     }
 

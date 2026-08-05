@@ -28,8 +28,8 @@ public sealed class ConfigurationSchemaVersionsTests
     [Fact]
     public void DeploymentCompletionPolicy_AdvancesAffectedSchemaContracts()
     {
-        Assert.True(ConfigurationSchemaVersions.FoundryCurrent > 11);
-        Assert.True(ConfigurationSchemaVersions.DeployCurrent > 9);
+        Assert.Equal(12, ConfigurationSchemaVersions.FoundryCurrent);
+        Assert.Equal(10, ConfigurationSchemaVersions.DeployCurrent);
         Assert.Equal(2, ConfigurationSchemaVersions.ConnectCurrent);
     }
 }

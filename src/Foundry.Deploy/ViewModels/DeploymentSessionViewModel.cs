@@ -9,6 +9,7 @@ using System.Net.NetworkInformation;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Foundry.Core.Models.Configuration;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.Logging;
@@ -120,7 +121,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(RebootNowCommand))]
     [NotifyPropertyChangedFor(nameof(CompletionInstructionText))]
-    private int rebootCountdownSeconds = DeploymentRebootPolicy.DefaultDelaySeconds;
+    private int rebootCountdownSeconds = DeploymentRebootDelay.DefaultSeconds;
 
     [ObservableProperty]
     private string failedStepName = string.Empty;
@@ -475,15 +476,22 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     {
         StopRebootCountdown(resetSeconds: false);
         RebootCountdownSeconds = _rebootPolicy.DelaySeconds;
-        if (_isDebugSafeMode || !_rebootPolicy.AutomaticRebootEnabled)
+        if (_isDebugSafeMode)
         {
             return;
         }
 
-        if (_rebootPolicy.ShouldRebootImmediately)
+        switch (_rebootPolicy.Action)
         {
-            _ = ExecuteRebootAsync();
-            return;
+            case DeploymentRebootAction.WaitForManualReboot:
+                return;
+            case DeploymentRebootAction.RebootImmediately:
+                _ = ExecuteRebootAsync();
+                return;
+            case DeploymentRebootAction.StartCountdown:
+                break;
+            default:
+                throw new InvalidOperationException($"Unsupported reboot action: {_rebootPolicy.Action}.");
         }
 
         _rebootCountdownTimer = new DispatcherTimer(DispatcherPriority.Background, _dispatcher)

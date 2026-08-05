@@ -37,7 +37,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             Completion = new DeployCompletionSettings
             {
                 AutomaticRebootEnabled = document.General.AutomaticRebootEnabled,
-                AutomaticRebootDelaySeconds = document.General.AutomaticRebootDelaySeconds
+                AutomaticRebootDelaySeconds = DeploymentRebootDelay.NormalizeRuntime(document.General.AutomaticRebootDelaySeconds)
             },
             OperatingSystemSelection = OperatingSystemSelectionSettingsNormalizer.ToDeploySettings(document.OperatingSystemSelection),
             Localization = new DeployLocalizationSettings

@@ -10,16 +10,15 @@ namespace Foundry.Deploy.Tests;
 public sealed class DeploymentRebootPolicyTests
 {
     [Theory]
-    [InlineData(true, 10, true, false, 10)]
-    [InlineData(true, 0, false, true, 0)]
-    [InlineData(false, 10, false, false, 10)]
-    [InlineData(true, -1, true, false, 10)]
-    [InlineData(true, 3601, true, false, 10)]
+    [InlineData(true, 10, DeploymentRebootAction.StartCountdown, 10)]
+    [InlineData(true, 0, DeploymentRebootAction.RebootImmediately, 0)]
+    [InlineData(false, 10, DeploymentRebootAction.WaitForManualReboot, 10)]
+    [InlineData(true, -1, DeploymentRebootAction.StartCountdown, 10)]
+    [InlineData(true, 3601, DeploymentRebootAction.StartCountdown, 10)]
     public void Create_ResolvesExpectedBehavior(
         bool automaticRebootEnabled,
         int configuredDelaySeconds,
-        bool shouldStartCountdown,
-        bool shouldRebootImmediately,
+        DeploymentRebootAction expectedAction,
         int expectedDelaySeconds)
     {
         DeploymentRebootPolicy policy = DeploymentRebootPolicy.Create(
@@ -31,8 +30,7 @@ public sealed class DeploymentRebootPolicyTests
 
         Assert.Equal(automaticRebootEnabled, policy.AutomaticRebootEnabled);
         Assert.Equal(expectedDelaySeconds, policy.DelaySeconds);
-        Assert.Equal(shouldStartCountdown, policy.ShouldStartCountdown);
-        Assert.Equal(shouldRebootImmediately, policy.ShouldRebootImmediately);
+        Assert.Equal(expectedAction, policy.Action);
     }
 
     [Theory]

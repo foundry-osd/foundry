@@ -17,5 +17,5 @@ public sealed record DeployCompletionSettings
     /// <summary>
     /// Gets the configured automatic reboot delay in seconds.
     /// </summary>
-    public int AutomaticRebootDelaySeconds { get; init; } = 10;
+    public int AutomaticRebootDelaySeconds { get; init; } = DeploymentRebootDelay.DefaultSeconds;
 }
