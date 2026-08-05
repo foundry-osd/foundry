@@ -573,4 +573,46 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.True((bool)result["network_profile_roaming_enabled"]!);
         Assert.True((bool)result["network_private_key_roaming_enabled"]!);
     }
+
+    [Theory]
+    [InlineData(false, 10, "manual", null)]
+    [InlineData(true, 0, "immediate", null)]
+    [InlineData(true, 42, "countdown", 42)]
+    public void Build_ReportsAuthoredDeploymentRebootPolicy(
+        bool automaticRebootEnabled,
+        int automaticRebootDelaySeconds,
+        string expectedMode,
+        int? expectedDelaySeconds)
+    {
+        var document = new FoundryConfigurationDocument
+        {
+            General = new GeneralSettings
+            {
+                AutomaticRebootEnabled = automaticRebootEnabled,
+                AutomaticRebootDelaySeconds = automaticRebootDelaySeconds
+            }
+        };
+
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
+            new MediaPreflightOptions(),
+            document,
+            success: true,
+            failedStepName: null,
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+
+        Assert.Equal(expectedMode, result["deployment_reboot_mode"]);
+
+        if (expectedDelaySeconds.HasValue)
+        {
+            Assert.Equal(expectedDelaySeconds.Value, result["deployment_reboot_delay_seconds"]);
+        }
+        else
+        {
+            Assert.False(result.ContainsKey("deployment_reboot_delay_seconds"));
+        }
+    }
 }

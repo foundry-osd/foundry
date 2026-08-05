@@ -67,6 +67,8 @@ public static class TelemetryEventPropertyPolicy
                 "boot_media_deploy_runtime_payload_source",
                 "autopilot_enabled",
                 "autopilot_provisioning_mode",
+                "deployment_reboot_mode",
+                "deployment_reboot_delay_seconds",
                 "customization_any_enabled",
                 "customization_machine_naming_enabled",
                 "customization_machine_naming_mode",

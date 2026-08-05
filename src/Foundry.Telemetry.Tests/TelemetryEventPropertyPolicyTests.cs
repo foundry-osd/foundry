@@ -304,4 +304,22 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.False(TelemetryEventPropertyPolicy.IsKnownEvent("deployment_completed"));
         Assert.False(TelemetryEventPropertyPolicy.IsKnownEvent("unknown_event"));
     }
+
+    [Fact]
+    public void Sanitize_ForBootMediaFinished_RetainsOnlyApprovedRebootPolicyProperties()
+    {
+        Dictionary<string, object?> input = new()
+        {
+            ["deployment_reboot_mode"] = "countdown",
+            ["deployment_reboot_delay_seconds"] = 42,
+            ["automatic_reboot_enabled"] = true
+        };
+
+        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.OsdBootMediaFinished, input);
+
+        Assert.Equal(2, result.Count);
+        Assert.Equal("countdown", result["deployment_reboot_mode"]);
+        Assert.Equal(42, result["deployment_reboot_delay_seconds"]);
+        Assert.False(result.ContainsKey("automatic_reboot_enabled"));
+    }
 }
