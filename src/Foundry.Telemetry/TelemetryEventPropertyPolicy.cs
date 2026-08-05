@@ -166,7 +166,9 @@ public static class TelemetryEventPropertyPolicy
                 "deploy_autopilot_enabled",
                 "deploy_autopilot_provisioning_mode",
                 "deploy_autopilot_hash_upload_state",
-                "deploy_autopilot_hash_group_tag_selected"
+                "deploy_autopilot_hash_group_tag_selected",
+                "deploy_completion_reboot_mode",
+                "deploy_completion_reboot_delay_seconds"
             }
         };
 

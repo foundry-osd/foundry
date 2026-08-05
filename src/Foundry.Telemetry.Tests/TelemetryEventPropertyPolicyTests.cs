@@ -322,4 +322,19 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.Equal(42, result["deployment_reboot_delay_seconds"]);
         Assert.False(result.ContainsKey("automatic_reboot_enabled"));
     }
+
+    [Fact]
+    public void Sanitize_ForDeploySessionFinished_RetainsCompletionRebootTelemetryProperties()
+    {
+        Dictionary<string, object?> input = new()
+        {
+            ["deploy_completion_reboot_mode"] = "countdown",
+            ["deploy_completion_reboot_delay_seconds"] = 42
+        };
+
+        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.DeploySessionFinished, input);
+
+        Assert.Equal("countdown", result["deploy_completion_reboot_mode"]);
+        Assert.Equal(42, result["deploy_completion_reboot_delay_seconds"]);
+    }
 }

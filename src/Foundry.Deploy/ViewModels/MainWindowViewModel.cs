@@ -283,6 +283,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 Oobe = _wizardContext.Oobe,
                 AppxRemoval = _wizardContext.AppxRemoval,
                 AiComponentRemoval = _wizardContext.AiComponentRemoval,
+                Completion = _wizardContext.Completion,
                 IsDryRun = IsDebugSafeMode
             });
 

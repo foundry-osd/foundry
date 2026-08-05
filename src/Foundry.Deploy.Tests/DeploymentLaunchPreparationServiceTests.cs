@@ -124,6 +124,28 @@ public sealed class DeploymentLaunchPreparationServiceTests
     }
 
     [Fact]
+    public void Prepare_WhenCompletionRebootIsDisabled_RetainsConfiguredDelay()
+    {
+        var shell = new FakeApplicationShellService();
+        var service = new DeploymentLaunchPreparationService(shell);
+        DeployCompletionSettings completion = new()
+        {
+            AutomaticRebootEnabled = false,
+            AutomaticRebootDelaySeconds = 42
+        };
+
+        DeploymentLaunchPreparationResult result = service.Prepare(
+            CreateRequest(
+                selectedTargetDisk: CreateDisk(),
+                completion: completion,
+                isDryRun: true));
+
+        Assert.True(result.IsReadyToStart);
+        Assert.False(result.Context!.Completion.AutomaticRebootEnabled);
+        Assert.Equal(42, result.Context.Completion.AutomaticRebootDelaySeconds);
+    }
+
+    [Fact]
     public void Prepare_WhenHardwareHashUploadModeHasNoJsonProfile_ReturnsDeploymentContext()
     {
         var shell = new FakeApplicationShellService { ConfirmationResult = true };
@@ -252,6 +274,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
         DeployOobeSettings? oobe = null,
         DeployAppxRemovalSettings? appxRemoval = null,
         DeployAiComponentRemovalSettings? aiComponentRemoval = null,
+        DeployCompletionSettings? completion = null,
         bool isDryRun = false)
     {
         return new DeploymentLaunchRequest
@@ -282,6 +305,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
             Oobe = oobe ?? new DeployOobeSettings(),
             AppxRemoval = appxRemoval ?? new DeployAppxRemovalSettings(),
             AiComponentRemoval = aiComponentRemoval ?? new DeployAiComponentRemovalSettings(),
+            Completion = completion ?? new DeployCompletionSettings(),
             IsDryRun = isDryRun
         };
     }
