@@ -511,4 +511,5 @@ Vai turpināt izvietošanu?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Interaktīvais Autopilot reģistrācijas palīgs ir sagatavots (simulācija).</value>
   </data>
+  <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Izņemiet sāknēšanas datu nesēju un pēc tam atlasiet Restartēt.</value></data>
 </root>

@@ -810,6 +810,21 @@
   <data name="GeneralConfiguration.TimeZone.Description" xml:space="preserve">
     <value>Kies de tijdzone die tijdens de implementatie wordt toegepast.</value>
   </data>
+  <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
+    <value>Na een geslaagde implementatie</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
+    <value>Kies of en wanneer het apparaat na de implementatie opnieuw wordt opgestart.</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
+    <value>Automatisch opnieuw opstarten</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
+    <value>Vertraging vóór opnieuw opstarten</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
+    <value>Voer een vertraging van 0 tot 3600 seconden in. Gebruik 0 om onmiddellijk opnieuw op te starten.</value>
+  </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Veilig opstarten</value>
   </data>

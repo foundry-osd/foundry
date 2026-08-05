@@ -810,6 +810,21 @@
   <data name="GeneralConfiguration.TimeZone.Description" xml:space="preserve">
     <value>Wybierz strefę czasową stosowaną podczas wdrażania.</value>
   </data>
+  <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
+    <value>Po pomyślnym wdrożeniu</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
+    <value>Wybierz, czy i kiedy urządzenie ma zostać ponownie uruchomione po wdrożeniu.</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
+    <value>Uruchom ponownie automatycznie</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
+    <value>Opóźnienie przed ponownym uruchomieniem</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
+    <value>Wprowadź opóźnienie od 0 do 3600 sekund. Użyj wartości 0, aby uruchomić ponownie natychmiast.</value>
+  </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Bezpieczny rozruch</value>
   </data>

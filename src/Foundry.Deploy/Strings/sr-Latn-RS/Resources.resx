@@ -511,4 +511,5 @@ Operativni sistem: {4}
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Interaktivni pomoćnik za registraciju Autopilota je pripremljen (simulacija).</value>
   </data>
+  <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Uklonite medijum za pokretanje, a zatim izaberite Ponovo pokreni.</value></data>
 </root>

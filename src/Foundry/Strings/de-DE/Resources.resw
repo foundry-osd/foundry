@@ -810,6 +810,21 @@
   <data name="GeneralConfiguration.TimeZone.Description" xml:space="preserve">
     <value>Wählen Sie die Zeitzone aus, die während der Bereitstellung angewendet wird.</value>
   </data>
+  <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
+    <value>Nach erfolgreicher Bereitstellung</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
+    <value>Wählen Sie aus, ob und wann das Gerät nach der Bereitstellung neu gestartet wird.</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
+    <value>Automatisch neu starten</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
+    <value>Verzögerung vor dem Neustart</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
+    <value>Geben Sie eine Verzögerung von 0 bis 3600 Sekunden ein. Mit 0 wird sofort neu gestartet.</value>
+  </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Sicherer Start</value>
   </data>

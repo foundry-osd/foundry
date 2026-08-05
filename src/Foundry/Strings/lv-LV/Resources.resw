@@ -810,6 +810,21 @@
   <data name="GeneralConfiguration.TimeZone.Description" xml:space="preserve">
     <value>Izvēlieties laika joslu, kas tiek lietota izvietošanas laikā.</value>
   </data>
+  <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
+    <value>Pēc sekmīgas izvietošanas</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
+    <value>Izvēlieties, vai un kad ierīce pēc izvietošanas tiek restartēta.</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
+    <value>Restartēt automātiski</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
+    <value>Aizkave pirms restartēšanas</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
+    <value>Ievadiet aizkavi no 0 līdz 3600 sekundēm. Izmantojiet 0, lai restartētu nekavējoties.</value>
+  </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Drošā sāknēšana</value>
   </data>

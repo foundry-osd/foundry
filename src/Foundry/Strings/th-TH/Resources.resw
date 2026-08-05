@@ -810,6 +810,21 @@
   <data name="GeneralConfiguration.TimeZone.Description" xml:space="preserve">
     <value>เลือกเขตเวลาที่ใช้ระหว่างการปรับใช้</value>
   </data>
+  <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
+    <value>หลังจากการปรับใช้สำเร็จ</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
+    <value>เลือกว่าจะให้รีสตาร์ตอุปกรณ์หลังการปรับใช้หรือไม่และเมื่อใด</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
+    <value>รีสตาร์ตโดยอัตโนมัติ</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
+    <value>ระยะเวลาก่อนรีสตาร์ต</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
+    <value>ป้อนระยะเวลาตั้งแต่ 0 ถึง 3600 วินาที ใช้ 0 เพื่อรีสตาร์ตทันที</value>
+  </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>การบูตแบบปลอดภัย</value>
   </data>

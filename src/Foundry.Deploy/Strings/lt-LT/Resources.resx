@@ -511,4 +511,5 @@ Tęsti diegimą?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Interaktyvus Autopilot registracijos pagalbininkas paruoštas (modeliavimas).</value>
   </data>
+  <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Pašalinkite paleidimo laikmeną, tada pasirinkite Paleisti iš naujo.</value></data>
 </root>

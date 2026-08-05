@@ -511,4 +511,5 @@ Dağıtıma devam edilsin mi?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Etkileşimli Autopilot kayıt yardımcısı hazırlandı (simülasyon).</value>
   </data>
+  <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Önyükleme medyasını çıkarın ve ardından Yeniden Başlat'ı seçin.</value></data>
 </root>

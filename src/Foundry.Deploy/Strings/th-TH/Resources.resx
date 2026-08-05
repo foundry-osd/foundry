@@ -511,4 +511,5 @@
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>จัดเตรียมผู้ช่วยลงทะเบียน Autopilot แบบโต้ตอบแล้ว (การจำลอง)</value>
   </data>
+  <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>นำสื่อสำหรับบูตออก แล้วเลือก รีสตาร์ต</value></data>
 </root>

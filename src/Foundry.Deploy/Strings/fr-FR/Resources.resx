@@ -511,4 +511,5 @@ Continuer le déploiement ?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Assistant d&apos;enregistrement Autopilot interactif préparé (simulation).</value>
   </data>
+  <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Retirez le support de démarrage, puis sélectionnez Redémarrer.</value></data>
 </root>

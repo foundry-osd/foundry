@@ -511,4 +511,5 @@
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Интерактивный помощник регистрации Autopilot подготовлен (симуляция).</value>
   </data>
+  <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Извлеките загрузочный носитель, затем выберите «Перезапустить».</value></data>
 </root>

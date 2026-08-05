@@ -810,6 +810,21 @@
   <data name="GeneralConfiguration.TimeZone.Description" xml:space="preserve">
     <value>Dağıtım sırasında uygulanacak saat dilimini seçin.</value>
   </data>
+  <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
+    <value>Başarılı dağıtımdan sonra</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
+    <value>Dağıtımdan sonra cihazın yeniden başlatılıp başlatılmayacağını ve zamanını seçin.</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
+    <value>Otomatik olarak yeniden başlat</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
+    <value>Yeniden başlatma öncesi gecikme</value>
+  </data>
+  <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
+    <value>0 ile 3600 saniye arasında bir gecikme girin. Hemen yeniden başlatmak için 0 kullanın.</value>
+  </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Güvenli Önyükleme</value>
   </data>
