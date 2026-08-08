@@ -86,7 +86,7 @@ public sealed class SupportedCultureCatalog
         ArgumentException.ThrowIfNullOrWhiteSpace(defaultCultureCode);
         ArgumentNullException.ThrowIfNull(definitions);
 
-        string canonicalDefaultCultureCode = CultureCode.Canonicalize(defaultCultureCode);
+        string canonicalDefaultCultureCode = CultureInfo.GetCultureInfo(defaultCultureCode.Trim().Replace('_', '-')).Name;
         SupportedCultureDefinition[] orderedDefinitions = definitions
             .OrderBy(definition => definition.SortOrder)
             .ThenBy(definition => definition.Code, StringComparer.OrdinalIgnoreCase)
