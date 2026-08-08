@@ -7,6 +7,7 @@ using System.Text;
 using System.IO;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.System;
+using Foundry.Utilities.Processes;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Hardware;

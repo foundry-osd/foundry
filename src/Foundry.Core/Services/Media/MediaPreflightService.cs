@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Services.WinPe;
+using Foundry.Utilities.IO;
 
 namespace Foundry.Core.Services.Media;
 
@@ -53,7 +54,7 @@ public static class MediaPreflightService
                 isoReasons.Add(MediaPreflightBlockingReason.CustomDriverDirectoryNotFound);
                 usbReasons.Add(MediaPreflightBlockingReason.CustomDriverDirectoryNotFound);
             }
-            else if (!Directory.EnumerateFiles(options.CustomDriverDirectoryPath, "*.inf", SearchOption.AllDirectories).Any())
+            else if (!FileSearch.ContainsRecursive(options.CustomDriverDirectoryPath, "*.inf"))
             {
                 isoReasons.Add(MediaPreflightBlockingReason.CustomDriverDirectoryHasNoInfFiles);
                 usbReasons.Add(MediaPreflightBlockingReason.CustomDriverDirectoryHasNoInfFiles);

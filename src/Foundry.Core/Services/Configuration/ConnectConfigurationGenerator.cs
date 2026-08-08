@@ -4,6 +4,7 @@
 
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
+using Foundry.Utilities.IO;
 
 namespace Foundry.Core.Services.Configuration;
 
@@ -40,7 +41,7 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
         }
 
         string assetRootPath = Path.Combine(stagingDirectoryPath, StagedAssetRootFolderName);
-        EnsureDirectoryClean(assetRootPath);
+        DirectoryOperations.Recreate(assetRootPath);
 
         List<FoundryConnectProvisionedAssetFile> assetFiles = [];
         NetworkSettings network = document.Network;
@@ -166,16 +167,6 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
         });
 
         return NormalizeEmbeddedRelativePath(stagedRelativePath);
-    }
-
-    private static void EnsureDirectoryClean(string path)
-    {
-        if (Directory.Exists(path))
-        {
-            Directory.Delete(path, recursive: true);
-        }
-
-        Directory.CreateDirectory(path);
     }
 
     private static byte[]? ResolveMediaSecretsKey(bool isWifiEnabled, Dot1xSettings dot1x, WifiSettings wifi)

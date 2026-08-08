@@ -7,6 +7,7 @@ using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.Download;
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Logging;
+using Foundry.Utilities.IO;
 
 namespace Foundry.Deploy.Services.Deployment.Steps;
 
@@ -43,7 +44,7 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
                     ?? throw new InvalidOperationException("Hardware profile is unavailable for Microsoft Update Catalog lookup.");
                 string rawDirectory = context.ResolveWorkspaceTempPath("DriverPack", "MicrosoftUpdateCatalog", "Raw");
                 string cacheDirectory = context.ResolveMicrosoftUpdateCatalogDriverCacheRoot();
-                ResetDirectory(rawDirectory);
+                DirectoryOperations.Recreate(rawDirectory);
                 context.EmitCurrentStepIndeterminate("Downloading driver pack...", "Preparing download...", DeploymentOperationNames.ResolveDriverPack);
                 IProgress<double> progress = context.CreateStepPercentProgressReporter("Downloading driver pack...", "Downloading");
 
@@ -188,13 +189,4 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
         runtimeState.DriverPackSetupCompleteHookPath = null;
     }
 
-    private static void ResetDirectory(string path)
-    {
-        if (Directory.Exists(path))
-        {
-            Directory.Delete(path, recursive: true);
-        }
-
-        Directory.CreateDirectory(path);
-    }
 }

@@ -1,0 +1,47 @@
+// Copyright (c) Foundry Project contributors.
+// Licensed under the MIT License.
+// See the LICENSE file in the project root for more information.
+
+using System.Text;
+
+namespace Foundry.Utilities.Processes;
+
+/// <summary>
+/// Contains the captured outcome of a completed process.
+/// </summary>
+public sealed record ProcessExecutionResult
+{
+    public int ExitCode { get; init; }
+    public string FileName { get; init; } = string.Empty;
+    public string Arguments { get; init; } = string.Empty;
+    public string WorkingDirectory { get; init; } = string.Empty;
+    public string StandardOutput { get; init; } = string.Empty;
+    public string StandardError { get; init; } = string.Empty;
+
+    public bool IsSuccess => ExitCode == 0;
+
+    /// <summary>
+    /// Formats a local diagnostic containing command metadata and non-empty captured streams.
+    /// </summary>
+    public string ToDiagnosticText()
+    {
+        var builder = new StringBuilder();
+        builder.AppendLine($"Command: {FileName} {Arguments}".TrimEnd());
+        builder.AppendLine($"WorkingDirectory: {WorkingDirectory}");
+        builder.AppendLine($"ExitCode: {ExitCode}");
+
+        if (!string.IsNullOrWhiteSpace(StandardOutput))
+        {
+            builder.AppendLine("StdOut:");
+            builder.AppendLine(StandardOutput.Trim());
+        }
+
+        if (!string.IsNullOrWhiteSpace(StandardError))
+        {
+            builder.AppendLine("StdErr:");
+            builder.AppendLine(StandardError.Trim());
+        }
+
+        return builder.ToString().Trim();
+    }
+}

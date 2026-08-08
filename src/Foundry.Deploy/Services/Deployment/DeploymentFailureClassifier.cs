@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
 using Foundry.Deploy.Services.System;
+using UtilityProcessStartException = Foundry.Utilities.Processes.ProcessStartException;
 
 namespace Foundry.Deploy.Services.Deployment;
 
@@ -39,10 +40,11 @@ public static class DeploymentFailureClassifier
                 DeploymentFailureKinds.Process,
                 DeploymentFailureReasons.NonZeroExit,
                 processException.ExitCode.ToString(CultureInfo.InvariantCulture)),
-            ProcessStartException => new(
+            UtilityProcessStartException processStartException => new(
                 operationName,
                 DeploymentFailureKinds.Process,
-                DeploymentFailureReasons.StartFailed),
+                DeploymentFailureReasons.StartFailed,
+                processStartException.NativeErrorCode?.ToString(CultureInfo.InvariantCulture)),
             Win32Exception win32Exception => new(
                 operationName,
                 DeploymentFailureKinds.Process,

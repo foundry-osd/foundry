@@ -10,6 +10,7 @@ using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Services.Deployment.Unattend;
 using Foundry.Deploy.Validation;
+using Foundry.Utilities.Processes;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Deployment;
@@ -141,9 +142,9 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
         if (!execution.IsSuccess)
         {
-            _logger.LogError("Failed to resolve OS image index for {ImagePath}. Diagnostic={Diagnostic}", imagePath, ToDiagnostic(execution));
+            _logger.LogError("Failed to resolve OS image index for {ImagePath}. Diagnostic={Diagnostic}", imagePath, execution.ToDiagnosticText());
             throw new DeploymentProcessException(
-                $"Unable to resolve image index for '{imagePath}'.{Environment.NewLine}{ToDiagnostic(execution)}",
+                $"Unable to resolve image index for '{imagePath}'.{Environment.NewLine}{execution.ToDiagnosticText()}",
                 execution.ExitCode);
         }
 
@@ -176,9 +177,9 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                     "Failed to inspect OS image index {ImageIndex} for {ImagePath}. Diagnostic={Diagnostic}",
                     imageIndex,
                     imagePath,
-                    ToDiagnostic(detailedExecution));
+                    detailedExecution.ToDiagnosticText());
                 throw new DeploymentProcessException(
-                    $"Unable to inspect image index {imageIndex} in '{imagePath}'.{Environment.NewLine}{ToDiagnostic(detailedExecution)}",
+                    $"Unable to inspect image index {imageIndex} in '{imagePath}'.{Environment.NewLine}{detailedExecution.ToDiagnosticText()}",
                     detailedExecution.ExitCode);
             }
 
@@ -818,7 +819,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
                 if (!unmountExecution.IsSuccess)
                 {
-                    string diagnostic = ToDiagnostic(unmountExecution);
+                    string diagnostic = unmountExecution.ToDiagnosticText();
                     _logger.LogError("Failed to unmount the Windows RE image. Diagnostic={Diagnostic}", diagnostic);
 
                     pendingException = pendingException is null
@@ -896,9 +897,9 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
         if (!execution.IsSuccess)
         {
-            _logger.LogError("{FailureSummary}. Diagnostic={Diagnostic}", failureSummary, ToDiagnostic(execution));
+            _logger.LogError("{FailureSummary}. Diagnostic={Diagnostic}", failureSummary, execution.ToDiagnosticText());
             throw new DeploymentProcessException(
-                $"{failureSummary}.{Environment.NewLine}{ToDiagnostic(execution)}",
+                $"{failureSummary}.{Environment.NewLine}{execution.ToDiagnosticText()}",
                 execution.ExitCode);
         }
 
@@ -937,9 +938,9 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
         if (!execution.IsSuccess)
         {
-            _logger.LogError("{FailureSummary}. Diagnostic={Diagnostic}", failureSummary, ToDiagnostic(execution));
+            _logger.LogError("{FailureSummary}. Diagnostic={Diagnostic}", failureSummary, execution.ToDiagnosticText());
             throw new DeploymentProcessException(
-                $"{failureSummary}.{Environment.NewLine}{ToDiagnostic(execution)}",
+                $"{failureSummary}.{Environment.NewLine}{execution.ToDiagnosticText()}",
                 execution.ExitCode);
         }
 
@@ -1074,13 +1075,6 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             $@"^\s*{Regex.Escape(propertyName)}\s*:\s*(.+)\s*$",
             RegexOptions.IgnoreCase | RegexOptions.Multiline);
         return match.Success ? match.Groups[1].Value.Trim() : string.Empty;
-    }
-
-    private static string ToDiagnostic(ProcessExecutionResult execution)
-    {
-        return $"ExitCode={execution.ExitCode}{Environment.NewLine}" +
-               $"StdOut:{Environment.NewLine}{execution.StandardOutput}{Environment.NewLine}" +
-               $"StdErr:{Environment.NewLine}{execution.StandardError}";
     }
 
     private sealed record ImageIndexMetadata(int Index, string EditionId);

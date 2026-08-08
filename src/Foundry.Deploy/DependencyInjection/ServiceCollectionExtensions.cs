@@ -31,6 +31,7 @@ using Foundry.Telemetry;
 using Foundry.Utilities.Runtime;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using UtilityProcessRunner = Foundry.Utilities.Processes.ProcessRunner;
 
 namespace Foundry.Deploy.DependencyInjection;
 
@@ -81,6 +82,7 @@ public static class ServiceCollectionExtensions
         });
         services.AddSingleton<IDeploymentLaunchPreparationService, DeploymentLaunchPreparationService>();
         services.AddSingleton<IDeploymentExecutionService, DeploymentExecutionService>();
+        services.AddSingleton<UtilityProcessRunner>();
         services.AddSingleton<IProcessRunner, ProcessRunner>();
         services.AddSingleton<IArchiveExtractionService, ArchiveExtractionService>();
         services.AddSingleton<ICacheLocatorService, CacheLocatorService>();

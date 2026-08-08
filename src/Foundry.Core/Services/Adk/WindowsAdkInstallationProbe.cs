@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Utilities.IO;
 using Microsoft.Win32;
 
 namespace Foundry.Core.Services.Adk;
@@ -41,7 +42,7 @@ public sealed class WindowsAdkInstallationProbe : IAdkInstallationProbe
 
         try
         {
-            return Directory.EnumerateFiles(directoryPath, fileName, SearchOption.AllDirectories).Any();
+            return FileSearch.ContainsRecursive(directoryPath, fileName);
         }
         catch
         {

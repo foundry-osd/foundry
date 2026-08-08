@@ -22,6 +22,19 @@ public sealed class WinPeDismProgressReporterTests
     }
 
     [Fact]
+    public void HandleOutput_RoundsFractionalPercentAwayFromZero()
+    {
+        var progress = new CollectingProgress<WinPeDismProgress>();
+        var reporter = new WinPeDismProgressReporter("Applying DISM changes.", progress);
+
+        reporter.HandleOutput("12.5%");
+
+        WinPeDismProgress report = Assert.Single(progress.Reports);
+        Assert.Equal(13, report.Percent);
+        Assert.Equal("Applying DISM changes.", report.Status);
+    }
+
+    [Fact]
     public void HandleOutput_ReportsFrenchOrdinalProgress()
     {
         var progress = new CollectingProgress<WinPeDismProgress>();

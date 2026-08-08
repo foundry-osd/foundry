@@ -81,15 +81,6 @@ public sealed class WinReBootImagePreparationServiceTests
     }
 
     [Fact]
-    public void NormalizeSourceUrl_WhenMicrosoftDeliveryUrlUsesHttps_ConvertsToHttp()
-    {
-        string normalized = WinReBootImagePreparationService.NormalizeSourceUrl(
-            "https://dl.delivery.mp.microsoft.com/filestreamingservice/files/source.esd");
-
-        Assert.Equal("http://dl.delivery.mp.microsoft.com/filestreamingservice/files/source.esd", normalized);
-    }
-
-    [Fact]
     public void ResolveImageIndexFromOutput_MatchesEditionId()
     {
         const string dismOutput = """

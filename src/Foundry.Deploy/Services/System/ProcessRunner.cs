@@ -2,20 +2,20 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.IO;
+using Foundry.Utilities.Processes;
 using Microsoft.Extensions.Logging;
+using UtilityProcessRunner = Foundry.Utilities.Processes.ProcessRunner;
 
 namespace Foundry.Deploy.Services.System;
 
 public sealed class ProcessRunner : IProcessRunner
 {
+    private readonly UtilityProcessRunner _processRunner;
     private readonly ILogger<ProcessRunner> _logger;
 
-    public ProcessRunner(ILogger<ProcessRunner> logger)
+    public ProcessRunner(UtilityProcessRunner processRunner, ILogger<ProcessRunner> logger)
     {
+        _processRunner = processRunner;
         _logger = logger;
     }
 
@@ -25,14 +25,12 @@ public sealed class ProcessRunner : IProcessRunner
         string workingDirectory,
         CancellationToken cancellationToken = default)
     {
-        return await RunAsyncCore(
+        ProcessExecutionRequest request = ProcessExecutionRequest.FromRawArguments(
             fileName,
-            workingDirectory,
-            startInfo => startInfo.Arguments = arguments,
             arguments,
-            onOutputData: null,
-            onErrorData: null,
-            cancellationToken).ConfigureAwait(false);
+            workingDirectory);
+
+        return await RunAsync(request, arguments, cancellationToken).ConfigureAwait(false);
     }
 
     public async Task<ProcessExecutionResult> RunAsync(
@@ -60,147 +58,60 @@ public sealed class ProcessRunner : IProcessRunner
     {
         ArgumentNullException.ThrowIfNull(arguments);
 
-        List<string> argumentList = [.. arguments];
+        string[] argumentList = [.. arguments];
+        var request = new ProcessExecutionRequest(fileName, argumentList, workingDirectory)
+        {
+            OnOutputData = WrapCallback(onOutputData),
+            OnErrorData = WrapCallback(onErrorData)
+        };
         string argumentsDisplay = string.Join(
             " ",
             argumentList.Select(static argument => argument.Any(char.IsWhiteSpace)
                 ? $"\"{argument}\""
                 : argument));
 
-        return await RunAsyncCore(
-            fileName,
-            workingDirectory,
-            startInfo =>
-            {
-                foreach (string argument in argumentList)
-                {
-                    startInfo.ArgumentList.Add(argument);
-                }
-            },
-            argumentsDisplay,
-            onOutputData,
-            onErrorData,
-            cancellationToken).ConfigureAwait(false);
+        return await RunAsync(request, argumentsDisplay, cancellationToken).ConfigureAwait(false);
     }
 
-    private async Task<ProcessExecutionResult> RunAsyncCore(
-        string fileName,
-        string workingDirectory,
-        Action<ProcessStartInfo> configureArguments,
+    private async Task<ProcessExecutionResult> RunAsync(
+        ProcessExecutionRequest request,
         string argumentsDisplay,
-        Action<string>? onOutputData,
-        Action<string>? onErrorData,
         CancellationToken cancellationToken)
     {
-        if (string.IsNullOrWhiteSpace(fileName))
-        {
-            throw new ArgumentException("Executable path is required.", nameof(fileName));
-        }
-
-        if (string.IsNullOrWhiteSpace(workingDirectory))
-        {
-            throw new ArgumentException("Working directory is required.", nameof(workingDirectory));
-        }
-
-        Directory.CreateDirectory(workingDirectory);
-        _logger.LogDebug("Starting process. FileName={FileName}, Arguments={Arguments}, WorkingDirectory={WorkingDirectory}",
-            fileName,
+        _logger.LogDebug(
+            "Starting process. FileName={FileName}, Arguments={Arguments}, WorkingDirectory={WorkingDirectory}",
+            request.FileName,
             argumentsDisplay,
-            workingDirectory);
+            request.WorkingDirectory);
 
-        var startInfo = new ProcessStartInfo
-        {
-            FileName = fileName,
-            WorkingDirectory = workingDirectory,
-            UseShellExecute = false,
-            RedirectStandardOutput = true,
-            RedirectStandardError = true,
-            CreateNoWindow = true,
-            StandardOutputEncoding = Encoding.UTF8,
-            StandardErrorEncoding = Encoding.UTF8
-        };
-        configureArguments(startInfo);
+        ProcessExecutionResult result = await _processRunner
+            .RunAsync(request, cancellationToken)
+            .ConfigureAwait(false);
 
-        using var process = new Process
-        {
-            StartInfo = startInfo,
-            EnableRaisingEvents = true
-        };
-
-        var stdoutBuilder = new StringBuilder();
-        var stderrBuilder = new StringBuilder();
-
-        process.OutputDataReceived += (_, args) =>
-        {
-            if (args.Data is not null)
-            {
-                stdoutBuilder.AppendLine(args.Data);
-                InvokeCallback(onOutputData, args.Data);
-            }
-        };
-
-        process.ErrorDataReceived += (_, args) =>
-        {
-            if (args.Data is not null)
-            {
-                stderrBuilder.AppendLine(args.Data);
-                InvokeCallback(onErrorData, args.Data);
-            }
-        };
-
-        if (!process.Start())
-        {
-            throw new ProcessStartException($"Unable to start process '{fileName}'.");
-        }
-
-        process.BeginOutputReadLine();
-        process.BeginErrorReadLine();
-
-        using var registration = cancellationToken.Register(() =>
-        {
-            try
-            {
-                if (!process.HasExited)
-                {
-                    process.Kill(entireProcessTree: true);
-                }
-            }
-            catch
-            {
-                // Best effort cancellation.
-            }
-        });
-
-        await process.WaitForExitAsync(cancellationToken).ConfigureAwait(false);
-
-        ProcessExecutionResult result = new()
-        {
-            ExitCode = process.ExitCode,
-            FileName = fileName,
-            Arguments = argumentsDisplay,
-            WorkingDirectory = workingDirectory,
-            StandardOutput = stdoutBuilder.ToString(),
-            StandardError = stderrBuilder.ToString()
-        };
-
-        _logger.LogDebug("Process completed. FileName={FileName}, ExitCode={ExitCode}", fileName, result.ExitCode);
+        _logger.LogDebug(
+            "Process completed. FileName={FileName}, ExitCode={ExitCode}",
+            request.FileName,
+            result.ExitCode);
         return result;
     }
 
-    private void InvokeCallback(Action<string>? callback, string data)
+    private Action<string>? WrapCallback(Action<string>? callback)
     {
         if (callback is null)
         {
-            return;
+            return null;
         }
 
-        try
+        return data =>
         {
-            callback(data);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogWarning(ex, "Process output callback failed.");
-        }
+            try
+            {
+                callback(data);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "Process output callback failed.");
+            }
+        };
     }
 }

@@ -6,6 +6,7 @@ using System.Xml.Linq;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.System;
+using Foundry.Utilities.Processes;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Foundry.Deploy.Tests;
@@ -314,7 +315,7 @@ public sealed class WindowsDeploymentServiceTests
         Assert.IsAssignableFrom<InvalidOperationException>(exception);
         Assert.Equal(bcdBootPath, processRunner.LastFileName);
         Assert.Contains("BCDBoot configuration failed", exception.Message, StringComparison.Ordinal);
-        Assert.Contains("ExitCode=193", exception.Message, StringComparison.Ordinal);
+        Assert.Contains("ExitCode: 193", exception.Message, StringComparison.Ordinal);
         Assert.Contains("Failure when attempting to copy boot files.", exception.Message, StringComparison.Ordinal);
         Assert.Contains("diagnostic", exception.Message, StringComparison.Ordinal);
     }

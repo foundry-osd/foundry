@@ -6,6 +6,8 @@ using System.IO;
 using System.Linq;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.System;
+using Foundry.Utilities.IO;
+using Foundry.Utilities.Processes;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.DriverPacks;
@@ -70,7 +72,7 @@ public sealed class DriverPackExtractionService : IDriverPackExtractionService
             ? "MicrosoftUpdateCatalog"
             : SanitizePathSegment(Path.GetFileNameWithoutExtension(executionPlan.DownloadedPath));
         string extractedPath = Path.Combine(extractionRootPath, packageFolderName);
-        ResetDirectory(extractedPath);
+        DirectoryOperations.Recreate(extractedPath);
 
         _logger.LogInformation(
             "Extracting driver pack. InstallMode={InstallMode}, ExtractionMethod={ExtractionMethod}, DownloadedPath={DownloadedPath}, ExtractedPath={ExtractedPath}",
@@ -169,21 +171,11 @@ public sealed class DriverPackExtractionService : IDriverPackExtractionService
         if (!execution.IsSuccess)
         {
             throw new DeploymentProcessException(
-                $"Dell driver pack extraction failed for '{packagePath}'.{Environment.NewLine}{ToDiagnostic(execution)}",
+                $"Dell driver pack extraction failed for '{packagePath}'.{Environment.NewLine}{execution.ToDiagnosticText()}",
                 execution.ExitCode);
         }
 
         progress?.Report(95d);
-    }
-
-    private static void ResetDirectory(string path)
-    {
-        if (Directory.Exists(path))
-        {
-            Directory.Delete(path, recursive: true);
-        }
-
-        Directory.CreateDirectory(path);
     }
 
     private static string SanitizePathSegment(string value)
@@ -198,11 +190,4 @@ public sealed class DriverPackExtractionService : IDriverPackExtractionService
         return sanitized.Trim().TrimEnd('.');
     }
 
-    private static string ToDiagnostic(ProcessExecutionResult execution)
-    {
-        return
-            $"ExitCode={execution.ExitCode}{Environment.NewLine}" +
-            $"StdOut:{Environment.NewLine}{execution.StandardOutput}{Environment.NewLine}" +
-            $"StdErr:{Environment.NewLine}{execution.StandardError}";
-    }
 }
