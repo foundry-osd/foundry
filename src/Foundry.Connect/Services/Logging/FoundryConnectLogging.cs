@@ -4,6 +4,7 @@
 
 using System.IO;
 using Foundry.Connect.Services.Runtime;
+using Foundry.Utilities.IO;
 using Serilog;
 
 namespace Foundry.Connect.Services.Logging;
@@ -17,25 +18,9 @@ internal static class FoundryConnectLogging
 
     public static string ResolveStartupLogFilePath()
     {
-        foreach (string candidateDirectory in ConnectWorkspacePaths.EnumerateStartupLogDirectories())
-        {
-            if (string.IsNullOrWhiteSpace(candidateDirectory))
-            {
-                continue;
-            }
-
-            try
-            {
-                Directory.CreateDirectory(candidateDirectory);
-                return Path.Combine(candidateDirectory, LogFileName);
-            }
-            catch
-            {
-                // Try the next candidate.
-            }
-        }
-
-        return LogFileName;
+        return WritableFilePathResolver.Resolve(
+            ConnectWorkspacePaths.EnumerateStartupLogDirectories(),
+            LogFileName);
     }
 
     public static ILogger CreateLogger(string logFilePath)
