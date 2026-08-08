@@ -30,7 +30,7 @@ public sealed class ProvisionedWifiProfileResolverTests
     public void ResolveProfileName_WhenEnterpriseProfileIsUsed_ReadsProfileNameFromXml()
     {
         using var tempDirectory = new TemporaryDirectory();
-        string profilePath = CreateWifiProfile(tempDirectory.Path, "Enterprise WiFi", "WPA3ENT");
+        string profilePath = CreateWifiProfile(tempDirectory.Path, "Enterprise WiFi");
 
         string? profileName = ProvisionedWifiProfileResolver.ResolveProfileName(
             new WifiSettings
@@ -43,35 +43,7 @@ public sealed class ProvisionedWifiProfileResolverTests
         Assert.Equal("Enterprise WiFi", profileName);
     }
 
-    [Fact]
-    public void ResolveProfileName_WhenEnterpriseProfileNameContainsXmlEntity_DecodesProfileName()
-    {
-        using var tempDirectory = new TemporaryDirectory();
-        string profilePath = CreateWifiProfile(tempDirectory.Path, "Corp &amp; Guest", "WPA3ENT");
-
-        string? profileName = ProvisionedWifiProfileResolver.ResolveProfileName(
-            new WifiSettings
-            {
-                HasEnterpriseProfile = true,
-                EnterpriseProfileTemplatePath = profilePath
-            },
-            configurationPath: null);
-
-        Assert.Equal("Corp & Guest", profileName);
-    }
-
-    [Fact]
-    public void TryReadProfileAuthentication_WhenXmlContainsAuthentication_ReturnsValue()
-    {
-        using var tempDirectory = new TemporaryDirectory();
-        string profilePath = CreateWifiProfile(tempDirectory.Path, "Enterprise WiFi", "WPA3ENT");
-
-        string? authentication = ProvisionedWifiProfileResolver.TryReadProfileAuthentication(profilePath);
-
-        Assert.Equal("WPA3ENT", authentication);
-    }
-
-    private static string CreateWifiProfile(string directoryPath, string profileName, string authentication)
+    private static string CreateWifiProfile(string directoryPath, string profileName)
     {
         string filePath = Path.Combine(directoryPath, "wifi.xml");
         File.WriteAllText(
@@ -79,13 +51,6 @@ public sealed class ProvisionedWifiProfileResolverTests
             $$"""
               <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
                 <name>{{profileName}}</name>
-                <MSM>
-                  <security>
-                    <authEncryption>
-                      <authentication>{{authentication}}</authentication>
-                    </authEncryption>
-                  </security>
-                </MSM>
               </WLANProfile>
               """);
         return filePath;

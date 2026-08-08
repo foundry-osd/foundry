@@ -3,8 +3,8 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
-using System.Xml.Linq;
 using Foundry.Connect.Models.Configuration;
+using Foundry.Utilities.Networking;
 
 namespace Foundry.Connect.Services.Configuration;
 
@@ -13,8 +13,6 @@ namespace Foundry.Connect.Services.Configuration;
 /// </summary>
 internal static class ProvisionedWifiProfileResolver
 {
-    private static readonly XNamespace WlanProfileNamespace = "http://www.microsoft.com/networking/WLAN/profile/v1";
-
     /// <summary>
     /// Resolves a configured asset path relative to the configuration file directory.
     /// When no configuration file path is available, relative assets are resolved from the application base directory.
@@ -56,63 +54,11 @@ internal static class ProvisionedWifiProfileResolver
         if (wifiSettings.HasEnterpriseProfile)
         {
             string? profilePath = ResolveAssetPath(wifiSettings.EnterpriseProfileTemplatePath, configurationPath);
-            return TryReadProfileName(profilePath);
+            return WlanProfileReader.TryReadName(profilePath);
         }
 
         return string.IsNullOrWhiteSpace(wifiSettings.Ssid)
             ? null
             : wifiSettings.Ssid.Trim();
-    }
-
-    /// <summary>
-    /// Reads the WLAN profile name from a profile XML file.
-    /// </summary>
-    /// <param name="profilePath">Path to the WLAN profile XML file.</param>
-    /// <returns>The profile name, or <see langword="null"/> when it cannot be read.</returns>
-    public static string? TryReadProfileName(string? profilePath)
-    {
-        if (string.IsNullOrWhiteSpace(profilePath) || !File.Exists(profilePath))
-        {
-            return null;
-        }
-
-        try
-        {
-            XDocument document = XDocument.Load(profilePath);
-            return document
-                .Descendants(WlanProfileNamespace + "name")
-                .Select(static element => element.Value?.Trim())
-                .FirstOrDefault(static value => !string.IsNullOrWhiteSpace(value));
-        }
-        catch
-        {
-            return null;
-        }
-    }
-
-    /// <summary>
-    /// Reads the WLAN authentication mode from a profile XML file.
-    /// </summary>
-    /// <param name="profilePath">Path to the WLAN profile XML file.</param>
-    /// <returns>The authentication value, or <see langword="null"/> when it cannot be read.</returns>
-    public static string? TryReadProfileAuthentication(string? profilePath)
-    {
-        if (string.IsNullOrWhiteSpace(profilePath) || !File.Exists(profilePath))
-        {
-            return null;
-        }
-
-        try
-        {
-            XDocument document = XDocument.Load(profilePath);
-            return document
-                .Descendants(WlanProfileNamespace + "authentication")
-                .Select(static element => element.Value?.Trim())
-                .FirstOrDefault(static value => !string.IsNullOrWhiteSpace(value));
-        }
-        catch
-        {
-            return null;
-        }
     }
 }
