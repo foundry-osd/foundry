@@ -20,6 +20,7 @@ using Foundry.Deploy.Services.Startup;
 using Foundry.Deploy.Services.ApplicationShell;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.System;
+using Foundry.Utilities.Networking;
 using Foundry.Deploy.Services.Theme;
 using Foundry.Deploy.Services.Wizard;
 using Foundry.Localization;
@@ -115,7 +116,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         IApplicationShellService applicationShellService,
         IDeploymentWizardContextFactory deploymentWizardContextFactory,
         IProcessRunner processRunner,
-        ILogger<MainWindowViewModel> logger)
+        ILogger<MainWindowViewModel> logger,
+        INetworkAdapterSnapshotProvider? networkAdapterSnapshotProvider = null)
         : base(localizationService)
     {
         _themeService = themeService;
@@ -140,7 +142,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             _deploymentOrchestrator,
             processRunner,
             localizationService,
-            IsDebugSafeMode);
+            IsDebugSafeMode,
+            networkAdapterSnapshotProvider);
         Session.PropertyChanged += OnSessionPropertyChanged;
         LocalizationService.LanguageChanged += OnLocalizationLanguageChanged;
         RefreshSupportedCultures();

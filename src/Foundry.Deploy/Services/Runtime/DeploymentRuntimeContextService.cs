@@ -4,6 +4,7 @@
 
 using System.IO;
 using Foundry.Deploy.Models;
+using Foundry.Utilities.Storage;
 
 namespace Foundry.Deploy.Services.Runtime;
 
@@ -12,6 +13,26 @@ public sealed class DeploymentRuntimeContextService : IDeploymentRuntimeContextS
     private const string DeploymentModeEnvironmentVariable = "FOUNDRY_DEPLOYMENT_MODE";
     private const string CacheVolumeLabel = "Foundry Cache";
     private const string RuntimeFolderName = "Runtime";
+    private readonly IVolumeDiscovery _volumeDiscovery;
+    private readonly Func<string, string?> _environmentVariableReader;
+
+    public DeploymentRuntimeContextService()
+        : this(new WindowsVolumeDiscovery())
+    {
+    }
+
+    public DeploymentRuntimeContextService(IVolumeDiscovery volumeDiscovery)
+        : this(volumeDiscovery, Environment.GetEnvironmentVariable)
+    {
+    }
+
+    internal DeploymentRuntimeContextService(
+        IVolumeDiscovery volumeDiscovery,
+        Func<string, string?> environmentVariableReader)
+    {
+        _volumeDiscovery = volumeDiscovery;
+        _environmentVariableReader = environmentVariableReader;
+    }
 
     public DeploymentRuntimeContext Resolve()
     {
@@ -29,9 +50,9 @@ public sealed class DeploymentRuntimeContextService : IDeploymentRuntimeContextS
             : new DeploymentRuntimeContext(DeploymentMode.Usb, detectedUsbRoot);
     }
 
-    private static bool TryResolveDeploymentModeFromEnvironment(out DeploymentMode mode)
+    private bool TryResolveDeploymentModeFromEnvironment(out DeploymentMode mode)
     {
-        string? raw = Environment.GetEnvironmentVariable(DeploymentModeEnvironmentVariable);
+        string? raw = _environmentVariableReader(DeploymentModeEnvironmentVariable);
         if (string.IsNullOrWhiteSpace(raw))
         {
             mode = default;
@@ -49,27 +70,19 @@ public sealed class DeploymentRuntimeContextService : IDeploymentRuntimeContextS
         return normalized is "usb" or "iso";
     }
 
-    private static string? TryGetUsbCacheRuntimeRoot()
+    private string? TryGetUsbCacheRuntimeRoot()
     {
-        foreach (DriveInfo drive in DriveInfo.GetDrives())
+        foreach (VolumeInfo volume in _volumeDiscovery.GetVolumes())
         {
-            if (!drive.IsReady)
+            if (!volume.IsReady)
             {
                 continue;
             }
 
-            try
+            if (string.Equals(volume.VolumeLabel, CacheVolumeLabel, StringComparison.OrdinalIgnoreCase))
             {
-                if (string.Equals(drive.VolumeLabel, CacheVolumeLabel, StringComparison.OrdinalIgnoreCase))
-                {
-                    return Path.Combine(drive.RootDirectory.FullName, RuntimeFolderName);
-                }
+                return Path.Combine(volume.RootPath, RuntimeFolderName);
             }
-            catch
-            {
-                // Ignore drives that cannot expose a label.
-            }
-
         }
 
         return null;
