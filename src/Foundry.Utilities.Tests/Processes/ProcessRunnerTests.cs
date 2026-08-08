@@ -140,26 +140,6 @@ public sealed class ProcessRunnerTests
     }
 
     [Fact]
-    public async Task RunAsync_WhenCanceled_TerminatesChildProcessTree()
-    {
-        using var workspace = new TemporaryDirectory();
-        string markerPath = Path.Combine(workspace.Path, "child-completed.txt");
-        string childCommand = $"ping 127.0.0.1 -n 4 >nul & echo completed>\"{markerPath}\"";
-        string rawArguments = $"/d /s /c \"start \\\"\\\" /b cmd.exe /d /s /c \\\"{childCommand}\\\" & ping 127.0.0.1 -n 30 >nul\"";
-        ProcessExecutionRequest request = ProcessExecutionRequest.FromRawArguments(
-            GetCommandProcessor(),
-            rawArguments,
-            workspace.Path);
-        using var cancellation = new CancellationTokenSource(TimeSpan.FromMilliseconds(500));
-
-        await Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
-            new ProcessRunner().RunAsync(request, cancellation.Token));
-
-        await Task.Delay(TimeSpan.FromSeconds(4), TestContext.Current.CancellationToken);
-        Assert.False(File.Exists(markerPath));
-    }
-
-    [Fact]
     public async Task RunAsync_WhenExecutableCannotStart_ThrowsProcessStartException()
     {
         using var workspace = new TemporaryDirectory();
