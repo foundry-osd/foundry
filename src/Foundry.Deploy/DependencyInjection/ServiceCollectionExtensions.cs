@@ -29,6 +29,7 @@ using Foundry.Deploy.Services.Wizard;
 using Foundry.Deploy.ViewModels;
 using Foundry.Telemetry;
 using Foundry.Utilities.Runtime;
+using Foundry.Utilities.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using UtilityProcessRunner = Foundry.Utilities.Processes.ProcessRunner;
@@ -52,6 +53,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentWizardContextFactory, DeploymentWizardContextFactory>();
         services.AddSingleton<IDeploymentStartupCoordinator, DeploymentStartupCoordinator>();
         services.AddSingleton<IOperationProgressService, OperationProgressService>();
+        services.AddSingleton<IVolumeDiscovery, WindowsVolumeDiscovery>();
         services.AddSingleton<IDeploymentRuntimeContextService, DeploymentRuntimeContextService>();
         services.AddSingleton<IDeployConfigurationService, DeployConfigurationService>();
         services.AddSingleton(CreateTelemetryOptions);
