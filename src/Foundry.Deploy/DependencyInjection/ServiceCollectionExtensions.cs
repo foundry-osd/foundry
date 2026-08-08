@@ -93,6 +93,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IHardwareInspector, WindowsHardwareInspector>();
         services.AddSingleton<IHardwareProfileService, HardwareProfileService>();
         services.AddSingleton<IOfflineWindowsComputerNameService, OfflineWindowsComputerNameService>();
+        services.AddSingleton<IWindowsDiskInspector, WindowsDiskInspector>();
         services.AddSingleton<ITargetDiskService, TargetDiskService>();
         services.AddSingleton<IOperatingSystemCatalogService, OperatingSystemCatalogService>();
         services.AddSingleton<IDriverPackCatalogService, DriverPackCatalogService>();

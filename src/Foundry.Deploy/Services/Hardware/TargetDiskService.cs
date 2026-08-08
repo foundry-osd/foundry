@@ -3,214 +3,119 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
-using System.Text.Json;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.Localization;
-using Foundry.Deploy.Services.System;
-using Foundry.Utilities.Processes;
-using Foundry.Utilities.Serialization;
+using Foundry.Utilities.Storage;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Hardware;
 
 public sealed class TargetDiskService : ITargetDiskService
 {
-    private readonly IProcessRunner _processRunner;
+    private readonly IWindowsDiskInspector _diskInspector;
     private readonly ILogger<TargetDiskService> _logger;
 
-    public TargetDiskService(IProcessRunner processRunner, ILogger<TargetDiskService> logger)
+    public TargetDiskService(
+        IWindowsDiskInspector diskInspector,
+        ILogger<TargetDiskService> logger)
     {
-        _processRunner = processRunner;
+        _diskInspector = diskInspector;
         _logger = logger;
     }
 
-    public async Task<IReadOnlyList<TargetDiskInfo>> GetDisksAsync(CancellationToken cancellationToken = default)
+    public async Task<IReadOnlyList<TargetDiskInfo>> GetDisksAsync(
+        CancellationToken cancellationToken = default)
     {
         _logger.LogInformation("Querying target disks.");
-        string script = @"
-$disks = Get-Disk | Sort-Object -Property Number
-$result = foreach ($disk in $disks) {
-    [pscustomobject]@{
-        Number = [int]$disk.Number
-        FriendlyName = [string]$disk.FriendlyName
-        SerialNumber = [string]$disk.SerialNumber
-        BusType = [string]$disk.BusType
-        PartitionStyle = [string]$disk.PartitionStyle
-        Size = [uint64]$disk.Size
-        IsSystem = [bool]$disk.IsSystem
-        IsBoot = [bool]$disk.IsBoot
-        IsReadOnly = [bool]$disk.IsReadOnly
-        IsOffline = [bool]$disk.IsOffline
-        IsRemovable = [bool]$disk.IsRemovable
-    }
-}
-$result | ConvertTo-Json -Compress
-";
-
-        IReadOnlyList<string> arguments = CreatePowerShellArguments(script);
-
-        ProcessExecutionResult execution = await _processRunner
-            .RunAsync("powershell.exe", arguments, Path.GetTempPath(), cancellationToken)
-            .ConfigureAwait(false);
-
-        if (!execution.IsSuccess || string.IsNullOrWhiteSpace(execution.StandardOutput))
-        {
-            _logger.LogWarning("Target disk query returned no data. ExitCode={ExitCode}", execution.ExitCode);
-            return [];
-        }
 
         try
         {
+            IReadOnlyList<DiskInfo> snapshots = await _diskInspector
+                .GetDisksAsync(cancellationToken)
+                .ConfigureAwait(false);
             var disks = new List<TargetDiskInfo>();
-            foreach (JsonElement diskElement in JsonObjectSequence.Parse(execution.StandardOutput))
+
+            foreach (DiskInfo snapshot in snapshots)
             {
-                TargetDiskInfo info = ParseDisk(diskElement);
-                if (ShouldExcludeFromTargets(info))
+                TargetDiskInfo disk = MapDisk(snapshot);
+                if (ShouldExcludeFromTargets(disk))
                 {
                     _logger.LogInformation(
                         "Skipping disk {DiskNumber} from target selection because it is attached over USB. FriendlyName={FriendlyName}",
-                        info.DiskNumber,
-                        info.FriendlyName);
+                        disk.DiskNumber,
+                        disk.FriendlyName);
                     continue;
                 }
 
-                disks.Add(info);
+                disks.Add(disk);
             }
 
             TargetDiskInfo[] orderedDisks = disks
-                .OrderByDescending(disk => disk.IsSelectable)
-                .ThenBy(disk => disk.DiskNumber)
+                .OrderByDescending(static disk => disk.IsSelectable)
+                .ThenBy(static disk => disk.DiskNumber)
                 .ToArray();
 
-            _logger.LogInformation("Resolved {DiskCount} target disks ({SelectableCount} selectable).",
+            _logger.LogInformation(
+                "Resolved {DiskCount} target disks ({SelectableCount} selectable).",
                 orderedDisks.Length,
-                orderedDisks.Count(disk => disk.IsSelectable));
+                orderedDisks.Count(static disk => disk.IsSelectable));
             return orderedDisks;
         }
-        catch (Exception ex)
+        catch (InvalidDataException exception)
         {
-            _logger.LogError(ex, "Failed to parse target disk query output.");
+            _logger.LogError(exception, "Failed to inspect target disks.");
             return [];
         }
     }
 
-    public async Task<int?> GetDiskNumberForPathAsync(string path, CancellationToken cancellationToken = default)
+    public async Task<int?> GetDiskNumberForPathAsync(
+        string path,
+        CancellationToken cancellationToken = default)
     {
-        if (string.IsNullOrWhiteSpace(path))
-        {
-            return null;
-        }
-
-        string? root = Path.GetPathRoot(path);
-        if (string.IsNullOrWhiteSpace(root))
-        {
-            return null;
-        }
-
-        string driveLetter = root.TrimEnd('\\').TrimEnd(':');
-        if (driveLetter.Length == 0)
-        {
-            return null;
-        }
-
-        string script = $@"
-$partition = Get-Partition -DriveLetter '{EscapeForSingleQuote(driveLetter)}' -ErrorAction SilentlyContinue
-if ($null -eq $partition) {{
-    return
-}}
-
-[pscustomobject]@{{
-    DiskNumber = [int]$partition.DiskNumber
-}} | ConvertTo-Json -Compress
-";
-
-        IReadOnlyList<string> arguments = CreatePowerShellArguments(script);
-
-        ProcessExecutionResult execution = await _processRunner
-            .RunAsync("powershell.exe", arguments, Path.GetTempPath(), cancellationToken)
-            .ConfigureAwait(false);
-
-        if (!execution.IsSuccess || string.IsNullOrWhiteSpace(execution.StandardOutput))
-        {
-            _logger.LogDebug("Disk number lookup for path {Path} returned no data. ExitCode={ExitCode}", path, execution.ExitCode);
-            return null;
-        }
-
         try
         {
-            using JsonDocument document = JsonDocument.Parse(execution.StandardOutput);
-            JsonElement rootElement = document.RootElement;
-            if (!rootElement.TryGetProperty("DiskNumber", out JsonElement diskNumberElement))
-            {
-                return null;
-            }
-
-            if (diskNumberElement.ValueKind == JsonValueKind.Number && diskNumberElement.TryGetInt32(out int numericValue))
-            {
-                return numericValue;
-            }
-
-            if (diskNumberElement.ValueKind == JsonValueKind.String &&
-                int.TryParse(diskNumberElement.GetString(), out int parsedValue))
-            {
-                return parsedValue;
-            }
+            return await _diskInspector
+                .ResolveDiskNumberForPathAsync(path, cancellationToken)
+                .ConfigureAwait(false);
         }
-        catch (Exception ex)
+        catch (InvalidDataException exception)
         {
-            _logger.LogError(ex, "Failed to parse disk number for path {Path}.", path);
+            _logger.LogError(exception, "Failed to resolve the disk number for path {Path}.", path);
             return null;
         }
-
-        return null;
     }
 
-    private static TargetDiskInfo ParseDisk(JsonElement element)
+    private static TargetDiskInfo MapDisk(DiskInfo snapshot)
     {
-        int diskNumber = ReadInt(element, "Number");
-        string friendlyName = NormalizeValue(ReadString(element, "FriendlyName"), fallback: LocalizationText.GetString("Common.Unknown"));
-        string serial = NormalizeValue(ReadString(element, "SerialNumber"), fallback: LocalizationText.GetString("Common.Unknown"));
-        string busType = NormalizeValue(ReadString(element, "BusType"), fallback: LocalizationText.GetString("Common.Unknown"));
-        string partitionStyle = NormalizeValue(ReadString(element, "PartitionStyle"), fallback: LocalizationText.GetString("Common.Unknown"));
-        ulong sizeBytes = ReadUInt64(element, "Size");
-        bool isSystem = ReadBool(element, "IsSystem");
-        bool isBoot = ReadBool(element, "IsBoot");
-        bool isReadOnly = ReadBool(element, "IsReadOnly");
-        bool isOffline = ReadBool(element, "IsOffline");
-        bool isRemovable = ReadBool(element, "IsRemovable");
-
-        string warning = BuildSelectionWarning(isSystem, isBoot, isReadOnly, isOffline);
+        string warning = BuildSelectionWarning(
+            snapshot.IsSystem,
+            snapshot.IsBoot,
+            snapshot.IsReadOnly,
+            snapshot.IsOffline);
 
         return new TargetDiskInfo
         {
-            DiskNumber = diskNumber,
-            FriendlyName = friendlyName,
-            SerialNumber = serial,
-            BusType = busType,
-            PartitionStyle = partitionStyle,
-            SizeBytes = sizeBytes,
-            IsSystem = isSystem,
-            IsBoot = isBoot,
-            IsReadOnly = isReadOnly,
-            IsOffline = isOffline,
-            IsRemovable = isRemovable,
+            DiskNumber = snapshot.Number,
+            FriendlyName = NormalizeValue(snapshot.FriendlyName),
+            SerialNumber = NormalizeValue(snapshot.SerialNumber),
+            BusType = NormalizeValue(snapshot.BusType),
+            PartitionStyle = NormalizeValue(snapshot.PartitionStyle),
+            SizeBytes = snapshot.SizeBytes,
+            IsSystem = snapshot.IsSystem,
+            IsBoot = snapshot.IsBoot,
+            IsReadOnly = snapshot.IsReadOnly,
+            IsOffline = snapshot.IsOffline,
+            IsRemovable = snapshot.IsRemovable,
             IsSelectable = string.IsNullOrWhiteSpace(warning),
             SelectionWarning = warning
         };
     }
 
-    private static IReadOnlyList<string> CreatePowerShellArguments(string script)
-    {
-        return
-        [
-            "-NoProfile",
-            "-ExecutionPolicy",
-            "Bypass",
-            .. PowerShellCommand.CreateEncodedArguments(script)
-        ];
-    }
-
-    private static string BuildSelectionWarning(bool isSystem, bool isBoot, bool isReadOnly, bool isOffline)
+    private static string BuildSelectionWarning(
+        bool isSystem,
+        bool isBoot,
+        bool isReadOnly,
+        bool isOffline)
     {
         if (isSystem)
         {
@@ -238,91 +143,11 @@ if ($null -eq $partition) {{
     private static bool ShouldExcludeFromTargets(TargetDiskInfo disk)
         => string.Equals(disk.BusType, "USB", StringComparison.OrdinalIgnoreCase);
 
-    private static string ReadString(JsonElement root, string propertyName)
-    {
-        if (!root.TryGetProperty(propertyName, out JsonElement property))
-        {
-            return string.Empty;
-        }
-
-        return property.ValueKind == JsonValueKind.String
-            ? property.GetString() ?? string.Empty
-            : property.ToString();
-    }
-
-    private static int ReadInt(JsonElement root, string propertyName)
-    {
-        if (!root.TryGetProperty(propertyName, out JsonElement property))
-        {
-            return -1;
-        }
-
-        if (property.ValueKind == JsonValueKind.Number && property.TryGetInt32(out int value))
-        {
-            return value;
-        }
-
-        if (property.ValueKind == JsonValueKind.String && int.TryParse(property.GetString(), out int parsed))
-        {
-            return parsed;
-        }
-
-        return -1;
-    }
-
-    private static ulong ReadUInt64(JsonElement root, string propertyName)
-    {
-        if (!root.TryGetProperty(propertyName, out JsonElement property))
-        {
-            return 0;
-        }
-
-        if (property.ValueKind == JsonValueKind.Number && property.TryGetUInt64(out ulong value))
-        {
-            return value;
-        }
-
-        if (property.ValueKind == JsonValueKind.String && ulong.TryParse(property.GetString(), out ulong parsed))
-        {
-            return parsed;
-        }
-
-        return 0;
-    }
-
-    private static bool ReadBool(JsonElement root, string propertyName)
-    {
-        if (!root.TryGetProperty(propertyName, out JsonElement property))
-        {
-            return false;
-        }
-
-        if (property.ValueKind == JsonValueKind.True)
-        {
-            return true;
-        }
-
-        if (property.ValueKind == JsonValueKind.False)
-        {
-            return false;
-        }
-
-        if (property.ValueKind == JsonValueKind.String && bool.TryParse(property.GetString(), out bool parsed))
-        {
-            return parsed;
-        }
-
-        return false;
-    }
-
-    private static string NormalizeValue(string value, string fallback)
+    private static string NormalizeValue(string value)
     {
         string normalized = value.Trim();
-        return string.IsNullOrWhiteSpace(normalized) ? fallback : normalized;
-    }
-
-    private static string EscapeForSingleQuote(string value)
-    {
-        return value.Replace("'", "''", StringComparison.Ordinal);
+        return string.IsNullOrWhiteSpace(normalized)
+            ? LocalizationText.GetString("Common.Unknown")
+            : normalized;
     }
 }
