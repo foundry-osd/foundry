@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Globalization;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 
@@ -147,19 +148,15 @@ internal sealed class WindowsNetworkAdapterInfo(NetworkInterface adapter) : IWin
     public NetworkAdapterIpFacts GetIpFacts()
     {
         IPInterfaceProperties properties = adapter.GetIPProperties();
-        NetworkIpv4AddressSnapshot[] ipv4Addresses = properties.UnicastAddresses
-            .Where(static address => address.Address.AddressFamily == AddressFamily.InterNetwork)
-            .Select(static address => new NetworkIpv4AddressSnapshot(
-                address.Address.ToString(),
-                address.IPv4Mask?.ToString()))
+        NetworkAddressFacts[] addresses = properties.UnicastAddresses
+            .Select(static address => new NetworkAddressFacts(
+                address.Address,
+                address.Address.AddressFamily == AddressFamily.InterNetwork ? address.IPv4Mask : null))
             .ToArray();
-        string[] gateways = properties.GatewayAddresses
-            .Where(static gateway => gateway.Address.AddressFamily == AddressFamily.InterNetwork)
-            .Select(static gateway => gateway.Address.ToString())
+        IPAddress[] gateways = properties.GatewayAddresses
+            .Select(static gateway => gateway.Address)
             .ToArray();
-        string[] dnsServers = properties.DnsAddresses
-            .Select(static address => address.ToString())
-            .ToArray();
+        IPAddress[] dnsServers = [.. properties.DnsAddresses];
 
         bool isDhcpEnabled;
         try
@@ -173,6 +170,35 @@ internal sealed class WindowsNetworkAdapterInfo(NetworkInterface adapter) : IWin
             isDhcpEnabled = false;
         }
 
-        return new NetworkAdapterIpFacts(ipv4Addresses, gateways, dnsServers, isDhcpEnabled);
+        return CreateIpFacts(addresses, gateways, dnsServers, isDhcpEnabled);
+    }
+
+    internal static NetworkAdapterIpFacts CreateIpFacts(
+        IEnumerable<NetworkAddressFacts> addresses,
+        IEnumerable<IPAddress> gateways,
+        IEnumerable<IPAddress> dnsServers,
+        bool isDhcpEnabled)
+    {
+        NetworkIpv4AddressSnapshot[] ipv4Addresses = addresses
+            .Where(static address => address.Address.AddressFamily == AddressFamily.InterNetwork)
+            .Select(static address => new NetworkIpv4AddressSnapshot(
+                address.Address.ToString(),
+                address.SubnetMask?.ToString()))
+            .ToArray();
+        string[] ipv4Gateways = gateways
+            .Where(static gateway => gateway.AddressFamily == AddressFamily.InterNetwork)
+            .Select(static gateway => gateway.ToString())
+            .ToArray();
+        string[] mappedDnsServers = dnsServers
+            .Select(static address => address.ToString())
+            .ToArray();
+
+        return new NetworkAdapterIpFacts(
+            ipv4Addresses,
+            ipv4Gateways,
+            mappedDnsServers,
+            isDhcpEnabled);
     }
 }
+
+internal sealed record NetworkAddressFacts(IPAddress Address, IPAddress? SubnetMask);

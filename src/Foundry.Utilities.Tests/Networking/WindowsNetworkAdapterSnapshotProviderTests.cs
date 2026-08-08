@@ -3,12 +3,38 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Net.NetworkInformation;
+using System.Net;
 using Foundry.Utilities.Networking;
 
 namespace Foundry.Utilities.Tests.Networking;
 
 public sealed class WindowsNetworkAdapterSnapshotProviderTests
 {
+    [Fact]
+    public void CreateIpFacts_MapsIpv4AddressesAndGatewaysWhilePreservingDualStackDns()
+    {
+        NetworkAdapterIpFacts facts = WindowsNetworkAdapterInfo.CreateIpFacts(
+            [
+                new NetworkAddressFacts(
+                    IPAddress.Parse("192.0.2.10"),
+                    IPAddress.Parse("255.255.255.0")),
+                new NetworkAddressFacts(IPAddress.Parse("2001:db8::10"), null),
+                new NetworkAddressFacts(IPAddress.Parse("198.51.100.10"), null)
+            ],
+            [IPAddress.Parse("192.0.2.1"), IPAddress.Parse("2001:db8::1")],
+            [IPAddress.Parse("192.0.2.53"), IPAddress.Parse("2001:db8::53")],
+            isDhcpEnabled: true);
+
+        Assert.Equal(2, facts.Ipv4Addresses.Count);
+        Assert.Equal("192.0.2.10", facts.Ipv4Addresses[0].Address);
+        Assert.Equal("255.255.255.0", facts.Ipv4Addresses[0].SubnetMask);
+        Assert.Equal("198.51.100.10", facts.Ipv4Addresses[1].Address);
+        Assert.Null(facts.Ipv4Addresses[1].SubnetMask);
+        Assert.Equal(["192.0.2.1"], facts.Gateways);
+        Assert.Equal(["192.0.2.53", "2001:db8::53"], facts.DnsServers);
+        Assert.True(facts.IsDhcpEnabled);
+    }
+
     [Fact]
     public void GetAdapters_MapsFactsAndPreservesSourceOrder()
     {

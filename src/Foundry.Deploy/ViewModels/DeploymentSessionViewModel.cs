@@ -627,22 +627,21 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
 
         try
         {
-            NetworkAdapterSnapshot? adapter = SelectNetworkAdapter(
+            var snapshot = CreateNetworkSnapshot(
                 _networkAdapterSnapshotProvider.GetAdapters());
-            if (adapter is null)
+            if (snapshot is null)
             {
                 return;
             }
 
-            NetworkIpv4AddressSnapshot ipv4AddressInfo = adapter.Ipv4Addresses[0];
-            IpAddress = ipv4AddressInfo.Address;
-            SubnetMask = string.IsNullOrWhiteSpace(ipv4AddressInfo.SubnetMask)
+            IpAddress = snapshot.Value.IpAddress;
+            SubnetMask = string.IsNullOrWhiteSpace(snapshot.Value.SubnetMask)
                 ? notAvailable
-                : ipv4AddressInfo.SubnetMask;
-            GatewayAddress = adapter.Gateways.FirstOrDefault() ?? notAvailable;
-            MacAddress = string.IsNullOrWhiteSpace(adapter.MacAddress)
+                : snapshot.Value.SubnetMask;
+            GatewayAddress = snapshot.Value.GatewayAddress ?? notAvailable;
+            MacAddress = string.IsNullOrWhiteSpace(snapshot.Value.MacAddress)
                 ? notAvailable
-                : adapter.MacAddress;
+                : snapshot.Value.MacAddress;
         }
         catch (Exception ex)
         {
@@ -657,6 +656,23 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
             adapter.OperationalStatus == OperationalStatus.Up &&
             adapter.InterfaceType is not NetworkInterfaceType.Loopback and not NetworkInterfaceType.Tunnel &&
             adapter.Ipv4Addresses.Count > 0);
+    }
+
+    internal static (string IpAddress, string? SubnetMask, string? GatewayAddress, string MacAddress)?
+        CreateNetworkSnapshot(IReadOnlyList<NetworkAdapterSnapshot> adapters)
+    {
+        NetworkAdapterSnapshot? adapter = SelectNetworkAdapter(adapters);
+        if (adapter is null)
+        {
+            return null;
+        }
+
+        NetworkIpv4AddressSnapshot address = adapter.Ipv4Addresses[0];
+        return (
+            address.Address,
+            address.SubnetMask,
+            adapter.Gateways.FirstOrDefault(),
+            adapter.MacAddress);
     }
 
     private string BuildStepCounterText(int currentStep)

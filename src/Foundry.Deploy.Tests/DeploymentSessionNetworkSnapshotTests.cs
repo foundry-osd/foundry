@@ -41,6 +41,29 @@ public sealed class DeploymentSessionNetworkSnapshotTests
         Assert.Null(adapter);
     }
 
+    [Fact]
+    public void CreateNetworkSnapshot_MapsFirstAddressMaskGatewayAndMac()
+    {
+        NetworkAdapterSnapshot adapter = new(
+            "ethernet-id",
+            "Ethernet",
+            NetworkInterfaceType.Ethernet,
+            OperationalStatus.Up,
+            "00-11-AA-BB-CC-DD",
+            [new NetworkIpv4AddressSnapshot("192.0.2.10", "255.255.255.0")],
+            ["192.0.2.1"],
+            [],
+            true);
+
+        var snapshot = DeploymentSessionViewModel.CreateNetworkSnapshot([adapter]);
+
+        Assert.NotNull(snapshot);
+        Assert.Equal("192.0.2.10", snapshot.Value.IpAddress);
+        Assert.Equal("255.255.255.0", snapshot.Value.SubnetMask);
+        Assert.Equal("192.0.2.1", snapshot.Value.GatewayAddress);
+        Assert.Equal("00-11-AA-BB-CC-DD", snapshot.Value.MacAddress);
+    }
+
     private static NetworkAdapterSnapshot CreateAdapter(
         string name,
         NetworkInterfaceType interfaceType,
