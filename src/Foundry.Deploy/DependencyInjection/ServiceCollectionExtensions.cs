@@ -28,6 +28,7 @@ using Foundry.Deploy.Services.Theme;
 using Foundry.Deploy.Services.Wizard;
 using Foundry.Deploy.ViewModels;
 using Foundry.Telemetry;
+using Foundry.Utilities.Hardware;
 using Foundry.Utilities.Runtime;
 using Foundry.Utilities.Storage;
 using Microsoft.Extensions.DependencyInjection;
@@ -89,6 +90,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IArchiveExtractionService, ArchiveExtractionService>();
         services.AddSingleton<ICacheLocatorService, CacheLocatorService>();
         services.AddSingleton<IDeploymentLogService, DeploymentLogService>();
+        services.AddSingleton<IHardwareInspector, WindowsHardwareInspector>();
         services.AddSingleton<IHardwareProfileService, HardwareProfileService>();
         services.AddSingleton<IOfflineWindowsComputerNameService, OfflineWindowsComputerNameService>();
         services.AddSingleton<ITargetDiskService, TargetDiskService>();
