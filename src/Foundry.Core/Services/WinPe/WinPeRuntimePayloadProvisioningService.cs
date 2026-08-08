@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO.Compression;
-using System.Security.Cryptography;
 using System.Text.Json;
 using Foundry.Utilities.IO;
 
@@ -338,10 +337,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             return;
         }
 
-        await using FileStream stream = File.OpenRead(archivePath);
-        using var sha256 = SHA256.Create();
-        byte[] actualBytes = await sha256.ComputeHashAsync(stream, cancellationToken).ConfigureAwait(false);
-        string actualSha256 = Convert.ToHexString(actualBytes);
+        string actualSha256 = await FileHash.ComputeSha256Async(archivePath, cancellationToken).ConfigureAwait(false);
 
         if (!string.Equals(actualSha256, expectedSha256, StringComparison.OrdinalIgnoreCase))
         {

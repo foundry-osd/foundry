@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Utilities.IO;
+
 namespace Foundry.Core.Services.WinPe;
 
 public sealed class WinPeDriverResolutionService : IWinPeDriverResolutionService
@@ -155,7 +157,7 @@ public sealed class WinPeDriverResolutionService : IWinPeDriverResolutionService
                 $"Path: '{customDirectoryPath}'.");
         }
 
-        if (!Directory.EnumerateFiles(customDirectoryPath, "*.inf", SearchOption.AllDirectories).Any())
+        if (!FileSearch.ContainsRecursive(customDirectoryPath, "*.inf"))
         {
             return new WinPeDiagnostic(
                 WinPeErrorCodes.ValidationFailed,

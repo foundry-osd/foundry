@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Globalization;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
+using Foundry.Utilities.Globalization;
 
 namespace Foundry.ViewModels;
 
@@ -193,7 +194,7 @@ public sealed partial class CustomizationConfigurationViewModel
             .OrderBy(language => language.SortOrder)
             .ThenBy(language => language.Code, StringComparer.OrdinalIgnoreCase))
         {
-            string code = CanonicalizeLanguageCode(language.Code);
+            string code = CultureCode.Canonicalize(language.Code);
             var option = new SelectableStringOptionViewModel(
                 code,
                 $"{language.DisplayName} ({code})",
@@ -464,27 +465,6 @@ public sealed partial class CustomizationConfigurationViewModel
     {
         string? trimmed = value?.Trim();
         return string.IsNullOrWhiteSpace(trimmed) ? null : trimmed;
-    }
-
-    private static string CanonicalizeLanguageCode(string? languageCode)
-    {
-        string normalized = string.IsNullOrWhiteSpace(languageCode)
-            ? string.Empty
-            : languageCode.Trim().Replace('_', '-');
-
-        if (normalized.Length == 0)
-        {
-            return string.Empty;
-        }
-
-        try
-        {
-            return CultureInfo.GetCultureInfo(normalized).Name;
-        }
-        catch (CultureNotFoundException)
-        {
-            return normalized;
-        }
     }
 
     private static string FormatLicenseChannel(string value)
