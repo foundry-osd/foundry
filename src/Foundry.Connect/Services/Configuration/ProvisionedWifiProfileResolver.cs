@@ -54,31 +54,11 @@ internal static class ProvisionedWifiProfileResolver
         if (wifiSettings.HasEnterpriseProfile)
         {
             string? profilePath = ResolveAssetPath(wifiSettings.EnterpriseProfileTemplatePath, configurationPath);
-            return TryReadProfileName(profilePath);
+            return WlanProfileReader.TryReadName(profilePath);
         }
 
         return string.IsNullOrWhiteSpace(wifiSettings.Ssid)
             ? null
             : wifiSettings.Ssid.Trim();
-    }
-
-    /// <summary>
-    /// Reads the WLAN profile name from a profile XML file.
-    /// </summary>
-    /// <param name="profilePath">Path to the WLAN profile XML file.</param>
-    /// <returns>The profile name, or <see langword="null"/> when it cannot be read.</returns>
-    public static string? TryReadProfileName(string? profilePath)
-    {
-        return WlanProfileReader.TryReadName(profilePath);
-    }
-
-    /// <summary>
-    /// Reads the WLAN authentication mode from a profile XML file.
-    /// </summary>
-    /// <param name="profilePath">Path to the WLAN profile XML file.</param>
-    /// <returns>The authentication value, or <see langword="null"/> when it cannot be read.</returns>
-    public static string? TryReadProfileAuthentication(string? profilePath)
-    {
-        return WlanProfileReader.TryReadAuthentication(profilePath);
     }
 }

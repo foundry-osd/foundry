@@ -20,6 +20,7 @@ using Foundry.Connect.Services.Network;
 using Foundry.Connect.Services.Theme;
 using Foundry.Localization;
 using Foundry.Telemetry;
+using Foundry.Utilities.Networking;
 using Microsoft.Extensions.Logging;
 using ConnectThemeMode = Foundry.Connect.Services.Theme.ThemeMode;
 
@@ -1479,7 +1480,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             string? profilePath = ProvisionedWifiProfileResolver.ResolveAssetPath(
                 _configuration.Wifi.EnterpriseProfileTemplatePath,
                 _configurationService.ConfigurationPath);
-            string? profileAuthentication = ProvisionedWifiProfileResolver.TryReadProfileAuthentication(profilePath);
+            string? profileAuthentication = WlanProfileReader.TryReadAuthentication(profilePath);
             return ResolveProvisionedEnterpriseSecurityDisplayText(
                 profileAuthentication ?? _configuration.Wifi.SecurityType,
                 _configuration.Wifi.EnterpriseAuthenticationMode);
