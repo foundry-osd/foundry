@@ -55,6 +55,9 @@ foreach ($rid in $runtimeIdentifiers) {
     }
 
     dotnet @publishArgs
+    if ($LASTEXITCODE -ne 0) {
+        throw "dotnet publish failed for Foundry.Connect ($rid) with exit code $LASTEXITCODE."
+    }
 }
 
 Write-Host "Publish completed."
