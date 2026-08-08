@@ -5,6 +5,7 @@
 using System.Xml.Linq;
 using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.System;
+using Foundry.Utilities.Processes;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Foundry.Deploy.Tests;

@@ -8,6 +8,7 @@ using System.Text.Json;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.System;
+using Foundry.Utilities.Processes;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Hardware;
