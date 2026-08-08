@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.System;
+using Foundry.Utilities.IO;
 using Foundry.Utilities.Processes;
 using Microsoft.Extensions.Logging;
 
@@ -71,7 +72,7 @@ public sealed class DriverPackExtractionService : IDriverPackExtractionService
             ? "MicrosoftUpdateCatalog"
             : SanitizePathSegment(Path.GetFileNameWithoutExtension(executionPlan.DownloadedPath));
         string extractedPath = Path.Combine(extractionRootPath, packageFolderName);
-        ResetDirectory(extractedPath);
+        DirectoryOperations.Recreate(extractedPath);
 
         _logger.LogInformation(
             "Extracting driver pack. InstallMode={InstallMode}, ExtractionMethod={ExtractionMethod}, DownloadedPath={DownloadedPath}, ExtractedPath={ExtractedPath}",
@@ -175,16 +176,6 @@ public sealed class DriverPackExtractionService : IDriverPackExtractionService
         }
 
         progress?.Report(95d);
-    }
-
-    private static void ResetDirectory(string path)
-    {
-        if (Directory.Exists(path))
-        {
-            Directory.Delete(path, recursive: true);
-        }
-
-        Directory.CreateDirectory(path);
     }
 
     private static string SanitizePathSegment(string value)

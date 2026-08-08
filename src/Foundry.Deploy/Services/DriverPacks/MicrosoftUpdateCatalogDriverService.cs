@@ -6,6 +6,7 @@ using System.IO;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.Download;
 using Foundry.Deploy.Services.System;
+using Foundry.Utilities.IO;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.DriverPacks;
@@ -58,7 +59,7 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
             throw new ArgumentException("Cache directory is required.", nameof(cacheDirectory));
         }
 
-        ResetDirectory(destinationDirectory);
+        DirectoryOperations.Recreate(destinationDirectory);
         progress?.Report(5d);
 
         DriverSearchTarget[] searchTargets = BuildSearchTargets(hardwareProfile);
@@ -487,16 +488,6 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
         }
 
         File.Copy(sourcePath, destinationPath, overwrite: true);
-    }
-
-    private static void ResetDirectory(string path)
-    {
-        if (Directory.Exists(path))
-        {
-            Directory.Delete(path, recursive: true);
-        }
-
-        Directory.CreateDirectory(path);
     }
 
     private sealed record DriverSearchTarget
