@@ -1,2 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\Foundry.Utilities\Foundry.Utilities.csproj" />
+  </ItemGroup>
 </Project>

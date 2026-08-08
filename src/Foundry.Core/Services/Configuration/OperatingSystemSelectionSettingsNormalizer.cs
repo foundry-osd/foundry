@@ -4,6 +4,7 @@
 
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
+using Foundry.Utilities.Globalization;
 
 namespace Foundry.Core.Services.Configuration;
 
@@ -184,9 +185,9 @@ public static class OperatingSystemSelectionSettingsNormalizer
         List<string> result = [];
         foreach (string languageCode in languageCodes)
         {
-            string canonicalCode = LanguageCodeUtility.Canonicalize(languageCode);
+            string canonicalCode = CultureCode.Canonicalize(languageCode);
             if (string.IsNullOrWhiteSpace(canonicalCode) ||
-                !seen.Add(LanguageCodeUtility.NormalizeForComparison(canonicalCode)))
+                !seen.Add(CultureCode.NormalizeForComparison(canonicalCode)))
             {
                 continue;
             }
@@ -199,7 +200,7 @@ public static class OperatingSystemSelectionSettingsNormalizer
 
     private static string? CanonicalizeOptionalLanguageCode(string? languageCode)
     {
-        string canonicalCode = LanguageCodeUtility.Canonicalize(languageCode);
+        string canonicalCode = CultureCode.Canonicalize(languageCode);
         return string.IsNullOrWhiteSpace(canonicalCode) ? null : canonicalCode;
     }
 

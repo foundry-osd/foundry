@@ -36,6 +36,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Foundry.Telemetry\Foundry.Telemetry.csproj" />
+    <ProjectReference Include="..\Foundry.Utilities\Foundry.Utilities.csproj" />
   </ItemGroup>
 
 </Project>

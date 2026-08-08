@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Globalization;
+using Foundry.Utilities.Globalization;
 
 namespace Foundry.Localization;
 
@@ -22,7 +23,7 @@ public sealed record SupportedCultureDefinition
         ArgumentException.ThrowIfNullOrWhiteSpace(code);
         ArgumentException.ThrowIfNullOrWhiteSpace(resourceKey);
 
-        Code = CultureInfo.GetCultureInfo(code.Trim().Replace('_', '-')).Name;
+        Code = CultureCode.Canonicalize(code);
         ResourceKey = resourceKey;
         SortOrder = sortOrder;
     }
