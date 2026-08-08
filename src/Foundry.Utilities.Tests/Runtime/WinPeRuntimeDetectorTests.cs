@@ -2,9 +2,9 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Foundry.Connect.Services.Runtime;
+using Foundry.Utilities.Runtime;
 
-namespace Foundry.Connect.Tests;
+namespace Foundry.Utilities.Tests.Runtime;
 
 public sealed class WinPeRuntimeDetectorTests
 {
@@ -24,34 +24,31 @@ public sealed class WinPeRuntimeDetectorTests
         Assert.True(isWinPe);
     }
 
-    [Fact]
-    public void IsWinPeRuntime_WhenSystemDriveIsX_ReturnsTrue()
+    [Theory]
+    [InlineData("X:", @"C:\Windows")]
+    [InlineData("x:", @"C:\Windows")]
+    [InlineData("C:", @"X:\Windows")]
+    [InlineData("C:", @"x:\Windows")]
+    public void IsWinPeRuntime_WhenXDriveMarkerExists_ReturnsTrue(string systemDrive, string windowsDirectory)
     {
         bool isWinPe = WinPeRuntimeDetector.IsWinPeRuntime(
-            systemDrive: "X:",
-            windowsDirectory: @"C:\Windows",
+            systemDrive,
+            windowsDirectory,
             registryKeyExists: _ => false);
 
         Assert.True(isWinPe);
     }
 
-    [Fact]
-    public void IsWinPeRuntime_WhenWindowsDirectoryIsOnXDrive_ReturnsTrue()
+    [Theory]
+    [InlineData(null, null)]
+    [InlineData("", "")]
+    [InlineData(" ", " ")]
+    [InlineData("C:", @"C:\Windows")]
+    public void IsWinPeRuntime_WhenNoMarkerExists_ReturnsFalse(string? systemDrive, string? windowsDirectory)
     {
         bool isWinPe = WinPeRuntimeDetector.IsWinPeRuntime(
-            systemDrive: "C:",
-            windowsDirectory: @"X:\Windows",
-            registryKeyExists: _ => false);
-
-        Assert.True(isWinPe);
-    }
-
-    [Fact]
-    public void IsWinPeRuntime_WhenNoMarkerExists_ReturnsFalse()
-    {
-        bool isWinPe = WinPeRuntimeDetector.IsWinPeRuntime(
-            systemDrive: "C:",
-            windowsDirectory: @"C:\Windows",
+            systemDrive,
+            windowsDirectory,
             registryKeyExists: _ => false);
 
         Assert.False(isWinPe);

@@ -4,13 +4,19 @@
 
 using Microsoft.Win32;
 
-namespace Foundry.Connect.Services.Runtime;
+namespace Foundry.Utilities.Runtime;
 
-internal static class WinPeRuntimeDetector
+/// <summary>
+/// Detects whether the current process is running in Windows Preinstallation Environment.
+/// </summary>
+public static class WinPeRuntimeDetector
 {
     private const string WinPeVersionRegistryKey = @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\WinPE";
     private const string MiniNtRegistryKey = @"SYSTEM\CurrentControlSet\Control\MiniNT";
 
+    /// <summary>
+    /// Gets a value indicating whether the current process is running in WinPE.
+    /// </summary>
     public static bool IsWinPeRuntime()
     {
         return IsWinPeRuntime(
