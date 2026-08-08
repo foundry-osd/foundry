@@ -29,6 +29,7 @@ using Foundry.Deploy.Services.Wizard;
 using Foundry.Deploy.ViewModels;
 using Foundry.Telemetry;
 using Foundry.Utilities.Hardware;
+using Foundry.Utilities.Networking;
 using Foundry.Utilities.Runtime;
 using Foundry.Utilities.Storage;
 using Microsoft.Extensions.DependencyInjection;
@@ -92,6 +93,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentLogService, DeploymentLogService>();
         services.AddSingleton<IHardwareInspector, WindowsHardwareInspector>();
         services.AddSingleton<IHardwareProfileService, HardwareProfileService>();
+        services.AddSingleton<INetworkAdapterSnapshotProvider, WindowsNetworkAdapterSnapshotProvider>();
         services.AddSingleton<IOfflineWindowsComputerNameService, OfflineWindowsComputerNameService>();
         services.AddSingleton<IWindowsDiskInspector, WindowsDiskInspector>();
         services.AddSingleton<ITargetDiskService, TargetDiskService>();

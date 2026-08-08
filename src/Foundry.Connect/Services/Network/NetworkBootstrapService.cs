@@ -12,6 +12,7 @@ using Foundry.Connect.Services.Configuration;
 using Foundry.Connect.Services.Runtime;
 using Foundry.Connect.Services.System;
 using Foundry.Core.Services.Configuration;
+using Foundry.Utilities.Networking;
 using Foundry.Utilities.Processes;
 using Microsoft.Extensions.Logging;
 
@@ -33,6 +34,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
     private readonly ILogger<NetworkBootstrapService> _logger;
     private readonly ConnectProcessExecutor _processExecutor;
     private readonly Func<IReadOnlyList<Guid>> _getWifiInterfaceIds;
+    private readonly INetworkAdapterSnapshotProvider _networkAdapterSnapshotProvider;
 
     /// <summary>
     /// Initializes a network bootstrap service.
@@ -41,12 +43,20 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
     /// <param name="configurationService">The configuration service used to resolve relative asset paths.</param>
     /// <param name="networkProfileRoamingService">The service used to capture eligible profiles for Windows import.</param>
     /// <param name="logger">The logger used for network command diagnostics.</param>
+    /// <param name="networkAdapterSnapshotProvider">The provider used to enumerate wired adapters.</param>
     public NetworkBootstrapService(
         FoundryConnectConfiguration configuration,
         IConnectConfigurationService configurationService,
         INetworkProfileRoamingService networkProfileRoamingService,
-        ILogger<NetworkBootstrapService> logger)
-        : this(configuration, configurationService, networkProfileRoamingService, logger, NativeWifiApi.GetInterfaceIds)
+        ILogger<NetworkBootstrapService> logger,
+        INetworkAdapterSnapshotProvider? networkAdapterSnapshotProvider = null)
+        : this(
+            configuration,
+            configurationService,
+            networkProfileRoamingService,
+            logger,
+            NativeWifiApi.GetInterfaceIds,
+            networkAdapterSnapshotProvider)
     {
     }
 
@@ -55,7 +65,8 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         IConnectConfigurationService configurationService,
         INetworkProfileRoamingService networkProfileRoamingService,
         ILogger<NetworkBootstrapService> logger,
-        Func<IReadOnlyList<Guid>> getWifiInterfaceIds)
+        Func<IReadOnlyList<Guid>> getWifiInterfaceIds,
+        INetworkAdapterSnapshotProvider? networkAdapterSnapshotProvider = null)
     {
         _configuration = configuration;
         _configurationService = configurationService;
@@ -63,6 +74,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         _logger = logger;
         _processExecutor = new ConnectProcessExecutor(logger);
         _getWifiInterfaceIds = getWifiInterfaceIds;
+        _networkAdapterSnapshotProvider = networkAdapterSnapshotProvider ?? new WindowsNetworkAdapterSnapshotProvider();
     }
 
     /// <inheritdoc />
@@ -501,8 +513,14 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
 
     private string? GetEthernetInterfaceName()
     {
-        return NetworkInterface.GetAllNetworkInterfaces()
-            .Where(static adapter => adapter.NetworkInterfaceType is NetworkInterfaceType.Ethernet
+        return SelectEthernetInterfaceName(_networkAdapterSnapshotProvider.GetAdapters());
+    }
+
+    internal static string? SelectEthernetInterfaceName(
+        IReadOnlyList<NetworkAdapterSnapshot> adapters)
+    {
+        return adapters
+            .Where(static adapter => adapter.InterfaceType is NetworkInterfaceType.Ethernet
                 or NetworkInterfaceType.GigabitEthernet
                 or NetworkInterfaceType.FastEthernetFx
                 or NetworkInterfaceType.FastEthernetT

@@ -10,6 +10,7 @@ using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Foundry.Core.Models.Configuration;
+using Foundry.Utilities.Networking;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Utilities.Processes;
@@ -27,6 +28,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     private readonly IOperationProgressService _operationProgressService;
     private readonly IDeploymentOrchestrator _deploymentOrchestrator;
     private readonly IProcessRunner _processRunner;
+    private readonly INetworkAdapterSnapshotProvider _networkAdapterSnapshotProvider;
     private readonly bool _isDebugSafeMode;
     private string _rawCurrentStepName = "Waiting for deployment...";
     private string _rawCurrentStepProgressText = "Waiting for progress...";
@@ -50,7 +52,8 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         IDeploymentOrchestrator deploymentOrchestrator,
         IProcessRunner processRunner,
         ILocalizationService localizationService,
-        bool isDebugSafeMode)
+        bool isDebugSafeMode,
+        INetworkAdapterSnapshotProvider? networkAdapterSnapshotProvider = null)
         : base(localizationService)
     {
         _dispatcher = dispatcher ?? throw new ArgumentNullException(nameof(dispatcher));
@@ -58,6 +61,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         _operationProgressService = operationProgressService ?? throw new ArgumentNullException(nameof(operationProgressService));
         _deploymentOrchestrator = deploymentOrchestrator ?? throw new ArgumentNullException(nameof(deploymentOrchestrator));
         _processRunner = processRunner ?? throw new ArgumentNullException(nameof(processRunner));
+        _networkAdapterSnapshotProvider = networkAdapterSnapshotProvider ?? new WindowsNetworkAdapterSnapshotProvider();
         _isDebugSafeMode = isDebugSafeMode;
 
         _operationProgressService.ProgressChanged += OnOperationProgressChanged;
@@ -623,43 +627,36 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
 
         try
         {
-            foreach (NetworkInterface networkInterface in NetworkInterface.GetAllNetworkInterfaces())
+            NetworkAdapterSnapshot? adapter = SelectNetworkAdapter(
+                _networkAdapterSnapshotProvider.GetAdapters());
+            if (adapter is null)
             {
-                if (networkInterface.OperationalStatus != OperationalStatus.Up)
-                {
-                    continue;
-                }
-
-                if (networkInterface.NetworkInterfaceType is NetworkInterfaceType.Loopback or NetworkInterfaceType.Tunnel)
-                {
-                    continue;
-                }
-
-                IPInterfaceProperties ipProperties = networkInterface.GetIPProperties();
-                UnicastIPAddressInformation? ipv4AddressInfo = ipProperties.UnicastAddresses
-                    .FirstOrDefault(item => item.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
-                if (ipv4AddressInfo is null)
-                {
-                    continue;
-                }
-
-                GatewayIPAddressInformation? gatewayInfo = ipProperties.GatewayAddresses
-                    .FirstOrDefault(item => item.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
-                byte[] macBytes = networkInterface.GetPhysicalAddress().GetAddressBytes();
-
-                IpAddress = ipv4AddressInfo.Address.ToString();
-                SubnetMask = ipv4AddressInfo.IPv4Mask?.ToString() ?? notAvailable;
-                GatewayAddress = gatewayInfo?.Address.ToString() ?? notAvailable;
-                MacAddress = macBytes.Length == 0
-                    ? notAvailable
-                    : string.Join("-", macBytes.Select(value => value.ToString("X2", CultureInfo.InvariantCulture)));
                 return;
             }
+
+            NetworkIpv4AddressSnapshot ipv4AddressInfo = adapter.Ipv4Addresses[0];
+            IpAddress = ipv4AddressInfo.Address;
+            SubnetMask = string.IsNullOrWhiteSpace(ipv4AddressInfo.SubnetMask)
+                ? notAvailable
+                : ipv4AddressInfo.SubnetMask;
+            GatewayAddress = adapter.Gateways.FirstOrDefault() ?? notAvailable;
+            MacAddress = string.IsNullOrWhiteSpace(adapter.MacAddress)
+                ? notAvailable
+                : adapter.MacAddress;
         }
         catch (Exception ex)
         {
             _logger.LogDebug(ex, "Unable to resolve network snapshot for deployment session.");
         }
+    }
+
+    internal static NetworkAdapterSnapshot? SelectNetworkAdapter(
+        IReadOnlyList<NetworkAdapterSnapshot> adapters)
+    {
+        return adapters.FirstOrDefault(static adapter =>
+            adapter.OperationalStatus == OperationalStatus.Up &&
+            adapter.InterfaceType is not NetworkInterfaceType.Loopback and not NetworkInterfaceType.Tunnel &&
+            adapter.Ipv4Addresses.Count > 0);
     }
 
     private string BuildStepCounterText(int currentStep)

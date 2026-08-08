@@ -15,6 +15,7 @@ using Foundry.Connect.Services.Runtime;
 using Foundry.Connect.Services.Theme;
 using Foundry.Connect.ViewModels;
 using Foundry.Telemetry;
+using Foundry.Utilities.Networking;
 using Foundry.Utilities.Runtime;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -63,6 +64,7 @@ public static class ServiceCollectionExtensions
                 logger);
         });
         services.AddSingleton<ILocalizationService, LocalizationService>();
+        services.AddSingleton<INetworkAdapterSnapshotProvider, WindowsNetworkAdapterSnapshotProvider>();
         services.AddSingleton<INetworkProfileRoamingService, NetworkProfileRoamingService>();
         services.AddSingleton<INetworkBootstrapService, NetworkBootstrapService>();
         services.AddSingleton<INetworkStatusService, NetworkStatusService>();
