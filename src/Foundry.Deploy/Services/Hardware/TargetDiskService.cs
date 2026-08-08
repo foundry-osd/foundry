@@ -3,12 +3,12 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
-using System.Text;
 using System.Text.Json;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.System;
 using Foundry.Utilities.Processes;
+using Foundry.Utilities.Serialization;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Hardware;
@@ -47,11 +47,10 @@ $result = foreach ($disk in $disks) {
 $result | ConvertTo-Json -Compress
 ";
 
-        string encoded = Convert.ToBase64String(Encoding.Unicode.GetBytes(script));
-        string args = $"-NoProfile -ExecutionPolicy Bypass -EncodedCommand {encoded}";
+        IReadOnlyList<string> arguments = CreatePowerShellArguments(script);
 
         ProcessExecutionResult execution = await _processRunner
-            .RunAsync("powershell.exe", args, Path.GetTempPath(), cancellationToken)
+            .RunAsync("powershell.exe", arguments, Path.GetTempPath(), cancellationToken)
             .ConfigureAwait(false);
 
         if (!execution.IsSuccess || string.IsNullOrWhiteSpace(execution.StandardOutput))
@@ -62,34 +61,20 @@ $result | ConvertTo-Json -Compress
 
         try
         {
-            using JsonDocument document = JsonDocument.Parse(execution.StandardOutput);
-            JsonElement root = document.RootElement;
-
             var disks = new List<TargetDiskInfo>();
-            if (root.ValueKind == JsonValueKind.Array)
+            foreach (JsonElement diskElement in JsonObjectSequence.Parse(execution.StandardOutput))
             {
-                foreach (JsonElement diskElement in root.EnumerateArray())
+                TargetDiskInfo info = ParseDisk(diskElement);
+                if (ShouldExcludeFromTargets(info))
                 {
-                    TargetDiskInfo info = ParseDisk(diskElement);
-                    if (ShouldExcludeFromTargets(info))
-                    {
-                        _logger.LogInformation(
-                            "Skipping disk {DiskNumber} from target selection because it is attached over USB. FriendlyName={FriendlyName}",
-                            info.DiskNumber,
-                            info.FriendlyName);
-                        continue;
-                    }
+                    _logger.LogInformation(
+                        "Skipping disk {DiskNumber} from target selection because it is attached over USB. FriendlyName={FriendlyName}",
+                        info.DiskNumber,
+                        info.FriendlyName);
+                    continue;
+                }
 
-                    disks.Add(info);
-                }
-            }
-            else if (root.ValueKind == JsonValueKind.Object)
-            {
-                TargetDiskInfo info = ParseDisk(root);
-                if (!ShouldExcludeFromTargets(info))
-                {
-                    disks.Add(info);
-                }
+                disks.Add(info);
             }
 
             TargetDiskInfo[] orderedDisks = disks
@@ -139,11 +124,10 @@ if ($null -eq $partition) {{
 }} | ConvertTo-Json -Compress
 ";
 
-        string encoded = Convert.ToBase64String(Encoding.Unicode.GetBytes(script));
-        string args = $"-NoProfile -ExecutionPolicy Bypass -EncodedCommand {encoded}";
+        IReadOnlyList<string> arguments = CreatePowerShellArguments(script);
 
         ProcessExecutionResult execution = await _processRunner
-            .RunAsync("powershell.exe", args, Path.GetTempPath(), cancellationToken)
+            .RunAsync("powershell.exe", arguments, Path.GetTempPath(), cancellationToken)
             .ConfigureAwait(false);
 
         if (!execution.IsSuccess || string.IsNullOrWhiteSpace(execution.StandardOutput))
@@ -213,6 +197,17 @@ if ($null -eq $partition) {{
             IsSelectable = string.IsNullOrWhiteSpace(warning),
             SelectionWarning = warning
         };
+    }
+
+    private static IReadOnlyList<string> CreatePowerShellArguments(string script)
+    {
+        return
+        [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            .. PowerShellCommand.CreateEncodedArguments(script)
+        ];
     }
 
     private static string BuildSelectionWarning(bool isSystem, bool isBoot, bool isReadOnly, bool isOffline)

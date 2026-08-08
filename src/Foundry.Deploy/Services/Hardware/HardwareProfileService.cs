@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Text.Json;
-using System.Text;
 using System.IO;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.System;
@@ -78,10 +77,15 @@ $isOnBattery = @($battery | Where-Object { $_.BatteryStatus -eq 1 }).Count -gt 0
 } | ConvertTo-Json -Compress -Depth 8
 ";
 
-        string encoded = Convert.ToBase64String(Encoding.Unicode.GetBytes(script));
-        string args = $"-NoProfile -ExecutionPolicy Bypass -EncodedCommand {encoded}";
+        IReadOnlyList<string> arguments =
+        [
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            .. PowerShellCommand.CreateEncodedArguments(script)
+        ];
         ProcessExecutionResult execution = await _processRunner
-            .RunAsync("powershell.exe", args, Path.GetTempPath(), cancellationToken)
+            .RunAsync("powershell.exe", arguments, Path.GetTempPath(), cancellationToken)
             .ConfigureAwait(false);
 
         if (!execution.IsSuccess || string.IsNullOrWhiteSpace(execution.StandardOutput))

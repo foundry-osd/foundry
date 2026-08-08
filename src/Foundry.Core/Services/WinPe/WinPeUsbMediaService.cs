@@ -2,8 +2,9 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Text;
 using System.Text.Json;
+using Foundry.Utilities.Processes;
+using Foundry.Utilities.Serialization;
 
 namespace Foundry.Core.Services.WinPe;
 
@@ -670,8 +671,7 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             formatMode);
 
         Directory.CreateDirectory(workingDirectoryPath);
-        string encodedScript = Convert.ToBase64String(Encoding.Unicode.GetBytes(script));
-        string arguments = $"-NoProfile -NonInteractive -ExecutionPolicy Bypass -EncodedCommand {encodedScript}";
+        string arguments = CreatePowerShellArguments(script);
         var provisioningOutput = new UsbProvisioningOutputForwarder(progress);
         WinPeProcessExecution execution = _processRunner is IWinPeProcessOutputRunner outputRunner
             ? await outputRunner.RunWithOutputAsync(
@@ -840,8 +840,7 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             formatMode);
 
         Directory.CreateDirectory(workingDirectoryPath);
-        string encodedScript = Convert.ToBase64String(Encoding.Unicode.GetBytes(script));
-        string arguments = $"-NoProfile -NonInteractive -ExecutionPolicy Bypass -EncodedCommand {encodedScript}";
+        string arguments = CreatePowerShellArguments(script);
         var provisioningOutput = new UsbProvisioningOutputForwarder(progress);
         WinPeProcessExecution execution = _processRunner is IWinPeProcessOutputRunner outputRunner
             ? await outputRunner.RunWithOutputAsync(
@@ -1065,10 +1064,9 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         string workingDirectoryPath,
         CancellationToken cancellationToken)
     {
-        string encodedScript = Convert.ToBase64String(Encoding.Unicode.GetBytes(script));
         WinPeProcessExecution execution = await _processRunner.RunAsync(
             tools.PowerShellPath,
-            $"-NoProfile -NonInteractive -ExecutionPolicy Bypass -EncodedCommand {encodedScript}",
+            CreatePowerShellArguments(script),
             workingDirectoryPath,
             cancellationToken).ConfigureAwait(false);
 
@@ -1094,23 +1092,10 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
 
     private static IReadOnlyList<WinPeUsbDiskCandidate> ParseUsbCandidates(string json)
     {
-        using JsonDocument document = JsonDocument.Parse(json);
         var candidates = new List<WinPeUsbDiskCandidate>();
-
-        if (document.RootElement.ValueKind == JsonValueKind.Array)
+        foreach (JsonElement element in JsonObjectSequence.Parse(json))
         {
-            foreach (JsonElement element in document.RootElement.EnumerateArray())
-            {
-                WinPeUsbDiskCandidate? candidate = ParseUsbCandidate(element);
-                if (candidate is not null)
-                {
-                    candidates.Add(candidate);
-                }
-            }
-        }
-        else if (document.RootElement.ValueKind == JsonValueKind.Object)
-        {
-            WinPeUsbDiskCandidate? candidate = ParseUsbCandidate(document.RootElement);
+            WinPeUsbDiskCandidate? candidate = ParseUsbCandidate(element);
             if (candidate is not null)
             {
                 candidates.Add(candidate);
@@ -1118,6 +1103,19 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         }
 
         return candidates;
+    }
+
+    private static string CreatePowerShellArguments(string script)
+    {
+        return string.Join(
+            ' ',
+            [
+                "-NoProfile",
+                "-NonInteractive",
+                "-ExecutionPolicy",
+                "Bypass",
+                .. PowerShellCommand.CreateEncodedArguments(script)
+            ]);
     }
 
     private static WinPeUsbDiskCandidate? ParseUsbCandidate(JsonElement element)
