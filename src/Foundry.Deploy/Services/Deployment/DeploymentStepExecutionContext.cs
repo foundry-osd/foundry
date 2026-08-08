@@ -395,7 +395,7 @@ public sealed class DeploymentStepExecutionContext
 
             if (progress.TotalBytes is long totalBytes && totalBytes > 0)
             {
-                double percent = CalculateDownloadPercent(progress.BytesDownloaded, totalBytes);
+                double percent = TransferProgress.CalculatePercentage(progress.BytesDownloaded, totalBytes) ?? 0d;
                 bool isFinal = progress.BytesDownloaded >= totalBytes;
                 if (!isFinal &&
                     lastReportedPercent.HasValue &&
@@ -618,11 +618,6 @@ public sealed class DeploymentStepExecutionContext
         }
 
         return (int)Math.Round((double)stepIndex / stepCount * 100d);
-    }
-
-    private static double CalculateDownloadPercent(long bytesDownloaded, long totalBytes)
-    {
-        return TransferProgress.CalculatePercentage(bytesDownloaded, totalBytes) ?? 0d;
     }
 
     private static string FormatByteSize(long bytes)

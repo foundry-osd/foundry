@@ -108,7 +108,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
 
         string arguments = $"wlan connect name=\"{EscapeNetshArgument(profileName)}\"";
 
-        ProcessExecutionResult result = await ExecuteProcessAsync("netsh", arguments, cancellationToken).ConfigureAwait(false);
+        ProcessExecutionResult result = await _processExecutor.ExecuteAsync("netsh", arguments, cancellationToken).ConfigureAwait(false);
         if (result.ExitCode != 0)
         {
             _logger.LogWarning(
@@ -175,7 +175,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                 return $"Wi-Fi profile import failed for '{trimmedSsid}': {CollapseError(addProfileResult)}";
             }
 
-            ProcessExecutionResult connectResult = await ExecuteProcessAsync(
+            ProcessExecutionResult connectResult = await _processExecutor.ExecuteAsync(
                 "netsh",
                 $"wlan connect name=\"{EscapeNetshArgument(trimmedSsid)}\"",
                 cancellationToken).ConfigureAwait(false);
@@ -224,7 +224,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             return "Wi-Fi is already disconnected.";
         }
 
-        ProcessExecutionResult disconnectResult = await ExecuteProcessAsync(
+        ProcessExecutionResult disconnectResult = await _processExecutor.ExecuteAsync(
             "netsh",
             "wlan disconnect",
             cancellationToken).ConfigureAwait(false);
@@ -267,7 +267,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             messages.Add("Runtime-entered wired 802.1X credentials are not supported in this build. Use a profile template that already contains the required enterprise settings.");
         }
 
-        ProcessExecutionResult addProfileResult = await ExecuteProcessAsync(
+        ProcessExecutionResult addProfileResult = await _processExecutor.ExecuteAsync(
             "netsh",
             $"lan add profile filename=\"{profilePath}\"",
             cancellationToken).ConfigureAwait(false);
@@ -295,7 +295,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         string? ethernetInterfaceName = GetEthernetInterfaceName();
         if (!string.IsNullOrWhiteSpace(ethernetInterfaceName))
         {
-            ProcessExecutionResult reconnectResult = await ExecuteProcessAsync(
+            ProcessExecutionResult reconnectResult = await _processExecutor.ExecuteAsync(
                 "netsh",
                 $"lan reconnect interface=\"{ethernetInterfaceName}\"",
                 cancellationToken).ConfigureAwait(false);
@@ -415,7 +415,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            lastResult = await ExecuteProcessAsync(
+            lastResult = await _processExecutor.ExecuteAsync(
                 "netsh",
                 $"wlan add profile filename=\"{profilePath}\"",
                 cancellationToken).ConfigureAwait(false);
@@ -705,11 +705,6 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         }
 
         return message.Replace(Environment.NewLine, " ").Trim();
-    }
-
-    private async Task<ProcessExecutionResult> ExecuteProcessAsync(string fileName, string arguments, CancellationToken cancellationToken)
-    {
-        return await _processExecutor.ExecuteAsync(fileName, arguments, cancellationToken).ConfigureAwait(false);
     }
 
     private sealed record WifiConnectionAttemptResult(bool IsConnected, string? FailureMessage)
