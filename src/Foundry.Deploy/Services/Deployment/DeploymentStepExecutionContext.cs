@@ -9,6 +9,7 @@ using Foundry.Deploy.Services.Download;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
+using Foundry.Utilities.Progress;
 
 namespace Foundry.Deploy.Services.Deployment;
 
@@ -621,22 +622,7 @@ public sealed class DeploymentStepExecutionContext
 
     private static double CalculateDownloadPercent(long bytesDownloaded, long totalBytes)
     {
-        if (totalBytes <= 0)
-        {
-            return 0d;
-        }
-
-        if (bytesDownloaded >= totalBytes)
-        {
-            return 100d;
-        }
-
-        if (bytesDownloaded <= 0)
-        {
-            return 0d;
-        }
-
-        return Math.Clamp((double)bytesDownloaded / totalBytes * 100d, 0d, 100d);
+        return TransferProgress.CalculatePercentage(bytesDownloaded, totalBytes) ?? 0d;
     }
 
     private static string FormatByteSize(long bytes)

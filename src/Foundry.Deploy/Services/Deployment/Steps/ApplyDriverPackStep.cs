@@ -7,6 +7,8 @@ using Foundry.Deploy.Services.Deployment.PreOobe;
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Network;
+using Foundry.Utilities.IO;
+using Foundry.Utilities.Progress;
 
 namespace Foundry.Deploy.Services.Deployment.Steps;
 
@@ -322,7 +324,6 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
         Directory.CreateDirectory(destinationDirectory);
 
         long totalBytes = new FileInfo(sourcePath).Length;
-        long copiedBytes = 0;
         progress?.Report(0d);
 
         await using FileStream sourceStream = new(
@@ -340,28 +341,18 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
             FileCopyBufferSize,
             useAsync: true);
 
-        byte[] buffer = new byte[FileCopyBufferSize];
-        while (true)
-        {
-            int bytesRead = await sourceStream
-                .ReadAsync(buffer.AsMemory(0, buffer.Length), cancellationToken)
-                .ConfigureAwait(false);
-            if (bytesRead == 0)
+        await StreamCopy.CopyAsync(
+            sourceStream,
+            destinationStream,
+            copiedBytes =>
             {
-                break;
-            }
-
-            await destinationStream
-                .WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken)
-                .ConfigureAwait(false);
-
-            copiedBytes += bytesRead;
-            if (totalBytes > 0)
-            {
-                double percent = (double)copiedBytes / totalBytes * 100d;
-                progress?.Report(percent);
-            }
-        }
+                double? percentage = TransferProgress.CalculatePercentage(copiedBytes, totalBytes);
+                if (percentage.HasValue)
+                {
+                    progress?.Report(percentage.Value);
+                }
+            },
+            cancellationToken).ConfigureAwait(false);
 
         progress?.Report(100d);
     }

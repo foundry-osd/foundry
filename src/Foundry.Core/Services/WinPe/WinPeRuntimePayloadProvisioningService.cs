@@ -5,6 +5,7 @@
 using System.IO.Compression;
 using System.Text.Json;
 using Foundry.Utilities.IO;
+using Foundry.Utilities.Progress;
 
 namespace Foundry.Core.Services.WinPe;
 
@@ -354,43 +355,35 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         IProgress<WinPeDownloadProgress>? progress,
         CancellationToken cancellationToken)
     {
-        byte[] buffer = new byte[81920];
-        long bytesWritten = 0;
         int lastReportedPercent = -1;
-
-        while (true)
-        {
-            int bytesRead = await sourceStream.ReadAsync(buffer, cancellationToken).ConfigureAwait(false);
-            if (bytesRead == 0)
+        long bytesWritten = await StreamCopy.CopyAsync(
+            sourceStream,
+            destinationStream,
+            copiedBytes =>
             {
-                break;
-            }
-
-            await destinationStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken).ConfigureAwait(false);
-            bytesWritten += bytesRead;
-
-            if (totalBytes is > 0)
-            {
-                int downloadPercent = (int)Math.Clamp(bytesWritten * 100 / totalBytes.Value, 0, 100);
-                if (downloadPercent == lastReportedPercent)
+                double? percentage = TransferProgress.CalculatePercentage(copiedBytes, totalBytes);
+                if (percentage.HasValue)
                 {
-                    continue;
+                    int downloadPercent = (int)percentage.Value;
+                    if (downloadPercent == lastReportedPercent)
+                    {
+                        return;
+                    }
+
+                    lastReportedPercent = downloadPercent;
+                    ReportDownloadProgress(
+                        progress,
+                        downloadPercent,
+                        $"{status} ({FormatBytes(copiedBytes)} / {FormatBytes(totalBytes.GetValueOrDefault())})");
+                    return;
                 }
 
-                lastReportedPercent = downloadPercent;
-                ReportDownloadProgress(
-                    progress,
-                    downloadPercent,
-                    $"{status} ({FormatBytes(bytesWritten)} / {FormatBytes(totalBytes.Value)})");
-            }
-            else
-            {
                 ReportDownloadProgress(
                     progress,
                     null,
-                    $"{status} ({FormatBytes(bytesWritten)} downloaded)");
-            }
-        }
+                    $"{status} ({FormatBytes(copiedBytes)} downloaded)");
+            },
+            cancellationToken).ConfigureAwait(false);
 
         ReportDownloadProgress(
             progress,

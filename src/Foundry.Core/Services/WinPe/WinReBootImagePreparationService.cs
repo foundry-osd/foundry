@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Foundry.Utilities.IO;
+using Foundry.Utilities.Progress;
 
 namespace Foundry.Core.Services.WinPe;
 
@@ -544,41 +545,35 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
         IProgress<WinPeDownloadProgress>? progress,
         CancellationToken cancellationToken)
     {
-        byte[] buffer = new byte[81920];
-        long bytesWritten = 0;
         int lastReportedPercent = -1;
-
-        while (true)
-        {
-            int bytesRead = await sourceStream.ReadAsync(buffer, cancellationToken).ConfigureAwait(false);
-            if (bytesRead == 0)
+        long bytesWritten = await StreamCopy.CopyAsync(
+            sourceStream,
+            destinationStream,
+            copiedBytes =>
             {
-                break;
-            }
-
-            await destinationStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken).ConfigureAwait(false);
-            bytesWritten += bytesRead;
-
-            if (totalBytes is > 0)
-            {
-                int downloadPercent = (int)Math.Clamp(bytesWritten * 100 / totalBytes.Value, 0, 100);
-                if (downloadPercent != lastReportedPercent)
+                double? percentage = TransferProgress.CalculatePercentage(copiedBytes, totalBytes);
+                if (percentage.HasValue)
                 {
+                    int downloadPercent = (int)percentage.Value;
+                    if (downloadPercent == lastReportedPercent)
+                    {
+                        return;
+                    }
+
                     lastReportedPercent = downloadPercent;
                     ReportDownloadProgress(
                         progress,
                         downloadPercent,
-                        $"Downloading WinRE source package ({FormatBytes(bytesWritten)} / {FormatBytes(totalBytes.Value)}).");
+                        $"Downloading WinRE source package ({FormatBytes(copiedBytes)} / {FormatBytes(totalBytes.GetValueOrDefault())}).");
+                    return;
                 }
-            }
-            else
-            {
+
                 ReportDownloadProgress(
                     progress,
                     null,
-                    $"Downloading WinRE source package ({FormatBytes(bytesWritten)} downloaded).");
-            }
-        }
+                    $"Downloading WinRE source package ({FormatBytes(copiedBytes)} downloaded).");
+            },
+            cancellationToken).ConfigureAwait(false);
 
         if (totalBytes is > 0)
         {
