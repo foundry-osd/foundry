@@ -14,6 +14,7 @@ Solution architecture and project ownership:
 - `Foundry.Deploy` is the WPF deployment runtime included in boot media. It owns deployment workflows, hardware discovery, downloads, driver packs, caching, runtime configuration, startup validation, and the Deploy-specific UI.
 - `Foundry.Localization` provides shared culture definitions and resource-based localization services used by the applications.
 - `Foundry.Telemetry` provides shared telemetry contracts, event definitions, context, privacy rules, PostHog integration, and the no-op telemetry implementation.
+- `Foundry.Utilities` contains reusable technical mechanisms that are independent of a Foundry-specific workflow, UI framework, configuration schema, or telemetry taxonomy.
 
 Project dependency rules:
 - `Foundry.Core` must not depend on any UI project.
@@ -24,6 +25,10 @@ Project dependency rules:
 - Do not move Connect- or Deploy-specific workflows into `Foundry.Core` solely for reuse convenience.
 - Use `Foundry.Localization` for shared localization behavior instead of creating application-specific replacements.
 - Use `Foundry.Telemetry` for shared telemetry behavior instead of creating application-specific telemetry implementations.
+- `Foundry.Utilities` is a leaf project and must not reference another Foundry project.
+- `Foundry.Core`, `Foundry`, `Foundry.Connect`, `Foundry.Deploy`, and `Foundry.Localization` may consume `Foundry.Utilities` when a capability has a stable cross-project contract.
+- A type belongs in `Foundry.Utilities` only when it is technical, independently testable, and either has multiple consumers or replaces proven duplication.
+- Destructive deployment and media operations remain in the project that owns the workflow even when they use shared utility primitives.
 
 Code rules:
 - Write production-ready code
@@ -53,6 +58,7 @@ Cleanup rules:
 
 Configuration schema rules:
 - Treat Foundry authoring configuration, Foundry.Deploy runtime configuration, and Foundry.Connect runtime configuration as separate schema contracts
+- Preserve the separate Foundry authoring, Foundry.Deploy runtime, and Foundry.Connect runtime configuration schemas when adding shared utility capabilities.
 - Keep schema versions monotonic within each contract
 - Bump a schema version only when the persisted or generated configuration contract changes in a way that affects runtime behavior or compatibility
 - Bump Foundry authoring schema when the user-facing persisted Foundry configuration shape, defaults, migration behavior, or semantic meaning changes
@@ -78,6 +84,7 @@ Unit testing rules:
 - `Foundry.Deploy.Tests` owns tests for `Foundry.Deploy` runtime behavior.
 - `Foundry.Localization.Tests` owns tests for shared localization behavior.
 - `Foundry.Telemetry.Tests` owns tests for shared telemetry behavior and privacy rules.
+- `Foundry.Utilities.Tests` owns direct tests for utility behavior; consuming projects retain adapter, policy, schema, and integration tests.
 - Do not create a test project for the `Foundry` WinUI 3 application.
 - Do not add automated tests for `Foundry` views, code-behind, bindings, navigation, or other WinUI 3 UI behavior.
 - Do not test WPF views, code-behind, bindings, or framework behavior unless explicitly requested.
