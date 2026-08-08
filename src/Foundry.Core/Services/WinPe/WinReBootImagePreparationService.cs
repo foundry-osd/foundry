@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Foundry.Utilities.IO;
+using Foundry.Utilities.Networking;
 using Foundry.Utilities.Progress;
 
 namespace Foundry.Core.Services.WinPe;
@@ -156,33 +157,6 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
                 "Failed to parse the operating system catalog.",
                 ex.Message);
         }
-    }
-
-    internal static string NormalizeSourceUrl(string sourceUrl)
-    {
-        if (!Uri.TryCreate(sourceUrl, UriKind.Absolute, out Uri? uri))
-        {
-            return sourceUrl;
-        }
-
-        if (!string.Equals(uri.Scheme, Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase))
-        {
-            return sourceUrl;
-        }
-
-        if (!uri.Host.Equals("dl.delivery.mp.microsoft.com", StringComparison.OrdinalIgnoreCase) &&
-            !uri.Host.EndsWith(".dl.delivery.mp.microsoft.com", StringComparison.OrdinalIgnoreCase))
-        {
-            return sourceUrl;
-        }
-
-        var builder = new UriBuilder(uri)
-        {
-            Scheme = Uri.UriSchemeHttp,
-            Port = uri.Port == 443 ? 80 : uri.Port
-        };
-
-        return builder.Uri.AbsoluteUri;
     }
 
     internal static async Task<WinPeResult> ValidateHashIfRequestedAsync(
@@ -473,7 +447,7 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
             TryDeleteFile(sourceCachePath);
         }
 
-        if (!Uri.TryCreate(NormalizeSourceUrl(source.Url), UriKind.Absolute, out Uri? sourceUri))
+        if (!Uri.TryCreate(WindowsUpdateContentUrl.Normalize(source.Url), UriKind.Absolute, out Uri? sourceUri))
         {
             return WinPeResult<string>.Failure(
                 WinPeErrorCodes.DownloadFailed,
