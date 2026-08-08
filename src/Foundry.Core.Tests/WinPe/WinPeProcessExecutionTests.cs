@@ -21,13 +21,15 @@ public sealed class WinPeProcessExecutionTests
             StandardError = "error"
         };
 
-        string diagnostic = execution.ToDiagnosticText();
-
-        Assert.Contains("Command: dism.exe /?", diagnostic, StringComparison.Ordinal);
-        Assert.Contains("WorkingDirectory: C:\\Work", diagnostic, StringComparison.Ordinal);
-        Assert.Contains("ExitCode: 1", diagnostic, StringComparison.Ordinal);
-        Assert.Contains("output", diagnostic, StringComparison.Ordinal);
-        Assert.Contains("error", diagnostic, StringComparison.Ordinal);
+        Assert.Equal(
+            "Command: dism.exe /?\r\n" +
+            "WorkingDirectory: C:\\Work\r\n" +
+            "ExitCode: 1\r\n" +
+            "StdOut:\r\n" +
+            "output\r\n" +
+            "StdErr:\r\n" +
+            "error",
+            execution.ToDiagnosticText());
     }
 
     [Theory]
