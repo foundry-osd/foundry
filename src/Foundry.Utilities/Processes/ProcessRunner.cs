@@ -157,7 +157,35 @@ public sealed class ProcessRunner
             return argument;
         }
 
-        return $"\"{argument.Replace("\"", "\\\"", StringComparison.Ordinal)}\"";
+        var builder = new StringBuilder(argument.Length + 2);
+        builder.Append('"');
+
+        int pendingBackslashes = 0;
+        foreach (char character in argument)
+        {
+            if (character == '\\')
+            {
+                pendingBackslashes++;
+                continue;
+            }
+
+            if (character == '"')
+            {
+                builder.Append('\\', (pendingBackslashes * 2) + 1);
+                builder.Append(character);
+            }
+            else
+            {
+                builder.Append('\\', pendingBackslashes);
+                builder.Append(character);
+            }
+
+            pendingBackslashes = 0;
+        }
+
+        builder.Append('\\', pendingBackslashes * 2);
+        builder.Append('"');
+        return builder.ToString();
     }
 
     private static void InvokeCallback(Action<string>? callback, string data)

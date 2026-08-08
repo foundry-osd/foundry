@@ -16,17 +16,18 @@ public sealed class ProcessRunnerTests
         string searchRoot = Path.Combine(workspace.Path, "folder with spaces");
         Directory.CreateDirectory(searchRoot);
         string markerPath = Path.Combine(searchRoot, "marker.txt");
+        string searchArgument = searchRoot + Path.DirectorySeparatorChar;
         await File.WriteAllTextAsync(markerPath, "marker", TestContext.Current.CancellationToken);
         var request = new ProcessExecutionRequest(
             Path.Combine(Environment.SystemDirectory, "where.exe"),
-            ["/R", searchRoot, "marker.txt"],
+            ["/R", searchArgument, "marker.txt"],
             workspace.Path);
 
         ProcessExecutionResult result = await new ProcessRunner().RunAsync(request, TestContext.Current.CancellationToken);
 
         Assert.True(result.IsSuccess);
         Assert.Equal(markerPath, result.StandardOutput.Trim(), ignoreCase: true);
-        Assert.Equal($"/R \"{searchRoot}\" marker.txt", result.Arguments);
+        Assert.Equal($"/R \"{searchArgument}\\\" marker.txt", result.Arguments);
     }
 
     [Fact]
