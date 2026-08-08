@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Runtime.InteropServices;
+using Foundry.Utilities.IO;
 
 namespace Foundry.Core.Services.WinPe;
 
@@ -75,9 +76,9 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
 
             downloadedFiles.Add(downloadPath);
 
-            string normalizedFolderName = $"{index + 1:D2}_{WinPeFileSystemHelper.SanitizePathSegment(package.Vendor.ToString())}_{WinPeFileSystemHelper.SanitizePathSegment(package.Id)}";
+            string normalizedFolderName = $"{index + 1:D2}_{PathSegment.Sanitize(package.Vendor.ToString())}_{PathSegment.Sanitize(package.Id)}";
             string extractPath = Path.Combine(extractRootPath, normalizedFolderName);
-            WinPeFileSystemHelper.EnsureDirectoryClean(extractPath);
+            DirectoryOperations.Recreate(extractPath);
 
             WinPeResult extractionResult = await ExtractPackageAsync(
                 downloadPath,
@@ -114,7 +115,7 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
     {
         if (!string.IsNullOrWhiteSpace(package.FileName))
         {
-            return WinPeFileSystemHelper.SanitizePathSegment(package.FileName);
+            return PathSegment.Sanitize(package.FileName);
         }
 
         if (Uri.TryCreate(package.DownloadUri, UriKind.Absolute, out Uri? uri))
@@ -122,7 +123,7 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
             string candidate = Path.GetFileName(uri.LocalPath);
             if (!string.IsNullOrWhiteSpace(candidate))
             {
-                return WinPeFileSystemHelper.SanitizePathSegment(candidate);
+                return PathSegment.Sanitize(candidate);
             }
         }
 
@@ -133,7 +134,7 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
             _ => ".exe"
         };
 
-        return $"{WinPeFileSystemHelper.SanitizePathSegment(package.Id)}{extension}";
+        return $"{PathSegment.Sanitize(package.Id)}{extension}";
     }
 
     private async Task<WinPeResult> DownloadPackageAsync(
@@ -297,7 +298,7 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
         }
 
         string expected = package.Sha256.Trim().Replace("-", string.Empty, StringComparison.OrdinalIgnoreCase).ToUpperInvariant();
-        string actual = await WinPeHashHelper.ComputeSha256Async(filePath, cancellationToken).ConfigureAwait(false);
+        string actual = await FileHash.ComputeSha256Async(filePath, cancellationToken).ConfigureAwait(false);
         if (actual.Equals(expected, StringComparison.OrdinalIgnoreCase))
         {
             return WinPeResult.Success();
@@ -346,7 +347,7 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
         }
 
         if (extension.Equals(".exe", StringComparison.OrdinalIgnoreCase) &&
-            !WinPeFileSystemHelper.ContainsFileRecursive(destinationPath, "*.inf"))
+            !FileSearch.ContainsRecursive(destinationPath, "*.inf"))
         {
             return WinPeResult.Failure(
                 WinPeErrorCodes.DriverExtractionFailed,

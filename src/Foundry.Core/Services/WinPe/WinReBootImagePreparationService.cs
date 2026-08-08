@@ -5,6 +5,7 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using Foundry.Utilities.IO;
 
 namespace Foundry.Core.Services.WinPe;
 
@@ -199,7 +200,7 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
             return WinPeResult.Success();
         }
 
-        string actualHash = await WinPeHashHelper.ComputeSha256Async(filePath, cancellationToken).ConfigureAwait(false);
+        string actualHash = await FileHash.ComputeSha256Async(filePath, cancellationToken).ConfigureAwait(false);
         if (normalizedExpectedHash.Equals(actualHash, StringComparison.OrdinalIgnoreCase))
         {
             return WinPeResult.Success();
@@ -308,7 +309,7 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
         WinReSourceCandidate candidate,
         CancellationToken cancellationToken)
     {
-        string candidateName = WinPeFileSystemHelper.SanitizePathSegment(candidate.RequestedEdition);
+        string candidateName = PathSegment.Sanitize(candidate.RequestedEdition);
         string sourceDirectory = Path.Combine(options.Artifact.WorkingDirectoryPath, $"winre-source-{candidateName}");
         string exportDirectory = Path.Combine(sourceDirectory, "export");
         string mountDirectory = Path.Combine(sourceDirectory, "install-mount");
@@ -318,7 +319,7 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
         WinPeMountSession? session = null;
         try
         {
-            WinPeFileSystemHelper.EnsureDirectoryClean(sourceDirectory);
+            DirectoryOperations.Recreate(sourceDirectory);
             Directory.CreateDirectory(exportDirectory);
             ReportProgress(options.Progress, 5, "Preparing WinRE source package.");
 
@@ -664,7 +665,7 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
 
         return Path.Combine(
             cacheDirectoryPath,
-            WinPeFileSystemHelper.SanitizePathSegment(fileName));
+            PathSegment.Sanitize(fileName));
     }
 
     private static async Task<WinPeResult<WinReBootImagePreparationResult>> FailWithDiscardAsync(

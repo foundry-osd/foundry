@@ -5,6 +5,7 @@
 using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text.Json;
+using Foundry.Utilities.IO;
 
 namespace Foundry.Core.Services.WinPe;
 
@@ -104,7 +105,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
 
         try
         {
-            WinPeFileSystemHelper.EnsureDirectoryClean(extractionRoot);
+            DirectoryOperations.Recreate(extractionRoot);
             ZipFile.ExtractToDirectory(archivePath, extractionRoot);
             string executablePath = Path.Combine(extractionRoot, $"{applicationName}.exe");
             if (!File.Exists(executablePath))
@@ -185,7 +186,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         string publishDirectory = Path.Combine(debugWorkspace, "publish", runtimeIdentifier);
         string archivePath = Path.Combine(debugWorkspace, $"{applicationName}-{runtimeIdentifier}.zip");
 
-        WinPeFileSystemHelper.EnsureDirectoryClean(publishDirectory);
+        DirectoryOperations.Recreate(publishDirectory);
         Directory.CreateDirectory(debugWorkspace);
         if (File.Exists(archivePath))
         {
@@ -520,7 +521,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
 
     private static void CopyDirectory(string sourceDirectoryPath, string destinationDirectoryPath)
     {
-        WinPeFileSystemHelper.EnsureDirectoryClean(destinationDirectoryPath);
+        DirectoryOperations.Recreate(destinationDirectoryPath);
 
         foreach (string directoryPath in Directory.EnumerateDirectories(sourceDirectoryPath, "*", SearchOption.AllDirectories))
         {

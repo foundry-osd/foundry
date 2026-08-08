@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Utilities.IO;
+
 namespace Foundry.Core.Services.WinPe;
 
 public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
@@ -275,7 +277,7 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
 
     private static string ToAsciiSafeFileName(string fileName)
     {
-        string sanitized = WinPeFileSystemHelper.SanitizePathSegment(fileName);
+        string sanitized = PathSegment.Sanitize(fileName);
         char[] chars = sanitized
             .Select(character => character > 127 ? '_' : character)
             .ToArray();
