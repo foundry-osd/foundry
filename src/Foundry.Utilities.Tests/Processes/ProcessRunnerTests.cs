@@ -140,6 +140,46 @@ public sealed class ProcessRunnerTests
     }
 
     [Fact]
+    public async Task RunAsync_WhenCanceledAfterRootExit_DoesNotWaitForInheritedOutputPipe()
+    {
+        using var workspace = new TemporaryDirectory();
+        string scriptPath = Path.Combine(workspace.Path, "start-child.cmd");
+        await File.WriteAllTextAsync(
+            scriptPath,
+            "@echo off\r\n" +
+            "start \"\" /b ping.exe 127.0.0.1 -n 5\r\n" +
+            "echo child-ready\r\n" +
+            "exit /b 0\r\n",
+            TestContext.Current.CancellationToken);
+        var childReady = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+        ProcessExecutionRequest request = ProcessExecutionRequest.FromRawArguments(
+            GetCommandProcessor(),
+            $"/d /s /c call \"{scriptPath}\"",
+            Environment.SystemDirectory) with
+        {
+            OnOutputData = line =>
+            {
+                if (line.Equals("child-ready", StringComparison.Ordinal))
+                {
+                    childReady.TrySetResult(true);
+                }
+            }
+        };
+        using var cancellation = new CancellationTokenSource();
+        Task<ProcessExecutionResult> executionTask = new ProcessRunner().RunAsync(request, cancellation.Token);
+        await childReady.Task.WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken);
+        await Task.Delay(TimeSpan.FromMilliseconds(500), TestContext.Current.CancellationToken);
+        var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+        cancellation.Cancel();
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => executionTask);
+
+        Assert.True(
+            stopwatch.Elapsed < TimeSpan.FromSeconds(1),
+            $"Cancellation took {stopwatch.Elapsed} while a child process held the output pipe open.");
+    }
+
+    [Fact]
     public async Task RunAsync_WhenExecutableCannotStart_ThrowsProcessStartException()
     {
         using var workspace = new TemporaryDirectory();

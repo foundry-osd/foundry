@@ -103,7 +103,6 @@ public sealed class ProcessRunner
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {
             TryKill(process);
-            await WaitForTerminationAsync(process).ConfigureAwait(false);
             throw;
         }
 
@@ -245,15 +244,4 @@ public sealed class ProcessRunner
         }
     }
 
-    private static async Task WaitForTerminationAsync(Process process)
-    {
-        try
-        {
-            await process.WaitForExitAsync(CancellationToken.None).ConfigureAwait(false);
-        }
-        catch
-        {
-            // A concurrent exit can invalidate the process handle during cancellation.
-        }
-    }
 }
