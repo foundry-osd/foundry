@@ -1,0 +1,13 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Styles.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceInclude Source="avares://Foundry.Avalonia/Themes/Colors.axaml" />
+        <ResourceInclude Source="avares://Foundry.Avalonia/Themes/Typography.axaml" />
+        <ResourceInclude Source="avares://Foundry.Avalonia/Themes/Metrics.axaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Styles.Resources>
+  <FluentTheme />
+</Styles>
