@@ -1,0 +1,47 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:Foundry.Avalonia.Controls"
+        x:Class="Foundry.Avalonia.Controls.ReadOnlyTextDialog"
+        x:Name="Root"
+        x:DataType="local:ReadOnlyTextDialog"
+        Width="900"
+        Height="640"
+        MinWidth="640"
+        MinHeight="420"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False"
+        Background="{DynamicResource FoundryBrush.Background}"
+        Foreground="{DynamicResource FoundryBrush.TextPrimary}">
+  <Grid Margin="24"
+        RowDefinitions="*,Auto">
+    <TextBox Name="PART_Text"
+             Text="{Binding Text, ElementName=Root}"
+             TextWrapping="{Binding TextWrapping, ElementName=Root}"
+             IsReadOnly="True"
+             AcceptsReturn="True"
+             HorizontalContentAlignment="Stretch"
+             VerticalContentAlignment="Stretch"
+             ScrollViewer.HorizontalScrollBarVisibility="Auto"
+             ScrollViewer.VerticalScrollBarVisibility="Auto" />
+
+    <Grid Grid.Row="1"
+          Margin="0,16,0,0"
+          ColumnDefinitions="*,Auto,Auto">
+      <ContentPresenter Name="PART_FooterContent"
+                        Content="{Binding FooterContent, ElementName=Root}"
+                        VerticalAlignment="Center" />
+      <ContentPresenter Name="PART_ActionContent"
+                        Grid.Column="1"
+                        Margin="16,0,0,0"
+                        Content="{Binding ActionContent, ElementName=Root}"
+                        VerticalAlignment="Center" />
+      <Button Name="PART_CloseButton"
+              Grid.Column="2"
+              MinWidth="96"
+              MinHeight="44"
+              Margin="12,0,0,0"
+              Content="{Binding CloseButtonContent, ElementName=Root}"
+              Click="CloseButtonOnClick" />
+    </Grid>
+  </Grid>
+</Window>

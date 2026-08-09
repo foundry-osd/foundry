@@ -1,0 +1,10 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+  <system:TimeSpan x:Key="FoundryMotion.Duration.Full">0:0:0.160</system:TimeSpan>
+  <system:TimeSpan x:Key="FoundryMotion.Duration.Reduced">0:0:0.090</system:TimeSpan>
+  <system:TimeSpan x:Key="FoundryMotion.Duration.None">0:0:0</system:TimeSpan>
+  <x:Double x:Key="FoundryMotion.Distance.Full">16</x:Double>
+  <x:Double x:Key="FoundryMotion.Distance.Reduced">0</x:Double>
+  <x:Double x:Key="FoundryMotion.Distance.None">0</x:Double>
+</ResourceDictionary>

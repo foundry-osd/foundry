@@ -1,0 +1,13 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:media="using:Avalonia.Media">
+  <x:Double x:Key="FoundryTypography.CaptionSize">12</x:Double>
+  <x:Double x:Key="FoundryTypography.BodySize">14</x:Double>
+  <x:Double x:Key="FoundryTypography.SubtitleSize">18</x:Double>
+  <x:Double x:Key="FoundryTypography.TitleSize">28</x:Double>
+  <x:Double x:Key="FoundryTypography.DisplaySize">36</x:Double>
+  <media:FontWeight x:Key="FoundryTypography.BodyWeight">Normal</media:FontWeight>
+  <media:FontWeight x:Key="FoundryTypography.SubtitleWeight">SemiBold</media:FontWeight>
+  <media:FontWeight x:Key="FoundryTypography.TitleWeight">SemiBold</media:FontWeight>
+  <media:FontWeight x:Key="FoundryTypography.DisplayWeight">Bold</media:FontWeight>
+</ResourceDictionary>

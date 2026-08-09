@@ -1,0 +1,38 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="using:Foundry.Avalonia.Controls">
+  <ControlTheme x:Key="{x:Type local:AppUtilityStrip}"
+                TargetType="local:AppUtilityStrip">
+    <Setter Property="MinHeight" Value="48" />
+    <Setter Property="Background" Value="{DynamicResource FoundryBrush.Background}" />
+    <Setter Property="Foreground" Value="{DynamicResource FoundryBrush.TextPrimary}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border MinHeight="{TemplateBinding MinHeight}"
+                Padding="24,0"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{DynamicResource FoundryBrush.Divider}"
+                BorderThickness="0,0,0,1">
+          <Grid ColumnDefinitions="*,Auto">
+            <ContentPresenter Name="PART_MenuContent"
+                              Content="{TemplateBinding MenuContent}"
+                              IsVisible="False"
+                              VerticalAlignment="Center" />
+            <ContentPresenter Name="PART_TrailingContent"
+                              Grid.Column="1"
+                              Margin="24,0,0,0"
+                              Content="{TemplateBinding TrailingContent}"
+                              IsVisible="False"
+                              VerticalAlignment="Center" />
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:has-menu /template/ ContentPresenter#PART_MenuContent">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:has-trailing /template/ ContentPresenter#PART_TrailingContent">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>
