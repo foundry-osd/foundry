@@ -6,6 +6,7 @@
         <ResourceInclude Source="avares://Foundry.Avalonia/Themes/Colors.axaml" />
         <ResourceInclude Source="avares://Foundry.Avalonia/Themes/Typography.axaml" />
         <ResourceInclude Source="avares://Foundry.Avalonia/Themes/Metrics.axaml" />
+        <ResourceInclude Source="avares://Foundry.Avalonia/Themes/Motion.axaml" />
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </Styles.Resources>
