@@ -1,0 +1,50 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="using:Foundry.Avalonia.Controls">
+  <ControlTheme x:Key="{x:Type local:FoundryShell}"
+                TargetType="local:FoundryShell">
+    <Setter Property="Background" Value="{DynamicResource FoundryBrush.Background}" />
+    <Setter Property="Foreground" Value="{DynamicResource FoundryBrush.TextPrimary}" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <local:AdaptiveLayoutHost Background="{TemplateBinding Background}">
+          <Grid RowDefinitions="Auto,Auto,*">
+            <Border Name="PART_BrandHeader"
+                    MinHeight="58"
+                    Padding="24,12"
+                    IsVisible="False"
+                    Background="{DynamicResource FoundryBrush.Surface}"
+                    BorderBrush="{DynamicResource FoundryBrush.Divider}"
+                    BorderThickness="0,0,0,1">
+              <ContentPresenter Name="PART_BrandContent"
+                                Content="{TemplateBinding BrandContent}"
+                                VerticalAlignment="Center" />
+            </Border>
+
+            <local:AppUtilityStrip Name="PART_UtilityStrip"
+                                   Grid.Row="1"
+                                   IsVisible="False"
+                                   MenuContent="{TemplateBinding MenuContent}"
+                                   TrailingContent="{TemplateBinding TrailingStatusContent}" />
+
+            <ContentPresenter Name="PART_MainContent"
+                              Grid.Row="2"
+                              Margin="32,24"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+          </Grid>
+        </local:AdaptiveLayoutHost>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:has-brand /template/ Border#PART_BrandHeader">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:has-utility /template/ local|AppUtilityStrip#PART_UtilityStrip">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

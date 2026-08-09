@@ -1,0 +1,87 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="using:Foundry.Avalonia.Controls">
+  <ControlTheme x:Key="{x:Type local:StatusIndicator}"
+                TargetType="local:StatusIndicator">
+    <Setter Property="Foreground" Value="{DynamicResource FoundryBrush.TextSecondary}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid ColumnDefinitions="Auto,*,Auto">
+          <Grid Name="PART_IconHost"
+                Width="24"
+                Height="24"
+                Margin="0,0,12,0"
+                IsVisible="False"
+                VerticalAlignment="Center">
+            <Path Name="PART_DefaultIcon"
+                  Width="24"
+                  Height="24"
+                  Fill="{TemplateBinding Foreground}"
+                  Stretch="Uniform" />
+            <ContentPresenter Name="PART_CustomIcon"
+                              Content="{TemplateBinding Icon}"
+                              IsVisible="False" />
+          </Grid>
+          <StackPanel Grid.Column="1"
+                      Spacing="2"
+                      VerticalAlignment="Center">
+            <TextBlock Name="PART_Title"
+                       Text="{TemplateBinding Title}"
+                       FontWeight="{DynamicResource FoundryTypography.SubtitleWeight}"
+                       TextWrapping="Wrap" />
+            <TextBlock Name="PART_Description"
+                       Text="{TemplateBinding Description}"
+                       Foreground="{DynamicResource FoundryBrush.TextSecondary}"
+                       TextWrapping="Wrap" />
+          </StackPanel>
+          <ContentPresenter Name="PART_Accessory"
+                            Grid.Column="2"
+                            Margin="16,0,0,0"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            IsVisible="False"
+                            VerticalAlignment="Center" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:success">
+      <Setter Property="Foreground" Value="{DynamicResource FoundryBrush.Success}" />
+    </Style>
+    <Style Selector="^:success /template/ Grid#PART_IconHost">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:success /template/ Path#PART_DefaultIcon">
+      <Setter Property="Data" Value="{DynamicResource FoundryIcon.Success}" />
+    </Style>
+    <Style Selector="^:caution">
+      <Setter Property="Foreground" Value="{DynamicResource FoundryBrush.Caution}" />
+    </Style>
+    <Style Selector="^:caution /template/ Grid#PART_IconHost">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:caution /template/ Path#PART_DefaultIcon">
+      <Setter Property="Data" Value="{DynamicResource FoundryIcon.Warning}" />
+    </Style>
+    <Style Selector="^:critical">
+      <Setter Property="Foreground" Value="{DynamicResource FoundryBrush.Critical}" />
+    </Style>
+    <Style Selector="^:critical /template/ Grid#PART_IconHost">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:critical /template/ Path#PART_DefaultIcon">
+      <Setter Property="Data" Value="{DynamicResource FoundryIcon.Critical}" />
+    </Style>
+    <Style Selector="^:has-icon /template/ Grid#PART_IconHost">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:has-icon /template/ Path#PART_DefaultIcon">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:has-icon /template/ ContentPresenter#PART_CustomIcon">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:has-content /template/ ContentPresenter#PART_Accessory">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

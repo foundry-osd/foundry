@@ -1,0 +1,40 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="using:Foundry.Avalonia.Controls">
+  <ControlTheme x:Key="{x:Type local:FoundryProgressRing}"
+                TargetType="local:FoundryProgressRing">
+    <Setter Property="Width" Value="96" />
+    <Setter Property="Height" Value="96" />
+    <Setter Property="Foreground" Value="{DynamicResource FoundryBrush.Accent}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid>
+          <Ellipse Stroke="{DynamicResource FoundryBrush.Divider}"
+                   StrokeThickness="{TemplateBinding StrokeThickness}" />
+          <Border Name="PART_Indicator"
+                  Width="0"
+                  Height="0"
+                  IsVisible="False" />
+          <Arc Name="PART_RingIndicator"
+               StartAngle="-90"
+               SweepAngle="{TemplateBinding SweepAngle}"
+               Stroke="{TemplateBinding Foreground}"
+               StrokeThickness="{TemplateBinding StrokeThickness}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:indeterminate:motion-full /template/ Arc#PART_RingIndicator">
+      <Style.Animations>
+        <Animation Duration="0:0:1"
+                   IterationCount="Infinite">
+          <KeyFrame Cue="0%">
+            <Setter Property="StartAngle" Value="-90" />
+          </KeyFrame>
+          <KeyFrame Cue="100%">
+            <Setter Property="StartAngle" Value="270" />
+          </KeyFrame>
+        </Animation>
+      </Style.Animations>
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>
