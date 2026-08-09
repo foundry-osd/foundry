@@ -426,8 +426,8 @@ public sealed class SharedControlTests
         public bool HasPseudoClass(string pseudoClass) => PseudoClasses.Contains(pseudoClass);
     }
 
-    private static T FindVisual<T>(Visual root, string name)
-        where T : Visual
+    private static T FindVisual<T>(global::Avalonia.Visual root, string name)
+        where T : global::Avalonia.Visual
     {
         return Assert.Single(
             root.GetVisualDescendants().OfType<T>(),
