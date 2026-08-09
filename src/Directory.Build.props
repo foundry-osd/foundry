@@ -32,6 +32,7 @@
   <PropertyGroup>
     <Platform Condition="'$(Platform)' == '' and '$(RuntimeIdentifier)' == 'win-arm64'">ARM64</Platform>
     <Platform Condition="'$(Platform)' == ''">x64</Platform>
+    <AvaloniaVersion>12.1.1</AvaloniaVersion>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <Platforms>x64;ARM64</Platforms>

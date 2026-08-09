@@ -39,6 +39,14 @@
     <Platform Solution="*|x64" Project="x64" />
     <Platform Solution="*|ARM64" Project="ARM64" />
   </Project>
+  <Project Path="Foundry.Avalonia/Foundry.Avalonia.csproj">
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|ARM64" Project="ARM64" />
+  </Project>
+  <Project Path="Foundry.Avalonia.Tests/Foundry.Avalonia.Tests.csproj">
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|ARM64" Project="ARM64" />
+  </Project>
   <Project Path="Foundry.Connect/Foundry.Connect.csproj">
     <Platform Solution="*|x64" Project="x64" />
     <Platform Solution="*|ARM64" Project="ARM64" />
