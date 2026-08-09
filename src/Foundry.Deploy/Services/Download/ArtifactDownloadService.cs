@@ -6,6 +6,7 @@ using System.IO;
 using System.Net.Http;
 using System.Security.Cryptography;
 using Foundry.Deploy.Services.Http;
+using Foundry.Utilities.Networking;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Download;
@@ -39,7 +40,7 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         CancellationToken cancellationToken = default,
         IProgress<DownloadProgress>? progress = null)
     {
-        string effectiveSourceUrl = NormalizeSourceUrl(sourceUrl);
+        string effectiveSourceUrl = WindowsUpdateContentUrl.Normalize(sourceUrl);
 
         _logger.LogInformation("Starting artifact download. SourceUrl={SourceUrl}, DestinationPath={DestinationPath}",
             sourceUrl,
@@ -327,38 +328,6 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         return Uri.TryCreate(sourceUrl, UriKind.Absolute, out Uri? uri)
             ? uri.Host
             : "invalid-url";
-    }
-
-    private static string NormalizeSourceUrl(string sourceUrl)
-    {
-        if (!Uri.TryCreate(sourceUrl, UriKind.Absolute, out Uri? uri))
-        {
-            return sourceUrl;
-        }
-
-        if (!string.Equals(uri.Scheme, Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase))
-        {
-            return sourceUrl;
-        }
-
-        if (!IsWindowsUpdateContentHost(uri.Host))
-        {
-            return sourceUrl;
-        }
-
-        UriBuilder builder = new(uri)
-        {
-            Scheme = Uri.UriSchemeHttp,
-            Port = uri.Port == 443 ? 80 : uri.Port
-        };
-
-        return builder.Uri.AbsoluteUri;
-    }
-
-    private static bool IsWindowsUpdateContentHost(string host)
-    {
-        return host.Equals("dl.delivery.mp.microsoft.com", StringComparison.OrdinalIgnoreCase) ||
-               host.EndsWith(".dl.delivery.mp.microsoft.com", StringComparison.OrdinalIgnoreCase);
     }
 
     private sealed record DownloadedArtifact(string? Hash);

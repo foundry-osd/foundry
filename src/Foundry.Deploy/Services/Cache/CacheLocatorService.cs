@@ -2,8 +2,9 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Foundry.Deploy.Models;
 using System.IO;
+using Foundry.Deploy.Models;
+using Foundry.Utilities.Storage;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Cache;
@@ -15,10 +16,19 @@ public sealed class CacheLocatorService : ICacheLocatorService
     private const string CacheVolumeLabel = "Foundry Cache";
     private const string RuntimeFolderName = "Runtime";
     private readonly ILogger<CacheLocatorService> _logger;
+    private readonly IVolumeDiscovery _volumeDiscovery;
 
     public CacheLocatorService(ILogger<CacheLocatorService> logger)
+        : this(logger, new WindowsVolumeDiscovery())
+    {
+    }
+
+    public CacheLocatorService(
+        ILogger<CacheLocatorService> logger,
+        IVolumeDiscovery volumeDiscovery)
     {
         _logger = logger;
+        _volumeDiscovery = volumeDiscovery;
     }
 
     public Task<CacheResolution> ResolveAsync(
@@ -50,7 +60,7 @@ public sealed class CacheLocatorService : ICacheLocatorService
             hasPreferred ? "Preferred path" : "ISO policy root");
     }
 
-    private static CacheResolution ResolveUsb(string preferredRoot)
+    private CacheResolution ResolveUsb(string preferredRoot)
     {
         // USB mode:
         // 1) honor explicit preferred path when it is not the WinPE transient placeholder
@@ -87,27 +97,19 @@ public sealed class CacheLocatorService : ICacheLocatorService
         };
     }
 
-    private static string? FindUsbCacheRuntimeRoot()
+    private string? FindUsbCacheRuntimeRoot()
     {
-        foreach (DriveInfo drive in DriveInfo.GetDrives())
+        foreach (VolumeInfo volume in _volumeDiscovery.GetVolumes())
         {
-            if (!drive.IsReady)
+            if (!volume.IsReady)
             {
                 continue;
             }
 
-            try
+            if (string.Equals(volume.VolumeLabel, CacheVolumeLabel, StringComparison.OrdinalIgnoreCase))
             {
-                if (string.Equals(drive.VolumeLabel, CacheVolumeLabel, StringComparison.OrdinalIgnoreCase))
-                {
-                    return Path.Combine(drive.RootDirectory.FullName, RuntimeFolderName);
-                }
+                return Path.Combine(volume.RootPath, RuntimeFolderName);
             }
-            catch
-            {
-                // Ignore drives that cannot expose label.
-            }
-
         }
 
         return null;

@@ -30,6 +30,7 @@ if (-not (Test-Path -Path $projectPath -PathType Leaf)) {
 $runtimeIdentifiers = if ($AllRuntimes) { @('win-x64', 'win-arm64') } else { @($RuntimeIdentifier) }
 
 foreach ($rid in $runtimeIdentifiers) {
+    $platform = if ($rid -eq 'win-x64') { 'x64' } else { 'ARM64' }
     $outputPath = Join-Path $publishRoot $rid
     if (Test-Path $outputPath) {
         Remove-Item -Path $outputPath -Recurse -Force
@@ -45,7 +46,8 @@ foreach ($rid in $runtimeIdentifiers) {
         '-r', $rid,
         '--self-contained', 'true',
         '-o', $outputPath,
-        '--nologo'
+        '--nologo',
+        "-p:Platform=$platform"
     )
 
     foreach ($property in $publishProperties) {
@@ -53,6 +55,9 @@ foreach ($rid in $runtimeIdentifiers) {
     }
 
     dotnet @publishArgs
+    if ($LASTEXITCODE -ne 0) {
+        throw "dotnet publish failed for Foundry.Deploy ($rid) with exit code $LASTEXITCODE."
+    }
 }
 
 Write-Host "Publish completed."

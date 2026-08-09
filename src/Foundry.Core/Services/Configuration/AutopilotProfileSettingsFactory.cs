@@ -5,6 +5,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using Foundry.Core.Models.Configuration;
+using Foundry.Utilities.IO;
 
 namespace Foundry.Core.Services.Configuration;
 
@@ -32,7 +33,7 @@ public static class AutopilotProfileSettingsFactory
             DisplayName = normalizedDisplayName,
             FolderName = string.IsNullOrWhiteSpace(preferredFolderName)
                 ? BuildFolderName(normalizedDisplayName, normalizedId)
-                : SanitizeFolderName(preferredFolderName),
+                : PathSegment.Sanitize(preferredFolderName, "AutopilotProfile"),
             Source = source,
             ImportedAtUtc = importedAtUtc,
             JsonContent = jsonContent
@@ -49,7 +50,7 @@ public static class AutopilotProfileSettingsFactory
 
     private static string BuildFolderName(string displayName, string id)
     {
-        string sanitizedDisplayName = SanitizeFolderName(displayName);
+        string sanitizedDisplayName = PathSegment.Sanitize(displayName, "AutopilotProfile");
         string safeId = new(id.Where(ch => char.IsLetterOrDigit(ch) || ch is '-' or '_').ToArray());
         if (safeId.Length > 8)
         {
@@ -59,21 +60,5 @@ public static class AutopilotProfileSettingsFactory
         return string.IsNullOrWhiteSpace(safeId)
             ? sanitizedDisplayName
             : $"{sanitizedDisplayName}__{safeId}";
-    }
-
-    private static string SanitizeFolderName(string value)
-    {
-        char[] invalidChars = Path.GetInvalidFileNameChars();
-        string sanitized = new string(value
-                .Select(ch => invalidChars.Contains(ch) ? '_' : ch)
-                .ToArray())
-            .Trim();
-
-        if (string.IsNullOrWhiteSpace(sanitized))
-        {
-            sanitized = "AutopilotProfile";
-        }
-
-        return sanitized.Replace(' ', '_');
     }
 }

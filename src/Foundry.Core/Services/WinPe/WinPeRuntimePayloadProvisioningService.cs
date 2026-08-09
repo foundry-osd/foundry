@@ -3,8 +3,9 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO.Compression;
-using System.Security.Cryptography;
 using System.Text.Json;
+using Foundry.Utilities.IO;
+using Foundry.Utilities.Progress;
 
 namespace Foundry.Core.Services.WinPe;
 
@@ -104,7 +105,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
 
         try
         {
-            WinPeFileSystemHelper.EnsureDirectoryClean(extractionRoot);
+            DirectoryOperations.Recreate(extractionRoot);
             ZipFile.ExtractToDirectory(archivePath, extractionRoot);
             string executablePath = Path.Combine(extractionRoot, $"{applicationName}.exe");
             if (!File.Exists(executablePath))
@@ -185,7 +186,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         string publishDirectory = Path.Combine(debugWorkspace, "publish", runtimeIdentifier);
         string archivePath = Path.Combine(debugWorkspace, $"{applicationName}-{runtimeIdentifier}.zip");
 
-        WinPeFileSystemHelper.EnsureDirectoryClean(publishDirectory);
+        DirectoryOperations.Recreate(publishDirectory);
         Directory.CreateDirectory(debugWorkspace);
         if (File.Exists(archivePath))
         {
@@ -337,10 +338,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             return;
         }
 
-        await using FileStream stream = File.OpenRead(archivePath);
-        using var sha256 = SHA256.Create();
-        byte[] actualBytes = await sha256.ComputeHashAsync(stream, cancellationToken).ConfigureAwait(false);
-        string actualSha256 = Convert.ToHexString(actualBytes);
+        string actualSha256 = await FileHash.ComputeSha256Async(archivePath, cancellationToken).ConfigureAwait(false);
 
         if (!string.Equals(actualSha256, expectedSha256, StringComparison.OrdinalIgnoreCase))
         {
@@ -357,43 +355,35 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         IProgress<WinPeDownloadProgress>? progress,
         CancellationToken cancellationToken)
     {
-        byte[] buffer = new byte[81920];
-        long bytesWritten = 0;
         int lastReportedPercent = -1;
-
-        while (true)
-        {
-            int bytesRead = await sourceStream.ReadAsync(buffer, cancellationToken).ConfigureAwait(false);
-            if (bytesRead == 0)
+        long bytesWritten = await StreamCopy.CopyAsync(
+            sourceStream,
+            destinationStream,
+            copiedBytes =>
             {
-                break;
-            }
-
-            await destinationStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken).ConfigureAwait(false);
-            bytesWritten += bytesRead;
-
-            if (totalBytes is > 0)
-            {
-                int downloadPercent = (int)Math.Clamp(bytesWritten * 100 / totalBytes.Value, 0, 100);
-                if (downloadPercent == lastReportedPercent)
+                double? percentage = TransferProgress.CalculatePercentage(copiedBytes, totalBytes);
+                if (percentage.HasValue)
                 {
-                    continue;
+                    int downloadPercent = (int)percentage.Value;
+                    if (downloadPercent == lastReportedPercent)
+                    {
+                        return;
+                    }
+
+                    lastReportedPercent = downloadPercent;
+                    ReportDownloadProgress(
+                        progress,
+                        downloadPercent,
+                        $"{status} ({FormatBytes(copiedBytes)} / {FormatBytes(totalBytes.GetValueOrDefault())})");
+                    return;
                 }
 
-                lastReportedPercent = downloadPercent;
-                ReportDownloadProgress(
-                    progress,
-                    downloadPercent,
-                    $"{status} ({FormatBytes(bytesWritten)} / {FormatBytes(totalBytes.Value)})");
-            }
-            else
-            {
                 ReportDownloadProgress(
                     progress,
                     null,
-                    $"{status} ({FormatBytes(bytesWritten)} downloaded)");
-            }
-        }
+                    $"{status} ({FormatBytes(copiedBytes)} downloaded)");
+            },
+            cancellationToken).ConfigureAwait(false);
 
         ReportDownloadProgress(
             progress,
@@ -520,7 +510,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
 
     private static void CopyDirectory(string sourceDirectoryPath, string destinationDirectoryPath)
     {
-        WinPeFileSystemHelper.EnsureDirectoryClean(destinationDirectoryPath);
+        DirectoryOperations.Recreate(destinationDirectoryPath);
 
         foreach (string directoryPath in Directory.EnumerateDirectories(sourceDirectoryPath, "*", SearchOption.AllDirectories))
         {

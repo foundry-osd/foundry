@@ -5,6 +5,7 @@
 using System.Reflection;
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
+using Foundry.Utilities.Globalization;
 
 namespace Foundry.Core.Services.Configuration;
 
@@ -36,7 +37,7 @@ public sealed class EmbeddedLanguageRegistryService : ILanguageRegistryService
             .Where(entry => !string.IsNullOrWhiteSpace(entry.Code))
             .Select(entry => entry with
             {
-                Code = LanguageCodeUtility.Canonicalize(entry.Code),
+                Code = CultureCode.Canonicalize(entry.Code),
                 DisplayName = entry.DisplayName.Trim(),
                 EnglishName = entry.EnglishName.Trim()
             })
@@ -46,7 +47,7 @@ public sealed class EmbeddedLanguageRegistryService : ILanguageRegistryService
             .ToArray();
 
         string[] duplicateCodes = entries
-            .GroupBy(entry => LanguageCodeUtility.NormalizeForComparison(entry.Code), StringComparer.OrdinalIgnoreCase)
+            .GroupBy(entry => CultureCode.NormalizeForComparison(entry.Code), StringComparer.OrdinalIgnoreCase)
             .Where(group => group.Count() > 1)
             .Select(group => group.First().Code)
             .ToArray();

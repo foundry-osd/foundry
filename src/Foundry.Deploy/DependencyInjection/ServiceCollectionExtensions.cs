@@ -28,8 +28,13 @@ using Foundry.Deploy.Services.Theme;
 using Foundry.Deploy.Services.Wizard;
 using Foundry.Deploy.ViewModels;
 using Foundry.Telemetry;
+using Foundry.Utilities.Hardware;
+using Foundry.Utilities.Networking;
+using Foundry.Utilities.Runtime;
+using Foundry.Utilities.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using UtilityProcessRunner = Foundry.Utilities.Processes.ProcessRunner;
 
 namespace Foundry.Deploy.DependencyInjection;
 
@@ -50,6 +55,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentWizardContextFactory, DeploymentWizardContextFactory>();
         services.AddSingleton<IDeploymentStartupCoordinator, DeploymentStartupCoordinator>();
         services.AddSingleton<IOperationProgressService, OperationProgressService>();
+        services.AddSingleton<IVolumeDiscovery, WindowsVolumeDiscovery>();
         services.AddSingleton<IDeploymentRuntimeContextService, DeploymentRuntimeContextService>();
         services.AddSingleton<IDeployConfigurationService, DeployConfigurationService>();
         services.AddSingleton(CreateTelemetryOptions);
@@ -80,12 +86,16 @@ public static class ServiceCollectionExtensions
         });
         services.AddSingleton<IDeploymentLaunchPreparationService, DeploymentLaunchPreparationService>();
         services.AddSingleton<IDeploymentExecutionService, DeploymentExecutionService>();
+        services.AddSingleton<UtilityProcessRunner>();
         services.AddSingleton<IProcessRunner, ProcessRunner>();
         services.AddSingleton<IArchiveExtractionService, ArchiveExtractionService>();
         services.AddSingleton<ICacheLocatorService, CacheLocatorService>();
         services.AddSingleton<IDeploymentLogService, DeploymentLogService>();
+        services.AddSingleton<IHardwareInspector, WindowsHardwareInspector>();
         services.AddSingleton<IHardwareProfileService, HardwareProfileService>();
+        services.AddSingleton<INetworkAdapterSnapshotProvider, WindowsNetworkAdapterSnapshotProvider>();
         services.AddSingleton<IOfflineWindowsComputerNameService, OfflineWindowsComputerNameService>();
+        services.AddSingleton<IWindowsDiskInspector, WindowsDiskInspector>();
         services.AddSingleton<ITargetDiskService, TargetDiskService>();
         services.AddSingleton<IOperatingSystemCatalogService, OperatingSystemCatalogService>();
         services.AddSingleton<IDriverPackCatalogService, DriverPackCatalogService>();

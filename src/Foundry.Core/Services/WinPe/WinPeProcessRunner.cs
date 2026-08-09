@@ -2,14 +2,17 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Diagnostics;
-using System.Text;
+using System.ComponentModel;
+using System.Runtime.ExceptionServices;
+using Foundry.Utilities.Processes;
+using UtilityProcessRunner = Foundry.Utilities.Processes.ProcessRunner;
 
 namespace Foundry.Core.Services.WinPe;
 
 public sealed class WinPeProcessRunner : IWinPeProcessOutputRunner
 {
     private const string InternalSetEnvKey = "FOUNDRY_ADK_SETENV_PATH";
+    private readonly UtilityProcessRunner _processRunner = new();
 
     public async Task<WinPeProcessExecution> RunAsync(
         string fileName,
@@ -40,95 +43,32 @@ public sealed class WinPeProcessRunner : IWinPeProcessOutputRunner
         ArgumentException.ThrowIfNullOrWhiteSpace(fileName);
         ArgumentException.ThrowIfNullOrWhiteSpace(workingDirectory);
 
-        Directory.CreateDirectory(workingDirectory);
-
-        var startInfo = new ProcessStartInfo
+        ProcessExecutionRequest request = ProcessExecutionRequest.FromRawArguments(
+            fileName,
+            arguments,
+            workingDirectory) with
         {
-            FileName = fileName,
-            Arguments = arguments,
-            WorkingDirectory = workingDirectory,
-            CreateNoWindow = true,
-            UseShellExecute = false,
-            RedirectStandardOutput = true,
-            RedirectStandardError = true,
-            StandardOutputEncoding = Encoding.UTF8,
-            StandardErrorEncoding = Encoding.UTF8
+            EnvironmentOverrides = FilterEnvironmentOverrides(environmentOverrides),
+            OnOutputData = onOutputData,
+            OnErrorData = onErrorData
         };
 
-        if (environmentOverrides is not null)
+        try
         {
-            foreach ((string key, string value) in environmentOverrides)
-            {
-                if (key.StartsWith("FOUNDRY_", StringComparison.Ordinal))
-                {
-                    continue;
-                }
-
-                startInfo.Environment[key] = value;
-            }
+            ProcessExecutionResult result = await _processRunner
+                .RunAsync(request, cancellationToken)
+                .ConfigureAwait(false);
+            return WinPeProcessExecution.FromProcessExecutionResult(result);
         }
-
-        using var process = new Process
+        catch (ProcessStartException ex) when (ex.InnerException is Win32Exception or InvalidOperationException)
         {
-            StartInfo = startInfo,
-            EnableRaisingEvents = true
-        };
-
-        var stdoutBuilder = new StringBuilder();
-        var stderrBuilder = new StringBuilder();
-
-        process.OutputDataReceived += (_, args) =>
-        {
-            if (args.Data is not null)
-            {
-                onOutputData?.Invoke(args.Data);
-                stdoutBuilder.AppendLine(args.Data);
-            }
-        };
-
-        process.ErrorDataReceived += (_, args) =>
-        {
-            if (args.Data is not null)
-            {
-                onErrorData?.Invoke(args.Data);
-                stderrBuilder.AppendLine(args.Data);
-            }
-        };
-
-        if (!process.Start())
-        {
-            throw new InvalidOperationException($"Failed to start process '{fileName}'.");
+            ExceptionDispatchInfo.Capture(ex.InnerException).Throw();
+            throw;
         }
-
-        process.BeginOutputReadLine();
-        process.BeginErrorReadLine();
-
-        using var registration = cancellationToken.Register(() =>
+        catch (ProcessStartException ex)
         {
-            try
-            {
-                if (!process.HasExited)
-                {
-                    process.Kill(entireProcessTree: true);
-                }
-            }
-            catch
-            {
-                // Best effort during cancellation.
-            }
-        });
-
-        await process.WaitForExitAsync(cancellationToken).ConfigureAwait(false);
-
-        return new WinPeProcessExecution
-        {
-            ExitCode = process.ExitCode,
-            FileName = fileName,
-            Arguments = arguments,
-            WorkingDirectory = workingDirectory,
-            StandardOutput = stdoutBuilder.ToString(),
-            StandardError = stderrBuilder.ToString()
-        };
+            throw new InvalidOperationException($"Failed to start process '{fileName}'.", ex);
+        }
     }
 
     public Task<WinPeProcessExecution> RunCmdScriptAsync(
@@ -209,6 +149,26 @@ public sealed class WinPeProcessRunner : IWinPeProcessOutputRunner
         }
 
         return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "System32", "cmd.exe");
+    }
+
+    private static IReadOnlyDictionary<string, string?>? FilterEnvironmentOverrides(
+        IReadOnlyDictionary<string, string>? environmentOverrides)
+    {
+        if (environmentOverrides is null)
+        {
+            return null;
+        }
+
+        var filtered = new Dictionary<string, string?>(StringComparer.OrdinalIgnoreCase);
+        foreach ((string key, string value) in environmentOverrides)
+        {
+            if (!key.StartsWith("FOUNDRY_", StringComparison.Ordinal))
+            {
+                filtered[key] = value;
+            }
+        }
+
+        return filtered;
     }
 
     private static IReadOnlyDictionary<string, string>? BuildAdkEnvironmentOverrides(string scriptPath)

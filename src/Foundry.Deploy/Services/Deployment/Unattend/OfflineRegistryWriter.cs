@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Deploy.Services.System;
+using Foundry.Utilities.Processes;
 
 namespace Foundry.Deploy.Services.Deployment.Unattend;
 

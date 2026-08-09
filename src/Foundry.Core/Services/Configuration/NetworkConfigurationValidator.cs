@@ -2,8 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Xml.Linq;
 using Foundry.Core.Models.Configuration;
+using Foundry.Utilities.Networking;
 
 namespace Foundry.Core.Services.Configuration;
 
@@ -307,7 +307,9 @@ public static class NetworkConfigurationValidator
 
         if (RequiresExplicitEnterpriseTemplateAuthentication(enterpriseSecurityType))
         {
-            string? templateSecurityType = TryReadEnterpriseTemplateSecurityType(fullTemplatePath);
+            // WPA3 enterprise profiles must match the explicit authentication mode selected in the UI.
+            string? templateSecurityType = NormalizeEnterpriseSecurityType(
+                WlanProfileReader.TryReadAuthentication(fullTemplatePath));
             if (templateSecurityType is null)
             {
                 return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WifiEnterpriseAuthenticationUnsupported);
@@ -347,23 +349,4 @@ public static class NetworkConfigurationValidator
                string.Equals(securityType, WifiSecurityEnterpriseWpa3192, StringComparison.OrdinalIgnoreCase);
     }
 
-    private static string? TryReadEnterpriseTemplateSecurityType(string profileTemplatePath)
-    {
-        try
-        {
-            // WPA3 enterprise profiles must match the explicit authentication mode selected in the UI.
-            XDocument document = XDocument.Load(Path.GetFullPath(profileTemplatePath));
-            XNamespace wlanProfile = "http://www.microsoft.com/networking/WLAN/profile/v1";
-            string? authentication = document
-                .Descendants(wlanProfile + "authentication")
-                .Select(static element => element.Value?.Trim())
-                .FirstOrDefault(static value => !string.IsNullOrWhiteSpace(value));
-
-            return NormalizeEnterpriseSecurityType(authentication);
-        }
-        catch
-        {
-            return null;
-        }
-    }
 }

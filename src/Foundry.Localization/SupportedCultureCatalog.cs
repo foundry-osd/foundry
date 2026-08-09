@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Globalization;
+using Foundry.Utilities.Globalization;
 
 namespace Foundry.Localization;
 
@@ -85,7 +86,7 @@ public sealed class SupportedCultureCatalog
         ArgumentException.ThrowIfNullOrWhiteSpace(defaultCultureCode);
         ArgumentNullException.ThrowIfNull(definitions);
 
-        string canonicalDefaultCultureCode = Canonicalize(defaultCultureCode);
+        string canonicalDefaultCultureCode = CultureInfo.GetCultureInfo(defaultCultureCode.Trim().Replace('_', '-')).Name;
         SupportedCultureDefinition[] orderedDefinitions = definitions
             .OrderBy(definition => definition.SortOrder)
             .ThenBy(definition => definition.Code, StringComparer.OrdinalIgnoreCase)
@@ -133,12 +134,12 @@ public sealed class SupportedCultureCatalog
         ArgumentNullException.ThrowIfNull(currentCulture);
         ArgumentNullException.ThrowIfNull(getString);
 
-        string selectedCode = NormalizeForComparison(currentCulture.Name);
+        string selectedCode = CultureCode.NormalizeForComparison(currentCulture.Name);
         return definitions
             .Select(definition => new SupportedCultureOption(
                 definition.Code,
                 getString(definition.ResourceKey),
-                NormalizeForComparison(definition.Code).Equals(selectedCode, StringComparison.OrdinalIgnoreCase)))
+                CultureCode.NormalizeForComparison(definition.Code).Equals(selectedCode, StringComparison.OrdinalIgnoreCase)))
             .ToArray();
     }
 
@@ -189,7 +190,7 @@ public sealed class SupportedCultureCatalog
 
         try
         {
-            string canonicalCode = Canonicalize(cultureCode);
+            string canonicalCode = CultureCode.Canonicalize(cultureCode);
             return definitions
                 .Select(definition => definition.Code)
                 .FirstOrDefault(code => string.Equals(code, canonicalCode, StringComparison.OrdinalIgnoreCase));
@@ -288,13 +289,4 @@ public sealed class SupportedCultureCatalog
         }
     }
 
-    private static string Canonicalize(string cultureCode)
-    {
-        return CultureInfo.GetCultureInfo(cultureCode.Trim().Replace('_', '-')).Name;
-    }
-
-    private static string NormalizeForComparison(string cultureCode)
-    {
-        return cultureCode.Trim().Replace('_', '-').ToLowerInvariant();
-    }
 }

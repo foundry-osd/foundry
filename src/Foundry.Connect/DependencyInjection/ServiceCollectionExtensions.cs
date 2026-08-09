@@ -15,6 +15,8 @@ using Foundry.Connect.Services.Runtime;
 using Foundry.Connect.Services.Theme;
 using Foundry.Connect.ViewModels;
 using Foundry.Telemetry;
+using Foundry.Utilities.Networking;
+using Foundry.Utilities.Runtime;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -62,6 +64,7 @@ public static class ServiceCollectionExtensions
                 logger);
         });
         services.AddSingleton<ILocalizationService, LocalizationService>();
+        services.AddSingleton<INetworkAdapterSnapshotProvider, WindowsNetworkAdapterSnapshotProvider>();
         services.AddSingleton<INetworkProfileRoamingService, NetworkProfileRoamingService>();
         services.AddSingleton<INetworkBootstrapService, NetworkBootstrapService>();
         services.AddSingleton<INetworkStatusService, NetworkStatusService>();
@@ -83,7 +86,7 @@ public static class ServiceCollectionExtensions
     private static TelemetryContext CreateTelemetryContext(IServiceProvider serviceProvider)
     {
         FoundryConnectConfiguration configuration = serviceProvider.GetRequiredService<FoundryConnectConfiguration>();
-        string runtime = ConnectWorkspacePaths.IsWinPeRuntime() ? TelemetryRuntimeModes.WinPe : TelemetryRuntimeModes.Desktop;
+        string runtime = WinPeRuntimeDetector.IsWinPeRuntime() ? TelemetryRuntimeModes.WinPe : TelemetryRuntimeModes.Desktop;
         return new TelemetryContext(
             TelemetryApps.FoundryConnect,
             FoundryConnectApplicationInfo.Version,

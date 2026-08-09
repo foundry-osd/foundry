@@ -57,16 +57,31 @@ public sealed class DeploymentFailureClassifierTests
     }
 
     [Fact]
-    public void Classify_MapsProcessStartFailureWithoutIncludingExceptionMessage()
+    public async Task Classify_MapsProcessStartFailureWithoutIncludingExceptionMessage()
     {
-        DeploymentFailure failure = DeploymentFailureClassifier.Classify(
-            new ProcessStartException(@"Sensitive path C:\private"),
-            "driver_pack.extract");
+        DirectoryInfo workspace = Directory.CreateTempSubdirectory("FoundryDeployFailureClassifier-");
+        try
+        {
+            string executablePath = Path.Combine(workspace.FullName, "missing.exe");
+            var request = new Foundry.Utilities.Processes.ProcessExecutionRequest(
+                executablePath,
+                [],
+                workspace.FullName);
+            Foundry.Utilities.Processes.ProcessStartException exception = await Assert.ThrowsAsync<Foundry.Utilities.Processes.ProcessStartException>(() =>
+                new Foundry.Utilities.Processes.ProcessRunner()
+                    .RunAsync(request, TestContext.Current.CancellationToken));
 
-        Assert.Equal("driver_pack.extract", failure.OperationName);
-        Assert.Equal(DeploymentFailureKinds.Process, failure.Kind);
-        Assert.Equal(DeploymentFailureReasons.StartFailed, failure.Reason);
-        Assert.Null(failure.Code);
+            DeploymentFailure failure = DeploymentFailureClassifier.Classify(exception, "driver_pack.extract");
+
+            Assert.Equal("driver_pack.extract", failure.OperationName);
+            Assert.Equal(DeploymentFailureKinds.Process, failure.Kind);
+            Assert.Equal(DeploymentFailureReasons.StartFailed, failure.Reason);
+            Assert.NotNull(failure.Code);
+        }
+        finally
+        {
+            workspace.Delete(recursive: true);
+        }
     }
 
     [Theory]

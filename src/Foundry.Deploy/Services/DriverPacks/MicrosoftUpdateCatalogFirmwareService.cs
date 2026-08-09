@@ -6,6 +6,7 @@ using System.IO;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.Download;
 using Foundry.Deploy.Services.System;
+using Foundry.Utilities.IO;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.DriverPacks;
@@ -52,8 +53,8 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
             };
         }
 
-        ResetDirectory(rawDirectory);
-        ResetDirectory(extractedDirectory);
+        DirectoryOperations.Recreate(rawDirectory);
+        DirectoryOperations.Recreate(extractedDirectory);
         progress?.Report(5d);
 
         if (!await _catalogClient.IsAvailableAsync(cancellationToken).ConfigureAwait(false))
@@ -232,16 +233,6 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
                !parentFolder.Equals(sourceFolder, StringComparison.OrdinalIgnoreCase)
             ? parentFolder
             : Path.GetFileNameWithoutExtension(cabPath);
-    }
-
-    private static void ResetDirectory(string path)
-    {
-        if (Directory.Exists(path))
-        {
-            Directory.Delete(path, recursive: true);
-        }
-
-        Directory.CreateDirectory(path);
     }
 
     private static IProgress<double>? CreateMappedProgress(IProgress<double>? progress, double start, double end)

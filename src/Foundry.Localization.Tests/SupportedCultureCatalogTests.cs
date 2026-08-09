@@ -170,6 +170,23 @@ public sealed class SupportedCultureCatalogTests
         Assert.Contains("default", exception.Message, StringComparison.OrdinalIgnoreCase);
     }
 
+    [Fact]
+    public void SupportedCultureDefinition_RejectsInvalidCultureCode()
+    {
+        Assert.Throws<CultureNotFoundException>(() => new SupportedCultureDefinition(
+            "invalid-culture-code",
+            "Language.Invalid",
+            10));
+    }
+
+    [Fact]
+    public void Constructor_RejectsInvalidDefaultCultureCode()
+    {
+        Assert.Throws<CultureNotFoundException>(() => new SupportedCultureCatalog(
+            "invalid-culture-code",
+            [new SupportedCultureDefinition("en-US", "Language.English", 10)]));
+    }
+
     private static SupportedCultureCatalog CreateCatalog()
     {
         return new SupportedCultureCatalog(

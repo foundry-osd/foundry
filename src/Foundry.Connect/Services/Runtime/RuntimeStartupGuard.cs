@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Diagnostics;
+using Foundry.Utilities.Runtime;
 
 namespace Foundry.Connect.Services.Runtime;
 
@@ -17,18 +18,7 @@ internal static class RuntimeStartupGuard
     /// <returns><see langword="true"/> when the runtime is WinPE or a debugger bypass is active.</returns>
     public static bool CanRun()
     {
-        return CanRun(WinPeRuntimeDetector.IsWinPeRuntime(), IsDebuggerBypassEnabled());
-    }
-
-    /// <summary>
-    /// Evaluates startup permission from supplied runtime facts.
-    /// </summary>
-    /// <param name="isWinPeRuntime">Whether the current environment is WinPE.</param>
-    /// <param name="isDebuggerBypassEnabled">Whether the debug bypass is enabled.</param>
-    /// <returns><see langword="true"/> when startup is allowed.</returns>
-    internal static bool CanRun(bool isWinPeRuntime, bool isDebuggerBypassEnabled)
-    {
-        return isWinPeRuntime || isDebuggerBypassEnabled;
+        return RuntimeStartupPolicy.CanRun(WinPeRuntimeDetector.IsWinPeRuntime(), IsDebuggerBypassEnabled());
     }
 
     private static bool IsDebuggerBypassEnabled()

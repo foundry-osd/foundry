@@ -1,0 +1,62 @@
+// Copyright (c) Foundry Project contributors.
+// Licensed under the MIT License.
+// See the LICENSE file in the project root for more information.
+
+using Microsoft.Win32;
+
+namespace Foundry.Utilities.Runtime;
+
+/// <summary>
+/// Detects whether the current process is running in Windows Preinstallation Environment.
+/// </summary>
+public static class WinPeRuntimeDetector
+{
+    private const string WinPeVersionRegistryKey = @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\WinPE";
+    private const string MiniNtRegistryKey = @"SYSTEM\CurrentControlSet\Control\MiniNT";
+
+    /// <summary>
+    /// Gets a value indicating whether the current process is running in WinPE.
+    /// </summary>
+    public static bool IsWinPeRuntime()
+    {
+        return IsWinPeRuntime(
+            Environment.GetEnvironmentVariable("SystemDrive"),
+            Environment.GetFolderPath(Environment.SpecialFolder.Windows),
+            RegistryKeyExists);
+    }
+
+    internal static bool IsWinPeRuntime(
+        string? systemDrive,
+        string? windowsDirectory,
+        Func<string, bool> registryKeyExists)
+    {
+        ArgumentNullException.ThrowIfNull(registryKeyExists);
+
+        if (registryKeyExists(WinPeVersionRegistryKey) || registryKeyExists(MiniNtRegistryKey))
+        {
+            return true;
+        }
+
+        if (!string.IsNullOrWhiteSpace(systemDrive) &&
+            systemDrive.Equals("X:", StringComparison.OrdinalIgnoreCase))
+        {
+            return true;
+        }
+
+        return !string.IsNullOrWhiteSpace(windowsDirectory) &&
+               windowsDirectory.StartsWith(@"X:\", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool RegistryKeyExists(string subKeyPath)
+    {
+        try
+        {
+            using RegistryKey? key = Registry.LocalMachine.OpenSubKey(subKeyPath);
+            return key is not null;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+}

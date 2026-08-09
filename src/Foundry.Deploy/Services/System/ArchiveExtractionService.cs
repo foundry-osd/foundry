@@ -5,6 +5,7 @@
 using System.IO;
 using System.Runtime.InteropServices;
 using Foundry.Deploy.Services.Deployment;
+using Foundry.Utilities.Processes;
 
 namespace Foundry.Deploy.Services.System;
 
@@ -69,7 +70,7 @@ public sealed class ArchiveExtractionService : IArchiveExtractionService
         if (!execution.IsSuccess)
         {
             throw new DeploymentProcessException(
-                $"7-Zip extraction failed for '{archivePath}'.{Environment.NewLine}{ToDiagnostic(execution)}",
+                $"7-Zip extraction failed for '{archivePath}'.{Environment.NewLine}{execution.ToDiagnosticText()}",
                 execution.ExitCode);
         }
 
@@ -120,11 +121,4 @@ public sealed class ArchiveExtractionService : IArchiveExtractionService
         return windowsRootInfo?.FullName;
     }
 
-    private static string ToDiagnostic(ProcessExecutionResult execution)
-    {
-        return
-            $"ExitCode={execution.ExitCode}{Environment.NewLine}" +
-            $"StdOut:{Environment.NewLine}{execution.StandardOutput}{Environment.NewLine}" +
-            $"StdErr:{Environment.NewLine}{execution.StandardError}";
-    }
 }

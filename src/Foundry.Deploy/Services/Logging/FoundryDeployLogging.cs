@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
+using Foundry.Utilities.IO;
 using Serilog;
 
 namespace Foundry.Deploy.Services.Logging;
@@ -23,25 +24,7 @@ internal static class FoundryDeployLogging
             AppContext.BaseDirectory
         ];
 
-        foreach (string candidateDirectory in candidateDirectories)
-        {
-            if (string.IsNullOrWhiteSpace(candidateDirectory))
-            {
-                continue;
-            }
-
-            try
-            {
-                Directory.CreateDirectory(candidateDirectory);
-                return Path.Combine(candidateDirectory, LogFileName);
-            }
-            catch
-            {
-                // Try next candidate.
-            }
-        }
-
-        return LogFileName;
+        return WritableFilePathResolver.Resolve(candidateDirectories, LogFileName);
     }
 
     public static ILogger CreateLogger(string logFilePath)

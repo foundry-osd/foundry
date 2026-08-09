@@ -10,7 +10,10 @@ using System.Text;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Services.Configuration;
 using Foundry.Connect.Services.Runtime;
+using Foundry.Connect.Services.System;
 using Foundry.Core.Services.Configuration;
+using Foundry.Utilities.Networking;
+using Foundry.Utilities.Processes;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Connect.Services.Network;
@@ -29,7 +32,9 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
     private readonly IConnectConfigurationService _configurationService;
     private readonly INetworkProfileRoamingService _networkProfileRoamingService;
     private readonly ILogger<NetworkBootstrapService> _logger;
+    private readonly ConnectProcessExecutor _processExecutor;
     private readonly Func<IReadOnlyList<Guid>> _getWifiInterfaceIds;
+    private readonly INetworkAdapterSnapshotProvider _networkAdapterSnapshotProvider;
 
     /// <summary>
     /// Initializes a network bootstrap service.
@@ -38,12 +43,20 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
     /// <param name="configurationService">The configuration service used to resolve relative asset paths.</param>
     /// <param name="networkProfileRoamingService">The service used to capture eligible profiles for Windows import.</param>
     /// <param name="logger">The logger used for network command diagnostics.</param>
+    /// <param name="networkAdapterSnapshotProvider">The provider used to enumerate wired adapters.</param>
     public NetworkBootstrapService(
         FoundryConnectConfiguration configuration,
         IConnectConfigurationService configurationService,
         INetworkProfileRoamingService networkProfileRoamingService,
-        ILogger<NetworkBootstrapService> logger)
-        : this(configuration, configurationService, networkProfileRoamingService, logger, NativeWifiApi.GetInterfaceIds)
+        ILogger<NetworkBootstrapService> logger,
+        INetworkAdapterSnapshotProvider? networkAdapterSnapshotProvider = null)
+        : this(
+            configuration,
+            configurationService,
+            networkProfileRoamingService,
+            logger,
+            NativeWifiApi.GetInterfaceIds,
+            networkAdapterSnapshotProvider)
     {
     }
 
@@ -52,13 +65,16 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         IConnectConfigurationService configurationService,
         INetworkProfileRoamingService networkProfileRoamingService,
         ILogger<NetworkBootstrapService> logger,
-        Func<IReadOnlyList<Guid>> getWifiInterfaceIds)
+        Func<IReadOnlyList<Guid>> getWifiInterfaceIds,
+        INetworkAdapterSnapshotProvider? networkAdapterSnapshotProvider = null)
     {
         _configuration = configuration;
         _configurationService = configurationService;
         _networkProfileRoamingService = networkProfileRoamingService;
         _logger = logger;
+        _processExecutor = new ConnectProcessExecutor(logger);
         _getWifiInterfaceIds = getWifiInterfaceIds;
+        _networkAdapterSnapshotProvider = networkAdapterSnapshotProvider ?? new WindowsNetworkAdapterSnapshotProvider();
     }
 
     /// <inheritdoc />
@@ -104,7 +120,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
 
         string arguments = $"wlan connect name=\"{EscapeNetshArgument(profileName)}\"";
 
-        ProcessExecutionResult result = await ExecuteProcessAsync("netsh", arguments, cancellationToken).ConfigureAwait(false);
+        ProcessExecutionResult result = await _processExecutor.ExecuteAsync("netsh", arguments, cancellationToken).ConfigureAwait(false);
         if (result.ExitCode != 0)
         {
             _logger.LogWarning(
@@ -171,7 +187,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                 return $"Wi-Fi profile import failed for '{trimmedSsid}': {CollapseError(addProfileResult)}";
             }
 
-            ProcessExecutionResult connectResult = await ExecuteProcessAsync(
+            ProcessExecutionResult connectResult = await _processExecutor.ExecuteAsync(
                 "netsh",
                 $"wlan connect name=\"{EscapeNetshArgument(trimmedSsid)}\"",
                 cancellationToken).ConfigureAwait(false);
@@ -220,7 +236,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             return "Wi-Fi is already disconnected.";
         }
 
-        ProcessExecutionResult disconnectResult = await ExecuteProcessAsync(
+        ProcessExecutionResult disconnectResult = await _processExecutor.ExecuteAsync(
             "netsh",
             "wlan disconnect",
             cancellationToken).ConfigureAwait(false);
@@ -263,7 +279,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             messages.Add("Runtime-entered wired 802.1X credentials are not supported in this build. Use a profile template that already contains the required enterprise settings.");
         }
 
-        ProcessExecutionResult addProfileResult = await ExecuteProcessAsync(
+        ProcessExecutionResult addProfileResult = await _processExecutor.ExecuteAsync(
             "netsh",
             $"lan add profile filename=\"{profilePath}\"",
             cancellationToken).ConfigureAwait(false);
@@ -291,7 +307,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         string? ethernetInterfaceName = GetEthernetInterfaceName();
         if (!string.IsNullOrWhiteSpace(ethernetInterfaceName))
         {
-            ProcessExecutionResult reconnectResult = await ExecuteProcessAsync(
+            ProcessExecutionResult reconnectResult = await _processExecutor.ExecuteAsync(
                 "netsh",
                 $"lan reconnect interface=\"{ethernetInterfaceName}\"",
                 cancellationToken).ConfigureAwait(false);
@@ -406,12 +422,12 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             ? WinPeWifiProfileImportRetryCount
             : 1;
 
-        ProcessExecutionResult lastResult = default;
+        ProcessExecutionResult? lastResult = null;
         for (int attempt = 1; attempt <= maxAttempts; attempt++)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            lastResult = await ExecuteProcessAsync(
+            lastResult = await _processExecutor.ExecuteAsync(
                 "netsh",
                 $"wlan add profile filename=\"{profilePath}\"",
                 cancellationToken).ConfigureAwait(false);
@@ -436,7 +452,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             await Task.Delay(WifiProfileImportRetryDelay, cancellationToken).ConfigureAwait(false);
         }
 
-        return lastResult;
+        return lastResult!;
     }
 
     private async Task<string> WriteTemporaryWifiProfileAsync(
@@ -497,8 +513,14 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
 
     private string? GetEthernetInterfaceName()
     {
-        return NetworkInterface.GetAllNetworkInterfaces()
-            .Where(static adapter => adapter.NetworkInterfaceType is NetworkInterfaceType.Ethernet
+        return SelectEthernetInterfaceName(_networkAdapterSnapshotProvider.GetAdapters());
+    }
+
+    internal static string? SelectEthernetInterfaceName(
+        IReadOnlyList<NetworkAdapterSnapshot> adapters)
+    {
+        return adapters
+            .Where(static adapter => adapter.InterfaceType is NetworkInterfaceType.Ethernet
                 or NetworkInterfaceType.GigabitEthernet
                 or NetworkInterfaceType.FastEthernetFx
                 or NetworkInterfaceType.FastEthernetT
@@ -703,46 +725,6 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         return message.Replace(Environment.NewLine, " ").Trim();
     }
 
-    private async Task<ProcessExecutionResult> ExecuteProcessAsync(string fileName, string arguments, CancellationToken cancellationToken)
-    {
-        cancellationToken.ThrowIfCancellationRequested();
-
-        try
-        {
-            using Process process = new()
-            {
-                StartInfo = new ProcessStartInfo
-                {
-                    FileName = fileName,
-                    Arguments = arguments,
-                    CreateNoWindow = true,
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true
-                }
-            };
-
-            process.Start();
-            Task<string> outputTask = process.StandardOutput.ReadToEndAsync(cancellationToken);
-            Task<string> errorTask = process.StandardError.ReadToEndAsync(cancellationToken);
-            await process.WaitForExitAsync(cancellationToken).ConfigureAwait(false);
-
-            return new ProcessExecutionResult(
-                process.ExitCode,
-                await outputTask.ConfigureAwait(false),
-                await errorTask.ConfigureAwait(false));
-        }
-        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
-        {
-            throw;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogDebug(ex, "Process execution failed for {FileName} {Arguments}.", fileName, arguments);
-            return new ProcessExecutionResult(-1, string.Empty, ex.Message);
-        }
-    }
-
     private sealed record WifiConnectionAttemptResult(bool IsConnected, string? FailureMessage)
     {
         public static WifiConnectionAttemptResult Success()
@@ -769,5 +751,4 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         }
     }
 
-    private readonly record struct ProcessExecutionResult(int ExitCode, string StandardOutput, string StandardError);
 }

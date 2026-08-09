@@ -10,6 +10,7 @@ using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Catalog;
 using Foundry.Deploy.Services.Localization;
+using Foundry.Utilities.Globalization;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.ViewModels;
@@ -477,7 +478,7 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
         }
 
         string[] filteredLanguageValues = availableLanguageValues
-            .Where(value => _configuredAllowedLanguageCodes.Contains(LanguageCodeUtility.NormalizeForComparison(value)))
+            .Where(value => _configuredAllowedLanguageCodes.Contains(CultureCode.NormalizeForComparison(value)))
             .ToArray();
 
         if (filteredLanguageValues.Length > 0)
@@ -877,7 +878,7 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
     private static string GetLanguageFilterValue(OperatingSystemCatalogItem item)
     {
         return !string.IsNullOrWhiteSpace(item.LanguageCode)
-            ? LanguageCodeUtility.Canonicalize(item.LanguageCode)
+            ? CultureCode.Canonicalize(item.LanguageCode)
             : item.Language;
     }
 
@@ -892,7 +893,7 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
 
         foreach (string candidate in candidates)
         {
-            string canonical = LanguageCodeUtility.Canonicalize(candidate);
+            string canonical = CultureCode.Canonicalize(candidate);
             if (!string.IsNullOrWhiteSpace(canonical))
             {
                 return canonical;
@@ -909,15 +910,15 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
             return null;
         }
 
-        string normalized = LanguageCodeUtility.NormalizeForComparison(languageCode);
+        string normalized = CultureCode.NormalizeForComparison(languageCode);
         return string.IsNullOrWhiteSpace(normalized)
             ? null
-            : LanguageCodeUtility.Canonicalize(languageCode);
+            : CultureCode.Canonicalize(languageCode);
     }
 
     private static string NormalizeLanguageCode(string languageCode)
     {
-        return LanguageCodeUtility.NormalizeForComparison(languageCode);
+        return CultureCode.NormalizeForComparison(languageCode);
     }
 
     private static string NormalizeLicenseChannel(string? value)

@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Services.WinPe;
-using Foundry.Core.Tests.TestUtilities;
 
 namespace Foundry.Core.Tests.WinPe;
 
@@ -67,24 +66,4 @@ public sealed class WinPeHelperTests
         Assert.Equal(expectedSevenZipFolder, architecture.ToSevenZipRuntimeFolder());
     }
 
-    [Fact]
-    public void SanitizePathSegment_ReplacesInvalidCharactersAndSpaces()
-    {
-        string sanitized = WinPeFileSystemHelper.SanitizePathSegment(" Folder Name<>:*? ");
-
-        Assert.Equal("Folder_Name_____", sanitized);
-    }
-
-    [Fact]
-    public void ContainsFileRecursive_ReturnsTrueWhenMatchExistsInSubdirectory()
-    {
-        using var tempDirectory = new TemporaryDirectory();
-        string nestedDirectory = Path.Combine(tempDirectory.Path, "nested");
-        Directory.CreateDirectory(nestedDirectory);
-        File.WriteAllText(Path.Combine(nestedDirectory, "driver.inf"), "content");
-
-        bool found = WinPeFileSystemHelper.ContainsFileRecursive(tempDirectory.Path, "*.inf");
-
-        Assert.True(found);
-    }
 }

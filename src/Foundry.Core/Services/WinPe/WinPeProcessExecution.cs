@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Text;
+using Foundry.Utilities.Processes;
 
 namespace Foundry.Core.Services.WinPe;
 
@@ -19,23 +19,32 @@ public sealed record WinPeProcessExecution
 
     public string ToDiagnosticText()
     {
-        var builder = new StringBuilder();
-        builder.AppendLine($"Command: {FileName} {Arguments}".TrimEnd());
-        builder.AppendLine($"WorkingDirectory: {WorkingDirectory}");
-        builder.AppendLine($"ExitCode: {ExitCode}");
+        return ToProcessExecutionResult().ToDiagnosticText();
+    }
 
-        if (!string.IsNullOrWhiteSpace(StandardOutput))
+    internal static WinPeProcessExecution FromProcessExecutionResult(ProcessExecutionResult result)
+    {
+        return new WinPeProcessExecution
         {
-            builder.AppendLine("StdOut:");
-            builder.AppendLine(StandardOutput.Trim());
-        }
+            ExitCode = result.ExitCode,
+            FileName = result.FileName,
+            Arguments = result.Arguments,
+            WorkingDirectory = result.WorkingDirectory,
+            StandardOutput = result.StandardOutput,
+            StandardError = result.StandardError
+        };
+    }
 
-        if (!string.IsNullOrWhiteSpace(StandardError))
+    private ProcessExecutionResult ToProcessExecutionResult()
+    {
+        return new ProcessExecutionResult
         {
-            builder.AppendLine("StdErr:");
-            builder.AppendLine(StandardError.Trim());
-        }
-
-        return builder.ToString().Trim();
+            ExitCode = ExitCode,
+            FileName = FileName,
+            Arguments = Arguments,
+            WorkingDirectory = WorkingDirectory,
+            StandardOutput = StandardOutput,
+            StandardError = StandardError
+        };
     }
 }
