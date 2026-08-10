@@ -11,7 +11,10 @@
           RowDefinitions="Auto,Auto"
           RowSpacing="40">
       <views:ReadinessStatusView />
-      <views:EthernetStatusPanel Grid.Row="1" />
+      <StackPanel Grid.Row="1" Spacing="40">
+        <views:EthernetStatusPanel />
+        <views:ProvisionedWifiPanel IsVisible="{Binding ShowWifiContent}" />
+      </StackPanel>
     </Grid>
   </ScrollViewer>
 </UserControl>

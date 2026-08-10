@@ -326,6 +326,20 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
     public bool HasProvisionedWifiActionFeedback => !string.IsNullOrWhiteSpace(ProvisionedWifiActionFeedbackText);
 
+    public bool ShowWifiContent => EffectiveLayoutMode == NetworkLayoutMode.EthernetWifi;
+
+    public ProvisionedWifiPresentation ProvisionedWifi => new(
+        HasProvisionedWifiProfile,
+        ShowProvisionedWifiContent,
+        IsProvisionedWifiConnected,
+        IsProvisionedWifiActionInProgress,
+        ProvisionedWifiProfileName,
+        ProvisionedWifiAuthenticationText,
+        ProvisionedWifiSourceHintText,
+        ProvisionedWifiStatusText,
+        ProvisionedWifiPlaceholderText,
+        ProvisionedWifiActionFeedbackText);
+
     /// <summary>
     /// Gets the empty-state text for Wi-Fi discovery.
     /// </summary>
@@ -794,6 +808,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(CanConnectConfiguredWifi));
         OnPropertyChanged(nameof(CanDisconnectConfiguredWifi));
         OnPropertyChanged(nameof(ProvisionedWifiStatusText));
+        OnPropertyChanged(nameof(ProvisionedWifi));
         ConnectConfiguredWifiCommand.NotifyCanExecuteChanged();
         DisconnectConfiguredWifiCommand.NotifyCanExecuteChanged();
         ContinueBootstrapCommand.NotifyCanExecuteChanged();
@@ -960,6 +975,11 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(CanDisconnectSelectedWifi));
     }
 
+    partial void OnIsProvisionedWifiActionInProgressChanged(bool value)
+    {
+        OnPropertyChanged(nameof(ProvisionedWifi));
+    }
+
     partial void OnSelectedWifiNetworkChanged(WifiNetworkItemViewModel? value)
     {
         bool hasChangedSelection = !string.Equals(
@@ -998,6 +1018,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     partial void OnProvisionedWifiActionFeedbackTextChanged(string value)
     {
         OnPropertyChanged(nameof(HasProvisionedWifiActionFeedback));
+        OnPropertyChanged(nameof(ProvisionedWifi));
     }
 
     partial void OnCurrentConnectionChipTextChanged(string value)
@@ -1019,11 +1040,13 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     partial void OnLayoutModeChanged(NetworkLayoutMode value)
     {
         OnPropertyChanged(nameof(EffectiveLayoutMode));
+        OnPropertyChanged(nameof(ShowWifiContent));
     }
 
     partial void OnDebugLayoutOverrideChanged(NetworkLayoutMode? value)
     {
         OnPropertyChanged(nameof(EffectiveLayoutMode));
+        OnPropertyChanged(nameof(ShowWifiContent));
     }
 
     private void OnLanguageChanged(object? sender, EventArgs e)
@@ -1047,6 +1070,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             OnPropertyChanged(nameof(ProvisionedWifiSourceHintText));
             OnPropertyChanged(nameof(ProvisionedWifiStatusText));
             OnPropertyChanged(nameof(ProvisionedWifiPlaceholderText));
+            OnPropertyChanged(nameof(ProvisionedWifi));
             OnPropertyChanged(nameof(WifiDiscoveryEmptyStateText));
         });
 

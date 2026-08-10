@@ -1,0 +1,89 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:Foundry.Avalonia.Controls"
+             xmlns:vm="using:Foundry.Connect.ViewModels"
+             x:Class="Foundry.Connect.Views.ProvisionedWifiPanel"
+             x:DataType="vm:MainWindowViewModel">
+  <Grid RowDefinitions="Auto,Auto,Auto" RowSpacing="20">
+    <TextBlock FontSize="18"
+               FontWeight="SemiBold"
+               Text="{Binding Strings[Wifi.ProvisionedTitle]}" />
+
+    <Border Grid.Row="1"
+            Height="1"
+            Background="{DynamicResource FoundryBrush.Divider}" />
+
+    <Grid Name="ProvisionedWifiDetails"
+          Grid.Row="2"
+          IsVisible="{Binding ProvisionedWifi.ShowDetails}"
+          RowDefinitions="Auto,Auto,Auto"
+          RowSpacing="20">
+      <Grid ColumnDefinitions="Auto,*"
+            RowDefinitions="Auto,Auto,Auto"
+            ColumnSpacing="32"
+            RowSpacing="14">
+        <TextBlock FontWeight="SemiBold"
+                   Text="{Binding Strings[Wifi.ProfileLabel]}" />
+        <TextBlock Name="ProvisionedProfileName"
+                   Grid.Column="1"
+                   Text="{Binding ProvisionedWifi.ProfileName}"
+                   TextTrimming="CharacterEllipsis" />
+
+        <TextBlock Grid.Row="1"
+                   FontWeight="SemiBold"
+                   Text="{Binding Strings[Wifi.AuthenticationLabel]}" />
+        <TextBlock Name="ProvisionedAuthentication"
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   Text="{Binding ProvisionedWifi.Authentication}"
+                   TextTrimming="CharacterEllipsis" />
+
+        <TextBlock Grid.Row="2"
+                   Grid.ColumnSpan="2"
+                   Foreground="{DynamicResource FoundryBrush.TextSecondary}"
+                   Text="{Binding ProvisionedWifi.Source}"
+                   TextWrapping="Wrap" />
+      </Grid>
+
+      <Grid Grid.Row="1" ColumnDefinitions="*,Auto" ColumnSpacing="24">
+        <TextBlock VerticalAlignment="Center"
+                   Foreground="{DynamicResource FoundryBrush.TextSecondary}"
+                   Text="{Binding ProvisionedWifi.Status}" />
+        <Grid Grid.Column="1">
+          <Button Name="ConnectProvisionedWifiButton"
+                  MinWidth="120"
+                  Command="{Binding ConnectConfiguredWifiCommand}"
+                  Content="{Binding Strings[Action.Connect]}"
+                  IsVisible="{Binding ProvisionedWifi.ShowConnectAction}" />
+          <Button Name="DisconnectProvisionedWifiButton"
+                  MinWidth="120"
+                  Command="{Binding DisconnectConfiguredWifiCommand}"
+                  Content="{Binding Strings[Action.Disconnect]}"
+                  IsVisible="{Binding ProvisionedWifi.ShowDisconnectAction}" />
+        </Grid>
+      </Grid>
+
+      <StackPanel Grid.Row="2" Spacing="12">
+        <controls:FoundryProgressRing Width="24"
+                                      Height="24"
+                                      HorizontalAlignment="Left"
+                                      AccessibleLabel="{Binding Strings[Wifi.ProvisionedTitle]}"
+                                      IsIndeterminate="True"
+                                      IsVisible="{Binding ProvisionedWifi.IsActionInProgress}"
+                                      StrokeThickness="3" />
+        <TextBlock Name="ProvisionedWifiFeedback"
+                   Foreground="{DynamicResource FoundryBrush.Critical}"
+                   IsVisible="{Binding ProvisionedWifi.HasFeedback}"
+                   Text="{Binding ProvisionedWifi.Feedback}"
+                   TextWrapping="Wrap" />
+      </StackPanel>
+    </Grid>
+
+    <TextBlock Name="ProvisionedWifiPlaceholder"
+               Grid.Row="2"
+               Foreground="{DynamicResource FoundryBrush.TextSecondary}"
+               IsVisible="{Binding ProvisionedWifi.ShowPlaceholder}"
+               Text="{Binding ProvisionedWifi.Placeholder}"
+               TextWrapping="Wrap" />
+  </Grid>
+</UserControl>
