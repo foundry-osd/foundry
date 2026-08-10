@@ -14,20 +14,6 @@
         CanResize="False"
         ExtendClientAreaToDecorationsHint="True">
   <controls:FoundryShell Name="Shell">
-    <controls:FoundryShell.BrandContent>
-      <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
-        <Image Width="28"
-               Height="28"
-               Source="avares://Foundry.Connect/Assets/Images/foundry-about-logo.png"
-               Stretch="Uniform" />
-        <TextBlock Grid.Column="1"
-                   VerticalAlignment="Center"
-                   FontSize="18"
-                   FontWeight="SemiBold"
-                   Text="{Binding Strings[App.Name]}" />
-      </Grid>
-    </controls:FoundryShell.BrandContent>
-
     <controls:FoundryShell.MenuContent>
       <Menu Background="Transparent">
         <MenuItem Header="{Binding Strings[Menu.Theme]}">
