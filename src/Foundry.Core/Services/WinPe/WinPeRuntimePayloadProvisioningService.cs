@@ -193,6 +193,22 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             File.Delete(archivePath);
         }
 
+        string[] packagingProperties = applicationName == "Foundry.Connect"
+            ?
+            [
+                "/p:PublishSingleFile=false",
+                "/p:PublishTrimmed=false",
+                "/p:PublishReadyToRun=false",
+                "/p:PublishAot=false"
+            ]
+            :
+            [
+                "/p:PublishSingleFile=true",
+                "/p:EnableCompressionInSingleFile=true",
+                "/p:IncludeNativeLibrariesForSelfExtract=true",
+                "/p:IncludeAllContentForSelfExtract=true"
+            ];
+
         string publishArguments = string.Join(
             " ",
             "publish",
@@ -200,10 +216,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             "-c", "Release",
             "-r", runtimeIdentifier,
             "--self-contained", "true",
-            "/p:PublishSingleFile=true",
-            "/p:EnableCompressionInSingleFile=true",
-            "/p:IncludeNativeLibrariesForSelfExtract=true",
-            "/p:IncludeAllContentForSelfExtract=true",
+            string.Join(" ", packagingProperties),
             "/p:DebugType=None",
             "/p:GenerateDocumentationFile=false",
             "-o", WinPeProcessRunner.Quote(publishDirectory));

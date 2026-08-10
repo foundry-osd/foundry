@@ -85,7 +85,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
     }
 
     [Fact]
-    public async Task ProvisionAsync_WhenProjectIsProvided_PublishesSingleFileBeforeProvisioning()
+    public async Task ProvisionAsync_WhenDeployProjectIsProvided_PreservesCurrentSingleFileContract()
     {
         using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
         string projectPath = Path.Combine(workspace.RootPath, "src", "Foundry.Deploy", "Foundry.Deploy.csproj");
@@ -119,7 +119,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
     }
 
     [Fact]
-    public async Task ProvisionAsync_WhenConnectProjectIsProvided_PublishesSingleFileBeforeProvisioning()
+    public async Task ProvisionAsync_WhenConnectProjectIsProvided_PublishesCompleteTreeBeforeProvisioning()
     {
         using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
         string projectPath = Path.Combine(workspace.RootPath, "src", "Foundry.Connect", "Foundry.Connect.csproj");
@@ -148,7 +148,10 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         Assert.Equal("dotnet", execution.FileName);
         Assert.Contains("publish", execution.Arguments);
         Assert.Contains("-r win-x64", execution.Arguments);
-        Assert.Contains("/p:PublishSingleFile=true", execution.Arguments);
+        Assert.Contains("/p:PublishSingleFile=false", execution.Arguments);
+        Assert.Contains("/p:PublishTrimmed=false", execution.Arguments);
+        Assert.Contains("/p:PublishReadyToRun=false", execution.Arguments);
+        Assert.Contains("/p:PublishAot=false", execution.Arguments);
         Assert.True(File.Exists(Path.Combine(workspace.MountedImagePath, "Foundry", "Runtime", "Foundry.Connect", "win-x64", "Foundry.Connect.exe")));
     }
 

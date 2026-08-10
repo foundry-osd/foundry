@@ -15,10 +15,10 @@ $repoRoot = Resolve-Path (Join-Path $PSScriptRoot '..')
 $projectPath = Join-Path $repoRoot 'src\Foundry.Connect\Foundry.Connect.csproj'
 $publishRoot = Join-Path $repoRoot 'artifacts\publish\Foundry.Connect'
 $publishProperties = @(
-    'PublishSingleFile=true',
-    'EnableCompressionInSingleFile=true',
-    'IncludeNativeLibrariesForSelfExtract=true',
-    'IncludeAllContentForSelfExtract=true',
+    'PublishSingleFile=false',
+    'PublishTrimmed=false',
+    'PublishReadyToRun=false',
+    'PublishAot=false',
     'DebugType=None',
     'GenerateDocumentationFile=false'
 )
@@ -58,6 +58,11 @@ foreach ($rid in $runtimeIdentifiers) {
     if ($LASTEXITCODE -ne 0) {
         throw "dotnet publish failed for Foundry.Connect ($rid) with exit code $LASTEXITCODE."
     }
+
+    & (Join-Path $PSScriptRoot 'Test-FoundryRuntimePayload.ps1') `
+        -Application 'Foundry.Connect' `
+        -RuntimeIdentifier $rid `
+        -PublishDirectory $outputPath
 }
 
 Write-Host "Publish completed."
