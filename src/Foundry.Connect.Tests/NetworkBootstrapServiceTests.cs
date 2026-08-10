@@ -14,6 +14,47 @@ namespace Foundry.Connect.Tests;
 public sealed class NetworkBootstrapServiceTests
 {
     [Fact]
+    public async Task ApplyProvisionedSettingsAsync_WhenNothingIsProvisioned_ReturnsNoActionStatus()
+    {
+        var configuration = new FoundryConnectConfiguration();
+        var service = new NetworkBootstrapService(
+            configuration,
+            new FakeConnectConfigurationService(configuration),
+            new CapturingNetworkProfileRoamingService(),
+            NullLogger<NetworkBootstrapService>.Instance,
+            getWifiInterfaceIds: static () => []);
+
+        string result = await service.ApplyProvisionedSettingsAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal("No provisioned network bootstrap actions were requested.", result);
+    }
+
+    [Fact]
+    public async Task ApplyProvisionedSettingsAsync_WhenEnterpriseProfileIsMissing_ReportsMissingProfile()
+    {
+        var configuration = new FoundryConnectConfiguration
+        {
+            Capabilities = new NetworkCapabilitiesOptions { WifiProvisioned = true },
+            Wifi = new WifiSettings
+            {
+                IsEnabled = true,
+                SecurityType = "WPA2-Enterprise",
+                EnterpriseProfileTemplatePath = "missing.xml"
+            }
+        };
+        var service = new NetworkBootstrapService(
+            configuration,
+            new FakeConnectConfigurationService(configuration),
+            new CapturingNetworkProfileRoamingService(),
+            NullLogger<NetworkBootstrapService>.Instance,
+            getWifiInterfaceIds: static () => []);
+
+        string result = await service.ApplyProvisionedSettingsAsync(TestContext.Current.CancellationToken);
+
+        Assert.Contains("No Wi-Fi profile is configured", result, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void SelectEthernetInterfaceName_UsesFirstNamedEthernetRegardlessOfStatus()
     {
         NetworkAdapterSnapshot[] adapters =
