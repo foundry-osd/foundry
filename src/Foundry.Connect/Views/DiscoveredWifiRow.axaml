@@ -1,0 +1,69 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:Foundry.Connect.Controls"
+             xmlns:views="using:Foundry.Connect.Views"
+             x:Class="Foundry.Connect.Views.DiscoveredWifiRow"
+             x:DataType="views:DiscoveredWifiRow"
+             x:Name="Root">
+  <Grid RowDefinitions="Auto,Auto" Margin="0,4">
+    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="16">
+      <StackPanel Spacing="3">
+        <TextBlock Name="SsidText"
+                   FontWeight="SemiBold"
+                   Text="{Binding #Root.Network.DisplaySsid}" />
+        <TextBlock Name="AuthenticationText"
+                   Foreground="{DynamicResource FoundryBrush.TextSecondary}"
+                   Text="{Binding #Root.Network.DisplayAuthentication}" />
+        <TextBlock Foreground="{DynamicResource FoundryBrush.Success}"
+                   IsVisible="{Binding #Root.Network.IsConnected}"
+                   Text="{Binding #Root.ViewModel.Strings[Common.Connected]}" />
+      </StackPanel>
+      <TextBlock Grid.Column="1"
+                 VerticalAlignment="Center"
+                 Foreground="{DynamicResource FoundryBrush.TextSecondary}"
+                 Text="{Binding #Root.Network.SignalStrengthPercent, StringFormat={}{0}%}" />
+    </Grid>
+
+    <Grid Name="ConnectActions"
+          Grid.Row="1"
+          Margin="0,16,0,4"
+          IsVisible="{Binding #Root.IsSelected}">
+      <StackPanel IsVisible="{Binding #Root.Network.ShowConnectAction}" Spacing="12">
+        <controls:WifiPassphraseEditor Name="PassphraseEditor"
+                                           AccessibleRevealLabel="{Binding #Root.ViewModel.Strings[Wifi.TogglePassphraseVisibility]}"
+                                           IsActive="{Binding #Root.IsSelected}"
+                                           IsVisible="{Binding #Root.Network.RequiresPassphrase}"
+                                           AttachedToVisualTree="OnPassphraseEditorAttached"
+                                           Password="{Binding #Root.ViewModel.SelectedWifiPassphrase, Mode=TwoWay}"
+                                           SubmitCommand="{Binding #Root.ViewModel.ConnectSelectedWifiCommand}" />
+        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="16">
+          <TextBlock VerticalAlignment="Center"
+                     Foreground="{DynamicResource FoundryBrush.Critical}"
+                     IsVisible="{Binding #Root.ViewModel.HasSelectedWifiActionFeedback}"
+                     Text="{Binding #Root.ViewModel.SelectedWifiActionFeedbackText}"
+                     TextWrapping="Wrap" />
+          <Button Name="ConnectButton"
+                  Grid.Column="1"
+                  MinWidth="120"
+                  Command="{Binding #Root.ViewModel.ConnectSelectedWifiCommand}"
+                  Content="{Binding #Root.ViewModel.Strings[Action.Connect]}"
+                  AttachedToVisualTree="OnConnectButtonAttached" />
+        </Grid>
+      </StackPanel>
+
+      <Button Name="DisconnectButton"
+              MinWidth="120"
+              HorizontalAlignment="Right"
+              Command="{Binding #Root.ViewModel.DisconnectSelectedWifiCommand}"
+              Content="{Binding #Root.ViewModel.Strings[Action.Disconnect]}"
+              IsVisible="{Binding #Root.Network.IsConnected}"
+              AttachedToVisualTree="OnDisconnectButtonAttached" />
+
+      <TextBlock Name="ProvisionedProfileHint"
+                 Foreground="{DynamicResource FoundryBrush.TextSecondary}"
+                 IsVisible="{Binding #Root.Network.RequiresProvisionedProfile}"
+                 Text="{Binding #Root.ViewModel.Strings[Wifi.ProvisionedProfileRequired]}"
+                 TextWrapping="Wrap" />
+    </Grid>
+  </Grid>
+</UserControl>

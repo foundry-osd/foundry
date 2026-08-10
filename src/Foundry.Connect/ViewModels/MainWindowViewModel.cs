@@ -1421,6 +1421,10 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             private set => SetProperty(ref _isConnected, value);
         }
 
+        public bool ShowConnectAction => CanDirectConnect && !IsConnected;
+
+        public bool RequiresProvisionedProfile => !CanDirectConnect && !IsConnected;
+
         public void Update(
             string displaySsid,
             string displayAuthentication,
@@ -1443,6 +1447,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             CanDirectConnect = canDirectConnect;
             RequiresPassphrase = requiresPassphrase;
             IsConnected = isConnected;
+            OnPropertyChanged(nameof(ShowConnectAction));
+            OnPropertyChanged(nameof(RequiresProvisionedProfile));
         }
     }
 

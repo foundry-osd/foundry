@@ -191,7 +191,6 @@
 
   <ItemGroup>
     <Compile Remove="Views\AboutDialog.xaml.cs" />
-    <Compile Remove="Views\EthernetWifiView.xaml.cs" />
   </ItemGroup>
 
   <ItemGroup>
