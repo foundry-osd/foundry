@@ -190,10 +190,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Views\AboutDialog.xaml.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="Assets\Icons\app.ico">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>

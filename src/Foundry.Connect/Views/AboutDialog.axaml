@@ -1,0 +1,34 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Foundry.Connect.ViewModels"
+        x:Class="Foundry.Connect.Views.AboutDialog"
+        x:DataType="vm:AboutDialogViewModel"
+        Title="{Binding AboutTitle}"
+        Width="680"
+        Height="400"
+        CanResize="False"
+        Icon="avares://Foundry.Connect/Assets/Icons/app.ico"
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner">
+  <Grid Margin="32" ColumnDefinitions="Auto,*" RowDefinitions="*,Auto" ColumnSpacing="28">
+    <Image Width="112"
+           Height="112"
+           VerticalAlignment="Center"
+           Source="avares://Foundry.Connect/Assets/Images/foundry-about-logo.png"
+           Stretch="Uniform" />
+
+    <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="10">
+      <TextBlock FontSize="28" FontWeight="SemiBold" Text="{Binding AppName}" />
+      <TextBlock FontSize="18" Text="{Binding Version}" />
+      <TextBlock Margin="0,12,0,0" Text="{Binding DescriptionLine1}" TextWrapping="Wrap" />
+      <TextBlock Text="{Binding DescriptionLine2}" TextWrapping="Wrap" />
+    </StackPanel>
+
+    <TextBlock Grid.Row="1"
+               Grid.ColumnSpan="2"
+               HorizontalAlignment="Center"
+               Foreground="{DynamicResource FoundryBrush.TextSecondary}"
+               Text="{Binding Footer}"
+               TextWrapping="Wrap" />
+  </Grid>
+</Window>

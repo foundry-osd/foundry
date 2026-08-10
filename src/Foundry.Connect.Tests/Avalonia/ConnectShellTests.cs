@@ -26,6 +26,10 @@ public sealed class ConnectShellTests
         Assert.Equal(WindowState.Maximized, window.WindowState);
         Assert.NotNull(window.FindControl<FoundryShell>("Shell"));
         Assert.Null(window.FindControl<Control>("Footer"));
+        Assert.NotEmpty(window.FindControl<MenuItem>("LanguageMenu")!.Items);
+        Assert.NotNull(window.FindControl<MenuItem>("ToolsMenu"));
+        Assert.NotNull(window.FindControl<MenuItem>("DiagnosticsMenuItem"));
+        Assert.NotNull(window.FindControl<MenuItem>("HelpMenu"));
         window.Close();
         context.ViewModel.Dispose();
     }

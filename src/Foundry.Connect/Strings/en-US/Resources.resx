@@ -36,6 +36,9 @@
   <data name="Menu.Language" xml:space="preserve">
     <value>Language</value>
   </data>
+  <data name="Menu.Help" xml:space="preserve">
+    <value>Help</value>
+  </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>Tools</value>
   </data>
@@ -62,6 +65,9 @@
   </data>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Refresh status</value>
+  </data>
+  <data name="Tools.Diagnostics" xml:space="preserve">
+    <value>Diagnostics</value>
   </data>
   <data name="Debug.UseRuntimeLayout" xml:space="preserve">
     <value>Use detected layout</value>

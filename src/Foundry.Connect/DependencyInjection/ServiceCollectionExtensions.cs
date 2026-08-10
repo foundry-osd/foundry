@@ -10,6 +10,7 @@ using Foundry.Avalonia.Services.Threading;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Services.ApplicationLifetime;
 using Foundry.Connect.Services.Configuration;
+using Foundry.Connect.Services.Diagnostics;
 using Foundry.Connect.Services.Localization;
 using Foundry.Connect.Services.Network;
 using Foundry.Connect.Services.Readiness;
@@ -73,6 +74,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<INetworkBootstrapService, NetworkBootstrapService>();
         services.AddSingleton<INetworkStatusService, NetworkStatusService>();
         services.AddSingleton<IConnectReadinessEvaluator, ConnectReadinessEvaluator>();
+        services.AddSingleton<IConnectDiagnosticsSnapshotProvider, ConnectDiagnosticsSnapshotProvider>();
         return services;
     }
 

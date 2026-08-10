@@ -1,0 +1,44 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Foundry.Connect.ViewModels"
+        x:Class="Foundry.Connect.Views.ConnectDiagnosticsDialog"
+        x:DataType="vm:ConnectDiagnosticsDialogViewModel"
+        Title="Diagnostics"
+        Width="760"
+        Height="600"
+        MinWidth="560"
+        MinHeight="420"
+        Icon="avares://Foundry.Connect/Assets/Icons/app.ico"
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner">
+  <Grid Margin="24" RowDefinitions="Auto,*,Auto" RowSpacing="16">
+    <TextBlock FontSize="24" FontWeight="SemiBold" Text="Diagnostics" />
+
+    <Grid Grid.Row="1">
+      <TextBox AcceptsReturn="True"
+               IsReadOnly="True"
+               Text="{Binding DisplayText}"
+               TextWrapping="NoWrap"
+               ScrollViewer.VerticalScrollBarVisibility="Auto"
+               ScrollViewer.HorizontalScrollBarVisibility="Auto" />
+      <TextBlock HorizontalAlignment="Center"
+                 VerticalAlignment="Center"
+                 IsVisible="{Binding IsLoading}"
+                 Text="Loading diagnostics…" />
+    </Grid>
+
+    <Grid Grid.Row="2" ColumnDefinitions="*,Auto,Auto" ColumnSpacing="12">
+      <TextBlock VerticalAlignment="Center"
+                 Foreground="{DynamicResource FoundryBrush.Critical}"
+                 IsVisible="{Binding HasError}"
+                 Text="{Binding ErrorText}"
+                 TextWrapping="Wrap" />
+      <Button Grid.Column="1"
+              Command="{Binding RefreshCommand}"
+              Content="Refresh" />
+      <Button Grid.Column="2"
+              Click="OnCloseClicked"
+              Content="Close" />
+    </Grid>
+  </Grid>
+</Window>

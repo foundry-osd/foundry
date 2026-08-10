@@ -152,6 +152,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     [ObservableProperty]
     private string selectedWifiPassphrase = string.Empty;
 
+    [ObservableProperty]
+    private string? lastActionableError;
+
     /// <summary>
     /// Initializes the main window view model and wires runtime services.
     /// </summary>
@@ -565,6 +568,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 PrimaryStatusGlyph = PendingStatusGlyph;
                 PrimaryStatusTitle = GetString("Status.NetworkRefreshFailedTitle");
                 PrimaryStatusDescription = ex.Message;
+                LastActionableError = ex.Message;
             }).ConfigureAwait(false);
         }
         finally
@@ -1013,12 +1017,14 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     partial void OnSelectedWifiActionFeedbackTextChanged(string value)
     {
         OnPropertyChanged(nameof(HasSelectedWifiActionFeedback));
+        LastActionableError = string.IsNullOrWhiteSpace(value) ? null : value;
     }
 
     partial void OnProvisionedWifiActionFeedbackTextChanged(string value)
     {
         OnPropertyChanged(nameof(HasProvisionedWifiActionFeedback));
         OnPropertyChanged(nameof(ProvisionedWifi));
+        LastActionableError = string.IsNullOrWhiteSpace(value) ? null : value;
     }
 
     partial void OnCurrentConnectionChipTextChanged(string value)

@@ -36,13 +36,27 @@
           <MenuItem Command="{Binding SetDarkThemeCommand}"
                     Header="{Binding Strings[Theme.Dark]}" />
         </MenuItem>
-        <MenuItem Header="{Binding Strings[Menu.Language]}" />
-        <MenuItem Header="{Binding Strings[Menu.Tools]}">
+        <MenuItem Name="LanguageMenu" Header="{Binding Strings[Menu.Language]}" />
+        <MenuItem Name="ToolsMenu" Header="{Binding Strings[Menu.Tools]}">
           <MenuItem Command="{Binding RefreshStatusCommand}"
                     Header="{Binding Strings[Tools.RefreshStatus]}" />
+          <MenuItem Name="DiagnosticsMenuItem"
+                    Click="OnShowDiagnosticsClicked"
+                    Header="{Binding Strings[Tools.Diagnostics]}" />
         </MenuItem>
-        <MenuItem Header="{Binding Strings[Menu.About]}"
-                  Command="{Binding ShowAboutCommand}" />
+        <MenuItem Header="{Binding Strings[Menu.Debug]}"
+                  IsVisible="{Binding IsDebugMenuVisible}">
+          <MenuItem Command="{Binding UseRuntimeDebugLayoutCommand}"
+                    Header="{Binding Strings[Debug.UseRuntimeLayout]}" />
+          <MenuItem Command="{Binding ShowEthernetOnlyDebugLayoutCommand}"
+                    Header="{Binding Strings[Debug.ShowEthernetOnly]}" />
+          <MenuItem Command="{Binding ShowEthernetWifiDebugLayoutCommand}"
+                    Header="{Binding Strings[Debug.ShowEthernetWifi]}" />
+        </MenuItem>
+        <MenuItem Name="HelpMenu" Header="{Binding Strings[Menu.Help]}">
+          <MenuItem Header="{Binding Strings[Menu.About]}"
+                    Command="{Binding ShowAboutCommand}" />
+        </MenuItem>
       </Menu>
     </controls:FoundryShell.MenuContent>
 
