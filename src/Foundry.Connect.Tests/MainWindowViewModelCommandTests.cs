@@ -46,7 +46,7 @@ public sealed class MainWindowViewModelCommandTests
         ];
         var context = new MainWindowViewModelTestContext(
             networkStatusService: new MainWindowViewModelTestContext.QueueNetworkStatusService(
-                MainWindowViewModelTestContext.CreateSnapshot(wifiNetworks: networks)));
+                MainWindowViewModelTestContext.CreateSnapshot(hasInternetAccess: true, wifiNetworks: networks)));
         await context.ViewModel.InitializeAsync();
         context.ViewModel.SelectedWifiNetwork = Assert.Single(context.ViewModel.WifiNetworks);
 
@@ -58,13 +58,15 @@ public sealed class MainWindowViewModelCommandTests
     }
 
     [Fact]
-    public async Task ShowAboutCommand_DelegatesToShellService()
+    public async Task ShowAboutCommand_RaisesViewOwnedRequest()
     {
         var context = new MainWindowViewModelTestContext();
+        int requests = 0;
+        context.ViewModel.ShowAboutRequested += (_, _) => requests++;
 
         context.ViewModel.ShowAboutCommand.Execute(null);
 
-        Assert.Equal(1, context.ShellService.ShowAboutCalls);
+        Assert.Equal(1, requests);
         context.ViewModel.Dispose();
     }
 }

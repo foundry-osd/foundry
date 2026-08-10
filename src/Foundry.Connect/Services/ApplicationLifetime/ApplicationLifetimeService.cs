@@ -2,13 +2,22 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Windows;
+using Foundry.Avalonia.Services.Threading;
 using Foundry.Connect.Models;
 
 namespace Foundry.Connect.Services.ApplicationLifetime;
 
 public sealed class ApplicationLifetimeService : IApplicationLifetimeService
 {
+    private readonly IUiDispatcher _dispatcher;
+    private readonly IApplicationExitHandler _exitHandler;
+
+    public ApplicationLifetimeService(IUiDispatcher dispatcher, IApplicationExitHandler exitHandler)
+    {
+        _dispatcher = dispatcher;
+        _exitHandler = exitHandler;
+    }
+
     public bool IsExitRequested { get; private set; }
 
     public FoundryConnectExitCode ExitCode { get; private set; } = FoundryConnectExitCode.Success;
@@ -23,18 +32,12 @@ public sealed class ApplicationLifetimeService : IApplicationLifetimeService
         IsExitRequested = true;
         ExitCode = exitCode;
 
-        Application? app = Application.Current;
-        if (app is null)
+        if (_dispatcher.CheckAccess())
         {
+            _exitHandler.Exit(exitCode);
             return;
         }
 
-        if (app.Dispatcher.CheckAccess())
-        {
-            app.Shutdown((int)exitCode);
-            return;
-        }
-
-        _ = app.Dispatcher.InvokeAsync(() => app.Shutdown((int)exitCode));
+        _dispatcher.Post(() => _exitHandler.Exit(exitCode));
     }
 }

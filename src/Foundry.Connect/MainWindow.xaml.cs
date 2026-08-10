@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Windows;
 using Foundry.Connect.Services.ApplicationLifetime;
 using Foundry.Connect.ViewModels;
+using Foundry.Connect.Views;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Connect;
@@ -27,6 +28,8 @@ public partial class MainWindow : Window
         InitializeComponent();
         DataContext = viewModel;
         Loaded += OnLoadedAsync;
+        Closed += OnClosed;
+        _viewModel.ShowAboutRequested += OnShowAboutRequested;
     }
 
     private async void OnLoadedAsync(object sender, RoutedEventArgs e)
@@ -55,5 +58,38 @@ public partial class MainWindow : Window
         }
 
         base.OnClosing(e);
+    }
+
+    private void OnShowAboutRequested(object? sender, EventArgs e)
+    {
+        var viewModel = new AboutDialogViewModel(
+            _viewModel.Strings["About.Title"],
+            _viewModel.Strings["App.Name"],
+            FoundryConnectApplicationInfo.Version,
+            _viewModel.Strings["About.DescriptionLine1"],
+            _viewModel.Strings["About.DescriptionLine2"],
+            _viewModel.Strings["About.Footer"]);
+        var dialog = new AboutDialog
+        {
+            DataContext = viewModel,
+            Owner = this
+        };
+        EventHandler closeRequestedHandler = (_, _) => dialog.Close();
+
+        try
+        {
+            viewModel.CloseRequested += closeRequestedHandler;
+            _ = dialog.ShowDialog();
+        }
+        finally
+        {
+            viewModel.CloseRequested -= closeRequestedHandler;
+        }
+    }
+
+    private void OnClosed(object? sender, EventArgs e)
+    {
+        _viewModel.ShowAboutRequested -= OnShowAboutRequested;
+        Closed -= OnClosed;
     }
 }

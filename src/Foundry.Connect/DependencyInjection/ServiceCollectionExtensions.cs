@@ -5,15 +5,16 @@
 using System.Globalization;
 using System.Net.Http;
 using System.Runtime.InteropServices;
+using Foundry.Avalonia.Services.Theme;
+using Foundry.Avalonia.Services.Threading;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Services.ApplicationLifetime;
-using Foundry.Connect.Services.ApplicationShell;
 using Foundry.Connect.Services.Configuration;
 using Foundry.Connect.Services.Localization;
 using Foundry.Connect.Services.Network;
 using Foundry.Connect.Services.Readiness;
 using Foundry.Connect.Services.Runtime;
-using Foundry.Connect.Services.Theme;
+using Foundry.Connect.Platform;
 using Foundry.Connect.ViewModels;
 using Foundry.Telemetry;
 using Foundry.Utilities.Networking;
@@ -34,7 +35,10 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<MainWindowViewModel>();
         services.AddSingleton(args ?? Array.Empty<string>());
 
-        services.AddSingleton<IApplicationShellService, ApplicationShellService>();
+        services.AddSingleton<IUiDispatcher, WpfUiDispatcher>();
+        services.AddSingleton<IUiTimerFactory, WpfUiTimerFactory>();
+        services.AddSingleton<IFoundryThemeService, WpfFoundryThemeService>();
+        services.AddSingleton<IApplicationExitHandler, WpfApplicationExitHandler>();
         services.AddSingleton<IApplicationLifetimeService, ApplicationLifetimeService>();
         services.AddSingleton<IConnectConfigurationService, ConnectConfigurationService>();
         services.AddSingleton(sp => sp.GetRequiredService<IConnectConfigurationService>().Load());
@@ -70,8 +74,6 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<INetworkBootstrapService, NetworkBootstrapService>();
         services.AddSingleton<INetworkStatusService, NetworkStatusService>();
         services.AddSingleton<IConnectReadinessEvaluator, ConnectReadinessEvaluator>();
-        services.AddSingleton<IThemeService, ThemeService>();
-
         return services;
     }
 

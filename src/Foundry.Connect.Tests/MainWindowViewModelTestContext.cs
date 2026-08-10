@@ -3,15 +3,15 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Connect.Models;
+using Foundry.Avalonia.Services.Theme;
+using Foundry.Avalonia.Services.Threading;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Models.Network;
 using Foundry.Connect.Services.ApplicationLifetime;
-using Foundry.Connect.Services.ApplicationShell;
 using Foundry.Connect.Services.Configuration;
 using Foundry.Connect.Services.Localization;
 using Foundry.Connect.Services.Network;
 using Foundry.Connect.Services.Readiness;
-using Foundry.Connect.Services.Theme;
 using Foundry.Connect.ViewModels;
 using Foundry.Telemetry;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -22,14 +22,17 @@ internal sealed class MainWindowViewModelTestContext
 {
     public MainWindowViewModelTestContext(
         FoundryConnectConfiguration? configuration = null,
-        INetworkStatusService? networkStatusService = null)
+        INetworkStatusService? networkStatusService = null,
+        RecordingUiDispatcher? dispatcher = null,
+        RecordingUiTimerFactory? timerFactory = null)
     {
         Configuration = configuration ?? CreateConfiguration();
         NetworkStatusService = networkStatusService ?? new QueueNetworkStatusService(CreateSnapshot());
+        UiDispatcher = dispatcher ?? new RecordingUiDispatcher();
+        UiTimerFactory = timerFactory ?? new RecordingUiTimerFactory();
         ViewModel = new MainWindowViewModel(
             ThemeService,
             LocalizationService,
-            ShellService,
             LifetimeService,
             new FakeConnectConfigurationService(Configuration),
             Configuration,
@@ -37,20 +40,24 @@ internal sealed class MainWindowViewModelTestContext
             NetworkStatusService,
             new ConnectReadinessEvaluator(),
             TelemetryService,
-            NullLogger<MainWindowViewModel>.Instance);
+            NullLogger<MainWindowViewModel>.Instance,
+            UiDispatcher,
+            UiTimerFactory);
     }
 
     public FoundryConnectConfiguration Configuration { get; }
 
     public RecordingApplicationLifetimeService LifetimeService { get; } = new();
 
-    public RecordingApplicationShellService ShellService { get; } = new();
-
     public RecordingNetworkBootstrapService BootstrapService { get; } = new();
 
     public RecordingTelemetryService TelemetryService { get; } = new();
 
     public FakeThemeService ThemeService { get; } = new();
+
+    public RecordingUiDispatcher UiDispatcher { get; }
+
+    public RecordingUiTimerFactory UiTimerFactory { get; }
 
     public LocalizationService LocalizationService { get; } = new();
 
@@ -174,13 +181,60 @@ internal sealed class MainWindowViewModelTestContext
         }
     }
 
-    internal sealed class RecordingApplicationShellService : IApplicationShellService
+    internal sealed class RecordingUiDispatcher(bool checkAccess = true) : IUiDispatcher
     {
-        public int ShowAboutCalls { get; private set; }
+        public int InvokeCalls { get; private set; }
 
-        public void ShowAbout()
+        public int PostCalls { get; private set; }
+
+        public bool CheckAccess() => checkAccess;
+
+        public void Post(Action action)
         {
-            ShowAboutCalls++;
+            PostCalls++;
+            action();
+        }
+
+        public Task InvokeAsync(Action action)
+        {
+            InvokeCalls++;
+            action();
+            return Task.CompletedTask;
+        }
+    }
+
+    internal sealed class RecordingUiTimerFactory : IUiTimerFactory
+    {
+        public List<RecordingUiTimer> Timers { get; } = [];
+
+        public IUiTimer Create(TimeSpan interval)
+        {
+            var timer = new RecordingUiTimer(interval);
+            Timers.Add(timer);
+            return timer;
+        }
+    }
+
+    internal sealed class RecordingUiTimer(TimeSpan interval) : IUiTimer
+    {
+        public TimeSpan Interval { get; } = interval;
+
+        public bool IsEnabled { get; private set; }
+
+        public bool IsDisposed { get; private set; }
+
+        public event EventHandler? Tick;
+
+        public void Start() => IsEnabled = true;
+
+        public void Stop() => IsEnabled = false;
+
+        public void Fire() => Tick?.Invoke(this, EventArgs.Empty);
+
+        public void Dispose()
+        {
+            IsEnabled = false;
+            IsDisposed = true;
         }
     }
 
@@ -197,11 +251,11 @@ internal sealed class MainWindowViewModelTestContext
         public Task FlushAsync(CancellationToken cancellationToken = default) => Task.CompletedTask;
     }
 
-    internal sealed class FakeThemeService : IThemeService
+    internal sealed class FakeThemeService : IFoundryThemeService
     {
-        public ThemeMode CurrentTheme { get; private set; }
+        public FoundryThemeMode CurrentTheme { get; private set; }
 
-        public void SetTheme(ThemeMode theme)
+        public void SetTheme(FoundryThemeMode theme)
         {
             CurrentTheme = theme;
         }
