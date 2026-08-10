@@ -10,6 +10,30 @@ namespace Foundry.Connect.Tests;
 
 public sealed class LocalizationResourceTests
 {
+    private static readonly string[] AvaloniaUiKeys =
+    [
+        "Menu.Help",
+        "Tools.Diagnostics",
+        "Action.Refresh",
+        "Action.Close",
+        "Diagnostics.Title",
+        "Diagnostics.Loading",
+        "Diagnostics.CaptureFailed",
+        "Diagnostics.ApplicationVersion",
+        "Diagnostics.Runtime",
+        "Diagnostics.ProcessArchitecture",
+        "Diagnostics.Configuration",
+        "Diagnostics.RefreshInterval",
+        "Diagnostics.LastUpdated",
+        "Diagnostics.Pending",
+        "Diagnostics.Readiness",
+        "Diagnostics.ActiveConnection",
+        "Diagnostics.None",
+        "Diagnostics.Adapters",
+        "Diagnostics.LastError",
+        "Diagnostics.Captured"
+    ];
+
     public static TheoryData<string> SatelliteCultures => new()
     {
         "ar-SA",
@@ -64,5 +88,9 @@ public sealed class LocalizationResourceTests
 
         Assert.NotNull(resourceSet);
         Assert.Equal("Foundry Connect", resourceSet.GetString("App.Name"));
+        foreach (string key in AvaloniaUiKeys)
+        {
+            Assert.False(string.IsNullOrWhiteSpace(resourceSet.GetString(key)), $"Missing localized resource '{key}' for '{cultureName}'.");
+        }
     }
 }

@@ -3,7 +3,7 @@
         xmlns:vm="using:Foundry.Connect.ViewModels"
         x:Class="Foundry.Connect.Views.ConnectDiagnosticsDialog"
         x:DataType="vm:ConnectDiagnosticsDialogViewModel"
-        Title="Diagnostics"
+        Title="{Binding TitleText}"
         Width="760"
         Height="600"
         MinWidth="560"
@@ -12,7 +12,7 @@
         ShowInTaskbar="False"
         WindowStartupLocation="CenterOwner">
   <Grid Margin="24" RowDefinitions="Auto,*,Auto" RowSpacing="16">
-    <TextBlock FontSize="24" FontWeight="SemiBold" Text="Diagnostics" />
+    <TextBlock FontSize="24" FontWeight="SemiBold" Text="{Binding TitleText}" />
 
     <Grid Grid.Row="1">
       <TextBox AcceptsReturn="True"
@@ -24,7 +24,7 @@
       <TextBlock HorizontalAlignment="Center"
                  VerticalAlignment="Center"
                  IsVisible="{Binding IsLoading}"
-                 Text="Loading diagnostics…" />
+                 Text="{Binding LoadingText}" />
     </Grid>
 
     <Grid Grid.Row="2" ColumnDefinitions="*,Auto,Auto" ColumnSpacing="12">
@@ -35,10 +35,10 @@
                  TextWrapping="Wrap" />
       <Button Grid.Column="1"
               Command="{Binding RefreshCommand}"
-              Content="Refresh" />
+              Content="{Binding RefreshText}" />
       <Button Grid.Column="2"
               Click="OnCloseClicked"
-              Content="Close" />
+              Content="{Binding CloseText}" />
     </Grid>
   </Grid>
 </Window>

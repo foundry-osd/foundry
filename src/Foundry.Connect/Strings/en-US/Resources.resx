@@ -428,4 +428,22 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Chinese Traditional (Taiwan)</value>
   </data>
+  <data name="Action.Refresh" xml:space="preserve"><value>Refresh</value></data>
+  <data name="Action.Close" xml:space="preserve"><value>Close</value></data>
+  <data name="Diagnostics.Title" xml:space="preserve"><value>Diagnostics</value></data>
+  <data name="Diagnostics.Loading" xml:space="preserve"><value>Loading diagnostics…</value></data>
+  <data name="Diagnostics.CaptureFailed" xml:space="preserve"><value>Unable to capture diagnostics.</value></data>
+  <data name="Diagnostics.ApplicationVersion" xml:space="preserve"><value>Application version</value></data>
+  <data name="Diagnostics.Runtime" xml:space="preserve"><value>Runtime</value></data>
+  <data name="Diagnostics.ProcessArchitecture" xml:space="preserve"><value>Process architecture</value></data>
+  <data name="Diagnostics.Configuration" xml:space="preserve"><value>Configuration</value></data>
+  <data name="Diagnostics.RefreshInterval" xml:space="preserve"><value>Refresh interval</value></data>
+  <data name="Diagnostics.LastUpdated" xml:space="preserve"><value>Last updated</value></data>
+  <data name="Diagnostics.Pending" xml:space="preserve"><value>Pending</value></data>
+  <data name="Diagnostics.Readiness" xml:space="preserve"><value>Readiness</value></data>
+  <data name="Diagnostics.ActiveConnection" xml:space="preserve"><value>Active connection</value></data>
+  <data name="Diagnostics.None" xml:space="preserve"><value>None</value></data>
+  <data name="Diagnostics.Adapters" xml:space="preserve"><value>Adapters</value></data>
+  <data name="Diagnostics.LastError" xml:space="preserve"><value>Last error</value></data>
+  <data name="Diagnostics.Captured" xml:space="preserve"><value>Captured</value></data>
 </root>

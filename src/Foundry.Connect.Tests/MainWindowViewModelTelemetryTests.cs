@@ -6,6 +6,7 @@ using Foundry.Connect.Models;
 using Foundry.Avalonia.Services.Theme;
 using Foundry.Avalonia.Services.Threading;
 using Foundry.Connect.Models.Configuration;
+using Foundry.Avalonia.Services.Motion;
 using Foundry.Connect.Models.Network;
 using Foundry.Connect.Services.ApplicationLifetime;
 using Foundry.Connect.Services.Configuration;
@@ -113,7 +114,8 @@ public sealed class MainWindowViewModelTelemetryTests
             telemetryService,
             NullLogger<MainWindowViewModel>.Instance,
             new ImmediateUiDispatcher(),
-            new FakeUiTimerFactory());
+            new FakeUiTimerFactory(),
+            new FoundryMotionPolicy(isWinPe: false, isOperatingSystemAnimationEnabled: true));
     }
 
     private static NetworkStatusSnapshot CreateReadySnapshot()

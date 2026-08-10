@@ -5,6 +5,8 @@
         xmlns:vm="using:Foundry.Connect.ViewModels"
         x:Class="Foundry.Connect.MainWindow"
         x:DataType="vm:MainWindowViewModel"
+        AutomationProperties.Name="{Binding WindowTitle}"
+        FlowDirection="{Binding UiFlowDirection}"
         Title="{Binding WindowTitle}"
         Icon="avares://Foundry.Connect/Assets/Icons/app.ico"
         WindowDecorations="None"

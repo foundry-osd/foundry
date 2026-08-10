@@ -1,28 +1,64 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:Foundry.Avalonia.Controls"
              xmlns:views="using:Foundry.Connect.Views"
              xmlns:vm="using:Foundry.Connect.ViewModels"
              x:Class="Foundry.Connect.Views.NetworkReadinessView"
              x:DataType="vm:MainWindowViewModel">
-  <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                VerticalScrollBarVisibility="Auto">
-    <Grid MaxWidth="1200"
-          HorizontalAlignment="Center"
-          RowDefinitions="Auto,Auto"
-          RowSpacing="40">
-      <views:ReadinessStatusView />
-      <Grid Grid.Row="1">
-        <views:EthernetStatusPanel IsVisible="{Binding !ShowWifiContent}" />
-        <Grid ColumnDefinitions="*,*"
-              ColumnSpacing="48"
-              IsVisible="{Binding ShowWifiContent}">
-          <StackPanel Spacing="40">
+  <controls:AdaptiveLayoutHost Name="AdaptiveHost">
+    <controls:AdaptiveLayoutHost.Styles>
+      <Style Selector="Grid.adaptive-layout">
+        <Setter Property="IsVisible" Value="False" />
+      </Style>
+      <Style Selector="controls|AdaptiveLayoutHost:compact Grid#CompactLayout">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="controls|AdaptiveLayoutHost:standard Grid#StandardLayout">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+      <Style Selector="controls|AdaptiveLayoutHost:wide Grid#WideLayout">
+        <Setter Property="IsVisible" Value="True" />
+      </Style>
+    </controls:AdaptiveLayoutHost.Styles>
+
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                  VerticalScrollBarVisibility="Auto">
+      <Grid MaxWidth="1500" HorizontalAlignment="Center">
+        <Grid Name="CompactLayout" Classes="adaptive-layout">
+          <StackPanel Spacing="32">
+            <views:ReadinessStatusView MotionMode="{Binding MotionMode}" />
             <views:EthernetStatusPanel />
-            <views:ProvisionedWifiPanel />
+            <views:ProvisionedWifiPanel IsVisible="{Binding ShowWifiContent}" />
+            <views:DiscoveredWifiList IsVisible="{Binding ShowWifiContent}" />
           </StackPanel>
-          <views:DiscoveredWifiList Grid.Column="1" />
+        </Grid>
+
+        <Grid Name="StandardLayout"
+              Classes="adaptive-layout"
+              RowDefinitions="Auto,Auto"
+              RowSpacing="40">
+          <views:ReadinessStatusView MotionMode="{Binding MotionMode}" />
+          <Grid Grid.Row="1" ColumnDefinitions="*,*" ColumnSpacing="48">
+            <StackPanel Spacing="40">
+              <views:EthernetStatusPanel />
+              <views:ProvisionedWifiPanel IsVisible="{Binding ShowWifiContent}" />
+            </StackPanel>
+            <views:DiscoveredWifiList Grid.Column="1" IsVisible="{Binding ShowWifiContent}" />
+          </Grid>
+        </Grid>
+
+        <Grid Name="WideLayout"
+              Classes="adaptive-layout"
+              RowDefinitions="Auto,Auto"
+              RowSpacing="40">
+          <views:ReadinessStatusView MotionMode="{Binding MotionMode}" />
+          <Grid Grid.Row="1" ColumnDefinitions="*,*,*" ColumnSpacing="40">
+            <views:EthernetStatusPanel />
+            <views:ProvisionedWifiPanel Grid.Column="1" IsVisible="{Binding ShowWifiContent}" />
+            <views:DiscoveredWifiList Grid.Column="2" IsVisible="{Binding ShowWifiContent}" />
+          </Grid>
         </Grid>
       </Grid>
-    </Grid>
-  </ScrollViewer>
+    </ScrollViewer>
+  </controls:AdaptiveLayoutHost>
 </UserControl>

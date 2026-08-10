@@ -47,6 +47,7 @@
 
       <Grid Grid.Row="1" ColumnDefinitions="*,Auto" ColumnSpacing="24">
         <TextBlock VerticalAlignment="Center"
+                   AutomationProperties.LiveSetting="Polite"
                    Foreground="{DynamicResource FoundryBrush.TextSecondary}"
                    Text="{Binding ProvisionedWifi.Status}" />
         <Grid Grid.Column="1">
@@ -70,8 +71,10 @@
                                       AccessibleLabel="{Binding Strings[Wifi.ProvisionedTitle]}"
                                       IsIndeterminate="True"
                                       IsVisible="{Binding ProvisionedWifi.IsActionInProgress}"
+                                      MotionMode="{Binding MotionMode}"
                                       StrokeThickness="3" />
         <TextBlock Name="ProvisionedWifiFeedback"
+                   AutomationProperties.LiveSetting="Assertive"
                    Foreground="{DynamicResource FoundryBrush.Critical}"
                    IsVisible="{Binding ProvisionedWifi.HasFeedback}"
                    Text="{Binding ProvisionedWifi.Feedback}"

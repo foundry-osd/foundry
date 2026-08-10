@@ -10,9 +10,19 @@ using Foundry.Connect.Services.Diagnostics;
 
 namespace Foundry.Connect.ViewModels;
 
-public sealed partial class ConnectDiagnosticsDialogViewModel(IConnectDiagnosticsSnapshotProvider snapshotProvider)
-    : ObservableObject
+public sealed partial class ConnectDiagnosticsDialogViewModel : ObservableObject
 {
+    private readonly IConnectDiagnosticsSnapshotProvider _snapshotProvider;
+    private readonly Func<string, string> _getString;
+
+    public ConnectDiagnosticsDialogViewModel(
+        IConnectDiagnosticsSnapshotProvider snapshotProvider,
+        Func<string, string>? getString = null)
+    {
+        _snapshotProvider = snapshotProvider;
+        _getString = getString ?? GetEnglishString;
+    }
+
     [ObservableProperty]
     private string displayText = string.Empty;
 
@@ -26,6 +36,14 @@ public sealed partial class ConnectDiagnosticsDialogViewModel(IConnectDiagnostic
 
     public bool HasError => !string.IsNullOrWhiteSpace(ErrorText);
 
+    public string TitleText => _getString("Diagnostics.Title");
+
+    public string LoadingText => _getString("Diagnostics.Loading");
+
+    public string RefreshText => _getString("Action.Refresh");
+
+    public string CloseText => _getString("Action.Close");
+
     [RelayCommand]
     private async Task RefreshAsync()
     {
@@ -34,12 +52,12 @@ public sealed partial class ConnectDiagnosticsDialogViewModel(IConnectDiagnostic
 
         try
         {
-            ConnectDiagnosticsSnapshot snapshot = await snapshotProvider.CaptureAsync(CancellationToken.None);
+            ConnectDiagnosticsSnapshot snapshot = await _snapshotProvider.CaptureAsync(CancellationToken.None);
             DisplayText = Format(snapshot);
         }
         catch (Exception)
         {
-            ErrorText = "Unable to capture diagnostics.";
+            ErrorText = _getString("Diagnostics.CaptureFailed");
         }
         finally
         {
@@ -49,19 +67,19 @@ public sealed partial class ConnectDiagnosticsDialogViewModel(IConnectDiagnostic
 
     partial void OnErrorTextChanged(string value) => OnPropertyChanged(nameof(HasError));
 
-    private static string Format(ConnectDiagnosticsSnapshot snapshot)
+    private string Format(ConnectDiagnosticsSnapshot snapshot)
     {
         var builder = new StringBuilder();
-        builder.AppendLine($"Application version: {snapshot.ApplicationVersion}");
-        builder.AppendLine($"Runtime: {snapshot.RuntimeIdentifier}");
-        builder.AppendLine($"Process architecture: {snapshot.ProcessArchitecture}");
-        builder.AppendLine($"Configuration: {snapshot.ConfigurationSource}");
-        builder.AppendLine($"Refresh interval: {snapshot.RefreshInterval}");
-        builder.AppendLine($"Last updated: {snapshot.LastUpdated?.ToString("O") ?? "Pending"}");
-        builder.AppendLine($"Readiness: {snapshot.ReadinessState}");
-        builder.AppendLine($"Active connection: {snapshot.ActiveConnectionSource ?? "None"}");
+        builder.AppendLine($"{_getString("Diagnostics.ApplicationVersion")}: {snapshot.ApplicationVersion}");
+        builder.AppendLine($"{_getString("Diagnostics.Runtime")}: {snapshot.RuntimeIdentifier}");
+        builder.AppendLine($"{_getString("Diagnostics.ProcessArchitecture")}: {snapshot.ProcessArchitecture}");
+        builder.AppendLine($"{_getString("Diagnostics.Configuration")}: {snapshot.ConfigurationSource}");
+        builder.AppendLine($"{_getString("Diagnostics.RefreshInterval")}: {snapshot.RefreshInterval}");
+        builder.AppendLine($"{_getString("Diagnostics.LastUpdated")}: {snapshot.LastUpdated?.ToString("O") ?? _getString("Diagnostics.Pending")}");
+        builder.AppendLine($"{_getString("Diagnostics.Readiness")}: {snapshot.ReadinessState}");
+        builder.AppendLine($"{_getString("Diagnostics.ActiveConnection")}: {snapshot.ActiveConnectionSource ?? _getString("Diagnostics.None")}");
         builder.AppendLine();
-        builder.AppendLine("Adapters");
+        builder.AppendLine(_getString("Diagnostics.Adapters"));
         foreach (string adapterSummary in snapshot.AdapterSummaries)
         {
             builder.AppendLine($"- {adapterSummary}");
@@ -70,11 +88,34 @@ public sealed partial class ConnectDiagnosticsDialogViewModel(IConnectDiagnostic
         if (!string.IsNullOrWhiteSpace(snapshot.LastError))
         {
             builder.AppendLine();
-            builder.AppendLine($"Last error: {snapshot.LastError}");
+            builder.AppendLine($"{_getString("Diagnostics.LastError")}: {snapshot.LastError}");
         }
 
         builder.AppendLine();
-        builder.AppendLine($"Captured: {snapshot.CapturedAt:O}");
+        builder.AppendLine($"{_getString("Diagnostics.Captured")}: {snapshot.CapturedAt:O}");
         return builder.ToString().TrimEnd();
     }
+
+    private static string GetEnglishString(string key) => key switch
+    {
+        "Diagnostics.Title" => "Diagnostics",
+        "Diagnostics.Loading" => "Loading diagnostics…",
+        "Diagnostics.CaptureFailed" => "Unable to capture diagnostics.",
+        "Diagnostics.ApplicationVersion" => "Application version",
+        "Diagnostics.Runtime" => "Runtime",
+        "Diagnostics.ProcessArchitecture" => "Process architecture",
+        "Diagnostics.Configuration" => "Configuration",
+        "Diagnostics.RefreshInterval" => "Refresh interval",
+        "Diagnostics.LastUpdated" => "Last updated",
+        "Diagnostics.Pending" => "Pending",
+        "Diagnostics.Readiness" => "Readiness",
+        "Diagnostics.ActiveConnection" => "Active connection",
+        "Diagnostics.None" => "None",
+        "Diagnostics.Adapters" => "Adapters",
+        "Diagnostics.LastError" => "Last error",
+        "Diagnostics.Captured" => "Captured",
+        "Action.Refresh" => "Refresh",
+        "Action.Close" => "Close",
+        _ => key
+    };
 }

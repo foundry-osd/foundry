@@ -138,7 +138,9 @@ public partial class MainWindow : Window
             return;
         }
 
-        var viewModel = new ConnectDiagnosticsDialogViewModel(_diagnosticsProvider);
+        var viewModel = new ConnectDiagnosticsDialogViewModel(
+            _diagnosticsProvider,
+            key => _viewModel?.Strings[key] ?? key);
         var dialog = new ConnectDiagnosticsDialog(viewModel);
         await dialog.ShowDialog(this);
     }

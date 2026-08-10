@@ -17,9 +17,9 @@ public sealed class ConnectDiagnosticsSnapshotProvider(MainWindowViewModel viewM
 
         string[] adapterSummaries =
         [
-            $"{viewModel.EthernetAdapterName}: {viewModel.EthernetStatusText}; IPv4 {viewModel.EthernetIpAddress}; Gateway {viewModel.EthernetGateway}",
-            $"Internet probe: {viewModel.PrimaryStatusTitle} — {viewModel.PrimaryStatusDescription}",
-            $"Wi-Fi runtime: {(viewModel.IsWifiRuntimeAvailable ? "available" : "unavailable")}; Adapter: {(viewModel.HasWirelessAdapter ? "available" : "unavailable")}"
+            $"{viewModel.EthernetAdapterName}: {viewModel.EthernetStatusText}; {viewModel.Strings["Ethernet.Ipv4Label"]}: {viewModel.EthernetIpAddress}; {viewModel.Strings["Ethernet.GatewayLabel"]}: {viewModel.EthernetGateway}",
+            $"{viewModel.PrimaryStatusTitle}: {viewModel.PrimaryStatusDescription}",
+            $"{viewModel.Strings["Wifi.Title"]}: {(viewModel.ShowProvisionedWifiContent ? viewModel.ProvisionedWifiStatusText : viewModel.WifiDiscoveryEmptyStateText)}"
         ];
 
         var snapshot = new ConnectDiagnosticsSnapshot(
@@ -29,7 +29,7 @@ public sealed class ConnectDiagnosticsSnapshotProvider(MainWindowViewModel viewM
             viewModel.ConfigurationSourceText,
             TimeSpan.FromSeconds(FoundryConnectApplicationInfo.DefaultRefreshIntervalSeconds),
             viewModel.LastUpdatedAt,
-            viewModel.CurrentReadinessState.ToString(),
+            viewModel.PrimaryStatusTitle,
             string.IsNullOrWhiteSpace(viewModel.CurrentConnectionChipText) ? null : viewModel.CurrentConnectionChipText,
             adapterSummaries,
             viewModel.LastActionableError,

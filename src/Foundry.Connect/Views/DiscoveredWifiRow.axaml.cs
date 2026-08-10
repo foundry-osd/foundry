@@ -5,13 +5,16 @@
 using System.ComponentModel;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Metadata;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
 using Foundry.Connect.Controls;
 using Foundry.Connect.ViewModels;
+using Foundry.Avalonia.Services.Motion;
 
 namespace Foundry.Connect.Views;
 
+[PseudoClasses(":selected", ":motion-full")]
 public partial class DiscoveredWifiRow : UserControl
 {
     public static readonly StyledProperty<MainWindowViewModel.WifiNetworkItemViewModel?> NetworkProperty =
@@ -22,6 +25,11 @@ public partial class DiscoveredWifiRow : UserControl
 
     public static readonly StyledProperty<bool> IsSelectedProperty =
         AvaloniaProperty.Register<DiscoveredWifiRow, bool>(nameof(IsSelected));
+
+    public static readonly StyledProperty<FoundryMotionMode> MotionModeProperty =
+        AvaloniaProperty.Register<DiscoveredWifiRow, FoundryMotionMode>(
+            nameof(MotionMode),
+            defaultValue: FoundryMotionMode.Reduced);
 
     private WifiPassphraseEditor? _passphraseEditor;
     private Button? _connectButton;
@@ -51,6 +59,12 @@ public partial class DiscoveredWifiRow : UserControl
         set => SetValue(IsSelectedProperty, value);
     }
 
+    public FoundryMotionMode MotionMode
+    {
+        get => GetValue(MotionModeProperty);
+        set => SetValue(MotionModeProperty, value);
+    }
+
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
         base.OnPropertyChanged(change);
@@ -67,9 +81,18 @@ public partial class DiscoveredWifiRow : UserControl
                 newViewModel.PropertyChanged += OnViewModelPropertyChanged;
             }
         }
-        else if (change.Property == IsSelectedProperty && change.GetNewValue<bool>())
+        else if (change.Property == IsSelectedProperty)
         {
-            Dispatcher.UIThread.Post(FocusPrimaryAction);
+            bool isSelected = change.GetNewValue<bool>();
+            PseudoClasses.Set(":selected", isSelected);
+            if (isSelected)
+            {
+                Dispatcher.UIThread.Post(FocusPrimaryAction);
+            }
+        }
+        else if (change.Property == MotionModeProperty)
+        {
+            PseudoClasses.Set(":motion-full", change.GetNewValue<FoundryMotionMode>() == FoundryMotionMode.Full);
         }
     }
 

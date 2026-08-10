@@ -7,6 +7,8 @@ using System.Diagnostics;
 using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Avalonia.Media;
+using Foundry.Avalonia.Services.Motion;
 using Foundry.Avalonia.Services.Theme;
 using Foundry.Avalonia.Services.Threading;
 using Foundry.Connect.Models;
@@ -51,6 +53,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly ILogger<MainWindowViewModel> _logger;
     private readonly IUiDispatcher _dispatcher;
     private readonly IUiTimerFactory _timerFactory;
+    private readonly IMotionPolicy _motionPolicy;
     private readonly SemaphoreSlim _refreshGate = new(1, 1);
     private readonly SemaphoreSlim _successfulExitGate = new(1, 1);
     private readonly CancellationTokenSource _disposeCts = new();
@@ -155,6 +158,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     [ObservableProperty]
     private string? lastActionableError;
 
+    [ObservableProperty]
+    private string autoContinueAccessibleText = string.Empty;
+
     /// <summary>
     /// Initializes the main window view model and wires runtime services.
     /// </summary>
@@ -170,7 +176,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         ITelemetryService telemetryService,
         ILogger<MainWindowViewModel> logger,
         IUiDispatcher dispatcher,
-        IUiTimerFactory timerFactory)
+        IUiTimerFactory timerFactory,
+        IMotionPolicy motionPolicy)
         : base(localizationService, dispatcher)
     {
         _themeService = themeService;
@@ -184,6 +191,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _logger = logger;
         _dispatcher = dispatcher;
         _timerFactory = timerFactory;
+        _motionPolicy = motionPolicy;
         _isAutoCloseEnabled = !Debugger.IsAttached;
         LayoutMode = NetworkLayoutMode.EthernetOnly;
         LocalizationService.LanguageChanged += OnLanguageChanged;
@@ -210,6 +218,12 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     /// Gets the current application theme mode.
     /// </summary>
     public FoundryThemeMode CurrentTheme => _themeService.CurrentTheme;
+
+    public FoundryMotionMode MotionMode => _motionPolicy.Mode;
+
+    public FlowDirection UiFlowDirection => LocalizationService.CurrentCulture.TextInfo.IsRightToLeft
+        ? FlowDirection.RightToLeft
+        : FlowDirection.LeftToRight;
 
     public event EventHandler? ShowAboutRequested;
 
@@ -761,6 +775,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         CountdownSecondsRemaining = FoundryConnectApplicationInfo.DefaultAutoContinueDelaySeconds;
         IsCountdownActive = true;
         OnPropertyChanged(nameof(AutoContinueText));
+        UpdateCountdownAnnouncement();
 
         _countdownTimer = _timerFactory.Create(TimeSpan.FromSeconds(1));
         _countdownTimer.Tick += OnCountdownTick;
@@ -771,6 +786,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     {
         CountdownSecondsRemaining = Math.Max(0, CountdownSecondsRemaining - 1);
         OnPropertyChanged(nameof(AutoContinueText));
+        UpdateCountdownAnnouncement();
 
         if (CountdownSecondsRemaining > 0)
         {
@@ -803,6 +819,16 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         IsCountdownActive = false;
         CountdownSecondsRemaining = 0;
         OnPropertyChanged(nameof(AutoContinueText));
+        AutoContinueAccessibleText = string.Empty;
+    }
+
+    private void UpdateCountdownAnnouncement()
+    {
+        int seconds = CountdownSecondsRemaining;
+        if (seconds > 0 && (seconds <= 3 || seconds % 5 == 0))
+        {
+            AutoContinueAccessibleText = AutoContinueText;
+        }
     }
 
     private void RefreshDerivedConnectionState(NetworkStatusSnapshot snapshot)
@@ -840,9 +866,18 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                     wifiNetwork = new WifiNetworkItemViewModel(network.Ssid);
                 }
 
+                string displaySsid = network.Ssid == "Hidden network" ? GetString("Wifi.HiddenNetwork") : network.Ssid;
+                string displayAuthentication = TranslateDiscoveredWifiSecurity(network.Authentication);
+                bool isConnected = string.Equals(network.Ssid, connectedWifiSsid, StringComparison.OrdinalIgnoreCase);
+                string accessibleName = $"{displaySsid}, {displayAuthentication}, {network.SignalStrengthPercent}%";
+                if (isConnected)
+                {
+                    accessibleName = $"{accessibleName}, {GetString("Common.Connected")}";
+                }
+
                 wifiNetwork.Update(
-                    network.Ssid == "Hidden network" ? GetString("Wifi.HiddenNetwork") : network.Ssid,
-                    TranslateDiscoveredWifiSecurity(network.Authentication),
+                    displaySsid,
+                    displayAuthentication,
                     network.SsidHex,
                     network.Authentication,
                     network.Encryption,
@@ -850,7 +885,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                     ResolveWifiGlyph(network.SignalStrengthPercent),
                     CanDirectConnect(network.Authentication),
                     RequiresPassphrase(network.Authentication),
-                    string.Equals(network.Ssid, connectedWifiSsid, StringComparison.OrdinalIgnoreCase));
+                    isConnected,
+                    accessibleName);
                 orderedNetworks.Add(wifiNetwork);
             }
 
@@ -1063,6 +1099,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             ApplyPrimaryStatus(_readinessDecision.CanContinue);
             CurrentConnectionChipText = BuildCurrentConnectionChipText(IsEthernetConnected);
             OnPropertyChanged(nameof(CurrentCulture));
+            OnPropertyChanged(nameof(UiFlowDirection));
             OnPropertyChanged(nameof(VersionDisplay));
             OnPropertyChanged(nameof(BootMediaUpdateRecommendedText));
             OnPropertyChanged(nameof(BootMediaUpdateRecommendedToolTip));
@@ -1070,6 +1107,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             OnPropertyChanged(nameof(RefreshIntervalText));
             OnPropertyChanged(nameof(WindowTitle));
             OnPropertyChanged(nameof(AutoContinueText));
+            UpdateCountdownAnnouncement();
             OnPropertyChanged(nameof(LastUpdatedText));
             OnPropertyChanged(nameof(ProvisionedWifiProfileName));
             OnPropertyChanged(nameof(ProvisionedWifiAuthenticationText));
@@ -1355,6 +1393,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         private bool _canDirectConnect;
         private bool _requiresPassphrase;
         private bool _isConnected;
+        private string _accessibleName = string.Empty;
 
         /// <summary>
         /// Initializes a Wi-Fi network row with its stable SSID key.
@@ -1427,6 +1466,12 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             private set => SetProperty(ref _isConnected, value);
         }
 
+        public string AccessibleName
+        {
+            get => _accessibleName;
+            private set => SetProperty(ref _accessibleName, value);
+        }
+
         public bool ShowConnectAction => CanDirectConnect && !IsConnected;
 
         public bool RequiresProvisionedProfile => !CanDirectConnect && !IsConnected;
@@ -1441,7 +1486,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             string signalGlyph,
             bool canDirectConnect,
             bool requiresPassphrase,
-            bool isConnected)
+            bool isConnected,
+            string accessibleName)
         {
             DisplaySsid = displaySsid;
             DisplayAuthentication = displayAuthentication;
@@ -1453,6 +1499,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             CanDirectConnect = canDirectConnect;
             RequiresPassphrase = requiresPassphrase;
             IsConnected = isConnected;
+            AccessibleName = accessibleName;
             OnPropertyChanged(nameof(ShowConnectAction));
             OnPropertyChanged(nameof(RequiresProvisionedProfile));
         }

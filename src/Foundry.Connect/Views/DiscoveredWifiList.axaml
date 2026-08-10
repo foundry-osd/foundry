@@ -44,7 +44,8 @@
           <DataTemplate x:DataType="vm:MainWindowViewModel+WifiNetworkItemViewModel">
             <views:DiscoveredWifiRow Network="{Binding}"
                                       ViewModel="{Binding $parent[views:DiscoveredWifiList].ViewModel}"
-                                      IsSelected="{Binding $parent[ListBoxItem].IsSelected}" />
+                                      IsSelected="{Binding $parent[ListBoxItem].IsSelected}"
+                                      MotionMode="{Binding $parent[views:DiscoveredWifiList].ViewModel.MotionMode}" />
           </DataTemplate>
         </ListBox.ItemTemplate>
       </ListBox>

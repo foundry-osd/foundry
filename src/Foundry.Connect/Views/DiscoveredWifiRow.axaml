@@ -4,7 +4,22 @@
              xmlns:views="using:Foundry.Connect.Views"
              x:Class="Foundry.Connect.Views.DiscoveredWifiRow"
              x:DataType="views:DiscoveredWifiRow"
+             AutomationProperties.Name="{Binding #Root.Network.AccessibleName}"
              x:Name="Root">
+  <UserControl.Styles>
+    <Style Selector="views|DiscoveredWifiRow:selected Grid#ConnectActions">
+      <Setter Property="Opacity" Value="1" />
+      <Setter Property="MaxHeight" Value="320" />
+    </Style>
+    <Style Selector="views|DiscoveredWifiRow:motion-full Grid#ConnectActions">
+      <Setter Property="Transitions">
+        <Transitions>
+          <DoubleTransition Property="Opacity" Duration="0:0:0.120" />
+          <DoubleTransition Property="MaxHeight" Duration="0:0:0.160" />
+        </Transitions>
+      </Setter>
+    </Style>
+  </UserControl.Styles>
   <Grid RowDefinitions="Auto,Auto" Margin="0,4">
     <Grid ColumnDefinitions="*,Auto" ColumnSpacing="16">
       <StackPanel Spacing="3">
@@ -27,6 +42,8 @@
     <Grid Name="ConnectActions"
           Grid.Row="1"
           Margin="0,16,0,4"
+          MaxHeight="0"
+          Opacity="0"
           IsVisible="{Binding #Root.IsSelected}">
       <StackPanel IsVisible="{Binding #Root.Network.ShowConnectAction}" Spacing="12">
         <controls:WifiPassphraseEditor Name="PassphraseEditor"
@@ -38,6 +55,7 @@
                                            SubmitCommand="{Binding #Root.ViewModel.ConnectSelectedWifiCommand}" />
         <Grid ColumnDefinitions="*,Auto" ColumnSpacing="16">
           <TextBlock VerticalAlignment="Center"
+                     AutomationProperties.LiveSetting="Assertive"
                      Foreground="{DynamicResource FoundryBrush.Critical}"
                      IsVisible="{Binding #Root.ViewModel.HasSelectedWifiActionFeedback}"
                      Text="{Binding #Root.ViewModel.SelectedWifiActionFeedbackText}"

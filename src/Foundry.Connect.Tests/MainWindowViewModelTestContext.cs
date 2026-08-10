@@ -5,6 +5,7 @@
 using Foundry.Connect.Models;
 using Foundry.Avalonia.Services.Theme;
 using Foundry.Avalonia.Services.Threading;
+using Foundry.Avalonia.Services.Motion;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Models.Network;
 using Foundry.Connect.Services.ApplicationLifetime;
@@ -42,7 +43,8 @@ internal sealed class MainWindowViewModelTestContext
             TelemetryService,
             NullLogger<MainWindowViewModel>.Instance,
             UiDispatcher,
-            UiTimerFactory);
+            UiTimerFactory,
+            new FoundryMotionPolicy(isWinPe: false, isOperatingSystemAnimationEnabled: true));
     }
 
     public FoundryConnectConfiguration Configuration { get; }

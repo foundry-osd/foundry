@@ -1,16 +1,32 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="using:Foundry.Avalonia.Controls"
+             xmlns:views="using:Foundry.Connect.Views"
              xmlns:vm="using:Foundry.Connect.ViewModels"
              x:Class="Foundry.Connect.Views.ReadinessStatusView"
              x:DataType="vm:MainWindowViewModel">
+  <UserControl.Styles>
+    <Style Selector="views|ReadinessStatusView:motion-full controls|StatusIndicator">
+      <Setter Property="Transitions">
+        <Transitions>
+          <DoubleTransition Property="Opacity" Duration="0:0:0.120" />
+        </Transitions>
+      </Setter>
+    </Style>
+  </UserControl.Styles>
   <Grid ColumnDefinitions="*,Auto" ColumnSpacing="32">
     <Grid>
-      <controls:StatusIndicator Kind="Success"
+      <controls:StatusIndicator Name="ReadyStatus"
+                                AttachedToVisualTree="OnStatusAttached"
+                                Focusable="True"
+                                Kind="Success"
                                 IsVisible="{Binding IsPrimaryStatusSuccessful}"
                                 Title="{Binding PrimaryStatusTitle}"
                                 Description="{Binding PrimaryStatusDescription}" />
-      <controls:StatusIndicator Kind="Caution"
+      <controls:StatusIndicator Name="WaitingStatus"
+                                AttachedToVisualTree="OnStatusAttached"
+                                Focusable="True"
+                                Kind="Caution"
                                 IsVisible="{Binding !IsPrimaryStatusSuccessful}"
                                 Title="{Binding PrimaryStatusTitle}"
                                 Description="{Binding PrimaryStatusDescription}" />
@@ -32,6 +48,8 @@
               IsVisible="{Binding CanContinueBootstrap}"
               Classes="accent" />
       <TextBlock HorizontalAlignment="Center"
+                 AutomationProperties.LiveSetting="Polite"
+                 AutomationProperties.Name="{Binding AutoContinueAccessibleText}"
                  Foreground="{DynamicResource FoundryBrush.TextSecondary}"
                  IsVisible="{Binding IsCountdownActive}"
                  Text="{Binding AutoContinueText}" />

@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Runtime.InteropServices;
 using Foundry.Avalonia.Services.Theme;
 using Foundry.Avalonia.Services.Threading;
+using Foundry.Avalonia.Services.Motion;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Services.ApplicationLifetime;
 using Foundry.Connect.Services.Configuration;
@@ -38,6 +39,9 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IUiDispatcher, AvaloniaUiDispatcher>();
         services.AddSingleton<IUiTimerFactory, AvaloniaUiTimerFactory>();
         services.AddSingleton<IFoundryThemeService, AvaloniaFoundryThemeService>();
+        services.AddSingleton<IMotionPolicy>(_ => new FoundryMotionPolicy(
+            ConnectWorkspacePaths.IsWinPeRuntime(),
+            WindowsAnimationSettings.IsEnabled()));
         services.AddSingleton<IApplicationExitHandler, AvaloniaApplicationExitHandler>();
         services.AddSingleton<IApplicationLifetimeService, ApplicationLifetimeService>();
         services.AddSingleton<IConnectConfigurationService, ConnectConfigurationService>();
