@@ -2,9 +2,12 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-namespace Foundry.Connect.Services.ApplicationShell;
+namespace Foundry.Connect.Models.Readiness;
 
-public interface IApplicationShellService
+public enum ConnectReadinessState
 {
-    void ShowAbout();
+    Refreshing,
+    WaitingForNetwork,
+    Ready,
+    RefreshFailed
 }

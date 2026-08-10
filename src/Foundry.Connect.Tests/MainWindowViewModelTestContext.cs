@@ -1,0 +1,274 @@
+// Copyright (c) Foundry Project contributors.
+// Licensed under the MIT License.
+// See the LICENSE file in the project root for more information.
+
+using Foundry.Connect.Models;
+using Foundry.Avalonia.Services.Theme;
+using Foundry.Avalonia.Services.Threading;
+using Foundry.Connect.Models.Configuration;
+using Foundry.Connect.Models.Network;
+using Foundry.Connect.Services.ApplicationLifetime;
+using Foundry.Connect.Services.Configuration;
+using Foundry.Connect.Services.Localization;
+using Foundry.Connect.Services.Network;
+using Foundry.Connect.Services.Readiness;
+using Foundry.Connect.ViewModels;
+using Foundry.Telemetry;
+using Microsoft.Extensions.Logging.Abstractions;
+
+namespace Foundry.Connect.Tests;
+
+internal sealed class MainWindowViewModelTestContext
+{
+    public MainWindowViewModelTestContext(
+        FoundryConnectConfiguration? configuration = null,
+        INetworkStatusService? networkStatusService = null,
+        RecordingUiDispatcher? dispatcher = null,
+        RecordingUiTimerFactory? timerFactory = null)
+    {
+        Configuration = configuration ?? CreateConfiguration();
+        NetworkStatusService = networkStatusService ?? new QueueNetworkStatusService(CreateSnapshot());
+        UiDispatcher = dispatcher ?? new RecordingUiDispatcher();
+        UiTimerFactory = timerFactory ?? new RecordingUiTimerFactory();
+        ViewModel = new MainWindowViewModel(
+            ThemeService,
+            LocalizationService,
+            LifetimeService,
+            new FakeConnectConfigurationService(Configuration),
+            Configuration,
+            BootstrapService,
+            NetworkStatusService,
+            new ConnectReadinessEvaluator(),
+            TelemetryService,
+            NullLogger<MainWindowViewModel>.Instance,
+            UiDispatcher,
+            UiTimerFactory);
+    }
+
+    public FoundryConnectConfiguration Configuration { get; }
+
+    public RecordingApplicationLifetimeService LifetimeService { get; } = new();
+
+    public RecordingNetworkBootstrapService BootstrapService { get; } = new();
+
+    public RecordingTelemetryService TelemetryService { get; } = new();
+
+    public FakeThemeService ThemeService { get; } = new();
+
+    public RecordingUiDispatcher UiDispatcher { get; }
+
+    public RecordingUiTimerFactory UiTimerFactory { get; }
+
+    public LocalizationService LocalizationService { get; } = new();
+
+    public INetworkStatusService NetworkStatusService { get; }
+
+    public MainWindowViewModel ViewModel { get; }
+
+    public static FoundryConnectConfiguration CreateConfiguration(bool wifiEnabled = true)
+    {
+        return new FoundryConnectConfiguration
+        {
+            Capabilities = new NetworkCapabilitiesOptions { WifiProvisioned = wifiEnabled },
+            Wifi = new WifiSettings
+            {
+                IsEnabled = wifiEnabled,
+                SecurityType = "WPA2-Personal",
+                Ssid = "Foundry"
+            }
+        };
+    }
+
+    public static NetworkStatusSnapshot CreateSnapshot(
+        bool hasInternetAccess = false,
+        NetworkLayoutMode layoutMode = NetworkLayoutMode.EthernetWifi,
+        bool wifiRuntimeAvailable = true,
+        bool hasWirelessAdapter = true,
+        string? connectedWifiSsid = null,
+        IReadOnlyList<WifiNetworkSummary>? wifiNetworks = null)
+    {
+        return new NetworkStatusSnapshot
+        {
+            LayoutMode = layoutMode,
+            HasInternetAccess = hasInternetAccess,
+            HasEthernetAdapter = true,
+            IsEthernetConnected = true,
+            HasDhcpLease = true,
+            HasEthernetIpv4 = true,
+            IsWifiRuntimeAvailable = wifiRuntimeAvailable,
+            HasWirelessAdapter = hasWirelessAdapter,
+            EthernetStatusText = "Connected",
+            EthernetAdapterName = "Ethernet",
+            EthernetIpAddress = "192.0.2.10",
+            EthernetGateway = "192.0.2.1",
+            ConnectedWifiSsid = connectedWifiSsid,
+            WifiNetworks = wifiNetworks ?? []
+        };
+    }
+
+    internal sealed class QueueNetworkStatusService(params object[] results) : INetworkStatusService
+    {
+        private readonly Queue<object> _results = new(results);
+
+        public Task<NetworkStatusSnapshot> GetSnapshotAsync(CancellationToken cancellationToken)
+        {
+            object result = _results.Count > 1 ? _results.Dequeue() : _results.Peek();
+            return result switch
+            {
+                NetworkStatusSnapshot snapshot => Task.FromResult(snapshot),
+                Exception exception => Task.FromException<NetworkStatusSnapshot>(exception),
+                _ => throw new InvalidOperationException("Unsupported test result.")
+            };
+        }
+    }
+
+    internal sealed class RecordingNetworkBootstrapService : INetworkBootstrapService
+    {
+        public int ApplyCalls { get; private set; }
+
+        public int ConnectConfiguredCalls { get; private set; }
+
+        public int ConnectSelectedCalls { get; private set; }
+
+        public int DisconnectCalls { get; private set; }
+
+        public string ApplyResult { get; set; } = string.Empty;
+
+        public string ConnectConfiguredResult { get; set; } = string.Empty;
+
+        public string ConnectSelectedResult { get; set; } = string.Empty;
+
+        public string DisconnectResult { get; set; } = string.Empty;
+
+        public Task<string> ApplyProvisionedSettingsAsync(CancellationToken cancellationToken)
+        {
+            ApplyCalls++;
+            return Task.FromResult(ApplyResult);
+        }
+
+        public Task<string> ConnectConfiguredWifiAsync(CancellationToken cancellationToken)
+        {
+            ConnectConfiguredCalls++;
+            return Task.FromResult(ConnectConfiguredResult);
+        }
+
+        public Task<string> ConnectWifiNetworkAsync(string ssid, string? ssidHex, string authentication, string? passphrase, CancellationToken cancellationToken)
+        {
+            ConnectSelectedCalls++;
+            return Task.FromResult(ConnectSelectedResult);
+        }
+
+        public Task<string> DisconnectWifiAsync(CancellationToken cancellationToken)
+        {
+            DisconnectCalls++;
+            return Task.FromResult(DisconnectResult);
+        }
+    }
+
+    internal sealed class RecordingApplicationLifetimeService : IApplicationLifetimeService
+    {
+        public bool IsExitRequested { get; private set; }
+
+        public FoundryConnectExitCode ExitCode { get; private set; }
+
+        public int ExitCalls { get; private set; }
+
+        public void Exit(FoundryConnectExitCode exitCode)
+        {
+            ExitCalls++;
+            IsExitRequested = true;
+            ExitCode = exitCode;
+        }
+    }
+
+    internal sealed class RecordingUiDispatcher(bool checkAccess = true) : IUiDispatcher
+    {
+        public int InvokeCalls { get; private set; }
+
+        public int PostCalls { get; private set; }
+
+        public bool CheckAccess() => checkAccess;
+
+        public void Post(Action action)
+        {
+            PostCalls++;
+            action();
+        }
+
+        public Task InvokeAsync(Action action)
+        {
+            InvokeCalls++;
+            action();
+            return Task.CompletedTask;
+        }
+    }
+
+    internal sealed class RecordingUiTimerFactory : IUiTimerFactory
+    {
+        public List<RecordingUiTimer> Timers { get; } = [];
+
+        public IUiTimer Create(TimeSpan interval)
+        {
+            var timer = new RecordingUiTimer(interval);
+            Timers.Add(timer);
+            return timer;
+        }
+    }
+
+    internal sealed class RecordingUiTimer(TimeSpan interval) : IUiTimer
+    {
+        public TimeSpan Interval { get; } = interval;
+
+        public bool IsEnabled { get; private set; }
+
+        public bool IsDisposed { get; private set; }
+
+        public event EventHandler? Tick;
+
+        public void Start() => IsEnabled = true;
+
+        public void Stop() => IsEnabled = false;
+
+        public void Fire() => Tick?.Invoke(this, EventArgs.Empty);
+
+        public void Dispose()
+        {
+            IsEnabled = false;
+            IsDisposed = true;
+        }
+    }
+
+    internal sealed class RecordingTelemetryService : ITelemetryService
+    {
+        public List<string> Events { get; } = [];
+
+        public Task TrackAsync(string eventName, IReadOnlyDictionary<string, object?> properties, CancellationToken cancellationToken = default)
+        {
+            Events.Add(eventName);
+            return Task.CompletedTask;
+        }
+
+        public Task FlushAsync(CancellationToken cancellationToken = default) => Task.CompletedTask;
+    }
+
+    internal sealed class FakeThemeService : IFoundryThemeService
+    {
+        public FoundryThemeMode CurrentTheme { get; private set; }
+
+        public void SetTheme(FoundryThemeMode theme)
+        {
+            CurrentTheme = theme;
+        }
+    }
+
+    private sealed class FakeConnectConfigurationService(FoundryConnectConfiguration configuration) : IConnectConfigurationService
+    {
+        public string? ConfigurationPath => null;
+
+        public bool IsLoadedFromDisk => false;
+
+        public bool IsBootMediaUpdateRecommended => false;
+
+        public FoundryConnectConfiguration Load() => configuration;
+    }
+}

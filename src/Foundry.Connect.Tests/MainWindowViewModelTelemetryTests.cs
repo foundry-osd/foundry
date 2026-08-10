@@ -3,14 +3,15 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Connect.Models;
+using Foundry.Avalonia.Services.Theme;
+using Foundry.Avalonia.Services.Threading;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Models.Network;
 using Foundry.Connect.Services.ApplicationLifetime;
-using Foundry.Connect.Services.ApplicationShell;
 using Foundry.Connect.Services.Configuration;
 using Foundry.Connect.Services.Localization;
 using Foundry.Connect.Services.Network;
-using Foundry.Connect.Services.Theme;
+using Foundry.Connect.Services.Readiness;
 using Foundry.Connect.ViewModels;
 using Foundry.Telemetry;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -103,14 +104,16 @@ public sealed class MainWindowViewModelTelemetryTests
         return new MainWindowViewModel(
             new FakeThemeService(),
             new LocalizationService(),
-            new FakeApplicationShellService(),
             lifetimeService,
             new FakeConnectConfigurationService(configuration),
             configuration,
             new FakeNetworkBootstrapService(),
             networkStatusService,
+            new ConnectReadinessEvaluator(),
             telemetryService,
-            NullLogger<MainWindowViewModel>.Instance);
+            NullLogger<MainWindowViewModel>.Instance,
+            new ImmediateUiDispatcher(),
+            new FakeUiTimerFactory());
     }
 
     private static NetworkStatusSnapshot CreateReadySnapshot()
@@ -195,20 +198,48 @@ public sealed class MainWindowViewModelTelemetryTests
         }
     }
 
-    private sealed class FakeThemeService : IThemeService
+    private sealed class FakeThemeService : IFoundryThemeService
     {
-        public ThemeMode CurrentTheme => ThemeMode.System;
+        public FoundryThemeMode CurrentTheme => FoundryThemeMode.System;
 
-        public void SetTheme(ThemeMode theme)
+        public void SetTheme(FoundryThemeMode theme)
         {
         }
     }
 
-    private sealed class FakeApplicationShellService : IApplicationShellService
+    private sealed class ImmediateUiDispatcher : IUiDispatcher
     {
-        public void ShowAbout()
+        public bool CheckAccess() => true;
+
+        public void Post(Action action) => action();
+
+        public Task InvokeAsync(Action action)
         {
+            action();
+            return Task.CompletedTask;
         }
+    }
+
+    private sealed class FakeUiTimerFactory : IUiTimerFactory
+    {
+        public IUiTimer Create(TimeSpan interval) => new FakeUiTimer();
+    }
+
+    private sealed class FakeUiTimer : IUiTimer
+    {
+        public bool IsEnabled { get; private set; }
+
+        public event EventHandler? Tick
+        {
+            add { }
+            remove { }
+        }
+
+        public void Start() => IsEnabled = true;
+
+        public void Stop() => IsEnabled = false;
+
+        public void Dispose() => Stop();
     }
 
     private sealed class FakeConnectConfigurationService(FoundryConnectConfiguration configuration) : IConnectConfigurationService

@@ -2,39 +2,66 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Windows;
+using Foundry.Avalonia.Services.Threading;
 using Foundry.Connect.Models;
 
 namespace Foundry.Connect.Services.ApplicationLifetime;
 
 public sealed class ApplicationLifetimeService : IApplicationLifetimeService
 {
-    public bool IsExitRequested { get; private set; }
+    private readonly IUiDispatcher _dispatcher;
+    private readonly IApplicationExitHandler _exitHandler;
+    private readonly object _exitLock = new();
+    private bool _isExitRequested;
+    private FoundryConnectExitCode _exitCode = FoundryConnectExitCode.Success;
 
-    public FoundryConnectExitCode ExitCode { get; private set; } = FoundryConnectExitCode.Success;
+    public ApplicationLifetimeService(IUiDispatcher dispatcher, IApplicationExitHandler exitHandler)
+    {
+        _dispatcher = dispatcher;
+        _exitHandler = exitHandler;
+    }
+
+    public bool IsExitRequested
+    {
+        get
+        {
+            lock (_exitLock)
+            {
+                return _isExitRequested;
+            }
+        }
+    }
+
+    public FoundryConnectExitCode ExitCode
+    {
+        get
+        {
+            lock (_exitLock)
+            {
+                return _exitCode;
+            }
+        }
+    }
 
     public void Exit(FoundryConnectExitCode exitCode)
     {
-        if (IsExitRequested)
+        lock (_exitLock)
         {
+            if (_isExitRequested)
+            {
+                return;
+            }
+
+            _exitCode = exitCode;
+            _isExitRequested = true;
+        }
+
+        if (_dispatcher.CheckAccess())
+        {
+            _exitHandler.Exit(exitCode);
             return;
         }
 
-        IsExitRequested = true;
-        ExitCode = exitCode;
-
-        Application? app = Application.Current;
-        if (app is null)
-        {
-            return;
-        }
-
-        if (app.Dispatcher.CheckAccess())
-        {
-            app.Shutdown((int)exitCode);
-            return;
-        }
-
-        _ = app.Dispatcher.InvokeAsync(() => app.Shutdown((int)exitCode));
+        _dispatcher.Post(() => _exitHandler.Exit(exitCode));
     }
 }

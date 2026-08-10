@@ -5,24 +5,23 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
-using System.Windows;
-using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Foundry.Avalonia.Services.Theme;
+using Foundry.Avalonia.Services.Threading;
 using Foundry.Connect.Models;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Models.Network;
-using Foundry.Connect.Services.ApplicationShell;
+using Foundry.Connect.Models.Readiness;
 using Foundry.Connect.Services.ApplicationLifetime;
 using Foundry.Connect.Services.Configuration;
 using Foundry.Connect.Services.Localization;
 using Foundry.Connect.Services.Network;
-using Foundry.Connect.Services.Theme;
+using Foundry.Connect.Services.Readiness;
 using Foundry.Localization;
 using Foundry.Telemetry;
 using Foundry.Utilities.Networking;
 using Microsoft.Extensions.Logging;
-using ConnectThemeMode = Foundry.Connect.Services.Theme.ThemeMode;
 
 namespace Foundry.Connect.ViewModels;
 
@@ -41,22 +40,23 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private const string WifiHighGlyph = "\uE874";
     private const string WifiFullGlyph = "\uE701";
 
-    private readonly IThemeService _themeService;
-    private readonly IApplicationShellService _applicationShellService;
+    private readonly IFoundryThemeService _themeService;
     private readonly IApplicationLifetimeService _applicationLifetimeService;
     private readonly IConnectConfigurationService _configurationService;
     private readonly FoundryConnectConfiguration _configuration;
     private readonly INetworkBootstrapService _networkBootstrapService;
     private readonly INetworkStatusService _networkStatusService;
+    private readonly IConnectReadinessEvaluator _readinessEvaluator;
     private readonly ITelemetryService _telemetryService;
     private readonly ILogger<MainWindowViewModel> _logger;
-    private readonly Dispatcher _dispatcher;
+    private readonly IUiDispatcher _dispatcher;
+    private readonly IUiTimerFactory _timerFactory;
     private readonly SemaphoreSlim _refreshGate = new(1, 1);
     private readonly SemaphoreSlim _successfulExitGate = new(1, 1);
     private readonly CancellationTokenSource _disposeCts = new();
     private readonly bool _isAutoCloseEnabled;
 
-    private CancellationTokenSource? _countdownCts;
+    private IUiTimer? _countdownTimer;
     private bool _isInitialized;
     private bool _isDisposed;
     private bool _isSyncingWifiNetworks;
@@ -65,6 +65,11 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private string? _lastSelectedWifiNetworkSsid;
     private DateTimeOffset? _lastConfiguredWifiConnectAttemptAt;
     private string? _connectedWifiSsid;
+    private ConnectReadinessDecision _readinessDecision = new(
+        ConnectReadinessState.WaitingForNetwork,
+        false,
+        false,
+        false);
 
     [ObservableProperty]
     private NetworkLayoutMode layoutMode;
@@ -151,28 +156,31 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     /// Initializes the main window view model and wires runtime services.
     /// </summary>
     public MainWindowViewModel(
-        IThemeService themeService,
+        IFoundryThemeService themeService,
         ILocalizationService localizationService,
-        IApplicationShellService applicationShellService,
         IApplicationLifetimeService applicationLifetimeService,
         IConnectConfigurationService configurationService,
         FoundryConnectConfiguration configuration,
         INetworkBootstrapService networkBootstrapService,
         INetworkStatusService networkStatusService,
+        IConnectReadinessEvaluator readinessEvaluator,
         ITelemetryService telemetryService,
-        ILogger<MainWindowViewModel> logger)
-        : base(localizationService)
+        ILogger<MainWindowViewModel> logger,
+        IUiDispatcher dispatcher,
+        IUiTimerFactory timerFactory)
+        : base(localizationService, dispatcher)
     {
         _themeService = themeService;
-        _applicationShellService = applicationShellService;
         _applicationLifetimeService = applicationLifetimeService;
         _configurationService = configurationService;
         _configuration = configuration;
         _networkBootstrapService = networkBootstrapService;
         _networkStatusService = networkStatusService;
+        _readinessEvaluator = readinessEvaluator;
         _telemetryService = telemetryService;
         _logger = logger;
-        _dispatcher = Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
+        _dispatcher = dispatcher;
+        _timerFactory = timerFactory;
         _isAutoCloseEnabled = !Debugger.IsAttached;
         LayoutMode = NetworkLayoutMode.EthernetOnly;
         LocalizationService.LanguageChanged += OnLanguageChanged;
@@ -198,7 +206,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     /// <summary>
     /// Gets the current application theme mode.
     /// </summary>
-    public ConnectThemeMode CurrentTheme => _themeService.CurrentTheme;
+    public FoundryThemeMode CurrentTheme => _themeService.CurrentTheme;
+
+    public event EventHandler? ShowAboutRequested;
 
     public string VersionDisplay => Format("Common.VersionFormat", FoundryConnectApplicationInfo.Version);
     public bool IsBootMediaUpdateRecommended => _configurationService.IsBootMediaUpdateRecommended;
@@ -258,7 +268,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     /// <summary>
     /// Gets a value indicating whether automatic bootstrap can continue to deployment.
     /// </summary>
-    public bool CanContinueBootstrap => HasInternetAccess && !_applicationLifetimeService.IsExitRequested;
+    public bool CanContinueBootstrap => _readinessDecision.CanContinue && !_applicationLifetimeService.IsExitRequested;
+
+    public ConnectReadinessState CurrentReadinessState => _readinessDecision.State;
 
     /// <summary>
     /// Gets a value indicating whether the current Wi-Fi connection matches the provisioned profile.
@@ -360,21 +372,21 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     [RelayCommand]
     private void SetSystemTheme()
     {
-        _themeService.SetTheme(ConnectThemeMode.System);
+        _themeService.SetTheme(FoundryThemeMode.System);
         OnPropertyChanged(nameof(CurrentTheme));
     }
 
     [RelayCommand]
     private void SetLightTheme()
     {
-        _themeService.SetTheme(ConnectThemeMode.Light);
+        _themeService.SetTheme(FoundryThemeMode.Light);
         OnPropertyChanged(nameof(CurrentTheme));
     }
 
     [RelayCommand]
     private void SetDarkTheme()
     {
-        _themeService.SetTheme(ConnectThemeMode.Dark);
+        _themeService.SetTheme(FoundryThemeMode.Dark);
         OnPropertyChanged(nameof(CurrentTheme));
     }
 
@@ -396,7 +408,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     [RelayCommand]
     private void ShowAbout()
     {
-        _applicationShellService.ShowAbout();
+        ShowAboutRequested?.Invoke(this, EventArgs.Empty);
     }
 
     [RelayCommand]
@@ -549,6 +561,12 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
     private void ApplySnapshot(NetworkStatusSnapshot snapshot)
     {
+        _readinessDecision = _readinessEvaluator.Evaluate(
+            snapshot,
+            isRefreshInProgress: false,
+            refreshFailed: false,
+            hasProvisionedProfile: HasProvisionedWifiProfile);
+        OnPropertyChanged(nameof(CurrentReadinessState));
         LayoutMode = snapshot.LayoutMode;
         HasInternetAccess = snapshot.HasInternetAccess;
         IsEthernetConnected = snapshot.IsEthernetConnected;
@@ -571,13 +589,10 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         RefreshDerivedConnectionState(snapshot);
 
         SyncWifiNetworks(snapshot.WifiNetworks, snapshot.ConnectedWifiSsid);
-        ApplyPrimaryStatus(snapshot.HasInternetAccess);
-        UpdateCountdown(snapshot);
+        ApplyPrimaryStatus(_readinessDecision.CanContinue);
+        UpdateCountdown(_readinessDecision);
 
-        if (!snapshot.HasInternetAccess &&
-            snapshot.LayoutMode == NetworkLayoutMode.EthernetWifi &&
-            snapshot.IsWifiRuntimeAvailable &&
-            _configuration.Wifi.IsEnabled &&
+        if (_readinessDecision.ShouldRetryProvisionedWifi &&
             !IsNetworkActionInProgress &&
             !IsProvisionedWifiConnected &&
             ShouldRetryConfiguredWifiConnect())
@@ -705,9 +720,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         PrimaryStatusDescription = GetString("Status.WaitingForNetworkDescription");
     }
 
-    private void UpdateCountdown(NetworkStatusSnapshot snapshot)
+    private void UpdateCountdown(ConnectReadinessDecision decision)
     {
-        if (snapshot.HasInternetAccess && _isAutoCloseEnabled)
+        if (decision.ShouldStartCountdown && _isAutoCloseEnabled)
         {
             if (IsCountdownActive || _applicationLifetimeService.IsExitRequested)
             {
@@ -729,41 +744,38 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         IsCountdownActive = true;
         OnPropertyChanged(nameof(AutoContinueText));
 
-        _countdownCts = CancellationTokenSource.CreateLinkedTokenSource(_disposeCts.Token);
-        _ = Task.Run(() => RunCountdownAsync(_countdownCts.Token), _countdownCts.Token);
+        _countdownTimer = _timerFactory.Create(TimeSpan.FromSeconds(1));
+        _countdownTimer.Tick += OnCountdownTick;
+        _countdownTimer.Start();
     }
 
-    private async Task RunCountdownAsync(CancellationToken cancellationToken)
+    private void OnCountdownTick(object? sender, EventArgs e)
     {
-        try
-        {
-            while (CountdownSecondsRemaining > 0)
-            {
-                await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken).ConfigureAwait(false);
-                await RunOnUiAsync(() =>
-                {
-                    CountdownSecondsRemaining = Math.Max(0, CountdownSecondsRemaining - 1);
-                    OnPropertyChanged(nameof(AutoContinueText));
-                }).ConfigureAwait(false);
-            }
+        CountdownSecondsRemaining = Math.Max(0, CountdownSecondsRemaining - 1);
+        OnPropertyChanged(nameof(AutoContinueText));
 
-            if (!_applicationLifetimeService.IsExitRequested)
-            {
-                _logger.LogInformation("Internet validation remained stable through the countdown. Exiting successfully.");
-                await ContinueBootstrapSuccessfullyAsync(cancellationToken).ConfigureAwait(false);
-            }
-        }
-        catch (OperationCanceledException)
+        if (CountdownSecondsRemaining > 0)
         {
-            // Ignore countdown cancellation.
+            return;
+        }
+
+        CancelCountdown();
+        if (!_applicationLifetimeService.IsExitRequested)
+        {
+            _logger.LogInformation("Internet validation remained stable through the countdown. Exiting successfully.");
+            _ = ContinueBootstrapSuccessfullyAsync(_disposeCts.Token);
         }
     }
 
     private void CancelCountdown()
     {
-        _countdownCts?.Cancel();
-        _countdownCts?.Dispose();
-        _countdownCts = null;
+        if (_countdownTimer is not null)
+        {
+            _countdownTimer.Tick -= OnCountdownTick;
+            _countdownTimer.Stop();
+            _countdownTimer.Dispose();
+            _countdownTimer = null;
+        }
 
         if (!IsCountdownActive && CountdownSecondsRemaining == 0)
         {
@@ -916,7 +928,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             return Task.CompletedTask;
         }
 
-        return _dispatcher.InvokeAsync(action).Task;
+        return _dispatcher.InvokeAsync(action);
     }
 
     public override void Dispose()
@@ -929,7 +941,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         LocalizationService.LanguageChanged -= OnLanguageChanged;
         _disposeCts.Cancel();
         CancelCountdown();
-        _countdownCts?.Dispose();
         _disposeCts.Dispose();
         _refreshGate.Dispose();
         _successfulExitGate.Dispose();
@@ -1020,7 +1031,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         RunOnUiThread(() =>
         {
             RefreshSupportedCultures();
-            ApplyPrimaryStatus(HasInternetAccess);
+            ApplyPrimaryStatus(_readinessDecision.CanContinue);
             CurrentConnectionChipText = BuildCurrentConnectionChipText(IsEthernetConnected);
             OnPropertyChanged(nameof(CurrentCulture));
             OnPropertyChanged(nameof(VersionDisplay));
