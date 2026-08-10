@@ -1,0 +1,57 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Foundry.Connect.ViewModels"
+             x:Class="Foundry.Connect.Views.EthernetStatusPanel"
+             x:DataType="vm:MainWindowViewModel">
+  <Grid RowDefinitions="Auto,Auto,Auto" RowSpacing="20">
+    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="24">
+      <StackPanel Spacing="6">
+        <TextBlock FontSize="18"
+                   FontWeight="SemiBold"
+                   Text="{Binding Strings[Ethernet.Title]}" />
+        <TextBlock Foreground="{DynamicResource FoundryBrush.TextSecondary}"
+                   Text="{Binding EthernetStatusText}"
+                   TextWrapping="Wrap" />
+        <TextBlock Foreground="{DynamicResource FoundryBrush.TextSecondary}"
+                   IsVisible="{Binding HasEthernetSecondaryStatus}"
+                   Text="{Binding EthernetSecondaryStatusText}"
+                   TextWrapping="Wrap" />
+      </StackPanel>
+    </Grid>
+
+    <Border Grid.Row="1"
+            Height="1"
+            Background="{DynamicResource FoundryBrush.Divider}" />
+
+    <Grid Grid.Row="2"
+          ColumnDefinitions="Auto,*"
+          RowDefinitions="Auto,Auto,Auto"
+          ColumnSpacing="32"
+          RowSpacing="14">
+      <TextBlock FontWeight="SemiBold"
+                 Text="{Binding Strings[Ethernet.AdapterLabel]}" />
+      <TextBlock Name="EthernetAdapterName"
+                 Grid.Column="1"
+                 Text="{Binding EthernetAdapterName}"
+                 TextTrimming="CharacterEllipsis" />
+
+      <TextBlock Grid.Row="1"
+                 FontWeight="SemiBold"
+                 Text="{Binding Strings[Ethernet.Ipv4Label]}" />
+      <TextBlock Name="EthernetIpAddress"
+                 Grid.Row="1"
+                 Grid.Column="1"
+                 Text="{Binding EthernetIpAddress}"
+                 TextTrimming="CharacterEllipsis" />
+
+      <TextBlock Grid.Row="2"
+                 FontWeight="SemiBold"
+                 Text="{Binding Strings[Ethernet.GatewayLabel]}" />
+      <TextBlock Name="EthernetGateway"
+                 Grid.Row="2"
+                 Grid.Column="1"
+                 Text="{Binding EthernetGateway}"
+                 TextTrimming="CharacterEllipsis" />
+    </Grid>
+  </Grid>
+</UserControl>

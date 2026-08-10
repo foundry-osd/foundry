@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:views="using:Foundry.Connect.Views"
+             xmlns:vm="using:Foundry.Connect.ViewModels"
+             x:Class="Foundry.Connect.Views.NetworkReadinessView"
+             x:DataType="vm:MainWindowViewModel">
+  <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                VerticalScrollBarVisibility="Auto">
+    <Grid MaxWidth="1200"
+          HorizontalAlignment="Center"
+          RowDefinitions="Auto,Auto"
+          RowSpacing="40">
+      <views:ReadinessStatusView />
+      <views:EthernetStatusPanel Grid.Row="1" />
+    </Grid>
+  </ScrollViewer>
+</UserControl>

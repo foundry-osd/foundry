@@ -2,8 +2,10 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Windows;
-using System.Windows.Threading;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Threading;
 using Foundry.Connect.DependencyInjection;
 using Foundry.Connect.Models;
 using Foundry.Connect.Services.Configuration;
@@ -18,14 +20,12 @@ using Serilog;
 namespace Foundry.Connect;
 
 /// <summary>
-/// Provides the WPF entry point for Foundry.Connect in WinPE.
+/// Provides the Avalonia entry point for Foundry.Connect in WinPE.
 /// </summary>
 public static class Program
 {
-    private const string DisableFluentBackdropSwitch = "Switch.System.Windows.Appearance.DisableFluentThemeWindowBackdrop";
-
     /// <summary>
-    /// Configures logging, validates runtime constraints, builds the host, and runs the WPF shell.
+    /// Configures logging, validates runtime constraints, builds the host, and runs the Avalonia shell.
     /// </summary>
     /// <param name="args">Command-line arguments passed to Foundry.Connect.</param>
     /// <returns>The process exit code.</returns>
@@ -45,23 +45,16 @@ public static class Program
                 return (int)FoundryConnectExitCode.StartupFailure;
             }
 
-            ConfigureRuntimeCompatibility();
-            Log.Information("Runtime compatibility configuration completed.");
-
             using IHost host = BuildHost(args);
             Log.Information("Host built successfully.");
             ITelemetryService telemetryService = host.Services.GetRequiredService<ITelemetryService>();
+            App.Services = host.Services;
+            Dispatcher.UIThread.UnhandledException += OnDispatcherUnhandledException;
 
-            App app = host.Services.GetRequiredService<App>();
-            Log.Information("Resolved App instance.");
-            app.DispatcherUnhandledException += OnDispatcherUnhandledException;
-            app.InitializeComponent();
-            Log.Information("App.InitializeComponent completed.");
-
-            MainWindow mainWindow = host.Services.GetRequiredService<MainWindow>();
-            Log.Information("Resolved MainWindow instance.");
-            Log.Information("Entering WPF run loop.");
-            int exitCode = app.Run(mainWindow);
+            Log.Information("Entering Avalonia run loop.");
+            int exitCode = BuildAvaloniaApp().StartWithClassicDesktopLifetime(
+                args,
+                ShutdownMode.OnMainWindowClose);
             Log.Debug("Flushing Foundry.Connect telemetry events.");
             telemetryService.FlushAsync().GetAwaiter().GetResult();
             Log.Debug("Foundry.Connect telemetry flush completed.");
@@ -81,47 +74,14 @@ public static class Program
         }
         finally
         {
+            App.Services = null;
             Log.CloseAndFlush();
         }
     }
 
-    private static void ConfigureRuntimeCompatibility()
-    {
-        if (!ShouldDisableFluentBackdrop())
-        {
-            return;
-        }
-
-        AppContext.SetSwitch(DisableFluentBackdropSwitch, true);
-        Log.Information("Enabled '{SwitchName}'.", DisableFluentBackdropSwitch);
-    }
-
-    private static bool ShouldDisableFluentBackdrop()
-    {
-        string? overrideValue = Environment.GetEnvironmentVariable("FOUNDRY_DISABLE_FLUENT_BACKDROP");
-        if (!string.IsNullOrWhiteSpace(overrideValue))
-        {
-            return IsTruthy(overrideValue);
-        }
-
-        // WinPE does not provide the full desktop composition stack required by WPF fluent backdrop effects.
-        return ConnectWorkspacePaths.IsWinPeRuntime();
-    }
-
-    private static bool IsTruthy(string value)
-    {
-        return value.Trim() switch
-        {
-            "1" => true,
-            "true" => true,
-            "TRUE" => true,
-            "yes" => true,
-            "YES" => true,
-            "on" => true,
-            "ON" => true,
-            _ => false
-        };
-    }
+    public static AppBuilder BuildAvaloniaApp() =>
+        AppBuilder.Configure<App>()
+            .UsePlatformDetect();
 
     private static IHost BuildHost(string[] args)
     {
@@ -158,15 +118,9 @@ public static class Program
 
     private static void OnDispatcherUnhandledException(object? sender, DispatcherUnhandledExceptionEventArgs args)
     {
-        Log.Fatal(args.Exception, "Unhandled WPF dispatcher exception.");
+        Log.Fatal(args.Exception, "Unhandled Avalonia dispatcher exception.");
         args.Handled = true;
-
-        Application? app = Application.Current;
-        if (app is null)
-        {
-            return;
-        }
-
-        app.Shutdown((int)FoundryConnectExitCode.StartupFailure);
+        (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.Shutdown(
+            (int)FoundryConnectExitCode.StartupFailure);
     }
 }

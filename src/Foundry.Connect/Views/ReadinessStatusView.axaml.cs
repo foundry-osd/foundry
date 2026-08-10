@@ -2,14 +2,15 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Windows.Controls;
+using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
 
 namespace Foundry.Connect.Views;
 
-public partial class EthernetOnlyView : UserControl
+public partial class ReadinessStatusView : UserControl
 {
-    public EthernetOnlyView()
+    public ReadinessStatusView()
     {
-        InitializeComponent();
+        AvaloniaXamlLoader.Load(this);
     }
 }

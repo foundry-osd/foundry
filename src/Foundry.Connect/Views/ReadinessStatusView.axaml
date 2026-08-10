@@ -1,0 +1,40 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:Foundry.Avalonia.Controls"
+             xmlns:vm="using:Foundry.Connect.ViewModels"
+             x:Class="Foundry.Connect.Views.ReadinessStatusView"
+             x:DataType="vm:MainWindowViewModel">
+  <Grid ColumnDefinitions="*,Auto" ColumnSpacing="32">
+    <Grid>
+      <controls:StatusIndicator Kind="Success"
+                                IsVisible="{Binding IsPrimaryStatusSuccessful}"
+                                Title="{Binding PrimaryStatusTitle}"
+                                Description="{Binding PrimaryStatusDescription}" />
+      <controls:StatusIndicator Kind="Caution"
+                                IsVisible="{Binding !IsPrimaryStatusSuccessful}"
+                                Title="{Binding PrimaryStatusTitle}"
+                                Description="{Binding PrimaryStatusDescription}" />
+      <TextBlock Name="ReadinessTitle"
+                 IsVisible="False"
+                 Text="{Binding PrimaryStatusTitle}" />
+    </Grid>
+
+    <StackPanel Grid.Column="1"
+                MinWidth="220"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Spacing="8">
+      <Button Name="ContinueButton"
+              MinWidth="220"
+              HorizontalAlignment="Stretch"
+              Command="{Binding ContinueBootstrapCommand}"
+              Content="{Binding Strings[Action.Continue]}"
+              IsVisible="{Binding CanContinueBootstrap}"
+              Classes="accent" />
+      <TextBlock HorizontalAlignment="Center"
+                 Foreground="{DynamicResource FoundryBrush.TextSecondary}"
+                 IsVisible="{Binding IsCountdownActive}"
+                 Text="{Binding AutoContinueText}" />
+    </StackPanel>
+  </Grid>
+</UserControl>

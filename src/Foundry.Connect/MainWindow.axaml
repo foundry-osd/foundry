@@ -1,0 +1,63 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:Foundry.Avalonia.Controls"
+        xmlns:views="using:Foundry.Connect.Views"
+        xmlns:vm="using:Foundry.Connect.ViewModels"
+        x:Class="Foundry.Connect.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="{Binding WindowTitle}"
+        Icon="avares://Foundry.Connect/Assets/Icons/app.ico"
+        WindowDecorations="None"
+        WindowState="Maximized"
+        CanResize="False"
+        ExtendClientAreaToDecorationsHint="True">
+  <controls:FoundryShell Name="Shell">
+    <controls:FoundryShell.BrandContent>
+      <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+        <Image Width="28"
+               Height="28"
+               Source="avares://Foundry.Connect/Assets/Images/foundry-about-logo.png"
+               Stretch="Uniform" />
+        <TextBlock Grid.Column="1"
+                   VerticalAlignment="Center"
+                   FontSize="18"
+                   FontWeight="SemiBold"
+                   Text="{Binding Strings[App.Name]}" />
+      </Grid>
+    </controls:FoundryShell.BrandContent>
+
+    <controls:FoundryShell.MenuContent>
+      <Menu Background="Transparent">
+        <MenuItem Header="{Binding Strings[Menu.Theme]}">
+          <MenuItem Command="{Binding SetSystemThemeCommand}"
+                    Header="{Binding Strings[Theme.System]}" />
+          <MenuItem Command="{Binding SetLightThemeCommand}"
+                    Header="{Binding Strings[Theme.Light]}" />
+          <MenuItem Command="{Binding SetDarkThemeCommand}"
+                    Header="{Binding Strings[Theme.Dark]}" />
+        </MenuItem>
+        <MenuItem Header="{Binding Strings[Menu.Language]}" />
+        <MenuItem Header="{Binding Strings[Menu.Tools]}">
+          <MenuItem Command="{Binding RefreshStatusCommand}"
+                    Header="{Binding Strings[Tools.RefreshStatus]}" />
+        </MenuItem>
+        <MenuItem Header="{Binding Strings[Menu.About]}"
+                  Command="{Binding ShowAboutCommand}" />
+      </Menu>
+    </controls:FoundryShell.MenuContent>
+
+    <controls:FoundryShell.TrailingStatusContent>
+      <StackPanel Orientation="Horizontal" Spacing="16">
+        <TextBlock VerticalAlignment="Center"
+                   Foreground="{DynamicResource FoundryBrush.Caution}"
+                   IsVisible="{Binding IsBootMediaUpdateRecommended}"
+                   Text="{Binding BootMediaUpdateRecommendedText}" />
+        <TextBlock VerticalAlignment="Center"
+                   Foreground="{DynamicResource FoundryBrush.TextSecondary}"
+                   Text="{Binding VersionDisplay}" />
+      </StackPanel>
+    </controls:FoundryShell.TrailingStatusContent>
+
+    <views:NetworkReadinessView />
+  </controls:FoundryShell>
+</Window>

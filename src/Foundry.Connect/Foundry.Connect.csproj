@@ -2,14 +2,16 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <UseWPF>true</UseWPF>
     <StartupObject>Foundry.Connect.Program</StartupObject>
     <NeutralLanguage>en-US</NeutralLanguage>
     <ApplicationIcon>Assets\Icons\app.ico</ApplicationIcon>
     <PackageIcon>app.ico</PackageIcon>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Avalonia.Desktop" Version="12.1.1" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.1" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.10" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.10" />
@@ -183,13 +185,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ApplicationDefinition Remove="App.xaml" />
-    <Page Include="App.xaml" />
+    <AvaloniaResource Include="Assets\Icons\app.ico" />
+    <AvaloniaResource Include="Assets\Images\foundry-about-logo.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\Icons\app.ico" />
-    <Resource Include="Assets\Images\foundry-about-logo.png" />
+    <Compile Remove="Views\AboutDialog.xaml.cs" />
+    <Compile Remove="Views\EthernetWifiView.xaml.cs" />
   </ItemGroup>
 
   <ItemGroup>

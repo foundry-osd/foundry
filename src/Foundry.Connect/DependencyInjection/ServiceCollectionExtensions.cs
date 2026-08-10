@@ -30,15 +30,14 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddFoundryConnectApplicationServices(this IServiceCollection services, string[] args)
     {
-        services.AddSingleton<App>();
         services.AddSingleton<MainWindow>();
         services.AddSingleton<MainWindowViewModel>();
         services.AddSingleton(args ?? Array.Empty<string>());
 
-        services.AddSingleton<IUiDispatcher, WpfUiDispatcher>();
-        services.AddSingleton<IUiTimerFactory, WpfUiTimerFactory>();
-        services.AddSingleton<IFoundryThemeService, WpfFoundryThemeService>();
-        services.AddSingleton<IApplicationExitHandler, WpfApplicationExitHandler>();
+        services.AddSingleton<IUiDispatcher, AvaloniaUiDispatcher>();
+        services.AddSingleton<IUiTimerFactory, AvaloniaUiTimerFactory>();
+        services.AddSingleton<IFoundryThemeService, AvaloniaFoundryThemeService>();
+        services.AddSingleton<IApplicationExitHandler, AvaloniaApplicationExitHandler>();
         services.AddSingleton<IApplicationLifetimeService, ApplicationLifetimeService>();
         services.AddSingleton<IConnectConfigurationService, ConnectConfigurationService>();
         services.AddSingleton(sp => sp.GetRequiredService<IConnectConfigurationService>().Load());
