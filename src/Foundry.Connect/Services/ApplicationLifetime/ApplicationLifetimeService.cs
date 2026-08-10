@@ -11,6 +11,9 @@ public sealed class ApplicationLifetimeService : IApplicationLifetimeService
 {
     private readonly IUiDispatcher _dispatcher;
     private readonly IApplicationExitHandler _exitHandler;
+    private readonly object _exitLock = new();
+    private bool _isExitRequested;
+    private FoundryConnectExitCode _exitCode = FoundryConnectExitCode.Success;
 
     public ApplicationLifetimeService(IUiDispatcher dispatcher, IApplicationExitHandler exitHandler)
     {
@@ -18,19 +21,40 @@ public sealed class ApplicationLifetimeService : IApplicationLifetimeService
         _exitHandler = exitHandler;
     }
 
-    public bool IsExitRequested { get; private set; }
+    public bool IsExitRequested
+    {
+        get
+        {
+            lock (_exitLock)
+            {
+                return _isExitRequested;
+            }
+        }
+    }
 
-    public FoundryConnectExitCode ExitCode { get; private set; } = FoundryConnectExitCode.Success;
+    public FoundryConnectExitCode ExitCode
+    {
+        get
+        {
+            lock (_exitLock)
+            {
+                return _exitCode;
+            }
+        }
+    }
 
     public void Exit(FoundryConnectExitCode exitCode)
     {
-        if (IsExitRequested)
+        lock (_exitLock)
         {
-            return;
-        }
+            if (_isExitRequested)
+            {
+                return;
+            }
 
-        IsExitRequested = true;
-        ExitCode = exitCode;
+            _exitCode = exitCode;
+            _isExitRequested = true;
+        }
 
         if (_dispatcher.CheckAccess())
         {

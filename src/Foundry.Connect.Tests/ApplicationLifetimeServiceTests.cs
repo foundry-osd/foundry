@@ -5,6 +5,7 @@
 using Foundry.Avalonia.Services.Threading;
 using Foundry.Connect.Models;
 using Foundry.Connect.Services.ApplicationLifetime;
+using System.Collections.Concurrent;
 
 namespace Foundry.Connect.Tests;
 
@@ -44,17 +45,47 @@ public sealed class ApplicationLifetimeServiceTests
         Assert.Equal(FoundryConnectExitCode.UserAborted, exitHandler.ExitCode);
     }
 
+    [Fact]
+    public async Task Exit_WhenCalledConcurrently_SchedulesExactlyOneExitAndPreservesItsCode()
+    {
+        for (int iteration = 0; iteration < 100; iteration++)
+        {
+            var dispatcher = new RecordingDispatcher(checkAccess: false);
+            var exitHandler = new RecordingExitHandler();
+            var service = new ApplicationLifetimeService(dispatcher, exitHandler);
+            using var start = new ManualResetEventSlim();
+            FoundryConnectExitCode[] exitCodes = Enum.GetValues<FoundryConnectExitCode>();
+            Task[] calls = exitCodes
+                .Select(exitCode => Task.Run(() =>
+                {
+                    start.Wait(TestContext.Current.CancellationToken);
+                    service.Exit(exitCode);
+                }, TestContext.Current.CancellationToken))
+                .ToArray();
+
+            start.Set();
+            await Task.WhenAll(calls);
+
+            Assert.Equal(1, dispatcher.PostCalls);
+            dispatcher.RunPostedActions();
+            Assert.Equal(1, exitHandler.ExitCalls);
+            Assert.Equal(service.ExitCode, exitHandler.ExitCode);
+        }
+    }
+
     private sealed class RecordingDispatcher(bool checkAccess) : IUiDispatcher
     {
-        private readonly Queue<Action> _actions = new();
+        private readonly ConcurrentQueue<Action> _actions = new();
 
-        public int PostCalls { get; private set; }
+        private int _postCalls;
+
+        public int PostCalls => Volatile.Read(ref _postCalls);
 
         public bool CheckAccess() => checkAccess;
 
         public void Post(Action action)
         {
-            PostCalls++;
+            Interlocked.Increment(ref _postCalls);
             _actions.Enqueue(action);
         }
 
