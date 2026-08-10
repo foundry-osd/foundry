@@ -10,6 +10,7 @@ using Foundry.Connect.Services.ApplicationShell;
 using Foundry.Connect.Services.Configuration;
 using Foundry.Connect.Services.Localization;
 using Foundry.Connect.Services.Network;
+using Foundry.Connect.Services.Readiness;
 using Foundry.Connect.Services.Theme;
 using Foundry.Connect.ViewModels;
 using Foundry.Telemetry;
@@ -34,6 +35,7 @@ internal sealed class MainWindowViewModelTestContext
             Configuration,
             BootstrapService,
             NetworkStatusService,
+            new ConnectReadinessEvaluator(),
             TelemetryService,
             NullLogger<MainWindowViewModel>.Instance);
     }

@@ -12,11 +12,13 @@ using CommunityToolkit.Mvvm.Input;
 using Foundry.Connect.Models;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Models.Network;
+using Foundry.Connect.Models.Readiness;
 using Foundry.Connect.Services.ApplicationShell;
 using Foundry.Connect.Services.ApplicationLifetime;
 using Foundry.Connect.Services.Configuration;
 using Foundry.Connect.Services.Localization;
 using Foundry.Connect.Services.Network;
+using Foundry.Connect.Services.Readiness;
 using Foundry.Connect.Services.Theme;
 using Foundry.Localization;
 using Foundry.Telemetry;
@@ -48,6 +50,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly FoundryConnectConfiguration _configuration;
     private readonly INetworkBootstrapService _networkBootstrapService;
     private readonly INetworkStatusService _networkStatusService;
+    private readonly IConnectReadinessEvaluator _readinessEvaluator;
     private readonly ITelemetryService _telemetryService;
     private readonly ILogger<MainWindowViewModel> _logger;
     private readonly Dispatcher _dispatcher;
@@ -65,6 +68,11 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private string? _lastSelectedWifiNetworkSsid;
     private DateTimeOffset? _lastConfiguredWifiConnectAttemptAt;
     private string? _connectedWifiSsid;
+    private ConnectReadinessDecision _readinessDecision = new(
+        ConnectReadinessState.WaitingForNetwork,
+        false,
+        false,
+        false);
 
     [ObservableProperty]
     private NetworkLayoutMode layoutMode;
@@ -159,6 +167,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         FoundryConnectConfiguration configuration,
         INetworkBootstrapService networkBootstrapService,
         INetworkStatusService networkStatusService,
+        IConnectReadinessEvaluator readinessEvaluator,
         ITelemetryService telemetryService,
         ILogger<MainWindowViewModel> logger)
         : base(localizationService)
@@ -170,6 +179,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _configuration = configuration;
         _networkBootstrapService = networkBootstrapService;
         _networkStatusService = networkStatusService;
+        _readinessEvaluator = readinessEvaluator;
         _telemetryService = telemetryService;
         _logger = logger;
         _dispatcher = Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
@@ -258,7 +268,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     /// <summary>
     /// Gets a value indicating whether automatic bootstrap can continue to deployment.
     /// </summary>
-    public bool CanContinueBootstrap => HasInternetAccess && !_applicationLifetimeService.IsExitRequested;
+    public bool CanContinueBootstrap => _readinessDecision.CanContinue && !_applicationLifetimeService.IsExitRequested;
+
+    public ConnectReadinessState CurrentReadinessState => _readinessDecision.State;
 
     /// <summary>
     /// Gets a value indicating whether the current Wi-Fi connection matches the provisioned profile.
@@ -549,6 +561,12 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
     private void ApplySnapshot(NetworkStatusSnapshot snapshot)
     {
+        _readinessDecision = _readinessEvaluator.Evaluate(
+            snapshot,
+            isRefreshInProgress: false,
+            refreshFailed: false,
+            hasProvisionedProfile: HasProvisionedWifiProfile);
+        OnPropertyChanged(nameof(CurrentReadinessState));
         LayoutMode = snapshot.LayoutMode;
         HasInternetAccess = snapshot.HasInternetAccess;
         IsEthernetConnected = snapshot.IsEthernetConnected;
@@ -571,13 +589,10 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         RefreshDerivedConnectionState(snapshot);
 
         SyncWifiNetworks(snapshot.WifiNetworks, snapshot.ConnectedWifiSsid);
-        ApplyPrimaryStatus(snapshot.HasInternetAccess);
-        UpdateCountdown(snapshot);
+        ApplyPrimaryStatus(_readinessDecision.CanContinue);
+        UpdateCountdown(_readinessDecision);
 
-        if (!snapshot.HasInternetAccess &&
-            snapshot.LayoutMode == NetworkLayoutMode.EthernetWifi &&
-            snapshot.IsWifiRuntimeAvailable &&
-            _configuration.Wifi.IsEnabled &&
+        if (_readinessDecision.ShouldRetryProvisionedWifi &&
             !IsNetworkActionInProgress &&
             !IsProvisionedWifiConnected &&
             ShouldRetryConfiguredWifiConnect())
@@ -705,9 +720,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         PrimaryStatusDescription = GetString("Status.WaitingForNetworkDescription");
     }
 
-    private void UpdateCountdown(NetworkStatusSnapshot snapshot)
+    private void UpdateCountdown(ConnectReadinessDecision decision)
     {
-        if (snapshot.HasInternetAccess && _isAutoCloseEnabled)
+        if (decision.ShouldStartCountdown && _isAutoCloseEnabled)
         {
             if (IsCountdownActive || _applicationLifetimeService.IsExitRequested)
             {
@@ -1020,7 +1035,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         RunOnUiThread(() =>
         {
             RefreshSupportedCultures();
-            ApplyPrimaryStatus(HasInternetAccess);
+            ApplyPrimaryStatus(_readinessDecision.CanContinue);
             CurrentConnectionChipText = BuildCurrentConnectionChipText(IsEthernetConnected);
             OnPropertyChanged(nameof(CurrentCulture));
             OnPropertyChanged(nameof(VersionDisplay));
