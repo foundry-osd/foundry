@@ -84,6 +84,12 @@ public sealed class FoundryConfigurationServiceTests
                     IsEnabled = true,
                     PackageNames = ["Microsoft.BingWeather", "Microsoft.GamingApp"]
                 },
+                WindowsOptionalFeatures = new WindowsOptionalFeatureSettings
+                {
+                    IsEnabled = true,
+                    EnabledFeatureIds = ["wf:netfx3", "wf:microsoft-windows-subsystem-linux"],
+                    DisabledFeatureIds = ["wf:smb1protocol-server"]
+                },
                 AiComponentRemoval = new AiComponentRemovalSettings
                 {
                     IsEnabled = true,
@@ -136,6 +142,9 @@ public sealed class FoundryConfigurationServiceTests
         Assert.Equal(OobeLocationAccessMode.ForceOff, loaded.Customization.Oobe.LocationAccess);
         Assert.True(loaded.Customization.AppxRemoval.IsEnabled);
         Assert.Equal(["Microsoft.BingWeather", "Microsoft.GamingApp"], loaded.Customization.AppxRemoval.PackageNames);
+        Assert.True(loaded.Customization.WindowsOptionalFeatures.IsEnabled);
+        Assert.Equal(["wf:netfx3", "wf:microsoft-windows-subsystem-linux"], loaded.Customization.WindowsOptionalFeatures.EnabledFeatureIds);
+        Assert.Equal(["wf:smb1protocol-server"], loaded.Customization.WindowsOptionalFeatures.DisabledFeatureIds);
         Assert.True(loaded.Customization.AiComponentRemoval.IsEnabled);
         Assert.True(loaded.Customization.AiComponentRemoval.RemoveCopilot);
         Assert.True(loaded.Customization.AiComponentRemoval.RemoveAiHub);
