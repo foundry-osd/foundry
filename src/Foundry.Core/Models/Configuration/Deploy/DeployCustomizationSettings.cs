@@ -25,6 +25,11 @@ public sealed record DeployCustomizationSettings
     public DeployAppxRemovalSettings AppxRemoval { get; init; } = new();
 
     /// <summary>
+    /// Gets Windows optional feature state changes applied before OOBE.
+    /// </summary>
+    public DeployWindowsOptionalFeatureSettings WindowsOptionalFeatures { get; init; } = new();
+
+    /// <summary>
     /// Gets Windows AI component removal settings applied before OOBE.
     /// </summary>
     public DeployAiComponentRemovalSettings AiComponentRemoval { get; init; } = new();

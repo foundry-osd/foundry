@@ -235,6 +235,67 @@ public sealed class DeployConfigurationGeneratorTests
     }
 
     [Fact]
+    public void Generate_WhenWindowsOptionalFeaturesAreEnabled_EmitsCanonicalActions()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                WindowsOptionalFeatures = new WindowsOptionalFeatureSettings
+                {
+                    IsEnabled = true,
+                    EnabledFeatureIds = ["WF:TFTP", "wf:netfx3", "wf:unknown"],
+                    DisabledFeatureIds = ["wf:telnetclient"]
+                }
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.True(result.Customization.WindowsOptionalFeatures.IsEnabled);
+        Assert.Collection(
+            result.Customization.WindowsOptionalFeatures.Actions,
+            action =>
+            {
+                Assert.Equal("wf:netfx3", action.Id);
+                Assert.True(action.Enable);
+            },
+            action =>
+            {
+                Assert.Equal("wf:telnetclient", action.Id);
+                Assert.False(action.Enable);
+            },
+            action =>
+            {
+                Assert.Equal("wf:tftp", action.Id);
+                Assert.True(action.Enable);
+            });
+    }
+
+    [Fact]
+    public void Generate_WhenWindowsOptionalFeaturesHaveNoValidActions_EmitsDisabledSettings()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                WindowsOptionalFeatures = new WindowsOptionalFeatureSettings
+                {
+                    IsEnabled = true,
+                    EnabledFeatureIds = ["wf:unknown"]
+                }
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.False(result.Customization.WindowsOptionalFeatures.IsEnabled);
+        Assert.Empty(result.Customization.WindowsOptionalFeatures.Actions);
+    }
+
+    [Fact]
     public void Generate_WhenAiComponentRemovalIsEnabled_PropagatesSelectedOptions()
     {
         var generator = new DeployConfigurationGenerator();
