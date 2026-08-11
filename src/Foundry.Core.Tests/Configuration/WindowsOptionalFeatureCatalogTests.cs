@@ -26,6 +26,12 @@ public sealed class WindowsOptionalFeatureCatalogTests
         Assert.All(
             WindowsOptionalFeatureCatalog.Entries,
             entry => Assert.Equal($"wf:{entry.FeatureName.ToLowerInvariant()}", entry.Id));
+        Assert.Equal(
+            WindowsOptionalFeatureCatalog.Entries.Count,
+            WindowsOptionalFeatureCatalog.Entries.Select(entry => entry.DisplayNameResourceKey).Distinct(StringComparer.Ordinal).Count());
+        Assert.All(
+            WindowsOptionalFeatureCatalog.Entries,
+            entry => Assert.DoesNotContain('-', entry.DisplayNameResourceKey));
     }
 
     [Fact]

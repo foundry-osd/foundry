@@ -293,7 +293,7 @@ public static class WindowsOptionalFeatureCatalog
         {
             Id = BuildId(featureName),
             FeatureName = featureName,
-            DisplayNameResourceKey = $"Customization.WindowsOptionalFeatures.Feature.{featureName}",
+            DisplayNameResourceKey = $"Customization.WindowsOptionalFeatures.Feature.{featureName.Replace('-', '_')}",
             CategoryResourceKey = categoryResourceKey,
             ParentId = parentFeatureName is null ? null : BuildId(parentFeatureName),
             KnownSupportedEditionIds = supportedEditionIds ?? [],
