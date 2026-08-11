@@ -10,9 +10,6 @@ namespace Foundry.ViewModels;
 
 public sealed partial class CustomizationConfigurationViewModel
 {
-    private const string CustomAppxRemovalProfile = "custom";
-    private const string NoneAppxRemovalProfile = "none";
-
     private bool isApplyingAppxSelection;
 
     public ObservableCollection<AppxRemovalCategoryViewModel> AppxRemovalCategories { get; } = [];
@@ -80,8 +77,7 @@ public sealed partial class CustomizationConfigurationViewModel
                     .Select(entry => new AppxRemovalItemViewModel(
                         entry.PackageName,
                         entry.DisplayName,
-                        entry.Category,
-                        entry.DefaultSelected)));
+                        entry.Category)));
 
             foreach (AppxRemovalItemViewModel item in categoryViewModel.Items)
             {
