@@ -273,6 +273,11 @@ public sealed record DeploymentRuntimeState
     public DeployAiComponentRemovalSettings AiComponentRemoval { get; set; } = new();
 
     /// <summary>
+    /// Gets or sets Windows optional feature changes applied to the offline installation.
+    /// </summary>
+    public DeployWindowsOptionalFeatureSettings WindowsOptionalFeatures { get; set; } = new();
+
+    /// <summary>
     /// Gets or sets the transient Foundry workspace on the target Windows partition.
     /// Finalization rebinds retained artifacts under Windows\Temp\Foundry and removes this root.
     /// </summary>

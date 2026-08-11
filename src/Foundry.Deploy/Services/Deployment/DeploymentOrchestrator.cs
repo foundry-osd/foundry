@@ -135,7 +135,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             Network = context.Network,
             Oobe = context.Oobe,
             AppxRemoval = context.AppxRemoval,
-            AiComponentRemoval = context.AiComponentRemoval
+            AiComponentRemoval = context.AiComponentRemoval,
+            WindowsOptionalFeatures = context.WindowsOptionalFeatures
         };
 
         DeploymentStepExecutionContext? executionContext = null;

@@ -40,6 +40,7 @@ public sealed class DeploymentWizardContext : IDisposable
     public DeployOobeSettings Oobe { get; private set; } = new();
     public DeployAppxRemovalSettings AppxRemoval { get; private set; } = new();
     public DeployAiComponentRemovalSettings AiComponentRemoval { get; private set; } = new();
+    public DeployWindowsOptionalFeatureSettings WindowsOptionalFeatures { get; private set; } = new();
 
     public event EventHandler? StateChanged;
 
@@ -120,6 +121,7 @@ public sealed class DeploymentWizardContext : IDisposable
         Oobe = document.Customization.Oobe ?? new DeployOobeSettings();
         AppxRemoval = document.Customization.AppxRemoval ?? new DeployAppxRemovalSettings();
         AiComponentRemoval = document.Customization.AiComponentRemoval ?? new DeployAiComponentRemovalSettings();
+        WindowsOptionalFeatures = document.Customization.WindowsOptionalFeatures ?? new DeployWindowsOptionalFeatureSettings();
         Preparation.ApplyAutopilotConfiguration(document.Autopilot ?? new DeployAutopilotSettings(), autopilotProfiles);
     }
 

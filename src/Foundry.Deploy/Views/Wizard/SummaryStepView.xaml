@@ -120,6 +120,8 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="8" />
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="220" />
@@ -192,6 +194,16 @@
                                 Text="{Binding SummaryAutopilotGroupTagText}"
                                 TextWrapping="Wrap"
                                 Visibility="{Binding Preparation.IsHardwareHashUploadControlsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                            <TextBlock
+                                Grid.Row="10"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{Binding Strings[Summary.WindowsOptionalFeatures]}" />
+                            <TextBlock
+                                Grid.Row="10"
+                                Grid.Column="2"
+                                Text="{Binding SummaryWindowsOptionalFeaturesText}"
+                                TextWrapping="Wrap" />
                         </Grid>
                     </StackPanel>
                 </Border>

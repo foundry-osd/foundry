@@ -97,6 +97,8 @@
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Sistem de operare</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Fără selecție</value></data>
   <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Pachetul de driver selectat</value></data>
+  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Windows Optional Features</value></data>
+  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} configured ({1} enable, {2} disable)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Metoda</value></data>

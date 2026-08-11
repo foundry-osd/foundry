@@ -95,6 +95,7 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             Oobe = request.Oobe,
             AppxRemoval = request.AppxRemoval,
             AiComponentRemoval = request.AiComponentRemoval,
+            WindowsOptionalFeatures = request.WindowsOptionalFeatures,
             Completion = request.Completion,
             IsDryRun = request.IsDryRun
         };

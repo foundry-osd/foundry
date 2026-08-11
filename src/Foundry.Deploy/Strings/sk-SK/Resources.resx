@@ -97,6 +97,8 @@
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Operačný systém</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Žiadny výber</value></data>
   <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Vybraný balík ovládačov</value></data>
+  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Windows Optional Features</value></data>
+  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} configured ({1} enable, {2} disable)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Firmvér</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Metóda Autopilot</value></data>

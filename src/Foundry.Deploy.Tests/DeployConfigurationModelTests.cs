@@ -11,6 +11,60 @@ namespace Foundry.Deploy.Tests;
 public sealed class DeployConfigurationModelTests
 {
     [Fact]
+    public void Deserialize_WhenWindowsOptionalFeaturesAreConfigured_PreservesActions()
+    {
+        const string json = """
+            {
+              "schemaVersion": 11,
+              "customization": {
+                "windowsOptionalFeatures": {
+                  "isEnabled": true,
+                  "actions": [
+                    { "id": "wf:netfx3", "enable": true },
+                    { "id": "wf:telnetclient", "enable": false }
+                  ]
+                }
+              }
+            }
+            """;
+
+        FoundryDeployConfigurationDocument? document = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(
+            json,
+            new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
+        Assert.NotNull(document);
+        Assert.True(document.Customization.WindowsOptionalFeatures.IsEnabled);
+        Assert.Collection(
+            document.Customization.WindowsOptionalFeatures.Actions,
+            action =>
+            {
+                Assert.Equal("wf:netfx3", action.Id);
+                Assert.True(action.Enable);
+            },
+            action =>
+            {
+                Assert.Equal("wf:telnetclient", action.Id);
+                Assert.False(action.Enable);
+            });
+    }
+
+    [Fact]
+    public void Deserialize_WhenWindowsOptionalFeaturesAreMissing_DefaultsToDisabled()
+    {
+        const string json = """{ "schemaVersion": 10 }""";
+
+        FoundryDeployConfigurationDocument? document = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(json);
+
+        Assert.NotNull(document);
+        Assert.False(document.Customization.WindowsOptionalFeatures.IsEnabled);
+        Assert.Empty(document.Customization.WindowsOptionalFeatures.Actions);
+    }
+
+    [Fact]
     public void Deserialize_WhenLocalizationIncludesDefaultTimeZoneId_PreservesValue()
     {
         const string json = """
