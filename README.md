@@ -61,7 +61,7 @@ This repository contains the Foundry OSD desktop application and the WinPE runti
 | Ethernet and Wi-Fi | Validate Ethernet, use pre-provisioned Wi-Fi, or connect to supported personal Wi-Fi networks from WinPE | Supports deployments on wired, wireless, enterprise, and non-enterprise networks |
 | Enterprise networking | Stage wired 802.1X and enterprise Wi-Fi profiles with optional trusted root CA certificates | Supports corporate network environments |
 | Deployment workflow | Choose target disk, Windows image, drivers, firmware, Autopilot, and deployment options from Foundry Deploy | Makes deployment decisions visible before execution |
-| Windows customization | Configure machine naming, language, time zone, OOBE, privacy defaults, AppX removal, and AI component controls | Produces cleaner and more predictable Windows installations |
+| Windows customization | Configure machine naming, language, time zone, OOBE, privacy defaults, categorized Windows Optional Features, AppX removal, and AI component controls | Produces cleaner and more predictable Windows installations with fully offline post-apply servicing |
 | Autopilot | Stage offline Autopilot JSON profiles or upload hardware hashes from WinPE | Covers offline provisioning and tenant-connected registration |
 | Readiness validation | Check ADK readiness, media settings, USB target identity, target disk eligibility, network provisioning, secrets, and Autopilot configuration | Catches missing or risky setup before media creation or deployment |
 
