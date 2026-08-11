@@ -29,7 +29,7 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
         _networkProfileRoamingArtifactService = networkProfileRoamingArtifactService;
     }
 
-    public override int Order => 13;
+    public override int Order => 14;
 
     public override string Name => DeploymentStepNames.StagePreOobeCustomization;
 

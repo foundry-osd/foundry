@@ -43,7 +43,7 @@ public sealed class ApplyDriverPackStep : DeploymentStepBase
     }
 
     /// <inheritdoc />
-    public override int Order => 14;
+    public override int Order => 15;
 
     /// <inheritdoc />
     public override string Name => DeploymentStepNames.ApplyDriverPack;

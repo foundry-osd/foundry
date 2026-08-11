@@ -29,6 +29,18 @@ public sealed class DeploymentOrchestratorTests
     }
 
     [Fact]
+    public void DeploymentStepNames_All_OrdersOptionalFeatureServicingAfterOobeAndBeforeRecovery()
+    {
+        List<string> steps = DeploymentStepNames.All.ToList();
+        int oobeIndex = steps.IndexOf(DeploymentStepNames.ConfigureOobeSettings);
+        int optionalFeaturesIndex = steps.IndexOf(DeploymentStepNames.ConfigureWindowsOptionalFeatures);
+        int recoveryIndex = steps.IndexOf(DeploymentStepNames.ConfigureRecoveryEnvironment);
+
+        Assert.Equal(oobeIndex + 1, optionalFeaturesIndex);
+        Assert.Equal(optionalFeaturesIndex + 1, recoveryIndex);
+    }
+
+    [Fact]
     public async Task RunAsync_WhenDeploymentFailsAfterTargetLayout_ReturnsActualReboundLogPath()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
