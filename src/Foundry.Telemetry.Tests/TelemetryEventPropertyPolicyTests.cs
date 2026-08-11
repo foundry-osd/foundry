@@ -78,6 +78,14 @@ public sealed class TelemetryEventPropertyPolicyTests
             ["customization_appx_removal_package_count"] = 8,
             ["customization_appx_removal_profile"] = "gaming_xbox",
             ["customization_appx_removal_package_names"] = "Microsoft.XboxApp",
+            ["customization_windows_optional_features_enabled"] = true,
+            ["customization_windows_optional_features_configured_count"] = 2,
+            ["customization_windows_optional_features_enable_count"] = 1,
+            ["customization_windows_optional_features_disable_count"] = 1,
+            ["customization_windows_optional_features_category_count"] = 2,
+            ["customization_windows_optional_features_requires_sxs"] = true,
+            ["customization_windows_optional_features_ids"] = "wf:netfx3",
+            ["customization_windows_optional_features_source_path"] = @"C:\sources\sxs",
             ["customization_ai_component_removal_enabled"] = true,
             ["customization_ai_remove_copilot_enabled"] = true,
             ["customization_ai_remove_ai_hub_enabled"] = true,
@@ -158,6 +166,14 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.True((bool)result["customization_appx_removal_enabled"]!);
         Assert.Equal(8, result["customization_appx_removal_package_count"]);
         Assert.Equal("gaming_xbox", result["customization_appx_removal_profile"]);
+        Assert.True((bool)result["customization_windows_optional_features_enabled"]!);
+        Assert.Equal(2, result["customization_windows_optional_features_configured_count"]);
+        Assert.Equal(1, result["customization_windows_optional_features_enable_count"]);
+        Assert.Equal(1, result["customization_windows_optional_features_disable_count"]);
+        Assert.Equal(2, result["customization_windows_optional_features_category_count"]);
+        Assert.True((bool)result["customization_windows_optional_features_requires_sxs"]!);
+        Assert.False(result.ContainsKey("customization_windows_optional_features_ids"));
+        Assert.False(result.ContainsKey("customization_windows_optional_features_source_path"));
         Assert.True((bool)result["customization_ai_component_removal_enabled"]!);
         Assert.True((bool)result["customization_ai_remove_copilot_enabled"]!);
         Assert.True((bool)result["customization_ai_remove_ai_hub_enabled"]!);
