@@ -4,6 +4,7 @@
 
 using System.Xml.Linq;
 using System.Text.RegularExpressions;
+using Foundry.Core.Models.Configuration;
 
 namespace Foundry.Localization.Tests;
 
@@ -98,6 +99,27 @@ public sealed class ResourceKeyParityTests
             "Network.PageDescription",
             "StartMedia.PageDescription"
         ];
+
+        Assert.Empty(expectedKeys.Except(enUsKeys, StringComparer.Ordinal));
+    }
+
+    [Fact]
+    public void FoundryResources_IncludeWindowsOptionalFeatureCatalogKeys()
+    {
+        string sourceRoot = FindSourceRoot();
+        string enUsPath = Path.Combine(sourceRoot, "Foundry", "Strings", "en-US", "Resources.resw");
+        SortedSet<string> enUsKeys = ReadResourceKeys(enUsPath);
+        string[] expectedKeys = WindowsOptionalFeatureCatalog.Entries
+            .SelectMany(entry => new[]
+            {
+                entry.DisplayNameResourceKey,
+                entry.CategoryResourceKey,
+                entry.WarningResourceKey
+            })
+            .Where(key => !string.IsNullOrWhiteSpace(key))
+            .Select(key => key!)
+            .Distinct(StringComparer.Ordinal)
+            .ToArray();
 
         Assert.Empty(expectedKeys.Except(enUsKeys, StringComparer.Ordinal));
     }
