@@ -766,13 +766,13 @@
     <value>Availability will be verified against the applied Windows image</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Enable" xml:space="preserve">
-    <value>Enable visible</value>
+    <value>Enable visible items</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Disable" xml:space="preserve">
-    <value>Disable visible</value>
+    <value>Disable visible items</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Clear" xml:space="preserve">
-    <value>Clear visible</value>
+    <value>Reset visible items</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MatchingSource" xml:space="preserve">
     <value>Enabling this feature requires a matching setup-media sources\sxs payload.</value>

@@ -682,7 +682,7 @@
     <value>プロビジョニングされた Windows AI Hub アプリ パッケージが存在する場合は削除します。</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Disable Windows Recall by policy</value>
+    <value>ポリシーによって Windows Recall を無効にする</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>Recall の有効化とスナップショットの保存を禁止する Windows AI ポリシーを設定します。</value>
@@ -718,148 +718,148 @@
     <value>AI 機能を無効にする Notepad ポリシーを設定します。</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesHeader" xml:space="preserve">
-    <value>Windows Optional Features</value>
+    <value>Windowsのオプション機能</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesDescription" xml:space="preserve">
-    <value>Enable or disable Windows components in the deployed operating system.</value>
+    <value>導入されたオペレーティング システムで Windows コンポーネントを有効または無効にします。</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesEnableLabel" xml:space="preserve">
-    <value>Configure Windows Optional Features</value>
+    <value>Windows のオプション機能を構成する</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
-    <value>Changes are applied offline after Windows is installed and before OOBE. Enable operations use only the installed image or matching setup-media sources; no Internet fallback is used.</value>
+    <value>変更は、Windows のインストール後、OOBE の前にオフラインで適用されます。有効化操作では、インストール済みイメージまたは一致するセットアップ メディア ソースのみを使用し、インターネット上の代替ソースは使用しません。</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} configured ({1} enable, {2} disable)</value>
+    <value>{0} が構成されました ({1} が有効、{2} が無効)</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesSearchLabel" xml:space="preserve">
-    <value>Search features</value>
+    <value>検索機能</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesSearchPlaceholder" xml:space="preserve">
-    <value>Search by display name or DISM feature name</value>
+    <value>表示名または DISM 機能名で検索する</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesEmptySearch" xml:space="preserve">
-    <value>No Windows optional features match this search.</value>
+    <value>この検索に一致する Windows オプション機能はありません。</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.DetailFormat" xml:space="preserve">
-    <value>{0} — {1}</value>
+    <value>{0} - {1}</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.State.Unchanged" xml:space="preserve">
-    <value>Unchanged</value>
+    <value>変更なし</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.State.Enable" xml:space="preserve">
-    <value>Enable</value>
+    <value>有効にする</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.State.Disable" xml:space="preserve">
-    <value>Disable</value>
+    <value>無効にする</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.Available" xml:space="preserve">
-    <value>Available for all selected targets</value>
+    <value>選択したすべてのターゲットで使用可能</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.PartiallyAvailable" xml:space="preserve">
-    <value>Available for some selected targets</value>
+    <value>選択した一部のターゲットで利用可能</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.Unavailable" xml:space="preserve">
-    <value>Not available for the selected targets</value>
+    <value>選択したターゲットでは使用できません</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.RuntimeVerificationRequired" xml:space="preserve">
-    <value>Availability will be verified against the applied Windows image</value>
+    <value>適用された Windows イメージに対して可用性が検証されます。</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Enable" xml:space="preserve">
-    <value>Enable visible</value>
+    <value>表示アイテムを有効にする</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Disable" xml:space="preserve">
-    <value>Disable visible</value>
+    <value>表示されているアイテムを無効にする</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Clear" xml:space="preserve">
-    <value>Clear visible</value>
+    <value>表示されている項目をリセットする</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MatchingSource" xml:space="preserve">
-    <value>Enabling this feature requires a matching setup-media sources\sxs payload.</value>
+    <value>この機能を有効にするには、セットアップ メディアの sources\sxs に一致するペイロードが必要です。</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.HardwareVirtualization" xml:space="preserve">
-    <value>Requires compatible virtualization hardware and firmware settings.</value>
+    <value>互換性のある仮想化ハードウェアとファームウェアの設定が必要です。</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.Rdma" xml:space="preserve">
-    <value>Requires an RDMA-capable network adapter.</value>
+    <value>RDMA 対応のネットワーク アダプターが必要です。</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MediaFeaturePack" xml:space="preserve">
-    <value>Windows N editions may require the Media Feature Pack.</value>
+    <value>Windows N エディションでは、Media Feature Pack が必要な場合があります。</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
-    <value>Availability depends on Copilot+ PC hardware and the installed Windows image.</value>
+    <value>利用できるかどうかは、Copilot+ PC ハードウェアとインストールされている Windows イメージによって異なります。</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.WslComponentOnly" xml:space="preserve">
-    <value>This configures the Windows component only; it does not install a Linux distribution.</value>
+    <value>これは Windows コンポーネントのみを構成します。 Linux ディストリビューションはインストールされません。</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.RecallPolicyIndependent" xml:space="preserve">
-    <value>This component state is independent from the separate Recall policy setting.</value>
+    <value>このコンポーネントの状態は、個別の Recall ポリシー設定とは独立しています。</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Frameworks" xml:space="preserve">
-    <value>Frameworks and application platforms</value>
+    <value>フレームワークとアプリケーション プラットフォーム</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.DirectoryServices" xml:space="preserve">
-    <value>Directory services</value>
+    <value>ディレクトリサービス</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Virtualization" xml:space="preserve">
-    <value>Virtualization</value>
+    <value>仮想化</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Legacy" xml:space="preserve">
-    <value>Legacy components</value>
+    <value>レガシーコンポーネント</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Containers" xml:space="preserve">
-    <value>Containers</value>
+    <value>コンテナ</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Networking" xml:space="preserve">
-    <value>Networking</value>
+    <value>ネットワーキング</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Media" xml:space="preserve">
-    <value>Media</value>
+    <value>メディア</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Security" xml:space="preserve">
-    <value>Security</value>
+    <value>セキュリティ</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Printing" xml:space="preserve">
-    <value>Printing and documents</value>
+    <value>印刷と書類</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Web" xml:space="preserve">
-    <value>Web and Internet Information Services</value>
+    <value>Web およびインターネット情報サービス</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Management" xml:space="preserve">
-    <value>Management tools</value>
+    <value>管理ツール</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Compatibility" xml:space="preserve">
-    <value>Compatibility</value>
+    <value>互換性</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.FileServices" xml:space="preserve">
-    <value>File services</value>
+    <value>ファイルサービス</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Diagnostics" xml:space="preserve">
-    <value>Diagnostics</value>
+    <value>診断</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.DeviceLockdown" xml:space="preserve">
-    <value>Device lockdown</value>
+    <value>デバイスのロックダウン</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.FileSystems" xml:space="preserve">
-    <value>File systems</value>
+    <value>ファイルシステム</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.SearchAndIndexing" xml:space="preserve">
-    <value>Search and indexing</value>
+    <value>検索とインデックス作成</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Messaging" xml:space="preserve">
-    <value>Message queuing</value>
+    <value>メッセージキューイング</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.AiComponents" xml:space="preserve">
-    <value>AI components</value>
+    <value>AIコンポーネント</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.NetFx3" xml:space="preserve">
-    <value>.NET Framework 3.5 (includes .NET 2.0 and 3.0)</value>
+    <value>.NET Framework 3.5 (.NET 2.0 および 3.0 を含む)</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_HTTP_Activation" xml:space="preserve">
     <value>Windows Communication Foundation HTTP Activation</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_NonHTTP_Activation" xml:space="preserve">
-    <value>Windows Communication Foundation Non-HTTP Activation</value>
+    <value>Windows Communication Foundation 非 HTTP アクティベーション</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.NetFx4_AdvSrvs" xml:space="preserve">
     <value>.NET Framework 4.8 Advanced Services</value>
@@ -868,124 +868,124 @@
     <value>ASP.NET 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Services45" xml:space="preserve">
-    <value>WCF Services</value>
+    <value>WCF サービス</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_HTTP_Activation45" xml:space="preserve">
-    <value>HTTP Activation</value>
+    <value>HTTP アクティベーション</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_TCP_Activation45" xml:space="preserve">
-    <value>TCP Activation</value>
+    <value>TCP アクティブ化</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Pipe_Activation45" xml:space="preserve">
-    <value>Named Pipe Activation</value>
+    <value>名前付きパイプのアクティブ化</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_MSMQ_Activation45" xml:space="preserve">
-    <value>Message Queuing (MSMQ) Activation</value>
+    <value>メッセージ キュー (MSMQ) のアクティブ化</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_TCP_PortSharing45" xml:space="preserve">
-    <value>TCP Port Sharing</value>
+    <value>TCP ポート共有</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.DirectoryServices_ADAM_Client" xml:space="preserve">
-    <value>Active Directory Lightweight Directory Services</value>
+    <value>Active Directory ライトウェイト ディレクトリ サービス</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HyperV_KernelInt_VirtualDevice" xml:space="preserve">
-    <value>Microsoft Kernel Debug Network Adapter</value>
+    <value>Microsoft カーネル デバッグ ネットワーク アダプター</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Containers_DisposableClientVM" xml:space="preserve">
-    <value>Windows Sandbox</value>
+    <value>Windows サンドボックス</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.LegacyComponents" xml:space="preserve">
-    <value>Legacy Components</value>
+    <value>レガシー コンポーネント</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.DirectPlay" xml:space="preserve">
     <value>DirectPlay</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Containers" xml:space="preserve">
-    <value>Containers</value>
+    <value>コンテナー</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.DataCenterBridging" xml:space="preserve">
-    <value>Data Center Bridging</value>
+    <value>データセンター ブリッジング</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MediaPlayback" xml:space="preserve">
-    <value>Media Features</value>
+    <value>メディア機能</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WindowsMediaPlayer" xml:space="preserve">
-    <value>Windows Media Player Legacy</value>
+    <value>Windows Media Player レガシー</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HostGuardian" xml:space="preserve">
-    <value>Host Guardian Hyper-V Support</value>
+    <value>Host Guardian Hyper-V サポート</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_All" xml:space="preserve">
     <value>Hyper-V</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V" xml:space="preserve">
-    <value>Hyper-V Platform</value>
+    <value>Hyper-V プラットフォーム</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Hypervisor" xml:space="preserve">
-    <value>Hyper-V Hypervisor</value>
+    <value>Hyper-V ハイパーバイザー</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Services" xml:space="preserve">
-    <value>Hyper-V Services</value>
+    <value>Hyper-V サービス</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Tools_All" xml:space="preserve">
-    <value>Hyper-V Management Tools</value>
+    <value>Hyper-V 管理ツール</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Management_Clients" xml:space="preserve">
-    <value>Hyper-V GUI Management Tools</value>
+    <value>Hyper-V GUI 管理ツール</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Management_PowerShell" xml:space="preserve">
-    <value>Hyper-V Module for Windows PowerShell</value>
+    <value>Windows PowerShell 用 Hyper-V モジュール</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_PrintToPDFServices_Features" xml:space="preserve">
     <value>Microsoft Print to PDF</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HostableWebCore" xml:space="preserve">
-    <value>IIS Hostable Web Core</value>
+    <value>IIS ホスタブル Web コア</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServerRole" xml:space="preserve">
-    <value>Internet Information Services</value>
+    <value>インターネット インフォメーション サービス</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPServer" xml:space="preserve">
-    <value>FTP Server</value>
+    <value>FTP サーバー</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPSvc" xml:space="preserve">
-    <value>FTP Service</value>
+    <value>FTP サービス</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPExtensibility" xml:space="preserve">
-    <value>FTP Extensibility</value>
+    <value>FTP 拡張性</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServerManagementTools" xml:space="preserve">
-    <value>Web Management Tools</value>
+    <value>Web 管理ツール</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementConsole" xml:space="preserve">
-    <value>IIS Management Console</value>
+    <value>IIS 管理コンソール</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementScriptingTools" xml:space="preserve">
-    <value>IIS Management Scripts and Tools</value>
+    <value>IIS 管理スクリプトとツール</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementService" xml:space="preserve">
-    <value>IIS Management Service</value>
+    <value>IIS 管理サービス</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IIS6ManagementCompatibility" xml:space="preserve">
-    <value>IIS 6 Management Compatibility</value>
+    <value>IIS 6 管理互換性</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Metabase" xml:space="preserve">
-    <value>IIS Metabase and IIS 6 Configuration Compatibility</value>
+    <value>IIS メタベースと IIS 6 構成の互換性</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WMICompatibility" xml:space="preserve">
-    <value>IIS 6 WMI Compatibility</value>
+    <value>IIS 6 WMI 互換性</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacyScripts" xml:space="preserve">
-    <value>IIS 6 Scripting Tools</value>
+    <value>IIS 6 スクリプト ツール</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacySnapIn" xml:space="preserve">
-    <value>IIS 6 Management Console</value>
+    <value>IIS 6 管理コンソール</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServer" xml:space="preserve">
-    <value>World Wide Web Services</value>
+    <value>World Wide Web サービス</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ApplicationDevelopment" xml:space="preserve">
-    <value>Application Development Features</value>
+    <value>アプリケーション開発機能</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility" xml:space="preserve">
     <value>.NET Extensibility 3.5</value>
@@ -994,7 +994,7 @@
     <value>.NET Extensibility 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ApplicationInit" xml:space="preserve">
-    <value>Application Initialization</value>
+    <value>アプリケーションの初期化</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ASP" xml:space="preserve">
     <value>ASP</value>
@@ -1009,238 +1009,238 @@
     <value>CGI</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ISAPIExtensions" xml:space="preserve">
-    <value>ISAPI Extensions</value>
+    <value>ISAPI 拡張機能</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ISAPIFilter" xml:space="preserve">
-    <value>ISAPI Filters</value>
+    <value>ISAPI フィルター</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ServerSideIncludes" xml:space="preserve">
-    <value>Server-Side Includes</value>
+    <value>サーバー側のインクルード</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebSockets" xml:space="preserve">
-    <value>WebSocket Protocol</value>
+    <value>WebSocket プロトコル</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CommonHttpFeatures" xml:space="preserve">
-    <value>Common HTTP Features</value>
+    <value>共通の HTTP 機能</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DefaultDocument" xml:space="preserve">
-    <value>Default Document</value>
+    <value>デフォルトのドキュメント</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DirectoryBrowsing" xml:space="preserve">
-    <value>Directory Browsing</value>
+    <value>ディレクトリの参照</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpErrors" xml:space="preserve">
-    <value>HTTP Errors</value>
+    <value>HTTP エラー</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpRedirect" xml:space="preserve">
-    <value>HTTP Redirection</value>
+    <value>HTTP リダイレクト</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_StaticContent" xml:space="preserve">
-    <value>Static Content</value>
+    <value>静的コンテンツ</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebDAV" xml:space="preserve">
-    <value>WebDAV Publishing</value>
+    <value>WebDAV パブリッシング</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HealthAndDiagnostics" xml:space="preserve">
-    <value>Health and Diagnostics</value>
+    <value>ヘルスと診断</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CustomLogging" xml:space="preserve">
-    <value>Custom Logging</value>
+    <value>カスタム ログ</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpLogging" xml:space="preserve">
-    <value>HTTP Logging</value>
+    <value>HTTP ログ</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LoggingLibraries" xml:space="preserve">
-    <value>Logging Tools</value>
+    <value>ログ ツール</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ODBCLogging" xml:space="preserve">
-    <value>ODBC Logging</value>
+    <value>ODBC ログ</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestMonitor" xml:space="preserve">
-    <value>Request Monitor</value>
+    <value>リクエスト モニター</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpTracing" xml:space="preserve">
-    <value>Tracing</value>
+    <value>トレース</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Performance" xml:space="preserve">
-    <value>Performance Features</value>
+    <value>パフォーマンス機能</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpCompressionDynamic" xml:space="preserve">
-    <value>Dynamic Content Compression</value>
+    <value>動的コンテンツ圧縮</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpCompressionStatic" xml:space="preserve">
-    <value>Static Content Compression</value>
+    <value>静的コンテンツ圧縮</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Security" xml:space="preserve">
-    <value>Security Features</value>
+    <value>セキュリティ機能</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_BasicAuthentication" xml:space="preserve">
-    <value>Basic Authentication</value>
+    <value>基本認証</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CertProvider" xml:space="preserve">
-    <value>Centralized SSL Certificate Support</value>
+    <value>集中型 SSL 証明書のサポート</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ClientCertificateMappingAuthentication" xml:space="preserve">
-    <value>Client Certificate Mapping Authentication</value>
+    <value>クライアント証明書マッピング認証</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DigestAuthentication" xml:space="preserve">
-    <value>Digest Authentication</value>
+    <value>ダイジェスト認証</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IISCertificateMappingAuthentication" xml:space="preserve">
-    <value>IIS Client Certificate Mapping Authentication</value>
+    <value>IIS クライアント証明書マッピング認証</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IPSecurity" xml:space="preserve">
-    <value>IP Security</value>
+    <value>IP セキュリティ</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestFiltering" xml:space="preserve">
-    <value>Request Filtering</value>
+    <value>リクエスト フィルタリング</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_URLAuthorization" xml:space="preserve">
-    <value>URL Authorization</value>
+    <value>URL 承認</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WindowsAuthentication" xml:space="preserve">
-    <value>Windows Authentication</value>
+    <value>Windows 認証</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_WindowsActivationService" xml:space="preserve">
-    <value>Windows Process Activation Service</value>
+    <value>Windows プロセス アクティベーション サービス</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ProcessModel" xml:space="preserve">
-    <value>Process Model</value>
+    <value>プロセス モデル</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_NetFxEnvironment" xml:space="preserve">
-    <value>.NET Environment</value>
+    <value>.NET 環境</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ConfigurationAPI" xml:space="preserve">
-    <value>Configuration APIs</value>
+    <value>構成 API</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_XPSServices_Features" xml:space="preserve">
     <value>Microsoft XPS Document Writer</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Connector" xml:space="preserve">
-    <value>MultiPoint Connector</value>
+    <value>MultiPoint コネクタ</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Connector_Services" xml:space="preserve">
-    <value>MultiPoint Connector Services</value>
+    <value>MultiPoint コネクタ サービス</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Tools" xml:space="preserve">
-    <value>MultiPoint Manager and MultiPoint Dashboard</value>
+    <value>MultiPoint Manager および MultiPoint Dashboard</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HyperV_Guest_KernelInt" xml:space="preserve">
-    <value>Microsoft Hyper-V Guest Integration Services</value>
+    <value>Microsoft Hyper-V ゲスト統合サービス</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HypervisorPlatform" xml:space="preserve">
-    <value>Windows Hypervisor Platform</value>
+    <value>Windows ハイパーバイザー プラットフォーム</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.VirtualMachinePlatform" xml:space="preserve">
-    <value>Virtual Machine Platform</value>
+    <value>仮想マシン プラットフォーム</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSRDC_Infrastructure" xml:space="preserve">
-    <value>Remote Differential Compression API Support</value>
+    <value>リモート差分圧縮 API サポート</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Containers_Server_For_Application_Guard" xml:space="preserve">
     <value>Microsoft Defender Application Guard</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Container" xml:space="preserve">
-    <value>Microsoft Message Queue (MSMQ) Server</value>
+    <value>Microsoft Message Queue (MSMQ) サーバー</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Server" xml:space="preserve">
-    <value>Microsoft Message Queue (MSMQ) Server Core</value>
+    <value>Microsoft Message Queue (MSMQ) サーバー コア</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_ADIntegration" xml:space="preserve">
-    <value>Directory Service Integration</value>
+    <value>ディレクトリ サービスの統合</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_HTTP" xml:space="preserve">
-    <value>HTTP Support</value>
+    <value>HTTP サポート</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Multicast" xml:space="preserve">
-    <value>Multicasting Support</value>
+    <value>マルチキャストのサポート</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Triggers" xml:space="preserve">
-    <value>Message Queuing Triggers</value>
+    <value>メッセージ キュー トリガー</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_DCOMProxy" xml:space="preserve">
-    <value>MSMQ DCOM Proxy</value>
+    <value>MSMQ DCOM プロキシ</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_Features" xml:space="preserve">
-    <value>Print and Document Services</value>
+    <value>印刷およびドキュメント サービス</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_InternetPrinting_Client" xml:space="preserve">
-    <value>Internet Printing Client</value>
+    <value>インターネット印刷クライアント</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPDPrintService" xml:space="preserve">
-    <value>LPD Print Service</value>
+    <value>LPD 印刷サービス</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPRPortMonitor" xml:space="preserve">
-    <value>LPR Port Monitor</value>
+    <value>LPR ポート モニター</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.ServicesForNFS_ClientOnly" xml:space="preserve">
-    <value>Services for NFS</value>
+    <value>NFS 用サービス</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.ClientForNFS_Infrastructure" xml:space="preserve">
-    <value>Client for NFS</value>
+    <value>NFS クライアント</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.NFS_Administration" xml:space="preserve">
-    <value>Administrative Tools for NFS</value>
+    <value>NFS 用管理ツール</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SimpleTCP" xml:space="preserve">
-    <value>Simple TCP/IP Services</value>
+    <value>シンプル TCP/IP サービス</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SmbDirect" xml:space="preserve">
-    <value>SMB Direct</value>
+    <value>SMB ダイレクト</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Windows_Subsystem_Linux" xml:space="preserve">
-    <value>Windows Subsystem for Linux</value>
+    <value>Linux 用 Windows サブシステム</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol" xml:space="preserve">
-    <value>SMB 1.0/CIFS File Sharing Support</value>
+    <value>SMB 1.0/CIFS ファイル共有のサポート</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Client" xml:space="preserve">
-    <value>SMB 1.0/CIFS Client</value>
+    <value>SMB 1.0/CIFS クライアント</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Server" xml:space="preserve">
-    <value>SMB 1.0/CIFS Server</value>
+    <value>SMB 1.0/CIFS サーバー</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Deprecation" xml:space="preserve">
-    <value>SMB 1.0/CIFS Automatic Removal</value>
+    <value>SMB 1.0/CIFS 自動削除</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Sysmon" xml:space="preserve">
-    <value>System Monitor</value>
+    <value>システム モニター</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.TelnetClient" xml:space="preserve">
-    <value>Telnet Client</value>
+    <value>Telnet クライアント</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.TFTP" xml:space="preserve">
-    <value>TFTP Client</value>
+    <value>TFTP クライアント</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_DeviceLockdown" xml:space="preserve">
-    <value>Device Lockdown</value>
+    <value>デバイスのロックダウン</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedBootExp" xml:space="preserve">
-    <value>Unbranded Boot</value>
+    <value>ノーブランド ブート</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedLogon" xml:space="preserve">
-    <value>Custom Logon</value>
+    <value>カスタム ログオン</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedShellLauncher" xml:space="preserve">
-    <value>Shell Launcher</value>
+    <value>シェル ランチャー</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_KeyboardFilter" xml:space="preserve">
-    <value>Keyboard Filter</value>
+    <value>キーボード フィルター</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_UnifiedWriteFilter" xml:space="preserve">
-    <value>Unified Write Filter</value>
+    <value>統合書き込みフィルター</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Windows_Identity_Foundation" xml:space="preserve">
     <value>Windows Identity Foundation 3.5</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_ProjFS" xml:space="preserve">
-    <value>Windows Projected File System</value>
+    <value>Windows 投影ファイル システム</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.TIFFIFilter" xml:space="preserve">
     <value>Windows TIFF IFilter</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WorkFolders_Client" xml:space="preserve">
-    <value>Work Folders Client</value>
+    <value>ワーク フォルダー クライアント</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Recall" xml:space="preserve">
     <value>Recall</value>
@@ -2667,7 +2667,7 @@
     <value>展開メディアを作成する前に、Windows ADK と Windows PE アドオンの準備状況を確認します。</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
+    <value>マシンの名前付け、オペレーティング システムの選択、OOBE、分類された Windows オプション機能、AI コンポーネントの削除、AppX の削除を構成します。</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>メディアの基準、WinPE 言語、ブート署名、ドライバー、展開タイム ゾーンを構成します。</value>

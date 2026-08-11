@@ -193,7 +193,12 @@ public sealed class ConfigureWindowsOptionalFeaturesStepTests
         => new() { IsEnabled = true, Actions = actions };
 
     private static DeployWindowsOptionalFeatureAction Action(string featureName, bool enable)
-        => new() { Id = WindowsOptionalFeatureCatalog.FindByFeatureName(featureName)!.Id, Enable = enable };
+        => new()
+        {
+            Id = WindowsOptionalFeatureCatalog.Entries.Single(
+                entry => string.Equals(entry.FeatureName, featureName, StringComparison.OrdinalIgnoreCase)).Id,
+            Enable = enable
+        };
 
     private sealed class RecordingWindowsDeploymentService : IWindowsDeploymentService
     {

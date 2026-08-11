@@ -682,7 +682,7 @@
     <value>Fjern den klargjorte Windows AI Hub-apppakke, når den er til stede.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Disable Windows Recall by policy</value>
+    <value>Deaktiver Windows Genkald efter politik</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>Indstil Windows AI-politikker, der forhindrer Recall-aktivering og lagring af øjebliksbilleder.</value>
@@ -718,145 +718,145 @@
     <value>Indstil Notepad-politikken, der deaktiverer AI-funktioner.</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesHeader" xml:space="preserve">
-    <value>Windows Optional Features</value>
+    <value>Windows valgfri funktioner</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesDescription" xml:space="preserve">
-    <value>Enable or disable Windows components in the deployed operating system.</value>
+    <value>Aktiver eller deaktiver Windows-komponenter i det installerede operativsystem.</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesEnableLabel" xml:space="preserve">
-    <value>Configure Windows Optional Features</value>
+    <value>Konfigurer Windows valgfri funktioner</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
-    <value>Changes are applied offline after Windows is installed and before OOBE. Enable operations use only the installed image or matching setup-media sources; no Internet fallback is used.</value>
+    <value>&#198;ndringer anvendes offline efter Windows er installeret og f&#248;r OOBE. Aktiver handlinger brug kun det installerede billede eller matchende ops&#230;tningsmediekilder; der bruges ingen internettilbagefald.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} configured ({1} enable, {2} disable)</value>
+    <value>{0} konfigureret ({1} aktiver, {2} deaktiver)</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesSearchLabel" xml:space="preserve">
-    <value>Search features</value>
+    <value>S&#248;gefunktioner</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesSearchPlaceholder" xml:space="preserve">
-    <value>Search by display name or DISM feature name</value>
+    <value>S&#248;g efter visningsnavn eller DISM-funktionsnavn</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesEmptySearch" xml:space="preserve">
-    <value>No Windows optional features match this search.</value>
+    <value>Ingen valgfri Windows-funktioner matcher denne s&#248;gning.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.DetailFormat" xml:space="preserve">
-    <value>{0} — {1}</value>
+    <value>{0} – {1}</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.State.Unchanged" xml:space="preserve">
-    <value>Unchanged</value>
+    <value>U&#230;ndret</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.State.Enable" xml:space="preserve">
-    <value>Enable</value>
+    <value>Aktiver</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.State.Disable" xml:space="preserve">
-    <value>Disable</value>
+    <value>Deaktiver</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.Available" xml:space="preserve">
-    <value>Available for all selected targets</value>
+    <value>Tilg&#230;ngelig for alle udvalgte m&#229;l</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.PartiallyAvailable" xml:space="preserve">
-    <value>Available for some selected targets</value>
+    <value>Tilg&#230;ngelig for nogle udvalgte m&#229;l</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.Unavailable" xml:space="preserve">
-    <value>Not available for the selected targets</value>
+    <value>Ikke tilg&#230;ngelig for de valgte m&#229;l</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.RuntimeVerificationRequired" xml:space="preserve">
-    <value>Availability will be verified against the applied Windows image</value>
+    <value>Tilg&#230;ngelighed vil blive verificeret i forhold til det anvendte Windows-billede</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Enable" xml:space="preserve">
-    <value>Enable visible</value>
+    <value>Aktiver synlige elementer</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Disable" xml:space="preserve">
-    <value>Disable visible</value>
+    <value>Deaktiver synlige elementer</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Clear" xml:space="preserve">
-    <value>Clear visible</value>
+    <value>Nulstil synlige elementer</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MatchingSource" xml:space="preserve">
-    <value>Enabling this feature requires a matching setup-media sources\sxs payload.</value>
+    <value>Aktivering af denne funktion kr&#230;ver matchende ops&#230;tningsmedier sources\sxs.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.HardwareVirtualization" xml:space="preserve">
-    <value>Requires compatible virtualization hardware and firmware settings.</value>
+    <value>Kr&#230;ver kompatibel virtualiseringshardware og firmwareindstillinger.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.Rdma" xml:space="preserve">
-    <value>Requires an RDMA-capable network adapter.</value>
+    <value>Kr&#230;ver en RDMA-kompatibel netv&#230;rksadapter.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MediaFeaturePack" xml:space="preserve">
-    <value>Windows N editions may require the Media Feature Pack.</value>
+    <value>Windows N-udgaver kr&#230;ver muligvis Media Feature Pack.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
-    <value>Availability depends on Copilot+ PC hardware and the installed Windows image.</value>
+    <value>Tilg&#230;ngeligheden afh&#230;nger af Copilot+ pc-hardware og det installerede Windows-image.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.WslComponentOnly" xml:space="preserve">
-    <value>This configures the Windows component only; it does not install a Linux distribution.</value>
+    <value>Dette konfigurerer kun Windows-komponenten; den installerer ikke en Linux-distribution.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.RecallPolicyIndependent" xml:space="preserve">
-    <value>This component state is independent from the separate Recall policy setting.</value>
+    <value>Denne komponenttilstand er uafhængig af den separate Recall-politikindstilling.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Frameworks" xml:space="preserve">
-    <value>Frameworks and application platforms</value>
+    <value>Rammer og applikationsplatforme</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.DirectoryServices" xml:space="preserve">
-    <value>Directory services</value>
+    <value>Katalogtjenester</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Virtualization" xml:space="preserve">
-    <value>Virtualization</value>
+    <value>Virtualisering</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Legacy" xml:space="preserve">
-    <value>Legacy components</value>
+    <value>&#198;ldre komponenter</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Containers" xml:space="preserve">
-    <value>Containers</value>
+    <value>Containere</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Networking" xml:space="preserve">
-    <value>Networking</value>
+    <value>Netv&#230;rk</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Media" xml:space="preserve">
-    <value>Media</value>
+    <value>Medier</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Security" xml:space="preserve">
-    <value>Security</value>
+    <value>Sikkerhed</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Printing" xml:space="preserve">
-    <value>Printing and documents</value>
+    <value>Udskrivning og dokumenter</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Web" xml:space="preserve">
-    <value>Web and Internet Information Services</value>
+    <value>Web- og internetinformationstjenester</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Management" xml:space="preserve">
-    <value>Management tools</value>
+    <value>Administrationsværktøjer</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Compatibility" xml:space="preserve">
-    <value>Compatibility</value>
+    <value>Kompatibilitet</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.FileServices" xml:space="preserve">
-    <value>File services</value>
+    <value>Filtjenester</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Diagnostics" xml:space="preserve">
-    <value>Diagnostics</value>
+    <value>Diagnostik</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.DeviceLockdown" xml:space="preserve">
-    <value>Device lockdown</value>
+    <value>Enhedsl&#229;sning</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.FileSystems" xml:space="preserve">
-    <value>File systems</value>
+    <value>Filsystemer</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.SearchAndIndexing" xml:space="preserve">
-    <value>Search and indexing</value>
+    <value>S&#248;g og indeksering</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Messaging" xml:space="preserve">
-    <value>Message queuing</value>
+    <value>Meddelelseskø</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.AiComponents" xml:space="preserve">
-    <value>AI components</value>
+    <value>AI komponenter</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.NetFx3" xml:space="preserve">
-    <value>.NET Framework 3.5 (includes .NET 2.0 and 3.0)</value>
+    <value>.NET Framework 3.5 (inkluderer .NET 2.0 og 3.0)</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_HTTP_Activation" xml:space="preserve">
-    <value>Windows Communication Foundation HTTP Activation</value>
+    <value>Windows Communication Foundation HTTP-aktivering</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_NonHTTP_Activation" xml:space="preserve">
     <value>Windows Communication Foundation Non-HTTP Activation</value>
@@ -871,19 +871,19 @@
     <value>WCF Services</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_HTTP_Activation45" xml:space="preserve">
-    <value>HTTP Activation</value>
+    <value>HTTP-aktivering</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_TCP_Activation45" xml:space="preserve">
-    <value>TCP Activation</value>
+    <value>TCP-aktivering</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Pipe_Activation45" xml:space="preserve">
     <value>Named Pipe Activation</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_MSMQ_Activation45" xml:space="preserve">
-    <value>Message Queuing (MSMQ) Activation</value>
+    <value>Message Queuing (MSMQ) Aktivering</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_TCP_PortSharing45" xml:space="preserve">
-    <value>TCP Port Sharing</value>
+    <value>TCP-portdeling</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.DirectoryServices_ADAM_Client" xml:space="preserve">
     <value>Active Directory Lightweight Directory Services</value>
@@ -895,19 +895,19 @@
     <value>Windows Sandbox</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.LegacyComponents" xml:space="preserve">
-    <value>Legacy Components</value>
+    <value>&#198;ldre komponenter</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.DirectPlay" xml:space="preserve">
     <value>DirectPlay</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Containers" xml:space="preserve">
-    <value>Containers</value>
+    <value>Containere</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.DataCenterBridging" xml:space="preserve">
     <value>Data Center Bridging</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MediaPlayback" xml:space="preserve">
-    <value>Media Features</value>
+    <value>Mediefunktioner</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WindowsMediaPlayer" xml:space="preserve">
     <value>Windows Media Player Legacy</value>
@@ -934,10 +934,10 @@
     <value>Hyper-V GUI Management Tools</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Management_PowerShell" xml:space="preserve">
-    <value>Hyper-V Module for Windows PowerShell</value>
+    <value>Hyper-V-modul til Windows PowerShell</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_PrintToPDFServices_Features" xml:space="preserve">
-    <value>Microsoft Print to PDF</value>
+    <value>Microsoft Print til PDF</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HostableWebCore" xml:space="preserve">
     <value>IIS Hostable Web Core</value>
@@ -946,13 +946,13 @@
     <value>Internet Information Services</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPServer" xml:space="preserve">
-    <value>FTP Server</value>
+    <value>FTP-server</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPSvc" xml:space="preserve">
-    <value>FTP Service</value>
+    <value>FTP-tjeneste</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPExtensibility" xml:space="preserve">
-    <value>FTP Extensibility</value>
+    <value>FTP-udvidelsesmuligheder</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServerManagementTools" xml:space="preserve">
     <value>Web Management Tools</value>
@@ -961,7 +961,7 @@
     <value>IIS Management Console</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementScriptingTools" xml:space="preserve">
-    <value>IIS Management Scripts and Tools</value>
+    <value>IIS Management Scripts og v&#230;rkt&#248;jer</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementService" xml:space="preserve">
     <value>IIS Management Service</value>
@@ -970,10 +970,10 @@
     <value>IIS 6 Management Compatibility</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Metabase" xml:space="preserve">
-    <value>IIS Metabase and IIS 6 Configuration Compatibility</value>
+    <value>IIS Metabase og IIS 6 Configuration Compatibility</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WMICompatibility" xml:space="preserve">
-    <value>IIS 6 WMI Compatibility</value>
+    <value>IIS 6 WMI-kompatibilitet</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacyScripts" xml:space="preserve">
     <value>IIS 6 Scripting Tools</value>
@@ -985,7 +985,7 @@
     <value>World Wide Web Services</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ApplicationDevelopment" xml:space="preserve">
-    <value>Application Development Features</value>
+    <value>Applikationsudviklingsfunktioner</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility" xml:space="preserve">
     <value>.NET Extensibility 3.5</value>
@@ -994,7 +994,7 @@
     <value>.NET Extensibility 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ApplicationInit" xml:space="preserve">
-    <value>Application Initialization</value>
+    <value>Applikationsinitialisering</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ASP" xml:space="preserve">
     <value>ASP</value>
@@ -1009,10 +1009,10 @@
     <value>CGI</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ISAPIExtensions" xml:space="preserve">
-    <value>ISAPI Extensions</value>
+    <value>ISAPI-udvidelser</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ISAPIFilter" xml:space="preserve">
-    <value>ISAPI Filters</value>
+    <value>ISAPI-filtre</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ServerSideIncludes" xml:space="preserve">
     <value>Server-Side Includes</value>
@@ -1021,22 +1021,22 @@
     <value>WebSocket Protocol</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CommonHttpFeatures" xml:space="preserve">
-    <value>Common HTTP Features</value>
+    <value>Almindelige HTTP-funktioner</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DefaultDocument" xml:space="preserve">
-    <value>Default Document</value>
+    <value>Standarddokument</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DirectoryBrowsing" xml:space="preserve">
-    <value>Directory Browsing</value>
+    <value>Directory browsing</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpErrors" xml:space="preserve">
-    <value>HTTP Errors</value>
+    <value>HTTP-fejl</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpRedirect" xml:space="preserve">
-    <value>HTTP Redirection</value>
+    <value>HTTP-omdirigering</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_StaticContent" xml:space="preserve">
-    <value>Static Content</value>
+    <value>Statisk indhold</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebDAV" xml:space="preserve">
     <value>WebDAV Publishing</value>
@@ -1045,40 +1045,40 @@
     <value>Health and Diagnostics</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CustomLogging" xml:space="preserve">
-    <value>Custom Logging</value>
+    <value>Brugerdefineret logning</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpLogging" xml:space="preserve">
-    <value>HTTP Logging</value>
+    <value>HTTP-logning</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LoggingLibraries" xml:space="preserve">
-    <value>Logging Tools</value>
+    <value>Logningsv&#230;rkt&#248;jer</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ODBCLogging" xml:space="preserve">
-    <value>ODBC Logging</value>
+    <value>ODBC-logning</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestMonitor" xml:space="preserve">
     <value>Request Monitor</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpTracing" xml:space="preserve">
-    <value>Tracing</value>
+    <value>Sporing</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Performance" xml:space="preserve">
-    <value>Performance Features</value>
+    <value>Ydelsesfunktioner</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpCompressionDynamic" xml:space="preserve">
-    <value>Dynamic Content Compression</value>
+    <value>Dynamisk indholdskomprimering</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpCompressionStatic" xml:space="preserve">
-    <value>Static Content Compression</value>
+    <value>Statisk indholdskomprimering</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Security" xml:space="preserve">
-    <value>Security Features</value>
+    <value>Sikkerhedsfunktioner</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_BasicAuthentication" xml:space="preserve">
-    <value>Basic Authentication</value>
+    <value>Grundl&#230;ggende godkendelse</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CertProvider" xml:space="preserve">
-    <value>Centralized SSL Certificate Support</value>
+    <value>Centraliseret SSL-certifikatsupport</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ClientCertificateMappingAuthentication" xml:space="preserve">
     <value>Client Certificate Mapping Authentication</value>
@@ -1090,28 +1090,28 @@
     <value>IIS Client Certificate Mapping Authentication</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IPSecurity" xml:space="preserve">
-    <value>IP Security</value>
+    <value>IP-sikkerhed</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestFiltering" xml:space="preserve">
-    <value>Request Filtering</value>
+    <value>Anmodningsfiltrering</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_URLAuthorization" xml:space="preserve">
-    <value>URL Authorization</value>
+    <value>URL-autorisation</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WindowsAuthentication" xml:space="preserve">
-    <value>Windows Authentication</value>
+    <value>Windows-godkendelse</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_WindowsActivationService" xml:space="preserve">
     <value>Windows Process Activation Service</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ProcessModel" xml:space="preserve">
-    <value>Process Model</value>
+    <value>Procesmodel</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_NetFxEnvironment" xml:space="preserve">
     <value>.NET Environment</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ConfigurationAPI" xml:space="preserve">
-    <value>Configuration APIs</value>
+    <value>Configuration API&#39;er</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_XPSServices_Features" xml:space="preserve">
     <value>Microsoft XPS Document Writer</value>
@@ -1123,7 +1123,7 @@
     <value>MultiPoint Connector Services</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Tools" xml:space="preserve">
-    <value>MultiPoint Manager and MultiPoint Dashboard</value>
+    <value>MultiPoint Manager og MultiPoint Dashboard</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HyperV_Guest_KernelInt" xml:space="preserve">
     <value>Microsoft Hyper-V Guest Integration Services</value>
@@ -1150,7 +1150,7 @@
     <value>Directory Service Integration</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_HTTP" xml:space="preserve">
-    <value>HTTP Support</value>
+    <value>HTTP-underst&#248;ttelse</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Multicast" xml:space="preserve">
     <value>Multicasting Support</value>
@@ -1162,7 +1162,7 @@
     <value>MSMQ DCOM Proxy</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_Features" xml:space="preserve">
-    <value>Print and Document Services</value>
+    <value>Print- og dokumenttjenester</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_InternetPrinting_Client" xml:space="preserve">
     <value>Internet Printing Client</value>
@@ -1174,25 +1174,25 @@
     <value>LPR Port Monitor</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.ServicesForNFS_ClientOnly" xml:space="preserve">
-    <value>Services for NFS</value>
+    <value>Tjenester til NFS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.ClientForNFS_Infrastructure" xml:space="preserve">
-    <value>Client for NFS</value>
+    <value>Client til NFS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.NFS_Administration" xml:space="preserve">
-    <value>Administrative Tools for NFS</value>
+    <value>Administrative v&#230;rkt&#248;jer til NFS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SimpleTCP" xml:space="preserve">
-    <value>Simple TCP/IP Services</value>
+    <value>Simple TCP/IP-tjenester</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SmbDirect" xml:space="preserve">
     <value>SMB Direct</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Windows_Subsystem_Linux" xml:space="preserve">
-    <value>Windows Subsystem for Linux</value>
+    <value>Windows Subsystem til Linux</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol" xml:space="preserve">
-    <value>SMB 1.0/CIFS File Sharing Support</value>
+    <value>SMB 1.0/CIFS fildelingsunderst&#248;ttelse</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Client" xml:space="preserve">
     <value>SMB 1.0/CIFS Client</value>
@@ -1201,7 +1201,7 @@
     <value>SMB 1.0/CIFS Server</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Deprecation" xml:space="preserve">
-    <value>SMB 1.0/CIFS Automatic Removal</value>
+    <value>SMB 1.0/CIFS automatisk fjernelse</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Sysmon" xml:space="preserve">
     <value>System Monitor</value>
@@ -1210,22 +1210,22 @@
     <value>Telnet Client</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.TFTP" xml:space="preserve">
-    <value>TFTP Client</value>
+    <value>TFTP-klient</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_DeviceLockdown" xml:space="preserve">
-    <value>Device Lockdown</value>
+    <value>Enhedsl&#229;s</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedBootExp" xml:space="preserve">
     <value>Unbranded Boot</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedLogon" xml:space="preserve">
-    <value>Custom Logon</value>
+    <value>Brugerdefineret logon</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedShellLauncher" xml:space="preserve">
     <value>Shell Launcher</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_KeyboardFilter" xml:space="preserve">
-    <value>Keyboard Filter</value>
+    <value>Tastaturfilter</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_UnifiedWriteFilter" xml:space="preserve">
     <value>Unified Write Filter</value>
@@ -2667,7 +2667,7 @@
     <value>Gennemgå klarheden for Windows ADK og Windows PE-tilføjelsesprogrammet, før du opretter installationsmedier.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
+    <value>Konfigurer maskinnavngivning, valg af operativsystem, OOBE, kategoriserede Windows-valgfri funktioner, fjernelse af AI-komponenter og AppX-fjernelse.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Konfigurer mediegrundlaget, WinPE-sprog, startsignatur, drivere og tidszone for installation.</value>

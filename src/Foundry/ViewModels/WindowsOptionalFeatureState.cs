@@ -2,11 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-namespace Foundry.Core.Models.Configuration;
+namespace Foundry.ViewModels;
 
-/// <summary>
-/// Defines the desired state of a Windows optional feature.
-/// </summary>
 public enum WindowsOptionalFeatureState
 {
     Unchanged,

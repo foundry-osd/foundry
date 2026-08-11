@@ -97,8 +97,8 @@
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Operacinė sistema</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Jokio pasirinkimo</value></data>
   <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Pasirinktas tvarkyklės paketas</value></data>
-  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Windows Optional Features</value></data>
-  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} configured ({1} enable, {2} disable)</value></data>
+  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>„Windows“ papildomos funkcijos</value></data>
+  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} sukonfigūruota ({1} įjungti, {2} išjungti)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Metodas</value></data>
@@ -514,18 +514,18 @@ Tęsti diegimą?</value></data>
     <value>Interaktyvus Autopilot registracijos pagalbininkas paruoštas (modeliavimas).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Pašalinkite paleidimo laikmeną, tada pasirinkite Paleisti iš naujo.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Configure Windows optional features</value></data>
-  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Configuring Windows optional features...</value></data>
-  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Inspecting feature states...</value></data>
-  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Preparing matching setup media sources...</value></data>
-  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Applying feature changes...</value></data>
-  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Simulating feature changes...</value></data>
-  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Applying feature changes</value></data>
-  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve"><value>Windows optional feature configuration disabled.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve"><value>Windows optional feature configuration is invalid.</value></data>
-  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve"><value>Windows optional features configured ({0} changed, {1} already satisfied, {2} unavailable).</value></data>
-  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve"><value>Windows optional feature configuration simulated ({0} actions).</value></data>
-  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Windows optional feature '{0}' has a removed payload and no supported local source mapping.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Windows optional feature verification failed for '{0}'.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Matching NetFx3 source is unavailable. {0}</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Konfigūruokite pasirenkamas Windows funkcijas</value></data>
+  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Konfigūruojamos pasirenkamos Windows funkcijos...</value></data>
+  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Tikrinamos funkcijos būsenos...</value></data>
+  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Ruošiami atitinkami sąrankos medijos šaltiniai...</value></data>
+  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Taikomi funkcijų pakeitimai...</value></data>
+  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Imituojami funkcijų pakeitimai...</value></data>
+  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Taikomi funkcijų pakeitimai</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve"><value>„Windows“ pasirenkamos funkcijos konfigūracija išjungta.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve"><value>„Windows“ pasirenkamos funkcijos konfigūracija neteisinga.</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve"><value>Sukonfigūruotos papildomos „Windows“ funkcijos ({0} pakeista, {1} jau buvo reikiamos būsenos, {2} nepasiekiama).</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve"><value>Sumodeliuota Windows pasirenkamos funkcijos konfigūracija ({0} veiksmai).</value></data>
+  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>„Windows“ pasirenkama funkcija „{0}“ turi pašalintą naudingą apkrovą ir nepalaikoma vietinio šaltinio atvaizdavimo.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Nepavyko patvirtinti „Windows“ pasirenkamos funkcijos „{0}“.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Atitinkantis NetFx3 šaltinis nepasiekiamas. {0}</value></data>
 </root>

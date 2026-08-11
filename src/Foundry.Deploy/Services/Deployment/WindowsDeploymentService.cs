@@ -493,14 +493,31 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         Action? onServicingStarted = null)
     {
         ArgumentNullException.ThrowIfNull(settings);
-        DeployWindowsOptionalFeatureAction[] requestedActions = settings.Actions?.ToArray() ?? [];
-        if (!settings.IsEnabled || requestedActions.Length == 0)
+        if (!settings.IsEnabled || settings.Actions is null || settings.Actions.Count == 0)
         {
             return new WindowsOptionalFeatureServicingResult();
         }
 
-        WindowsOptionalFeatureWorkItem[] requestedItems = ResolveWindowsOptionalFeatureActions(requestedActions);
+        if (!WindowsOptionalFeatureActionValidator.TryNormalize(
+            settings,
+            out DeployWindowsOptionalFeatureSettings normalizedSettings,
+            out string? validationError))
+        {
+            throw new InvalidOperationException(validationError);
+        }
+
+        WindowsOptionalFeatureWorkItem[] requestedItems = normalizedSettings.Actions
+            .Select(action =>
+            {
+                WindowsOptionalFeatureCatalogEntry entry = WindowsOptionalFeatureCatalog.Find(action.Id)!;
+                return new WindowsOptionalFeatureWorkItem(action, entry, WindowsOptionalFeatureCatalog.GetDepth(entry.Id));
+            })
+            .ToArray();
         string cleanupRoot = Path.GetFullPath(Path.Combine(workingDirectory, ".."));
+        if (Directory.GetParent(cleanupRoot) is null)
+        {
+            throw new ArgumentException("The optional-feature cleanup boundary cannot be a filesystem root.", nameof(workingDirectory));
+        }
 
         try
         {
@@ -1146,52 +1163,6 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         return execution;
     }
 
-    private static WindowsOptionalFeatureWorkItem[] ResolveWindowsOptionalFeatureActions(
-        IReadOnlyList<DeployWindowsOptionalFeatureAction> actions)
-    {
-        var seenIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        var items = new List<WindowsOptionalFeatureWorkItem>(actions.Count);
-        foreach (DeployWindowsOptionalFeatureAction? action in actions)
-        {
-            if (action is null || string.IsNullOrWhiteSpace(action.Id))
-            {
-                throw new InvalidOperationException("Windows optional feature actions must contain a non-empty ID.");
-            }
-
-            WindowsOptionalFeatureCatalogEntry? entry = WindowsOptionalFeatureCatalog.Find(action.Id);
-            if (entry is null)
-            {
-                throw new InvalidOperationException($"Unknown Windows optional feature ID '{action.Id}'.");
-            }
-
-            if (!seenIds.Add(entry.Id))
-            {
-                throw new InvalidOperationException($"Duplicate or conflicting Windows optional feature action '{entry.Id}'.");
-            }
-
-            items.Add(new WindowsOptionalFeatureWorkItem(
-                new DeployWindowsOptionalFeatureAction { Id = entry.Id, Enable = action.Enable },
-                entry,
-                WindowsOptionalFeatureCatalog.GetDepth(entry.Id)));
-        }
-
-        HashSet<string> disabledIds = items
-            .Where(item => !item.Action.Enable)
-            .Select(item => item.CatalogEntry.Id)
-            .ToHashSet(StringComparer.OrdinalIgnoreCase);
-        foreach (WindowsOptionalFeatureWorkItem enabledItem in items.Where(item => item.Action.Enable))
-        {
-            if (WindowsOptionalFeatureCatalog.GetAncestors(enabledItem.CatalogEntry.Id)
-                .Any(ancestor => disabledIds.Contains(ancestor.Id)))
-            {
-                throw new InvalidOperationException(
-                    $"Windows optional feature '{enabledItem.CatalogEntry.Id}' cannot be enabled beneath a disabled ancestor.");
-            }
-        }
-
-        return items.ToArray();
-    }
-
     private async Task<IReadOnlyDictionary<string, OfflineWindowsFeatureState>> GetOfflineWindowsFeatureStatesAsync(
         string windowsPartitionRoot,
         string workingDirectory,
@@ -1208,19 +1179,35 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             workingDirectory,
             $"Failed to inspect Windows optional features in '{windowsPartitionRoot}'",
             cancellationToken).ConfigureAwait(false);
-        return ParseOfflineWindowsFeatureStates(result.StandardOutput);
+        IReadOnlyDictionary<string, OfflineWindowsFeatureState> states = ParseOfflineWindowsFeatureStates(result.StandardOutput);
+        if (states.Count == 0)
+        {
+            throw new InvalidOperationException("Failed to parse Windows optional feature states from DISM output.");
+        }
+
+        return states;
     }
 
     private static IReadOnlyDictionary<string, OfflineWindowsFeatureState> ParseOfflineWindowsFeatureStates(string output)
     {
         var states = new Dictionary<string, OfflineWindowsFeatureState>(StringComparer.OrdinalIgnoreCase);
-        foreach (Match match in Regex.Matches(
-                     output ?? string.Empty,
-                     @"^\s*(?<name>[^|\r\n]+?)\s*\|\s*(?<state>Enabled|Disabled|Enable Pending|Disable Pending|Disabled with Payload Removed)\s*$",
-                     RegexOptions.IgnoreCase | RegexOptions.Multiline))
+        foreach (string line in (output ?? string.Empty).Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries))
         {
-            string name = match.Groups["name"].Value.Trim();
-            string stateText = match.Groups["state"].Value.Trim();
+            int separatorIndex = line.IndexOf('|');
+            if (separatorIndex < 0)
+            {
+                continue;
+            }
+
+            string name = line[..separatorIndex].Trim();
+            string stateText = line[(separatorIndex + 1)..].Trim();
+            if (name.Equals("Feature Name", StringComparison.OrdinalIgnoreCase) ||
+                name.All(character => character is '-' or ' ') ||
+                stateText.All(character => character is '-' or ' '))
+            {
+                continue;
+            }
+
             OfflineWindowsFeatureState state = stateText.ToUpperInvariant() switch
             {
                 "ENABLED" => OfflineWindowsFeatureState.Enabled,

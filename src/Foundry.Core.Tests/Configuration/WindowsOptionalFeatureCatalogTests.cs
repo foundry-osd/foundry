@@ -98,9 +98,11 @@ public sealed class WindowsOptionalFeatureCatalogTests
     [InlineData("AppServerClient")]
     [InlineData("Containers-HNS")]
     [InlineData("Containers-SDN")]
-    public void FindByFeatureName_HiddenServicingFeature_ReturnsNull(string featureName)
+    public void Entries_HiddenServicingFeature_IsExcluded(string featureName)
     {
-        Assert.Null(WindowsOptionalFeatureCatalog.FindByFeatureName(featureName));
+        Assert.DoesNotContain(
+            WindowsOptionalFeatureCatalog.Entries,
+            entry => string.Equals(entry.FeatureName, featureName, StringComparison.OrdinalIgnoreCase));
     }
 
     [Theory]
@@ -109,10 +111,9 @@ public sealed class WindowsOptionalFeatureCatalogTests
     [InlineData("WCF-NonHTTP-Activation")]
     [InlineData("IIS-ASPNET")]
     [InlineData("IIS-NetFxExtensibility")]
-    public void FindByFeatureName_NetFx3DependentEntry_RequiresMatchingSource(string featureName)
+    public void Entries_NetFx3DependentEntry_RequiresMatchingSource(string featureName)
     {
-        WindowsOptionalFeatureCatalogEntry entry = Assert.IsType<WindowsOptionalFeatureCatalogEntry>(
-            WindowsOptionalFeatureCatalog.FindByFeatureName(featureName));
+        WindowsOptionalFeatureCatalogEntry entry = FindFeature(featureName);
 
         Assert.True(entry.RequiresSetupMediaSxs);
         Assert.Equal(28000, entry.MaximumBuildExclusive);
@@ -135,19 +136,24 @@ public sealed class WindowsOptionalFeatureCatalogTests
             WindowsOptionalFeatureCatalog.Find(" WF:NETFX3 "));
 
         Assert.Equal("NetFx3", entry.FeatureName);
-        Assert.Same(entry, WindowsOptionalFeatureCatalog.FindByFeatureName(" netfx3 "));
     }
 
     [Fact]
-    public void FindByFeatureName_WindowsProcessActivationService_ContainsVisibleChildren()
+    public void Entries_WindowsProcessActivationService_ContainsVisibleChildren()
     {
-        WindowsOptionalFeatureCatalogEntry parent = Assert.IsType<WindowsOptionalFeatureCatalogEntry>(
-            WindowsOptionalFeatureCatalog.FindByFeatureName("WAS-WindowsActivationService"));
+        WindowsOptionalFeatureCatalogEntry parent = FindFeature("WAS-WindowsActivationService");
 
         Assert.Equal(
             ["WAS-ProcessModel", "WAS-NetFxEnvironment", "WAS-ConfigurationAPI"],
-            WindowsOptionalFeatureCatalog.GetChildren(parent.Id).Select(entry => entry.FeatureName));
+            WindowsOptionalFeatureCatalog.Entries
+                .Where(entry => string.Equals(entry.ParentId, parent.Id, StringComparison.OrdinalIgnoreCase))
+                .OrderBy(entry => entry.SortOrder)
+                .Select(entry => entry.FeatureName));
     }
+
+    private static WindowsOptionalFeatureCatalogEntry FindFeature(string featureName)
+        => WindowsOptionalFeatureCatalog.Entries.Single(
+            entry => string.Equals(entry.FeatureName, featureName, StringComparison.OrdinalIgnoreCase));
 
     private static readonly string[] ExpectedFeatureNames =
     [

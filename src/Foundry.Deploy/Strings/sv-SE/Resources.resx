@@ -97,8 +97,8 @@
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Operativsystem</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Inget urval</value></data>
   <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Valt förarpaket</value></data>
-  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Windows Optional Features</value></data>
-  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} configured ({1} enable, {2} disable)</value></data>
+  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Windows tillvalsfunktioner</value></data>
+  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} konfigurerad ({1} aktivera, {2} inaktivera)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Metod</value></data>
@@ -514,18 +514,18 @@ Fortsätt med implementeringen?</value></data>
     <value>Den interaktiva Autopilot-registreringsassistenten har förberetts (simulering).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Ta bort startmediet och välj sedan Starta om.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Configure Windows optional features</value></data>
-  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Configuring Windows optional features...</value></data>
-  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Inspecting feature states...</value></data>
-  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Preparing matching setup media sources...</value></data>
-  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Applying feature changes...</value></data>
-  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Simulating feature changes...</value></data>
-  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Applying feature changes</value></data>
-  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve"><value>Windows optional feature configuration disabled.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve"><value>Windows optional feature configuration is invalid.</value></data>
-  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve"><value>Windows optional features configured ({0} changed, {1} already satisfied, {2} unavailable).</value></data>
-  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve"><value>Windows optional feature configuration simulated ({0} actions).</value></data>
-  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Windows optional feature '{0}' has a removed payload and no supported local source mapping.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Windows optional feature verification failed for '{0}'.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Matching NetFx3 source is unavailable. {0}</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Konfigurera Windows valfria funktioner</value></data>
+  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Konfigurerar Windows valfria funktioner...</value></data>
+  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Inspekterar funktionstillst&#229;nd...</value></data>
+  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>F&#246;rbereder matchande konfigurationsmediek&#228;llor...</value></data>
+  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Anv&#228;nder funktions&#228;ndringar...</value></data>
+  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Simulerar funktions&#228;ndringar...</value></data>
+  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Till&#228;mpar funktions&#228;ndringar</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve"><value>Windows valfria funktionskonfiguration inaktiverad.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve"><value>Konfigurationen av Windows valfria funktioner &#228;r ogiltig.</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve"><value>Windows valfria funktioner konfigurerade ({0} ändrade, {1} redan uppfyllda, {2} inte tillgängliga).</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve"><value>Simulerad Windows valfri funktionskonfiguration ({0} &#229;tg&#228;rder).</value></data>
+  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Windows valfria funktion &#39;{0}&#39; har en borttagen nyttolast och ingen lokal k&#228;llmappning som st&#246;ds.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Windows valfri funktionsverifiering misslyckades f&#246;r &#39;{0}&#39;.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Matchande NetFx3-k&#228;lla &#228;r inte tillg&#228;nglig. {0}</value></data>
 </root>

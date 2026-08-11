@@ -121,6 +121,66 @@ public sealed class WindowsDeploymentServiceTests
     }
 
     [Fact]
+    public async Task ConfigureOfflineWindowsOptionalFeaturesAsync_WhenDismOutputCannotBeParsed_FailsClosed()
+    {
+        using var workspace = new TemporaryWorkspace();
+        var processRunner = new RecordingProcessRunner
+        {
+            Result = new ProcessExecutionResult
+            {
+                ExitCode = 0,
+                StandardOutput = "Feature Name State"
+            }
+        };
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            service.ConfigureOfflineWindowsOptionalFeaturesAsync(
+                Path.Combine(workspace.RootPath, "setup.esd"),
+                workspace.RootPath,
+                new DeployWindowsOptionalFeatureSettings
+                {
+                    IsEnabled = true,
+                    Actions = [new() { Id = "wf:telnetclient", Enable = true }]
+                },
+                Path.Combine(workspace.RootPath, "Temp", "Dism", "OptionalFeatures"),
+                Path.Combine(workspace.RootPath, "Temp", "WindowsSetupMedia"),
+                Path.Combine(workspace.RootPath, "Temp", "Deployment"),
+                TestContext.Current.CancellationToken));
+
+        Assert.Contains("parse", exception.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain(processRunner.Calls, call => call.Contains("/Enable-Feature", StringComparison.OrdinalIgnoreCase));
+    }
+
+    [Fact]
+    public async Task ConfigureOfflineWindowsOptionalFeaturesAsync_WhenCleanupBoundaryIsDriveRoot_RejectsInput()
+    {
+        using var workspace = new TemporaryWorkspace();
+        var processRunner = new RecordingProcessRunner
+        {
+            Result = new ProcessExecutionResult { ExitCode = 0, StandardOutput = "TelnetClient | Enabled" }
+        };
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+        string windowsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
+
+        await Assert.ThrowsAsync<ArgumentException>(() =>
+            service.ConfigureOfflineWindowsOptionalFeaturesAsync(
+                Path.Combine(workspace.RootPath, "setup.esd"),
+                workspace.RootPath,
+                new DeployWindowsOptionalFeatureSettings
+                {
+                    IsEnabled = true,
+                    Actions = [new() { Id = "wf:telnetclient", Enable = true }]
+                },
+                Path.Combine(workspace.RootPath, "Temp", "Dism", "OptionalFeatures"),
+                Path.Combine(workspace.RootPath, "Temp", "WindowsSetupMedia"),
+                windowsDirectory,
+                TestContext.Current.CancellationToken));
+
+        Assert.Empty(processRunner.Calls);
+    }
+
+    [Fact]
     public async Task ConfigureOfflineWindowsOptionalFeaturesAsync_WhenSourceIsRequired_SelectsSetupMediaIndex()
     {
         using var workspace = new TemporaryWorkspace();

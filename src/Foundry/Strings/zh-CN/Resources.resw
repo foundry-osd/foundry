@@ -682,7 +682,7 @@
     <value>删除已配置的 Windows AI Hub 应用程序包（如果存在）。</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Disable Windows Recall by policy</value>
+    <value>通过策略禁用 Windows Recall</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>设置阻止Recall启用和快照保存的Windows AI策略。</value>
@@ -718,283 +718,283 @@
     <value>设置Notepad禁用AI功能的策略。</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesHeader" xml:space="preserve">
-    <value>Windows Optional Features</value>
+    <value>Windows 可选功能</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesDescription" xml:space="preserve">
-    <value>Enable or disable Windows components in the deployed operating system.</value>
+    <value>在已部署的操作系统中启用或禁用 Windows 组件。</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesEnableLabel" xml:space="preserve">
-    <value>Configure Windows Optional Features</value>
+    <value>配置 Windows 可选功能</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
-    <value>Changes are applied offline after Windows is installed and before OOBE. Enable operations use only the installed image or matching setup-media sources; no Internet fallback is used.</value>
+    <value>更改将在安装 Windows 之后、OOBE 之前脱机应用。启用操作仅使用已安装的映像或匹配的安装媒体源；不使用互联网回退。</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} configured ({1} enable, {2} disable)</value>
+    <value>已配置 {0}（{1} 启用，{2} 禁用）</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesSearchLabel" xml:space="preserve">
-    <value>Search features</value>
+    <value>搜索可选功能</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesSearchPlaceholder" xml:space="preserve">
-    <value>Search by display name or DISM feature name</value>
+    <value>按显示名称或 DISM 功能名称搜索</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesEmptySearch" xml:space="preserve">
-    <value>No Windows optional features match this search.</value>
+    <value>没有与此搜索匹配的 Windows 可选功能。</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.DetailFormat" xml:space="preserve">
     <value>{0} — {1}</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.State.Unchanged" xml:space="preserve">
-    <value>Unchanged</value>
+    <value>不变</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.State.Enable" xml:space="preserve">
-    <value>Enable</value>
+    <value>启用</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.State.Disable" xml:space="preserve">
-    <value>Disable</value>
+    <value>禁用</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.Available" xml:space="preserve">
-    <value>Available for all selected targets</value>
+    <value>适用于所有选定的目标</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.PartiallyAvailable" xml:space="preserve">
-    <value>Available for some selected targets</value>
+    <value>适用于某些选定的目标</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.Unavailable" xml:space="preserve">
-    <value>Not available for the selected targets</value>
+    <value>不适用于选定的目标</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.RuntimeVerificationRequired" xml:space="preserve">
-    <value>Availability will be verified against the applied Windows image</value>
+    <value>将根据所应用的 Windows 映像验证可用性</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Enable" xml:space="preserve">
-    <value>Enable visible</value>
+    <value>启用可见项目</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Disable" xml:space="preserve">
-    <value>Disable visible</value>
+    <value>禁用可见项目</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Clear" xml:space="preserve">
-    <value>Clear visible</value>
+    <value>重置可见项目</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MatchingSource" xml:space="preserve">
-    <value>Enabling this feature requires a matching setup-media sources\sxs payload.</value>
+    <value>启用此功能需要 sources\sxs 中匹配的安装媒体源。</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.HardwareVirtualization" xml:space="preserve">
-    <value>Requires compatible virtualization hardware and firmware settings.</value>
+    <value>需要兼容的虚拟化硬件和固件设置。</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.Rdma" xml:space="preserve">
-    <value>Requires an RDMA-capable network adapter.</value>
+    <value>需要支持 RDMA 的网络适配器。</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MediaFeaturePack" xml:space="preserve">
-    <value>Windows N editions may require the Media Feature Pack.</value>
+    <value>Windows N 版本可能需要媒体功能包。</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
-    <value>Availability depends on Copilot+ PC hardware and the installed Windows image.</value>
+    <value>可用性取决于 Copilot+ PC 硬件和安装的 Windows 映像。</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.WslComponentOnly" xml:space="preserve">
-    <value>This configures the Windows component only; it does not install a Linux distribution.</value>
+    <value>这仅配置 Windows 组件；它不安装 Linux 发行版。</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.RecallPolicyIndependent" xml:space="preserve">
-    <value>This component state is independent from the separate Recall policy setting.</value>
+    <value>此组件状态独立于单独的 Recall 策略设置。</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Frameworks" xml:space="preserve">
-    <value>Frameworks and application platforms</value>
+    <value>框架和应用平台</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.DirectoryServices" xml:space="preserve">
-    <value>Directory services</value>
+    <value>目录服务</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Virtualization" xml:space="preserve">
-    <value>Virtualization</value>
+    <value>虚拟化</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Legacy" xml:space="preserve">
-    <value>Legacy components</value>
+    <value>遗留组件</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Containers" xml:space="preserve">
-    <value>Containers</value>
+    <value>容器</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Networking" xml:space="preserve">
-    <value>Networking</value>
+    <value>联网</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Media" xml:space="preserve">
-    <value>Media</value>
+    <value>媒体</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Security" xml:space="preserve">
-    <value>Security</value>
+    <value>安全</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Printing" xml:space="preserve">
-    <value>Printing and documents</value>
+    <value>打印和文件</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Web" xml:space="preserve">
-    <value>Web and Internet Information Services</value>
+    <value>网络和互联网信息服务</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Management" xml:space="preserve">
-    <value>Management tools</value>
+    <value>管理工具</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Compatibility" xml:space="preserve">
-    <value>Compatibility</value>
+    <value>兼容性</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.FileServices" xml:space="preserve">
-    <value>File services</value>
+    <value>文件服务</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Diagnostics" xml:space="preserve">
-    <value>Diagnostics</value>
+    <value>诊断</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.DeviceLockdown" xml:space="preserve">
-    <value>Device lockdown</value>
+    <value>设备锁定</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.FileSystems" xml:space="preserve">
-    <value>File systems</value>
+    <value>文件系统</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.SearchAndIndexing" xml:space="preserve">
-    <value>Search and indexing</value>
+    <value>搜索和索引</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Messaging" xml:space="preserve">
-    <value>Message queuing</value>
+    <value>消息队列</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.AiComponents" xml:space="preserve">
-    <value>AI components</value>
+    <value>人工智能组件</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.NetFx3" xml:space="preserve">
-    <value>.NET Framework 3.5 (includes .NET 2.0 and 3.0)</value>
+    <value>.NET Framework 3.5（包括.NET 2.0和3.0）</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_HTTP_Activation" xml:space="preserve">
-    <value>Windows Communication Foundation HTTP Activation</value>
+    <value>Windows Communication Foundation HTTP 激活</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_NonHTTP_Activation" xml:space="preserve">
-    <value>Windows Communication Foundation Non-HTTP Activation</value>
+    <value>Windows Communication Foundation 非 HTTP 激活</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.NetFx4_AdvSrvs" xml:space="preserve">
-    <value>.NET Framework 4.8 Advanced Services</value>
+    <value>.NET Framework 4.8 高级服务</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.NetFx4Extended_ASPNET45" xml:space="preserve">
     <value>ASP.NET 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Services45" xml:space="preserve">
-    <value>WCF Services</value>
+    <value>WCF 服务</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_HTTP_Activation45" xml:space="preserve">
-    <value>HTTP Activation</value>
+    <value>HTTP 激活</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_TCP_Activation45" xml:space="preserve">
-    <value>TCP Activation</value>
+    <value>TCP 激活</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Pipe_Activation45" xml:space="preserve">
-    <value>Named Pipe Activation</value>
+    <value>命名管道激活</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_MSMQ_Activation45" xml:space="preserve">
-    <value>Message Queuing (MSMQ) Activation</value>
+    <value>消息队列 (MSMQ) 激活</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_TCP_PortSharing45" xml:space="preserve">
-    <value>TCP Port Sharing</value>
+    <value>TCP端口共享</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.DirectoryServices_ADAM_Client" xml:space="preserve">
-    <value>Active Directory Lightweight Directory Services</value>
+    <value>Active Directory 轻量级目录服务</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HyperV_KernelInt_VirtualDevice" xml:space="preserve">
-    <value>Microsoft Kernel Debug Network Adapter</value>
+    <value>Microsoft 内核调试网络适配器</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Containers_DisposableClientVM" xml:space="preserve">
-    <value>Windows Sandbox</value>
+    <value>Windows沙箱</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.LegacyComponents" xml:space="preserve">
-    <value>Legacy Components</value>
+    <value>遗留组件</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.DirectPlay" xml:space="preserve">
     <value>DirectPlay</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Containers" xml:space="preserve">
-    <value>Containers</value>
+    <value>容器</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.DataCenterBridging" xml:space="preserve">
-    <value>Data Center Bridging</value>
+    <value>数据中心桥接</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MediaPlayback" xml:space="preserve">
-    <value>Media Features</value>
+    <value>媒体功能</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WindowsMediaPlayer" xml:space="preserve">
-    <value>Windows Media Player Legacy</value>
+    <value>Windows Media Player 旧版</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HostGuardian" xml:space="preserve">
-    <value>Host Guardian Hyper-V Support</value>
+    <value>Host Guardian Hyper-V 支持</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_All" xml:space="preserve">
     <value>Hyper-V</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V" xml:space="preserve">
-    <value>Hyper-V Platform</value>
+    <value>Hyper-V 平台</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Hypervisor" xml:space="preserve">
-    <value>Hyper-V Hypervisor</value>
+    <value>Hyper-V 管理程序</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Services" xml:space="preserve">
-    <value>Hyper-V Services</value>
+    <value>Hyper-V 服务</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Tools_All" xml:space="preserve">
-    <value>Hyper-V Management Tools</value>
+    <value>Hyper-V 管理工具</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Management_Clients" xml:space="preserve">
-    <value>Hyper-V GUI Management Tools</value>
+    <value>Hyper-V GUI 管理工具</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Management_PowerShell" xml:space="preserve">
-    <value>Hyper-V Module for Windows PowerShell</value>
+    <value>适用于 Windows PowerShell 的 Hyper-V 模块</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_PrintToPDFServices_Features" xml:space="preserve">
     <value>Microsoft Print to PDF</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HostableWebCore" xml:space="preserve">
-    <value>IIS Hostable Web Core</value>
+    <value>IIS 托管 Web 核心</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServerRole" xml:space="preserve">
-    <value>Internet Information Services</value>
+    <value>互联网信息服务</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPServer" xml:space="preserve">
-    <value>FTP Server</value>
+    <value>FTP服务器</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPSvc" xml:space="preserve">
-    <value>FTP Service</value>
+    <value>FTP服务</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPExtensibility" xml:space="preserve">
-    <value>FTP Extensibility</value>
+    <value>FTP 扩展性</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServerManagementTools" xml:space="preserve">
-    <value>Web Management Tools</value>
+    <value>网页管理工具</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementConsole" xml:space="preserve">
-    <value>IIS Management Console</value>
+    <value>IIS 管理控制台</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementScriptingTools" xml:space="preserve">
-    <value>IIS Management Scripts and Tools</value>
+    <value>IIS 管理脚本和工具</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementService" xml:space="preserve">
-    <value>IIS Management Service</value>
+    <value>IIS管理服务</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IIS6ManagementCompatibility" xml:space="preserve">
-    <value>IIS 6 Management Compatibility</value>
+    <value>IIS 6 管理兼容性</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Metabase" xml:space="preserve">
-    <value>IIS Metabase and IIS 6 Configuration Compatibility</value>
+    <value>IIS 元数据库和 IIS 6 配置兼容性</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WMICompatibility" xml:space="preserve">
-    <value>IIS 6 WMI Compatibility</value>
+    <value>IIS 6 WMI 兼容性</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacyScripts" xml:space="preserve">
-    <value>IIS 6 Scripting Tools</value>
+    <value>IIS 6 脚本工具</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacySnapIn" xml:space="preserve">
-    <value>IIS 6 Management Console</value>
+    <value>IIS 6 管理控制台</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServer" xml:space="preserve">
-    <value>World Wide Web Services</value>
+    <value>万维网服务</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ApplicationDevelopment" xml:space="preserve">
-    <value>Application Development Features</value>
+    <value>应用程序开发功能</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility" xml:space="preserve">
-    <value>.NET Extensibility 3.5</value>
+    <value>.NET 扩展性 3.5</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility45" xml:space="preserve">
-    <value>.NET Extensibility 4.8</value>
+    <value>.NET 扩展性 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ApplicationInit" xml:space="preserve">
-    <value>Application Initialization</value>
+    <value>应用程序初始化</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ASP" xml:space="preserve">
     <value>ASP</value>
@@ -1009,238 +1009,238 @@
     <value>CGI</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ISAPIExtensions" xml:space="preserve">
-    <value>ISAPI Extensions</value>
+    <value>ISAPI 扩展</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ISAPIFilter" xml:space="preserve">
-    <value>ISAPI Filters</value>
+    <value>ISAPI 过滤器</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ServerSideIncludes" xml:space="preserve">
-    <value>Server-Side Includes</value>
+    <value>服务器端包含</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebSockets" xml:space="preserve">
-    <value>WebSocket Protocol</value>
+    <value>WebSocket协议</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CommonHttpFeatures" xml:space="preserve">
-    <value>Common HTTP Features</value>
+    <value>常见的 HTTP 功能</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DefaultDocument" xml:space="preserve">
-    <value>Default Document</value>
+    <value>默认文档</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DirectoryBrowsing" xml:space="preserve">
-    <value>Directory Browsing</value>
+    <value>目录浏览</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpErrors" xml:space="preserve">
-    <value>HTTP Errors</value>
+    <value>HTTP 错误</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpRedirect" xml:space="preserve">
-    <value>HTTP Redirection</value>
+    <value>HTTP 重定向</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_StaticContent" xml:space="preserve">
-    <value>Static Content</value>
+    <value>静态内容</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebDAV" xml:space="preserve">
-    <value>WebDAV Publishing</value>
+    <value>WebDAV 出版</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HealthAndDiagnostics" xml:space="preserve">
-    <value>Health and Diagnostics</value>
+    <value>健康与诊断</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CustomLogging" xml:space="preserve">
-    <value>Custom Logging</value>
+    <value>自定义日志记录</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpLogging" xml:space="preserve">
-    <value>HTTP Logging</value>
+    <value>HTTP 日志记录</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LoggingLibraries" xml:space="preserve">
-    <value>Logging Tools</value>
+    <value>记录工具</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ODBCLogging" xml:space="preserve">
-    <value>ODBC Logging</value>
+    <value>ODBC 日志记录</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestMonitor" xml:space="preserve">
-    <value>Request Monitor</value>
+    <value>请求监控</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpTracing" xml:space="preserve">
-    <value>Tracing</value>
+    <value>追踪</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Performance" xml:space="preserve">
-    <value>Performance Features</value>
+    <value>性能功能</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpCompressionDynamic" xml:space="preserve">
-    <value>Dynamic Content Compression</value>
+    <value>动态内容压缩</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpCompressionStatic" xml:space="preserve">
-    <value>Static Content Compression</value>
+    <value>静态内容压缩</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Security" xml:space="preserve">
-    <value>Security Features</value>
+    <value>安全功能</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_BasicAuthentication" xml:space="preserve">
-    <value>Basic Authentication</value>
+    <value>基本认证</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CertProvider" xml:space="preserve">
-    <value>Centralized SSL Certificate Support</value>
+    <value>集中式 SSL 证书支持</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ClientCertificateMappingAuthentication" xml:space="preserve">
-    <value>Client Certificate Mapping Authentication</value>
+    <value>客户端证书映射身份验证</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DigestAuthentication" xml:space="preserve">
-    <value>Digest Authentication</value>
+    <value>摘要式认证</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IISCertificateMappingAuthentication" xml:space="preserve">
-    <value>IIS Client Certificate Mapping Authentication</value>
+    <value>IIS 客户端证书映射身份验证</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IPSecurity" xml:space="preserve">
-    <value>IP Security</value>
+    <value>IP 安全</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestFiltering" xml:space="preserve">
-    <value>Request Filtering</value>
+    <value>请求过滤</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_URLAuthorization" xml:space="preserve">
-    <value>URL Authorization</value>
+    <value>URL 授权</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WindowsAuthentication" xml:space="preserve">
-    <value>Windows Authentication</value>
+    <value>Windows 身份验证</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_WindowsActivationService" xml:space="preserve">
-    <value>Windows Process Activation Service</value>
+    <value>Windows进程激活服务</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ProcessModel" xml:space="preserve">
-    <value>Process Model</value>
+    <value>进程模型</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_NetFxEnvironment" xml:space="preserve">
-    <value>.NET Environment</value>
+    <value>.NET环境</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ConfigurationAPI" xml:space="preserve">
-    <value>Configuration APIs</value>
+    <value>配置API</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_XPSServices_Features" xml:space="preserve">
     <value>Microsoft XPS Document Writer</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Connector" xml:space="preserve">
-    <value>MultiPoint Connector</value>
+    <value>多点连接器</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Connector_Services" xml:space="preserve">
-    <value>MultiPoint Connector Services</value>
+    <value>多点连接器服务</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Tools" xml:space="preserve">
-    <value>MultiPoint Manager and MultiPoint Dashboard</value>
+    <value>MultiPoint 管理器和 MultiPoint 仪表板</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HyperV_Guest_KernelInt" xml:space="preserve">
-    <value>Microsoft Hyper-V Guest Integration Services</value>
+    <value>Microsoft Hyper-V 来宾集成服务</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HypervisorPlatform" xml:space="preserve">
-    <value>Windows Hypervisor Platform</value>
+    <value>Windows 管理程序平台</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.VirtualMachinePlatform" xml:space="preserve">
-    <value>Virtual Machine Platform</value>
+    <value>虚拟机平台</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSRDC_Infrastructure" xml:space="preserve">
-    <value>Remote Differential Compression API Support</value>
+    <value>远程差分压缩 API 支持</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Containers_Server_For_Application_Guard" xml:space="preserve">
-    <value>Microsoft Defender Application Guard</value>
+    <value>Microsoft Defender 应用程序防护</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Container" xml:space="preserve">
-    <value>Microsoft Message Queue (MSMQ) Server</value>
+    <value>Microsoft 消息队列 (MSMQ) 服务器</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Server" xml:space="preserve">
-    <value>Microsoft Message Queue (MSMQ) Server Core</value>
+    <value>Microsoft 消息队列 (MSMQ) 服务器核心</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_ADIntegration" xml:space="preserve">
-    <value>Directory Service Integration</value>
+    <value>目录服务集成</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_HTTP" xml:space="preserve">
-    <value>HTTP Support</value>
+    <value>HTTP 支持</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Multicast" xml:space="preserve">
-    <value>Multicasting Support</value>
+    <value>组播支持</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Triggers" xml:space="preserve">
-    <value>Message Queuing Triggers</value>
+    <value>消息队列触发器</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_DCOMProxy" xml:space="preserve">
-    <value>MSMQ DCOM Proxy</value>
+    <value>MSMQ DCOM 代理</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_Features" xml:space="preserve">
-    <value>Print and Document Services</value>
+    <value>打印和文件服务</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_InternetPrinting_Client" xml:space="preserve">
-    <value>Internet Printing Client</value>
+    <value>网络打印客户端</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPDPrintService" xml:space="preserve">
-    <value>LPD Print Service</value>
+    <value>LPD打印服务</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPRPortMonitor" xml:space="preserve">
-    <value>LPR Port Monitor</value>
+    <value>LPR端口监视器</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.ServicesForNFS_ClientOnly" xml:space="preserve">
-    <value>Services for NFS</value>
+    <value>NFS 服务</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.ClientForNFS_Infrastructure" xml:space="preserve">
-    <value>Client for NFS</value>
+    <value>NFS 客户端</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.NFS_Administration" xml:space="preserve">
-    <value>Administrative Tools for NFS</value>
+    <value>NFS 管理工具</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SimpleTCP" xml:space="preserve">
-    <value>Simple TCP/IP Services</value>
+    <value>简单的 TCP/IP 服务</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SmbDirect" xml:space="preserve">
     <value>SMB Direct</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Windows_Subsystem_Linux" xml:space="preserve">
-    <value>Windows Subsystem for Linux</value>
+    <value>Linux 的 Windows 子系统</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol" xml:space="preserve">
-    <value>SMB 1.0/CIFS File Sharing Support</value>
+    <value>SMB 1.0/CIFS 文件共享支持</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Client" xml:space="preserve">
-    <value>SMB 1.0/CIFS Client</value>
+    <value>SMB 1.0/CIFS 客户端</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Server" xml:space="preserve">
-    <value>SMB 1.0/CIFS Server</value>
+    <value>SMB 1.0/CIFS 服务器</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Deprecation" xml:space="preserve">
-    <value>SMB 1.0/CIFS Automatic Removal</value>
+    <value>SMB 1.0/CIFS 自动删除</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Sysmon" xml:space="preserve">
-    <value>System Monitor</value>
+    <value>系统监控器</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.TelnetClient" xml:space="preserve">
-    <value>Telnet Client</value>
+    <value>Telnet 客户端</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.TFTP" xml:space="preserve">
-    <value>TFTP Client</value>
+    <value>TFTP客户端</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_DeviceLockdown" xml:space="preserve">
-    <value>Device Lockdown</value>
+    <value>设备锁定</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedBootExp" xml:space="preserve">
-    <value>Unbranded Boot</value>
+    <value>无品牌启动</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedLogon" xml:space="preserve">
-    <value>Custom Logon</value>
+    <value>自定义登录</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedShellLauncher" xml:space="preserve">
-    <value>Shell Launcher</value>
+    <value>Shell 启动器</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_KeyboardFilter" xml:space="preserve">
-    <value>Keyboard Filter</value>
+    <value>键盘过滤器</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_UnifiedWriteFilter" xml:space="preserve">
-    <value>Unified Write Filter</value>
+    <value>统一写过滤器</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Windows_Identity_Foundation" xml:space="preserve">
     <value>Windows Identity Foundation 3.5</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_ProjFS" xml:space="preserve">
-    <value>Windows Projected File System</value>
+    <value>Windows 投影文件系统</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.TIFFIFilter" xml:space="preserve">
     <value>Windows TIFF IFilter</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WorkFolders_Client" xml:space="preserve">
-    <value>Work Folders Client</value>
+    <value>工作文件夹客户端</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Recall" xml:space="preserve">
     <value>Recall</value>
@@ -2667,7 +2667,7 @@
     <value>创建部署媒体之前，请检查 Windows ADK 和 Windows PE 加载项的就绪情况。</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
+    <value>配置计算机命名、操作系统选择、OOBE、分类 Windows 可选功能、AI 组件删除和 AppX 删除。</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>配置媒体基线、WinPE 语言、启动签名、驱动程序和部署时区。</value>

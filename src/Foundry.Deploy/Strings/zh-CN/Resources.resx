@@ -97,8 +97,8 @@
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>操作系统</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>没有选择</value></data>
   <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>选定的驱动程序包</value></data>
-  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Windows Optional Features</value></data>
-  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} configured ({1} enable, {2} disable)</value></data>
+  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Windows 可选功能</value></data>
+  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>已配置 {0}（{1} 启用，{2} 禁用）</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>固件</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot方法</value></data>
@@ -514,18 +514,18 @@
     <value>交互式 Autopilot 注册助手已暂存（模拟）。</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>移除启动介质，然后选择“重启”。</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Configure Windows optional features</value></data>
-  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Configuring Windows optional features...</value></data>
-  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Inspecting feature states...</value></data>
-  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Preparing matching setup media sources...</value></data>
-  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Applying feature changes...</value></data>
-  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Simulating feature changes...</value></data>
-  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Applying feature changes</value></data>
-  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve"><value>Windows optional feature configuration disabled.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve"><value>Windows optional feature configuration is invalid.</value></data>
-  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve"><value>Windows optional features configured ({0} changed, {1} already satisfied, {2} unavailable).</value></data>
-  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve"><value>Windows optional feature configuration simulated ({0} actions).</value></data>
-  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Windows optional feature '{0}' has a removed payload and no supported local source mapping.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Windows optional feature verification failed for '{0}'.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Matching NetFx3 source is unavailable. {0}</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>配置 Windows 可选功能</value></data>
+  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>配置 Windows 可选功能...</value></data>
+  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>检查功能状态...</value></data>
+  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>正在准备匹配的设置媒体源...</value></data>
+  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>正在应用功能更改...</value></data>
+  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve"><value>模拟功能更改...</value></data>
+  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>应用功能更改</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve"><value>Windows 可选功能配置已禁用。</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve"><value>Windows 可选功能配置无效。</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve"><value>已配置 Windows 可选功能（{0} 已更改，{1} 已满足，{2} 不可用）。</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve"><value>模拟 Windows 可选功能配置（{0} 操作）。</value></data>
+  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Windows 可选功能“{0}”已删除有效负载并且不支持本地源映射。</value></data>
+  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>“{0}”的 Windows 可选功能验证失败。</value></data>
+  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>匹配的 NetFx3 源不可用。 {0}</value></data>
 </root>

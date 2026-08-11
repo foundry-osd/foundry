@@ -76,8 +76,7 @@ public sealed partial class CustomizationConfigurationViewModel
                     .OrderBy(entry => entry.DisplayName, StringComparer.OrdinalIgnoreCase)
                     .Select(entry => new AppxRemovalItemViewModel(
                         entry.PackageName,
-                        entry.DisplayName,
-                        entry.Category)));
+                        entry.DisplayName)));
 
             foreach (AppxRemovalItemViewModel item in categoryViewModel.Items)
             {

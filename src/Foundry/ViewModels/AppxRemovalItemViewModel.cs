@@ -6,16 +6,14 @@ namespace Foundry.ViewModels;
 
 public sealed partial class AppxRemovalItemViewModel : ObservableObject
 {
-    public AppxRemovalItemViewModel(string packageName, string displayName, string category)
+    public AppxRemovalItemViewModel(string packageName, string displayName)
     {
         PackageName = packageName;
         DisplayName = displayName;
-        Category = category;
     }
 
     public string PackageName { get; }
     public string DisplayName { get; }
-    public string Category { get; }
     [ObservableProperty]
     public partial bool IsSelected { get; set; }
 }

@@ -235,6 +235,37 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
     }
 
     [Fact]
+    public void Build_WhenSourceBackedFeatureIsDisabled_DoesNotReportSourceRequirement()
+    {
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                WindowsOptionalFeatures = new WindowsOptionalFeatureSettings
+                {
+                    IsEnabled = true,
+                    DisabledFeatureIds = ["wf:netfx3"]
+                }
+            }
+        };
+
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
+            new MediaPreflightOptions(),
+            document,
+            success: true,
+            failedStepName: null,
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+
+        Assert.True((bool)result["customization_windows_optional_features_enabled"]!);
+        Assert.Equal(1, result["customization_windows_optional_features_disable_count"]);
+        Assert.False((bool)result["customization_windows_optional_features_requires_sxs"]!);
+    }
+
+    [Fact]
     public void Build_WhenOperatingSystemSelectionIsDisabled_DoesNotReportSavedPolicy()
     {
         var document = new FoundryConfigurationDocument

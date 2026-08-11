@@ -51,6 +51,51 @@ public sealed class WindowsOptionalFeatureCompatibilityEvaluatorTests
     }
 
     [Theory]
+    [InlineData("Pro", WindowsOptionalFeatureCompatibility.Available)]
+    [InlineData("Pro N", WindowsOptionalFeatureCompatibility.RuntimeVerificationRequired)]
+    public void Evaluate_MediaPlayback_LeavesNEditionsForRuntimeVerification(
+        string edition,
+        WindowsOptionalFeatureCompatibility expected)
+    {
+        WindowsOptionalFeatureCompatibility actual = WindowsOptionalFeatureCompatibilityEvaluator.Evaluate(
+            "wf:mediaplayback",
+            [edition],
+            ["25H2"],
+            WinPeArchitecture.X64);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void Evaluate_MediaPlaybackChild_InheritsNEditionRuntimeVerification()
+    {
+        WindowsOptionalFeatureCompatibility actual = WindowsOptionalFeatureCompatibilityEvaluator.Evaluate(
+            "wf:windowsmediaplayer",
+            ["Enterprise N"],
+            ["25H2"],
+            WinPeArchitecture.X64);
+
+        Assert.Equal(WindowsOptionalFeatureCompatibility.RuntimeVerificationRequired, actual);
+    }
+
+    [Theory]
+    [InlineData("Education", "wf:containers", WindowsOptionalFeatureCompatibility.Unavailable)]
+    [InlineData("Pro", "wf:client-device-lockdown", WindowsOptionalFeatureCompatibility.Unavailable)]
+    public void Evaluate_EditionRestrictedFeatures_UseDocumentedMatrices(
+        string edition,
+        string featureId,
+        WindowsOptionalFeatureCompatibility expected)
+    {
+        WindowsOptionalFeatureCompatibility actual = WindowsOptionalFeatureCompatibilityEvaluator.Evaluate(
+            featureId,
+            [edition],
+            ["25H2"],
+            WinPeArchitecture.X64);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
     [InlineData("25H2", WindowsOptionalFeatureCompatibility.Available)]
     [InlineData("unknown", WindowsOptionalFeatureCompatibility.RuntimeVerificationRequired)]
     public void Evaluate_NetFx3_UsesKnownReleaseBuild(

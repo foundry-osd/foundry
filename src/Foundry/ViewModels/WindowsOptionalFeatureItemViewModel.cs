@@ -13,16 +13,13 @@ public sealed partial class WindowsOptionalFeatureItemViewModel : ObservableObje
     public WindowsOptionalFeatureItemViewModel(WindowsOptionalFeatureCatalogEntry catalogEntry, int depth)
     {
         CatalogEntry = catalogEntry;
-        Depth = depth;
         Indentation = new Thickness(depth * 20, 0, 0, 0);
     }
 
     public WindowsOptionalFeatureCatalogEntry CatalogEntry { get; }
     public string Id => CatalogEntry.Id;
     public string FeatureName => CatalogEntry.FeatureName;
-    public string? ParentId => CatalogEntry.ParentId;
     public int SortOrder => CatalogEntry.SortOrder;
-    public int Depth { get; }
     public Thickness Indentation { get; }
     public ObservableCollection<SelectionOption<WindowsOptionalFeatureState>> StateOptions { get; } = [];
     public WindowsOptionalFeatureState State => SelectedState?.Value ?? WindowsOptionalFeatureState.Unchanged;

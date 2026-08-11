@@ -682,7 +682,7 @@
     <value>Odstraňte zřízený balíček aplikace Windows AI Hub, pokud je k dispozici.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Disable Windows Recall by policy</value>
+    <value>Zak&#225;zat Windows Recall podle z&#225;sad</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>Nastavte zásady Windows AI, které zabraňují povolení Recall a ukládání snímků.</value>
@@ -718,148 +718,148 @@
     <value>Nastavte zásadu Notepad, která zakáže funkce AI.</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesHeader" xml:space="preserve">
-    <value>Windows Optional Features</value>
+    <value>Voliteln&#233; funkce syst&#233;mu Windows</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesDescription" xml:space="preserve">
-    <value>Enable or disable Windows components in the deployed operating system.</value>
+    <value>Povolte nebo zakažte souč&#225;sti syst&#233;mu Windows v nasazen&#233;m operačn&#237;m syst&#233;mu.</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesEnableLabel" xml:space="preserve">
-    <value>Configure Windows Optional Features</value>
+    <value>Konfigurace voliteln&#253;ch funkc&#237; syst&#233;mu Windows</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
-    <value>Changes are applied offline after Windows is installed and before OOBE. Enable operations use only the installed image or matching setup-media sources; no Internet fallback is used.</value>
+    <value>Změny se použij&#237; offline po instalaci syst&#233;mu Windows a před OOBE. Povolit operace použ&#237;vaj&#237; pouze nainstalovan&#253; obraz nebo odpov&#237;daj&#237;c&#237; zdroje instalačn&#237;ch m&#233;di&#237;; nepouž&#237;v&#225; se ž&#225;dn&#225; z&#225;loha na internet.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} configured ({1} enable, {2} disable)</value>
+    <value>{0} nakonfigurov&#225;no ({1} povoleno, {2} zak&#225;z&#225;no)</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesSearchLabel" xml:space="preserve">
-    <value>Search features</value>
+    <value>Funkce vyhled&#225;v&#225;n&#237;</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesSearchPlaceholder" xml:space="preserve">
-    <value>Search by display name or DISM feature name</value>
+    <value>Vyhled&#225;vejte podle zobrazovan&#233;ho n&#225;zvu nebo n&#225;zvu funkce DISM</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesEmptySearch" xml:space="preserve">
-    <value>No Windows optional features match this search.</value>
+    <value>Tomuto vyhled&#225;v&#225;n&#237; neodpov&#237;daj&#237; ž&#225;dn&#233; voliteln&#233; funkce syst&#233;mu Windows.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.DetailFormat" xml:space="preserve">
-    <value>{0} — {1}</value>
+    <value>{0} – {1}</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.State.Unchanged" xml:space="preserve">
-    <value>Unchanged</value>
+    <value>Beze změny</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.State.Enable" xml:space="preserve">
-    <value>Enable</value>
+    <value>Povolit</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.State.Disable" xml:space="preserve">
-    <value>Disable</value>
+    <value>Zak&#225;zat</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.Available" xml:space="preserve">
-    <value>Available for all selected targets</value>
+    <value>Dostupn&#233; pro všechny vybran&#233; c&#237;le</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.PartiallyAvailable" xml:space="preserve">
-    <value>Available for some selected targets</value>
+    <value>Dostupn&#233; pro někter&#233; vybran&#233; c&#237;le</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.Unavailable" xml:space="preserve">
-    <value>Not available for the selected targets</value>
+    <value>Nen&#237; k dispozici pro vybran&#233; c&#237;le</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.RuntimeVerificationRequired" xml:space="preserve">
-    <value>Availability will be verified against the applied Windows image</value>
+    <value>Dostupnost bude ověřena podle použit&#233; bitov&#233; kopie syst&#233;mu Windows</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Enable" xml:space="preserve">
-    <value>Enable visible</value>
+    <value>Povolit viditeln&#233; položky</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Disable" xml:space="preserve">
-    <value>Disable visible</value>
+    <value>Zak&#225;zat viditeln&#233; položky</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Clear" xml:space="preserve">
-    <value>Clear visible</value>
+    <value>Obnovit viditeln&#233; položky</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MatchingSource" xml:space="preserve">
-    <value>Enabling this feature requires a matching setup-media sources\sxs payload.</value>
+    <value>Povolen&#237; t&#233;to funkce vyžaduje shodu setup-media sources\sxs.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.HardwareVirtualization" xml:space="preserve">
-    <value>Requires compatible virtualization hardware and firmware settings.</value>
+    <value>Vyžaduje kompatibiln&#237; virtualizačn&#237; hardware a nastaven&#237; firmwaru.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.Rdma" xml:space="preserve">
-    <value>Requires an RDMA-capable network adapter.</value>
+    <value>Vyžaduje s&#237;ťov&#253; adapt&#233;r s podporou RDMA.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MediaFeaturePack" xml:space="preserve">
-    <value>Windows N editions may require the Media Feature Pack.</value>
+    <value>Edice Windows N mohou vyžadovat Media Feature Pack.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
-    <value>Availability depends on Copilot+ PC hardware and the installed Windows image.</value>
+    <value>Dostupnost z&#225;vis&#237; na hardwaru poč&#237;tače Copilot+ a nainstalovan&#233;m obrazu Windows.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.WslComponentOnly" xml:space="preserve">
-    <value>This configures the Windows component only; it does not install a Linux distribution.</value>
+    <value>T&#237;m se nakonfiguruje pouze souč&#225;st syst&#233;mu Windows; neinstaluje distribuci Linuxu.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.RecallPolicyIndependent" xml:space="preserve">
-    <value>This component state is independent from the separate Recall policy setting.</value>
+    <value>Tento stav součásti je nezávislý na samostatném nastavení zásady Recall.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Frameworks" xml:space="preserve">
-    <value>Frameworks and application platforms</value>
+    <value>R&#225;mce a aplikačn&#237; platformy</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.DirectoryServices" xml:space="preserve">
-    <value>Directory services</value>
+    <value>Adres&#225;řov&#233; služby</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Virtualization" xml:space="preserve">
-    <value>Virtualization</value>
+    <value>Virtualizace</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Legacy" xml:space="preserve">
-    <value>Legacy components</value>
+    <value>Starš&#237; komponenty</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Containers" xml:space="preserve">
-    <value>Containers</value>
+    <value>Kontejnery</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Networking" xml:space="preserve">
-    <value>Networking</value>
+    <value>vytv&#225;řen&#237; s&#237;t&#237;</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Media" xml:space="preserve">
-    <value>Media</value>
+    <value>M&#233;dia</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Security" xml:space="preserve">
-    <value>Security</value>
+    <value>Zabezpečen&#237;</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Printing" xml:space="preserve">
-    <value>Printing and documents</value>
+    <value>Tisk a dokumenty</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Web" xml:space="preserve">
-    <value>Web and Internet Information Services</value>
+    <value>Webov&#233; a internetov&#233; informačn&#237; služby</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Management" xml:space="preserve">
-    <value>Management tools</value>
+    <value>N&#225;stroje pro spr&#225;vu</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Compatibility" xml:space="preserve">
-    <value>Compatibility</value>
+    <value>Kompatibilita</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.FileServices" xml:space="preserve">
-    <value>File services</value>
+    <value>Souborové služby</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Diagnostics" xml:space="preserve">
-    <value>Diagnostics</value>
+    <value>Diagnostika</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.DeviceLockdown" xml:space="preserve">
-    <value>Device lockdown</value>
+    <value>Uzamčen&#237; zař&#237;zen&#237;</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.FileSystems" xml:space="preserve">
-    <value>File systems</value>
+    <value>Souborov&#233; syst&#233;my</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.SearchAndIndexing" xml:space="preserve">
-    <value>Search and indexing</value>
+    <value>Vyhled&#225;v&#225;n&#237; a indexov&#225;n&#237;</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Messaging" xml:space="preserve">
-    <value>Message queuing</value>
+    <value>Řazen&#237; zpr&#225;v do fronty</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.AiComponents" xml:space="preserve">
-    <value>AI components</value>
+    <value>AI komponenty</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.NetFx3" xml:space="preserve">
-    <value>.NET Framework 3.5 (includes .NET 2.0 and 3.0)</value>
+    <value>.NET Framework 3.5 (zahrnuje .NET 2.0 a 3.0)</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_HTTP_Activation" xml:space="preserve">
-    <value>Windows Communication Foundation HTTP Activation</value>
+    <value>Aktivace HTTP Windows Communication Foundation</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_NonHTTP_Activation" xml:space="preserve">
-    <value>Windows Communication Foundation Non-HTTP Activation</value>
+    <value>Aktivace Windows Communication Foundation Non-HTTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.NetFx4_AdvSrvs" xml:space="preserve">
     <value>.NET Framework 4.8 Advanced Services</value>
@@ -868,19 +868,19 @@
     <value>ASP.NET 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Services45" xml:space="preserve">
-    <value>WCF Services</value>
+    <value>Služby WCF</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_HTTP_Activation45" xml:space="preserve">
-    <value>HTTP Activation</value>
+    <value>Aktivace HTTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_TCP_Activation45" xml:space="preserve">
-    <value>TCP Activation</value>
+    <value>Aktivace TCP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Pipe_Activation45" xml:space="preserve">
-    <value>Named Pipe Activation</value>
+    <value>Aktivace pojmenovan&#233;ho kan&#225;lu</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_MSMQ_Activation45" xml:space="preserve">
-    <value>Message Queuing (MSMQ) Activation</value>
+    <value>Aktivace služby Ř&#237;zen&#237; front zpr&#225;v (MSMQ).</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_TCP_PortSharing45" xml:space="preserve">
     <value>TCP Port Sharing</value>
@@ -901,40 +901,40 @@
     <value>DirectPlay</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Containers" xml:space="preserve">
-    <value>Containers</value>
+    <value>Kontejnery</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.DataCenterBridging" xml:space="preserve">
-    <value>Data Center Bridging</value>
+    <value>Přemostěn&#237; datov&#233;ho centra</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MediaPlayback" xml:space="preserve">
-    <value>Media Features</value>
+    <value>Funkce m&#233;di&#237;</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WindowsMediaPlayer" xml:space="preserve">
     <value>Windows Media Player Legacy</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HostGuardian" xml:space="preserve">
-    <value>Host Guardian Hyper-V Support</value>
+    <value>Podpora Hyper-V Host Guardian</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_All" xml:space="preserve">
     <value>Hyper-V</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V" xml:space="preserve">
-    <value>Hyper-V Platform</value>
+    <value>Platforma Hyper-V</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Hypervisor" xml:space="preserve">
     <value>Hyper-V Hypervisor</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Services" xml:space="preserve">
-    <value>Hyper-V Services</value>
+    <value>Služby Hyper-V</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Tools_All" xml:space="preserve">
-    <value>Hyper-V Management Tools</value>
+    <value>N&#225;stroje pro spr&#225;vu Hyper-V</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Management_Clients" xml:space="preserve">
     <value>Hyper-V GUI Management Tools</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Management_PowerShell" xml:space="preserve">
-    <value>Hyper-V Module for Windows PowerShell</value>
+    <value>Modul Hyper-V pro prostřed&#237; Windows PowerShell</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_PrintToPDFServices_Features" xml:space="preserve">
     <value>Microsoft Print to PDF</value>
@@ -943,37 +943,37 @@
     <value>IIS Hostable Web Core</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServerRole" xml:space="preserve">
-    <value>Internet Information Services</value>
+    <value>Internetov&#225; informačn&#237; služba</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPServer" xml:space="preserve">
     <value>FTP Server</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPSvc" xml:space="preserve">
-    <value>FTP Service</value>
+    <value>Služba FTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPExtensibility" xml:space="preserve">
-    <value>FTP Extensibility</value>
+    <value>Rozšiřitelnost FTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServerManagementTools" xml:space="preserve">
-    <value>Web Management Tools</value>
+    <value>N&#225;stroje pro spr&#225;vu webu</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementConsole" xml:space="preserve">
-    <value>IIS Management Console</value>
+    <value>Konzola pro spr&#225;vu služby IIS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementScriptingTools" xml:space="preserve">
-    <value>IIS Management Scripts and Tools</value>
+    <value>Skripty a n&#225;stroje pro spr&#225;vu služby IIS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementService" xml:space="preserve">
-    <value>IIS Management Service</value>
+    <value>Služba spr&#225;vy IIS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IIS6ManagementCompatibility" xml:space="preserve">
-    <value>IIS 6 Management Compatibility</value>
+    <value>Kompatibilita spr&#225;vy IIS 6</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Metabase" xml:space="preserve">
-    <value>IIS Metabase and IIS 6 Configuration Compatibility</value>
+    <value>IIS Metabase a IIS 6 Configuration Compatibility</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WMICompatibility" xml:space="preserve">
-    <value>IIS 6 WMI Compatibility</value>
+    <value>Kompatibilita se službou IIS 6 WMI</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacyScripts" xml:space="preserve">
     <value>IIS 6 Scripting Tools</value>
@@ -982,19 +982,19 @@
     <value>IIS 6 Management Console</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServer" xml:space="preserve">
-    <value>World Wide Web Services</value>
+    <value>Služby World Wide Web Services</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ApplicationDevelopment" xml:space="preserve">
-    <value>Application Development Features</value>
+    <value>Funkce v&#253;voje aplikac&#237;</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility" xml:space="preserve">
-    <value>.NET Extensibility 3.5</value>
+    <value>Rozšiřitelnost .NET 3.5</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility45" xml:space="preserve">
-    <value>.NET Extensibility 4.8</value>
+    <value>Rozšiřitelnost .NET 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ApplicationInit" xml:space="preserve">
-    <value>Application Initialization</value>
+    <value>Inicializace aplikace</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ASP" xml:space="preserve">
     <value>ASP</value>
@@ -1009,100 +1009,100 @@
     <value>CGI</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ISAPIExtensions" xml:space="preserve">
-    <value>ISAPI Extensions</value>
+    <value>Rozš&#237;řen&#237; ISAPI</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ISAPIFilter" xml:space="preserve">
-    <value>ISAPI Filters</value>
+    <value>Filtry ISAPI</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ServerSideIncludes" xml:space="preserve">
     <value>Server-Side Includes</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebSockets" xml:space="preserve">
-    <value>WebSocket Protocol</value>
+    <value>Protokol WebSocket</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CommonHttpFeatures" xml:space="preserve">
-    <value>Common HTTP Features</value>
+    <value>Společn&#233; funkce HTTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DefaultDocument" xml:space="preserve">
-    <value>Default Document</value>
+    <value>V&#253;choz&#237; dokument</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DirectoryBrowsing" xml:space="preserve">
-    <value>Directory Browsing</value>
+    <value>Proch&#225;zen&#237; adres&#225;řů</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpErrors" xml:space="preserve">
-    <value>HTTP Errors</value>
+    <value>Chyby HTTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpRedirect" xml:space="preserve">
-    <value>HTTP Redirection</value>
+    <value>Přesměrov&#225;n&#237; HTTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_StaticContent" xml:space="preserve">
-    <value>Static Content</value>
+    <value>Statick&#253; obsah</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebDAV" xml:space="preserve">
-    <value>WebDAV Publishing</value>
+    <value>Publikov&#225;n&#237; WebDAV</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HealthAndDiagnostics" xml:space="preserve">
-    <value>Health and Diagnostics</value>
+    <value>Stav a diagnostika</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CustomLogging" xml:space="preserve">
-    <value>Custom Logging</value>
+    <value>Vlastn&#237; protokolov&#225;n&#237;</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpLogging" xml:space="preserve">
-    <value>HTTP Logging</value>
+    <value>Protokolov&#225;n&#237; HTTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LoggingLibraries" xml:space="preserve">
-    <value>Logging Tools</value>
+    <value>N&#225;stroje pro protokolov&#225;n&#237;</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ODBCLogging" xml:space="preserve">
-    <value>ODBC Logging</value>
+    <value>Protokolov&#225;n&#237; ODBC</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestMonitor" xml:space="preserve">
     <value>Request Monitor</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpTracing" xml:space="preserve">
-    <value>Tracing</value>
+    <value>Trasov&#225;n&#237;</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Performance" xml:space="preserve">
-    <value>Performance Features</value>
+    <value>Funkce v&#253;konu</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpCompressionDynamic" xml:space="preserve">
-    <value>Dynamic Content Compression</value>
+    <value>Dynamick&#225; komprese obsahu</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpCompressionStatic" xml:space="preserve">
-    <value>Static Content Compression</value>
+    <value>Statick&#225; komprese obsahu</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Security" xml:space="preserve">
-    <value>Security Features</value>
+    <value>Funkce zabezpečen&#237;</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_BasicAuthentication" xml:space="preserve">
-    <value>Basic Authentication</value>
+    <value>Z&#225;kladn&#237; ověřov&#225;n&#237;</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CertProvider" xml:space="preserve">
-    <value>Centralized SSL Certificate Support</value>
+    <value>Centralizovan&#225; podpora certifik&#225;tů SSL</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ClientCertificateMappingAuthentication" xml:space="preserve">
-    <value>Client Certificate Mapping Authentication</value>
+    <value>Ověřen&#237; mapov&#225;n&#237; klientsk&#233;ho certifik&#225;tu</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DigestAuthentication" xml:space="preserve">
-    <value>Digest Authentication</value>
+    <value>Ověřen&#237; algoritmu Digest</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IISCertificateMappingAuthentication" xml:space="preserve">
-    <value>IIS Client Certificate Mapping Authentication</value>
+    <value>Ověřen&#237; mapov&#225;n&#237; klientsk&#233;ho certifik&#225;tu IIS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IPSecurity" xml:space="preserve">
     <value>IP Security</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestFiltering" xml:space="preserve">
-    <value>Request Filtering</value>
+    <value>Filtrov&#225;n&#237; požadavků</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_URLAuthorization" xml:space="preserve">
     <value>URL Authorization</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WindowsAuthentication" xml:space="preserve">
-    <value>Windows Authentication</value>
+    <value>Ověřen&#237; syst&#233;mu Windows</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_WindowsActivationService" xml:space="preserve">
-    <value>Windows Process Activation Service</value>
+    <value>Služba aktivace procesů syst&#233;mu Windows</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ProcessModel" xml:space="preserve">
     <value>Process Model</value>
@@ -1111,7 +1111,7 @@
     <value>.NET Environment</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ConfigurationAPI" xml:space="preserve">
-    <value>Configuration APIs</value>
+    <value>Konfiguračn&#237; rozhran&#237; API</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_XPSServices_Features" xml:space="preserve">
     <value>Microsoft XPS Document Writer</value>
@@ -1123,109 +1123,109 @@
     <value>MultiPoint Connector Services</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Tools" xml:space="preserve">
-    <value>MultiPoint Manager and MultiPoint Dashboard</value>
+    <value>MultiPoint Manager a MultiPoint Dashboard</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HyperV_Guest_KernelInt" xml:space="preserve">
     <value>Microsoft Hyper-V Guest Integration Services</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HypervisorPlatform" xml:space="preserve">
-    <value>Windows Hypervisor Platform</value>
+    <value>Platforma Windows Hypervisor</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.VirtualMachinePlatform" xml:space="preserve">
-    <value>Virtual Machine Platform</value>
+    <value>Platforma virtu&#225;ln&#237;ch strojů</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSRDC_Infrastructure" xml:space="preserve">
-    <value>Remote Differential Compression API Support</value>
+    <value>Podpora rozhran&#237; API vzd&#225;len&#233; diferenci&#225;ln&#237; komprese</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Containers_Server_For_Application_Guard" xml:space="preserve">
     <value>Microsoft Defender Application Guard</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Container" xml:space="preserve">
-    <value>Microsoft Message Queue (MSMQ) Server</value>
+    <value>Server Microsoft Message Queue (MSMQ).</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Server" xml:space="preserve">
-    <value>Microsoft Message Queue (MSMQ) Server Core</value>
+    <value>Serverov&#233; j&#225;dro Microsoft Message Queue (MSMQ).</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_ADIntegration" xml:space="preserve">
-    <value>Directory Service Integration</value>
+    <value>Integrace adres&#225;řov&#233; služby</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_HTTP" xml:space="preserve">
-    <value>HTTP Support</value>
+    <value>Podpora HTTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Multicast" xml:space="preserve">
-    <value>Multicasting Support</value>
+    <value>Podpora v&#237;cesměrov&#233;ho vys&#237;l&#225;n&#237;</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Triggers" xml:space="preserve">
-    <value>Message Queuing Triggers</value>
+    <value>Spouštěče fronty zpr&#225;v</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_DCOMProxy" xml:space="preserve">
     <value>MSMQ DCOM Proxy</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_Features" xml:space="preserve">
-    <value>Print and Document Services</value>
+    <value>Služby tisku a dokumentů</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_InternetPrinting_Client" xml:space="preserve">
-    <value>Internet Printing Client</value>
+    <value>Internetov&#253; tiskov&#253; klient</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPDPrintService" xml:space="preserve">
-    <value>LPD Print Service</value>
+    <value>Tiskov&#225; služba LPD</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPRPortMonitor" xml:space="preserve">
-    <value>LPR Port Monitor</value>
+    <value>Monitor portu LPR</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.ServicesForNFS_ClientOnly" xml:space="preserve">
-    <value>Services for NFS</value>
+    <value>Služby pro NFS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.ClientForNFS_Infrastructure" xml:space="preserve">
-    <value>Client for NFS</value>
+    <value>Klient pro NFS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.NFS_Administration" xml:space="preserve">
-    <value>Administrative Tools for NFS</value>
+    <value>N&#225;stroje pro spr&#225;vu pro NFS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SimpleTCP" xml:space="preserve">
-    <value>Simple TCP/IP Services</value>
+    <value>Jednoduch&#233; služby TCP/IP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SmbDirect" xml:space="preserve">
     <value>SMB Direct</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Windows_Subsystem_Linux" xml:space="preserve">
-    <value>Windows Subsystem for Linux</value>
+    <value>Subsyst&#233;m Windows pro Linux</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol" xml:space="preserve">
-    <value>SMB 1.0/CIFS File Sharing Support</value>
+    <value>Podpora sd&#237;len&#237; souborů SMB 1.0/CIFS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Client" xml:space="preserve">
-    <value>SMB 1.0/CIFS Client</value>
+    <value>Klient SMB 1.0/CIFS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Server" xml:space="preserve">
-    <value>SMB 1.0/CIFS Server</value>
+    <value>Server SMB 1.0/CIFS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Deprecation" xml:space="preserve">
-    <value>SMB 1.0/CIFS Automatic Removal</value>
+    <value>Automatick&#233; odstraněn&#237; SMB 1.0/CIFS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Sysmon" xml:space="preserve">
     <value>System Monitor</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.TelnetClient" xml:space="preserve">
-    <value>Telnet Client</value>
+    <value>Klient Telnet</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.TFTP" xml:space="preserve">
-    <value>TFTP Client</value>
+    <value>Klient TFTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_DeviceLockdown" xml:space="preserve">
-    <value>Device Lockdown</value>
+    <value>Uzamčen&#237; zař&#237;zen&#237;</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedBootExp" xml:space="preserve">
-    <value>Unbranded Boot</value>
+    <value>Neznačkov&#233; spouštěn&#237;</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedLogon" xml:space="preserve">
-    <value>Custom Logon</value>
+    <value>Vlastn&#237; přihl&#225;šen&#237;</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedShellLauncher" xml:space="preserve">
     <value>Shell Launcher</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_KeyboardFilter" xml:space="preserve">
-    <value>Keyboard Filter</value>
+    <value>Filtr kl&#225;vesnice</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_UnifiedWriteFilter" xml:space="preserve">
     <value>Unified Write Filter</value>
@@ -1240,7 +1240,7 @@
     <value>Windows TIFF IFilter</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WorkFolders_Client" xml:space="preserve">
-    <value>Work Folders Client</value>
+    <value>Klient pracovn&#237;ch složek</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Recall" xml:space="preserve">
     <value>Recall</value>
@@ -2667,7 +2667,7 @@
     <value>Před vytvořením nasazovacího média zkontrolujte připravenost Windows ADK a doplňku Windows PE.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
+    <value>Nakonfigurujte pojmenov&#225;n&#237; poč&#237;tače, v&#253;běr operačn&#237;ho syst&#233;mu, OOBE, kategorizovan&#233; voliteln&#233; funkce Windows, odstraněn&#237; komponent AI a odstraněn&#237; AppX.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Nakonfigurujte základ média, jazyk WinPE, spouštěcí podpis, ovladače a časové pásmo nasazení.</value>

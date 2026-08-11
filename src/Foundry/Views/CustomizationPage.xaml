@@ -564,17 +564,17 @@
                                                         Spacing="{ThemeResource FoundryInlineControlSpacing}">
                                                         <Button
                                                             MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
-                                                            AutomationProperties.Name="{x:Bind EnableActionText, Mode=OneWay}"
+                                                            AutomationProperties.Name="{x:Bind EnableAutomationName, Mode=OneWay}"
                                                             Command="{x:Bind EnableVisibleCommand}"
                                                             Content="{x:Bind EnableActionText, Mode=OneWay}" />
                                                         <Button
                                                             MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
-                                                            AutomationProperties.Name="{x:Bind DisableActionText, Mode=OneWay}"
+                                                            AutomationProperties.Name="{x:Bind DisableAutomationName, Mode=OneWay}"
                                                             Command="{x:Bind DisableVisibleCommand}"
                                                             Content="{x:Bind DisableActionText, Mode=OneWay}" />
                                                         <Button
                                                             MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
-                                                            AutomationProperties.Name="{x:Bind ClearActionText, Mode=OneWay}"
+                                                            AutomationProperties.Name="{x:Bind ClearAutomationName, Mode=OneWay}"
                                                             Command="{x:Bind ClearVisibleCommand}"
                                                             Content="{x:Bind ClearActionText, Mode=OneWay}" />
                                                     </StackPanel>

@@ -27,7 +27,7 @@ public sealed class WindowsOptionalFeatureActionValidatorTests
 
         Assert.True(valid, error);
         Assert.Equal(
-            [WindowsOptionalFeatureCatalog.FindByFeatureName("NetFx3")!.Id, WindowsOptionalFeatureCatalog.FindByFeatureName("TelnetClient")!.Id],
+            [FeatureId("NetFx3"), FeatureId("TelnetClient")],
             normalized.Actions.Select(action => action.Id));
     }
 
@@ -103,8 +103,12 @@ public sealed class WindowsOptionalFeatureActionValidatorTests
     {
         return new DeployWindowsOptionalFeatureAction
         {
-            Id = WindowsOptionalFeatureCatalog.FindByFeatureName(featureName)!.Id,
+            Id = FeatureId(featureName),
             Enable = enable
         };
     }
+
+    private static string FeatureId(string featureName)
+        => WindowsOptionalFeatureCatalog.Entries.Single(
+            entry => string.Equals(entry.FeatureName, featureName, StringComparison.OrdinalIgnoreCase)).Id;
 }

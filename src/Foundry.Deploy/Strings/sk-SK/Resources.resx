@@ -97,8 +97,8 @@
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Operačný systém</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Žiadny výber</value></data>
   <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Vybraný balík ovládačov</value></data>
-  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Windows Optional Features</value></data>
-  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} configured ({1} enable, {2} disable)</value></data>
+  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Voliteľn&#233; funkcie syst&#233;mu Windows</value></data>
+  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} nakonfigurovan&#233; ({1} povoliť, {2} zak&#225;zať)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Firmvér</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Metóda Autopilot</value></data>
@@ -514,18 +514,18 @@ Pokračovať v nasadzovaní?</value></data>
     <value>Interaktívny asistent registrácie Autopilotu bol pripravený (simulácia).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Odstráňte zavádzacie médium a potom vyberte položku Reštartovať.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Configure Windows optional features</value></data>
-  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Configuring Windows optional features...</value></data>
-  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Inspecting feature states...</value></data>
-  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Preparing matching setup media sources...</value></data>
-  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Applying feature changes...</value></data>
-  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Simulating feature changes...</value></data>
-  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Applying feature changes</value></data>
-  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve"><value>Windows optional feature configuration disabled.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve"><value>Windows optional feature configuration is invalid.</value></data>
-  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve"><value>Windows optional features configured ({0} changed, {1} already satisfied, {2} unavailable).</value></data>
-  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve"><value>Windows optional feature configuration simulated ({0} actions).</value></data>
-  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Windows optional feature '{0}' has a removed payload and no supported local source mapping.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Windows optional feature verification failed for '{0}'.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Matching NetFx3 source is unavailable. {0}</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Nakonfigurujte voliteľn&#233; funkcie syst&#233;mu Windows</value></data>
+  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Konfigur&#225;cia voliteľn&#253;ch funkci&#237; syst&#233;mu Windows...</value></data>
+  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Kontroluje sa stav funkci&#237;...</value></data>
+  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Pripravuj&#250; sa zodpovedaj&#250;ce zdroje m&#233;di&#237; nastavenia...</value></data>
+  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Aplikuj&#250; sa zmeny funkci&#237;...</value></data>
+  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Simuluj&#250; sa zmeny funkci&#237;...</value></data>
+  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Uplatňuj&#250; sa zmeny funkci&#237;</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve"><value>Konfigur&#225;cia voliteľn&#253;ch funkci&#237; syst&#233;mu Windows je zak&#225;zan&#225;.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve"><value>Konfigur&#225;cia voliteľn&#253;ch funkci&#237; syst&#233;mu Windows je neplatn&#225;.</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve"><value>Nakonfigurovan&#233; voliteľn&#233; funkcie syst&#233;mu Windows ({0} zmenen&#233;, {1} už splnen&#233;, {2} nedostupn&#233;).</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve"><value>Simulovan&#225; konfigur&#225;cia voliteľn&#253;ch funkci&#237; syst&#233;mu Windows (počet akci&#237;: {0}).</value></data>
+  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Voliteľn&#225; funkcia syst&#233;mu Windows &#39;{0}&#39; m&#225; odstr&#225;nen&#233; užitočn&#233; zaťaženie a žiadne podporovan&#233; mapovanie lok&#225;lneho zdroja.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Overenie voliteľnej funkcie syst&#233;mu Windows pre &#39;{0}&#39; zlyhalo.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Zodpovedaj&#250;ci zdroj NetFx3 nie je k dispoz&#237;cii. {0}</value></data>
 </root>

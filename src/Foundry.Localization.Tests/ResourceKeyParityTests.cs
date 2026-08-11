@@ -29,6 +29,7 @@ public sealed class ResourceKeyParityTests
         "ISO",
         "USB",
         "Wi-Fi",
+        "sources\\sxs",
         "KB",
         "MB",
         "GB",

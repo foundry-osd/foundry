@@ -682,7 +682,7 @@
     <value>ลบแพ็คเกจแอป Windows AI Hub ที่จัดเตรียมไว้เมื่อมีอยู่</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Disable Windows Recall by policy</value>
+    <value>ปิดการใช้งาน Windows Recall ตามนโยบาย</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>กำหนดนโยบาย Windows AI ที่ป้องกันการเปิดใช้งาน Recall และการบันทึกสแนปช็อต</value>
@@ -718,529 +718,529 @@
     <value>กำหนดนโยบาย Notepad ที่ปิดใช้งานคุณสมบัติ AI</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesHeader" xml:space="preserve">
-    <value>Windows Optional Features</value>
+    <value>คุณสมบัติเสริมของ Windows</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesDescription" xml:space="preserve">
-    <value>Enable or disable Windows components in the deployed operating system.</value>
+    <value>เปิดใช้งานหรือปิดใช้งานส่วนประกอบ Windows ในระบบปฏิบัติการที่ปรับใช้</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesEnableLabel" xml:space="preserve">
-    <value>Configure Windows Optional Features</value>
+    <value>กำหนดค่าคุณสมบัติเสริมของ Windows</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
-    <value>Changes are applied offline after Windows is installed and before OOBE. Enable operations use only the installed image or matching setup-media sources; no Internet fallback is used.</value>
+    <value>การเปลี่ยนแปลงจะใช้แบบออฟไลน์หลังจากติดตั้ง Windows และก่อน OOBE เปิดใช้งานการดำเนินการใช้เฉพาะอิมเมจที่ติดตั้งหรือแหล่งสื่อการตั้งค่าที่ตรงกัน ไม่มีการใช้ทางเลือกทางอินเทอร์เน็ต</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
-    <value>{0} configured ({1} enable, {2} disable)</value>
+    <value>กำหนดค่า {0} (เปิดใช้งาน {1}, {2} ปิดใช้งาน)</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesSearchLabel" xml:space="preserve">
-    <value>Search features</value>
+    <value>ค้นหาฟีเจอร์</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesSearchPlaceholder" xml:space="preserve">
-    <value>Search by display name or DISM feature name</value>
+    <value>ค้นหาตามชื่อที่แสดงหรือชื่อคุณสมบัติ DISM</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesEmptySearch" xml:space="preserve">
-    <value>No Windows optional features match this search.</value>
+    <value>ไม่มีคุณลักษณะเสริมของ Windows ที่ตรงกับการค้นหานี้</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.DetailFormat" xml:space="preserve">
     <value>{0} — {1}</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.State.Unchanged" xml:space="preserve">
-    <value>Unchanged</value>
+    <value>ไม่เปลี่ยนแปลง</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.State.Enable" xml:space="preserve">
-    <value>Enable</value>
+    <value>เปิดใช้งาน</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.State.Disable" xml:space="preserve">
-    <value>Disable</value>
+    <value>ปิดการใช้งาน</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.Available" xml:space="preserve">
-    <value>Available for all selected targets</value>
+    <value>ใช้ได้กับทุกเป้าหมายที่เลือก</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.PartiallyAvailable" xml:space="preserve">
-    <value>Available for some selected targets</value>
+    <value>ใช้ได้กับบางเป้าหมายที่เลือก</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.Unavailable" xml:space="preserve">
-    <value>Not available for the selected targets</value>
+    <value>ไม่สามารถใช้ได้กับเป้าหมายที่เลือก</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Compatibility.RuntimeVerificationRequired" xml:space="preserve">
-    <value>Availability will be verified against the applied Windows image</value>
+    <value>ความพร้อมใช้งานจะได้รับการตรวจสอบโดยเทียบกับอิมเมจ Windows ที่ใช้</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Enable" xml:space="preserve">
-    <value>Enable visible</value>
+    <value>เปิดใช้งานรายการที่มองเห็นได้</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Disable" xml:space="preserve">
-    <value>Disable visible</value>
+    <value>ปิดใช้งานรายการที่มองเห็นได้</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Clear" xml:space="preserve">
-    <value>Clear visible</value>
+    <value>รีเซ็ตรายการที่มองเห็นได้</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MatchingSource" xml:space="preserve">
-    <value>Enabling this feature requires a matching setup-media sources\sxs payload.</value>
+    <value>การเปิดใช้งานฟีเจอร์นี้ต้องใช้แหล่งที่มาที่ตรงกันจากสื่อการติดตั้งใน sources\sxs</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.HardwareVirtualization" xml:space="preserve">
-    <value>Requires compatible virtualization hardware and firmware settings.</value>
+    <value>ต้องมีการตั้งค่าฮาร์ดแวร์และเฟิร์มแวร์การจำลองเสมือนที่เข้ากันได้</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.Rdma" xml:space="preserve">
-    <value>Requires an RDMA-capable network adapter.</value>
+    <value>ต้องมีอะแดปเตอร์เครือข่ายที่รองรับ RDMA</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MediaFeaturePack" xml:space="preserve">
-    <value>Windows N editions may require the Media Feature Pack.</value>
+    <value>รุ่น Windows N อาจต้องใช้ Media Feature Pack</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
-    <value>Availability depends on Copilot+ PC hardware and the installed Windows image.</value>
+    <value>ความพร้อมใช้งานขึ้นอยู่กับฮาร์ดแวร์พีซี Copilot+ และอิมเมจ Windows ที่ติดตั้ง</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.WslComponentOnly" xml:space="preserve">
-    <value>This configures the Windows component only; it does not install a Linux distribution.</value>
+    <value>นี่เป็นการกำหนดค่าส่วนประกอบ Windows เท่านั้น มันไม่ได้ติดตั้งการกระจาย Linux</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.RecallPolicyIndependent" xml:space="preserve">
-    <value>This component state is independent from the separate Recall policy setting.</value>
+    <value>สถานะส่วนประกอบนี้ไม่ขึ้นอยู่กับการตั้งค่านโยบาย Recall ที่แยกต่างหาก</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Frameworks" xml:space="preserve">
-    <value>Frameworks and application platforms</value>
+    <value>กรอบงานและแพลตฟอร์มแอปพลิเคชัน</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.DirectoryServices" xml:space="preserve">
-    <value>Directory services</value>
+    <value>บริการไดเรกทอรี</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Virtualization" xml:space="preserve">
-    <value>Virtualization</value>
+    <value>การจำลองเสมือน</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Legacy" xml:space="preserve">
-    <value>Legacy components</value>
+    <value>ส่วนประกอบดั้งเดิม</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Containers" xml:space="preserve">
-    <value>Containers</value>
+    <value>คอนเทนเนอร์</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Networking" xml:space="preserve">
-    <value>Networking</value>
+    <value>เครือข่าย</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Media" xml:space="preserve">
-    <value>Media</value>
+    <value>สื่อ</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Security" xml:space="preserve">
-    <value>Security</value>
+    <value>ความปลอดภัย</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Printing" xml:space="preserve">
-    <value>Printing and documents</value>
+    <value>การพิมพ์และเอกสาร</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Web" xml:space="preserve">
-    <value>Web and Internet Information Services</value>
+    <value>บริการข้อมูลเว็บไซต์และอินเทอร์เน็ต</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Management" xml:space="preserve">
-    <value>Management tools</value>
+    <value>เครื่องมือการจัดการ</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Compatibility" xml:space="preserve">
-    <value>Compatibility</value>
+    <value>ความเข้ากันได้</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.FileServices" xml:space="preserve">
-    <value>File services</value>
+    <value>บริการไฟล์</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Diagnostics" xml:space="preserve">
-    <value>Diagnostics</value>
+    <value>การวินิจฉัย</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.DeviceLockdown" xml:space="preserve">
-    <value>Device lockdown</value>
+    <value>การล็อคอุปกรณ์</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.FileSystems" xml:space="preserve">
-    <value>File systems</value>
+    <value>ระบบไฟล์</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.SearchAndIndexing" xml:space="preserve">
-    <value>Search and indexing</value>
+    <value>ค้นหาและจัดทำดัชนี</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Messaging" xml:space="preserve">
-    <value>Message queuing</value>
+    <value>การเข้าคิวข้อความ</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.AiComponents" xml:space="preserve">
-    <value>AI components</value>
+    <value>ส่วนประกอบเอไอ</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.NetFx3" xml:space="preserve">
-    <value>.NET Framework 3.5 (includes .NET 2.0 and 3.0)</value>
+    <value>.NET Framework 3.5 (รวมถึง .NET 2.0 และ 3.0)</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_HTTP_Activation" xml:space="preserve">
-    <value>Windows Communication Foundation HTTP Activation</value>
+    <value>การเปิดใช้งาน HTTP ของ Windows Communication Foundation</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_NonHTTP_Activation" xml:space="preserve">
-    <value>Windows Communication Foundation Non-HTTP Activation</value>
+    <value>การเปิดใช้งาน Windows Communication Foundation ที่ไม่ใช่ HTTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.NetFx4_AdvSrvs" xml:space="preserve">
-    <value>.NET Framework 4.8 Advanced Services</value>
+    <value>.NET Framework 4.8 บริการขั้นสูง</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.NetFx4Extended_ASPNET45" xml:space="preserve">
-    <value>ASP.NET 4.8</value>
+    <value>เอเอสพี.เน็ต 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Services45" xml:space="preserve">
-    <value>WCF Services</value>
+    <value>บริการ WCF</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_HTTP_Activation45" xml:space="preserve">
-    <value>HTTP Activation</value>
+    <value>การเปิดใช้งาน HTTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_TCP_Activation45" xml:space="preserve">
-    <value>TCP Activation</value>
+    <value>การเปิดใช้งาน TCP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Pipe_Activation45" xml:space="preserve">
-    <value>Named Pipe Activation</value>
+    <value>การเปิดใช้งานไปป์ที่มีชื่อ</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_MSMQ_Activation45" xml:space="preserve">
-    <value>Message Queuing (MSMQ) Activation</value>
+    <value>การเปิดใช้งานการจัดคิวข้อความ (MSMQ)</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_TCP_PortSharing45" xml:space="preserve">
-    <value>TCP Port Sharing</value>
+    <value>การแชร์พอร์ต TCP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.DirectoryServices_ADAM_Client" xml:space="preserve">
-    <value>Active Directory Lightweight Directory Services</value>
+    <value>บริการไดเรกทอรีน้ำหนักเบาของ Active Directory</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HyperV_KernelInt_VirtualDevice" xml:space="preserve">
-    <value>Microsoft Kernel Debug Network Adapter</value>
+    <value>อะแดปเตอร์เครือข่าย Microsoft Kernel Debug</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Containers_DisposableClientVM" xml:space="preserve">
-    <value>Windows Sandbox</value>
+    <value>วินโดว์แซนด์บ็อกซ์</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.LegacyComponents" xml:space="preserve">
-    <value>Legacy Components</value>
+    <value>ส่วนประกอบดั้งเดิม</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.DirectPlay" xml:space="preserve">
-    <value>DirectPlay</value>
+    <value>ไดเร็คเพลย์</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Containers" xml:space="preserve">
-    <value>Containers</value>
+    <value>คอนเทนเนอร์ Windows</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.DataCenterBridging" xml:space="preserve">
-    <value>Data Center Bridging</value>
+    <value>การเชื่อมโยงศูนย์ข้อมูล</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MediaPlayback" xml:space="preserve">
-    <value>Media Features</value>
+    <value>คุณสมบัติของสื่อ</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WindowsMediaPlayer" xml:space="preserve">
-    <value>Windows Media Player Legacy</value>
+    <value>Windows Media Player ดั้งเดิม</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HostGuardian" xml:space="preserve">
-    <value>Host Guardian Hyper-V Support</value>
+    <value>รองรับโฮสต์ Guardian Hyper-V</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_All" xml:space="preserve">
-    <value>Hyper-V</value>
+    <value>ไฮเปอร์-วี</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V" xml:space="preserve">
-    <value>Hyper-V Platform</value>
+    <value>แพลตฟอร์ม Hyper-V</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Hypervisor" xml:space="preserve">
-    <value>Hyper-V Hypervisor</value>
+    <value>ไฮเปอร์ไวเซอร์ ไฮเปอร์-วี</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Services" xml:space="preserve">
-    <value>Hyper-V Services</value>
+    <value>บริการไฮเปอร์-วี</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Tools_All" xml:space="preserve">
-    <value>Hyper-V Management Tools</value>
+    <value>เครื่องมือการจัดการ Hyper-V</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Management_Clients" xml:space="preserve">
-    <value>Hyper-V GUI Management Tools</value>
+    <value>เครื่องมือการจัดการ Hyper-V GUI</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Management_PowerShell" xml:space="preserve">
-    <value>Hyper-V Module for Windows PowerShell</value>
+    <value>โมดูล Hyper-V สำหรับ Windows PowerShell</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_PrintToPDFServices_Features" xml:space="preserve">
-    <value>Microsoft Print to PDF</value>
+    <value>Microsoft พิมพ์เป็น PDF</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HostableWebCore" xml:space="preserve">
-    <value>IIS Hostable Web Core</value>
+    <value>IIS เว็บคอร์ที่โฮสต์ได้</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServerRole" xml:space="preserve">
-    <value>Internet Information Services</value>
+    <value>บริการข้อมูลทางอินเทอร์เน็ต</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPServer" xml:space="preserve">
-    <value>FTP Server</value>
+    <value>เอฟทีพีเซิร์ฟเวอร์</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPSvc" xml:space="preserve">
-    <value>FTP Service</value>
+    <value>บริการเอฟทีพี</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPExtensibility" xml:space="preserve">
-    <value>FTP Extensibility</value>
+    <value>ความสามารถในการขยาย FTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServerManagementTools" xml:space="preserve">
-    <value>Web Management Tools</value>
+    <value>เครื่องมือการจัดการเว็บ</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementConsole" xml:space="preserve">
-    <value>IIS Management Console</value>
+    <value>คอนโซลการจัดการ IIS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementScriptingTools" xml:space="preserve">
-    <value>IIS Management Scripts and Tools</value>
+    <value>สคริปต์และเครื่องมือการจัดการ IIS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementService" xml:space="preserve">
-    <value>IIS Management Service</value>
+    <value>บริการการจัดการ IIS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IIS6ManagementCompatibility" xml:space="preserve">
-    <value>IIS 6 Management Compatibility</value>
+    <value>ความเข้ากันได้ของการจัดการ IIS 6</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Metabase" xml:space="preserve">
-    <value>IIS Metabase and IIS 6 Configuration Compatibility</value>
+    <value>ความเข้ากันได้ของการกำหนดค่า IIS Metabase และ IIS 6</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WMICompatibility" xml:space="preserve">
-    <value>IIS 6 WMI Compatibility</value>
+    <value>ความเข้ากันได้ของ IIS 6 WMI</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacyScripts" xml:space="preserve">
-    <value>IIS 6 Scripting Tools</value>
+    <value>เครื่องมือการเขียนสคริปต์ IIS 6</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacySnapIn" xml:space="preserve">
-    <value>IIS 6 Management Console</value>
+    <value>คอนโซลการจัดการ IIS 6</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServer" xml:space="preserve">
-    <value>World Wide Web Services</value>
+    <value>บริการเวิลด์ไวด์เว็บ</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ApplicationDevelopment" xml:space="preserve">
-    <value>Application Development Features</value>
+    <value>คุณสมบัติการพัฒนาแอพพลิเคชั่น</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility" xml:space="preserve">
-    <value>.NET Extensibility 3.5</value>
+    <value>.NET ส่วนขยาย 3.5</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility45" xml:space="preserve">
-    <value>.NET Extensibility 4.8</value>
+    <value>ความสามารถในการขยาย .NET 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ApplicationInit" xml:space="preserve">
-    <value>Application Initialization</value>
+    <value>การเริ่มต้นแอปพลิเคชัน</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ASP" xml:space="preserve">
     <value>ASP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ASPNET" xml:space="preserve">
-    <value>ASP.NET 3.5</value>
+    <value>เอเอสพี.เน็ต 3.5</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ASPNET45" xml:space="preserve">
-    <value>ASP.NET 4.8</value>
+    <value>เอเอสพี.เน็ต 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CGI" xml:space="preserve">
-    <value>CGI</value>
+    <value>ซีจีไอ</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ISAPIExtensions" xml:space="preserve">
-    <value>ISAPI Extensions</value>
+    <value>ส่วนขยาย ISAPI</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ISAPIFilter" xml:space="preserve">
-    <value>ISAPI Filters</value>
+    <value>ตัวกรอง ISAPI</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ServerSideIncludes" xml:space="preserve">
-    <value>Server-Side Includes</value>
+    <value>การรวมเนื้อหาฝั่งเซิร์ฟเวอร์</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebSockets" xml:space="preserve">
-    <value>WebSocket Protocol</value>
+    <value>โปรโตคอลเว็บซ็อกเก็ต</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CommonHttpFeatures" xml:space="preserve">
-    <value>Common HTTP Features</value>
+    <value>คุณสมบัติ HTTP ทั่วไป</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DefaultDocument" xml:space="preserve">
-    <value>Default Document</value>
+    <value>เอกสารเริ่มต้น</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DirectoryBrowsing" xml:space="preserve">
-    <value>Directory Browsing</value>
+    <value>การเรียกดูไดเรกทอรี</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpErrors" xml:space="preserve">
-    <value>HTTP Errors</value>
+    <value>ข้อผิดพลาด HTTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpRedirect" xml:space="preserve">
-    <value>HTTP Redirection</value>
+    <value>การเปลี่ยนเส้นทาง HTTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_StaticContent" xml:space="preserve">
-    <value>Static Content</value>
+    <value>เนื้อหาแบบคงที่</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebDAV" xml:space="preserve">
-    <value>WebDAV Publishing</value>
+    <value>การเผยแพร่ WebDAV</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HealthAndDiagnostics" xml:space="preserve">
-    <value>Health and Diagnostics</value>
+    <value>สุขภาพและการวินิจฉัย</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CustomLogging" xml:space="preserve">
-    <value>Custom Logging</value>
+    <value>การบันทึกแบบกำหนดเอง</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpLogging" xml:space="preserve">
-    <value>HTTP Logging</value>
+    <value>การบันทึก HTTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LoggingLibraries" xml:space="preserve">
-    <value>Logging Tools</value>
+    <value>เครื่องมือบันทึกข้อมูล</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ODBCLogging" xml:space="preserve">
-    <value>ODBC Logging</value>
+    <value>การบันทึก ODBC</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestMonitor" xml:space="preserve">
-    <value>Request Monitor</value>
+    <value>ตัวตรวจสอบคำขอ</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpTracing" xml:space="preserve">
-    <value>Tracing</value>
+    <value>การติดตาม</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Performance" xml:space="preserve">
-    <value>Performance Features</value>
+    <value>คุณสมบัติด้านประสิทธิภาพ</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpCompressionDynamic" xml:space="preserve">
-    <value>Dynamic Content Compression</value>
+    <value>การบีบอัดเนื้อหาแบบไดนามิก</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpCompressionStatic" xml:space="preserve">
-    <value>Static Content Compression</value>
+    <value>การบีบอัดเนื้อหาแบบคงที่</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Security" xml:space="preserve">
-    <value>Security Features</value>
+    <value>คุณสมบัติด้านความปลอดภัย</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_BasicAuthentication" xml:space="preserve">
-    <value>Basic Authentication</value>
+    <value>การรับรองความถูกต้องขั้นพื้นฐาน</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CertProvider" xml:space="preserve">
-    <value>Centralized SSL Certificate Support</value>
+    <value>รองรับใบรับรอง SSL แบบรวมศูนย์</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ClientCertificateMappingAuthentication" xml:space="preserve">
-    <value>Client Certificate Mapping Authentication</value>
+    <value>การรับรองความถูกต้องการแมปใบรับรองไคลเอ็นต์</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DigestAuthentication" xml:space="preserve">
-    <value>Digest Authentication</value>
+    <value>การรับรองความถูกต้องแบบสรุป</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IISCertificateMappingAuthentication" xml:space="preserve">
-    <value>IIS Client Certificate Mapping Authentication</value>
+    <value>การรับรองความถูกต้องการแมปใบรับรองไคลเอนต์ IIS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IPSecurity" xml:space="preserve">
-    <value>IP Security</value>
+    <value>ความปลอดภัยของไอพี</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestFiltering" xml:space="preserve">
-    <value>Request Filtering</value>
+    <value>การกรองคำขอ</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_URLAuthorization" xml:space="preserve">
-    <value>URL Authorization</value>
+    <value>การอนุญาต URL</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WindowsAuthentication" xml:space="preserve">
-    <value>Windows Authentication</value>
+    <value>การรับรองความถูกต้องของ Windows</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_WindowsActivationService" xml:space="preserve">
-    <value>Windows Process Activation Service</value>
+    <value>บริการเปิดใช้งานกระบวนการ Windows</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ProcessModel" xml:space="preserve">
-    <value>Process Model</value>
+    <value>แบบจำลองกระบวนการ</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_NetFxEnvironment" xml:space="preserve">
-    <value>.NET Environment</value>
+    <value>.NET สภาพแวดล้อม</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ConfigurationAPI" xml:space="preserve">
-    <value>Configuration APIs</value>
+    <value>API การกำหนดค่า</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_XPSServices_Features" xml:space="preserve">
-    <value>Microsoft XPS Document Writer</value>
+    <value>นักเขียนเอกสาร Microsoft XPS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Connector" xml:space="preserve">
-    <value>MultiPoint Connector</value>
+    <value>ขั้วต่อหลายจุด</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Connector_Services" xml:space="preserve">
-    <value>MultiPoint Connector Services</value>
+    <value>บริการเชื่อมต่อมัลติพอยต์</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Tools" xml:space="preserve">
-    <value>MultiPoint Manager and MultiPoint Dashboard</value>
+    <value>MultiPoint Manager และ MultiPoint Dashboard</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HyperV_Guest_KernelInt" xml:space="preserve">
-    <value>Microsoft Hyper-V Guest Integration Services</value>
+    <value>บริการการรวมแขกของ Microsoft Hyper-V</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HypervisorPlatform" xml:space="preserve">
-    <value>Windows Hypervisor Platform</value>
+    <value>แพลตฟอร์ม Windows ไฮเปอร์ไวเซอร์</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.VirtualMachinePlatform" xml:space="preserve">
-    <value>Virtual Machine Platform</value>
+    <value>แพลตฟอร์มเครื่องเสมือน</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSRDC_Infrastructure" xml:space="preserve">
-    <value>Remote Differential Compression API Support</value>
+    <value>รองรับ API การบีบอัดส่วนต่างระยะไกล</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Containers_Server_For_Application_Guard" xml:space="preserve">
-    <value>Microsoft Defender Application Guard</value>
+    <value>การป้องกันแอปพลิเคชัน Microsoft Defender</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Container" xml:space="preserve">
-    <value>Microsoft Message Queue (MSMQ) Server</value>
+    <value>เซิร์ฟเวอร์คิวข้อความ Microsoft (MSMQ)</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Server" xml:space="preserve">
-    <value>Microsoft Message Queue (MSMQ) Server Core</value>
+    <value>แกนเซิร์ฟเวอร์ Microsoft Message Queue (MSMQ)</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_ADIntegration" xml:space="preserve">
-    <value>Directory Service Integration</value>
+    <value>บูรณาการบริการไดเรกทอรี</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_HTTP" xml:space="preserve">
-    <value>HTTP Support</value>
+    <value>การสนับสนุน HTTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Multicast" xml:space="preserve">
-    <value>Multicasting Support</value>
+    <value>การสนับสนุนมัลติคาสต์</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Triggers" xml:space="preserve">
-    <value>Message Queuing Triggers</value>
+    <value>ทริกเกอร์การจัดคิวข้อความ</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_DCOMProxy" xml:space="preserve">
-    <value>MSMQ DCOM Proxy</value>
+    <value>พร็อกซี MSMQ DCOM</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_Features" xml:space="preserve">
-    <value>Print and Document Services</value>
+    <value>บริการพิมพ์และเอกสาร</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_InternetPrinting_Client" xml:space="preserve">
-    <value>Internet Printing Client</value>
+    <value>ไคลเอ็นต์การพิมพ์ทางอินเทอร์เน็ต</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPDPrintService" xml:space="preserve">
-    <value>LPD Print Service</value>
+    <value>แอลพีดี พริ้นท์ เซอร์วิส</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPRPortMonitor" xml:space="preserve">
-    <value>LPR Port Monitor</value>
+    <value>การตรวจสอบพอร์ต LPR</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.ServicesForNFS_ClientOnly" xml:space="preserve">
-    <value>Services for NFS</value>
+    <value>บริการสำหรับ NFS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.ClientForNFS_Infrastructure" xml:space="preserve">
-    <value>Client for NFS</value>
+    <value>ลูกค้าสำหรับ NFS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.NFS_Administration" xml:space="preserve">
-    <value>Administrative Tools for NFS</value>
+    <value>เครื่องมือการดูแลระบบสำหรับ NFS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SimpleTCP" xml:space="preserve">
-    <value>Simple TCP/IP Services</value>
+    <value>บริการ TCP/IP อย่างง่าย</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SmbDirect" xml:space="preserve">
     <value>SMB Direct</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Windows_Subsystem_Linux" xml:space="preserve">
-    <value>Windows Subsystem for Linux</value>
+    <value>ระบบย่อย Windows สำหรับ Linux</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol" xml:space="preserve">
-    <value>SMB 1.0/CIFS File Sharing Support</value>
+    <value>รองรับการแชร์ไฟล์ SMB 1.0/CIFS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Client" xml:space="preserve">
-    <value>SMB 1.0/CIFS Client</value>
+    <value>ไคลเอ็นต์ SMB 1.0/CIFS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Server" xml:space="preserve">
-    <value>SMB 1.0/CIFS Server</value>
+    <value>เซิร์ฟเวอร์ SMB 1.0/CIFS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Deprecation" xml:space="preserve">
-    <value>SMB 1.0/CIFS Automatic Removal</value>
+    <value>SMB 1.0/CIFS การลบอัตโนมัติ</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Sysmon" xml:space="preserve">
-    <value>System Monitor</value>
+    <value>การตรวจสอบระบบ</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.TelnetClient" xml:space="preserve">
-    <value>Telnet Client</value>
+    <value>ไคลเอ็นต์เทลเน็ต</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.TFTP" xml:space="preserve">
-    <value>TFTP Client</value>
+    <value>ไคลเอนต์ TFTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_DeviceLockdown" xml:space="preserve">
-    <value>Device Lockdown</value>
+    <value>การล็อคอุปกรณ์</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedBootExp" xml:space="preserve">
-    <value>Unbranded Boot</value>
+    <value>บูตไม่มีแบรนด์</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedLogon" xml:space="preserve">
-    <value>Custom Logon</value>
+    <value>เข้าสู่ระบบแบบกำหนดเอง</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedShellLauncher" xml:space="preserve">
-    <value>Shell Launcher</value>
+    <value>ตัวเปิดเชลล์</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_KeyboardFilter" xml:space="preserve">
-    <value>Keyboard Filter</value>
+    <value>ตัวกรองคีย์บอร์ด</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_UnifiedWriteFilter" xml:space="preserve">
-    <value>Unified Write Filter</value>
+    <value>ตัวกรองการเขียนแบบรวม</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Windows_Identity_Foundation" xml:space="preserve">
-    <value>Windows Identity Foundation 3.5</value>
+    <value>มูลนิธิข้อมูลประจำตัวของ Windows 3.5</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_ProjFS" xml:space="preserve">
-    <value>Windows Projected File System</value>
+    <value>ระบบไฟล์ที่ฉายของ Windows</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.TIFFIFilter" xml:space="preserve">
-    <value>Windows TIFF IFilter</value>
+    <value>ตัวกรอง TIFF ของ Windows</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WorkFolders_Client" xml:space="preserve">
-    <value>Work Folders Client</value>
+    <value>ไคลเอ็นต์โฟลเดอร์งาน</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Recall" xml:space="preserve">
     <value>Recall</value>
@@ -2667,7 +2667,7 @@
     <value>ตรวจสอบความพร้อมของ Windows ADK และส่วนเสริม Windows PE ก่อนสร้างสื่อการปรับใช้</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
+    <value>กำหนดค่าการตั้งชื่อเครื่อง การเลือกระบบปฏิบัติการ OOBE จัดหมวดหมู่คุณสมบัติเสริมของ Windows การลบส่วนประกอบ AI และการลบ AppX</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>กำหนดค่าพื้นฐานของสื่อ ภาษา WinPE ลายเซ็นการเริ่มระบบ ไดรเวอร์ และโซนเวลาการปรับใช้</value>

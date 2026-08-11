@@ -97,8 +97,8 @@
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Besturingssysteem</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Geen selectie</value></data>
   <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Geselecteerd driverpakket</value></data>
-  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Windows Optional Features</value></data>
-  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} configured ({1} enable, {2} disable)</value></data>
+  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Optionele Windows-functies</value></data>
+  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} geconfigureerd ({1} inschakelen, {2} uitschakelen)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Methode</value></data>
@@ -514,18 +514,18 @@ Doorgaan met de implementatie?</value></data>
     <value>Interactieve Autopilot-registratieassistent voorbereid (simulatie).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Verwijder het opstartmedium en selecteer vervolgens Opnieuw opstarten.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Configure Windows optional features</value></data>
-  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Configuring Windows optional features...</value></data>
-  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Inspecting feature states...</value></data>
-  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Preparing matching setup media sources...</value></data>
-  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Applying feature changes...</value></data>
-  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Simulating feature changes...</value></data>
-  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Applying feature changes</value></data>
-  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve"><value>Windows optional feature configuration disabled.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve"><value>Windows optional feature configuration is invalid.</value></data>
-  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve"><value>Windows optional features configured ({0} changed, {1} already satisfied, {2} unavailable).</value></data>
-  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve"><value>Windows optional feature configuration simulated ({0} actions).</value></data>
-  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Windows optional feature '{0}' has a removed payload and no supported local source mapping.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Windows optional feature verification failed for '{0}'.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Matching NetFx3 source is unavailable. {0}</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Configureer optionele Windows-functies</value></data>
+  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Optionele Windows-functies configureren...</value></data>
+  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Functiestatussen inspecteren...</value></data>
+  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Overeenkomende mediabronnen voorbereiden...</value></data>
+  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Functiewijzigingen toepassen...</value></data>
+  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Functiewijzigingen simuleren...</value></data>
+  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Functiewijzigingen toepassen</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve"><value>Configuratie van optionele Windows-functies uitgeschakeld.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve"><value>Configuratie van optionele Windows-functies is ongeldig.</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve"><value>Optionele Windows-functies geconfigureerd ({0} gewijzigd, {1} al in de gewenste status, {2} niet beschikbaar).</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve"><value>Configuratie van optionele Windows-functies gesimuleerd ({0} acties).</value></data>
+  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>De optionele Windows-functie &#39;{0}&#39; heeft een verwijderde payload en geen ondersteunde lokale brontoewijzing.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Verificatie van optionele Windows-functies mislukt voor &#39;{0}&#39;.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Overeenkomende NetFx3-bron is niet beschikbaar. {0}</value></data>
 </root>

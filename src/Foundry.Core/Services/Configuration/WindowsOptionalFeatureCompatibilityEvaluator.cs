@@ -138,9 +138,14 @@ public static class WindowsOptionalFeatureCompatibilityEvaluator
             return false;
         }
 
+        if (entry.KnownSupportedEditionIds.Contains(edition.EditionId, StringComparer.OrdinalIgnoreCase))
+        {
+            return true;
+        }
+
         return entry.KnownSupportedEditionIds.Count == 0
             ? true
-            : entry.KnownSupportedEditionIds.Contains(edition.EditionId, StringComparer.OrdinalIgnoreCase);
+            : null;
     }
 
     private static bool? EvaluateBuild(WindowsOptionalFeatureCatalogEntry entry, int? build)

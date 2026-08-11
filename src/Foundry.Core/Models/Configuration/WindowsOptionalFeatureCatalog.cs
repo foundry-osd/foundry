@@ -34,6 +34,7 @@ public static class WindowsOptionalFeatureCatalog
     private static readonly string[] HomeEditionIds = ["Core", "CoreN", "CoreSingleLanguage", "CoreCountrySpecific"];
     private static readonly string[] ProEducationEnterpriseEditionIds = ["Professional", "ProfessionalN", "Education", "EducationN", "Enterprise", "EnterpriseN"];
     private static readonly string[] ProEnterpriseEditionIds = ["Professional", "ProfessionalN", "Enterprise", "EnterpriseN"];
+    private static readonly string[] NonNEditionIds = ["Core", "CoreSingleLanguage", "CoreCountrySpecific", "Education", "Professional", "Enterprise"];
     private static readonly string[] NonProEnterpriseEditionIds = ["Core", "CoreN", "CoreSingleLanguage", "CoreCountrySpecific", "Education", "EducationN"];
     private static readonly string[] DeviceLockdownEditionIds = ["Education", "EducationN", "Enterprise", "EnterpriseN"];
     private static readonly string[] NonDeviceLockdownEditionIds = ["Core", "CoreN", "CoreSingleLanguage", "CoreCountrySpecific", "Professional", "ProfessionalN"];
@@ -41,9 +42,6 @@ public static class WindowsOptionalFeatureCatalog
     private static readonly WindowsOptionalFeatureCatalogEntry[] CatalogEntries = BuildEntries();
     private static readonly IReadOnlyDictionary<string, WindowsOptionalFeatureCatalogEntry> EntriesById = CatalogEntries
         .ToDictionary(entry => entry.Id, StringComparer.OrdinalIgnoreCase);
-    private static readonly IReadOnlyDictionary<string, WindowsOptionalFeatureCatalogEntry> EntriesByFeatureName = CatalogEntries
-        .ToDictionary(entry => entry.FeatureName, StringComparer.OrdinalIgnoreCase);
-
     public static IReadOnlyList<WindowsOptionalFeatureCatalogEntry> Entries => CatalogEntries;
 
     public static WindowsOptionalFeatureCatalogEntry? Find(string? id)
@@ -51,21 +49,6 @@ public static class WindowsOptionalFeatureCatalog
         return !string.IsNullOrWhiteSpace(id) && EntriesById.TryGetValue(id.Trim(), out WindowsOptionalFeatureCatalogEntry? entry)
             ? entry
             : null;
-    }
-
-    public static WindowsOptionalFeatureCatalogEntry? FindByFeatureName(string? featureName)
-    {
-        return !string.IsNullOrWhiteSpace(featureName) && EntriesByFeatureName.TryGetValue(featureName.Trim(), out WindowsOptionalFeatureCatalogEntry? entry)
-            ? entry
-            : null;
-    }
-
-    public static IReadOnlyList<WindowsOptionalFeatureCatalogEntry> GetChildren(string parentId)
-    {
-        return CatalogEntries
-            .Where(entry => string.Equals(entry.ParentId, parentId, StringComparison.OrdinalIgnoreCase))
-            .OrderBy(entry => entry.SortOrder)
-            .ToArray();
     }
 
     public static IReadOnlyList<WindowsOptionalFeatureCatalogEntry> GetAncestors(string id)
@@ -141,7 +124,11 @@ public static class WindowsOptionalFeatureCatalog
                 supportedEditionIds: ProEnterpriseEditionIds,
                 unsupportedEditionIds: NonProEnterpriseEditionIds),
             Entry("DataCenterBridging", Networking),
-            Entry("MediaPlayback", Media, warningResourceKey: "Customization.WindowsOptionalFeatures.Warning.MediaFeaturePack"),
+            Entry(
+                "MediaPlayback",
+                Media,
+                supportedEditionIds: NonNEditionIds,
+                warningResourceKey: "Customization.WindowsOptionalFeatures.Warning.MediaFeaturePack"),
             Entry("WindowsMediaPlayer", Media, "MediaPlayback"),
             Entry("HostGuardian", Security),
             Entry(
