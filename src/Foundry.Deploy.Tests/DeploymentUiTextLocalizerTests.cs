@@ -100,6 +100,28 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
         Assert.Equal("Préparation d’Autopilot", DeploymentUiTextLocalizer.LocalizeStepName("Provision Autopilot"));
     }
 
+    [Fact]
+    public void LocalizeStepName_TranslatesWindowsOptionalFeaturesStepName()
+    {
+        CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("fr-FR");
+        CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("fr-FR");
+
+        Assert.Equal(
+            "Configuration des fonctionnalités facultatives Windows",
+            DeploymentUiTextLocalizer.LocalizeStepName("Configure Windows optional features"));
+    }
+
+    [Theory]
+    [InlineData("Inspecting feature states...", "Inspection de l’état des fonctionnalités...")]
+    [InlineData("Windows optional features configured (2 changed, 3 already satisfied, 1 unavailable).", "Fonctionnalités facultatives Windows configurées (2 modifiées, 3 déjà conformes, 1 indisponibles).")]
+    public void LocalizeMessage_TranslatesWindowsOptionalFeatureMessages(string input, string expected)
+    {
+        CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("fr-FR");
+        CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("fr-FR");
+
+        Assert.Equal(expected, DeploymentUiTextLocalizer.LocalizeMessage(input));
+    }
+
     [Theory]
     [InlineData("Target disk 3 is no longer present.", "Le disque cible 3 n’est plus présent.")]
     [InlineData("Target disk 3 is blocked: Blocked: system disk", "Le disque cible 3 est bloqué : Bloqué : disque système")]
