@@ -125,6 +125,30 @@ public sealed class ResourceKeyParityTests
         Assert.Empty(expectedKeys.Except(enUsKeys, StringComparer.Ordinal));
     }
 
+    [Fact]
+    public void FoundryXamlResources_ResolveApplicationDefinedReferences()
+    {
+        string foundryRoot = Path.Combine(FindSourceRoot(), "Foundry");
+        string[] xamlPaths = Directory
+            .EnumerateFiles(foundryRoot, "*.xaml", SearchOption.AllDirectories)
+            .Where(path => !path.Contains($"{Path.DirectorySeparatorChar}bin{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
+            .Where(path => !path.Contains($"{Path.DirectorySeparatorChar}obj{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
+            .ToArray();
+        HashSet<string> definedKeys = xamlPaths
+            .SelectMany(path => Regex.Matches(File.ReadAllText(path), "x:Key=\"(Foundry[A-Za-z0-9.]+)\"")
+                .Select(match => match.Groups[1].Value))
+            .ToHashSet(StringComparer.Ordinal);
+        string[] missingKeys = xamlPaths
+            .SelectMany(path => Regex.Matches(File.ReadAllText(path), @"\{(?:Theme|Static)Resource\s+(Foundry[A-Za-z0-9.]+)\}")
+                .Select(match => match.Groups[1].Value))
+            .Distinct(StringComparer.Ordinal)
+            .Except(definedKeys, StringComparer.Ordinal)
+            .Order(StringComparer.Ordinal)
+            .ToArray();
+
+        Assert.Empty(missingKeys);
+    }
+
     [Theory]
     [MemberData(nameof(ResourceSets))]
     public void AdkResourceFiles_MatchEnUsKeys(string projectName, string extension)
