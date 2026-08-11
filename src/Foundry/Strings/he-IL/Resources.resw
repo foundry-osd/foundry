@@ -682,7 +682,7 @@
     <value>הסר את חבילת אפליקציית ה-Windows AI Hub המוגדרת כאשר קיימת.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>השבת Windows Recall</value>
+    <value>Disable Windows Recall by policy</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>הגדר Windows מדיניות AI המונעת Recall הפעלה ושמירת תמונת מצב.</value>
@@ -2667,7 +2667,7 @@
     <value>בדוק את המוכנות של Windows ADK ושל התוספת Windows PE לפני יצירת מדיית פריסה.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>הגדר מתן שמות למחשבים, בחירת מערכת הפעלה, התנהגות OOBE, הסרת רכיבי AI והסרת חבילות AppX שסופקו.</value>
+    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>הגדר את בסיס המדיה, שפת WinPE, חתימת האתחול, מנהלי ההתקנים ואזור הזמן של הפריסה.</value>

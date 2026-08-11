@@ -66,6 +66,21 @@ public sealed class WindowsOptionalFeatureActionValidatorTests
     }
 
     [Fact]
+    public void TryNormalize_WhenActionElementIsNull_ReturnsFalse()
+    {
+        bool valid = WindowsOptionalFeatureActionValidator.TryNormalize(
+            new DeployWindowsOptionalFeatureSettings
+            {
+                IsEnabled = true,
+                Actions = [null!]
+            },
+            out _,
+            out _);
+
+        Assert.False(valid);
+    }
+
+    [Fact]
     public void TryNormalize_WhenDisabledAncestorHasEnabledDescendant_ReturnsFalse()
     {
         bool valid = WindowsOptionalFeatureActionValidator.TryNormalize(

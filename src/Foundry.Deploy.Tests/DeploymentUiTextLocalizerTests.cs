@@ -114,6 +114,9 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
     [Theory]
     [InlineData("Inspecting feature states...", "Inspection de l’état des fonctionnalités...")]
     [InlineData("Windows optional features configured (2 changed, 3 already satisfied, 1 unavailable).", "Fonctionnalités facultatives Windows configurées (2 modifiées, 3 déjà conformes, 1 indisponibles).")]
+    [InlineData("Windows optional feature 'NetFx3' has a removed payload and no supported local source mapping.", "La fonctionnalité facultative Windows « NetFx3 » a une charge utile supprimée et aucune source locale prise en charge.")]
+    [InlineData("Windows optional feature verification failed for 'NetFx3'.", "La vérification de la fonctionnalité facultative Windows « NetFx3 » a échoué.")]
+    [InlineData("Matching NetFx3 source is unavailable. Media='X:\\setup.esd'.", "La source NetFx3 correspondante est indisponible. Media='X:\\setup.esd'.")]
     public void LocalizeMessage_TranslatesWindowsOptionalFeatureMessages(string input, string expected)
     {
         CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("fr-FR");

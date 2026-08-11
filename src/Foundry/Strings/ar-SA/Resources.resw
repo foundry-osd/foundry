@@ -682,7 +682,7 @@
     <value>قم بإزالة حزمة تطبيق Windows AI Hub المتوفرة عند وجودها.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>تعطيل Windows Recall</value>
+    <value>Disable Windows Recall by policy</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>قم بتعيين سياسات Windows AI التي تمنع تمكين Recall وحفظ اللقطات.</value>
@@ -2667,7 +2667,7 @@
     <value>راجع جاهزية Windows ADK والملحق Windows PE قبل إنشاء وسائط النشر.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>كوّن تسمية الأجهزة وتحديد نظام التشغيل وسلوك OOBE وإزالة مكونات AI وإزالة حزم AppX المجهزة.</value>
+    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>كوّن أساس الوسائط ولغة WinPE وتوقيع التمهيد وبرامج التشغيل والمنطقة الزمنية للنشر.</value>

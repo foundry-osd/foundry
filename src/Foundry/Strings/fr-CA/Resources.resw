@@ -682,7 +682,7 @@
     <value>Supprimez le package d’application Windows AI Hub provisionné lorsqu’il est présent.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Désactiver Windows Recall</value>
+    <value>Disable Windows Recall by policy</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>Définissez des stratégies Windows IA qui empêchent l'activation de Recall et l'enregistrement des instantanés.</value>
@@ -2667,7 +2667,7 @@
     <value>Vérifiez l’état de Windows ADK et du module complémentaire Windows PE avant de créer le support de déploiement.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Configurez le nommage des machines, la sélection du système d’exploitation, le comportement OOBE, la suppression des composants AI et la suppression des AppX provisionnées.</value>
+    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Configurez la base du support, la langue WinPE, la signature de démarrage, les pilotes et le fuseau horaire de déploiement.</value>

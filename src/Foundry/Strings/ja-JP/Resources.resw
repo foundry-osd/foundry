@@ -682,7 +682,7 @@
     <value>プロビジョニングされた Windows AI Hub アプリ パッケージが存在する場合は削除します。</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Windows Recall を無効にする</value>
+    <value>Disable Windows Recall by policy</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>Recall の有効化とスナップショットの保存を禁止する Windows AI ポリシーを設定します。</value>
@@ -2667,7 +2667,7 @@
     <value>展開メディアを作成する前に、Windows ADK と Windows PE アドオンの準備状況を確認します。</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>コンピューター名、オペレーティング システムの選択、OOBE の動作、AI コンポーネントの削除、プロビジョニング済み AppX の削除を構成します。</value>
+    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>メディアの基準、WinPE 言語、ブート署名、ドライバー、展開タイム ゾーンを構成します。</value>

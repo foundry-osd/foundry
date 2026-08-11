@@ -18,12 +18,26 @@ public static class WindowsOptionalFeatureCompatibilityEvaluator
         IEnumerable<string> releaseIds,
         WinPeArchitecture architecture)
     {
-        int?[] builds = releaseIds
+        string[] resolvedEditions = editionNames.ToArray();
+        if (resolvedEditions.Length == 0)
+        {
+            resolvedEditions = WindowsEditionCatalog.SupportedEditions.ToArray();
+        }
+
+        string[] resolvedReleaseIds = releaseIds.ToArray();
+        if (resolvedReleaseIds.Length == 0)
+        {
+            resolvedReleaseIds = OperatingSystemSelectionCatalog.SupportedReleases
+                .Select(release => release.Id)
+                .ToArray();
+        }
+
+        int?[] builds = resolvedReleaseIds
             .Select(OperatingSystemSelectionCatalog.FindRelease)
             .Select(release => release?.Build)
             .ToArray();
 
-        return EvaluateResolved(featureId, editionNames, builds, architecture);
+        return EvaluateResolved(featureId, resolvedEditions, builds, architecture);
     }
 
     public static WindowsOptionalFeatureCompatibility EvaluateBuilds(
@@ -32,7 +46,21 @@ public static class WindowsOptionalFeatureCompatibilityEvaluator
         IEnumerable<int> builds,
         WinPeArchitecture architecture)
     {
-        return EvaluateResolved(featureId, editionNames, builds.Select(build => (int?)build), architecture);
+        string[] resolvedEditions = editionNames.ToArray();
+        if (resolvedEditions.Length == 0)
+        {
+            resolvedEditions = WindowsEditionCatalog.SupportedEditions.ToArray();
+        }
+
+        int[] resolvedBuilds = builds.ToArray();
+        if (resolvedBuilds.Length == 0)
+        {
+            resolvedBuilds = OperatingSystemSelectionCatalog.SupportedReleases
+                .Select(release => release.Build)
+                .ToArray();
+        }
+
+        return EvaluateResolved(featureId, resolvedEditions, resolvedBuilds.Select(build => (int?)build), architecture);
     }
 
     private static WindowsOptionalFeatureCompatibility EvaluateResolved(

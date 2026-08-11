@@ -682,7 +682,7 @@
     <value>Entfernen Sie das bereitgestellte Windows AI Hub-App-Paket, sofern vorhanden.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Deaktivieren Sie Windows Recall</value>
+    <value>Disable Windows Recall by policy</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>Legen Sie Windows KI-Richtlinien fest, die die Aktivierung von Recall und das Speichern von Snapshots verhindern.</value>
@@ -2667,7 +2667,7 @@
     <value>Prüfen Sie die Bereitschaft von Windows ADK und Windows PE-Add-On, bevor Sie Bereitstellungsmedien erstellen.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Konfigurieren Sie Computernamen, Betriebssystemauswahl, OOBE-Verhalten, Entfernung von AI-Komponenten und Entfernung bereitgestellter AppX-Pakete.</value>
+    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Konfigurieren Sie Medienbasis, WinPE-Sprache, Startsignatur, Treiber und Bereitstellungszeitzone.</value>

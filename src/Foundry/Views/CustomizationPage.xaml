@@ -589,6 +589,7 @@
                                                                     Header="{x:Bind DisplayName, Mode=OneWay}">
                                                                     <ComboBox
                                                                         MinWidth="{ThemeResource FoundryCompactInputMinWidth}"
+                                                                        AutomationProperties.Name="{x:Bind DisplayName, Mode=OneWay}"
                                                                         DisplayMemberPath="DisplayName"
                                                                         ItemsSource="{x:Bind StateOptions, Mode=OneWay}"
                                                                         SelectedItem="{x:Bind SelectedState, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />

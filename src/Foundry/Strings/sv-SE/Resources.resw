@@ -682,7 +682,7 @@
     <value>Ta bort det tillhandahållna Windows AI Hub-apppaketet när det finns.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Inaktivera Windows Recall</value>
+    <value>Disable Windows Recall by policy</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>Ställ in Windows AI-policyer som förhindrar Recall aktivering och lagring av ögonblicksbilder.</value>
@@ -2667,7 +2667,7 @@
     <value>Granska beredskapen för Windows ADK och Windows PE-tillägget innan du skapar distributionsmedia.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Konfigurera datornamn, val av operativsystem, OOBE-beteende, borttagning av AI-komponenter och borttagning av provisionerade AppX-paket.</value>
+    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Konfigurera mediebaslinje, WinPE-språk, startsignatur, drivrutiner och distributionstidszon.</value>

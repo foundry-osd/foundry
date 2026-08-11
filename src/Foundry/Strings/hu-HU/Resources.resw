@@ -682,7 +682,7 @@
     <value>Távolítsa el a kiépített Windows AI Hub alkalmazáscsomagot, ha van.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Windows Recall letiltása</value>
+    <value>Disable Windows Recall by policy</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>Állítson be Windows AI-szabályokat, amelyek megakadályozzák az Recall engedélyezését és a pillanatfelvételek mentését.</value>
@@ -2667,7 +2667,7 @@
     <value>Tekintse át a Windows ADK és a Windows PE bővítmény készenlétét az üzembe helyezési adathordozó létrehozása előtt.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Konfigurálja a gépnévadást, az operációsrendszer-választást, az OOBE viselkedését, az AI-összetevők eltávolítását és a kiépített AppX-csomagok eltávolítását.</value>
+    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Konfigurálja az adathordozó alapját, a WinPE nyelvét, a rendszerindítási aláírást, az illesztőprogramokat és az üzembe helyezési időzónát.</value>

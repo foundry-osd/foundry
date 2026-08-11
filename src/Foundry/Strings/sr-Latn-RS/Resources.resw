@@ -682,7 +682,7 @@
     <value>Uklonite obezbeđeni paket aplikacije Windows AI Hub kada postoji.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Onemogući Windows Recall</value>
+    <value>Disable Windows Recall by policy</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>Podesite Windows AI smernice koje sprečavaju omogućavanje Recall i čuvanje snimaka.</value>
@@ -2667,7 +2667,7 @@
     <value>Pregledajte spremnost za Windows ADK i dodatak Windows PE pre kreiranja medija za primenu.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Konfigurišite imenovanje računara, izbor operativnog sistema, ponašanje OOBE, uklanjanje AI komponenti i uklanjanje obezbeđenih AppX paketa.</value>
+    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Konfigurišite osnovu medija, WinPE jezik, potpis pokretanja, upravljačke programe i vremensku zonu primene.</value>

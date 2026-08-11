@@ -289,6 +289,31 @@ public static partial class DeploymentUiTextLocalizer
                 int.Parse(match.Groups["actions"].Value));
         }
 
+        match = WindowsOptionalFeatureRemovedPayloadRegex().Match(value);
+        if (match.Success)
+        {
+            return LocalizationText.Format(
+                "StepResult.WindowsOptionalFeatureRemovedPayloadFormat",
+                match.Groups["feature"].Value);
+        }
+
+        match = WindowsOptionalFeatureVerificationFailedRegex().Match(value);
+        if (match.Success)
+        {
+            return LocalizationText.Format(
+                "StepResult.WindowsOptionalFeatureVerificationFailedFormat",
+                match.Groups["feature"].Value);
+        }
+
+        if (TryLocalizeSingleSuffix(
+            value,
+            "Matching NetFx3 source is unavailable. ",
+            "StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat",
+            out string optionalFeatureSourceUnavailable))
+        {
+            return optionalFeatureSourceUnavailable;
+        }
+
         if (TryLocalizeSingleSuffix(value, "Catalog load failed: ", "Catalog.LoadFailedFormat", out string localized))
         {
             return localized;
@@ -483,6 +508,12 @@ public static partial class DeploymentUiTextLocalizer
 
     [GeneratedRegex(@"^Windows optional feature configuration simulated \((?<actions>\d+) actions\)\.$")]
     private static partial Regex WindowsOptionalFeatureSimulationRegex();
+
+    [GeneratedRegex(@"^Windows optional feature '(?<feature>.+)' has a removed payload and no supported local source mapping\.$")]
+    private static partial Regex WindowsOptionalFeatureRemovedPayloadRegex();
+
+    [GeneratedRegex(@"^Windows optional feature verification failed for '(?<feature>.+)'\.$")]
+    private static partial Regex WindowsOptionalFeatureVerificationFailedRegex();
 
     [GeneratedRegex(@"^Target disk (?<disk>\d+) is no longer present\.$")]
     private static partial Regex TargetDiskMissingRegex();

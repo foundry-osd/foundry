@@ -682,7 +682,7 @@
     <value>Καταργήστε το παρεχόμενο πακέτο εφαρμογής Windows AI Hub όταν υπάρχει.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Απενεργοποίηση Windows Recall</value>
+    <value>Disable Windows Recall by policy</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>Ορίστε πολιτικές Windows AI που αποτρέπουν την ενεργοποίηση Recall και την αποθήκευση στιγμιότυπων.</value>
@@ -2667,7 +2667,7 @@
     <value>Ελέγξτε την ετοιμότητα του Windows ADK και του πρόσθετου Windows PE πριν δημιουργήσετε μέσα ανάπτυξης.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Ρυθμίστε την ονομασία υπολογιστών, την επιλογή λειτουργικού συστήματος, τη συμπεριφορά OOBE, την κατάργηση στοιχείων AI και την κατάργηση προεγκατεστημένων πακέτων AppX.</value>
+    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Ρυθμίστε τη βάση μέσου, τη γλώσσα WinPE, την υπογραφή εκκίνησης, τα προγράμματα οδήγησης και τη ζώνη ώρας ανάπτυξης.</value>

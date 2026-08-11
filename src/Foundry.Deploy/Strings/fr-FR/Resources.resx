@@ -525,4 +525,7 @@ Continuer le déploiement ?</value></data>
   <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve"><value>La configuration des fonctionnalités facultatives Windows n’est pas valide.</value></data>
   <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve"><value>Fonctionnalités facultatives Windows configurées ({0} modifiées, {1} déjà conformes, {2} indisponibles).</value></data>
   <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve"><value>Configuration des fonctionnalités facultatives Windows simulée ({0} actions).</value></data>
+  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>La fonctionnalité facultative Windows « {0} » a une charge utile supprimée et aucune source locale prise en charge.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>La vérification de la fonctionnalité facultative Windows « {0} » a échoué.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>La source NetFx3 correspondante est indisponible. {0}</value></data>
 </root>

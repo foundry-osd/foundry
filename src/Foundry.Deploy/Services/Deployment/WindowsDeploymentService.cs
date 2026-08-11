@@ -565,6 +565,8 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                 }
 
                 onSourcePreparationStarted?.Invoke();
+                TryCleanupOptionalFeatureDirectory(sourceExtractionDirectory, cleanupRoot);
+                Directory.CreateDirectory(sourceExtractionDirectory);
                 SetupMediaImageMetadata metadata = await ResolveSetupMediaImageMetadataAsync(
                         setupMediaImagePath,
                         workingDirectory,

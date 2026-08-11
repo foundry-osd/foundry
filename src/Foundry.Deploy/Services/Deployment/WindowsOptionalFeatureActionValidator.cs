@@ -24,8 +24,15 @@ internal static class WindowsOptionalFeatureActionValidator
         }
 
         var actionsById = new Dictionary<string, DeployWindowsOptionalFeatureAction>(StringComparer.OrdinalIgnoreCase);
-        foreach (DeployWindowsOptionalFeatureAction action in settings.Actions ?? [])
+        foreach (DeployWindowsOptionalFeatureAction? action in settings.Actions ?? [])
         {
+            if (action is null)
+            {
+                normalized = new DeployWindowsOptionalFeatureSettings();
+                error = "Windows optional feature action cannot be null.";
+                return false;
+            }
+
             WindowsOptionalFeatureCatalogEntry? entry = WindowsOptionalFeatureCatalog.Find(action.Id);
             if (entry is null)
             {

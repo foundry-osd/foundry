@@ -682,7 +682,7 @@
     <value>Видаліть наданий пакет програми Windows AI Hub, якщо він є.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Вимкнути Windows Recall</value>
+    <value>Disable Windows Recall by policy</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>Установіть Windows політики AI, які запобігають увімкненню Recall і збереженню знімка.</value>
@@ -2667,7 +2667,7 @@
     <value>Перевірте готовність Windows ADK і додатка Windows PE перед створенням носія розгортання.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Налаштуйте іменування комп’ютерів, вибір операційної системи, поведінку OOBE, видалення компонентів AI і видалення підготовлених пакетів AppX.</value>
+    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Налаштуйте базові параметри носія, мову WinPE, підпис завантаження, драйвери та часовий пояс розгортання.</value>

@@ -682,7 +682,7 @@
     <value>Pašalinkite parengtą Windows AI Hub programos paketą, kai jis yra.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Išjungti Windows Recall</value>
+    <value>Disable Windows Recall by policy</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>Nustatykite Windows AI politiką, kuri neleidžia Recall įjungti ir išsaugoti momentines nuotraukas.</value>
@@ -2667,7 +2667,7 @@
     <value>Prieš kurdami diegimo laikmeną peržiūrėkite Windows ADK ir Windows PE priedo parengtį.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Konfigūruokite kompiuterių vardus, operacinės sistemos pasirinkimą, OOBE veikimą, AI komponentų šalinimą ir parengtų AppX paketų šalinimą.</value>
+    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Konfigūruokite laikmenos pagrindą, WinPE kalbą, paleidimo parašą, tvarkykles ir diegimo laiko juostą.</value>

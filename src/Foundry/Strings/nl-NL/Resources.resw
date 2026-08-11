@@ -682,7 +682,7 @@
     <value>Verwijder het ingerichte Windows AI Hub-apppakket, indien aanwezig.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Schakel Windows Recall uit</value>
+    <value>Disable Windows Recall by policy</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>Stel Windows AI-beleid in dat het inschakelen van Recall en het opslaan van momentopnamen verhindert.</value>
@@ -2667,7 +2667,7 @@
     <value>Controleer de gereedheid van Windows ADK en de Windows PE-invoegtoepassing voordat u implementatiemedia maakt.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Configureer computernamen, besturingssysteemselectie, OOBE-gedrag, verwijdering van AI-onderdelen en verwijdering van ingerichte AppX-pakketten.</value>
+    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Configureer de mediabasis, WinPE-taal, opstartsignatuur, stuurprogramma’s en implementatietijdzone.</value>

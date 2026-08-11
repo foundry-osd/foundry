@@ -682,7 +682,7 @@
     <value>Usuń dostarczony pakiet aplikacji Windows AI Hub, jeśli jest obecny.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Wyłącz Windows Recall</value>
+    <value>Disable Windows Recall by policy</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>Ustaw zasady Windows AI, które uniemożliwiają włączenie Recall i zapisywanie migawek.</value>
@@ -2667,7 +2667,7 @@
     <value>Sprawdź gotowość Windows ADK i dodatku Windows PE przed utworzeniem nośnika wdrożeniowego.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Skonfiguruj nazewnictwo komputerów, wybór systemu operacyjnego, zachowanie OOBE, usuwanie składników AI i usuwanie aprowizowanych pakietów AppX.</value>
+    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Skonfiguruj bazę nośnika, język WinPE, podpis rozruchu, sterowniki i strefę czasową wdrożenia.</value>

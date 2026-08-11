@@ -682,7 +682,7 @@
     <value>Noņemiet nodrošināto Windows AI Hub lietotnes pakotni, ja tā ir pieejama.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Atspējot Windows Recall</value>
+    <value>Disable Windows Recall by policy</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>Iestatiet Windows AI politikas, kas novērš Recall iespējošanu un momentuzņēmumu saglabāšanu.</value>
@@ -2667,7 +2667,7 @@
     <value>Pirms izvietošanas datu nesēja izveides pārskatiet Windows ADK un Windows PE papildinājuma gatavību.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Konfigurējiet datoru nosaukšanu, operētājsistēmas atlasi, OOBE darbību, AI komponentu noņemšanu un sagatavoto AppX pakotņu noņemšanu.</value>
+    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Konfigurējiet datu nesēja bāzi, WinPE valodu, sāknēšanas parakstu, draiverus un izvietošanas laika joslu.</value>

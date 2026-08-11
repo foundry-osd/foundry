@@ -682,7 +682,7 @@
     <value>ลบแพ็คเกจแอป Windows AI Hub ที่จัดเตรียมไว้เมื่อมีอยู่</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>ปิดการใช้งาน Windows Recall</value>
+    <value>Disable Windows Recall by policy</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>กำหนดนโยบาย Windows AI ที่ป้องกันการเปิดใช้งาน Recall และการบันทึกสแนปช็อต</value>
@@ -2667,7 +2667,7 @@
     <value>ตรวจสอบความพร้อมของ Windows ADK และส่วนเสริม Windows PE ก่อนสร้างสื่อการปรับใช้</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>กำหนดค่าการตั้งชื่อเครื่อง การเลือกระบบปฏิบัติการ ลักษณะการทำงานของ OOBE การลบคอมโพเนนต์ AI และการลบ AppX ที่จัดเตรียมไว้</value>
+    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>กำหนดค่าพื้นฐานของสื่อ ภาษา WinPE ลายเซ็นการเริ่มระบบ ไดรเวอร์ และโซนเวลาการปรับใช้</value>

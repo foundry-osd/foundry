@@ -83,7 +83,7 @@ public sealed class WindowsOptionalFeatureCompatibilityEvaluatorTests
     }
 
     [Fact]
-    public void Evaluate_EmptyTargets_RequiresRuntimeVerification()
+    public void Evaluate_EmptyTargets_UsesAllSupportedTargets()
     {
         WindowsOptionalFeatureCompatibility actual = WindowsOptionalFeatureCompatibilityEvaluator.Evaluate(
             "wf:microsoft-hyper-v-all",
@@ -91,7 +91,19 @@ public sealed class WindowsOptionalFeatureCompatibilityEvaluatorTests
             [],
             WinPeArchitecture.X64);
 
-        Assert.Equal(WindowsOptionalFeatureCompatibility.RuntimeVerificationRequired, actual);
+        Assert.Equal(WindowsOptionalFeatureCompatibility.PartiallyAvailable, actual);
+    }
+
+    [Fact]
+    public void Evaluate_EmptyReleases_UsesAllSupportedReleases()
+    {
+        WindowsOptionalFeatureCompatibility actual = WindowsOptionalFeatureCompatibilityEvaluator.Evaluate(
+            "wf:microsoft-hyper-v-all",
+            ["Home"],
+            [],
+            WinPeArchitecture.X64);
+
+        Assert.Equal(WindowsOptionalFeatureCompatibility.Unavailable, actual);
     }
 
     [Fact]

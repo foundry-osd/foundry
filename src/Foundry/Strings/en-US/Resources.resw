@@ -682,7 +682,7 @@
     <value>Remove the provisioned Windows AI Hub app package when present.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Disable Windows Recall</value>
+    <value>Disable Windows Recall by policy</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>Set Windows AI policies that prevent Recall enablement and snapshot saving.</value>
@@ -2667,7 +2667,7 @@
     <value>Review Windows ADK and Windows PE Add-on readiness before creating deployment media.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Configure machine naming, operating system selection, OOBE behavior, AI component removal, and provisioned AppX removal.</value>
+    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Configure the media baseline, WinPE language, boot signature, drivers, and deployment time zone.</value>

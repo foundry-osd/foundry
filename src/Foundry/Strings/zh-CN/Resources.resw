@@ -682,7 +682,7 @@
     <value>删除已配置的 Windows AI Hub 应用程序包（如果存在）。</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>禁用Windows Recall</value>
+    <value>Disable Windows Recall by policy</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>设置阻止Recall启用和快照保存的Windows AI策略。</value>
@@ -2667,7 +2667,7 @@
     <value>创建部署媒体之前，请检查 Windows ADK 和 Windows PE 加载项的就绪情况。</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>配置计算机命名、操作系统选择、OOBE 行为、AI 组件移除以及已预配 AppX 移除。</value>
+    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>配置媒体基线、WinPE 语言、启动签名、驱动程序和部署时区。</value>

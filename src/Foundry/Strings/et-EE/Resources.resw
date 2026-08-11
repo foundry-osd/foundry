@@ -682,7 +682,7 @@
     <value>Eemaldage ette nähtud Windows AI Hubi rakenduse pakett, kui see on olemas.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Keela Windows Recall</value>
+    <value>Disable Windows Recall by policy</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>Määrake Windows AI-poliitikad, mis takistavad Recall lubamist ja hetktõmmiste salvestamist.</value>
@@ -2667,7 +2667,7 @@
     <value>Enne juurutusmeediumi loomist kontrollige Windows ADK ja Windows PE lisandmooduli valmisolekut.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Konfigureerige arvutinimede määramine, operatsioonisüsteemi valik, OOBE käitumine, AI komponentide eemaldamine ja ettevalmistatud AppX-pakettide eemaldamine.</value>
+    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Konfigureerige meediumi baas, WinPE keel, algkäivituse allkiri, draiverid ja juurutuse ajavöönd.</value>

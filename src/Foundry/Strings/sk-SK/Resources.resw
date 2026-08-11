@@ -682,7 +682,7 @@
     <value>Odstráňte poskytnutý balík aplikácie Windows AI Hub, ak je k dispozícii.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Zakázať Windows Recall</value>
+    <value>Disable Windows Recall by policy</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>Nastavte pravidlá Windows AI, ktoré zabraňujú aktivácii Recall a ukladaniu snímok.</value>
@@ -2667,7 +2667,7 @@
     <value>Pred vytvorením nasadzovacieho média skontrolujte pripravenosť Windows ADK a doplnku Windows PE.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Nakonfigurujte pomenovanie počítačov, výber operačného systému, správanie OOBE, odstránenie komponentov AI a odstránenie zriadených balíkov AppX.</value>
+    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Nakonfigurujte základ média, jazyk WinPE, podpis spustenia, ovládače a časové pásmo nasadenia.</value>

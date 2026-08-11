@@ -682,7 +682,7 @@
     <value>Poista käytössä oleva Windows AI Hub -sovelluspaketti, kun se on olemassa.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Poista käytöstä Windows Recall</value>
+    <value>Disable Windows Recall by policy</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>Aseta Windows tekoälykäytännöt, jotka estävät Recall käyttöönoton ja tilannekuvan tallentamisen.</value>
@@ -2667,7 +2667,7 @@
     <value>Tarkista Windows ADK:n ja Windows PE -lisäosan valmius ennen käyttöönoton median luontia.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Määritä tietokoneiden nimeäminen, käyttöjärjestelmän valinta, OOBE-toiminta, AI-osien poisto ja valmisteltujen AppX-pakettien poisto.</value>
+    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Määritä median perustaso, WinPE-kieli, käynnistyksen allekirjoitus, ohjaimet ja käyttöönoton aikavyöhyke.</value>

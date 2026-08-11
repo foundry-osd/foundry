@@ -682,7 +682,7 @@
     <value>프로비저닝된 Windows AI Hub 앱 패키지가 있는 경우 제거합니다.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Windows Recall 비활성화</value>
+    <value>Disable Windows Recall by policy</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>Recall 활성화 및 스냅샷 저장을 방지하는 Windows AI 정책을 설정합니다.</value>
@@ -2667,7 +2667,7 @@
     <value>배포 미디어를 만들기 전에 Windows ADK 및 Windows PE 추가 기능 준비 상태를 검토합니다.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>컴퓨터 이름 지정, 운영 체제 선택, OOBE 동작, AI 구성 요소 제거 및 프로비전된 AppX 제거를 구성합니다.</value>
+    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>미디어 기준, WinPE 언어, 부팅 서명, 드라이버 및 배포 표준 시간대를 구성합니다.</value>

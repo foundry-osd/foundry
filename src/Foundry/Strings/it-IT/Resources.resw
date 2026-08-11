@@ -682,7 +682,7 @@
     <value>Rimuovere il pacchetto dell'app AI Hub Windows assegnato quando presente.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Disattiva Windows Recall</value>
+    <value>Disable Windows Recall by policy</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>Imposta i criteri AI Windows che impediscono l'abilitazione di Recall e il salvataggio degli snapshot.</value>
@@ -2667,7 +2667,7 @@
     <value>Verifica la preparazione di Windows ADK e del componente aggiuntivo Windows PE prima di creare i supporti di distribuzione.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Configura denominazione dei computer, selezione del sistema operativo, comportamento OOBE, rimozione dei componenti AI e rimozione delle AppX con provisioning.</value>
+    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Configura la base del supporto, la lingua WinPE, la firma di avvio, i driver e il fuso orario di distribuzione.</value>

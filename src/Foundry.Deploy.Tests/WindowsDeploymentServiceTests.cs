@@ -129,6 +129,7 @@ public sealed class WindowsDeploymentServiceTests
         string scratchDirectory = Path.Combine(workspace.RootPath, "Temp", "Dism", "OptionalFeatures");
         string sourceDirectory = Path.Combine(workspace.RootPath, "Temp", "WindowsSetupMedia");
         int inspectionCount = 0;
+        bool applyDirectoryExisted = false;
         var processRunner = new RecordingProcessRunner
         {
             ResultFactory = arguments =>
@@ -165,6 +166,7 @@ public sealed class WindowsDeploymentServiceTests
 
                 if (arguments.Contains("/Apply-Image", StringComparison.OrdinalIgnoreCase))
                 {
+                    applyDirectoryExisted = Directory.Exists(sourceDirectory);
                     string sxsDirectory = Path.Combine(sourceDirectory, "sources", "sxs");
                     Directory.CreateDirectory(sxsDirectory);
                     File.WriteAllText(
@@ -191,6 +193,7 @@ public sealed class WindowsDeploymentServiceTests
             TestContext.Current.CancellationToken);
 
         Assert.True(result.MatchingSourceUsed);
+        Assert.True(applyDirectoryExisted);
         Assert.Contains(processRunner.Calls, call => call.Contains("/Apply-Image", StringComparison.OrdinalIgnoreCase) && call.Contains("/Index:3", StringComparison.OrdinalIgnoreCase));
         Assert.Contains(processRunner.Calls, call => call.Contains("/Enable-Feature", StringComparison.OrdinalIgnoreCase) && call.Contains($"/Source:{Path.Combine(sourceDirectory, "sources", "sxs")}", StringComparison.OrdinalIgnoreCase));
         Assert.False(Directory.Exists(scratchDirectory));

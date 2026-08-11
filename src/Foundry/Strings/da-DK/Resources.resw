@@ -682,7 +682,7 @@
     <value>Fjern den klargjorte Windows AI Hub-apppakke, når den er til stede.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Deaktiver Windows Recall</value>
+    <value>Disable Windows Recall by policy</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>Indstil Windows AI-politikker, der forhindrer Recall-aktivering og lagring af øjebliksbilleder.</value>
@@ -2667,7 +2667,7 @@
     <value>Gennemgå klarheden for Windows ADK og Windows PE-tilføjelsesprogrammet, før du opretter installationsmedier.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Konfigurer computernavngivning, valg af operativsystem, OOBE-funktionalitet, fjernelse af AI-komponenter og fjernelse af klargjorte AppX-pakker.</value>
+    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Konfigurer mediegrundlaget, WinPE-sprog, startsignatur, drivere og tidszone for installation.</value>

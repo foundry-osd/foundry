@@ -682,7 +682,7 @@
     <value>Премахнете осигурения Windows пакет за приложение на AI Hub, когато има такъв.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Деактивиране на Windows Recall</value>
+    <value>Disable Windows Recall by policy</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>Задайте правила за Windows AI, които предотвратяват разрешаването на Recall и запазването на моментна снимка.</value>
@@ -2667,7 +2667,7 @@
     <value>Прегледайте готовността на Windows ADK и добавката Windows PE, преди да създадете носител за разполагане.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Конфигурирайте именуване на машини, избор на операционна система, поведение на OOBE, премахване на AI компоненти и премахване на подготвени AppX пакети.</value>
+    <value>Configure machine naming, operating system selection, OOBE, categorized Windows Optional Features, AI component removal, and AppX removal.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Конфигурирайте базовите настройки на носителя, езика WinPE, подписа за стартиране, драйверите и часовата зона за разполагане.</value>
