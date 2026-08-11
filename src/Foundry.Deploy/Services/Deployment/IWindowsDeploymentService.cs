@@ -116,6 +116,22 @@ public interface IWindowsDeploymentService
         CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Applies Windows optional feature changes to the offline Windows installation.
+    /// </summary>
+    Task<WindowsOptionalFeatureServicingResult> ConfigureOfflineWindowsOptionalFeaturesAsync(
+        string setupMediaImagePath,
+        string windowsPartitionRoot,
+        DeployWindowsOptionalFeatureSettings settings,
+        string scratchDirectory,
+        string sourceExtractionDirectory,
+        string workingDirectory,
+        CancellationToken cancellationToken = default,
+        IProgress<double>? progress = null,
+        Action? onInspectionStarted = null,
+        Action? onSourcePreparationStarted = null,
+        Action? onServicingStarted = null);
+
+    /// <summary>
     /// Copies and configures Windows RE on the recovery partition.
     /// </summary>
     /// <remarks>Requires winre.wim in the applied image and winrecfg.exe in the boot environment.</remarks>

@@ -478,6 +478,203 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             settings.DisableNotepadAi);
     }
 
+    /// <inheritdoc />
+    public async Task<WindowsOptionalFeatureServicingResult> ConfigureOfflineWindowsOptionalFeaturesAsync(
+        string setupMediaImagePath,
+        string windowsPartitionRoot,
+        DeployWindowsOptionalFeatureSettings settings,
+        string scratchDirectory,
+        string sourceExtractionDirectory,
+        string workingDirectory,
+        CancellationToken cancellationToken = default,
+        IProgress<double>? progress = null,
+        Action? onInspectionStarted = null,
+        Action? onSourcePreparationStarted = null,
+        Action? onServicingStarted = null)
+    {
+        ArgumentNullException.ThrowIfNull(settings);
+        DeployWindowsOptionalFeatureAction[] requestedActions = settings.Actions?.ToArray() ?? [];
+        if (!settings.IsEnabled || requestedActions.Length == 0)
+        {
+            return new WindowsOptionalFeatureServicingResult();
+        }
+
+        WindowsOptionalFeatureWorkItem[] requestedItems = ResolveWindowsOptionalFeatureActions(requestedActions);
+        string cleanupRoot = Path.GetFullPath(Path.Combine(workingDirectory, ".."));
+
+        try
+        {
+            Directory.CreateDirectory(scratchDirectory);
+            Directory.CreateDirectory(workingDirectory);
+
+            onInspectionStarted?.Invoke();
+            IReadOnlyDictionary<string, OfflineWindowsFeatureState> initialStates =
+                await GetOfflineWindowsFeatureStatesAsync(windowsPartitionRoot, workingDirectory, cancellationToken)
+                    .ConfigureAwait(false);
+
+            List<WindowsOptionalFeatureWorkItem> pendingItems = [];
+            List<string> unavailableEnableActionIds = [];
+            int alreadySatisfiedCount = 0;
+            foreach (WindowsOptionalFeatureWorkItem item in requestedItems)
+            {
+                if (!initialStates.TryGetValue(item.CatalogEntry.FeatureName, out OfflineWindowsFeatureState state))
+                {
+                    if (item.Action.Enable)
+                    {
+                        unavailableEnableActionIds.Add(item.Action.Id);
+                        _logger.LogWarning(
+                            "Requested Windows optional feature is not present in the applied image. FeatureId={FeatureId}",
+                            item.Action.Id);
+                    }
+                    else
+                    {
+                        alreadySatisfiedCount++;
+                    }
+
+                    continue;
+                }
+
+                if (IsRequestedStateSatisfied(item.Action.Enable, state))
+                {
+                    alreadySatisfiedCount++;
+                    continue;
+                }
+
+                WindowsOptionalFeatureCatalogEntry effectiveEntry =
+                    WindowsOptionalFeatureCatalog.GetEffectiveEntry(item.CatalogEntry.Id) ?? item.CatalogEntry;
+                if (item.Action.Enable &&
+                    state == OfflineWindowsFeatureState.PayloadRemoved &&
+                    !effectiveEntry.RequiresSetupMediaSxs)
+                {
+                    throw new InvalidOperationException(
+                        $"Windows optional feature '{item.CatalogEntry.FeatureName}' has a removed payload and no supported local source mapping.");
+                }
+
+                pendingItems.Add(item with { CatalogEntry = effectiveEntry });
+            }
+
+            bool matchingSourceUsed = pendingItems.Any(item => item.Action.Enable && item.CatalogEntry.RequiresSetupMediaSxs);
+            string? sourcePath = null;
+            if (matchingSourceUsed)
+            {
+                if (!File.Exists(setupMediaImagePath))
+                {
+                    throw new FileNotFoundException(
+                        "The setup-media image required for Windows optional feature servicing was not found.",
+                        setupMediaImagePath);
+                }
+
+                onSourcePreparationStarted?.Invoke();
+                SetupMediaImageMetadata metadata = await ResolveSetupMediaImageMetadataAsync(
+                        setupMediaImagePath,
+                        workingDirectory,
+                        cancellationToken)
+                    .ConfigureAwait(false);
+                await RunRequiredProcessAsync(
+                    "dism.exe",
+                    [
+                        "/English",
+                        "/Apply-Image",
+                        $"/ImageFile:{setupMediaImagePath}",
+                        $"/Index:{metadata.Index}",
+                        $"/ApplyDir:{sourceExtractionDirectory}",
+                        "/CheckIntegrity",
+                        $"/ScratchDir:{scratchDirectory}"
+                    ],
+                    workingDirectory,
+                    $"Failed to extract Windows Setup Media from '{setupMediaImagePath}'",
+                    cancellationToken).ConfigureAwait(false);
+
+                sourcePath = ValidateMatchingNetFx3Source(
+                    setupMediaImagePath,
+                    sourceExtractionDirectory,
+                    metadata);
+            }
+
+            WindowsOptionalFeatureWorkItem[] orderedPendingItems =
+            [
+                .. pendingItems
+                    .Where(item => item.Action.Enable)
+                    .OrderBy(item => item.Depth)
+                    .ThenBy(item => item.CatalogEntry.SortOrder),
+                .. pendingItems
+                    .Where(item => !item.Action.Enable)
+                    .OrderByDescending(item => item.Depth)
+                    .ThenBy(item => item.CatalogEntry.SortOrder)
+            ];
+
+            if (orderedPendingItems.Length > 0)
+            {
+                onServicingStarted?.Invoke();
+            }
+
+            for (int index = 0; index < orderedPendingItems.Length; index++)
+            {
+                WindowsOptionalFeatureWorkItem item = orderedPendingItems[index];
+                List<string> arguments =
+                [
+                    "/English",
+                    $"/Image:{windowsPartitionRoot}",
+                    item.Action.Enable ? "/Enable-Feature" : "/Disable-Feature",
+                    $"/FeatureName:{item.CatalogEntry.FeatureName}"
+                ];
+                if (item.Action.Enable)
+                {
+                    arguments.Add("/All");
+                }
+
+                arguments.Add("/NoRestart");
+                if (item.Action.Enable)
+                {
+                    arguments.Add("/LimitAccess");
+                    if (item.CatalogEntry.RequiresSetupMediaSxs)
+                    {
+                        arguments.Add($"/Source:{sourcePath}");
+                    }
+                }
+
+                arguments.Add($"/ScratchDir:{scratchDirectory}");
+                await RunRequiredProcessAsync(
+                    "dism.exe",
+                    arguments,
+                    workingDirectory,
+                    $"Failed to {(item.Action.Enable ? "enable" : "disable")} Windows optional feature '{item.CatalogEntry.FeatureName}'",
+                    cancellationToken).ConfigureAwait(false);
+                progress?.Report((index + 1d) / orderedPendingItems.Length * 100d);
+            }
+
+            if (orderedPendingItems.Length > 0)
+            {
+                IReadOnlyDictionary<string, OfflineWindowsFeatureState> finalStates =
+                    await GetOfflineWindowsFeatureStatesAsync(windowsPartitionRoot, workingDirectory, cancellationToken)
+                        .ConfigureAwait(false);
+                foreach (WindowsOptionalFeatureWorkItem item in orderedPendingItems)
+                {
+                    if (!finalStates.TryGetValue(item.CatalogEntry.FeatureName, out OfflineWindowsFeatureState finalState) ||
+                        !IsRequestedStateSatisfied(item.Action.Enable, finalState))
+                    {
+                        throw new InvalidOperationException(
+                            $"Windows optional feature verification failed for '{item.CatalogEntry.FeatureName}'.");
+                    }
+                }
+            }
+
+            return new WindowsOptionalFeatureServicingResult
+            {
+                RequestedActionCount = requestedItems.Length,
+                ChangedActionCount = orderedPendingItems.Length,
+                AlreadySatisfiedActionCount = alreadySatisfiedCount,
+                UnavailableEnableActionIds = unavailableEnableActionIds,
+                MatchingSourceUsed = matchingSourceUsed
+            };
+        }
+        finally
+        {
+            TryCleanupOptionalFeatureDirectory(scratchDirectory, cleanupRoot);
+            TryCleanupOptionalFeatureDirectory(sourceExtractionDirectory, cleanupRoot);
+        }
+    }
+
     private static bool HasAnyAiPolicyOptionEnabled(DeployAiComponentRemovalSettings settings)
     {
         return settings.RemoveCopilot ||
@@ -947,6 +1144,198 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         return execution;
     }
 
+    private static WindowsOptionalFeatureWorkItem[] ResolveWindowsOptionalFeatureActions(
+        IReadOnlyList<DeployWindowsOptionalFeatureAction> actions)
+    {
+        var seenIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        var items = new List<WindowsOptionalFeatureWorkItem>(actions.Count);
+        foreach (DeployWindowsOptionalFeatureAction? action in actions)
+        {
+            if (action is null || string.IsNullOrWhiteSpace(action.Id))
+            {
+                throw new InvalidOperationException("Windows optional feature actions must contain a non-empty ID.");
+            }
+
+            WindowsOptionalFeatureCatalogEntry? entry = WindowsOptionalFeatureCatalog.Find(action.Id);
+            if (entry is null)
+            {
+                throw new InvalidOperationException($"Unknown Windows optional feature ID '{action.Id}'.");
+            }
+
+            if (!seenIds.Add(entry.Id))
+            {
+                throw new InvalidOperationException($"Duplicate or conflicting Windows optional feature action '{entry.Id}'.");
+            }
+
+            items.Add(new WindowsOptionalFeatureWorkItem(
+                new DeployWindowsOptionalFeatureAction { Id = entry.Id, Enable = action.Enable },
+                entry,
+                WindowsOptionalFeatureCatalog.GetDepth(entry.Id)));
+        }
+
+        HashSet<string> disabledIds = items
+            .Where(item => !item.Action.Enable)
+            .Select(item => item.CatalogEntry.Id)
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+        foreach (WindowsOptionalFeatureWorkItem enabledItem in items.Where(item => item.Action.Enable))
+        {
+            if (WindowsOptionalFeatureCatalog.GetAncestors(enabledItem.CatalogEntry.Id)
+                .Any(ancestor => disabledIds.Contains(ancestor.Id)))
+            {
+                throw new InvalidOperationException(
+                    $"Windows optional feature '{enabledItem.CatalogEntry.Id}' cannot be enabled beneath a disabled ancestor.");
+            }
+        }
+
+        return items.ToArray();
+    }
+
+    private async Task<IReadOnlyDictionary<string, OfflineWindowsFeatureState>> GetOfflineWindowsFeatureStatesAsync(
+        string windowsPartitionRoot,
+        string workingDirectory,
+        CancellationToken cancellationToken)
+    {
+        ProcessExecutionResult result = await RunRequiredProcessAsync(
+            "dism.exe",
+            [
+                "/English",
+                $"/Image:{windowsPartitionRoot}",
+                "/Get-Features",
+                "/Format:Table"
+            ],
+            workingDirectory,
+            $"Failed to inspect Windows optional features in '{windowsPartitionRoot}'",
+            cancellationToken).ConfigureAwait(false);
+        return ParseOfflineWindowsFeatureStates(result.StandardOutput);
+    }
+
+    private static IReadOnlyDictionary<string, OfflineWindowsFeatureState> ParseOfflineWindowsFeatureStates(string output)
+    {
+        var states = new Dictionary<string, OfflineWindowsFeatureState>(StringComparer.OrdinalIgnoreCase);
+        foreach (Match match in Regex.Matches(
+                     output ?? string.Empty,
+                     @"^\s*(?<name>[^|\r\n]+?)\s*\|\s*(?<state>Enabled|Disabled|Enable Pending|Disable Pending|Disabled with Payload Removed)\s*$",
+                     RegexOptions.IgnoreCase | RegexOptions.Multiline))
+        {
+            string name = match.Groups["name"].Value.Trim();
+            string stateText = match.Groups["state"].Value.Trim();
+            OfflineWindowsFeatureState state = stateText.ToUpperInvariant() switch
+            {
+                "ENABLED" => OfflineWindowsFeatureState.Enabled,
+                "DISABLED" => OfflineWindowsFeatureState.Disabled,
+                "ENABLE PENDING" => OfflineWindowsFeatureState.EnablePending,
+                "DISABLE PENDING" => OfflineWindowsFeatureState.DisablePending,
+                "DISABLED WITH PAYLOAD REMOVED" => OfflineWindowsFeatureState.PayloadRemoved,
+                _ => throw new InvalidOperationException($"Unsupported Windows optional feature state '{stateText}'.")
+            };
+            states[name] = state;
+        }
+
+        return states;
+    }
+
+    private static bool IsRequestedStateSatisfied(bool enable, OfflineWindowsFeatureState state)
+    {
+        return enable
+            ? state is OfflineWindowsFeatureState.Enabled or OfflineWindowsFeatureState.EnablePending
+            : state is OfflineWindowsFeatureState.Disabled or OfflineWindowsFeatureState.DisablePending or OfflineWindowsFeatureState.PayloadRemoved;
+    }
+
+    private async Task<SetupMediaImageMetadata> ResolveSetupMediaImageMetadataAsync(
+        string imagePath,
+        string workingDirectory,
+        CancellationToken cancellationToken)
+    {
+        ProcessExecutionResult summary = await RunRequiredProcessAsync(
+            "dism.exe",
+            ["/English", "/Get-ImageInfo", $"/ImageFile:{imagePath}"],
+            workingDirectory,
+            $"Failed to inspect setup-media image '{imagePath}'",
+            cancellationToken).ConfigureAwait(false);
+        (int Index, string Name)[] matches = Regex.Matches(
+                summary.StandardOutput ?? string.Empty,
+                @"^\s*Index\s*:\s*(?<index>\d+)\s*$\s*^\s*Name\s*:\s*(?<name>.+?)\s*$",
+                RegexOptions.IgnoreCase | RegexOptions.Multiline)
+            .Select(match => (
+                int.Parse(match.Groups["index"].Value),
+                match.Groups["name"].Value.Trim()))
+            .Where(item => string.Equals(item.Item2, "Windows Setup Media", StringComparison.OrdinalIgnoreCase))
+            .ToArray();
+        if (matches.Length != 1)
+        {
+            throw new InvalidOperationException(
+                $"Setup-media image '{imagePath}' must contain exactly one image named 'Windows Setup Media'.");
+        }
+
+        ProcessExecutionResult detail = await RunRequiredProcessAsync(
+            "dism.exe",
+            ["/English", "/Get-ImageInfo", $"/ImageFile:{imagePath}", $"/Index:{matches[0].Index}"],
+            workingDirectory,
+            $"Failed to inspect Windows Setup Media image index {matches[0].Index}",
+            cancellationToken).ConfigureAwait(false);
+        return new SetupMediaImageMetadata(
+            matches[0].Index,
+            ParseImageProperty(detail.StandardOutput, "Architecture"),
+            ParseImageProperty(detail.StandardOutput, "Version"));
+    }
+
+    private static string ValidateMatchingNetFx3Source(
+        string imagePath,
+        string sourceExtractionDirectory,
+        SetupMediaImageMetadata metadata)
+    {
+        string sourcePath = Path.Combine(sourceExtractionDirectory, "sources", "sxs");
+        string architectureToken = metadata.Architecture.ToUpperInvariant() switch
+        {
+            "X64" or "AMD64" => "amd64",
+            "ARM64" => "arm64",
+            _ => throw new InvalidOperationException(
+                $"Windows Setup Media in '{imagePath}' reports unsupported architecture '{metadata.Architecture}'.")
+        };
+        bool hasMatchingCab = Directory.Exists(sourcePath) && Directory
+            .EnumerateFiles(sourcePath, "*.cab", SearchOption.TopDirectoryOnly)
+            .Select(Path.GetFileName)
+            .Any(fileName =>
+                fileName is not null &&
+                fileName.Contains("netfx3-ondemand-package", StringComparison.OrdinalIgnoreCase) &&
+                fileName.Contains($"~{architectureToken}~", StringComparison.OrdinalIgnoreCase));
+        if (!hasMatchingCab)
+        {
+            throw new InvalidOperationException(
+                $"Matching NetFx3 source is unavailable. Media='{imagePath}', Version='{metadata.Version}', Architecture='{metadata.Architecture}', Expected='{architectureToken} NetFx3 OnDemand CAB'.");
+        }
+
+        return sourcePath;
+    }
+
+    private void TryCleanupOptionalFeatureDirectory(string path, string cleanupRoot)
+    {
+        try
+        {
+            string fullRoot = Path.GetFullPath(cleanupRoot);
+            string fullPath = Path.GetFullPath(path);
+            string relativePath = Path.GetRelativePath(fullRoot, fullPath);
+            if (string.IsNullOrWhiteSpace(relativePath) ||
+                relativePath == "." ||
+                Path.IsPathRooted(relativePath) ||
+                relativePath.StartsWith($"..{Path.DirectorySeparatorChar}", StringComparison.Ordinal) ||
+                string.Equals(relativePath, "..", StringComparison.Ordinal))
+            {
+                _logger.LogWarning("Skipped optional-feature cleanup outside the deployment temp root. Path={Path}", fullPath);
+                return;
+            }
+
+            if (Directory.Exists(fullPath))
+            {
+                Directory.Delete(fullPath, recursive: true);
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "Failed to clean optional-feature temporary directory. Path={Path}", path);
+        }
+    }
+
     private static (char systemLetter, char windowsLetter, char recoveryLetter) GetPartitionLetters()
     {
         HashSet<char> usedLetters = DriveInfo.GetDrives()
@@ -1078,4 +1467,20 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     }
 
     private sealed record ImageIndexMetadata(int Index, string EditionId);
+
+    private sealed record WindowsOptionalFeatureWorkItem(
+        DeployWindowsOptionalFeatureAction Action,
+        WindowsOptionalFeatureCatalogEntry CatalogEntry,
+        int Depth);
+
+    private sealed record SetupMediaImageMetadata(int Index, string Architecture, string Version);
+
+    private enum OfflineWindowsFeatureState
+    {
+        Enabled,
+        Disabled,
+        EnablePending,
+        DisablePending,
+        PayloadRemoved
+    }
 }
