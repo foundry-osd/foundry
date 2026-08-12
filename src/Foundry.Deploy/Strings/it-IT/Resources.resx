@@ -260,6 +260,7 @@ Continuare con la distribuzione?</value></data>
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Configurazione del nome del computer di destinazione in corso...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Scrittura del nome del computer offline...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>La partizione di destinazione Windows non è disponibile.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>L'indice dell'immagine Windows applicata non è disponibile.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Nome del computer di destinazione configurato.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Nome del computer di destinazione configurato (simulazione).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Personalizzazione offline disabilitata.</value></data>

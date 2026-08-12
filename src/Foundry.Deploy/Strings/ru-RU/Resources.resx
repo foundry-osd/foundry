@@ -260,6 +260,7 @@
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Настройка имени целевого компьютера...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Ввод имени автономного компьютера...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Целевой раздел Windows недоступен.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Индекс примененного образа Windows недоступен.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Имя целевого компьютера настроено.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Настроено имя целевого компьютера (моделирование).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Автономная настройка отключена.</value></data>
@@ -516,7 +517,7 @@
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Извлеките загрузочный носитель, затем выберите «Перезапустить».</value></data>
   <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Настройка дополнительных функций Windows</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Настройка дополнительных функций Windows...</value></data>
-  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Проверка состояний объектов...</value></data>
+  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Проверка состояний компонентов...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Подготовка соответствующих источников мультимедиа для настройки...</value></data>
   <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Применение изменений функций...</value></data>
   <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Моделирование изменений функций...</value></data>

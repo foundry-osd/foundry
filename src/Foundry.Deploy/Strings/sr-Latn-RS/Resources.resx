@@ -260,6 +260,7 @@ Operativni sistem: {4}
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Konfigurisanje imena ciljnog računara...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Pisanje naziva računara van mreže...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Ciljna Windows particija je nedostupna.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Indeks primenjene Windows slike nije dostupan.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Ime ciljnog računara je konfigurisano.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Ime ciljnog računara je konfigurisano (simulacija).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Oflajn prilagođavanje je onemogućeno.</value></data>

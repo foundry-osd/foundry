@@ -260,6 +260,7 @@ Pokračovat v nasazování?</value></data>
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Konfigurace názvu cílového počítače...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Zapisování názvu offline počítače...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Cílový oddíl Windows není dostupný.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Index použité bitové kopie Windows není k dispozici.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Nakonfigurován název cílového počítače.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Nakonfigurován název cílového počítače (simulace).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Přizpůsobení offline je zakázáno.</value></data>

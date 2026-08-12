@@ -260,6 +260,7 @@
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Конфигуриране на името на целевия компютър...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Пише се офлайн име на компютър...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Целевият дял Windows не е наличен.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Индексът на приложеното изображение на Windows не е наличен.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Името на целевия компютър е конфигурирано.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Името на целевия компютър е конфигурирано (симулация).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Офлайн персонализирането е деактивирано.</value></data>

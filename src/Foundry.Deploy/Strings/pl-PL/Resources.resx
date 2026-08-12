@@ -260,6 +260,7 @@ Kontynuować wdrażanie?</value></data>
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Konfiguruję nazwę komputera docelowego...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Zapisywanie nazwy komputera offline...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Partycja docelowa Windows jest niedostępna.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Indeks zastosowanego obrazu systemu Windows jest niedostępny.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Skonfigurowano nazwę komputera docelowego.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Skonfigurowano nazwę komputera docelowego (symulacja).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Dostosowywanie offline wyłączone.</value></data>

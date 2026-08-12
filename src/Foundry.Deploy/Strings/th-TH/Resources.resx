@@ -260,6 +260,7 @@
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>กำลังกำหนดค่าชื่อคอมพิวเตอร์เป้าหมาย...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>กำลังเขียนชื่อคอมพิวเตอร์ออฟไลน์...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>พาร์ติชันเป้าหมาย Windows ไม่พร้อมใช้งาน</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>ดัชนีอิมเมจ Windows ที่นำไปใช้ไม่พร้อมใช้งาน</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>กำหนดค่าชื่อคอมพิวเตอร์เป้าหมายแล้ว</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>ชื่อคอมพิวเตอร์เป้าหมายที่กำหนดค่า (การจำลอง)</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>ปิดใช้งานการปรับแต่งแบบออฟไลน์แล้ว</value></data>

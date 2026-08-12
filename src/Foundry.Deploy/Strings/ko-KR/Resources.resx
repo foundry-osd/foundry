@@ -260,6 +260,7 @@
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>대상 컴퓨터 이름 구성 중...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>오프라인 컴퓨터 이름을 쓰는 중...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>대상 Windows 파티션을 사용할 수 없습니다.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>적용된 Windows 이미지 인덱스를 사용할 수 없습니다.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>대상 컴퓨터 이름이 구성되었습니다.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>구성된 대상 컴퓨터 이름(시뮬레이션).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>오프라인 맞춤설정이 비활성화되었습니다.</value></data>

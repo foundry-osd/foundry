@@ -260,6 +260,7 @@ Continuer le déploiement ?</value></data>
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Configuration du nom de l’ordinateur cible...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Écriture du nom hors ligne de l’ordinateur...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>La partition Windows cible est indisponible.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>L’index de l’image Windows appliquée est indisponible.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Nom de l’ordinateur cible configuré.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Nom de l’ordinateur cible configuré (simulation).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Personnalisation hors ligne désactivée.</value></data>

@@ -74,6 +74,7 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
     [InlineData("Importing hardware hash into Microsoft Graph...", "Import du hash matériel dans Microsoft Graph...")]
     [InlineData("Writing dry-run Autopilot hash manifest...", "Écriture du manifeste Autopilot simulé...")]
     [InlineData("Target Windows partition is unavailable for Autopilot hardware hash upload.", "La partition Windows cible est indisponible pour l’envoi du hash matériel Autopilot.")]
+    [InlineData("Applied Windows image index is unavailable.", "L’index de l’image Windows appliquée est indisponible.")]
     [InlineData("Autopilot hardware hash upload skipped because the embedded certificate is expired.", "Envoi du hash matériel Autopilot ignoré car le certificat intégré a expiré.")]
     [InlineData("Autopilot hardware hash upload skipped because media metadata is incomplete.", "Envoi du hash matériel Autopilot ignoré car les informations de certificat du média sont incomplètes.")]
     [InlineData("Autopilot hardware hash imported and visible in Windows Autopilot devices.", "Hash matériel Autopilot importé et visible dans les appareils Windows Autopilot.")]

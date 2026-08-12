@@ -260,6 +260,7 @@ Vil du fortsette med distribusjonen?</value></data>
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Konfigurerer navnet på måldatamaskinen...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Skriver frakoblet datamaskinnavn...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Target Windows partisjonen er utilgjengelig.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Indeksen for det brukte Windows-avbildet er ikke tilgjengelig.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Navnet på måldatamaskinen er konfigurert.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Måldatamaskinnavn konfigurert (simulering).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Tilpasning uten nett er deaktivert.</value></data>

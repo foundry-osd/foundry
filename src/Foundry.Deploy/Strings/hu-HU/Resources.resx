@@ -260,6 +260,7 @@ Folytatja a telepítést?</value></data>
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Célszámítógép nevének konfigurálása...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Offline számítógépnév írása...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>A Windows célpartíció nem érhető el.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Az alkalmazott Windows-lemezkép indexe nem érhető el.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>A célszámítógép neve konfigurálva.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>A célszámítógép neve konfigurálva (szimuláció).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Az offline testreszabás letiltva.</value></data>

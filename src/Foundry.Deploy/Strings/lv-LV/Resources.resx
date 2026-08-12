@@ -260,6 +260,7 @@ Vai turpināt izvietošanu?</value></data>
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Notiek mērķa datora nosaukuma konfigurēšana...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Notiek bezsaistes datora nosaukuma rakstīšana...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Mērķa Windows nodalījums nav pieejams.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Lietotā Windows attēla indekss nav pieejams.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Mērķa datora nosaukums ir konfigurēts.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Mērķa datora nosaukums ir konfigurēts (simulācija).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Bezsaistes pielāgošana ir atspējota.</value></data>

@@ -260,6 +260,7 @@ Nastaviti s implementacijom?</value></data>
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Konfiguriranje ciljanog naziva računala...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Pisanje izvanmrežnog naziva računala...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Ciljana Windows particija nije dostupna.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Indeks primijenjene slike sustava Windows nije dostupan.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Naziv ciljnog računala konfiguriran.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Naziv ciljnog računala konfiguriran (simulacija).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Izvanmrežna prilagodba onemogućena.</value></data>

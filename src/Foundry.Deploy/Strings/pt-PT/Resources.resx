@@ -260,6 +260,7 @@ Continuar com a implantação?</value></data>
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Configurando o nome do computador de destino...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Escrevendo o nome do computador off-line...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>A partição de destino Windows não está disponível.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>O índice da imagem do Windows aplicada não está disponível.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Nome do computador de destino configurado.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Nome do computador alvo configurado (simulação).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Personalização offline desativada.</value></data>

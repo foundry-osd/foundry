@@ -260,6 +260,7 @@
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>配置目標電腦名稱...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>寫入離線電腦名稱...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>目標Windows分區不可用。</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>已套用的 Windows 映像索引無法使用。</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>配置的目標電腦名稱。</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>配置的目標電腦名稱（模擬）。</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>離線定制已停用。</value></data>

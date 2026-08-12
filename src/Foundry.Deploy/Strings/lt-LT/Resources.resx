@@ -260,6 +260,7 @@ Tęsti diegimą?</value></data>
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Konfigūruojamas tikslinio kompiuterio pavadinimas...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Rašomas neprisijungus pasiekiamo kompiuterio pavadinimas...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Tikslinis Windows skaidinys nepasiekiamas.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Pritaikyto „Windows“ atvaizdo indeksas nepasiekiamas.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Tikslinio kompiuterio pavadinimas sukonfigūruotas.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Tikslinio kompiuterio pavadinimas sukonfigūruotas (modeliavimas).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Tinkinimas neprisijungus išjungtas.</value></data>

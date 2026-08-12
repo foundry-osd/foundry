@@ -260,6 +260,7 @@ Fortsätt med implementeringen?</value></data>
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Konfigurerar måldatornamn...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Skriver offline datornamn...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Målpartitionen Windows är inte tillgänglig.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Indexet för den tillämpade Windows-avbildningen är inte tillgängligt.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Måldatornamn har konfigurerats.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Måldatornamn konfigurerat (simulering).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Offlineanpassning inaktiverad.</value></data>

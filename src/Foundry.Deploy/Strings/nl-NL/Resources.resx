@@ -260,6 +260,7 @@ Doorgaan met de implementatie?</value></data>
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Naam van doelcomputer configureren...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Offline computernaam schrijven...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Doel Windows partitie is niet beschikbaar.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>De index van de toegepaste Windows-installatiekopie is niet beschikbaar.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Doelcomputernaam geconfigureerd.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Doelcomputernaam geconfigureerd (simulatie).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Offline maatwerk uitgeschakeld.</value></data>

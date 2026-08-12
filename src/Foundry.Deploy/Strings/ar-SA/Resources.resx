@@ -260,6 +260,7 @@
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>يتم الآن تكوين اسم الكمبيوتر الهدف...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>كتابة اسم الكمبيوتر غير المتصل...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>قسم الهدف Windows غير متوفر.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>فهرس صورة Windows المطبقة غير متوفر.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>تم تكوين اسم الكمبيوتر الهدف.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>تم تكوين اسم الكمبيوتر الهدف (المحاكاة).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>تم تعطيل التخصيص في وضع عدم الاتصال.</value></data>

@@ -260,6 +260,7 @@
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>ターゲットコンピュータ名を構成しています...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>オフラインのコンピュータ名を書き込んでいます...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>ターゲット Windows パーティションが使用できません。</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>適用された Windows イメージのインデックスを利用できません。</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>ターゲットコンピュータ名が設定されました。</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>ターゲット コンピュータ名が構成されています (シミュレーション)。</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>オフラインカスタマイズが無効になりました。</value></data>

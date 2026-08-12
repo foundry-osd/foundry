@@ -260,6 +260,7 @@ ErrorCode=0x80070005
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>מגדיר את שם מחשב היעד...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>כותב שם מחשב במצב לא מקוון...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>מחיצת יעד Windows אינה זמינה.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>האינדקס של תמונת Windows שהוחלה אינו זמין.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>שם מחשב היעד הוגדר.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>שם מחשב היעד מוגדר (סימולציה).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>התאמה אישית לא מקוונת מושבתת.</value></data>

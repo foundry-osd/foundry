@@ -260,6 +260,7 @@
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Διαμόρφωση ονόματος υπολογιστή προορισμού...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Γράψιμο ονόματος υπολογιστή εκτός σύνδεσης...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Το διαμέρισμα Target Windows δεν είναι διαθέσιμο.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Το ευρετήριο της εφαρμοσμένης εικόνας των Windows δεν είναι διαθέσιμο.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Το όνομα υπολογιστή προορισμού διαμορφώθηκε.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Το όνομα υπολογιστή προορισμού διαμορφώθηκε (προσομοίωση).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Η προσαρμογή εκτός σύνδεσης είναι απενεργοποιημένη.</value></data>

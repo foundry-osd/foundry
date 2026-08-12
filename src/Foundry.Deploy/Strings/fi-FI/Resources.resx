@@ -260,6 +260,7 @@ Jatketaanko käyttöönottoa?</value></data>
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Määritetään kohdetietokoneen nimeä...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Kirjoitetaan offline-tietokoneen nimeä...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Kohdeosio Windows ei ole käytettävissä.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Käytetyn Windows-näköistiedoston indeksi ei ole saatavilla.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Kohdetietokoneen nimi määritetty.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Kohdetietokoneen nimi määritetty (simulaatio).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Offline-muokkaus poistettu käytöstä.</value></data>
@@ -515,7 +516,7 @@ Jatketaanko käyttöönottoa?</value></data>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Poista käynnistysmedia ja valitse sitten Käynnistä uudelleen.</value></data>
   <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>M&#228;&#228;rit&#228; Windowsin valinnaiset ominaisuudet</value></data>
-  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>M&#228;&#228;ritet&#228;&#228;n Windowsin valinnaisia ​​ominaisuuksia...</value></data>
+  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>M&#228;&#228;ritet&#228;&#228;n Windowsin valinnaisia ominaisuuksia...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Tarkastetaan ominaisuuden tiloja...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Valmistellaan vastaavia asetusten medial&#228;hteit&#228;...</value></data>
   <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Otetaan ominaisuuden muutoksia k&#228;ytt&#246;&#246;n...</value></data>

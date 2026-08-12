@@ -260,6 +260,7 @@ Mit der Bereitstellung fortfahren?</value></data>
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Zielcomputername wird konfiguriert...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Name des Offline-Computers wird geschrieben...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Die Zielpartition Windows ist nicht verfügbar.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Der Index des angewendeten Windows-Abbilds ist nicht verfügbar.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Zielcomputername konfiguriert.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Zielrechnername konfiguriert (Simulation).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Offline-Anpassung deaktiviert.</value></data>

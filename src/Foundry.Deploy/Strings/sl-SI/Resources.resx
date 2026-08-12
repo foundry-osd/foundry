@@ -260,6 +260,7 @@ Ali želite nadaljevati z uvajanjem?</value></data>
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Konfiguriranje imena ciljnega računalnika...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Pisanje imena računalnika brez povezave...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Ciljna particija Windows ni na voljo.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Indeks uporabljene slike sistema Windows ni na voljo.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Ime ciljnega računalnika je konfigurirano.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Konfigurirano ime ciljnega računalnika (simulacija).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Prilagajanje brez povezave onemogočeno.</value></data>

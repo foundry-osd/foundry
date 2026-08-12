@@ -260,6 +260,7 @@ Dağıtıma devam edilsin mi?</value></data>
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Hedef bilgisayar adı yapılandırılıyor...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Çevrimdışı bilgisayar adı yazılıyor...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Hedef Windows bölümü kullanılamıyor.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Uygulanan Windows görüntüsünün dizini kullanılamıyor.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Hedef bilgisayar adı yapılandırıldı.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Hedef bilgisayar adı yapılandırıldı (simülasyon).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Çevrimdışı özelleştirme devre dışı bırakıldı.</value></data>

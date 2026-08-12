@@ -260,6 +260,7 @@ Sistema operativo: {4}
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Configurando el nombre del ordenador de destino...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Escribiendo el nombre de la computadora sin conexión...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>La partición de destino Windows no está disponible.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>El índice de la imagen de Windows aplicada no está disponible.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Nombre de la computadora de destino configurado.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Nombre de la computadora de destino configurado (simulación).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Personalización sin conexión deshabilitada.</value></data>

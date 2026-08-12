@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.ObjectModel;
+
 namespace Foundry.ViewModels;
 
 public sealed partial class WindowsOptionalFeatureCategoryViewModel : ObservableObject

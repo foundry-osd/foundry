@@ -119,6 +119,7 @@ public static partial class DeploymentUiTextLocalizer
             "Configuring target computer name..." => LocalizationText.GetString("StepMessage.ConfiguringTargetComputerName"),
             "Writing offline computer name..." => LocalizationText.GetString("StepMessage.WritingOfflineComputerName"),
             "Target Windows partition is unavailable." => LocalizationText.GetString("StepResult.TargetWindowsPartitionUnavailable"),
+            "Applied Windows image index is unavailable." => LocalizationText.GetString("StepResult.AppliedWindowsImageIndexUnavailable"),
             "Target computer name configured." => LocalizationText.GetString("StepResult.TargetComputerNameConfigured"),
             "Target computer name configured (simulation)." => LocalizationText.GetString("StepResult.TargetComputerNameConfiguredSimulation"),
             "Offline customization disabled." => LocalizationText.GetString("StepResult.OfflineCustomizationDisabled"),

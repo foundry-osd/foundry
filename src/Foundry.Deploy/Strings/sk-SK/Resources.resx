@@ -260,6 +260,7 @@ Pokračovať v nasadzovaní?</value></data>
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Konfiguruje sa názov cieľového počítača...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Zapisuje sa názov offline počítača...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Cieľový oddiel Windows nie je dostupný.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Index použitého obrazu Windows nie je k dispozícii.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Názov cieľového počítača je nakonfigurovaný.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Nakonfigurovaný názov cieľového počítača (simulácia).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Offline prispôsobenie je zakázané.</value></data>

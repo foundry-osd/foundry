@@ -260,6 +260,7 @@ Continuați cu implementarea?</value></data>
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Se configurează numele computerului țintă...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Se scrie numele computerului offline...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Partiția țintă Windows nu este disponibilă.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Indexul imaginii Windows aplicate nu este disponibil.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Numele computerului țintă a fost configurat.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Numele computerului țintă a fost configurat (simulare).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Personalizarea offline a fost dezactivată.</value></data>

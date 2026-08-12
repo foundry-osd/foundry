@@ -970,7 +970,7 @@
     <value>совместимость управления IIS 6.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Metabase" xml:space="preserve">
-    <value>совместимость метабазы ​​IIS и конфигурации IIS 6.</value>
+    <value>совместимость метабазы IIS и конфигурации IIS 6.</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WMICompatibility" xml:space="preserve">
     <value>совместимость IIS 6 с WMI.</value>
@@ -1144,7 +1144,7 @@
     <value>сервер очереди сообщений Microsoft (MSMQ).</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Server" xml:space="preserve">
-    <value>ядро ​​сервера Microsoft Message Queue (MSMQ)</value>
+    <value>ядро сервера Microsoft Message Queue (MSMQ)</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_ADIntegration" xml:space="preserve">
     <value>интеграция службы каталогов.</value>
