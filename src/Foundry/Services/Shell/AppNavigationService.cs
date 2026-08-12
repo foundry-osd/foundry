@@ -24,7 +24,7 @@ internal sealed class AppNavigationService(
 
     public ObservableCollection<BreadcrumbEntry> Breadcrumbs { get; } = [];
 
-    public bool CanGoBack => frame?.CanGoBack == true && navigationGuard.State != ShellNavigationState.OperationRunning;
+    private bool CanGoBack => frame?.CanGoBack == true && navigationGuard.State != ShellNavigationState.OperationRunning;
 
     public bool IsBreadcrumbVisible => currentRoute?.ParentPageType is not null;
 
@@ -62,7 +62,7 @@ internal sealed class AppNavigationService(
         return frame.Navigate(pageType, parameter);
     }
 
-    public bool GoBack()
+    private bool GoBack()
     {
         if (!CanGoBack || frame is null)
         {

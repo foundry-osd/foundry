@@ -10,8 +10,6 @@ public interface IAppNavigationService
 {
     ObservableCollection<BreadcrumbEntry> Breadcrumbs { get; }
 
-    bool CanGoBack { get; }
-
     bool IsBreadcrumbVisible { get; }
 
     event EventHandler? StateChanged;
@@ -19,8 +17,6 @@ public interface IAppNavigationService
     void Initialize(NavigationView navigationView, Frame frame);
 
     bool NavigateTo(Type pageType, object? parameter = null);
-
-    bool GoBack();
 
     bool NavigateToBreadcrumb(BreadcrumbEntry entry);
 
