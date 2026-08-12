@@ -28,4 +28,13 @@ public sealed partial class CustomizationPage : Page
             ViewModel.ToggleAppxRemovalProfile(category);
         }
     }
+
+    private void OnWindowsOptionalFeatureStateSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (sender is ComboBox { DataContext: WindowsOptionalFeatureItemViewModel item } &&
+            e.AddedItems.FirstOrDefault() is SelectionOption<WindowsOptionalFeatureState> selectedState)
+        {
+            item.SetState(selectedState.Value);
+        }
+    }
 }
