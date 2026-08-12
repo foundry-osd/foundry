@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
+using Foundry.Utilities.Collections;
 using Microsoft.UI.Xaml;
 
 namespace Foundry.ViewModels;
@@ -282,22 +283,22 @@ public sealed partial class CustomizationConfigurationViewModel
             }
         }
 
-        VisibleWindowsOptionalFeatureCategories.Clear();
+        List<WindowsOptionalFeatureCategoryViewModel> visibleCategories = [];
         foreach (WindowsOptionalFeatureCategoryViewModel category in WindowsOptionalFeatureCategories)
         {
-            category.VisibleItems.Clear();
-            foreach (WindowsOptionalFeatureItemViewModel item in category.AllItems.Where(item => visibleIds.Contains(item.Id)))
-            {
-                category.VisibleItems.Add(item);
-            }
+            WindowsOptionalFeatureItemViewModel[] visibleItems = category.AllItems
+                .Where(item => visibleIds.Contains(item.Id))
+                .ToArray();
+            category.VisibleItems.SynchronizeReferences(visibleItems);
 
             if (category.VisibleItems.Count > 0)
             {
                 category.IsExpanded = searchText.Length > 0 || category.IsExpanded;
-                VisibleWindowsOptionalFeatureCategories.Add(category);
+                visibleCategories.Add(category);
             }
         }
 
+        VisibleWindowsOptionalFeatureCategories.SynchronizeReferences(visibleCategories);
         OnPropertyChanged(nameof(WindowsOptionalFeatureEmptySearchVisibility));
     }
 
