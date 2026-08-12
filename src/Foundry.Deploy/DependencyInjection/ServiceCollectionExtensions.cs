@@ -138,6 +138,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentStep, ApplyOperatingSystemImageStep>();
         services.AddSingleton<IDeploymentStep, ConfigureTargetComputerNameStep>();
         services.AddSingleton<IDeploymentStep, ConfigureOobeSettingsStep>();
+        services.AddSingleton<IDeploymentStep, ConfigureWindowsOptionalFeaturesStep>();
         services.AddSingleton<IDeploymentStep, ConfigureRecoveryEnvironmentStep>();
         services.AddSingleton<IDeploymentStep, DownloadDriverPackStep>();
         services.AddSingleton<IDeploymentStep, ExtractDriverPackStep>();

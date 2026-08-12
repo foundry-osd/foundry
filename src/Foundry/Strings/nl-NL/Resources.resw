@@ -682,7 +682,7 @@
     <value>Verwijder het ingerichte Windows AI Hub-apppakket, indien aanwezig.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Schakel Windows Recall uit</value>
+    <value>Schakel Windows Recall uit via beleid</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>Stel Windows AI-beleid in dat het inschakelen van Recall en het opslaan van momentopnamen verhindert.</value>
@@ -716,6 +716,534 @@
   </data>
   <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
     <value>Stel het beleid Notepad in dat AI-functies uitschakelt.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesHeader" xml:space="preserve">
+    <value>Optionele Windows-functies</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesDescription" xml:space="preserve">
+    <value>Schakel Windows-componenten in het ge&#239;mplementeerde besturingssysteem in of uit.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesEnableLabel" xml:space="preserve">
+    <value>Configureer optionele Windows-functies</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
+    <value>Wijzigingen worden offline toegepast nadat Windows is ge&#239;nstalleerd en v&#243;&#243;r OOBE. Inschakelbewerkingen gebruiken alleen de ge&#239;nstalleerde afbeelding of overeenkomende installatiemediabronnen; er wordt geen internet-fallback gebruikt.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
+    <value>{0} geconfigureerd ({1} inschakelen, {2} uitschakelen)</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesSearchLabel" xml:space="preserve">
+    <value>Zoekfuncties</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesSearchPlaceholder" xml:space="preserve">
+    <value>Zoek op weergavenaam of DISM-functienaam</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesEmptySearch" xml:space="preserve">
+    <value>Er zijn geen optionele Windows-functies die overeenkomen met deze zoekopdracht.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.DetailFormat" xml:space="preserve">
+    <value>{0} — {1}</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.State.Unchanged" xml:space="preserve">
+    <value>Onveranderd</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.State.Enable" xml:space="preserve">
+    <value>Inschakelen</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.State.Disable" xml:space="preserve">
+    <value>Uitschakelen</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Compatibility.Available" xml:space="preserve">
+    <value>Beschikbaar voor alle geselecteerde doelen</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Compatibility.PartiallyAvailable" xml:space="preserve">
+    <value>Beschikbaar voor een aantal geselecteerde doelen</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Compatibility.Unavailable" xml:space="preserve">
+    <value>Niet beschikbaar voor de geselecteerde doelen</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Compatibility.RuntimeVerificationRequired" xml:space="preserve">
+    <value>Beschikbaarheid wordt geverifieerd aan de hand van de toegepaste Windows-image</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.Enable" xml:space="preserve">
+    <value>Schakel zichtbare items in</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.Disable" xml:space="preserve">
+    <value>Schakel zichtbare items uit</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.Clear" xml:space="preserve">
+    <value>Zichtbare items resetten</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.MatchingSource" xml:space="preserve">
+    <value>Voor het inschakelen van deze functie is een overeenkomende payload in sources\sxs op de installatiemedia vereist.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.HardwareVirtualization" xml:space="preserve">
+    <value>Vereist compatibele virtualisatiehardware en firmware-instellingen.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.Rdma" xml:space="preserve">
+    <value>Vereist een RDMA-compatibele netwerkadapter.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.MediaFeaturePack" xml:space="preserve">
+    <value>Voor Windows N-edities is mogelijk het Media Feature Pack vereist.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
+    <value>De beschikbaarheid is afhankelijk van de Copilot+ pc-hardware en de ge&#239;nstalleerde Windows-image.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.WslComponentOnly" xml:space="preserve">
+    <value>Hiermee configureert u alleen de Windows-component; het installeert geen Linux-distributie.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.RecallPolicyIndependent" xml:space="preserve">
+    <value>Deze componentstatus is onafhankelijk van de afzonderlijke Recall-beleidsinstelling.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Frameworks" xml:space="preserve">
+    <value>Frameworks en applicatieplatforms</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.DirectoryServices" xml:space="preserve">
+    <value>Directory-services</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Virtualization" xml:space="preserve">
+    <value>Virtualisatie</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Legacy" xml:space="preserve">
+    <value>Oudere componenten</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Containers" xml:space="preserve">
+    <value>Containers</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Networking" xml:space="preserve">
+    <value>Netwerken</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Media" xml:space="preserve">
+    <value>Media</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Security" xml:space="preserve">
+    <value>Beveiliging</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Printing" xml:space="preserve">
+    <value>Afdrukken en documenten</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Web" xml:space="preserve">
+    <value>Web- en internetinformatiediensten</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Management" xml:space="preserve">
+    <value>Beheerhulpmiddelen</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Compatibility" xml:space="preserve">
+    <value>Compatibiliteit</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.FileServices" xml:space="preserve">
+    <value>Bestandsdiensten</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Diagnostics" xml:space="preserve">
+    <value>Diagnostiek</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.DeviceLockdown" xml:space="preserve">
+    <value>Apparaatvergrendeling</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.FileSystems" xml:space="preserve">
+    <value>Bestandssystemen</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.SearchAndIndexing" xml:space="preserve">
+    <value>Zoeken en indexeren</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Messaging" xml:space="preserve">
+    <value>Berichtenwachtrij</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.AiComponents" xml:space="preserve">
+    <value>AI-componenten</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.NetFx3" xml:space="preserve">
+    <value>.NET Framework 3.5 (inclusief .NET 2.0 en 3.0)</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_HTTP_Activation" xml:space="preserve">
+    <value>Windows Communication Foundation HTTP-activering</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_NonHTTP_Activation" xml:space="preserve">
+    <value>Windows Communication Foundation niet-HTTP-activering</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.NetFx4_AdvSrvs" xml:space="preserve">
+    <value>.NET Framework 4.8 Advanced Services</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.NetFx4Extended_ASPNET45" xml:space="preserve">
+    <value>ASP.NET 4.8</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Services45" xml:space="preserve">
+    <value>WCF Services</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_HTTP_Activation45" xml:space="preserve">
+    <value>HTTP-activering</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_TCP_Activation45" xml:space="preserve">
+    <value>TCP-activering</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Pipe_Activation45" xml:space="preserve">
+    <value>Named Pipe-activering</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_MSMQ_Activation45" xml:space="preserve">
+    <value>Activering van Message Queuing (MSMQ).</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_TCP_PortSharing45" xml:space="preserve">
+    <value>TCP-poort delen</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.DirectoryServices_ADAM_Client" xml:space="preserve">
+    <value>Active Directory Lichtgewicht Directory Services</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.HyperV_KernelInt_VirtualDevice" xml:space="preserve">
+    <value>Microsoft Kernel Debug Network Adapter</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Containers_DisposableClientVM" xml:space="preserve">
+    <value>Windows Sandbox</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.LegacyComponents" xml:space="preserve">
+    <value>oudere componenten</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.DirectPlay" xml:space="preserve">
+    <value>DirectPlay</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Containers" xml:space="preserve">
+    <value>containers</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.DataCenterBridging" xml:space="preserve">
+    <value>Data Center Bridging</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MediaPlayback" xml:space="preserve">
+    <value>Mediafuncties</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WindowsMediaPlayer" xml:space="preserve">
+    <value>Windows Media Player Legacy</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.HostGuardian" xml:space="preserve">
+    <value>Host Guardian Hyper-V-ondersteuning</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_All" xml:space="preserve">
+    <value>Hyper-V</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V" xml:space="preserve">
+    <value>Hyper-V-platform</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Hypervisor" xml:space="preserve">
+    <value>Hyper-V Hypervisor</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Services" xml:space="preserve">
+    <value>Hyper-V Services</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Tools_All" xml:space="preserve">
+    <value>Hyper-V-beheertools</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Management_Clients" xml:space="preserve">
+    <value>Hyper-V GUI-beheertools</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Management_PowerShell" xml:space="preserve">
+    <value>Hyper-V-module voor Windows PowerShell</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_PrintToPDFServices_Features" xml:space="preserve">
+    <value>Microsoft Afdrukken naar PDF</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HostableWebCore" xml:space="preserve">
+    <value>IIS Hostable Web Core</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServerRole" xml:space="preserve">
+    <value>Internet Information Services</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPServer" xml:space="preserve">
+    <value>FTP-server</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPSvc" xml:space="preserve">
+    <value>FTP-service</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPExtensibility" xml:space="preserve">
+    <value>FTP-uitbreidbaarheid</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServerManagementTools" xml:space="preserve">
+    <value>Webbeheertools</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementConsole" xml:space="preserve">
+    <value>IIS Management Console</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementScriptingTools" xml:space="preserve">
+    <value>IIS-beheerscripts en -hulpmiddelen</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementService" xml:space="preserve">
+    <value>IIS Management Service</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IIS6ManagementCompatibility" xml:space="preserve">
+    <value>IIS 6-beheercompatibiliteit</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Metabase" xml:space="preserve">
+    <value>IIS Metabase en IIS 6-configuratiecompatibiliteit</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WMICompatibility" xml:space="preserve">
+    <value>IIS 6 WMI-compatibiliteit</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacyScripts" xml:space="preserve">
+    <value>IIS 6 Scripting Tools</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacySnapIn" xml:space="preserve">
+    <value>IIS 6 Management Console</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServer" xml:space="preserve">
+    <value>World Wide Web Services</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ApplicationDevelopment" xml:space="preserve">
+    <value>Functies voor applicatieontwikkeling</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility" xml:space="preserve">
+    <value>.NET-uitbreidbaarheid 3.5</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility45" xml:space="preserve">
+    <value>.NET-uitbreidbaarheid 4.8</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ApplicationInit" xml:space="preserve">
+    <value>Initialisatie van applicaties</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ASP" xml:space="preserve">
+    <value>ASP</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ASPNET" xml:space="preserve">
+    <value>ASP.NET 3.5</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ASPNET45" xml:space="preserve">
+    <value>ASP.NET 4.8</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CGI" xml:space="preserve">
+    <value>CGI</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ISAPIExtensions" xml:space="preserve">
+    <value>ISAPI-extensies</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ISAPIFilter" xml:space="preserve">
+    <value>ISAPI-filters</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ServerSideIncludes" xml:space="preserve">
+    <value>Server-Side Includes</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebSockets" xml:space="preserve">
+    <value>WebSocket Protocol</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CommonHttpFeatures" xml:space="preserve">
+    <value>algemene HTTP-functies</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DefaultDocument" xml:space="preserve">
+    <value>standaarddocument</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DirectoryBrowsing" xml:space="preserve">
+    <value>Bladeren door mappen</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpErrors" xml:space="preserve">
+    <value>HTTP-fouten</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpRedirect" xml:space="preserve">
+    <value>HTTP-omleiding</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_StaticContent" xml:space="preserve">
+    <value>statische inhoud</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebDAV" xml:space="preserve">
+    <value>WebDAV Publishing</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HealthAndDiagnostics" xml:space="preserve">
+    <value>Gezondheid en diagnostiek</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CustomLogging" xml:space="preserve">
+    <value>Aangepaste logboekregistratie</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpLogging" xml:space="preserve">
+    <value>HTTP-logboekregistratie</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LoggingLibraries" xml:space="preserve">
+    <value>Logging Tools</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ODBCLogging" xml:space="preserve">
+    <value>ODBC-logboekregistratie</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestMonitor" xml:space="preserve">
+    <value>Request Monitor</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpTracing" xml:space="preserve">
+    <value>tracering</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Performance" xml:space="preserve">
+    <value>prestatiefuncties</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpCompressionDynamic" xml:space="preserve">
+    <value>dynamische inhoudscompressie</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpCompressionStatic" xml:space="preserve">
+    <value>statische inhoudscompressie</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Security" xml:space="preserve">
+    <value>Beveiligingsfuncties</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_BasicAuthentication" xml:space="preserve">
+    <value>basisverificatie</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CertProvider" xml:space="preserve">
+    <value>gecentraliseerde ondersteuning voor SSL-certificaten</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ClientCertificateMappingAuthentication" xml:space="preserve">
+    <value>verificatie van clientcertificaattoewijzing</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DigestAuthentication" xml:space="preserve">
+    <value>Digest-authenticatie</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IISCertificateMappingAuthentication" xml:space="preserve">
+    <value>IIS Client Certificate Mapping Authenticatie</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IPSecurity" xml:space="preserve">
+    <value>IP-beveiliging</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestFiltering" xml:space="preserve">
+    <value>Aanvraagfiltering</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_URLAuthorization" xml:space="preserve">
+    <value>URL-autorisatie</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WindowsAuthentication" xml:space="preserve">
+    <value>Windows-verificatie</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WAS_WindowsActivationService" xml:space="preserve">
+    <value>Windows Process Activation Service</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ProcessModel" xml:space="preserve">
+    <value>Procesmodel</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WAS_NetFxEnvironment" xml:space="preserve">
+    <value>.NET Environment</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ConfigurationAPI" xml:space="preserve">
+    <value>configuratie-API&#39;s</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_XPSServices_Features" xml:space="preserve">
+    <value>Microsoft XPS Document Writer</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Connector" xml:space="preserve">
+    <value>MultiPoint Connector</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Connector_Services" xml:space="preserve">
+    <value>MultiPoint Connector Services</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Tools" xml:space="preserve">
+    <value>MultiPoint Manager en MultiPoint Dashboard</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.HyperV_Guest_KernelInt" xml:space="preserve">
+    <value>Microsoft Hyper-V Guest Integration Services</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.HypervisorPlatform" xml:space="preserve">
+    <value>Windows Hypervisor Platform</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.VirtualMachinePlatform" xml:space="preserve">
+    <value>Virtual Machine Platform</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSRDC_Infrastructure" xml:space="preserve">
+    <value>Remote Differential Compression API-ondersteuning</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Containers_Server_For_Application_Guard" xml:space="preserve">
+    <value>Microsoft Defender Application Guard</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Container" xml:space="preserve">
+    <value>Microsoft Message Queue (MSMQ) Server</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Server" xml:space="preserve">
+    <value>Microsoft Message Queue (MSMQ) Server Core</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_ADIntegration" xml:space="preserve">
+    <value>Directory Service-integratie</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_HTTP" xml:space="preserve">
+    <value>HTTP-ondersteuning</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Multicast" xml:space="preserve">
+    <value>Multicasting-ondersteuning</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Triggers" xml:space="preserve">
+    <value>Message Queuing-triggers</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_DCOMProxy" xml:space="preserve">
+    <value>MSMQ DCOM-proxy</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_Features" xml:space="preserve">
+    <value>Print- en Document Services</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_InternetPrinting_Client" xml:space="preserve">
+    <value>Internet Printing Client</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPDPrintService" xml:space="preserve">
+    <value>LPD Print Service</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPRPortMonitor" xml:space="preserve">
+    <value>LPR-poortmonitor</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.ServicesForNFS_ClientOnly" xml:space="preserve">
+    <value>Services voor NFS</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.ClientForNFS_Infrastructure" xml:space="preserve">
+    <value>Client voor NFS</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.NFS_Administration" xml:space="preserve">
+    <value>Systeembeheer voor NFS</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SimpleTCP" xml:space="preserve">
+    <value>Eenvoudige TCP/IP-services</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SmbDirect" xml:space="preserve">
+    <value>SMB Direct</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Windows_Subsystem_Linux" xml:space="preserve">
+    <value>Windows-subsysteem voor Linux</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol" xml:space="preserve">
+    <value>Ondersteuning voor het delen van SMB 1.0/CIFS-bestanden</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Client" xml:space="preserve">
+    <value>SMB 1.0/CIFS-client</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Server" xml:space="preserve">
+    <value>SMB 1.0/CIFS-server</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Deprecation" xml:space="preserve">
+    <value>SMB 1.0/CIFS automatische verwijdering</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Sysmon" xml:space="preserve">
+    <value>Systeemmonitor</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.TelnetClient" xml:space="preserve">
+    <value>Telnet Client</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.TFTP" xml:space="preserve">
+    <value>TFTP-client</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_DeviceLockdown" xml:space="preserve">
+    <value>Apparaatvergrendeling</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedBootExp" xml:space="preserve">
+    <value>merkloos opstarten</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedLogon" xml:space="preserve">
+    <value>aangepaste aanmelding</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedShellLauncher" xml:space="preserve">
+    <value>Shell Launcher</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_KeyboardFilter" xml:space="preserve">
+    <value>toetsenbordfilter</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_UnifiedWriteFilter" xml:space="preserve">
+    <value>Unified Write Filter</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Windows_Identity_Foundation" xml:space="preserve">
+    <value>Windows Identity Foundation 3.5</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_ProjFS" xml:space="preserve">
+    <value>Windows Projected File System</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.TIFFIFilter" xml:space="preserve">
+    <value>Windows TIFF IFilter</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WorkFolders_Client" xml:space="preserve">
+    <value>Work Folders Client</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Recall" xml:space="preserve">
+    <value>Recall</value>
   </data>
   <data name="Customization.AppxRemovalHeader" xml:space="preserve">
     <value>Ingerichte app-verwijdering</value>
@@ -2139,7 +2667,7 @@
     <value>Controleer de gereedheid van Windows ADK en de Windows PE-invoegtoepassing voordat u implementatiemedia maakt.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Configureer computernamen, besturingssysteemselectie, OOBE-gedrag, verwijdering van AI-onderdelen en verwijdering van ingerichte AppX-pakketten.</value>
+    <value>Configureer de naamgeving van de machine, selectie van het besturingssysteem, OOBE, gecategoriseerde Windows optionele functies, verwijdering van AI-componenten en verwijdering van AppX.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Configureer de mediabasis, WinPE-taal, opstartsignatuur, stuurprogramma’s en implementatietijdzone.</value>

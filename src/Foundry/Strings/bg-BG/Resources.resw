@@ -682,7 +682,7 @@
     <value>Премахнете осигурения Windows пакет за приложение на AI Hub, когато има такъв.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Деактивиране на Windows Recall</value>
+    <value>Деактивирайте извикването на Windows чрез правила</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>Задайте правила за Windows AI, които предотвратяват разрешаването на Recall и запазването на моментна снимка.</value>
@@ -716,6 +716,534 @@
   </data>
   <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
     <value>Задайте правилото Notepad, което деактивира функциите на AI.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesHeader" xml:space="preserve">
+    <value>Допълнителни функции на Windows</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesDescription" xml:space="preserve">
+    <value>Активиране или деактивиране на компоненти на Windows в внедрената операционна система.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesEnableLabel" xml:space="preserve">
+    <value>Конфигуриране на допълнителни функции на Windows</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
+    <value>Промените се прилагат офлайн след инсталиране на Windows и преди OOBE. Операциите за активиране използват само инсталираното изображение или съвпадащи източници на мултимедия за настройка; не се използва резервен интернет.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
+    <value>{0} конфигуриран ({1} активиране, {2} деактивиране)</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesSearchLabel" xml:space="preserve">
+    <value>Функции за търсене</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesSearchPlaceholder" xml:space="preserve">
+    <value>Търсене по показвано име или име на DISM функция</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesEmptySearch" xml:space="preserve">
+    <value>Няма допълнителни функции на Windows, които отговарят на това търсене.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.DetailFormat" xml:space="preserve">
+    <value>{0} — {1}</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.State.Unchanged" xml:space="preserve">
+    <value>Непроменена</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.State.Enable" xml:space="preserve">
+    <value>Активиране</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.State.Disable" xml:space="preserve">
+    <value>Деактивиране</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Compatibility.Available" xml:space="preserve">
+    <value>Предлага се за всички избрани цели</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Compatibility.PartiallyAvailable" xml:space="preserve">
+    <value>Предлага се за някои избрани цели</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Compatibility.Unavailable" xml:space="preserve">
+    <value>Не е налично за избраните цели</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Compatibility.RuntimeVerificationRequired" xml:space="preserve">
+    <value>Наличността ще бъде проверена спрямо приложеното изображение на Windows</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.Enable" xml:space="preserve">
+    <value>Активиране на видими елементи</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.Disable" xml:space="preserve">
+    <value>Деактивирайте видимите елементи</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.Clear" xml:space="preserve">
+    <value>Нулирайте видимите елементи</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.MatchingSource" xml:space="preserve">
+    <value>Активирането на тази функция изисква съвпадение на медия за настройка sources\sxs.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.HardwareVirtualization" xml:space="preserve">
+    <value>Изисква съвместим хардуер за виртуализация и настройки на фърмуера.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.Rdma" xml:space="preserve">
+    <value>Изисква мрежов адаптер с възможност за RDMA.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.MediaFeaturePack" xml:space="preserve">
+    <value>Изданията на Windows N може да изискват Media Feature Pack.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
+    <value>Наличността зависи от хардуера на компютъра Copilot+ и инсталираното изображение на Windows.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.WslComponentOnly" xml:space="preserve">
+    <value>Това конфигурира само компонента на Windows; не инсталира Linux дистрибуция.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.RecallPolicyIndependent" xml:space="preserve">
+    <value>Това състояние на компонента е независимо от отделната настройка на правилата за Recall.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Frameworks" xml:space="preserve">
+    <value>Рамки и платформи за приложения</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.DirectoryServices" xml:space="preserve">
+    <value>Директорийни услуги</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Virtualization" xml:space="preserve">
+    <value>Виртуализация</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Legacy" xml:space="preserve">
+    <value>Наследени компоненти</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Containers" xml:space="preserve">
+    <value>Контейнери</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Networking" xml:space="preserve">
+    <value>Работа в мрежа</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Media" xml:space="preserve">
+    <value>Медия</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Security" xml:space="preserve">
+    <value>сигурност</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Printing" xml:space="preserve">
+    <value>Печат и документи</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Web" xml:space="preserve">
+    <value>Уеб и интернет информационни услуги</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Management" xml:space="preserve">
+    <value>Инструменти за управление</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Compatibility" xml:space="preserve">
+    <value>Съвместимост</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.FileServices" xml:space="preserve">
+    <value>Файлови услуги</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Diagnostics" xml:space="preserve">
+    <value>Диагностика</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.DeviceLockdown" xml:space="preserve">
+    <value>Блокиране на устройството</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.FileSystems" xml:space="preserve">
+    <value>Файлови системи</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.SearchAndIndexing" xml:space="preserve">
+    <value>Търсене и индексиране</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Messaging" xml:space="preserve">
+    <value>Опашка за съобщения</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.AiComponents" xml:space="preserve">
+    <value>AI компоненти</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.NetFx3" xml:space="preserve">
+    <value>.NET Framework 3.5 (включва .NET 2.0 и 3.0)</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_HTTP_Activation" xml:space="preserve">
+    <value>Windows Communication Foundation HTTP активиране</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_NonHTTP_Activation" xml:space="preserve">
+    <value>Windows Communication Foundation Non-HTTP активиране</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.NetFx4_AdvSrvs" xml:space="preserve">
+    <value>Разширени услуги .NET Framework 4.8</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.NetFx4Extended_ASPNET45" xml:space="preserve">
+    <value>ASP.NET 4.8</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Services45" xml:space="preserve">
+    <value>WCF услуги</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_HTTP_Activation45" xml:space="preserve">
+    <value>HTTP активиране</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_TCP_Activation45" xml:space="preserve">
+    <value>TCP активиране</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Pipe_Activation45" xml:space="preserve">
+    <value>Активиране на именуван канал</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_MSMQ_Activation45" xml:space="preserve">
+    <value>Активиране на опашка за съобщения (MSMQ).</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_TCP_PortSharing45" xml:space="preserve">
+    <value>споделяне на TCP порт</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.DirectoryServices_ADAM_Client" xml:space="preserve">
+    <value>Active Directory Lightweight Directory Services</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.HyperV_KernelInt_VirtualDevice" xml:space="preserve">
+    <value>мрежов адаптер за отстраняване на грешки в ядрото на Microsoft</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Containers_DisposableClientVM" xml:space="preserve">
+    <value>Windows Sandbox</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.LegacyComponents" xml:space="preserve">
+    <value>Наследени компоненти</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.DirectPlay" xml:space="preserve">
+    <value>DirectPlay</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Containers" xml:space="preserve">
+    <value>Контейнери</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.DataCenterBridging" xml:space="preserve">
+    <value>Data Center Bridging</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MediaPlayback" xml:space="preserve">
+    <value>Мултимедийни функции</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WindowsMediaPlayer" xml:space="preserve">
+    <value>Windows Media Player Legacy</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.HostGuardian" xml:space="preserve">
+    <value>Host Guardian Hyper-V поддръжка</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_All" xml:space="preserve">
+    <value>Hyper-V</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V" xml:space="preserve">
+    <value>Hyper-V платформа</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Hypervisor" xml:space="preserve">
+    <value>Hyper-V Hypervisor</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Services" xml:space="preserve">
+    <value>Hyper-V услуги</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Tools_All" xml:space="preserve">
+    <value>Инструменти за управление на Hyper-V</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Management_Clients" xml:space="preserve">
+    <value>Инструменти за управление на Hyper-V GUI</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Management_PowerShell" xml:space="preserve">
+    <value>Hyper-V модул за Windows PowerShell</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_PrintToPDFServices_Features" xml:space="preserve">
+    <value>Microsoft Print to PDF</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HostableWebCore" xml:space="preserve">
+    <value>IIS Hostable Web Core</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServerRole" xml:space="preserve">
+    <value>Интернет информационни услуги</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPServer" xml:space="preserve">
+    <value>FTP сървър</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPSvc" xml:space="preserve">
+    <value>FTP услуга</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPExtensibility" xml:space="preserve">
+    <value>FTP Extensibility</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServerManagementTools" xml:space="preserve">
+    <value>Инструменти за уеб управление</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementConsole" xml:space="preserve">
+    <value>Конзола за управление на IIS</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementScriptingTools" xml:space="preserve">
+    <value>Скриптове и инструменти за управление на IIS</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementService" xml:space="preserve">
+    <value>услуга за управление на IIS</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IIS6ManagementCompatibility" xml:space="preserve">
+    <value>Съвместимост на управлението на IIS 6</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Metabase" xml:space="preserve">
+    <value>Съвместимост на IIS Metabase и IIS 6 конфигурация</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WMICompatibility" xml:space="preserve">
+    <value>Съвместимост с IIS 6 WMI</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacyScripts" xml:space="preserve">
+    <value>IIS 6 Инструменти за скриптове</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacySnapIn" xml:space="preserve">
+    <value>конзола за управление IIS 6</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServer" xml:space="preserve">
+    <value>услуги за световната мрежа</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ApplicationDevelopment" xml:space="preserve">
+    <value>Функции за разработка на приложения</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility" xml:space="preserve">
+    <value>.NET Extensibility 3.5</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility45" xml:space="preserve">
+    <value>.NET Extensibility 4.8</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ApplicationInit" xml:space="preserve">
+    <value>Инициализация на приложението</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ASP" xml:space="preserve">
+    <value>ASP</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ASPNET" xml:space="preserve">
+    <value>ASP.NET 3.5</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ASPNET45" xml:space="preserve">
+    <value>ASP.NET 4.8</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CGI" xml:space="preserve">
+    <value>CGI</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ISAPIExtensions" xml:space="preserve">
+    <value>ISAPI разширения</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ISAPIFilter" xml:space="preserve">
+    <value>ISAPI филтри</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ServerSideIncludes" xml:space="preserve">
+    <value>Server-Side Includes</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebSockets" xml:space="preserve">
+    <value>WebSocket протокол</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CommonHttpFeatures" xml:space="preserve">
+    <value>Общи HTTP функции</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DefaultDocument" xml:space="preserve">
+    <value>Документ по подразбиране</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DirectoryBrowsing" xml:space="preserve">
+    <value>Преглед на директория</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpErrors" xml:space="preserve">
+    <value>HTTP грешки</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpRedirect" xml:space="preserve">
+    <value>HTTP пренасочване</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_StaticContent" xml:space="preserve">
+    <value>Статично съдържание</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebDAV" xml:space="preserve">
+    <value>Публикуване в WebDAV</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HealthAndDiagnostics" xml:space="preserve">
+    <value>Health and Diagnostics</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CustomLogging" xml:space="preserve">
+    <value>Персонализирано регистриране</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpLogging" xml:space="preserve">
+    <value>HTTP Logging</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LoggingLibraries" xml:space="preserve">
+    <value>Инструменти за регистриране</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ODBCLogging" xml:space="preserve">
+    <value>ODBC регистриране</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestMonitor" xml:space="preserve">
+    <value>Монитор на заявки</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpTracing" xml:space="preserve">
+    <value>Проследяване</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Performance" xml:space="preserve">
+    <value>Функции за производителност</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpCompressionDynamic" xml:space="preserve">
+    <value>Динамично компресиране на съдържание</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpCompressionStatic" xml:space="preserve">
+    <value>Статично компресиране на съдържание</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Security" xml:space="preserve">
+    <value>Функции за сигурност</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_BasicAuthentication" xml:space="preserve">
+    <value>Основно удостоверяване</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CertProvider" xml:space="preserve">
+    <value>Централизирана поддръжка на SSL сертификат</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ClientCertificateMappingAuthentication" xml:space="preserve">
+    <value>Удостоверяване на картографиране на клиентски сертификат</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DigestAuthentication" xml:space="preserve">
+    <value>Digest Authentication</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IISCertificateMappingAuthentication" xml:space="preserve">
+    <value>Удостоверяване на картографиране на клиентски сертификат на IIS</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IPSecurity" xml:space="preserve">
+    <value>IP защита</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestFiltering" xml:space="preserve">
+    <value>Филтриране на заявки</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_URLAuthorization" xml:space="preserve">
+    <value>URL авторизация</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WindowsAuthentication" xml:space="preserve">
+    <value>Удостоверяване на Windows</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WAS_WindowsActivationService" xml:space="preserve">
+    <value>Услуга за активиране на процеси на Windows</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ProcessModel" xml:space="preserve">
+    <value>Модел на процеса</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WAS_NetFxEnvironment" xml:space="preserve">
+    <value>.NET среда</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ConfigurationAPI" xml:space="preserve">
+    <value>API за конфигурация</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_XPSServices_Features" xml:space="preserve">
+    <value>Microsoft XPS Document Writer</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Connector" xml:space="preserve">
+    <value>MultiPoint Connector</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Connector_Services" xml:space="preserve">
+    <value>услуги за многоточков конектор</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Tools" xml:space="preserve">
+    <value>MultiPoint Manager и MultiPoint Dashboard</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.HyperV_Guest_KernelInt" xml:space="preserve">
+    <value>Microsoft Hyper-V Guest Integration Services</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.HypervisorPlatform" xml:space="preserve">
+    <value>Windows Hypervisor Platform</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.VirtualMachinePlatform" xml:space="preserve">
+    <value>Платформа за виртуална машина</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSRDC_Infrastructure" xml:space="preserve">
+    <value>Поддръжка на API за отдалечена диференциална компресия</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Containers_Server_For_Application_Guard" xml:space="preserve">
+    <value>Microsoft Defender Application Guard</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Container" xml:space="preserve">
+    <value>Microsoft Message Queue (MSMQ) сървър</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Server" xml:space="preserve">
+    <value>Microsoft Message Queue (MSMQ) Server Core</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_ADIntegration" xml:space="preserve">
+    <value>Интегриране на услугата за директории</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_HTTP" xml:space="preserve">
+    <value>HTTP поддръжка</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Multicast" xml:space="preserve">
+    <value>Поддръжка на мултикастинг</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Triggers" xml:space="preserve">
+    <value>Тригери за опашка за съобщения</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_DCOMProxy" xml:space="preserve">
+    <value>MSMQ DCOM прокси</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_Features" xml:space="preserve">
+    <value>Услуги за печат и документи</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_InternetPrinting_Client" xml:space="preserve">
+    <value>Интернет клиент за печат</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPDPrintService" xml:space="preserve">
+    <value>LPD Print Service</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPRPortMonitor" xml:space="preserve">
+    <value>LPR Port Monitor</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.ServicesForNFS_ClientOnly" xml:space="preserve">
+    <value>Услуги за NFS</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.ClientForNFS_Infrastructure" xml:space="preserve">
+    <value>Клиент за NFS</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.NFS_Administration" xml:space="preserve">
+    <value>Административни инструменти за NFS</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SimpleTCP" xml:space="preserve">
+    <value>Прости TCP/IP услуги</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SmbDirect" xml:space="preserve">
+    <value>SMB Direct</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Windows_Subsystem_Linux" xml:space="preserve">
+    <value>Подсистема на Windows за Linux</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol" xml:space="preserve">
+    <value>Поддръжка за споделяне на файлове SMB 1.0/CIFS</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Client" xml:space="preserve">
+    <value>SMB 1.0/CIFS клиент</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Server" xml:space="preserve">
+    <value>SMB 1.0/CIFS сървър</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Deprecation" xml:space="preserve">
+    <value>Автоматично премахване на SMB 1.0/CIFS</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Sysmon" xml:space="preserve">
+    <value>Системен монитор</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.TelnetClient" xml:space="preserve">
+    <value>Telnet клиент</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.TFTP" xml:space="preserve">
+    <value>TFTP клиент</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_DeviceLockdown" xml:space="preserve">
+    <value>Заключване на устройството</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedBootExp" xml:space="preserve">
+    <value>Стартиране без марка</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedLogon" xml:space="preserve">
+    <value>Персонализирано влизане</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedShellLauncher" xml:space="preserve">
+    <value>Shell Launcher</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_KeyboardFilter" xml:space="preserve">
+    <value>Клавиатурен филтър</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_UnifiedWriteFilter" xml:space="preserve">
+    <value>Unified Write Filter</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Windows_Identity_Foundation" xml:space="preserve">
+    <value>Windows Identity Foundation 3.5</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_ProjFS" xml:space="preserve">
+    <value>Прожектирана файлова система на Windows</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.TIFFIFilter" xml:space="preserve">
+    <value>Windows TIFF IFilter</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WorkFolders_Client" xml:space="preserve">
+    <value>Клиент за работни папки</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Recall" xml:space="preserve">
+    <value>Recall</value>
   </data>
   <data name="Customization.AppxRemovalHeader" xml:space="preserve">
     <value>Премахване на осигурено приложение</value>
@@ -2139,7 +2667,7 @@
     <value>Прегледайте готовността на Windows ADK и добавката Windows PE, преди да създадете носител за разполагане.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Конфигурирайте именуване на машини, избор на операционна система, поведение на OOBE, премахване на AI компоненти и премахване на подготвени AppX пакети.</value>
+    <value>Конфигурирайте именуване на машина, избор на операционна система, OOBE, категоризирани опционални функции на Windows, премахване на AI компонент и премахване на AppX.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Конфигурирайте базовите настройки на носителя, езика WinPE, подписа за стартиране, драйверите и часовата зона за разполагане.</value>

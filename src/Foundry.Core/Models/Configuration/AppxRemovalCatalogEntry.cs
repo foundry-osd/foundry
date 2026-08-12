@@ -24,8 +24,4 @@ public sealed record AppxRemovalCatalogEntry
     /// </summary>
     public required string Category { get; init; }
 
-    /// <summary>
-    /// Gets whether the package is part of the recommended default cleanup selection.
-    /// </summary>
-    public bool DefaultSelected { get; init; }
 }

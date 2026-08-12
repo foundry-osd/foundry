@@ -97,6 +97,8 @@
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Operētājsistēma</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Nav atlases</value></data>
   <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Atlasīta draivera pakotne</value></data>
+  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Windows papildu līdzekļi</value></data>
+  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} konfigurēts ({1} iespējot, {2} atspējot)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Programmaparatūra</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Metode</value></data>
@@ -258,6 +260,7 @@ Vai turpināt izvietošanu?</value></data>
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Notiek mērķa datora nosaukuma konfigurēšana...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Notiek bezsaistes datora nosaukuma rakstīšana...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Mērķa Windows nodalījums nav pieejams.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Lietotā Windows attēla indekss nav pieejams.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Mērķa datora nosaukums ir konfigurēts.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Mērķa datora nosaukums ir konfigurēts (simulācija).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Bezsaistes pielāgošana ir atspējota.</value></data>
@@ -512,4 +515,18 @@ Vai turpināt izvietošanu?</value></data>
     <value>Interaktīvais Autopilot reģistrācijas palīgs ir sagatavots (simulācija).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Izņemiet sāknēšanas datu nesēju un pēc tam atlasiet Restartēt.</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Konfigurējiet Windows papildu līdzekļus</value></data>
+  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Notiek Windows papildu līdzekļu konfigurēšana...</value></data>
+  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Notiek funkciju stāvokļa pārbaude...</value></data>
+  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Notiek atbilstošu iestatīšanas multivides avotu sagatavošana...</value></data>
+  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Notiek funkciju izmaiņu piemērošana...</value></data>
+  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Notiek funkciju izmaiņu simulēšana...</value></data>
+  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Notiek funkciju izmaiņu piemērošana</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve"><value>Windows papildu līdzekļu konfigurācija ir atspējota.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve"><value>Windows papildu līdzekļa konfigurācija nav derīga.</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve"><value>Konfigurēti Windows papildu līdzekļi ({0} mainīti, {1} jau bija vajadzīgajā stāvoklī, {2} nav pieejami).</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve"><value>Simulēta Windows izvēles līdzekļa konfigurācija ({0}&#160;darbības).</value></data>
+  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Windows papildu funkcijai “{0}” ir noņemta lietderīgā slodze un netiek atbalstīta vietējā avota kartēšana.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Neizdevās pārbaudīt operētājsistēmas Windows papildu funkciju “{0}”.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Atbilstošs NetFx3 avots nav pieejams. {0}</value></data>
 </root>

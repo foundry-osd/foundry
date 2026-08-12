@@ -98,13 +98,32 @@ public static class BootMediaTelemetryPropertyBuilder
         MachineNamingSettings machineNaming = customization.MachineNaming;
         OobeSettings oobe = customization.Oobe;
         AppxRemovalSettings appxRemoval = customization.AppxRemoval;
+        WindowsOptionalFeatureSettings windowsOptionalFeatures = WindowsOptionalFeatureSettingsNormalizer.Normalize(customization.WindowsOptionalFeatures);
         AiComponentRemovalSettings aiComponentRemoval = customization.AiComponentRemoval;
         string[] selectedAppxPackages = ResolveSelectedAppxPackages(appxRemoval);
         bool isAppxRemovalEnabled = appxRemoval.IsEnabled && selectedAppxPackages.Length > 0;
+        int windowsOptionalFeatureEnableCount = windowsOptionalFeatures.EnabledFeatureIds.Count;
+        int windowsOptionalFeatureDisableCount = windowsOptionalFeatures.DisabledFeatureIds.Count;
+        int windowsOptionalFeatureConfiguredCount = windowsOptionalFeatureEnableCount + windowsOptionalFeatureDisableCount;
+        bool areWindowsOptionalFeaturesEnabled = windowsOptionalFeatures.IsEnabled && windowsOptionalFeatureConfiguredCount > 0;
+        string[] windowsOptionalFeatureIds = windowsOptionalFeatures.EnabledFeatureIds
+            .Concat(windowsOptionalFeatures.DisabledFeatureIds)
+            .ToArray();
+        int windowsOptionalFeatureCategoryCount = areWindowsOptionalFeaturesEnabled
+            ? windowsOptionalFeatureIds
+                .Select(WindowsOptionalFeatureCatalog.Find)
+                .Where(entry => entry is not null)
+                .Select(entry => entry!.CategoryResourceKey)
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .Count()
+            : 0;
+        bool windowsOptionalFeaturesRequireSxs = areWindowsOptionalFeaturesEnabled && windowsOptionalFeatures.EnabledFeatureIds
+            .Select(WindowsOptionalFeatureCatalog.GetEffectiveEntry)
+            .Any(entry => entry?.RequiresSetupMediaSxs == true);
         int aiComponentRemovalOptionCount = CountEnabledAiComponentRemovalOptions(aiComponentRemoval);
         bool isAiComponentRemovalEnabled = aiComponentRemoval.IsEnabled && aiComponentRemovalOptionCount > 0;
 
-        properties["customization_any_enabled"] = machineNaming.IsEnabled || oobe.IsEnabled || isAppxRemovalEnabled || isAiComponentRemovalEnabled;
+        properties["customization_any_enabled"] = machineNaming.IsEnabled || oobe.IsEnabled || isAppxRemovalEnabled || areWindowsOptionalFeaturesEnabled || isAiComponentRemovalEnabled;
         properties["customization_machine_naming_enabled"] = machineNaming.IsEnabled;
         properties["customization_machine_naming_mode"] = ResolveMachineNamingTelemetryMode(machineNaming);
         properties["customization_machine_naming_prefix_configured"] =
@@ -121,6 +140,12 @@ public static class BootMediaTelemetryPropertyBuilder
         properties["customization_appx_removal_enabled"] = isAppxRemovalEnabled;
         properties["customization_appx_removal_package_count"] = isAppxRemovalEnabled ? selectedAppxPackages.Length : 0;
         properties["customization_appx_removal_profile"] = ResolveAppxRemovalProfile(selectedAppxPackages, isAppxRemovalEnabled);
+        properties["customization_windows_optional_features_enabled"] = areWindowsOptionalFeaturesEnabled;
+        properties["customization_windows_optional_features_configured_count"] = areWindowsOptionalFeaturesEnabled ? windowsOptionalFeatureConfiguredCount : 0;
+        properties["customization_windows_optional_features_enable_count"] = areWindowsOptionalFeaturesEnabled ? windowsOptionalFeatureEnableCount : 0;
+        properties["customization_windows_optional_features_disable_count"] = areWindowsOptionalFeaturesEnabled ? windowsOptionalFeatureDisableCount : 0;
+        properties["customization_windows_optional_features_category_count"] = windowsOptionalFeatureCategoryCount;
+        properties["customization_windows_optional_features_requires_sxs"] = windowsOptionalFeaturesRequireSxs;
         properties["customization_ai_component_removal_enabled"] = isAiComponentRemovalEnabled;
         properties["customization_ai_remove_copilot_enabled"] = isAiComponentRemovalEnabled && aiComponentRemoval.RemoveCopilot;
         properties["customization_ai_remove_ai_hub_enabled"] = isAiComponentRemovalEnabled && aiComponentRemoval.RemoveAiHub;

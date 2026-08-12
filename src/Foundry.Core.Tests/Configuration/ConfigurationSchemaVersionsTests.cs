@@ -26,10 +26,10 @@ public sealed class ConfigurationSchemaVersionsTests
     }
 
     [Fact]
-    public void DeploymentCompletionPolicy_AdvancesAffectedSchemaContracts()
+    public void CurrentSchemaVersions_MatchExpectedVersions()
     {
-        Assert.Equal(12, ConfigurationSchemaVersions.FoundryCurrent);
-        Assert.Equal(10, ConfigurationSchemaVersions.DeployCurrent);
+        Assert.Equal(13, ConfigurationSchemaVersions.FoundryCurrent);
+        Assert.Equal(11, ConfigurationSchemaVersions.DeployCurrent);
         Assert.Equal(2, ConfigurationSchemaVersions.ConnectCurrent);
     }
 }

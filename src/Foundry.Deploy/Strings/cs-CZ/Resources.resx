@@ -97,6 +97,8 @@
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Operační systém</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Žádný výběr</value></data>
   <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Vybraný balíček ovladačů</value></data>
+  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Voliteln&#233; funkce syst&#233;mu Windows</value></data>
+  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} nakonfigurov&#225;no ({1} povoleno, {2} zak&#225;z&#225;no)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Metoda Autopilot</value></data>
@@ -258,6 +260,7 @@ Pokračovat v nasazování?</value></data>
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Konfigurace názvu cílového počítače...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Zapisování názvu offline počítače...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Cílový oddíl Windows není dostupný.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Index použité bitové kopie Windows není k dispozici.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Nakonfigurován název cílového počítače.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Nakonfigurován název cílového počítače (simulace).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Přizpůsobení offline je zakázáno.</value></data>
@@ -512,4 +515,18 @@ Pokračovat v nasazování?</value></data>
     <value>Interaktivní asistent registrace Autopilotu byl připraven (simulace).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Odeberte spouštěcí médium a potom vyberte Restartovat.</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Nakonfigurujte voliteln&#233; funkce syst&#233;mu Windows</value></data>
+  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Konfigurace voliteln&#253;ch funkc&#237; syst&#233;mu Windows...</value></data>
+  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Kontrola stavů funkc&#237;...</value></data>
+  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Př&#237;prava odpov&#237;daj&#237;c&#237;ch instalačn&#237;ch zdrojů m&#233;di&#237;...</value></data>
+  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Prov&#225;děn&#237; změn funkc&#237;...</value></data>
+  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Simulace změn funkc&#237;...</value></data>
+  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Aplikov&#225;n&#237; změn funkc&#237;</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve"><value>Konfigurace voliteln&#253;ch funkc&#237; syst&#233;mu Windows je zak&#225;z&#225;na.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve"><value>Konfigurace voliteln&#253;ch funkc&#237; syst&#233;mu Windows je neplatn&#225;.</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve"><value>Nakonfigurov&#225;ny voliteln&#233; funkce syst&#233;mu Windows ({0} změněno, {1} již splněno, {2} nedostupn&#233;).</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve"><value>Simulovan&#225; konfigurace voliteln&#253;ch funkc&#237; syst&#233;mu Windows (počet akc&#237;: {0}).</value></data>
+  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Voliteln&#225; funkce syst&#233;mu Windows &#39;{0}&#39; m&#225; odstraněnou datovou č&#225;st a nen&#237; podporov&#225;no mapov&#225;n&#237; m&#237;stn&#237;ho zdroje.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Ověřen&#237; voliteln&#233; funkce syst&#233;mu Windows pro &#39;{0}&#39; se nezdařilo.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Odpov&#237;daj&#237;c&#237; zdroj NetFx3 nen&#237; k dispozici. {0}</value></data>
 </root>

@@ -97,6 +97,8 @@
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>İşletim sistemi</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Seçim yok</value></data>
   <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Seçilen sürücü paketi</value></data>
+  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Windows İsteğe Bağlı &#214;zellikleri</value></data>
+  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} yapılandırıldı ({1} etkinleştir, {2} devre dışı bırak)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Yöntem</value></data>
@@ -258,6 +260,7 @@ Dağıtıma devam edilsin mi?</value></data>
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Hedef bilgisayar adı yapılandırılıyor...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Çevrimdışı bilgisayar adı yazılıyor...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Hedef Windows bölümü kullanılamıyor.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Uygulanan Windows görüntüsünün dizini kullanılamıyor.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Hedef bilgisayar adı yapılandırıldı.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Hedef bilgisayar adı yapılandırıldı (simülasyon).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Çevrimdışı özelleştirme devre dışı bırakıldı.</value></data>
@@ -512,4 +515,18 @@ Dağıtıma devam edilsin mi?</value></data>
     <value>Etkileşimli Autopilot kayıt yardımcısı hazırlandı (simülasyon).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Önyükleme medyasını çıkarın ve ardından Yeniden Başlat'ı seçin.</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Windows isteğe bağlı &#246;zelliklerini yapılandırma</value></data>
+  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Windows&#39;un isteğe bağlı &#246;zellikleri yapılandırılıyor...</value></data>
+  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>&#214;zellik durumları inceleniyor...</value></data>
+  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Eşleşen kurulum medya kaynakları hazırlanıyor...</value></data>
+  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>&#214;zellik değişiklikleri uygulanıyor...</value></data>
+  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve"><value>&#214;zellik değişiklikleri sim&#252;le ediliyor...</value></data>
+  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>&#214;zellik değişikliklerini uygulama</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve"><value>Windows isteğe bağlı &#246;zellik yapılandırması devre dışı bırakıldı.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve"><value>Windows isteğe bağlı &#246;zellik yapılandırması ge&#231;ersiz.</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve"><value>İsteğe bağlı Windows özellikleri yapılandırıldı ({0} değiştirildi, {1} zaten karşılandı, {2} kullanılamıyor).</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve"><value>Windows isteğe bağlı &#246;zellik yapılandırması sim&#252;le edildi ({0} eylem).</value></data>
+  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>İsteğe bağlı Windows &#246;zelliği &#39;{0}&#39; kaldırılmış bir veriye sahip ve desteklenen yerel kaynak eşlemesi yok.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>&#39;{0}&#39; i&#231;in Windows isteğe bağlı &#246;zellik doğrulaması başarısız oldu.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Eşleşen NetFx3 kaynağı kullanılamıyor. {0}</value></data>
 </root>

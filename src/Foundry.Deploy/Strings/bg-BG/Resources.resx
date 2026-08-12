@@ -97,6 +97,8 @@
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Операционна система</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Без избор</value></data>
   <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Избран пакет драйвери</value></data>
+  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Допълнителни функции на Windows</value></data>
+  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} конфигуриран ({1} активиране, {2} деактивиране)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>фърмуер</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Метод</value></data>
@@ -258,6 +260,7 @@
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Конфигуриране на името на целевия компютър...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Пише се офлайн име на компютър...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Целевият дял Windows не е наличен.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Индексът на приложеното изображение на Windows не е наличен.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Името на целевия компютър е конфигурирано.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Името на целевия компютър е конфигурирано (симулация).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Офлайн персонализирането е деактивирано.</value></data>
@@ -512,4 +515,18 @@
     <value>Интерактивният помощник за регистрация на Autopilot е подготвен (симулация).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Премахнете носителя за стартиране, след което изберете „Рестартиране“.</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Конфигурирайте допълнителните функции на Windows</value></data>
+  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Конфигуриране на допълнителни функции на Windows...</value></data>
+  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Проверява се състоянието на функцията...</value></data>
+  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Подготвят се съвпадащи медийни източници за настройка...</value></data>
+  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Промените на функциите се прилагат...</value></data>
+  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Симулиране на промени в характеристиките...</value></data>
+  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Прилагане на промените във функциите</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve"><value>Конфигурирането на допълнителни функции на Windows е деактивирано.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve"><value>Конфигурацията на допълнителна функция на Windows е невалидна.</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve"><value>Конфигурирани допълнителни функции на Windows ({0} променени, {1} вече в желаното състояние, {2} недостъпни).</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve"><value>Симулирана конфигурация на допълнителни функции на Windows ({0} действия).</value></data>
+  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Допълнителната функция на Windows „{0}“ е с премахнат полезен товар и няма поддържано съпоставяне на локален източник.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Неуспешна проверка на допълнителната функция на Windows за „{0}“.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Съответстващият източник NetFx3 не е наличен. {0}</value></data>
 </root>

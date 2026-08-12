@@ -74,6 +74,7 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
     [InlineData("Importing hardware hash into Microsoft Graph...", "Import du hash matériel dans Microsoft Graph...")]
     [InlineData("Writing dry-run Autopilot hash manifest...", "Écriture du manifeste Autopilot simulé...")]
     [InlineData("Target Windows partition is unavailable for Autopilot hardware hash upload.", "La partition Windows cible est indisponible pour l’envoi du hash matériel Autopilot.")]
+    [InlineData("Applied Windows image index is unavailable.", "L’index de l’image Windows appliquée est indisponible.")]
     [InlineData("Autopilot hardware hash upload skipped because the embedded certificate is expired.", "Envoi du hash matériel Autopilot ignoré car le certificat intégré a expiré.")]
     [InlineData("Autopilot hardware hash upload skipped because media metadata is incomplete.", "Envoi du hash matériel Autopilot ignoré car les informations de certificat du média sont incomplètes.")]
     [InlineData("Autopilot hardware hash imported and visible in Windows Autopilot devices.", "Hash matériel Autopilot importé et visible dans les appareils Windows Autopilot.")]
@@ -98,6 +99,31 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
         CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("fr-FR");
 
         Assert.Equal("Préparation d’Autopilot", DeploymentUiTextLocalizer.LocalizeStepName("Provision Autopilot"));
+    }
+
+    [Fact]
+    public void LocalizeStepName_TranslatesWindowsOptionalFeaturesStepName()
+    {
+        CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("fr-FR");
+        CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("fr-FR");
+
+        Assert.Equal(
+            "Configuration des fonctionnalités facultatives Windows",
+            DeploymentUiTextLocalizer.LocalizeStepName("Configure Windows optional features"));
+    }
+
+    [Theory]
+    [InlineData("Inspecting feature states...", "Inspection de l’état des fonctionnalités...")]
+    [InlineData("Windows optional features configured (2 changed, 3 already satisfied, 1 unavailable).", "Fonctionnalités facultatives Windows configurées (2 modifiées, 3 déjà dans l’état demandé, 1 indisponibles).")]
+    [InlineData("Windows optional feature 'NetFx3' has a removed payload and no supported local source mapping.", "La charge utile de la fonctionnalité facultative Windows « NetFx3 » a été supprimée et aucun mappage de source locale n’est pris en charge.")]
+    [InlineData("Windows optional feature verification failed for 'NetFx3'.", "La vérification de la fonctionnalité facultative Windows « NetFx3 » a échoué.")]
+    [InlineData("Matching NetFx3 source is unavailable. Media='X:\\setup.esd'.", "La source NetFx3 correspondante est indisponible. Media='X:\\setup.esd'.")]
+    public void LocalizeMessage_TranslatesWindowsOptionalFeatureMessages(string input, string expected)
+    {
+        CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("fr-FR");
+        CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("fr-FR");
+
+        Assert.Equal(expected, DeploymentUiTextLocalizer.LocalizeMessage(input));
     }
 
     [Theory]

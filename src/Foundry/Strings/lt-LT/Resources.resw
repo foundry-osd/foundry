@@ -682,7 +682,7 @@
     <value>Pašalinkite parengtą Windows AI Hub programos paketą, kai jis yra.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Išjungti Windows Recall</value>
+    <value>Išjunkite „Windows“ atšaukimą pagal politiką</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>Nustatykite Windows AI politiką, kuri neleidžia Recall įjungti ir išsaugoti momentines nuotraukas.</value>
@@ -716,6 +716,534 @@
   </data>
   <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
     <value>Nustatykite Notepad politiką, kuri išjungia AI funkcijas.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesHeader" xml:space="preserve">
+    <value>„Windows“ papildomos funkcijos</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesDescription" xml:space="preserve">
+    <value>Įgalinti arba išjungti „Windows“ komponentus įdiegtoje operacinėje sistemoje.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesEnableLabel" xml:space="preserve">
+    <value>Konfigūruokite „Windows“ papildomas funkcijas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
+    <value>Pakeitimai taikomi neprisijungus, įdiegus „Windows“ ir prieš OOBE. Įgalinimo operacijos naudoja tik įdiegtą vaizdą arba atitinkamus diegimo laikmenos šaltinius; atsarginis interneto šaltinis nenaudojamas.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
+    <value>{0} sukonfigūruota ({1} įjungti, {2} išjungti)</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesSearchLabel" xml:space="preserve">
+    <value>Paieškos funkcijos</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesSearchPlaceholder" xml:space="preserve">
+    <value>Ieškokite pagal rodomą pavadinimą arba DISM funkcijos pavadinimą</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesEmptySearch" xml:space="preserve">
+    <value>Šiai paieškai neatitinka jokių papildomų Windows funkcijų.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.DetailFormat" xml:space="preserve">
+    <value>{0}–{1}</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.State.Unchanged" xml:space="preserve">
+    <value>Nepakitęs</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.State.Enable" xml:space="preserve">
+    <value>Įgalinti</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.State.Disable" xml:space="preserve">
+    <value>Išjungti</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Compatibility.Available" xml:space="preserve">
+    <value>Galima naudoti visiems pasirinktiems tikslams</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Compatibility.PartiallyAvailable" xml:space="preserve">
+    <value>Galima kai kuriems pasirinktiems tikslams</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Compatibility.Unavailable" xml:space="preserve">
+    <value>Pasirinktiems tikslams negalima</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Compatibility.RuntimeVerificationRequired" xml:space="preserve">
+    <value>Prieinamumas bus patikrintas pagal pritaikytą „Windows“ vaizdą</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.Enable" xml:space="preserve">
+    <value>Įgalinti matomus elementus</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.Disable" xml:space="preserve">
+    <value>Išjungti matomus elementus</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.Clear" xml:space="preserve">
+    <value>Iš naujo nustatyti matomus elementus</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.MatchingSource" xml:space="preserve">
+    <value>Norint įjungti šią funkciją, reikia suderinti sąrankos laikmeną sources\sxs.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.HardwareVirtualization" xml:space="preserve">
+    <value>Reikia suderinamos virtualizacijos aparatinės ir programinės įrangos nustatymų.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.Rdma" xml:space="preserve">
+    <value>Reikia tinklo adapterio, palaikančio RDMA.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.MediaFeaturePack" xml:space="preserve">
+    <value>„Windows N“ leidimams gali prireikti „Media Feature Pack“.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
+    <value>Prieinamumas priklauso nuo „Copilot+“ kompiuterio aparatinės įrangos ir įdiegto „Windows“ vaizdo.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.WslComponentOnly" xml:space="preserve">
+    <value>Taip sukonfigūruojamas tik „Windows“ komponentas; „Linux“ platinimas neįdiegiamas.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.RecallPolicyIndependent" xml:space="preserve">
+    <value>Ši komponento būsena nepriklauso nuo atskiro „Recall“ strategijos nustatymo.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Frameworks" xml:space="preserve">
+    <value>Karkasai ir taikomųjų programų platformos</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.DirectoryServices" xml:space="preserve">
+    <value>Katalogų paslaugos</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Virtualization" xml:space="preserve">
+    <value>Virtualizacija</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Legacy" xml:space="preserve">
+    <value>Seni komponentai</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Containers" xml:space="preserve">
+    <value>Konteineriai</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Networking" xml:space="preserve">
+    <value>Tinklai</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Media" xml:space="preserve">
+    <value>Medija</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Security" xml:space="preserve">
+    <value>Saugumas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Printing" xml:space="preserve">
+    <value>Spausdinimas ir dokumentai</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Web" xml:space="preserve">
+    <value>Žiniatinklio ir interneto informacijos paslaugos</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Management" xml:space="preserve">
+    <value>Valdymo įrankiai</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Compatibility" xml:space="preserve">
+    <value>Suderinamumas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.FileServices" xml:space="preserve">
+    <value>Failų paslaugos</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Diagnostics" xml:space="preserve">
+    <value>Diagnostika</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.DeviceLockdown" xml:space="preserve">
+    <value>Įrenginio užraktas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.FileSystems" xml:space="preserve">
+    <value>Failų sistemos</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.SearchAndIndexing" xml:space="preserve">
+    <value>Paieška ir indeksavimas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Messaging" xml:space="preserve">
+    <value>Pranešimų eilė</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.AiComponents" xml:space="preserve">
+    <value>AI komponentai</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.NetFx3" xml:space="preserve">
+    <value>.NET Framework 3.5 (apima .NET 2.0 ir 3.0)</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_HTTP_Activation" xml:space="preserve">
+    <value>„Windows Communication Foundation“ HTTP aktyvinimas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_NonHTTP_Activation" xml:space="preserve">
+    <value>„Windows Communication Foundation“ ne HTTP aktyvinimas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.NetFx4_AdvSrvs" xml:space="preserve">
+    <value>.NET Framework 4.8 Advanced Services</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.NetFx4Extended_ASPNET45" xml:space="preserve">
+    <value>ASP.NET 4.8</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Services45" xml:space="preserve">
+    <value>WCF paslaugos</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_HTTP_Activation45" xml:space="preserve">
+    <value>HTTP aktyvinimas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_TCP_Activation45" xml:space="preserve">
+    <value>TCP aktyvinimas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Pipe_Activation45" xml:space="preserve">
+    <value>Named Pipe Activation</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_MSMQ_Activation45" xml:space="preserve">
+    <value>pranešimų eilės (MSMQ) aktyvinimas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_TCP_PortSharing45" xml:space="preserve">
+    <value>TCP prievado bendrinimas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.DirectoryServices_ADAM_Client" xml:space="preserve">
+    <value>„Active Directory Lightweight Directory Services“.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.HyperV_KernelInt_VirtualDevice" xml:space="preserve">
+    <value>„Microsoft Kernel Debug Network Adapter“.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Containers_DisposableClientVM" xml:space="preserve">
+    <value>„Windows Sandbox“.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.LegacyComponents" xml:space="preserve">
+    <value>senieji komponentai</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.DirectPlay" xml:space="preserve">
+    <value>„DirectPlay“.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Containers" xml:space="preserve">
+    <value>konteineriai</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.DataCenterBridging" xml:space="preserve">
+    <value>duomenų centro tiltas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MediaPlayback" xml:space="preserve">
+    <value>medijos funkcijos</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WindowsMediaPlayer" xml:space="preserve">
+    <value>„Windows Media Player Legacy“.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.HostGuardian" xml:space="preserve">
+    <value>„Host Guardian Hyper-V“ palaikymas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_All" xml:space="preserve">
+    <value>„Hyper-V“.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V" xml:space="preserve">
+    <value>„Hyper-V“ platforma</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Hypervisor" xml:space="preserve">
+    <value>„Hyper-V Hypervisor“.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Services" xml:space="preserve">
+    <value>„Hyper-V Services“.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Tools_All" xml:space="preserve">
+    <value>„Hyper-V“ valdymo įrankiai</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Management_Clients" xml:space="preserve">
+    <value>Hyper-V GUI valdymo įrankiai</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Management_PowerShell" xml:space="preserve">
+    <value>„Hyper-V“ modulis, skirtas „Windows PowerShell“.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_PrintToPDFServices_Features" xml:space="preserve">
+    <value>„Microsoft Print“ į PDF</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HostableWebCore" xml:space="preserve">
+    <value>IIS Hostable Web Core</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServerRole" xml:space="preserve">
+    <value>Interneto informacijos paslaugos</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPServer" xml:space="preserve">
+    <value>FTP serveris</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPSvc" xml:space="preserve">
+    <value>FTP paslauga</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPExtensibility" xml:space="preserve">
+    <value>FTP išplėtimas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServerManagementTools" xml:space="preserve">
+    <value>žiniatinklio valdymo įrankiai</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementConsole" xml:space="preserve">
+    <value>IIS valdymo konsolė</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementScriptingTools" xml:space="preserve">
+    <value>IIS valdymo scenarijai ir įrankiai</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementService" xml:space="preserve">
+    <value>IIS valdymo paslauga</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IIS6ManagementCompatibility" xml:space="preserve">
+    <value>IIS 6 valdymo suderinamumas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Metabase" xml:space="preserve">
+    <value>IIS metabazės ir IIS 6 konfigūracijos suderinamumas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WMICompatibility" xml:space="preserve">
+    <value>IIS 6 WMI suderinamumas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacyScripts" xml:space="preserve">
+    <value>IIS 6 scenarijų įrankiai</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacySnapIn" xml:space="preserve">
+    <value>IIS 6 valdymo pultas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServer" xml:space="preserve">
+    <value>„World Wide Web Services“.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ApplicationDevelopment" xml:space="preserve">
+    <value>programų kūrimo funkcijos</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility" xml:space="preserve">
+    <value>.NET Extensibility 3.5</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility45" xml:space="preserve">
+    <value>.NET Extensibility 4.8</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ApplicationInit" xml:space="preserve">
+    <value>programos inicijavimas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ASP" xml:space="preserve">
+    <value>ASP</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ASPNET" xml:space="preserve">
+    <value>ASP.NET 3.5</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ASPNET45" xml:space="preserve">
+    <value>ASP.NET 4.8</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CGI" xml:space="preserve">
+    <value>CGI</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ISAPIExtensions" xml:space="preserve">
+    <value>ISAPI plėtiniai</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ISAPIFilter" xml:space="preserve">
+    <value>ISAPI filtrai</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ServerSideIncludes" xml:space="preserve">
+    <value>Serverio pusės įtraukimai</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebSockets" xml:space="preserve">
+    <value>WebSocket Protocol</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CommonHttpFeatures" xml:space="preserve">
+    <value>bendrosios HTTP funkcijos</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DefaultDocument" xml:space="preserve">
+    <value>numatytasis dokumentas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DirectoryBrowsing" xml:space="preserve">
+    <value>katalogų naršymas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpErrors" xml:space="preserve">
+    <value>HTTP klaidos</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpRedirect" xml:space="preserve">
+    <value>HTTP peradresavimas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_StaticContent" xml:space="preserve">
+    <value>statinis turinys</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebDAV" xml:space="preserve">
+    <value>„WebDAV Publishing“.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HealthAndDiagnostics" xml:space="preserve">
+    <value>sveikata ir diagnostika</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CustomLogging" xml:space="preserve">
+    <value>pasirinktinis registravimas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpLogging" xml:space="preserve">
+    <value>HTTP registravimas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LoggingLibraries" xml:space="preserve">
+    <value>registravimo įrankiai</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ODBCLogging" xml:space="preserve">
+    <value>ODBC registravimas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestMonitor" xml:space="preserve">
+    <value>„Request Monitor“.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpTracing" xml:space="preserve">
+    <value>sekimas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Performance" xml:space="preserve">
+    <value>našumo funkcijos</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpCompressionDynamic" xml:space="preserve">
+    <value>dinaminis turinio glaudinimas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpCompressionStatic" xml:space="preserve">
+    <value>statinis turinio glaudinimas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Security" xml:space="preserve">
+    <value>saugos funkcijos</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_BasicAuthentication" xml:space="preserve">
+    <value>pagrindinis autentifikavimas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CertProvider" xml:space="preserve">
+    <value>centralizuotas SSL sertifikatų palaikymas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ClientCertificateMappingAuthentication" xml:space="preserve">
+    <value>kliento sertifikato atvaizdavimo autentifikavimas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DigestAuthentication" xml:space="preserve">
+    <value>„Digest Authentication“.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IISCertificateMappingAuthentication" xml:space="preserve">
+    <value>IIS kliento sertifikato atvaizdavimo autentifikavimas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IPSecurity" xml:space="preserve">
+    <value>IP sauga</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestFiltering" xml:space="preserve">
+    <value>Užklausų filtravimas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_URLAuthorization" xml:space="preserve">
+    <value>URL autorizacija</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WindowsAuthentication" xml:space="preserve">
+    <value>„Windows“ autentifikavimas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WAS_WindowsActivationService" xml:space="preserve">
+    <value>„Windows“ proceso aktyvinimo paslauga</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ProcessModel" xml:space="preserve">
+    <value>proceso modelis</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WAS_NetFxEnvironment" xml:space="preserve">
+    <value>.NET aplinka</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ConfigurationAPI" xml:space="preserve">
+    <value>konfigūracijos API</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_XPSServices_Features" xml:space="preserve">
+    <value>„Microsoft XPS Document Writer“.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Connector" xml:space="preserve">
+    <value>kelių taškų jungtis</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Connector_Services" xml:space="preserve">
+    <value>„MultiPoint Connector Services“.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Tools" xml:space="preserve">
+    <value>MultiPoint Manager ir MultiPoint Dashboard</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.HyperV_Guest_KernelInt" xml:space="preserve">
+    <value>„Microsoft Hyper-V Guest Integration Services“.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.HypervisorPlatform" xml:space="preserve">
+    <value>„Windows Hypervisor“ platforma</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.VirtualMachinePlatform" xml:space="preserve">
+    <value>virtualios mašinos platforma</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSRDC_Infrastructure" xml:space="preserve">
+    <value>nuotolinio diferencialinio glaudinimo API palaikymas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Containers_Server_For_Application_Guard" xml:space="preserve">
+    <value>„Microsoft Defender Application Guard“.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Container" xml:space="preserve">
+    <value>Microsoft Message Queue (MSMQ) serveris</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Server" xml:space="preserve">
+    <value>„Microsoft Message Queue“ (MSMQ) serverio branduolys</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_ADIntegration" xml:space="preserve">
+    <value>Katalogų paslaugų integravimas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_HTTP" xml:space="preserve">
+    <value>HTTP palaikymas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Multicast" xml:space="preserve">
+    <value>Daugiadresio perdavimo palaikymas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Triggers" xml:space="preserve">
+    <value>pranešimų eilės aktyvikliai</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_DCOMProxy" xml:space="preserve">
+    <value>MSMQ DCOM tarpinis serveris</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_Features" xml:space="preserve">
+    <value>spausdinimo ir dokumentų paslaugos</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_InternetPrinting_Client" xml:space="preserve">
+    <value>Interneto spausdinimo klientas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPDPrintService" xml:space="preserve">
+    <value>LPD spausdinimo paslauga</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPRPortMonitor" xml:space="preserve">
+    <value>LPR prievado monitorius</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.ServicesForNFS_ClientOnly" xml:space="preserve">
+    <value>NFS paslaugos</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.ClientForNFS_Infrastructure" xml:space="preserve">
+    <value>NFS klientas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.NFS_Administration" xml:space="preserve">
+    <value>NFS administravimo įrankiai</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SimpleTCP" xml:space="preserve">
+    <value>paprastos TCP/IP paslaugos</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SmbDirect" xml:space="preserve">
+    <value>SMB Direct</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Windows_Subsystem_Linux" xml:space="preserve">
+    <value>„Windows“ posistemė, skirta „Linux“.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol" xml:space="preserve">
+    <value>SMB 1.0/CIFS failų bendrinimo palaikymas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Client" xml:space="preserve">
+    <value>SMB 1.0 / CIFS klientas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Server" xml:space="preserve">
+    <value>SMB 1.0 / CIFS serveris</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Deprecation" xml:space="preserve">
+    <value>SMB 1.0 / CIFS automatinis pašalinimas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Sysmon" xml:space="preserve">
+    <value>sistemos monitorius</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.TelnetClient" xml:space="preserve">
+    <value>Telnet klientas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.TFTP" xml:space="preserve">
+    <value>TFTP klientas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_DeviceLockdown" xml:space="preserve">
+    <value>įrenginio užrakinimas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedBootExp" xml:space="preserve">
+    <value>paleidimas be prekės ženklo</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedLogon" xml:space="preserve">
+    <value>pasirinktinis prisijungimas</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedShellLauncher" xml:space="preserve">
+    <value>„Shell Launcher“.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_KeyboardFilter" xml:space="preserve">
+    <value>klaviatūros filtras</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_UnifiedWriteFilter" xml:space="preserve">
+    <value>vieningas rašymo filtras</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Windows_Identity_Foundation" xml:space="preserve">
+    <value>Windows Identity Foundation 3.5</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_ProjFS" xml:space="preserve">
+    <value>„Windows“ projektuojama failų sistema</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.TIFFIFilter" xml:space="preserve">
+    <value>„Windows TIFF IFilter“.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WorkFolders_Client" xml:space="preserve">
+    <value>„Work Folders Client“.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Recall" xml:space="preserve">
+    <value>Recall</value>
   </data>
   <data name="Customization.AppxRemovalHeader" xml:space="preserve">
     <value>Numatytas programos pašalinimas</value>
@@ -2139,7 +2667,7 @@
     <value>Prieš kurdami diegimo laikmeną peržiūrėkite Windows ADK ir Windows PE priedo parengtį.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Konfigūruokite kompiuterių vardus, operacinės sistemos pasirinkimą, OOBE veikimą, AI komponentų šalinimą ir parengtų AppX paketų šalinimą.</value>
+    <value>Konfigūruokite įrenginio pavadinimų suteikimą, operacinės sistemos pasirinkimą, OOBE, suskirstytas į kategorijas Windows pasirenkamas funkcijas, AI komponentų pašalinimą ir AppX pašalinimą.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Konfigūruokite laikmenos pagrindą, WinPE kalbą, paleidimo parašą, tvarkykles ir diegimo laiko juostą.</value>

@@ -682,7 +682,7 @@
     <value>Eemaldage ette nähtud Windows AI Hubi rakenduse pakett, kui see on olemas.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>Keela Windows Recall</value>
+    <value>Keela Windowsi tagasikutsumine poliitika j&#228;rgi</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>Määrake Windows AI-poliitikad, mis takistavad Recall lubamist ja hetktõmmiste salvestamist.</value>
@@ -716,6 +716,534 @@
   </data>
   <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
     <value>Määrake Notepad reegel, mis keelab AI funktsioonid.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesHeader" xml:space="preserve">
+    <value>Windowsi valikulised funktsioonid</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesDescription" xml:space="preserve">
+    <value>Lubage v&#245;i keelake juurutatud operatsioonis&#252;steemis Windowsi komponendid.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesEnableLabel" xml:space="preserve">
+    <value>Windowsi valikuliste funktsioonide konfigureerimine</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
+    <value>Muudatused rakendatakse v&#245;rgu&#252;henduseta p&#228;rast Windowsi installimist ja enne OOBE-d. Lubamistoimingud kasutavad ainult installitud kujutist v&#245;i vastavaid h&#228;&#228;lestusmeediumiallikaid; Interneti-varu ei kasutata.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
+    <value>{0} seadistatud ({1} luba, {2} keela)</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesSearchLabel" xml:space="preserve">
+    <value>Otsingufunktsioonid</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesSearchPlaceholder" xml:space="preserve">
+    <value>Otsige kuvatava nime v&#245;i DISM-i funktsiooni nime j&#228;rgi</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesEmptySearch" xml:space="preserve">
+    <value>Sellele otsingule ei vasta &#252;kski Windowsi valikuline funktsioon.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.DetailFormat" xml:space="preserve">
+    <value>{0}–{1}</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.State.Unchanged" xml:space="preserve">
+    <value>Muutmata</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.State.Enable" xml:space="preserve">
+    <value>Luba</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.State.Disable" xml:space="preserve">
+    <value>Keela</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Compatibility.Available" xml:space="preserve">
+    <value>Saadaval k&#245;igi valitud sihtm&#228;rkide jaoks</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Compatibility.PartiallyAvailable" xml:space="preserve">
+    <value>Saadaval m&#245;ne valitud sihtm&#228;rgi jaoks</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Compatibility.Unavailable" xml:space="preserve">
+    <value>Pole valitud sihtm&#228;rkide jaoks saadaval</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Compatibility.RuntimeVerificationRequired" xml:space="preserve">
+    <value>Saadavust kontrollitakse rakendatud Windowsi kujutise alusel</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.Enable" xml:space="preserve">
+    <value>Luba n&#228;htavad &#252;ksused</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.Disable" xml:space="preserve">
+    <value>Keela n&#228;htavad &#252;ksused</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.Clear" xml:space="preserve">
+    <value>L&#228;htestage n&#228;htavad &#252;ksused</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.MatchingSource" xml:space="preserve">
+    <value>Selle funktsiooni lubamiseks on vaja setup-media sources\sxs vastet.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.HardwareVirtualization" xml:space="preserve">
+    <value>N&#245;uab &#252;hilduvat virtualiseerimisriistvara ja p&#252;sivara s&#228;tteid.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.Rdma" xml:space="preserve">
+    <value>Vajab RDMA-toega v&#245;rguadapterit.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.MediaFeaturePack" xml:space="preserve">
+    <value>Windows N v&#228;ljaanded v&#245;ivad vajada Media Feature Packi.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
+    <value>Saadavus s&#245;ltub Copilot+ arvuti riistvarast ja installitud Windowsi pildist.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.WslComponentOnly" xml:space="preserve">
+    <value>See konfigureerib ainult Windowsi komponendi; see ei installi Linuxi distributsiooni.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.RecallPolicyIndependent" xml:space="preserve">
+    <value>See komponendi olek ei sõltu eraldi Recalli poliitika sättest.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Frameworks" xml:space="preserve">
+    <value>Raamistikud ja rakendusplatvormid</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.DirectoryServices" xml:space="preserve">
+    <value>Kataloogiteenused</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Virtualization" xml:space="preserve">
+    <value>Virtualiseerimine</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Legacy" xml:space="preserve">
+    <value>P&#228;randkomponendid</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Containers" xml:space="preserve">
+    <value>Konteinerid</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Networking" xml:space="preserve">
+    <value>Võrgundus</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Media" xml:space="preserve">
+    <value>Meedia</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Security" xml:space="preserve">
+    <value>Turvalisus</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Printing" xml:space="preserve">
+    <value>Printimine ja dokumendid</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Web" xml:space="preserve">
+    <value>Veebi ja Interneti teabeteenused</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Management" xml:space="preserve">
+    <value>Haldust&#246;&#246;riistad</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Compatibility" xml:space="preserve">
+    <value>&#220;hilduvus</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.FileServices" xml:space="preserve">
+    <value>Failiteenused</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Diagnostics" xml:space="preserve">
+    <value>Diagnostika</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.DeviceLockdown" xml:space="preserve">
+    <value>Seadme lukustus</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.FileSystems" xml:space="preserve">
+    <value>Failis&#252;steemid</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.SearchAndIndexing" xml:space="preserve">
+    <value>Otsing ja indekseerimine</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Messaging" xml:space="preserve">
+    <value>S&#245;numite j&#228;rjekord</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.AiComponents" xml:space="preserve">
+    <value>AI komponendid</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.NetFx3" xml:space="preserve">
+    <value>.NET Framework 3.5 (sisaldab .NET 2.0 ja 3.0)</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_HTTP_Activation" xml:space="preserve">
+    <value>Windows Communication Foundationi HTTP aktiveerimine</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_NonHTTP_Activation" xml:space="preserve">
+    <value>Windows Communication Foundationi mitte-HTTP aktiveerimine</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.NetFx4_AdvSrvs" xml:space="preserve">
+    <value>.NET Framework 4.8 Advanced Services</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.NetFx4Extended_ASPNET45" xml:space="preserve">
+    <value>ASP.NET 4.8</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Services45" xml:space="preserve">
+    <value>WCF-teenused</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_HTTP_Activation45" xml:space="preserve">
+    <value>HTTP aktiveerimine</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_TCP_Activation45" xml:space="preserve">
+    <value>TCP aktiveerimine</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Pipe_Activation45" xml:space="preserve">
+    <value>Named Pipe Activation</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_MSMQ_Activation45" xml:space="preserve">
+    <value>s&#245;numij&#228;rjekorra (MSMQ) aktiveerimine</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_TCP_PortSharing45" xml:space="preserve">
+    <value>TCP-pordi &#252;hiskasutus</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.DirectoryServices_ADAM_Client" xml:space="preserve">
+    <value>Active Directory kergekaalulised kataloogiteenused</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.HyperV_KernelInt_VirtualDevice" xml:space="preserve">
+    <value>Microsoft Kernel Debug Network Adapter</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Containers_DisposableClientVM" xml:space="preserve">
+    <value>Windowsi liivakast</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.LegacyComponents" xml:space="preserve">
+    <value>p&#228;randkomponendid</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.DirectPlay" xml:space="preserve">
+    <value>DirectPlay</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Containers" xml:space="preserve">
+    <value>konteinerid</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.DataCenterBridging" xml:space="preserve">
+    <value>andmekeskuse sild</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MediaPlayback" xml:space="preserve">
+    <value>meediumifunktsioonid</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WindowsMediaPlayer" xml:space="preserve">
+    <value>Windows Media Player Legacy</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.HostGuardian" xml:space="preserve">
+    <value>Host Guardian Hyper-V tugi</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_All" xml:space="preserve">
+    <value>Hyper-V</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V" xml:space="preserve">
+    <value>Hyper-V platvorm</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Hypervisor" xml:space="preserve">
+    <value>Hyper-V Hypervisor</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Services" xml:space="preserve">
+    <value>Hyper-V teenused</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Tools_All" xml:space="preserve">
+    <value>Hyper-V haldust&#246;&#246;riistad</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Management_Clients" xml:space="preserve">
+    <value>Hyper-V GUI haldust&#246;&#246;riistad</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Management_PowerShell" xml:space="preserve">
+    <value>Hyper-V moodul Windows PowerShelli jaoks</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_PrintToPDFServices_Features" xml:space="preserve">
+    <value>Microsoft Print to PDF</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HostableWebCore" xml:space="preserve">
+    <value>IIS Hostable Web Core</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServerRole" xml:space="preserve">
+    <value>Interneti teabeteenused</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPServer" xml:space="preserve">
+    <value>FTP-server</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPSvc" xml:space="preserve">
+    <value>FTP-teenus</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPExtensibility" xml:space="preserve">
+    <value>FTP-laiendus</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServerManagementTools" xml:space="preserve">
+    <value>veebihaldust&#246;&#246;riistad</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementConsole" xml:space="preserve">
+    <value>IIS-i halduskonsool</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementScriptingTools" xml:space="preserve">
+    <value>IIS-i haldusskriptid ja t&#246;&#246;riistad</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementService" xml:space="preserve">
+    <value>IIS-i haldusteenus</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IIS6ManagementCompatibility" xml:space="preserve">
+    <value>IIS 6 halduse &#252;hilduvus</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Metabase" xml:space="preserve">
+    <value>IIS metabaasi ja IIS 6 konfiguratsiooni &#252;hilduvus</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WMICompatibility" xml:space="preserve">
+    <value>IIS 6 WMI &#252;hilduvus</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacyScripts" xml:space="preserve">
+    <value>IIS 6 skriptit&#246;&#246;riistad</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacySnapIn" xml:space="preserve">
+    <value>IIS 6 halduskonsool</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServer" xml:space="preserve">
+    <value>World Wide Web Services</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ApplicationDevelopment" xml:space="preserve">
+    <value>rakenduste arendusfunktsioonid</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility" xml:space="preserve">
+    <value>.NET Extensibility 3.5</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility45" xml:space="preserve">
+    <value>.NET Extensibility 4.8</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ApplicationInit" xml:space="preserve">
+    <value>rakenduse initsialiseerimine</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ASP" xml:space="preserve">
+    <value>ASP</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ASPNET" xml:space="preserve">
+    <value>ASP.NET 3.5</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ASPNET45" xml:space="preserve">
+    <value>ASP.NET 4.8</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CGI" xml:space="preserve">
+    <value>CGI</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ISAPIExtensions" xml:space="preserve">
+    <value>ISAPI laiendused</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ISAPIFilter" xml:space="preserve">
+    <value>ISAPI filtrid</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ServerSideIncludes" xml:space="preserve">
+    <value>Server-Side Includes</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebSockets" xml:space="preserve">
+    <value>WebSocket Protocol</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CommonHttpFeatures" xml:space="preserve">
+    <value>tavalised HTTP-funktsioonid</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DefaultDocument" xml:space="preserve">
+    <value>vaikedokument</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DirectoryBrowsing" xml:space="preserve">
+    <value>kataloogi sirvimine</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpErrors" xml:space="preserve">
+    <value>HTTP vead</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpRedirect" xml:space="preserve">
+    <value>HTTP &#252;mbersuunamine</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_StaticContent" xml:space="preserve">
+    <value>staatiline sisu</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebDAV" xml:space="preserve">
+    <value>WebDAV Publishing</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HealthAndDiagnostics" xml:space="preserve">
+    <value>Seisund ja diagnostika</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CustomLogging" xml:space="preserve">
+    <value>kohandatud logimine</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpLogging" xml:space="preserve">
+    <value>HTTP logimine</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LoggingLibraries" xml:space="preserve">
+    <value>logimist&#246;&#246;riistad</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ODBCLogging" xml:space="preserve">
+    <value>ODBC logimine</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestMonitor" xml:space="preserve">
+    <value>Request Monitor</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpTracing" xml:space="preserve">
+    <value>j&#228;lgimine</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Performance" xml:space="preserve">
+    <value>j&#245;udlusfunktsioonid</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpCompressionDynamic" xml:space="preserve">
+    <value>d&#252;naamiline sisu tihendamine</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpCompressionStatic" xml:space="preserve">
+    <value>staatiline sisu tihendamine</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Security" xml:space="preserve">
+    <value>turbefunktsioonid</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_BasicAuthentication" xml:space="preserve">
+    <value>p&#245;hiautentimine</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CertProvider" xml:space="preserve">
+    <value>tsentraliseeritud SSL-sertifikaadi tugi</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ClientCertificateMappingAuthentication" xml:space="preserve">
+    <value>kliendi sertifikaadi vastendamise autentimine</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DigestAuthentication" xml:space="preserve">
+    <value>Digest Authentication</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IISCertificateMappingAuthentication" xml:space="preserve">
+    <value>IIS-i kliendi sertifikaadi vastendamise autentimine</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IPSecurity" xml:space="preserve">
+    <value>IP-turvalisus</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestFiltering" xml:space="preserve">
+    <value>Taotluste filtreerimine</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_URLAuthorization" xml:space="preserve">
+    <value>URL-i autoriseerimine</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WindowsAuthentication" xml:space="preserve">
+    <value>Windowsi autentimine</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WAS_WindowsActivationService" xml:space="preserve">
+    <value>Windowsi protsesside aktiveerimise teenus</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ProcessModel" xml:space="preserve">
+    <value>protsessimudel</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WAS_NetFxEnvironment" xml:space="preserve">
+    <value>.NET-keskkond</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ConfigurationAPI" xml:space="preserve">
+    <value>konfiguratsiooni API-d</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_XPSServices_Features" xml:space="preserve">
+    <value>Microsoft XPS Document Writer</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Connector" xml:space="preserve">
+    <value>MultiPoint Connector</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Connector_Services" xml:space="preserve">
+    <value>MultiPoint Connector Services</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Tools" xml:space="preserve">
+    <value>MultiPoint Manager ja MultiPoint Dashboard</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.HyperV_Guest_KernelInt" xml:space="preserve">
+    <value>Microsoft Hyper-V Guest Integration Services</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.HypervisorPlatform" xml:space="preserve">
+    <value>Windowsi h&#252;pervisori platvorm</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.VirtualMachinePlatform" xml:space="preserve">
+    <value>Virtual Machine Platform</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSRDC_Infrastructure" xml:space="preserve">
+    <value>Remote Differential Compression API tugi</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Containers_Server_For_Application_Guard" xml:space="preserve">
+    <value>Microsoft Defender Application Guard</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Container" xml:space="preserve">
+    <value>Microsoft Message Queue (MSMQ) server</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Server" xml:space="preserve">
+    <value>Microsoft Message Queue (MSMQ) Server Core</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_ADIntegration" xml:space="preserve">
+    <value>kataloogiteenuse integreerimine</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_HTTP" xml:space="preserve">
+    <value>HTTP-tugi</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Multicast" xml:space="preserve">
+    <value>multiedastuse tugi</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Triggers" xml:space="preserve">
+    <value>s&#245;numij&#228;rjekorra k&#228;ivitajad</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_DCOMProxy" xml:space="preserve">
+    <value>MSMQ DCOM-puhverserver</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_Features" xml:space="preserve">
+    <value>printimis- ja dokumenditeenused</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_InternetPrinting_Client" xml:space="preserve">
+    <value>Interneti-printimise klient</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPDPrintService" xml:space="preserve">
+    <value>LPD prinditeenus</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPRPortMonitor" xml:space="preserve">
+    <value>LPR-pordi monitor</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.ServicesForNFS_ClientOnly" xml:space="preserve">
+    <value>NFS-i teenused</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.ClientForNFS_Infrastructure" xml:space="preserve">
+    <value>NFS-i klient</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.NFS_Administration" xml:space="preserve">
+    <value>NFS-i haldust&#246;&#246;riistad</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SimpleTCP" xml:space="preserve">
+    <value>lihtsad TCP/IP-teenused</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SmbDirect" xml:space="preserve">
+    <value>SMB Direct</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Windows_Subsystem_Linux" xml:space="preserve">
+    <value>Windowsi alams&#252;steem Linuxi jaoks</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol" xml:space="preserve">
+    <value>SMB 1.0/CIFS failijagamise tugi</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Client" xml:space="preserve">
+    <value>SMB 1.0/CIFS-klient</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Server" xml:space="preserve">
+    <value>SMB 1.0/CIFS server</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Deprecation" xml:space="preserve">
+    <value>SMB 1.0/CIFS automaatne eemaldamine</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Sysmon" xml:space="preserve">
+    <value>System Monitor</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.TelnetClient" xml:space="preserve">
+    <value>Telneti klient</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.TFTP" xml:space="preserve">
+    <value>TFTP-klient</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_DeviceLockdown" xml:space="preserve">
+    <value>seadme lukustus</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedBootExp" xml:space="preserve">
+    <value>kaubam&#228;rgita alglaadimine</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedLogon" xml:space="preserve">
+    <value>kohandatud sisselogimine</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedShellLauncher" xml:space="preserve">
+    <value>Shell Launcher</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_KeyboardFilter" xml:space="preserve">
+    <value>klaviatuurifilter</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_UnifiedWriteFilter" xml:space="preserve">
+    <value>&#252;htne kirjutusfilter</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Windows_Identity_Foundation" xml:space="preserve">
+    <value>Windows Identity Foundation 3.5</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_ProjFS" xml:space="preserve">
+    <value>Windowsi projekteeritud failis&#252;steem</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.TIFFIFilter" xml:space="preserve">
+    <value>Windows TIFF IFilter</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WorkFolders_Client" xml:space="preserve">
+    <value>Work Folders Client</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Recall" xml:space="preserve">
+    <value>Recall</value>
   </data>
   <data name="Customization.AppxRemovalHeader" xml:space="preserve">
     <value>Ettenähtud rakenduse eemaldamine</value>
@@ -2139,7 +2667,7 @@
     <value>Enne juurutusmeediumi loomist kontrollige Windows ADK ja Windows PE lisandmooduli valmisolekut.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Konfigureerige arvutinimede määramine, operatsioonisüsteemi valik, OOBE käitumine, AI komponentide eemaldamine ja ettevalmistatud AppX-pakettide eemaldamine.</value>
+    <value>Konfigureerige masina nimetamine, operatsioonis&#252;steemi valik, OOBE, kategoriseeritud Windowsi valikulised funktsioonid, AI-komponentide eemaldamine ja AppX-i eemaldamine.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Konfigureerige meediumi baas, WinPE keel, algkäivituse allkiri, draiverid ja juurutuse ajavöönd.</value>

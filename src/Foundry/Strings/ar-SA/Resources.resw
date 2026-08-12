@@ -682,7 +682,7 @@
     <value>قم بإزالة حزمة تطبيق Windows AI Hub المتوفرة عند وجودها.</value>
   </data>
   <data name="Customization.AiComponentDisableRecallLabel" xml:space="preserve">
-    <value>تعطيل Windows Recall</value>
+    <value>تعطيل استدعاء Windows حسب السياسة</value>
   </data>
   <data name="Customization.AiComponentDisableRecallDescription" xml:space="preserve">
     <value>قم بتعيين سياسات Windows AI التي تمنع تمكين Recall وحفظ اللقطات.</value>
@@ -716,6 +716,534 @@
   </data>
   <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
     <value>قم بتعيين سياسة Notepad التي تعمل على تعطيل ميزات الذكاء الاصطناعي.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesHeader" xml:space="preserve">
+    <value>ميزات Windows الاختيارية</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesDescription" xml:space="preserve">
+    <value>تمكين أو تعطيل مكونات Windows في نظام التشغيل المنشور.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesEnableLabel" xml:space="preserve">
+    <value>تكوين ميزات Windows الاختيارية</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
+    <value>يتم تطبيق التغييرات دون الاتصال بالإنترنت بعد تثبيت Windows وقبل OOBE. تستخدم عمليات التمكين الصورة المثبتة فقط أو مصادر وسائط الإعداد المطابقة؛ لا يتم استخدام أي احتياطي الإنترنت.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.SummaryFormat" xml:space="preserve">
+    <value>تم تكوين {0} ({1} تمكين، {2} تعطيل)</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesSearchLabel" xml:space="preserve">
+    <value>ميزات البحث</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesSearchPlaceholder" xml:space="preserve">
+    <value>ابحث حسب اسم العرض أو اسم ميزة DISM</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeaturesEmptySearch" xml:space="preserve">
+    <value>لا توجد ميزات اختيارية لنظام التشغيل Windows تتطابق مع هذا البحث.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.DetailFormat" xml:space="preserve">
+    <value>{0} — {1}</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.State.Unchanged" xml:space="preserve">
+    <value>دون تغيير</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.State.Enable" xml:space="preserve">
+    <value>تمكين</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.State.Disable" xml:space="preserve">
+    <value>تعطيل</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Compatibility.Available" xml:space="preserve">
+    <value>متاح لجميع الأهداف المحددة</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Compatibility.PartiallyAvailable" xml:space="preserve">
+    <value>متاح لبعض الأهداف المحددة</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Compatibility.Unavailable" xml:space="preserve">
+    <value>غير متاح للأهداف المحددة</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Compatibility.RuntimeVerificationRequired" xml:space="preserve">
+    <value>سيتم التحقق من التوفر مقابل صورة Windows المطبقة</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.Enable" xml:space="preserve">
+    <value>تمكين العناصر المرئية</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.Disable" xml:space="preserve">
+    <value>تعطيل العناصر المرئية</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.Clear" xml:space="preserve">
+    <value>إعادة تعيين العناصر المرئية</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.MatchingSource" xml:space="preserve">
+    <value>يتطلب تمكين هذه الميزة حمولة مطابقة من sources\sxs على وسائط التثبيت.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.HardwareVirtualization" xml:space="preserve">
+    <value>يتطلب أجهزة افتراضية متوافقة وإعدادات البرامج الثابتة.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.Rdma" xml:space="preserve">
+    <value>يتطلب محول شبكة قادر على RDMA.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.MediaFeaturePack" xml:space="preserve">
+    <value>قد تتطلب إصدارات Windows N حزمة ميزات الوسائط.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.CopilotPlus" xml:space="preserve">
+    <value>يعتمد التوفر على أجهزة Copilot+ PC وصورة Windows المثبتة.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.WslComponentOnly" xml:space="preserve">
+    <value>يؤدي هذا إلى تكوين مكون Windows فقط؛ لا يقوم بتثبيت توزيعة Linux.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Warning.RecallPolicyIndependent" xml:space="preserve">
+    <value>حالة هذا المكون مستقلة عن إعداد سياسة Recall المنفصل.</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Frameworks" xml:space="preserve">
+    <value>الأطر ومنصات التطبيق</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.DirectoryServices" xml:space="preserve">
+    <value>خدمات الدليل</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Virtualization" xml:space="preserve">
+    <value>الافتراضية</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Legacy" xml:space="preserve">
+    <value>المكونات القديمة</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Containers" xml:space="preserve">
+    <value>حاويات</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Networking" xml:space="preserve">
+    <value>الشبكات</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Media" xml:space="preserve">
+    <value>وسائط</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Security" xml:space="preserve">
+    <value>حماية</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Printing" xml:space="preserve">
+    <value>الطباعة والمستندات</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Web" xml:space="preserve">
+    <value>خدمات معلومات الويب والإنترنت</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Management" xml:space="preserve">
+    <value>أدوات الإدارة</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Compatibility" xml:space="preserve">
+    <value>التوافق</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.FileServices" xml:space="preserve">
+    <value>خدمات الملفات</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Diagnostics" xml:space="preserve">
+    <value>التشخيص</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.DeviceLockdown" xml:space="preserve">
+    <value>قفل الجهاز</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.FileSystems" xml:space="preserve">
+    <value>أنظمة الملفات</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.SearchAndIndexing" xml:space="preserve">
+    <value>البحث والفهرسة</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.Messaging" xml:space="preserve">
+    <value>قائمة انتظار الرسائل</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Category.AiComponents" xml:space="preserve">
+    <value>مكونات الذكاء الاصطناعي</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.NetFx3" xml:space="preserve">
+    <value>.NET Framework 3.5 (يتضمن .NET 2.0 و3.0)</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_HTTP_Activation" xml:space="preserve">
+    <value>Windows Communication Foundation HTTP Activation</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_NonHTTP_Activation" xml:space="preserve">
+    <value>تنشيط Windows Communication Foundation Non-HTTP</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.NetFx4_AdvSrvs" xml:space="preserve">
+    <value>خدمات .NET Framework 4.8 المتقدمة</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.NetFx4Extended_ASPNET45" xml:space="preserve">
+    <value>ASP.NET 4.8</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Services45" xml:space="preserve">
+    <value>خدمات WCF</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_HTTP_Activation45" xml:space="preserve">
+    <value>تنشيط HTTP</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_TCP_Activation45" xml:space="preserve">
+    <value>تنشيط TCP</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Pipe_Activation45" xml:space="preserve">
+    <value>Named Pipe Activation</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_MSMQ_Activation45" xml:space="preserve">
+    <value>تنشيط خدمة وضع الرسائل في قائمة انتظار (MSMQ).</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WCF_TCP_PortSharing45" xml:space="preserve">
+    <value>مشاركة منفذ TCP</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.DirectoryServices_ADAM_Client" xml:space="preserve">
+    <value>خدمات الدليل الخفيف لـ Active Directory</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.HyperV_KernelInt_VirtualDevice" xml:space="preserve">
+    <value>محول شبكة Microsoft Kernel Debug</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Containers_DisposableClientVM" xml:space="preserve">
+    <value>Windows Sandbox</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.LegacyComponents" xml:space="preserve">
+    <value>المكونات القديمة</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.DirectPlay" xml:space="preserve">
+    <value>DirectPlay</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Containers" xml:space="preserve">
+    <value>الحاويات</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.DataCenterBridging" xml:space="preserve">
+    <value>جسر مركز البيانات</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MediaPlayback" xml:space="preserve">
+    <value>ميزات الوسائط</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WindowsMediaPlayer" xml:space="preserve">
+    <value>Windows Media Player Legacy</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.HostGuardian" xml:space="preserve">
+    <value>دعم Host Guardian Hyper-V</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_All" xml:space="preserve">
+    <value>Hyper-V</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V" xml:space="preserve">
+    <value>منصة Hyper-V</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Hypervisor" xml:space="preserve">
+    <value>Hyper-V Hypervisor</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Services" xml:space="preserve">
+    <value>خدمات Hyper-V</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Tools_All" xml:space="preserve">
+    <value>أدوات إدارة Hyper-V</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Management_Clients" xml:space="preserve">
+    <value>أدوات إدارة واجهة المستخدم الرسومية Hyper-V</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Management_PowerShell" xml:space="preserve">
+    <value>وحدة Hyper-V لنظام التشغيل Windows PowerShell</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_PrintToPDFServices_Features" xml:space="preserve">
+    <value>Microsoft Print to PDF</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HostableWebCore" xml:space="preserve">
+    <value>IIS Hostable Web Core</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServerRole" xml:space="preserve">
+    <value>خدمات معلومات الإنترنت</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPServer" xml:space="preserve">
+    <value>خادم FTP</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPSvc" xml:space="preserve">
+    <value>خدمة FTP</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPExtensibility" xml:space="preserve">
+    <value>إمكانية توسيع FTP</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServerManagementTools" xml:space="preserve">
+    <value>أدوات إدارة الويب</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementConsole" xml:space="preserve">
+    <value>وحدة التحكم بالإدارة IIS</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementScriptingTools" xml:space="preserve">
+    <value>البرامج النصية وأدوات إدارة IIS</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementService" xml:space="preserve">
+    <value>خدمة إدارة IIS</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IIS6ManagementCompatibility" xml:space="preserve">
+    <value>التوافق مع إدارة IIS 6</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Metabase" xml:space="preserve">
+    <value>توافق قاعدة تعريف IIS وتكوين IIS 6</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WMICompatibility" xml:space="preserve">
+    <value>توافق IIS 6 WMI</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacyScripts" xml:space="preserve">
+    <value>أدوات البرمجة النصية IIS 6</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacySnapIn" xml:space="preserve">
+    <value>وحدة التحكم بالإدارة IIS 6</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServer" xml:space="preserve">
+    <value>خدمات الويب العالمية</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ApplicationDevelopment" xml:space="preserve">
+    <value>ميزات تطوير التطبيقات</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility" xml:space="preserve">
+    <value>.NET Extensibility 3.5</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility45" xml:space="preserve">
+    <value>.NET Extensibility 4.8</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ApplicationInit" xml:space="preserve">
+    <value>تهيئة التطبيق</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ASP" xml:space="preserve">
+    <value>ASP</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ASPNET" xml:space="preserve">
+    <value>ASP.NET 3.5</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ASPNET45" xml:space="preserve">
+    <value>ASP.NET 4.8</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CGI" xml:space="preserve">
+    <value>CGI</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ISAPIExtensions" xml:space="preserve">
+    <value>ملحقات ISAPI</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ISAPIFilter" xml:space="preserve">
+    <value>مرشحات ISAPI</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ServerSideIncludes" xml:space="preserve">
+    <value>Server-Side Includes</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebSockets" xml:space="preserve">
+    <value>بروتوكول WebSocket</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CommonHttpFeatures" xml:space="preserve">
+    <value>ميزات HTTP الشائعة</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DefaultDocument" xml:space="preserve">
+    <value>المستند الافتراضي</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DirectoryBrowsing" xml:space="preserve">
+    <value>تصفح الدليل</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpErrors" xml:space="preserve">
+    <value>أخطاء HTTP</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpRedirect" xml:space="preserve">
+    <value>إعادة توجيه HTTP</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_StaticContent" xml:space="preserve">
+    <value>المحتوى الثابت</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebDAV" xml:space="preserve">
+    <value>نشر WebDAV</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HealthAndDiagnostics" xml:space="preserve">
+    <value>الصحة والتشخيص</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CustomLogging" xml:space="preserve">
+    <value>التسجيل المخصص</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpLogging" xml:space="preserve">
+    <value>تسجيل HTTP</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LoggingLibraries" xml:space="preserve">
+    <value>أدوات التسجيل</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ODBCLogging" xml:space="preserve">
+    <value>تسجيل ODBC</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestMonitor" xml:space="preserve">
+    <value>مراقبة الطلبات</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpTracing" xml:space="preserve">
+    <value>التتبع</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Performance" xml:space="preserve">
+    <value>ميزات الأداء</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpCompressionDynamic" xml:space="preserve">
+    <value>ضغط المحتوى الديناميكي</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpCompressionStatic" xml:space="preserve">
+    <value>ضغط المحتوى الثابت</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Security" xml:space="preserve">
+    <value>ميزات الأمان</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_BasicAuthentication" xml:space="preserve">
+    <value>المصادقة الأساسية</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CertProvider" xml:space="preserve">
+    <value>دعم شهادة SSL المركزية</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ClientCertificateMappingAuthentication" xml:space="preserve">
+    <value>مصادقة تعيين شهادة العميل</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DigestAuthentication" xml:space="preserve">
+    <value>مصادقة الملخص</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IISCertificateMappingAuthentication" xml:space="preserve">
+    <value>مصادقة تعيين شهادة عميل IIS</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IPSecurity" xml:space="preserve">
+    <value>أمان IP</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestFiltering" xml:space="preserve">
+    <value>تصفية الطلبات</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_URLAuthorization" xml:space="preserve">
+    <value>ترخيص URL</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WindowsAuthentication" xml:space="preserve">
+    <value>مصادقة Windows</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WAS_WindowsActivationService" xml:space="preserve">
+    <value>خدمة تنشيط العمليات في Windows</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ProcessModel" xml:space="preserve">
+    <value>نموذج العملية</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WAS_NetFxEnvironment" xml:space="preserve">
+    <value>بيئة .NET</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ConfigurationAPI" xml:space="preserve">
+    <value>واجهات برمجة التطبيقات للتكوين</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_XPSServices_Features" xml:space="preserve">
+    <value>Microsoft XPS Document Writer</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Connector" xml:space="preserve">
+    <value>MultiPoint Connector</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Connector_Services" xml:space="preserve">
+    <value>خدمات MultiPoint Connector</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Tools" xml:space="preserve">
+    <value>MultiPoint Manager وMultiPoint Dashboard</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.HyperV_Guest_KernelInt" xml:space="preserve">
+    <value>Microsoft Hyper-V Guest Integration Services</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.HypervisorPlatform" xml:space="preserve">
+    <value>Windows Hypervisor Platform</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.VirtualMachinePlatform" xml:space="preserve">
+    <value>Virtual Machine Platform</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSRDC_Infrastructure" xml:space="preserve">
+    <value>دعم API للضغط التفاضلي عن بعد</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Containers_Server_For_Application_Guard" xml:space="preserve">
+    <value>Microsoft Defender Application Guard</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Container" xml:space="preserve">
+    <value>خادم قائمة انتظار الرسائل لـ Microsoft (MSMQ).</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Server" xml:space="preserve">
+    <value>Microsoft Message Queue (MSMQ) Server Core</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_ADIntegration" xml:space="preserve">
+    <value>تكامل خدمة الدليل</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_HTTP" xml:space="preserve">
+    <value>دعم HTTP</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Multicast" xml:space="preserve">
+    <value>دعم البث المتعدد</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Triggers" xml:space="preserve">
+    <value>مشغلات خدمة وضع الرسائل في قائمة انتظار</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_DCOMProxy" xml:space="preserve">
+    <value>وكيل MSMQ DCOM</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_Features" xml:space="preserve">
+    <value>خدمات الطباعة والمستندات</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_InternetPrinting_Client" xml:space="preserve">
+    <value>عميل الطباعة عبر الإنترنت</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPDPrintService" xml:space="preserve">
+    <value>خدمة طباعة LPD</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPRPortMonitor" xml:space="preserve">
+    <value>مراقب منفذ LPR</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.ServicesForNFS_ClientOnly" xml:space="preserve">
+    <value>خدمات NFS</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.ClientForNFS_Infrastructure" xml:space="preserve">
+    <value>عميل NFS</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.NFS_Administration" xml:space="preserve">
+    <value>الأدوات الإدارية لـ NFS</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SimpleTCP" xml:space="preserve">
+    <value>خدمات TCP/IP البسيطة</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SmbDirect" xml:space="preserve">
+    <value>SMB Direct</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Windows_Subsystem_Linux" xml:space="preserve">
+    <value>نظام Windows الفرعي لنظام التشغيل Linux</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol" xml:space="preserve">
+    <value>دعم مشاركة الملفات SMB 1.0/CIFS</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Client" xml:space="preserve">
+    <value>SMB 1.0/CIFS Client</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Server" xml:space="preserve">
+    <value>SMB 1.0/CIFS Server</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Deprecation" xml:space="preserve">
+    <value>الإزالة التلقائية لـ SMB 1.0/CIFS</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Sysmon" xml:space="preserve">
+    <value>مراقب النظام</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.TelnetClient" xml:space="preserve">
+    <value>عميل Telnet</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.TFTP" xml:space="preserve">
+    <value>عميل TFTP</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_DeviceLockdown" xml:space="preserve">
+    <value>قفل الجهاز</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedBootExp" xml:space="preserve">
+    <value>التمهيد بدون علامة تجارية</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedLogon" xml:space="preserve">
+    <value>تسجيل الدخول المخصص</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedShellLauncher" xml:space="preserve">
+    <value>Shell Launcher</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_KeyboardFilter" xml:space="preserve">
+    <value>مرشح لوحة المفاتيح</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_UnifiedWriteFilter" xml:space="preserve">
+    <value>عامل تصفية الكتابة الموحد</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Windows_Identity_Foundation" xml:space="preserve">
+    <value>Windows Identity Foundation 3.5</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Client_ProjFS" xml:space="preserve">
+    <value>Windows Projected File System</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.TIFFIFilter" xml:space="preserve">
+    <value>Windows TIFF IFilter</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.WorkFolders_Client" xml:space="preserve">
+    <value>عميل مجلدات العمل</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Feature.Recall" xml:space="preserve">
+    <value>Recall</value>
   </data>
   <data name="Customization.AppxRemovalHeader" xml:space="preserve">
     <value>إزالة التطبيق المقدمة</value>
@@ -2139,7 +2667,7 @@
     <value>راجع جاهزية Windows ADK والملحق Windows PE قبل إنشاء وسائط النشر.</value>
   </data>
   <data name="Customization.PageDescription" xml:space="preserve">
-    <value>كوّن تسمية الأجهزة وتحديد نظام التشغيل وسلوك OOBE وإزالة مكونات AI وإزالة حزم AppX المجهزة.</value>
+    <value>قم بتكوين تسمية الجهاز، واختيار نظام التشغيل، وOOBE، وميزات Windows الاختيارية المصنفة، وإزالة مكونات الذكاء الاصطناعي، وإزالة AppX.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>كوّن أساس الوسائط ولغة WinPE وتوقيع التمهيد وبرامج التشغيل والمنطقة الزمنية للنشر.</value>

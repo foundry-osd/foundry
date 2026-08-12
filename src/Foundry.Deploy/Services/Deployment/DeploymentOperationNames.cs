@@ -36,6 +36,10 @@ public static class DeploymentOperationNames
     public const string WriteOobeUnattend = "oobe.write_unattend";
     public const string WriteOobeRegistry = "oobe.write_registry";
     public const string WriteAiPolicyRegistry = "ai_policy.write_registry";
+    public const string ValidateWindowsOptionalFeatures = "windows_optional_features.validate";
+    public const string InspectWindowsOptionalFeatures = "windows_optional_features.inspect";
+    public const string PrepareWindowsOptionalFeatureSource = "windows_optional_features.prepare_source";
+    public const string ConfigureWindowsOptionalFeatures = "windows_optional_features.configure";
     public const string ConfigureRecovery = "recovery.configure";
     public const string StagePreOobe = "pre_oobe.stage";
     public const string ApplyDriverPack = "driver_pack.apply";
@@ -76,6 +80,7 @@ public static class DeploymentOperationNames
             DeploymentStepNames.ApplyOperatingSystemImage => ApplyOperatingSystemImage,
             DeploymentStepNames.ConfigureTargetComputerName => ConfigureComputerName,
             DeploymentStepNames.ConfigureOobeSettings => ConfigureOobe,
+            DeploymentStepNames.ConfigureWindowsOptionalFeatures => ConfigureWindowsOptionalFeatures,
             DeploymentStepNames.ConfigureRecoveryEnvironment => ConfigureRecovery,
             DeploymentStepNames.StagePreOobeCustomization => StagePreOobe,
             DeploymentStepNames.ApplyDriverPack => ApplyDriverPack,

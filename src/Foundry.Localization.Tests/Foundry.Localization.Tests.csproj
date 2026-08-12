@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Foundry.Core\Foundry.Core.csproj" />
     <ProjectReference Include="..\Foundry.Localization\Foundry.Localization.csproj" />
   </ItemGroup>
 

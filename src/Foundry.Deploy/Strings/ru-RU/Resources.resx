@@ -97,6 +97,8 @@
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Операционная система</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Нет выбора</value></data>
   <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Выбранный пакет драйверов</value></data>
+  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Дополнительные функции Windows</value></data>
+  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} настроено ({1} включить, {2} отключить)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Прошивка</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Метод</value></data>
@@ -258,6 +260,7 @@
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Настройка имени целевого компьютера...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Ввод имени автономного компьютера...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Целевой раздел Windows недоступен.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Индекс примененного образа Windows недоступен.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Имя целевого компьютера настроено.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Настроено имя целевого компьютера (моделирование).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Автономная настройка отключена.</value></data>
@@ -512,4 +515,18 @@
     <value>Интерактивный помощник регистрации Autopilot подготовлен (симуляция).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Извлеките загрузочный носитель, затем выберите «Перезапустить».</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Настройка дополнительных функций Windows</value></data>
+  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Настройка дополнительных функций Windows...</value></data>
+  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Проверка состояний компонентов...</value></data>
+  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Подготовка соответствующих источников мультимедиа для настройки...</value></data>
+  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Применение изменений функций...</value></data>
+  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Моделирование изменений функций...</value></data>
+  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Применение изменений функций</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve"><value>Конфигурация дополнительных функций Windows отключена.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve"><value>Конфигурация дополнительных функций Windows недействительна.</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve"><value>Настроены дополнительные функции Windows ({0} изменены, {1} уже удовлетворены, {2} недоступны).</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve"><value>Имитируется конфигурация дополнительных функций Windows (действия {0}).</value></data>
+  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Дополнительная функция Windows &#171;{0}&#187; имеет удаленную полезную нагрузку и не поддерживает сопоставление локального источника.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Не удалось выполнить проверку дополнительных функций Windows для &#171;{0}&#187;.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Соответствующий источник NetFx3 недоступен. {0}</value></data>
 </root>

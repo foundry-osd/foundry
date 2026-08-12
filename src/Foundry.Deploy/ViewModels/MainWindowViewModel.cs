@@ -96,6 +96,25 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     public string SummaryAutopilotModeText => Preparation.AutopilotModeText;
     public string SummaryAutopilotProfileText => Preparation.SelectedAutopilotProfile?.DisplayName ?? GetString("Common.None");
     public string SummaryAutopilotGroupTagText => Preparation.EffectiveHardwareHashGroupTagText;
+    public string SummaryWindowsOptionalFeaturesText
+    {
+        get
+        {
+            DeployWindowsOptionalFeatureSettings settings = _wizardContext.WindowsOptionalFeatures;
+            DeployWindowsOptionalFeatureAction[] actions = settings.Actions?.ToArray() ?? [];
+            if (!settings.IsEnabled || actions.Length == 0)
+            {
+                return GetString("Common.Disabled");
+            }
+
+            int enableCount = actions.Count(action => action.Enable);
+            return Format(
+                "Summary.WindowsOptionalFeaturesFormat",
+                actions.Length,
+                enableCount,
+                actions.Length - enableCount);
+        }
+    }
     public bool IsDebugAutopilotNoneMode => IsDebugAutopilotMode(DebugAutopilotMode.None);
     public bool IsDebugAutopilotJsonProfileMode => IsDebugAutopilotMode(DebugAutopilotMode.JsonProfile);
     public bool IsDebugAutopilotHardwareHashUploadValidCertificateMode => IsDebugAutopilotMode(DebugAutopilotMode.HardwareHashUploadValidCertificate);
@@ -286,6 +305,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 Oobe = _wizardContext.Oobe,
                 AppxRemoval = _wizardContext.AppxRemoval,
                 AiComponentRemoval = _wizardContext.AiComponentRemoval,
+                WindowsOptionalFeatures = _wizardContext.WindowsOptionalFeatures,
                 Completion = _wizardContext.Completion,
                 IsDryRun = IsDebugSafeMode
             });
@@ -369,6 +389,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(SummaryAutopilotModeText));
         OnPropertyChanged(nameof(SummaryAutopilotProfileText));
         OnPropertyChanged(nameof(SummaryAutopilotGroupTagText));
+        OnPropertyChanged(nameof(SummaryWindowsOptionalFeaturesText));
         NextWizardStepCommand.NotifyCanExecuteChanged();
         StartDeploymentCommand.NotifyCanExecuteChanged();
     }
@@ -475,6 +496,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         Session.ConfigureRebootPolicy(DeploymentRebootPolicy.Create(_wizardContext.Completion));
         Session.SetComputerName(Preparation.TargetComputerName);
         Session.CompleteStartupInitialization();
+        OnPropertyChanged(nameof(SummaryWindowsOptionalFeaturesText));
     }
 
     private void RunOnUi(Action action)
@@ -523,6 +545,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             OnPropertyChanged(nameof(SummaryAutopilotModeText));
             OnPropertyChanged(nameof(SummaryAutopilotProfileText));
             OnPropertyChanged(nameof(SummaryAutopilotGroupTagText));
+            OnPropertyChanged(nameof(SummaryWindowsOptionalFeaturesText));
         });
     }
 

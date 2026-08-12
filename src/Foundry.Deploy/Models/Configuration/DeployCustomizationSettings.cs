@@ -25,4 +25,9 @@ public sealed record DeployCustomizationSettings
     /// Gets Windows AI component removal settings applied before OOBE.
     /// </summary>
     public DeployAiComponentRemovalSettings AiComponentRemoval { get; init; } = new();
+
+    /// <summary>
+    /// Gets Windows optional feature changes applied to the offline installation.
+    /// </summary>
+    public DeployWindowsOptionalFeatureSettings WindowsOptionalFeatures { get; init; } = new();
 }

@@ -25,6 +25,11 @@ public sealed record CustomizationSettings
     public AppxRemovalSettings AppxRemoval { get; init; } = new();
 
     /// <summary>
+    /// Gets Windows optional feature servicing settings.
+    /// </summary>
+    public WindowsOptionalFeatureSettings WindowsOptionalFeatures { get; init; } = new();
+
+    /// <summary>
     /// Gets Windows AI component removal settings.
     /// </summary>
     public AiComponentRemovalSettings AiComponentRemoval { get; init; } = new();

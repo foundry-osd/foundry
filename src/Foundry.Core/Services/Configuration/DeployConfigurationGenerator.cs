@@ -68,6 +68,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                 },
                 Oobe = MapOobeSettings(document.Customization.Oobe),
                 AppxRemoval = MapAppxRemovalSettings(document.Customization.AppxRemoval),
+                WindowsOptionalFeatures = MapWindowsOptionalFeatureSettings(document.Customization.WindowsOptionalFeatures),
                 AiComponentRemoval = MapAiComponentRemovalSettings(
                     document.Customization.AiComponentRemoval,
                     document.Customization.AppxRemoval)
@@ -215,6 +216,29 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                 PackageNames = packageNames
             }
             : new DeployAppxRemovalSettings();
+    }
+
+    private static DeployWindowsOptionalFeatureSettings MapWindowsOptionalFeatureSettings(WindowsOptionalFeatureSettings settings)
+    {
+        WindowsOptionalFeatureSettings normalized = WindowsOptionalFeatureSettingsNormalizer.Normalize(settings);
+        HashSet<string> enabledIds = normalized.EnabledFeatureIds.ToHashSet(StringComparer.OrdinalIgnoreCase);
+        HashSet<string> disabledIds = normalized.DisabledFeatureIds.ToHashSet(StringComparer.OrdinalIgnoreCase);
+        DeployWindowsOptionalFeatureAction[] actions = WindowsOptionalFeatureCatalog.Entries
+            .Where(entry => enabledIds.Contains(entry.Id) || disabledIds.Contains(entry.Id))
+            .Select(entry => new DeployWindowsOptionalFeatureAction
+            {
+                Id = entry.Id,
+                Enable = enabledIds.Contains(entry.Id)
+            })
+            .ToArray();
+
+        return normalized.IsEnabled && actions.Length > 0
+            ? new DeployWindowsOptionalFeatureSettings
+            {
+                IsEnabled = true,
+                Actions = actions
+            }
+            : new DeployWindowsOptionalFeatureSettings();
     }
 
     private static DeployAiComponentRemovalSettings MapAiComponentRemovalSettings(

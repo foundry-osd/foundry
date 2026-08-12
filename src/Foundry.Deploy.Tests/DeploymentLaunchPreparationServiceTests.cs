@@ -96,6 +96,11 @@ public sealed class DeploymentLaunchPreparationServiceTests
             RemoveCopilot = true,
             DisableRecall = true
         };
+        DeployWindowsOptionalFeatureSettings windowsOptionalFeatures = new()
+        {
+            IsEnabled = true,
+            Actions = [new DeployWindowsOptionalFeatureAction { Id = "wf:netfx3", Enable = true }]
+        };
 
         DeploymentLaunchPreparationResult result = service.Prepare(
             CreateRequest(
@@ -108,7 +113,8 @@ public sealed class DeploymentLaunchPreparationServiceTests
                 selectedAutopilotProfile: autopilotProfile,
                 oobe: oobe,
                 appxRemoval: appxRemoval,
-                aiComponentRemoval: aiComponentRemoval));
+                aiComponentRemoval: aiComponentRemoval,
+                windowsOptionalFeatures: windowsOptionalFeatures));
 
         Assert.True(result.IsReadyToStart);
         Assert.Equal("LAB01", result.NormalizedComputerName);
@@ -121,6 +127,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
         Assert.Same(oobe, result.Context?.Oobe);
         Assert.Same(appxRemoval, result.Context?.AppxRemoval);
         Assert.Same(aiComponentRemoval, result.Context?.AiComponentRemoval);
+        Assert.Same(windowsOptionalFeatures, result.Context?.WindowsOptionalFeatures);
     }
 
     [Fact]
@@ -274,6 +281,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
         DeployOobeSettings? oobe = null,
         DeployAppxRemovalSettings? appxRemoval = null,
         DeployAiComponentRemovalSettings? aiComponentRemoval = null,
+        DeployWindowsOptionalFeatureSettings? windowsOptionalFeatures = null,
         DeployCompletionSettings? completion = null,
         bool isDryRun = false)
     {
@@ -305,6 +313,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
             Oobe = oobe ?? new DeployOobeSettings(),
             AppxRemoval = appxRemoval ?? new DeployAppxRemovalSettings(),
             AiComponentRemoval = aiComponentRemoval ?? new DeployAiComponentRemovalSettings(),
+            WindowsOptionalFeatures = windowsOptionalFeatures ?? new DeployWindowsOptionalFeatureSettings(),
             Completion = completion ?? new DeployCompletionSettings(),
             IsDryRun = isDryRun
         };

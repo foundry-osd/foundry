@@ -97,6 +97,8 @@
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Operativsystem</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Ingen valg</value></data>
   <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Valgt driverpakke</value></data>
+  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Windows valgfrie funksjoner</value></data>
+  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} konfigurert ({1} aktiver, {2} deaktiver)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Fastvare</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Metode</value></data>
@@ -258,6 +260,7 @@ Vil du fortsette med distribusjonen?</value></data>
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Konfigurerer navnet på måldatamaskinen...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Skriver frakoblet datamaskinnavn...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Target Windows partisjonen er utilgjengelig.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Indeksen for det brukte Windows-avbildet er ikke tilgjengelig.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Navnet på måldatamaskinen er konfigurert.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Måldatamaskinnavn konfigurert (simulering).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Tilpasning uten nett er deaktivert.</value></data>
@@ -512,4 +515,18 @@ Vil du fortsette med distribusjonen?</value></data>
     <value>Den interaktive Autopilot-registreringsassistenten er klargjort (simulering).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Fjern oppstartsmediet, og velg deretter Start på nytt.</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Konfigurer valgfrie Windows-funksjoner</value></data>
+  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Konfigurerer valgfrie Windows-funksjoner...</value></data>
+  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Inspiserer funksjonstilstander...</value></data>
+  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Forbereder samsvarende mediekilder for oppsett ...</value></data>
+  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Bruker funksjonsendringer ...</value></data>
+  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Simulerer funksjonsendringer...</value></data>
+  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Bruker funksjonsendringer</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve"><value>Windows valgfri funksjonskonfigurasjon deaktivert.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve"><value>Windows valgfri funksjonskonfigurasjon er ugyldig.</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve"><value>Windows valgfrie funksjoner konfigurert ({0} endret, {1} allerede i ønsket tilstand, {2} utilgjengelig).</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve"><value>Simulert Windows valgfri funksjonskonfigurasjon ({0} handlinger).</value></data>
+  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Windows valgfri funksjon &#39;{0}&#39; har en fjernet nyttelast og ingen st&#248;ttet lokal kildetilordning.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Windows valgfri funksjonsbekreftelse mislyktes for &#39;{0}&#39;.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Matchende NetFx3-kilde er ikke tilgjengelig. {0}</value></data>
 </root>

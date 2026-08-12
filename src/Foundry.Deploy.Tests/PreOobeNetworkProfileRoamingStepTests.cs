@@ -204,6 +204,23 @@ public sealed class PreOobeNetworkProfileRoamingStepTests
             throw new NotSupportedException();
         }
 
+        public Task<WindowsOptionalFeatureServicingResult> ConfigureOfflineWindowsOptionalFeaturesAsync(
+            string setupMediaImagePath,
+            string windowsPartitionRoot,
+            int appliedImageIndex,
+            DeployWindowsOptionalFeatureSettings settings,
+            string scratchDirectory,
+            string sourceExtractionDirectory,
+            string workingDirectory,
+            CancellationToken cancellationToken = default,
+            IProgress<double>? progress = null,
+            Action? onInspectionStarted = null,
+            Action? onSourcePreparationStarted = null,
+            Action? onServicingStarted = null)
+        {
+            throw new NotSupportedException();
+        }
+
         public Task ConfigureRecoveryEnvironmentAsync(string windowsPartitionRoot, string recoveryPartitionRoot, string workingDirectory, CancellationToken cancellationToken = default)
         {
             throw new NotSupportedException();

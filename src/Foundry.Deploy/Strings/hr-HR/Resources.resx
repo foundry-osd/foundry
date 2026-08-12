@@ -97,6 +97,8 @@
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Operativni sustav</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Bez odabira</value></data>
   <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Odabrani paket vozača</value></data>
+  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Izborne značajke sustava Windows</value></data>
+  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} konfigurirano ({1} omogući, {2} onemogući)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Metoda</value></data>
@@ -258,6 +260,7 @@ Nastaviti s implementacijom?</value></data>
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Konfiguriranje ciljanog naziva računala...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Pisanje izvanmrežnog naziva računala...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Ciljana Windows particija nije dostupna.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Indeks primijenjene slike sustava Windows nije dostupan.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Naziv ciljnog računala konfiguriran.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Naziv ciljnog računala konfiguriran (simulacija).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Izvanmrežna prilagodba onemogućena.</value></data>
@@ -512,4 +515,18 @@ Nastaviti s implementacijom?</value></data>
     <value>Interaktivni pomoćnik za registraciju Autopilota je pripremljen (simulacija).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Uklonite medij za pokretanje, a zatim odaberite Ponovno pokreni.</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Konfigurirajte dodatne značajke sustava Windows</value></data>
+  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Konfiguriranje dodatnih značajki sustava Windows...</value></data>
+  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Provjera stanja značajki...</value></data>
+  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Priprema odgovarajućih izvora medija za postavljanje...</value></data>
+  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Primjena promjena značajki...</value></data>
+  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Simulacija promjena značajki...</value></data>
+  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Primjena promjena značajki</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve"><value>Konfiguracija izborne značajke sustava Windows onemogućena.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve"><value>Konfiguracija dodatne značajke sustava Windows nije važeća.</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve"><value>Izborne značajke sustava Windows konfigurirane su ({0} promijenjeno, {1} već u traženom stanju, {2} nedostupno).</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve"><value>Simulirana konfiguracija dodatne značajke sustava Windows ({0} radnji).</value></data>
+  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Opcijska značajka sustava Windows &#39;{0}&#39; ima uklonjeni sadržaj i nema podržanog mapiranja lokalnog izvora.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Provjera izborne značajke sustava Windows nije uspjela za &#39;{0}&#39;.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Odgovarajući izvor NetFx3 nije dostupan. {0}</value></data>
 </root>

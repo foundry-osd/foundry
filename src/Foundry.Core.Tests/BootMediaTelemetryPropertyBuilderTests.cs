@@ -61,6 +61,12 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
                         .Select(entry => entry.PackageName)
                         .ToArray()
                 },
+                WindowsOptionalFeatures = new WindowsOptionalFeatureSettings
+                {
+                    IsEnabled = true,
+                    EnabledFeatureIds = ["wf:netfx3"],
+                    DisabledFeatureIds = ["wf:telnetclient"]
+                },
                 AiComponentRemoval = new AiComponentRemovalSettings
                 {
                     IsEnabled = true,
@@ -144,6 +150,12 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.True((bool)result["customization_appx_removal_enabled"]!);
         Assert.Equal(8, result["customization_appx_removal_package_count"]);
         Assert.Equal("gaming_xbox", result["customization_appx_removal_profile"]);
+        Assert.True((bool)result["customization_windows_optional_features_enabled"]!);
+        Assert.Equal(2, result["customization_windows_optional_features_configured_count"]);
+        Assert.Equal(1, result["customization_windows_optional_features_enable_count"]);
+        Assert.Equal(1, result["customization_windows_optional_features_disable_count"]);
+        Assert.Equal(2, result["customization_windows_optional_features_category_count"]);
+        Assert.True((bool)result["customization_windows_optional_features_requires_sxs"]!);
         Assert.True((bool)result["customization_ai_component_removal_enabled"]!);
         Assert.True((bool)result["customization_ai_remove_copilot_enabled"]!);
         Assert.True((bool)result["customization_ai_remove_ai_hub_enabled"]!);
@@ -185,6 +197,72 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.DoesNotContain(result.Values.OfType<string>(), value => value.Contains("CorpWifi", StringComparison.OrdinalIgnoreCase));
         Assert.DoesNotContain(result.Values.OfType<string>(), value => value.Contains("Romance Standard Time", StringComparison.OrdinalIgnoreCase));
         Assert.DoesNotContain(result.Values.OfType<string>(), value => value.Contains("Microsoft.Xbox", StringComparison.OrdinalIgnoreCase));
+    }
+
+    [Fact]
+    public void Build_WhenWindowsOptionalFeaturesHaveNoValidActions_ReportsDisabledAggregates()
+    {
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                WindowsOptionalFeatures = new WindowsOptionalFeatureSettings
+                {
+                    IsEnabled = true,
+                    EnabledFeatureIds = ["wf:unknown"]
+                }
+            }
+        };
+
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
+            new MediaPreflightOptions(),
+            document,
+            success: true,
+            failedStepName: null,
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+
+        Assert.False((bool)result["customization_windows_optional_features_enabled"]!);
+        Assert.Equal(0, result["customization_windows_optional_features_configured_count"]);
+        Assert.Equal(0, result["customization_windows_optional_features_enable_count"]);
+        Assert.Equal(0, result["customization_windows_optional_features_disable_count"]);
+        Assert.Equal(0, result["customization_windows_optional_features_category_count"]);
+        Assert.False((bool)result["customization_windows_optional_features_requires_sxs"]!);
+        Assert.False((bool)result["customization_any_enabled"]!);
+    }
+
+    [Fact]
+    public void Build_WhenSourceBackedFeatureIsDisabled_DoesNotReportSourceRequirement()
+    {
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                WindowsOptionalFeatures = new WindowsOptionalFeatureSettings
+                {
+                    IsEnabled = true,
+                    DisabledFeatureIds = ["wf:netfx3"]
+                }
+            }
+        };
+
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
+            new MediaPreflightOptions(),
+            document,
+            success: true,
+            failedStepName: null,
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+
+        Assert.True((bool)result["customization_windows_optional_features_enabled"]!);
+        Assert.Equal(1, result["customization_windows_optional_features_disable_count"]);
+        Assert.False((bool)result["customization_windows_optional_features_requires_sxs"]!);
     }
 
     [Fact]

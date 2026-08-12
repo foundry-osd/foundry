@@ -16,7 +16,7 @@ public sealed class ConfigureRecoveryEnvironmentStep : DeploymentStepBase
         _windowsDeploymentService = windowsDeploymentService;
     }
 
-    public override int Order => 10;
+    public override int Order => 11;
 
     public override string Name => DeploymentStepNames.ConfigureRecoveryEnvironment;
 

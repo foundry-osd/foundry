@@ -185,6 +185,7 @@ public sealed partial class CustomizationConfigurationViewModel
     partial void OnIsOperatingSystemSelectionEnabledChanged(bool value)
     {
         IsOperatingSystemSelectionExpanded = value;
+        RefreshWindowsOptionalFeatureCompatibility();
         SaveState();
     }
 
@@ -349,6 +350,7 @@ public sealed partial class CustomizationConfigurationViewModel
         }
 
         RefreshOperatingSystemDefaultOptions(normalized);
+        RefreshWindowsOptionalFeatureCompatibility();
         SaveState();
     }
 

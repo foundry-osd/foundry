@@ -4,6 +4,7 @@
 
 using System.Xml.Linq;
 using System.Text.RegularExpressions;
+using Foundry.Core.Models.Configuration;
 
 namespace Foundry.Localization.Tests;
 
@@ -28,6 +29,7 @@ public sealed class ResourceKeyParityTests
         "ISO",
         "USB",
         "Wi-Fi",
+        "sources\\sxs",
         "KB",
         "MB",
         "GB",
@@ -100,6 +102,51 @@ public sealed class ResourceKeyParityTests
         ];
 
         Assert.Empty(expectedKeys.Except(enUsKeys, StringComparer.Ordinal));
+    }
+
+    [Fact]
+    public void FoundryResources_IncludeWindowsOptionalFeatureCatalogKeys()
+    {
+        string sourceRoot = FindSourceRoot();
+        string enUsPath = Path.Combine(sourceRoot, "Foundry", "Strings", "en-US", "Resources.resw");
+        SortedSet<string> enUsKeys = ReadResourceKeys(enUsPath);
+        string[] expectedKeys = WindowsOptionalFeatureCatalog.Entries
+            .SelectMany(entry => new[]
+            {
+                entry.DisplayNameResourceKey,
+                entry.CategoryResourceKey,
+                entry.WarningResourceKey
+            })
+            .Where(key => !string.IsNullOrWhiteSpace(key))
+            .Select(key => key!)
+            .Distinct(StringComparer.Ordinal)
+            .ToArray();
+
+        Assert.Empty(expectedKeys.Except(enUsKeys, StringComparer.Ordinal));
+    }
+
+    [Fact]
+    public void FoundryXamlResources_ResolveApplicationDefinedReferences()
+    {
+        string foundryRoot = Path.Combine(FindSourceRoot(), "Foundry");
+        string[] xamlPaths = Directory
+            .EnumerateFiles(foundryRoot, "*.xaml", SearchOption.AllDirectories)
+            .Where(path => !path.Contains($"{Path.DirectorySeparatorChar}bin{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
+            .Where(path => !path.Contains($"{Path.DirectorySeparatorChar}obj{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
+            .ToArray();
+        HashSet<string> definedKeys = xamlPaths
+            .SelectMany(path => Regex.Matches(File.ReadAllText(path), "x:Key=\"(Foundry[A-Za-z0-9.]+)\"")
+                .Select(match => match.Groups[1].Value))
+            .ToHashSet(StringComparer.Ordinal);
+        string[] missingKeys = xamlPaths
+            .SelectMany(path => Regex.Matches(File.ReadAllText(path), @"\{(?:Theme|Static)Resource\s+(Foundry[A-Za-z0-9.]+)\}")
+                .Select(match => match.Groups[1].Value))
+            .Distinct(StringComparer.Ordinal)
+            .Except(definedKeys, StringComparer.Ordinal)
+            .Order(StringComparer.Ordinal)
+            .ToArray();
+
+        Assert.Empty(missingKeys);
     }
 
     [Theory]

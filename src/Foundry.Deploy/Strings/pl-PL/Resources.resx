@@ -97,6 +97,8 @@
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>System operacyjny</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Brak wyboru</value></data>
   <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Wybrany pakiet sterowników</value></data>
+  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Opcjonalne funkcje systemu Windows</value></data>
+  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>Skonfigurowano {0} ({1} włącz, {2} wyłącz)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Oprogramowanie sprzętowe</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Metoda</value></data>
@@ -258,6 +260,7 @@ Kontynuować wdrażanie?</value></data>
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Konfiguruję nazwę komputera docelowego...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Zapisywanie nazwy komputera offline...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Partycja docelowa Windows jest niedostępna.</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Indeks zastosowanego obrazu systemu Windows jest niedostępny.</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Skonfigurowano nazwę komputera docelowego.</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Skonfigurowano nazwę komputera docelowego (symulacja).</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Dostosowywanie offline wyłączone.</value></data>
@@ -512,4 +515,18 @@ Kontynuować wdrażanie?</value></data>
     <value>Interaktywny asystent rejestracji Autopilot został przygotowany (symulacja).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Usuń nośnik rozruchowy, a następnie wybierz Uruchom ponownie.</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Skonfiguruj opcjonalne funkcje systemu Windows</value></data>
+  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Konfigurowanie opcjonalnych funkcji systemu Windows...</value></data>
+  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Sprawdzanie stan&#243;w funkcji...</value></data>
+  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Przygotowuję pasujące źr&#243;dła multimedi&#243;w konfiguracyjnych...</value></data>
+  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Stosowanie zmian funkcji...</value></data>
+  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Symulowanie zmian funkcji...</value></data>
+  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Stosowanie zmian funkcji</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve"><value>Konfiguracja opcjonalnych funkcji systemu Windows wyłączona.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve"><value>Konfiguracja funkcji opcjonalnych systemu Windows jest nieprawidłowa.</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve"><value>Skonfigurowano opcjonalne funkcje systemu Windows ({0} zmienione, {1} już w wymaganym stanie, {2} niedostępne).</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve"><value>Symulacja konfiguracji opcjonalnych funkcji systemu Windows (działania: {0}).</value></data>
+  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Opcjonalna funkcja systemu Windows „{0}” ma usunięty ładunek i nie jest obsługiwane lokalne mapowanie źr&#243;dła.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Weryfikacja opcjonalnych funkcji systemu Windows nie powiodła się dla „{0}”.</value></data>
+  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Pasujące źr&#243;dło NetFx3 jest niedostępne. {0}</value></data>
 </root>

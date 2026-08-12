@@ -30,6 +30,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
 
         InitializeAppxRemovalCatalog();
         InitializeOperatingSystemSelectionOptions(languageRegistryService.GetLanguages());
+        InitializeWindowsOptionalFeatureCatalog();
         RefreshLocalizedText();
         ApplyState(
             configurationStateService.Current.Customization,
@@ -149,6 +150,11 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
             item.PropertyChanged -= OnAppxRemovalItemPropertyChanged;
         }
 
+        foreach (WindowsOptionalFeatureItemViewModel item in WindowsOptionalFeatureCategories.SelectMany(category => category.AllItems))
+        {
+            item.PropertyChanged -= OnWindowsOptionalFeatureItemPropertyChanged;
+        }
+
         foreach (SelectableStringOptionViewModel option in OperatingSystemLanguageOptions
                      .Concat(OperatingSystemReleaseOptions)
                      .Concat(OperatingSystemLicenseChannelOptions)
@@ -204,6 +210,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
             AllowManualSuffixEdit = settings.MachineNaming.AllowManualSuffixEdit;
             ApplyOobeState(settings.Oobe);
             ApplyAiComponentRemovalState(settings.AiComponentRemoval);
+            ApplyWindowsOptionalFeatureState(settings.WindowsOptionalFeatures);
             ApplyAppxRemovalState(settings.AppxRemoval);
         }
         finally
@@ -227,6 +234,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
                 MachineNaming = BuildMachineNamingSettings(),
                 Oobe = BuildOobeSettings(),
                 AiComponentRemoval = BuildAiComponentRemovalSettings(),
+                WindowsOptionalFeatures = BuildWindowsOptionalFeatureSettings(),
                 AppxRemoval = BuildAppxRemovalSettings()
             });
             configurationStateService.UpdateOperatingSystemSelection(BuildOperatingSystemSelectionSettings());
@@ -253,6 +261,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
         RefreshOperatingSystemSelectionLocalizedText();
         RefreshOobeLocalizedText();
         RefreshAiComponentRemovalLocalizedText();
+        RefreshWindowsOptionalFeatureLocalizedText();
         RefreshAppxRemovalLocalizedText();
         OnPropertyChanged(nameof(MachineNamePrefixValidationMessage));
         OnPropertyChanged(nameof(HasMachineNamePrefixValidationError));

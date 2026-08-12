@@ -34,7 +34,7 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
         _interactiveRegistrationProvisioningService = interactiveRegistrationProvisioningService;
     }
 
-    public override int Order => 18;
+    public override int Order => 19;
 
     public override string Name => DeploymentStepNames.ProvisionAutopilot;
 

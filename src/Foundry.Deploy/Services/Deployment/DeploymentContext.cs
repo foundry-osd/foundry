@@ -99,6 +99,11 @@ public sealed record DeploymentContext
     public DeployAiComponentRemovalSettings AiComponentRemoval { get; init; } = new();
 
     /// <summary>
+    /// Gets Windows optional feature changes applied to the offline installation.
+    /// </summary>
+    public DeployWindowsOptionalFeatureSettings WindowsOptionalFeatures { get; init; } = new();
+
+    /// <summary>
     /// Gets the completion settings used after deployment finishes.
     /// </summary>
     public DeployCompletionSettings Completion { get; init; } = new();

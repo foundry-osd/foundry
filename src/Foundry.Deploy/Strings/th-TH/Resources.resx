@@ -97,6 +97,8 @@
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>ระบบปฏิบัติการ</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>ไม่มีการเลือก</value></data>
   <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>ชุดไดรเวอร์ที่เลือก</value></data>
+  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>คุณสมบัติเสริมของ Windows</value></data>
+  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>กำหนดค่า {0} (เปิดใช้งาน {1}, {2} ปิดใช้งาน)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>เฟิร์มแวร์</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot วิธีการ</value></data>
@@ -258,6 +260,7 @@
   <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>กำลังกำหนดค่าชื่อคอมพิวเตอร์เป้าหมาย...</value></data>
   <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>กำลังเขียนชื่อคอมพิวเตอร์ออฟไลน์...</value></data>
   <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>พาร์ติชันเป้าหมาย Windows ไม่พร้อมใช้งาน</value></data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>ดัชนีอิมเมจ Windows ที่นำไปใช้ไม่พร้อมใช้งาน</value></data>
   <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>กำหนดค่าชื่อคอมพิวเตอร์เป้าหมายแล้ว</value></data>
   <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>ชื่อคอมพิวเตอร์เป้าหมายที่กำหนดค่า (การจำลอง)</value></data>
   <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>ปิดใช้งานการปรับแต่งแบบออฟไลน์แล้ว</value></data>
@@ -512,4 +515,18 @@
     <value>จัดเตรียมผู้ช่วยลงทะเบียน Autopilot แบบโต้ตอบแล้ว (การจำลอง)</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>นำสื่อสำหรับบูตออก แล้วเลือก รีสตาร์ต</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>กำหนดค่าคุณสมบัติเสริมของ Windows</value></data>
+  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>กำลังกำหนดค่าคุณสมบัติเสริมของ Windows...</value></data>
+  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>กำลังตรวจสอบสถานะฟีเจอร์...</value></data>
+  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>กำลังเตรียมแหล่งสื่อการตั้งค่าที่ตรงกัน...</value></data>
+  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>กำลังใช้การเปลี่ยนแปลงคุณลักษณะ...</value></data>
+  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve"><value>กำลังจำลองการเปลี่ยนแปลงฟีเจอร์...</value></data>
+  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>การใช้การเปลี่ยนแปลงคุณสมบัติ</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve"><value>ปิดใช้งานการกำหนดค่าคุณลักษณะเสริมของ Windows แล้ว</value></data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve"><value>การกำหนดค่าคุณลักษณะเสริมของ Windows ไม่ถูกต้อง</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve"><value>กำหนดค่าคุณลักษณะเสริมของ Windows แล้ว ({0} เปลี่ยนแปลง, {1} เป็นไปตามที่ต้องการแล้ว, {2} ไม่พร้อมใช้งาน)</value></data>
+  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve"><value>จำลองการกำหนดค่าคุณลักษณะเสริมของ Windows ({0} การดำเนินการ)</value></data>
+  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>คุณลักษณะเสริมของ Windows &#39;{0}&#39; มีเพย์โหลดที่ถูกลบออก และไม่มีการแมปแหล่งที่มาในเครื่องที่สนับสนุน</value></data>
+  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>การตรวจสอบคุณสมบัติเสริมของ Windows ล้มเหลวสำหรับ &#39;{0}&#39;</value></data>
+  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>การจับคู่แหล่งที่มา NetFx3 ไม่พร้อมใช้งาน {0}</value></data>
 </root>

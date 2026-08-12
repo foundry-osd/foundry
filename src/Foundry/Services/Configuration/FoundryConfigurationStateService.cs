@@ -377,6 +377,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
             },
             Oobe = SanitizeOobeForPersistence(settings.Oobe),
             AppxRemoval = SanitizeAppxRemovalForPersistence(settings.AppxRemoval),
+            WindowsOptionalFeatures = WindowsOptionalFeatureSettingsNormalizer.Normalize(settings.WindowsOptionalFeatures),
             AiComponentRemoval = SanitizeAiComponentRemovalForPersistence(
                 settings.AiComponentRemoval,
                 settings.AppxRemoval)

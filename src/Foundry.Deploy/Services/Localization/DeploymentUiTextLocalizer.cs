@@ -29,6 +29,7 @@ public static partial class DeploymentUiTextLocalizer
             "Apply operating system image" => LocalizationText.GetString("Step.ApplyOperatingSystemImage"),
             "Configure target computer name" => LocalizationText.GetString("Step.ConfigureTargetComputerName"),
             "Configure OOBE settings" => LocalizationText.GetString("Step.ConfigureOobeSettings"),
+            "Configure Windows optional features" => LocalizationText.GetString("Step.ConfigureWindowsOptionalFeatures"),
             "Configure recovery environment" => LocalizationText.GetString("Step.ConfigureRecoveryEnvironment"),
             "Download driver pack" => LocalizationText.GetString("Step.DownloadDriverPack"),
             "Extract driver pack" => LocalizationText.GetString("Step.ExtractDriverPack"),
@@ -118,6 +119,7 @@ public static partial class DeploymentUiTextLocalizer
             "Configuring target computer name..." => LocalizationText.GetString("StepMessage.ConfiguringTargetComputerName"),
             "Writing offline computer name..." => LocalizationText.GetString("StepMessage.WritingOfflineComputerName"),
             "Target Windows partition is unavailable." => LocalizationText.GetString("StepResult.TargetWindowsPartitionUnavailable"),
+            "Applied Windows image index is unavailable." => LocalizationText.GetString("StepResult.AppliedWindowsImageIndexUnavailable"),
             "Target computer name configured." => LocalizationText.GetString("StepResult.TargetComputerNameConfigured"),
             "Target computer name configured (simulation)." => LocalizationText.GetString("StepResult.TargetComputerNameConfiguredSimulation"),
             "Offline customization disabled." => LocalizationText.GetString("StepResult.OfflineCustomizationDisabled"),
@@ -134,6 +136,14 @@ public static partial class DeploymentUiTextLocalizer
             "OOBE settings configured." => LocalizationText.GetString("StepResult.OobeSettingsConfigured"),
             "[DRY-RUN] Simulated OOBE customization." => LocalizationText.GetString("StepResult.OobeCustomizationSimulated"),
             "OOBE settings configured (simulation)." => LocalizationText.GetString("StepResult.OobeSettingsConfiguredSimulation"),
+            "Windows optional feature configuration disabled." => LocalizationText.GetString("StepResult.WindowsOptionalFeatureConfigurationDisabled"),
+            "Windows optional feature configuration is invalid." => LocalizationText.GetString("StepResult.WindowsOptionalFeatureConfigurationInvalid"),
+            "Configuring Windows optional features..." => LocalizationText.GetString("StepMessage.ConfiguringWindowsOptionalFeatures"),
+            "Inspecting feature states..." => LocalizationText.GetString("StepMessage.InspectingWindowsOptionalFeatureStates"),
+            "Preparing matching setup media sources..." => LocalizationText.GetString("StepMessage.PreparingWindowsOptionalFeatureSources"),
+            "Applying feature changes..." => LocalizationText.GetString("StepMessage.ApplyingWindowsOptionalFeatureChanges"),
+            "Simulating feature changes..." => LocalizationText.GetString("StepMessage.SimulatingWindowsOptionalFeatureChanges"),
+            "Applying feature changes" => LocalizationText.GetString("StepProgress.ApplyingWindowsOptionalFeatureChanges"),
             "Configuring recovery environment..." => LocalizationText.GetString("StepMessage.ConfiguringRecoveryEnvironment"),
             "Preparing Windows Recovery Environment..." => LocalizationText.GetString("StepMessage.PreparingWindowsRecoveryEnvironment"),
             "Recovery partition is unavailable." => LocalizationText.GetString("StepResult.RecoveryPartitionUnavailable"),
@@ -260,6 +270,49 @@ public static partial class DeploymentUiTextLocalizer
                 "Catalog.LoadedFormat",
                 int.Parse(match.Groups["os"].Value),
                 int.Parse(match.Groups["drivers"].Value));
+        }
+
+        match = WindowsOptionalFeatureConfiguredRegex().Match(value);
+        if (match.Success)
+        {
+            return LocalizationText.Format(
+                "StepResult.WindowsOptionalFeaturesConfiguredFormat",
+                int.Parse(match.Groups["changed"].Value),
+                int.Parse(match.Groups["satisfied"].Value),
+                int.Parse(match.Groups["unavailable"].Value));
+        }
+
+        match = WindowsOptionalFeatureSimulationRegex().Match(value);
+        if (match.Success)
+        {
+            return LocalizationText.Format(
+                "StepResult.WindowsOptionalFeaturesSimulationFormat",
+                int.Parse(match.Groups["actions"].Value));
+        }
+
+        match = WindowsOptionalFeatureRemovedPayloadRegex().Match(value);
+        if (match.Success)
+        {
+            return LocalizationText.Format(
+                "StepResult.WindowsOptionalFeatureRemovedPayloadFormat",
+                match.Groups["feature"].Value);
+        }
+
+        match = WindowsOptionalFeatureVerificationFailedRegex().Match(value);
+        if (match.Success)
+        {
+            return LocalizationText.Format(
+                "StepResult.WindowsOptionalFeatureVerificationFailedFormat",
+                match.Groups["feature"].Value);
+        }
+
+        if (TryLocalizeSingleSuffix(
+            value,
+            "Matching NetFx3 source is unavailable. ",
+            "StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat",
+            out string optionalFeatureSourceUnavailable))
+        {
+            return optionalFeatureSourceUnavailable;
         }
 
         if (TryLocalizeSingleSuffix(value, "Catalog load failed: ", "Catalog.LoadFailedFormat", out string localized))
@@ -450,6 +503,18 @@ public static partial class DeploymentUiTextLocalizer
 
     [GeneratedRegex(@"^Catalogs loaded: (?<os>\d+) OS entries, (?<drivers>\d+) driver packs\.$")]
     private static partial Regex CatalogLoadedRegex();
+
+    [GeneratedRegex(@"^Windows optional features configured \((?<changed>\d+) changed, (?<satisfied>\d+) already satisfied, (?<unavailable>\d+) unavailable\)\.$")]
+    private static partial Regex WindowsOptionalFeatureConfiguredRegex();
+
+    [GeneratedRegex(@"^Windows optional feature configuration simulated \((?<actions>\d+) actions\)\.$")]
+    private static partial Regex WindowsOptionalFeatureSimulationRegex();
+
+    [GeneratedRegex(@"^Windows optional feature '(?<feature>.+)' has a removed payload and no supported local source mapping\.$")]
+    private static partial Regex WindowsOptionalFeatureRemovedPayloadRegex();
+
+    [GeneratedRegex(@"^Windows optional feature verification failed for '(?<feature>.+)'\.$")]
+    private static partial Regex WindowsOptionalFeatureVerificationFailedRegex();
 
     [GeneratedRegex(@"^Target disk (?<disk>\d+) is no longer present\.$")]
     private static partial Regex TargetDiskMissingRegex();
