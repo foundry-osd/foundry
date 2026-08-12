@@ -10,6 +10,8 @@ namespace Foundry.ViewModels;
 
 public sealed partial class WindowsOptionalFeatureItemViewModel : ObservableObject
 {
+    private SelectionOption<WindowsOptionalFeatureState>? selectedState;
+
     public WindowsOptionalFeatureItemViewModel(WindowsOptionalFeatureCatalogEntry catalogEntry, int depth)
     {
         CatalogEntry = catalogEntry;
@@ -30,8 +32,25 @@ public sealed partial class WindowsOptionalFeatureItemViewModel : ObservableObje
     [ObservableProperty]
     public partial string DetailText { get; set; } = string.Empty;
 
-    [ObservableProperty]
-    public partial SelectionOption<WindowsOptionalFeatureState>? SelectedState { get; set; }
+    public SelectionOption<WindowsOptionalFeatureState>? SelectedState
+    {
+        get => selectedState;
+        set
+        {
+            if (value is null || !StateOptions.Any(option => ReferenceEquals(option, value)))
+            {
+                return;
+            }
+
+            if (ReferenceEquals(selectedState, value))
+            {
+                return;
+            }
+
+            selectedState = value;
+            OnPropertyChanged();
+        }
+    }
 
     public void SetState(WindowsOptionalFeatureState state)
     {
