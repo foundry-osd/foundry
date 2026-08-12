@@ -482,6 +482,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     public async Task<WindowsOptionalFeatureServicingResult> ConfigureOfflineWindowsOptionalFeaturesAsync(
         string setupMediaImagePath,
         string windowsPartitionRoot,
+        int appliedImageIndex,
         DeployWindowsOptionalFeatureSettings settings,
         string scratchDirectory,
         string sourceExtractionDirectory,
@@ -584,8 +585,9 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                 onSourcePreparationStarted?.Invoke();
                 TryCleanupOptionalFeatureDirectory(sourceExtractionDirectory, cleanupRoot);
                 Directory.CreateDirectory(sourceExtractionDirectory);
-                SetupMediaImageMetadata metadata = await ResolveSetupMediaImageMetadataAsync(
+                OptionalFeatureSourceMetadata metadata = await ResolveOptionalFeatureSourceMetadataAsync(
                         setupMediaImagePath,
+                        appliedImageIndex,
                         workingDirectory,
                         cancellationToken)
                     .ConfigureAwait(false);
@@ -595,7 +597,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                         "/English",
                         "/Apply-Image",
                         $"/ImageFile:{setupMediaImagePath}",
-                        $"/Index:{metadata.Index}",
+                        $"/Index:{metadata.SetupMediaIndex}",
                         $"/ApplyDir:{sourceExtractionDirectory}",
                         "/CheckIntegrity",
                         $"/ScratchDir:{scratchDirectory}"
@@ -1230,11 +1232,14 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             : state is OfflineWindowsFeatureState.Disabled or OfflineWindowsFeatureState.DisablePending or OfflineWindowsFeatureState.PayloadRemoved;
     }
 
-    private async Task<SetupMediaImageMetadata> ResolveSetupMediaImageMetadataAsync(
+    private async Task<OptionalFeatureSourceMetadata> ResolveOptionalFeatureSourceMetadataAsync(
         string imagePath,
+        int appliedImageIndex,
         string workingDirectory,
         CancellationToken cancellationToken)
     {
+        ArgumentOutOfRangeException.ThrowIfLessThan(appliedImageIndex, 1);
+
         ProcessExecutionResult summary = await RunRequiredProcessAsync(
             "dism.exe",
             ["/English", "/Get-ImageInfo", $"/ImageFile:{imagePath}"],
@@ -1258,12 +1263,13 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
         ProcessExecutionResult detail = await RunRequiredProcessAsync(
             "dism.exe",
-            ["/English", "/Get-ImageInfo", $"/ImageFile:{imagePath}", $"/Index:{matches[0].Index}"],
+            ["/English", "/Get-ImageInfo", $"/ImageFile:{imagePath}", $"/Index:{appliedImageIndex}"],
             workingDirectory,
-            $"Failed to inspect Windows Setup Media image index {matches[0].Index}",
+            $"Failed to inspect applied Windows image index {appliedImageIndex}",
             cancellationToken).ConfigureAwait(false);
-        return new SetupMediaImageMetadata(
+        return new OptionalFeatureSourceMetadata(
             matches[0].Index,
+            appliedImageIndex,
             ParseImageProperty(detail.StandardOutput, "Architecture"),
             ParseImageProperty(detail.StandardOutput, "Version"));
     }
@@ -1271,7 +1277,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     private static string ValidateMatchingNetFx3Source(
         string imagePath,
         string sourceExtractionDirectory,
-        SetupMediaImageMetadata metadata)
+        OptionalFeatureSourceMetadata metadata)
     {
         string sourcePath = Path.Combine(sourceExtractionDirectory, "sources", "sxs");
         string architectureToken = metadata.Architecture.ToUpperInvariant() switch
@@ -1279,7 +1285,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             "X64" or "AMD64" => "amd64",
             "ARM64" => "arm64",
             _ => throw new InvalidOperationException(
-                $"Windows Setup Media in '{imagePath}' reports unsupported architecture '{metadata.Architecture}'.")
+                $"Applied Windows image index {metadata.AppliedImageIndex} in '{imagePath}' reports unsupported architecture '{metadata.Architecture}'.")
         };
         bool hasMatchingCab = Directory.Exists(sourcePath) && Directory
             .EnumerateFiles(sourcePath, "*.cab", SearchOption.TopDirectoryOnly)
@@ -1462,7 +1468,11 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         WindowsOptionalFeatureCatalogEntry CatalogEntry,
         int Depth);
 
-    private sealed record SetupMediaImageMetadata(int Index, string Architecture, string Version);
+    private sealed record OptionalFeatureSourceMetadata(
+        int SetupMediaIndex,
+        int AppliedImageIndex,
+        string Architecture,
+        string Version);
 
     private enum OfflineWindowsFeatureState
     {

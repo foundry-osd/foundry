@@ -23,6 +23,7 @@ public sealed class WindowsDeploymentServiceTests
         WindowsOptionalFeatureServicingResult result = await service.ConfigureOfflineWindowsOptionalFeaturesAsync(
             Path.Combine(workspace.RootPath, "setup.esd"),
             workspace.RootPath,
+            1,
             new DeployWindowsOptionalFeatureSettings(),
             Path.Combine(workspace.RootPath, "Temp", "Dism", "OptionalFeatures"),
             Path.Combine(workspace.RootPath, "Temp", "WindowsSetupMedia"),
@@ -55,6 +56,7 @@ public sealed class WindowsDeploymentServiceTests
         WindowsOptionalFeatureServicingResult result = await service.ConfigureOfflineWindowsOptionalFeaturesAsync(
             Path.Combine(workspace.RootPath, "setup.esd"),
             workspace.RootPath,
+            1,
             new DeployWindowsOptionalFeatureSettings
             {
                 IsEnabled = true,
@@ -100,6 +102,7 @@ public sealed class WindowsDeploymentServiceTests
         WindowsOptionalFeatureServicingResult result = await service.ConfigureOfflineWindowsOptionalFeaturesAsync(
             Path.Combine(workspace.RootPath, "setup.esd"),
             workspace.RootPath,
+            1,
             new DeployWindowsOptionalFeatureSettings
             {
                 IsEnabled = true,
@@ -138,6 +141,7 @@ public sealed class WindowsDeploymentServiceTests
             service.ConfigureOfflineWindowsOptionalFeaturesAsync(
                 Path.Combine(workspace.RootPath, "setup.esd"),
                 workspace.RootPath,
+                1,
                 new DeployWindowsOptionalFeatureSettings
                 {
                     IsEnabled = true,
@@ -167,6 +171,7 @@ public sealed class WindowsDeploymentServiceTests
             service.ConfigureOfflineWindowsOptionalFeaturesAsync(
                 Path.Combine(workspace.RootPath, "setup.esd"),
                 workspace.RootPath,
+                1,
                 new DeployWindowsOptionalFeatureSettings
                 {
                     IsEnabled = true,
@@ -181,7 +186,7 @@ public sealed class WindowsDeploymentServiceTests
     }
 
     [Fact]
-    public async Task ConfigureOfflineWindowsOptionalFeaturesAsync_WhenSourceIsRequired_SelectsSetupMediaIndex()
+    public async Task ConfigureOfflineWindowsOptionalFeaturesAsync_WhenSourceIsRequired_UsesAppliedImageMetadata()
     {
         using var workspace = new TemporaryWorkspace();
         string imagePath = Path.Combine(workspace.RootPath, "setup.esd");
@@ -211,7 +216,17 @@ public sealed class WindowsDeploymentServiceTests
                     return new ProcessExecutionResult
                     {
                         ExitCode = 0,
-                        StandardOutput = "Index : 3\nName : Windows Setup Media\nArchitecture : x64\nVersion : 10.0.26200"
+                        StandardOutput = "Index : 3\nName : Windows Setup Media\nArchitecture : <undefined>\nVersion : <undefined>"
+                    };
+                }
+
+                if (arguments.Contains("/Get-ImageInfo", StringComparison.OrdinalIgnoreCase) &&
+                    arguments.Contains("/Index:9", StringComparison.OrdinalIgnoreCase))
+                {
+                    return new ProcessExecutionResult
+                    {
+                        ExitCode = 0,
+                        StandardOutput = "Index : 9\nName : Windows 11 Enterprise\nArchitecture : x64\nVersion : 10.0.26200"
                     };
                 }
 
@@ -220,7 +235,7 @@ public sealed class WindowsDeploymentServiceTests
                     return new ProcessExecutionResult
                     {
                         ExitCode = 0,
-                        StandardOutput = "Index : 1\nName : Windows 11 Pro\n\nIndex : 3\nName : Windows Setup Media"
+                        StandardOutput = "Index : 3\nName : Windows Setup Media\n\nIndex : 9\nName : Windows 11 Enterprise"
                     };
                 }
 
@@ -242,6 +257,7 @@ public sealed class WindowsDeploymentServiceTests
         WindowsOptionalFeatureServicingResult result = await service.ConfigureOfflineWindowsOptionalFeaturesAsync(
             imagePath,
             workspace.RootPath,
+            9,
             new DeployWindowsOptionalFeatureSettings
             {
                 IsEnabled = true,
@@ -254,10 +270,84 @@ public sealed class WindowsDeploymentServiceTests
 
         Assert.True(result.MatchingSourceUsed);
         Assert.True(applyDirectoryExisted);
+        Assert.Contains(processRunner.Calls, call => call.Contains("/Get-ImageInfo", StringComparison.OrdinalIgnoreCase) && call.Contains("/Index:9", StringComparison.OrdinalIgnoreCase));
+        Assert.DoesNotContain(processRunner.Calls, call => call.Contains("/Get-ImageInfo", StringComparison.OrdinalIgnoreCase) && call.Contains("/Index:3", StringComparison.OrdinalIgnoreCase));
         Assert.Contains(processRunner.Calls, call => call.Contains("/Apply-Image", StringComparison.OrdinalIgnoreCase) && call.Contains("/Index:3", StringComparison.OrdinalIgnoreCase));
         Assert.Contains(processRunner.Calls, call => call.Contains("/Enable-Feature", StringComparison.OrdinalIgnoreCase) && call.Contains($"/Source:{Path.Combine(sourceDirectory, "sources", "sxs")}", StringComparison.OrdinalIgnoreCase));
         Assert.False(Directory.Exists(scratchDirectory));
         Assert.False(Directory.Exists(sourceDirectory));
+    }
+
+    [Fact]
+    public async Task ConfigureOfflineWindowsOptionalFeaturesAsync_WhenSourceArchitectureDoesNotMatchAppliedImage_FailsBeforeServicing()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string imagePath = Path.Combine(workspace.RootPath, "setup.esd");
+        await File.WriteAllTextAsync(imagePath, string.Empty, TestContext.Current.CancellationToken);
+        string sourceDirectory = Path.Combine(workspace.RootPath, "Temp", "WindowsSetupMedia");
+        var processRunner = new RecordingProcessRunner
+        {
+            ResultFactory = arguments =>
+            {
+                if (arguments.Contains("/Get-Features", StringComparison.OrdinalIgnoreCase))
+                {
+                    return new ProcessExecutionResult
+                    {
+                        ExitCode = 0,
+                        StandardOutput = "NetFx3 | Disabled with Payload Removed"
+                    };
+                }
+
+                if (arguments.Contains("/Get-ImageInfo", StringComparison.OrdinalIgnoreCase) &&
+                    arguments.Contains("/Index:9", StringComparison.OrdinalIgnoreCase))
+                {
+                    return new ProcessExecutionResult
+                    {
+                        ExitCode = 0,
+                        StandardOutput = "Index : 9\nName : Windows 11 Enterprise\nArchitecture : ARM64\nVersion : 10.0.26200"
+                    };
+                }
+
+                if (arguments.Contains("/Get-ImageInfo", StringComparison.OrdinalIgnoreCase))
+                {
+                    return new ProcessExecutionResult
+                    {
+                        ExitCode = 0,
+                        StandardOutput = "Index : 3\nName : Windows Setup Media\n\nIndex : 9\nName : Windows 11 Enterprise"
+                    };
+                }
+
+                if (arguments.Contains("/Apply-Image", StringComparison.OrdinalIgnoreCase))
+                {
+                    string sxsDirectory = Path.Combine(sourceDirectory, "sources", "sxs");
+                    Directory.CreateDirectory(sxsDirectory);
+                    File.WriteAllText(
+                        Path.Combine(sxsDirectory, "microsoft-windows-netfx3-ondemand-package~31bf3856ad364e35~amd64~~.cab"),
+                        string.Empty);
+                }
+
+                return new ProcessExecutionResult { ExitCode = 0 };
+            }
+        };
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            service.ConfigureOfflineWindowsOptionalFeaturesAsync(
+                imagePath,
+                workspace.RootPath,
+                9,
+                new DeployWindowsOptionalFeatureSettings
+                {
+                    IsEnabled = true,
+                    Actions = [new() { Id = "wf:netfx3", Enable = true }]
+                },
+                Path.Combine(workspace.RootPath, "Temp", "Dism", "OptionalFeatures"),
+                sourceDirectory,
+                Path.Combine(workspace.RootPath, "Temp", "Deployment"),
+                TestContext.Current.CancellationToken));
+
+        Assert.Contains("arm64", exception.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain(processRunner.Calls, call => call.Contains("/Enable-Feature", StringComparison.OrdinalIgnoreCase));
     }
 
     [Fact]
@@ -274,6 +364,7 @@ public sealed class WindowsDeploymentServiceTests
             service.ConfigureOfflineWindowsOptionalFeaturesAsync(
                 Path.Combine(workspace.RootPath, "setup.esd"),
                 workspace.RootPath,
+                1,
                 new DeployWindowsOptionalFeatureSettings
                 {
                     IsEnabled = true,
@@ -299,6 +390,7 @@ public sealed class WindowsDeploymentServiceTests
             service.ConfigureOfflineWindowsOptionalFeaturesAsync(
                 Path.Combine(workspace.RootPath, "setup.esd"),
                 workspace.RootPath,
+                1,
                 new DeployWindowsOptionalFeatureSettings
                 {
                     IsEnabled = true,

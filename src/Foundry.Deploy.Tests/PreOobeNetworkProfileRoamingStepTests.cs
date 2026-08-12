@@ -207,6 +207,7 @@ public sealed class PreOobeNetworkProfileRoamingStepTests
         public Task<WindowsOptionalFeatureServicingResult> ConfigureOfflineWindowsOptionalFeaturesAsync(
             string setupMediaImagePath,
             string windowsPartitionRoot,
+            int appliedImageIndex,
             DeployWindowsOptionalFeatureSettings settings,
             string scratchDirectory,
             string sourceExtractionDirectory,

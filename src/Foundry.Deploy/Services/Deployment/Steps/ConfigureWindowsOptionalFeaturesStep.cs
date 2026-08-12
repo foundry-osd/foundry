@@ -43,6 +43,11 @@ public sealed class ConfigureWindowsOptionalFeaturesStep : DeploymentStepBase
             return DeploymentStepResult.Failed("Target Windows partition is unavailable.");
         }
 
+        if (context.RuntimeState.AppliedImageIndex is not int appliedImageIndex)
+        {
+            return DeploymentStepResult.Failed("Applied Windows image index is unavailable.");
+        }
+
         string imagePath = context.RuntimeState.DownloadedOperatingSystemPath ?? string.Empty;
         if (!File.Exists(imagePath))
         {
@@ -61,6 +66,7 @@ public sealed class ConfigureWindowsOptionalFeaturesStep : DeploymentStepBase
             .ConfigureOfflineWindowsOptionalFeaturesAsync(
                 imagePath,
                 context.RuntimeState.TargetWindowsPartitionRoot,
+                appliedImageIndex,
                 settings,
                 scratchDirectory,
                 sourceExtractionDirectory,

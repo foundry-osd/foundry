@@ -156,6 +156,7 @@ public sealed class PrepareTargetDiskLayoutStepTests
         public Task<WindowsOptionalFeatureServicingResult> ConfigureOfflineWindowsOptionalFeaturesAsync(
             string setupMediaImagePath,
             string windowsPartitionRoot,
+            int appliedImageIndex,
             DeployWindowsOptionalFeatureSettings settings,
             string scratchDirectory,
             string sourceExtractionDirectory,

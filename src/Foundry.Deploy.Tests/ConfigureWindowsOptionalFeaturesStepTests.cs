@@ -76,6 +76,21 @@ public sealed class ConfigureWindowsOptionalFeaturesStepTests
     }
 
     [Fact]
+    public async Task ExecuteAsync_WhenAppliedImageIndexIsMissing_ReturnsFailure()
+    {
+        using var workspace = new TestWorkspace();
+        var service = new RecordingWindowsDeploymentService();
+        DeploymentStepExecutionContext context = CreateContext(workspace, service, Settings(Action("NetFx3", true)));
+        context.RuntimeState.AppliedImageIndex = null;
+
+        DeploymentStepResult result = await ExecuteAsync(service, context);
+
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.Contains("image index", result.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Equal(0, service.ConfigureOptionalFeaturesCallCount);
+    }
+
+    [Fact]
     public async Task ExecuteAsync_WhenConfigurationIsValid_ServicesFeaturesWithTargetWorkspacePaths()
     {
         using var workspace = new TestWorkspace();
@@ -101,6 +116,7 @@ public sealed class ConfigureWindowsOptionalFeaturesStepTests
         Assert.Equal(Path.Combine(workspace.TargetFoundryRoot, "Temp", "Dism", "OptionalFeatures"), service.ScratchDirectory);
         Assert.Equal(Path.Combine(workspace.TargetFoundryRoot, "Temp", "WindowsSetupMedia"), service.SourceExtractionDirectory);
         Assert.Equal(Path.Combine(workspace.TargetFoundryRoot, "Temp", "Deployment"), service.WorkingDirectory);
+        Assert.Equal(9, service.AppliedImageIndex);
         Assert.Equal(2, service.Settings!.Actions.Count);
         Assert.Equal(DeploymentOperationNames.ConfigureWindowsOptionalFeatures, context.RuntimeState.CurrentOperation);
     }
@@ -176,6 +192,7 @@ public sealed class ConfigureWindowsOptionalFeaturesStepTests
             TargetWindowsPartitionRoot = workspace.WindowsRoot,
             TargetFoundryRoot = workspace.TargetFoundryRoot,
             DownloadedOperatingSystemPath = workspace.ImagePath,
+            AppliedImageIndex = 9,
             WindowsOptionalFeatures = settings
         };
 
@@ -204,6 +221,7 @@ public sealed class ConfigureWindowsOptionalFeaturesStepTests
     {
         public int ConfigureOptionalFeaturesCallCount { get; private set; }
         public DeployWindowsOptionalFeatureSettings? Settings { get; private set; }
+        public int? AppliedImageIndex { get; private set; }
         public string? ScratchDirectory { get; private set; }
         public string? SourceExtractionDirectory { get; private set; }
         public string? WorkingDirectory { get; private set; }
@@ -213,6 +231,7 @@ public sealed class ConfigureWindowsOptionalFeaturesStepTests
         public Task<WindowsOptionalFeatureServicingResult> ConfigureOfflineWindowsOptionalFeaturesAsync(
             string setupMediaImagePath,
             string windowsPartitionRoot,
+            int appliedImageIndex,
             DeployWindowsOptionalFeatureSettings settings,
             string scratchDirectory,
             string sourceExtractionDirectory,
@@ -230,6 +249,7 @@ public sealed class ConfigureWindowsOptionalFeaturesStepTests
             }
 
             Settings = settings;
+            AppliedImageIndex = appliedImageIndex;
             ScratchDirectory = scratchDirectory;
             SourceExtractionDirectory = sourceExtractionDirectory;
             WorkingDirectory = workingDirectory;
