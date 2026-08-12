@@ -74,11 +74,6 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
     public partial InfoBarSeverity AdkStatusSeverity { get; set; }
 
     /// <summary>
-    /// Gets the documentation URL opened by the home page.
-    /// </summary>
-    public string DocumentationUrl => FoundryApplicationInfo.DocumentationUrl;
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="HomeLandingViewModel"/> class.
     /// </summary>
     public HomeLandingViewModel(
