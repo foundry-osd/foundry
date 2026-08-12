@@ -562,7 +562,7 @@ namespace Foundry.Views
             NavigationService.NavigateTo(typeof(AppUpdateSettingPage));
         }
 
-        private async Task OpenDocumentationAsync()
+        internal async Task OpenDocumentationAsync()
         {
             if (shellNavigationGuardService.State == ShellNavigationState.OperationRunning)
             {

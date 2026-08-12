@@ -41,6 +41,11 @@ public sealed partial class HomeLandingPage : Page
         App.Current.NavigationService.NavigateTo(target);
     }
 
+    private async void OpenDocumentationButton_Click(object sender, RoutedEventArgs e)
+    {
+        await ((MainWindow)App.MainWindow).OpenDocumentationAsync();
+    }
+
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
         Unloaded -= OnUnloaded;
