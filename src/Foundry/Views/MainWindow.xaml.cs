@@ -81,7 +81,6 @@ namespace Foundry.Views
             operationProgressService.StateChanged += OnOperationProgressChanged;
             shellNavigationGuardService.StateChanged += OnShellNavigationStateChanged;
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
-            AppTitleBar.BackRequested += OnTitleBarBackRequested;
             AppTitleBar.PaneToggleRequested += OnTitleBarPaneToggleRequested;
             Closed += OnClosed;
         }
@@ -126,7 +125,6 @@ namespace Foundry.Views
             shellNavigationGuardService.StateChanged -= OnShellNavigationStateChanged;
             ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
             NavigationService.StateChanged -= OnNavigationStateChanged;
-            AppTitleBar.BackRequested -= OnTitleBarBackRequested;
             AppTitleBar.PaneToggleRequested -= OnTitleBarPaneToggleRequested;
             Closed -= OnClosed;
             ViewModel.Dispose();
@@ -169,16 +167,6 @@ namespace Foundry.Views
             }
 
             ApplyOperationState(e.State);
-        }
-
-        private void OnTitleBarBackRequested(TitleBar sender, object args)
-        {
-            if (shellNavigationGuardService.State == ShellNavigationState.OperationRunning)
-            {
-                return;
-            }
-
-            NavigationService.GoBack();
         }
 
         private void OnTitleBarPaneToggleRequested(TitleBar sender, object args)
@@ -250,8 +238,6 @@ namespace Foundry.Views
 
         private void ApplyNavigationState()
         {
-            NavView.IsBackEnabled = NavigationService.CanGoBack;
-            AppTitleBar.IsBackButtonVisible = NavigationService.CanGoBack;
             Breadcrumbs.Visibility = NavigationService.IsBreadcrumbVisible
                 ? Visibility.Visible
                 : Visibility.Collapsed;

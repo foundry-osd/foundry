@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
         <TitleBar x:Name="AppTitleBar"
             MinHeight="48"
-            IsBackButtonVisible="True"
+            IsBackButtonVisible="False"
             IsPaneToggleButtonVisible="True">
             <TitleBar.IconSource>
                 <ImageIconSource ImageSource="ms-appx:///Assets/AppIcon.png" />
