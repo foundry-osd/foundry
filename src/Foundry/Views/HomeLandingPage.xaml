@@ -11,6 +11,10 @@
             <Setter Property="Width" Value="232" />
             <Setter Property="MinHeight" Value="172" />
             <Setter Property="Padding" Value="24" />
+            <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="{ThemeResource FoundryCardCornerRadius}" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="VerticalContentAlignment" Value="Stretch" />
         </Style>
@@ -34,6 +38,16 @@
                 <Rectangle
                     Fill="{ThemeResource SystemControlBackgroundAltHighBrush}"
                     Opacity="0.35" />
+                <Rectangle
+                    Height="48"
+                    VerticalAlignment="Bottom">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="{ThemeResource HomeHeroFadeStartColor}" Offset="0" />
+                            <GradientStop Color="{ThemeResource HomeHeroFadeEndColor}" Offset="1" />
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
                 <StackPanel
                     Margin="36,48,36,24"
                     VerticalAlignment="Center"
@@ -52,7 +66,7 @@
 
             <ScrollViewer
                 Grid.Row="1"
-                Margin="36,0"
+                Margin="36,16,36,0"
                 HorizontalScrollBarVisibility="Auto"
                 HorizontalScrollMode="Enabled"
                 VerticalScrollBarVisibility="Disabled"

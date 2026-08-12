@@ -4,6 +4,9 @@
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Light">
             <x:String x:Key="HeaderCover">/Assets/Cover/CoverLight.png</x:String>
+            <Color x:Key="HomeHeroFadeStartColor">#00F3F3F3</Color>
+            <StaticResource x:Key="HomeHeroFadeEndColor"
+                ResourceKey="SolidBackgroundFillColorBase" />
             <StaticResource x:Key="FoundryStatusReadyBrush"
                 ResourceKey="SystemFillColorSuccessBrush" />
             <StaticResource x:Key="FoundryStatusReadyForegroundBrush"
@@ -38,6 +41,9 @@
 
         <ResourceDictionary x:Key="Dark">
             <x:String x:Key="HeaderCover">/Assets/Cover/CoverDark.png</x:String>
+            <Color x:Key="HomeHeroFadeStartColor">#00202020</Color>
+            <StaticResource x:Key="HomeHeroFadeEndColor"
+                ResourceKey="SolidBackgroundFillColorBase" />
             <StaticResource x:Key="FoundryStatusReadyBrush"
                 ResourceKey="SystemFillColorSuccessBrush" />
             <StaticResource x:Key="FoundryStatusReadyForegroundBrush"
@@ -72,6 +78,10 @@
 
         <ResourceDictionary x:Key="HighContrast">
             <x:String x:Key="HeaderCover">/Assets/Cover/CoverDark.png</x:String>
+            <StaticResource x:Key="HomeHeroFadeStartColor"
+                ResourceKey="SystemColorWindowColor" />
+            <StaticResource x:Key="HomeHeroFadeEndColor"
+                ResourceKey="SystemColorWindowColor" />
             <StaticResource x:Key="FoundryStatusReadyBrush"
                 ResourceKey="SystemColorButtonFaceBrush" />
             <StaticResource x:Key="FoundryStatusReadyForegroundBrush"
