@@ -238,7 +238,9 @@ namespace Foundry.Views
 
         private void ApplyNavigationState()
         {
-            Breadcrumbs.Visibility = NavigationService.IsBreadcrumbVisible
+            bool showBreadcrumbs = NavigationService.IsBreadcrumbVisible;
+            NavView.AlwaysShowHeader = showBreadcrumbs;
+            Breadcrumbs.Visibility = showBreadcrumbs
                 ? Visibility.Visible
                 : Visibility.Collapsed;
         }

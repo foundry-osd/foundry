@@ -23,6 +23,7 @@
             Grid.Row="1"
             IsBackButtonVisible="Collapsed"
             IsPaneToggleButtonVisible="False"
+            IsTitleBarAutoPaddingEnabled="False"
             ItemInvoked="NavView_ItemInvoked">
             <NavigationView.Header>
                 <BreadcrumbBar x:Name="Breadcrumbs"
