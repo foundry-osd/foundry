@@ -26,7 +26,8 @@ internal sealed class AppNavigationService(
 
     private bool CanGoBack => frame?.CanGoBack == true && navigationGuard.State != ShellNavigationState.OperationRunning;
 
-    public bool IsBreadcrumbVisible => currentRoute?.ParentPageType is not null;
+    public bool IsBreadcrumbVisible =>
+        currentRoute?.PageType == typeof(Views.SettingsPage) || currentRoute?.ParentPageType is not null;
 
     public event EventHandler? StateChanged;
 
