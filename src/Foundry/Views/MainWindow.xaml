@@ -12,6 +12,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <TitleBar x:Name="AppTitleBar"
+            MinHeight="48"
             IsBackButtonVisible="True"
             IsPaneToggleButtonVisible="True">
             <TitleBar.IconSource>
