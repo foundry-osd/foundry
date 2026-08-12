@@ -26,7 +26,7 @@ public sealed class ConfigurationSchemaVersionsTests
     }
 
     [Fact]
-    public void WindowsOptionalFeatures_AdvanceAffectedSchemaContracts()
+    public void CurrentSchemaVersions_MatchExpectedVersions()
     {
         Assert.Equal(13, ConfigurationSchemaVersions.FoundryCurrent);
         Assert.Equal(11, ConfigurationSchemaVersions.DeployCurrent);
