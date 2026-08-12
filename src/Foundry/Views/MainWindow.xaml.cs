@@ -4,12 +4,12 @@
 
 using Foundry.Core.Services.Application;
 using Foundry.Services.Localization;
+using Foundry.Services.Application;
 using Foundry.Services.Operations;
 using Foundry.Services.Shell;
 using System.ComponentModel;
 using Microsoft.UI.Windowing;
-using Microsoft.UI.Xaml.Input;
-using Windows.System;
+using Microsoft.UI.Xaml.Automation;
 using Serilog;
 
 namespace Foundry.Views
@@ -30,7 +30,6 @@ namespace Foundry.Views
         private const string UpdateNavigationGlyph = "\uEBD3";
         private const string StringInfoBadgeStyleKey = "StringInfoBadgeStyle";
         private ContentDialog? operationDialog;
-        private JsonNavigationService? jsonNavigationService;
         private TextBlock? operationStatusText;
         private ProgressBar? operationProgressBar;
         private TextBlock? operationProgressPercentText;
@@ -46,6 +45,10 @@ namespace Foundry.Views
         /// </summary>
         public MainViewModel ViewModel { get; }
 
+        public IAppNavigationService NavigationService { get; }
+
+        internal FrameworkElement RootElement => RootGrid;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
         /// </summary>
@@ -55,8 +58,11 @@ namespace Foundry.Views
             operationProgressService = App.GetService<IOperationProgressService>();
             shellNavigationGuardService = App.GetService<IShellNavigationGuardService>();
             externalProcessLauncher = App.GetService<IExternalProcessLauncher>();
+            NavigationService = App.GetService<IAppNavigationService>();
             ViewModel = App.GetService<MainViewModel>();
             this.InitializeComponent();
+            AppTitleBar.Title = ApplicationInfo.ProductName;
+            AppTitleBar.Subtitle = ApplicationInfo.VersionWithPrefix;
             ExtendsContentIntoTitleBar = true;
             SetTitleBar(AppTitleBar);
             AppWindow.TitleBar.PreferredHeightOption = TitleBarHeightOption.Tall;
@@ -65,7 +71,9 @@ namespace Foundry.Views
                 presenter.Maximize();
             }
 
-            InitializeNavigation();
+            NavigationService.Initialize(NavView, NavFrame);
+            NavigationService.StateChanged += OnNavigationStateChanged;
+            ApplyNavigationState();
             ApplyLocalizedShellText();
             ApplyShellNavigationState();
 
@@ -73,32 +81,13 @@ namespace Foundry.Views
             operationProgressService.StateChanged += OnOperationProgressChanged;
             shellNavigationGuardService.StateChanged += OnShellNavigationStateChanged;
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
-            NavFrame.Navigated += OnNavFrameNavigated;
             AppTitleBar.BackRequested += OnTitleBarBackRequested;
             AppTitleBar.PaneToggleRequested += OnTitleBarPaneToggleRequested;
             Closed += OnClosed;
         }
 
-        private void InitializeNavigation()
-        {
-            jsonNavigationService = App.GetService<IJsonNavigationService>() as JsonNavigationService;
-            if (jsonNavigationService != null)
-            {
-                jsonNavigationService.Initialize(NavView, NavFrame, NavigationPageMappings.PageDictionary)
-                    .ConfigureDefaultPage(typeof(HomeLandingPage))
-                    .ConfigureSettingsPage(typeof(SettingsPage))
-                    .ConfigureJsonFile("Assets/NavViewMenu/AppData.json", OrderItemsType.None)
-                    .ConfigureBreadcrumbBar(BreadCrumbNav, BreadcrumbPageMappings.PageDictionary);
-            }
-        }
-
         private void ApplyLocalizedShellText()
         {
-            if (NavView.SettingsItem is NavigationViewItem settingsItem)
-            {
-                settingsItem.Content = localizationService.GetString("SettingsPage.PageTitle");
-            }
-
             EnsureExternalDocumentationFooterItem();
             EnsureExternalAboutFooterItem();
             RefreshUpdateFooterItem();
@@ -124,74 +113,10 @@ namespace Foundry.Views
 
         private void RefreshLocalizedShell()
         {
-            jsonNavigationService?.ReInitialize();
+            NavigationService.RefreshLocalizedState();
             ApplyLocalizedShellText();
-            RefreshLocalizedBreadcrumbs();
             ApplyShellNavigationState();
-
-            Type? currentPageType = NavFrame.CurrentSourcePageType;
-            if (currentPageType is not null)
-            {
-                NavFrame.Navigate(currentPageType);
-                RefreshLocalizedBreadcrumbs();
-                ApplyShellNavigationState();
-            }
-        }
-
-        private void RefreshLocalizedBreadcrumbs()
-        {
-            if (BreadCrumbNav.BreadCrumbs is null || BreadCrumbNav.BreadCrumbs.Count == 0)
-            {
-                return;
-            }
-
-            BreadCrumbNav.BreadCrumbs = new(BreadCrumbNav.BreadCrumbs.Select(step =>
-                new BreadcrumbStep(GetLocalizedBreadcrumbLabel(step), step.Page, step.Parameter)));
-        }
-
-        private string GetLocalizedBreadcrumbLabel(BreadcrumbStep step)
-        {
-            if (step.Page == typeof(SettingsPage))
-            {
-                return localizationService.GetString("SettingsPage.PageTitle");
-            }
-
-            if (step.Page == typeof(GeneralSettingPage))
-            {
-                return localizationService.GetString("SettingsPage_GeneralCard.Header");
-            }
-
-            if (step.Page == typeof(ThemeSettingPage))
-            {
-                return localizationService.GetString("SettingsPage_ThemeCard.Header");
-            }
-
-            if (step.Page == typeof(AppUpdateSettingPage))
-            {
-                return localizationService.GetString("SettingsPage_UpdateCard.Header");
-            }
-
-            if (step.Page == typeof(HomeLandingPage))
-            {
-                return localizationService.GetString("Nav_HomeKey.Title");
-            }
-
-            if (step.Page == typeof(AdkPage))
-            {
-                return localizationService.GetString("Adk.PageTitle");
-            }
-
-            if (step.Page == typeof(GeneralConfigurationPage))
-            {
-                return localizationService.GetString("GeneralConfigurationPage_Title.Text");
-            }
-
-            if (step.Page == typeof(StartPage))
-            {
-                return localizationService.GetString("StartPage_Title.Text");
-            }
-
-            return step.Label;
+            NavigationService.RefreshCurrentPage();
         }
 
         private void OnClosed(object sender, WindowEventArgs args)
@@ -200,7 +125,7 @@ namespace Foundry.Views
             operationProgressService.StateChanged -= OnOperationProgressChanged;
             shellNavigationGuardService.StateChanged -= OnShellNavigationStateChanged;
             ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
-            NavFrame.Navigated -= OnNavFrameNavigated;
+            NavigationService.StateChanged -= OnNavigationStateChanged;
             AppTitleBar.BackRequested -= OnTitleBarBackRequested;
             AppTitleBar.PaneToggleRequested -= OnTitleBarPaneToggleRequested;
             Closed -= OnClosed;
@@ -246,12 +171,6 @@ namespace Foundry.Views
             ApplyOperationState(e.State);
         }
 
-        private void OnNavFrameNavigated(object sender, NavigationEventArgs e)
-        {
-            SynchronizeSelectedNavigationItem(e.SourcePageType);
-            ApplyShellNavigationState();
-        }
-
         private void OnTitleBarBackRequested(TitleBar sender, object args)
         {
             if (shellNavigationGuardService.State == ShellNavigationState.OperationRunning)
@@ -259,12 +178,50 @@ namespace Foundry.Views
                 return;
             }
 
-            jsonNavigationService?.GoBack();
+            NavigationService.GoBack();
         }
 
         private void OnTitleBarPaneToggleRequested(TitleBar sender, object args)
         {
             NavView.IsPaneOpen = !NavView.IsPaneOpen;
+        }
+
+        private async void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+        {
+            switch (args.InvokedItemContainer?.Tag as string)
+            {
+                case UpdateNavigationTag:
+                    NavigateToUpdateSettingsPage();
+                    return;
+                case DocumentationNavigationTag:
+                    await OpenDocumentationAsync();
+                    return;
+                case AboutNavigationTag:
+                    await ShowAboutDialogAsync();
+                    return;
+            }
+
+            if (args.IsSettingsInvoked)
+            {
+                NavigationService.NavigateTo(typeof(SettingsPage));
+                return;
+            }
+
+            if (args.InvokedItemContainer?.Tag is string routeId &&
+                NavigationRouteCatalog.FindById(routeId) is { } route)
+            {
+                NavigationService.NavigateTo(route.PageType);
+            }
+        }
+
+        private void Breadcrumbs_ItemClicked(
+            Microsoft.UI.Xaml.Controls.BreadcrumbBar sender,
+            Microsoft.UI.Xaml.Controls.BreadcrumbBarItemClickedEventArgs args)
+        {
+            if (args.Item is BreadcrumbEntry entry)
+            {
+                NavigationService.NavigateToBreadcrumb(entry);
+            }
         }
 
         private void ApplyShellNavigationState()
@@ -274,12 +231,30 @@ namespace Foundry.Views
             UpdateOperationDialog(isOperationRunning);
 
             // The navigation guard owns route availability so individual pages do not duplicate ADK or operation checks.
-            ApplyNavigationItemsState(NavView.MenuItems, isFooter: false, state);
-            ApplyNavigationItemsState(NavView.FooterMenuItems, isFooter: true, state);
+            ApplyFooterItemsState(state);
 
-            NavView.IsBackEnabled = !isOperationRunning && NavFrame.CanGoBack;
-            AppTitleBar.IsBackButtonVisible = !isOperationRunning && NavFrame.CanGoBack;
+            ApplyNavigationState();
             RefreshUpdateFooterItem();
+        }
+
+        private void OnNavigationStateChanged(object? sender, EventArgs e)
+        {
+            if (!DispatcherQueue.HasThreadAccess)
+            {
+                DispatcherQueue.TryEnqueue(ApplyNavigationState);
+                return;
+            }
+
+            ApplyNavigationState();
+        }
+
+        private void ApplyNavigationState()
+        {
+            NavView.IsBackEnabled = NavigationService.CanGoBack;
+            AppTitleBar.IsBackButtonVisible = NavigationService.CanGoBack;
+            Breadcrumbs.Visibility = NavigationService.IsBreadcrumbVisible
+                ? Visibility.Visible
+                : Visibility.Collapsed;
         }
 
         private void UpdateOperationDialog(bool isOperationRunning)
@@ -465,40 +440,12 @@ namespace Foundry.Views
             }
         }
 
-        private static void ApplyNavigationItemsState(IList<object> items, bool isFooter, ShellNavigationState state)
+        private void ApplyFooterItemsState(ShellNavigationState state)
         {
-            foreach (object item in items)
+            foreach (NavigationViewItem item in NavView.FooterMenuItems.OfType<NavigationViewItem>())
             {
-                ApplyNavigationItemState(item, isFooter, state);
+                item.IsEnabled = state != ShellNavigationState.OperationRunning;
             }
-        }
-
-        private static void ApplyNavigationItemState(object item, bool isFooter, ShellNavigationState state)
-        {
-            if (item is not NavigationViewItem navigationItem)
-            {
-                return;
-            }
-
-            navigationItem.IsEnabled = IsNavigationItemEnabled(navigationItem.Tag as string, isFooter, state);
-
-            foreach (object child in navigationItem.MenuItems)
-            {
-                ApplyNavigationItemState(child, isFooter, state);
-            }
-        }
-
-        private static bool IsNavigationItemEnabled(string? uniqueId, bool isFooter, ShellNavigationState state)
-        {
-            return state switch
-            {
-                ShellNavigationState.Ready => true,
-                ShellNavigationState.OperationRunning => false,
-                ShellNavigationState.AdkBlocked => isFooter
-                    || string.Equals(uniqueId, typeof(HomeLandingPage).FullName, StringComparison.Ordinal)
-                    || string.Equals(uniqueId, typeof(AdkPage).FullName, StringComparison.Ordinal),
-                _ => false
-            };
         }
 
         private void EnsureExternalDocumentationFooterItem()
@@ -511,14 +458,15 @@ namespace Foundry.Views
                     Tag = DocumentationNavigationTag,
                     Icon = new FontIcon { Glyph = "\uE8A5" }
                 };
-                item.Tapped += DocumentationFooterItem_Tapped;
-                item.KeyDown += DocumentationFooterItem_KeyDown;
                 NavView.FooterMenuItems.Insert(0, item);
             }
 
             item.Content = localizationService.GetString("Nav_DocumentationKey.Title");
-            ToolTipService.SetToolTip(item, localizationService.GetString("Nav_DocumentationKey.Description"));
-            ApplyNavigationItemState(item, isFooter: true, shellNavigationGuardService.State);
+            string description = localizationService.GetString("Nav_DocumentationKey.Description");
+            ToolTipService.SetToolTip(item, description);
+            AutomationProperties.SetName(item, item.Content?.ToString() ?? string.Empty);
+            AutomationProperties.SetHelpText(item, description);
+            item.IsEnabled = shellNavigationGuardService.State != ShellNavigationState.OperationRunning;
         }
 
         private void RefreshUpdateFooterItem()
@@ -542,8 +490,6 @@ namespace Foundry.Views
                     Tag = UpdateNavigationTag,
                     Icon = new FontIcon { Glyph = UpdateNavigationGlyph }
                 };
-                item.Tapped += UpdateFooterItem_Tapped;
-                item.KeyDown += UpdateFooterItem_KeyDown;
                 NavView.FooterMenuItems.Insert(0, item);
             }
             else
@@ -559,7 +505,9 @@ namespace Foundry.Views
             item.Content = ViewModel.UpdateFooterTitle;
             item.InfoBadge = CreateUpdateInfoBadge();
             ToolTipService.SetToolTip(item, ViewModel.UpdateFooterToolTip);
-            ApplyNavigationItemState(item, isFooter: true, shellNavigationGuardService.State);
+            AutomationProperties.SetName(item, ViewModel.UpdateFooterTitle);
+            AutomationProperties.SetHelpText(item, ViewModel.UpdateFooterToolTip);
+            item.IsEnabled = shellNavigationGuardService.State != ShellNavigationState.OperationRunning;
         }
 
         private void RemoveUpdateFooterItem()
@@ -570,8 +518,6 @@ namespace Foundry.Views
                 return;
             }
 
-            item.Tapped -= UpdateFooterItem_Tapped;
-            item.KeyDown -= UpdateFooterItem_KeyDown;
             NavView.FooterMenuItems.Remove(item);
         }
 
@@ -601,31 +547,15 @@ namespace Foundry.Views
                     Tag = AboutNavigationTag,
                     Icon = new FontIcon { Glyph = "\uE946" }
                 };
-                item.Tapped += AboutFooterItem_Tapped;
-                item.KeyDown += AboutFooterItem_KeyDown;
                 NavView.FooterMenuItems.Insert(Math.Min(1, NavView.FooterMenuItems.Count), item);
             }
 
             item.Content = localizationService.GetString("Nav_AboutKey.Title");
-            ToolTipService.SetToolTip(item, localizationService.GetString("Nav_AboutKey.Description"));
-            ApplyNavigationItemState(item, isFooter: true, shellNavigationGuardService.State);
-        }
-
-        private void UpdateFooterItem_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            e.Handled = true;
-            NavigateToUpdateSettingsPage();
-        }
-
-        private void UpdateFooterItem_KeyDown(object sender, KeyRoutedEventArgs e)
-        {
-            if (e.Key is not (VirtualKey.Enter or VirtualKey.Space))
-            {
-                return;
-            }
-
-            e.Handled = true;
-            NavigateToUpdateSettingsPage();
+            string description = localizationService.GetString("Nav_AboutKey.Description");
+            ToolTipService.SetToolTip(item, description);
+            AutomationProperties.SetName(item, item.Content?.ToString() ?? string.Empty);
+            AutomationProperties.SetHelpText(item, description);
+            item.IsEnabled = shellNavigationGuardService.State != ShellNavigationState.OperationRunning;
         }
 
         private void NavigateToUpdateSettingsPage()
@@ -635,64 +565,13 @@ namespace Foundry.Views
                 return;
             }
 
-            jsonNavigationService?.NavigateTo(
-                typeof(AppUpdateSettingPage),
-                localizationService.GetString("SettingsPage_UpdateCard.Header"));
-            DispatcherQueue.TryEnqueue(ApplyUpdateSettingsBreadcrumb);
-        }
-
-        private void ApplyUpdateSettingsBreadcrumb()
-        {
-            if (NavFrame.CurrentSourcePageType != typeof(AppUpdateSettingPage))
+            if (NavFrame.CurrentSourcePageType == typeof(AppUpdateSettingPage))
             {
                 return;
             }
 
-            BreadCrumbNav.BreadCrumbs = new(
-            [
-                new BreadcrumbStep(
-                    localizationService.GetString("SettingsPage.PageTitle"),
-                    typeof(SettingsPage),
-                    null),
-                new BreadcrumbStep(
-                    localizationService.GetString("SettingsPage_UpdateCard.Header"),
-                    typeof(AppUpdateSettingPage),
-                    null)
-            ]);
-        }
-
-        private async void DocumentationFooterItem_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            e.Handled = true;
-            await OpenDocumentationAsync();
-        }
-
-        private async void DocumentationFooterItem_KeyDown(object sender, KeyRoutedEventArgs e)
-        {
-            if (e.Key is not (VirtualKey.Enter or VirtualKey.Space))
-            {
-                return;
-            }
-
-            e.Handled = true;
-            await OpenDocumentationAsync();
-        }
-
-        private async void AboutFooterItem_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            e.Handled = true;
-            await ShowAboutDialogAsync();
-        }
-
-        private async void AboutFooterItem_KeyDown(object sender, KeyRoutedEventArgs e)
-        {
-            if (e.Key is not (VirtualKey.Enter or VirtualKey.Space))
-            {
-                return;
-            }
-
-            e.Handled = true;
-            await ShowAboutDialogAsync();
+            NavigationService.NavigateTo(typeof(SettingsPage));
+            NavigationService.NavigateTo(typeof(AppUpdateSettingPage));
         }
 
         private async Task OpenDocumentationAsync()
@@ -757,7 +636,7 @@ namespace Foundry.Views
             };
 
             await dialog.ShowAsync();
-            SynchronizeSelectedNavigationItem(NavFrame.CurrentSourcePageType);
+            ApplyNavigationState();
         }
 
         private void ApplyOperationState(OperationProgressState state)
@@ -825,36 +704,6 @@ namespace Foundry.Views
             return progress.HasValue
                 ? $"{Math.Clamp(progress.Value, 0, 100)}%"
                 : string.Empty;
-        }
-
-        private void SynchronizeSelectedNavigationItem(Type? pageType)
-        {
-            if (pageType is null)
-            {
-                return;
-            }
-
-            if (IsSettingsPageType(pageType))
-            {
-                NavView.SelectedItem = NavView.SettingsItem;
-                return;
-            }
-
-            NavigationViewItem? item = FindNavigationItem(NavView.MenuItems, pageType.FullName)
-                ?? FindNavigationItem(NavView.FooterMenuItems, pageType.FullName);
-
-            if (item is not null && !ReferenceEquals(NavView.SelectedItem, item))
-            {
-                NavView.SelectedItem = item;
-            }
-        }
-
-        private static bool IsSettingsPageType(Type pageType)
-        {
-            return pageType == typeof(SettingsPage)
-                || pageType == typeof(GeneralSettingPage)
-                || pageType == typeof(ThemeSettingPage)
-                || pageType == typeof(AppUpdateSettingPage);
         }
 
         private static NavigationViewItem? FindNavigationItem(IList<object> items, string? uniqueId)

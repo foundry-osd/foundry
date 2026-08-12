@@ -80,19 +80,19 @@ public sealed partial class StartPage : Page
         switch (navigationTarget)
         {
             case StartReadinessNavigationTarget.Adk:
-                App.Current.NavService.NavigateTo(typeof(AdkPage), localizationService.GetString("Adk.PageTitle"));
+                App.Current.NavigationService.NavigateTo(typeof(AdkPage));
                 break;
             case StartReadinessNavigationTarget.General:
-                App.Current.NavService.NavigateTo(typeof(GeneralConfigurationPage), localizationService.GetString("GeneralConfigurationPage_Title.Text"));
+                App.Current.NavigationService.NavigateTo(typeof(GeneralConfigurationPage));
                 break;
             case StartReadinessNavigationTarget.Network:
-                App.Current.NavService.NavigateTo(typeof(NetworkPage), localizationService.GetString("NetworkPage_Title.Text"));
+                App.Current.NavigationService.NavigateTo(typeof(NetworkPage));
                 break;
             case StartReadinessNavigationTarget.Autopilot:
-                App.Current.NavService.NavigateTo(typeof(AutopilotPage), localizationService.GetString("AutopilotPage_Title.Text"));
+                App.Current.NavigationService.NavigateTo(typeof(AutopilotPage));
                 break;
             case StartReadinessNavigationTarget.Customization:
-                App.Current.NavService.NavigateTo(typeof(CustomizationPage), localizationService.GetString("CustomizationPage_Title.Text"));
+                App.Current.NavigationService.NavigateTo(typeof(CustomizationPage));
                 break;
         }
     }

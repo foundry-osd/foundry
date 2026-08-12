@@ -4,8 +4,11 @@
 
 using Foundry.DependencyInjection;
 using Foundry.Services.Configuration;
+using Foundry.Services.Application;
+using Foundry.Services.Appearance;
 using Foundry.Services.Localization;
 using Foundry.Services.Settings;
+using Foundry.Services.Shell;
 using Foundry.Services.Startup;
 using Foundry.Telemetry;
 using Microsoft.UI.Xaml;
@@ -48,14 +51,14 @@ namespace Foundry
         public IServiceProvider Services => Host.Services;
 
         /// <summary>
-        /// Gets the navigation service registered by the app shell.
+        /// Gets the native WinUI shell navigation service.
         /// </summary>
-        public IJsonNavigationService NavService => GetService<IJsonNavigationService>();
+        public IAppNavigationService NavigationService => GetService<IAppNavigationService>();
 
         /// <summary>
         /// Gets the theme service used to apply runtime theme changes.
         /// </summary>
-        public IThemeService ThemeService => GetService<IThemeService>();
+        public IAppThemeService ThemeService => GetService<IAppThemeService>();
 
         /// <summary>
         /// Resolves a required service from the application host.
@@ -96,15 +99,16 @@ namespace Foundry
         {
             try
             {
-                MainWindow = GetService<MainWindow>();
-                MainWindow.Closed += OnMainWindowClosed;
+                MainWindow mainWindow = GetService<MainWindow>();
+                MainWindow = mainWindow;
+                mainWindow.Closed += OnMainWindowClosed;
 
-                MainWindow.Title = MainWindow.AppWindow.Title = ProcessInfoHelper.ProductNameAndVersion;
-                MainWindow.AppWindow.SetIcon("Assets/AppIcon.ico");
+                mainWindow.Title = mainWindow.AppWindow.Title = ApplicationInfo.ProductNameAndVersion;
+                mainWindow.AppWindow.SetIcon("Assets/AppIcon.ico");
 
-                InitializeThemeService();
+                ThemeService.Initialize(mainWindow, mainWindow.RootElement);
 
-                MainWindow.Activate();
+                mainWindow.Activate();
 
                 await InitializeAppAsync();
             }
@@ -117,32 +121,6 @@ namespace Foundry
 
         private static async Task InitializeAppAsync()
         {
-            if (RuntimeHelper.IsPackaged())
-            {
-                try
-                {
-                    ContextMenuService menuService = GetService<ContextMenuService>();
-                    ContextMenuItem menu = new()
-                    {
-                        Title = "Open Foundry Here",
-                        Param = @"""{path}""",
-                        AcceptFileFlag = (int)FileMatchFlagEnum.All,
-                        AcceptDirectoryFlag = (int)(DirectoryMatchFlagEnum.Directory | DirectoryMatchFlagEnum.Background | DirectoryMatchFlagEnum.Desktop),
-                        AcceptMultipleFilesFlag = (int)FilesMatchFlagEnum.Each,
-                        Index = 0,
-                        Enabled = true,
-                        Icon = ProcessInfoHelper.GetFileVersionInfo().FileName,
-                        Exe = "Foundry.exe"
-                    };
-
-                    await menuService.SaveAsync(menu);
-                }
-                catch (Exception ex)
-                {
-                    AppLogger.Warning(ex, "Failed to register packaged shell context menu.");
-                }
-            }
-
             await GetService<IStartupReadinessService>().InitializeAsync();
             await TrackDailyActiveAsync();
             AppLogger.Information("Foundry WinUI startup completed.");
@@ -169,36 +147,6 @@ namespace Foundry
             AppLogger.Debug("Foundry daily-active telemetry event queued.");
         }
 
-        private void InitializeThemeService()
-        {
-            IAppSettingsService settingsService = GetService<IAppSettingsService>();
-            ElementTheme elementTheme = ParseEnum(settingsService.Current.Appearance.ElementTheme, ElementTheme.Default);
-            BackdropType backdropType = ParseEnum(settingsService.Current.Appearance.BackdropType, BackdropType.Mica);
-
-            ThemeService
-                .ConfigureAutoSave(false)
-                .ConfigureElementTheme(elementTheme)
-                .ConfigureBackdrop(backdropType)
-                .Initialize(MainWindow);
-
-            ThemeService.ThemeChanged += OnThemeChanged;
-            ThemeService.BackdropChanged += OnBackdropChanged;
-        }
-
-        private static void OnThemeChanged(object? sender, ElementTheme theme)
-        {
-            IAppSettingsService settingsService = GetService<IAppSettingsService>();
-            settingsService.Current.Appearance.ElementTheme = theme.ToString();
-            settingsService.Save();
-        }
-
-        private static void OnBackdropChanged(object? sender, BackdropType backdropType)
-        {
-            IAppSettingsService settingsService = GetService<IAppSettingsService>();
-            settingsService.Current.Appearance.BackdropType = backdropType.ToString();
-            settingsService.Save();
-        }
-
         private void RegisterWinUiExceptionHandler()
         {
             UnhandledException += OnWinUiUnhandledException;
@@ -221,16 +169,9 @@ namespace Foundry
             AppLogger.Debug("Flushing Foundry telemetry events.");
             GetService<ITelemetryService>().FlushAsync().GetAwaiter().GetResult();
             AppLogger.Debug("Foundry telemetry flush completed.");
-            ThemeService.ThemeChanged -= OnThemeChanged;
-            ThemeService.BackdropChanged -= OnBackdropChanged;
             Host.Dispose();
             Log.CloseAndFlush();
         }
 
-        private static T ParseEnum<T>(string? value, T fallback)
-            where T : struct, Enum
-        {
-            return Enum.TryParse(value, ignoreCase: true, out T result) ? result : fallback;
-        }
     }
 }

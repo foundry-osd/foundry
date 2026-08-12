@@ -46,7 +46,7 @@ public sealed partial class GeneralConfigurationPage : Page
             return;
         }
 
-        App.Current.NavService.NavigateTo(typeof(StartPage), localizationService.GetString("StartPage_Title.Text"));
+        App.Current.NavigationService.NavigateTo(typeof(StartPage));
     }
 
     private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e)

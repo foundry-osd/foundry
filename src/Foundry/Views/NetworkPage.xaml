@@ -48,7 +48,7 @@
                                     Text="{x:Bind ViewModel.Dot1xProfileTemplatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <Button
                                     Grid.Column="1"
-                                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                                     Command="{x:Bind ViewModel.BrowseDot1xProfileTemplateCommand}"
                                     Content="{x:Bind ViewModel.BrowseButtonText, Mode=OneWay}" />
                             </Grid>
@@ -83,7 +83,7 @@
                                     Text="{x:Bind ViewModel.Dot1xCertificatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <Button
                                     Grid.Column="1"
-                                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                                     Command="{x:Bind ViewModel.BrowseDot1xCertificateCommand}"
                                     Content="{x:Bind ViewModel.BrowseButtonText, Mode=OneWay}" />
                             </Grid>
@@ -193,7 +193,7 @@
                                     Text="{x:Bind ViewModel.WifiEnterpriseProfileTemplatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <Button
                                     Grid.Column="1"
-                                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                                     Command="{x:Bind ViewModel.BrowseWifiEnterpriseProfileTemplateCommand}"
                                     Content="{x:Bind ViewModel.BrowseButtonText, Mode=OneWay}" />
                             </Grid>
@@ -228,7 +228,7 @@
                                     Text="{x:Bind ViewModel.WifiCertificatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <Button
                                     Grid.Column="1"
-                                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                                     Command="{x:Bind ViewModel.BrowseWifiCertificateCommand}"
                                     Content="{x:Bind ViewModel.BrowseButtonText, Mode=OneWay}" />
                             </Grid>

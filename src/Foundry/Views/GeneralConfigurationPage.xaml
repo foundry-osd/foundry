@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Foundry.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:dev="using:DevWinUI"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:wct="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d">
@@ -18,9 +17,7 @@
             </Grid.RowDefinitions>
 
             <ScrollView VerticalScrollBarVisibility="Auto">
-                <StackPanel
-                    dev:PanelAttach.ChildrenTransitions="Default"
-                    Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+                <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
                     <controls:PageHeader
                         Title="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
                         Description="{x:Bind ViewModel.PageDescription, Mode=OneWay}"
@@ -32,7 +29,7 @@
                             <FontIcon Glyph="&#xE770;" />
                         </wct:SettingsCard.HeaderIcon>
                         <ComboBox
-                            MinWidth="{StaticResource SettingActionControlMinWidth}"
+                            MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                             DisplayMemberPath="DisplayName"
                             ItemsSource="{x:Bind ViewModel.Architectures, Mode=OneWay}"
                             SelectedItem="{x:Bind ViewModel.SelectedArchitecture, Mode=TwoWay}" />
@@ -52,7 +49,7 @@
                         </wct:SettingsCard.HeaderIcon>
                         <StackPanel Spacing="{ThemeResource FoundryCompactStackSpacing}">
                             <ComboBox x:Name="WinPeLanguageComboBox"
-                                MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                                 IsEnabled="{x:Bind ViewModel.HasWinPeLanguages, Mode=OneWay}"
                                 ItemsSource="{x:Bind ViewModel.AvailableWinPeLanguages, Mode=OneWay}"
                                 SelectedItem="{x:Bind ViewModel.SelectedWinPeLanguage, Mode=TwoWay}"
@@ -85,7 +82,7 @@
                         <wct:SettingsExpander.Items>
                             <wct:SettingsCard x:Name="RebootDelayCard">
                                 <NumberBox
-                                    Width="{ThemeResource SettingActionControlMinWidth}"
+                                    Width="{ThemeResource FoundrySettingsActionMinWidth}"
                                     IsEnabled="{x:Bind ViewModel.AutomaticRebootEnabled, Mode=OneWay}"
                                     Maximum="3600"
                                     Minimum="0"
@@ -118,7 +115,7 @@
                                         MinWidth="{ThemeResource FoundryWideInputMinWidth}"
                                         Text="{x:Bind ViewModel.CustomDriverDirectoryPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     <Button x:Name="BrowseCustomDriversButton"
-                                        MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                        MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                                         Command="{x:Bind ViewModel.BrowseCustomDriverDirectoryCommand}" />
                                 </StackPanel>
                             </wct:SettingsCard>
@@ -133,7 +130,7 @@
                     <FontIcon Glyph="&#xE768;" />
                 </wct:SettingsCard.HeaderIcon>
                 <Button x:Name="CreateMediaButton"
-                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                     Click="CreateMediaButton_Click"
                     IsEnabled="{x:Bind ViewModel.CanCreateMedia, Mode=OneWay}"
                     Style="{ThemeResource AccentButtonStyle}" />

@@ -47,7 +47,7 @@
                 </StackPanel>
                 <Button
                     Grid.Column="2"
-                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                     VerticalAlignment="Center"
                     Click="ReadinessActionButton_Click"
                     Content="{x:Bind ActionText}"
@@ -154,7 +154,7 @@
                             Width="{ThemeResource FoundryWideInputMinWidth}"
                             Text="{x:Bind ViewModel.IsoOutputPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <Button x:Name="BrowseIsoButton"
-                            MinWidth="{StaticResource SettingActionControlMinWidth}"
+                            MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                             Command="{x:Bind ViewModel.BrowseIsoOutputPathCommand}" />
                     </StackPanel>
                 </wct:SettingsCard>
@@ -174,20 +174,20 @@
                             ItemsSource="{x:Bind ViewModel.UsbCandidates, Mode=OneWay}"
                             SelectedItem="{x:Bind ViewModel.SelectedUsbDisk, Mode=TwoWay}" />
                         <Button x:Name="RefreshUsbButton"
-                            MinWidth="{StaticResource SettingActionControlMinWidth}"
+                            MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                             Command="{x:Bind ViewModel.RefreshUsbCandidatesCommand}" />
                     </StackPanel>
                     <wct:SettingsExpander.Items>
                         <wct:SettingsCard x:Name="UsbPartitionStyleCard">
                             <ComboBox
-                                MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                                 DisplayMemberPath="DisplayName"
                                 ItemsSource="{x:Bind ViewModel.PartitionStyles, Mode=OneWay}"
                                 SelectedItem="{x:Bind ViewModel.SelectedPartitionStyle, Mode=TwoWay}" />
                         </wct:SettingsCard>
                         <wct:SettingsCard x:Name="UsbFormatModeCard">
                             <ComboBox
-                                MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                                 DisplayMemberPath="DisplayName"
                                 ItemsSource="{x:Bind ViewModel.FormatModes, Mode=OneWay}"
                                 SelectedItem="{x:Bind ViewModel.SelectedFormatMode, Mode=TwoWay}" />
@@ -204,11 +204,11 @@
                         Orientation="Horizontal"
                         Spacing="{ThemeResource FoundryInlineControlSpacing}">
                         <Button x:Name="CreateIsoButton"
-                            MinWidth="{StaticResource SettingActionControlMinWidth}"
+                            MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                             Command="{x:Bind ViewModel.CreateIsoCommand}"
                             IsEnabled="{x:Bind ViewModel.CanCreateIso, Mode=OneWay}" />
                         <Button x:Name="CreateUsbButton"
-                            MinWidth="{StaticResource SettingActionControlMinWidth}"
+                            MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                             Command="{x:Bind ViewModel.CreateUsbCommand}"
                             IsEnabled="{x:Bind ViewModel.CanCreateUsb, Mode=OneWay}" />
                     </StackPanel>

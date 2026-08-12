@@ -7,6 +7,7 @@ using Foundry.Core.Services.Adk;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.WinPe;
 using Foundry.Services.Application;
+using Foundry.Services.Appearance;
 using Foundry.Services.Adk;
 using Foundry.Services.Autopilot;
 using Foundry.Services.Configuration;
@@ -117,8 +118,9 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IStartupReadinessService, StartupReadinessService>();
         services.AddSingleton<IGitHubRepositoryContributorService, GitHubRepositoryContributorService>();
 
-        services.AddSingleton<IThemeService, ThemeService>();
-        services.AddSingleton<IJsonNavigationService, JsonNavigationService>();
+        services.AddSingleton<IAppThemeService, AppThemeService>();
+        services.AddSingleton<IAppNavigationService, AppNavigationService>();
+        services.AddSingleton<IWindowsStartupService, WindowsStartupService>();
         services.AddSingleton<IApplicationLifetimeService, WinUiApplicationLifetimeService>();
         services.AddSingleton<IAppDispatcher, WinUiAppDispatcher>();
         services.AddSingleton<IDialogService, WinUiDialogService>();
@@ -126,7 +128,6 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IFilePickerService, WinUiFilePickerService>();
 
         services.AddTransient<MainViewModel>();
-        services.AddSingleton(_ => new ContextMenuService(Windows.Storage.ApplicationData.Current.LocalFolder));
         services.AddTransient<GeneralConfigurationViewModel>();
         services.AddTransient<NetworkConfigurationViewModel>();
         services.AddTransient<AutopilotConfigurationViewModel>();

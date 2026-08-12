@@ -59,9 +59,18 @@ public static class Program
 
             Application.Start(_ =>
             {
-                DispatcherQueueSynchronizationContext context = new(DispatcherQueue.GetForCurrentThread());
-                SynchronizationContext.SetSynchronizationContext(context);
-                new App();
+                try
+                {
+                    DispatcherQueueSynchronizationContext context = new(DispatcherQueue.GetForCurrentThread());
+                    SynchronizationContext.SetSynchronizationContext(context);
+                    new App();
+                }
+                catch (Exception ex)
+                {
+                    logger.Fatal(ex, "Foundry WinUI application initialization failed.");
+                    Log.CloseAndFlush();
+                    throw;
+                }
             });
         }
         catch (Exception ex)

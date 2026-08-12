@@ -32,17 +32,9 @@
     <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">True</PublishTrimmed>
   </PropertyGroup>
   <ItemGroup>
-    <AdditionalFiles Include="**\*.xaml" Exclude="$(DefaultItemExcludes)" Link="%(RecursiveDir)%(Filename)%(Extension)" />
-    <AdditionalFiles Include="Assets\NavViewMenu\AppData.json" Link="Assets\NavViewMenu\%(Filename)%(Extension)" />
-    <AdditionalFiles Include="Strings\**\*.resw" Link="Strings\%(RecursiveDir)%(Filename)%(Extension)" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Assets\**\*">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>
-    <Content Include="Assets\NavViewMenu\AppData.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Strings\**\*.resw">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -55,9 +47,6 @@
     <PackageReference Include="Azure.Identity" Version="1.21.0" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
     <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.2.251219" />
-    <PackageReference Include="DevWinUI" Version="10.1.0" />
-    <PackageReference Include="DevWinUI.ContextMenu" Version="10.0.0" />
-    <PackageReference Include="DevWinUI.SourceGenerator" Version="10.1.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.10" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.10" />
     <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.2.0" />

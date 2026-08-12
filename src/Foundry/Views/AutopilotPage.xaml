@@ -76,15 +76,15 @@
                                     Orientation="Horizontal"
                                     Spacing="{ThemeResource FoundryInlineControlSpacing}">
                                     <Button
-                                        MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                        MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                                         Command="{x:Bind ViewModel.ImportProfileCommand}"
                                         Content="{x:Bind ViewModel.ImportButtonText, Mode=OneWay}" />
                                     <Button
-                                        MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                        MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                                         Command="{x:Bind ViewModel.DownloadProfilesCommand}"
                                         Content="{x:Bind ViewModel.DownloadButtonText, Mode=OneWay}" />
                                     <Button
-                                        MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                        MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                                         Command="{x:Bind ViewModel.RemoveSelectedProfilesCommand}"
                                         Content="{x:Bind ViewModel.RemoveButtonText, Mode=OneWay}" />
                                 </StackPanel>
@@ -175,7 +175,7 @@
                                     Foreground="{x:Bind ViewModel.TenantStatusForeground, Mode=OneWay}"
                                     Text="{x:Bind ViewModel.TenantStatusText, Mode=OneWay}" />
                                 <Button
-                                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                                     Command="{x:Bind ViewModel.ConnectTenantCommand}"
                                     Content="{x:Bind ViewModel.TenantConnectionButtonText, Mode=OneWay}" />
                             </StackPanel>
@@ -231,17 +231,17 @@
                                 Orientation="Horizontal"
                                 Spacing="{ThemeResource FoundryInlineControlSpacing}">
                                 <ComboBox
-                                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                                     DisplayMemberPath="DisplayName"
                                     ItemsSource="{x:Bind ViewModel.CertificateValidityOptions, Mode=OneWay}"
                                     SelectedItem="{x:Bind ViewModel.SelectedCertificateValidityOption, Mode=TwoWay}" />
                                 <Button
-                                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                                     VerticalAlignment="Bottom"
                                     Command="{x:Bind ViewModel.CreateCertificateCommand}"
                                     Content="{x:Bind ViewModel.CreateCertificateButtonText, Mode=OneWay}" />
                                 <Button
-                                    MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                                     VerticalAlignment="Bottom"
                                     Command="{x:Bind ViewModel.RetireActiveCertificateCommand}"
                                     Content="{x:Bind ViewModel.RetireCertificateButtonText, Mode=OneWay}" />
@@ -323,7 +323,7 @@
                                         Text="{x:Bind ViewModel.BootMediaCertificatePfxPath, Mode=OneWay}" />
                                     <Button
                                         Grid.Column="1"
-                                        MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                        MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                                         VerticalAlignment="Bottom"
                                         Command="{x:Bind ViewModel.SelectBootMediaCertificatePfxCommand}"
                                         Content="{x:Bind ViewModel.SelectBootMediaCertificateButtonText, Mode=OneWay}" />
@@ -346,7 +346,7 @@
                             Header="{x:Bind ViewModel.GroupTagLabel, Mode=OneWay}"
                             Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
                             <ComboBox
-                                MinWidth="{StaticResource SettingActionControlMinWidth}"
+                                MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                                 HorizontalAlignment="Right"
                                 DisplayMemberPath="DisplayName"
                                 ItemsSource="{x:Bind ViewModel.DefaultGroupTagOptions, Mode=OneWay}"
