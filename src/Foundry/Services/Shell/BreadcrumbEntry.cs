@@ -4,4 +4,4 @@
 
 namespace Foundry.Services.Shell;
 
-public sealed record BreadcrumbEntry(string Label, Type PageType, object? Parameter = null);
+public sealed record BreadcrumbEntry(string Label, Type PageType);

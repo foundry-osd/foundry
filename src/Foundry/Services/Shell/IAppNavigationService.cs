@@ -16,7 +16,7 @@ public interface IAppNavigationService
 
     void Initialize(NavigationView navigationView, Frame frame);
 
-    bool NavigateTo(Type pageType, object? parameter = null);
+    bool NavigateTo(Type pageType);
 
     bool NavigateToBreadcrumb(BreadcrumbEntry entry);
 

@@ -5,7 +5,6 @@
 using Foundry.Core.Services.Adk;
 using Foundry.Core.Services.Application;
 using Foundry.Services.Adk;
-using Foundry.Services.Application;
 using Foundry.Services.Localization;
 using Microsoft.UI.Xaml.Controls;
 using Serilog;
@@ -143,7 +142,7 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
 
     private void ApplyLocalizedText()
     {
-        HeaderTitle = ApplicationInfo.ProductNameAndVersion;
+        HeaderTitle = FoundryApplicationInfo.AppNameAndVersion;
         HeaderSubtitle = localizationService.GetString("Home.Header.Subtitle");
         OpenAdkTitle = localizationService.GetString("Home.Action.OpenAdk.Title");
         OpenAdkDescription = localizationService.GetString("Home.Action.OpenAdk.Description");

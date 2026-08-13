@@ -42,7 +42,7 @@ Code rules:
 .NET / WPF / WinUI 3 rules:
 - Handle this Visual Studio solution as a mixed WPF and WinUI 3 solution
 - Keep WPF-specific logic and WinUI 3-specific logic separated when their UI frameworks differ
-- Respect DevWinUI shell and navigation patterns when present
+- Respect the native WinUI 3 shell and navigation patterns
 - Follow MVVM when applicable
 - Keep business logic out of code-behind whenever possible
 - Keep code-behind limited to UI-specific event wiring or framework glue

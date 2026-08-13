@@ -13,6 +13,13 @@ public static class FoundryApplicationInfo
 {
     public const string AppName = Constants.ApplicationDisplayName;
 
+    public static string VersionWithPrefix => $"v{Version}";
+
+    public static string AppNameAndVersion => $"{AppName} {VersionWithPrefix}";
+
+    public static string ExecutablePath { get; } = Environment.ProcessPath
+        ?? throw new InvalidOperationException("The Foundry executable path is unavailable.");
+
     /// <summary>
     /// Gets the documentation entry URL.
     /// </summary>

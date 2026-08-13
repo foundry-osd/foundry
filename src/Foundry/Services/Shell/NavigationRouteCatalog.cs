@@ -38,10 +38,10 @@ public static class NavigationRouteCatalog
     private static IReadOnlyList<NavigationRoute> Routes { get; } =
     [
         .. PrimaryRoutes,
-        CreateSettings<SettingsPage>("SettingsPage.PageTitle", null, true),
-        CreateSettings<GeneralSettingPage>("SettingsPage_GeneralCard.Header", typeof(SettingsPage), true),
-        CreateSettings<ThemeSettingPage>("SettingsPage_ThemeCard.Header", typeof(SettingsPage), true),
-        CreateSettings<AppUpdateSettingPage>("SettingsPage_UpdateCard.Header", typeof(SettingsPage), true)
+        CreateSettings<SettingsPage>("SettingsPage.PageTitle", null),
+        CreateSettings<GeneralSettingPage>("SettingsPage_GeneralCard.Header", typeof(SettingsPage)),
+        CreateSettings<ThemeSettingPage>("SettingsPage_ThemeCard.Header", typeof(SettingsPage)),
+        CreateSettings<AppUpdateSettingPage>("SettingsPage_UpdateCard.Header", typeof(SettingsPage))
     ];
 
     public static NavigationRoute? FindById(string id) =>
@@ -66,12 +66,11 @@ public static class NavigationRouteCatalog
 
     private static NavigationRoute CreateSettings<TPage>(
         string titleResourceKey,
-        Type? parentPageType,
-        bool isAvailableWhenAdkBlocked) =>
+        Type? parentPageType) =>
         new(
             typeof(TPage).FullName!,
             typeof(TPage),
             titleResourceKey,
             ParentPageType: parentPageType,
-            IsAvailableWhenAdkBlocked: isAvailableWhenAdkBlocked);
+            IsAvailableWhenAdkBlocked: true);
 }

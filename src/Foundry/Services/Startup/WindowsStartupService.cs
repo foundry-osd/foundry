@@ -24,8 +24,8 @@ internal sealed class WindowsStartupService : IWindowsStartupService
         }
 
         using RegistryKey? key = Registry.CurrentUser.OpenSubKey(RunKeyPath, writable: false);
-        string? command = key?.GetValue(ApplicationInfo.ProductName) as string;
-        return command?.Contains(ApplicationInfo.ExecutablePath, StringComparison.OrdinalIgnoreCase) == true;
+        string? command = key?.GetValue(FoundryApplicationInfo.AppName) as string;
+        return command?.Contains(FoundryApplicationInfo.ExecutablePath, StringComparison.OrdinalIgnoreCase) == true;
     }
 
     public async Task<bool> SetEnabledAsync(bool enabled, CancellationToken cancellationToken = default)
@@ -51,13 +51,13 @@ internal sealed class WindowsStartupService : IWindowsStartupService
         if (enabled)
         {
             key.SetValue(
-                ApplicationInfo.ProductName,
-                $"\"{ApplicationInfo.ExecutablePath}\" {StartupArgument}",
+                FoundryApplicationInfo.AppName,
+                $"\"{FoundryApplicationInfo.ExecutablePath}\" {StartupArgument}",
                 RegistryValueKind.String);
         }
         else
         {
-            key.DeleteValue(ApplicationInfo.ProductName, throwOnMissingValue: false);
+            key.DeleteValue(FoundryApplicationInfo.AppName, throwOnMissingValue: false);
         }
 
         return enabled;

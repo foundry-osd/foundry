@@ -20,7 +20,6 @@ internal sealed class AppNavigationService(
     private Frame? frame;
     private DispatcherQueue? dispatcherQueue;
     private NavigationRoute? currentRoute;
-    private object? currentParameter;
 
     public ObservableCollection<BreadcrumbEntry> Breadcrumbs { get; } = [];
 
@@ -47,7 +46,7 @@ internal sealed class AppNavigationService(
         NavigateTo(typeof(Views.HomeLandingPage));
     }
 
-    public bool NavigateTo(Type pageType, object? parameter = null)
+    public bool NavigateTo(Type pageType)
     {
         NavigationRoute? route = NavigationRouteCatalog.FindByPageType(pageType);
         if (route is null || !IsRouteEnabled(route, navigationGuard.State) || frame is null)
@@ -60,7 +59,7 @@ internal sealed class AppNavigationService(
             return true;
         }
 
-        return frame.Navigate(pageType, parameter);
+        return frame.Navigate(pageType);
     }
 
     private bool GoBack()
@@ -81,7 +80,7 @@ internal sealed class AppNavigationService(
             return GoBack();
         }
 
-        return currentRoute?.PageType == entry.PageType || NavigateTo(entry.PageType, entry.Parameter);
+        return currentRoute?.PageType == entry.PageType || NavigateTo(entry.PageType);
     }
 
     public bool RefreshCurrentPage()
@@ -94,7 +93,7 @@ internal sealed class AppNavigationService(
         int backStackCount = frame.BackStack.Count;
         bool navigated = frame.Navigate(
             currentRoute.PageType,
-            currentParameter,
+            null,
             new SuppressNavigationTransitionInfo());
         if (navigated && frame.BackStack.Count > backStackCount)
         {
@@ -107,11 +106,11 @@ internal sealed class AppNavigationService(
 
     public void RefreshLocalizedState()
     {
-        BuildMenuItems();
+        BuildMenuItems(raiseStateChanged: false);
         UpdateNavigationState();
     }
 
-    private void BuildMenuItems()
+    private void BuildMenuItems(bool raiseStateChanged = true)
     {
         if (navigationView is null)
         {
@@ -163,13 +162,12 @@ internal sealed class AppNavigationService(
             AutomationProperties.SetName(settingsItem, settingsTitle);
         }
 
-        ApplyGuardState();
+        ApplyGuardState(raiseStateChanged);
     }
 
     private void OnFrameNavigated(object sender, NavigationEventArgs e)
     {
         currentRoute = NavigationRouteCatalog.FindByPageType(e.SourcePageType);
-        currentParameter = e.Parameter;
         UpdateNavigationState();
     }
 
@@ -208,14 +206,14 @@ internal sealed class AppNavigationService(
     {
         if (dispatcherQueue?.HasThreadAccess == false)
         {
-            dispatcherQueue.TryEnqueue(ApplyGuardState);
+            dispatcherQueue.TryEnqueue(() => ApplyGuardState());
             return;
         }
 
         ApplyGuardState();
     }
 
-    private void ApplyGuardState()
+    private void ApplyGuardState(bool raiseStateChanged = true)
     {
         foreach ((string routeId, NavigationViewItem item) in routeItems)
         {
@@ -228,7 +226,10 @@ internal sealed class AppNavigationService(
             settingsItem.IsEnabled = navigationGuard.State != ShellNavigationState.OperationRunning;
         }
 
-        StateChanged?.Invoke(this, EventArgs.Empty);
+        if (raiseStateChanged)
+        {
+            StateChanged?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     private static bool IsRouteEnabled(NavigationRoute route, ShellNavigationState state) => state switch

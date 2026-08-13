@@ -4,7 +4,6 @@
 
 using Foundry.DependencyInjection;
 using Foundry.Services.Configuration;
-using Foundry.Services.Application;
 using Foundry.Services.Appearance;
 using Foundry.Services.Localization;
 using Foundry.Services.Settings;
@@ -34,11 +33,6 @@ namespace Foundry
         /// Gets the main window once the application has launched.
         /// </summary>
         public static Window MainWindow = Window.Current;
-
-        /// <summary>
-        /// Gets the native window handle used by WinUI-backed platform services.
-        /// </summary>
-        public static IntPtr Hwnd => WinRT.Interop.WindowNative.GetWindowHandle(MainWindow);
 
         /// <summary>
         /// Gets the dependency injection host for the application.
@@ -103,7 +97,7 @@ namespace Foundry
                 MainWindow = mainWindow;
                 mainWindow.Closed += OnMainWindowClosed;
 
-                mainWindow.Title = mainWindow.AppWindow.Title = ApplicationInfo.ProductNameAndVersion;
+                mainWindow.Title = mainWindow.AppWindow.Title = FoundryApplicationInfo.AppNameAndVersion;
                 mainWindow.AppWindow.SetIcon("Assets/AppIcon.ico");
 
                 ThemeService.Initialize(mainWindow, mainWindow.RootElement);

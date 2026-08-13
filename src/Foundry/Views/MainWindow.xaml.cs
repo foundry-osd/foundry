@@ -4,7 +4,6 @@
 
 using Foundry.Core.Services.Application;
 using Foundry.Services.Localization;
-using Foundry.Services.Application;
 using Foundry.Services.Operations;
 using Foundry.Services.Shell;
 using System.ComponentModel;
@@ -61,8 +60,8 @@ namespace Foundry.Views
             NavigationService = App.GetService<IAppNavigationService>();
             ViewModel = App.GetService<MainViewModel>();
             this.InitializeComponent();
-            AppTitleBar.Title = ApplicationInfo.ProductName;
-            AppTitleBar.Subtitle = ApplicationInfo.VersionWithPrefix;
+            AppTitleBar.Title = FoundryApplicationInfo.AppName;
+            AppTitleBar.Subtitle = FoundryApplicationInfo.VersionWithPrefix;
             ExtendsContentIntoTitleBar = true;
             SetTitleBar(AppTitleBar);
             AppWindow.TitleBar.PreferredHeightOption = TitleBarHeightOption.Tall;
@@ -73,7 +72,6 @@ namespace Foundry.Views
 
             NavigationService.Initialize(NavView, NavFrame);
             NavigationService.StateChanged += OnNavigationStateChanged;
-            ApplyNavigationState();
             ApplyLocalizedShellText();
             ApplyShellNavigationState();
 
@@ -222,7 +220,6 @@ namespace Foundry.Views
             ApplyFooterItemsState(state);
 
             ApplyNavigationState();
-            RefreshUpdateFooterItem();
         }
 
         private void OnNavigationStateChanged(object? sender, EventArgs e)
@@ -624,7 +621,6 @@ namespace Foundry.Views
             };
 
             await dialog.ShowAsync();
-            ApplyNavigationState();
         }
 
         private void ApplyOperationState(OperationProgressState state)
@@ -713,11 +709,6 @@ namespace Foundry.Views
                     return navigationItem;
                 }
 
-                NavigationViewItem? child = FindNavigationItem(navigationItem.MenuItems, uniqueId);
-                if (child is not null)
-                {
-                    return child;
-                }
             }
 
             return null;
