@@ -2678,4 +2678,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>راجع الجاهزية واختر إخراج ISO أو USB ثم ابدأ إنشاء الوسائط.</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>التمرير إلى اليسار</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>التمرير إلى اليمين</value></data>
 </root>

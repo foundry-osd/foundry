@@ -2678,4 +2678,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Revise la preparación, elija una salida ISO o USB e inicie la creación del medio.</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>Desplazarse a la izquierda</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>Desplazarse a la derecha</value></data>
 </root>

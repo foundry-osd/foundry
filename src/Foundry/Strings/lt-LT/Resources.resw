@@ -2678,4 +2678,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Peržiūrėkite parengtį, pasirinkite ISO arba USB išvestį ir pradėkite laikmenos kūrimą.</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>Slinkti kairėn</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>Slinkti dešinėn</value></data>
 </root>

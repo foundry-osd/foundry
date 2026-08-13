@@ -2678,4 +2678,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Pārskatiet gatavību, izvēlieties ISO vai USB izvadi un sāciet datu nesēja izveidi.</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>Ritināt pa kreisi</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>Ritināt pa labi</value></data>
 </root>

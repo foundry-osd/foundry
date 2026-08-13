@@ -2678,4 +2678,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Ελέγξτε την ετοιμότητα, επιλέξτε έξοδο ISO ή USB και ξεκινήστε τη δημιουργία μέσου.</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>Κύλιση αριστερά</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>Κύλιση δεξιά</value></data>
 </root>

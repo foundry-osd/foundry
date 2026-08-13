@@ -2678,4 +2678,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Проверьте готовность, выберите вывод ISO или USB и запустите создание носителя.</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>Прокрутить влево</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>Прокрутить вправо</value></data>
 </root>

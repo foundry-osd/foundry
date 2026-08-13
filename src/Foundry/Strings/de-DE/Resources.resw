@@ -2678,4 +2678,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Prüfen Sie die Bereitschaft, wählen Sie eine ISO- oder USB-Ausgabe aus, und starten Sie die Medienerstellung.</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>Nach links scrollen</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>Nach rechts scrollen</value></data>
 </root>

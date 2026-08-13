@@ -2678,4 +2678,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Kontroller beredskapen, velg ISO- eller USB-utdata, og start medieopprettingen.</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>Rull til venstre</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>Rull til høyre</value></data>
 </root>

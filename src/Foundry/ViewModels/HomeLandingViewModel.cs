@@ -52,6 +52,12 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
     public partial string OpenDocumentationDescription { get; set; }
 
     [ObservableProperty]
+    public partial string ScrollBackText { get; set; }
+
+    [ObservableProperty]
+    public partial string ScrollForwardText { get; set; }
+
+    [ObservableProperty]
     public partial string AdkStatusTitle { get; set; }
 
     [ObservableProperty]
@@ -96,6 +102,8 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
         ReviewAndStartDescription = string.Empty;
         OpenDocumentationTitle = string.Empty;
         OpenDocumentationDescription = string.Empty;
+        ScrollBackText = string.Empty;
+        ScrollForwardText = string.Empty;
         AdkStatusTitle = string.Empty;
         AdkStatusDescription = string.Empty;
         InstalledVersionLabel = string.Empty;
@@ -152,6 +160,8 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
         ReviewAndStartDescription = localizationService.GetString("Home.Action.ReviewAndStart.Description");
         OpenDocumentationTitle = localizationService.GetString("Home.Action.OpenDocumentation.Title");
         OpenDocumentationDescription = localizationService.GetString("Home.Action.OpenDocumentation.Description");
+        ScrollBackText = localizationService.GetString("Home.Scroll.Back");
+        ScrollForwardText = localizationService.GetString("Home.Scroll.Forward");
         InstalledVersionLabel = localizationService.GetString("Home.AdkStatus.InstalledVersionLabel");
         WinPeAddonLabel = localizationService.GetString("Home.AdkStatus.WinPeAddonLabel");
 

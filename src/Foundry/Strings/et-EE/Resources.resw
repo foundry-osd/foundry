@@ -2678,4 +2678,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Kontrollige valmisolekut, valige ISO või USB väljund ja alustage meediumi loomist.</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>Keri vasakule</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>Keri paremale</value></data>
 </root>

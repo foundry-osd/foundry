@@ -2678,4 +2678,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Review readiness, choose ISO or USB output, and start media creation.</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>Scroll left</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>Scroll right</value></data>
 </root>

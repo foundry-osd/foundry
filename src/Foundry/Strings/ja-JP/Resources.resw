@@ -2678,4 +2678,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>準備状況を確認し、ISO または USB 出力を選択して、メディアの作成を開始します。</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>左にスクロール</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>右にスクロール</value></data>
 </root>

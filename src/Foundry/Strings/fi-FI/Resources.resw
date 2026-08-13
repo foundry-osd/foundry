@@ -2678,4 +2678,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Tarkista valmius, valitse ISO- tai USB-tuloste ja käynnistä median luonti.</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>Vieritä vasemmalle</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>Vieritä oikealle</value></data>
 </root>

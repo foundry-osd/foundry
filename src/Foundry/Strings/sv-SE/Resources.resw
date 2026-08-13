@@ -2678,4 +2678,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Granska beredskapen, välj ISO- eller USB-utdata och starta medieskapandet.</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>Rulla åt vänster</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>Rulla åt höger</value></data>
 </root>

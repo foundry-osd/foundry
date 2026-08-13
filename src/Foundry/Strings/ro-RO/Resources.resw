@@ -2678,4 +2678,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Revizuiți starea, alegeți ieșirea ISO sau USB și porniți crearea suportului.</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>Derulați la stânga</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>Derulați la dreapta</value></data>
 </root>

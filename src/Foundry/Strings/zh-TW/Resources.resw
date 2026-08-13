@@ -2678,4 +2678,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>檢閱就緒狀態，選擇 ISO 或 USB 輸出，然後開始建立媒體。</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>向左捲動</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>向右捲動</value></data>
 </root>

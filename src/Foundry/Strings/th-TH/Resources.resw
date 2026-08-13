@@ -2678,4 +2678,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>ตรวจสอบความพร้อม เลือกเอาต์พุต ISO หรือ USB แล้วเริ่มสร้างสื่อ</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>เลื่อนไปทางซ้าย</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>เลื่อนไปทางขวา</value></data>
 </root>

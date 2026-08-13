@@ -2678,4 +2678,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Pregledajte spremnost, izaberite ISO ili USB izlaz i pokrenite kreiranje medija.</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>Pomeri nalevo</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>Pomeri nadesno</value></data>
 </root>
