@@ -73,26 +73,6 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
     public partial InfoBarSeverity AdkStatusSeverity { get; set; }
 
     /// <summary>
-    /// Gets the documentation URL opened by the home page.
-    /// </summary>
-    public string DocumentationUrl => FoundryApplicationInfo.DocumentationUrl;
-
-    /// <summary>
-    /// Gets the localized navigation title for the ADK page.
-    /// </summary>
-    public string AdkNavigationTitle => localizationService.GetString("Adk.PageTitle");
-
-    /// <summary>
-    /// Gets the localized navigation title for general configuration.
-    /// </summary>
-    public string GeneralNavigationTitle => localizationService.GetString("GeneralConfigurationPage_Title.Text");
-
-    /// <summary>
-    /// Gets the localized navigation title for media creation.
-    /// </summary>
-    public string StartNavigationTitle => localizationService.GetString("StartPage_Title.Text");
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="HomeLandingViewModel"/> class.
     /// </summary>
     public HomeLandingViewModel(
@@ -162,7 +142,7 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
 
     private void ApplyLocalizedText()
     {
-        HeaderTitle = ProcessInfoHelper.ProductNameAndVersion;
+        HeaderTitle = FoundryApplicationInfo.AppNameAndVersion;
         HeaderSubtitle = localizationService.GetString("Home.Header.Subtitle");
         OpenAdkTitle = localizationService.GetString("Home.Action.OpenAdk.Title");
         OpenAdkDescription = localizationService.GetString("Home.Action.OpenAdk.Description");

@@ -51,30 +51,22 @@ namespace Foundry.Views
         {
             TelemetryCard.Header = localizationService.GetString("SettingsPage_TelemetryCard.Header");
             TelemetryCard.Description = localizationService.GetString("SettingsPage_TelemetryCard.Description");
-            ApplyLocalizedNavigationParameters();
             ApplyNavigationGuardState();
         }
 
-        private void ApplyLocalizedNavigationParameters()
+        private void GeneralSettingsCard_Click(object sender, RoutedEventArgs e)
         {
-            GeneralSettingsCard.CommandParameter = CreateNavigationParameter(
-                typeof(GeneralSettingPage),
-                "SettingsPage_GeneralCard.Header");
-            ThemeSettingsCard.CommandParameter = CreateNavigationParameter(
-                typeof(ThemeSettingPage),
-                "SettingsPage_ThemeCard.Header");
-            UpdateSettingsCard.CommandParameter = CreateNavigationParameter(
-                typeof(AppUpdateSettingPage),
-                "SettingsPage_UpdateCard.Header");
+            App.Current.NavigationService.NavigateTo(typeof(GeneralSettingPage));
         }
 
-        private NavigationParameterExtension CreateNavigationParameter(Type pageType, string titleResourceKey)
+        private void ThemeSettingsCard_Click(object sender, RoutedEventArgs e)
         {
-            return new NavigationParameterExtension
-            {
-                PageType = pageType,
-                BreadCrumbHeader = localizationService.GetString(titleResourceKey)
-            };
+            App.Current.NavigationService.NavigateTo(typeof(ThemeSettingPage));
+        }
+
+        private void UpdateSettingsCard_Click(object sender, RoutedEventArgs e)
+        {
+            App.Current.NavigationService.NavigateTo(typeof(AppUpdateSettingPage));
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)

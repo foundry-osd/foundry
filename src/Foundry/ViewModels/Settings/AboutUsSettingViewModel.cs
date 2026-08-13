@@ -103,12 +103,6 @@ namespace Foundry.ViewModels
                 "https://github.com/CommunityToolkit/Windows",
                 false),
             CreateThirdPartyLicenseItem(
-                "DevWinUI controls and tooling",
-                "MIT",
-                "https://github.com/Ghost1372/DevWinUI/blob/main/LICENSE",
-                "https://github.com/Ghost1372/DevWinUI",
-                true),
-            CreateThirdPartyLicenseItem(
                 "HtmlAgilityPack",
                 "MIT",
                 "https://github.com/zzzprojects/html-agility-pack/blob/master/LICENSE",

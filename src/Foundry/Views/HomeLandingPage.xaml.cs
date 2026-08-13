@@ -3,8 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Services.Shell;
-using Microsoft.UI.Xaml.Input;
-using Windows.System;
 
 namespace Foundry.Views;
 
@@ -22,72 +20,30 @@ public sealed partial class HomeLandingPage : Page
         Unloaded += OnUnloaded;
     }
 
-    private void OpenAdkTile_Tapped(object sender, TappedRoutedEventArgs e)
+    private void OpenAdkButton_Click(object sender, RoutedEventArgs e)
     {
-        NavigateToAdk();
+        App.Current.NavigationService.NavigateTo(typeof(AdkPage));
     }
 
-    private void ConfigureMediaTile_Tapped(object sender, TappedRoutedEventArgs e)
+    private void ConfigureMediaButton_Click(object sender, RoutedEventArgs e)
     {
-        NavigateToGeneral();
+        Type target = shellNavigationGuardService.State == ShellNavigationState.Ready
+            ? typeof(GeneralConfigurationPage)
+            : typeof(AdkPage);
+        App.Current.NavigationService.NavigateTo(target);
     }
 
-    private void ReviewAndStartTile_Tapped(object sender, TappedRoutedEventArgs e)
+    private void ReviewAndStartButton_Click(object sender, RoutedEventArgs e)
     {
-        NavigateToStart();
+        Type target = shellNavigationGuardService.State == ShellNavigationState.Ready
+            ? typeof(StartPage)
+            : typeof(AdkPage);
+        App.Current.NavigationService.NavigateTo(target);
     }
 
-    private void OpenAdkTile_KeyDown(object sender, KeyRoutedEventArgs e)
+    private async void OpenDocumentationButton_Click(object sender, RoutedEventArgs e)
     {
-        NavigateFromKeyboard(e, NavigateToAdk);
-    }
-
-    private void ConfigureMediaTile_KeyDown(object sender, KeyRoutedEventArgs e)
-    {
-        NavigateFromKeyboard(e, NavigateToGeneral);
-    }
-
-    private void ReviewAndStartTile_KeyDown(object sender, KeyRoutedEventArgs e)
-    {
-        NavigateFromKeyboard(e, NavigateToStart);
-    }
-
-    private static void NavigateFromKeyboard(KeyRoutedEventArgs e, Action navigate)
-    {
-        if (e.Key is not (VirtualKey.Enter or VirtualKey.Space))
-        {
-            return;
-        }
-
-        e.Handled = true;
-        navigate();
-    }
-
-    private void NavigateToAdk()
-    {
-        App.Current.NavService.NavigateTo(typeof(AdkPage), ViewModel.AdkNavigationTitle);
-    }
-
-    private void NavigateToGeneral()
-    {
-        if (shellNavigationGuardService.State != ShellNavigationState.Ready)
-        {
-            NavigateToAdk();
-            return;
-        }
-
-        App.Current.NavService.NavigateTo(typeof(GeneralConfigurationPage), ViewModel.GeneralNavigationTitle);
-    }
-
-    private void NavigateToStart()
-    {
-        if (shellNavigationGuardService.State != ShellNavigationState.Ready)
-        {
-            NavigateToAdk();
-            return;
-        }
-
-        App.Current.NavService.NavigateTo(typeof(StartPage), ViewModel.StartNavigationTitle);
+        await ((MainWindow)App.MainWindow).OpenDocumentationAsync();
     }
 
     private void OnUnloaded(object sender, RoutedEventArgs e)
