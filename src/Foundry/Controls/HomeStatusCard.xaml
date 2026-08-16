@@ -5,13 +5,49 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     MinWidth="240"
+    MinHeight="172"
     mc:Ignorable="d">
 
     <Grid
-        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-        BorderThickness="1"
-        CornerRadius="{StaticResource FoundryCardCornerRadius}">
+        Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}"
+        BorderBrush="{ThemeResource SurfaceStrokeColorFlyoutBrush}"
+        CornerRadius="8">
+        <Grid.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.ThemeDictionaries>
+                    <ResourceDictionary x:Key="Light">
+                        <SolidColorBrush x:Key="ButtonBorderBrush"
+                            Color="{ThemeResource ControlStrokeColorDefault}" />
+                        <SolidColorBrush x:Key="ButtonBorderBrushPointerOver"
+                            Color="{ThemeResource ControlStrokeColorSecondary}" />
+                        <SolidColorBrush x:Key="ButtonBorderBrushPressed"
+                            Color="{ThemeResource ControlStrokeColorDefault}" />
+                        <SolidColorBrush x:Key="ButtonBorderBrushDisabled"
+                            Color="{ThemeResource ControlStrokeColorDefault}" />
+                    </ResourceDictionary>
+                    <ResourceDictionary x:Key="Dark">
+                        <SolidColorBrush x:Key="ButtonBorderBrush"
+                            Color="{ThemeResource ControlStrokeColorDefault}" />
+                        <SolidColorBrush x:Key="ButtonBorderBrushPointerOver"
+                            Color="{ThemeResource ControlStrokeColorSecondary}" />
+                        <SolidColorBrush x:Key="ButtonBorderBrushPressed"
+                            Color="{ThemeResource ControlStrokeColorDefault}" />
+                        <SolidColorBrush x:Key="ButtonBorderBrushDisabled"
+                            Color="{ThemeResource ControlStrokeColorDefault}" />
+                    </ResourceDictionary>
+                    <ResourceDictionary x:Key="HighContrast">
+                        <SolidColorBrush x:Key="ButtonBorderBrush"
+                            Color="{ThemeResource SystemColorButtonTextColor}" />
+                        <SolidColorBrush x:Key="ButtonBorderBrushPointerOver"
+                            Color="{ThemeResource SystemColorButtonTextColor}" />
+                        <SolidColorBrush x:Key="ButtonBorderBrushPressed"
+                            Color="{ThemeResource SystemColorButtonTextColor}" />
+                        <SolidColorBrush x:Key="ButtonBorderBrushDisabled"
+                            Color="{ThemeResource SystemColorButtonTextColor}" />
+                    </ResourceDictionary>
+                </ResourceDictionary.ThemeDictionaries>
+            </ResourceDictionary>
+        </Grid.Resources>
         <Button
             Padding="-1"
             HorizontalAlignment="Stretch"
@@ -20,9 +56,9 @@
             VerticalContentAlignment="Stretch"
             AutomationProperties.Name="{x:Bind AutomationName, Mode=OneTime}"
             Click="CardButton_Click"
-            CornerRadius="{StaticResource FoundryCardCornerRadius}">
+            CornerRadius="{StaticResource OverlayCornerRadius}">
             <StackPanel
-                Padding="16"
+                Padding="24,20"
                 Spacing="12">
 
                 <Grid>
@@ -33,9 +69,9 @@
                     </Grid.ColumnDefinitions>
                     <FontIcon
                         Grid.Column="0"
-                        Margin="0,0,10,0"
+                        Margin="0,0,12,0"
                         VerticalAlignment="Center"
-                        FontSize="{ThemeResource FoundryIconSizeDefault}"
+                        FontSize="24"
                         Glyph="{x:Bind IconGlyph, Mode=OneWay}" />
                     <TextBlock
                         Grid.Column="1"
@@ -66,7 +102,7 @@
                 <Rectangle
                     Height="1"
                     Fill="{ThemeResource DividerStrokeColorDefaultBrush}"
-                    Opacity="0.5" />
+                    Opacity="0.35" />
 
                 <Grid
                     ColumnSpacing="12"
@@ -87,12 +123,13 @@
                         Grid.Column="0"
                         Style="{ThemeResource FoundryCaptionTextBlockStyle}"
                         Text="{x:Bind Line1Label, Mode=OneWay}"
+                        TextWrapping="Wrap"
                         Visibility="{x:Bind Line1Visibility, Mode=OneWay}" />
                     <TextBlock
                         Grid.Row="0"
                         Grid.Column="1"
                         Text="{x:Bind Line1Value, Mode=OneWay}"
-                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="Wrap"
                         Visibility="{x:Bind Line1Visibility, Mode=OneWay}" />
 
                     <TextBlock
@@ -100,12 +137,13 @@
                         Grid.Column="0"
                         Style="{ThemeResource FoundryCaptionTextBlockStyle}"
                         Text="{x:Bind Line2Label, Mode=OneWay}"
+                        TextWrapping="Wrap"
                         Visibility="{x:Bind Line2Visibility, Mode=OneWay}" />
                     <TextBlock
                         Grid.Row="1"
                         Grid.Column="1"
                         Text="{x:Bind Line2Value, Mode=OneWay}"
-                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="Wrap"
                         Visibility="{x:Bind Line2Visibility, Mode=OneWay}" />
 
                     <TextBlock
@@ -113,12 +151,13 @@
                         Grid.Column="0"
                         Style="{ThemeResource FoundryCaptionTextBlockStyle}"
                         Text="{x:Bind Line3Label, Mode=OneWay}"
+                        TextWrapping="Wrap"
                         Visibility="{x:Bind Line3Visibility, Mode=OneWay}" />
                     <TextBlock
                         Grid.Row="2"
                         Grid.Column="1"
                         Text="{x:Bind Line3Value, Mode=OneWay}"
-                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="Wrap"
                         Visibility="{x:Bind Line3Visibility, Mode=OneWay}" />
 
                     <TextBlock
@@ -126,12 +165,13 @@
                         Grid.Column="0"
                         Style="{ThemeResource FoundryCaptionTextBlockStyle}"
                         Text="{x:Bind Line4Label, Mode=OneWay}"
+                        TextWrapping="Wrap"
                         Visibility="{x:Bind Line4Visibility, Mode=OneWay}" />
                     <TextBlock
                         Grid.Row="3"
                         Grid.Column="1"
                         Text="{x:Bind Line4Value, Mode=OneWay}"
-                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="Wrap"
                         Visibility="{x:Bind Line4Visibility, Mode=OneWay}" />
                 </Grid>
             </StackPanel>

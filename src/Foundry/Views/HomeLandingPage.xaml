@@ -25,7 +25,7 @@
                 Grid.Row="2"
                 MaxWidth="{ThemeResource FoundryContentMaxWidth}"
                 Margin="36,28,36,36"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Stretch"
                 Spacing="20">
 
                 <TextBlock
@@ -46,12 +46,15 @@
                     Step3State="{x:Bind ViewModel.Step3State, Mode=OneWay}"
                     Step3StatusText="{x:Bind ViewModel.Step3StatusText, Mode=OneWay}" />
 
-                <StackPanel
-                    Orientation="Horizontal"
-                    Spacing="12">
+                <Grid ColumnSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
                     <controls:HomeStatusCard
                         Title="{x:Bind ViewModel.AdkCardTitle, Mode=OneWay}"
+                        Grid.Column="0"
                         IconGlyph="&#xEC7A;"
                         Line1Label="{x:Bind ViewModel.AdkVersionLabel, Mode=OneWay}"
                         Line1Value="{x:Bind ViewModel.AdkVersionValue, Mode=OneWay}"
@@ -63,6 +66,7 @@
 
                     <controls:HomeStatusCard
                         Title="{x:Bind ViewModel.ConfigCardTitle, Mode=OneWay}"
+                        Grid.Column="1"
                         IconGlyph="&#xE713;"
                         Line1Label="{x:Bind ViewModel.ConfigArchitectureLabel, Mode=OneWay}"
                         Line1Value="{x:Bind ViewModel.ConfigArchitectureValue, Mode=OneWay}"
@@ -75,7 +79,7 @@
                         NavigationRequested="ConfigCard_NavigationRequested"
                         Severity="{x:Bind ViewModel.ConfigCardSeverity, Mode=OneWay}"
                         StatusText="{x:Bind ViewModel.ConfigCardStatusText, Mode=OneWay}" />
-                </StackPanel>
+                </Grid>
             </StackPanel>
         </Grid>
     </ScrollViewer>
