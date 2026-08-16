@@ -1311,6 +1311,24 @@
   <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
     <value>Windows PE Kiegészítő</value>
   </data>
+  <data name="Home.Status.SectionTitle" xml:space="preserve">
+    <value>Készen áll az adathordozó létrehozására?</value>
+  </data>
+  <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
+    <value>Konfiguráció</value>
+  </data>
+  <data name="Home.Status.ConfigCard.SecureBootLabel" xml:space="preserve">
+    <value>Biztonságos rendszerindítás (CA 2023)</value>
+  </data>
+  <data name="Home.Status.ConfigCard.NoDrivers" xml:space="preserve">
+    <value>Nincs</value>
+  </data>
+  <data name="Home.Status.ConfigCard.CustomDrivers" xml:space="preserve">
+    <value>Egyéni</value>
+  </data>
+  <data name="Home.Status.ConfigCard.BlockedStatus" xml:space="preserve">
+    <value>ADK szükséges</value>
+  </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
     <value>Építsen Windows telepítési adathordozót a WinPE által hajtott modern asztali munkafolyamattal.</value>
   </data>

@@ -1311,6 +1311,24 @@
   <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
     <value>Windows PE Lisand</value>
   </data>
+  <data name="Home.Status.SectionTitle" xml:space="preserve">
+    <value>Kas olete valmis kandjat looma?</value>
+  </data>
+  <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
+    <value>Konfiguratsioon</value>
+  </data>
+  <data name="Home.Status.ConfigCard.SecureBootLabel" xml:space="preserve">
+    <value>Turvaline algkäivitus (CA 2023)</value>
+  </data>
+  <data name="Home.Status.ConfigCard.NoDrivers" xml:space="preserve">
+    <value>Puudub</value>
+  </data>
+  <data name="Home.Status.ConfigCard.CustomDrivers" xml:space="preserve">
+    <value>Kohandatud</value>
+  </data>
+  <data name="Home.Status.ConfigCard.BlockedStatus" xml:space="preserve">
+    <value>Nõuab ADK-d</value>
+  </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
     <value>Ehitage Windows juurutusmeedium kaasaegse töölaua töövooga, mida toetab WinPE.</value>
   </data>

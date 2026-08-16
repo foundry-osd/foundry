@@ -1311,6 +1311,24 @@
   <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
     <value>Windows PE 부가기능</value>
   </data>
+  <data name="Home.Status.SectionTitle" xml:space="preserve">
+    <value>미디어를 만들 준비가 되었나요?</value>
+  </data>
+  <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
+    <value>구성</value>
+  </data>
+  <data name="Home.Status.ConfigCard.SecureBootLabel" xml:space="preserve">
+    <value>보안 부팅(CA 2023)</value>
+  </data>
+  <data name="Home.Status.ConfigCard.NoDrivers" xml:space="preserve">
+    <value>없음</value>
+  </data>
+  <data name="Home.Status.ConfigCard.CustomDrivers" xml:space="preserve">
+    <value>사용자 지정</value>
+  </data>
+  <data name="Home.Status.ConfigCard.BlockedStatus" xml:space="preserve">
+    <value>ADK 필요</value>
+  </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
     <value>WinPE이 제공하는 최신 데스크탑 워크플로를 사용하여 Windows 배포 미디어를 구축하세요.</value>
   </data>

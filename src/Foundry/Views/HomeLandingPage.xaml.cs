@@ -46,6 +46,40 @@ public sealed partial class HomeLandingPage : Page
         await ((MainWindow)App.MainWindow).OpenDocumentationAsync();
     }
 
+    private void StepperStep1_Requested(object sender, EventArgs e)
+    {
+        App.Current.NavigationService.NavigateTo(typeof(AdkPage));
+    }
+
+    private void StepperStep2_Requested(object sender, EventArgs e)
+    {
+        Type target = shellNavigationGuardService.State == ShellNavigationState.Ready
+            ? typeof(GeneralConfigurationPage)
+            : typeof(AdkPage);
+        App.Current.NavigationService.NavigateTo(target);
+    }
+
+    private void StepperStep3_Requested(object sender, EventArgs e)
+    {
+        Type target = shellNavigationGuardService.State == ShellNavigationState.Ready
+            ? typeof(StartPage)
+            : typeof(AdkPage);
+        App.Current.NavigationService.NavigateTo(target);
+    }
+
+    private void AdkCard_NavigationRequested(object sender, EventArgs e)
+    {
+        App.Current.NavigationService.NavigateTo(typeof(AdkPage));
+    }
+
+    private void ConfigCard_NavigationRequested(object sender, EventArgs e)
+    {
+        Type target = shellNavigationGuardService.State == ShellNavigationState.Ready
+            ? typeof(GeneralConfigurationPage)
+            : typeof(AdkPage);
+        App.Current.NavigationService.NavigateTo(target);
+    }
+
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
         Unloaded -= OnUnloaded;

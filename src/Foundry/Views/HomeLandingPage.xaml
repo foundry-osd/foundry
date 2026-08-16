@@ -24,48 +24,58 @@
             <StackPanel
                 Grid.Row="2"
                 MaxWidth="{ThemeResource FoundryContentMaxWidth}"
-                Margin="36,24,36,36"
+                Margin="36,28,36,36"
                 HorizontalAlignment="Center"
-                Spacing="{ThemeResource FoundryContentGroupSpacing}">
-                <InfoBar
-                    Title="{x:Bind ViewModel.AdkStatusTitle, Mode=OneWay}"
-                    IsClosable="False"
-                    IsIconVisible="True"
-                    IsOpen="True"
-                    Message="{x:Bind ViewModel.AdkStatusDescription, Mode=OneWay}"
-                    Severity="{x:Bind ViewModel.AdkStatusSeverity, Mode=OneWay}" />
-                <Grid
-                    ColumnSpacing="{ThemeResource FoundrySpace24}"
-                    RowSpacing="{ThemeResource FoundrySpace4}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <TextBlock
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Style="{ThemeResource FoundryCaptionTextBlockStyle}"
-                        Text="{x:Bind ViewModel.InstalledVersionLabel, Mode=OneWay}" />
-                    <TextBlock
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Text="{x:Bind ViewModel.InstalledVersion, Mode=OneWay}"
-                        TextTrimming="CharacterEllipsis" />
-                    <TextBlock
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Style="{ThemeResource FoundryCaptionTextBlockStyle}"
-                        Text="{x:Bind ViewModel.WinPeAddonLabel, Mode=OneWay}" />
-                    <TextBlock
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Text="{x:Bind ViewModel.WinPeAddonStatus, Mode=OneWay}"
-                        TextTrimming="CharacterEllipsis" />
-                </Grid>
+                Spacing="20">
+
+                <TextBlock
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="{x:Bind ViewModel.StepperSectionTitle, Mode=OneWay}" />
+
+                <controls:WorkflowStepper
+                    Step1Label="{x:Bind ViewModel.Step1Label, Mode=OneWay}"
+                    Step1Requested="StepperStep1_Requested"
+                    Step1State="{x:Bind ViewModel.Step1State, Mode=OneWay}"
+                    Step1StatusText="{x:Bind ViewModel.Step1StatusText, Mode=OneWay}"
+                    Step2Label="{x:Bind ViewModel.Step2Label, Mode=OneWay}"
+                    Step2Requested="StepperStep2_Requested"
+                    Step2State="{x:Bind ViewModel.Step2State, Mode=OneWay}"
+                    Step2StatusText="{x:Bind ViewModel.Step2StatusText, Mode=OneWay}"
+                    Step3Label="{x:Bind ViewModel.Step3Label, Mode=OneWay}"
+                    Step3Requested="StepperStep3_Requested"
+                    Step3State="{x:Bind ViewModel.Step3State, Mode=OneWay}"
+                    Step3StatusText="{x:Bind ViewModel.Step3StatusText, Mode=OneWay}" />
+
+                <StackPanel
+                    Orientation="Horizontal"
+                    Spacing="12">
+
+                    <controls:HomeStatusCard
+                        Title="{x:Bind ViewModel.AdkCardTitle, Mode=OneWay}"
+                        IconGlyph="&#xEC7A;"
+                        Line1Label="{x:Bind ViewModel.AdkVersionLabel, Mode=OneWay}"
+                        Line1Value="{x:Bind ViewModel.AdkVersionValue, Mode=OneWay}"
+                        Line2Label="{x:Bind ViewModel.AdkWinPeLabel, Mode=OneWay}"
+                        Line2Value="{x:Bind ViewModel.AdkWinPeValue, Mode=OneWay}"
+                        NavigationRequested="AdkCard_NavigationRequested"
+                        Severity="{x:Bind ViewModel.AdkCardSeverity, Mode=OneWay}"
+                        StatusText="{x:Bind ViewModel.AdkCardStatusText, Mode=OneWay}" />
+
+                    <controls:HomeStatusCard
+                        Title="{x:Bind ViewModel.ConfigCardTitle, Mode=OneWay}"
+                        IconGlyph="&#xE713;"
+                        Line1Label="{x:Bind ViewModel.ConfigArchitectureLabel, Mode=OneWay}"
+                        Line1Value="{x:Bind ViewModel.ConfigArchitectureValue, Mode=OneWay}"
+                        Line2Label="{x:Bind ViewModel.ConfigWinPeLanguageLabel, Mode=OneWay}"
+                        Line2Value="{x:Bind ViewModel.ConfigWinPeLanguageValue, Mode=OneWay}"
+                        Line3Label="{x:Bind ViewModel.ConfigSecureBootLabel, Mode=OneWay}"
+                        Line3Value="{x:Bind ViewModel.ConfigSecureBootValue, Mode=OneWay}"
+                        Line4Label="{x:Bind ViewModel.ConfigDriversLabel, Mode=OneWay}"
+                        Line4Value="{x:Bind ViewModel.ConfigDriversValue, Mode=OneWay}"
+                        NavigationRequested="ConfigCard_NavigationRequested"
+                        Severity="{x:Bind ViewModel.ConfigCardSeverity, Mode=OneWay}"
+                        StatusText="{x:Bind ViewModel.ConfigCardStatusText, Mode=OneWay}" />
+                </StackPanel>
             </StackPanel>
         </Grid>
     </ScrollViewer>

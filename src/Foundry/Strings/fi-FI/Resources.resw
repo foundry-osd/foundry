@@ -1311,6 +1311,24 @@
   <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
     <value>Windows PE Lisäosa</value>
   </data>
+  <data name="Home.Status.SectionTitle" xml:space="preserve">
+    <value>Valmis luomaan tietovälineen?</value>
+  </data>
+  <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
+    <value>Määritys</value>
+  </data>
+  <data name="Home.Status.ConfigCard.SecureBootLabel" xml:space="preserve">
+    <value>Suojattu käynnistys (CA 2023)</value>
+  </data>
+  <data name="Home.Status.ConfigCard.NoDrivers" xml:space="preserve">
+    <value>Ei mitään</value>
+  </data>
+  <data name="Home.Status.ConfigCard.CustomDrivers" xml:space="preserve">
+    <value>Mukautettu</value>
+  </data>
+  <data name="Home.Status.ConfigCard.BlockedStatus" xml:space="preserve">
+    <value>Edellyttää ADK:ta</value>
+  </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
     <value>Rakenna Windows käyttöönottomediaa nykyaikaisella työpöytätyönkululla, jota käyttää WinPE.</value>
   </data>

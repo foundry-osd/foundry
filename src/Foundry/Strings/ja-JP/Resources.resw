@@ -1311,6 +1311,24 @@
   <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
     <value>Windows PE アドオン</value>
   </data>
+  <data name="Home.Status.SectionTitle" xml:space="preserve">
+    <value>メディアを作成する準備はできましたか?</value>
+  </data>
+  <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
+    <value>構成</value>
+  </data>
+  <data name="Home.Status.ConfigCard.SecureBootLabel" xml:space="preserve">
+    <value>セキュア ブート (CA 2023)</value>
+  </data>
+  <data name="Home.Status.ConfigCard.NoDrivers" xml:space="preserve">
+    <value>なし</value>
+  </data>
+  <data name="Home.Status.ConfigCard.CustomDrivers" xml:space="preserve">
+    <value>カスタム</value>
+  </data>
+  <data name="Home.Status.ConfigCard.BlockedStatus" xml:space="preserve">
+    <value>ADK が必要です</value>
+  </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
     <value>WinPE を活用した最新のデスクトップ ワークフローを使用して Windows 展開メディアを構築します。</value>
   </data>

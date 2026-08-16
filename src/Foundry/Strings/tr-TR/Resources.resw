@@ -1311,6 +1311,24 @@
   <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
     <value>Windows PE Eklenti</value>
   </data>
+  <data name="Home.Status.SectionTitle" xml:space="preserve">
+    <value>Medya oluşturmaya hazır mısınız?</value>
+  </data>
+  <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
+    <value>Yapılandırma</value>
+  </data>
+  <data name="Home.Status.ConfigCard.SecureBootLabel" xml:space="preserve">
+    <value>Güvenli Önyükleme (CA 2023)</value>
+  </data>
+  <data name="Home.Status.ConfigCard.NoDrivers" xml:space="preserve">
+    <value>Yok</value>
+  </data>
+  <data name="Home.Status.ConfigCard.CustomDrivers" xml:space="preserve">
+    <value>Özel</value>
+  </data>
+  <data name="Home.Status.ConfigCard.BlockedStatus" xml:space="preserve">
+    <value>ADK gerektirir</value>
+  </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
     <value>WinPE tarafından desteklenen modern bir masaüstü iş akışıyla Windows dağıtım ortamı oluşturun.</value>
   </data>

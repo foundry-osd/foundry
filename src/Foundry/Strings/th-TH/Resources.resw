@@ -1311,6 +1311,24 @@
   <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
     <value>Windows PE ส่วนเสริม</value>
   </data>
+  <data name="Home.Status.SectionTitle" xml:space="preserve">
+    <value>พร้อมสร้างสื่อหรือยัง?</value>
+  </data>
+  <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
+    <value>การกำหนดค่า</value>
+  </data>
+  <data name="Home.Status.ConfigCard.SecureBootLabel" xml:space="preserve">
+    <value>การบูตแบบปลอดภัย (CA 2023)</value>
+  </data>
+  <data name="Home.Status.ConfigCard.NoDrivers" xml:space="preserve">
+    <value>ไม่มี</value>
+  </data>
+  <data name="Home.Status.ConfigCard.CustomDrivers" xml:space="preserve">
+    <value>กำหนดเอง</value>
+  </data>
+  <data name="Home.Status.ConfigCard.BlockedStatus" xml:space="preserve">
+    <value>ต้องใช้ ADK</value>
+  </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
     <value>สร้างสื่อการปรับใช้ Windows ด้วยเวิร์กโฟลว์เดสก์ท็อปสมัยใหม่ที่ขับเคลื่อนโดย WinPE</value>
   </data>
