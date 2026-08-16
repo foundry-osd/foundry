@@ -1312,7 +1312,7 @@
     <value>Windows PE Supliment</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
-    <value>Sunteți gata să creați suportul media?</value>
+    <value>Starea de pregătire a suportului media</value>
   </data>
   <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
     <value>Configurație</value>

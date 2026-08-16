@@ -1312,7 +1312,7 @@
     <value>Windows PE الوظيفة الإضافية</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
-    <value>هل أنت جاهز لإنشاء الوسائط؟</value>
+    <value>حالة جاهزية الوسائط</value>
   </data>
   <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
     <value>التكوين</value>

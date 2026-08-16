@@ -1312,7 +1312,7 @@
     <value>Windows PE アドオン</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
-    <value>メディアを作成する準備はできましたか?</value>
+    <value>メディアの準備状況</value>
   </data>
   <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
     <value>構成</value>

@@ -1312,7 +1312,7 @@
     <value>Doplnok Windows PE</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
-    <value>Pripravení vytvoriť médium?</value>
+    <value>Stav pripravenosti média</value>
   </data>
   <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
     <value>Konfigurácia</value>

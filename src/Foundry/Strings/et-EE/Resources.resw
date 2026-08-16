@@ -1312,7 +1312,7 @@
     <value>Windows PE Lisand</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
-    <value>Kas olete valmis kandjat looma?</value>
+    <value>Andmekandja valmisoleku olek</value>
   </data>
   <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
     <value>Konfiguratsioon</value>

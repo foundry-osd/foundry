@@ -1312,7 +1312,7 @@
     <value>Windows PE 부가기능</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
-    <value>미디어를 만들 준비가 되었나요?</value>
+    <value>미디어 준비 상태</value>
   </data>
   <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
     <value>구성</value>

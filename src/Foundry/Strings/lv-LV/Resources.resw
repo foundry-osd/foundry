@@ -1312,7 +1312,7 @@
     <value>Windows PE Papildinājums</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
-    <value>Vai esat gatavs izveidot datu nesēju?</value>
+    <value>Datu nesēja gatavības statuss</value>
   </data>
   <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
     <value>Konfigurācija</value>

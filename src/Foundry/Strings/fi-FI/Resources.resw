@@ -1312,7 +1312,7 @@
     <value>Windows PE Lisäosa</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
-    <value>Valmis luomaan tietovälineen?</value>
+    <value>Tietovälineen valmiustila</value>
   </data>
   <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
     <value>Määritys</value>

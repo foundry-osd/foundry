@@ -1312,7 +1312,7 @@
     <value>Windows PE Complemento</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
-    <value>Pronto para criar o suporte de dados?</value>
+    <value>Estado de preparação do suporte de dados</value>
   </data>
   <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
     <value>Configuração</value>

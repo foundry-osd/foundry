@@ -1312,7 +1312,7 @@
     <value>Windows PE Добавка</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
-    <value>Готови ли сте да създадете носител?</value>
+    <value>Състояние на готовност на носителя</value>
   </data>
   <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
     <value>Конфигурация</value>

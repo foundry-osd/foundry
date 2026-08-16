@@ -1312,7 +1312,7 @@
     <value>Windows PE Priedas</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
-    <value>Pasirengę kurti laikmeną?</value>
+    <value>Laikmenos parengties būsena</value>
   </data>
   <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
     <value>Konfigūracija</value>

@@ -1312,7 +1312,7 @@
     <value>Windows PE Πρόσθετο</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
-    <value>Έτοιμοι να δημιουργήσετε μέσα;</value>
+    <value>Κατάσταση ετοιμότητας μέσου</value>
   </data>
   <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
     <value>Ρύθμιση παραμέτρων</value>

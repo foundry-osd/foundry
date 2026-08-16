@@ -1312,7 +1312,7 @@
     <value>Windows PE Kiegészítő</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
-    <value>Készen áll az adathordozó létrehozására?</value>
+    <value>Az adathordozó készenléti állapota</value>
   </data>
   <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
     <value>Konfiguráció</value>

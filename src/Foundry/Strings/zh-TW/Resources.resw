@@ -1312,7 +1312,7 @@
     <value>Windows PE 附加元件</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
-    <value>準備好建立媒體了嗎？</value>
+    <value>媒體準備狀態</value>
   </data>
   <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
     <value>設定</value>

@@ -1312,7 +1312,7 @@
     <value>Windows PE Complemento</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
-    <value>¿Listo para crear medios?</value>
+    <value>Estado de preparación del medio</value>
   </data>
   <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
     <value>Configuración</value>

@@ -1312,7 +1312,7 @@
     <value>Windows PE Dodatek</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
-    <value>Gotowy do utworzenia nośnika?</value>
+    <value>Stan gotowości nośnika</value>
   </data>
   <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
     <value>Konfiguracja</value>

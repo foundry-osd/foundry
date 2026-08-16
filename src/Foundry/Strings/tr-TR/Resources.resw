@@ -1312,7 +1312,7 @@
     <value>Windows PE Eklenti</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
-    <value>Medya oluşturmaya hazır mısınız?</value>
+    <value>Medya hazırlık durumu</value>
   </data>
   <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
     <value>Yapılandırma</value>

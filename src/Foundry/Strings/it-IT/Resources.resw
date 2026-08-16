@@ -1312,7 +1312,7 @@
     <value>Windows PE Componente aggiuntivo</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
-    <value>Pronto per creare il supporto?</value>
+    <value>Stato di preparazione del supporto</value>
   </data>
   <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
     <value>Configurazione</value>

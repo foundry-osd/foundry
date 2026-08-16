@@ -1312,7 +1312,7 @@
     <value>Windows PE Tilføjelse</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
-    <value>Klar til at oprette medier?</value>
+    <value>Status for medieberedskab</value>
   </data>
   <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
     <value>Konfiguration</value>

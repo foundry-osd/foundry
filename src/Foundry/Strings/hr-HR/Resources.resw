@@ -1312,7 +1312,7 @@
     <value>Windows PE Dodatak</value>
   </data>
   <data name="Home.Status.SectionTitle" xml:space="preserve">
-    <value>Spremni za stvaranje medija?</value>
+    <value>Stanje spremnosti medija</value>
   </data>
   <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
     <value>Konfiguracija</value>
