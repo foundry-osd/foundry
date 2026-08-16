@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="80"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -57,7 +58,7 @@
 
     <Button
         Padding="4"
-        HorizontalAlignment="Center"
+        HorizontalAlignment="Stretch"
         HorizontalContentAlignment="Center"
         AutomationProperties.Name="{x:Bind AutomationName, Mode=OneTime}"
         Background="Transparent"
@@ -97,7 +98,8 @@
                 FontSize="12"
                 Foreground="{x:Bind LabelForeground, Mode=OneTime}"
                 Text="{x:Bind Label, Mode=OneWay}"
-                TextAlignment="Center" />
+                TextAlignment="Center"
+                TextWrapping="Wrap" />
         </StackPanel>
     </Button>
 </UserControl>
