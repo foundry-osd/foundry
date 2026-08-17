@@ -2118,9 +2118,6 @@
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Aktualizovať</value>
   </data>
-  <data name="UpdateFooter.BadgeFallback" xml:space="preserve">
-    <value>Nové</value>
-  </data>
   <data name="Nav_AboutKey.Description" xml:space="preserve">
     <value>Informácie o produkte a verzii.</value>
   </data>

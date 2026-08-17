@@ -2118,9 +2118,6 @@
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Обновить</value>
   </data>
-  <data name="UpdateFooter.BadgeFallback" xml:space="preserve">
-    <value>Новый</value>
-  </data>
   <data name="Nav_AboutKey.Description" xml:space="preserve">
     <value>Информация о продукте и версии.</value>
   </data>

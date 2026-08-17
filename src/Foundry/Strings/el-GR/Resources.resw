@@ -2118,9 +2118,6 @@
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Ενημέρωση</value>
   </data>
-  <data name="UpdateFooter.BadgeFallback" xml:space="preserve">
-    <value>Νέο</value>
-  </data>
   <data name="Nav_AboutKey.Description" xml:space="preserve">
     <value>Πληροφορίες προϊόντος και έκδοσης.</value>
   </data>
