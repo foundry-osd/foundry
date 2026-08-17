@@ -27,7 +27,6 @@ namespace Foundry.Views
         private const string AboutNavigationTag = "Foundry.External.About";
         private const string UpdateNavigationTag = "Foundry.Navigation.UpdateAvailable";
         private const string UpdateNavigationGlyph = "\uEBD3";
-        private const string StringInfoBadgeStyleKey = "StringInfoBadgeStyle";
         private ContentDialog? operationDialog;
         private TextBlock? operationStatusText;
         private ProgressBar? operationProgressBar;
@@ -132,8 +131,7 @@ namespace Foundry.Views
         {
             if (e.PropertyName is nameof(MainViewModel.IsUpdateFooterItemVisible)
                 or nameof(MainViewModel.UpdateFooterTitle)
-                or nameof(MainViewModel.UpdateFooterToolTip)
-                or nameof(MainViewModel.UpdateFooterBadgeValue))
+                or nameof(MainViewModel.UpdateFooterToolTip))
             {
                 RefreshUpdateFooterItem();
             }
@@ -473,7 +471,8 @@ namespace Foundry.Views
                 item = new()
                 {
                     Tag = UpdateNavigationTag,
-                    Icon = new FontIcon { Glyph = UpdateNavigationGlyph }
+                    Icon = new FontIcon { Glyph = UpdateNavigationGlyph },
+                    InfoBadge = NavigationInfoBadgeFactory.Create(NavigationInfoBadgeSeverity.Attention)
                 };
                 NavView.FooterMenuItems.Insert(0, item);
             }
@@ -488,10 +487,10 @@ namespace Foundry.Views
             }
 
             item.Content = ViewModel.UpdateFooterTitle;
-            item.InfoBadge = CreateUpdateInfoBadge();
             ToolTipService.SetToolTip(item, ViewModel.UpdateFooterToolTip);
             AutomationProperties.SetName(item, ViewModel.UpdateFooterTitle);
             AutomationProperties.SetHelpText(item, ViewModel.UpdateFooterToolTip);
+            AutomationProperties.SetItemStatus(item, ViewModel.UpdateFooterToolTip);
             item.IsEnabled = shellNavigationGuardService.State != ShellNavigationState.OperationRunning;
         }
 
@@ -504,22 +503,6 @@ namespace Foundry.Views
             }
 
             NavView.FooterMenuItems.Remove(item);
-        }
-
-        private InfoBadge CreateUpdateInfoBadge()
-        {
-            InfoBadge badge = new()
-            {
-                Tag = ViewModel.UpdateFooterBadgeValue
-            };
-
-            if (App.Current.Resources.TryGetValue(StringInfoBadgeStyleKey, out object style)
-                && style is Style infoBadgeStyle)
-            {
-                badge.Style = infoBadgeStyle;
-            }
-
-            return badge;
         }
 
         private void EnsureExternalAboutFooterItem()

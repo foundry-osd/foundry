@@ -29,9 +29,6 @@ namespace Foundry.ViewModels
         [ObservableProperty]
         public partial string UpdateFooterToolTip { get; set; }
 
-        [ObservableProperty]
-        public partial string UpdateFooterBadgeValue { get; set; }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MainViewModel"/> class.
         /// </summary>
@@ -48,7 +45,6 @@ namespace Foundry.ViewModels
 
             UpdateFooterTitle = localizationService.GetString("UpdateFooter.Title");
             UpdateFooterToolTip = localizationService.GetString("Update.Status.UpdateAvailable");
-            UpdateFooterBadgeValue = localizationService.GetString("UpdateFooter.BadgeFallback");
 
             updateStateService.StateChanged += OnUpdateStateChanged;
             localizationService.LanguageChanged += OnLanguageChanged;
@@ -95,13 +91,11 @@ namespace Foundry.ViewModels
                     ? localizationService.FormatString("Update.Status.UpdateAvailableWithVersion", result.Version)
                     : localizationService.GetString("Update.Status.UpdateAvailable");
 
-                UpdateFooterBadgeValue = localizationService.GetString("UpdateFooter.BadgeFallback");
                 IsUpdateFooterItemVisible = true;
                 return;
             }
 
             UpdateFooterToolTip = localizationService.GetString("Update.Status.UpdateAvailable");
-            UpdateFooterBadgeValue = localizationService.GetString("UpdateFooter.BadgeFallback");
             IsUpdateFooterItemVisible = false;
         }
     }
