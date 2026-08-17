@@ -2,19 +2,14 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Foundry.Services.Shell;
-
 namespace Foundry.Views;
 
 public sealed partial class HomeLandingPage : Page
 {
-    private readonly IShellNavigationGuardService shellNavigationGuardService;
-
     public HomeLandingViewModel ViewModel { get; }
 
     public HomeLandingPage()
     {
-        shellNavigationGuardService = App.GetService<IShellNavigationGuardService>();
         ViewModel = App.GetService<HomeLandingViewModel>();
         InitializeComponent();
         Unloaded += OnUnloaded;
@@ -27,18 +22,12 @@ public sealed partial class HomeLandingPage : Page
 
     private void ConfigureMediaButton_Click(object sender, RoutedEventArgs e)
     {
-        Type target = shellNavigationGuardService.State == ShellNavigationState.Ready
-            ? typeof(GeneralConfigurationPage)
-            : typeof(AdkPage);
-        App.Current.NavigationService.NavigateTo(target);
+        App.Current.NavigationService.NavigateTo(typeof(GeneralConfigurationPage));
     }
 
     private void ReviewAndStartButton_Click(object sender, RoutedEventArgs e)
     {
-        Type target = shellNavigationGuardService.State == ShellNavigationState.Ready
-            ? typeof(StartPage)
-            : typeof(AdkPage);
-        App.Current.NavigationService.NavigateTo(target);
+        App.Current.NavigationService.NavigateTo(typeof(StartPage));
     }
 
     private async void OpenDocumentationButton_Click(object sender, RoutedEventArgs e)
@@ -53,18 +42,12 @@ public sealed partial class HomeLandingPage : Page
 
     private void StepperStep2_Requested(object sender, EventArgs e)
     {
-        Type target = shellNavigationGuardService.State == ShellNavigationState.Ready
-            ? typeof(GeneralConfigurationPage)
-            : typeof(AdkPage);
-        App.Current.NavigationService.NavigateTo(target);
+        App.Current.NavigationService.NavigateTo(typeof(GeneralConfigurationPage));
     }
 
     private void StepperStep3_Requested(object sender, EventArgs e)
     {
-        Type target = shellNavigationGuardService.State == ShellNavigationState.Ready
-            ? typeof(StartPage)
-            : typeof(AdkPage);
-        App.Current.NavigationService.NavigateTo(target);
+        App.Current.NavigationService.NavigateTo(typeof(StartPage));
     }
 
     private void AdkCard_NavigationRequested(object sender, EventArgs e)
@@ -74,10 +57,7 @@ public sealed partial class HomeLandingPage : Page
 
     private void ConfigCard_NavigationRequested(object sender, EventArgs e)
     {
-        Type target = shellNavigationGuardService.State == ShellNavigationState.Ready
-            ? typeof(GeneralConfigurationPage)
-            : typeof(AdkPage);
-        App.Current.NavigationService.NavigateTo(target);
+        App.Current.NavigationService.NavigateTo(typeof(GeneralConfigurationPage));
     }
 
     private void OnUnloaded(object sender, RoutedEventArgs e)

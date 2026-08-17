@@ -35,6 +35,7 @@
         <controls:WorkflowStep
             Grid.Column="2"
             Click="Step2_Click"
+            IsEnabled="{x:Bind IsPostAdkNavigationEnabled, Mode=OneWay}"
             Label="{x:Bind Step2Label, Mode=OneWay}"
             State="{x:Bind Step2State, Mode=OneWay}"
             StatusText="{x:Bind Step2StatusText, Mode=OneWay}"
@@ -51,6 +52,7 @@
         <controls:WorkflowStep
             Grid.Column="4"
             Click="Step3_Click"
+            IsEnabled="{x:Bind IsPostAdkNavigationEnabled, Mode=OneWay}"
             Label="{x:Bind Step3Label, Mode=OneWay}"
             State="{x:Bind Step3State, Mode=OneWay}"
             StatusText="{x:Bind Step3StatusText, Mode=OneWay}"

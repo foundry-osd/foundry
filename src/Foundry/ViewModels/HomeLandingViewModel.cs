@@ -9,6 +9,7 @@ using Foundry.Core.Services.WinPe;
 using Foundry.Services.Adk;
 using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
+using Foundry.Services.Shell;
 using Microsoft.UI.Xaml.Controls;
 using Serilog;
 
@@ -24,6 +25,7 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
     private readonly IFoundryConfigurationStateService configurationStateService;
     private readonly IApplicationLocalizationService localizationService;
     private readonly IAppDispatcher appDispatcher;
+    private readonly IShellNavigationGuardService shellNavigationGuardService;
     private readonly ILogger logger;
 
     [ObservableProperty]
@@ -93,6 +95,9 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
     public partial InfoBarSeverity Step3State { get; set; }
 
     [ObservableProperty]
+    public partial bool IsWorkflowNavigationEnabled { get; set; }
+
+    [ObservableProperty]
     public partial string AdkCardTitle { get; set; }
 
     [ObservableProperty]
@@ -154,12 +159,14 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
         IFoundryConfigurationStateService configurationStateService,
         IApplicationLocalizationService localizationService,
         IAppDispatcher appDispatcher,
+        IShellNavigationGuardService shellNavigationGuardService,
         ILogger logger)
     {
         this.adkService = adkService;
         this.configurationStateService = configurationStateService;
         this.localizationService = localizationService;
         this.appDispatcher = appDispatcher;
+        this.shellNavigationGuardService = shellNavigationGuardService;
         this.logger = logger.ForContext<HomeLandingViewModel>();
 
         HeaderTitle = string.Empty;
@@ -184,6 +191,7 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
         Step1State = InfoBarSeverity.Informational;
         Step2State = InfoBarSeverity.Informational;
         Step3State = InfoBarSeverity.Informational;
+        IsWorkflowNavigationEnabled = shellNavigationGuardService.State == ShellNavigationState.Ready;
         AdkCardTitle = string.Empty;
         AdkCardStatusText = string.Empty;
         AdkCardSeverity = InfoBarSeverity.Informational;
@@ -206,6 +214,7 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
         adkService.StatusChanged += OnAdkStatusChanged;
         localizationService.LanguageChanged += OnLanguageChanged;
         configurationStateService.StateChanged += OnConfigurationStateChanged;
+        shellNavigationGuardService.StateChanged += OnShellNavigationStateChanged;
 
         ApplyLocalizedText();
     }
@@ -216,6 +225,7 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
         adkService.StatusChanged -= OnAdkStatusChanged;
         localizationService.LanguageChanged -= OnLanguageChanged;
         configurationStateService.StateChanged -= OnConfigurationStateChanged;
+        shellNavigationGuardService.StateChanged -= OnShellNavigationStateChanged;
     }
 
     private void OnAdkStatusChanged(object? sender, AdkStatusChangedEventArgs e)
@@ -247,6 +257,21 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
         {
             logger.Warning("Failed to enqueue Home configuration summary refresh.");
         }
+    }
+
+    private void OnShellNavigationStateChanged(object? sender, EventArgs e)
+    {
+        if (!appDispatcher.TryEnqueue(ApplyNavigationAvailability))
+        {
+            logger.Warning(
+                "Failed to enqueue Home navigation availability refresh. ShellNavigationState={ShellNavigationState}",
+                shellNavigationGuardService.State);
+        }
+    }
+
+    private void ApplyNavigationAvailability()
+    {
+        IsWorkflowNavigationEnabled = shellNavigationGuardService.State == ShellNavigationState.Ready;
     }
 
     private void ApplyLocalizedText()

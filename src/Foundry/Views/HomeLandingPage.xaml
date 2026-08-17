@@ -33,6 +33,7 @@
                     Text="{x:Bind ViewModel.StepperSectionTitle, Mode=OneWay}" />
 
                 <controls:WorkflowStepper
+                    IsPostAdkNavigationEnabled="{x:Bind ViewModel.IsWorkflowNavigationEnabled, Mode=OneWay}"
                     Step1Label="{x:Bind ViewModel.Step1Label, Mode=OneWay}"
                     Step1Requested="StepperStep1_Requested"
                     Step1State="{x:Bind ViewModel.Step1State, Mode=OneWay}"
@@ -68,6 +69,7 @@
                         Title="{x:Bind ViewModel.ConfigCardTitle, Mode=OneWay}"
                         Grid.Column="1"
                         IconGlyph="&#xE713;"
+                        IsEnabled="{x:Bind ViewModel.IsWorkflowNavigationEnabled, Mode=OneWay}"
                         Line1Label="{x:Bind ViewModel.ConfigArchitectureLabel, Mode=OneWay}"
                         Line1Value="{x:Bind ViewModel.ConfigArchitectureValue, Mode=OneWay}"
                         Line2Label="{x:Bind ViewModel.ConfigWinPeLanguageLabel, Mode=OneWay}"

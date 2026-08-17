@@ -146,12 +146,14 @@
                         Title="{x:Bind ViewModel.ConfigureMediaTitle, Mode=OneWay}"
                         Click="ConfigureMediaTile_Click"
                         Description="{x:Bind ViewModel.ConfigureMediaDescription, Mode=OneWay}"
-                        IconGlyph="&#xE713;" />
+                        IconGlyph="&#xE713;"
+                        IsEnabled="{x:Bind ViewModel.IsWorkflowNavigationEnabled, Mode=OneWay}" />
                     <controls:HomeTile
                         Title="{x:Bind ViewModel.ReviewAndStartTitle, Mode=OneWay}"
                         Click="ReviewAndStartTile_Click"
                         Description="{x:Bind ViewModel.ReviewAndStartDescription, Mode=OneWay}"
-                        IconGlyph="&#xE768;" />
+                        IconGlyph="&#xE768;"
+                        IsEnabled="{x:Bind ViewModel.IsWorkflowNavigationEnabled, Mode=OneWay}" />
                     <controls:HomeTile
                         Title="{x:Bind ViewModel.OpenDocumentationTitle, Mode=OneWay}"
                         Click="OpenDocumentationTile_Click"

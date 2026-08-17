@@ -43,6 +43,9 @@ public sealed partial class WorkflowStepper : UserControl
     public static readonly DependencyProperty Step3StateProperty =
         DependencyProperty.Register(nameof(Step3State), typeof(InfoBarSeverity), typeof(WorkflowStepper), new PropertyMetadata(InfoBarSeverity.Informational));
 
+    public static readonly DependencyProperty IsPostAdkNavigationEnabledProperty =
+        DependencyProperty.Register(nameof(IsPostAdkNavigationEnabled), typeof(bool), typeof(WorkflowStepper), new PropertyMetadata(true));
+
     /// <summary>Raised when step 1 is activated.</summary>
     public event EventHandler? Step1Requested;
 
@@ -118,6 +121,12 @@ public sealed partial class WorkflowStepper : UserControl
     {
         get => (InfoBarSeverity)GetValue(Step3StateProperty);
         set => SetValue(Step3StateProperty, value);
+    }
+
+    public bool IsPostAdkNavigationEnabled
+    {
+        get => (bool)GetValue(IsPostAdkNavigationEnabledProperty);
+        set => SetValue(IsPostAdkNavigationEnabledProperty, value);
     }
 
     private void Step1_Click(object sender, RoutedEventArgs e) => Step1Requested?.Invoke(this, EventArgs.Empty);
