@@ -2118,9 +2118,6 @@
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Värskenda</value>
   </data>
-  <data name="UpdateFooter.BadgeFallback" xml:space="preserve">
-    <value>Uus</value>
-  </data>
   <data name="Nav_AboutKey.Description" xml:space="preserve">
     <value>Toote- ja versiooniteave.</value>
   </data>

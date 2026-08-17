@@ -2118,9 +2118,6 @@
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>อัปเดต</value>
   </data>
-  <data name="UpdateFooter.BadgeFallback" xml:space="preserve">
-    <value>ใหม่</value>
-  </data>
   <data name="Nav_AboutKey.Description" xml:space="preserve">
     <value>ข้อมูลผลิตภัณฑ์และเวอร์ชัน</value>
   </data>
