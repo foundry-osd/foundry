@@ -9,42 +9,12 @@
 
     <Grid
         Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}"
-        BorderBrush="{ThemeResource SurfaceStrokeColorFlyoutBrush}"
         CornerRadius="8">
         <Grid.Resources>
             <ResourceDictionary>
-                <ResourceDictionary.ThemeDictionaries>
-                    <ResourceDictionary x:Key="Light">
-                        <SolidColorBrush x:Key="ButtonBorderBrush"
-                            Color="{ThemeResource ControlStrokeColorDefault}" />
-                        <SolidColorBrush x:Key="ButtonBorderBrushPointerOver"
-                            Color="{ThemeResource ControlStrokeColorSecondary}" />
-                        <SolidColorBrush x:Key="ButtonBorderBrushPressed"
-                            Color="{ThemeResource ControlStrokeColorDefault}" />
-                        <SolidColorBrush x:Key="ButtonBorderBrushDisabled"
-                            Color="{ThemeResource ControlStrokeColorDefault}" />
-                    </ResourceDictionary>
-                    <ResourceDictionary x:Key="Dark">
-                        <SolidColorBrush x:Key="ButtonBorderBrush"
-                            Color="{ThemeResource ControlStrokeColorDefault}" />
-                        <SolidColorBrush x:Key="ButtonBorderBrushPointerOver"
-                            Color="{ThemeResource ControlStrokeColorSecondary}" />
-                        <SolidColorBrush x:Key="ButtonBorderBrushPressed"
-                            Color="{ThemeResource ControlStrokeColorDefault}" />
-                        <SolidColorBrush x:Key="ButtonBorderBrushDisabled"
-                            Color="{ThemeResource ControlStrokeColorDefault}" />
-                    </ResourceDictionary>
-                    <ResourceDictionary x:Key="HighContrast">
-                        <SolidColorBrush x:Key="ButtonBorderBrush"
-                            Color="{ThemeResource SystemColorButtonTextColor}" />
-                        <SolidColorBrush x:Key="ButtonBorderBrushPointerOver"
-                            Color="{ThemeResource SystemColorButtonTextColor}" />
-                        <SolidColorBrush x:Key="ButtonBorderBrushPressed"
-                            Color="{ThemeResource SystemColorButtonTextColor}" />
-                        <SolidColorBrush x:Key="ButtonBorderBrushDisabled"
-                            Color="{ThemeResource SystemColorButtonTextColor}" />
-                    </ResourceDictionary>
-                </ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="HomeCardButtonResources.xaml" />
+                </ResourceDictionary.MergedDictionaries>
             </ResourceDictionary>
         </Grid.Resources>
         <Button
