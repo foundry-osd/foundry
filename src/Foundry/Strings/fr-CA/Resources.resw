@@ -1311,6 +1311,24 @@
   <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
     <value>Windows PE Module complémentaire</value>
   </data>
+  <data name="Home.Status.SectionTitle" xml:space="preserve">
+    <value>État de préparation du média</value>
+  </data>
+  <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="Home.Status.ConfigCard.SecureBootLabel" xml:space="preserve">
+    <value>Démarrage sécurisé (CA 2023)</value>
+  </data>
+  <data name="Home.Status.ConfigCard.NoDrivers" xml:space="preserve">
+    <value>Aucun</value>
+  </data>
+  <data name="Home.Status.ConfigCard.CustomDrivers" xml:space="preserve">
+    <value>Personnalisé</value>
+  </data>
+  <data name="Home.Status.ConfigCard.BlockedStatus" xml:space="preserve">
+    <value>Nécessite ADK</value>
+  </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
     <value>Créez des supports de déploiement Windows avec un workflow de bureau moderne optimisé par WinPE.</value>
   </data>
@@ -2678,4 +2696,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Vérifiez l’état, choisissez une sortie ISO ou USB, puis lancez la création du support.</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>Faire défiler vers la gauche</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>Faire défiler vers la droite</value></data>
 </root>

@@ -1311,6 +1311,24 @@
   <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
     <value>Windows PE Supliment</value>
   </data>
+  <data name="Home.Status.SectionTitle" xml:space="preserve">
+    <value>Starea de pregătire a suportului media</value>
+  </data>
+  <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
+    <value>Configurație</value>
+  </data>
+  <data name="Home.Status.ConfigCard.SecureBootLabel" xml:space="preserve">
+    <value>Pornire securizată (CA 2023)</value>
+  </data>
+  <data name="Home.Status.ConfigCard.NoDrivers" xml:space="preserve">
+    <value>Niciunul</value>
+  </data>
+  <data name="Home.Status.ConfigCard.CustomDrivers" xml:space="preserve">
+    <value>Particularizat</value>
+  </data>
+  <data name="Home.Status.ConfigCard.BlockedStatus" xml:space="preserve">
+    <value>Necesită ADK</value>
+  </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
     <value>Creați medii de implementare Windows cu un flux de lucru modern pentru desktop alimentat de WinPE.</value>
   </data>
@@ -2678,4 +2696,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Revizuiți starea, alegeți ieșirea ISO sau USB și porniți crearea suportului.</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>Derulați la stânga</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>Derulați la dreapta</value></data>
 </root>

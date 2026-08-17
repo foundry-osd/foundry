@@ -2,289 +2,85 @@
 <Page x:Class="Foundry.Views.HomeLandingPage" x:Name="RootPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Foundry.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <Page.Resources>
-        <Style x:Key="HomeTileButtonStyle"
-            TargetType="Button">
-            <Setter
-                Property="Width"
-                Value="232" />
-            <Setter
-                Property="MinHeight"
-                Value="172" />
-            <Setter
-                Property="Padding"
-                Value="24" />
-            <Setter
-                Property="Background"
-                Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
-            <Setter
-                Property="BorderBrush"
-                Value="{ThemeResource CardStrokeColorDefaultBrush}" />
-            <Setter
-                Property="BorderThickness"
-                Value="1" />
-            <Setter
-                Property="CornerRadius"
-                Value="{ThemeResource FoundryCardCornerRadius}" />
-            <Setter
-                Property="HorizontalContentAlignment"
-                Value="Stretch" />
-            <Setter
-                Property="VerticalContentAlignment"
-                Value="Stretch" />
-        </Style>
-    </Page.Resources>
-
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <Grid MinHeight="{x:Bind RootPage.ActualHeight, Mode=OneWay}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Grid MinHeight="164">
-                <Grid.Background>
-                    <ImageBrush
-                        ImageSource="{ThemeResource HeaderCover}"
-                        Stretch="UniformToFill" />
-                </Grid.Background>
-                <Rectangle
-                    Fill="{ThemeResource SystemControlBackgroundAltHighBrush}"
-                    Opacity="0.35" />
-                <Rectangle
-                    Height="48"
-                    VerticalAlignment="Bottom">
-                    <Rectangle.Fill>
-                        <LinearGradientBrush
-                            StartPoint="0,0"
-                            EndPoint="0,1">
-                            <GradientStop
-                                Offset="0"
-                                Color="{ThemeResource HomeHeroFadeStartColor}" />
-                            <GradientStop
-                                Offset="1"
-                                Color="{ThemeResource HomeHeroFadeEndColor}" />
-                        </LinearGradientBrush>
-                    </Rectangle.Fill>
-                </Rectangle>
-                <StackPanel
-                    Margin="36,48,36,24"
-                    VerticalAlignment="Center"
-                    Spacing="4">
-                    <TextBlock
-                        Foreground="{ThemeResource SystemControlForegroundChromeWhiteBrush}"
-                        Style="{ThemeResource BodyTextBlockStyle}"
-                        Text="{x:Bind ViewModel.HeaderSubtitle, Mode=OneWay}"
-                        TextWrapping="Wrap" />
-                    <TextBlock
-                        Foreground="{ThemeResource SystemControlForegroundChromeWhiteBrush}"
-                        Style="{ThemeResource TitleTextBlockStyle}"
-                        Text="{x:Bind ViewModel.HeaderTitle, Mode=OneWay}" />
-                </StackPanel>
-            </Grid>
-
-            <ScrollViewer
-                Grid.Row="1"
-                Margin="36,16,36,0"
-                HorizontalScrollBarVisibility="Auto"
-                HorizontalScrollMode="Enabled"
-                VerticalScrollBarVisibility="Disabled"
-                VerticalScrollMode="Disabled">
-                <StackPanel
-                    Orientation="Horizontal"
-                    Spacing="8">
-                    <Button
-                        AutomationProperties.HelpText="{x:Bind ViewModel.OpenAdkDescription, Mode=OneWay}"
-                        AutomationProperties.Name="{x:Bind ViewModel.OpenAdkTitle, Mode=OneWay}"
-                        Click="OpenAdkButton_Click"
-                        Style="{StaticResource HomeTileButtonStyle}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="36" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <FontIcon
-                                HorizontalAlignment="Left"
-                                FontSize="{ThemeResource FoundryIconSizeHero}"
-                                Glyph="&#xEC7A;" />
-                            <FontIcon
-                                Grid.RowSpan="2"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Bottom"
-                                FontSize="14"
-                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                Glyph="&#xE8A7;" />
-                            <StackPanel
-                                Grid.Row="1"
-                                Spacing="4">
-                                <TextBlock
-                                    Style="{ThemeResource BodyStrongTextBlockStyle}"
-                                    Text="{x:Bind ViewModel.OpenAdkTitle, Mode=OneWay}" />
-                                <TextBlock
-                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                    Style="{ThemeResource CaptionTextBlockStyle}"
-                                    Text="{x:Bind ViewModel.OpenAdkDescription, Mode=OneWay}"
-                                    TextWrapping="Wrap" />
-                            </StackPanel>
-                        </Grid>
-                    </Button>
-                    <Button
-                        AutomationProperties.HelpText="{x:Bind ViewModel.ConfigureMediaDescription, Mode=OneWay}"
-                        AutomationProperties.Name="{x:Bind ViewModel.ConfigureMediaTitle, Mode=OneWay}"
-                        Click="ConfigureMediaButton_Click"
-                        Style="{StaticResource HomeTileButtonStyle}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="36" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <FontIcon
-                                HorizontalAlignment="Left"
-                                FontSize="{ThemeResource FoundryIconSizeHero}"
-                                Glyph="&#xE713;" />
-                            <FontIcon
-                                Grid.RowSpan="2"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Bottom"
-                                FontSize="14"
-                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                Glyph="&#xE8A7;" />
-                            <StackPanel
-                                Grid.Row="1"
-                                Spacing="4">
-                                <TextBlock
-                                    Style="{ThemeResource BodyStrongTextBlockStyle}"
-                                    Text="{x:Bind ViewModel.ConfigureMediaTitle, Mode=OneWay}" />
-                                <TextBlock
-                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                    Style="{ThemeResource CaptionTextBlockStyle}"
-                                    Text="{x:Bind ViewModel.ConfigureMediaDescription, Mode=OneWay}"
-                                    TextWrapping="Wrap" />
-                            </StackPanel>
-                        </Grid>
-                    </Button>
-                    <Button
-                        AutomationProperties.HelpText="{x:Bind ViewModel.ReviewAndStartDescription, Mode=OneWay}"
-                        AutomationProperties.Name="{x:Bind ViewModel.ReviewAndStartTitle, Mode=OneWay}"
-                        Click="ReviewAndStartButton_Click"
-                        Style="{StaticResource HomeTileButtonStyle}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="36" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <FontIcon
-                                HorizontalAlignment="Left"
-                                FontSize="{ThemeResource FoundryIconSizeHero}"
-                                Glyph="&#xE768;" />
-                            <FontIcon
-                                Grid.RowSpan="2"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Bottom"
-                                FontSize="14"
-                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                Glyph="&#xE8A7;" />
-                            <StackPanel
-                                Grid.Row="1"
-                                Spacing="4">
-                                <TextBlock
-                                    Style="{ThemeResource BodyStrongTextBlockStyle}"
-                                    Text="{x:Bind ViewModel.ReviewAndStartTitle, Mode=OneWay}" />
-                                <TextBlock
-                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                    Style="{ThemeResource CaptionTextBlockStyle}"
-                                    Text="{x:Bind ViewModel.ReviewAndStartDescription, Mode=OneWay}"
-                                    TextWrapping="Wrap" />
-                            </StackPanel>
-                        </Grid>
-                    </Button>
-                    <Button
-                        AutomationProperties.HelpText="{x:Bind ViewModel.OpenDocumentationDescription, Mode=OneWay}"
-                        AutomationProperties.Name="{x:Bind ViewModel.OpenDocumentationTitle, Mode=OneWay}"
-                        Click="OpenDocumentationButton_Click"
-                        Style="{StaticResource HomeTileButtonStyle}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="36" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <FontIcon
-                                HorizontalAlignment="Left"
-                                FontSize="{ThemeResource FoundryIconSizeHero}"
-                                Glyph="&#xE8A5;" />
-                            <FontIcon
-                                Grid.RowSpan="2"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Bottom"
-                                FontSize="14"
-                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                Glyph="&#xE8A7;" />
-                            <StackPanel
-                                Grid.Row="1"
-                                Spacing="4">
-                                <TextBlock
-                                    Style="{ThemeResource BodyStrongTextBlockStyle}"
-                                    Text="{x:Bind ViewModel.OpenDocumentationTitle, Mode=OneWay}" />
-                                <TextBlock
-                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                    Style="{ThemeResource CaptionTextBlockStyle}"
-                                    Text="{x:Bind ViewModel.OpenDocumentationDescription, Mode=OneWay}"
-                                    TextWrapping="Wrap" />
-                            </StackPanel>
-                        </Grid>
-                    </Button>
-                </StackPanel>
-            </ScrollViewer>
+            <controls:HomeLandingHeader
+                ConfigureMediaRequested="ConfigureMediaButton_Click"
+                OpenAdkRequested="OpenAdkButton_Click"
+                OpenDocumentationRequested="OpenDocumentationButton_Click"
+                ReviewAndStartRequested="ReviewAndStartButton_Click"
+                ViewModel="{x:Bind ViewModel, Mode=OneWay}" />
 
             <StackPanel
-                Grid.Row="3"
+                Grid.Row="2"
                 MaxWidth="{ThemeResource FoundryContentMaxWidth}"
-                Margin="36,24,36,36"
-                HorizontalAlignment="Center"
-                Spacing="{ThemeResource FoundryContentGroupSpacing}">
-                <InfoBar
-                    Title="{x:Bind ViewModel.AdkStatusTitle, Mode=OneWay}"
-                    IsClosable="False"
-                    IsIconVisible="True"
-                    IsOpen="True"
-                    Message="{x:Bind ViewModel.AdkStatusDescription, Mode=OneWay}"
-                    Severity="{x:Bind ViewModel.AdkStatusSeverity, Mode=OneWay}" />
-                <Grid
-                    ColumnSpacing="{ThemeResource FoundrySpace24}"
-                    RowSpacing="{ThemeResource FoundrySpace4}">
+                Margin="36,28,36,36"
+                HorizontalAlignment="Stretch"
+                Spacing="20">
+
+                <TextBlock
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="{x:Bind ViewModel.StepperSectionTitle, Mode=OneWay}" />
+
+                <controls:WorkflowStepper
+                    IsPostAdkNavigationEnabled="{x:Bind ViewModel.IsWorkflowNavigationEnabled, Mode=OneWay}"
+                    Step1Label="{x:Bind ViewModel.Step1Label, Mode=OneWay}"
+                    Step1Requested="StepperStep1_Requested"
+                    Step1State="{x:Bind ViewModel.Step1State, Mode=OneWay}"
+                    Step1StatusText="{x:Bind ViewModel.Step1StatusText, Mode=OneWay}"
+                    Step2Label="{x:Bind ViewModel.Step2Label, Mode=OneWay}"
+                    Step2Requested="StepperStep2_Requested"
+                    Step2State="{x:Bind ViewModel.Step2State, Mode=OneWay}"
+                    Step2StatusText="{x:Bind ViewModel.Step2StatusText, Mode=OneWay}"
+                    Step3Label="{x:Bind ViewModel.Step3Label, Mode=OneWay}"
+                    Step3Requested="StepperStep3_Requested"
+                    Step3State="{x:Bind ViewModel.Step3State, Mode=OneWay}"
+                    Step3StatusText="{x:Bind ViewModel.Step3StatusText, Mode=OneWay}" />
+
+                <Grid ColumnSpacing="12">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <TextBlock
-                        Grid.Row="0"
+
+                    <controls:HomeStatusCard
+                        Title="{x:Bind ViewModel.AdkCardTitle, Mode=OneWay}"
                         Grid.Column="0"
-                        Style="{ThemeResource FoundryCaptionTextBlockStyle}"
-                        Text="{x:Bind ViewModel.InstalledVersionLabel, Mode=OneWay}" />
-                    <TextBlock
-                        Grid.Row="0"
+                        IconGlyph="&#xEC7A;"
+                        Line1Label="{x:Bind ViewModel.AdkVersionLabel, Mode=OneWay}"
+                        Line1Value="{x:Bind ViewModel.AdkVersionValue, Mode=OneWay}"
+                        Line2Label="{x:Bind ViewModel.AdkWinPeLabel, Mode=OneWay}"
+                        Line2Value="{x:Bind ViewModel.AdkWinPeValue, Mode=OneWay}"
+                        NavigationRequested="AdkCard_NavigationRequested"
+                        Severity="{x:Bind ViewModel.AdkCardSeverity, Mode=OneWay}"
+                        StatusText="{x:Bind ViewModel.AdkCardStatusText, Mode=OneWay}" />
+
+                    <controls:HomeStatusCard
+                        Title="{x:Bind ViewModel.ConfigCardTitle, Mode=OneWay}"
                         Grid.Column="1"
-                        Text="{x:Bind ViewModel.InstalledVersion, Mode=OneWay}"
-                        TextTrimming="CharacterEllipsis" />
-                    <TextBlock
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Style="{ThemeResource FoundryCaptionTextBlockStyle}"
-                        Text="{x:Bind ViewModel.WinPeAddonLabel, Mode=OneWay}" />
-                    <TextBlock
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Text="{x:Bind ViewModel.WinPeAddonStatus, Mode=OneWay}"
-                        TextTrimming="CharacterEllipsis" />
+                        IconGlyph="&#xE713;"
+                        IsEnabled="{x:Bind ViewModel.IsWorkflowNavigationEnabled, Mode=OneWay}"
+                        Line1Label="{x:Bind ViewModel.ConfigArchitectureLabel, Mode=OneWay}"
+                        Line1Value="{x:Bind ViewModel.ConfigArchitectureValue, Mode=OneWay}"
+                        Line2Label="{x:Bind ViewModel.ConfigWinPeLanguageLabel, Mode=OneWay}"
+                        Line2Value="{x:Bind ViewModel.ConfigWinPeLanguageValue, Mode=OneWay}"
+                        Line3Label="{x:Bind ViewModel.ConfigSecureBootLabel, Mode=OneWay}"
+                        Line3Value="{x:Bind ViewModel.ConfigSecureBootValue, Mode=OneWay}"
+                        Line4Label="{x:Bind ViewModel.ConfigDriversLabel, Mode=OneWay}"
+                        Line4Value="{x:Bind ViewModel.ConfigDriversValue, Mode=OneWay}"
+                        NavigationRequested="ConfigCard_NavigationRequested"
+                        Severity="{x:Bind ViewModel.ConfigCardSeverity, Mode=OneWay}"
+                        StatusText="{x:Bind ViewModel.ConfigCardStatusText, Mode=OneWay}" />
                 </Grid>
             </StackPanel>
         </Grid>

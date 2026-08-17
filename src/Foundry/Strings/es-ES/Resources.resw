@@ -1311,6 +1311,24 @@
   <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
     <value>Windows PE Complemento</value>
   </data>
+  <data name="Home.Status.SectionTitle" xml:space="preserve">
+    <value>Estado de preparación del medio</value>
+  </data>
+  <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
+    <value>Configuración</value>
+  </data>
+  <data name="Home.Status.ConfigCard.SecureBootLabel" xml:space="preserve">
+    <value>Arranque seguro (CA 2023)</value>
+  </data>
+  <data name="Home.Status.ConfigCard.NoDrivers" xml:space="preserve">
+    <value>Ninguno</value>
+  </data>
+  <data name="Home.Status.ConfigCard.CustomDrivers" xml:space="preserve">
+    <value>Personalizado</value>
+  </data>
+  <data name="Home.Status.ConfigCard.BlockedStatus" xml:space="preserve">
+    <value>Requiere ADK</value>
+  </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
     <value>Cree medios de implementación Windows con un flujo de trabajo de escritorio moderno impulsado por WinPE.</value>
   </data>
@@ -2678,4 +2696,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Revise la preparación, elija una salida ISO o USB e inicie la creación del medio.</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>Desplazarse a la izquierda</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>Desplazarse a la derecha</value></data>
 </root>

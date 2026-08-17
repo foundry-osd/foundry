@@ -1311,6 +1311,24 @@
   <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
     <value>Windows PE Dodatek</value>
   </data>
+  <data name="Home.Status.SectionTitle" xml:space="preserve">
+    <value>Stanje pripravljenosti medija</value>
+  </data>
+  <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
+    <value>Konfiguracija</value>
+  </data>
+  <data name="Home.Status.ConfigCard.SecureBootLabel" xml:space="preserve">
+    <value>Varni zagon (CA 2023)</value>
+  </data>
+  <data name="Home.Status.ConfigCard.NoDrivers" xml:space="preserve">
+    <value>Brez</value>
+  </data>
+  <data name="Home.Status.ConfigCard.CustomDrivers" xml:space="preserve">
+    <value>Po meri</value>
+  </data>
+  <data name="Home.Status.ConfigCard.BlockedStatus" xml:space="preserve">
+    <value>Zahteva ADK</value>
+  </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
     <value>Zgradite medije za uvajanje Windows s sodobnim potekom dela na namizju, ki ga poganja WinPE.</value>
   </data>
@@ -2678,4 +2696,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Preverite pripravljenost, izberite izhod ISO ali USB in začnite ustvarjanje medija.</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>Pomakni levo</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>Pomakni desno</value></data>
 </root>

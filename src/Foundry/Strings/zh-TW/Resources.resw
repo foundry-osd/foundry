@@ -1311,6 +1311,24 @@
   <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
     <value>Windows PE 附加元件</value>
   </data>
+  <data name="Home.Status.SectionTitle" xml:space="preserve">
+    <value>媒體準備狀態</value>
+  </data>
+  <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="Home.Status.ConfigCard.SecureBootLabel" xml:space="preserve">
+    <value>安全開機 (CA 2023)</value>
+  </data>
+  <data name="Home.Status.ConfigCard.NoDrivers" xml:space="preserve">
+    <value>無</value>
+  </data>
+  <data name="Home.Status.ConfigCard.CustomDrivers" xml:space="preserve">
+    <value>自訂</value>
+  </data>
+  <data name="Home.Status.ConfigCard.BlockedStatus" xml:space="preserve">
+    <value>需要 ADK</value>
+  </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
     <value>使用 WinPE 提供支援的現代桌面工作流程建置 Windows 部署媒體。</value>
   </data>
@@ -2678,4 +2696,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>檢閱就緒狀態，選擇 ISO 或 USB 輸出，然後開始建立媒體。</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>向左捲動</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>向右捲動</value></data>
 </root>

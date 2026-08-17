@@ -1311,6 +1311,24 @@
   <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
     <value>Windows PE Πρόσθετο</value>
   </data>
+  <data name="Home.Status.SectionTitle" xml:space="preserve">
+    <value>Κατάσταση ετοιμότητας μέσου</value>
+  </data>
+  <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
+    <value>Ρύθμιση παραμέτρων</value>
+  </data>
+  <data name="Home.Status.ConfigCard.SecureBootLabel" xml:space="preserve">
+    <value>Ασφαλής εκκίνηση (CA 2023)</value>
+  </data>
+  <data name="Home.Status.ConfigCard.NoDrivers" xml:space="preserve">
+    <value>Κανένα</value>
+  </data>
+  <data name="Home.Status.ConfigCard.CustomDrivers" xml:space="preserve">
+    <value>Προσαρμοσμένο</value>
+  </data>
+  <data name="Home.Status.ConfigCard.BlockedStatus" xml:space="preserve">
+    <value>Απαιτεί ADK</value>
+  </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
     <value>Δημιουργήστε μέσα ανάπτυξης Windows με μια σύγχρονη ροή εργασίας για επιτραπέζιους υπολογιστές που υποστηρίζεται από το WinPE.</value>
   </data>
@@ -2678,4 +2696,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Ελέγξτε την ετοιμότητα, επιλέξτε έξοδο ISO ή USB και ξεκινήστε τη δημιουργία μέσου.</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>Κύλιση αριστερά</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>Κύλιση δεξιά</value></data>
 </root>
