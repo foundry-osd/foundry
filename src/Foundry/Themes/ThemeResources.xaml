@@ -14,7 +14,7 @@
             <StaticResource x:Key="FoundryStatusWarningBrush"
                 ResourceKey="SystemFillColorCautionBrush" />
             <StaticResource x:Key="FoundryStatusWarningForegroundBrush"
-                ResourceKey="TextFillColorPrimaryBrush" />
+                ResourceKey="TextFillColorInverseBrush" />
             <StaticResource x:Key="FoundryStatusBlockedBrush"
                 ResourceKey="SystemFillColorCriticalBrush" />
             <StaticResource x:Key="FoundryStatusBlockedForegroundBrush"
@@ -47,7 +47,7 @@
             <StaticResource x:Key="FoundryStatusWarningBrush"
                 ResourceKey="SystemFillColorCautionBrush" />
             <StaticResource x:Key="FoundryStatusWarningForegroundBrush"
-                ResourceKey="TextFillColorPrimaryBrush" />
+                ResourceKey="TextFillColorInverseBrush" />
             <StaticResource x:Key="FoundryStatusBlockedBrush"
                 ResourceKey="SystemFillColorCriticalBrush" />
             <StaticResource x:Key="FoundryStatusBlockedForegroundBrush"
