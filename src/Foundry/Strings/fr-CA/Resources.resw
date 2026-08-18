@@ -480,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>Aucune balise de groupe par défaut sélectionnée.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>Aucun</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>Aucun</value>
   </data>
@@ -718,7 +715,7 @@
     <value>Appliquer la modification groupée ?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
-    <value>Cela mettra à jour {0} fonctionnalités visibles. Voulez-vous continuer ?</value>
+    <value>Cela mettra à jour {0} fonctionnalités concernées, y compris leurs fonctionnalités descendantes. Voulez-vous continuer ?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
     <value>Appliquer</value>

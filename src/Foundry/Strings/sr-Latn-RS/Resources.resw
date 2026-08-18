@@ -480,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>Nije izabrana podrazumevana oznaka grupe.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>Nijedan</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>Nijedan</value>
   </data>
@@ -718,7 +715,7 @@
     <value>Primeniti grupnu izmenu?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
-    <value>Ovo će ažurirati {0} vidljivih funkcija. Želite li da nastavite?</value>
+    <value>Ovo će ažurirati {0} obuhvaćenih funkcija, uključujući njihove podređene funkcije. Želite li da nastavite?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
     <value>Primeni</value>

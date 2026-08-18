@@ -480,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>لم يتم تحديد علامة المجموعة الافتراضية.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>لا شيء</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>لا شيء</value>
   </data>
@@ -718,7 +715,7 @@
     <value>تطبيق التغيير الجماعي؟</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
-    <value>سيؤدي هذا إلى تحديث {0} من الميزات المرئية. هل تريد المتابعة؟</value>
+    <value>سيؤدي هذا إلى تحديث {0} من الميزات المتأثرة، بما في ذلك الميزات التابعة. هل تريد المتابعة؟</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
     <value>تطبيق</value>

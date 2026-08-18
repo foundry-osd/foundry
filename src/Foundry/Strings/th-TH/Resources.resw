@@ -480,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>ไม่ได้เลือกแท็กกลุ่มเริ่มต้น</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>ไม่มี</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>ไม่มี</value>
   </data>
@@ -718,7 +715,7 @@
     <value>ใช้การเปลี่ยนแปลงแบบกลุ่ม?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
-    <value>การดำเนินการนี้จะอัปเดตฟีเจอร์ที่มองเห็นได้ {0} รายการ คุณต้องการดำเนินการต่อหรือไม่?</value>
+    <value>การดำเนินการนี้จะอัปเดตฟีเจอร์ที่ได้รับผลกระทบ {0} รายการ รวมถึงฟีเจอร์ย่อย คุณต้องการดำเนินการต่อหรือไม่?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
     <value>ใช้</value>

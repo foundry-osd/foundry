@@ -480,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>Der er ikke valgt noget standardgruppetag.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>Ingen</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>Ingen</value>
   </data>
@@ -718,7 +715,7 @@
     <value>Anvend samlet ændring?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
-    <value>Dette opdaterer {0} synlige funktioner. Vil du fortsætte?</value>
+    <value>Dette opdaterer {0} berørte funktioner, inklusive underordnede funktioner. Vil du fortsætte?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
     <value>Anvend</value>

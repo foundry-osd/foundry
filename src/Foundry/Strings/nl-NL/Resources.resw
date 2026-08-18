@@ -480,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>Er is geen standaardgroepstag geselecteerd.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>Geen</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>Geen</value>
   </data>
@@ -718,7 +715,7 @@
     <value>Bulkwijziging toepassen?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
-    <value>Hiermee worden {0} zichtbare functies bijgewerkt. Wil je doorgaan?</value>
+    <value>Hiermee worden {0} betrokken functies bijgewerkt, inclusief onderliggende functies. Wil je doorgaan?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
     <value>Toepassen</value>

@@ -480,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>Oletusryhmätunnistetta ei ole valittu.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>Ei mitään</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>Ei mitään</value>
   </data>
@@ -718,7 +715,7 @@
     <value>Käytä joukkamuutosta?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
-    <value>Tämä päivittää {0} näkyvää ominaisuutta. Haluatko jatkaa?</value>
+    <value>Tämä päivittää {0} ominaisuutta, joihin muutos vaikuttaa, mukaan lukien niiden alitoiminnot. Haluatko jatkaa?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
     <value>Käytä</value>

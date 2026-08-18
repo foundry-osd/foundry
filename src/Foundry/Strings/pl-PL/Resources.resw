@@ -480,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>Nie wybrano domyślnego tagu grupy.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>Żadne</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>Żadne</value>
   </data>
@@ -718,7 +715,7 @@
     <value>Zastosować zmianę zbiorczą?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
-    <value>Spowoduje to zaktualizowanie {0} widocznych funkcji. Czy chcesz kontynuować?</value>
+    <value>Spowoduje to zaktualizowanie {0} funkcji, których dotyczy zmiana, w tym ich funkcji podrzędnych. Czy chcesz kontynuować?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
     <value>Zastosuj</value>

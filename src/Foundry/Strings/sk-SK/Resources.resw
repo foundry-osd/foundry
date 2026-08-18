@@ -480,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>Nie je vybratá žiadna predvolená značka skupiny.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>žiadne</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>žiadne</value>
   </data>
@@ -718,7 +715,7 @@
     <value>Použiť hromadnú zmenu?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
-    <value>Týmto sa aktualizuje {0} viditeľných funkcií. Chcete pokračovať?</value>
+    <value>Týmto sa aktualizuje {0} ovplyvnených funkcií vrátane ich podriadených funkcií. Chcete pokračovať?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
     <value>Použiť</value>

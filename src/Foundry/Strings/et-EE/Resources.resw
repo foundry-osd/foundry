@@ -480,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>Vaikimisi rühmamärgendit pole valitud.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>Mitte ühtegi</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>Mitte ühtegi</value>
   </data>
@@ -718,7 +715,7 @@
     <value>Kas rakendada hulgi muudatus?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
-    <value>See värskendab {0} nähtavat funktsiooni. Kas soovite jätkata?</value>
+    <value>See värskendab {0} mõjutatud funktsiooni, sealhulgas nende alamfunktsioone. Kas soovite jätkata?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
     <value>Rakenda</value>

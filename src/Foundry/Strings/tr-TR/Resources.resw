@@ -480,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>Varsayılan grup etiketi seçilmedi.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>Yok</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>Yok</value>
   </data>
@@ -718,7 +715,7 @@
     <value>Toplu değişiklik uygulansın mı?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
-    <value>Bu işlem {0} görünür özelliği güncelleyecek. Devam etmek istiyor musunuz?</value>
+    <value>Bu işlem, alt özellikler dahil olmak üzere etkilenen {0} özelliği güncelleyecek. Devam etmek istiyor musunuz?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
     <value>Uygula</value>

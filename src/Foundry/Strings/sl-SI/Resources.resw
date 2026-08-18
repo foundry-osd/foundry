@@ -480,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>Izbrana ni nobena privzeta oznaka skupine.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>Noben</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>Noben</value>
   </data>
@@ -718,7 +715,7 @@
     <value>Uporabiti množično spremembo?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
-    <value>To bo posodobilo {0} vidnih funkcij. Ali želite nadaljevati?</value>
+    <value>S tem boste posodobili {0} zadevnih funkcij, vključno z njihovimi podrejenimi funkcijami. Ali želite nadaljevati?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
     <value>Uporabi</value>

@@ -480,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>Тег групи за замовчуванням не вибрано.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>Жодного</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>Жодного</value>
   </data>
@@ -718,7 +715,7 @@
     <value>Застосувати масову зміну?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
-    <value>Це оновить {0} видимих функцій. Бажаєте продовжити?</value>
+    <value>Буде оновлено {0} функцій, яких стосується зміна, включно з їхніми дочірніми функціями. Бажаєте продовжити?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
     <value>Застосувати</value>

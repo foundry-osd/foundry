@@ -480,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>Δεν έχει επιλεγεί προεπιλεγμένη ετικέτα ομάδας.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>Κανένα</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>Κανένα</value>
   </data>
@@ -718,7 +715,7 @@
     <value>Εφαρμογή μαζικής αλλαγής;</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
-    <value>Αυτό θα ενημερώσει {0} ορατές δυνατότητες. Θέλετε να συνεχίσετε;</value>
+    <value>Αυτό θα ενημερώσει {0} επηρεαζόμενες δυνατότητες, συμπεριλαμβανομένων των απογόνων τους. Θέλετε να συνεχίσετε;</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
     <value>Εφαρμογή</value>

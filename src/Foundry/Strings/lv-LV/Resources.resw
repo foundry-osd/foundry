@@ -480,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>Nav atlasīts neviens noklusējuma grupas tags.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>Nav</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>Nav</value>
   </data>
@@ -718,7 +715,7 @@
     <value>Vai lietot masveida izmaiņas?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
-    <value>Tas atjauninās {0} redzamās funkcijas. Vai vēlaties turpināt?</value>
+    <value>Tas atjauninās {0} ietekmētās funkcijas, tostarp to pakārtotās funkcijas. Vai vēlaties turpināt?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
     <value>Lietot</value>

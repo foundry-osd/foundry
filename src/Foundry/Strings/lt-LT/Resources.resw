@@ -480,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>Nepasirinkta numatytoji grupės žyma.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>Nėra</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>Nėra</value>
   </data>
@@ -718,7 +715,7 @@
     <value>Taikyti masinį pakeitimą?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
-    <value>Tai atnaujins {0} matomas funkcijas. Ar norite tęsti?</value>
+    <value>Tai atnaujins {0} paveiktas funkcijas, įskaitant jų antrines funkcijas. Ar norite tęsti?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
     <value>Taikyti</value>

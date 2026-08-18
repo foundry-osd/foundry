@@ -480,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>Nincs kiválasztva alapértelmezett csoportcímke.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>Egyik sem</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>Egyik sem</value>
   </data>
@@ -718,7 +715,7 @@
     <value>Alkalmazza a tömeges módosítást?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
-    <value>Ez frissíti a(z) {0} látható funkciót. Folytatja?</value>
+    <value>Ez {0} érintett funkciót frissít, beleértve az alárendelt funkciókat is. Folytatja?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
     <value>Alkalmaz</value>

@@ -480,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>Ingen standard gruppetag er valgt.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>Ingen</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>Ingen</value>
   </data>
@@ -718,7 +715,7 @@
     <value>Bruke masseendring?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
-    <value>Dette vil oppdatere {0} synlige funksjoner. Vil du fortsette?</value>
+    <value>Dette vil oppdatere {0} berørte funksjoner, inkludert underordnede funksjoner. Vil du fortsette?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
     <value>Bruk</value>

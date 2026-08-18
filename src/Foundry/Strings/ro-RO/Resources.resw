@@ -480,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>Nu a fost selectată nicio etichetă implicită de grup.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>Niciuna</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>Niciuna</value>
   </data>
@@ -718,7 +715,7 @@
     <value>Aplicați modificarea în masă?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
-    <value>Aceasta va actualiza {0} caracteristici vizibile. Doriți să continuați?</value>
+    <value>Aceasta va actualiza {0} caracteristici afectate, inclusiv caracteristicile descendente. Doriți să continuați?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
     <value>Aplică</value>

@@ -480,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>לא נבחר תג ברירת מחדל לקבוצה.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>אין</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>אין</value>
   </data>
@@ -718,7 +715,7 @@
     <value>להחיל שינוי מרוכז?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
-    <value>פעולה זו תעדכן {0} תכונות גלויות. להמשיך?</value>
+    <value>פעולה זו תעדכן {0} תכונות מושפעות, כולל תכונות צאצא. להמשיך?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
     <value>החל</value>

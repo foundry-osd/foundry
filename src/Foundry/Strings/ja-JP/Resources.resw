@@ -480,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>デフォルトのグループタグが選択されていません。</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>なし</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>なし</value>
   </data>
@@ -718,7 +715,7 @@
     <value>一括変更を適用しますか？</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
-    <value>これにより、表示中の機能 {0} 件が更新されます。続行しますか？</value>
+    <value>これにより、子孫を含む影響対象の機能 {0} 件が更新されます。続行しますか？</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
     <value>適用</value>

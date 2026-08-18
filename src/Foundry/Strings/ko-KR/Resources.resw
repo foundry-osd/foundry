@@ -480,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>기본 그룹 태그가 선택되지 않았습니다.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>없음</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>없음</value>
   </data>
@@ -718,7 +715,7 @@
     <value>일괄 변경을 적용할까요?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
-    <value>이 작업으로 표시된 기능 {0}개가 업데이트됩니다. 계속할까요?</value>
+    <value>이 작업으로 하위 항목을 포함하여 영향을 받는 기능 {0}개가 업데이트됩니다. 계속할까요?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
     <value>적용</value>

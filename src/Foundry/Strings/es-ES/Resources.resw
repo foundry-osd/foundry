@@ -480,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>No se seleccionó ninguna etiqueta de grupo predeterminada.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>Ninguno</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>Ninguno</value>
   </data>
@@ -718,7 +715,7 @@
     <value>¿Aplicar cambio masivo?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
-    <value>Esto actualizará {0} características visibles. ¿Deseas continuar?</value>
+    <value>Esto actualizará {0} características afectadas, incluidas sus características descendientes. ¿Deseas continuar?</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
     <value>Aplicar</value>
