@@ -63,6 +63,9 @@
                                 Text="{x:Bind ViewModel.WindowsOptionalFeatureEmptySearchText, Mode=OneWay}"
                                 Visibility="{x:Bind ViewModel.WindowsOptionalFeatureEmptySearchVisibility, Mode=OneWay}" />
                             <ItemsRepeater ItemsSource="{x:Bind ViewModel.VisibleWindowsOptionalFeatureCategories, Mode=OneWay}">
+                                <ItemsRepeater.Layout>
+                                    <StackLayout Spacing="{ThemeResource FoundrySettingsSectionSpacing}" />
+                                </ItemsRepeater.Layout>
                                 <ItemsRepeater.ItemTemplate>
                                     <DataTemplate x:DataType="viewModels:WindowsOptionalFeatureCategoryViewModel">
                                         <wct:SettingsExpander
