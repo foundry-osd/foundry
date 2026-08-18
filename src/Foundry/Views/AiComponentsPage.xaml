@@ -20,7 +20,7 @@
             <controls:PageHeader
                 x:Uid="AiComponentsPageHeader"
                 DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
-                IconGlyph="&#xE99A;">
+                IconGlyph="&#xF4A5;">
                 <controls:PageHeader.ActionContent>
                     <ToggleSwitch
                         x:Uid="AiComponentsPageEnableToggle"

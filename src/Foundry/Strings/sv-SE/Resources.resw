@@ -2528,11 +2528,17 @@
 <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Välj den utgåva som är vald som standard. Alternativet Automatiskt använder den utgåva som rekommenderas av Foundry.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming av Windows-profiler</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Importerar Foundry-hanterade Wi-Fi- och 802.1X-profiler till Windows före OOBE så att distributionsanslutningen kan fortsätta efter WinPE.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importerar den kabelanslutna 802.1X-profilen som hanteras av Foundry till Windows före OOBE för att bevara distributionsanslutningen efter WinPE.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Roaming av Windows-profiler</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importerar Wi-Fi-profilen som hanteras av Foundry till Windows före OOBE för att bevara distributionsanslutningen efter WinPE.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Roama nätverksprofiler till Windows</value>
@@ -2582,13 +2588,13 @@
     <value>Provisionera enheter med en Autopilot JSON-profil.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Beröringsfri</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Ladda upp maskinvaruhashar via Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Interaktiv uppladdning</value>
+    <value>Interaktiv</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Förbereder teknikerinloggning med enhetskod för registrering av maskinvaruhash under OOBE.</value>
@@ -2618,7 +2624,7 @@
     <value>Aktivera eller inaktivera Windows-komponenter i det distribuerade operativsystemet.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>AppX-borttagning</value>
+    <value>AppX-borttagningar</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Ta bort valda provisionerade Windows-appar före OOBE.</value>
@@ -2702,7 +2708,7 @@
     <value>Konfigurera Windows tillvalsfunktioner</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
-    <value>Borttagning av provisionerad app</value>
+    <value>AppX-borttagningar</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
     <value>Ta bort valda provisionerade Windows-appar före OOBE.</value>

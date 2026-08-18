@@ -84,12 +84,12 @@ public sealed class DeployConfigurationGeneratorTests
 
         FoundryDeployConfigurationDocument result = generator.Generate(new FoundryConfigurationDocument());
 
-        Assert.False(result.Network.ProfileRoaming.IsEnabled);
-        Assert.False(result.Network.ProfileRoaming.IncludePrivateKeyMaterial);
+        Assert.False(result.Network.ProfileRoaming.WiredDot1x.IsEnabled);
+        Assert.False(result.Network.ProfileRoaming.Wifi.IsEnabled);
     }
 
     [Fact]
-    public void Generate_WhenNetworkProfileRoamingIsEnabled_PropagatesDeployRoaming()
+    public void Generate_WhenOnlyWifiRoamingIsEnabled_PropagatesIndependentDeployRoaming()
     {
         var generator = new DeployConfigurationGenerator();
 
@@ -97,13 +97,16 @@ public sealed class DeployConfigurationGeneratorTests
         {
             Network = new NetworkSettings
             {
-                RoamWifiProfilesToWindows = true,
-                RoamPrivateKeyMaterialToWindows = true
+                RoamWiredDot1xProfileToWindows = false,
+                RoamWifiProfileToWindows = true,
+                RoamWifiPrivateKeyMaterialToWindows = true
             }
         });
 
-        Assert.True(result.Network.ProfileRoaming.IsEnabled);
-        Assert.True(result.Network.ProfileRoaming.IncludePrivateKeyMaterial);
+        Assert.False(result.Network.ProfileRoaming.WiredDot1x.IsEnabled);
+        Assert.False(result.Network.ProfileRoaming.WiredDot1x.IncludePrivateKeyMaterial);
+        Assert.True(result.Network.ProfileRoaming.Wifi.IsEnabled);
+        Assert.True(result.Network.ProfileRoaming.Wifi.IncludePrivateKeyMaterial);
     }
 
     [Fact]

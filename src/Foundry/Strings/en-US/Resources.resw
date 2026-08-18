@@ -1359,11 +1359,17 @@
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>Import a trusted root CA certificate</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows profile roaming</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Import Foundry-managed Wi-Fi and 802.1X profiles into Windows before OOBE so deployment connectivity can continue after WinPE.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Import the wired 802.1X profile managed by Foundry into Windows before OOBE to preserve deployment connectivity after WinPE.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Windows profile roaming</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Import the Wi-Fi profile managed by Foundry into Windows before OOBE to preserve deployment connectivity after WinPE.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Roam network profiles to Windows</value>
@@ -2582,13 +2588,13 @@
     <value>Provision devices with an Autopilot JSON profile.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-touch</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Upload hardware hashes through Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Interactive upload</value>
+    <value>Interactive</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Upload hardware hashes interactively during deployment.</value>
@@ -2618,7 +2624,7 @@
     <value>Enable or disable Windows optional features.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>AppX removal</value>
+    <value>AppX removals</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Select provisioned apps to remove.</value>
@@ -2654,13 +2660,13 @@
     <value>Import or download the Autopilot profile embedded in deployment media.</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
-    <value>Zero-touch</value>
+    <value>Zero-touch hardware hash upload</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>Configure tenant-backed automatic hardware hash upload.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
-    <value>Interactive hash upload</value>
+    <value>Interactive hardware hash upload</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
     <value>Let the technician upload the device hardware hash during deployment.</value>
@@ -2702,7 +2708,7 @@
     <value>Enable optional features configuration</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
-    <value>App removal</value>
+    <value>AppX removals</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
     <value>Choose provisioned Windows apps to remove from deployed devices.</value>

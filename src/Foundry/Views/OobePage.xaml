@@ -20,7 +20,7 @@
             <controls:PageHeader
                 x:Uid="OobePageHeader"
                 DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
-                IconGlyph="&#xE7C3;">
+                IconGlyph="&#xF133;">
                 <controls:PageHeader.ActionContent>
                     <ToggleSwitch
                         x:Uid="OobePageEnableToggle"

@@ -2528,11 +2528,17 @@
 <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Alegeți ediția selectată în mod implicit. Opțiunea Automat utilizează ediția recomandată de Foundry.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming pentru profilurile Windows</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Importă profilurile Wi-Fi și 802.1X gestionate de Foundry în Windows înainte de OOBE, astfel încât conectivitatea de implementare să continue după WinPE.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importă profilul 802.1X cu fir gestionat de Foundry în Windows înainte de OOBE, pentru a păstra conectivitatea de implementare după WinPE.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Roaming pentru profilurile Windows</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importă profilul Wi-Fi gestionat de Foundry în Windows înainte de OOBE, pentru a păstra conectivitatea de implementare după WinPE.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Transferă profilurile de rețea în Windows</value>
@@ -2582,13 +2588,13 @@
     <value>Furnizați dispozitive cu un profil Autopilot JSON.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Fără atingere</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Încărcați hashurile hardware prin Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Încărcare interactivă</value>
+    <value>Interactiv</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Pregătește conectarea tehnicianului cu cod de dispozitiv pentru înregistrarea hashului hardware în timpul OOBE.</value>
@@ -2618,7 +2624,7 @@
     <value>Activați sau dezactivați componentele Windows în sistemul de operare implementat.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Eliminare AppX</value>
+    <value>Eliminări AppX</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Eliminați aplicațiile selectate pentru Windows înainte de OOBE.</value>
@@ -2702,7 +2708,7 @@
     <value>Configurați caracteristicile opționale Windows</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
-    <value>Eliminarea aplicației furnizate</value>
+    <value>Eliminări AppX</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
     <value>Eliminați aplicațiile selectate pentru Windows înainte de OOBE.</value>

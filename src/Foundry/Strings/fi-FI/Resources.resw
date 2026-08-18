@@ -2528,11 +2528,17 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Valitse oletuksena valittu versio. Automaattinen käyttää Foundryn suosittelemaa versiota.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows-profiilien siirto</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Tuo Foundryn hallitsemat Wi-Fi- ja 802.1X-profiilit Windowsiin ennen OOBE-vaihetta, jotta käyttöönoton yhteys voi jatkua WinPE:n jälkeen.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Tuo Foundryn hallitseman kiinteän 802.1X-profiilin Windowsiin ennen OOBE-vaihetta, jotta käyttöönoton yhteys säilyy WinPE:n jälkeen.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Windows-profiilien siirto</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Tuo Foundryn hallitseman Wi-Fi-profiilin Windowsiin ennen OOBE-vaihetta, jotta käyttöönoton yhteys säilyy WinPE:n jälkeen.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Siirrä verkkoprofiilit Windowsiin</value>
@@ -2582,13 +2588,13 @@
     <value>Ota käyttöön laitteet Autopilot JSON -profiililla.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-touch</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Lataa laitteistohajakkeet Microsoft Graphin kautta.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Interaktiivinen lataus</value>
+    <value>Interaktiivinen</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Valmistelee teknikon laitekoodikirjautumisen laitteiston hajautusarvon rekisteröintiä varten OOBE-vaiheessa.</value>
@@ -2618,7 +2624,7 @@
     <value>Ota käyttöön tai poista käytöstä Windows-komponentit käyttöönotetussa käyttöjärjestelmässä.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>AppX-poisto</value>
+    <value>AppX-poistot</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Poista valitut varustetut Windows-sovellukset ennen OOBE.</value>
@@ -2702,7 +2708,7 @@
     <value>Määritä Windowsin valinnaiset ominaisuudet</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
-    <value>Tarjotun sovelluksen poistaminen</value>
+    <value>AppX-poistot</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
     <value>Poista valitut varustetut Windows-sovellukset ennen OOBE.</value>

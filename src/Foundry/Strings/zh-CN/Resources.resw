@@ -2528,11 +2528,17 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>选择默认选中的版本类型。“自动”使用 Foundry 推荐的版本类型。</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows 配置文件漫游</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>在 OOBE 前将 Foundry 管理的 Wi-Fi 和 802.1X 配置文件导入 Windows，使部署连接可在 WinPE 后继续。</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>在 OOBE 前将 Foundry 管理的有线 802.1X 配置文件导入 Windows，以便在 WinPE 后保持部署连接。</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Windows 配置文件漫游</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>在 OOBE 前将 Foundry 管理的 Wi-Fi 配置文件导入 Windows，以便在 WinPE 后保持部署连接。</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>将网络配置文件漫游到 Windows</value>
@@ -2582,13 +2588,13 @@
     <value>使用 Autopilot JSON 配置文件预配设备。</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>零接触</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>通过 Microsoft Graph 上传硬件哈希。</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>交互式上传</value>
+    <value>交互式</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>在 OOBE 期间为硬件哈希注册准备技术人员设备代码登录。</value>
@@ -2618,7 +2624,7 @@
     <value>在已部署的操作系统中启用或禁用 Windows 组件。</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>AppX 删除</value>
+    <value>AppX 应用删除</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>删除 OOBE 之前选定的已配置 Windows 应用程序。</value>
@@ -2702,7 +2708,7 @@
     <value>配置 Windows 可选功能</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
-    <value>已配置的应用程序删除</value>
+    <value>AppX 应用删除</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
     <value>删除 OOBE 之前选定的已配置 Windows 应用程序。</value>

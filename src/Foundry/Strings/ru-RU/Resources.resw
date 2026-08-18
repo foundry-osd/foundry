@@ -2528,11 +2528,17 @@
 <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Выберите выпуск, используемый по умолчанию. При выборе параметра «Автоматически» используется выпуск, рекомендованный Foundry.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Перенос профилей Windows</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Импортирует управляемые Foundry профили Wi-Fi и 802.1X в Windows до OOBE, чтобы подключение при развертывании продолжалось после WinPE.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Импортирует управляемый Foundry проводной профиль 802.1X в Windows до OOBE, чтобы сохранить подключение для развертывания после WinPE.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Перенос профилей Windows</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Импортирует управляемый Foundry профиль Wi-Fi в Windows до OOBE, чтобы сохранить подключение для развертывания после WinPE.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Перенести сетевые профили в Windows</value>
@@ -2582,13 +2588,13 @@
     <value>Подготавливайте устройства с помощью профиля Autopilot JSON.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Без участия пользователя</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Отправляйте аппаратные хеши через Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Интерактивная отправка</value>
+    <value>Интерактивно</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Подготавливает вход техника с помощью кода устройства для регистрации аппаратного хеша во время OOBE.</value>
@@ -2618,7 +2624,7 @@
     <value>Включите или отключите компоненты Windows в развернутой операционной системе.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Удаление AppX</value>
+    <value>Удаление пакетов AppX</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Удалите выбранные подготовленные приложения Windows до OOBE.</value>
@@ -2702,7 +2708,7 @@
     <value>Настройка дополнительных функций Windows</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
-    <value>Предусмотренное удаление приложения</value>
+    <value>Удаление пакетов AppX</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
     <value>Удалите выбранные подготовленные приложения Windows до OOBE.</value>

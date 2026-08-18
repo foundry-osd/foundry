@@ -2528,11 +2528,17 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>기본적으로 선택할 에디션을 선택합니다. 자동은 Foundry에서 권장하는 에디션을 사용합니다.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows 프로필 로밍</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Foundry에서 관리하는 Wi-Fi 및 802.1X 프로필을 OOBE 전에 Windows로 가져와 WinPE 이후에도 배포 연결을 계속할 수 있게 합니다.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Foundry에서 관리하는 유선 802.1X 프로필을 OOBE 전에 Windows로 가져와 WinPE 이후에도 배포 연결을 유지합니다.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Windows 프로필 로밍</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Foundry에서 관리하는 Wi-Fi 프로필을 OOBE 전에 Windows로 가져와 WinPE 이후에도 배포 연결을 유지합니다.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>네트워크 프로필을 Windows로 로밍</value>
@@ -2588,7 +2594,7 @@
     <value>Microsoft Graph를 통해 하드웨어 해시를 업로드합니다.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>대화형 업로드</value>
+    <value>대화형</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>OOBE 중 하드웨어 해시 등록을 위해 기술자 장치 코드 로그인을 준비합니다.</value>
@@ -2618,7 +2624,7 @@
     <value>배포된 운영 체제에서 Windows 구성 요소를 활성화하거나 비활성화합니다.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>AppX 제거</value>
+    <value>AppX 앱 제거</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>OOBE 전에 선택한 프로비저닝된 Windows 앱을 제거합니다.</value>
@@ -2654,7 +2660,7 @@
     <value>적용된 Windows 이미지에 오프라인 Autopilot 프로필을 준비합니다.</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
-    <value>제로터치 하드웨어 해시 업로드</value>
+    <value>제로 터치 하드웨어 해시 업로드</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>테넌트 기반 자동 하드웨어 해시 업로드를 구성합니다.</value>
@@ -2702,7 +2708,7 @@
     <value>Windows 선택적 기능 구성</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
-    <value>프로비저닝된 앱 제거</value>
+    <value>AppX 앱 제거</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
     <value>OOBE 전에 선택한 프로비저닝된 Windows 앱을 제거합니다.</value>

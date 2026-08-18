@@ -2528,11 +2528,17 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>既定で選択されるエディションを選びます。[自動] では Foundry が推奨するエディションが使用されます。</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows プロファイルのローミング</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Foundry 管理の Wi-Fi および 802.1X プロファイルを OOBE 前に Windows へインポートし、WinPE 後も展開接続を継続できるようにします。</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Foundry で管理されている有線 802.1X プロファイルを OOBE 前に Windows へインポートし、WinPE 後も展開時の接続を維持します。</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Windows プロファイルのローミング</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Foundry で管理されている Wi-Fi プロファイルを OOBE 前に Windows へインポートし、WinPE 後も展開時の接続を維持します。</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>ネットワーク プロファイルを Windows にローミングする</value>
@@ -2588,7 +2594,7 @@
     <value>Microsoft Graph 経由でハードウェア ハッシュをアップロードします。</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>対話型アップロード</value>
+    <value>対話型</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>OOBE 中のハードウェア ハッシュ登録のために、技術者のデバイス コード サインインを準備します。</value>
@@ -2618,7 +2624,7 @@
     <value>導入されたオペレーティング システムで Windows コンポーネントを有効または無効にします。</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>AppX の削除</value>
+    <value>AppX アプリの削除</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>OOBE の前に、選択したプロビジョニング済みの Windows アプリを削除します。</value>
@@ -2654,13 +2660,13 @@
     <value>適用された Windows イメージにオフライン Autopilot プロファイルをステージングします。</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
-    <value>ゼロタッチ ハードウェア ハッシュ アップロード</value>
+    <value>ゼロタッチ ハードウェア ハッシュのアップロード</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>テナントによるハードウェア ハッシュの自動アップロードを構成します。</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
-    <value>対話型ハードウェア ハッシュ アップロード</value>
+    <value>対話型ハードウェア ハッシュのアップロード</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
     <value>OOBE 中のハードウェア ハッシュ登録のために、技術者のデバイス コード サインインを準備します。</value>
@@ -2702,7 +2708,7 @@
     <value>Windows のオプション機能を構成する</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
-    <value>プロビジョニングされたアプリの削除</value>
+    <value>AppX アプリの削除</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
     <value>OOBE の前に、選択したプロビジョニング済みの Windows アプリを削除します。</value>

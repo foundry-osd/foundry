@@ -2528,11 +2528,17 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Виберіть випуск за замовчуванням. Автоматичний режим використовує випуск, рекомендований Foundry.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Роумінг профілів Windows</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Імпортує керовані Foundry профілі Wi-Fi і 802.1X до Windows перед OOBE, щоб підключення розгортання продовжувалося після WinPE.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Імпортує керований Foundry дротовий профіль 802.1X до Windows перед OOBE, щоб зберегти підключення для розгортання після WinPE.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Роумінг профілів Windows</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Імпортує керований Foundry профіль Wi-Fi до Windows перед OOBE, щоб зберегти підключення для розгортання після WinPE.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Перенести мережеві профілі до Windows</value>
@@ -2582,13 +2588,13 @@
     <value>Ініціалізуйте пристрої за допомогою профілю Autopilot JSON.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Без участі користувача</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Завантажуйте апаратні хеші через Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Інтерактивне передавання</value>
+    <value>Інтерактивно</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Готує вхід техніка за кодом пристрою для реєстрації апаратного хешу під час OOBE.</value>
@@ -2618,7 +2624,7 @@
     <value>Увімкніть або вимкніть компоненти Windows у розгорнутій операційній системі.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Видалення AppX</value>
+    <value>Видалення пакетів AppX</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Видаліть вибрані надані Windows програми перед OOBE.</value>
@@ -2702,7 +2708,7 @@
     <value>Налаштування додаткових функцій Windows</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
-    <value>Видалення передбаченої програми</value>
+    <value>Видалення пакетів AppX</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
     <value>Видаліть вибрані надані Windows програми перед OOBE.</value>

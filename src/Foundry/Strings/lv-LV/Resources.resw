@@ -2528,11 +2528,17 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Izvēlieties izdevumu, kas atlasīts pēc noklusējuma. Automātiskā opcija izmanto Foundry ieteikto izdevumu.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows profilu viesabonēšana</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Importē Foundry pārvaldītos Wi-Fi un 802.1X profilus sistēmā Windows pirms OOBE, lai izvietošanas savienojamība turpinātos pēc WinPE.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importē Foundry pārvaldīto vadu 802.1X profilu sistēmā Windows pirms OOBE, lai pēc WinPE saglabātu izvietošanas savienojamību.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Windows profilu viesabonēšana</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importē Foundry pārvaldīto Wi-Fi profilu sistēmā Windows pirms OOBE, lai pēc WinPE saglabātu izvietošanas savienojamību.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Pārvietot tīkla profilus uz Windows</value>
@@ -2582,13 +2588,13 @@
     <value>Nodrošiniet ierīces ar Autopilot JSON profilu.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Bezskāriena</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Augšupielādējiet aparatūras jaucējvērtības, izmantojot Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Interaktīva augšupielāde</value>
+    <value>Interaktīvi</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Sagatavo tehniķa pierakstīšanos ar ierīces kodu aparatūras jaucējkoda reģistrācijai OOBE laikā.</value>
@@ -2618,7 +2624,7 @@
     <value>Iespējot vai atspējot Windows komponentus izvietotajā operētājsistēmā.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>AppX noņemšana</value>
+    <value>AppX noņemšanas</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Pirms OOBE noņemiet atlasītās nodrošinātās Windows lietotnes.</value>
@@ -2702,7 +2708,7 @@
     <value>Konfigurējiet Windows papildu līdzekļus</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
-    <value>Nodrošināta lietotņu noņemšana</value>
+    <value>AppX noņemšanas</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
     <value>Pirms OOBE noņemiet atlasītās nodrošinātās Windows lietotnes.</value>

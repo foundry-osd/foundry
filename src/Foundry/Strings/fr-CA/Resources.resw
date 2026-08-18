@@ -2528,11 +2528,17 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Choisissez l&apos;édition sélectionnée par défaut. Automatique utilise l&apos;édition recommandée par Foundry.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Itinérance des profils Windows</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Importe les profils Wi-Fi et 802.1X gérés par Foundry dans Windows avant l’OOBE afin de conserver la connectivité de déploiement après WinPE.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importe le profil Ethernet 802.1X géré par Foundry dans Windows avant l’OOBE afin de conserver la connectivité de déploiement après WinPE.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Itinérance des profils Windows</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importe le profil Wi-Fi géré par Foundry dans Windows avant l’OOBE afin de conserver la connectivité de déploiement après WinPE.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Itinérer les profils réseau vers Windows</value>
@@ -2582,13 +2588,13 @@
     <value>Provisionner les appareils avec un profil Autopilot JSON.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-touch</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Télécharger les hachages matériels via Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Téléversement interactif</value>
+    <value>Interactif</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Prépare la connexion du technicien par code d’appareil pour enregistrer le hachage matériel pendant l’OOBE.</value>
@@ -2618,7 +2624,7 @@
     <value>Activez ou désactivez les composants Windows dans le système d&apos;exploitation déployé.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Suppression de l&apos;AppX</value>
+    <value>Suppressions d’AppX</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Supprimez les applications Windows provisionnées sélectionnées avant OOBE.</value>
@@ -2702,7 +2708,7 @@
     <value>Configurer les fonctionnalités optionnelles de Windows</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
-    <value>Suppression de l&apos;application provisionnée</value>
+    <value>Suppressions d’AppX</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
     <value>Supprimez les applications Windows provisionnées sélectionnées avant OOBE.</value>

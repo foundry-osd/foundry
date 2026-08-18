@@ -2528,11 +2528,17 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Odaberite izdanje koje je odabrano prema zadanim postavkama. Automatski koristi izdanje koje preporučuje Foundry.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming Windows profila</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Uvozi Wi-Fi i 802.1X profile kojima upravlja Foundry u Windows prije OOBE-a kako bi se povezivost implementacije nastavila nakon WinPE-a.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Uvozi žičani 802.1X profil kojim upravlja Foundry u Windows prije OOBE-a kako bi se povezivost implementacije sačuvala nakon WinPE-a.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Roaming Windows profila</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Uvozi Wi-Fi profil kojim upravlja Foundry u Windows prije OOBE-a kako bi se povezivost implementacije sačuvala nakon WinPE-a.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Prenesi mrežne profile u Windows</value>
@@ -2582,13 +2588,13 @@
     <value>Omogućite uređaje pomoću Autopilot JSON profila.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Bez dodira</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Prenesite sažetke hardvera putem servisa Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Interaktivni prijenos</value>
+    <value>Interaktivno</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Priprema prijavu tehničara pomoću koda uređaja za registraciju hardverskog hasha tijekom OOBE-a.</value>
@@ -2618,7 +2624,7 @@
     <value>Omogućite ili onemogućite Windows komponente u implementiranom operativnom sustavu.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Uklanjanje AppX</value>
+    <value>Uklanjanja AppX-a</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Ukloni odabrane dodijeljene Windows aplikacije prije OOBE.</value>
@@ -2702,7 +2708,7 @@
     <value>Konfigurirajte dodatne značajke sustava Windows</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
-    <value>Uklanjanje osigurane aplikacije</value>
+    <value>Uklanjanja AppX-a</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
     <value>Ukloni odabrane dodijeljene Windows aplikacije prije OOBE.</value>

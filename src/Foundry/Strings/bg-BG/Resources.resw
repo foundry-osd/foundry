@@ -2528,11 +2528,17 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Изберете изданието, избрано по подразбиране. Автоматично използва изданието, препоръчано от Foundry.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Роуминг на профили на Windows</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Импортира управлявани от Foundry Wi-Fi и 802.1X профили в Windows преди OOBE, така че свързаността при разполагане да продължи след WinPE.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Импортира управлявания от Foundry кабелен 802.1X профил в Windows преди OOBE, за да се запази свързаността при разполагане след WinPE.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Роуминг на профили на Windows</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Импортира управлявания от Foundry Wi-Fi профил в Windows преди OOBE, за да се запази свързаността при разполагане след WinPE.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Прехвърляне на мрежови профили към Windows</value>
@@ -2582,13 +2588,13 @@
     <value>Предоставете устройства с JSON профил Autopilot.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-touch</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Качете хардуерни хешове чрез Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Интерактивно качване</value>
+    <value>Интерактивно</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Подготвя влизане на техник с код на устройство за регистрация на хардуерен хеш по време на OOBE.</value>
@@ -2618,7 +2624,7 @@
     <value>Активиране или деактивиране на компоненти на Windows в внедрената операционна система.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Премахване на AppX</value>
+    <value>Премахвания на AppX</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Премахнете избраните предоставени Windows приложения преди OOBE.</value>
@@ -2702,7 +2708,7 @@
     <value>Конфигуриране на допълнителни функции на Windows</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
-    <value>Премахване на осигурено приложение</value>
+    <value>Премахвания на AppX</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
     <value>Премахнете избраните предоставени Windows приложения преди OOBE.</value>

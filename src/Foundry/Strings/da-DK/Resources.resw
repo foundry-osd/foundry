@@ -2528,11 +2528,17 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Vælg den udgave, der er valgt som standard. Automatisk bruger den udgave, som Foundry anbefaler.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming af Windows-profiler</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Importerer Foundry-administrerede Wi-Fi- og 802.1X-profiler til Windows før OOBE, så udrulningsforbindelsen kan fortsætte efter WinPE.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importerer den kabelbaserede 802.1X-profil, der administreres af Foundry, til Windows før OOBE for at bevare udrulningsforbindelsen efter WinPE.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Roaming af Windows-profiler</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importerer Wi-Fi-profilen, der administreres af Foundry, til Windows før OOBE for at bevare udrulningsforbindelsen efter WinPE.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Roam netværksprofiler til Windows</value>
@@ -2582,13 +2588,13 @@
     <value>Provisionér enheder med en Autopilot JSON-profil.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-touch</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Upload hardware hashes gennem Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Interaktiv upload</value>
+    <value>Interaktiv</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Klargør teknikerlogin med enhedskode til registrering af hardwarehash under OOBE.</value>
@@ -2618,7 +2624,7 @@
     <value>Aktiver eller deaktiver Windows-komponenter i det installerede operativsystem.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>AppX-fjernelse</value>
+    <value>AppX-fjernelser</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Fjern valgte klargjorte Windows apps før OOBE.</value>
@@ -2702,7 +2708,7 @@
     <value>Konfigurer Windows valgfri funktioner</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
-    <value>Fjernelse af klargjort app</value>
+    <value>AppX-fjernelser</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
     <value>Fjern valgte klargjorte Windows apps før OOBE.</value>

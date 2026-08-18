@@ -2528,11 +2528,17 @@
 <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Wybierz edycję wybraną domyślnie. Opcja Automatycznie używa edycji zalecanej przez Foundry.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming profili Windows</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Importuje profile Wi-Fi i 802.1X zarządzane przez Foundry do Windows przed OOBE, aby łączność wdrożeniowa mogła być kontynuowana po WinPE.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importuje przewodowy profil 802.1X zarządzany przez Foundry do Windows przed OOBE, aby zachować łączność wdrożeniową po WinPE.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Roaming profili Windows</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importuje profil Wi-Fi zarządzany przez Foundry do Windows przed OOBE, aby zachować łączność wdrożeniową po WinPE.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Przenieś profile sieciowe do Windows</value>
@@ -2582,13 +2588,13 @@
     <value>Aprowizuj urządzenia przy użyciu profilu Autopilot JSON.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Bezobsługowy</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Prześlij skróty sprzętowe za pośrednictwem Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Interaktywne przesyłanie</value>
+    <value>Interaktywnie</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Przygotowuje logowanie technika kodem urządzenia do rejestracji skrótu sprzętowego podczas OOBE.</value>
@@ -2618,7 +2624,7 @@
     <value>Włącz lub wyłącz składniki systemu Windows we wdrożonym systemie operacyjnym.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Usuwanie AppX</value>
+    <value>Usuwanie pakietów AppX</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Usuń wybrane udostępnione aplikacje Windows przed OOBE.</value>
@@ -2702,7 +2708,7 @@
     <value>Skonfiguruj opcjonalne funkcje systemu Windows</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
-    <value>Zapewnione usuwanie aplikacji</value>
+    <value>Usuwanie pakietów AppX</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
     <value>Usuń wybrane udostępnione aplikacje Windows przed OOBE.</value>

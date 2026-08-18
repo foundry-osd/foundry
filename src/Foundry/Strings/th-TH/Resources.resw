@@ -2528,11 +2528,17 @@
 <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>เลือกรุ่นที่จะเลือกตามค่าเริ่มต้น ตัวเลือกอัตโนมัติจะใช้รุ่นที่ Foundry แนะนำ</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>การโรมมิ่งโปรไฟล์ Windows</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>นำเข้าโปรไฟล์ Wi-Fi และ 802.1X ที่ Foundry จัดการลงใน Windows ก่อน OOBE เพื่อให้การเชื่อมต่อสำหรับการปรับใช้ดำเนินต่อได้หลัง WinPE</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>นำเข้าโปรไฟล์ 802.1X แบบใช้สายที่ Foundry จัดการลงใน Windows ก่อน OOBE เพื่อรักษาการเชื่อมต่อสำหรับการปรับใช้หลัง WinPE</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>การโรมมิ่งโปรไฟล์ Windows</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>นำเข้าโปรไฟล์ Wi-Fi ที่ Foundry จัดการลงใน Windows ก่อน OOBE เพื่อรักษาการเชื่อมต่อสำหรับการปรับใช้หลัง WinPE</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>โรมมิ่งโปรไฟล์เครือข่ายไปยัง Windows</value>
@@ -2582,13 +2588,13 @@
     <value>จัดสรรอุปกรณ์ด้วยโปรไฟล์ Autopilot JSON</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>แบบไม่ต้องสัมผัส</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>อัปโหลดแฮชฮาร์ดแวร์ผ่าน Microsoft Graph</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>การอัปโหลดแบบโต้ตอบ</value>
+    <value>แบบโต้ตอบ</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>จัดเตรียมการลงชื่อเข้าใช้ของช่างเทคนิคด้วยรหัสอุปกรณ์สำหรับการลงทะเบียนแฮชฮาร์ดแวร์ระหว่าง OOBE</value>
@@ -2618,7 +2624,7 @@
     <value>เปิดใช้งานหรือปิดใช้งานส่วนประกอบ Windows ในระบบปฏิบัติการที่ปรับใช้</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>การลบ AppX</value>
+    <value>การลบแอป AppX</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>ลบแอป Windows ที่เลือกไว้ก่อนหน้า OOBE</value>
@@ -2654,7 +2660,7 @@
     <value>กำหนดโปรไฟล์ Autopilot แบบออฟไลน์ในรูปภาพ Windows ที่ใช้</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
-    <value>การอัปโหลดแฮชฮาร์ดแวร์แบบ zero-touch</value>
+    <value>การอัปโหลดแฮชฮาร์ดแวร์แบบ Zero-touch</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>กำหนดค่าการอัปโหลดแฮชฮาร์ดแวร์อัตโนมัติที่รองรับโดยผู้เช่า</value>
@@ -2702,7 +2708,7 @@
     <value>กำหนดค่าคุณสมบัติเสริมของ Windows</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
-    <value>การลบแอปที่จัดเตรียมไว้</value>
+    <value>การลบแอป AppX</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
     <value>ลบแอป Windows ที่เลือกไว้ก่อนหน้า OOBE</value>

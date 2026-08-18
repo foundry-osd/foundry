@@ -36,13 +36,13 @@ public static class NavigationRouteCatalog
         CreatePrimary<WifiPage>("Nav_WifiKey", "E701", NavigationSection.Network),
         CreatePrimary<AutopilotJsonProfilePage>("Nav_AutopilotJsonProfileKey", "E8A5", NavigationSection.WindowsAutopilot),
         CreatePrimary<AutopilotZeroTouchPage>("Nav_AutopilotZeroTouchKey", "E753", NavigationSection.WindowsAutopilot),
-        CreatePrimary<AutopilotInteractiveHashUploadPage>("Nav_AutopilotInteractiveHashUploadKey", "E7C9", NavigationSection.WindowsAutopilot),
+        CreatePrimary<AutopilotInteractiveHashUploadPage>("Nav_AutopilotInteractiveHashUploadKey", "E928", NavigationSection.WindowsAutopilot),
         CreatePrimary<OsSelectionPage>("Nav_OsSelectionKey", "E7F4", NavigationSection.Customization),
         CreatePrimary<MachineNamingPage>("Nav_MachineNamingKey", "E8AC", NavigationSection.Customization),
-        CreatePrimary<OobePage>("Nav_OobeKey", "E7C3", NavigationSection.Customization),
+        CreatePrimary<OobePage>("Nav_OobeKey", "F133", NavigationSection.Customization),
         CreatePrimary<OptionalFeaturesPage>("Nav_OptionalFeaturesKey", "E74C", NavigationSection.Customization),
-        CreatePrimary<AppRemovalPage>("Nav_AppRemovalKey", "E74D", NavigationSection.Customization),
-        CreatePrimary<AiComponentsPage>("Nav_AiComponentsKey", "E99A", NavigationSection.Customization)
+        CreatePrimary<AppRemovalPage>("Nav_AppRemovalKey", "E7B8", NavigationSection.Customization),
+        CreatePrimary<AiComponentsPage>("Nav_AiComponentsKey", "F4A5", NavigationSection.Customization)
     ];
 
     private static IReadOnlyList<NavigationRoute> Routes { get; } =

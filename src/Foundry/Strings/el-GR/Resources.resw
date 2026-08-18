@@ -2528,11 +2528,17 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Επιλέξτε την έκδοση προϊόντος που θα επιλέγεται από προεπιλογή. Η Αυτόματη επιλογή χρησιμοποιεί την έκδοση προϊόντος που συνιστά το Foundry.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Περιαγωγή προφίλ Windows</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Εισάγει τα προφίλ Wi-Fi και 802.1X που διαχειρίζεται το Foundry στα Windows πριν από το OOBE, ώστε η συνδεσιμότητα ανάπτυξης να συνεχιστεί μετά το WinPE.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Εισάγει το ενσύρματο προφίλ 802.1X που διαχειρίζεται το Foundry στα Windows πριν από το OOBE, ώστε να διατηρηθεί η συνδεσιμότητα ανάπτυξης μετά το WinPE.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Περιαγωγή προφίλ Windows</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Εισάγει το προφίλ Wi-Fi που διαχειρίζεται το Foundry στα Windows πριν από το OOBE, ώστε να διατηρηθεί η συνδεσιμότητα ανάπτυξης μετά το WinPE.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Περιαγωγή προφίλ δικτύου στα Windows</value>
@@ -2582,13 +2588,13 @@
     <value>Παρέχετε συσκευές με ένα προφίλ Autopilot JSON.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-touch</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Ανεβάστε hardware hashes μέσω Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Διαδραστική μεταφόρτωση</value>
+    <value>Διαδραστική</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Προετοιμάζει σύνδεση τεχνικού με κωδικό συσκευής για εγγραφή κατακερματισμού υλικού κατά το OOBE.</value>
@@ -2618,7 +2624,7 @@
     <value>Ενεργοποιήστε ή απενεργοποιήστε τα στοιχεία των Windows στο αναπτυγμένο λειτουργικό σύστημα.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Αφαίρεση AppX</value>
+    <value>Αφαιρέσεις AppX</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Καταργήστε τις επιλεγμένες προβλεπόμενες εφαρμογές Windows πριν από το OOBE.</value>
@@ -2702,7 +2708,7 @@
     <value>Διαμόρφωση προαιρετικών δυνατοτήτων των Windows</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
-    <value>Προβλεπόμενη κατάργηση εφαρμογής</value>
+    <value>Αφαιρέσεις AppX</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
     <value>Καταργήστε τις επιλεγμένες προβλεπόμενες εφαρμογές Windows πριν από το OOBE.</value>

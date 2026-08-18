@@ -2528,11 +2528,17 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Valige vaikimisi valitud väljaanne. Automaatne kasutab Foundry soovitatud väljaannet.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windowsi profiilide rändlus</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Impordib Foundry hallatavad Wi-Fi ja 802.1X profiilid Windowsisse enne OOBE-d, et juurutuse ühenduvus jätkuks pärast WinPE-d.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Impordib Foundry hallatava kaabelvõrgu 802.1X profiili Windowsisse enne OOBE-d, et juurutuse ühenduvus säiliks pärast WinPE-d.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Windowsi profiilide rändlus</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Impordib Foundry hallatava Wi-Fi profiili Windowsisse enne OOBE-d, et juurutuse ühenduvus säiliks pärast WinPE-d.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Rända võrguprofiilid Windowsisse</value>
@@ -2582,13 +2588,13 @@
     <value>Valmistage seadmed ette Autopilot JSON profiiliga.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-touch</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Laadige riistvara räsi üles Microsoft Graphi kaudu.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Interaktiivne üleslaadimine</value>
+    <value>Interaktiivne</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Valmistab ette tehniku seadmekoodiga sisselogimise riistvararäsi registreerimiseks OOBE ajal.</value>
@@ -2618,7 +2624,7 @@
     <value>Lubage või keelake juurutatud operatsioonisüsteemis Windowsi komponendid.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>AppX eemaldamine</value>
+    <value>AppX-i eemaldamised</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Eemaldage valitud etteantud Windows rakendused enne OOBE.</value>
@@ -2702,7 +2708,7 @@
     <value>Windowsi valikuliste funktsioonide konfigureerimine</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
-    <value>Ettenähtud rakenduse eemaldamine</value>
+    <value>AppX-i eemaldamised</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
     <value>Eemaldage valitud etteantud Windows rakendused enne OOBE.</value>

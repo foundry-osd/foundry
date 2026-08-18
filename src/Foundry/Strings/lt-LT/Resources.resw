@@ -2528,11 +2528,17 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Pasirinkite pagal numatytuosius parametrus pažymėtą leidimą. Automatinis pasirinkimas naudoja Foundry rekomenduojamą leidimą.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows profilių tarptinklinis perkėlimas</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Importuoja Foundry valdomus Wi-Fi ir 802.1X profilius į Windows prieš OOBE, kad diegimo ryšys galėtų tęstis po WinPE.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importuoja Foundry valdomą laidinį 802.1X profilį į Windows prieš OOBE, kad diegimo ryšys išliktų po WinPE.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Windows profilių tarptinklinis perkėlimas</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importuoja Foundry valdomą Wi-Fi profilį į Windows prieš OOBE, kad diegimo ryšys išliktų po WinPE.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Perkelti tinklo profilius į Windows</value>
@@ -2582,13 +2588,13 @@
     <value>Parenkite įrenginius naudodami Autopilot JSON profilį.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Be sąveikos</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Įkelkite aparatinės įrangos maišas per Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Interaktyvus įkėlimas</value>
+    <value>Interaktyvus</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Paruošia techniko prisijungimą naudojant įrenginio kodą aparatūros maišos registracijai OOBE metu.</value>
@@ -2618,7 +2624,7 @@
     <value>Įgalinti arba išjungti „Windows“ komponentus įdiegtoje operacinėje sistemoje.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>AppX šalinimas</value>
+    <value>AppX šalinimai</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Pašalinkite pasirinktas numatytas Windows programas prieš OOBE.</value>
@@ -2702,7 +2708,7 @@
     <value>Konfigūruokite „Windows“ papildomas funkcijas</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
-    <value>Numatytas programos pašalinimas</value>
+    <value>AppX šalinimai</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
     <value>Pašalinkite pasirinktas numatytas Windows programas prieš OOBE.</value>

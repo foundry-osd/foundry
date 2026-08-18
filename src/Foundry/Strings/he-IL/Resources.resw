@@ -2528,11 +2528,17 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>בחר את המהדורה שתיבחר כברירת מחדל. האפשרות אוטומטי משתמשת במהדורה המומלצת על-ידי Foundry.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>נדידת פרופילי Windows</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>מייבא פרופילי Wi-Fi ו-802.1X המנוהלים על ידי Foundry אל Windows לפני OOBE, כדי שקישוריות הפריסה תימשך אחרי WinPE.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>מייבא את פרופיל 802.1X הקווי המנוהל על ידי Foundry אל Windows לפני OOBE, כדי לשמור על קישוריות הפריסה אחרי WinPE.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>נדידת פרופילי Windows</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>מייבא את פרופיל ה-Wi-Fi המנוהל על ידי Foundry אל Windows לפני OOBE, כדי לשמור על קישוריות הפריסה אחרי WinPE.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>נדוד פרופילי רשת אל Windows</value>
@@ -2582,13 +2588,13 @@
     <value>הקצה מכשירים באמצעות פרופיל JSON של Autopilot.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>ללא מגע</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>העלה גיבובי חומרה דרך Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>העלאה אינטראקטיבית</value>
+    <value>אינטראקטיבי</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>מכין כניסת טכנאי באמצעות קוד מכשיר לרישום hash חומרה במהלך OOBE.</value>
@@ -2618,7 +2624,7 @@
     <value>הפעל או השבת את רכיבי Windows במערכת ההפעלה שנפרסה.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>הסרת AppX</value>
+    <value>הסרת יישומי AppX</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>הסר יישומי Windows שנבחרו לפני OOBE.</value>
@@ -2654,13 +2660,13 @@
     <value>שלב פרופיל Autopilot לא מקוון בתמונה Windows המוחלת.</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
-    <value>העלאת zero-touch של hash חומרה</value>
+    <value>העלאת Hash חומרה ב-Zero-touch</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
     <value>הגדר העלאה אוטומטית של גיבוב החומרה בגיבוי הדייר.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
-    <value>העלאה אינטראקטיבית של hash חומרה</value>
+    <value>העלאה אינטראקטיבית של Hash חומרה</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
     <value>מכין כניסת טכנאי באמצעות קוד מכשיר לרישום hash חומרה במהלך OOBE.</value>
@@ -2702,7 +2708,7 @@
     <value>הגדר תכונות אופציונליות של Windows</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
-    <value>הסרת אפליקציה מסודרת</value>
+    <value>הסרת יישומי AppX</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
     <value>הסר יישומי Windows שנבחרו לפני OOBE.</value>

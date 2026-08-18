@@ -2528,11 +2528,17 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Válassza ki az alapértelmezés szerint kijelölt kiadást. Az Automatikus beállítás a Foundry által ajánlott kiadást használja.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows-profilok barangolása</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Importálja a Foundry által kezelt Wi-Fi- és 802.1X-profilokat a Windowsba az OOBE előtt, hogy a telepítési kapcsolat a WinPE után is folytatódhasson.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importálja a Foundry által kezelt vezetékes 802.1X-profilt a Windowsba az OOBE előtt, hogy a telepítési kapcsolat a WinPE után is megmaradjon.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Windows-profilok barangolása</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importálja a Foundry által kezelt Wi-Fi-profilt a Windowsba az OOBE előtt, hogy a telepítési kapcsolat a WinPE után is megmaradjon.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Hálózati profilok átvitele Windowsba</value>
@@ -2582,13 +2588,13 @@
     <value>Építsen ki eszközöket Autopilot JSON-profillal.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Felügyelet nélküli</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Töltse fel a hardverkivonatokat a Microsoft Graph használatával.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Interaktív feltöltés</value>
+    <value>Interaktív</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Előkészíti a technikusi eszközkódos bejelentkezést a hardverhash regisztrálásához az OOBE során.</value>
@@ -2618,7 +2624,7 @@
     <value>Engedélyezze vagy tiltsa le a Windows összetevőket a telepített operációs rendszerben.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>AppX eltávolítása</value>
+    <value>AppX-eltávolítások</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Távolítsa el a kijelölt Windows alkalmazásokat OOBE előtt.</value>
@@ -2702,7 +2708,7 @@
     <value>A Windows opcionális szolgáltatásainak konfigurálása</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
-    <value>Előzetes alkalmazás eltávolítása</value>
+    <value>AppX-eltávolítások</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
     <value>Távolítsa el a kijelölt Windows alkalmazásokat OOBE előtt.</value>

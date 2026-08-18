@@ -50,7 +50,7 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
         _logger = logger;
         _artifactRootPath = artifactRootPath;
 
-        if (_configuration.Network.ProfileRoaming.IsEnabled)
+        if (_configuration.Network.ProfileRoaming.IsAnyEnabled)
         {
             PrepareArtifactRoot();
         }
@@ -76,7 +76,10 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
     {
         ArgumentNullException.ThrowIfNull(request);
 
-        if (!_configuration.Network.ProfileRoaming.IsEnabled)
+        Foundry.Core.Models.Configuration.NetworkProfileRoamingTransportSettings transportSettings = isWifiProfile
+            ? _configuration.Network.ProfileRoaming.Wifi
+            : _configuration.Network.ProfileRoaming.WiredDot1x;
+        if (!transportSettings.IsEnabled)
         {
             return;
         }
@@ -99,7 +102,7 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
         List<NetworkProfileRoamingCertificate> certificates = existingManifest.Certificates
             .Where(certificate => !NetworkProfileRoamingArtifacts.IsCertificateOwnedBySource(certificate, source))
             .ToList();
-        certificates.AddRange(await CopyCertificatesAsync(request, cancellationToken).ConfigureAwait(false));
+        certificates.AddRange(await CopyCertificatesAsync(request, transportSettings, cancellationToken).ConfigureAwait(false));
 
         var profile = new NetworkProfileRoamingProfile
         {
@@ -172,6 +175,7 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
 
     private async Task<IReadOnlyList<NetworkProfileRoamingCertificate>> CopyCertificatesAsync(
         NetworkProfileRoamingCaptureRequest request,
+        Foundry.Core.Models.Configuration.NetworkProfileRoamingTransportSettings transportSettings,
         CancellationToken cancellationToken)
     {
         List<NetworkProfileRoamingCertificate> certificates = [];
@@ -190,6 +194,7 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
                     request.Source,
                     certificatePath,
                     request.CertificatePfxPasswordSecret,
+                    transportSettings.IncludePrivateKeyMaterial,
                     cancellationToken).ConfigureAwait(false);
                 if (pfxCertificate is not null)
                 {
@@ -228,9 +233,10 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
         NetworkProfileRoamingProfileSource source,
         string certificatePath,
         SecretEnvelope? passwordSecret,
+        bool includePrivateKeyMaterial,
         CancellationToken cancellationToken)
     {
-        if (!_configuration.Network.ProfileRoaming.IncludePrivateKeyMaterial)
+        if (!includePrivateKeyMaterial)
         {
             _logger.LogDebug("PFX certificate was not copied to the network profile roaming artifact because private-key roaming is disabled.");
             return null;

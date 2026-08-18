@@ -2528,11 +2528,17 @@
 <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Izberite izdajo, ki je privzeto izbrana. Možnost Samodejno uporabi izdajo, ki jo priporoča Foundry.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Gostovanje profilov Windows</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Uvozi profile Wi-Fi in 802.1X, ki jih upravlja Foundry, v Windows pred OOBE, da se povezljivost uvedbe lahko nadaljuje po WinPE.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Uvozi žični profil 802.1X, ki ga upravlja Foundry, v Windows pred OOBE, da se po WinPE ohrani povezljivost uvedbe.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Gostovanje profilov Windows</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Uvozi profil Wi-Fi, ki ga upravlja Foundry, v Windows pred OOBE, da se po WinPE ohrani povezljivost uvedbe.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Prenesi omrežne profile v Windows</value>
@@ -2582,13 +2588,13 @@
     <value>Zagotavljajte naprave s profilom Autopilot JSON.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Brez dotika</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Naložite zgoščene vrednosti strojne opreme prek Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Interaktivno nalaganje</value>
+    <value>Interaktivno</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Pripravi prijavo tehnika s kodo naprave za registracijo zgoščene vrednosti strojne opreme med OOBE.</value>
@@ -2618,7 +2624,7 @@
     <value>Omogočite ali onemogočite komponente sistema Windows v nameščenem operacijskem sistemu.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Odstranitev AppX</value>
+    <value>Odstranitve AppX</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Odstranite izbrane omogočene Windows aplikacije pred OOBE.</value>
@@ -2702,7 +2708,7 @@
     <value>Konfigurirajte izbirne funkcije sistema Windows</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
-    <value>Odstranitev omogočene aplikacije</value>
+    <value>Odstranitve AppX</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
     <value>Odstranite izbrane omogočene Windows aplikacije pred OOBE.</value>

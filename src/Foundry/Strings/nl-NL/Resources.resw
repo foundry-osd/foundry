@@ -2528,11 +2528,17 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Kies de editie die standaard is geselecteerd. Automatisch gebruikt de editie die wordt aanbevolen door Foundry.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming van Windows-profielen</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Importeert door Foundry beheerde Wi-Fi- en 802.1X-profielen vóór OOBE in Windows, zodat implementatieconnectiviteit na WinPE kan doorgaan.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importeert het door Foundry beheerde bekabelde 802.1X-profiel vóór OOBE in Windows om de implementatieconnectiviteit na WinPE te behouden.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Roaming van Windows-profielen</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importeert het door Foundry beheerde Wi-Fi-profiel vóór OOBE in Windows om de implementatieconnectiviteit na WinPE te behouden.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Netwerkprofielen naar Windows roamen</value>
@@ -2582,13 +2588,13 @@
     <value>Richt apparaten in met een Autopilot JSON-profiel.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-touch</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Upload hardwarehashes via Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Interactieve upload</value>
+    <value>Interactief</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Bereidt aanmelding met apparaatcode voor technici voor om de hardware-hash tijdens OOBE te registreren.</value>
@@ -2618,7 +2624,7 @@
     <value>Schakel Windows-componenten in het geïmplementeerde besturingssysteem in of uit.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>AppX verwijderen</value>
+    <value>AppX-verwijderingen</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Verwijder geselecteerde ingerichte Windows-apps vóór OOBE.</value>
@@ -2702,7 +2708,7 @@
     <value>Configureer optionele Windows-functies</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
-    <value>Ingerichte app-verwijdering</value>
+    <value>AppX-verwijderingen</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
     <value>Verwijder geselecteerde ingerichte Windows-apps vóór OOBE.</value>

@@ -88,7 +88,7 @@ public sealed class DeployConfigurationServiceTests
     }
 
     [Fact]
-    public void LoadOptional_WhenConfigurationContainsNetworkProfileRoaming_PreservesOptIn()
+    public void LoadOptional_WhenLegacyConfigurationContainsNetworkProfileRoaming_MigratesBothTransports()
     {
         using var tempDirectory = new TemporaryDirectory();
         string configurationPath = CreateJsonFile(
@@ -96,7 +96,7 @@ public sealed class DeployConfigurationServiceTests
             "foundry.deploy.config.json",
             $$"""
             {
-              "schemaVersion": {{FoundryDeployConfigurationDocument.CurrentSchemaVersion}},
+              "schemaVersion": 11,
               "network": {
                 "profileRoaming": {
                   "isEnabled": true,
@@ -113,8 +113,50 @@ public sealed class DeployConfigurationServiceTests
         DeployConfigurationLoadResult result = service.LoadOptional();
 
         Assert.NotNull(result.Document);
-        Assert.True(result.Document.Network.ProfileRoaming.IsEnabled);
-        Assert.True(result.Document.Network.ProfileRoaming.IncludePrivateKeyMaterial);
+        Assert.True(result.Document.Network.ProfileRoaming.WiredDot1x.IsEnabled);
+        Assert.True(result.Document.Network.ProfileRoaming.WiredDot1x.IncludePrivateKeyMaterial);
+        Assert.True(result.Document.Network.ProfileRoaming.Wifi.IsEnabled);
+        Assert.True(result.Document.Network.ProfileRoaming.Wifi.IncludePrivateKeyMaterial);
+    }
+
+    [Fact]
+    public void LoadOptional_WhenSplitRoamingSettingsAreExplicit_DoesNotLetLegacyFallbackOverrideThem()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string configurationPath = CreateJsonFile(
+            tempDirectory.Path,
+            "foundry.deploy.config.json",
+            """
+            {
+              "schemaVersion": 12,
+              "network": {
+                "profileRoaming": {
+                  "wiredDot1x": {
+                    "isEnabled": false,
+                    "includePrivateKeyMaterial": false
+                  },
+                  "wifi": {
+                    "isEnabled": false,
+                    "includePrivateKeyMaterial": false
+                  },
+                  "isEnabled": true,
+                  "includePrivateKeyMaterial": true
+                }
+              }
+            }
+            """);
+
+        var service = new DeployConfigurationService(
+            NullLogger<DeployConfigurationService>.Instance,
+            configurationPath);
+
+        DeployConfigurationLoadResult result = service.LoadOptional();
+
+        Assert.NotNull(result.Document);
+        Assert.False(result.Document.Network.ProfileRoaming.WiredDot1x.IsEnabled);
+        Assert.False(result.Document.Network.ProfileRoaming.WiredDot1x.IncludePrivateKeyMaterial);
+        Assert.False(result.Document.Network.ProfileRoaming.Wifi.IsEnabled);
+        Assert.False(result.Document.Network.ProfileRoaming.Wifi.IncludePrivateKeyMaterial);
     }
 
     private static string CreateJsonFile(string directoryPath, string fileName, string contents)

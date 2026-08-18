@@ -2528,11 +2528,17 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Zvolte edici vybranou ve výchozím nastavení. Automaticky použije edici doporučenou službou Foundry.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming profilů Windows</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Importuje profily Wi-Fi a 802.1X spravované Foundry do Windows před OOBE, aby konektivita nasazení pokračovala po WinPE.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importuje kabelový profil 802.1X spravovaný Foundry do Windows před OOBE, aby se po WinPE zachovalo připojení potřebné k nasazení.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Roaming profilů Windows</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importuje profil Wi-Fi spravovaný Foundry do Windows před OOBE, aby se po WinPE zachovalo připojení potřebné k nasazení.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Přenést síťové profily do Windows</value>
@@ -2582,13 +2588,13 @@
     <value>Nasazujte zařízení s profilem Autopilot JSON.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-touch</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Nahrajte hardwarové haše pomocí Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Interaktivní nahrání</value>
+    <value>Interaktivní</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Připraví přihlášení technika pomocí kódu zařízení pro registraci hardwarového hashe během OOBE.</value>
@@ -2618,7 +2624,7 @@
     <value>Povolte nebo zakažte součásti systému Windows v nasazeném operačním systému.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Odstranění AppX</value>
+    <value>Odebrání balíčků AppX</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Odeberte vybrané zřízené aplikace Windows před OOBE.</value>
@@ -2702,7 +2708,7 @@
     <value>Konfigurace volitelných funkcí systému Windows</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
-    <value>Odstranění zřízené aplikace</value>
+    <value>Odebrání balíčků AppX</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
     <value>Odeberte vybrané zřízené aplikace Windows před OOBE.</value>

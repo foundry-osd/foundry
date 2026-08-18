@@ -2528,11 +2528,17 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Varsayılan olarak seçilecek edisyonu belirleyin. Otomatik, Foundry tarafından önerilen edisyonu kullanır.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows profil dolaşımı</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Foundry tarafından yönetilen Wi-Fi ve 802.1X profillerini OOBE öncesinde Windows’a içe aktarır, böylece dağıtım bağlantısı WinPE sonrasında devam edebilir.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Foundry tarafından yönetilen kablolu 802.1X profilini OOBE öncesinde Windows’a içe aktararak dağıtım bağlantısının WinPE sonrasında korunmasını sağlar.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Windows profil dolaşımı</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Foundry tarafından yönetilen Wi-Fi profilini OOBE öncesinde Windows’a içe aktararak dağıtım bağlantısının WinPE sonrasında korunmasını sağlar.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Ağ profillerini Windows’a taşı</value>
@@ -2582,13 +2588,13 @@
     <value>Cihazları bir Autopilot JSON profiliyle hazırlayın.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Sıfır dokunuş</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Donanım karmalarını Microsoft Graph üzerinden yükleyin.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Etkileşimli yükleme</value>
+    <value>Etkileşimli</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>OOBE sırasında donanım karması kaydı için teknisyenin cihaz koduyla oturum açmasını hazırlar.</value>
@@ -2618,7 +2624,7 @@
     <value>Dağıtılan işletim sistemindeki Windows bileşenlerini etkinleştirin veya devre dışı bırakın.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>AppX kaldırma</value>
+    <value>AppX kaldırmaları</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>OOBE&apos;den önce seçilen temel hazırlığı yapılmış Windows uygulamalarını kaldırın.</value>
@@ -2702,7 +2708,7 @@
     <value>Windows İsteğe Bağlı Özelliklerini Yapılandırma</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
-    <value>Sağlanan uygulamanın kaldırılması</value>
+    <value>AppX kaldırmaları</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
     <value>OOBE&apos;den önce seçilen temel hazırlığı yapılmış Windows uygulamalarını kaldırın.</value>

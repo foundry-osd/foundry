@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Foundry.Core.Models.Network;
+using Foundry.Core.Models.Configuration;
 using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Deployment.PreOobe;
 using Microsoft.Extensions.Logging;
@@ -48,7 +49,7 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
     {
         ArgumentNullException.ThrowIfNull(settings);
 
-        if (!settings.IsEnabled)
+        if (!settings.IsAnyEnabled)
         {
             return null;
         }
@@ -74,23 +75,23 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
         importSettings.WifiProfileRelativePath = AddProfileDataFile(
             dataFiles,
             artifactRootPath,
-            manifest.WifiProfile?.RelativePath,
+            settings.Wifi.IsEnabled ? manifest.WifiProfile?.RelativePath : null,
             cancellationToken);
-        importSettings.WifiProfileSource = manifest.WifiProfile?.Source;
-        importSettings.WifiProfileConnectivityExpectation = manifest.WifiProfile?.ConnectivityExpectation;
+        importSettings.WifiProfileSource = settings.Wifi.IsEnabled ? manifest.WifiProfile?.Source : null;
+        importSettings.WifiProfileConnectivityExpectation = settings.Wifi.IsEnabled ? manifest.WifiProfile?.ConnectivityExpectation : null;
         importSettings.WiredDot1xProfileRelativePath = AddProfileDataFile(
             dataFiles,
             artifactRootPath,
-            manifest.WiredDot1xProfile?.RelativePath,
+            settings.WiredDot1x.IsEnabled ? manifest.WiredDot1xProfile?.RelativePath : null,
             cancellationToken);
-        importSettings.WiredDot1xProfileSource = manifest.WiredDot1xProfile?.Source;
-        importSettings.WiredDot1xProfileConnectivityExpectation = manifest.WiredDot1xProfile?.ConnectivityExpectation;
+        importSettings.WiredDot1xProfileSource = settings.WiredDot1x.IsEnabled ? manifest.WiredDot1xProfile?.Source : null;
+        importSettings.WiredDot1xProfileConnectivityExpectation = settings.WiredDot1x.IsEnabled ? manifest.WiredDot1xProfile?.ConnectivityExpectation : null;
         importSettings.Certificates = await AddCertificateDataFilesAsync(
                 dataFiles,
                 artifactRootPath,
                 workspaceRootPath,
                 manifest.Certificates,
-                settings.IncludePrivateKeyMaterial,
+                settings,
                 cancellationToken)
             .ConfigureAwait(false);
 
@@ -171,7 +172,7 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
         string artifactRootPath,
         string workspaceRootPath,
         IReadOnlyList<NetworkProfileRoamingCertificate> certificates,
-        bool includePrivateKeyMaterial,
+        CoreDeployNetworkProfileRoamingSettings settings,
         CancellationToken cancellationToken)
     {
         var importCertificates = new List<NetworkProfileRoamingImportCertificate>();
@@ -186,8 +187,14 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
                 continue;
             }
 
+            NetworkProfileRoamingTransportSettings? transportSettings = ResolveTransportSettings(certificate, settings);
+            if (transportSettings is null || !transportSettings.IsEnabled)
+            {
+                continue;
+            }
+
             bool isPfxPrivateKey = string.Equals(certificate.Kind, NetworkProfileRoamingArtifacts.PfxPrivateKeyKind, StringComparison.OrdinalIgnoreCase);
-            if (isPfxPrivateKey && !includePrivateKeyMaterial)
+            if (isPfxPrivateKey && !transportSettings.IncludePrivateKeyMaterial)
             {
                 continue;
             }
@@ -240,6 +247,37 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
         }
 
         return importCertificates;
+    }
+
+    private static NetworkProfileRoamingTransportSettings? ResolveTransportSettings(
+        NetworkProfileRoamingCertificate certificate,
+        CoreDeployNetworkProfileRoamingSettings settings)
+    {
+        if (NetworkProfileRoamingArtifacts.IsCertificateOwnedBySource(
+                certificate,
+                NetworkProfileRoamingArtifacts.ProvisionedWiredDot1xSource))
+        {
+            return settings.WiredDot1x;
+        }
+
+        if (NetworkProfileRoamingArtifacts.IsCertificateOwnedBySource(
+                certificate,
+                NetworkProfileRoamingArtifacts.ManualWifiSource) ||
+            NetworkProfileRoamingArtifacts.IsCertificateOwnedBySource(
+                certificate,
+                NetworkProfileRoamingArtifacts.ProvisionedWifiSource))
+        {
+            return settings.Wifi;
+        }
+
+        return settings.WiredDot1x.IsEnabled && settings.Wifi.IsEnabled
+            ? new NetworkProfileRoamingTransportSettings
+            {
+                IsEnabled = true,
+                IncludePrivateKeyMaterial = settings.WiredDot1x.IncludePrivateKeyMaterial ||
+                    settings.Wifi.IncludePrivateKeyMaterial
+            }
+            : null;
     }
 
     private async Task<string?> AddPfxPasswordDataFileAsync(

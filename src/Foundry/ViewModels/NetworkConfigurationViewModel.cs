@@ -90,10 +90,16 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     public partial string WifiCertificateLabel { get; set; }
 
     [ObservableProperty]
-    public partial string WindowsRoamingHeader { get; set; }
+    public partial string WiredDot1xWindowsRoamingHeader { get; set; }
 
     [ObservableProperty]
-    public partial string WindowsRoamingDescription { get; set; }
+    public partial string WiredDot1xWindowsRoamingDescription { get; set; }
+
+    [ObservableProperty]
+    public partial string WifiWindowsRoamingHeader { get; set; }
+
+    [ObservableProperty]
+    public partial string WifiWindowsRoamingDescription { get; set; }
 
     [ObservableProperty]
     public partial string RoamNetworkProfilesText { get; set; }
@@ -108,14 +114,17 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     public partial string BrowseButtonText { get; set; }
 
     [ObservableProperty]
-    public partial bool IsWindowsRoamingExpanded { get; set; }
+    public partial bool IsWiredDot1xWindowsRoamingExpanded { get; set; }
+
+    [ObservableProperty]
+    public partial bool IsWifiWindowsRoamingExpanded { get; set; }
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsDot1xSectionEnabled))]
     [NotifyPropertyChangedFor(nameof(IsDot1xCertificatePathEnabled))]
-    [NotifyPropertyChangedFor(nameof(IsNetworkProfileRoamingAvailable))]
-    [NotifyPropertyChangedFor(nameof(IsPrivateKeyMaterialRoamingEnabled))]
-    [NotifyPropertyChangedFor(nameof(RoamPrivateKeyMaterialVisibility))]
+    [NotifyPropertyChangedFor(nameof(IsWiredDot1xProfileRoamingAvailable))]
+    [NotifyPropertyChangedFor(nameof(IsWiredDot1xPrivateKeyMaterialRoamingEnabled))]
+    [NotifyPropertyChangedFor(nameof(WiredDot1xRoamPrivateKeyMaterialVisibility))]
     [NotifyPropertyChangedFor(nameof(Dot1xValidationMessage))]
     [NotifyPropertyChangedFor(nameof(HasDot1xValidationError))]
     [NotifyPropertyChangedFor(nameof(Dot1xValidationVisibility))]
@@ -154,9 +163,9 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     [NotifyPropertyChangedFor(nameof(IsWifiPersonalSectionEnabled))]
     [NotifyPropertyChangedFor(nameof(IsWifiEnterpriseSectionEnabled))]
     [NotifyPropertyChangedFor(nameof(IsWifiCertificatePathEnabled))]
-    [NotifyPropertyChangedFor(nameof(IsNetworkProfileRoamingAvailable))]
-    [NotifyPropertyChangedFor(nameof(IsPrivateKeyMaterialRoamingEnabled))]
-    [NotifyPropertyChangedFor(nameof(RoamPrivateKeyMaterialVisibility))]
+    [NotifyPropertyChangedFor(nameof(IsWifiProfileRoamingAvailable))]
+    [NotifyPropertyChangedFor(nameof(IsWifiPrivateKeyMaterialRoamingEnabled))]
+    [NotifyPropertyChangedFor(nameof(WifiRoamPrivateKeyMaterialVisibility))]
     [NotifyPropertyChangedFor(nameof(WifiValidationMessage))]
     [NotifyPropertyChangedFor(nameof(HasWifiValidationError))]
     [NotifyPropertyChangedFor(nameof(WifiValidationVisibility))]
@@ -230,12 +239,20 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     public partial string WifiCertificatePath { get; set; } = string.Empty;
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(IsPrivateKeyMaterialRoamingEnabled))]
-    [NotifyPropertyChangedFor(nameof(RoamPrivateKeyMaterialVisibility))]
-    public partial bool IsNetworkProfileRoamingEnabled { get; set; }
+    [NotifyPropertyChangedFor(nameof(IsWiredDot1xPrivateKeyMaterialRoamingEnabled))]
+    [NotifyPropertyChangedFor(nameof(WiredDot1xRoamPrivateKeyMaterialVisibility))]
+    public partial bool IsWiredDot1xProfileRoamingEnabled { get; set; }
 
     [ObservableProperty]
-    public partial bool IsPrivateKeyMaterialRoamingRequested { get; set; }
+    public partial bool IsWiredDot1xPrivateKeyMaterialRoamingRequested { get; set; }
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsWifiPrivateKeyMaterialRoamingEnabled))]
+    [NotifyPropertyChangedFor(nameof(WifiRoamPrivateKeyMaterialVisibility))]
+    public partial bool IsWifiProfileRoamingEnabled { get; set; }
+
+    [ObservableProperty]
+    public partial bool IsWifiPrivateKeyMaterialRoamingRequested { get; set; }
 
     public bool IsDot1xSectionEnabled => IsDot1xEnabled;
     public bool IsDot1xCertificatePathEnabled => IsDot1xEnabled && IsDot1xCertificateRequired;
@@ -246,8 +263,10 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     public bool IsWifiCertificatePathEnabled => IsWifiEnterpriseSectionEnabled && IsWifiCertificateRequired;
     public bool IsWifiPersonalSelected => string.Equals(SelectedWifiSecurityType?.Value, NetworkConfigurationValidator.WifiSecurityPersonal, StringComparison.OrdinalIgnoreCase);
     public bool IsWifiEnterpriseSelected => NetworkConfigurationValidator.IsEnterpriseSecurityType(SelectedWifiSecurityType?.Value);
-    public bool IsNetworkProfileRoamingAvailable => IsDot1xEnabled || IsWifiProvisioned;
-    public bool IsPrivateKeyMaterialRoamingEnabled => IsNetworkProfileRoamingAvailable && IsNetworkProfileRoamingEnabled;
+    public bool IsWiredDot1xProfileRoamingAvailable => IsDot1xEnabled;
+    public bool IsWifiProfileRoamingAvailable => IsWifiProvisioned;
+    public bool IsWiredDot1xPrivateKeyMaterialRoamingEnabled => IsWiredDot1xProfileRoamingAvailable && IsWiredDot1xProfileRoamingEnabled;
+    public bool IsWifiPrivateKeyMaterialRoamingEnabled => IsWifiProfileRoamingAvailable && IsWifiProfileRoamingEnabled;
     public bool HasDot1xValidationError => !string.IsNullOrWhiteSpace(Dot1xValidationMessage);
     public string Dot1xValidationMessage => FormatValidationMessage(NetworkConfigurationValidator.Validate(BuildDot1xOnlySettings()), dot1xOnly: true);
     public Visibility Dot1xValidationVisibility => HasDot1xValidationError ? Visibility.Visible : Visibility.Collapsed;
@@ -263,7 +282,8 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     public Visibility WifiPersonalSettingsVisibility => IsWifiPersonalSectionEnabled ? Visibility.Visible : Visibility.Collapsed;
     public Visibility WifiEnterpriseSettingsVisibility => IsWifiEnterpriseSectionEnabled ? Visibility.Visible : Visibility.Collapsed;
     public Visibility WifiCertificatePathVisibility => IsWifiCertificatePathEnabled ? Visibility.Visible : Visibility.Collapsed;
-    public Visibility RoamPrivateKeyMaterialVisibility => IsPrivateKeyMaterialRoamingEnabled ? Visibility.Visible : Visibility.Collapsed;
+    public Visibility WiredDot1xRoamPrivateKeyMaterialVisibility => IsWiredDot1xPrivateKeyMaterialRoamingEnabled ? Visibility.Visible : Visibility.Collapsed;
+    public Visibility WifiRoamPrivateKeyMaterialVisibility => IsWifiPrivateKeyMaterialRoamingEnabled ? Visibility.Visible : Visibility.Collapsed;
     public string Dot1xProfileTemplateValidationMessage => FormatFieldValidationMessage(
         NetworkConfigurationValidator.Validate(BuildDot1xOnlySettings()),
         NetworkConfigurationValidationCode.WiredProfileTemplateRequired,
@@ -357,7 +377,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
             Dot1xCertificatePath = string.Empty;
         }
 
-        ClearRoamingIfUnavailable();
+        ClearWiredDot1xRoamingIfUnavailable();
         SaveState();
         RefreshPresentationState();
     }
@@ -393,7 +413,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
             networkSecretStateService.ClearPersonalWifiPassphrase();
         }
 
-        ClearRoamingIfUnavailable();
+        ClearWifiRoamingIfUnavailable();
         SaveState();
         RefreshPresentationState();
     }
@@ -476,24 +496,47 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         RefreshPresentationState();
     }
 
-    partial void OnIsNetworkProfileRoamingEnabledChanged(bool value)
+    partial void OnIsWiredDot1xProfileRoamingEnabledChanged(bool value)
     {
-        if (value && !IsNetworkProfileRoamingAvailable)
+        if (value && !IsWiredDot1xProfileRoamingAvailable)
         {
-            IsNetworkProfileRoamingEnabled = false;
+            IsWiredDot1xProfileRoamingEnabled = false;
             return;
         }
 
         if (!value)
         {
-            IsPrivateKeyMaterialRoamingRequested = false;
+            IsWiredDot1xPrivateKeyMaterialRoamingRequested = false;
         }
 
         SaveState();
         RefreshPresentationState();
     }
 
-    partial void OnIsPrivateKeyMaterialRoamingRequestedChanged(bool value)
+    partial void OnIsWiredDot1xPrivateKeyMaterialRoamingRequestedChanged(bool value)
+    {
+        SaveState();
+        RefreshPresentationState();
+    }
+
+    partial void OnIsWifiProfileRoamingEnabledChanged(bool value)
+    {
+        if (value && !IsWifiProfileRoamingAvailable)
+        {
+            IsWifiProfileRoamingEnabled = false;
+            return;
+        }
+
+        if (!value)
+        {
+            IsWifiPrivateKeyMaterialRoamingRequested = false;
+        }
+
+        SaveState();
+        RefreshPresentationState();
+    }
+
+    partial void OnIsWifiPrivateKeyMaterialRoamingRequestedChanged(bool value)
     {
         SaveState();
         RefreshPresentationState();
@@ -521,8 +564,10 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         WifiEnterpriseProfileTemplatePath = settings.Wifi.EnterpriseProfileTemplatePath ?? string.Empty;
         IsWifiCertificateRequired = settings.Wifi.RequiresCertificate;
         WifiCertificatePath = settings.Wifi.CertificatePath ?? string.Empty;
-        IsNetworkProfileRoamingEnabled = IsNetworkProfileRoamingAvailable && settings.RoamWifiProfilesToWindows;
-        IsPrivateKeyMaterialRoamingRequested = IsNetworkProfileRoamingEnabled && settings.RoamPrivateKeyMaterialToWindows;
+        IsWiredDot1xProfileRoamingEnabled = IsWiredDot1xProfileRoamingAvailable && settings.RoamWiredDot1xProfileToWindows;
+        IsWiredDot1xPrivateKeyMaterialRoamingRequested = IsWiredDot1xProfileRoamingEnabled && settings.RoamWiredDot1xPrivateKeyMaterialToWindows;
+        IsWifiProfileRoamingEnabled = IsWifiProfileRoamingAvailable && settings.RoamWifiProfileToWindows;
+        IsWifiPrivateKeyMaterialRoamingRequested = IsWifiProfileRoamingEnabled && settings.RoamWifiPrivateKeyMaterialToWindows;
         isApplyingState = false;
         RefreshPresentationState();
     }
@@ -548,12 +593,15 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
 
     private NetworkSettings BuildSettingsForValidation()
     {
-        bool roamNetworkProfiles = IsNetworkProfileRoamingAvailable && IsNetworkProfileRoamingEnabled;
+        bool roamWiredDot1xProfile = IsWiredDot1xProfileRoamingAvailable && IsWiredDot1xProfileRoamingEnabled;
+        bool roamWifiProfile = IsWifiProfileRoamingAvailable && IsWifiProfileRoamingEnabled;
 
         return new NetworkSettings
         {
-            RoamWifiProfilesToWindows = roamNetworkProfiles,
-            RoamPrivateKeyMaterialToWindows = roamNetworkProfiles && IsPrivateKeyMaterialRoamingRequested,
+            RoamWiredDot1xProfileToWindows = roamWiredDot1xProfile,
+            RoamWiredDot1xPrivateKeyMaterialToWindows = roamWiredDot1xProfile && IsWiredDot1xPrivateKeyMaterialRoamingRequested,
+            RoamWifiProfileToWindows = roamWifiProfile,
+            RoamWifiPrivateKeyMaterialToWindows = roamWifiProfile && IsWifiPrivateKeyMaterialRoamingRequested,
             Dot1x = new Dot1xSettings
             {
                 IsEnabled = IsDot1xEnabled,
@@ -625,8 +673,10 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         WifiEnterpriseDescription = localizationService.GetString("Network.EnterpriseTemplateDrivenHelperText");
         WifiEnterpriseTemplateText = localizationService.GetString("Network.WifiEnterpriseTemplateLabel");
         WifiCertificateLabel = localizationService.GetString("Wifi.CertificateLabel");
-        WindowsRoamingHeader = localizationService.GetString("Network.WindowsRoamingSectionTitle");
-        WindowsRoamingDescription = localizationService.GetString("Network.WindowsRoamingHelperText");
+        WiredDot1xWindowsRoamingHeader = localizationService.GetString("Network.WiredDot1xWindowsRoamingSectionTitle");
+        WiredDot1xWindowsRoamingDescription = localizationService.GetString("Network.WiredDot1xWindowsRoamingHelperText");
+        WifiWindowsRoamingHeader = localizationService.GetString("Network.WifiWindowsRoamingSectionTitle");
+        WifiWindowsRoamingDescription = localizationService.GetString("Network.WifiWindowsRoamingHelperText");
         RoamNetworkProfilesText = localizationService.GetString("Network.RoamProfilesLabel");
         RoamPrivateKeyMaterialText = localizationService.GetString("Network.RoamPrivateKeyMaterialLabel");
         RoamPrivateKeyMaterialDescription = localizationService.GetString("Network.RoamPrivateKeyMaterialHelperText");
@@ -676,9 +726,12 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         OnPropertyChanged(nameof(WifiPersonalSettingsVisibility));
         OnPropertyChanged(nameof(WifiEnterpriseSettingsVisibility));
         OnPropertyChanged(nameof(WifiCertificatePathVisibility));
-        OnPropertyChanged(nameof(IsNetworkProfileRoamingAvailable));
-        OnPropertyChanged(nameof(IsPrivateKeyMaterialRoamingEnabled));
-        OnPropertyChanged(nameof(RoamPrivateKeyMaterialVisibility));
+        OnPropertyChanged(nameof(IsWiredDot1xProfileRoamingAvailable));
+        OnPropertyChanged(nameof(IsWifiProfileRoamingAvailable));
+        OnPropertyChanged(nameof(IsWiredDot1xPrivateKeyMaterialRoamingEnabled));
+        OnPropertyChanged(nameof(IsWifiPrivateKeyMaterialRoamingEnabled));
+        OnPropertyChanged(nameof(WiredDot1xRoamPrivateKeyMaterialVisibility));
+        OnPropertyChanged(nameof(WifiRoamPrivateKeyMaterialVisibility));
         OnPropertyChanged(nameof(Dot1xProfileTemplateValidationMessage));
         OnPropertyChanged(nameof(Dot1xProfileTemplateValidationVisibility));
         OnPropertyChanged(nameof(Dot1xCertificateValidationMessage));
@@ -694,19 +747,32 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         OnPropertyChanged(nameof(WifiCertificateValidationMessage));
         OnPropertyChanged(nameof(WifiCertificateValidationVisibility));
 
-        IsWindowsRoamingExpanded = IsNetworkProfileRoamingAvailable && IsNetworkProfileRoamingEnabled;
+        IsWiredDot1xWindowsRoamingExpanded = IsWiredDot1xProfileRoamingAvailable && IsWiredDot1xProfileRoamingEnabled;
+        IsWifiWindowsRoamingExpanded = IsWifiProfileRoamingAvailable && IsWifiProfileRoamingEnabled;
     }
 
-    private void ClearRoamingIfUnavailable()
+    private void ClearWiredDot1xRoamingIfUnavailable()
     {
-        if (IsNetworkProfileRoamingAvailable)
+        if (IsWiredDot1xProfileRoamingAvailable)
         {
             return;
         }
 
-        IsNetworkProfileRoamingEnabled = false;
-        IsPrivateKeyMaterialRoamingRequested = false;
-        IsWindowsRoamingExpanded = false;
+        IsWiredDot1xProfileRoamingEnabled = false;
+        IsWiredDot1xPrivateKeyMaterialRoamingRequested = false;
+        IsWiredDot1xWindowsRoamingExpanded = false;
+    }
+
+    private void ClearWifiRoamingIfUnavailable()
+    {
+        if (IsWifiProfileRoamingAvailable)
+        {
+            return;
+        }
+
+        IsWifiProfileRoamingEnabled = false;
+        IsWifiPrivateKeyMaterialRoamingRequested = false;
+        IsWifiWindowsRoamingExpanded = false;
     }
 
     private string ResolveWifiPassphrase(NetworkSettings settings)

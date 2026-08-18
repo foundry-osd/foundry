@@ -214,9 +214,15 @@ public static class BootMediaTelemetryPropertyBuilder
         bool isWifiEnterpriseProfileConfigured = wifi.IsEnabled && wifi.HasEnterpriseProfile && !string.IsNullOrWhiteSpace(wifi.EnterpriseProfileTemplatePath);
         bool isWifiEnterpriseCertificateConfigured = wifi.IsEnabled && !string.IsNullOrWhiteSpace(wifi.CertificatePath);
 
-        properties["network_any_enabled"] = dot1x.IsEnabled || network.WifiProvisioned || wifi.IsEnabled || network.RoamWifiProfilesToWindows;
-        properties["network_profile_roaming_enabled"] = network.RoamWifiProfilesToWindows;
-        properties["network_private_key_roaming_enabled"] = network.RoamPrivateKeyMaterialToWindows;
+        bool isAnyProfileRoamingEnabled = network.RoamWiredDot1xProfileToWindows || network.RoamWifiProfileToWindows;
+        bool isAnyPrivateKeyRoamingEnabled = network.RoamWiredDot1xPrivateKeyMaterialToWindows || network.RoamWifiPrivateKeyMaterialToWindows;
+        properties["network_any_enabled"] = dot1x.IsEnabled || network.WifiProvisioned || wifi.IsEnabled || isAnyProfileRoamingEnabled;
+        properties["network_profile_roaming_enabled"] = isAnyProfileRoamingEnabled;
+        properties["network_private_key_roaming_enabled"] = isAnyPrivateKeyRoamingEnabled;
+        properties["network_wired_dot1x_profile_roaming_enabled"] = network.RoamWiredDot1xProfileToWindows;
+        properties["network_wired_dot1x_private_key_roaming_enabled"] = network.RoamWiredDot1xPrivateKeyMaterialToWindows;
+        properties["network_wifi_profile_roaming_enabled"] = network.RoamWifiProfileToWindows;
+        properties["network_wifi_private_key_roaming_enabled"] = network.RoamWifiPrivateKeyMaterialToWindows;
         properties["network_wired_dot1x_enabled"] = dot1x.IsEnabled;
         properties["network_wired_dot1x_profile_configured"] = isDot1xProfileConfigured;
         properties["network_wired_dot1x_certificate_required"] = dot1x.IsEnabled && dot1x.RequiresCertificate;

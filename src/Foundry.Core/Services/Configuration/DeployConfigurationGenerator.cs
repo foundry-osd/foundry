@@ -48,8 +48,16 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             {
                 ProfileRoaming = new DeployNetworkProfileRoamingSettings
                 {
-                    IsEnabled = document.Network.RoamWifiProfilesToWindows,
-                    IncludePrivateKeyMaterial = document.Network.RoamPrivateKeyMaterialToWindows,
+                    WiredDot1x = new NetworkProfileRoamingTransportSettings
+                    {
+                        IsEnabled = document.Network.RoamWiredDot1xProfileToWindows,
+                        IncludePrivateKeyMaterial = document.Network.RoamWiredDot1xPrivateKeyMaterialToWindows
+                    },
+                    Wifi = new NetworkProfileRoamingTransportSettings
+                    {
+                        IsEnabled = document.Network.RoamWifiProfileToWindows,
+                        IncludePrivateKeyMaterial = document.Network.RoamWifiPrivateKeyMaterialToWindows
+                    },
                     ArtifactRootPath = NetworkProfileRoamingArtifacts.DefaultArtifactRootPath
                 }
             },

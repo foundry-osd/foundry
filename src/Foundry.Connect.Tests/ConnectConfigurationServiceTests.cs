@@ -213,8 +213,9 @@ public sealed class ConnectConfigurationServiceTests
             {
                 Network = new CoreConfiguration.NetworkSettings
                 {
-                    RoamWifiProfilesToWindows = true,
-                    RoamPrivateKeyMaterialToWindows = true
+                    RoamWiredDot1xProfileToWindows = true,
+                    RoamWiredDot1xPrivateKeyMaterialToWindows = true,
+                    RoamWifiProfileToWindows = false
                 }
             },
             tempDirectory.Path).ConfigurationJson;
@@ -224,8 +225,47 @@ public sealed class ConnectConfigurationServiceTests
 
         FoundryConnectConfiguration configuration = service.Load();
 
-        Assert.True(configuration.Network.ProfileRoaming.IsEnabled);
-        Assert.True(configuration.Network.ProfileRoaming.IncludePrivateKeyMaterial);
+        Assert.True(configuration.Network.ProfileRoaming.WiredDot1x.IsEnabled);
+        Assert.True(configuration.Network.ProfileRoaming.WiredDot1x.IncludePrivateKeyMaterial);
+        Assert.False(configuration.Network.ProfileRoaming.Wifi.IsEnabled);
+    }
+
+    [Fact]
+    public void Load_WhenSplitRoamingSettingsAreExplicit_DoesNotLetLegacyFallbackOverrideThem()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var tempDirectory = new TemporaryDirectory();
+        string configurationPath = CreateJsonFile(
+            tempDirectory.Path,
+            "mixed-roaming.json",
+            """
+            {
+              "schemaVersion": 3,
+              "network": {
+                "profileRoaming": {
+                  "wiredDot1x": {
+                    "isEnabled": false,
+                    "includePrivateKeyMaterial": false
+                  },
+                  "wifi": {
+                    "isEnabled": false,
+                    "includePrivateKeyMaterial": false
+                  },
+                  "isEnabled": true,
+                  "includePrivateKeyMaterial": true
+                }
+              }
+            }
+            """);
+
+        var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
+
+        FoundryConnectConfiguration configuration = service.Load();
+
+        Assert.False(configuration.Network.ProfileRoaming.WiredDot1x.IsEnabled);
+        Assert.False(configuration.Network.ProfileRoaming.WiredDot1x.IncludePrivateKeyMaterial);
+        Assert.False(configuration.Network.ProfileRoaming.Wifi.IsEnabled);
+        Assert.False(configuration.Network.ProfileRoaming.Wifi.IncludePrivateKeyMaterial);
     }
 
     [Fact]
