@@ -66,21 +66,6 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
     public string DocumentationUrl => FoundryApplicationInfo.CustomizationDocumentationUrl;
 
     [ObservableProperty]
-    public partial string PageTitle { get; set; }
-
-    [ObservableProperty]
-    public partial string PageDescription { get; set; }
-
-    [ObservableProperty]
-    public partial string MachineNamingHeader { get; set; }
-
-    [ObservableProperty]
-    public partial string MachineNamingDescription { get; set; }
-
-    [ObservableProperty]
-    public partial string MachineNamingEnableText { get; set; }
-
-    [ObservableProperty]
     public partial string MachineNamingPrefixLabel { get; set; }
 
     [ObservableProperty]
@@ -97,9 +82,6 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
 
     [ObservableProperty]
     public partial string MachineNamingAllowManualSuffixEditDescription { get; set; }
-
-    [ObservableProperty]
-    public partial bool IsMachineNamingExpanded { get; set; }
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsMachineNamingOptionsEnabled))]
@@ -166,7 +148,6 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
 
     partial void OnIsMachineNamingEnabledChanged(bool value)
     {
-        IsMachineNamingExpanded = value;
         SaveState();
     }
 
@@ -204,7 +185,6 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
         {
             ApplyOperatingSystemSelectionState(operatingSystemSelection);
             IsMachineNamingEnabled = settings.MachineNaming.IsEnabled;
-            IsMachineNamingExpanded = settings.MachineNaming.IsEnabled;
             MachineNamePrefix = settings.MachineNaming.Prefix ?? string.Empty;
             MachineNameAutoGenerate = settings.MachineNaming.AutoGenerateName;
             AllowManualSuffixEdit = settings.MachineNaming.AllowManualSuffixEdit;
@@ -247,11 +227,6 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
 
     private void RefreshLocalizedText()
     {
-        PageTitle = localizationService.GetString("CustomizationPage_Title.Text");
-        PageDescription = localizationService.GetString("Customization.PageDescription");
-        MachineNamingHeader = localizationService.GetString("Customization.MachineNamingHeader");
-        MachineNamingDescription = localizationService.GetString("Customization.MachineNamingDescription");
-        MachineNamingEnableText = localizationService.GetString("Customization.MachineNamingEnableLabel");
         MachineNamingPrefixLabel = localizationService.GetString("Customization.MachineNamingPrefixLabel");
         MachineNamingPrefixDescription = localizationService.GetString("Customization.MachineNamingPrefixDescription");
         MachineNamingAutoGenerateText = localizationService.GetString("Customization.MachineNamingAutoGenerateLabel");

@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 
 using System.ComponentModel;
+using Foundry.Core.Models.Configuration;
+using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
 
 namespace Foundry.Views;
@@ -10,12 +12,14 @@ namespace Foundry.Views;
 public sealed partial class StartPage : Page
 {
     private readonly IApplicationLocalizationService localizationService;
+    private readonly IFoundryConfigurationStateService configurationStateService;
 
     public StartMediaViewModel ViewModel { get; }
 
     public StartPage()
     {
         localizationService = App.GetService<IApplicationLocalizationService>();
+        configurationStateService = App.GetService<IFoundryConfigurationStateService>();
         ViewModel = App.GetService<StartMediaViewModel>();
         InitializeComponent();
         ApplyLocalizedText();
@@ -86,15 +90,67 @@ public sealed partial class StartPage : Page
                 App.Current.NavigationService.NavigateTo(typeof(GeneralConfigurationPage));
                 break;
             case StartReadinessNavigationTarget.Network:
-                App.Current.NavigationService.NavigateTo(typeof(NetworkPage));
+                App.Current.NavigationService.NavigateTo(GetNetworkPageType());
                 break;
             case StartReadinessNavigationTarget.Autopilot:
-                App.Current.NavigationService.NavigateTo(typeof(AutopilotPage));
+                App.Current.NavigationService.NavigateTo(GetAutopilotPageType());
                 break;
             case StartReadinessNavigationTarget.Customization:
-                App.Current.NavigationService.NavigateTo(typeof(CustomizationPage));
+                App.Current.NavigationService.NavigateTo(GetCustomizationPageType());
                 break;
         }
+    }
+
+    private Type GetNetworkPageType()
+    {
+        NetworkSettings settings = configurationStateService.Current.Network;
+        return !settings.Dot1x.IsEnabled && settings.WifiProvisioned
+            ? typeof(WifiPage)
+            : typeof(EthernetDot1xPage);
+    }
+
+    private Type GetAutopilotPageType()
+    {
+        return configurationStateService.Current.Autopilot.ProvisioningMode switch
+        {
+            AutopilotProvisioningMode.HardwareHashUpload => typeof(AutopilotZeroTouchPage),
+            AutopilotProvisioningMode.InteractiveHardwareHashUpload => typeof(AutopilotInteractiveHashUploadPage),
+            _ => typeof(AutopilotJsonProfilePage)
+        };
+    }
+
+    private Type GetCustomizationPageType()
+    {
+        FoundryConfigurationDocument configuration = configurationStateService.Current;
+        CustomizationSettings settings = configuration.Customization;
+        if (configuration.OperatingSystemSelection.IsEnabled)
+        {
+            return typeof(OsSelectionPage);
+        }
+
+        if (settings.MachineNaming.IsEnabled)
+        {
+            return typeof(MachineNamingPage);
+        }
+
+        if (settings.Oobe.IsEnabled)
+        {
+            return typeof(OobePage);
+        }
+
+        if (settings.WindowsOptionalFeatures.IsEnabled)
+        {
+            return typeof(OptionalFeaturesPage);
+        }
+
+        if (settings.AppxRemoval.IsEnabled)
+        {
+            return typeof(AppRemovalPage);
+        }
+
+        return settings.AiComponentRemoval.IsEnabled
+            ? typeof(AiComponentsPage)
+            : typeof(OsSelectionPage);
     }
 
     private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e)

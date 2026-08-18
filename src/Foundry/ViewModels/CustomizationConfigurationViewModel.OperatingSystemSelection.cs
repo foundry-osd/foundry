@@ -34,12 +34,6 @@ public sealed partial class CustomizationConfigurationViewModel
     public bool IsDefaultOperatingSystemEditionSelectionEnabled => IsOperatingSystemSelectionOptionsEnabled && !HasSingleSelectedOption(OperatingSystemEditionOptions);
 
     [ObservableProperty]
-    public partial string OperatingSystemSelectionHeader { get; set; }
-
-    [ObservableProperty]
-    public partial string OperatingSystemSelectionDescription { get; set; }
-
-    [ObservableProperty]
     public partial string OperatingSystemVersionGroupHeader { get; set; }
 
     [ObservableProperty]
@@ -121,9 +115,6 @@ public sealed partial class CustomizationConfigurationViewModel
     public partial string AutomaticOptionText { get; set; }
 
     [ObservableProperty]
-    public partial bool IsOperatingSystemSelectionExpanded { get; set; }
-
-    [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsOperatingSystemSelectionOptionsEnabled))]
     [NotifyPropertyChangedFor(nameof(IsDefaultOperatingSystemLanguageSelectionEnabled))]
     [NotifyPropertyChangedFor(nameof(IsDefaultOperatingSystemReleaseSelectionEnabled))]
@@ -184,7 +175,6 @@ public sealed partial class CustomizationConfigurationViewModel
 
     partial void OnIsOperatingSystemSelectionEnabledChanged(bool value)
     {
-        IsOperatingSystemSelectionExpanded = value;
         RefreshWindowsOptionalFeatureCompatibility();
         SaveState();
     }
@@ -216,7 +206,6 @@ public sealed partial class CustomizationConfigurationViewModel
     private void ApplyOperatingSystemSelectionState(OperatingSystemSelectionSettings settings)
     {
         IsOperatingSystemSelectionEnabled = settings.IsEnabled;
-        IsOperatingSystemSelectionExpanded = settings.IsEnabled;
         SetSelectedOptions(OperatingSystemLanguageOptions, settings.AllowedLanguageCodes);
         SetSelectedOptions(OperatingSystemReleaseOptions, settings.AllowedReleaseIds);
         SetSelectedOptions(OperatingSystemLicenseChannelOptions, settings.AllowedLicenseChannels);
@@ -246,8 +235,6 @@ public sealed partial class CustomizationConfigurationViewModel
 
     private void RefreshOperatingSystemSelectionLocalizedText()
     {
-        OperatingSystemSelectionHeader = localizationService.GetString("Customization.OperatingSystemSelectionHeader");
-        OperatingSystemSelectionDescription = localizationService.GetString("Customization.OperatingSystemSelectionDescription");
         OperatingSystemVersionGroupHeader = localizationService.GetString("Customization.OperatingSystemVersionGroupHeader");
         OperatingSystemVersionGroupDescription = localizationService.GetString("Customization.OperatingSystemVersionGroupDescription");
         OperatingSystemLanguageGroupHeader = localizationService.GetString("Customization.OperatingSystemLanguageGroupHeader");

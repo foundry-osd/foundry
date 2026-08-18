@@ -13,15 +13,6 @@ public sealed partial class CustomizationConfigurationViewModel
     public bool IsAiComponentRemovalOptionsEnabled => IsAiComponentRemovalEnabled;
 
     [ObservableProperty]
-    public partial string AiComponentRemovalHeader { get; set; }
-
-    [ObservableProperty]
-    public partial string AiComponentRemovalDescription { get; set; }
-
-    [ObservableProperty]
-    public partial string AiComponentRemovalEnableText { get; set; }
-
-    [ObservableProperty]
     public partial string AiComponentRemoveCopilotLabel { get; set; }
 
     [ObservableProperty]
@@ -70,9 +61,6 @@ public sealed partial class CustomizationConfigurationViewModel
     public partial string AiComponentDisableNotepadAiDescription { get; set; }
 
     [ObservableProperty]
-    public partial bool IsAiComponentRemovalExpanded { get; set; }
-
-    [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsAiComponentRemovalOptionsEnabled))]
     public partial bool IsAiComponentRemovalEnabled { get; set; }
 
@@ -105,8 +93,6 @@ public sealed partial class CustomizationConfigurationViewModel
         bool isEnabled = settings.IsEnabled && HasAnyAiComponentRemovalOptionEnabled(settings);
 
         IsAiComponentRemovalEnabled = isEnabled;
-        IsAiComponentRemovalExpanded = isEnabled;
-
         isApplyingAiComponentRemovalSelection = true;
         try
         {
@@ -147,9 +133,6 @@ public sealed partial class CustomizationConfigurationViewModel
 
     private void RefreshAiComponentRemovalLocalizedText()
     {
-        AiComponentRemovalHeader = localizationService.GetString("Customization.AiComponentRemovalHeader");
-        AiComponentRemovalDescription = localizationService.GetString("Customization.AiComponentRemovalDescription");
-        AiComponentRemovalEnableText = localizationService.GetString("Customization.AiComponentRemovalEnableLabel");
         AiComponentRemoveCopilotLabel = localizationService.GetString("Customization.AiComponentRemoveCopilotLabel");
         AiComponentRemoveCopilotDescription = localizationService.GetString("Customization.AiComponentRemoveCopilotDescription");
         AiComponentRemoveAiHubLabel = localizationService.GetString("Customization.AiComponentRemoveAiHubLabel");
@@ -170,8 +153,6 @@ public sealed partial class CustomizationConfigurationViewModel
 
     partial void OnIsAiComponentRemovalEnabledChanged(bool value)
     {
-        IsAiComponentRemovalExpanded = value;
-
         if (isApplyingState || isApplyingAiComponentRemovalSelection)
         {
             return;
@@ -253,7 +234,6 @@ public sealed partial class CustomizationConfigurationViewModel
         try
         {
             IsAiComponentRemovalEnabled = hasAnyOptionEnabled;
-            IsAiComponentRemovalExpanded = hasAnyOptionEnabled;
         }
         finally
         {

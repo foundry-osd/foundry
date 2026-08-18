@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Page x:Class="Foundry.Views.OsSelectionPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="using:Foundry.Behaviors"
+    xmlns:controls="using:Foundry.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:Foundry.ViewModels"
+    xmlns:wct="using:CommunityToolkit.WinUI.Controls"
+    mc:Ignorable="d">
+    <ScrollView
+        Margin="{ThemeResource ContentPageMargin}"
+        Padding="{ThemeResource ContentPagePadding}"
+        VerticalScrollBarVisibility="Auto">
+        <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+            <controls:PageHeader
+                x:Uid="OsSelectionPageHeader"
+                DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
+                IconGlyph="&#xE7F4;">
+                <controls:PageHeader.ActionContent>
+                    <ToggleSwitch
+                        x:Uid="OsSelectionPageEnableToggle"
+                        behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                        IsOn="{x:Bind ViewModel.IsOperatingSystemSelectionEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </controls:PageHeader.ActionContent>
+            </controls:PageHeader>
+
+            <ContentControl IsEnabled="{x:Bind ViewModel.IsOperatingSystemSelectionEnabled, Mode=OneWay}">
+                <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+                    <StackPanel>
+                        <wct:SettingsExpander
+                            Description="{x:Bind ViewModel.OperatingSystemVersionGroupDescription, Mode=OneWay}"
+                            Header="{x:Bind ViewModel.OperatingSystemVersionGroupHeader, Mode=OneWay}"
+                            IsEnabled="{x:Bind ViewModel.IsOperatingSystemSelectionOptionsEnabled, Mode=OneWay}">
+                            <wct:SettingsExpander.HeaderIcon>
+                                <FontIcon Glyph="&#xE770;" />
+                            </wct:SettingsExpander.HeaderIcon>
+                            <wct:SettingsExpander.Items>
+                                <wct:SettingsCard
+                                    HorizontalContentAlignment="Right"
+                                    Description="{x:Bind ViewModel.OperatingSystemAllowedReleasesDescription, Mode=OneWay}"
+                                    Header="{x:Bind ViewModel.OperatingSystemAllowedReleasesLabel, Mode=OneWay}">
+                                    <wct:SettingsCard.HeaderIcon>
+                                        <FontIcon Glyph="&#xE770;" />
+                                    </wct:SettingsCard.HeaderIcon>
+                                    <ItemsRepeater
+                                        HorizontalAlignment="Right"
+                                        ItemsSource="{x:Bind ViewModel.OperatingSystemReleaseOptions, Mode=OneWay}">
+                                        <ItemsRepeater.Layout>
+                                            <UniformGridLayout
+                                                MaximumRowsOrColumns="3"
+                                                MinColumnSpacing="{ThemeResource FoundrySpace12}"
+                                                MinItemWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                                                MinRowSpacing="{ThemeResource FoundrySpace4}" />
+                                        </ItemsRepeater.Layout>
+                                        <ItemsRepeater.ItemTemplate>
+                                            <DataTemplate x:DataType="viewModels:SelectableStringOptionViewModel">
+                                                <CheckBox
+                                                    Content="{x:Bind DisplayName, Mode=OneWay}"
+                                                    IsChecked="{x:Bind IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            </DataTemplate>
+                                        </ItemsRepeater.ItemTemplate>
+                                    </ItemsRepeater>
+                                </wct:SettingsCard>
+                                <wct:SettingsCard
+                                    Description="{x:Bind ViewModel.OperatingSystemDefaultReleaseDescription, Mode=OneWay}"
+                                    Header="{x:Bind ViewModel.OperatingSystemDefaultReleaseLabel, Mode=OneWay}">
+                                    <wct:SettingsCard.HeaderIcon>
+                                        <FontIcon Glyph="&#xE718;" />
+                                    </wct:SettingsCard.HeaderIcon>
+                                    <ComboBox
+                                        Width="{ThemeResource FoundryWideInputMinWidth}"
+                                        DisplayMemberPath="DisplayName"
+                                        IsEnabled="{x:Bind ViewModel.IsDefaultOperatingSystemReleaseSelectionEnabled, Mode=OneWay}"
+                                        ItemsSource="{x:Bind ViewModel.DefaultOperatingSystemReleaseOptions, Mode=OneWay}"
+                                        SelectedItem="{x:Bind ViewModel.SelectedDefaultOperatingSystemRelease, Mode=TwoWay}" />
+                                </wct:SettingsCard>
+                                <wct:SettingsCard
+                                    Description="{x:Bind ViewModel.OperatingSystemDefaultMediaOffsetDescription, Mode=OneWay}"
+                                    Header="{x:Bind ViewModel.OperatingSystemDefaultMediaOffsetLabel, Mode=OneWay}">
+                                    <wct:SettingsCard.HeaderIcon>
+                                        <FontIcon Glyph="&#xE823;" />
+                                    </wct:SettingsCard.HeaderIcon>
+                                    <ComboBox
+                                        Width="{ThemeResource FoundryWideInputMinWidth}"
+                                        DisplayMemberPath="DisplayName"
+                                        ItemsSource="{x:Bind ViewModel.DefaultOperatingSystemMediaOffsetOptions, Mode=OneWay}"
+                                        SelectedItem="{x:Bind ViewModel.SelectedDefaultOperatingSystemMediaOffset, Mode=TwoWay}" />
+                                </wct:SettingsCard>
+                            </wct:SettingsExpander.Items>
+                        </wct:SettingsExpander>
+                        <wct:SettingsExpander
+                            Description="{x:Bind ViewModel.OperatingSystemLanguageGroupDescription, Mode=OneWay}"
+                            Header="{x:Bind ViewModel.OperatingSystemLanguageGroupHeader, Mode=OneWay}"
+                            IsEnabled="{x:Bind ViewModel.IsOperatingSystemSelectionOptionsEnabled, Mode=OneWay}">
+                            <wct:SettingsExpander.HeaderIcon>
+                                <FontIcon Glyph="&#xF2B7;" />
+                            </wct:SettingsExpander.HeaderIcon>
+                            <wct:SettingsExpander.Items>
+                                <wct:SettingsCard
+                                    HorizontalContentAlignment="Right"
+                                    Description="{x:Bind ViewModel.OperatingSystemAllowedLanguagesDescription, Mode=OneWay}"
+                                    Header="{x:Bind ViewModel.OperatingSystemAllowedLanguagesLabel, Mode=OneWay}">
+                                    <wct:SettingsCard.HeaderIcon>
+                                        <FontIcon Glyph="&#xF2B7;" />
+                                    </wct:SettingsCard.HeaderIcon>
+                                    <ItemsRepeater
+                                        MaxWidth="{ThemeResource FoundryLanguageGridMaxWidth}"
+                                        HorizontalAlignment="Right"
+                                        ItemsSource="{x:Bind ViewModel.OperatingSystemLanguageOptions, Mode=OneWay}">
+                                        <ItemsRepeater.Layout>
+                                            <UniformGridLayout
+                                                MaximumRowsOrColumns="2"
+                                                MinColumnSpacing="{ThemeResource FoundrySpace12}"
+                                                MinItemWidth="{ThemeResource FoundryCheckboxGridItemMinWidth}"
+                                                MinRowSpacing="{ThemeResource FoundrySpace4}" />
+                                        </ItemsRepeater.Layout>
+                                        <ItemsRepeater.ItemTemplate>
+                                            <DataTemplate x:DataType="viewModels:SelectableStringOptionViewModel">
+                                                <CheckBox
+                                                    Content="{x:Bind DisplayName, Mode=OneWay}"
+                                                    IsChecked="{x:Bind IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            </DataTemplate>
+                                        </ItemsRepeater.ItemTemplate>
+                                    </ItemsRepeater>
+                                </wct:SettingsCard>
+                                <wct:SettingsCard
+                                    Description="{x:Bind ViewModel.OperatingSystemDefaultLanguageDescription, Mode=OneWay}"
+                                    Header="{x:Bind ViewModel.OperatingSystemDefaultLanguageLabel, Mode=OneWay}">
+                                    <wct:SettingsCard.HeaderIcon>
+                                        <FontIcon Glyph="&#xE718;" />
+                                    </wct:SettingsCard.HeaderIcon>
+                                    <ComboBox
+                                        Width="{ThemeResource FoundryWideInputMinWidth}"
+                                        DisplayMemberPath="DisplayName"
+                                        IsEnabled="{x:Bind ViewModel.IsDefaultOperatingSystemLanguageSelectionEnabled, Mode=OneWay}"
+                                        ItemsSource="{x:Bind ViewModel.DefaultOperatingSystemLanguageOptions, Mode=OneWay}"
+                                        SelectedItem="{x:Bind ViewModel.SelectedDefaultOperatingSystemLanguage, Mode=TwoWay}" />
+                                </wct:SettingsCard>
+                            </wct:SettingsExpander.Items>
+                        </wct:SettingsExpander>
+                        <wct:SettingsExpander
+                            Description="{x:Bind ViewModel.OperatingSystemLicenseChannelGroupDescription, Mode=OneWay}"
+                            Header="{x:Bind ViewModel.OperatingSystemLicenseChannelGroupHeader, Mode=OneWay}"
+                            IsEnabled="{x:Bind ViewModel.IsOperatingSystemSelectionOptionsEnabled, Mode=OneWay}">
+                            <wct:SettingsExpander.HeaderIcon>
+                                <FontIcon Glyph="&#xEB95;" />
+                            </wct:SettingsExpander.HeaderIcon>
+                            <wct:SettingsExpander.Items>
+                                <wct:SettingsCard
+                                    HorizontalContentAlignment="Right"
+                                    Description="{x:Bind ViewModel.OperatingSystemAllowedLicenseChannelsDescription, Mode=OneWay}"
+                                    Header="{x:Bind ViewModel.OperatingSystemAllowedLicenseChannelsLabel, Mode=OneWay}">
+                                    <wct:SettingsCard.HeaderIcon>
+                                        <FontIcon Glyph="&#xEB95;" />
+                                    </wct:SettingsCard.HeaderIcon>
+                                    <ItemsRepeater
+                                        HorizontalAlignment="Right"
+                                        ItemsSource="{x:Bind ViewModel.OperatingSystemLicenseChannelOptions, Mode=OneWay}">
+                                        <ItemsRepeater.Layout>
+                                            <UniformGridLayout
+                                                MaximumRowsOrColumns="2"
+                                                MinColumnSpacing="{ThemeResource FoundrySpace12}"
+                                                MinItemWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                                                MinRowSpacing="{ThemeResource FoundrySpace4}" />
+                                        </ItemsRepeater.Layout>
+                                        <ItemsRepeater.ItemTemplate>
+                                            <DataTemplate x:DataType="viewModels:SelectableStringOptionViewModel">
+                                                <CheckBox
+                                                    Content="{x:Bind DisplayName, Mode=OneWay}"
+                                                    IsChecked="{x:Bind IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    IsEnabled="{x:Bind IsEnabled, Mode=OneWay}" />
+                                            </DataTemplate>
+                                        </ItemsRepeater.ItemTemplate>
+                                    </ItemsRepeater>
+                                </wct:SettingsCard>
+                                <wct:SettingsCard
+                                    Description="{x:Bind ViewModel.OperatingSystemDefaultLicenseChannelDescription, Mode=OneWay}"
+                                    Header="{x:Bind ViewModel.OperatingSystemDefaultLicenseChannelLabel, Mode=OneWay}">
+                                    <wct:SettingsCard.HeaderIcon>
+                                        <FontIcon Glyph="&#xE718;" />
+                                    </wct:SettingsCard.HeaderIcon>
+                                    <ComboBox
+                                        Width="{ThemeResource FoundryWideInputMinWidth}"
+                                        DisplayMemberPath="DisplayName"
+                                        IsEnabled="{x:Bind ViewModel.IsDefaultOperatingSystemLicenseChannelSelectionEnabled, Mode=OneWay}"
+                                        ItemsSource="{x:Bind ViewModel.DefaultOperatingSystemLicenseChannelOptions, Mode=OneWay}"
+                                        SelectedItem="{x:Bind ViewModel.SelectedDefaultOperatingSystemLicenseChannel, Mode=TwoWay}" />
+                                </wct:SettingsCard>
+                            </wct:SettingsExpander.Items>
+                        </wct:SettingsExpander>
+                        <wct:SettingsExpander
+                            Description="{x:Bind ViewModel.OperatingSystemEditionGroupDescription, Mode=OneWay}"
+                            Header="{x:Bind ViewModel.OperatingSystemEditionGroupHeader, Mode=OneWay}"
+                            IsEnabled="{x:Bind ViewModel.IsOperatingSystemSelectionOptionsEnabled, Mode=OneWay}">
+                            <wct:SettingsExpander.HeaderIcon>
+                                <FontIcon Glyph="&#xE8EC;" />
+                            </wct:SettingsExpander.HeaderIcon>
+                            <wct:SettingsExpander.Items>
+                                <wct:SettingsCard
+                                    HorizontalContentAlignment="Right"
+                                    Description="{x:Bind ViewModel.OperatingSystemAllowedEditionsDescription, Mode=OneWay}"
+                                    Header="{x:Bind ViewModel.OperatingSystemAllowedEditionsLabel, Mode=OneWay}">
+                                    <wct:SettingsCard.HeaderIcon>
+                                        <FontIcon Glyph="&#xE8EC;" />
+                                    </wct:SettingsCard.HeaderIcon>
+                                    <ItemsRepeater
+                                        MaxWidth="{ThemeResource FoundryLanguageGridMaxWidth}"
+                                        HorizontalAlignment="Right"
+                                        ItemsSource="{x:Bind ViewModel.OperatingSystemEditionOptions, Mode=OneWay}">
+                                        <ItemsRepeater.Layout>
+                                            <UniformGridLayout
+                                                MaximumRowsOrColumns="3"
+                                                MinColumnSpacing="{ThemeResource FoundrySpace12}"
+                                                MinItemWidth="{ThemeResource FoundryCheckboxGridItemMinWidth}"
+                                                MinRowSpacing="{ThemeResource FoundrySpace4}" />
+                                        </ItemsRepeater.Layout>
+                                        <ItemsRepeater.ItemTemplate>
+                                            <DataTemplate x:DataType="viewModels:SelectableStringOptionViewModel">
+                                                <CheckBox
+                                                    Content="{x:Bind DisplayName, Mode=OneWay}"
+                                                    IsChecked="{x:Bind IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            </DataTemplate>
+                                        </ItemsRepeater.ItemTemplate>
+                                    </ItemsRepeater>
+                                </wct:SettingsCard>
+                                <wct:SettingsCard
+                                    Description="{x:Bind ViewModel.OperatingSystemDefaultEditionDescription, Mode=OneWay}"
+                                    Header="{x:Bind ViewModel.OperatingSystemDefaultEditionLabel, Mode=OneWay}">
+                                    <wct:SettingsCard.HeaderIcon>
+                                        <FontIcon Glyph="&#xE718;" />
+                                    </wct:SettingsCard.HeaderIcon>
+                                    <ComboBox
+                                        Width="{ThemeResource FoundryWideInputMinWidth}"
+                                        DisplayMemberPath="DisplayName"
+                                        IsEnabled="{x:Bind ViewModel.IsDefaultOperatingSystemEditionSelectionEnabled, Mode=OneWay}"
+                                        ItemsSource="{x:Bind ViewModel.DefaultOperatingSystemEditionOptions, Mode=OneWay}"
+                                        SelectedItem="{x:Bind ViewModel.SelectedDefaultOperatingSystemEdition, Mode=TwoWay}" />
+                                </wct:SettingsCard>
+                            </wct:SettingsExpander.Items>
+                        </wct:SettingsExpander>
+                    </StackPanel>
+                </StackPanel>
+            </ContentControl>
+        </StackPanel>
+    </ScrollView>
+</Page>

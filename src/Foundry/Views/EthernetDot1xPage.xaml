@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Page x:Class="Foundry.Views.EthernetDot1xPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="using:Foundry.Behaviors"
+    xmlns:controls="using:Foundry.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:Foundry.ViewModels"
+    xmlns:wct="using:CommunityToolkit.WinUI.Controls"
+    mc:Ignorable="d">
+    <ScrollView
+        Margin="{ThemeResource ContentPageMargin}"
+        Padding="{ThemeResource ContentPagePadding}"
+        VerticalScrollBarVisibility="Auto">
+        <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+            <controls:PageHeader
+                x:Uid="EthernetDot1xPageHeader"
+                DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
+                IconGlyph="&#xE839;">
+                <controls:PageHeader.ActionContent>
+                    <ToggleSwitch
+                        x:Uid="EthernetDot1xPageEnableToggle"
+                        behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                        IsOn="{x:Bind ViewModel.IsDot1xEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </controls:PageHeader.ActionContent>
+            </controls:PageHeader>
+
+            <ContentControl IsEnabled="{x:Bind ViewModel.IsDot1xEnabled, Mode=OneWay}">
+                <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+                    <wct:SettingsCard
+                        HorizontalContentAlignment="Stretch"
+                        Header="{x:Bind ViewModel.ProfileTemplateLabel, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.Dot1xSettingsVisibility, Mode=OneWay}">
+                        <StackPanel
+                            HorizontalAlignment="Right"
+                            Spacing="{ThemeResource FoundrySpace4}">
+                            <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox
+                                    Width="{ThemeResource FoundryWideInputMinWidth}"
+                                    Text="{x:Bind ViewModel.Dot1xProfileTemplatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <Button
+                                    Grid.Column="1"
+                                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
+                                    Command="{x:Bind ViewModel.BrowseDot1xProfileTemplateCommand}"
+                                    Content="{x:Bind ViewModel.BrowseButtonText, Mode=OneWay}" />
+                            </Grid>
+                            <TextBlock
+                                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                                Text="{x:Bind ViewModel.Dot1xProfileTemplateValidationMessage, Mode=OneWay}"
+                                TextWrapping="WrapWholeWords"
+                                Visibility="{x:Bind ViewModel.Dot1xProfileTemplateValidationVisibility, Mode=OneWay}" />
+                        </StackPanel>
+                    </wct:SettingsCard>
+                    <wct:SettingsCard
+                        Header="{x:Bind ViewModel.RequiresCertificateText, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.Dot1xSettingsVisibility, Mode=OneWay}">
+                        <ToggleSwitch
+                            behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                            IsOn="{x:Bind ViewModel.IsDot1xCertificateRequired, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </wct:SettingsCard>
+                    <wct:SettingsCard
+                        HorizontalContentAlignment="Stretch"
+                        Header="{x:Bind ViewModel.Dot1xCertificateLabel, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.Dot1xCertificatePathVisibility, Mode=OneWay}">
+                        <StackPanel
+                            HorizontalAlignment="Right"
+                            Spacing="{ThemeResource FoundrySpace4}">
+                            <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox
+                                    Width="{ThemeResource FoundryWideInputMinWidth}"
+                                    Text="{x:Bind ViewModel.Dot1xCertificatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <Button
+                                    Grid.Column="1"
+                                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
+                                    Command="{x:Bind ViewModel.BrowseDot1xCertificateCommand}"
+                                    Content="{x:Bind ViewModel.BrowseButtonText, Mode=OneWay}" />
+                            </Grid>
+                            <TextBlock
+                                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                                Text="{x:Bind ViewModel.Dot1xCertificateValidationMessage, Mode=OneWay}"
+                                TextWrapping="WrapWholeWords"
+                                Visibility="{x:Bind ViewModel.Dot1xCertificateValidationVisibility, Mode=OneWay}" />
+                        </StackPanel>
+                    </wct:SettingsCard>
+
+                    <wct:SettingsExpander
+                        Description="{x:Bind ViewModel.WindowsRoamingDescription, Mode=OneWay}"
+                        Header="{x:Bind ViewModel.WindowsRoamingHeader, Mode=OneWay}"
+                        IsEnabled="{x:Bind ViewModel.IsNetworkProfileRoamingAvailable, Mode=OneWay}"
+                        IsExpanded="{x:Bind ViewModel.IsWindowsRoamingExpanded, Mode=TwoWay}">
+                        <wct:SettingsExpander.HeaderIcon>
+                            <FontIcon Glyph="&#xE8AB;" />
+                        </wct:SettingsExpander.HeaderIcon>
+                        <ToggleSwitch
+                            behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                            AutomationProperties.Name="{x:Bind ViewModel.RoamNetworkProfilesText, Mode=OneWay}"
+                            IsEnabled="{x:Bind ViewModel.IsNetworkProfileRoamingAvailable, Mode=OneWay}"
+                            IsOn="{x:Bind ViewModel.IsNetworkProfileRoamingEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <wct:SettingsExpander.Items>
+                            <wct:SettingsCard
+                                Description="{x:Bind ViewModel.RoamPrivateKeyMaterialDescription, Mode=OneWay}"
+                                Header="{x:Bind ViewModel.RoamPrivateKeyMaterialText, Mode=OneWay}"
+                                Visibility="{x:Bind ViewModel.RoamPrivateKeyMaterialVisibility, Mode=OneWay}">
+                                <ToggleSwitch
+                                    behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                                    IsEnabled="{x:Bind ViewModel.IsPrivateKeyMaterialRoamingEnabled, Mode=OneWay}"
+                                    IsOn="{x:Bind ViewModel.IsPrivateKeyMaterialRoamingRequested, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </wct:SettingsCard>
+                        </wct:SettingsExpander.Items>
+                    </wct:SettingsExpander>
+                </StackPanel>
+            </ContentControl>
+        </StackPanel>
+    </ScrollView>
+</Page>

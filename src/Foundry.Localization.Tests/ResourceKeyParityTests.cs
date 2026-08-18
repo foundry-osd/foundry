@@ -95,9 +95,18 @@ public sealed class ResourceKeyParityTests
         string[] expectedKeys =
         [
             "Adk.PageDescription",
-            "Customization.PageDescription",
+            "AiComponentsPageHeader.Description",
+            "AppRemovalPageHeader.Description",
+            "AutopilotInteractiveHashUploadPageHeader.Description",
+            "AutopilotJsonProfilePageHeader.Description",
+            "AutopilotZeroTouchPageHeader.Description",
+            "EthernetDot1xPageHeader.Description",
             "GeneralConfiguration.PageDescription",
-            "Network.PageDescription",
+            "MachineNamingPageHeader.Description",
+            "OobePageHeader.Description",
+            "OptionalFeaturesPageHeader.Description",
+            "OsSelectionPageHeader.Description",
+            "WifiPageHeader.Description",
             "StartMedia.PageDescription"
         ];
 

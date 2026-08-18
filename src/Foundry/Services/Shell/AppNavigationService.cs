@@ -13,7 +13,8 @@ namespace Foundry.Services.Shell;
 
 internal sealed class AppNavigationService(
     IApplicationLocalizationService localizationService,
-    IShellNavigationGuardService navigationGuard) : IAppNavigationService
+    IShellNavigationGuardService navigationGuard,
+    INavigationStatusService navigationStatusService) : IAppNavigationService
 {
     private readonly Dictionary<string, NavigationViewItem> routeItems = [];
     private NavigationView? navigationView;
@@ -42,6 +43,7 @@ internal sealed class AppNavigationService(
         dispatcherQueue = navigationView.DispatcherQueue;
         frame.Navigated += OnFrameNavigated;
         navigationGuard.StateChanged += OnNavigationGuardStateChanged;
+        navigationStatusService.StatusChanged += OnNavigationStatusChanged;
         BuildMenuItems();
         NavigateTo(typeof(Views.HomeLandingPage));
     }
@@ -122,12 +124,10 @@ internal sealed class AppNavigationService(
         NavigationSection? currentSection = null;
         foreach (NavigationRoute route in NavigationRouteCatalog.PrimaryRoutes)
         {
-            if (route.Section != currentSection)
+            if (route.Section is { } section && section != currentSection)
             {
-                currentSection = route.Section;
-                string headerKey = currentSection == NavigationSection.General
-                    ? "Nav_GeneralSection.Title"
-                    : "Nav_ExpertSection.Title";
+                currentSection = section;
+                string headerKey = NavigationRouteCatalog.GetSectionTitleResourceKey(section);
                 navigationView.MenuItems.Add(new NavigationViewItemHeader
                 {
                     Content = localizationService.GetString(headerKey)
@@ -151,6 +151,7 @@ internal sealed class AppNavigationService(
             }
 
             AutomationProperties.SetName(item, localizationService.GetString(route.TitleResourceKey));
+            ApplyNavigationStatus(route, item);
             routeItems.Add(route.Id, item);
             navigationView.MenuItems.Add(item);
         }
@@ -211,6 +212,50 @@ internal sealed class AppNavigationService(
         }
 
         ApplyGuardState();
+    }
+
+    private void OnNavigationStatusChanged(object? sender, EventArgs e)
+    {
+        if (dispatcherQueue?.HasThreadAccess == false)
+        {
+            dispatcherQueue.TryEnqueue(ApplyNavigationStatuses);
+            return;
+        }
+
+        ApplyNavigationStatuses();
+    }
+
+    private void ApplyNavigationStatuses()
+    {
+        foreach ((string routeId, NavigationViewItem item) in routeItems)
+        {
+            if (NavigationRouteCatalog.FindById(routeId) is { } route)
+            {
+                ApplyNavigationStatus(route, item);
+            }
+        }
+    }
+
+    private void ApplyNavigationStatus(NavigationRoute route, NavigationViewItem item)
+    {
+        NavigationStatus? status = navigationStatusService.GetStatus(route.PageType);
+        if (status is null)
+        {
+            item.InfoBadge = null;
+            AutomationProperties.SetItemStatus(item, string.Empty);
+            return;
+        }
+
+        string statusText = localizationService.GetString(status.StatusResourceKey);
+        AutomationProperties.SetItemStatus(item, statusText);
+        item.InfoBadge = status.Severity is { } severity
+            ? NavigationInfoBadgeFactory.Create(severity)
+            : null;
+        if (item.InfoBadge is not null)
+        {
+            ToolTipService.SetToolTip(item.InfoBadge, statusText);
+            AutomationProperties.SetName(item.InfoBadge, statusText);
+        }
     }
 
     private void ApplyGuardState(bool raiseStateChanged = true)

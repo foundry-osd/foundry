@@ -32,9 +32,16 @@ public sealed partial class PageHeader : UserControl
         typeof(PageHeader),
         new PropertyMetadata(string.Empty, OnHeaderPropertyChanged));
 
+    public static readonly DependencyProperty ActionContentProperty = DependencyProperty.Register(
+        nameof(ActionContent),
+        typeof(object),
+        typeof(PageHeader),
+        new PropertyMetadata(null, OnHeaderPropertyChanged));
+
     private readonly FontIcon icon = new();
     private readonly TextBlock titleTextBlock = new();
     private readonly TextBlock descriptionTextBlock = new();
+    private readonly ContentPresenter actionPresenter = new();
     private readonly DocumentationButton documentationButton = new();
 
     public PageHeader()
@@ -67,6 +74,12 @@ public sealed partial class PageHeader : UserControl
         set => SetValue(DocumentationUrlProperty, value);
     }
 
+    public object? ActionContent
+    {
+        get => GetValue(ActionContentProperty);
+        set => SetValue(ActionContentProperty, value);
+    }
+
     private static void OnHeaderPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
     {
         ((PageHeader)dependencyObject).UpdateContent();
@@ -82,6 +95,7 @@ public sealed partial class PageHeader : UserControl
 
         layout.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
         layout.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+        layout.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
         layout.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
 
         icon.Width = (double)Application.Current.Resources["FoundryIconSizeHero"];
@@ -110,12 +124,17 @@ public sealed partial class PageHeader : UserControl
         textPanel.Children.Add(descriptionTextBlock);
 
         Grid.SetColumn(textPanel, 1);
-        Grid.SetColumn(documentationButton, 2);
+        Grid.SetColumn(actionPresenter, 2);
+        actionPresenter.HorizontalAlignment = HorizontalAlignment.Right;
+        actionPresenter.VerticalAlignment = VerticalAlignment.Center;
+
+        Grid.SetColumn(documentationButton, 3);
         documentationButton.HorizontalAlignment = HorizontalAlignment.Right;
         documentationButton.VerticalAlignment = VerticalAlignment.Center;
 
         layout.Children.Add(icon);
         layout.Children.Add(textPanel);
+        layout.Children.Add(actionPresenter);
         layout.Children.Add(documentationButton);
         return layout;
     }
@@ -128,6 +147,10 @@ public sealed partial class PageHeader : UserControl
             : Visibility.Visible;
         titleTextBlock.Text = Title;
         descriptionTextBlock.Text = Description;
+        actionPresenter.Content = ActionContent;
+        actionPresenter.Visibility = ActionContent is null
+            ? Visibility.Collapsed
+            : Visibility.Visible;
         documentationButton.DocumentationUrl = DocumentationUrl;
         documentationButton.Visibility = string.IsNullOrWhiteSpace(DocumentationUrl)
             ? Visibility.Collapsed

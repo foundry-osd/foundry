@@ -18,15 +18,6 @@ public sealed partial class CustomizationConfigurationViewModel
     public bool IsOobeOptionsEnabled => IsOobeEnabled;
 
     [ObservableProperty]
-    public partial string OobeHeader { get; set; }
-
-    [ObservableProperty]
-    public partial string OobeDescription { get; set; }
-
-    [ObservableProperty]
-    public partial string OobeEnableText { get; set; }
-
-    [ObservableProperty]
     public partial string OobeSkipLicenseTermsLabel { get; set; }
 
     [ObservableProperty]
@@ -75,9 +66,6 @@ public sealed partial class CustomizationConfigurationViewModel
     public partial string OobeLocationAccessDescription { get; set; }
 
     [ObservableProperty]
-    public partial bool IsOobeExpanded { get; set; }
-
-    [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsOobeOptionsEnabled))]
     public partial bool IsOobeEnabled { get; set; }
 
@@ -107,7 +95,6 @@ public sealed partial class CustomizationConfigurationViewModel
 
     partial void OnIsOobeEnabledChanged(bool value)
     {
-        IsOobeExpanded = value;
         SaveState();
     }
 
@@ -160,7 +147,6 @@ public sealed partial class CustomizationConfigurationViewModel
     private void ApplyOobeState(OobeSettings settings)
     {
         IsOobeEnabled = settings.IsEnabled;
-        IsOobeExpanded = settings.IsEnabled;
         SkipLicenseTerms = settings.SkipLicenseTerms;
         SelectedOobeDiagnosticData = SelectOption(OobeDiagnosticDataOptions, settings.DiagnosticDataLevel);
         HidePrivacySetup = settings.HidePrivacySetup;
@@ -191,9 +177,6 @@ public sealed partial class CustomizationConfigurationViewModel
 
     private void RefreshOobeLocalizedText()
     {
-        OobeHeader = localizationService.GetString("Customization.OobeHeader");
-        OobeDescription = localizationService.GetString("Customization.OobeDescription");
-        OobeEnableText = localizationService.GetString("Customization.OobeEnableLabel");
         OobeSkipLicenseTermsLabel = localizationService.GetString("Customization.OobeSkipLicenseTermsLabel");
         OobeSkipLicenseTermsDescription = localizationService.GetString("Customization.OobeSkipLicenseTermsDescription");
         OobeDiagnosticDataLabel = localizationService.GetString("Customization.OobeDiagnosticDataLabel");

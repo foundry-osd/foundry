@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Page x:Class="Foundry.Views.AppRemovalPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="using:Foundry.Behaviors"
+    xmlns:controls="using:Foundry.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:Foundry.ViewModels"
+    xmlns:wct="using:CommunityToolkit.WinUI.Controls"
+    mc:Ignorable="d">
+    <ScrollView
+        Margin="{ThemeResource ContentPageMargin}"
+        Padding="{ThemeResource ContentPagePadding}"
+        VerticalScrollBarVisibility="Auto">
+        <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+            <controls:PageHeader
+                x:Uid="AppRemovalPageHeader"
+                DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
+                IconGlyph="&#xE74D;">
+                <controls:PageHeader.ActionContent>
+                    <ToggleSwitch
+                        x:Uid="AppRemovalPageEnableToggle"
+                        behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                        IsOn="{x:Bind ViewModel.IsAppxRemovalEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </controls:PageHeader.ActionContent>
+            </controls:PageHeader>
+
+            <ContentControl IsEnabled="{x:Bind ViewModel.IsAppxRemovalEnabled, Mode=OneWay}">
+                <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+                    <wct:SettingsCard
+                        Description="{x:Bind ViewModel.AppxRemovalProfileDescription, Mode=OneWay}"
+                        Header="{x:Bind ViewModel.AppxRemovalProfileLabel, Mode=OneWay}"
+                        IsEnabled="{x:Bind ViewModel.IsAppxRemovalOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xEC25;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <DropDownButton
+                            MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                            Content="{x:Bind ViewModel.AppxRemovalProfileSummaryText, Mode=OneWay}">
+                            <DropDownButton.Flyout>
+                                <Flyout Placement="BottomEdgeAlignedRight">
+                                    <StackPanel
+                                        MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                        Spacing="{ThemeResource FoundrySpace12}">
+                                        <ItemsRepeater ItemsSource="{x:Bind ViewModel.AppxRemovalCategories, Mode=OneWay}">
+                                            <ItemsRepeater.ItemTemplate>
+                                                <DataTemplate x:DataType="viewModels:AppxRemovalCategoryViewModel">
+                                                    <CheckBox
+                                                        Click="OnAppxRemovalProfileClick"
+                                                        Content="{x:Bind DisplayName, Mode=OneWay}"
+                                                        IsChecked="{x:Bind IsProfileSelected, Mode=OneWay}"
+                                                        IsThreeState="False"
+                                                        Tag="{x:Bind}" />
+                                                </DataTemplate>
+                                            </ItemsRepeater.ItemTemplate>
+                                        </ItemsRepeater>
+                                        <Button
+                                            MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                                            HorizontalAlignment="Right"
+                                            Command="{x:Bind ViewModel.RemoveAllAppxRemovalCommand}"
+                                            Content="{x:Bind ViewModel.AppxRemovalRemoveAllText, Mode=OneWay}" />
+                                    </StackPanel>
+                                </Flyout>
+                            </DropDownButton.Flyout>
+                        </DropDownButton>
+                    </wct:SettingsCard>
+                    <wct:SettingsCard
+                        HorizontalContentAlignment="Stretch"
+                        Description="{x:Bind ViewModel.AppxRemovalSelectedCountText, Mode=OneWay}"
+                        Header="{x:Bind ViewModel.AppxRemovalPackagesLabel, Mode=OneWay}"
+                        IsEnabled="{x:Bind ViewModel.IsAppxRemovalOptionsEnabled, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE8B7;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+                            <StackPanel
+                                HorizontalAlignment="Right"
+                                Orientation="Horizontal"
+                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                <Button
+                                    MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                                    Command="{x:Bind ViewModel.SelectAllAppxRemovalCommand}"
+                                    Content="{x:Bind ViewModel.AppxRemovalSelectAllText, Mode=OneWay}" />
+                                <Button
+                                    MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                                    Command="{x:Bind ViewModel.RemoveAllAppxRemovalCommand}"
+                                    Content="{x:Bind ViewModel.AppxRemovalRemoveAllText, Mode=OneWay}" />
+                            </StackPanel>
+                            <ItemsRepeater ItemsSource="{x:Bind ViewModel.AppxRemovalCategories, Mode=OneWay}">
+                                <ItemsRepeater.ItemTemplate>
+                                    <DataTemplate x:DataType="viewModels:AppxRemovalCategoryViewModel">
+                                        <StackPanel
+                                            Margin="0,0,0,16"
+                                            Spacing="{ThemeResource FoundrySpace8}">
+                                            <TextBlock
+                                                Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                                Text="{x:Bind DisplayName, Mode=OneWay}" />
+                                            <ItemsRepeater ItemsSource="{x:Bind Items, Mode=OneWay}">
+                                                <ItemsRepeater.Layout>
+                                                    <UniformGridLayout
+                                                        MaximumRowsOrColumns="3"
+                                                        MinColumnSpacing="{ThemeResource FoundrySpace12}"
+                                                        MinItemWidth="{ThemeResource FoundryCheckboxGridItemMinWidth}"
+                                                        MinRowSpacing="{ThemeResource FoundrySpace4}" />
+                                                </ItemsRepeater.Layout>
+                                                <ItemsRepeater.ItemTemplate>
+                                                    <DataTemplate x:DataType="viewModels:AppxRemovalItemViewModel">
+                                                        <CheckBox
+                                                            Content="{x:Bind DisplayName, Mode=OneWay}"
+                                                            IsChecked="{x:Bind IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                    </DataTemplate>
+                                                </ItemsRepeater.ItemTemplate>
+                                            </ItemsRepeater>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsRepeater.ItemTemplate>
+                            </ItemsRepeater>
+                        </StackPanel>
+                    </wct:SettingsCard>
+                </StackPanel>
+            </ContentControl>
+        </StackPanel>
+    </ScrollView>
+</Page>

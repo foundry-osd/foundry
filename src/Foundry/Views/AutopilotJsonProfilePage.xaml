@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Page x:Class="Foundry.Views.AutopilotJsonProfilePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Foundry.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tv="using:WinUI.TableView"
+    xmlns:wct="using:CommunityToolkit.WinUI.Controls"
+    mc:Ignorable="d">
+    <ScrollView
+        Margin="{ThemeResource ContentPageMargin}"
+        Padding="{ThemeResource ContentPagePadding}"
+        VerticalScrollBarVisibility="Auto">
+        <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+            <controls:PageHeader
+                x:Uid="AutopilotJsonProfilePageHeader"
+                DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
+                IconGlyph="&#xE8A5;">
+                <controls:PageHeader.ActionContent>
+                    <Button
+                        Click="OnModeActionClick"
+                        Content="{x:Bind ViewModel.JsonProfileActionText, Mode=OneWay}" />
+                </controls:PageHeader.ActionContent>
+            </controls:PageHeader>
+
+            <ContentControl IsEnabled="{x:Bind ViewModel.IsJsonProfileActive, Mode=OneWay}">
+                <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+                    <wct:SettingsCard
+                        HorizontalContentAlignment="Stretch"
+                        Description="{x:Bind ViewModel.ActionsDescription, Mode=OneWay}"
+                        Header="{x:Bind ViewModel.ActionsHeader, Mode=OneWay}">
+                        <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal"
+                                Spacing="{ThemeResource FoundrySpace8}"
+                                Visibility="{x:Bind ViewModel.BusyStatusVisibility, Mode=OneWay}">
+                                <ProgressRing
+                                    Width="{ThemeResource FoundryIconSizeDefault}"
+                                    Height="{ThemeResource FoundryIconSizeDefault}"
+                                    IsActive="{x:Bind ViewModel.IsBusy, Mode=OneWay}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Text="{x:Bind ViewModel.BusyStatusText, Mode=OneWay}" />
+                            </StackPanel>
+
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                <Button
+                                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
+                                    Command="{x:Bind ViewModel.ImportProfileCommand}"
+                                    Content="{x:Bind ViewModel.ImportButtonText, Mode=OneWay}" />
+                                <Button
+                                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
+                                    Command="{x:Bind ViewModel.DownloadProfilesCommand}"
+                                    Content="{x:Bind ViewModel.DownloadButtonText, Mode=OneWay}" />
+                                <Button
+                                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
+                                    Command="{x:Bind ViewModel.RemoveSelectedProfilesCommand}"
+                                    Content="{x:Bind ViewModel.RemoveButtonText, Mode=OneWay}" />
+                            </StackPanel>
+                        </Grid>
+                    </wct:SettingsCard>
+
+                    <wct:SettingsCard
+                        Description="{x:Bind ViewModel.DefaultProfileDescription, Mode=OneWay}"
+                        Header="{x:Bind ViewModel.DefaultProfileLabel, Mode=OneWay}">
+                        <ComboBox
+                            Width="{ThemeResource FoundryWideInputMinWidth}"
+                            DisplayMemberPath="DisplayName"
+                            ItemsSource="{x:Bind ViewModel.Profiles, Mode=OneWay}"
+                            SelectedItem="{x:Bind ViewModel.SelectedDefaultProfile, Mode=TwoWay}" />
+                    </wct:SettingsCard>
+
+                    <wct:SettingsCard
+                        HorizontalContentAlignment="Stretch"
+                        Description="{x:Bind ViewModel.ProfilesDescription, Mode=OneWay}"
+                        Header="{x:Bind ViewModel.ProfilesLabel, Mode=OneWay}">
+                        <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+                            <TextBlock
+                                Text="{x:Bind ViewModel.EmptyProfilesText, Mode=OneWay}"
+                                TextWrapping="Wrap"
+                                Visibility="{x:Bind ViewModel.EmptyProfilesVisibility, Mode=OneWay}" />
+                            <tv:TableView x:Name="ProfilesTable"
+                                MaxHeight="{ThemeResource FoundryTableMaxHeight}"
+                                AutoGenerateColumns="False"
+                                CanFilterColumns="False"
+                                CanReorderColumns="False"
+                                CanResizeColumns="False"
+                                CanSortColumns="False"
+                                CornerButtonMode="None"
+                                HeadersVisibility="Columns"
+                                IsReadOnly="True"
+                                ItemsSource="{x:Bind ViewModel.Profiles, Mode=OneWay}"
+                                SelectionChanged="ProfilesTable_SelectionChanged"
+                                SelectionMode="Multiple"
+                                SelectionUnit="Row"
+                                ShowExportOptions="False"
+                                Visibility="{x:Bind ViewModel.ProfilesVisibility, Mode=OneWay}">
+                                <tv:TableView.Columns>
+                                    <tv:TableViewTextColumn
+                                        Binding="{Binding DisplayName}"
+                                        Header="{x:Bind ViewModel.ProfileNameColumnHeader, Mode=OneWay}" />
+                                    <tv:TableViewTextColumn
+                                        Binding="{Binding Source}"
+                                        Header="{x:Bind ViewModel.ProfileSourceColumnHeader, Mode=OneWay}" />
+                                    <tv:TableViewTextColumn
+                                        Binding="{Binding ImportedAtDisplay}"
+                                        Header="{x:Bind ViewModel.ProfileImportedColumnHeader, Mode=OneWay}" />
+                                    <tv:TableViewTextColumn
+                                        Binding="{Binding FolderName}"
+                                        Header="{x:Bind ViewModel.ProfileFolderColumnHeader, Mode=OneWay}" />
+                                </tv:TableView.Columns>
+                            </tv:TableView>
+                        </StackPanel>
+                    </wct:SettingsCard>
+                </StackPanel>
+            </ContentControl>
+        </StackPanel>
+    </ScrollView>
+</Page>

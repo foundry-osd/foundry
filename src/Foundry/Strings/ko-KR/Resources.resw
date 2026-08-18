@@ -156,21 +156,6 @@
   <data name="Language.French" xml:space="preserve">
     <value>프랑스어</value>
   </data>
-  <data name="AutopilotPage_Title.Text" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Autopilot.Header" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Autopilot.Description" xml:space="preserve">
-    <value>배포 미디어의 Autopilot 프로비저닝 방법을 선택합니다: JSON 프로필 스테이징, WinPE zero-touch 하드웨어 해시 업로드 또는 대화형 하드웨어 해시 업로드.</value>
-  </data>
-  <data name="Autopilot.PageDescription" xml:space="preserve">
-    <value>배포 미디어 및 하드웨어 등록을 위한 Windows Autopilot 등록 설정을 구성합니다.</value>
-  </data>
-  <data name="Autopilot.EnableLabel" xml:space="preserve">
-    <value>Autopilot 활성화</value>
-  </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>프로필 가져오기</value>
   </data>
@@ -288,29 +273,14 @@
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
     <value>JSON 프로필 프로비저닝</value>
   </data>
-  <data name="Autopilot.JsonProfileDescription" xml:space="preserve">
-    <value>적용된 Windows 이미지에 오프라인 Autopilot 프로필을 준비합니다.</value>
-  </data>
-  <data name="Autopilot.JsonProfileEnableLabel" xml:space="preserve">
-    <value>JSON 프로필 프로비저닝 사용</value>
-  </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>제로터치 하드웨어 해시 업로드</value>
-  </data>
-  <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
-    <value>WinPE의 Foundry Deploy에서 Intune으로 장치 하드웨어 해시를 업로드합니다.</value>
-  </data>
-  <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>제로터치 하드웨어 해시 업로드 사용</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>대화형 하드웨어 해시 업로드</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>OOBE 중 하드웨어 해시 등록을 위해 기술자 장치 코드 로그인을 준비합니다.</value>
-  </data>
-  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
-    <value>대화형 하드웨어 해시 업로드 사용</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>테넌트 연결</value>
@@ -549,23 +519,11 @@
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
     <value>관리되는 앱 등록이 준비되지 않았습니다. 테넌트 준비 상태를 검토하고 다시 연결합니다.</value>
   </data>
-  <data name="CustomizationPage_Title.Text" xml:space="preserve">
-    <value>맞춤화</value>
-  </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry이 브라우저에서 문서를 열 수 없습니다. 대신 URL을 사용하세요.</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>문서를 열 수 없습니다.</value>
-  </data>
-  <data name="Customization.MachineNamingHeader" xml:space="preserve">
-    <value>컴퓨터 이름</value>
-  </data>
-  <data name="Customization.MachineNamingDescription" xml:space="preserve">
-    <value>WinPE에서 배포된 컴퓨터 이름이 생성되는 방식을 제어합니다.</value>
-  </data>
-  <data name="Customization.MachineNamingEnableLabel" xml:space="preserve">
-    <value>머신 명명 규칙 활성화</value>
   </data>
   <data name="Customization.MachineNamingPrefixLabel" xml:space="preserve">
     <value>컴퓨터 이름 접두사</value>
@@ -587,15 +545,6 @@
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
     <value>접두사는 A-Z, a-z, 0-9 또는 -의 1~15자 문자를 사용해야 합니다.</value>
-  </data>
-  <data name="Customization.OobeHeader" xml:space="preserve">
-    <value>즉시 사용 가능한 경험</value>
-  </data>
-  <data name="Customization.OobeDescription" xml:space="preserve">
-    <value>Windows 11개의 첫 실행 화면과 개인 정보 기본값을 구성합니다.</value>
-  </data>
-  <data name="Customization.OobeEnableLabel" xml:space="preserve">
-    <value>OOBE 사용자 정의</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>라이선스 조건 건너뛰기</value>
@@ -660,15 +609,6 @@
   <data name="Customization.OobeLocationForceOff" xml:space="preserve">
     <value>강제 종료</value>
   </data>
-  <data name="Customization.AiComponentRemovalHeader" xml:space="preserve">
-    <value>AI 구성 요소 제거</value>
-  </data>
-  <data name="Customization.AiComponentRemovalDescription" xml:space="preserve">
-    <value>OOBE 이전에 선택한 Windows AI 구성 요소를 제거하거나 비활성화합니다.</value>
-  </data>
-  <data name="Customization.AiComponentRemovalEnableLabel" xml:space="preserve">
-    <value>AI 구성 요소 제거</value>
-  </data>
   <data name="Customization.AiComponentRemoveCopilotLabel" xml:space="preserve">
     <value>Microsoft Copilot 제거</value>
   </data>
@@ -716,15 +656,6 @@
   </data>
   <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
     <value>AI 기능을 비활성화하는 Notepad 정책을 설정합니다.</value>
-  </data>
-  <data name="Customization.WindowsOptionalFeaturesHeader" xml:space="preserve">
-    <value>Windows 선택적 기능</value>
-  </data>
-  <data name="Customization.WindowsOptionalFeaturesDescription" xml:space="preserve">
-    <value>배포된 운영 체제에서 Windows 구성 요소를 활성화하거나 비활성화합니다.</value>
-  </data>
-  <data name="Customization.WindowsOptionalFeaturesEnableLabel" xml:space="preserve">
-    <value>Windows 선택적 기능 구성</value>
   </data>
   <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
     <value>변경 내용은 Windows를 설치한 후 OOBE 이전에 오프라인으로 적용됩니다. 활성화 작업은 설치된 이미지 또는 일치하는 설정 미디어 소스만 사용합니다. 인터넷 대체는 사용되지 않습니다.</value>
@@ -1245,15 +1176,6 @@
   <data name="Customization.WindowsOptionalFeatures.Feature.Recall" xml:space="preserve">
     <value>Recall</value>
   </data>
-  <data name="Customization.AppxRemovalHeader" xml:space="preserve">
-    <value>프로비저닝된 앱 제거</value>
-  </data>
-  <data name="Customization.AppxRemovalDescription" xml:space="preserve">
-    <value>OOBE 전에 선택한 프로비저닝된 Windows 앱을 제거합니다.</value>
-  </data>
-  <data name="Customization.AppxRemovalEnableLabel" xml:space="preserve">
-    <value>프로비저닝된 Windows 앱 제거</value>
-  </data>
   <data name="Customization.AppxRemovalProfileLabel" xml:space="preserve">
     <value>프로필</value>
   </data>
@@ -1380,20 +1302,11 @@
   <data name="Common.AutomaticOption" xml:space="preserve">
     <value>자동</value>
   </data>
-  <data name="NetworkPage_Title.Text" xml:space="preserve">
-    <value>네트워크</value>
-  </data>
-  <data name="Dot1x.EnableLabel" xml:space="preserve">
-    <value>유선 802.1X 구성</value>
-  </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>신뢰할 수 있는 루트 CA 인증서 파일</value>
   </data>
   <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
     <value>802.1X 인증서 선택</value>
-  </data>
-  <data name="Wifi.EnableLabel" xml:space="preserve">
-    <value>부팅 이미지에서 Wi-Fi 지원 제공</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Wi-Fi 프로필 사전 프로비저닝</value>
@@ -1424,18 +1337,6 @@
   </data>
   <data name="Wifi.SecurityTypeEnterpriseWpa3192" xml:space="preserve">
     <value>WPA3 엔터프라이즈 192비트(WPA3ENT192)</value>
-  </data>
-  <data name="Network.EthernetSectionTitle" xml:space="preserve">
-    <value>Ethernet</value>
-  </data>
-  <data name="Network.EthernetHelperText" xml:space="preserve">
-    <value>기본적으로 표준 Ethernet 연결을 사용할 수 있습니다. 유선 네트워크에 802.1X 기업 인증이 필요한 경우에만 이 섹션을 구성하십시오.</value>
-  </data>
-  <data name="Network.WifiSectionTitle" xml:space="preserve">
-    <value>Wi-Fi</value>
-  </data>
-  <data name="Network.WifiHelperText" xml:space="preserve">
-    <value>부팅 이미지에 Wi-Fi 지원 및 WinPE 시작에 대한 Wi-Fi 프로필이 포함되어야 하는 경우에만 이 기능을 활성화하세요.</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
     <value>개인 Wi-Fi 암호는 작성 앱에서 일시적으로 유지되며 Foundry 구성에서는 유지되지 않습니다.</value>
@@ -2133,32 +2034,11 @@
   <data name="Nav_AdkKey.Title" xml:space="preserve">
     <value>ADK</value>
   </data>
-  <data name="Nav_AutopilotKey.Description" xml:space="preserve">
-    <value>Autopilot 프로필 구성.</value>
-  </data>
-  <data name="Nav_AutopilotKey.Subtitle" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Nav_AutopilotKey.Title" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Nav_CustomizationKey.Description" xml:space="preserve">
-    <value>배포 사용자 정의 옵션.</value>
-  </data>
-  <data name="Nav_CustomizationKey.Subtitle" xml:space="preserve">
-    <value>맞춤화</value>
-  </data>
-  <data name="Nav_CustomizationKey.Title" xml:space="preserve">
-    <value>맞춤화</value>
-  </data>
   <data name="Nav_DocumentationKey.Description" xml:space="preserve">
     <value>Foundry 문서 및 프로젝트 링크.</value>
   </data>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>문서</value>
-  </data>
-  <data name="Nav_ExpertSection.Title" xml:space="preserve">
-    <value>전문가</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Description" xml:space="preserve">
     <value>표준 구성 워크플로.</value>
@@ -2183,15 +2063,6 @@
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>홈</value>
-  </data>
-  <data name="Nav_NetworkKey.Description" xml:space="preserve">
-    <value>네트워크 및 연결 구성.</value>
-  </data>
-  <data name="Nav_NetworkKey.Subtitle" xml:space="preserve">
-    <value>네트워크</value>
-  </data>
-  <data name="Nav_NetworkKey.Title" xml:space="preserve">
-    <value>네트워크</value>
   </data>
   <data name="Nav_StartKey.Description" xml:space="preserve">
     <value>미디어 생성을 검토하고 시작합니다.</value>
@@ -2580,12 +2451,6 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>중국어 번체(대만)</value>
   </data>
-  <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Windows 배포 옵션</value>
-  </data>
-  <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>배포 중 제공할 Windows 버전, 업데이트 수준, 언어 및 에디션을 정의합니다.</value>
-  </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>Windows 버전</value>
   </data>
@@ -2681,18 +2546,207 @@
   <data name="Adk.PageDescription" xml:space="preserve">
     <value>배포 미디어를 만들기 전에 Windows ADK 및 Windows PE 추가 기능 준비 상태를 검토합니다.</value>
   </data>
-  <data name="Customization.PageDescription" xml:space="preserve">
-    <value>시스템 이름 지정, 운영 체제 선택, OOBE, 분류된 Windows 선택적 기능, AI 구성 요소 제거 및 AppX 제거를 구성합니다.</value>
-  </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>미디어 기준, WinPE 언어, 부팅 서명, 드라이버 및 배포 표준 시간대를 구성합니다.</value>
-  </data>
-  <data name="Network.PageDescription" xml:space="preserve">
-    <value>배포 미디어용 유선 802.1X, Wi-Fi 프로비저닝 및 프로필 로밍을 구성합니다.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>준비 상태를 검토하고 ISO 또는 USB 출력을 선택한 다음 미디어 만들기를 시작합니다.</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve"><value>왼쪽으로 스크롤</value></data>
   <data name="Home.Scroll.Forward" xml:space="preserve"><value>오른쪽으로 스크롤</value></data>
+  <data name="Nav_NetworkSection.Title" xml:space="preserve">
+    <value>Network</value>
+  </data>
+  <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
+    <value>Windows Autopilot</value>
+  </data>
+  <data name="Nav_CustomizationSection.Title" xml:space="preserve">
+    <value>Customization</value>
+  </data>
+  <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
+    <value>Ethernet 802.1X</value>
+  </data>
+  <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
+    <value>Configure wired 802.1X authentication.</value>
+  </data>
+  <data name="Nav_WifiKey.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Nav_WifiKey.Description" xml:space="preserve">
+    <value>Configure Wi-Fi provisioning and profiles.</value>
+  </data>
+  <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
+    <value>JSON profile</value>
+  </data>
+  <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
+    <value>Provision devices with an Autopilot JSON profile.</value>
+  </data>
+  <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
+    <value>Zero-touch</value>
+  </data>
+  <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
+    <value>Upload hardware hashes through Microsoft Graph.</value>
+  </data>
+  <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
+    <value>Interactive hash upload</value>
+  </data>
+  <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
+    <value>Upload hardware hashes interactively during deployment.</value>
+  </data>
+  <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
+    <value>OS selection</value>
+  </data>
+  <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
+    <value>Constrain deployment operating system choices.</value>
+  </data>
+  <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
+    <value>Machine naming</value>
+  </data>
+  <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
+    <value>Configure deployed device names.</value>
+  </data>
+  <data name="Nav_OobeKey.Title" xml:space="preserve">
+    <value>OOBE</value>
+  </data>
+  <data name="Nav_OobeKey.Description" xml:space="preserve">
+    <value>Configure the Windows out-of-box experience.</value>
+  </data>
+  <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
+    <value>Optional features</value>
+  </data>
+  <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
+    <value>Enable or disable Windows optional features.</value>
+  </data>
+  <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
+    <value>App removal</value>
+  </data>
+  <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
+    <value>Select provisioned apps to remove.</value>
+  </data>
+  <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
+    <value>AI components</value>
+  </data>
+  <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
+    <value>Remove or disable Windows AI components.</value>
+  </data>
+  <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
+    <value>Ethernet 802.1X</value>
+  </data>
+  <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
+    <value>Configure wired 802.1X authentication and Windows profile roaming.</value>
+  </data>
+  <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Enable Ethernet 802.1X configuration</value>
+  </data>
+  <data name="WifiPageHeader.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="WifiPageHeader.Description" xml:space="preserve">
+    <value>Configure Wi-Fi provisioning, embedded profiles, and Windows profile roaming.</value>
+  </data>
+  <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Enable Wi-Fi provisioning</value>
+  </data>
+  <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
+    <value>JSON profile</value>
+  </data>
+  <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
+    <value>Import or download the Autopilot profile embedded in deployment media.</value>
+  </data>
+  <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
+    <value>Zero-touch</value>
+  </data>
+  <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
+    <value>Configure tenant-backed automatic hardware hash upload.</value>
+  </data>
+  <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
+    <value>Interactive hash upload</value>
+  </data>
+  <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
+    <value>Let the technician upload the device hardware hash during deployment.</value>
+  </data>
+  <data name="OsSelectionPageHeader.Title" xml:space="preserve">
+    <value>OS selection</value>
+  </data>
+  <data name="OsSelectionPageHeader.Description" xml:space="preserve">
+    <value>Configure allowed operating system releases, languages, channels, and editions.</value>
+  </data>
+  <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Enable operating system selection configuration</value>
+  </data>
+  <data name="MachineNamingPageHeader.Title" xml:space="preserve">
+    <value>Machine naming</value>
+  </data>
+  <data name="MachineNamingPageHeader.Description" xml:space="preserve">
+    <value>Configure automatic and technician-assisted device naming.</value>
+  </data>
+  <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Enable machine naming configuration</value>
+  </data>
+  <data name="OobePageHeader.Title" xml:space="preserve">
+    <value>OOBE</value>
+  </data>
+  <data name="OobePageHeader.Description" xml:space="preserve">
+    <value>Configure privacy and setup choices for the Windows out-of-box experience.</value>
+  </data>
+  <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Enable OOBE configuration</value>
+  </data>
+  <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
+    <value>Optional features</value>
+  </data>
+  <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
+    <value>Choose Windows optional features to enable or disable.</value>
+  </data>
+  <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Enable optional features configuration</value>
+  </data>
+  <data name="AppRemovalPageHeader.Title" xml:space="preserve">
+    <value>App removal</value>
+  </data>
+  <data name="AppRemovalPageHeader.Description" xml:space="preserve">
+    <value>Choose provisioned Windows apps to remove from deployed devices.</value>
+  </data>
+  <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Enable app removal configuration</value>
+  </data>
+  <data name="AiComponentsPageHeader.Title" xml:space="preserve">
+    <value>AI components</value>
+  </data>
+  <data name="AiComponentsPageHeader.Description" xml:space="preserve">
+    <value>Choose Windows AI components and experiences to remove or disable.</value>
+  </data>
+  <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Enable AI components configuration</value>
+  </data>
+  <data name="Common.Enable" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="Common.Disable" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="NavigationStatus.Configured" xml:space="preserve">
+    <value>Configured</value>
+  </data>
+  <data name="NavigationStatus.NotConfigured" xml:space="preserve">
+    <value>Not configured</value>
+  </data>
+  <data name="NavigationStatus.AdkReady" xml:space="preserve">
+    <value>ADK ready</value>
+  </data>
+  <data name="NavigationStatus.AdkNotReady" xml:space="preserve">
+    <value>ADK not ready</value>
+  </data>
+  <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
+    <value>Active provisioning mode</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
+    <value>Change provisioning mode?</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationMessageFormat" xml:space="preserve">
+    <value>{0} is currently active. Continuing will disable it and enable {1}.</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
+    <value>Change mode</value>
+  </data>
 </root>

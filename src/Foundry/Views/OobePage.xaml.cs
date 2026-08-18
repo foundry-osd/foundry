@@ -4,11 +4,11 @@
 
 namespace Foundry.Views;
 
-public sealed partial class CustomizationPage : Page
+public sealed partial class OobePage : Page
 {
     public CustomizationConfigurationViewModel ViewModel { get; }
 
-    public CustomizationPage()
+    public OobePage()
     {
         ViewModel = App.GetService<CustomizationConfigurationViewModel>();
         InitializeComponent();
@@ -19,13 +19,5 @@ public sealed partial class CustomizationPage : Page
     {
         Unloaded -= OnUnloaded;
         ViewModel.Dispose();
-    }
-
-    private void OnAppxRemovalProfileClick(object sender, RoutedEventArgs e)
-    {
-        if (sender is CheckBox { Tag: AppxRemovalCategoryViewModel category })
-        {
-            ViewModel.ToggleAppxRemovalProfile(category);
-        }
     }
 }

@@ -24,15 +24,6 @@ public sealed partial class CustomizationConfigurationViewModel
     public string AppxRemovalProfileSummaryText => ResolveAppxRemovalProfileSummary();
 
     [ObservableProperty]
-    public partial string AppxRemovalHeader { get; set; }
-
-    [ObservableProperty]
-    public partial string AppxRemovalDescription { get; set; }
-
-    [ObservableProperty]
-    public partial string AppxRemovalEnableText { get; set; }
-
-    [ObservableProperty]
     public partial string AppxRemovalProfileLabel { get; set; }
 
     [ObservableProperty]
@@ -46,9 +37,6 @@ public sealed partial class CustomizationConfigurationViewModel
 
     [ObservableProperty]
     public partial string AppxRemovalPackagesLabel { get; set; }
-
-    [ObservableProperty]
-    public partial bool IsAppxRemovalExpanded { get; set; }
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsAppxRemovalOptionsEnabled))]
@@ -90,7 +78,6 @@ public sealed partial class CustomizationConfigurationViewModel
     private void ApplyAppxRemovalState(AppxRemovalSettings settings)
     {
         IsAppxRemovalEnabled = settings.IsEnabled;
-        IsAppxRemovalExpanded = settings.IsEnabled;
         HashSet<string> selectedPackageNames = settings.PackageNames.ToHashSet(StringComparer.OrdinalIgnoreCase);
         bool hasPersistedSelection = selectedPackageNames.Count > 0;
 
@@ -134,9 +121,6 @@ public sealed partial class CustomizationConfigurationViewModel
 
     private void RefreshAppxRemovalLocalizedText()
     {
-        AppxRemovalHeader = localizationService.GetString("Customization.AppxRemovalHeader");
-        AppxRemovalDescription = localizationService.GetString("Customization.AppxRemovalDescription");
-        AppxRemovalEnableText = localizationService.GetString("Customization.AppxRemovalEnableLabel");
         AppxRemovalProfileLabel = localizationService.GetString("Customization.AppxRemovalProfileLabel");
         AppxRemovalProfileDescription = localizationService.GetString("Customization.AppxRemovalProfileDescription");
         AppxRemovalSelectAllText = localizationService.GetString("Customization.AppxRemovalSelectAll");
@@ -240,7 +224,6 @@ public sealed partial class CustomizationConfigurationViewModel
 
     partial void OnIsAppxRemovalEnabledChanged(bool value)
     {
-        IsAppxRemovalExpanded = value;
         SaveState();
     }
 

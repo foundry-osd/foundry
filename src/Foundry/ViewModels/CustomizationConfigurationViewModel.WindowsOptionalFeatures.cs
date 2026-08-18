@@ -24,15 +24,6 @@ public sealed partial class CustomizationConfigurationViewModel
         : Visibility.Collapsed;
 
     [ObservableProperty]
-    public partial string WindowsOptionalFeaturesHeader { get; set; }
-
-    [ObservableProperty]
-    public partial string WindowsOptionalFeaturesDescription { get; set; }
-
-    [ObservableProperty]
-    public partial string WindowsOptionalFeaturesEnableText { get; set; }
-
-    [ObservableProperty]
     public partial string WindowsOptionalFeaturesExplanation { get; set; }
 
     [ObservableProperty]
@@ -49,9 +40,6 @@ public sealed partial class CustomizationConfigurationViewModel
 
     [ObservableProperty]
     public partial string WindowsOptionalFeatureSearchText { get; set; } = string.Empty;
-
-    [ObservableProperty]
-    public partial bool IsWindowsOptionalFeaturesExpanded { get; set; }
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsWindowsOptionalFeatureOptionsEnabled))]
@@ -86,7 +74,6 @@ public sealed partial class CustomizationConfigurationViewModel
         try
         {
             IsWindowsOptionalFeaturesEnabled = normalized.IsEnabled;
-            IsWindowsOptionalFeaturesExpanded = normalized.IsEnabled;
             foreach (WindowsOptionalFeatureItemViewModel item in windowsOptionalFeatureItemsById.Values)
             {
                 item.SetState(enabledIds.Contains(item.Id)
@@ -130,9 +117,6 @@ public sealed partial class CustomizationConfigurationViewModel
 
     private void RefreshWindowsOptionalFeatureLocalizedText()
     {
-        WindowsOptionalFeaturesHeader = localizationService.GetString("Customization.WindowsOptionalFeaturesHeader");
-        WindowsOptionalFeaturesDescription = localizationService.GetString("Customization.WindowsOptionalFeaturesDescription");
-        WindowsOptionalFeaturesEnableText = localizationService.GetString("Customization.WindowsOptionalFeaturesEnableLabel");
         WindowsOptionalFeaturesExplanation = localizationService.GetString("Customization.WindowsOptionalFeaturesExplanation");
         WindowsOptionalFeatureSearchLabel = localizationService.GetString("Customization.WindowsOptionalFeaturesSearchLabel");
         WindowsOptionalFeatureSearchPlaceholder = localizationService.GetString("Customization.WindowsOptionalFeaturesSearchPlaceholder");
@@ -325,7 +309,6 @@ public sealed partial class CustomizationConfigurationViewModel
 
     partial void OnIsWindowsOptionalFeaturesEnabledChanged(bool value)
     {
-        IsWindowsOptionalFeaturesExpanded = value;
         if (isApplyingState || isApplyingWindowsOptionalFeatureSelection)
         {
             return;

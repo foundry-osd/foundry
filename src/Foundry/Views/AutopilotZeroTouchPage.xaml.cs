@@ -2,13 +2,15 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Core.Models.Configuration;
+
 namespace Foundry.Views;
 
-public sealed partial class AutopilotPage : Page
+public sealed partial class AutopilotZeroTouchPage : Page
 {
     public AutopilotConfigurationViewModel ViewModel { get; }
 
-    public AutopilotPage()
+    public AutopilotZeroTouchPage()
     {
         ViewModel = App.GetService<AutopilotConfigurationViewModel>();
         InitializeComponent();
@@ -23,14 +25,10 @@ public sealed partial class AutopilotPage : Page
         ViewModel.Dispose();
     }
 
-    private void ProfilesTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private async void OnModeActionClick(object sender, RoutedEventArgs e)
     {
-        if (sender is WinUI.TableView.TableView tableView)
-        {
-            ViewModel.ReplaceSelectedProfiles(tableView.SelectedItems.OfType<AutopilotProfileEntryViewModel>());
-        }
+        await ViewModel.ToggleProvisioningModeAsync(AutopilotProvisioningMode.HardwareHashUpload);
     }
-
     private void CertificatesTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (sender is WinUI.TableView.TableView tableView)
@@ -39,20 +37,16 @@ public sealed partial class AutopilotPage : Page
         }
     }
 
-    private void BootMediaCertificatePasswordBox_OnLoaded(object sender, RoutedEventArgs e)
-    {
+    private void BootMediaCertificatePasswordBox_OnLoaded(object sender, RoutedEventArgs e) =>
         SyncBootMediaCertificatePasswordBox();
-    }
 
     private void BootMediaCertificatePasswordBox_OnPasswordChanged(object sender, RoutedEventArgs e)
     {
-        if (sender is not PasswordBox passwordBox ||
-            string.Equals(ViewModel.GetBootMediaCertificatePassword(), passwordBox.Password, StringComparison.Ordinal))
+        if (sender is PasswordBox passwordBox &&
+            !string.Equals(ViewModel.GetBootMediaCertificatePassword(), passwordBox.Password, StringComparison.Ordinal))
         {
-            return;
+            ViewModel.SetBootMediaCertificatePassword(passwordBox.Password);
         }
-
-        ViewModel.SetBootMediaCertificatePassword(passwordBox.Password);
     }
 
     private void OnViewModelPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -65,9 +59,11 @@ public sealed partial class AutopilotPage : Page
 
     private void SyncBootMediaCertificatePasswordBox()
     {
-        if (!string.Equals(BootMediaCertificatePasswordBox.Password, ViewModel.GetBootMediaCertificatePassword(), StringComparison.Ordinal))
+        string password = ViewModel.GetBootMediaCertificatePassword();
+        if (!string.Equals(BootMediaCertificatePasswordBox.Password, password, StringComparison.Ordinal))
         {
-            BootMediaCertificatePasswordBox.Password = ViewModel.GetBootMediaCertificatePassword();
+            BootMediaCertificatePasswordBox.Password = password;
         }
     }
+
 }

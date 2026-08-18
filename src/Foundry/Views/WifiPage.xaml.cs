@@ -4,11 +4,11 @@
 
 namespace Foundry.Views;
 
-public sealed partial class NetworkPage : Page
+public sealed partial class WifiPage : Page
 {
     public NetworkConfigurationViewModel ViewModel { get; }
 
-    public NetworkPage()
+    public WifiPage()
     {
         ViewModel = App.GetService<NetworkConfigurationViewModel>();
         InitializeComponent();
@@ -23,20 +23,15 @@ public sealed partial class NetworkPage : Page
         ViewModel.Dispose();
     }
 
-    private void WifiPassphraseBox_OnLoaded(object sender, RoutedEventArgs e)
-    {
-        SyncWifiPassphraseBox();
-    }
+    private void WifiPassphraseBox_OnLoaded(object sender, RoutedEventArgs e) => SyncWifiPassphraseBox();
 
     private void WifiPassphraseBox_OnPasswordChanged(object sender, RoutedEventArgs e)
     {
-        if (sender is not PasswordBox passwordBox ||
-            string.Equals(ViewModel.WifiPassphrase, passwordBox.Password, StringComparison.Ordinal))
+        if (sender is PasswordBox passwordBox &&
+            !string.Equals(ViewModel.WifiPassphrase, passwordBox.Password, StringComparison.Ordinal))
         {
-            return;
+            ViewModel.WifiPassphrase = passwordBox.Password;
         }
-
-        ViewModel.WifiPassphrase = passwordBox.Password;
     }
 
     private void OnViewModelPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)

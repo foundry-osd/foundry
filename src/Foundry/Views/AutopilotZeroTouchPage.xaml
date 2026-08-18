@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Page x:Class="Foundry.Views.AutopilotZeroTouchPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Foundry.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tv="using:WinUI.TableView"
+    xmlns:wct="using:CommunityToolkit.WinUI.Controls"
+    mc:Ignorable="d">
+    <ScrollView
+        Margin="{ThemeResource ContentPageMargin}"
+        Padding="{ThemeResource ContentPagePadding}"
+        VerticalScrollBarVisibility="Auto">
+        <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+            <controls:PageHeader
+                x:Uid="AutopilotZeroTouchPageHeader"
+                DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
+                IconGlyph="&#xE753;">
+                <controls:PageHeader.ActionContent>
+                    <Button
+                        Click="OnModeActionClick"
+                        Content="{x:Bind ViewModel.HardwareHashUploadActionText, Mode=OneWay}" />
+                </controls:PageHeader.ActionContent>
+            </controls:PageHeader>
+
+            <ContentControl IsEnabled="{x:Bind ViewModel.IsHardwareHashUploadActive, Mode=OneWay}">
+                <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+                    <wct:SettingsCard
+                        HorizontalContentAlignment="Stretch"
+                        Description="{x:Bind ViewModel.TenantStatusDescription, Mode=OneWay}"
+                        Header="{x:Bind ViewModel.TenantStatusLabel, Mode=OneWay}">
+                        <StackPanel
+                            HorizontalAlignment="Right"
+                            Orientation="Horizontal"
+                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Foreground="{x:Bind ViewModel.TenantStatusForeground, Mode=OneWay}"
+                                Text="{x:Bind ViewModel.TenantStatusText, Mode=OneWay}" />
+                            <Button
+                                MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
+                                Command="{x:Bind ViewModel.ConnectTenantCommand}"
+                                Content="{x:Bind ViewModel.TenantConnectionButtonText, Mode=OneWay}" />
+                        </StackPanel>
+                    </wct:SettingsCard>
+
+                    <wct:SettingsCard
+                        HorizontalContentAlignment="Stretch"
+                        Description="{x:Bind ViewModel.TenantReadinessDescription, Mode=OneWay}"
+                        Header="{x:Bind ViewModel.TenantReadinessLabel, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
+                        <tv:TableView
+                            MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                            MaxHeight="{ThemeResource FoundryTableMaxHeight}"
+                            HorizontalAlignment="Right"
+                            AutoGenerateColumns="False"
+                            CanFilterColumns="False"
+                            CanReorderColumns="False"
+                            CanResizeColumns="False"
+                            CanSortColumns="False"
+                            CornerButtonMode="None"
+                            HeadersVisibility="Columns"
+                            IsReadOnly="True"
+                            ItemsSource="{x:Bind ViewModel.TenantReadinessEntries, Mode=OneWay}"
+                            SelectionMode="None"
+                            SelectionUnit="Row"
+                            ShowExportOptions="False">
+                            <tv:TableView.Columns>
+                                <tv:TableViewTextColumn
+                                    Binding="{Binding Name}"
+                                    Header="{x:Bind ViewModel.TenantReadinessNameColumnHeader, Mode=OneWay}" />
+                                <tv:TableViewTemplateColumn Header="{x:Bind ViewModel.TenantReadinessValueColumnHeader, Mode=OneWay}">
+                                    <tv:TableViewTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Margin="12,0,12,0"
+                                                Foreground="{Binding ValueForeground}"
+                                                Text="{Binding Value}"
+                                                TextTrimming="CharacterEllipsis" />
+                                        </DataTemplate>
+                                    </tv:TableViewTemplateColumn.CellTemplate>
+                                </tv:TableViewTemplateColumn>
+                            </tv:TableView.Columns>
+                        </tv:TableView>
+                    </wct:SettingsCard>
+
+                    <wct:SettingsCard
+                        HorizontalContentAlignment="Stretch"
+                        Description="{x:Bind ViewModel.CertificateActionsDescription, Mode=OneWay}"
+                        Header="{x:Bind ViewModel.CertificateActionsLabel, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
+                        <StackPanel
+                            HorizontalAlignment="Right"
+                            Orientation="Horizontal"
+                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                            <ComboBox
+                                MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
+                                DisplayMemberPath="DisplayName"
+                                ItemsSource="{x:Bind ViewModel.CertificateValidityOptions, Mode=OneWay}"
+                                SelectedItem="{x:Bind ViewModel.SelectedCertificateValidityOption, Mode=TwoWay}" />
+                            <Button
+                                MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
+                                VerticalAlignment="Bottom"
+                                Command="{x:Bind ViewModel.CreateCertificateCommand}"
+                                Content="{x:Bind ViewModel.CreateCertificateButtonText, Mode=OneWay}" />
+                            <Button
+                                MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
+                                VerticalAlignment="Bottom"
+                                Command="{x:Bind ViewModel.RetireActiveCertificateCommand}"
+                                Content="{x:Bind ViewModel.RetireCertificateButtonText, Mode=OneWay}" />
+                        </StackPanel>
+                    </wct:SettingsCard>
+
+                    <wct:SettingsCard
+                        HorizontalContentAlignment="Stretch"
+                        Description="{x:Bind ViewModel.ProvisionedCertificatesDescription, Mode=OneWay}"
+                        Header="{x:Bind ViewModel.ProvisionedCertificatesLabel, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
+                        <StackPanel
+                            HorizontalAlignment="Right"
+                            Spacing="{ThemeResource FoundrySpace8}">
+                            <TextBlock
+                                HorizontalAlignment="Right"
+                                Text="{x:Bind ViewModel.EmptyCertificatesText, Mode=OneWay}"
+                                TextWrapping="WrapWholeWords"
+                                Visibility="{x:Bind ViewModel.EmptyCertificatesVisibility, Mode=OneWay}" />
+                            <tv:TableView x:Name="CertificatesTable"
+                                MaxHeight="{ThemeResource FoundryTableMaxHeight}"
+                                AutoGenerateColumns="False"
+                                CanFilterColumns="False"
+                                CanReorderColumns="False"
+                                CanResizeColumns="False"
+                                CanSortColumns="False"
+                                CornerButtonMode="None"
+                                HeadersVisibility="Columns"
+                                IsReadOnly="True"
+                                ItemsSource="{x:Bind ViewModel.Certificates, Mode=OneWay}"
+                                SelectionChanged="CertificatesTable_SelectionChanged"
+                                SelectionMode="Multiple"
+                                SelectionUnit="Row"
+                                ShowExportOptions="False"
+                                Visibility="{x:Bind ViewModel.CertificatesVisibility, Mode=OneWay}">
+                                <tv:TableView.Columns>
+                                    <tv:TableViewTextColumn
+                                        Binding="{Binding Thumbprint}"
+                                        Header="{x:Bind ViewModel.CertificateThumbprintColumnHeader, Mode=OneWay}" />
+                                    <tv:TableViewTextColumn
+                                        Binding="{Binding StartsOnDisplay}"
+                                        Header="{x:Bind ViewModel.CertificateCreatedColumnHeader, Mode=OneWay}" />
+                                    <tv:TableViewTemplateColumn Header="{x:Bind ViewModel.CertificateExpiresColumnHeader, Mode=OneWay}">
+                                        <tv:TableViewTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    Margin="12,0,12,0"
+                                                    Foreground="{Binding ValidityForeground}"
+                                                    Text="{Binding ExpiresOnDisplay}"
+                                                    TextTrimming="CharacterEllipsis" />
+                                            </DataTemplate>
+                                        </tv:TableViewTemplateColumn.CellTemplate>
+                                    </tv:TableViewTemplateColumn>
+                                    <tv:TableViewTextColumn
+                                        Binding="{Binding KeyId}"
+                                        Header="{x:Bind ViewModel.CertificateIdColumnHeader, Mode=OneWay}" />
+                                </tv:TableView.Columns>
+                            </tv:TableView>
+                        </StackPanel>
+                    </wct:SettingsCard>
+
+                    <wct:SettingsCard
+                        HorizontalContentAlignment="Stretch"
+                        Description="{x:Bind ViewModel.BootMediaCertificateDescription, Mode=OneWay}"
+                        Header="{x:Bind ViewModel.BootMediaCertificateLabel, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.BootMediaCertificateVisibility, Mode=OneWay}">
+                        <StackPanel
+                            HorizontalAlignment="Right"
+                            Spacing="{ThemeResource FoundrySpace8}">
+                            <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox
+                                    MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                    Header="{x:Bind ViewModel.BootMediaCertificatePfxPathLabel, Mode=OneWay}"
+                                    IsReadOnly="True"
+                                    Text="{x:Bind ViewModel.BootMediaCertificatePfxPath, Mode=OneWay}" />
+                                <Button
+                                    Grid.Column="1"
+                                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
+                                    VerticalAlignment="Bottom"
+                                    Command="{x:Bind ViewModel.SelectBootMediaCertificatePfxCommand}"
+                                    Content="{x:Bind ViewModel.SelectBootMediaCertificateButtonText, Mode=OneWay}" />
+                            </Grid>
+                            <PasswordBox x:Name="BootMediaCertificatePasswordBox"
+                                MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                Header="{x:Bind ViewModel.BootMediaCertificatePasswordLabel, Mode=OneWay}"
+                                Loaded="BootMediaCertificatePasswordBox_OnLoaded"
+                                PasswordChanged="BootMediaCertificatePasswordBox_OnPasswordChanged" />
+                            <TextBlock
+                                Foreground="{x:Bind ViewModel.BootMediaCertificateStatusForeground, Mode=OneWay}"
+                                Text="{x:Bind ViewModel.BootMediaCertificateStatusText, Mode=OneWay}"
+                                TextWrapping="WrapWholeWords" />
+                        </StackPanel>
+                    </wct:SettingsCard>
+
+                    <wct:SettingsCard
+                        HorizontalContentAlignment="Stretch"
+                        Description="{x:Bind ViewModel.GroupTagDescription, Mode=OneWay}"
+                        Header="{x:Bind ViewModel.GroupTagLabel, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
+                        <ComboBox
+                            MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
+                            HorizontalAlignment="Right"
+                            DisplayMemberPath="DisplayName"
+                            ItemsSource="{x:Bind ViewModel.DefaultGroupTagOptions, Mode=OneWay}"
+                            PlaceholderText="{x:Bind ViewModel.DefaultGroupTagText, Mode=OneWay}"
+                            SelectedItem="{x:Bind ViewModel.SelectedDefaultGroupTag, Mode=TwoWay}" />
+                    </wct:SettingsCard>
+                </StackPanel>
+            </ContentControl>
+        </StackPanel>
+    </ScrollView>
+</Page>

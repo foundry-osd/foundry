@@ -54,21 +54,6 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     public ObservableCollection<SelectionOption<string>> WifiSecurityTypes { get; } = [];
 
     [ObservableProperty]
-    public partial string PageTitle { get; set; }
-
-    [ObservableProperty]
-    public partial string PageDescription { get; set; }
-
-    [ObservableProperty]
-    public partial string EthernetHeader { get; set; }
-
-    [ObservableProperty]
-    public partial string EthernetDescription { get; set; }
-
-    [ObservableProperty]
-    public partial string Dot1xEnableText { get; set; }
-
-    [ObservableProperty]
     public partial string ProfileTemplateLabel { get; set; }
 
     [ObservableProperty]
@@ -76,15 +61,6 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
 
     [ObservableProperty]
     public partial string RequiresCertificateText { get; set; }
-
-    [ObservableProperty]
-    public partial string WifiHeader { get; set; }
-
-    [ObservableProperty]
-    public partial string WifiDescription { get; set; }
-
-    [ObservableProperty]
-    public partial string WifiProvisionedText { get; set; }
 
     [ObservableProperty]
     public partial string WifiConfiguredText { get; set; }
@@ -130,12 +106,6 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
 
     [ObservableProperty]
     public partial string BrowseButtonText { get; set; }
-
-    [ObservableProperty]
-    public partial bool IsDot1xExpanded { get; set; }
-
-    [ObservableProperty]
-    public partial bool IsWifiExpanded { get; set; }
 
     [ObservableProperty]
     public partial bool IsWindowsRoamingExpanded { get; set; }
@@ -645,17 +615,9 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
 
     private void RefreshLocalizedText()
     {
-        PageTitle = localizationService.GetString("NetworkPage_Title.Text");
-        PageDescription = localizationService.GetString("Network.PageDescription");
-        EthernetHeader = localizationService.GetString("Network.EthernetSectionTitle");
-        EthernetDescription = localizationService.GetString("Network.EthernetHelperText");
-        Dot1xEnableText = localizationService.GetString("Dot1x.EnableLabel");
         ProfileTemplateLabel = localizationService.GetString("Network.ProfileTemplateLabel");
         Dot1xCertificateLabel = localizationService.GetString("Dot1x.CertificateLabel");
         RequiresCertificateText = localizationService.GetString("Network.RequiresCertificateLabel");
-        WifiHeader = localizationService.GetString("Network.WifiSectionTitle");
-        WifiDescription = localizationService.GetString("Network.WifiHelperText");
-        WifiProvisionedText = localizationService.GetString("Wifi.EnableLabel");
         WifiConfiguredText = localizationService.GetString("Wifi.ConfigureLabel");
         WifiSsidLabel = localizationService.GetString("Wifi.SsidLabel");
         WifiSecurityTypeLabel = localizationService.GetString("Wifi.SecurityTypeLabel");
@@ -736,8 +698,6 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         OnPropertyChanged(nameof(WifiCertificateValidationMessage));
         OnPropertyChanged(nameof(WifiCertificateValidationVisibility));
 
-        IsDot1xExpanded = ShouldExpandDot1xSection();
-        IsWifiExpanded = ShouldExpandWifiSection();
         IsWindowsRoamingExpanded = IsNetworkProfileRoamingAvailable && IsNetworkProfileRoamingEnabled;
     }
 
@@ -751,24 +711,6 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         IsNetworkProfileRoamingEnabled = false;
         IsPrivateKeyMaterialRoamingRequested = false;
         IsWindowsRoamingExpanded = false;
-    }
-
-    private bool ShouldExpandDot1xSection()
-    {
-        return IsDot1xEnabled ||
-               HasDot1xValidationError ||
-               !string.IsNullOrWhiteSpace(Dot1xProfileTemplatePath) ||
-               !string.IsNullOrWhiteSpace(Dot1xCertificatePath);
-    }
-
-    private bool ShouldExpandWifiSection()
-    {
-        return IsWifiProvisioned ||
-               IsWifiConfigured ||
-               HasWifiValidationError ||
-               !string.IsNullOrWhiteSpace(WifiSsid) ||
-               !string.IsNullOrWhiteSpace(WifiEnterpriseProfileTemplatePath) ||
-               !string.IsNullOrWhiteSpace(WifiCertificatePath);
     }
 
     private string ResolveWifiPassphrase(NetworkSettings settings)
