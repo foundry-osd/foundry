@@ -218,6 +218,11 @@ public sealed partial class CustomizationConfigurationViewModel
 
     private OperatingSystemSelectionSettings BuildOperatingSystemSelectionSettings()
     {
+        if (!initializedCatalogs.Contains(CustomizationCatalog.OperatingSystemSelection))
+        {
+            return configurationStateService.Current.OperatingSystemSelection;
+        }
+
         return OperatingSystemSelectionSettingsNormalizer.Normalize(new OperatingSystemSelectionSettings
         {
             IsEnabled = IsOperatingSystemSelectionEnabled,

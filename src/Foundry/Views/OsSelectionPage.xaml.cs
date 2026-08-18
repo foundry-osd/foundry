@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Core.Services.Configuration;
+
 namespace Foundry.Views;
 
 public sealed partial class OsSelectionPage : Page
@@ -11,6 +13,7 @@ public sealed partial class OsSelectionPage : Page
     public OsSelectionPage()
     {
         ViewModel = App.GetService<CustomizationConfigurationViewModel>();
+        ViewModel.InitializeSection(ConfigurationNavigationTarget.OperatingSystemSelection);
         InitializeComponent();
         Unloaded += OnUnloaded;
     }

@@ -5,6 +5,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Configuration;
 
 namespace Foundry.ViewModels;
 
@@ -104,6 +105,11 @@ public sealed partial class CustomizationConfigurationViewModel
 
     private AppxRemovalSettings BuildAppxRemovalSettings()
     {
+        if (!initializedCatalogs.Contains(CustomizationCatalog.AppxRemoval))
+        {
+            return configurationStateService.Current.Customization.AppxRemoval;
+        }
+
         string[] selectedPackageNames = AppxRemovalCategories
             .SelectMany(category => category.Items)
             .Where(item => item.IsSelected)

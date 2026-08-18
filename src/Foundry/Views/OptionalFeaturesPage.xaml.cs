@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Core.Services.Configuration;
 using Foundry.Utilities.Runtime;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml.Input;
@@ -22,6 +23,7 @@ public sealed partial class OptionalFeaturesPage : Page
     public OptionalFeaturesPage()
     {
         ViewModel = App.GetService<CustomizationConfigurationViewModel>();
+        ViewModel.InitializeSection(ConfigurationNavigationTarget.WindowsOptionalFeatures);
         InitializeComponent();
         FeatureSearchBox.Text = ViewModel.WindowsOptionalFeatureSearchText;
         searchTimer = DispatcherQueue.CreateTimer();

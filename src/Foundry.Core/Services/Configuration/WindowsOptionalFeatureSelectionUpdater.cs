@@ -8,40 +8,59 @@ namespace Foundry.Core.Services.Configuration;
 
 public static class WindowsOptionalFeatureSelectionUpdater
 {
+    public static IReadOnlyList<string> GetAffectedFeatureIds(IEnumerable<string> featureIds)
+    {
+        ArgumentNullException.ThrowIfNull(featureIds);
+        WindowsOptionalFeatureCatalogEntry[] entries = featureIds
+            .Select(featureId => WindowsOptionalFeatureCatalog.Find(featureId)
+                ?? throw new ArgumentException(
+                    "A Windows optional feature is not part of the curated catalog.",
+                    nameof(featureIds)))
+            .DistinctBy(entry => entry.Id, StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+        HashSet<string> entryIds = entries.Select(entry => entry.Id).ToHashSet(StringComparer.OrdinalIgnoreCase);
+        HashSet<string> affectedIds = entries
+            .Where(entry => !WindowsOptionalFeatureCatalog.GetAncestors(entry.Id)
+                .Any(ancestor => entryIds.Contains(ancestor.Id)))
+            .SelectMany(entry => WindowsOptionalFeatureCatalog.GetDescendants(entry.Id).Prepend(entry))
+            .Select(entry => entry.Id)
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+        return WindowsOptionalFeatureCatalog.Entries
+            .Where(entry => affectedIds.Contains(entry.Id))
+            .Select(entry => entry.Id)
+            .ToArray();
+    }
+
     public static WindowsOptionalFeatureSettings ApplySubtreeState(
         WindowsOptionalFeatureSettings settings,
         string featureId,
         bool? enable)
+        => ApplySubtreeStates(settings, [featureId], enable);
+
+    public static WindowsOptionalFeatureSettings ApplySubtreeStates(
+        WindowsOptionalFeatureSettings settings,
+        IEnumerable<string> featureIds,
+        bool? enable)
     {
         ArgumentNullException.ThrowIfNull(settings);
-        WindowsOptionalFeatureCatalogEntry entry = WindowsOptionalFeatureCatalog.Find(featureId)
-            ?? throw new ArgumentException("The Windows optional feature is not part of the curated catalog.", nameof(featureId));
+        IReadOnlyList<string> affectedIds = GetAffectedFeatureIds(featureIds);
         WindowsOptionalFeatureSettings normalized = WindowsOptionalFeatureSettingsNormalizer.Normalize(settings);
         HashSet<string> enabledIds = normalized.EnabledFeatureIds.ToHashSet(StringComparer.OrdinalIgnoreCase);
         HashSet<string> disabledIds = normalized.DisabledFeatureIds.ToHashSet(StringComparer.OrdinalIgnoreCase);
-        WindowsOptionalFeatureCatalogEntry[] subtree =
-        [
-            entry,
-            .. WindowsOptionalFeatureCatalog.GetDescendants(entry.Id)
-        ];
 
-        foreach (WindowsOptionalFeatureCatalogEntry subtreeEntry in subtree)
-        {
-            enabledIds.Remove(subtreeEntry.Id);
-            disabledIds.Remove(subtreeEntry.Id);
-            if (enable is true)
-            {
-                enabledIds.Add(subtreeEntry.Id);
-            }
-            else if (enable is false)
-            {
-                disabledIds.Add(subtreeEntry.Id);
-            }
-        }
-
+        enabledIds.ExceptWith(affectedIds);
+        disabledIds.ExceptWith(affectedIds);
         if (enable is true)
         {
-            disabledIds.ExceptWith(WindowsOptionalFeatureCatalog.GetAncestors(entry.Id).Select(ancestor => ancestor.Id));
+            enabledIds.UnionWith(affectedIds);
+            disabledIds.ExceptWith(affectedIds.SelectMany(id => WindowsOptionalFeatureCatalog
+                .GetAncestors(id)
+                .Select(ancestor => ancestor.Id)));
+        }
+        else if (enable is false)
+        {
+            disabledIds.UnionWith(affectedIds);
         }
 
         return WindowsOptionalFeatureSettingsNormalizer.Normalize(new WindowsOptionalFeatureSettings

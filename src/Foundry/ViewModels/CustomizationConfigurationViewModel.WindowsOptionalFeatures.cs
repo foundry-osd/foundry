@@ -107,6 +107,11 @@ public sealed partial class CustomizationConfigurationViewModel
 
     private WindowsOptionalFeatureSettings BuildWindowsOptionalFeatureSettings()
     {
+        if (!initializedCatalogs.Contains(CustomizationCatalog.WindowsOptionalFeatures))
+        {
+            return configurationStateService.Current.Customization.WindowsOptionalFeatures;
+        }
+
         return WindowsOptionalFeatureSettingsNormalizer.Normalize(new WindowsOptionalFeatureSettings
         {
             IsEnabled = IsWindowsOptionalFeaturesEnabled,
@@ -226,27 +231,20 @@ public sealed partial class CustomizationConfigurationViewModel
         WindowsOptionalFeatureCategoryViewModel category,
         WindowsOptionalFeatureState state)
     {
-        isApplyingWindowsOptionalFeatureSelection = true;
-        try
-        {
-            foreach (WindowsOptionalFeatureItemViewModel item in category.VisibleItems)
-            {
-                item.SetState(state);
-            }
-
-            NormalizeWindowsOptionalFeatureAncestorConflicts();
-        }
-        finally
-        {
-            isApplyingWindowsOptionalFeatureSelection = false;
-        }
-
-        RefreshWindowsOptionalFeatureSummaries();
-        SaveWindowsOptionalFeatureState();
+        ApplyWindowsOptionalFeatureSelection(
+            category.AllItems
+                .Where(item => windowsOptionalFeatureBulkActionIds.Contains(item.Id))
+                .Select(item => item.Id),
+            state);
     }
 
     private void ApplyWindowsOptionalFeatureItemState(
         WindowsOptionalFeatureItemViewModel item,
+        WindowsOptionalFeatureState state)
+        => ApplyWindowsOptionalFeatureSelection([item.Id], state);
+
+    private void ApplyWindowsOptionalFeatureSelection(
+        IEnumerable<string> featureIds,
         WindowsOptionalFeatureState state)
     {
         bool? enable = state switch
@@ -255,9 +253,9 @@ public sealed partial class CustomizationConfigurationViewModel
             WindowsOptionalFeatureState.Disable => false,
             _ => null
         };
-        WindowsOptionalFeatureSettings updated = WindowsOptionalFeatureSelectionUpdater.ApplySubtreeState(
+        WindowsOptionalFeatureSettings updated = WindowsOptionalFeatureSelectionUpdater.ApplySubtreeStates(
             BuildWindowsOptionalFeatureSettings(),
-            item.Id,
+            featureIds,
             enable);
 
         ApplyWindowsOptionalFeatureState(updated);
@@ -287,48 +285,21 @@ public sealed partial class CustomizationConfigurationViewModel
             return;
         }
 
-        if (targets.Length >= WindowsOptionalFeatureBulkConfirmationThreshold &&
+        IReadOnlyList<string> affectedIds = WindowsOptionalFeatureSelectionUpdater.GetAffectedFeatureIds(
+            targets.Select(item => item.Id));
+        if (affectedIds.Count >= WindowsOptionalFeatureBulkConfirmationThreshold &&
             !await dialogService.ConfirmAsync(new ConfirmationDialogRequest(
                 localizationService.GetString("Customization.WindowsOptionalFeatures.BulkConfirmationTitle"),
                 localizationService.FormatString(
                     "Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat",
-                    targets.Length),
+                    affectedIds.Count),
                 localizationService.GetString("Customization.WindowsOptionalFeatures.BulkConfirmationPrimary"),
                 localizationService.GetString("Common.Cancel"))))
         {
             return;
         }
 
-        isApplyingWindowsOptionalFeatureSelection = true;
-        try
-        {
-            foreach (WindowsOptionalFeatureItemViewModel item in targets)
-            {
-                item.SetState(state);
-            }
-
-            NormalizeWindowsOptionalFeatureAncestorConflicts();
-        }
-        finally
-        {
-            isApplyingWindowsOptionalFeatureSelection = false;
-        }
-
-        RefreshWindowsOptionalFeatureSummaries();
-        SaveWindowsOptionalFeatureState();
-    }
-
-    private void NormalizeWindowsOptionalFeatureAncestorConflicts()
-    {
-        foreach (WindowsOptionalFeatureItemViewModel item in windowsOptionalFeatureItemsById.Values
-                     .Where(item => item.State == WindowsOptionalFeatureState.Enable))
-        {
-            if (WindowsOptionalFeatureCatalog.GetAncestors(item.Id)
-                .Any(ancestor => windowsOptionalFeatureItemsById[ancestor.Id].State == WindowsOptionalFeatureState.Disable))
-            {
-                item.SetState(WindowsOptionalFeatureState.Unchanged);
-            }
-        }
+        ApplyWindowsOptionalFeatureSelection(affectedIds, state);
     }
 
     private void RebuildVisibleWindowsOptionalFeatures()

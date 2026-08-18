@@ -19,6 +19,8 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
     private readonly IFoundryConfigurationStateService configurationStateService;
     private readonly IDialogService dialogService;
     private readonly IApplicationLocalizationService localizationService;
+    private readonly ILanguageRegistryService languageRegistryService;
+    private readonly HashSet<CustomizationCatalog> initializedCatalogs = [];
     private bool isApplyingState = true;
     private bool isSavingState;
 
@@ -29,12 +31,10 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
         IDialogService dialogService)
     {
         this.configurationStateService = configurationStateService;
+        this.languageRegistryService = languageRegistryService;
         this.localizationService = localizationService;
         this.dialogService = dialogService;
 
-        InitializeAppxRemovalCatalog();
-        InitializeOperatingSystemSelectionOptions(languageRegistryService.GetLanguages());
-        InitializeWindowsOptionalFeatureCatalog();
         RefreshLocalizedText();
         ApplyState(
             configurationStateService.Current.Customization,
@@ -43,6 +43,50 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
         localizationService.LanguageChanged += OnLanguageChanged;
         configurationStateService.StateChanged += OnConfigurationStateChanged;
         isApplyingState = false;
+    }
+
+    /// <summary>
+    /// Initializes only the large catalog required by the page being opened.
+    /// </summary>
+    public void InitializeSection(ConfigurationNavigationTarget target)
+    {
+        CustomizationCatalog catalog = CustomizationCatalogResolver.Resolve(target);
+        if (catalog == CustomizationCatalog.None || !initializedCatalogs.Add(catalog))
+        {
+            return;
+        }
+
+        isApplyingState = true;
+        try
+        {
+            switch (catalog)
+            {
+                case CustomizationCatalog.OperatingSystemSelection:
+                    InitializeOperatingSystemSelectionOptions(languageRegistryService.GetLanguages());
+                    ApplyOperatingSystemSelectionState(configurationStateService.Current.OperatingSystemSelection);
+                    RefreshOperatingSystemSelectionLocalizedText();
+                    break;
+                case CustomizationCatalog.WindowsOptionalFeatures:
+                    InitializeWindowsOptionalFeatureCatalog();
+                    ApplyWindowsOptionalFeatureState(configurationStateService.Current.Customization.WindowsOptionalFeatures);
+                    RefreshWindowsOptionalFeatureLocalizedText();
+                    break;
+                case CustomizationCatalog.AppxRemoval:
+                    InitializeAppxRemovalCatalog();
+                    ApplyAppxRemovalState(configurationStateService.Current.Customization.AppxRemoval);
+                    RefreshAppxRemovalLocalizedText();
+                    break;
+            }
+        }
+        catch
+        {
+            initializedCatalogs.Remove(catalog);
+            throw;
+        }
+        finally
+        {
+            isApplyingState = false;
+        }
     }
 
     /// <summary>

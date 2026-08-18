@@ -127,6 +127,7 @@
                                             Grid.Column="2"
                                             MinWidth="132"
                                             VerticalAlignment="Center"
+                                            AutomationProperties.ItemStatus="{x:Bind StateText, Mode=OneWay}"
                                             AutomationProperties.Name="{x:Bind DisplayName, Mode=OneWay}"
                                             Content="{x:Bind StateText, Mode=OneWay}">
                                             <DropDownButton.Flyout>
