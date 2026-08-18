@@ -2708,7 +2708,7 @@
     <value>Активирайте правилата за именуване на машината</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
-    <value>Начално изживяване при настройка</value>
+    <value>Out-of-Box Experience</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
     <value>Конфигурирайте Windows 11 екрани за първо стартиране и настройки по подразбиране за поверителност.</value>

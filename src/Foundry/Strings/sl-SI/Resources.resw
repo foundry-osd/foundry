@@ -2708,7 +2708,7 @@
     <value>Omogoči pravila za poimenovanje stroja</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
-    <value>Začetna izkušnja</value>
+    <value>Out-of-Box Experience</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
     <value>Konfigurirajte Windows 11 zaslonov za prvi zagon in privzete nastavitve zasebnosti.</value>

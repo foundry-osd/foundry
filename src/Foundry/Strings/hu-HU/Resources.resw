@@ -2708,7 +2708,7 @@
     <value>Gépelnevezési szabályok engedélyezése</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
-    <value>Első használatbavételi élmény</value>
+    <value>Out-of-Box Experience</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
     <value>Windows 11 első futtatási képernyő és adatvédelmi alapbeállítások konfigurálása.</value>

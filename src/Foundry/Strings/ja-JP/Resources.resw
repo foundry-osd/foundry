@@ -2708,7 +2708,7 @@
     <value>マシンの命名規則を有効にする</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
-    <value>初回セットアップ</value>
+    <value>Out-of-Box Experience</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
     <value>Windows 11 の初回実行画面とプライバシーのデフォルトを構成します。</value>

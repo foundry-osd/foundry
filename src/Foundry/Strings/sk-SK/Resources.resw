@@ -2708,7 +2708,7 @@
     <value>Povoliť pravidlá pomenovávania stroja</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
-    <value>Úvodné nastavenie</value>
+    <value>Out-of-Box Experience</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
     <value>Nakonfigurujte Windows 11 obrazoviek prvého spustenia a predvolené nastavenia ochrany osobných údajov.</value>

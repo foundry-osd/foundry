@@ -2708,7 +2708,7 @@
     <value>Ota koneen nimeämissäännöt käyttöön</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
-    <value>Käyttöönotto</value>
+    <value>Out-of-Box Experience</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
     <value>Määritä Windows 11 ensikertalaista näyttöä ja yksityisyyden oletusasetuksia.</value>
