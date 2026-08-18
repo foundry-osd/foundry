@@ -1311,6 +1311,24 @@
   <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
     <value>Windows PE Papildinājums</value>
   </data>
+  <data name="Home.Status.SectionTitle" xml:space="preserve">
+    <value>Datu nesēja gatavības statuss</value>
+  </data>
+  <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
+    <value>Konfigurācija</value>
+  </data>
+  <data name="Home.Status.ConfigCard.SecureBootLabel" xml:space="preserve">
+    <value>Drošā sāknēšana (CA 2023)</value>
+  </data>
+  <data name="Home.Status.ConfigCard.NoDrivers" xml:space="preserve">
+    <value>Nav</value>
+  </data>
+  <data name="Home.Status.ConfigCard.CustomDrivers" xml:space="preserve">
+    <value>Pielāgots</value>
+  </data>
+  <data name="Home.Status.ConfigCard.BlockedStatus" xml:space="preserve">
+    <value>Nepieciešams ADK</value>
+  </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
     <value>Veidojiet Windows izvietošanas datu nesēju ar modernu darbvirsmas darbplūsmu, ko nodrošina WinPE.</value>
   </data>
@@ -2100,9 +2118,6 @@
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Atjaunināt</value>
   </data>
-  <data name="UpdateFooter.BadgeFallback" xml:space="preserve">
-    <value>Jauns</value>
-  </data>
   <data name="Nav_AboutKey.Description" xml:space="preserve">
     <value>Informācija par produktu un versiju.</value>
   </data>
@@ -2678,4 +2693,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Pārskatiet gatavību, izvēlieties ISO vai USB izvadi un sāciet datu nesēja izveidi.</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>Ritināt pa kreisi</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>Ritināt pa labi</value></data>
 </root>

@@ -1311,6 +1311,24 @@
   <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
     <value>Windows PE Dodatek</value>
   </data>
+  <data name="Home.Status.SectionTitle" xml:space="preserve">
+    <value>Stan gotowości nośnika</value>
+  </data>
+  <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
+    <value>Konfiguracja</value>
+  </data>
+  <data name="Home.Status.ConfigCard.SecureBootLabel" xml:space="preserve">
+    <value>Bezpieczny rozruch (CA 2023)</value>
+  </data>
+  <data name="Home.Status.ConfigCard.NoDrivers" xml:space="preserve">
+    <value>Brak</value>
+  </data>
+  <data name="Home.Status.ConfigCard.CustomDrivers" xml:space="preserve">
+    <value>Niestandardowe</value>
+  </data>
+  <data name="Home.Status.ConfigCard.BlockedStatus" xml:space="preserve">
+    <value>Wymaga ADK</value>
+  </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
     <value>Twórz nośniki wdrożeniowe Windows za pomocą nowoczesnego przepływu pracy na komputerze stacjonarnym obsługiwanego przez WinPE.</value>
   </data>
@@ -2100,9 +2118,6 @@
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Aktualizacja</value>
   </data>
-  <data name="UpdateFooter.BadgeFallback" xml:space="preserve">
-    <value>Nowy</value>
-  </data>
   <data name="Nav_AboutKey.Description" xml:space="preserve">
     <value>Informacje o produkcie i wersji.</value>
   </data>
@@ -2678,4 +2693,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Sprawdź gotowość, wybierz wyjście ISO lub USB i rozpocznij tworzenie nośnika.</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>Przewiń w lewo</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>Przewiń w prawo</value></data>
 </root>

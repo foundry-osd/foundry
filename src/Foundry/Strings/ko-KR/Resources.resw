@@ -1311,6 +1311,24 @@
   <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
     <value>Windows PE 부가기능</value>
   </data>
+  <data name="Home.Status.SectionTitle" xml:space="preserve">
+    <value>미디어 준비 상태</value>
+  </data>
+  <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
+    <value>구성</value>
+  </data>
+  <data name="Home.Status.ConfigCard.SecureBootLabel" xml:space="preserve">
+    <value>보안 부팅(CA 2023)</value>
+  </data>
+  <data name="Home.Status.ConfigCard.NoDrivers" xml:space="preserve">
+    <value>없음</value>
+  </data>
+  <data name="Home.Status.ConfigCard.CustomDrivers" xml:space="preserve">
+    <value>사용자 지정</value>
+  </data>
+  <data name="Home.Status.ConfigCard.BlockedStatus" xml:space="preserve">
+    <value>ADK 필요</value>
+  </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
     <value>WinPE이 제공하는 최신 데스크탑 워크플로를 사용하여 Windows 배포 미디어를 구축하세요.</value>
   </data>
@@ -2100,9 +2118,6 @@
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>업데이트</value>
   </data>
-  <data name="UpdateFooter.BadgeFallback" xml:space="preserve">
-    <value>새로운</value>
-  </data>
   <data name="Nav_AboutKey.Description" xml:space="preserve">
     <value>제품 및 버전 정보.</value>
   </data>
@@ -2678,4 +2693,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>준비 상태를 검토하고 ISO 또는 USB 출력을 선택한 다음 미디어 만들기를 시작합니다.</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>왼쪽으로 스크롤</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>오른쪽으로 스크롤</value></data>
 </root>

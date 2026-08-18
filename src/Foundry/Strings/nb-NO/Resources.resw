@@ -1311,6 +1311,24 @@
   <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
     <value>Windows PE tillegg</value>
   </data>
+  <data name="Home.Status.SectionTitle" xml:space="preserve">
+    <value>Status for medieberedskap</value>
+  </data>
+  <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
+    <value>Konfigurasjon</value>
+  </data>
+  <data name="Home.Status.ConfigCard.SecureBootLabel" xml:space="preserve">
+    <value>Sikker oppstart (CA 2023)</value>
+  </data>
+  <data name="Home.Status.ConfigCard.NoDrivers" xml:space="preserve">
+    <value>Ingen</value>
+  </data>
+  <data name="Home.Status.ConfigCard.CustomDrivers" xml:space="preserve">
+    <value>Egendefinert</value>
+  </data>
+  <data name="Home.Status.ConfigCard.BlockedStatus" xml:space="preserve">
+    <value>Krever ADK</value>
+  </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
     <value>Bygg Windows distribusjonsmedier med en moderne skrivebordsarbeidsflyt drevet av WinPE.</value>
   </data>
@@ -2100,9 +2118,6 @@
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Oppdater</value>
   </data>
-  <data name="UpdateFooter.BadgeFallback" xml:space="preserve">
-    <value>Nytt</value>
-  </data>
   <data name="Nav_AboutKey.Description" xml:space="preserve">
     <value>Produkt- og versjonsinformasjon.</value>
   </data>
@@ -2678,4 +2693,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Kontroller beredskapen, velg ISO- eller USB-utdata, og start medieopprettingen.</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>Rull til venstre</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>Rull til høyre</value></data>
 </root>

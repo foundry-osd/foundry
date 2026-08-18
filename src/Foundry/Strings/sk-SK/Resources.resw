@@ -1311,6 +1311,24 @@
   <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
     <value>Doplnok Windows PE</value>
   </data>
+  <data name="Home.Status.SectionTitle" xml:space="preserve">
+    <value>Stav pripravenosti média</value>
+  </data>
+  <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
+    <value>Konfigurácia</value>
+  </data>
+  <data name="Home.Status.ConfigCard.SecureBootLabel" xml:space="preserve">
+    <value>Zabezpečené spustenie (CA 2023)</value>
+  </data>
+  <data name="Home.Status.ConfigCard.NoDrivers" xml:space="preserve">
+    <value>Žiadne</value>
+  </data>
+  <data name="Home.Status.ConfigCard.CustomDrivers" xml:space="preserve">
+    <value>Vlastné</value>
+  </data>
+  <data name="Home.Status.ConfigCard.BlockedStatus" xml:space="preserve">
+    <value>Vyžaduje ADK</value>
+  </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
     <value>Vytvorte nasadzovacie médium Windows s moderným pracovným postupom na pracovnej ploche, ktorý využíva WinPE.</value>
   </data>
@@ -2100,9 +2118,6 @@
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Aktualizovať</value>
   </data>
-  <data name="UpdateFooter.BadgeFallback" xml:space="preserve">
-    <value>Nové</value>
-  </data>
   <data name="Nav_AboutKey.Description" xml:space="preserve">
     <value>Informácie o produkte a verzii.</value>
   </data>
@@ -2678,4 +2693,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Skontrolujte pripravenosť, vyberte výstup ISO alebo USB a spustite vytvorenie média.</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>Posunúť doľava</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>Posunúť doprava</value></data>
 </root>

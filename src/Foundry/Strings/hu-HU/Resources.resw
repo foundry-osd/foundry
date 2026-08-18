@@ -1311,6 +1311,24 @@
   <data name="Home.AdkStatus.WinPeAddonLabel" xml:space="preserve">
     <value>Windows PE Kiegészítő</value>
   </data>
+  <data name="Home.Status.SectionTitle" xml:space="preserve">
+    <value>Az adathordozó készenléti állapota</value>
+  </data>
+  <data name="Home.Status.ConfigCard.Title" xml:space="preserve">
+    <value>Konfiguráció</value>
+  </data>
+  <data name="Home.Status.ConfigCard.SecureBootLabel" xml:space="preserve">
+    <value>Biztonságos rendszerindítás (CA 2023)</value>
+  </data>
+  <data name="Home.Status.ConfigCard.NoDrivers" xml:space="preserve">
+    <value>Nincs</value>
+  </data>
+  <data name="Home.Status.ConfigCard.CustomDrivers" xml:space="preserve">
+    <value>Egyéni</value>
+  </data>
+  <data name="Home.Status.ConfigCard.BlockedStatus" xml:space="preserve">
+    <value>ADK szükséges</value>
+  </data>
   <data name="Home.Header.Subtitle" xml:space="preserve">
     <value>Építsen Windows telepítési adathordozót a WinPE által hajtott modern asztali munkafolyamattal.</value>
   </data>
@@ -2100,9 +2118,6 @@
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Frissítés</value>
   </data>
-  <data name="UpdateFooter.BadgeFallback" xml:space="preserve">
-    <value>Új</value>
-  </data>
   <data name="Nav_AboutKey.Description" xml:space="preserve">
     <value>Termék- és verzióinformáció.</value>
   </data>
@@ -2678,4 +2693,6 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Tekintse át a készenlétet, válasszon ISO vagy USB kimenetet, majd indítsa el az adathordozó létrehozását.</value>
   </data>
+  <data name="Home.Scroll.Back" xml:space="preserve"><value>Görgetés balra</value></data>
+  <data name="Home.Scroll.Forward" xml:space="preserve"><value>Görgetés jobbra</value></data>
 </root>

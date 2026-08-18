@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UserControl x:Class="Foundry.Controls.HomeStatusCard"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    MinWidth="240"
+    mc:Ignorable="d">
+
+    <Grid
+        Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}"
+        CornerRadius="8">
+        <Grid.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="HomeCardButtonResources.xaml" />
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </Grid.Resources>
+        <Button
+            Padding="-1"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
+            AutomationProperties.Name="{x:Bind AutomationName, Mode=OneTime}"
+            Click="CardButton_Click"
+            CornerRadius="{StaticResource OverlayCornerRadius}">
+            <StackPanel
+                Padding="20,16"
+                Spacing="8">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <FontIcon
+                        Grid.Column="0"
+                        Margin="0,0,12,0"
+                        VerticalAlignment="Center"
+                        FontSize="24"
+                        Glyph="{x:Bind IconGlyph, Mode=OneWay}" />
+                    <TextBlock
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{x:Bind Title, Mode=OneWay}" />
+                    <Border
+                        Grid.Column="2"
+                        Padding="8,3"
+                        Background="{x:Bind BadgeBackground, Mode=OneWay}"
+                        CornerRadius="12">
+                        <StackPanel
+                            Orientation="Horizontal"
+                            Spacing="4">
+                            <FontIcon
+                                FontSize="10"
+                                Foreground="{x:Bind BadgeForeground, Mode=OneWay}"
+                                Glyph="{x:Bind BadgeGlyph, Mode=OneWay}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="11"
+                                Foreground="{x:Bind BadgeForeground, Mode=OneWay}"
+                                Text="{x:Bind StatusText, Mode=OneWay}" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <Rectangle
+                    Height="1"
+                    Fill="{ThemeResource DividerStrokeColorDefaultBrush}"
+                    Opacity="0.35" />
+
+                <Grid
+                    ColumnSpacing="12"
+                    RowSpacing="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                        Text="{x:Bind Line1Label, Mode=OneWay}"
+                        TextWrapping="Wrap"
+                        Visibility="{x:Bind Line1Visibility, Mode=OneWay}" />
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Text="{x:Bind Line1Value, Mode=OneWay}"
+                        TextWrapping="Wrap"
+                        Visibility="{x:Bind Line1Visibility, Mode=OneWay}" />
+
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                        Text="{x:Bind Line2Label, Mode=OneWay}"
+                        TextWrapping="Wrap"
+                        Visibility="{x:Bind Line2Visibility, Mode=OneWay}" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Text="{x:Bind Line2Value, Mode=OneWay}"
+                        TextWrapping="Wrap"
+                        Visibility="{x:Bind Line2Visibility, Mode=OneWay}" />
+
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                        Text="{x:Bind Line3Label, Mode=OneWay}"
+                        TextWrapping="Wrap"
+                        Visibility="{x:Bind Line3Visibility, Mode=OneWay}" />
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Text="{x:Bind Line3Value, Mode=OneWay}"
+                        TextWrapping="Wrap"
+                        Visibility="{x:Bind Line3Visibility, Mode=OneWay}" />
+
+                    <TextBlock
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                        Text="{x:Bind Line4Label, Mode=OneWay}"
+                        TextWrapping="Wrap"
+                        Visibility="{x:Bind Line4Visibility, Mode=OneWay}" />
+                    <TextBlock
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Text="{x:Bind Line4Value, Mode=OneWay}"
+                        TextWrapping="Wrap"
+                        Visibility="{x:Bind Line4Visibility, Mode=OneWay}" />
+                </Grid>
+            </StackPanel>
+        </Button>
+    </Grid>
+</UserControl>
