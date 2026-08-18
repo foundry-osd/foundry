@@ -36,15 +36,16 @@ public sealed partial class WindowsOptionalFeatureTreeNodeViewModel : Observable
         WindowsOptionalFeatureItemViewModel item,
         IEnumerable<WindowsOptionalFeatureTreeNodeViewModel> children,
         bool isExpanded,
-        Action<string, bool>? expansionChanged)
+        Action<string, bool>? expansionChanged,
+        Action<WindowsOptionalFeatureItemViewModel, WindowsOptionalFeatureState> applyState)
     {
         this.item = item;
         expansionKey = item.Id;
         this.expansionChanged = expansionChanged;
         Children = new ObservableCollection<WindowsOptionalFeatureTreeNodeViewModel>(children);
-        EnableCommand = new RelayCommand(() => item.SetState(WindowsOptionalFeatureState.Enable));
-        DisableCommand = new RelayCommand(() => item.SetState(WindowsOptionalFeatureState.Disable));
-        ClearCommand = new RelayCommand(() => item.SetState(WindowsOptionalFeatureState.Unchanged));
+        EnableCommand = new RelayCommand(() => applyState(item, WindowsOptionalFeatureState.Enable));
+        DisableCommand = new RelayCommand(() => applyState(item, WindowsOptionalFeatureState.Disable));
+        ClearCommand = new RelayCommand(() => applyState(item, WindowsOptionalFeatureState.Unchanged));
         IsExpanded = isExpanded;
         trackExpansionChanges = true;
     }

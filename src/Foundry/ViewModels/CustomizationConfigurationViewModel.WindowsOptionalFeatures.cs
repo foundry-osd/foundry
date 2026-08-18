@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Configuration;
@@ -65,7 +64,6 @@ public sealed partial class CustomizationConfigurationViewModel
         foreach (WindowsOptionalFeatureCatalogEntry entry in WindowsOptionalFeatureCatalog.Entries)
         {
             var item = new WindowsOptionalFeatureItemViewModel(entry);
-            item.PropertyChanged += OnWindowsOptionalFeatureItemPropertyChanged;
             windowsOptionalFeatureItemsById.Add(item.Id, item);
         }
 
@@ -247,6 +245,25 @@ public sealed partial class CustomizationConfigurationViewModel
         SaveWindowsOptionalFeatureState();
     }
 
+    private void ApplyWindowsOptionalFeatureItemState(
+        WindowsOptionalFeatureItemViewModel item,
+        WindowsOptionalFeatureState state)
+    {
+        bool? enable = state switch
+        {
+            WindowsOptionalFeatureState.Enable => true,
+            WindowsOptionalFeatureState.Disable => false,
+            _ => null
+        };
+        WindowsOptionalFeatureSettings updated = WindowsOptionalFeatureSelectionUpdater.ApplySubtreeState(
+            BuildWindowsOptionalFeatureSettings(),
+            item.Id,
+            enable);
+
+        ApplyWindowsOptionalFeatureState(updated);
+        SaveWindowsOptionalFeatureState();
+    }
+
     [RelayCommand]
     private Task EnableAllVisibleWindowsOptionalFeaturesAsync()
         => ApplyVisibleWindowsOptionalFeatureStateAsync(WindowsOptionalFeatureState.Enable);
@@ -403,7 +420,8 @@ public sealed partial class CustomizationConfigurationViewModel
             item,
             children,
             expand || expandedWindowsOptionalFeatureIds.Contains(item.Id),
-            expand ? null : UpdateExpandedWindowsOptionalFeature);
+            expand ? null : UpdateExpandedWindowsOptionalFeature,
+            ApplyWindowsOptionalFeatureItemState);
     }
 
     private void UpdateExpandedWindowsOptionalFeatureCategory(string resourceKey, bool isExpanded)
@@ -443,37 +461,4 @@ public sealed partial class CustomizationConfigurationViewModel
         RebuildVisibleWindowsOptionalFeatures();
     }
 
-    private void OnWindowsOptionalFeatureItemPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        if (!string.Equals(e.PropertyName, nameof(WindowsOptionalFeatureItemViewModel.State), StringComparison.Ordinal) ||
-            sender is not WindowsOptionalFeatureItemViewModel item ||
-            isApplyingWindowsOptionalFeatureSelection)
-        {
-            return;
-        }
-
-        isApplyingWindowsOptionalFeatureSelection = true;
-        try
-        {
-            if (item.State == WindowsOptionalFeatureState.Disable)
-            {
-                foreach (WindowsOptionalFeatureCatalogEntry descendant in WindowsOptionalFeatureCatalog.GetDescendants(item.Id))
-                {
-                    if (windowsOptionalFeatureItemsById[descendant.Id].State == WindowsOptionalFeatureState.Enable)
-                    {
-                        windowsOptionalFeatureItemsById[descendant.Id].SetState(WindowsOptionalFeatureState.Unchanged);
-                    }
-                }
-            }
-
-            NormalizeWindowsOptionalFeatureAncestorConflicts();
-        }
-        finally
-        {
-            isApplyingWindowsOptionalFeatureSelection = false;
-        }
-
-        RefreshWindowsOptionalFeatureSummaries();
-        SaveWindowsOptionalFeatureState();
-    }
 }

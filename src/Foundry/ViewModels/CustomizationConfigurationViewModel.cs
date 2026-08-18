@@ -136,11 +136,6 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
             item.PropertyChanged -= OnAppxRemovalItemPropertyChanged;
         }
 
-        foreach (WindowsOptionalFeatureItemViewModel item in WindowsOptionalFeatureCategories.SelectMany(category => category.AllItems))
-        {
-            item.PropertyChanged -= OnWindowsOptionalFeatureItemPropertyChanged;
-        }
-
         foreach (SelectableStringOptionViewModel option in OperatingSystemLanguageOptions
                      .Concat(OperatingSystemReleaseOptions)
                      .Concat(OperatingSystemLicenseChannelOptions)
