@@ -79,4 +79,14 @@ jobs:
         run: dotnet build .\src\Foundry.slnx -c Release -p:Platform=${{ matrix.platform }} -p:ContinuousIntegrationBuild=true --no-restore --nologo
 
       - name: Run unit tests
-        run: dotnet test .\src\Foundry.slnx -c Release -p:Platform=${{ matrix.platform }} --no-build --nologo
+        shell: pwsh
+        run: |
+          $testProjects = Get-ChildItem .\src -Directory -Filter *.Tests |
+            ForEach-Object { Join-Path $_.FullName "$($_.Name).csproj" }
+
+          foreach ($testProject in $testProjects) {
+            dotnet run --project $testProject -c Release -p:Platform=${{ matrix.platform }} --no-build
+            if ($LASTEXITCODE -ne 0) {
+              exit $LASTEXITCODE
+            }
+          }
