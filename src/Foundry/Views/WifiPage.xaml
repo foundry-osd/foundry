@@ -12,8 +12,11 @@
     <ScrollView
         Margin="{ThemeResource ContentPageMargin}"
         Padding="{ThemeResource ContentPagePadding}"
+        HorizontalContentAlignment="Stretch"
         VerticalScrollBarVisibility="Auto">
-        <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+        <StackPanel
+            HorizontalAlignment="Stretch"
+            Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
             <controls:PageHeader
                 x:Uid="WifiPageHeader"
                 DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
@@ -26,11 +29,11 @@
                 </controls:PageHeader.ActionContent>
             </controls:PageHeader>
 
-            <ContentControl IsEnabled="{x:Bind ViewModel.IsWifiProvisioned, Mode=OneWay}">
+            <ContentControl
+                HorizontalContentAlignment="Stretch"
+                IsEnabled="{x:Bind ViewModel.IsWifiProvisioned, Mode=OneWay}">
                 <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
-                    <wct:SettingsCard
-                        Header="{x:Bind ViewModel.WifiConfiguredText, Mode=OneWay}"
-                        Visibility="{x:Bind ViewModel.WifiConfiguredVisibility, Mode=OneWay}">
+                    <wct:SettingsCard Header="{x:Bind ViewModel.WifiConfiguredText, Mode=OneWay}">
                         <ToggleSwitch
                             behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
                             IsOn="{x:Bind ViewModel.IsWifiConfigured, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />

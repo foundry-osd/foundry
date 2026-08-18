@@ -12,8 +12,11 @@
     <ScrollView
         Margin="{ThemeResource ContentPageMargin}"
         Padding="{ThemeResource ContentPagePadding}"
+        HorizontalContentAlignment="Stretch"
         VerticalScrollBarVisibility="Auto">
-        <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+        <StackPanel
+            HorizontalAlignment="Stretch"
+            Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
             <controls:PageHeader
                 x:Uid="EthernetDot1xPageHeader"
                 DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
@@ -26,12 +29,13 @@
                 </controls:PageHeader.ActionContent>
             </controls:PageHeader>
 
-            <ContentControl IsEnabled="{x:Bind ViewModel.IsDot1xEnabled, Mode=OneWay}">
+            <ContentControl
+                HorizontalContentAlignment="Stretch"
+                IsEnabled="{x:Bind ViewModel.IsDot1xEnabled, Mode=OneWay}">
                 <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
                     <wct:SettingsCard
                         HorizontalContentAlignment="Stretch"
-                        Header="{x:Bind ViewModel.ProfileTemplateLabel, Mode=OneWay}"
-                        Visibility="{x:Bind ViewModel.Dot1xSettingsVisibility, Mode=OneWay}">
+                        Header="{x:Bind ViewModel.ProfileTemplateLabel, Mode=OneWay}">
                         <StackPanel
                             HorizontalAlignment="Right"
                             Spacing="{ThemeResource FoundrySpace4}">
@@ -56,9 +60,7 @@
                                 Visibility="{x:Bind ViewModel.Dot1xProfileTemplateValidationVisibility, Mode=OneWay}" />
                         </StackPanel>
                     </wct:SettingsCard>
-                    <wct:SettingsCard
-                        Header="{x:Bind ViewModel.RequiresCertificateText, Mode=OneWay}"
-                        Visibility="{x:Bind ViewModel.Dot1xSettingsVisibility, Mode=OneWay}">
+                    <wct:SettingsCard Header="{x:Bind ViewModel.RequiresCertificateText, Mode=OneWay}">
                         <ToggleSwitch
                             behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
                             IsOn="{x:Bind ViewModel.IsDot1xCertificateRequired, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />

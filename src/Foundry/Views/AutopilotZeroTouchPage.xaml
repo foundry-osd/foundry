@@ -11,8 +11,11 @@
     <ScrollView
         Margin="{ThemeResource ContentPageMargin}"
         Padding="{ThemeResource ContentPagePadding}"
+        HorizontalContentAlignment="Stretch"
         VerticalScrollBarVisibility="Auto">
-        <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+        <StackPanel
+            HorizontalAlignment="Stretch"
+            Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
             <controls:PageHeader
                 x:Uid="AutopilotZeroTouchPageHeader"
                 DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
@@ -24,7 +27,9 @@
                 </controls:PageHeader.ActionContent>
             </controls:PageHeader>
 
-            <ContentControl IsEnabled="{x:Bind ViewModel.IsHardwareHashUploadActive, Mode=OneWay}">
+            <ContentControl
+                HorizontalContentAlignment="Stretch"
+                IsEnabled="{x:Bind ViewModel.IsHardwareHashUploadActive, Mode=OneWay}">
                 <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
                     <wct:SettingsCard
                         HorizontalContentAlignment="Stretch"

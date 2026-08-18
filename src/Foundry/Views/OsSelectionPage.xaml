@@ -12,8 +12,11 @@
     <ScrollView
         Margin="{ThemeResource ContentPageMargin}"
         Padding="{ThemeResource ContentPagePadding}"
+        HorizontalContentAlignment="Stretch"
         VerticalScrollBarVisibility="Auto">
-        <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+        <StackPanel
+            HorizontalAlignment="Stretch"
+            Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
             <controls:PageHeader
                 x:Uid="OsSelectionPageHeader"
                 DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
@@ -26,7 +29,9 @@
                 </controls:PageHeader.ActionContent>
             </controls:PageHeader>
 
-            <ContentControl IsEnabled="{x:Bind ViewModel.IsOperatingSystemSelectionEnabled, Mode=OneWay}">
+            <ContentControl
+                HorizontalContentAlignment="Stretch"
+                IsEnabled="{x:Bind ViewModel.IsOperatingSystemSelectionEnabled, Mode=OneWay}">
                 <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
                     <StackPanel>
                         <wct:SettingsExpander

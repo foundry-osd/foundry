@@ -258,9 +258,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
 
     public string DocumentationUrl => FoundryApplicationInfo.NetworkDocumentationUrl;
     public string ValidationMessage => HasDot1xValidationError ? Dot1xValidationMessage : WifiValidationMessage;
-    public Visibility Dot1xSettingsVisibility => IsDot1xEnabled ? Visibility.Visible : Visibility.Collapsed;
     public Visibility Dot1xCertificatePathVisibility => IsDot1xCertificatePathEnabled ? Visibility.Visible : Visibility.Collapsed;
-    public Visibility WifiConfiguredVisibility => IsWifiProvisioned ? Visibility.Visible : Visibility.Collapsed;
     public Visibility WifiConfigurationFieldsVisibility => IsWifiConfigurationSectionEnabled ? Visibility.Visible : Visibility.Collapsed;
     public Visibility WifiPersonalSettingsVisibility => IsWifiPersonalSectionEnabled ? Visibility.Visible : Visibility.Collapsed;
     public Visibility WifiEnterpriseSettingsVisibility => IsWifiEnterpriseSectionEnabled ? Visibility.Visible : Visibility.Collapsed;
@@ -673,9 +671,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
 
     private void RefreshPresentationState()
     {
-        OnPropertyChanged(nameof(Dot1xSettingsVisibility));
         OnPropertyChanged(nameof(Dot1xCertificatePathVisibility));
-        OnPropertyChanged(nameof(WifiConfiguredVisibility));
         OnPropertyChanged(nameof(WifiConfigurationFieldsVisibility));
         OnPropertyChanged(nameof(WifiPersonalSettingsVisibility));
         OnPropertyChanged(nameof(WifiEnterpriseSettingsVisibility));

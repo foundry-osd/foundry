@@ -2555,198 +2555,198 @@
   <data name="Home.Scroll.Back" xml:space="preserve"><value>Deslocar para a esquerda</value></data>
   <data name="Home.Scroll.Forward" xml:space="preserve"><value>Deslocar para a direita</value></data>
   <data name="Nav_NetworkSection.Title" xml:space="preserve">
-    <value>Network</value>
+    <value>Rede</value>
   </data>
   <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
-    <value>Windows Autopilot</value>
+    <value>Autopilot</value>
   </data>
   <data name="Nav_CustomizationSection.Title" xml:space="preserve">
-    <value>Customization</value>
+    <value>Personalização</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
   </data>
   <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
-    <value>Configure wired 802.1X authentication.</value>
+    <value>A conectividade padrão Ethernet está disponível por padrão. Configure esta seção somente se sua rede com fio exigir autenticação empresarial 802.1X.</value>
   </data>
   <data name="Nav_WifiKey.Title" xml:space="preserve">
     <value>Wi-Fi</value>
   </data>
   <data name="Nav_WifiKey.Description" xml:space="preserve">
-    <value>Configure Wi-Fi provisioning and profiles.</value>
+    <value>Configure o aprovisionamento e os perfis de Wi-Fi.</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
-    <value>JSON profile</value>
+    <value>JSON provisionamento de perfil</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
-    <value>Provision devices with an Autopilot JSON profile.</value>
+    <value>Aprovisione dispositivos com um perfil Autopilot JSON.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-touch</value>
+    <value>Carregamento zero-touch do hash de hardware</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
-    <value>Upload hardware hashes through Microsoft Graph.</value>
+    <value>Carregue hashes de hardware através do Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Interactive hash upload</value>
+    <value>Carregamento interativo do hash de hardware</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
-    <value>Upload hardware hashes interactively during deployment.</value>
+    <value>Prepara o início de sessão do técnico com código do dispositivo para registar o hash de hardware durante o OOBE.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>OS selection</value>
+    <value>Opções de implementação do Windows</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
-    <value>Constrain deployment operating system choices.</value>
+    <value>Defina as versões do Windows, os níveis de atualização, os idiomas e as edições disponibilizados durante a implementação.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>Machine naming</value>
+    <value>Nome do computador</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
-    <value>Configure deployed device names.</value>
+    <value>Configure os nomes dos dispositivos implementados.</value>
   </data>
   <data name="Nav_OobeKey.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="Nav_OobeKey.Description" xml:space="preserve">
-    <value>Configure the Windows out-of-box experience.</value>
+    <value>Configure Windows 11 telas de primeira execução e padrões de privacidade.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>Optional features</value>
+    <value>Recursos opcionais do Windows</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
-    <value>Enable or disable Windows optional features.</value>
+    <value>Ative ou desative os componentes do Windows no sistema operativo implantado.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>App removal</value>
+    <value>Remoção de aplicativo provisionado</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
-    <value>Select provisioned apps to remove.</value>
+    <value>Remova aplicativos Windows provisionados selecionados antes de OOBE.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>AI components</value>
+    <value>Remoção de componentes de IA</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
-    <value>Remove or disable Windows AI components.</value>
+    <value>Remova ou desative os componentes Windows AI selecionados antes de OOBE.</value>
   </data>
   <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
     <value>Ethernet 802.1X</value>
   </data>
   <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
-    <value>Configure wired 802.1X authentication and Windows profile roaming.</value>
+    <value>A conectividade padrão Ethernet está disponível por padrão. Configure esta seção somente se sua rede com fio exigir autenticação empresarial 802.1X.</value>
   </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Enable Ethernet 802.1X configuration</value>
+    <value>Configurar 802.1X com fio</value>
   </data>
   <data name="WifiPageHeader.Title" xml:space="preserve">
     <value>Wi-Fi</value>
   </data>
   <data name="WifiPageHeader.Description" xml:space="preserve">
-    <value>Configure Wi-Fi provisioning, embedded profiles, and Windows profile roaming.</value>
+    <value>Configure o aprovisionamento de Wi-Fi, os perfis incorporados e o roaming de perfis do Windows.</value>
   </data>
   <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Enable Wi-Fi provisioning</value>
+    <value>Provisione suporte Wi-Fi na imagem de inicialização</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
-    <value>JSON profile</value>
+    <value>JSON provisionamento de perfil</value>
   </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
-    <value>Import or download the Autopilot profile embedded in deployment media.</value>
+    <value>Prepare um perfil Autopilot offline na imagem Windows aplicada.</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
-    <value>Zero-touch</value>
+    <value>Carregamento zero-touch do hash de hardware</value>
   </data>
   <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
-    <value>Configure tenant-backed automatic hardware hash upload.</value>
+    <value>Configure o carregamento automático de hashes de hardware suportado pelo inquilino.</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
-    <value>Interactive hash upload</value>
+    <value>Carregamento interativo do hash de hardware</value>
   </data>
   <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
-    <value>Let the technician upload the device hardware hash during deployment.</value>
+    <value>Prepara o início de sessão do técnico com código do dispositivo para registar o hash de hardware durante o OOBE.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
-    <value>OS selection</value>
+    <value>Opções de implementação do Windows</value>
   </data>
   <data name="OsSelectionPageHeader.Description" xml:space="preserve">
-    <value>Configure allowed operating system releases, languages, channels, and editions.</value>
+    <value>Defina as versões do Windows, os níveis de atualização, os idiomas e as edições disponibilizados durante a implementação.</value>
   </data>
   <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Enable operating system selection configuration</value>
+    <value>Opções de implementação do Windows</value>
   </data>
   <data name="MachineNamingPageHeader.Title" xml:space="preserve">
-    <value>Machine naming</value>
+    <value>Nome do computador</value>
   </data>
   <data name="MachineNamingPageHeader.Description" xml:space="preserve">
-    <value>Configure automatic and technician-assisted device naming.</value>
+    <value>Configure a atribuição automática de nomes e assistida por técnico aos dispositivos.</value>
   </data>
   <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Enable machine naming configuration</value>
+    <value>Habilitar regras de nomenclatura de máquinas</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
     <value>OOBE</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
-    <value>Configure privacy and setup choices for the Windows out-of-box experience.</value>
+    <value>Configure Windows 11 telas de primeira execução e padrões de privacidade.</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Enable OOBE configuration</value>
+    <value>Personalizar OOBE</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
-    <value>Optional features</value>
+    <value>Recursos opcionais do Windows</value>
   </data>
   <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
-    <value>Choose Windows optional features to enable or disable.</value>
+    <value>Ative ou desative os componentes do Windows no sistema operativo implantado.</value>
   </data>
   <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Enable optional features configuration</value>
+    <value>Configurar as funcionalidades opcionais do Windows</value>
   </data>
   <data name="AppRemovalPageHeader.Title" xml:space="preserve">
-    <value>App removal</value>
+    <value>Remoção de aplicativo provisionado</value>
   </data>
   <data name="AppRemovalPageHeader.Description" xml:space="preserve">
-    <value>Choose provisioned Windows apps to remove from deployed devices.</value>
+    <value>Remova aplicativos Windows provisionados selecionados antes de OOBE.</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Enable app removal configuration</value>
+    <value>Remover aplicativos Windows provisionados</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
-    <value>AI components</value>
+    <value>Remoção de componentes de IA</value>
   </data>
   <data name="AiComponentsPageHeader.Description" xml:space="preserve">
-    <value>Choose Windows AI components and experiences to remove or disable.</value>
+    <value>Remova ou desative os componentes Windows AI selecionados antes de OOBE.</value>
   </data>
   <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Enable AI components configuration</value>
+    <value>Remover componentes de IA</value>
   </data>
   <data name="Common.Enable" xml:space="preserve">
-    <value>Enable</value>
+    <value>Ativar</value>
   </data>
   <data name="Common.Disable" xml:space="preserve">
-    <value>Disable</value>
+    <value>Desativar</value>
   </data>
   <data name="NavigationStatus.Configured" xml:space="preserve">
-    <value>Configured</value>
+    <value>Configurado</value>
   </data>
   <data name="NavigationStatus.NotConfigured" xml:space="preserve">
-    <value>Not configured</value>
+    <value>Não configurado</value>
   </data>
   <data name="NavigationStatus.AdkReady" xml:space="preserve">
-    <value>ADK ready</value>
+    <value>ADK pronto</value>
   </data>
   <data name="NavigationStatus.AdkNotReady" xml:space="preserve">
-    <value>ADK not ready</value>
+    <value>ADK não está pronto</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
-    <value>Active provisioning mode</value>
+    <value>Modo de aprovisionamento ativo</value>
   </data>
   <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
-    <value>Change provisioning mode?</value>
+    <value>Alterar o modo de aprovisionamento?</value>
   </data>
   <data name="Autopilot.ModeSwitchConfirmationMessageFormat" xml:space="preserve">
-    <value>{0} is currently active. Continuing will disable it and enable {1}.</value>
+    <value>{0} está atualmente ativo. Se continuar, será desativado e {1} será ativado.</value>
   </data>
   <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
-    <value>Change mode</value>
+    <value>Alterar modo</value>
   </data>
 </root>
