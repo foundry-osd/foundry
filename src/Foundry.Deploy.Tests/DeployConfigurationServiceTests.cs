@@ -120,6 +120,44 @@ public sealed class DeployConfigurationServiceTests
     }
 
     [Fact]
+    public void LoadOptional_WhenSplitRoamingSettingsArePartial_BackfillsOnlyMissingFieldsFromLegacySettings()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string configurationPath = CreateJsonFile(
+            tempDirectory.Path,
+            "foundry.deploy.config.json",
+            """
+            {
+              "schemaVersion": 12,
+              "network": {
+                "profileRoaming": {
+                  "isEnabled": true,
+                  "includePrivateKeyMaterial": true,
+                  "wiredDot1x": {
+                    "isEnabled": true
+                  },
+                  "wifi": {
+                    "includePrivateKeyMaterial": false
+                  }
+                }
+              }
+            }
+            """);
+
+        var service = new DeployConfigurationService(
+            NullLogger<DeployConfigurationService>.Instance,
+            configurationPath);
+
+        DeployConfigurationLoadResult result = service.LoadOptional();
+
+        Assert.NotNull(result.Document);
+        Assert.True(result.Document.Network.ProfileRoaming.WiredDot1x.IsEnabled);
+        Assert.True(result.Document.Network.ProfileRoaming.WiredDot1x.IncludePrivateKeyMaterial);
+        Assert.True(result.Document.Network.ProfileRoaming.Wifi.IsEnabled);
+        Assert.False(result.Document.Network.ProfileRoaming.Wifi.IncludePrivateKeyMaterial);
+    }
+
+    [Fact]
     public void LoadOptional_WhenSplitRoamingSettingsAreExplicit_DoesNotLetLegacyFallbackOverrideThem()
     {
         using var tempDirectory = new TemporaryDirectory();

@@ -9,12 +9,23 @@ namespace Foundry.Core.Models.Configuration;
 /// </summary>
 public sealed record NetworkProfileRoamingTransportSettings
 {
+    private bool _isEnabled;
+    private bool _isEnabledConfigured;
     private bool _includePrivateKeyMaterial;
+    private bool _includePrivateKeyMaterialConfigured;
 
     /// <summary>
     /// Gets whether profile roaming is enabled for the transport.
     /// </summary>
-    public bool IsEnabled { get; init; }
+    public bool IsEnabled
+    {
+        get => _isEnabled;
+        init
+        {
+            _isEnabledConfigured = true;
+            _isEnabled = value;
+        }
+    }
 
     /// <summary>
     /// Gets whether PFX/private-key material may be included for the transport.
@@ -22,6 +33,14 @@ public sealed record NetworkProfileRoamingTransportSettings
     public bool IncludePrivateKeyMaterial
     {
         get => IsEnabled && _includePrivateKeyMaterial;
-        init => _includePrivateKeyMaterial = value;
+        init
+        {
+            _includePrivateKeyMaterialConfigured = true;
+            _includePrivateKeyMaterial = value;
+        }
     }
+
+    internal bool IsEnabledConfigured => _isEnabledConfigured;
+
+    internal bool IncludePrivateKeyMaterialConfigured => _includePrivateKeyMaterialConfigured;
 }

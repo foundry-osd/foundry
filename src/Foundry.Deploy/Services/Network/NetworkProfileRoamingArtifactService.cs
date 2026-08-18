@@ -270,12 +270,13 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
             return settings.Wifi;
         }
 
-        return settings.WiredDot1x.IsEnabled && settings.Wifi.IsEnabled
+        return settings.IsAnyEnabled
             ? new NetworkProfileRoamingTransportSettings
             {
                 IsEnabled = true,
-                IncludePrivateKeyMaterial = settings.WiredDot1x.IncludePrivateKeyMaterial ||
-                    settings.Wifi.IncludePrivateKeyMaterial
+                IncludePrivateKeyMaterial =
+                    (settings.WiredDot1x.IsEnabled && settings.WiredDot1x.IncludePrivateKeyMaterial) ||
+                    (settings.Wifi.IsEnabled && settings.Wifi.IncludePrivateKeyMaterial)
             }
             : null;
     }

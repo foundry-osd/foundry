@@ -12,9 +12,9 @@ namespace Foundry.Core.Models.Configuration.Deploy;
 public sealed record DeployNetworkProfileRoamingSettings
 {
     private NetworkProfileRoamingTransportSettings _wiredDot1x = new();
-    private bool _wiredDot1xConfigured;
     private NetworkProfileRoamingTransportSettings _wifi = new();
-    private bool _wifiConfigured;
+    private bool? _legacyIsEnabled;
+    private bool? _legacyIncludePrivateKeyMaterial;
 
     /// <summary>
     /// Gets wired 802.1X roaming settings.
@@ -24,8 +24,8 @@ public sealed record DeployNetworkProfileRoamingSettings
         get => _wiredDot1x;
         init
         {
-            _wiredDot1xConfigured = true;
             _wiredDot1x = value ?? new();
+            ApplyLegacySettings();
         }
     }
 
@@ -37,8 +37,8 @@ public sealed record DeployNetworkProfileRoamingSettings
         get => _wifi;
         init
         {
-            _wifiConfigured = true;
             _wifi = value ?? new();
+            ApplyLegacySettings();
         }
     }
 
@@ -58,18 +58,8 @@ public sealed record DeployNetworkProfileRoamingSettings
         get => null;
         init
         {
-            if (value is true)
-            {
-                if (!_wiredDot1xConfigured)
-                {
-                    _wiredDot1x = _wiredDot1x with { IsEnabled = true };
-                }
-
-                if (!_wifiConfigured)
-                {
-                    _wifi = _wifi with { IsEnabled = true };
-                }
-            }
+            _legacyIsEnabled = value;
+            ApplyLegacySettings();
         }
     }
 
@@ -83,19 +73,21 @@ public sealed record DeployNetworkProfileRoamingSettings
         get => null;
         init
         {
-            if (value is true)
-            {
-                if (!_wiredDot1xConfigured)
-                {
-                    _wiredDot1x = _wiredDot1x with { IncludePrivateKeyMaterial = true };
-                }
-
-                if (!_wifiConfigured)
-                {
-                    _wifi = _wifi with { IncludePrivateKeyMaterial = true };
-                }
-            }
+            _legacyIncludePrivateKeyMaterial = value;
+            ApplyLegacySettings();
         }
+    }
+
+    private void ApplyLegacySettings()
+    {
+        _wiredDot1x = NetworkProfileRoamingLegacyMigration.Apply(
+            _wiredDot1x,
+            _legacyIsEnabled,
+            _legacyIncludePrivateKeyMaterial);
+        _wifi = NetworkProfileRoamingLegacyMigration.Apply(
+            _wifi,
+            _legacyIsEnabled,
+            _legacyIncludePrivateKeyMaterial);
     }
 
     /// <summary>

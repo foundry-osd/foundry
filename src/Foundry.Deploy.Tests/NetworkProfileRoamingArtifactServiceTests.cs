@@ -326,6 +326,99 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
         Assert.DoesNotContain(payload.DataFiles, file => file.FileName.EndsWith("wired.cer", StringComparison.OrdinalIgnoreCase));
     }
 
+    [Theory]
+    [InlineData(true, false, false)]
+    [InlineData(true, false, true)]
+    [InlineData(false, true, false)]
+    [InlineData(false, true, true)]
+    public async Task LoadAsync_WhenLegacyCertificatesAreUnscoped_UsesConsentFromAnyEnabledTransport(
+        bool wiredDot1xEnabled,
+        bool wifiEnabled,
+        bool includePrivateKeyMaterial)
+    {
+        string artifactRoot = CreateArtifactRoot();
+        WriteBytes(Path.Combine(artifactRoot, "certificates", "Root", "root.cer"), [1]);
+        WriteBytes(Path.Combine(artifactRoot, "certificates", "My", "client.pfx"), [2]);
+        WriteText(
+            Path.Combine(artifactRoot, "manifest.json"),
+            """
+            {
+              "schemaVersion": 1,
+              "certificates": [
+                { "relativePath": "certificates\\Root\\root.cer", "kind": "publicCertificate", "storeName": "Root" },
+                { "relativePath": "certificates\\My\\client.pfx", "kind": "pfxPrivateKey", "storeName": "My" }
+              ]
+            }
+            """);
+        var service = new NetworkProfileRoamingArtifactService(
+            new FakeMediaSecretKeyReader([]),
+            NullLogger<NetworkProfileRoamingArtifactService>.Instance);
+
+        var payload = await service.LoadAsync(
+            new DeployNetworkProfileRoamingSettings
+            {
+                WiredDot1x = new NetworkProfileRoamingTransportSettings
+                {
+                    IsEnabled = wiredDot1xEnabled,
+                    IncludePrivateKeyMaterial = includePrivateKeyMaterial
+                },
+                Wifi = new NetworkProfileRoamingTransportSettings
+                {
+                    IsEnabled = wifiEnabled,
+                    IncludePrivateKeyMaterial = includePrivateKeyMaterial
+                },
+                ArtifactRootPath = artifactRoot
+            },
+            Path.Combine(artifactRoot, "workspace"),
+            TestContext.Current.CancellationToken);
+
+        Assert.NotNull(payload);
+        Assert.Contains(payload.DataFiles, file => file.FileName.EndsWith("root.cer", StringComparison.OrdinalIgnoreCase));
+        Assert.Equal(
+            includePrivateKeyMaterial,
+            payload.DataFiles.Any(file => file.FileName.EndsWith("client.pfx", StringComparison.OrdinalIgnoreCase)));
+    }
+
+    [Fact]
+    public async Task LoadAsync_WhenOnlyDisabledTransportIncludesPrivateKeyMaterial_DoesNotStageLegacyUnscopedPfx()
+    {
+        string artifactRoot = CreateArtifactRoot();
+        WriteBytes(Path.Combine(artifactRoot, "certificates", "Root", "root.cer"), [1]);
+        WriteBytes(Path.Combine(artifactRoot, "certificates", "My", "client.pfx"), [2]);
+        WriteText(
+            Path.Combine(artifactRoot, "manifest.json"),
+            """
+            {
+              "schemaVersion": 1,
+              "certificates": [
+                { "relativePath": "certificates\\Root\\root.cer", "kind": "publicCertificate", "storeName": "Root" },
+                { "relativePath": "certificates\\My\\client.pfx", "kind": "pfxPrivateKey", "storeName": "My" }
+              ]
+            }
+            """);
+        var service = new NetworkProfileRoamingArtifactService(
+            new FakeMediaSecretKeyReader([]),
+            NullLogger<NetworkProfileRoamingArtifactService>.Instance);
+
+        var payload = await service.LoadAsync(
+            new DeployNetworkProfileRoamingSettings
+            {
+                WiredDot1x = new NetworkProfileRoamingTransportSettings { IsEnabled = true },
+                Wifi = new NetworkProfileRoamingTransportSettings
+                {
+                    IsEnabled = false,
+                    IncludePrivateKeyMaterial = true
+                },
+                ArtifactRootPath = artifactRoot
+            },
+            Path.Combine(artifactRoot, "workspace"),
+            TestContext.Current.CancellationToken);
+
+        Assert.NotNull(payload);
+        Assert.Contains(payload.DataFiles, file => file.FileName.EndsWith("root.cer", StringComparison.OrdinalIgnoreCase));
+        Assert.DoesNotContain(payload.DataFiles, file => file.FileName.EndsWith("client.pfx", StringComparison.OrdinalIgnoreCase));
+    }
+
     private static string CreateArtifactRoot()
     {
         string root = Path.Combine(Path.GetTempPath(), "FoundryDeployNetworkTests", Guid.NewGuid().ToString("N"));
