@@ -96,7 +96,7 @@ Most deployments follow the standard path:
 6. Select the target disk, operating system, driver pack, and deployment options.
 7. Review the summary and start deployment.
 
-Use [Expert Mode](https://foundry-osd.github.io/docs/configure/expert-mode) only when the media must carry predefined network, localization, Autopilot, or machine naming behavior.
+Use the dedicated [network](https://foundry-osd.github.io/docs/configure/network), [Windows Autopilot](https://foundry-osd.github.io/docs/autopilot/overview), and [customization](https://foundry-osd.github.io/docs/configure/customization) sections when deployment media must carry predefined connectivity, provisioning, or Windows configuration.
 
 ## Screenshots
 
