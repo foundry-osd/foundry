@@ -126,7 +126,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     /// </summary>
     public ObservableCollection<AutopilotTenantReadinessEntryViewModel> TenantReadinessEntries { get; } = [];
 
-    public bool IsAutopilotSectionEnabled => IsAutopilotEnabled;
     public bool HasProfiles => Profiles.Count > 0;
     public Visibility EmptyProfilesVisibility => HasProfiles ? Visibility.Collapsed : Visibility.Visible;
     public Visibility ProfilesVisibility => HasProfiles ? Visibility.Visible : Visibility.Collapsed;
@@ -143,60 +142,17 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             : IsConnectingTenant
                 ? ConnectingTenantStatusText
                 : string.Empty;
-    public bool UseJsonProfileProvisioning
-    {
-        get => provisioningMode == AutopilotProvisioningMode.JsonProfile;
-        set
-        {
-            if (value)
-            {
-                SetProvisioningMode(AutopilotProvisioningMode.JsonProfile);
-            }
-            else if (UseJsonProfileProvisioning && !UseHardwareHashUploadProvisioning)
-            {
-                OnPropertyChanged();
-            }
-        }
-    }
-
-    public bool UseHardwareHashUploadProvisioning
-    {
-        get => provisioningMode == AutopilotProvisioningMode.HardwareHashUpload;
-        set
-        {
-            if (value)
-            {
-                SetProvisioningMode(AutopilotProvisioningMode.HardwareHashUpload);
-            }
-            else if (UseHardwareHashUploadProvisioning && !UseJsonProfileProvisioning)
-            {
-                OnPropertyChanged();
-            }
-        }
-    }
-
-    public bool UseInteractiveHardwareHashUploadProvisioning
-    {
-        get => provisioningMode == AutopilotProvisioningMode.InteractiveHardwareHashUpload;
-        set
-        {
-            if (value)
-            {
-                SetProvisioningMode(AutopilotProvisioningMode.InteractiveHardwareHashUpload);
-            }
-            else if (UseInteractiveHardwareHashUploadProvisioning && !UseJsonProfileProvisioning && !UseHardwareHashUploadProvisioning)
-            {
-                OnPropertyChanged();
-            }
-        }
-    }
-
     public bool IsJsonProfileMode => provisioningMode == AutopilotProvisioningMode.JsonProfile;
     public bool IsHardwareHashUploadMode => provisioningMode == AutopilotProvisioningMode.HardwareHashUpload;
+    public bool IsJsonProfileActive => IsAutopilotEnabled && IsJsonProfileMode;
+    public bool IsHardwareHashUploadActive => IsAutopilotEnabled && IsHardwareHashUploadMode;
+    public bool IsInteractiveHardwareHashUploadActive => IsAutopilotEnabled &&
+                                                         provisioningMode == AutopilotProvisioningMode.InteractiveHardwareHashUpload;
+    public string JsonProfileActionText => GetProvisioningModeActionText(AutopilotProvisioningMode.JsonProfile);
+    public string HardwareHashUploadActionText => GetProvisioningModeActionText(AutopilotProvisioningMode.HardwareHashUpload);
+    public string InteractiveHardwareHashUploadActionText => GetProvisioningModeActionText(AutopilotProvisioningMode.InteractiveHardwareHashUpload);
     public bool IsHardwareHashCertificateExpired => hardwareHashUploadSettings.ActiveCertificate?.ExpiresOnUtc is DateTimeOffset expiresOnUtc &&
                                                     expiresOnUtc <= DateTimeOffset.UtcNow;
-    public Visibility JsonProfileSettingsVisibility => IsJsonProfileMode ? Visibility.Visible : Visibility.Collapsed;
-    public Visibility HardwareHashSettingsVisibility => IsHardwareHashUploadMode ? Visibility.Visible : Visibility.Collapsed;
     public Visibility BootMediaCertificateVisibility => HasConnectedTenantInCurrentSession &&
                                                         HasCertificates
         ? Visibility.Visible
@@ -242,28 +198,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     }
 
     [ObservableProperty]
-    public partial string PageTitle { get; set; }
-
-    [ObservableProperty]
-    public partial string PageDescription { get; set; }
-
-    [ObservableProperty]
-    public partial string AutopilotHeader { get; set; }
-
-    [ObservableProperty]
-    public partial string AutopilotDescription { get; set; }
-
-    [ObservableProperty]
-    public partial string EnableAutopilotText { get; set; }
-
-    [ObservableProperty]
     public partial string JsonProfileHeader { get; set; }
-
-    [ObservableProperty]
-    public partial string JsonProfileDescription { get; set; }
-
-    [ObservableProperty]
-    public partial string JsonProfileEnableText { get; set; }
 
     [ObservableProperty]
     public partial string ActionsDescription { get; set; }
@@ -278,19 +213,10 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public partial string HardwareHashHeader { get; set; }
 
     [ObservableProperty]
-    public partial string HardwareHashDescription { get; set; }
-
-    [ObservableProperty]
-    public partial string HardwareHashEnableText { get; set; }
-
-    [ObservableProperty]
     public partial string InteractiveHardwareHashHeader { get; set; }
 
     [ObservableProperty]
     public partial string InteractiveHardwareHashDescription { get; set; }
-
-    [ObservableProperty]
-    public partial string InteractiveHardwareHashEnableText { get; set; }
 
     [ObservableProperty]
     public partial string ConnectTenantButtonText { get; set; }
@@ -442,9 +368,6 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public string DocumentationUrl => FoundryApplicationInfo.AutopilotDocumentationUrl;
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(IsAutopilotSectionEnabled))]
-    [NotifyPropertyChangedFor(nameof(JsonProfileSettingsVisibility))]
-    [NotifyPropertyChangedFor(nameof(HardwareHashSettingsVisibility))]
     [NotifyCanExecuteChangedFor(nameof(ImportProfileCommand))]
     [NotifyCanExecuteChangedFor(nameof(DownloadProfilesCommand))]
     [NotifyCanExecuteChangedFor(nameof(RemoveSelectedProfilesCommand))]
@@ -517,6 +440,25 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         Profiles.CollectionChanged -= OnProfilesCollectionChanged;
         SelectedProfiles.CollectionChanged -= OnSelectedProfilesCollectionChanged;
         SelectedCertificates.CollectionChanged -= OnSelectedCertificatesCollectionChanged;
+    }
+
+    /// <summary>
+    /// Enables, disables, or replaces the active Autopilot provisioning mode.
+    /// </summary>
+    /// <param name="mode">Provisioning mode represented by the current page.</param>
+    public async Task ToggleProvisioningModeAsync(AutopilotProvisioningMode mode)
+    {
+        AutopilotProvisioningModeToggleResult result = AutopilotProvisioningModeToggleEvaluator.Evaluate(
+            IsAutopilotEnabled,
+            provisioningMode,
+            mode);
+
+        if (result.RequiresConfirmation && !await ConfirmProvisioningModeReplacementAsync(mode))
+        {
+            return;
+        }
+
+        ApplyProvisioningModeState(result.Mode, result.IsEnabled);
     }
 
     [RelayCommand(CanExecute = nameof(CanImportProfile))]
@@ -817,6 +759,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         CreateCertificateCommand.NotifyCanExecuteChanged();
         RetireActiveCertificateCommand.NotifyCanExecuteChanged();
         SelectBootMediaCertificatePfxCommand.NotifyCanExecuteChanged();
+        NotifyProvisioningPageStateChanged();
         SaveState();
     }
 
@@ -960,23 +903,13 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
     private void RefreshLocalizedText()
     {
-        PageTitle = localizationService.GetString("AutopilotPage_Title.Text");
-        PageDescription = localizationService.GetString("Autopilot.PageDescription");
-        AutopilotHeader = localizationService.GetString("Autopilot.Header");
-        AutopilotDescription = localizationService.GetString("Autopilot.Description");
-        EnableAutopilotText = localizationService.GetString("Autopilot.EnableLabel");
         JsonProfileHeader = localizationService.GetString("Autopilot.JsonProfileHeader");
-        JsonProfileDescription = localizationService.GetString("Autopilot.JsonProfileDescription");
-        JsonProfileEnableText = localizationService.GetString("Autopilot.JsonProfileEnableLabel");
         ActionsDescription = localizationService.GetString("Autopilot.ActionsDescription");
         DefaultProfileDescription = localizationService.GetString("Autopilot.DefaultProfileDescription");
         ProfilesDescription = localizationService.GetString("Autopilot.ProfilesDescription");
         HardwareHashHeader = localizationService.GetString("Autopilot.HardwareHashHeader");
-        HardwareHashDescription = localizationService.GetString("Autopilot.HardwareHashDescription");
-        HardwareHashEnableText = localizationService.GetString("Autopilot.HardwareHashEnableLabel");
         InteractiveHardwareHashHeader = localizationService.GetString("Autopilot.InteractiveHardwareHashHeader");
         InteractiveHardwareHashDescription = localizationService.GetString("Autopilot.InteractiveHardwareHashDescription");
-        InteractiveHardwareHashEnableText = localizationService.GetString("Autopilot.InteractiveHardwareHashEnableLabel");
         ConnectTenantButtonText = localizationService.GetString("Autopilot.HardwareHashConnectTenantButton");
         DisconnectTenantButtonText = localizationService.GetString("Autopilot.HardwareHashDisconnectTenantButton");
         ConnectingTenantStatusText = localizationService.GetString("Autopilot.HardwareHashConnectingTenantStatus");
@@ -1029,36 +962,78 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         OnPropertyChanged(nameof(BusyStatusText));
         OnPropertyChanged(nameof(TenantConnectionButtonText));
         OnPropertyChanged(nameof(TenantStatusForeground));
+        OnPropertyChanged(nameof(JsonProfileActionText));
+        OnPropertyChanged(nameof(HardwareHashUploadActionText));
+        OnPropertyChanged(nameof(InteractiveHardwareHashUploadActionText));
         RefreshHardwareHashUploadState();
-    }
-
-    private void SetProvisioningMode(AutopilotProvisioningMode mode)
-    {
-        if (provisioningMode == mode)
-        {
-            return;
-        }
-
-        provisioningMode = mode;
-        RefreshProvisioningModeState();
-        SaveState();
     }
 
     private void RefreshProvisioningModeState()
     {
-        OnPropertyChanged(nameof(UseJsonProfileProvisioning));
-        OnPropertyChanged(nameof(UseHardwareHashUploadProvisioning));
-        OnPropertyChanged(nameof(UseInteractiveHardwareHashUploadProvisioning));
         OnPropertyChanged(nameof(IsJsonProfileMode));
         OnPropertyChanged(nameof(IsHardwareHashUploadMode));
-        OnPropertyChanged(nameof(JsonProfileSettingsVisibility));
-        OnPropertyChanged(nameof(HardwareHashSettingsVisibility));
+        NotifyProvisioningPageStateChanged();
         ImportProfileCommand.NotifyCanExecuteChanged();
         DownloadProfilesCommand.NotifyCanExecuteChanged();
         RemoveSelectedProfilesCommand.NotifyCanExecuteChanged();
         ConnectTenantCommand.NotifyCanExecuteChanged();
         CreateCertificateCommand.NotifyCanExecuteChanged();
         RetireActiveCertificateCommand.NotifyCanExecuteChanged();
+    }
+
+    private void ApplyProvisioningModeState(AutopilotProvisioningMode mode, bool isEnabled)
+    {
+        isApplyingState = true;
+        try
+        {
+            provisioningMode = mode;
+            IsAutopilotEnabled = isEnabled;
+        }
+        finally
+        {
+            isApplyingState = false;
+        }
+
+        RefreshProvisioningModeState();
+        SaveState();
+    }
+
+    private async Task<bool> ConfirmProvisioningModeReplacementAsync(AutopilotProvisioningMode requestedMode)
+    {
+        string currentMode = GetProvisioningModeDisplayName(provisioningMode);
+        string requestedModeName = GetProvisioningModeDisplayName(requestedMode);
+        return await dialogService.ConfirmAsync(new ConfirmationDialogRequest(
+            localizationService.GetString("Autopilot.ModeSwitchConfirmationTitle"),
+            localizationService.FormatString(
+                "Autopilot.ModeSwitchConfirmationMessageFormat",
+                currentMode,
+                requestedModeName),
+            localizationService.GetString("Autopilot.ModeSwitchConfirmationPrimaryButton"),
+            localizationService.GetString("Common.Cancel"),
+            IsPrimaryButtonAccent: true));
+    }
+
+    private bool IsModeActive(AutopilotProvisioningMode mode) => IsAutopilotEnabled && provisioningMode == mode;
+
+    private string GetProvisioningModeActionText(AutopilotProvisioningMode mode) =>
+        localizationService.GetString(IsModeActive(mode) ? "Common.Disable" : "Common.Enable");
+
+    private string GetProvisioningModeDisplayName(AutopilotProvisioningMode mode) => mode switch
+    {
+        AutopilotProvisioningMode.JsonProfile => JsonProfileHeader,
+        AutopilotProvisioningMode.HardwareHashUpload => HardwareHashHeader,
+        AutopilotProvisioningMode.InteractiveHardwareHashUpload => InteractiveHardwareHashHeader,
+        _ => mode.ToString()
+    };
+
+    private void NotifyProvisioningPageStateChanged()
+    {
+        OnPropertyChanged(nameof(IsJsonProfileActive));
+        OnPropertyChanged(nameof(IsHardwareHashUploadActive));
+        OnPropertyChanged(nameof(IsInteractiveHardwareHashUploadActive));
+        OnPropertyChanged(nameof(JsonProfileActionText));
+        OnPropertyChanged(nameof(HardwareHashUploadActionText));
+        OnPropertyChanged(nameof(InteractiveHardwareHashUploadActionText));
     }
 
     private void RefreshHardwareHashUploadState()

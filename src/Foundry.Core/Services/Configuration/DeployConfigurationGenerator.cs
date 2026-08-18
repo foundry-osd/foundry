@@ -48,8 +48,16 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             {
                 ProfileRoaming = new DeployNetworkProfileRoamingSettings
                 {
-                    IsEnabled = document.Network.RoamWifiProfilesToWindows,
-                    IncludePrivateKeyMaterial = document.Network.RoamPrivateKeyMaterialToWindows,
+                    WiredDot1x = new NetworkProfileRoamingTransportSettings
+                    {
+                        IsEnabled = document.Network.RoamWiredDot1xProfileToWindows,
+                        IncludePrivateKeyMaterial = document.Network.RoamWiredDot1xPrivateKeyMaterialToWindows
+                    },
+                    Wifi = new NetworkProfileRoamingTransportSettings
+                    {
+                        IsEnabled = document.Network.RoamWifiProfileToWindows,
+                        IncludePrivateKeyMaterial = document.Network.RoamWifiPrivateKeyMaterialToWindows
+                    },
                     ArtifactRootPath = NetworkProfileRoamingArtifacts.DefaultArtifactRootPath
                 }
             },
@@ -263,7 +271,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             DisableNotepadAi = settings.IsEnabled && settings.DisableNotepadAi
         };
 
-        if (!effectiveSettings.IsEnabled || !HasAnyAiComponentRemovalOptionEnabled(effectiveSettings))
+        if (!effectiveSettings.IsEnabled || !effectiveSettings.HasAnyAction())
         {
             return new DeployAiComponentRemovalSettings();
         }
@@ -280,18 +288,6 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             DisablePaintAi = effectiveSettings.DisablePaintAi,
             DisableNotepadAi = effectiveSettings.DisableNotepadAi
         };
-    }
-
-    private static bool HasAnyAiComponentRemovalOptionEnabled(AiComponentRemovalSettings settings)
-    {
-        return settings.RemoveCopilot ||
-            settings.RemoveAiHub ||
-            settings.DisableRecall ||
-            settings.DisableClickToDo ||
-            settings.DisableAiServiceAutoStart ||
-            settings.DisableEdgeAi ||
-            settings.DisablePaintAi ||
-            settings.DisableNotepadAi;
     }
 
     private static bool HasLegacyAppxRemovalPackage(AppxRemovalSettings settings, string packageName)

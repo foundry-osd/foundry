@@ -156,21 +156,6 @@
   <data name="Language.French" xml:space="preserve">
     <value>ranskalainen</value>
   </data>
-  <data name="AutopilotPage_Title.Text" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Autopilot.Header" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Autopilot.Description" xml:space="preserve">
-    <value>Valitse käyttöönottolevyn Autopilot-valmistelutapa: JSON-profiilin valmistelu, WinPE:n zero-touch-laitteiston hajautusarvon lataus tai vuorovaikutteinen laitteiston hajautusarvon lataus.</value>
-  </data>
-  <data name="Autopilot.PageDescription" xml:space="preserve">
-    <value>Määritä Windows Autopilot -rekisteröintiasetukset käyttöönoton tietovälineille ja laitteiston rekisteröinnille.</value>
-  </data>
-  <data name="Autopilot.EnableLabel" xml:space="preserve">
-    <value>Ota Autopilot käyttöön</value>
-  </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>Tuo profiili</value>
   </data>
@@ -288,29 +273,14 @@
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
     <value>JSON profiilin hallinta</value>
   </data>
-  <data name="Autopilot.JsonProfileDescription" xml:space="preserve">
-    <value>Luo offline- Autopilot -profiili käytetyssä Windows-kuvassa.</value>
-  </data>
-  <data name="Autopilot.JsonProfileEnableLabel" xml:space="preserve">
-    <value>Käytä JSON-profiilin hallintaa</value>
-  </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch-laitteiston hajautusarvon lataus</value>
-  </data>
-  <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
-    <value>Lataa laitteen laitteiston hash osoitteeseen Intune Foundry Deploy:sta WinPE.</value>
-  </data>
-  <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Käytä zero-touch-laitteiston hajautusarvon latausta</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Vuorovaikutteinen laitteiston hajautusarvon lataus</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Valmistelee teknikon laitekoodikirjautumisen laitteiston hajautusarvon rekisteröintiä varten OOBE-vaiheessa.</value>
-  </data>
-  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
-    <value>Käytä vuorovaikutteista laitteiston hajautusarvon latausta</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Yhdistä vuokralainen</value>
@@ -510,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>Oletusryhmätunnistetta ei ole valittu.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>Ei mitään</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>Ei mitään</value>
   </data>
@@ -549,23 +516,11 @@
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
     <value>Hallitun sovelluksen rekisteröinti ei ole valmis. Tarkista vuokralaisen valmius ja muodosta yhteys uudelleen.</value>
   </data>
-  <data name="CustomizationPage_Title.Text" xml:space="preserve">
-    <value>Räätälöinti</value>
-  </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry ei voinut avata dokumentaatiota selaimessasi. Käytä sen sijaan tätä URL.</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Asiakirjoja ei voitu avata</value>
-  </data>
-  <data name="Customization.MachineNamingHeader" xml:space="preserve">
-    <value>Tietokoneen nimi</value>
-  </data>
-  <data name="Customization.MachineNamingDescription" xml:space="preserve">
-    <value>Hallitse, kuinka käyttöönotetun tietokoneen nimi luodaan WinPE.</value>
-  </data>
-  <data name="Customization.MachineNamingEnableLabel" xml:space="preserve">
-    <value>Ota koneen nimeämissäännöt käyttöön</value>
   </data>
   <data name="Customization.MachineNamingPrefixLabel" xml:space="preserve">
     <value>Tietokoneen nimen etuliite</value>
@@ -587,15 +542,6 @@
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
     <value>Etuliitteessä on oltava 1–15 merkkiä A–Z, a–z, 0–9 tai -.</value>
-  </data>
-  <data name="Customization.OobeHeader" xml:space="preserve">
-    <value>Out-of-box kokemus</value>
-  </data>
-  <data name="Customization.OobeDescription" xml:space="preserve">
-    <value>Määritä Windows 11 ensikertalaista näyttöä ja yksityisyyden oletusasetuksia.</value>
-  </data>
-  <data name="Customization.OobeEnableLabel" xml:space="preserve">
-    <value>Mukauta OOBE</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Ohita lisenssiehdot</value>
@@ -660,15 +606,6 @@
   <data name="Customization.OobeLocationForceOff" xml:space="preserve">
     <value>Pakota pois päältä</value>
   </data>
-  <data name="Customization.AiComponentRemovalHeader" xml:space="preserve">
-    <value>AI-komponenttien poisto</value>
-  </data>
-  <data name="Customization.AiComponentRemovalDescription" xml:space="preserve">
-    <value>Poista tai poista käytöstä valitut Windows AI-komponentit ennen OOBE.</value>
-  </data>
-  <data name="Customization.AiComponentRemovalEnableLabel" xml:space="preserve">
-    <value>Poista AI-komponentit</value>
-  </data>
   <data name="Customization.AiComponentRemoveCopilotLabel" xml:space="preserve">
     <value>Poista Microsoft Copilot</value>
   </data>
@@ -717,15 +654,6 @@
   <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
     <value>Aseta Notepad-käytäntö, joka poistaa tekoälyominaisuudet käytöstä.</value>
   </data>
-  <data name="Customization.WindowsOptionalFeaturesHeader" xml:space="preserve">
-    <value>Windowsin valinnaiset ominaisuudet</value>
-  </data>
-  <data name="Customization.WindowsOptionalFeaturesDescription" xml:space="preserve">
-    <value>Ota k&#228;ytt&#246;&#246;n tai poista k&#228;yt&#246;st&#228; Windows-komponentit k&#228;ytt&#246;&#246;notetussa k&#228;ytt&#246;j&#228;rjestelm&#228;ss&#228;.</value>
-  </data>
-  <data name="Customization.WindowsOptionalFeaturesEnableLabel" xml:space="preserve">
-    <value>M&#228;&#228;rit&#228; Windowsin valinnaiset ominaisuudet</value>
-  </data>
   <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
     <value>Muutokset otetaan k&#228;ytt&#246;&#246;n offline-tilassa Windowsin asennuksen j&#228;lkeen ja ennen OOBEa. Ota k&#228;ytt&#246;&#246;n -toiminnot k&#228;ytt&#228;v&#228;t vain asennettua kuvaa tai vastaavia asennusmedial&#228;hteit&#228;; Internet-varaa ei k&#228;ytet&#228;.</value>
   </data>
@@ -773,6 +701,24 @@
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Clear" xml:space="preserve">
     <value>Palauta n&#228;kyv&#228;t kohteet</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.EnableAll" xml:space="preserve">
+    <value>Ota kaikki käyttöön</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.DisableAll" xml:space="preserve">
+    <value>Poista kaikki käytöstä</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.ResetAll" xml:space="preserve">
+    <value>Palauta kaikki</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationTitle" xml:space="preserve">
+    <value>Käytä joukkamuutosta?</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
+    <value>Tämä päivittää {0} ominaisuutta, joihin muutos vaikuttaa, mukaan lukien niiden alitoiminnot. Haluatko jatkaa?</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
+    <value>Käytä</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MatchingSource" xml:space="preserve">
     <value>T&#228;m&#228;n ominaisuuden k&#228;ytt&#246;&#246;notto edellytt&#228;&#228;, ett&#228; setup-media sources\sxs on t&#228;sm&#228;&#228;v&#228;.</value>
@@ -1245,15 +1191,6 @@
   <data name="Customization.WindowsOptionalFeatures.Feature.Recall" xml:space="preserve">
     <value>Recall</value>
   </data>
-  <data name="Customization.AppxRemovalHeader" xml:space="preserve">
-    <value>Tarjotun sovelluksen poistaminen</value>
-  </data>
-  <data name="Customization.AppxRemovalDescription" xml:space="preserve">
-    <value>Poista valitut varustetut Windows-sovellukset ennen OOBE.</value>
-  </data>
-  <data name="Customization.AppxRemovalEnableLabel" xml:space="preserve">
-    <value>Poista varustetut Windows-sovellukset</value>
-  </data>
   <data name="Customization.AppxRemovalProfileLabel" xml:space="preserve">
     <value>Profiili</value>
   </data>
@@ -1380,20 +1317,11 @@
   <data name="Common.AutomaticOption" xml:space="preserve">
     <value>Automaattinen</value>
   </data>
-  <data name="NetworkPage_Title.Text" xml:space="preserve">
-    <value>Verkko</value>
-  </data>
-  <data name="Dot1x.EnableLabel" xml:space="preserve">
-    <value>Määritä langallinen 802.1X</value>
-  </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Luotettu juurivarmennetiedosto</value>
   </data>
   <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
     <value>Valitse 802.1X-sertifikaatti</value>
-  </data>
-  <data name="Wifi.EnableLabel" xml:space="preserve">
-    <value>Ota käyttöön Wi-Fi-tuki käynnistyskuvassa</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Luo etukäteen Wi-Fi-profiili</value>
@@ -1424,18 +1352,6 @@
   </data>
   <data name="Wifi.SecurityTypeEnterpriseWpa3192" xml:space="preserve">
     <value>WPA3 Enterprise 192-bittinen (WPA3ENT192)</value>
-  </data>
-  <data name="Network.EthernetSectionTitle" xml:space="preserve">
-    <value>Ethernet</value>
-  </data>
-  <data name="Network.EthernetHelperText" xml:space="preserve">
-    <value>Normaali Ethernet-yhteys on käytettävissä oletuksena. Määritä tämä osio vain, jos kiinteä verkkosi vaatii 802.1X yritystodennusta.</value>
-  </data>
-  <data name="Network.WifiSectionTitle" xml:space="preserve">
-    <value>Wi-Fi</value>
-  </data>
-  <data name="Network.WifiHelperText" xml:space="preserve">
-    <value>Ota tämä käyttöön vain, jos käynnistysvedoksen tulee sisältää Wi-Fi-tuki ja Wi-Fi-profiilit WinPE-käynnistystä varten.</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
     <value>Henkilökohtaiset Wi-Fi-salalauseet pysyvät ohimenevinä luontisovelluksessa, eivätkä ne säily Foundry-kokoonpanossa.</value>
@@ -2133,32 +2049,11 @@
   <data name="Nav_AdkKey.Title" xml:space="preserve">
     <value>ADK</value>
   </data>
-  <data name="Nav_AutopilotKey.Description" xml:space="preserve">
-    <value>Autopilot profiilin määritykset.</value>
-  </data>
-  <data name="Nav_AutopilotKey.Subtitle" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Nav_AutopilotKey.Title" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Nav_CustomizationKey.Description" xml:space="preserve">
-    <value>Käyttöönoton mukautusvaihtoehdot.</value>
-  </data>
-  <data name="Nav_CustomizationKey.Subtitle" xml:space="preserve">
-    <value>Räätälöinti</value>
-  </data>
-  <data name="Nav_CustomizationKey.Title" xml:space="preserve">
-    <value>Räätälöinti</value>
-  </data>
   <data name="Nav_DocumentationKey.Description" xml:space="preserve">
     <value>Foundry dokumentaatio ja projektilinkit.</value>
   </data>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>Dokumentaatio</value>
-  </data>
-  <data name="Nav_ExpertSection.Title" xml:space="preserve">
-    <value>Asiantuntija</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Description" xml:space="preserve">
     <value>Vakiokonfigurointityönkulku.</value>
@@ -2183,15 +2078,6 @@
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Kotiin</value>
-  </data>
-  <data name="Nav_NetworkKey.Description" xml:space="preserve">
-    <value>Verkko- ja yhteysasetukset.</value>
-  </data>
-  <data name="Nav_NetworkKey.Subtitle" xml:space="preserve">
-    <value>Verkko</value>
-  </data>
-  <data name="Nav_NetworkKey.Title" xml:space="preserve">
-    <value>Verkko</value>
   </data>
   <data name="Nav_StartKey.Description" xml:space="preserve">
     <value>Tarkista ja aloita median luominen.</value>
@@ -2580,12 +2466,6 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>perinteinen kiina (Taiwan)</value>
   </data>
-  <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Windowsin käyttöönottoasetukset</value>
-  </data>
-  <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Määritä käyttöönoton aikana tarjottavat Windows-versiot, päivitystasot, kielet ja versiot.</value>
-  </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>Windows-versio</value>
   </data>
@@ -2663,11 +2543,17 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Valitse oletuksena valittu versio. Automaattinen käyttää Foundryn suosittelemaa versiota.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows-profiilien siirto</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Tuo Foundryn hallitsemat Wi-Fi- ja 802.1X-profiilit Windowsiin ennen OOBE-vaihetta, jotta käyttöönoton yhteys voi jatkua WinPE:n jälkeen.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Tuo Foundryn hallitseman kiinteän 802.1X-profiilin Windowsiin ennen OOBE-vaihetta, jotta käyttöönoton yhteys säilyy WinPE:n jälkeen.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Windows-profiilien siirto</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Tuo Foundryn hallitseman Wi-Fi-profiilin Windowsiin ennen OOBE-vaihetta, jotta käyttöönoton yhteys säilyy WinPE:n jälkeen.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Siirrä verkkoprofiilit Windowsiin</value>
@@ -2681,18 +2567,207 @@
   <data name="Adk.PageDescription" xml:space="preserve">
     <value>Tarkista Windows ADK:n ja Windows PE -lisäosan valmius ennen käyttöönoton median luontia.</value>
   </data>
-  <data name="Customization.PageDescription" xml:space="preserve">
-    <value>M&#228;&#228;rit&#228; koneen nime&#228;minen, k&#228;ytt&#246;j&#228;rjestelm&#228;n valinta, OOBE, luokitellut Windowsin valinnaiset ominaisuudet, teko&#228;lykomponenttien poisto ja AppX-poisto.</value>
-  </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Määritä median perustaso, WinPE-kieli, käynnistyksen allekirjoitus, ohjaimet ja käyttöönoton aikavyöhyke.</value>
-  </data>
-  <data name="Network.PageDescription" xml:space="preserve">
-    <value>Määritä langallinen 802.1X, Wi-Fi-valmistelu ja profiilien verkkovierailu käyttöönoton mediaa varten.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Tarkista valmius, valitse ISO- tai USB-tuloste ja käynnistä median luonti.</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve"><value>Vieritä vasemmalle</value></data>
   <data name="Home.Scroll.Forward" xml:space="preserve"><value>Vieritä oikealle</value></data>
+  <data name="Nav_NetworkSection.Title" xml:space="preserve">
+    <value>Verkko</value>
+  </data>
+  <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Nav_CustomizationSection.Title" xml:space="preserve">
+    <value>Räätälöinti</value>
+  </data>
+  <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
+    <value>Ethernet 802.1X</value>
+  </data>
+  <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
+    <value>Normaali Ethernet-yhteys on käytettävissä oletuksena. Määritä tämä osio vain, jos kiinteä verkkosi vaatii 802.1X yritystodennusta.</value>
+  </data>
+  <data name="Nav_WifiKey.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Nav_WifiKey.Description" xml:space="preserve">
+    <value>Määritä Wi-Fi-provisiointi ja profiilit.</value>
+  </data>
+  <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
+    <value>JSON-profiili</value>
+  </data>
+  <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
+    <value>Ota käyttöön laitteet Autopilot JSON -profiililla.</value>
+  </data>
+  <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
+    <value>Lataa laitteistohajakkeet Microsoft Graphin kautta.</value>
+  </data>
+  <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
+    <value>Interaktiivinen</value>
+  </data>
+  <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
+    <value>Valmistelee teknikon laitekoodikirjautumisen laitteiston hajautusarvon rekisteröintiä varten OOBE-vaiheessa.</value>
+  </data>
+  <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
+    <value>OS-valinta</value>
+  </data>
+  <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
+    <value>Määritä käyttöönoton aikana tarjottavat Windows-versiot, päivitystasot, kielet ja versiot.</value>
+  </data>
+  <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
+    <value>Koneen nimeäminen</value>
+  </data>
+  <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
+    <value>Määritä käyttöön otettujen laitteiden nimet.</value>
+  </data>
+  <data name="Nav_OobeKey.Title" xml:space="preserve">
+    <value>OOBE</value>
+  </data>
+  <data name="Nav_OobeKey.Description" xml:space="preserve">
+    <value>Määritä Windows 11 ensikertalaista näyttöä ja yksityisyyden oletusasetuksia.</value>
+  </data>
+  <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
+    <value>Valinnaiset ominaisuudet</value>
+  </data>
+  <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
+    <value>Ota käyttöön tai poista käytöstä Windows-komponentit käyttöönotetussa käyttöjärjestelmässä.</value>
+  </data>
+  <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
+    <value>AppX-poistot</value>
+  </data>
+  <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
+    <value>Poista valitut varustetut Windows-sovellukset ennen OOBE.</value>
+  </data>
+  <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
+    <value>AI-komponentit</value>
+  </data>
+  <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
+    <value>Poista tai poista käytöstä valitut Windows AI-komponentit ennen OOBE.</value>
+  </data>
+  <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
+    <value>Ethernet 802.1X</value>
+  </data>
+  <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
+    <value>Normaali Ethernet-yhteys on käytettävissä oletuksena. Määritä tämä osio vain, jos kiinteä verkkosi vaatii 802.1X yritystodennusta.</value>
+  </data>
+  <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Määritä langallinen 802.1X</value>
+  </data>
+  <data name="WifiPageHeader.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="WifiPageHeader.Description" xml:space="preserve">
+    <value>Määritä Wi-Fi-provisiointi, upotetut profiilit ja Windows-profiilin siirtyminen.</value>
+  </data>
+  <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Ota käyttöön Wi-Fi-tuki käynnistyskuvassa</value>
+  </data>
+  <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
+    <value>JSON profiilin hallinta</value>
+  </data>
+  <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
+    <value>Luo offline- Autopilot -profiili käytetyssä Windows-kuvassa.</value>
+  </data>
+  <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
+    <value>Zero-touch-laitteiston hajautusarvon lataus</value>
+  </data>
+  <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
+    <value>Määritä vuokralaisen tukema automaattinen laitteiston hajauksen lähetys.</value>
+  </data>
+  <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
+    <value>Vuorovaikutteinen laitteiston hajautusarvon lataus</value>
+  </data>
+  <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
+    <value>Valmistelee teknikon laitekoodikirjautumisen laitteiston hajautusarvon rekisteröintiä varten OOBE-vaiheessa.</value>
+  </data>
+  <data name="OsSelectionPageHeader.Title" xml:space="preserve">
+    <value>Windowsin käyttöönottoasetukset</value>
+  </data>
+  <data name="OsSelectionPageHeader.Description" xml:space="preserve">
+    <value>Määritä käyttöönoton aikana tarjottavat Windows-versiot, päivitystasot, kielet ja versiot.</value>
+  </data>
+  <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Windowsin käyttöönottoasetukset</value>
+  </data>
+  <data name="MachineNamingPageHeader.Title" xml:space="preserve">
+    <value>Tietokoneen nimi</value>
+  </data>
+  <data name="MachineNamingPageHeader.Description" xml:space="preserve">
+    <value>Määritä automaattinen ja teknikko-avusteinen laitteen nimeäminen.</value>
+  </data>
+  <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Ota koneen nimeämissäännöt käyttöön</value>
+  </data>
+  <data name="OobePageHeader.Title" xml:space="preserve">
+    <value>Out-of-Box Experience</value>
+  </data>
+  <data name="OobePageHeader.Description" xml:space="preserve">
+    <value>Määritä Windows 11 ensikertalaista näyttöä ja yksityisyyden oletusasetuksia.</value>
+  </data>
+  <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Mukauta OOBE</value>
+  </data>
+  <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
+    <value>Windowsin valinnaiset ominaisuudet</value>
+  </data>
+  <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
+    <value>Ota käyttöön tai poista käytöstä Windows-komponentit käyttöönotetussa käyttöjärjestelmässä.</value>
+  </data>
+  <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Määritä Windowsin valinnaiset ominaisuudet</value>
+  </data>
+  <data name="AppRemovalPageHeader.Title" xml:space="preserve">
+    <value>AppX-poistot</value>
+  </data>
+  <data name="AppRemovalPageHeader.Description" xml:space="preserve">
+    <value>Poista valitut varustetut Windows-sovellukset ennen OOBE.</value>
+  </data>
+  <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Poista varustetut Windows-sovellukset</value>
+  </data>
+  <data name="AiComponentsPageHeader.Title" xml:space="preserve">
+    <value>AI-komponenttien poisto</value>
+  </data>
+  <data name="AiComponentsPageHeader.Description" xml:space="preserve">
+    <value>Poista tai poista käytöstä valitut Windows AI-komponentit ennen OOBE.</value>
+  </data>
+  <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Poista AI-komponentit</value>
+  </data>
+  <data name="Common.Enable" xml:space="preserve">
+    <value>Ota käyttöön</value>
+  </data>
+  <data name="Common.Disable" xml:space="preserve">
+    <value>Poista käytöstä</value>
+  </data>
+  <data name="NavigationStatus.Configured" xml:space="preserve">
+    <value>Määritetty</value>
+  </data>
+  <data name="NavigationStatus.NotConfigured" xml:space="preserve">
+    <value>Ei määritetty</value>
+  </data>
+  <data name="NavigationStatus.AdkReady" xml:space="preserve">
+    <value>ADK valmis</value>
+  </data>
+  <data name="NavigationStatus.AdkNotReady" xml:space="preserve">
+    <value>ADK ei ole valmis</value>
+  </data>
+  <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
+    <value>Aktiivinen käyttöönotto-tila</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
+    <value>Vaihda käyttöönoton tilaa?</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationMessageFormat" xml:space="preserve">
+    <value>{0} on tällä hetkellä aktiivinen. Jatkaminen poistaa sen käytöstä ja ottaa käyttöön {1}.</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
+    <value>Vaihda tilaa</value>
+  </data>
 </root>

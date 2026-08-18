@@ -30,8 +30,8 @@ public sealed class ConnectConfigurationGeneratorTests
         Assert.True(root.TryGetProperty("wifi", out _));
         Assert.True(root.TryGetProperty("internetProbe", out JsonElement internetProbe));
         Assert.False(capabilities.GetProperty("wifiProvisioned").GetBoolean());
-        Assert.False(network.GetProperty("profileRoaming").GetProperty("isEnabled").GetBoolean());
-        Assert.False(network.GetProperty("profileRoaming").GetProperty("includePrivateKeyMaterial").GetBoolean());
+        Assert.False(network.GetProperty("profileRoaming").GetProperty("wiredDot1x").GetProperty("isEnabled").GetBoolean());
+        Assert.False(network.GetProperty("profileRoaming").GetProperty("wifi").GetProperty("isEnabled").GetBoolean());
         Assert.Equal(JsonValueKind.Number, root.GetProperty("dot1x").GetProperty("authenticationMode").ValueKind);
         Assert.Equal(JsonValueKind.Number, root.GetProperty("wifi").GetProperty("enterpriseAuthenticationMode").ValueKind);
         Assert.Equal(5, internetProbe.GetProperty("timeoutSeconds").GetInt32());
@@ -41,7 +41,7 @@ public sealed class ConnectConfigurationGeneratorTests
     }
 
     [Fact]
-    public void Generate_WhenNetworkProfileRoamingIsEnabled_PropagatesRuntimeOptIn()
+    public void Generate_WhenOnlyWiredRoamingIsEnabled_PropagatesIndependentRuntimeOptIn()
     {
         using var tempDirectory = new TemporaryDirectory();
         var generator = new ConnectConfigurationGenerator();
@@ -51,14 +51,17 @@ public sealed class ConnectConfigurationGeneratorTests
             {
                 Network = new NetworkSettings
                 {
-                    RoamWifiProfilesToWindows = true,
-                    RoamPrivateKeyMaterialToWindows = true
+                    RoamWiredDot1xProfileToWindows = true,
+                    RoamWiredDot1xPrivateKeyMaterialToWindows = true,
+                    RoamWifiProfileToWindows = false
                 }
             },
             tempDirectory.Path);
 
-        Assert.True(result.Network.ProfileRoaming.IsEnabled);
-        Assert.True(result.Network.ProfileRoaming.IncludePrivateKeyMaterial);
+        Assert.True(result.Network.ProfileRoaming.WiredDot1x.IsEnabled);
+        Assert.True(result.Network.ProfileRoaming.WiredDot1x.IncludePrivateKeyMaterial);
+        Assert.False(result.Network.ProfileRoaming.Wifi.IsEnabled);
+        Assert.False(result.Network.ProfileRoaming.Wifi.IncludePrivateKeyMaterial);
     }
 
     [Fact]

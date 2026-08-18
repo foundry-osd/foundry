@@ -156,21 +156,6 @@
   <data name="Language.French" xml:space="preserve">
     <value>ฝรั่งเศส</value>
   </data>
-  <data name="AutopilotPage_Title.Text" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Autopilot.Header" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Autopilot.Description" xml:space="preserve">
-    <value>เลือกวิธีการเตรียม Autopilot สำหรับสื่อการปรับใช้: การเตรียมโปรไฟล์ JSON, การอัปโหลดแฮชฮาร์ดแวร์แบบ zero-touch ใน WinPE หรือการอัปโหลดแฮชฮาร์ดแวร์แบบโต้ตอบ</value>
-  </data>
-  <data name="Autopilot.PageDescription" xml:space="preserve">
-    <value>กำหนดค่าการลงทะเบียน Windows Autopilot สำหรับสื่อการปรับใช้และการลงทะเบียนฮาร์ดแวร์</value>
-  </data>
-  <data name="Autopilot.EnableLabel" xml:space="preserve">
-    <value>เปิดใช้งาน Autopilot</value>
-  </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>นำเข้าโปรไฟล์</value>
   </data>
@@ -288,29 +273,14 @@
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
     <value>JSON การจัดสรรโปรไฟล์</value>
   </data>
-  <data name="Autopilot.JsonProfileDescription" xml:space="preserve">
-    <value>กำหนดโปรไฟล์ Autopilot แบบออฟไลน์ในรูปภาพ Windows ที่ใช้</value>
-  </data>
-  <data name="Autopilot.JsonProfileEnableLabel" xml:space="preserve">
-    <value>ใช้การจัดเตรียมโปรไฟล์ JSON</value>
-  </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>การอัปโหลดแฮชฮาร์ดแวร์แบบ zero-touch</value>
-  </data>
-  <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
-    <value>อัปโหลดแฮชฮาร์ดแวร์อุปกรณ์ไปที่ Intune จาก Foundry Deploy ใน WinPE</value>
-  </data>
-  <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>ใช้การอัปโหลดแฮชฮาร์ดแวร์แบบ zero-touch</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>การอัปโหลดแฮชฮาร์ดแวร์แบบโต้ตอบ</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>จัดเตรียมการลงชื่อเข้าใช้ของช่างเทคนิคด้วยรหัสอุปกรณ์สำหรับการลงทะเบียนแฮชฮาร์ดแวร์ระหว่าง OOBE</value>
-  </data>
-  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
-    <value>ใช้การอัปโหลดแฮชฮาร์ดแวร์แบบโต้ตอบ</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>เชื่อมต่อผู้เช่า</value>
@@ -510,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>ไม่ได้เลือกแท็กกลุ่มเริ่มต้น</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>ไม่มี</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>ไม่มี</value>
   </data>
@@ -549,23 +516,11 @@
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
     <value>การลงทะเบียนแอปที่มีการจัดการยังไม่พร้อม ตรวจสอบความพร้อมของผู้เช่าและเชื่อมต่อใหม่</value>
   </data>
-  <data name="CustomizationPage_Title.Text" xml:space="preserve">
-    <value>การปรับแต่ง</value>
-  </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry ไม่สามารถเปิดเอกสารในเบราว์เซอร์ของคุณได้ ใช้ URL นี้แทน</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>ไม่สามารถเปิดเอกสารได้</value>
-  </data>
-  <data name="Customization.MachineNamingHeader" xml:space="preserve">
-    <value>ชื่อคอมพิวเตอร์</value>
-  </data>
-  <data name="Customization.MachineNamingDescription" xml:space="preserve">
-    <value>ควบคุมวิธีการสร้างชื่อคอมพิวเตอร์ที่ใช้งานใน WinPE</value>
-  </data>
-  <data name="Customization.MachineNamingEnableLabel" xml:space="preserve">
-    <value>เปิดใช้งานกฎการตั้งชื่อเครื่อง</value>
   </data>
   <data name="Customization.MachineNamingPrefixLabel" xml:space="preserve">
     <value>คำนำหน้าชื่อคอมพิวเตอร์</value>
@@ -587,15 +542,6 @@
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
     <value>คำนำหน้าต้องใช้อักขระ 1 ถึง 15 ตัวตั้งแต่ A-Z, a-z, 0-9 หรือ -</value>
-  </data>
-  <data name="Customization.OobeHeader" xml:space="preserve">
-    <value>ประสบการณ์นอกกรอบ</value>
-  </data>
-  <data name="Customization.OobeDescription" xml:space="preserve">
-    <value>กำหนดค่า Windows 11 หน้าจอที่ใช้งานครั้งแรกและค่าเริ่มต้นความเป็นส่วนตัว</value>
-  </data>
-  <data name="Customization.OobeEnableLabel" xml:space="preserve">
-    <value>ปรับแต่ง OOBE</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>ข้ามเงื่อนไขใบอนุญาต</value>
@@ -660,15 +606,6 @@
   <data name="Customization.OobeLocationForceOff" xml:space="preserve">
     <value>บังคับปิด</value>
   </data>
-  <data name="Customization.AiComponentRemovalHeader" xml:space="preserve">
-    <value>การลบส่วนประกอบ AI</value>
-  </data>
-  <data name="Customization.AiComponentRemovalDescription" xml:space="preserve">
-    <value>ลบหรือปิดใช้งานส่วนประกอบ AI ที่เลือก Windows ก่อน OOBE</value>
-  </data>
-  <data name="Customization.AiComponentRemovalEnableLabel" xml:space="preserve">
-    <value>ลบส่วนประกอบ AI</value>
-  </data>
   <data name="Customization.AiComponentRemoveCopilotLabel" xml:space="preserve">
     <value>ลบ Microsoft Copilot</value>
   </data>
@@ -717,15 +654,6 @@
   <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
     <value>กำหนดนโยบาย Notepad ที่ปิดใช้งานคุณสมบัติ AI</value>
   </data>
-  <data name="Customization.WindowsOptionalFeaturesHeader" xml:space="preserve">
-    <value>คุณสมบัติเสริมของ Windows</value>
-  </data>
-  <data name="Customization.WindowsOptionalFeaturesDescription" xml:space="preserve">
-    <value>เปิดใช้งานหรือปิดใช้งานส่วนประกอบ Windows ในระบบปฏิบัติการที่ปรับใช้</value>
-  </data>
-  <data name="Customization.WindowsOptionalFeaturesEnableLabel" xml:space="preserve">
-    <value>กำหนดค่าคุณสมบัติเสริมของ Windows</value>
-  </data>
   <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
     <value>การเปลี่ยนแปลงจะใช้แบบออฟไลน์หลังจากติดตั้ง Windows และก่อน OOBE เปิดใช้งานการดำเนินการใช้เฉพาะอิมเมจที่ติดตั้งหรือแหล่งสื่อการตั้งค่าที่ตรงกัน ไม่มีการใช้ทางเลือกทางอินเทอร์เน็ต</value>
   </data>
@@ -773,6 +701,24 @@
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Clear" xml:space="preserve">
     <value>รีเซ็ตรายการที่มองเห็นได้</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.EnableAll" xml:space="preserve">
+    <value>เปิดใช้งานทั้งหมด</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.DisableAll" xml:space="preserve">
+    <value>ปิดใช้งานทั้งหมด</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.ResetAll" xml:space="preserve">
+    <value>รีเซ็ตทั้งหมด</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationTitle" xml:space="preserve">
+    <value>ใช้การเปลี่ยนแปลงแบบกลุ่ม?</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
+    <value>การดำเนินการนี้จะอัปเดตฟีเจอร์ที่ได้รับผลกระทบ {0} รายการ รวมถึงฟีเจอร์ย่อย คุณต้องการดำเนินการต่อหรือไม่?</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
+    <value>ใช้</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MatchingSource" xml:space="preserve">
     <value>การเปิดใช้งานฟีเจอร์นี้ต้องใช้แหล่งที่มาที่ตรงกันจากสื่อการติดตั้งใน sources\sxs</value>
@@ -1245,15 +1191,6 @@
   <data name="Customization.WindowsOptionalFeatures.Feature.Recall" xml:space="preserve">
     <value>Recall</value>
   </data>
-  <data name="Customization.AppxRemovalHeader" xml:space="preserve">
-    <value>การลบแอปที่จัดเตรียมไว้</value>
-  </data>
-  <data name="Customization.AppxRemovalDescription" xml:space="preserve">
-    <value>ลบแอป Windows ที่เลือกไว้ก่อนหน้า OOBE</value>
-  </data>
-  <data name="Customization.AppxRemovalEnableLabel" xml:space="preserve">
-    <value>ลบแอป Windows ที่จัดเตรียมไว้</value>
-  </data>
   <data name="Customization.AppxRemovalProfileLabel" xml:space="preserve">
     <value>โปรไฟล์</value>
   </data>
@@ -1380,20 +1317,11 @@
   <data name="Common.AutomaticOption" xml:space="preserve">
     <value>อัตโนมัติ</value>
   </data>
-  <data name="NetworkPage_Title.Text" xml:space="preserve">
-    <value>เครือข่าย</value>
-  </data>
-  <data name="Dot1x.EnableLabel" xml:space="preserve">
-    <value>กำหนดค่า 802.1X แบบมีสาย</value>
-  </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>ไฟล์ใบรับรอง root CA ที่เชื่อถือได้</value>
   </data>
   <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
     <value>เลือกใบรับรอง 802.1X</value>
-  </data>
-  <data name="Wifi.EnableLabel" xml:space="preserve">
-    <value>จัดเตรียมการสนับสนุน Wi-Fi ในอิมเมจสำหรับบูต</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>จัดเตรียมโปรไฟล์ Wi-Fi ล่วงหน้า</value>
@@ -1424,18 +1352,6 @@
   </data>
   <data name="Wifi.SecurityTypeEnterpriseWpa3192" xml:space="preserve">
     <value>WPA3 องค์กร 192 บิต (WPA3ENT192)</value>
-  </data>
-  <data name="Network.EthernetSectionTitle" xml:space="preserve">
-    <value>Ethernet</value>
-  </data>
-  <data name="Network.EthernetHelperText" xml:space="preserve">
-    <value>การเชื่อมต่อมาตรฐาน Ethernet พร้อมใช้งานตามค่าเริ่มต้น กำหนดค่าส่วนนี้เฉพาะในกรณีที่เครือข่ายแบบใช้สายของคุณต้องมีการรับรองความถูกต้องระดับองค์กร 802.1X</value>
-  </data>
-  <data name="Network.WifiSectionTitle" xml:space="preserve">
-    <value>Wi-Fi</value>
-  </data>
-  <data name="Network.WifiHelperText" xml:space="preserve">
-    <value>เปิดใช้งานสิ่งนี้เฉพาะในกรณีที่อิมเมจสำหรับบูตควรมีการสนับสนุน Wi-Fi และโปรไฟล์ Wi-Fi สำหรับการเริ่มต้น WinPE</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
     <value>ข้อความรหัสผ่านส่วนตัว Wi-Fi ยังคงเป็นแบบชั่วคราวในแอปการเขียน และไม่คงอยู่ในการกำหนดค่า Foundry</value>
@@ -2133,32 +2049,11 @@
   <data name="Nav_AdkKey.Title" xml:space="preserve">
     <value>ADK</value>
   </data>
-  <data name="Nav_AutopilotKey.Description" xml:space="preserve">
-    <value>Autopilot การกำหนดค่าโปรไฟล์</value>
-  </data>
-  <data name="Nav_AutopilotKey.Subtitle" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Nav_AutopilotKey.Title" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Nav_CustomizationKey.Description" xml:space="preserve">
-    <value>ตัวเลือกการปรับแต่งการปรับใช้</value>
-  </data>
-  <data name="Nav_CustomizationKey.Subtitle" xml:space="preserve">
-    <value>การปรับแต่ง</value>
-  </data>
-  <data name="Nav_CustomizationKey.Title" xml:space="preserve">
-    <value>การปรับแต่ง</value>
-  </data>
   <data name="Nav_DocumentationKey.Description" xml:space="preserve">
     <value>Foundry เอกสารประกอบและลิงก์โครงการ</value>
   </data>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>เอกสารประกอบ</value>
-  </data>
-  <data name="Nav_ExpertSection.Title" xml:space="preserve">
-    <value>ผู้เชี่ยวชาญ</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Description" xml:space="preserve">
     <value>ขั้นตอนการทำงานการกำหนดค่ามาตรฐาน</value>
@@ -2183,15 +2078,6 @@
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>บ้าน</value>
-  </data>
-  <data name="Nav_NetworkKey.Description" xml:space="preserve">
-    <value>การกำหนดค่าเครือข่ายและการเชื่อมต่อ</value>
-  </data>
-  <data name="Nav_NetworkKey.Subtitle" xml:space="preserve">
-    <value>เครือข่าย</value>
-  </data>
-  <data name="Nav_NetworkKey.Title" xml:space="preserve">
-    <value>เครือข่าย</value>
   </data>
   <data name="Nav_StartKey.Description" xml:space="preserve">
     <value>ตรวจสอบและเริ่มสร้างสื่อ</value>
@@ -2580,12 +2466,6 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>จีนดั้งเดิม (ไต้หวัน)</value>
   </data>
-<data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>ตัวเลือกการปรับใช้ Windows</value>
-  </data>
-<data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>กำหนดเวอร์ชัน Windows ระดับการอัปเดต ภาษา และรุ่นที่มีให้เลือกระหว่างการปรับใช้</value>
-  </data>
 <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>เวอร์ชัน Windows</value>
   </data>
@@ -2663,11 +2543,17 @@
 <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>เลือกรุ่นที่จะเลือกตามค่าเริ่มต้น ตัวเลือกอัตโนมัติจะใช้รุ่นที่ Foundry แนะนำ</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>การโรมมิ่งโปรไฟล์ Windows</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>นำเข้าโปรไฟล์ Wi-Fi และ 802.1X ที่ Foundry จัดการลงใน Windows ก่อน OOBE เพื่อให้การเชื่อมต่อสำหรับการปรับใช้ดำเนินต่อได้หลัง WinPE</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>นำเข้าโปรไฟล์ 802.1X แบบใช้สายที่ Foundry จัดการลงใน Windows ก่อน OOBE เพื่อรักษาการเชื่อมต่อสำหรับการปรับใช้หลัง WinPE</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>การโรมมิ่งโปรไฟล์ Windows</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>นำเข้าโปรไฟล์ Wi-Fi ที่ Foundry จัดการลงใน Windows ก่อน OOBE เพื่อรักษาการเชื่อมต่อสำหรับการปรับใช้หลัง WinPE</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>โรมมิ่งโปรไฟล์เครือข่ายไปยัง Windows</value>
@@ -2681,18 +2567,207 @@
   <data name="Adk.PageDescription" xml:space="preserve">
     <value>ตรวจสอบความพร้อมของ Windows ADK และส่วนเสริม Windows PE ก่อนสร้างสื่อการปรับใช้</value>
   </data>
-  <data name="Customization.PageDescription" xml:space="preserve">
-    <value>กำหนดค่าการตั้งชื่อเครื่อง การเลือกระบบปฏิบัติการ OOBE จัดหมวดหมู่คุณสมบัติเสริมของ Windows การลบส่วนประกอบ AI และการลบ AppX</value>
-  </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>กำหนดค่าพื้นฐานของสื่อ ภาษา WinPE ลายเซ็นการเริ่มระบบ ไดรเวอร์ และโซนเวลาการปรับใช้</value>
-  </data>
-  <data name="Network.PageDescription" xml:space="preserve">
-    <value>กำหนดค่า 802.1X แบบใช้สาย การจัดเตรียม Wi-Fi และการโรมมิ่งโปรไฟล์สำหรับสื่อการปรับใช้</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>ตรวจสอบความพร้อม เลือกเอาต์พุต ISO หรือ USB แล้วเริ่มสร้างสื่อ</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve"><value>เลื่อนไปทางซ้าย</value></data>
   <data name="Home.Scroll.Forward" xml:space="preserve"><value>เลื่อนไปทางขวา</value></data>
+  <data name="Nav_NetworkSection.Title" xml:space="preserve">
+    <value>เครือข่าย</value>
+  </data>
+  <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Nav_CustomizationSection.Title" xml:space="preserve">
+    <value>การปรับแต่ง</value>
+  </data>
+  <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
+    <value>Ethernet 802.1X</value>
+  </data>
+  <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
+    <value>การเชื่อมต่อมาตรฐาน Ethernet พร้อมใช้งานตามค่าเริ่มต้น กำหนดค่าส่วนนี้เฉพาะในกรณีที่เครือข่ายแบบใช้สายของคุณต้องมีการรับรองความถูกต้องระดับองค์กร 802.1X</value>
+  </data>
+  <data name="Nav_WifiKey.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Nav_WifiKey.Description" xml:space="preserve">
+    <value>กำหนดค่าการจัดสรรและโปรไฟล์ Wi-Fi</value>
+  </data>
+  <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
+    <value>โปรไฟล์ JSON</value>
+  </data>
+  <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
+    <value>จัดสรรอุปกรณ์ด้วยโปรไฟล์ Autopilot JSON</value>
+  </data>
+  <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
+    <value>อัปโหลดแฮชฮาร์ดแวร์ผ่าน Microsoft Graph</value>
+  </data>
+  <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
+    <value>แบบโต้ตอบ</value>
+  </data>
+  <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
+    <value>จัดเตรียมการลงชื่อเข้าใช้ของช่างเทคนิคด้วยรหัสอุปกรณ์สำหรับการลงทะเบียนแฮชฮาร์ดแวร์ระหว่าง OOBE</value>
+  </data>
+  <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
+    <value>การเลือกระบบปฏิบัติการ</value>
+  </data>
+  <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
+    <value>กำหนดเวอร์ชัน Windows ระดับการอัปเดต ภาษา และรุ่นที่มีให้เลือกระหว่างการปรับใช้</value>
+  </data>
+  <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
+    <value>การตั้งชื่อเครื่อง</value>
+  </data>
+  <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
+    <value>กำหนดค่าชื่ออุปกรณ์ที่ปรับใช้</value>
+  </data>
+  <data name="Nav_OobeKey.Title" xml:space="preserve">
+    <value>OOBE</value>
+  </data>
+  <data name="Nav_OobeKey.Description" xml:space="preserve">
+    <value>กำหนดค่า Windows 11 หน้าจอที่ใช้งานครั้งแรกและค่าเริ่มต้นความเป็นส่วนตัว</value>
+  </data>
+  <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
+    <value>ฟีเจอร์เสริม</value>
+  </data>
+  <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
+    <value>เปิดใช้งานหรือปิดใช้งานส่วนประกอบ Windows ในระบบปฏิบัติการที่ปรับใช้</value>
+  </data>
+  <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
+    <value>การลบแอป AppX</value>
+  </data>
+  <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
+    <value>ลบแอป Windows ที่เลือกไว้ก่อนหน้า OOBE</value>
+  </data>
+  <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
+    <value>คอมโพเนนต์ AI</value>
+  </data>
+  <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
+    <value>ลบหรือปิดใช้งานส่วนประกอบ AI ที่เลือก Windows ก่อน OOBE</value>
+  </data>
+  <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
+    <value>Ethernet 802.1X</value>
+  </data>
+  <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
+    <value>การเชื่อมต่อมาตรฐาน Ethernet พร้อมใช้งานตามค่าเริ่มต้น กำหนดค่าส่วนนี้เฉพาะในกรณีที่เครือข่ายแบบใช้สายของคุณต้องมีการรับรองความถูกต้องระดับองค์กร 802.1X</value>
+  </data>
+  <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>กำหนดค่า 802.1X แบบมีสาย</value>
+  </data>
+  <data name="WifiPageHeader.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="WifiPageHeader.Description" xml:space="preserve">
+    <value>กำหนดค่าการจัดสรร Wi-Fi โปรไฟล์ที่ฝังไว้ และการโรมมิงโปรไฟล์ Windows</value>
+  </data>
+  <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>จัดเตรียมการสนับสนุน Wi-Fi ในอิมเมจสำหรับบูต</value>
+  </data>
+  <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
+    <value>JSON การจัดสรรโปรไฟล์</value>
+  </data>
+  <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
+    <value>กำหนดโปรไฟล์ Autopilot แบบออฟไลน์ในรูปภาพ Windows ที่ใช้</value>
+  </data>
+  <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
+    <value>การอัปโหลดแฮชฮาร์ดแวร์แบบ Zero-touch</value>
+  </data>
+  <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
+    <value>กำหนดค่าการอัปโหลดแฮชฮาร์ดแวร์อัตโนมัติที่รองรับโดยผู้เช่า</value>
+  </data>
+  <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
+    <value>การอัปโหลดแฮชฮาร์ดแวร์แบบโต้ตอบ</value>
+  </data>
+  <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
+    <value>จัดเตรียมการลงชื่อเข้าใช้ของช่างเทคนิคด้วยรหัสอุปกรณ์สำหรับการลงทะเบียนแฮชฮาร์ดแวร์ระหว่าง OOBE</value>
+  </data>
+  <data name="OsSelectionPageHeader.Title" xml:space="preserve">
+    <value>ตัวเลือกการปรับใช้ Windows</value>
+  </data>
+  <data name="OsSelectionPageHeader.Description" xml:space="preserve">
+    <value>กำหนดเวอร์ชัน Windows ระดับการอัปเดต ภาษา และรุ่นที่มีให้เลือกระหว่างการปรับใช้</value>
+  </data>
+  <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>ตัวเลือกการปรับใช้ Windows</value>
+  </data>
+  <data name="MachineNamingPageHeader.Title" xml:space="preserve">
+    <value>ชื่อคอมพิวเตอร์</value>
+  </data>
+  <data name="MachineNamingPageHeader.Description" xml:space="preserve">
+    <value>กำหนดค่าการตั้งชื่ออุปกรณ์แบบอัตโนมัติและแบบมีช่างเทคนิคช่วย</value>
+  </data>
+  <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>เปิดใช้งานกฎการตั้งชื่อเครื่อง</value>
+  </data>
+  <data name="OobePageHeader.Title" xml:space="preserve">
+    <value>Out-of-Box Experience</value>
+  </data>
+  <data name="OobePageHeader.Description" xml:space="preserve">
+    <value>กำหนดค่า Windows 11 หน้าจอที่ใช้งานครั้งแรกและค่าเริ่มต้นความเป็นส่วนตัว</value>
+  </data>
+  <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>ปรับแต่ง OOBE</value>
+  </data>
+  <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
+    <value>คุณสมบัติเสริมของ Windows</value>
+  </data>
+  <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
+    <value>เปิดใช้งานหรือปิดใช้งานส่วนประกอบ Windows ในระบบปฏิบัติการที่ปรับใช้</value>
+  </data>
+  <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>กำหนดค่าคุณสมบัติเสริมของ Windows</value>
+  </data>
+  <data name="AppRemovalPageHeader.Title" xml:space="preserve">
+    <value>การลบแอป AppX</value>
+  </data>
+  <data name="AppRemovalPageHeader.Description" xml:space="preserve">
+    <value>ลบแอป Windows ที่เลือกไว้ก่อนหน้า OOBE</value>
+  </data>
+  <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>ลบแอป Windows ที่จัดเตรียมไว้</value>
+  </data>
+  <data name="AiComponentsPageHeader.Title" xml:space="preserve">
+    <value>การลบส่วนประกอบ AI</value>
+  </data>
+  <data name="AiComponentsPageHeader.Description" xml:space="preserve">
+    <value>ลบหรือปิดใช้งานส่วนประกอบ AI ที่เลือก Windows ก่อน OOBE</value>
+  </data>
+  <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>ลบส่วนประกอบ AI</value>
+  </data>
+  <data name="Common.Enable" xml:space="preserve">
+    <value>เปิดใช้งาน</value>
+  </data>
+  <data name="Common.Disable" xml:space="preserve">
+    <value>ปิดใช้งาน</value>
+  </data>
+  <data name="NavigationStatus.Configured" xml:space="preserve">
+    <value>กำหนดค่าแล้ว</value>
+  </data>
+  <data name="NavigationStatus.NotConfigured" xml:space="preserve">
+    <value>ยังไม่ได้กำหนดค่า</value>
+  </data>
+  <data name="NavigationStatus.AdkReady" xml:space="preserve">
+    <value>ADK พร้อมแล้ว</value>
+  </data>
+  <data name="NavigationStatus.AdkNotReady" xml:space="preserve">
+    <value>ADK ยังไม่พร้อม</value>
+  </data>
+  <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
+    <value>โหมดการจัดสรรที่ใช้งานอยู่</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
+    <value>เปลี่ยนโหมดการจัดสรรหรือไม่</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationMessageFormat" xml:space="preserve">
+    <value>{0} เปิดใช้งานอยู่ในขณะนี้ หากดำเนินการต่อ ระบบจะปิดใช้งานโหมดนี้และเปิดใช้งาน {1}</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
+    <value>เปลี่ยนโหมด</value>
+  </data>
 </root>

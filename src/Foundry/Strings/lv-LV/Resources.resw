@@ -156,21 +156,6 @@
   <data name="Language.French" xml:space="preserve">
     <value>franču valoda</value>
   </data>
-  <data name="AutopilotPage_Title.Text" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Autopilot.Header" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Autopilot.Description" xml:space="preserve">
-    <value>Izvēlieties izvietošanas datu nesēja Autopilot sagatavošanas metodi: JSON profila sagatavošanu, WinPE zero-touch aparatūras jaucējkoda augšupielādi vai interaktīvu aparatūras jaucējkoda augšupielādi.</value>
-  </data>
-  <data name="Autopilot.PageDescription" xml:space="preserve">
-    <value>Konfigurējiet Windows Autopilot reģistrācijas iestatījumus izvietošanas datu nesējiem un aparatūras reģistrācijai.</value>
-  </data>
-  <data name="Autopilot.EnableLabel" xml:space="preserve">
-    <value>Iespējot Autopilot</value>
-  </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>Importēt profilu</value>
   </data>
@@ -288,29 +273,14 @@
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
     <value>JSON profila nodrošināšana</value>
   </data>
-  <data name="Autopilot.JsonProfileDescription" xml:space="preserve">
-    <value>Iestatiet bezsaistes Autopilot profilu lietotajā Windows attēlā.</value>
-  </data>
-  <data name="Autopilot.JsonProfileEnableLabel" xml:space="preserve">
-    <value>Izmantojiet JSON profila nodrošināšanu</value>
-  </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch aparatūras jaucējkoda augšupielāde</value>
-  </data>
-  <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
-    <value>Augšupielādējiet ierīces aparatūras jaucējfailu uz Intune no Foundry Deploy, izmantojot WinPE.</value>
-  </data>
-  <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Izmantot zero-touch aparatūras jaucējkoda augšupielādi</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Interaktīva aparatūras jaucējkoda augšupielāde</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Sagatavo tehniķa pierakstīšanos ar ierīces kodu aparatūras jaucējkoda reģistrācijai OOBE laikā.</value>
-  </data>
-  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
-    <value>Izmantot interaktīvu aparatūras jaucējkoda augšupielādi</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Pievienojiet īrnieku</value>
@@ -510,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>Nav atlasīts neviens noklusējuma grupas tags.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>Nav</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>Nav</value>
   </data>
@@ -549,23 +516,11 @@
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
     <value>Pārvaldītās lietotnes reģistrācija nav gatava. Pārskatiet īrnieka gatavību un atkārtoti izveidojiet savienojumu.</value>
   </data>
-  <data name="CustomizationPage_Title.Text" xml:space="preserve">
-    <value>Pielāgošana</value>
-  </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry nevarēja atvērt dokumentāciju jūsu pārlūkprogrammā. Tā vietā izmantojiet šo URL.</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Dokumentāciju nevarēja atvērt</value>
-  </data>
-  <data name="Customization.MachineNamingHeader" xml:space="preserve">
-    <value>Datora nosaukums</value>
-  </data>
-  <data name="Customization.MachineNamingDescription" xml:space="preserve">
-    <value>Kontrolējiet, kā izvietotā datora nosaukums tiek ģenerēts WinPE.</value>
-  </data>
-  <data name="Customization.MachineNamingEnableLabel" xml:space="preserve">
-    <value>Iespējot mašīnu nosaukumu piešķiršanas noteikumus</value>
   </data>
   <data name="Customization.MachineNamingPrefixLabel" xml:space="preserve">
     <value>Datora nosaukuma prefikss</value>
@@ -587,15 +542,6 @@
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
     <value>Prefiksā ir jāizmanto 1–15 rakstzīmes no A–Z, a–z, 0–9 vai -.</value>
-  </data>
-  <data name="Customization.OobeHeader" xml:space="preserve">
-    <value>Ārpus kastes pieredze</value>
-  </data>
-  <data name="Customization.OobeDescription" xml:space="preserve">
-    <value>Konfigurējiet Windows 11 pirmās palaišanas ekrānus un privātuma noklusējuma iestatījumus.</value>
-  </data>
-  <data name="Customization.OobeEnableLabel" xml:space="preserve">
-    <value>Pielāgot OOBE</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Izlaist licences noteikumus</value>
@@ -660,15 +606,6 @@
   <data name="Customization.OobeLocationForceOff" xml:space="preserve">
     <value>Piespiedu kārtā izslēgt</value>
   </data>
-  <data name="Customization.AiComponentRemovalHeader" xml:space="preserve">
-    <value>AI komponentu noņemšana</value>
-  </data>
-  <data name="Customization.AiComponentRemovalDescription" xml:space="preserve">
-    <value>Pirms OOBE noņemiet vai atspējojiet atlasītos Windows AI komponentus.</value>
-  </data>
-  <data name="Customization.AiComponentRemovalEnableLabel" xml:space="preserve">
-    <value>Noņemiet AI komponentus</value>
-  </data>
   <data name="Customization.AiComponentRemoveCopilotLabel" xml:space="preserve">
     <value>Noņemt Microsoft Copilot</value>
   </data>
@@ -717,15 +654,6 @@
   <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
     <value>Iestatiet Notepad politiku, kas atspējo AI funkcijas.</value>
   </data>
-  <data name="Customization.WindowsOptionalFeaturesHeader" xml:space="preserve">
-    <value>Windows papildu līdzekļi</value>
-  </data>
-  <data name="Customization.WindowsOptionalFeaturesDescription" xml:space="preserve">
-    <value>Iespējot vai atspējot Windows komponentus izvietotajā operētājsistēmā.</value>
-  </data>
-  <data name="Customization.WindowsOptionalFeaturesEnableLabel" xml:space="preserve">
-    <value>Konfigurējiet Windows papildu līdzekļus</value>
-  </data>
   <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
     <value>Izmaiņas tiek lietotas bezsaistē pēc Windows instalēšanas un pirms OOBE. Iespējošanas darbības izmanto tikai instalēto attēlu vai atbilstošus instalācijas datu nesēja avotus; interneta rezerves avots netiek izmantots.</value>
   </data>
@@ -773,6 +701,24 @@
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Clear" xml:space="preserve">
     <value>Atiestatīt redzamos vienumus</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.EnableAll" xml:space="preserve">
+    <value>Iespējot visu</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.DisableAll" xml:space="preserve">
+    <value>Atspējot visu</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.ResetAll" xml:space="preserve">
+    <value>Atiestatīt visu</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationTitle" xml:space="preserve">
+    <value>Vai lietot masveida izmaiņas?</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
+    <value>Tas atjauninās {0} ietekmētās funkcijas, tostarp to pakārtotās funkcijas. Vai vēlaties turpināt?</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
+    <value>Lietot</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MatchingSource" xml:space="preserve">
     <value>Lai iespējotu šo līdzekli, ir nepieciešama atbilstoša instalācijas datu nesēja sources\sxs lietderīgā slodze.</value>
@@ -1245,15 +1191,6 @@
   <data name="Customization.WindowsOptionalFeatures.Feature.Recall" xml:space="preserve">
     <value>Recall</value>
   </data>
-  <data name="Customization.AppxRemovalHeader" xml:space="preserve">
-    <value>Nodrošināta lietotņu noņemšana</value>
-  </data>
-  <data name="Customization.AppxRemovalDescription" xml:space="preserve">
-    <value>Pirms OOBE noņemiet atlasītās nodrošinātās Windows lietotnes.</value>
-  </data>
-  <data name="Customization.AppxRemovalEnableLabel" xml:space="preserve">
-    <value>Noņemiet nodrošinātās Windows lietotnes</value>
-  </data>
   <data name="Customization.AppxRemovalProfileLabel" xml:space="preserve">
     <value>Profils</value>
   </data>
@@ -1380,20 +1317,11 @@
   <data name="Common.AutomaticOption" xml:space="preserve">
     <value>Automātiski</value>
   </data>
-  <data name="NetworkPage_Title.Text" xml:space="preserve">
-    <value>Tīkls</value>
-  </data>
-  <data name="Dot1x.EnableLabel" xml:space="preserve">
-    <value>Konfigurējiet vadu 802.1X</value>
-  </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Uzticams saknes CA sertifikāta fails</value>
   </data>
   <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
     <value>Atlasiet 802.1X sertifikātu</value>
-  </data>
-  <data name="Wifi.EnableLabel" xml:space="preserve">
-    <value>Nodrošiniet Wi-Fi atbalstu sāknēšanas attēlā</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Iepriekš nodrošiniet Wi-Fi profilu</value>
@@ -1424,18 +1352,6 @@
   </data>
   <data name="Wifi.SecurityTypeEnterpriseWpa3192" xml:space="preserve">
     <value>WPA3 Enterprise 192-bit (WPA3ENT192)</value>
-  </data>
-  <data name="Network.EthernetSectionTitle" xml:space="preserve">
-    <value>Ethernet</value>
-  </data>
-  <data name="Network.EthernetHelperText" xml:space="preserve">
-    <value>Standarta Ethernet savienojums ir pieejams pēc noklusējuma. Konfigurējiet šo sadaļu tikai tad, ja jūsu vadu tīklam ir nepieciešama 802.1X uzņēmuma autentifikācija.</value>
-  </data>
-  <data name="Network.WifiSectionTitle" xml:space="preserve">
-    <value>Wi-Fi</value>
-  </data>
-  <data name="Network.WifiHelperText" xml:space="preserve">
-    <value>Iespējojiet šo tikai tad, ja sāknēšanas attēlā ir jāiekļauj Wi-Fi atbalsts un Wi-Fi profili WinPE startēšanai.</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
     <value>Personiskās Wi-Fi ieejas frāzes saglabājas īslaicīgas autorēšanas lietotnē un netiek saglabātas Foundry konfigurācijā.</value>
@@ -2133,32 +2049,11 @@
   <data name="Nav_AdkKey.Title" xml:space="preserve">
     <value>ADK</value>
   </data>
-  <data name="Nav_AutopilotKey.Description" xml:space="preserve">
-    <value>Autopilot profila konfigurācija.</value>
-  </data>
-  <data name="Nav_AutopilotKey.Subtitle" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Nav_AutopilotKey.Title" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Nav_CustomizationKey.Description" xml:space="preserve">
-    <value>Izvietošanas pielāgošanas iespējas.</value>
-  </data>
-  <data name="Nav_CustomizationKey.Subtitle" xml:space="preserve">
-    <value>Pielāgošana</value>
-  </data>
-  <data name="Nav_CustomizationKey.Title" xml:space="preserve">
-    <value>Pielāgošana</value>
-  </data>
   <data name="Nav_DocumentationKey.Description" xml:space="preserve">
     <value>Foundry dokumentācija un projekta saites.</value>
   </data>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>Dokumentācija</value>
-  </data>
-  <data name="Nav_ExpertSection.Title" xml:space="preserve">
-    <value>Eksperts</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Description" xml:space="preserve">
     <value>Standarta konfigurācijas darbplūsma.</value>
@@ -2183,15 +2078,6 @@
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Sākums</value>
-  </data>
-  <data name="Nav_NetworkKey.Description" xml:space="preserve">
-    <value>Tīkla un savienojamības konfigurācija.</value>
-  </data>
-  <data name="Nav_NetworkKey.Subtitle" xml:space="preserve">
-    <value>Tīkls</value>
-  </data>
-  <data name="Nav_NetworkKey.Title" xml:space="preserve">
-    <value>Tīkls</value>
   </data>
   <data name="Nav_StartKey.Description" xml:space="preserve">
     <value>Pārskatiet un sāciet multivides izveidi.</value>
@@ -2580,12 +2466,6 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Ķīniešu tradicionālā (Taivāna)</value>
   </data>
-  <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Windows izvietošanas opcijas</value>
-  </data>
-  <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Definējiet izvietošanas laikā piedāvātās Windows versijas, atjauninājumu līmeņus, valodas un izdevumus.</value>
-  </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>Windows versija</value>
   </data>
@@ -2663,11 +2543,17 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Izvēlieties izdevumu, kas atlasīts pēc noklusējuma. Automātiskā opcija izmanto Foundry ieteikto izdevumu.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows profilu viesabonēšana</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Importē Foundry pārvaldītos Wi-Fi un 802.1X profilus sistēmā Windows pirms OOBE, lai izvietošanas savienojamība turpinātos pēc WinPE.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importē Foundry pārvaldīto vadu 802.1X profilu sistēmā Windows pirms OOBE, lai pēc WinPE saglabātu izvietošanas savienojamību.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Windows profilu viesabonēšana</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importē Foundry pārvaldīto Wi-Fi profilu sistēmā Windows pirms OOBE, lai pēc WinPE saglabātu izvietošanas savienojamību.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Pārvietot tīkla profilus uz Windows</value>
@@ -2681,18 +2567,207 @@
   <data name="Adk.PageDescription" xml:space="preserve">
     <value>Pirms izvietošanas datu nesēja izveides pārskatiet Windows ADK un Windows PE papildinājuma gatavību.</value>
   </data>
-  <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Konfigurējiet mašīnas nosaukumu piešķiršanu, operētājsistēmas atlasi, OOBE, Windows papildu līdzekļus kategorijās, AI komponentu noņemšanu un AppX noņemšanu.</value>
-  </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Konfigurējiet datu nesēja bāzi, WinPE valodu, sāknēšanas parakstu, draiverus un izvietošanas laika joslu.</value>
-  </data>
-  <data name="Network.PageDescription" xml:space="preserve">
-    <value>Konfigurējiet vadu 802.1X, Wi-Fi sagatavošanu un profilu viesabonēšanu izvietošanas datu nesējam.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Pārskatiet gatavību, izvēlieties ISO vai USB izvadi un sāciet datu nesēja izveidi.</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve"><value>Ritināt pa kreisi</value></data>
   <data name="Home.Scroll.Forward" xml:space="preserve"><value>Ritināt pa labi</value></data>
+  <data name="Nav_NetworkSection.Title" xml:space="preserve">
+    <value>Tīkls</value>
+  </data>
+  <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Nav_CustomizationSection.Title" xml:space="preserve">
+    <value>Pielāgošana</value>
+  </data>
+  <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
+    <value>Ethernet 802.1X</value>
+  </data>
+  <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
+    <value>Standarta Ethernet savienojums ir pieejams pēc noklusējuma. Konfigurējiet šo sadaļu tikai tad, ja jūsu vadu tīklam ir nepieciešama 802.1X uzņēmuma autentifikācija.</value>
+  </data>
+  <data name="Nav_WifiKey.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Nav_WifiKey.Description" xml:space="preserve">
+    <value>Konfigurējiet Wi-Fi nodrošināšanu un profilus.</value>
+  </data>
+  <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
+    <value>JSON profils</value>
+  </data>
+  <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
+    <value>Nodrošiniet ierīces ar Autopilot JSON profilu.</value>
+  </data>
+  <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
+    <value>Augšupielādējiet aparatūras jaucējvērtības, izmantojot Microsoft Graph.</value>
+  </data>
+  <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
+    <value>Interaktīvi</value>
+  </data>
+  <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
+    <value>Sagatavo tehniķa pierakstīšanos ar ierīces kodu aparatūras jaucējkoda reģistrācijai OOBE laikā.</value>
+  </data>
+  <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
+    <value>OS atlase</value>
+  </data>
+  <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
+    <value>Definējiet izvietošanas laikā piedāvātās Windows versijas, atjauninājumu līmeņus, valodas un izdevumus.</value>
+  </data>
+  <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
+    <value>Ierīces nosaukšana</value>
+  </data>
+  <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
+    <value>Konfigurējiet izvietoto ierīču nosaukumus.</value>
+  </data>
+  <data name="Nav_OobeKey.Title" xml:space="preserve">
+    <value>OOBE</value>
+  </data>
+  <data name="Nav_OobeKey.Description" xml:space="preserve">
+    <value>Konfigurējiet Windows 11 pirmās palaišanas ekrānus un privātuma noklusējuma iestatījumus.</value>
+  </data>
+  <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
+    <value>Papildu līdzekļi</value>
+  </data>
+  <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
+    <value>Iespējot vai atspējot Windows komponentus izvietotajā operētājsistēmā.</value>
+  </data>
+  <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
+    <value>AppX noņemšanas</value>
+  </data>
+  <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
+    <value>Pirms OOBE noņemiet atlasītās nodrošinātās Windows lietotnes.</value>
+  </data>
+  <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
+    <value>MI komponenti</value>
+  </data>
+  <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
+    <value>Pirms OOBE noņemiet vai atspējojiet atlasītos Windows AI komponentus.</value>
+  </data>
+  <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
+    <value>Ethernet 802.1X</value>
+  </data>
+  <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
+    <value>Standarta Ethernet savienojums ir pieejams pēc noklusējuma. Konfigurējiet šo sadaļu tikai tad, ja jūsu vadu tīklam ir nepieciešama 802.1X uzņēmuma autentifikācija.</value>
+  </data>
+  <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Konfigurējiet vadu 802.1X</value>
+  </data>
+  <data name="WifiPageHeader.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="WifiPageHeader.Description" xml:space="preserve">
+    <value>Konfigurējiet Wi-Fi nodrošināšanu, iegultos profilus un Windows profilu viesabonēšanu.</value>
+  </data>
+  <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Nodrošiniet Wi-Fi atbalstu sāknēšanas attēlā</value>
+  </data>
+  <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
+    <value>JSON profila nodrošināšana</value>
+  </data>
+  <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
+    <value>Iestatiet bezsaistes Autopilot profilu lietotajā Windows attēlā.</value>
+  </data>
+  <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
+    <value>Zero-touch aparatūras jaucējkoda augšupielāde</value>
+  </data>
+  <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
+    <value>Konfigurējiet nomnieka atbalstītu automātisku aparatūras jaucējvērtības augšupielādi.</value>
+  </data>
+  <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
+    <value>Interaktīva aparatūras jaucējkoda augšupielāde</value>
+  </data>
+  <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
+    <value>Sagatavo tehniķa pierakstīšanos ar ierīces kodu aparatūras jaucējkoda reģistrācijai OOBE laikā.</value>
+  </data>
+  <data name="OsSelectionPageHeader.Title" xml:space="preserve">
+    <value>Windows izvietošanas opcijas</value>
+  </data>
+  <data name="OsSelectionPageHeader.Description" xml:space="preserve">
+    <value>Definējiet izvietošanas laikā piedāvātās Windows versijas, atjauninājumu līmeņus, valodas un izdevumus.</value>
+  </data>
+  <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Windows izvietošanas opcijas</value>
+  </data>
+  <data name="MachineNamingPageHeader.Title" xml:space="preserve">
+    <value>Datora nosaukums</value>
+  </data>
+  <data name="MachineNamingPageHeader.Description" xml:space="preserve">
+    <value>Konfigurējiet automātisku un tehniķa atbalstītu ierīču nosaukšanu.</value>
+  </data>
+  <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Iespējot mašīnu nosaukumu piešķiršanas noteikumus</value>
+  </data>
+  <data name="OobePageHeader.Title" xml:space="preserve">
+    <value>Out-of-Box Experience</value>
+  </data>
+  <data name="OobePageHeader.Description" xml:space="preserve">
+    <value>Konfigurējiet Windows 11 pirmās palaišanas ekrānus un privātuma noklusējuma iestatījumus.</value>
+  </data>
+  <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Pielāgot OOBE</value>
+  </data>
+  <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
+    <value>Windows papildu līdzekļi</value>
+  </data>
+  <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
+    <value>Iespējot vai atspējot Windows komponentus izvietotajā operētājsistēmā.</value>
+  </data>
+  <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Konfigurējiet Windows papildu līdzekļus</value>
+  </data>
+  <data name="AppRemovalPageHeader.Title" xml:space="preserve">
+    <value>AppX noņemšanas</value>
+  </data>
+  <data name="AppRemovalPageHeader.Description" xml:space="preserve">
+    <value>Pirms OOBE noņemiet atlasītās nodrošinātās Windows lietotnes.</value>
+  </data>
+  <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Noņemiet nodrošinātās Windows lietotnes</value>
+  </data>
+  <data name="AiComponentsPageHeader.Title" xml:space="preserve">
+    <value>AI komponentu noņemšana</value>
+  </data>
+  <data name="AiComponentsPageHeader.Description" xml:space="preserve">
+    <value>Pirms OOBE noņemiet vai atspējojiet atlasītos Windows AI komponentus.</value>
+  </data>
+  <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Noņemiet AI komponentus</value>
+  </data>
+  <data name="Common.Enable" xml:space="preserve">
+    <value>Iespējot</value>
+  </data>
+  <data name="Common.Disable" xml:space="preserve">
+    <value>Atspējot</value>
+  </data>
+  <data name="NavigationStatus.Configured" xml:space="preserve">
+    <value>Konfigurēts</value>
+  </data>
+  <data name="NavigationStatus.NotConfigured" xml:space="preserve">
+    <value>Nav konfigurēts</value>
+  </data>
+  <data name="NavigationStatus.AdkReady" xml:space="preserve">
+    <value>ADK ir gatavs</value>
+  </data>
+  <data name="NavigationStatus.AdkNotReady" xml:space="preserve">
+    <value>ADK nav gatavs</value>
+  </data>
+  <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
+    <value>Aktīvais nodrošināšanas režīms</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
+    <value>Vai mainīt nodrošināšanas režīmu?</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationMessageFormat" xml:space="preserve">
+    <value>Pašlaik ir aktīvs režīms {0}. Turpinot tas tiks atspējots un tiks iespējots režīms {1}.</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
+    <value>Mainīt režīmu</value>
+  </data>
 </root>

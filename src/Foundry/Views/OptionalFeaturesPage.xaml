@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Page x:Class="Foundry.Views.OptionalFeaturesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="using:Foundry.Behaviors"
+    xmlns:controls="using:Foundry.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:Foundry.ViewModels"
+    xmlns:wct="using:CommunityToolkit.WinUI.Controls"
+    mc:Ignorable="d">
+    <Grid
+        Margin="{ThemeResource ContentPageMargin}"
+        Padding="{ThemeResource ContentPagePadding}"
+        RowSpacing="{ThemeResource FoundrySettingsSectionSpacing}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <controls:PageHeader
+            x:Uid="OptionalFeaturesPageHeader"
+            DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
+            IconGlyph="&#xE74C;">
+            <controls:PageHeader.ActionContent>
+                <ToggleSwitch
+                    x:Uid="OptionalFeaturesPageEnableToggle"
+                    behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                    IsOn="{x:Bind ViewModel.IsWindowsOptionalFeaturesEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource FoundryPageHeaderToggleSwitchStyle}" />
+            </controls:PageHeader.ActionContent>
+        </controls:PageHeader>
+
+        <ContentControl
+            Grid.Row="1"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
+            IsEnabled="{x:Bind ViewModel.IsWindowsOptionalFeatureOptionsEnabled, Mode=OneWay}">
+            <Grid RowSpacing="{ThemeResource FoundrySpace24}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <wct:SettingsCard
+                    HorizontalAlignment="Stretch"
+                    Description="{x:Bind ViewModel.WindowsOptionalFeaturesExplanation, Mode=OneWay}"
+                    Header="{x:Bind ViewModel.WindowsOptionalFeatureConfiguredCountText, Mode=OneWay}">
+                    <wct:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE9D2;" />
+                    </wct:SettingsCard.HeaderIcon>
+                </wct:SettingsCard>
+
+                <Grid
+                    Grid.Row="1"
+                    ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox x:Name="FeatureSearchBox"
+                        MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                        MaxWidth="420"
+                        HorizontalAlignment="Left"
+                        AutomationProperties.Name="{x:Bind ViewModel.WindowsOptionalFeatureSearchLabel, Mode=OneWay}"
+                        PlaceholderText="{x:Bind ViewModel.WindowsOptionalFeatureSearchPlaceholder, Mode=OneWay}"
+                        TextChanged="OnFeatureSearchTextChanged" />
+
+                    <StackPanel
+                        Grid.Column="1"
+                        Orientation="Horizontal"
+                        Spacing="8">
+                        <Button
+                            Command="{x:Bind ViewModel.EnableAllVisibleWindowsOptionalFeaturesCommand}"
+                            Content="{x:Bind ViewModel.WindowsOptionalFeatureEnableAllText, Mode=OneWay}" />
+                        <Button
+                            Command="{x:Bind ViewModel.DisableAllVisibleWindowsOptionalFeaturesCommand}"
+                            Content="{x:Bind ViewModel.WindowsOptionalFeatureDisableAllText, Mode=OneWay}" />
+                        <Button
+                            Command="{x:Bind ViewModel.ResetAllVisibleWindowsOptionalFeaturesCommand}"
+                            Content="{x:Bind ViewModel.WindowsOptionalFeatureResetAllText, Mode=OneWay}" />
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <TreeView
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch"
+                        ItemsSource="{x:Bind ViewModel.VisibleWindowsOptionalFeatureTreeRoots, Mode=OneWay}"
+                        SelectionMode="None">
+                        <TreeView.ItemTemplate>
+                            <DataTemplate x:DataType="viewModels:WindowsOptionalFeatureTreeNodeViewModel">
+                                <TreeViewItem
+                                    HorizontalContentAlignment="Stretch"
+                                    IsExpanded="{x:Bind IsExpanded, Mode=TwoWay}"
+                                    ItemsSource="{x:Bind Children, Mode=OneWay}">
+                                    <Grid
+                                        MinHeight="56"
+                                        Padding="16,8"
+                                        ColumnSpacing="12"
+                                        Tapped="OnFeatureTreeRowTapped">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <FontIcon
+                                            VerticalAlignment="Center"
+                                            Glyph="{x:Bind IconGlyph, Mode=OneWay}" />
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            Spacing="4">
+                                            <TextBlock
+                                                Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                                Text="{x:Bind DisplayName, Mode=OneWay}" />
+                                            <TextBlock
+                                                MaxLines="2"
+                                                Opacity="0.72"
+                                                Style="{ThemeResource CaptionTextBlockStyle}"
+                                                Text="{x:Bind DetailText, Mode=OneWay}"
+                                                TextTrimming="CharacterEllipsis"
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
+                                        <DropDownButton
+                                            Grid.Column="2"
+                                            MinWidth="132"
+                                            VerticalAlignment="Center"
+                                            AutomationProperties.ItemStatus="{x:Bind StateText, Mode=OneWay}"
+                                            AutomationProperties.Name="{x:Bind DisplayName, Mode=OneWay}"
+                                            Content="{x:Bind StateText, Mode=OneWay}">
+                                            <DropDownButton.Flyout>
+                                                <MenuFlyout>
+                                                    <MenuFlyoutItem
+                                                        Command="{x:Bind EnableCommand, Mode=OneWay}"
+                                                        Text="{x:Bind EnableActionText, Mode=OneWay}" />
+                                                    <MenuFlyoutItem
+                                                        Command="{x:Bind DisableCommand, Mode=OneWay}"
+                                                        Text="{x:Bind DisableActionText, Mode=OneWay}" />
+                                                    <MenuFlyoutSeparator />
+                                                    <MenuFlyoutItem
+                                                        Command="{x:Bind ClearCommand, Mode=OneWay}"
+                                                        Text="{x:Bind ClearActionText, Mode=OneWay}" />
+                                                </MenuFlyout>
+                                            </DropDownButton.Flyout>
+                                        </DropDownButton>
+                                    </Grid>
+                                </TreeViewItem>
+                            </DataTemplate>
+                        </TreeView.ItemTemplate>
+                    </TreeView>
+
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Style="{ThemeResource BodyTextBlockStyle}"
+                        Text="{x:Bind ViewModel.WindowsOptionalFeatureEmptySearchText, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.WindowsOptionalFeatureEmptySearchVisibility, Mode=OneWay}" />
+                </Grid>
+            </Grid>
+        </ContentControl>
+    </Grid>
+</Page>

@@ -156,21 +156,6 @@
   <data name="Language.French" xml:space="preserve">
     <value>Γαλλικά</value>
   </data>
-  <data name="AutopilotPage_Title.Text" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Autopilot.Header" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Autopilot.Description" xml:space="preserve">
-    <value>Επιλέξτε τη μέθοδο προετοιμασίας Autopilot για το μέσο ανάπτυξης: προετοιμασία προφίλ JSON, μη αλληλεπιδραστική αποστολή κατακερματισμού υλικού στο WinPE ή διαδραστική αποστολή κατακερματισμού υλικού.</value>
-  </data>
-  <data name="Autopilot.PageDescription" xml:space="preserve">
-    <value>Ρυθμίστε τις ρυθμίσεις εγγραφής Windows Autopilot για μέσα ανάπτυξης και εγγραφή υλικού.</value>
-  </data>
-  <data name="Autopilot.EnableLabel" xml:space="preserve">
-    <value>Ενεργοποίηση Autopilot</value>
-  </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>Εισαγωγή προφίλ</value>
   </data>
@@ -288,29 +273,14 @@
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
     <value>Προμήθεια προφίλ JSON</value>
   </data>
-  <data name="Autopilot.JsonProfileDescription" xml:space="preserve">
-    <value>Δημιουργήστε ένα προφίλ εκτός σύνδεσης Autopilot στην εφαρμοσμένη εικόνα Windows.</value>
-  </data>
-  <data name="Autopilot.JsonProfileEnableLabel" xml:space="preserve">
-    <value>Χρησιμοποιήστε την παροχή προφίλ JSON</value>
-  </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch αποστολή κατακερματισμού υλικού</value>
-  </data>
-  <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
-    <value>Ανεβάστε το hash υλικού της συσκευής στο Intune από το Foundry Deploy στο WinPE.</value>
-  </data>
-  <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Χρήση zero-touch αποστολής κατακερματισμού υλικού</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Διαδραστική αποστολή κατακερματισμού υλικού</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Προετοιμάζει σύνδεση τεχνικού με κωδικό συσκευής για εγγραφή κατακερματισμού υλικού κατά το OOBE.</value>
-  </data>
-  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
-    <value>Χρήση διαδραστικής αποστολής κατακερματισμού υλικού</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Συνδέστε τον ενοικιαστή</value>
@@ -510,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>Δεν έχει επιλεγεί προεπιλεγμένη ετικέτα ομάδας.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>Κανένα</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>Κανένα</value>
   </data>
@@ -549,23 +516,11 @@
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
     <value>Η εγγραφή διαχειριζόμενης εφαρμογής δεν είναι έτοιμη. Ελέγξτε την ετοιμότητα των ενοικιαστών και επανασυνδεθείτε.</value>
   </data>
-  <data name="CustomizationPage_Title.Text" xml:space="preserve">
-    <value>Προσαρμογή</value>
-  </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Το Foundry δεν μπόρεσε να ανοίξει την τεκμηρίωση στο πρόγραμμα περιήγησής σας. Χρησιμοποιήστε αυτό το URL αντ 'αυτού.</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Δεν ήταν δυνατό το άνοιγμα της τεκμηρίωσης</value>
-  </data>
-  <data name="Customization.MachineNamingHeader" xml:space="preserve">
-    <value>Όνομα υπολογιστή</value>
-  </data>
-  <data name="Customization.MachineNamingDescription" xml:space="preserve">
-    <value>Ελέγξτε πώς δημιουργείται το όνομα υπολογιστή που έχει αναπτυχθεί στο WinPE.</value>
-  </data>
-  <data name="Customization.MachineNamingEnableLabel" xml:space="preserve">
-    <value>Ενεργοποίηση κανόνων ονομασίας μηχανών</value>
   </data>
   <data name="Customization.MachineNamingPrefixLabel" xml:space="preserve">
     <value>Πρόθεμα ονόματος υπολογιστή</value>
@@ -587,15 +542,6 @@
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
     <value>Το πρόθεμα πρέπει να χρησιμοποιεί 1 έως 15 χαρακτήρες από A-Z, a-z, 0-9 ή -.</value>
-  </data>
-  <data name="Customization.OobeHeader" xml:space="preserve">
-    <value>Εμπειρία εκτός συσκευασίας</value>
-  </data>
-  <data name="Customization.OobeDescription" xml:space="preserve">
-    <value>Διαμορφώστε τις παραμέτρους Windows 11 οθόνες πρώτης εκτέλεσης και προεπιλογές απορρήτου.</value>
-  </data>
-  <data name="Customization.OobeEnableLabel" xml:space="preserve">
-    <value>Προσαρμογή OOBE</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Παράβλεψη όρων άδειας</value>
@@ -660,15 +606,6 @@
   <data name="Customization.OobeLocationForceOff" xml:space="preserve">
     <value>Απενεργοποιήστε με δύναμη</value>
   </data>
-  <data name="Customization.AiComponentRemovalHeader" xml:space="preserve">
-    <value>Αφαίρεση εξαρτημάτων AI</value>
-  </data>
-  <data name="Customization.AiComponentRemovalDescription" xml:space="preserve">
-    <value>Καταργήστε ή απενεργοποιήστε τα επιλεγμένα στοιχεία Windows AI πριν από το OOBE.</value>
-  </data>
-  <data name="Customization.AiComponentRemovalEnableLabel" xml:space="preserve">
-    <value>Αφαιρέστε στοιχεία AI</value>
-  </data>
   <data name="Customization.AiComponentRemoveCopilotLabel" xml:space="preserve">
     <value>Κατάργηση Microsoft Copilot</value>
   </data>
@@ -717,15 +654,6 @@
   <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
     <value>Ορίστε την πολιτική Notepad που απενεργοποιεί τις λειτουργίες AI.</value>
   </data>
-  <data name="Customization.WindowsOptionalFeaturesHeader" xml:space="preserve">
-    <value>Προαιρετικές δυνατότητες των Windows</value>
-  </data>
-  <data name="Customization.WindowsOptionalFeaturesDescription" xml:space="preserve">
-    <value>Ενεργοποιήστε ή απενεργοποιήστε τα στοιχεία των Windows στο αναπτυγμένο λειτουργικό σύστημα.</value>
-  </data>
-  <data name="Customization.WindowsOptionalFeaturesEnableLabel" xml:space="preserve">
-    <value>Διαμόρφωση προαιρετικών δυνατοτήτων των Windows</value>
-  </data>
   <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
     <value>Οι αλλαγές εφαρμόζονται εκτός σύνδεσης μετά την εγκατάσταση των Windows και πριν από το OOBE. Οι λειτουργίες ενεργοποίησης χρησιμοποιούν μόνο την εγκατεστημένη εικόνα ή τις αντίστοιχες πηγές μέσων εγκατάστασης. δεν χρησιμοποιείται εναλλακτικό Internet.</value>
   </data>
@@ -773,6 +701,24 @@
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Clear" xml:space="preserve">
     <value>Επαναφορά ορατών στοιχείων</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.EnableAll" xml:space="preserve">
+    <value>Ενεργοποίηση όλων</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.DisableAll" xml:space="preserve">
+    <value>Απενεργοποίηση όλων</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.ResetAll" xml:space="preserve">
+    <value>Επαναφορά όλων</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationTitle" xml:space="preserve">
+    <value>Εφαρμογή μαζικής αλλαγής;</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
+    <value>Αυτό θα ενημερώσει {0} επηρεαζόμενες δυνατότητες, συμπεριλαμβανομένων των απογόνων τους. Θέλετε να συνεχίσετε;</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
+    <value>Εφαρμογή</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MatchingSource" xml:space="preserve">
     <value>Η ενεργοποίηση αυτής της λειτουργίας απαιτεί αντιστοίχιση μέσων ρύθμισης sources\sxs.</value>
@@ -1245,15 +1191,6 @@
   <data name="Customization.WindowsOptionalFeatures.Feature.Recall" xml:space="preserve">
     <value>Recall</value>
   </data>
-  <data name="Customization.AppxRemovalHeader" xml:space="preserve">
-    <value>Προβλεπόμενη κατάργηση εφαρμογής</value>
-  </data>
-  <data name="Customization.AppxRemovalDescription" xml:space="preserve">
-    <value>Καταργήστε τις επιλεγμένες προβλεπόμενες εφαρμογές Windows πριν από το OOBE.</value>
-  </data>
-  <data name="Customization.AppxRemovalEnableLabel" xml:space="preserve">
-    <value>Καταργήστε τις προβλεπόμενες εφαρμογές Windows</value>
-  </data>
   <data name="Customization.AppxRemovalProfileLabel" xml:space="preserve">
     <value>Προφίλ</value>
   </data>
@@ -1380,20 +1317,11 @@
   <data name="Common.AutomaticOption" xml:space="preserve">
     <value>Αυτόματο</value>
   </data>
-  <data name="NetworkPage_Title.Text" xml:space="preserve">
-    <value>Δίκτυο</value>
-  </data>
-  <data name="Dot1x.EnableLabel" xml:space="preserve">
-    <value>Διαμόρφωση ενσύρματου 802.1X</value>
-  </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Αξιόπιστο αρχείο πιστοποιητικού CA root</value>
   </data>
   <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
     <value>Επιλέξτε πιστοποιητικό 802.1X</value>
-  </data>
-  <data name="Wifi.EnableLabel" xml:space="preserve">
-    <value>Παροχή υποστήριξης Wi-Fi στην εικόνα εκκίνησης</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Παρέχετε εκ των προτέρων ένα προφίλ Wi-Fi</value>
@@ -1424,18 +1352,6 @@
   </data>
   <data name="Wifi.SecurityTypeEnterpriseWpa3192" xml:space="preserve">
     <value>WPA3 Enterprise 192-bit (WPA3ENT192)</value>
-  </data>
-  <data name="Network.EthernetSectionTitle" xml:space="preserve">
-    <value>Ethernet</value>
-  </data>
-  <data name="Network.EthernetHelperText" xml:space="preserve">
-    <value>Η τυπική συνδεσιμότητα Ethernet είναι διαθέσιμη από προεπιλογή. Διαμορφώστε αυτήν την ενότητα μόνο εάν το ενσύρματο δίκτυό σας απαιτεί εταιρικό έλεγχο ταυτότητας 802.1X.</value>
-  </data>
-  <data name="Network.WifiSectionTitle" xml:space="preserve">
-    <value>Wi-Fi</value>
-  </data>
-  <data name="Network.WifiHelperText" xml:space="preserve">
-    <value>Ενεργοποιήστε αυτό μόνο εάν η εικόνα εκκίνησης πρέπει να περιλαμβάνει την υποστήριξη Wi-Fi και τα προφίλ Wi-Fi για την εκκίνηση WinPE.</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
     <value>Οι προσωπικές φράσεις πρόσβασης Wi-Fi παραμένουν παροδικές στην εφαρμογή συγγραφής και δεν διατηρούνται στη διαμόρφωση Foundry.</value>
@@ -2133,32 +2049,11 @@
   <data name="Nav_AdkKey.Title" xml:space="preserve">
     <value>ADK</value>
   </data>
-  <data name="Nav_AutopilotKey.Description" xml:space="preserve">
-    <value>Autopilot διαμόρφωση προφίλ.</value>
-  </data>
-  <data name="Nav_AutopilotKey.Subtitle" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Nav_AutopilotKey.Title" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Nav_CustomizationKey.Description" xml:space="preserve">
-    <value>Επιλογές προσαρμογής ανάπτυξης.</value>
-  </data>
-  <data name="Nav_CustomizationKey.Subtitle" xml:space="preserve">
-    <value>Προσαρμογή</value>
-  </data>
-  <data name="Nav_CustomizationKey.Title" xml:space="preserve">
-    <value>Προσαρμογή</value>
-  </data>
   <data name="Nav_DocumentationKey.Description" xml:space="preserve">
     <value>Foundry τεκμηρίωση και σύνδεσμοι έργου.</value>
   </data>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>Τεκμηρίωση</value>
-  </data>
-  <data name="Nav_ExpertSection.Title" xml:space="preserve">
-    <value>Εμπειρογνώμονας</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Description" xml:space="preserve">
     <value>Τυπική ροή εργασιών διαμόρφωσης.</value>
@@ -2183,15 +2078,6 @@
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Σπίτι</value>
-  </data>
-  <data name="Nav_NetworkKey.Description" xml:space="preserve">
-    <value>Διαμόρφωση δικτύου και συνδεσιμότητας.</value>
-  </data>
-  <data name="Nav_NetworkKey.Subtitle" xml:space="preserve">
-    <value>Δίκτυο</value>
-  </data>
-  <data name="Nav_NetworkKey.Title" xml:space="preserve">
-    <value>Δίκτυο</value>
   </data>
   <data name="Nav_StartKey.Description" xml:space="preserve">
     <value>Ελέγξτε και ξεκινήστε τη δημιουργία πολυμέσων.</value>
@@ -2580,12 +2466,6 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Παραδοσιακό Κινέζικο (Ταϊβάν)</value>
   </data>
-  <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Επιλογές ανάπτυξης Windows</value>
-  </data>
-  <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Καθορίστε τις εκδόσεις Windows, τα επίπεδα ενημέρωσης, τις γλώσσες και τις εκδόσεις προϊόντος που προσφέρονται κατά την ανάπτυξη.</value>
-  </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>Έκδοση Windows</value>
   </data>
@@ -2663,11 +2543,17 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Επιλέξτε την έκδοση προϊόντος που θα επιλέγεται από προεπιλογή. Η Αυτόματη επιλογή χρησιμοποιεί την έκδοση προϊόντος που συνιστά το Foundry.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Περιαγωγή προφίλ Windows</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Εισάγει τα προφίλ Wi-Fi και 802.1X που διαχειρίζεται το Foundry στα Windows πριν από το OOBE, ώστε η συνδεσιμότητα ανάπτυξης να συνεχιστεί μετά το WinPE.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Εισάγει το ενσύρματο προφίλ 802.1X που διαχειρίζεται το Foundry στα Windows πριν από το OOBE, ώστε να διατηρηθεί η συνδεσιμότητα ανάπτυξης μετά το WinPE.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Περιαγωγή προφίλ Windows</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Εισάγει το προφίλ Wi-Fi που διαχειρίζεται το Foundry στα Windows πριν από το OOBE, ώστε να διατηρηθεί η συνδεσιμότητα ανάπτυξης μετά το WinPE.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Περιαγωγή προφίλ δικτύου στα Windows</value>
@@ -2681,18 +2567,207 @@
   <data name="Adk.PageDescription" xml:space="preserve">
     <value>Ελέγξτε την ετοιμότητα του Windows ADK και του πρόσθετου Windows PE πριν δημιουργήσετε μέσα ανάπτυξης.</value>
   </data>
-  <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Διαμορφώστε την ονομασία του μηχανήματος, την επιλογή λειτουργικού συστήματος, το OOBE, τις προαιρετικές δυνατότητες κατηγοριοποίησης των Windows, την αφαίρεση στοιχείων AI και την αφαίρεση AppX.</value>
-  </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Ρυθμίστε τη βάση μέσου, τη γλώσσα WinPE, την υπογραφή εκκίνησης, τα προγράμματα οδήγησης και τη ζώνη ώρας ανάπτυξης.</value>
-  </data>
-  <data name="Network.PageDescription" xml:space="preserve">
-    <value>Ρυθμίστε ενσύρματο 802.1X, προετοιμασία Wi-Fi και περιαγωγή προφίλ για μέσα ανάπτυξης.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Ελέγξτε την ετοιμότητα, επιλέξτε έξοδο ISO ή USB και ξεκινήστε τη δημιουργία μέσου.</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve"><value>Κύλιση αριστερά</value></data>
   <data name="Home.Scroll.Forward" xml:space="preserve"><value>Κύλιση δεξιά</value></data>
+  <data name="Nav_NetworkSection.Title" xml:space="preserve">
+    <value>Δίκτυο</value>
+  </data>
+  <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Nav_CustomizationSection.Title" xml:space="preserve">
+    <value>Προσαρμογή</value>
+  </data>
+  <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
+    <value>Ethernet 802.1X</value>
+  </data>
+  <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
+    <value>Η τυπική συνδεσιμότητα Ethernet είναι διαθέσιμη από προεπιλογή. Διαμορφώστε αυτήν την ενότητα μόνο εάν το ενσύρματο δίκτυό σας απαιτεί εταιρικό έλεγχο ταυτότητας 802.1X.</value>
+  </data>
+  <data name="Nav_WifiKey.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Nav_WifiKey.Description" xml:space="preserve">
+    <value>Διαμορφώστε την παροχή Wi-Fi και τα προφίλ.</value>
+  </data>
+  <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
+    <value>Προφίλ JSON</value>
+  </data>
+  <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
+    <value>Παρέχετε συσκευές με ένα προφίλ Autopilot JSON.</value>
+  </data>
+  <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
+    <value>Ανεβάστε hardware hashes μέσω Microsoft Graph.</value>
+  </data>
+  <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
+    <value>Διαδραστική</value>
+  </data>
+  <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
+    <value>Προετοιμάζει σύνδεση τεχνικού με κωδικό συσκευής για εγγραφή κατακερματισμού υλικού κατά το OOBE.</value>
+  </data>
+  <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
+    <value>Επιλογή OS</value>
+  </data>
+  <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
+    <value>Καθορίστε τις εκδόσεις Windows, τα επίπεδα ενημέρωσης, τις γλώσσες και τις εκδόσεις προϊόντος που προσφέρονται κατά την ανάπτυξη.</value>
+  </data>
+  <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
+    <value>Ονομασία υπολογιστή</value>
+  </data>
+  <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
+    <value>Διαμορφώστε τα ονόματα των αναπτυγμένων συσκευών.</value>
+  </data>
+  <data name="Nav_OobeKey.Title" xml:space="preserve">
+    <value>OOBE</value>
+  </data>
+  <data name="Nav_OobeKey.Description" xml:space="preserve">
+    <value>Διαμορφώστε τις παραμέτρους Windows 11 οθόνες πρώτης εκτέλεσης και προεπιλογές απορρήτου.</value>
+  </data>
+  <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
+    <value>Προαιρετικές λειτουργίες</value>
+  </data>
+  <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
+    <value>Ενεργοποιήστε ή απενεργοποιήστε τα στοιχεία των Windows στο αναπτυγμένο λειτουργικό σύστημα.</value>
+  </data>
+  <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
+    <value>Αφαιρέσεις AppX</value>
+  </data>
+  <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
+    <value>Καταργήστε τις επιλεγμένες προβλεπόμενες εφαρμογές Windows πριν από το OOBE.</value>
+  </data>
+  <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
+    <value>Συστατικά AI</value>
+  </data>
+  <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
+    <value>Καταργήστε ή απενεργοποιήστε τα επιλεγμένα στοιχεία Windows AI πριν από το OOBE.</value>
+  </data>
+  <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
+    <value>Ethernet 802.1X</value>
+  </data>
+  <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
+    <value>Η τυπική συνδεσιμότητα Ethernet είναι διαθέσιμη από προεπιλογή. Διαμορφώστε αυτήν την ενότητα μόνο εάν το ενσύρματο δίκτυό σας απαιτεί εταιρικό έλεγχο ταυτότητας 802.1X.</value>
+  </data>
+  <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Διαμόρφωση ενσύρματου 802.1X</value>
+  </data>
+  <data name="WifiPageHeader.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="WifiPageHeader.Description" xml:space="preserve">
+    <value>Διαμορφώστε την παροχή Wi-Fi, ενσωματωμένα προφίλ και τη μεταφορά προφίλ Windows.</value>
+  </data>
+  <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Παροχή υποστήριξης Wi-Fi στην εικόνα εκκίνησης</value>
+  </data>
+  <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
+    <value>Προμήθεια προφίλ JSON</value>
+  </data>
+  <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
+    <value>Δημιουργήστε ένα προφίλ εκτός σύνδεσης Autopilot στην εφαρμοσμένη εικόνα Windows.</value>
+  </data>
+  <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
+    <value>Zero-touch αποστολή κατακερματισμού υλικού</value>
+  </data>
+  <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
+    <value>Διαμορφώστε το αυτόματο ανέβασμα του hardware hash με υποστήριξη tenant.</value>
+  </data>
+  <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
+    <value>Διαδραστική αποστολή κατακερματισμού υλικού</value>
+  </data>
+  <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
+    <value>Προετοιμάζει σύνδεση τεχνικού με κωδικό συσκευής για εγγραφή κατακερματισμού υλικού κατά το OOBE.</value>
+  </data>
+  <data name="OsSelectionPageHeader.Title" xml:space="preserve">
+    <value>Επιλογές ανάπτυξης Windows</value>
+  </data>
+  <data name="OsSelectionPageHeader.Description" xml:space="preserve">
+    <value>Καθορίστε τις εκδόσεις Windows, τα επίπεδα ενημέρωσης, τις γλώσσες και τις εκδόσεις προϊόντος που προσφέρονται κατά την ανάπτυξη.</value>
+  </data>
+  <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Επιλογές ανάπτυξης Windows</value>
+  </data>
+  <data name="MachineNamingPageHeader.Title" xml:space="preserve">
+    <value>Όνομα υπολογιστή</value>
+  </data>
+  <data name="MachineNamingPageHeader.Description" xml:space="preserve">
+    <value>Διαμορφώστε την αυτόματη και τεχνική ονοματοδοσία συσκευών.</value>
+  </data>
+  <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Ενεργοποίηση κανόνων ονομασίας μηχανών</value>
+  </data>
+  <data name="OobePageHeader.Title" xml:space="preserve">
+    <value>Out-of-Box Experience</value>
+  </data>
+  <data name="OobePageHeader.Description" xml:space="preserve">
+    <value>Διαμορφώστε τις παραμέτρους Windows 11 οθόνες πρώτης εκτέλεσης και προεπιλογές απορρήτου.</value>
+  </data>
+  <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Προσαρμογή OOBE</value>
+  </data>
+  <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
+    <value>Προαιρετικές δυνατότητες των Windows</value>
+  </data>
+  <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
+    <value>Ενεργοποιήστε ή απενεργοποιήστε τα στοιχεία των Windows στο αναπτυγμένο λειτουργικό σύστημα.</value>
+  </data>
+  <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Διαμόρφωση προαιρετικών δυνατοτήτων των Windows</value>
+  </data>
+  <data name="AppRemovalPageHeader.Title" xml:space="preserve">
+    <value>Αφαιρέσεις AppX</value>
+  </data>
+  <data name="AppRemovalPageHeader.Description" xml:space="preserve">
+    <value>Καταργήστε τις επιλεγμένες προβλεπόμενες εφαρμογές Windows πριν από το OOBE.</value>
+  </data>
+  <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Καταργήστε τις προβλεπόμενες εφαρμογές Windows</value>
+  </data>
+  <data name="AiComponentsPageHeader.Title" xml:space="preserve">
+    <value>Αφαίρεση εξαρτημάτων AI</value>
+  </data>
+  <data name="AiComponentsPageHeader.Description" xml:space="preserve">
+    <value>Καταργήστε ή απενεργοποιήστε τα επιλεγμένα στοιχεία Windows AI πριν από το OOBE.</value>
+  </data>
+  <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Αφαιρέστε στοιχεία AI</value>
+  </data>
+  <data name="Common.Enable" xml:space="preserve">
+    <value>Ενεργοποίηση</value>
+  </data>
+  <data name="Common.Disable" xml:space="preserve">
+    <value>Απενεργοποίηση</value>
+  </data>
+  <data name="NavigationStatus.Configured" xml:space="preserve">
+    <value>Διαμορφωμένο</value>
+  </data>
+  <data name="NavigationStatus.NotConfigured" xml:space="preserve">
+    <value>Μη διαμορφωμένο</value>
+  </data>
+  <data name="NavigationStatus.AdkReady" xml:space="preserve">
+    <value>ADK έτοιμο</value>
+  </data>
+  <data name="NavigationStatus.AdkNotReady" xml:space="preserve">
+    <value>Το ADK δεν είναι έτοιμο</value>
+  </data>
+  <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
+    <value>Ενεργή λειτουργία προμήθειας</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
+    <value>Αλλαγή λειτουργίας προμήθειας;</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationMessageFormat" xml:space="preserve">
+    <value>Το {0} είναι προς το παρόν ενεργό. Η συνέχιση θα το απενεργοποιήσει και θα ενεργοποιήσει το {1}.</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
+    <value>Αλλαγή λειτουργίας</value>
+  </data>
 </root>

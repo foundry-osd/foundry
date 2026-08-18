@@ -127,7 +127,11 @@ public static class TelemetryEventPropertyPolicy
                 "network_wifi_enterprise_certificate_required",
                 "network_wifi_enterprise_certificate_configured",
                 "network_profile_roaming_enabled",
-                "network_private_key_roaming_enabled"
+                "network_private_key_roaming_enabled",
+                "network_wired_dot1x_profile_roaming_enabled",
+                "network_wired_dot1x_private_key_roaming_enabled",
+                "network_wifi_profile_roaming_enabled",
+                "network_wifi_private_key_roaming_enabled"
             },
             [TelemetryEvents.ConnectSessionReady] = new(StringComparer.Ordinal)
             {

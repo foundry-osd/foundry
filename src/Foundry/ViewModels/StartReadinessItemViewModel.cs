@@ -2,45 +2,10 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Core.Services.Configuration;
 using Microsoft.UI.Xaml.Media;
 
 namespace Foundry.ViewModels;
-
-/// <summary>
-/// Identifies the navigation target opened by a readiness item action.
-/// </summary>
-public enum StartReadinessNavigationTarget
-{
-    /// <summary>
-    /// No navigation action is available.
-    /// </summary>
-    None,
-
-    /// <summary>
-    /// Navigate to the ADK readiness page.
-    /// </summary>
-    Adk,
-
-    /// <summary>
-    /// Navigate to general media configuration.
-    /// </summary>
-    General,
-
-    /// <summary>
-    /// Navigate to network configuration.
-    /// </summary>
-    Network,
-
-    /// <summary>
-    /// Navigate to Autopilot configuration.
-    /// </summary>
-    Autopilot,
-
-    /// <summary>
-    /// Navigate to deployment customization settings.
-    /// </summary>
-    Customization
-}
 
 /// <summary>
 /// Represents one readiness row shown on the media start page.
@@ -65,7 +30,7 @@ public sealed class StartReadinessItemViewModel
         string glyph,
         string glyphForegroundBrushKey,
         bool expandsGroup,
-        StartReadinessNavigationTarget navigationTarget = StartReadinessNavigationTarget.None,
+        ConfigurationNavigationTarget navigationTarget = ConfigurationNavigationTarget.None,
         string actionText = "")
     {
         Title = title;
@@ -113,14 +78,14 @@ public sealed class StartReadinessItemViewModel
     /// <summary>
     /// Gets the target page opened by the action button.
     /// </summary>
-    public StartReadinessNavigationTarget NavigationTarget { get; }
+    public ConfigurationNavigationTarget NavigationTarget { get; }
 
     public string ActionText { get; }
 
     /// <summary>
     /// Gets the action button visibility derived from <see cref="NavigationTarget"/>.
     /// </summary>
-    public Visibility ActionVisibility => NavigationTarget == StartReadinessNavigationTarget.None
+    public Visibility ActionVisibility => NavigationTarget == ConfigurationNavigationTarget.None
         ? Visibility.Collapsed
         : Visibility.Visible;
 }

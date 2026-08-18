@@ -156,21 +156,6 @@
   <data name="Language.French" xml:space="preserve">
     <value>francez</value>
   </data>
-  <data name="AutopilotPage_Title.Text" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Autopilot.Header" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Autopilot.Description" xml:space="preserve">
-    <value>Alegeți metoda de configurare Autopilot pentru mediul de implementare: pregătirea profilului JSON, încărcarea zero-touch a hashului hardware în WinPE sau încărcarea interactivă a hashului hardware.</value>
-  </data>
-  <data name="Autopilot.PageDescription" xml:space="preserve">
-    <value>Configurați setările de înscriere Windows Autopilot pentru mediile de implementare și înregistrarea hardware.</value>
-  </data>
-  <data name="Autopilot.EnableLabel" xml:space="preserve">
-    <value>Activați Autopilot</value>
-  </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>Importați profilul</value>
   </data>
@@ -288,29 +273,14 @@
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
     <value>JSON furnizarea profilului</value>
   </data>
-  <data name="Autopilot.JsonProfileDescription" xml:space="preserve">
-    <value>Creați un profil offline Autopilot în imaginea Windows aplicată.</value>
-  </data>
-  <data name="Autopilot.JsonProfileEnableLabel" xml:space="preserve">
-    <value>Utilizați furnizarea profilului JSON</value>
-  </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Încărcare zero-touch a hashului hardware</value>
-  </data>
-  <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
-    <value>Încărcați hash-ul hardware al dispozitivului la Intune de la Foundry Deploy în WinPE.</value>
-  </data>
-  <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Utilizați încărcarea zero-touch a hashului hardware</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Încărcare interactivă a hashului hardware</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Pregătește conectarea tehnicianului cu cod de dispozitiv pentru înregistrarea hashului hardware în timpul OOBE.</value>
-  </data>
-  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
-    <value>Utilizați încărcarea interactivă a hashului hardware</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Conectați chiriașul</value>
@@ -510,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>Nu a fost selectată nicio etichetă implicită de grup.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>Niciuna</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>Niciuna</value>
   </data>
@@ -549,23 +516,11 @@
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
     <value>Înregistrarea aplicației gestionate nu este gata. Examinați pregătirea chiriașilor și reconectați-vă.</value>
   </data>
-  <data name="CustomizationPage_Title.Text" xml:space="preserve">
-    <value>Personalizare</value>
-  </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry nu a putut deschide documentația în browser. Folosiți acest URL în schimb.</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Documentația nu a putut fi deschisă</value>
-  </data>
-  <data name="Customization.MachineNamingHeader" xml:space="preserve">
-    <value>Numele computerului</value>
-  </data>
-  <data name="Customization.MachineNamingDescription" xml:space="preserve">
-    <value>Controlați modul în care numele computerului implementat este generat în WinPE.</value>
-  </data>
-  <data name="Customization.MachineNamingEnableLabel" xml:space="preserve">
-    <value>Activați regulile de denumire a mașinii</value>
   </data>
   <data name="Customization.MachineNamingPrefixLabel" xml:space="preserve">
     <value>Prefixul numelui computerului</value>
@@ -587,15 +542,6 @@
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
     <value>Prefixul trebuie să utilizeze 1 până la 15 caractere de la A-Z, a-z, 0-9 sau -.</value>
-  </data>
-  <data name="Customization.OobeHeader" xml:space="preserve">
-    <value>Experiență out-of-box</value>
-  </data>
-  <data name="Customization.OobeDescription" xml:space="preserve">
-    <value>Configurați Windows 11 ecrane de prima rulare și setări implicite de confidențialitate.</value>
-  </data>
-  <data name="Customization.OobeEnableLabel" xml:space="preserve">
-    <value>Personalizează OOBE</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Omiteți termenii licenței</value>
@@ -660,15 +606,6 @@
   <data name="Customization.OobeLocationForceOff" xml:space="preserve">
     <value>Opriți forțat</value>
   </data>
-  <data name="Customization.AiComponentRemovalHeader" xml:space="preserve">
-    <value>Îndepărtarea componentelor AI</value>
-  </data>
-  <data name="Customization.AiComponentRemovalDescription" xml:space="preserve">
-    <value>Eliminați sau dezactivați componentele AI Windows selectate înainte de OOBE.</value>
-  </data>
-  <data name="Customization.AiComponentRemovalEnableLabel" xml:space="preserve">
-    <value>Eliminați componentele AI</value>
-  </data>
   <data name="Customization.AiComponentRemoveCopilotLabel" xml:space="preserve">
     <value>Eliminați Microsoft Copilot</value>
   </data>
@@ -717,15 +654,6 @@
   <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
     <value>Setați politica Notepad care dezactivează funcțiile AI.</value>
   </data>
-  <data name="Customization.WindowsOptionalFeaturesHeader" xml:space="preserve">
-    <value>Caracteristici opționale Windows</value>
-  </data>
-  <data name="Customization.WindowsOptionalFeaturesDescription" xml:space="preserve">
-    <value>Activați sau dezactivați componentele Windows &#238;n sistemul de operare implementat.</value>
-  </data>
-  <data name="Customization.WindowsOptionalFeaturesEnableLabel" xml:space="preserve">
-    <value>Configurați caracteristicile opționale Windows</value>
-  </data>
   <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
     <value>Modificările sunt aplicate offline după instalarea Windows și &#238;nainte de OOBE. Operațiunile de activare utilizează numai imaginea instalată sau sursele media de configurare care se potrivesc; nu se folosește nicio rezervă de internet.</value>
   </data>
@@ -773,6 +701,24 @@
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Clear" xml:space="preserve">
     <value>Resetați elementele vizibile</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.EnableAll" xml:space="preserve">
+    <value>Activați tot</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.DisableAll" xml:space="preserve">
+    <value>Dezactivați tot</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.ResetAll" xml:space="preserve">
+    <value>Resetați tot</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationTitle" xml:space="preserve">
+    <value>Aplicați modificarea în masă?</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
+    <value>Aceasta va actualiza {0} caracteristici afectate, inclusiv caracteristicile descendente. Doriți să continuați?</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
+    <value>Aplică</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MatchingSource" xml:space="preserve">
     <value>Activarea acestei caracteristici necesită o sursă corespunzătoare din mediul de instalare în sources\sxs.</value>
@@ -1245,15 +1191,6 @@
   <data name="Customization.WindowsOptionalFeatures.Feature.Recall" xml:space="preserve">
     <value>Recall</value>
   </data>
-  <data name="Customization.AppxRemovalHeader" xml:space="preserve">
-    <value>Eliminarea aplicației furnizate</value>
-  </data>
-  <data name="Customization.AppxRemovalDescription" xml:space="preserve">
-    <value>Eliminați aplicațiile selectate pentru Windows înainte de OOBE.</value>
-  </data>
-  <data name="Customization.AppxRemovalEnableLabel" xml:space="preserve">
-    <value>Eliminați aplicațiile Windows furnizate</value>
-  </data>
   <data name="Customization.AppxRemovalProfileLabel" xml:space="preserve">
     <value>Profil</value>
   </data>
@@ -1380,20 +1317,11 @@
   <data name="Common.AutomaticOption" xml:space="preserve">
     <value>automată</value>
   </data>
-  <data name="NetworkPage_Title.Text" xml:space="preserve">
-    <value>Rețea</value>
-  </data>
-  <data name="Dot1x.EnableLabel" xml:space="preserve">
-    <value>Configurați 802.1X cu fir</value>
-  </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Fișier de certificat CA rădăcină de încredere</value>
   </data>
   <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
     <value>Selectați certificatul 802.1X</value>
-  </data>
-  <data name="Wifi.EnableLabel" xml:space="preserve">
-    <value>Furnizați suport Wi-Fi în imaginea de pornire</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Furnizați în prealabil un profil Wi-Fi</value>
@@ -1424,18 +1352,6 @@
   </data>
   <data name="Wifi.SecurityTypeEnterpriseWpa3192" xml:space="preserve">
     <value>WPA3 Enterprise pe 192 de biți (WPA3ENT192)</value>
-  </data>
-  <data name="Network.EthernetSectionTitle" xml:space="preserve">
-    <value>Ethernet</value>
-  </data>
-  <data name="Network.EthernetHelperText" xml:space="preserve">
-    <value>Conectivitatea standard Ethernet este disponibilă implicit. Configurați această secțiune numai dacă rețeaua dvs. cu fir necesită autentificare de întreprindere 802.1X.</value>
-  </data>
-  <data name="Network.WifiSectionTitle" xml:space="preserve">
-    <value>Wi-Fi</value>
-  </data>
-  <data name="Network.WifiHelperText" xml:space="preserve">
-    <value>Activați acest lucru numai dacă imaginea de pornire ar trebui să includă suport Wi-Fi și profiluri Wi-Fi pentru pornire WinPE.</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
     <value>Frazele de acces personale Wi-Fi rămân tranzitorii în aplicația de creație și nu sunt persistente în configurația Foundry.</value>
@@ -2133,32 +2049,11 @@
   <data name="Nav_AdkKey.Title" xml:space="preserve">
     <value>ADK</value>
   </data>
-  <data name="Nav_AutopilotKey.Description" xml:space="preserve">
-    <value>Autopilot configurarea profilului.</value>
-  </data>
-  <data name="Nav_AutopilotKey.Subtitle" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Nav_AutopilotKey.Title" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Nav_CustomizationKey.Description" xml:space="preserve">
-    <value>Opțiuni de personalizare a implementării.</value>
-  </data>
-  <data name="Nav_CustomizationKey.Subtitle" xml:space="preserve">
-    <value>Personalizare</value>
-  </data>
-  <data name="Nav_CustomizationKey.Title" xml:space="preserve">
-    <value>Personalizare</value>
-  </data>
   <data name="Nav_DocumentationKey.Description" xml:space="preserve">
     <value>Foundry documentație și link-uri de proiect.</value>
   </data>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>Documentare</value>
-  </data>
-  <data name="Nav_ExpertSection.Title" xml:space="preserve">
-    <value>Expert</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Description" xml:space="preserve">
     <value>Flux de lucru de configurare standard.</value>
@@ -2183,15 +2078,6 @@
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Acasă</value>
-  </data>
-  <data name="Nav_NetworkKey.Description" xml:space="preserve">
-    <value>Configurare rețea și conectivitate.</value>
-  </data>
-  <data name="Nav_NetworkKey.Subtitle" xml:space="preserve">
-    <value>Rețea</value>
-  </data>
-  <data name="Nav_NetworkKey.Title" xml:space="preserve">
-    <value>Rețea</value>
   </data>
   <data name="Nav_StartKey.Description" xml:space="preserve">
     <value>Examinați și începeți crearea media.</value>
@@ -2580,12 +2466,6 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Chineză tradițională (Taiwan)</value>
   </data>
-<data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Opțiuni de implementare Windows</value>
-  </data>
-<data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Definiți versiunile Windows, nivelurile de actualizare, limbile și edițiile oferite în timpul implementării.</value>
-  </data>
 <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>Versiune Windows</value>
   </data>
@@ -2663,11 +2543,17 @@
 <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Alegeți ediția selectată în mod implicit. Opțiunea Automat utilizează ediția recomandată de Foundry.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming pentru profilurile Windows</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Importă profilurile Wi-Fi și 802.1X gestionate de Foundry în Windows înainte de OOBE, astfel încât conectivitatea de implementare să continue după WinPE.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importă profilul 802.1X cu fir gestionat de Foundry în Windows înainte de OOBE, pentru a păstra conectivitatea de implementare după WinPE.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Roaming pentru profilurile Windows</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importă profilul Wi-Fi gestionat de Foundry în Windows înainte de OOBE, pentru a păstra conectivitatea de implementare după WinPE.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Transferă profilurile de rețea în Windows</value>
@@ -2681,18 +2567,207 @@
   <data name="Adk.PageDescription" xml:space="preserve">
     <value>Revizuiți starea Windows ADK și a suplimentului Windows PE înainte de a crea suportul de implementare.</value>
   </data>
-  <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Configurați denumirea mașinii, selectarea sistemului de operare, OOBE, caracteristicile opționale Windows clasificate, eliminarea componentelor AI și eliminarea AppX.</value>
-  </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Configurați baza suportului, limba WinPE, semnătura de pornire, driverele și fusul orar de implementare.</value>
-  </data>
-  <data name="Network.PageDescription" xml:space="preserve">
-    <value>Configurați 802.1X cu fir, aprovizionarea Wi-Fi și roamingul profilurilor pentru suportul de implementare.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Revizuiți starea, alegeți ieșirea ISO sau USB și porniți crearea suportului.</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve"><value>Derulați la stânga</value></data>
   <data name="Home.Scroll.Forward" xml:space="preserve"><value>Derulați la dreapta</value></data>
+  <data name="Nav_NetworkSection.Title" xml:space="preserve">
+    <value>Rețea</value>
+  </data>
+  <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Nav_CustomizationSection.Title" xml:space="preserve">
+    <value>Personalizare</value>
+  </data>
+  <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
+    <value>Ethernet 802.1X</value>
+  </data>
+  <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
+    <value>Conectivitatea standard Ethernet este disponibilă implicit. Configurați această secțiune numai dacă rețeaua dvs. cu fir necesită autentificare de întreprindere 802.1X.</value>
+  </data>
+  <data name="Nav_WifiKey.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Nav_WifiKey.Description" xml:space="preserve">
+    <value>Configurați furnizarea și profilurile Wi-Fi.</value>
+  </data>
+  <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
+    <value>Profil JSON</value>
+  </data>
+  <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
+    <value>Furnizați dispozitive cu un profil Autopilot JSON.</value>
+  </data>
+  <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
+    <value>Încărcați hashurile hardware prin Microsoft Graph.</value>
+  </data>
+  <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
+    <value>Interactiv</value>
+  </data>
+  <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
+    <value>Pregătește conectarea tehnicianului cu cod de dispozitiv pentru înregistrarea hashului hardware în timpul OOBE.</value>
+  </data>
+  <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
+    <value>Selectare sistem de operare</value>
+  </data>
+  <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
+    <value>Definiți versiunile Windows, nivelurile de actualizare, limbile și edițiile oferite în timpul implementării.</value>
+  </data>
+  <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
+    <value>Denumirea computerului</value>
+  </data>
+  <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
+    <value>Configurați numele dispozitivelor implementate.</value>
+  </data>
+  <data name="Nav_OobeKey.Title" xml:space="preserve">
+    <value>OOBE</value>
+  </data>
+  <data name="Nav_OobeKey.Description" xml:space="preserve">
+    <value>Configurați Windows 11 ecrane de prima rulare și setări implicite de confidențialitate.</value>
+  </data>
+  <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
+    <value>Caracteristici opționale</value>
+  </data>
+  <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
+    <value>Activați sau dezactivați componentele Windows în sistemul de operare implementat.</value>
+  </data>
+  <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
+    <value>Eliminări AppX</value>
+  </data>
+  <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
+    <value>Eliminați aplicațiile selectate pentru Windows înainte de OOBE.</value>
+  </data>
+  <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
+    <value>Componente IA</value>
+  </data>
+  <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
+    <value>Eliminați sau dezactivați componentele AI Windows selectate înainte de OOBE.</value>
+  </data>
+  <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
+    <value>Ethernet 802.1X</value>
+  </data>
+  <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
+    <value>Conectivitatea standard Ethernet este disponibilă implicit. Configurați această secțiune numai dacă rețeaua dvs. cu fir necesită autentificare de întreprindere 802.1X.</value>
+  </data>
+  <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Configurați 802.1X cu fir</value>
+  </data>
+  <data name="WifiPageHeader.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="WifiPageHeader.Description" xml:space="preserve">
+    <value>Configurați furnizarea Wi-Fi, profilurile încorporate și roamingul profilurilor Windows.</value>
+  </data>
+  <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Furnizați suport Wi-Fi în imaginea de pornire</value>
+  </data>
+  <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
+    <value>JSON furnizarea profilului</value>
+  </data>
+  <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
+    <value>Creați un profil offline Autopilot în imaginea Windows aplicată.</value>
+  </data>
+  <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
+    <value>Încărcare zero-touch a hashului hardware</value>
+  </data>
+  <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
+    <value>Configurați încărcarea automată a hashului hardware susținută de tenant.</value>
+  </data>
+  <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
+    <value>Încărcare interactivă a hashului hardware</value>
+  </data>
+  <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
+    <value>Pregătește conectarea tehnicianului cu cod de dispozitiv pentru înregistrarea hashului hardware în timpul OOBE.</value>
+  </data>
+  <data name="OsSelectionPageHeader.Title" xml:space="preserve">
+    <value>Opțiuni de implementare Windows</value>
+  </data>
+  <data name="OsSelectionPageHeader.Description" xml:space="preserve">
+    <value>Definiți versiunile Windows, nivelurile de actualizare, limbile și edițiile oferite în timpul implementării.</value>
+  </data>
+  <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Opțiuni de implementare Windows</value>
+  </data>
+  <data name="MachineNamingPageHeader.Title" xml:space="preserve">
+    <value>Numele computerului</value>
+  </data>
+  <data name="MachineNamingPageHeader.Description" xml:space="preserve">
+    <value>Configurați denumirea automată și asistată de tehnician a dispozitivelor.</value>
+  </data>
+  <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Activați regulile de denumire a mașinii</value>
+  </data>
+  <data name="OobePageHeader.Title" xml:space="preserve">
+    <value>Out-of-Box Experience</value>
+  </data>
+  <data name="OobePageHeader.Description" xml:space="preserve">
+    <value>Configurați Windows 11 ecrane de prima rulare și setări implicite de confidențialitate.</value>
+  </data>
+  <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Personalizează OOBE</value>
+  </data>
+  <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
+    <value>Caracteristici opționale Windows</value>
+  </data>
+  <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
+    <value>Activați sau dezactivați componentele Windows în sistemul de operare implementat.</value>
+  </data>
+  <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Configurați caracteristicile opționale Windows</value>
+  </data>
+  <data name="AppRemovalPageHeader.Title" xml:space="preserve">
+    <value>Eliminări AppX</value>
+  </data>
+  <data name="AppRemovalPageHeader.Description" xml:space="preserve">
+    <value>Eliminați aplicațiile selectate pentru Windows înainte de OOBE.</value>
+  </data>
+  <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Eliminați aplicațiile Windows furnizate</value>
+  </data>
+  <data name="AiComponentsPageHeader.Title" xml:space="preserve">
+    <value>Îndepărtarea componentelor AI</value>
+  </data>
+  <data name="AiComponentsPageHeader.Description" xml:space="preserve">
+    <value>Eliminați sau dezactivați componentele AI Windows selectate înainte de OOBE.</value>
+  </data>
+  <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Eliminați componentele AI</value>
+  </data>
+  <data name="Common.Enable" xml:space="preserve">
+    <value>Activare</value>
+  </data>
+  <data name="Common.Disable" xml:space="preserve">
+    <value>Dezactivare</value>
+  </data>
+  <data name="NavigationStatus.Configured" xml:space="preserve">
+    <value>Configurat</value>
+  </data>
+  <data name="NavigationStatus.NotConfigured" xml:space="preserve">
+    <value>Neconfigurat</value>
+  </data>
+  <data name="NavigationStatus.AdkReady" xml:space="preserve">
+    <value>ADK gata</value>
+  </data>
+  <data name="NavigationStatus.AdkNotReady" xml:space="preserve">
+    <value>ADK negata</value>
+  </data>
+  <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
+    <value>Mod de furnizare activ</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
+    <value>Schimbați modul de furnizare?</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationMessageFormat" xml:space="preserve">
+    <value>{0} este activ în prezent. Dacă continuați, acesta va fi dezactivat și va fi activat {1}.</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
+    <value>Schimbați modul</value>
+  </data>
 </root>

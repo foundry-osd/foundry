@@ -235,6 +235,42 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
     }
 
     [Fact]
+    public void Build_WhenWindowsOptionalFeaturesAreDisabled_DoesNotReportDormantSelections()
+    {
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                WindowsOptionalFeatures = new WindowsOptionalFeatureSettings
+                {
+                    IsEnabled = false,
+                    EnabledFeatureIds = ["wf:netfx3"],
+                    DisabledFeatureIds = ["wf:telnetclient"]
+                }
+            }
+        };
+
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
+            new MediaPreflightOptions(),
+            document,
+            success: true,
+            failedStepName: null,
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+
+        Assert.False((bool)result["customization_windows_optional_features_enabled"]!);
+        Assert.Equal(0, result["customization_windows_optional_features_configured_count"]);
+        Assert.Equal(0, result["customization_windows_optional_features_enable_count"]);
+        Assert.Equal(0, result["customization_windows_optional_features_disable_count"]);
+        Assert.Equal(0, result["customization_windows_optional_features_category_count"]);
+        Assert.False((bool)result["customization_windows_optional_features_requires_sxs"]!);
+        Assert.False((bool)result["customization_any_enabled"]!);
+    }
+
+    [Fact]
     public void Build_WhenSourceBackedFeatureIsDisabled_DoesNotReportSourceRequirement()
     {
         var document = new FoundryConfigurationDocument
@@ -625,14 +661,15 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
     }
 
     [Fact]
-    public void Build_WhenNetworkProfileRoamingIsEnabled_ReportsRoamingEnabled()
+    public void Build_WhenOnlyWiredNetworkProfileRoamingIsEnabled_ReportsAggregateAndTransportTelemetry()
     {
         var document = new FoundryConfigurationDocument
         {
             Network = new NetworkSettings
             {
-                RoamWifiProfilesToWindows = true,
-                RoamPrivateKeyMaterialToWindows = true
+                RoamWiredDot1xProfileToWindows = true,
+                RoamWiredDot1xPrivateKeyMaterialToWindows = true,
+                RoamWifiProfileToWindows = false
             }
         };
 
@@ -650,6 +687,10 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.True((bool)result["network_any_enabled"]!);
         Assert.True((bool)result["network_profile_roaming_enabled"]!);
         Assert.True((bool)result["network_private_key_roaming_enabled"]!);
+        Assert.True((bool)result["network_wired_dot1x_profile_roaming_enabled"]!);
+        Assert.True((bool)result["network_wired_dot1x_private_key_roaming_enabled"]!);
+        Assert.False((bool)result["network_wifi_profile_roaming_enabled"]!);
+        Assert.False((bool)result["network_wifi_private_key_roaming_enabled"]!);
     }
 
     [Theory]

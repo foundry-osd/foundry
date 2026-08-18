@@ -18,7 +18,12 @@ public sealed class FoundryConfigurationService : IFoundryConfigurationService
     public FoundryConfigurationDocument Deserialize(string json)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(json);
-        return JsonSerializer.Deserialize<FoundryConfigurationDocument>(json, ConfigurationJsonDefaults.SerializerOptions)
+        FoundryConfigurationDocument document = JsonSerializer.Deserialize<FoundryConfigurationDocument>(
+                json,
+                ConfigurationJsonDefaults.SerializerOptions)
             ?? new FoundryConfigurationDocument();
+        return document.SchemaVersion < FoundryConfigurationDocument.CurrentSchemaVersion
+            ? document with { SchemaVersion = FoundryConfigurationDocument.CurrentSchemaVersion }
+            : document;
     }
 }

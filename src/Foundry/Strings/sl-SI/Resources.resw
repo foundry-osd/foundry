@@ -156,21 +156,6 @@
   <data name="Language.French" xml:space="preserve">
     <value>francosko</value>
   </data>
-  <data name="AutopilotPage_Title.Text" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Autopilot.Header" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Autopilot.Description" xml:space="preserve">
-    <value>Izberite način priprave Autopilot za namestitveni medij: priprava profila JSON, WinPE zero-touch nalaganje zgoščene vrednosti strojne opreme ali interaktivno nalaganje zgoščene vrednosti strojne opreme.</value>
-  </data>
-  <data name="Autopilot.PageDescription" xml:space="preserve">
-    <value>Konfigurirajte nastavitve vpisa v Windows Autopilot za medije za uvedbo in registracijo strojne opreme.</value>
-  </data>
-  <data name="Autopilot.EnableLabel" xml:space="preserve">
-    <value>Omogoči Autopilot</value>
-  </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>Uvozi profil</value>
   </data>
@@ -288,29 +273,14 @@
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
     <value>Omogočanje profila JSON</value>
   </data>
-  <data name="Autopilot.JsonProfileDescription" xml:space="preserve">
-    <value>Uprizorite profil Autopilot brez povezave v uporabljeni sliki Windows.</value>
-  </data>
-  <data name="Autopilot.JsonProfileEnableLabel" xml:space="preserve">
-    <value>Uporabite oskrbo profila JSON</value>
-  </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch nalaganje zgoščene vrednosti strojne opreme</value>
-  </data>
-  <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
-    <value>Prenesite zgoščeno opremo naprave v Intune iz Foundry Deploy v WinPE.</value>
-  </data>
-  <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Uporabi zero-touch nalaganje zgoščene vrednosti strojne opreme</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Interaktivno nalaganje zgoščene vrednosti strojne opreme</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Pripravi prijavo tehnika s kodo naprave za registracijo zgoščene vrednosti strojne opreme med OOBE.</value>
-  </data>
-  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
-    <value>Uporabi interaktivno nalaganje zgoščene vrednosti strojne opreme</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Povežite najemnika</value>
@@ -510,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>Izbrana ni nobena privzeta oznaka skupine.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>Noben</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>Noben</value>
   </data>
@@ -549,23 +516,11 @@
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
     <value>Registracija upravljane aplikacije ni pripravljena. Preglejte pripravljenost najemnika in se znova povežite.</value>
   </data>
-  <data name="CustomizationPage_Title.Text" xml:space="preserve">
-    <value>Prilagajanje</value>
-  </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry ni mogel odpreti dokumentacije v vašem brskalniku. Namesto tega uporabite URL.</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Dokumentacije ni bilo mogoče odpreti</value>
-  </data>
-  <data name="Customization.MachineNamingHeader" xml:space="preserve">
-    <value>Ime računalnika</value>
-  </data>
-  <data name="Customization.MachineNamingDescription" xml:space="preserve">
-    <value>Nadzirajte, kako se ime nameščenega računalnika ustvari v WinPE.</value>
-  </data>
-  <data name="Customization.MachineNamingEnableLabel" xml:space="preserve">
-    <value>Omogoči pravila za poimenovanje stroja</value>
   </data>
   <data name="Customization.MachineNamingPrefixLabel" xml:space="preserve">
     <value>Predpona imena računalnika</value>
@@ -587,15 +542,6 @@
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
     <value>Predpona mora vsebovati od 1 do 15 znakov od A-Z, a-z, 0-9 ali -.</value>
-  </data>
-  <data name="Customization.OobeHeader" xml:space="preserve">
-    <value>Izkušnja zunaj škatle</value>
-  </data>
-  <data name="Customization.OobeDescription" xml:space="preserve">
-    <value>Konfigurirajte Windows 11 zaslonov za prvi zagon in privzete nastavitve zasebnosti.</value>
-  </data>
-  <data name="Customization.OobeEnableLabel" xml:space="preserve">
-    <value>Prilagodi OOBE</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Preskoči licenčne pogoje</value>
@@ -660,15 +606,6 @@
   <data name="Customization.OobeLocationForceOff" xml:space="preserve">
     <value>Izklop na silo</value>
   </data>
-  <data name="Customization.AiComponentRemovalHeader" xml:space="preserve">
-    <value>Odstranitev komponente AI</value>
-  </data>
-  <data name="Customization.AiComponentRemovalDescription" xml:space="preserve">
-    <value>Odstranite ali onemogočite izbrane komponente umetne inteligence Windows pred OOBE.</value>
-  </data>
-  <data name="Customization.AiComponentRemovalEnableLabel" xml:space="preserve">
-    <value>Odstranite komponente AI</value>
-  </data>
   <data name="Customization.AiComponentRemoveCopilotLabel" xml:space="preserve">
     <value>Odstrani Microsoft Copilot</value>
   </data>
@@ -717,15 +654,6 @@
   <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
     <value>Nastavite pravilnik Notepad, ki onemogoči funkcije AI.</value>
   </data>
-  <data name="Customization.WindowsOptionalFeaturesHeader" xml:space="preserve">
-    <value>Izbirne funkcije sistema Windows</value>
-  </data>
-  <data name="Customization.WindowsOptionalFeaturesDescription" xml:space="preserve">
-    <value>Omogočite ali onemogočite komponente sistema Windows v nameščenem operacijskem sistemu.</value>
-  </data>
-  <data name="Customization.WindowsOptionalFeaturesEnableLabel" xml:space="preserve">
-    <value>Konfigurirajte izbirne funkcije sistema Windows</value>
-  </data>
   <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
     <value>Spremembe se uporabijo brez povezave po namestitvi sistema Windows in pred OOBE. Omogoči operacije, ki uporabljajo samo nameščeno sliko ali ujemajoče se nastavitvene medije; ne uporablja se nadomestni internet.</value>
   </data>
@@ -773,6 +701,24 @@
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Clear" xml:space="preserve">
     <value>Ponastavi vidne elemente</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.EnableAll" xml:space="preserve">
+    <value>Omogoči vse</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.DisableAll" xml:space="preserve">
+    <value>Onemogoči vse</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.ResetAll" xml:space="preserve">
+    <value>Ponastavi vse</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationTitle" xml:space="preserve">
+    <value>Uporabiti množično spremembo?</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
+    <value>S tem boste posodobili {0} zadevnih funkcij, vključno z njihovimi podrejenimi funkcijami. Ali želite nadaljevati?</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
+    <value>Uporabi</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MatchingSource" xml:space="preserve">
     <value>Omogočanje te funkcije zahteva ujemanje nastavitvenega medija sources\sxs.</value>
@@ -1245,15 +1191,6 @@
   <data name="Customization.WindowsOptionalFeatures.Feature.Recall" xml:space="preserve">
     <value>Recall</value>
   </data>
-  <data name="Customization.AppxRemovalHeader" xml:space="preserve">
-    <value>Odstranitev omogočene aplikacije</value>
-  </data>
-  <data name="Customization.AppxRemovalDescription" xml:space="preserve">
-    <value>Odstranite izbrane omogočene Windows aplikacije pred OOBE.</value>
-  </data>
-  <data name="Customization.AppxRemovalEnableLabel" xml:space="preserve">
-    <value>Odstranite omogočene Windows aplikacije</value>
-  </data>
   <data name="Customization.AppxRemovalProfileLabel" xml:space="preserve">
     <value>Profil</value>
   </data>
@@ -1380,20 +1317,11 @@
   <data name="Common.AutomaticOption" xml:space="preserve">
     <value>Samodejno</value>
   </data>
-  <data name="NetworkPage_Title.Text" xml:space="preserve">
-    <value>Omrežje</value>
-  </data>
-  <data name="Dot1x.EnableLabel" xml:space="preserve">
-    <value>Konfigurirajte žično 802.1X</value>
-  </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Datoteka potrdila zaupanja vrednega korenskega CA</value>
   </data>
   <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
     <value>Izberite potrdilo 802.1X</value>
-  </data>
-  <data name="Wifi.EnableLabel" xml:space="preserve">
-    <value>Podpora za Wi-Fi v zagonski sliki</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Vnaprej omogočite profil Wi-Fi</value>
@@ -1424,18 +1352,6 @@
   </data>
   <data name="Wifi.SecurityTypeEnterpriseWpa3192" xml:space="preserve">
     <value>WPA3 Enterprise 192-bit (WPA3ENT192)</value>
-  </data>
-  <data name="Network.EthernetSectionTitle" xml:space="preserve">
-    <value>Ethernet</value>
-  </data>
-  <data name="Network.EthernetHelperText" xml:space="preserve">
-    <value>Standardna Ethernet povezljivost je privzeto na voljo. Ta razdelek konfigurirajte samo, če vaše žično omrežje zahteva preverjanje pristnosti podjetja 802.1X.</value>
-  </data>
-  <data name="Network.WifiSectionTitle" xml:space="preserve">
-    <value>Wi-Fi</value>
-  </data>
-  <data name="Network.WifiHelperText" xml:space="preserve">
-    <value>Omogočite to samo, če mora zagonska slika vključevati Wi-Fi podporo in Wi-Fi profile za WinPE zagon.</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
     <value>Osebna gesla Wi-Fi ostanejo začasna v aplikaciji za avtoring in se ne ohranijo v konfiguraciji Foundry.</value>
@@ -2133,32 +2049,11 @@
   <data name="Nav_AdkKey.Title" xml:space="preserve">
     <value>ADK</value>
   </data>
-  <data name="Nav_AutopilotKey.Description" xml:space="preserve">
-    <value>Autopilot konfiguracija profila.</value>
-  </data>
-  <data name="Nav_AutopilotKey.Subtitle" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Nav_AutopilotKey.Title" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Nav_CustomizationKey.Description" xml:space="preserve">
-    <value>Možnosti prilagajanja uvajanja.</value>
-  </data>
-  <data name="Nav_CustomizationKey.Subtitle" xml:space="preserve">
-    <value>Prilagajanje</value>
-  </data>
-  <data name="Nav_CustomizationKey.Title" xml:space="preserve">
-    <value>Prilagajanje</value>
-  </data>
   <data name="Nav_DocumentationKey.Description" xml:space="preserve">
     <value>Foundry dokumentacija in povezave do projekta.</value>
   </data>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>Dokumentacija</value>
-  </data>
-  <data name="Nav_ExpertSection.Title" xml:space="preserve">
-    <value>Strokovnjak</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Description" xml:space="preserve">
     <value>Standardni konfiguracijski potek dela.</value>
@@ -2183,15 +2078,6 @@
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>domov</value>
-  </data>
-  <data name="Nav_NetworkKey.Description" xml:space="preserve">
-    <value>Konfiguracija omrežja in povezljivosti.</value>
-  </data>
-  <data name="Nav_NetworkKey.Subtitle" xml:space="preserve">
-    <value>Omrežje</value>
-  </data>
-  <data name="Nav_NetworkKey.Title" xml:space="preserve">
-    <value>Omrežje</value>
   </data>
   <data name="Nav_StartKey.Description" xml:space="preserve">
     <value>Preglejte in začnite ustvarjati medije.</value>
@@ -2580,12 +2466,6 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>tradicionalna kitajščina (Tajvan)</value>
   </data>
-<data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Možnosti uvajanja sistema Windows</value>
-  </data>
-<data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Določite različice sistema Windows, ravni posodobitev, jezike in izdaje, ki so na voljo med uvajanjem.</value>
-  </data>
 <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>Različica sistema Windows</value>
   </data>
@@ -2663,11 +2543,17 @@
 <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Izberite izdajo, ki je privzeto izbrana. Možnost Samodejno uporabi izdajo, ki jo priporoča Foundry.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Gostovanje profilov Windows</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Uvozi profile Wi-Fi in 802.1X, ki jih upravlja Foundry, v Windows pred OOBE, da se povezljivost uvedbe lahko nadaljuje po WinPE.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Uvozi žični profil 802.1X, ki ga upravlja Foundry, v Windows pred OOBE, da se po WinPE ohrani povezljivost uvedbe.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Gostovanje profilov Windows</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Uvozi profil Wi-Fi, ki ga upravlja Foundry, v Windows pred OOBE, da se po WinPE ohrani povezljivost uvedbe.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Prenesi omrežne profile v Windows</value>
@@ -2681,18 +2567,207 @@
   <data name="Adk.PageDescription" xml:space="preserve">
     <value>Pred ustvarjanjem namestitvenega medija preverite pripravljenost Windows ADK in dodatka Windows PE.</value>
   </data>
-  <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Konfigurirajte poimenovanje stroja, izbiro operacijskega sistema, OOBE, kategorizirane izbirne funkcije sistema Windows, odstranitev komponente AI in odstranitev AppX.</value>
-  </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Konfigurirajte osnovo medija, jezik WinPE, zagonski podpis, gonilnike in časovni pas namestitve.</value>
-  </data>
-  <data name="Network.PageDescription" xml:space="preserve">
-    <value>Konfigurirajte žični 802.1X, omogočanje Wi-Fi in gostovanje profilov za namestitveni medij.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Preverite pripravljenost, izberite izhod ISO ali USB in začnite ustvarjanje medija.</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve"><value>Pomakni levo</value></data>
   <data name="Home.Scroll.Forward" xml:space="preserve"><value>Pomakni desno</value></data>
+  <data name="Nav_NetworkSection.Title" xml:space="preserve">
+    <value>Omrežje</value>
+  </data>
+  <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Nav_CustomizationSection.Title" xml:space="preserve">
+    <value>Prilagajanje</value>
+  </data>
+  <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
+    <value>Ethernet 802.1X</value>
+  </data>
+  <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
+    <value>Standardna Ethernet povezljivost je privzeto na voljo. Ta razdelek konfigurirajte samo, če vaše žično omrežje zahteva preverjanje pristnosti podjetja 802.1X.</value>
+  </data>
+  <data name="Nav_WifiKey.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Nav_WifiKey.Description" xml:space="preserve">
+    <value>Konfigurirajte zagotavljanje in profile Wi-Fi.</value>
+  </data>
+  <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
+    <value>Profil JSON</value>
+  </data>
+  <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
+    <value>Zagotavljajte naprave s profilom Autopilot JSON.</value>
+  </data>
+  <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
+    <value>Naložite zgoščene vrednosti strojne opreme prek Microsoft Graph.</value>
+  </data>
+  <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
+    <value>Interaktivno</value>
+  </data>
+  <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
+    <value>Pripravi prijavo tehnika s kodo naprave za registracijo zgoščene vrednosti strojne opreme med OOBE.</value>
+  </data>
+  <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
+    <value>Izbira OS</value>
+  </data>
+  <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
+    <value>Določite različice sistema Windows, ravni posodobitev, jezike in izdaje, ki so na voljo med uvajanjem.</value>
+  </data>
+  <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
+    <value>Poimenovanje računalnika</value>
+  </data>
+  <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
+    <value>Konfigurirajte imena nameščenih naprav.</value>
+  </data>
+  <data name="Nav_OobeKey.Title" xml:space="preserve">
+    <value>OOBE</value>
+  </data>
+  <data name="Nav_OobeKey.Description" xml:space="preserve">
+    <value>Konfigurirajte Windows 11 zaslonov za prvi zagon in privzete nastavitve zasebnosti.</value>
+  </data>
+  <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
+    <value>Izbirne funkcije</value>
+  </data>
+  <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
+    <value>Omogočite ali onemogočite komponente sistema Windows v nameščenem operacijskem sistemu.</value>
+  </data>
+  <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
+    <value>Odstranitve AppX</value>
+  </data>
+  <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
+    <value>Odstranite izbrane omogočene Windows aplikacije pred OOBE.</value>
+  </data>
+  <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
+    <value>Komponente UI</value>
+  </data>
+  <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
+    <value>Odstranite ali onemogočite izbrane komponente umetne inteligence Windows pred OOBE.</value>
+  </data>
+  <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
+    <value>Ethernet 802.1X</value>
+  </data>
+  <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
+    <value>Standardna Ethernet povezljivost je privzeto na voljo. Ta razdelek konfigurirajte samo, če vaše žično omrežje zahteva preverjanje pristnosti podjetja 802.1X.</value>
+  </data>
+  <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Konfigurirajte žično 802.1X</value>
+  </data>
+  <data name="WifiPageHeader.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="WifiPageHeader.Description" xml:space="preserve">
+    <value>Konfigurirajte zagotavljanje Wi-Fi, vdelane profile in gostovanje profilov Windows.</value>
+  </data>
+  <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Podpora za Wi-Fi v zagonski sliki</value>
+  </data>
+  <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
+    <value>Omogočanje profila JSON</value>
+  </data>
+  <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
+    <value>Uprizorite profil Autopilot brez povezave v uporabljeni sliki Windows.</value>
+  </data>
+  <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
+    <value>Zero-touch nalaganje zgoščene vrednosti strojne opreme</value>
+  </data>
+  <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
+    <value>Konfigurirajte samodejno nalaganje zgoščene vrednosti strojne opreme, podprto prek najemnika.</value>
+  </data>
+  <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
+    <value>Interaktivno nalaganje zgoščene vrednosti strojne opreme</value>
+  </data>
+  <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
+    <value>Pripravi prijavo tehnika s kodo naprave za registracijo zgoščene vrednosti strojne opreme med OOBE.</value>
+  </data>
+  <data name="OsSelectionPageHeader.Title" xml:space="preserve">
+    <value>Možnosti uvajanja sistema Windows</value>
+  </data>
+  <data name="OsSelectionPageHeader.Description" xml:space="preserve">
+    <value>Določite različice sistema Windows, ravni posodobitev, jezike in izdaje, ki so na voljo med uvajanjem.</value>
+  </data>
+  <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Možnosti uvajanja sistema Windows</value>
+  </data>
+  <data name="MachineNamingPageHeader.Title" xml:space="preserve">
+    <value>Ime računalnika</value>
+  </data>
+  <data name="MachineNamingPageHeader.Description" xml:space="preserve">
+    <value>Konfigurirajte samodejno poimenovanje naprav in poimenovanje ob pomoči tehnika.</value>
+  </data>
+  <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Omogoči pravila za poimenovanje stroja</value>
+  </data>
+  <data name="OobePageHeader.Title" xml:space="preserve">
+    <value>Out-of-Box Experience</value>
+  </data>
+  <data name="OobePageHeader.Description" xml:space="preserve">
+    <value>Konfigurirajte Windows 11 zaslonov za prvi zagon in privzete nastavitve zasebnosti.</value>
+  </data>
+  <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Prilagodi OOBE</value>
+  </data>
+  <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
+    <value>Izbirne funkcije sistema Windows</value>
+  </data>
+  <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
+    <value>Omogočite ali onemogočite komponente sistema Windows v nameščenem operacijskem sistemu.</value>
+  </data>
+  <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Konfigurirajte izbirne funkcije sistema Windows</value>
+  </data>
+  <data name="AppRemovalPageHeader.Title" xml:space="preserve">
+    <value>Odstranitve AppX</value>
+  </data>
+  <data name="AppRemovalPageHeader.Description" xml:space="preserve">
+    <value>Odstranite izbrane omogočene Windows aplikacije pred OOBE.</value>
+  </data>
+  <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Odstranite omogočene Windows aplikacije</value>
+  </data>
+  <data name="AiComponentsPageHeader.Title" xml:space="preserve">
+    <value>Odstranitev komponente AI</value>
+  </data>
+  <data name="AiComponentsPageHeader.Description" xml:space="preserve">
+    <value>Odstranite ali onemogočite izbrane komponente umetne inteligence Windows pred OOBE.</value>
+  </data>
+  <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Odstranite komponente AI</value>
+  </data>
+  <data name="Common.Enable" xml:space="preserve">
+    <value>Omogoči</value>
+  </data>
+  <data name="Common.Disable" xml:space="preserve">
+    <value>Onemogoči</value>
+  </data>
+  <data name="NavigationStatus.Configured" xml:space="preserve">
+    <value>Konfigurirano</value>
+  </data>
+  <data name="NavigationStatus.NotConfigured" xml:space="preserve">
+    <value>Ni konfigurirano</value>
+  </data>
+  <data name="NavigationStatus.AdkReady" xml:space="preserve">
+    <value>ADK je pripravljen</value>
+  </data>
+  <data name="NavigationStatus.AdkNotReady" xml:space="preserve">
+    <value>ADK ni pripravljen</value>
+  </data>
+  <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
+    <value>Aktivni način zagotavljanja</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
+    <value>Spremeniti način zagotavljanja?</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationMessageFormat" xml:space="preserve">
+    <value>{0} je trenutno aktiven. Če nadaljujete, bo onemogočen, {1} pa bo omogočen.</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
+    <value>Spremeni način</value>
+  </data>
 </root>

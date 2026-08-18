@@ -42,6 +42,14 @@ public static class WindowsOptionalFeatureCatalog
     private static readonly WindowsOptionalFeatureCatalogEntry[] CatalogEntries = BuildEntries();
     private static readonly IReadOnlyDictionary<string, WindowsOptionalFeatureCatalogEntry> EntriesById = CatalogEntries
         .ToDictionary(entry => entry.Id, StringComparer.OrdinalIgnoreCase);
+    private static readonly IReadOnlyDictionary<string, IReadOnlyList<WindowsOptionalFeatureCatalogEntry>> ChildrenByParentId =
+        CatalogEntries
+            .Where(entry => entry.ParentId is not null)
+            .GroupBy(entry => entry.ParentId!, StringComparer.OrdinalIgnoreCase)
+            .ToDictionary(
+                group => group.Key,
+                group => (IReadOnlyList<WindowsOptionalFeatureCatalogEntry>)group.OrderBy(entry => entry.SortOrder).ToArray(),
+                StringComparer.OrdinalIgnoreCase);
     public static IReadOnlyList<WindowsOptionalFeatureCatalogEntry> Entries => CatalogEntries;
 
     public static WindowsOptionalFeatureCatalogEntry? Find(string? id)
@@ -66,6 +74,34 @@ public static class WindowsOptionalFeatureCatalog
     }
 
     public static int GetDepth(string id) => GetAncestors(id).Count;
+
+    public static IReadOnlyList<WindowsOptionalFeatureCatalogEntry> GetChildren(string? id)
+    {
+        return !string.IsNullOrWhiteSpace(id) && ChildrenByParentId.TryGetValue(id.Trim(), out IReadOnlyList<WindowsOptionalFeatureCatalogEntry>? children)
+            ? children
+            : [];
+    }
+
+    public static IReadOnlyList<WindowsOptionalFeatureCatalogEntry> GetDescendants(string? id)
+    {
+        if (Find(id) is null)
+        {
+            return [];
+        }
+
+        HashSet<string> descendantIds = new(StringComparer.OrdinalIgnoreCase);
+        Queue<WindowsOptionalFeatureCatalogEntry> pending = new(GetChildren(id));
+        while (pending.TryDequeue(out WindowsOptionalFeatureCatalogEntry? entry))
+        {
+            descendantIds.Add(entry.Id);
+            foreach (WindowsOptionalFeatureCatalogEntry child in GetChildren(entry.Id))
+            {
+                pending.Enqueue(child);
+            }
+        }
+
+        return CatalogEntries.Where(entry => descendantIds.Contains(entry.Id)).ToArray();
+    }
 
     public static WindowsOptionalFeatureCatalogEntry? GetEffectiveEntry(string? id)
     {

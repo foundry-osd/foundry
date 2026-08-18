@@ -156,21 +156,6 @@
   <data name="Language.French" xml:space="preserve">
     <value>francia</value>
   </data>
-  <data name="AutopilotPage_Title.Text" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Autopilot.Header" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Autopilot.Description" xml:space="preserve">
-    <value>Válassza ki az üzembe helyezési adathordozó Autopilot-kiépítési módját: JSON-profil előkészítése, WinPE zero-touch hardverhash-feltöltés vagy interaktív hardverhash-feltöltés.</value>
-  </data>
-  <data name="Autopilot.PageDescription" xml:space="preserve">
-    <value>Konfigurálja a Windows Autopilot regisztrációs beállításait a telepítési adathordozókhoz és a hardverregisztrációhoz.</value>
-  </data>
-  <data name="Autopilot.EnableLabel" xml:space="preserve">
-    <value>Autopilot engedélyezése</value>
-  </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>Profil importálása</value>
   </data>
@@ -288,29 +273,14 @@
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
     <value>JSON profil létrehozása</value>
   </data>
-  <data name="Autopilot.JsonProfileDescription" xml:space="preserve">
-    <value>Hozzon létre egy offline Autopilot profilt az alkalmazott Windows képben.</value>
-  </data>
-  <data name="Autopilot.JsonProfileEnableLabel" xml:space="preserve">
-    <value>Használja a JSON profilkiépítést</value>
-  </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch hardverhash-feltöltés</value>
-  </data>
-  <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
-    <value>Töltse fel az eszköz hardverkivonatát a Intune címre a Foundry Deploy címről a WinPE mappában.</value>
-  </data>
-  <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Zero-touch hardverhash-feltöltés használata</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Interaktív hardverhash-feltöltés</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Előkészíti a technikusi eszközkódos bejelentkezést a hardverhash regisztrálásához az OOBE során.</value>
-  </data>
-  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
-    <value>Interaktív hardverhash-feltöltés használata</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Csatlakoztassa a bérlőt</value>
@@ -510,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>Nincs kiválasztva alapértelmezett csoportcímke.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>Egyik sem</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>Egyik sem</value>
   </data>
@@ -549,23 +516,11 @@
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
     <value>A felügyelt alkalmazás regisztrációja nem áll készen. Tekintse át a bérlői felkészültséget, és csatlakozzon újra.</value>
   </data>
-  <data name="CustomizationPage_Title.Text" xml:space="preserve">
-    <value>Testreszabás</value>
-  </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry nem tudta megnyitni a dokumentációt a böngészőben. Használja helyette ezt a URL-t.</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>A dokumentációt nem lehetett megnyitni</value>
-  </data>
-  <data name="Customization.MachineNamingHeader" xml:space="preserve">
-    <value>Számítógép neve</value>
-  </data>
-  <data name="Customization.MachineNamingDescription" xml:space="preserve">
-    <value>Szabályozza, hogy a telepített számítógép neve hogyan generálódik WinPE.</value>
-  </data>
-  <data name="Customization.MachineNamingEnableLabel" xml:space="preserve">
-    <value>Gépelnevezési szabályok engedélyezése</value>
   </data>
   <data name="Customization.MachineNamingPrefixLabel" xml:space="preserve">
     <value>Számítógépnév előtag</value>
@@ -587,15 +542,6 @@
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
     <value>Az előtagnak 1-15 karaktert kell tartalmaznia A-Z, a-z, 0-9 vagy - között.</value>
-  </data>
-  <data name="Customization.OobeHeader" xml:space="preserve">
-    <value>Out-of-box tapasztalat</value>
-  </data>
-  <data name="Customization.OobeDescription" xml:space="preserve">
-    <value>Windows 11 első futtatási képernyő és adatvédelmi alapbeállítások konfigurálása.</value>
-  </data>
-  <data name="Customization.OobeEnableLabel" xml:space="preserve">
-    <value>OOBE testreszabása</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>A licencfeltételek kihagyása</value>
@@ -660,15 +606,6 @@
   <data name="Customization.OobeLocationForceOff" xml:space="preserve">
     <value>Erőszakkal</value>
   </data>
-  <data name="Customization.AiComponentRemovalHeader" xml:space="preserve">
-    <value>AI alkatrész eltávolítása</value>
-  </data>
-  <data name="Customization.AiComponentRemovalDescription" xml:space="preserve">
-    <value>Távolítsa el vagy tiltsa le a kiválasztott Windows AI-komponenseket OOBE előtt.</value>
-  </data>
-  <data name="Customization.AiComponentRemovalEnableLabel" xml:space="preserve">
-    <value>Távolítsa el az AI összetevőket</value>
-  </data>
   <data name="Customization.AiComponentRemoveCopilotLabel" xml:space="preserve">
     <value>Microsoft Copilot eltávolítása</value>
   </data>
@@ -717,15 +654,6 @@
   <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
     <value>Állítsa be a Notepad házirendet, amely letiltja az AI-funkciókat.</value>
   </data>
-  <data name="Customization.WindowsOptionalFeaturesHeader" xml:space="preserve">
-    <value>A Windows opcion&#225;lis szolg&#225;ltat&#225;sai</value>
-  </data>
-  <data name="Customization.WindowsOptionalFeaturesDescription" xml:space="preserve">
-    <value>Enged&#233;lyezze vagy tiltsa le a Windows &#246;sszetevőket a telep&#237;tett oper&#225;ci&#243;s rendszerben.</value>
-  </data>
-  <data name="Customization.WindowsOptionalFeaturesEnableLabel" xml:space="preserve">
-    <value>A Windows opcion&#225;lis szolg&#225;ltat&#225;sainak konfigur&#225;l&#225;sa</value>
-  </data>
   <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
     <value>A v&#225;ltoztat&#225;sok offline m&#243;dban ker&#252;lnek alkalmaz&#225;sra a Windows telep&#237;t&#233;se ut&#225;n &#233;s az OOBE előtt. Az enged&#233;lyez&#233;si műveletek csak a telep&#237;tett lemezk&#233;pet vagy a megfelelő be&#225;ll&#237;t&#225;si m&#233;diaforr&#225;sokat haszn&#225;lj&#225;k; nem haszn&#225;lunk internetes tartal&#233;kot.</value>
   </data>
@@ -773,6 +701,24 @@
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Clear" xml:space="preserve">
     <value>A l&#225;that&#243; elemek vissza&#225;ll&#237;t&#225;sa</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.EnableAll" xml:space="preserve">
+    <value>Összes engedélyezése</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.DisableAll" xml:space="preserve">
+    <value>Összes letiltása</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.ResetAll" xml:space="preserve">
+    <value>Összes visszaállítása</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationTitle" xml:space="preserve">
+    <value>Alkalmazza a tömeges módosítást?</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
+    <value>Ez {0} érintett funkciót frissít, beleértve az alárendelt funkciókat is. Folytatja?</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
+    <value>Alkalmaz</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MatchingSource" xml:space="preserve">
     <value>A funkci&#243; enged&#233;lyez&#233;s&#233;hez egyező setup-media sources\sxs sz&#252;ks&#233;ges.</value>
@@ -1245,15 +1191,6 @@
   <data name="Customization.WindowsOptionalFeatures.Feature.Recall" xml:space="preserve">
     <value>Recall</value>
   </data>
-  <data name="Customization.AppxRemovalHeader" xml:space="preserve">
-    <value>Előzetes alkalmazás eltávolítása</value>
-  </data>
-  <data name="Customization.AppxRemovalDescription" xml:space="preserve">
-    <value>Távolítsa el a kijelölt Windows alkalmazásokat OOBE előtt.</value>
-  </data>
-  <data name="Customization.AppxRemovalEnableLabel" xml:space="preserve">
-    <value>Távolítsa el a kiépített Windows alkalmazásokat</value>
-  </data>
   <data name="Customization.AppxRemovalProfileLabel" xml:space="preserve">
     <value>Profil</value>
   </data>
@@ -1380,20 +1317,11 @@
   <data name="Common.AutomaticOption" xml:space="preserve">
     <value>Automatikus</value>
   </data>
-  <data name="NetworkPage_Title.Text" xml:space="preserve">
-    <value>Hálózat</value>
-  </data>
-  <data name="Dot1x.EnableLabel" xml:space="preserve">
-    <value>Konfigurálja a vezetékes 802.1X-et</value>
-  </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Megbízható root CA tanúsítványfájl</value>
   </data>
   <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
     <value>Válassza a 802.1X tanúsítványt</value>
-  </data>
-  <data name="Wifi.EnableLabel" xml:space="preserve">
-    <value>A Wi-Fi támogatás biztosítása a rendszerindító lemezképben</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Készítsen előzetesen egy Wi-Fi profilt</value>
@@ -1424,18 +1352,6 @@
   </data>
   <data name="Wifi.SecurityTypeEnterpriseWpa3192" xml:space="preserve">
     <value>WPA3 Enterprise 192 bites (WPA3ENT192)</value>
-  </data>
-  <data name="Network.EthernetSectionTitle" xml:space="preserve">
-    <value>Ethernet</value>
-  </data>
-  <data name="Network.EthernetHelperText" xml:space="preserve">
-    <value>A szabványos Ethernet kapcsolat alapértelmezés szerint elérhető. Ezt a szakaszt csak akkor konfigurálja, ha vezetékes hálózata 802.1X vállalati hitelesítést igényel.</value>
-  </data>
-  <data name="Network.WifiSectionTitle" xml:space="preserve">
-    <value>Wi-Fi</value>
-  </data>
-  <data name="Network.WifiHelperText" xml:space="preserve">
-    <value>Csak akkor engedélyezze ezt, ha a rendszerindító lemezképnek tartalmaznia kell Wi-Fi támogatást és Wi-Fi profilt az WinPE indításhoz.</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
     <value>A személyes Wi-Fi jelszavak átmenetiek maradnak a szerzői alkalmazásban, és nem maradnak meg a Foundry konfigurációban.</value>
@@ -2133,32 +2049,11 @@
   <data name="Nav_AdkKey.Title" xml:space="preserve">
     <value>ADK</value>
   </data>
-  <data name="Nav_AutopilotKey.Description" xml:space="preserve">
-    <value>Autopilot profilkonfiguráció.</value>
-  </data>
-  <data name="Nav_AutopilotKey.Subtitle" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Nav_AutopilotKey.Title" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Nav_CustomizationKey.Description" xml:space="preserve">
-    <value>Telepítési testreszabási lehetőségek.</value>
-  </data>
-  <data name="Nav_CustomizationKey.Subtitle" xml:space="preserve">
-    <value>Testreszabás</value>
-  </data>
-  <data name="Nav_CustomizationKey.Title" xml:space="preserve">
-    <value>Testreszabás</value>
-  </data>
   <data name="Nav_DocumentationKey.Description" xml:space="preserve">
     <value>Foundry dokumentáció és projektlinkek.</value>
   </data>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>Dokumentáció</value>
-  </data>
-  <data name="Nav_ExpertSection.Title" xml:space="preserve">
-    <value>Szakértő</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Description" xml:space="preserve">
     <value>Szabványos konfigurációs munkafolyamat.</value>
@@ -2183,15 +2078,6 @@
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Otthon</value>
-  </data>
-  <data name="Nav_NetworkKey.Description" xml:space="preserve">
-    <value>Hálózati és csatlakozási konfiguráció.</value>
-  </data>
-  <data name="Nav_NetworkKey.Subtitle" xml:space="preserve">
-    <value>Hálózat</value>
-  </data>
-  <data name="Nav_NetworkKey.Title" xml:space="preserve">
-    <value>Hálózat</value>
   </data>
   <data name="Nav_StartKey.Description" xml:space="preserve">
     <value>Tekintse át és indítsa el a médiakészítést.</value>
@@ -2580,12 +2466,6 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>hagyományos kínai (Tajvan)</value>
   </data>
-  <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Windows-telepítési lehetőségek</value>
-  </data>
-  <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Adja meg a telepítés során felkínált Windows-verziókat, frissítési szinteket, nyelveket és kiadásokat.</value>
-  </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>Windows-verzió</value>
   </data>
@@ -2663,11 +2543,17 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Válassza ki az alapértelmezés szerint kijelölt kiadást. Az Automatikus beállítás a Foundry által ajánlott kiadást használja.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows-profilok barangolása</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Importálja a Foundry által kezelt Wi-Fi- és 802.1X-profilokat a Windowsba az OOBE előtt, hogy a telepítési kapcsolat a WinPE után is folytatódhasson.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importálja a Foundry által kezelt vezetékes 802.1X-profilt a Windowsba az OOBE előtt, hogy a telepítési kapcsolat a WinPE után is megmaradjon.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Windows-profilok barangolása</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importálja a Foundry által kezelt Wi-Fi-profilt a Windowsba az OOBE előtt, hogy a telepítési kapcsolat a WinPE után is megmaradjon.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Hálózati profilok átvitele Windowsba</value>
@@ -2681,18 +2567,207 @@
   <data name="Adk.PageDescription" xml:space="preserve">
     <value>Tekintse át a Windows ADK és a Windows PE bővítmény készenlétét az üzembe helyezési adathordozó létrehozása előtt.</value>
   </data>
-  <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Konfigur&#225;lja a g&#233;p elnevez&#233;s&#233;t, az oper&#225;ci&#243;s rendszer kiv&#225;laszt&#225;s&#225;t, az OOBE-t, a kategoriz&#225;lt Windows opcion&#225;lis funkci&#243;kat, az AI-&#246;sszetevők elt&#225;vol&#237;t&#225;s&#225;t &#233;s az AppX elt&#225;vol&#237;t&#225;s&#225;t.</value>
-  </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Konfigurálja az adathordozó alapját, a WinPE nyelvét, a rendszerindítási aláírást, az illesztőprogramokat és az üzembe helyezési időzónát.</value>
-  </data>
-  <data name="Network.PageDescription" xml:space="preserve">
-    <value>Konfigurálja a vezetékes 802.1X-et, a Wi-Fi kiépítést és a profilroamingot az üzembe helyezési adathordozóhoz.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Tekintse át a készenlétet, válasszon ISO vagy USB kimenetet, majd indítsa el az adathordozó létrehozását.</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve"><value>Görgetés balra</value></data>
   <data name="Home.Scroll.Forward" xml:space="preserve"><value>Görgetés jobbra</value></data>
+  <data name="Nav_NetworkSection.Title" xml:space="preserve">
+    <value>Hálózat</value>
+  </data>
+  <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Nav_CustomizationSection.Title" xml:space="preserve">
+    <value>Testreszabás</value>
+  </data>
+  <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
+    <value>Ethernet 802.1X</value>
+  </data>
+  <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
+    <value>A szabványos Ethernet kapcsolat alapértelmezés szerint elérhető. Ezt a szakaszt csak akkor konfigurálja, ha vezetékes hálózata 802.1X vállalati hitelesítést igényel.</value>
+  </data>
+  <data name="Nav_WifiKey.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Nav_WifiKey.Description" xml:space="preserve">
+    <value>Konfigurálja a Wi-Fi kiépítését és profiljait.</value>
+  </data>
+  <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
+    <value>JSON-profil</value>
+  </data>
+  <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
+    <value>Építsen ki eszközöket Autopilot JSON-profillal.</value>
+  </data>
+  <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
+    <value>Töltse fel a hardverkivonatokat a Microsoft Graph használatával.</value>
+  </data>
+  <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
+    <value>Interaktív</value>
+  </data>
+  <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
+    <value>Előkészíti a technikusi eszközkódos bejelentkezést a hardverhash regisztrálásához az OOBE során.</value>
+  </data>
+  <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
+    <value>Operációsrendszer-választás</value>
+  </data>
+  <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
+    <value>Adja meg a telepítés során felkínált Windows-verziókat, frissítési szinteket, nyelveket és kiadásokat.</value>
+  </data>
+  <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
+    <value>Gép elnevezése</value>
+  </data>
+  <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
+    <value>Konfigurálja a telepített eszközök nevét.</value>
+  </data>
+  <data name="Nav_OobeKey.Title" xml:space="preserve">
+    <value>OOBE</value>
+  </data>
+  <data name="Nav_OobeKey.Description" xml:space="preserve">
+    <value>Windows 11 első futtatási képernyő és adatvédelmi alapbeállítások konfigurálása.</value>
+  </data>
+  <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
+    <value>Választható funkciók</value>
+  </data>
+  <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
+    <value>Engedélyezze vagy tiltsa le a Windows összetevőket a telepített operációs rendszerben.</value>
+  </data>
+  <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
+    <value>AppX-eltávolítások</value>
+  </data>
+  <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
+    <value>Távolítsa el a kijelölt Windows alkalmazásokat OOBE előtt.</value>
+  </data>
+  <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
+    <value>MI-összetevők</value>
+  </data>
+  <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
+    <value>Távolítsa el vagy tiltsa le a kiválasztott Windows AI-komponenseket OOBE előtt.</value>
+  </data>
+  <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
+    <value>Ethernet 802.1X</value>
+  </data>
+  <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
+    <value>A szabványos Ethernet kapcsolat alapértelmezés szerint elérhető. Ezt a szakaszt csak akkor konfigurálja, ha vezetékes hálózata 802.1X vállalati hitelesítést igényel.</value>
+  </data>
+  <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Konfigurálja a vezetékes 802.1X-et</value>
+  </data>
+  <data name="WifiPageHeader.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="WifiPageHeader.Description" xml:space="preserve">
+    <value>Konfigurálja a Wi-Fi kiépítését, a beágyazott profilokat és a Windows-profilok barangolását.</value>
+  </data>
+  <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>A Wi-Fi támogatás biztosítása a rendszerindító lemezképben</value>
+  </data>
+  <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
+    <value>JSON profil létrehozása</value>
+  </data>
+  <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
+    <value>Hozzon létre egy offline Autopilot profilt az alkalmazott Windows képben.</value>
+  </data>
+  <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
+    <value>Zero-touch hardverhash-feltöltés</value>
+  </data>
+  <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
+    <value>Konfigurálja a bérlő által támogatott automatikus hardverkivonat-feltöltést.</value>
+  </data>
+  <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
+    <value>Interaktív hardverhash-feltöltés</value>
+  </data>
+  <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
+    <value>Előkészíti a technikusi eszközkódos bejelentkezést a hardverhash regisztrálásához az OOBE során.</value>
+  </data>
+  <data name="OsSelectionPageHeader.Title" xml:space="preserve">
+    <value>Windows-telepítési lehetőségek</value>
+  </data>
+  <data name="OsSelectionPageHeader.Description" xml:space="preserve">
+    <value>Adja meg a telepítés során felkínált Windows-verziókat, frissítési szinteket, nyelveket és kiadásokat.</value>
+  </data>
+  <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Windows-telepítési lehetőségek</value>
+  </data>
+  <data name="MachineNamingPageHeader.Title" xml:space="preserve">
+    <value>Számítógép neve</value>
+  </data>
+  <data name="MachineNamingPageHeader.Description" xml:space="preserve">
+    <value>Konfigurálja az automatikus és a technikus által támogatott eszközelnevezést.</value>
+  </data>
+  <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Gépelnevezési szabályok engedélyezése</value>
+  </data>
+  <data name="OobePageHeader.Title" xml:space="preserve">
+    <value>Out-of-Box Experience</value>
+  </data>
+  <data name="OobePageHeader.Description" xml:space="preserve">
+    <value>Windows 11 első futtatási képernyő és adatvédelmi alapbeállítások konfigurálása.</value>
+  </data>
+  <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>OOBE testreszabása</value>
+  </data>
+  <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
+    <value>A Windows opcionális szolgáltatásai</value>
+  </data>
+  <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
+    <value>Engedélyezze vagy tiltsa le a Windows összetevőket a telepített operációs rendszerben.</value>
+  </data>
+  <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>A Windows opcionális szolgáltatásainak konfigurálása</value>
+  </data>
+  <data name="AppRemovalPageHeader.Title" xml:space="preserve">
+    <value>AppX-eltávolítások</value>
+  </data>
+  <data name="AppRemovalPageHeader.Description" xml:space="preserve">
+    <value>Távolítsa el a kijelölt Windows alkalmazásokat OOBE előtt.</value>
+  </data>
+  <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Távolítsa el a kiépített Windows alkalmazásokat</value>
+  </data>
+  <data name="AiComponentsPageHeader.Title" xml:space="preserve">
+    <value>AI alkatrész eltávolítása</value>
+  </data>
+  <data name="AiComponentsPageHeader.Description" xml:space="preserve">
+    <value>Távolítsa el vagy tiltsa le a kiválasztott Windows AI-komponenseket OOBE előtt.</value>
+  </data>
+  <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Távolítsa el az AI összetevőket</value>
+  </data>
+  <data name="Common.Enable" xml:space="preserve">
+    <value>Engedélyezés</value>
+  </data>
+  <data name="Common.Disable" xml:space="preserve">
+    <value>Letiltás</value>
+  </data>
+  <data name="NavigationStatus.Configured" xml:space="preserve">
+    <value>Konfigurálva</value>
+  </data>
+  <data name="NavigationStatus.NotConfigured" xml:space="preserve">
+    <value>Nincs konfigurálva</value>
+  </data>
+  <data name="NavigationStatus.AdkReady" xml:space="preserve">
+    <value>Az ADK használatra kész</value>
+  </data>
+  <data name="NavigationStatus.AdkNotReady" xml:space="preserve">
+    <value>Az ADK nem áll készen</value>
+  </data>
+  <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
+    <value>Aktív kiépítési mód</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
+    <value>Módosítja a kiépítési módot?</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationMessageFormat" xml:space="preserve">
+    <value>{0} jelenleg aktív. A folytatás letiltja, és engedélyezi ezt: {1}.</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
+    <value>Mód módosítása</value>
+  </data>
 </root>

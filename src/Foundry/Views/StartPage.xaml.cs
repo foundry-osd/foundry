@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.ComponentModel;
+using Foundry.Core.Services.Configuration;
 using Foundry.Services.Localization;
 
 namespace Foundry.Views;
@@ -72,27 +73,51 @@ public sealed partial class StartPage : Page
 
     private void ReadinessActionButton_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is not FrameworkElement { Tag: StartReadinessNavigationTarget navigationTarget })
+        if (sender is not FrameworkElement { Tag: ConfigurationNavigationTarget navigationTarget })
         {
             return;
         }
 
         switch (navigationTarget)
         {
-            case StartReadinessNavigationTarget.Adk:
+            case ConfigurationNavigationTarget.Adk:
                 App.Current.NavigationService.NavigateTo(typeof(AdkPage));
                 break;
-            case StartReadinessNavigationTarget.General:
+            case ConfigurationNavigationTarget.General:
                 App.Current.NavigationService.NavigateTo(typeof(GeneralConfigurationPage));
                 break;
-            case StartReadinessNavigationTarget.Network:
-                App.Current.NavigationService.NavigateTo(typeof(NetworkPage));
+            case ConfigurationNavigationTarget.EthernetDot1x:
+                App.Current.NavigationService.NavigateTo(typeof(EthernetDot1xPage));
                 break;
-            case StartReadinessNavigationTarget.Autopilot:
-                App.Current.NavigationService.NavigateTo(typeof(AutopilotPage));
+            case ConfigurationNavigationTarget.Wifi:
+                App.Current.NavigationService.NavigateTo(typeof(WifiPage));
                 break;
-            case StartReadinessNavigationTarget.Customization:
-                App.Current.NavigationService.NavigateTo(typeof(CustomizationPage));
+            case ConfigurationNavigationTarget.AutopilotJsonProfile:
+                App.Current.NavigationService.NavigateTo(typeof(AutopilotJsonProfilePage));
+                break;
+            case ConfigurationNavigationTarget.AutopilotHardwareHashUpload:
+                App.Current.NavigationService.NavigateTo(typeof(AutopilotZeroTouchPage));
+                break;
+            case ConfigurationNavigationTarget.AutopilotInteractiveHardwareHashUpload:
+                App.Current.NavigationService.NavigateTo(typeof(AutopilotInteractiveHashUploadPage));
+                break;
+            case ConfigurationNavigationTarget.OperatingSystemSelection:
+                App.Current.NavigationService.NavigateTo(typeof(OsSelectionPage));
+                break;
+            case ConfigurationNavigationTarget.MachineNaming:
+                App.Current.NavigationService.NavigateTo(typeof(MachineNamingPage));
+                break;
+            case ConfigurationNavigationTarget.Oobe:
+                App.Current.NavigationService.NavigateTo(typeof(OobePage));
+                break;
+            case ConfigurationNavigationTarget.WindowsOptionalFeatures:
+                App.Current.NavigationService.NavigateTo(typeof(OptionalFeaturesPage));
+                break;
+            case ConfigurationNavigationTarget.AppxRemoval:
+                App.Current.NavigationService.NavigateTo(typeof(AppRemovalPage));
+                break;
+            case ConfigurationNavigationTarget.AiComponentRemoval:
+                App.Current.NavigationService.NavigateTo(typeof(AiComponentsPage));
                 break;
         }
     }

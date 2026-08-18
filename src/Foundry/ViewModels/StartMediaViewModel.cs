@@ -1331,14 +1331,16 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
 
         AutopilotConfigurationValidationResult autopilotValidation = foundryConfigurationStateService.AutopilotConfigurationValidation;
+        NetworkMediaReadinessEvaluation networkReadiness = foundryConfigurationStateService.NetworkMediaReadiness;
 
         return new MediaPreflightOptions
         {
             IsAdkReady = adkService.CurrentStatus.CanCreateMedia,
-            IsNetworkConfigurationReady = foundryConfigurationStateService.IsNetworkConfigurationReady,
+            IsNetworkConfigurationReady = networkReadiness.IsNetworkConfigurationReady,
+            NetworkConfigurationValidationCode = networkReadiness.NetworkConfigurationValidationCode,
             IsDeployConfigurationReady = foundryConfigurationStateService.IsDeployConfigurationReady,
-            IsConnectProvisioningReady = foundryConfigurationStateService.IsConnectProvisioningReady,
-            AreRequiredSecretsReady = foundryConfigurationStateService.AreRequiredSecretsReady,
+            IsConnectProvisioningReady = networkReadiness.IsConnectProvisioningReady,
+            AreRequiredSecretsReady = networkReadiness.AreRequiredSecretsReady,
             IsAutopilotEnabled = foundryConfigurationStateService.IsAutopilotEnabled,
             IsAutopilotConfigurationReady = autopilotValidation.IsReady,
             AutopilotConfigurationValidationCode = autopilotValidation.Code,
@@ -1516,7 +1518,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             options.IsAdkReady
                 ? localizationService.GetString("StartMedia.Readiness.Adk.Ready")
                 : GetBlockingReasonText(MediaPreflightBlockingReason.AdkNotReady),
-            options.IsAdkReady ? StartReadinessNavigationTarget.None : StartReadinessNavigationTarget.Adk);
+            options.IsAdkReady ? ConfigurationNavigationTarget.None : ConfigurationNavigationTarget.Adk);
     }
 
     private StartReadinessItemViewModel BuildWinPeLanguageReadinessItem(MediaPreflightOptions options, MediaPreflightEvaluation evaluation)
@@ -1532,7 +1534,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             reason.HasValue
                 ? GetBlockingReasonText(reason.Value)
                 : FormatValue(NormalizeCultureName(options.WinPeLanguage)),
-            reason.HasValue ? StartReadinessNavigationTarget.General : StartReadinessNavigationTarget.None);
+            reason.HasValue ? ConfigurationNavigationTarget.General : ConfigurationNavigationTarget.None);
     }
 
     private StartReadinessItemViewModel BuildDriverReadinessItem(MediaPreflightEvaluation evaluation)
@@ -1548,7 +1550,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             reason.HasValue
                 ? GetBlockingReasonText(reason.Value)
                 : localizationService.GetString("StartMedia.Readiness.Drivers.Ready"),
-            reason.HasValue ? StartReadinessNavigationTarget.General : StartReadinessNavigationTarget.None);
+            reason.HasValue ? ConfigurationNavigationTarget.General : ConfigurationNavigationTarget.None);
     }
 
     private StartReadinessItemViewModel BuildIsoOutputReadinessItem(MediaPreflightOptions options, MediaPreflightEvaluation evaluation)
@@ -1612,7 +1614,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             options.IsNetworkConfigurationReady
                 ? localizationService.GetString("StartMedia.Readiness.Network.Ready")
                 : GetBlockingReasonText(MediaPreflightBlockingReason.NetworkConfigurationNotReady),
-            options.IsNetworkConfigurationReady ? StartReadinessNavigationTarget.None : StartReadinessNavigationTarget.Network);
+            options.IsNetworkConfigurationReady
+                ? ConfigurationNavigationTarget.None
+                : ConfigurationNavigationTargetResolver.ResolveNetwork(options.NetworkConfigurationValidationCode));
     }
 
     private StartReadinessItemViewModel BuildDeployConfigurationReadinessItem(MediaPreflightOptions options)
@@ -1623,7 +1627,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             options.IsDeployConfigurationReady
                 ? localizationService.GetString("StartMedia.Readiness.Deploy.Ready")
                 : GetBlockingReasonText(MediaPreflightBlockingReason.DeployConfigurationNotReady),
-            options.IsDeployConfigurationReady ? StartReadinessNavigationTarget.None : StartReadinessNavigationTarget.Customization);
+            options.IsDeployConfigurationReady
+                ? ConfigurationNavigationTarget.None
+                : ConfigurationNavigationTargetResolver.ResolveDeployFailure(options.AutopilotProvisioningMode));
     }
 
     private StartReadinessItemViewModel BuildConnectProvisioningReadinessItem(MediaPreflightOptions options)
@@ -1634,7 +1640,16 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             options.IsConnectProvisioningReady
                 ? localizationService.GetString("StartMedia.Readiness.Connect.Ready")
                 : GetBlockingReasonText(MediaPreflightBlockingReason.ConnectProvisioningNotReady),
-            options.IsConnectProvisioningReady ? StartReadinessNavigationTarget.None : StartReadinessNavigationTarget.Network);
+            options.IsConnectProvisioningReady
+                ? ConfigurationNavigationTarget.None
+                : ResolveConnectReadinessNavigationTarget(options));
+    }
+
+    private static ConfigurationNavigationTarget ResolveConnectReadinessNavigationTarget(MediaPreflightOptions options)
+    {
+        return options.NetworkConfigurationValidationCode == NetworkConfigurationValidationCode.None
+            ? ConfigurationNavigationTargetResolver.ResolveRequiredNetworkSecret()
+            : ConfigurationNavigationTargetResolver.ResolveNetwork(options.NetworkConfigurationValidationCode);
     }
 
     private StartReadinessItemViewModel BuildRequiredSecretsReadinessItem(MediaPreflightOptions options)
@@ -1645,7 +1660,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             options.AreRequiredSecretsReady
                 ? localizationService.GetString("StartMedia.Readiness.Secrets.Ready")
                 : GetBlockingReasonText(MediaPreflightBlockingReason.RequiredSecretsNotReady),
-            options.AreRequiredSecretsReady ? StartReadinessNavigationTarget.None : StartReadinessNavigationTarget.Network);
+            options.AreRequiredSecretsReady
+                ? ConfigurationNavigationTarget.None
+                : ConfigurationNavigationTargetResolver.ResolveRequiredNetworkSecret());
     }
 
     private StartReadinessItemViewModel BuildAutopilotReadinessItem(MediaPreflightOptions options)
@@ -1664,14 +1681,16 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             options.IsAutopilotConfigurationReady
                 ? FormatAutopilot(options)
                 : GetAutopilotValidationText(options.AutopilotConfigurationValidationCode),
-            options.IsAutopilotConfigurationReady ? StartReadinessNavigationTarget.None : StartReadinessNavigationTarget.Autopilot);
+            options.IsAutopilotConfigurationReady
+                ? ConfigurationNavigationTarget.None
+                : ConfigurationNavigationTargetResolver.ResolveAutopilot(options.AutopilotProvisioningMode));
     }
 
     private StartReadinessItemViewModel CreateReadinessItem(
         string title,
         StartReadinessState state,
         string description,
-        StartReadinessNavigationTarget navigationTarget = StartReadinessNavigationTarget.None)
+        ConfigurationNavigationTarget navigationTarget = ConfigurationNavigationTarget.None)
     {
         return new StartReadinessItemViewModel(
             title,
@@ -1681,7 +1700,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             GetReadinessGlyphBrushKey(state),
             state is StartReadinessState.Blocked or StartReadinessState.Warning,
             navigationTarget,
-            navigationTarget == StartReadinessNavigationTarget.None
+            navigationTarget == ConfigurationNavigationTarget.None
                 ? string.Empty
                 : localizationService.GetString("StartMedia.Readiness.Action.Review"));
     }

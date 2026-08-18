@@ -88,8 +88,16 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
             {
                 ProfileRoaming = new ConnectNetworkProfileRoamingSettings
                 {
-                    IsEnabled = network.RoamWifiProfilesToWindows,
-                    IncludePrivateKeyMaterial = network.RoamPrivateKeyMaterialToWindows
+                    WiredDot1x = new NetworkProfileRoamingTransportSettings
+                    {
+                        IsEnabled = network.RoamWiredDot1xProfileToWindows,
+                        IncludePrivateKeyMaterial = network.RoamWiredDot1xPrivateKeyMaterialToWindows
+                    },
+                    Wifi = new NetworkProfileRoamingTransportSettings
+                    {
+                        IsEnabled = network.RoamWifiProfileToWindows,
+                        IncludePrivateKeyMaterial = network.RoamWifiPrivateKeyMaterialToWindows
+                    }
                 }
             },
             Dot1x = dot1x with

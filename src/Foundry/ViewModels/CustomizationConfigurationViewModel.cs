@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Configuration;
 using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
@@ -16,21 +17,24 @@ namespace Foundry.ViewModels;
 public sealed partial class CustomizationConfigurationViewModel : ObservableObject, IDisposable
 {
     private readonly IFoundryConfigurationStateService configurationStateService;
+    private readonly IDialogService dialogService;
     private readonly IApplicationLocalizationService localizationService;
+    private readonly ILanguageRegistryService languageRegistryService;
+    private readonly HashSet<CustomizationCatalog> initializedCatalogs = [];
     private bool isApplyingState = true;
     private bool isSavingState;
 
     public CustomizationConfigurationViewModel(
         IFoundryConfigurationStateService configurationStateService,
         ILanguageRegistryService languageRegistryService,
-        IApplicationLocalizationService localizationService)
+        IApplicationLocalizationService localizationService,
+        IDialogService dialogService)
     {
         this.configurationStateService = configurationStateService;
+        this.languageRegistryService = languageRegistryService;
         this.localizationService = localizationService;
+        this.dialogService = dialogService;
 
-        InitializeAppxRemovalCatalog();
-        InitializeOperatingSystemSelectionOptions(languageRegistryService.GetLanguages());
-        InitializeWindowsOptionalFeatureCatalog();
         RefreshLocalizedText();
         ApplyState(
             configurationStateService.Current.Customization,
@@ -39,6 +43,50 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
         localizationService.LanguageChanged += OnLanguageChanged;
         configurationStateService.StateChanged += OnConfigurationStateChanged;
         isApplyingState = false;
+    }
+
+    /// <summary>
+    /// Initializes only the large catalog required by the page being opened.
+    /// </summary>
+    public void InitializeSection(ConfigurationNavigationTarget target)
+    {
+        CustomizationCatalog catalog = CustomizationCatalogResolver.Resolve(target);
+        if (catalog == CustomizationCatalog.None || !initializedCatalogs.Add(catalog))
+        {
+            return;
+        }
+
+        isApplyingState = true;
+        try
+        {
+            switch (catalog)
+            {
+                case CustomizationCatalog.OperatingSystemSelection:
+                    InitializeOperatingSystemSelectionOptions(languageRegistryService.GetLanguages());
+                    ApplyOperatingSystemSelectionState(configurationStateService.Current.OperatingSystemSelection);
+                    RefreshOperatingSystemSelectionLocalizedText();
+                    break;
+                case CustomizationCatalog.WindowsOptionalFeatures:
+                    InitializeWindowsOptionalFeatureCatalog();
+                    ApplyWindowsOptionalFeatureState(configurationStateService.Current.Customization.WindowsOptionalFeatures);
+                    RefreshWindowsOptionalFeatureLocalizedText();
+                    break;
+                case CustomizationCatalog.AppxRemoval:
+                    InitializeAppxRemovalCatalog();
+                    ApplyAppxRemovalState(configurationStateService.Current.Customization.AppxRemoval);
+                    RefreshAppxRemovalLocalizedText();
+                    break;
+            }
+        }
+        catch
+        {
+            initializedCatalogs.Remove(catalog);
+            throw;
+        }
+        finally
+        {
+            isApplyingState = false;
+        }
     }
 
     /// <summary>
@@ -66,21 +114,6 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
     public string DocumentationUrl => FoundryApplicationInfo.CustomizationDocumentationUrl;
 
     [ObservableProperty]
-    public partial string PageTitle { get; set; }
-
-    [ObservableProperty]
-    public partial string PageDescription { get; set; }
-
-    [ObservableProperty]
-    public partial string MachineNamingHeader { get; set; }
-
-    [ObservableProperty]
-    public partial string MachineNamingDescription { get; set; }
-
-    [ObservableProperty]
-    public partial string MachineNamingEnableText { get; set; }
-
-    [ObservableProperty]
     public partial string MachineNamingPrefixLabel { get; set; }
 
     [ObservableProperty]
@@ -97,9 +130,6 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
 
     [ObservableProperty]
     public partial string MachineNamingAllowManualSuffixEditDescription { get; set; }
-
-    [ObservableProperty]
-    public partial bool IsMachineNamingExpanded { get; set; }
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsMachineNamingOptionsEnabled))]
@@ -150,11 +180,6 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
             item.PropertyChanged -= OnAppxRemovalItemPropertyChanged;
         }
 
-        foreach (WindowsOptionalFeatureItemViewModel item in WindowsOptionalFeatureCategories.SelectMany(category => category.AllItems))
-        {
-            item.PropertyChanged -= OnWindowsOptionalFeatureItemPropertyChanged;
-        }
-
         foreach (SelectableStringOptionViewModel option in OperatingSystemLanguageOptions
                      .Concat(OperatingSystemReleaseOptions)
                      .Concat(OperatingSystemLicenseChannelOptions)
@@ -166,7 +191,6 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
 
     partial void OnIsMachineNamingEnabledChanged(bool value)
     {
-        IsMachineNamingExpanded = value;
         SaveState();
     }
 
@@ -204,7 +228,6 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
         {
             ApplyOperatingSystemSelectionState(operatingSystemSelection);
             IsMachineNamingEnabled = settings.MachineNaming.IsEnabled;
-            IsMachineNamingExpanded = settings.MachineNaming.IsEnabled;
             MachineNamePrefix = settings.MachineNaming.Prefix ?? string.Empty;
             MachineNameAutoGenerate = settings.MachineNaming.AutoGenerateName;
             AllowManualSuffixEdit = settings.MachineNaming.AllowManualSuffixEdit;
@@ -245,13 +268,33 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
         }
     }
 
+    private void SaveWindowsOptionalFeatureState()
+    {
+        if (isApplyingState || HasMachineNamePrefixValidationError)
+        {
+            return;
+        }
+
+        isSavingState = true;
+        try
+        {
+            configurationStateService.UpdateCustomization(new CustomizationSettings
+            {
+                MachineNaming = BuildMachineNamingSettings(),
+                Oobe = BuildOobeSettings(),
+                AiComponentRemoval = BuildAiComponentRemovalSettings(),
+                WindowsOptionalFeatures = BuildWindowsOptionalFeatureSettings(),
+                AppxRemoval = BuildAppxRemovalSettings()
+            });
+        }
+        finally
+        {
+            isSavingState = false;
+        }
+    }
+
     private void RefreshLocalizedText()
     {
-        PageTitle = localizationService.GetString("CustomizationPage_Title.Text");
-        PageDescription = localizationService.GetString("Customization.PageDescription");
-        MachineNamingHeader = localizationService.GetString("Customization.MachineNamingHeader");
-        MachineNamingDescription = localizationService.GetString("Customization.MachineNamingDescription");
-        MachineNamingEnableText = localizationService.GetString("Customization.MachineNamingEnableLabel");
         MachineNamingPrefixLabel = localizationService.GetString("Customization.MachineNamingPrefixLabel");
         MachineNamingPrefixDescription = localizationService.GetString("Customization.MachineNamingPrefixDescription");
         MachineNamingAutoGenerateText = localizationService.GetString("Customization.MachineNamingAutoGenerateLabel");

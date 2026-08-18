@@ -13,15 +13,6 @@ public sealed partial class CustomizationConfigurationViewModel
     public bool IsAiComponentRemovalOptionsEnabled => IsAiComponentRemovalEnabled;
 
     [ObservableProperty]
-    public partial string AiComponentRemovalHeader { get; set; }
-
-    [ObservableProperty]
-    public partial string AiComponentRemovalDescription { get; set; }
-
-    [ObservableProperty]
-    public partial string AiComponentRemovalEnableText { get; set; }
-
-    [ObservableProperty]
     public partial string AiComponentRemoveCopilotLabel { get; set; }
 
     [ObservableProperty]
@@ -70,9 +61,6 @@ public sealed partial class CustomizationConfigurationViewModel
     public partial string AiComponentDisableNotepadAiDescription { get; set; }
 
     [ObservableProperty]
-    public partial bool IsAiComponentRemovalExpanded { get; set; }
-
-    [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsAiComponentRemovalOptionsEnabled))]
     public partial bool IsAiComponentRemovalEnabled { get; set; }
 
@@ -102,11 +90,9 @@ public sealed partial class CustomizationConfigurationViewModel
 
     private void ApplyAiComponentRemovalState(AiComponentRemovalSettings settings)
     {
-        bool isEnabled = settings.IsEnabled && HasAnyAiComponentRemovalOptionEnabled(settings);
+        bool isEnabled = settings.IsEnabled && settings.HasAnyAction();
 
         IsAiComponentRemovalEnabled = isEnabled;
-        IsAiComponentRemovalExpanded = isEnabled;
-
         isApplyingAiComponentRemovalSelection = true;
         try
         {
@@ -127,9 +113,18 @@ public sealed partial class CustomizationConfigurationViewModel
 
     private AiComponentRemovalSettings BuildAiComponentRemovalSettings()
     {
-        var settings = new AiComponentRemovalSettings
+        AiComponentRemovalSettings settings = CaptureAiComponentRemovalSettings(IsAiComponentRemovalEnabled);
+
+        return settings.IsEnabled && settings.HasAnyAction()
+            ? settings
+            : new AiComponentRemovalSettings();
+    }
+
+    private AiComponentRemovalSettings CaptureAiComponentRemovalSettings(bool isEnabled)
+    {
+        return new AiComponentRemovalSettings
         {
-            IsEnabled = IsAiComponentRemovalEnabled,
+            IsEnabled = isEnabled,
             RemoveCopilot = RemoveCopilot,
             RemoveAiHub = RemoveAiHub,
             DisableRecall = DisableRecall,
@@ -139,17 +134,10 @@ public sealed partial class CustomizationConfigurationViewModel
             DisablePaintAi = DisablePaintAi,
             DisableNotepadAi = DisableNotepadAi
         };
-
-        return settings.IsEnabled && HasAnyAiComponentRemovalOptionEnabled(settings)
-            ? settings
-            : new AiComponentRemovalSettings();
     }
 
     private void RefreshAiComponentRemovalLocalizedText()
     {
-        AiComponentRemovalHeader = localizationService.GetString("Customization.AiComponentRemovalHeader");
-        AiComponentRemovalDescription = localizationService.GetString("Customization.AiComponentRemovalDescription");
-        AiComponentRemovalEnableText = localizationService.GetString("Customization.AiComponentRemovalEnableLabel");
         AiComponentRemoveCopilotLabel = localizationService.GetString("Customization.AiComponentRemoveCopilotLabel");
         AiComponentRemoveCopilotDescription = localizationService.GetString("Customization.AiComponentRemoveCopilotDescription");
         AiComponentRemoveAiHubLabel = localizationService.GetString("Customization.AiComponentRemoveAiHubLabel");
@@ -170,8 +158,6 @@ public sealed partial class CustomizationConfigurationViewModel
 
     partial void OnIsAiComponentRemovalEnabledChanged(bool value)
     {
-        IsAiComponentRemovalExpanded = value;
-
         if (isApplyingState || isApplyingAiComponentRemovalSelection)
         {
             return;
@@ -253,7 +239,6 @@ public sealed partial class CustomizationConfigurationViewModel
         try
         {
             IsAiComponentRemovalEnabled = hasAnyOptionEnabled;
-            IsAiComponentRemovalExpanded = hasAnyOptionEnabled;
         }
         finally
         {
@@ -265,25 +250,6 @@ public sealed partial class CustomizationConfigurationViewModel
 
     private bool HasAnyCurrentAiComponentRemovalOptionEnabled()
     {
-        return RemoveCopilot ||
-            RemoveAiHub ||
-            DisableRecall ||
-            DisableClickToDo ||
-            DisableAiServiceAutoStart ||
-            DisableEdgeAi ||
-            DisablePaintAi ||
-            DisableNotepadAi;
-    }
-
-    private static bool HasAnyAiComponentRemovalOptionEnabled(AiComponentRemovalSettings settings)
-    {
-        return settings.RemoveCopilot ||
-            settings.RemoveAiHub ||
-            settings.DisableRecall ||
-            settings.DisableClickToDo ||
-            settings.DisableAiServiceAutoStart ||
-            settings.DisableEdgeAi ||
-            settings.DisablePaintAi ||
-            settings.DisableNotepadAi;
+        return CaptureAiComponentRemovalSettings(isEnabled: true).HasAnyAction();
     }
 }

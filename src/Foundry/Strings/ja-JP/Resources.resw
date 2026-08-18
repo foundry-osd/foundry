@@ -156,21 +156,6 @@
   <data name="Language.French" xml:space="preserve">
     <value>フランス語</value>
   </data>
-  <data name="AutopilotPage_Title.Text" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Autopilot.Header" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Autopilot.Description" xml:space="preserve">
-    <value>展開メディアの Autopilot プロビジョニング方法を選択します: JSON プロファイルのステージング、WinPE でのゼロタッチ ハードウェア ハッシュ アップロード、または対話型ハードウェア ハッシュ アップロード。</value>
-  </data>
-  <data name="Autopilot.PageDescription" xml:space="preserve">
-    <value>展開メディアとハードウェア登録用の Windows Autopilot 登録設定を構成します。</value>
-  </data>
-  <data name="Autopilot.EnableLabel" xml:space="preserve">
-    <value>Autopilotを有効にする</value>
-  </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>プロファイルのインポート</value>
   </data>
@@ -288,29 +273,14 @@
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
     <value>JSON プロファイルのプロビジョニング</value>
   </data>
-  <data name="Autopilot.JsonProfileDescription" xml:space="preserve">
-    <value>適用された Windows イメージにオフライン Autopilot プロファイルをステージングします。</value>
-  </data>
-  <data name="Autopilot.JsonProfileEnableLabel" xml:space="preserve">
-    <value>JSON プロファイル プロビジョニングを使用する</value>
-  </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>ゼロタッチ ハードウェア ハッシュ アップロード</value>
-  </data>
-  <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
-    <value>デバイス ハードウェア ハッシュを WinPE の Foundry Deploy から Intune にアップロードします。</value>
-  </data>
-  <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>ゼロタッチ ハードウェア ハッシュ アップロードを使用する</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>対話型ハードウェア ハッシュ アップロード</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>OOBE 中のハードウェア ハッシュ登録のために、技術者のデバイス コード サインインを準備します。</value>
-  </data>
-  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
-    <value>対話型ハードウェア ハッシュ アップロードを使用する</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>テナントを接続する</value>
@@ -510,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>デフォルトのグループタグが選択されていません。</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>なし</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>なし</value>
   </data>
@@ -549,23 +516,11 @@
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
     <value>管理対象アプリの登録の準備ができていません。テナントの準備状況を確認し、再接続します。</value>
   </data>
-  <data name="CustomizationPage_Title.Text" xml:space="preserve">
-    <value>カスタマイズ</value>
-  </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry はブラウザでドキュメントを開けませんでした。代わりにこの URL を使用してください。</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>ドキュメントを開けませんでした</value>
-  </data>
-  <data name="Customization.MachineNamingHeader" xml:space="preserve">
-    <value>コンピュータ名</value>
-  </data>
-  <data name="Customization.MachineNamingDescription" xml:space="preserve">
-    <value>展開されたコンピューター名の生成方法を WinPE で制御します。</value>
-  </data>
-  <data name="Customization.MachineNamingEnableLabel" xml:space="preserve">
-    <value>マシンの命名規則を有効にする</value>
   </data>
   <data name="Customization.MachineNamingPrefixLabel" xml:space="preserve">
     <value>コンピュータ名のプレフィックス</value>
@@ -587,15 +542,6 @@
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
     <value>プレフィックスには、A ～ Z、a ～ z、0 ～ 9、または - の 1 ～ 15 文字を使用する必要があります。</value>
-  </data>
-  <data name="Customization.OobeHeader" xml:space="preserve">
-    <value>すぐに使えるエクスペリエンス</value>
-  </data>
-  <data name="Customization.OobeDescription" xml:space="preserve">
-    <value>Windows 11 の初回実行画面とプライバシーのデフォルトを構成します。</value>
-  </data>
-  <data name="Customization.OobeEnableLabel" xml:space="preserve">
-    <value>OOBE をカスタマイズします</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>ライセンス条項をスキップする</value>
@@ -660,15 +606,6 @@
   <data name="Customization.OobeLocationForceOff" xml:space="preserve">
     <value>強制オフ</value>
   </data>
-  <data name="Customization.AiComponentRemovalHeader" xml:space="preserve">
-    <value>AI コンポーネントの削除</value>
-  </data>
-  <data name="Customization.AiComponentRemovalDescription" xml:space="preserve">
-    <value>OOBE の前に選択した Windows AI コンポーネントを削除または無効にします。</value>
-  </data>
-  <data name="Customization.AiComponentRemovalEnableLabel" xml:space="preserve">
-    <value>AI コンポーネントを削除する</value>
-  </data>
   <data name="Customization.AiComponentRemoveCopilotLabel" xml:space="preserve">
     <value>Microsoft Copilot を削除します</value>
   </data>
@@ -717,15 +654,6 @@
   <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
     <value>AI 機能を無効にする Notepad ポリシーを設定します。</value>
   </data>
-  <data name="Customization.WindowsOptionalFeaturesHeader" xml:space="preserve">
-    <value>Windowsのオプション機能</value>
-  </data>
-  <data name="Customization.WindowsOptionalFeaturesDescription" xml:space="preserve">
-    <value>導入されたオペレーティング システムで Windows コンポーネントを有効または無効にします。</value>
-  </data>
-  <data name="Customization.WindowsOptionalFeaturesEnableLabel" xml:space="preserve">
-    <value>Windows のオプション機能を構成する</value>
-  </data>
   <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
     <value>変更は、Windows のインストール後、OOBE の前にオフラインで適用されます。有効化操作では、インストール済みイメージまたは一致するセットアップ メディア ソースのみを使用し、インターネット上の代替ソースは使用しません。</value>
   </data>
@@ -773,6 +701,24 @@
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Clear" xml:space="preserve">
     <value>表示されている項目をリセットする</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.EnableAll" xml:space="preserve">
+    <value>すべて有効にする</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.DisableAll" xml:space="preserve">
+    <value>すべて無効にする</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.ResetAll" xml:space="preserve">
+    <value>すべてリセットする</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationTitle" xml:space="preserve">
+    <value>一括変更を適用しますか？</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
+    <value>これにより、子孫を含む影響対象の機能 {0} 件が更新されます。続行しますか？</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
+    <value>適用</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MatchingSource" xml:space="preserve">
     <value>この機能を有効にするには、セットアップ メディアの sources\sxs に一致するペイロードが必要です。</value>
@@ -1245,15 +1191,6 @@
   <data name="Customization.WindowsOptionalFeatures.Feature.Recall" xml:space="preserve">
     <value>Recall</value>
   </data>
-  <data name="Customization.AppxRemovalHeader" xml:space="preserve">
-    <value>プロビジョニングされたアプリの削除</value>
-  </data>
-  <data name="Customization.AppxRemovalDescription" xml:space="preserve">
-    <value>OOBE の前に、選択したプロビジョニング済みの Windows アプリを削除します。</value>
-  </data>
-  <data name="Customization.AppxRemovalEnableLabel" xml:space="preserve">
-    <value>プロビジョニングされた Windows アプリを削除する</value>
-  </data>
   <data name="Customization.AppxRemovalProfileLabel" xml:space="preserve">
     <value>プロフィール</value>
   </data>
@@ -1380,20 +1317,11 @@
   <data name="Common.AutomaticOption" xml:space="preserve">
     <value>自動</value>
   </data>
-  <data name="NetworkPage_Title.Text" xml:space="preserve">
-    <value>ネットワーク</value>
-  </data>
-  <data name="Dot1x.EnableLabel" xml:space="preserve">
-    <value>有線 802.1X を構成する</value>
-  </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>信頼されたルート CA 証明書ファイル</value>
   </data>
   <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
     <value>802.1X証明書を選択します</value>
-  </data>
-  <data name="Wifi.EnableLabel" xml:space="preserve">
-    <value>ブート イメージで Wi-Fi サポートをプロビジョニングします</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Wi-Fi プロファイルを事前にプロビジョニングする</value>
@@ -1424,18 +1352,6 @@
   </data>
   <data name="Wifi.SecurityTypeEnterpriseWpa3192" xml:space="preserve">
     <value>WPA3 エンタープライズ 192 ビット (WPA3ENT192)</value>
-  </data>
-  <data name="Network.EthernetSectionTitle" xml:space="preserve">
-    <value>Ethernet</value>
-  </data>
-  <data name="Network.EthernetHelperText" xml:space="preserve">
-    <value>標準の Ethernet 接続はデフォルトで利用可能です。このセクションは、有線ネットワークで 802.1X エンタープライズ認証が必要な場合にのみ設定します。</value>
-  </data>
-  <data name="Network.WifiSectionTitle" xml:space="preserve">
-    <value>Wi-Fi</value>
-  </data>
-  <data name="Network.WifiHelperText" xml:space="preserve">
-    <value>ブート イメージに WinPE 起動用の Wi-Fi サポートと Wi-Fi プロファイルを含める必要がある場合にのみ、これを有効にします。</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
     <value>個人の Wi-Fi パスフレーズは、オーサリング アプリ内で一時的なままであり、Foundry 構成には保持されません。</value>
@@ -2133,32 +2049,11 @@
   <data name="Nav_AdkKey.Title" xml:space="preserve">
     <value>ADK</value>
   </data>
-  <data name="Nav_AutopilotKey.Description" xml:space="preserve">
-    <value>Autopilot プロファイル設定。</value>
-  </data>
-  <data name="Nav_AutopilotKey.Subtitle" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Nav_AutopilotKey.Title" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Nav_CustomizationKey.Description" xml:space="preserve">
-    <value>導入のカスタマイズ オプション。</value>
-  </data>
-  <data name="Nav_CustomizationKey.Subtitle" xml:space="preserve">
-    <value>カスタマイズ</value>
-  </data>
-  <data name="Nav_CustomizationKey.Title" xml:space="preserve">
-    <value>カスタマイズ</value>
-  </data>
   <data name="Nav_DocumentationKey.Description" xml:space="preserve">
     <value>Foundry ドキュメントとプロジェクトのリンク。</value>
   </data>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>ドキュメント</value>
-  </data>
-  <data name="Nav_ExpertSection.Title" xml:space="preserve">
-    <value>エキスパート</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Description" xml:space="preserve">
     <value>標準的な構成ワークフロー。</value>
@@ -2183,15 +2078,6 @@
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>ホーム</value>
-  </data>
-  <data name="Nav_NetworkKey.Description" xml:space="preserve">
-    <value>ネットワークと接続の構成。</value>
-  </data>
-  <data name="Nav_NetworkKey.Subtitle" xml:space="preserve">
-    <value>ネットワーク</value>
-  </data>
-  <data name="Nav_NetworkKey.Title" xml:space="preserve">
-    <value>ネットワーク</value>
   </data>
   <data name="Nav_StartKey.Description" xml:space="preserve">
     <value>メディアの作成を確認して開始します。</value>
@@ -2580,12 +2466,6 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>繁体字中国語 (台湾)</value>
   </data>
-  <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Windows 展開オプション</value>
-  </data>
-  <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>展開時に提供する Windows のバージョン、更新レベル、言語、エディションを定義します。</value>
-  </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>Windows バージョン</value>
   </data>
@@ -2663,11 +2543,17 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>既定で選択されるエディションを選びます。[自動] では Foundry が推奨するエディションが使用されます。</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows プロファイルのローミング</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Foundry 管理の Wi-Fi および 802.1X プロファイルを OOBE 前に Windows へインポートし、WinPE 後も展開接続を継続できるようにします。</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Foundry で管理されている有線 802.1X プロファイルを OOBE 前に Windows へインポートし、WinPE 後も展開時の接続を維持します。</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Windows プロファイルのローミング</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Foundry で管理されている Wi-Fi プロファイルを OOBE 前に Windows へインポートし、WinPE 後も展開時の接続を維持します。</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>ネットワーク プロファイルを Windows にローミングする</value>
@@ -2681,18 +2567,207 @@
   <data name="Adk.PageDescription" xml:space="preserve">
     <value>展開メディアを作成する前に、Windows ADK と Windows PE アドオンの準備状況を確認します。</value>
   </data>
-  <data name="Customization.PageDescription" xml:space="preserve">
-    <value>マシンの名前付け、オペレーティング システムの選択、OOBE、分類された Windows オプション機能、AI コンポーネントの削除、AppX の削除を構成します。</value>
-  </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>メディアの基準、WinPE 言語、ブート署名、ドライバー、展開タイム ゾーンを構成します。</value>
-  </data>
-  <data name="Network.PageDescription" xml:space="preserve">
-    <value>展開メディア用に有線 802.1X、Wi-Fi プロビジョニング、プロファイル ローミングを構成します。</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>準備状況を確認し、ISO または USB 出力を選択して、メディアの作成を開始します。</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve"><value>左にスクロール</value></data>
   <data name="Home.Scroll.Forward" xml:space="preserve"><value>右にスクロール</value></data>
+  <data name="Nav_NetworkSection.Title" xml:space="preserve">
+    <value>ネットワーク</value>
+  </data>
+  <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Nav_CustomizationSection.Title" xml:space="preserve">
+    <value>カスタマイズ</value>
+  </data>
+  <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
+    <value>Ethernet 802.1X</value>
+  </data>
+  <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
+    <value>標準の Ethernet 接続はデフォルトで利用可能です。このセクションは、有線ネットワークで 802.1X エンタープライズ認証が必要な場合にのみ設定します。</value>
+  </data>
+  <data name="Nav_WifiKey.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Nav_WifiKey.Description" xml:space="preserve">
+    <value>Wi-Fi のプロビジョニングとプロファイルを構成します。</value>
+  </data>
+  <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
+    <value>JSON プロファイル</value>
+  </data>
+  <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
+    <value>Autopilot JSON プロファイルでデバイスをプロビジョニングします。</value>
+  </data>
+  <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
+    <value>ゼロタッチ</value>
+  </data>
+  <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
+    <value>Microsoft Graph 経由でハードウェア ハッシュをアップロードします。</value>
+  </data>
+  <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
+    <value>対話型</value>
+  </data>
+  <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
+    <value>OOBE 中のハードウェア ハッシュ登録のために、技術者のデバイス コード サインインを準備します。</value>
+  </data>
+  <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
+    <value>OS の選択</value>
+  </data>
+  <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
+    <value>展開時に提供する Windows のバージョン、更新レベル、言語、エディションを定義します。</value>
+  </data>
+  <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
+    <value>コンピューターの命名</value>
+  </data>
+  <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
+    <value>展開されたデバイス名を構成します。</value>
+  </data>
+  <data name="Nav_OobeKey.Title" xml:space="preserve">
+    <value>OOBE</value>
+  </data>
+  <data name="Nav_OobeKey.Description" xml:space="preserve">
+    <value>Windows 11 の初回実行画面とプライバシーのデフォルトを構成します。</value>
+  </data>
+  <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
+    <value>オプション機能</value>
+  </data>
+  <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
+    <value>導入されたオペレーティング システムで Windows コンポーネントを有効または無効にします。</value>
+  </data>
+  <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
+    <value>AppX アプリの削除</value>
+  </data>
+  <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
+    <value>OOBE の前に、選択したプロビジョニング済みの Windows アプリを削除します。</value>
+  </data>
+  <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
+    <value>AI コンポーネント</value>
+  </data>
+  <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
+    <value>OOBE の前に選択した Windows AI コンポーネントを削除または無効にします。</value>
+  </data>
+  <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
+    <value>Ethernet 802.1X</value>
+  </data>
+  <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
+    <value>標準の Ethernet 接続はデフォルトで利用可能です。このセクションは、有線ネットワークで 802.1X エンタープライズ認証が必要な場合にのみ設定します。</value>
+  </data>
+  <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>有線 802.1X を構成する</value>
+  </data>
+  <data name="WifiPageHeader.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="WifiPageHeader.Description" xml:space="preserve">
+    <value>Wi-Fi のプロビジョニング、埋め込みプロファイル、Windows プロファイルのローミングを構成します。</value>
+  </data>
+  <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>ブート イメージで Wi-Fi サポートをプロビジョニングします</value>
+  </data>
+  <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
+    <value>JSON プロファイルのプロビジョニング</value>
+  </data>
+  <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
+    <value>適用された Windows イメージにオフライン Autopilot プロファイルをステージングします。</value>
+  </data>
+  <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
+    <value>ゼロタッチ ハードウェア ハッシュのアップロード</value>
+  </data>
+  <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
+    <value>テナントによるハードウェア ハッシュの自動アップロードを構成します。</value>
+  </data>
+  <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
+    <value>対話型ハードウェア ハッシュのアップロード</value>
+  </data>
+  <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
+    <value>OOBE 中のハードウェア ハッシュ登録のために、技術者のデバイス コード サインインを準備します。</value>
+  </data>
+  <data name="OsSelectionPageHeader.Title" xml:space="preserve">
+    <value>Windows 展開オプション</value>
+  </data>
+  <data name="OsSelectionPageHeader.Description" xml:space="preserve">
+    <value>展開時に提供する Windows のバージョン、更新レベル、言語、エディションを定義します。</value>
+  </data>
+  <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Windows 展開オプション</value>
+  </data>
+  <data name="MachineNamingPageHeader.Title" xml:space="preserve">
+    <value>コンピュータ名</value>
+  </data>
+  <data name="MachineNamingPageHeader.Description" xml:space="preserve">
+    <value>自動または技術者の支援によるデバイスの命名を構成します。</value>
+  </data>
+  <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>マシンの命名規則を有効にする</value>
+  </data>
+  <data name="OobePageHeader.Title" xml:space="preserve">
+    <value>Out-of-Box Experience</value>
+  </data>
+  <data name="OobePageHeader.Description" xml:space="preserve">
+    <value>Windows 11 の初回実行画面とプライバシーのデフォルトを構成します。</value>
+  </data>
+  <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>OOBE をカスタマイズします</value>
+  </data>
+  <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
+    <value>Windowsのオプション機能</value>
+  </data>
+  <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
+    <value>導入されたオペレーティング システムで Windows コンポーネントを有効または無効にします。</value>
+  </data>
+  <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Windows のオプション機能を構成する</value>
+  </data>
+  <data name="AppRemovalPageHeader.Title" xml:space="preserve">
+    <value>AppX アプリの削除</value>
+  </data>
+  <data name="AppRemovalPageHeader.Description" xml:space="preserve">
+    <value>OOBE の前に、選択したプロビジョニング済みの Windows アプリを削除します。</value>
+  </data>
+  <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>プロビジョニングされた Windows アプリを削除する</value>
+  </data>
+  <data name="AiComponentsPageHeader.Title" xml:space="preserve">
+    <value>AI コンポーネントの削除</value>
+  </data>
+  <data name="AiComponentsPageHeader.Description" xml:space="preserve">
+    <value>OOBE の前に選択した Windows AI コンポーネントを削除または無効にします。</value>
+  </data>
+  <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>AI コンポーネントを削除する</value>
+  </data>
+  <data name="Common.Enable" xml:space="preserve">
+    <value>有効にする</value>
+  </data>
+  <data name="Common.Disable" xml:space="preserve">
+    <value>無効にする</value>
+  </data>
+  <data name="NavigationStatus.Configured" xml:space="preserve">
+    <value>構成済み</value>
+  </data>
+  <data name="NavigationStatus.NotConfigured" xml:space="preserve">
+    <value>未構成</value>
+  </data>
+  <data name="NavigationStatus.AdkReady" xml:space="preserve">
+    <value>ADK の準備完了</value>
+  </data>
+  <data name="NavigationStatus.AdkNotReady" xml:space="preserve">
+    <value>ADK の準備未完了</value>
+  </data>
+  <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
+    <value>アクティブなプロビジョニング モード</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
+    <value>プロビジョニング モードを変更しますか?</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationMessageFormat" xml:space="preserve">
+    <value>現在、{0} が有効です。続行すると、このモードが無効になり、{1} が有効になります。</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
+    <value>モードを変更</value>
+  </data>
 </root>

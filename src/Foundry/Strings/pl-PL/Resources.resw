@@ -156,21 +156,6 @@
   <data name="Language.French" xml:space="preserve">
     <value>Francuski</value>
   </data>
-  <data name="AutopilotPage_Title.Text" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Autopilot.Header" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Autopilot.Description" xml:space="preserve">
-    <value>Wybierz metodę aprowizowania Autopilot dla nośnika wdrożeniowego: przygotowanie profilu JSON, bezobsługowe przesyłanie skrótu sprzętowego w WinPE albo interaktywne przesyłanie skrótu sprzętowego.</value>
-  </data>
-  <data name="Autopilot.PageDescription" xml:space="preserve">
-    <value>Skonfiguruj ustawienia rejestracji Windows Autopilot dla nośników wdrażania i rejestracji sprzętu.</value>
-  </data>
-  <data name="Autopilot.EnableLabel" xml:space="preserve">
-    <value>Włącz Autopilot</value>
-  </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>Importuj profil</value>
   </data>
@@ -288,29 +273,14 @@
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
     <value>Udostępnianie profilu JSON</value>
   </data>
-  <data name="Autopilot.JsonProfileDescription" xml:space="preserve">
-    <value>Utwórz profil offline Autopilot na zastosowanym obrazie Windows.</value>
-  </data>
-  <data name="Autopilot.JsonProfileEnableLabel" xml:space="preserve">
-    <value>Użyj udostępniania profilu JSON</value>
-  </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Bezobsługowe przesyłanie skrótu sprzętowego</value>
-  </data>
-  <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
-    <value>Prześlij skrót sprzętowy urządzenia do Intune z Foundry Deploy w WinPE.</value>
-  </data>
-  <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Użyj bezobsługowego przesyłania skrótu sprzętowego</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Interaktywne przesyłanie skrótu sprzętowego</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Przygotowuje logowanie technika kodem urządzenia do rejestracji skrótu sprzętowego podczas OOBE.</value>
-  </data>
-  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
-    <value>Użyj interaktywnego przesyłania skrótu sprzętowego</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Połącz najemcę</value>
@@ -510,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>Nie wybrano domyślnego tagu grupy.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>Żadne</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>Żadne</value>
   </data>
@@ -549,23 +516,11 @@
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
     <value>Rejestracja aplikacji zarządzanej nie jest gotowa. Sprawdź gotowość najemcy i połącz się ponownie.</value>
   </data>
-  <data name="CustomizationPage_Title.Text" xml:space="preserve">
-    <value>Personalizacja</value>
-  </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry nie mógł otworzyć dokumentacji w Twojej przeglądarce. Zamiast tego użyj tego URL.</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Nie można otworzyć dokumentacji</value>
-  </data>
-  <data name="Customization.MachineNamingHeader" xml:space="preserve">
-    <value>Nazwa komputera</value>
-  </data>
-  <data name="Customization.MachineNamingDescription" xml:space="preserve">
-    <value>Kontroluj sposób generowania nazwy wdrożonego komputera w WinPE.</value>
-  </data>
-  <data name="Customization.MachineNamingEnableLabel" xml:space="preserve">
-    <value>Włącz reguły nazewnictwa komputerów</value>
   </data>
   <data name="Customization.MachineNamingPrefixLabel" xml:space="preserve">
     <value>Przedrostek nazwy komputera</value>
@@ -587,15 +542,6 @@
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
     <value>Prefiks musi zawierać od 1 do 15 znaków od A-Z, a-z, 0-9 lub -.</value>
-  </data>
-  <data name="Customization.OobeHeader" xml:space="preserve">
-    <value>Nieszablonowe doświadczenie</value>
-  </data>
-  <data name="Customization.OobeDescription" xml:space="preserve">
-    <value>Skonfiguruj Windows 11 ekranów pierwszego uruchomienia i domyślne ustawienia prywatności.</value>
-  </data>
-  <data name="Customization.OobeEnableLabel" xml:space="preserve">
-    <value>Dostosuj OOBE</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Pomiń warunki licencji</value>
@@ -660,15 +606,6 @@
   <data name="Customization.OobeLocationForceOff" xml:space="preserve">
     <value>Wymusić</value>
   </data>
-  <data name="Customization.AiComponentRemovalHeader" xml:space="preserve">
-    <value>Usunięcie komponentu AI</value>
-  </data>
-  <data name="Customization.AiComponentRemovalDescription" xml:space="preserve">
-    <value>Usuń lub wyłącz wybrane komponenty AI Windows przed OOBE.</value>
-  </data>
-  <data name="Customization.AiComponentRemovalEnableLabel" xml:space="preserve">
-    <value>Usuń komponenty AI</value>
-  </data>
   <data name="Customization.AiComponentRemoveCopilotLabel" xml:space="preserve">
     <value>Usuń Microsoft Copilot</value>
   </data>
@@ -717,15 +654,6 @@
   <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
     <value>Ustaw zasadę Notepad, która wyłącza funkcje AI.</value>
   </data>
-  <data name="Customization.WindowsOptionalFeaturesHeader" xml:space="preserve">
-    <value>Opcjonalne funkcje systemu Windows</value>
-  </data>
-  <data name="Customization.WindowsOptionalFeaturesDescription" xml:space="preserve">
-    <value>Włącz lub wyłącz składniki systemu Windows we wdrożonym systemie operacyjnym.</value>
-  </data>
-  <data name="Customization.WindowsOptionalFeaturesEnableLabel" xml:space="preserve">
-    <value>Skonfiguruj opcjonalne funkcje systemu Windows</value>
-  </data>
   <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
     <value>Zmiany są stosowane w trybie offline po zainstalowaniu systemu Windows i przed OOBE. Operacje włączania używają tylko zainstalowanego obrazu lub pasujących źródeł nośnika instalacyjnego; zapasowe źródło internetowe nie jest używane.</value>
   </data>
@@ -773,6 +701,24 @@
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Clear" xml:space="preserve">
     <value>Zresetuj widoczne elementy</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.EnableAll" xml:space="preserve">
+    <value>Włącz wszystko</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.DisableAll" xml:space="preserve">
+    <value>Wyłącz wszystko</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.ResetAll" xml:space="preserve">
+    <value>Zresetuj wszystko</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationTitle" xml:space="preserve">
+    <value>Zastosować zmianę zbiorczą?</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
+    <value>Spowoduje to zaktualizowanie {0} funkcji, których dotyczy zmiana, w tym ich funkcji podrzędnych. Czy chcesz kontynuować?</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
+    <value>Zastosuj</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MatchingSource" xml:space="preserve">
     <value>Włączenie tej funkcji wymaga zgodnego ładunku sources\sxs z nośnika instalacyjnego.</value>
@@ -1245,15 +1191,6 @@
   <data name="Customization.WindowsOptionalFeatures.Feature.Recall" xml:space="preserve">
     <value>Recall</value>
   </data>
-  <data name="Customization.AppxRemovalHeader" xml:space="preserve">
-    <value>Zapewnione usuwanie aplikacji</value>
-  </data>
-  <data name="Customization.AppxRemovalDescription" xml:space="preserve">
-    <value>Usuń wybrane udostępnione aplikacje Windows przed OOBE.</value>
-  </data>
-  <data name="Customization.AppxRemovalEnableLabel" xml:space="preserve">
-    <value>Usuń udostępnione aplikacje Windows</value>
-  </data>
   <data name="Customization.AppxRemovalProfileLabel" xml:space="preserve">
     <value>Profil</value>
   </data>
@@ -1380,20 +1317,11 @@
   <data name="Common.AutomaticOption" xml:space="preserve">
     <value>Automatyczny</value>
   </data>
-  <data name="NetworkPage_Title.Text" xml:space="preserve">
-    <value>Sieć</value>
-  </data>
-  <data name="Dot1x.EnableLabel" xml:space="preserve">
-    <value>Skonfiguruj przewodowy standard 802.1X</value>
-  </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Plik certyfikatu zaufanego głównego urzędu certyfikacji</value>
   </data>
   <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
     <value>Wybierz certyfikat 802.1X</value>
-  </data>
-  <data name="Wifi.EnableLabel" xml:space="preserve">
-    <value>Zapewnij obsługę Wi-Fi w obrazie rozruchowym</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Wstępnie udostępnij profil Wi-Fi</value>
@@ -1424,18 +1352,6 @@
   </data>
   <data name="Wifi.SecurityTypeEnterpriseWpa3192" xml:space="preserve">
     <value>WPA3 Enterprise 192-bitowy (WPA3ENT192)</value>
-  </data>
-  <data name="Network.EthernetSectionTitle" xml:space="preserve">
-    <value>Ethernet</value>
-  </data>
-  <data name="Network.EthernetHelperText" xml:space="preserve">
-    <value>Domyślnie dostępna jest standardowa łączność Ethernet. Skonfiguruj tę sekcję tylko wtedy, gdy Twoja sieć przewodowa wymaga uwierzytelniania korporacyjnego 802.1X.</value>
-  </data>
-  <data name="Network.WifiSectionTitle" xml:space="preserve">
-    <value>Wi-Fi</value>
-  </data>
-  <data name="Network.WifiHelperText" xml:space="preserve">
-    <value>Włącz tę opcję tylko wtedy, gdy obraz rozruchowy powinien zawierać obsługę Wi-Fi i profile Wi-Fi dla uruchamiania WinPE.</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
     <value>Osobiste hasła Wi-Fi pozostają tymczasowe w aplikacji autorskiej i nie są utrwalane w konfiguracji Foundry.</value>
@@ -2133,32 +2049,11 @@
   <data name="Nav_AdkKey.Title" xml:space="preserve">
     <value>ADK</value>
   </data>
-  <data name="Nav_AutopilotKey.Description" xml:space="preserve">
-    <value>Konfiguracja profilu Autopilot.</value>
-  </data>
-  <data name="Nav_AutopilotKey.Subtitle" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Nav_AutopilotKey.Title" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Nav_CustomizationKey.Description" xml:space="preserve">
-    <value>Opcje dostosowywania wdrożenia.</value>
-  </data>
-  <data name="Nav_CustomizationKey.Subtitle" xml:space="preserve">
-    <value>Personalizacja</value>
-  </data>
-  <data name="Nav_CustomizationKey.Title" xml:space="preserve">
-    <value>Personalizacja</value>
-  </data>
   <data name="Nav_DocumentationKey.Description" xml:space="preserve">
     <value>Foundry dokumentacja i linki do projektów.</value>
   </data>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>Dokumentacja</value>
-  </data>
-  <data name="Nav_ExpertSection.Title" xml:space="preserve">
-    <value>Ekspert</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Description" xml:space="preserve">
     <value>Standardowy przebieg konfiguracji.</value>
@@ -2183,15 +2078,6 @@
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Dom</value>
-  </data>
-  <data name="Nav_NetworkKey.Description" xml:space="preserve">
-    <value>Konfiguracja sieci i łączności.</value>
-  </data>
-  <data name="Nav_NetworkKey.Subtitle" xml:space="preserve">
-    <value>Sieć</value>
-  </data>
-  <data name="Nav_NetworkKey.Title" xml:space="preserve">
-    <value>Sieć</value>
   </data>
   <data name="Nav_StartKey.Description" xml:space="preserve">
     <value>Przejrzyj i rozpocznij tworzenie multimediów.</value>
@@ -2580,12 +2466,6 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Chiński tradycyjny (Tajwan)</value>
   </data>
-<data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Opcje wdrażania systemu Windows</value>
-  </data>
-<data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Określ wersje systemu Windows, poziomy aktualizacji, języki i edycje oferowane podczas wdrażania.</value>
-  </data>
 <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>Wersja systemu Windows</value>
   </data>
@@ -2663,11 +2543,17 @@
 <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Wybierz edycję wybraną domyślnie. Opcja Automatycznie używa edycji zalecanej przez Foundry.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming profili Windows</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Importuje profile Wi-Fi i 802.1X zarządzane przez Foundry do Windows przed OOBE, aby łączność wdrożeniowa mogła być kontynuowana po WinPE.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importuje przewodowy profil 802.1X zarządzany przez Foundry do Windows przed OOBE, aby zachować łączność wdrożeniową po WinPE.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Roaming profili Windows</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importuje profil Wi-Fi zarządzany przez Foundry do Windows przed OOBE, aby zachować łączność wdrożeniową po WinPE.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Przenieś profile sieciowe do Windows</value>
@@ -2681,18 +2567,207 @@
   <data name="Adk.PageDescription" xml:space="preserve">
     <value>Sprawdź gotowość Windows ADK i dodatku Windows PE przed utworzeniem nośnika wdrożeniowego.</value>
   </data>
-  <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Skonfiguruj nazewnictwo maszyn, wyb&#243;r systemu operacyjnego, OOBE, skategoryzowane funkcje opcjonalne systemu Windows, usuwanie komponent&#243;w AI i usuwanie AppX.</value>
-  </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Skonfiguruj bazę nośnika, język WinPE, podpis rozruchu, sterowniki i strefę czasową wdrożenia.</value>
-  </data>
-  <data name="Network.PageDescription" xml:space="preserve">
-    <value>Skonfiguruj przewodowe 802.1X, aprowizowanie Wi-Fi i roaming profili dla nośnika wdrożeniowego.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Sprawdź gotowość, wybierz wyjście ISO lub USB i rozpocznij tworzenie nośnika.</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve"><value>Przewiń w lewo</value></data>
   <data name="Home.Scroll.Forward" xml:space="preserve"><value>Przewiń w prawo</value></data>
+  <data name="Nav_NetworkSection.Title" xml:space="preserve">
+    <value>Sieć</value>
+  </data>
+  <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Nav_CustomizationSection.Title" xml:space="preserve">
+    <value>Personalizacja</value>
+  </data>
+  <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
+    <value>Ethernet 802.1X</value>
+  </data>
+  <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
+    <value>Domyślnie dostępna jest standardowa łączność Ethernet. Skonfiguruj tę sekcję tylko wtedy, gdy Twoja sieć przewodowa wymaga uwierzytelniania korporacyjnego 802.1X.</value>
+  </data>
+  <data name="Nav_WifiKey.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Nav_WifiKey.Description" xml:space="preserve">
+    <value>Skonfiguruj aprowizację i profile Wi-Fi.</value>
+  </data>
+  <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
+    <value>Profil JSON</value>
+  </data>
+  <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
+    <value>Aprowizuj urządzenia przy użyciu profilu Autopilot JSON.</value>
+  </data>
+  <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
+    <value>Prześlij skróty sprzętowe za pośrednictwem Microsoft Graph.</value>
+  </data>
+  <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
+    <value>Interaktywnie</value>
+  </data>
+  <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
+    <value>Przygotowuje logowanie technika kodem urządzenia do rejestracji skrótu sprzętowego podczas OOBE.</value>
+  </data>
+  <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
+    <value>Wybór systemu</value>
+  </data>
+  <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
+    <value>Określ wersje systemu Windows, poziomy aktualizacji, języki i edycje oferowane podczas wdrażania.</value>
+  </data>
+  <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
+    <value>Nazewnictwo komputerów</value>
+  </data>
+  <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
+    <value>Skonfiguruj nazwy wdrożonych urządzeń.</value>
+  </data>
+  <data name="Nav_OobeKey.Title" xml:space="preserve">
+    <value>OOBE</value>
+  </data>
+  <data name="Nav_OobeKey.Description" xml:space="preserve">
+    <value>Skonfiguruj Windows 11 ekranów pierwszego uruchomienia i domyślne ustawienia prywatności.</value>
+  </data>
+  <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
+    <value>Funkcje opcjonalne</value>
+  </data>
+  <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
+    <value>Włącz lub wyłącz składniki systemu Windows we wdrożonym systemie operacyjnym.</value>
+  </data>
+  <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
+    <value>Usuwanie pakietów AppX</value>
+  </data>
+  <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
+    <value>Usuń wybrane udostępnione aplikacje Windows przed OOBE.</value>
+  </data>
+  <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
+    <value>Składniki AI</value>
+  </data>
+  <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
+    <value>Usuń lub wyłącz wybrane komponenty AI Windows przed OOBE.</value>
+  </data>
+  <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
+    <value>Ethernet 802.1X</value>
+  </data>
+  <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
+    <value>Domyślnie dostępna jest standardowa łączność Ethernet. Skonfiguruj tę sekcję tylko wtedy, gdy Twoja sieć przewodowa wymaga uwierzytelniania korporacyjnego 802.1X.</value>
+  </data>
+  <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Skonfiguruj przewodowy standard 802.1X</value>
+  </data>
+  <data name="WifiPageHeader.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="WifiPageHeader.Description" xml:space="preserve">
+    <value>Skonfiguruj aprowizację Wi-Fi, osadzone profile i roaming profili Windows.</value>
+  </data>
+  <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Zapewnij obsługę Wi-Fi w obrazie rozruchowym</value>
+  </data>
+  <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
+    <value>Udostępnianie profilu JSON</value>
+  </data>
+  <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
+    <value>Utwórz profil offline Autopilot na zastosowanym obrazie Windows.</value>
+  </data>
+  <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
+    <value>Bezobsługowe przesyłanie skrótu sprzętowego</value>
+  </data>
+  <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
+    <value>Skonfiguruj automatyczne przesyłanie skrótów sprzętowych obsługiwane przez dzierżawę.</value>
+  </data>
+  <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
+    <value>Interaktywne przesyłanie skrótu sprzętowego</value>
+  </data>
+  <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
+    <value>Przygotowuje logowanie technika kodem urządzenia do rejestracji skrótu sprzętowego podczas OOBE.</value>
+  </data>
+  <data name="OsSelectionPageHeader.Title" xml:space="preserve">
+    <value>Opcje wdrażania systemu Windows</value>
+  </data>
+  <data name="OsSelectionPageHeader.Description" xml:space="preserve">
+    <value>Określ wersje systemu Windows, poziomy aktualizacji, języki i edycje oferowane podczas wdrażania.</value>
+  </data>
+  <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Opcje wdrażania systemu Windows</value>
+  </data>
+  <data name="MachineNamingPageHeader.Title" xml:space="preserve">
+    <value>Nazwa komputera</value>
+  </data>
+  <data name="MachineNamingPageHeader.Description" xml:space="preserve">
+    <value>Skonfiguruj automatyczne i wspomagane przez technika nazewnictwo urządzeń.</value>
+  </data>
+  <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Włącz reguły nazewnictwa komputerów</value>
+  </data>
+  <data name="OobePageHeader.Title" xml:space="preserve">
+    <value>Out-of-Box Experience</value>
+  </data>
+  <data name="OobePageHeader.Description" xml:space="preserve">
+    <value>Skonfiguruj Windows 11 ekranów pierwszego uruchomienia i domyślne ustawienia prywatności.</value>
+  </data>
+  <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Dostosuj OOBE</value>
+  </data>
+  <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
+    <value>Opcjonalne funkcje systemu Windows</value>
+  </data>
+  <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
+    <value>Włącz lub wyłącz składniki systemu Windows we wdrożonym systemie operacyjnym.</value>
+  </data>
+  <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Skonfiguruj opcjonalne funkcje systemu Windows</value>
+  </data>
+  <data name="AppRemovalPageHeader.Title" xml:space="preserve">
+    <value>Usuwanie pakietów AppX</value>
+  </data>
+  <data name="AppRemovalPageHeader.Description" xml:space="preserve">
+    <value>Usuń wybrane udostępnione aplikacje Windows przed OOBE.</value>
+  </data>
+  <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Usuń udostępnione aplikacje Windows</value>
+  </data>
+  <data name="AiComponentsPageHeader.Title" xml:space="preserve">
+    <value>Usunięcie komponentu AI</value>
+  </data>
+  <data name="AiComponentsPageHeader.Description" xml:space="preserve">
+    <value>Usuń lub wyłącz wybrane komponenty AI Windows przed OOBE.</value>
+  </data>
+  <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Usuń komponenty AI</value>
+  </data>
+  <data name="Common.Enable" xml:space="preserve">
+    <value>Włącz</value>
+  </data>
+  <data name="Common.Disable" xml:space="preserve">
+    <value>Wyłącz</value>
+  </data>
+  <data name="NavigationStatus.Configured" xml:space="preserve">
+    <value>Skonfigurowano</value>
+  </data>
+  <data name="NavigationStatus.NotConfigured" xml:space="preserve">
+    <value>Nie skonfigurowano</value>
+  </data>
+  <data name="NavigationStatus.AdkReady" xml:space="preserve">
+    <value>ADK jest gotowy</value>
+  </data>
+  <data name="NavigationStatus.AdkNotReady" xml:space="preserve">
+    <value>ADK nie jest gotowy</value>
+  </data>
+  <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
+    <value>Aktywny tryb aprowizacji</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
+    <value>Zmienić tryb aprowizacji?</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationMessageFormat" xml:space="preserve">
+    <value>{0} jest obecnie aktywny. Kontynuowanie spowoduje jego wyłączenie i włączenie trybu {1}.</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
+    <value>Zmień tryb</value>
+  </data>
 </root>

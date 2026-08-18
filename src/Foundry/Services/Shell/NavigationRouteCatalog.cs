@@ -9,7 +9,9 @@ namespace Foundry.Services.Shell;
 public enum NavigationSection
 {
     General,
-    Expert
+    Network,
+    WindowsAutopilot,
+    Customization
 }
 
 public sealed record NavigationRoute(
@@ -30,9 +32,17 @@ public static class NavigationRouteCatalog
         CreatePrimary<AdkPage>("Nav_AdkKey", "EC7A", NavigationSection.General, true),
         CreatePrimary<GeneralConfigurationPage>("Nav_GeneralConfigurationKey", "E713", NavigationSection.General),
         CreatePrimary<StartPage>("Nav_StartKey", "E768", NavigationSection.General),
-        CreatePrimary<NetworkPage>("Nav_NetworkKey", "E774", NavigationSection.Expert),
-        CreatePrimary<AutopilotPage>("Nav_AutopilotKey", "E753", NavigationSection.Expert),
-        CreatePrimary<CustomizationPage>("Nav_CustomizationKey", "E771", NavigationSection.Expert)
+        CreatePrimary<EthernetDot1xPage>("Nav_EthernetDot1xKey", "E839", NavigationSection.Network),
+        CreatePrimary<WifiPage>("Nav_WifiKey", "E701", NavigationSection.Network),
+        CreatePrimary<AutopilotJsonProfilePage>("Nav_AutopilotJsonProfileKey", "E8A5", NavigationSection.WindowsAutopilot),
+        CreatePrimary<AutopilotZeroTouchPage>("Nav_AutopilotZeroTouchKey", "E753", NavigationSection.WindowsAutopilot),
+        CreatePrimary<AutopilotInteractiveHashUploadPage>("Nav_AutopilotInteractiveHashUploadKey", "E928", NavigationSection.WindowsAutopilot),
+        CreatePrimary<OsSelectionPage>("Nav_OsSelectionKey", "EC77", NavigationSection.Customization),
+        CreatePrimary<MachineNamingPage>("Nav_MachineNamingKey", "E8AC", NavigationSection.Customization),
+        CreatePrimary<OobePage>("Nav_OobeKey", "F133", NavigationSection.Customization),
+        CreatePrimary<OptionalFeaturesPage>("Nav_OptionalFeaturesKey", "E74C", NavigationSection.Customization),
+        CreatePrimary<AppRemovalPage>("Nav_AppRemovalKey", "E7B8", NavigationSection.Customization),
+        CreatePrimary<AiComponentsPage>("Nav_AiComponentsKey", "F4A5", NavigationSection.Customization)
     ];
 
     private static IReadOnlyList<NavigationRoute> Routes { get; } =
@@ -49,6 +59,15 @@ public static class NavigationRouteCatalog
 
     public static NavigationRoute? FindByPageType(Type pageType) =>
         Routes.FirstOrDefault(route => route.PageType == pageType);
+
+    public static string GetSectionTitleResourceKey(NavigationSection section) => section switch
+    {
+        NavigationSection.General => "Nav_GeneralSection.Title",
+        NavigationSection.Network => "Nav_NetworkSection.Title",
+        NavigationSection.WindowsAutopilot => "Nav_WindowsAutopilotSection.Title",
+        NavigationSection.Customization => "Nav_CustomizationSection.Title",
+        _ => throw new ArgumentOutOfRangeException(nameof(section), section, null)
+    };
 
     private static NavigationRoute CreatePrimary<TPage>(
         string resourcePrefix,

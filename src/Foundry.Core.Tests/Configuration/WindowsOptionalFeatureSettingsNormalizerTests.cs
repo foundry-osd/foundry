@@ -10,17 +10,18 @@ namespace Foundry.Core.Tests.Configuration;
 public sealed class WindowsOptionalFeatureSettingsNormalizerTests
 {
     [Fact]
-    public void Normalize_DisabledSettings_ClearsSelections()
+    public void Normalize_DisabledSettings_PreservesDormantSelections()
     {
         WindowsOptionalFeatureSettings normalized = WindowsOptionalFeatureSettingsNormalizer.Normalize(new WindowsOptionalFeatureSettings
         {
+            IsEnabled = false,
             EnabledFeatureIds = ["wf:netfx3"],
             DisabledFeatureIds = ["wf:telnetclient"]
         });
 
         Assert.False(normalized.IsEnabled);
-        Assert.Empty(normalized.EnabledFeatureIds);
-        Assert.Empty(normalized.DisabledFeatureIds);
+        Assert.Equal(["wf:netfx3"], normalized.EnabledFeatureIds);
+        Assert.Equal(["wf:telnetclient"], normalized.DisabledFeatureIds);
     }
 
     [Fact]

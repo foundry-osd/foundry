@@ -34,6 +34,26 @@ public sealed class NetworkProfileRoamingServiceTests
     }
 
     [Fact]
+    public async Task CaptureWifiProfileAsync_WhenOnlyWiredRoamingIsEnabled_DoesNotCreateArtifact()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string profilePath = tempDirectory.CreateFile("source", "wifi.xml", "<WLANProfile />");
+        var service = new NetworkProfileRoamingService(
+            CreateEnabledConfiguration(wiredEnabled: true, wifiEnabled: false),
+            NullLogger<NetworkProfileRoamingService>.Instance,
+            tempDirectory.ArtifactPath);
+
+        await service.CaptureWifiProfileAsync(
+            new NetworkProfileRoamingCaptureRequest(
+                profilePath,
+                NetworkProfileRoamingProfileSource.ManualWifi,
+                NetworkProfileRoamingConnectivityExpectation.PreOobeConnectable),
+            TestContext.Current.CancellationToken);
+
+        Assert.False(File.Exists(Path.Combine(tempDirectory.ArtifactPath, "wifi-profile.xml")));
+    }
+
+    [Fact]
     public async Task CaptureWifiProfileAsync_WhenManualWifiSucceeds_WritesWifiProfileAndManifest()
     {
         using var tempDirectory = new TemporaryDirectory();
@@ -306,7 +326,10 @@ public sealed class NetworkProfileRoamingServiceTests
         Assert.Contains(relativePaths, path => File.ReadAllText(Path.Combine(tempDirectory.ArtifactPath, path)) == "wifi-certificate");
     }
 
-    private static FoundryConnectConfiguration CreateEnabledConfiguration(bool includePrivateKeyMaterial = false)
+    private static FoundryConnectConfiguration CreateEnabledConfiguration(
+        bool includePrivateKeyMaterial = false,
+        bool wiredEnabled = true,
+        bool wifiEnabled = true)
     {
         return new FoundryConnectConfiguration
         {
@@ -314,8 +337,16 @@ public sealed class NetworkProfileRoamingServiceTests
             {
                 ProfileRoaming = new CoreConnectNetworkProfileRoamingSettings
                 {
-                    IsEnabled = true,
-                    IncludePrivateKeyMaterial = includePrivateKeyMaterial
+                    WiredDot1x = new Foundry.Core.Models.Configuration.NetworkProfileRoamingTransportSettings
+                    {
+                        IsEnabled = wiredEnabled,
+                        IncludePrivateKeyMaterial = includePrivateKeyMaterial
+                    },
+                    Wifi = new Foundry.Core.Models.Configuration.NetworkProfileRoamingTransportSettings
+                    {
+                        IsEnabled = wifiEnabled,
+                        IncludePrivateKeyMaterial = includePrivateKeyMaterial
+                    }
                 }
             }
         };

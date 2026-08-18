@@ -13,7 +13,7 @@ public static class WindowsOptionalFeatureSettingsNormalizer
 {
     public static WindowsOptionalFeatureSettings Normalize(WindowsOptionalFeatureSettings? settings)
     {
-        if (settings is null || !settings.IsEnabled)
+        if (settings is null)
         {
             return new WindowsOptionalFeatureSettings();
         }
@@ -28,7 +28,7 @@ public static class WindowsOptionalFeatureSettingsNormalizer
 
         return new WindowsOptionalFeatureSettings
         {
-            IsEnabled = true,
+            IsEnabled = settings.IsEnabled,
             EnabledFeatureIds = WindowsOptionalFeatureCatalog.Entries.Where(entry => enabled.Contains(entry.Id)).Select(entry => entry.Id).ToArray(),
             DisabledFeatureIds = WindowsOptionalFeatureCatalog.Entries.Where(entry => disabled.Contains(entry.Id)).Select(entry => entry.Id).ToArray()
         };

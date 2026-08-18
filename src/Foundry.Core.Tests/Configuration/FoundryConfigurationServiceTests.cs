@@ -15,8 +15,10 @@ public sealed class FoundryConfigurationServiceTests
     {
         var document = new FoundryConfigurationDocument();
 
-        Assert.False(document.Network.RoamWifiProfilesToWindows);
-        Assert.False(document.Network.RoamPrivateKeyMaterialToWindows);
+        Assert.False(document.Network.RoamWiredDot1xProfileToWindows);
+        Assert.False(document.Network.RoamWiredDot1xPrivateKeyMaterialToWindows);
+        Assert.False(document.Network.RoamWifiProfileToWindows);
+        Assert.False(document.Network.RoamWifiPrivateKeyMaterialToWindows);
     }
 
     [Fact]
@@ -160,7 +162,7 @@ public sealed class FoundryConfigurationServiceTests
     }
 
     [Fact]
-    public void Serialize_ThenDeserialize_WhenNetworkProfileRoamingIsEnabled_PreservesSetting()
+    public void Serialize_ThenDeserialize_WhenNetworkProfileRoamingIsSplit_PreservesIndependentSettings()
     {
         var service = new FoundryConfigurationService();
         var document = new FoundryConfigurationDocument
@@ -168,7 +170,9 @@ public sealed class FoundryConfigurationServiceTests
             Network = new NetworkSettings
             {
                 WifiProvisioned = true,
-                RoamWifiProfilesToWindows = true,
+                RoamWiredDot1xProfileToWindows = true,
+                RoamWiredDot1xPrivateKeyMaterialToWindows = true,
+                RoamWifiProfileToWindows = false,
                 Wifi = new WifiSettings
                 {
                     IsEnabled = true,
@@ -182,7 +186,57 @@ public sealed class FoundryConfigurationServiceTests
         string json = service.Serialize(document);
         FoundryConfigurationDocument loaded = service.Deserialize(json);
 
-        Assert.True(loaded.Network.RoamWifiProfilesToWindows);
+        Assert.True(loaded.Network.RoamWiredDot1xProfileToWindows);
+        Assert.True(loaded.Network.RoamWiredDot1xPrivateKeyMaterialToWindows);
+        Assert.False(loaded.Network.RoamWifiProfileToWindows);
+        Assert.False(loaded.Network.RoamWifiPrivateKeyMaterialToWindows);
+    }
+
+    [Fact]
+    public void Deserialize_WhenLegacySharedRoamingIsEnabled_MigratesBothTransports()
+    {
+        var service = new FoundryConfigurationService();
+
+        FoundryConfigurationDocument loaded = service.Deserialize("""
+            {
+              "schemaVersion": 13,
+              "network": {
+                "roamWifiProfilesToWindows": true,
+                "roamPrivateKeyMaterialToWindows": true
+              }
+            }
+            """);
+
+        Assert.True(loaded.Network.RoamWiredDot1xProfileToWindows);
+        Assert.True(loaded.Network.RoamWiredDot1xPrivateKeyMaterialToWindows);
+        Assert.True(loaded.Network.RoamWifiProfileToWindows);
+        Assert.True(loaded.Network.RoamWifiPrivateKeyMaterialToWindows);
+        Assert.Equal(FoundryConfigurationDocument.CurrentSchemaVersion, loaded.SchemaVersion);
+    }
+
+    [Fact]
+    public void Deserialize_WhenSplitRoamingFieldsAreExplicit_DoesNotLetLegacyFallbackOverrideThem()
+    {
+        var service = new FoundryConfigurationService();
+
+        FoundryConfigurationDocument loaded = service.Deserialize("""
+            {
+              "schemaVersion": 14,
+              "network": {
+                "roamWiredDot1xProfileToWindows": false,
+                "roamWiredDot1xPrivateKeyMaterialToWindows": false,
+                "roamWifiProfileToWindows": false,
+                "roamWifiPrivateKeyMaterialToWindows": false,
+                "roamWifiProfilesToWindows": true,
+                "roamPrivateKeyMaterialToWindows": true
+              }
+            }
+            """);
+
+        Assert.False(loaded.Network.RoamWiredDot1xProfileToWindows);
+        Assert.False(loaded.Network.RoamWiredDot1xPrivateKeyMaterialToWindows);
+        Assert.False(loaded.Network.RoamWifiProfileToWindows);
+        Assert.False(loaded.Network.RoamWifiPrivateKeyMaterialToWindows);
     }
 
     [Fact]

@@ -156,21 +156,6 @@
   <data name="Language.French" xml:space="preserve">
     <value>prancūzų</value>
   </data>
-  <data name="AutopilotPage_Title.Text" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Autopilot.Header" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Autopilot.Description" xml:space="preserve">
-    <value>Pasirinkite diegimo laikmenos Autopilot parengimo metodą: JSON profilio parengimą, WinPE zero-touch aparatūros maišos įkėlimą arba interaktyvų aparatūros maišos įkėlimą.</value>
-  </data>
-  <data name="Autopilot.PageDescription" xml:space="preserve">
-    <value>Konfigūruokite Windows Autopilot registracijos parametrus diegimo laikmenai ir aparatūros registracijai.</value>
-  </data>
-  <data name="Autopilot.EnableLabel" xml:space="preserve">
-    <value>Įgalinti Autopilot</value>
-  </data>
   <data name="Autopilot.ImportButton" xml:space="preserve">
     <value>Importuoti profilį</value>
   </data>
@@ -288,29 +273,14 @@
   <data name="Autopilot.JsonProfileHeader" xml:space="preserve">
     <value>JSON profilio sudarymas</value>
   </data>
-  <data name="Autopilot.JsonProfileDescription" xml:space="preserve">
-    <value>Sukurkite neprisijungus pasiekiamą Autopilot profilį pritaikytame Windows vaizde.</value>
-  </data>
-  <data name="Autopilot.JsonProfileEnableLabel" xml:space="preserve">
-    <value>Naudokite JSON profilio sudarymą</value>
-  </data>
   <data name="Autopilot.HardwareHashHeader" xml:space="preserve">
     <value>Zero-touch aparatūros maišos įkėlimas</value>
-  </data>
-  <data name="Autopilot.HardwareHashDescription" xml:space="preserve">
-    <value>Įkelkite įrenginio aparatinės įrangos maišą į Intune iš Foundry Deploy į WinPE.</value>
-  </data>
-  <data name="Autopilot.HardwareHashEnableLabel" xml:space="preserve">
-    <value>Naudoti zero-touch aparatūros maišos įkėlimą</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashHeader" xml:space="preserve">
     <value>Interaktyvus aparatūros maišos įkėlimas</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
     <value>Paruošia techniko prisijungimą naudojant įrenginio kodą aparatūros maišos registracijai OOBE metu.</value>
-  </data>
-  <data name="Autopilot.InteractiveHardwareHashEnableLabel" xml:space="preserve">
-    <value>Naudoti interaktyvų aparatūros maišos įkėlimą</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Prijunkite nuomininką</value>
@@ -510,9 +480,6 @@
   <data name="Autopilot.HardwareHashDefaultGroupTagNone" xml:space="preserve">
     <value>Nepasirinkta numatytoji grupės žyma.</value>
   </data>
-  <data name="Autopilot.HardwareHashDefaultGroupTagNoneOption" xml:space="preserve">
-    <value>Nėra</value>
-  </data>
   <data name="Autopilot.HardwareHashDefaultGroupTagNoSelection" xml:space="preserve">
     <value>Nėra</value>
   </data>
@@ -549,23 +516,11 @@
   <data name="Autopilot.HardwareHashOnboardingMessageGeneric" xml:space="preserve">
     <value>Tvarkomos programos registracija neparengta. Peržiūrėkite nuomininko pasirengimą ir vėl prisijunkite.</value>
   </data>
-  <data name="CustomizationPage_Title.Text" xml:space="preserve">
-    <value>Tinkinimas</value>
-  </data>
   <data name="Documentation.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry nepavyko atidaryti dokumentacijos jūsų naršyklėje. Vietoj to naudokite URL.</value>
   </data>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Nepavyko atidaryti dokumentų</value>
-  </data>
-  <data name="Customization.MachineNamingHeader" xml:space="preserve">
-    <value>Kompiuterio pavadinimas</value>
-  </data>
-  <data name="Customization.MachineNamingDescription" xml:space="preserve">
-    <value>Valdykite, kaip įdiegto kompiuterio pavadinimas generuojamas WinPE.</value>
-  </data>
-  <data name="Customization.MachineNamingEnableLabel" xml:space="preserve">
-    <value>Įgalinti mašinos pavadinimo taisykles</value>
   </data>
   <data name="Customization.MachineNamingPrefixLabel" xml:space="preserve">
     <value>Kompiuterio pavadinimo priešdėlis</value>
@@ -587,15 +542,6 @@
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
     <value>Priešdėlyje turi būti nuo 1 iki 15 simbolių nuo A-Z, a-z, 0-9 arba -.</value>
-  </data>
-  <data name="Customization.OobeHeader" xml:space="preserve">
-    <value>Išimtinė patirtis</value>
-  </data>
-  <data name="Customization.OobeDescription" xml:space="preserve">
-    <value>Konfigūruokite Windows 11 pirmojo paleidimo ekranų ir numatytuosius privatumo nustatymus.</value>
-  </data>
-  <data name="Customization.OobeEnableLabel" xml:space="preserve">
-    <value>Tinkinti OOBE</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Praleiskite licencijos sąlygas</value>
@@ -660,15 +606,6 @@
   <data name="Customization.OobeLocationForceOff" xml:space="preserve">
     <value>Išjungti jėga</value>
   </data>
-  <data name="Customization.AiComponentRemovalHeader" xml:space="preserve">
-    <value>AI komponento pašalinimas</value>
-  </data>
-  <data name="Customization.AiComponentRemovalDescription" xml:space="preserve">
-    <value>Pašalinkite arba išjunkite pasirinktus Windows AI komponentus prieš OOBE.</value>
-  </data>
-  <data name="Customization.AiComponentRemovalEnableLabel" xml:space="preserve">
-    <value>Pašalinkite AI komponentus</value>
-  </data>
   <data name="Customization.AiComponentRemoveCopilotLabel" xml:space="preserve">
     <value>Pašalinti Microsoft Copilot</value>
   </data>
@@ -717,15 +654,6 @@
   <data name="Customization.AiComponentDisableNotepadAiDescription" xml:space="preserve">
     <value>Nustatykite Notepad politiką, kuri išjungia AI funkcijas.</value>
   </data>
-  <data name="Customization.WindowsOptionalFeaturesHeader" xml:space="preserve">
-    <value>„Windows“ papildomos funkcijos</value>
-  </data>
-  <data name="Customization.WindowsOptionalFeaturesDescription" xml:space="preserve">
-    <value>Įgalinti arba išjungti „Windows“ komponentus įdiegtoje operacinėje sistemoje.</value>
-  </data>
-  <data name="Customization.WindowsOptionalFeaturesEnableLabel" xml:space="preserve">
-    <value>Konfigūruokite „Windows“ papildomas funkcijas</value>
-  </data>
   <data name="Customization.WindowsOptionalFeaturesExplanation" xml:space="preserve">
     <value>Pakeitimai taikomi neprisijungus, įdiegus „Windows“ ir prieš OOBE. Įgalinimo operacijos naudoja tik įdiegtą vaizdą arba atitinkamus diegimo laikmenos šaltinius; atsarginis interneto šaltinis nenaudojamas.</value>
   </data>
@@ -773,6 +701,24 @@
   </data>
   <data name="Customization.WindowsOptionalFeatures.Action.Clear" xml:space="preserve">
     <value>Iš naujo nustatyti matomus elementus</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.EnableAll" xml:space="preserve">
+    <value>Įgalinti viską</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.DisableAll" xml:space="preserve">
+    <value>Išjungti viską</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.ResetAll" xml:space="preserve">
+    <value>Iš naujo nustatyti viską</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationTitle" xml:space="preserve">
+    <value>Taikyti masinį pakeitimą?</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
+    <value>Tai atnaujins {0} paveiktas funkcijas, įskaitant jų antrines funkcijas. Ar norite tęsti?</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
+    <value>Taikyti</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MatchingSource" xml:space="preserve">
     <value>Norint įjungti šią funkciją, reikia suderinti sąrankos laikmeną sources\sxs.</value>
@@ -1245,15 +1191,6 @@
   <data name="Customization.WindowsOptionalFeatures.Feature.Recall" xml:space="preserve">
     <value>Recall</value>
   </data>
-  <data name="Customization.AppxRemovalHeader" xml:space="preserve">
-    <value>Numatytas programos pašalinimas</value>
-  </data>
-  <data name="Customization.AppxRemovalDescription" xml:space="preserve">
-    <value>Pašalinkite pasirinktas numatytas Windows programas prieš OOBE.</value>
-  </data>
-  <data name="Customization.AppxRemovalEnableLabel" xml:space="preserve">
-    <value>Pašalinkite numatytas Windows programas</value>
-  </data>
   <data name="Customization.AppxRemovalProfileLabel" xml:space="preserve">
     <value>Profilis</value>
   </data>
@@ -1380,20 +1317,11 @@
   <data name="Common.AutomaticOption" xml:space="preserve">
     <value>Automatinis</value>
   </data>
-  <data name="NetworkPage_Title.Text" xml:space="preserve">
-    <value>Tinklas</value>
-  </data>
-  <data name="Dot1x.EnableLabel" xml:space="preserve">
-    <value>Konfigūruokite laidinį 802.1X</value>
-  </data>
   <data name="Dot1x.CertificateLabel" xml:space="preserve">
     <value>Patikimas šakninio CA sertifikato failas</value>
   </data>
   <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
     <value>Pasirinkite 802.1X sertifikatą</value>
-  </data>
-  <data name="Wifi.EnableLabel" xml:space="preserve">
-    <value>Numatykite Wi-Fi palaikymą įkrovos vaizde</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Iš anksto sudarykite Wi-Fi profilį</value>
@@ -1424,18 +1352,6 @@
   </data>
   <data name="Wifi.SecurityTypeEnterpriseWpa3192" xml:space="preserve">
     <value>WPA3 Enterprise 192 bitų (WPA3ENT192)</value>
-  </data>
-  <data name="Network.EthernetSectionTitle" xml:space="preserve">
-    <value>Ethernet</value>
-  </data>
-  <data name="Network.EthernetHelperText" xml:space="preserve">
-    <value>Standartinis Ethernet ryšys galimas pagal numatytuosius nustatymus. Konfigūruokite šį skyrių, tik jei jūsų laidiniam tinklui reikalingas 802.1X įmonės autentifikavimas.</value>
-  </data>
-  <data name="Network.WifiSectionTitle" xml:space="preserve">
-    <value>Wi-Fi</value>
-  </data>
-  <data name="Network.WifiHelperText" xml:space="preserve">
-    <value>Įjunkite tai tik tuo atveju, jei įkrovos atvaizde turėtų būti Wi-Fi palaikymas ir Wi-Fi profiliai, skirti WinPE paleisties metu.</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
     <value>Asmeninės Wi-Fi slaptafrazės išlieka trumpalaikės kūrimo programoje ir neišsaugomos Foundry konfigūracijoje.</value>
@@ -2133,32 +2049,11 @@
   <data name="Nav_AdkKey.Title" xml:space="preserve">
     <value>ADK</value>
   </data>
-  <data name="Nav_AutopilotKey.Description" xml:space="preserve">
-    <value>Autopilot profilio konfigūracija.</value>
-  </data>
-  <data name="Nav_AutopilotKey.Subtitle" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Nav_AutopilotKey.Title" xml:space="preserve">
-    <value>Autopilot</value>
-  </data>
-  <data name="Nav_CustomizationKey.Description" xml:space="preserve">
-    <value>Diegimo tinkinimo parinktys.</value>
-  </data>
-  <data name="Nav_CustomizationKey.Subtitle" xml:space="preserve">
-    <value>Tinkinimas</value>
-  </data>
-  <data name="Nav_CustomizationKey.Title" xml:space="preserve">
-    <value>Tinkinimas</value>
-  </data>
   <data name="Nav_DocumentationKey.Description" xml:space="preserve">
     <value>Foundry dokumentacija ir projekto nuorodos.</value>
   </data>
   <data name="Nav_DocumentationKey.Title" xml:space="preserve">
     <value>Dokumentacija</value>
-  </data>
-  <data name="Nav_ExpertSection.Title" xml:space="preserve">
-    <value>Ekspertas</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Description" xml:space="preserve">
     <value>Standartinė konfigūravimo darbo eiga.</value>
@@ -2183,15 +2078,6 @@
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Pradžia</value>
-  </data>
-  <data name="Nav_NetworkKey.Description" xml:space="preserve">
-    <value>Tinklo ir ryšio konfigūracija.</value>
-  </data>
-  <data name="Nav_NetworkKey.Subtitle" xml:space="preserve">
-    <value>Tinklas</value>
-  </data>
-  <data name="Nav_NetworkKey.Title" xml:space="preserve">
-    <value>Tinklas</value>
   </data>
   <data name="Nav_StartKey.Description" xml:space="preserve">
     <value>Peržiūrėkite ir pradėkite kurti mediją.</value>
@@ -2580,12 +2466,6 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>tradicinė kinų kalba (Taivanas)</value>
   </data>
-  <data name="Customization.OperatingSystemSelectionHeader" xml:space="preserve">
-    <value>Windows diegimo parinktys</value>
-  </data>
-  <data name="Customization.OperatingSystemSelectionDescription" xml:space="preserve">
-    <value>Nurodykite diegimo metu siūlomas Windows versijas, naujinimo lygius, kalbas ir leidimus.</value>
-  </data>
   <data name="Customization.OperatingSystemVersionGroupHeader" xml:space="preserve">
     <value>Windows versija</value>
   </data>
@@ -2663,11 +2543,17 @@
   <data name="Customization.OperatingSystemDefaultEditionDescription" xml:space="preserve">
     <value>Pasirinkite pagal numatytuosius parametrus pažymėtą leidimą. Automatinis pasirinkimas naudoja Foundry rekomenduojamą leidimą.</value>
   </data>
-  <data name="Network.WindowsRoamingSectionTitle" xml:space="preserve">
+  <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows profilių tarptinklinis perkėlimas</value>
   </data>
-  <data name="Network.WindowsRoamingHelperText" xml:space="preserve">
-    <value>Importuoja Foundry valdomus Wi-Fi ir 802.1X profilius į Windows prieš OOBE, kad diegimo ryšys galėtų tęstis po WinPE.</value>
+  <data name="Network.WiredDot1xWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importuoja Foundry valdomą laidinį 802.1X profilį į Windows prieš OOBE, kad diegimo ryšys išliktų po WinPE.</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
+    <value>Windows profilių tarptinklinis perkėlimas</value>
+  </data>
+  <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
+    <value>Importuoja Foundry valdomą Wi-Fi profilį į Windows prieš OOBE, kad diegimo ryšys išliktų po WinPE.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Perkelti tinklo profilius į Windows</value>
@@ -2681,18 +2567,207 @@
   <data name="Adk.PageDescription" xml:space="preserve">
     <value>Prieš kurdami diegimo laikmeną peržiūrėkite Windows ADK ir Windows PE priedo parengtį.</value>
   </data>
-  <data name="Customization.PageDescription" xml:space="preserve">
-    <value>Konfigūruokite įrenginio pavadinimų suteikimą, operacinės sistemos pasirinkimą, OOBE, suskirstytas į kategorijas Windows pasirenkamas funkcijas, AI komponentų pašalinimą ir AppX pašalinimą.</value>
-  </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
     <value>Konfigūruokite laikmenos pagrindą, WinPE kalbą, paleidimo parašą, tvarkykles ir diegimo laiko juostą.</value>
-  </data>
-  <data name="Network.PageDescription" xml:space="preserve">
-    <value>Konfigūruokite laidinį 802.1X, Wi-Fi parengimą ir profilių tarptinklinį naudojimą diegimo laikmenai.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Peržiūrėkite parengtį, pasirinkite ISO arba USB išvestį ir pradėkite laikmenos kūrimą.</value>
   </data>
   <data name="Home.Scroll.Back" xml:space="preserve"><value>Slinkti kairėn</value></data>
   <data name="Home.Scroll.Forward" xml:space="preserve"><value>Slinkti dešinėn</value></data>
+  <data name="Nav_NetworkSection.Title" xml:space="preserve">
+    <value>Tinklas</value>
+  </data>
+  <data name="Nav_WindowsAutopilotSection.Title" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Nav_CustomizationSection.Title" xml:space="preserve">
+    <value>Tinkinimas</value>
+  </data>
+  <data name="Nav_EthernetDot1xKey.Title" xml:space="preserve">
+    <value>Ethernet 802.1X</value>
+  </data>
+  <data name="Nav_EthernetDot1xKey.Description" xml:space="preserve">
+    <value>Standartinis Ethernet ryšys galimas pagal numatytuosius nustatymus. Konfigūruokite šį skyrių, tik jei jūsų laidiniam tinklui reikalingas 802.1X įmonės autentifikavimas.</value>
+  </data>
+  <data name="Nav_WifiKey.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Nav_WifiKey.Description" xml:space="preserve">
+    <value>Konfigūruokite Wi-Fi parengimą ir profilius.</value>
+  </data>
+  <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
+    <value>JSON profilis</value>
+  </data>
+  <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
+    <value>Parenkite įrenginius naudodami Autopilot JSON profilį.</value>
+  </data>
+  <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
+    <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
+    <value>Įkelkite aparatinės įrangos maišas per Microsoft Graph.</value>
+  </data>
+  <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
+    <value>Interaktyvus</value>
+  </data>
+  <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
+    <value>Paruošia techniko prisijungimą naudojant įrenginio kodą aparatūros maišos registracijai OOBE metu.</value>
+  </data>
+  <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
+    <value>OS pasirinkimas</value>
+  </data>
+  <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
+    <value>Nurodykite diegimo metu siūlomas Windows versijas, naujinimo lygius, kalbas ir leidimus.</value>
+  </data>
+  <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
+    <value>Kompiuterio vardas</value>
+  </data>
+  <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
+    <value>Konfigūruokite įdiegtų įrenginių pavadinimus.</value>
+  </data>
+  <data name="Nav_OobeKey.Title" xml:space="preserve">
+    <value>OOBE</value>
+  </data>
+  <data name="Nav_OobeKey.Description" xml:space="preserve">
+    <value>Konfigūruokite Windows 11 pirmojo paleidimo ekranų ir numatytuosius privatumo nustatymus.</value>
+  </data>
+  <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
+    <value>Pasirenkamos funkcijos</value>
+  </data>
+  <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
+    <value>Įgalinti arba išjungti „Windows“ komponentus įdiegtoje operacinėje sistemoje.</value>
+  </data>
+  <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
+    <value>AppX šalinimai</value>
+  </data>
+  <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
+    <value>Pašalinkite pasirinktas numatytas Windows programas prieš OOBE.</value>
+  </data>
+  <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
+    <value>DI komponentai</value>
+  </data>
+  <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
+    <value>Pašalinkite arba išjunkite pasirinktus Windows AI komponentus prieš OOBE.</value>
+  </data>
+  <data name="EthernetDot1xPageHeader.Title" xml:space="preserve">
+    <value>Ethernet 802.1X</value>
+  </data>
+  <data name="EthernetDot1xPageHeader.Description" xml:space="preserve">
+    <value>Standartinis Ethernet ryšys galimas pagal numatytuosius nustatymus. Konfigūruokite šį skyrių, tik jei jūsų laidiniam tinklui reikalingas 802.1X įmonės autentifikavimas.</value>
+  </data>
+  <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Konfigūruokite laidinį 802.1X</value>
+  </data>
+  <data name="WifiPageHeader.Title" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="WifiPageHeader.Description" xml:space="preserve">
+    <value>Konfigūruokite Wi-Fi parengimą, įdėtuosius profilius ir Windows profilių tarptinklinį ryšį.</value>
+  </data>
+  <data name="WifiPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Numatykite Wi-Fi palaikymą įkrovos vaizde</value>
+  </data>
+  <data name="AutopilotJsonProfilePageHeader.Title" xml:space="preserve">
+    <value>JSON profilio sudarymas</value>
+  </data>
+  <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
+    <value>Sukurkite neprisijungus pasiekiamą Autopilot profilį pritaikytame Windows vaizde.</value>
+  </data>
+  <data name="AutopilotZeroTouchPageHeader.Title" xml:space="preserve">
+    <value>Zero-touch aparatūros maišos įkėlimas</value>
+  </data>
+  <data name="AutopilotZeroTouchPageHeader.Description" xml:space="preserve">
+    <value>Konfigūruokite nuomotojo palaikomą automatinį aparatinės įrangos maišos įkėlimą.</value>
+  </data>
+  <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
+    <value>Interaktyvus aparatūros maišos įkėlimas</value>
+  </data>
+  <data name="AutopilotInteractiveHashUploadPageHeader.Description" xml:space="preserve">
+    <value>Paruošia techniko prisijungimą naudojant įrenginio kodą aparatūros maišos registracijai OOBE metu.</value>
+  </data>
+  <data name="OsSelectionPageHeader.Title" xml:space="preserve">
+    <value>Windows diegimo parinktys</value>
+  </data>
+  <data name="OsSelectionPageHeader.Description" xml:space="preserve">
+    <value>Nurodykite diegimo metu siūlomas Windows versijas, naujinimo lygius, kalbas ir leidimus.</value>
+  </data>
+  <data name="OsSelectionPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Windows diegimo parinktys</value>
+  </data>
+  <data name="MachineNamingPageHeader.Title" xml:space="preserve">
+    <value>Kompiuterio pavadinimas</value>
+  </data>
+  <data name="MachineNamingPageHeader.Description" xml:space="preserve">
+    <value>Konfigūruokite automatinį ir techniko padedamą įrenginių pavadinimų suteikimą.</value>
+  </data>
+  <data name="MachineNamingPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Įgalinti mašinos pavadinimo taisykles</value>
+  </data>
+  <data name="OobePageHeader.Title" xml:space="preserve">
+    <value>Out-of-Box Experience</value>
+  </data>
+  <data name="OobePageHeader.Description" xml:space="preserve">
+    <value>Konfigūruokite Windows 11 pirmojo paleidimo ekranų ir numatytuosius privatumo nustatymus.</value>
+  </data>
+  <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Tinkinti OOBE</value>
+  </data>
+  <data name="OptionalFeaturesPageHeader.Title" xml:space="preserve">
+    <value>„Windows“ papildomos funkcijos</value>
+  </data>
+  <data name="OptionalFeaturesPageHeader.Description" xml:space="preserve">
+    <value>Įgalinti arba išjungti „Windows“ komponentus įdiegtoje operacinėje sistemoje.</value>
+  </data>
+  <data name="OptionalFeaturesPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Konfigūruokite „Windows“ papildomas funkcijas</value>
+  </data>
+  <data name="AppRemovalPageHeader.Title" xml:space="preserve">
+    <value>AppX šalinimai</value>
+  </data>
+  <data name="AppRemovalPageHeader.Description" xml:space="preserve">
+    <value>Pašalinkite pasirinktas numatytas Windows programas prieš OOBE.</value>
+  </data>
+  <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Pašalinkite numatytas Windows programas</value>
+  </data>
+  <data name="AiComponentsPageHeader.Title" xml:space="preserve">
+    <value>AI komponento pašalinimas</value>
+  </data>
+  <data name="AiComponentsPageHeader.Description" xml:space="preserve">
+    <value>Pašalinkite arba išjunkite pasirinktus Windows AI komponentus prieš OOBE.</value>
+  </data>
+  <data name="AiComponentsPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Pašalinkite AI komponentus</value>
+  </data>
+  <data name="Common.Enable" xml:space="preserve">
+    <value>Įjungti</value>
+  </data>
+  <data name="Common.Disable" xml:space="preserve">
+    <value>Išjungti</value>
+  </data>
+  <data name="NavigationStatus.Configured" xml:space="preserve">
+    <value>Sukonfigūruota</value>
+  </data>
+  <data name="NavigationStatus.NotConfigured" xml:space="preserve">
+    <value>Nesukonfigūruota</value>
+  </data>
+  <data name="NavigationStatus.AdkReady" xml:space="preserve">
+    <value>ADK parengtas</value>
+  </data>
+  <data name="NavigationStatus.AdkNotReady" xml:space="preserve">
+    <value>ADK neparengtas</value>
+  </data>
+  <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
+    <value>Aktyvus parengimo režimas</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationTitle" xml:space="preserve">
+    <value>Keisti parengimo režimą?</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationMessageFormat" xml:space="preserve">
+    <value>Šiuo metu aktyvus režimas „{0}“. Tęsiant jis bus išjungtas ir bus įjungtas „{1}“.</value>
+  </data>
+  <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
+    <value>Keisti režimą</value>
+  </data>
 </root>

@@ -15,6 +15,7 @@ using Foundry.Deploy.Services.Network;
 using Foundry.Deploy.Services.Operations;
 using CoreDeployNetworkProfileRoamingSettings = Foundry.Core.Models.Configuration.Deploy.DeployNetworkProfileRoamingSettings;
 using CoreDeployNetworkSettings = Foundry.Core.Models.Configuration.Deploy.DeployNetworkSettings;
+using NetworkProfileRoamingTransportSettings = Foundry.Core.Models.Configuration.NetworkProfileRoamingTransportSettings;
 
 namespace Foundry.Deploy.Tests;
 
@@ -119,8 +120,8 @@ public sealed class PreOobeNetworkProfileRoamingStepTests
             {
                 ProfileRoaming = new CoreDeployNetworkProfileRoamingSettings
                 {
-                    IsEnabled = true,
-                    IncludePrivateKeyMaterial = true,
+                    WiredDot1x = new NetworkProfileRoamingTransportSettings { IsEnabled = true, IncludePrivateKeyMaterial = true },
+                    Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true, IncludePrivateKeyMaterial = true },
                     ArtifactRootPath = tempDirectory.RootPath
                 }
             }
