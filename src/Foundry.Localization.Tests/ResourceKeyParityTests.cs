@@ -36,7 +36,7 @@ public sealed class ResourceKeyParityTests
         "TB"
     ];
 
-    private static readonly string[] AdkCultures =
+    private static readonly string[] SupportedCultures =
     [
         "ar-SA",
         "bg-BG",
@@ -114,6 +114,25 @@ public sealed class ResourceKeyParityTests
     }
 
     [Fact]
+    public void FoundryResources_PreserveInvariantOobeTitles()
+    {
+        string stringsRoot = Path.Combine(FindSourceRoot(), "Foundry", "Strings");
+
+        foreach (string culture in SupportedCultures)
+        {
+            string culturePath = Path.Combine(stringsRoot, culture, "Resources.resw");
+            IReadOnlyDictionary<string, string> values = ReadResourceValues(culturePath);
+
+            Assert.True(
+                string.Equals("Out-of-Box Experience", values["OobePageHeader.Title"], StringComparison.Ordinal),
+                $"{culture} must preserve OobePageHeader.Title as 'Out-of-Box Experience'.");
+            Assert.True(
+                string.Equals("OOBE", values["Nav_OobeKey.Title"], StringComparison.Ordinal),
+                $"{culture} must preserve Nav_OobeKey.Title as 'OOBE'.");
+        }
+    }
+
+    [Fact]
     public void FoundryResources_IncludeWindowsOptionalFeatureCatalogKeys()
     {
         string sourceRoot = FindSourceRoot();
@@ -160,14 +179,14 @@ public sealed class ResourceKeyParityTests
 
     [Theory]
     [MemberData(nameof(ResourceSets))]
-    public void AdkResourceFiles_MatchEnUsKeys(string projectName, string extension)
+    public void LocalizedResourceFiles_MatchEnUsKeys(string projectName, string extension)
     {
         string sourceRoot = FindSourceRoot();
         string stringsRoot = Path.Combine(sourceRoot, projectName, "Strings");
         string enUsPath = Path.Combine(stringsRoot, "en-US", $"Resources{extension}");
         SortedSet<string> enUsKeys = ReadResourceKeys(enUsPath);
 
-        foreach (string culture in AdkCultures)
+        foreach (string culture in SupportedCultures)
         {
             string culturePath = Path.Combine(stringsRoot, culture, $"Resources{extension}");
             Assert.True(File.Exists(culturePath), $"Missing resource file: {culturePath}");
@@ -181,14 +200,14 @@ public sealed class ResourceKeyParityTests
 
     [Theory]
     [MemberData(nameof(ResourceSets))]
-    public void AdkResourceFiles_MatchEnUsPlaceholders(string projectName, string extension)
+    public void LocalizedResourceFiles_MatchEnUsPlaceholders(string projectName, string extension)
     {
         string sourceRoot = FindSourceRoot();
         string stringsRoot = Path.Combine(sourceRoot, projectName, "Strings");
         string enUsPath = Path.Combine(stringsRoot, "en-US", $"Resources{extension}");
         IReadOnlyDictionary<string, string> enUsValues = ReadResourceValues(enUsPath);
 
-        foreach (string culture in AdkCultures)
+        foreach (string culture in SupportedCultures)
         {
             string culturePath = Path.Combine(stringsRoot, culture, $"Resources{extension}");
             IReadOnlyDictionary<string, string> cultureValues = ReadResourceValues(culturePath);
@@ -207,14 +226,14 @@ public sealed class ResourceKeyParityTests
 
     [Theory]
     [MemberData(nameof(ResourceSets))]
-    public void AdkResourceFiles_PreserveTechnicalTokens(string projectName, string extension)
+    public void LocalizedResourceFiles_PreserveTechnicalTokens(string projectName, string extension)
     {
         string sourceRoot = FindSourceRoot();
         string stringsRoot = Path.Combine(sourceRoot, projectName, "Strings");
         string enUsPath = Path.Combine(stringsRoot, "en-US", $"Resources{extension}");
         IReadOnlyDictionary<string, string> enUsValues = ReadResourceValues(enUsPath);
 
-        foreach (string culture in AdkCultures)
+        foreach (string culture in SupportedCultures)
         {
             string culturePath = Path.Combine(stringsRoot, culture, $"Resources{extension}");
             IReadOnlyDictionary<string, string> cultureValues = ReadResourceValues(culturePath);

@@ -108,7 +108,7 @@ public sealed class SupportedCultureCatalogTests
     }
 
     [Fact]
-    public void FoundrySupportedCultures_IncludesAllAdkCultures()
+    public void FoundrySupportedCultures_IncludesEveryLocalizedCulture()
     {
         SupportedCultureCatalog catalog = FoundrySupportedCultures.CreateCatalog();
 
