@@ -2708,7 +2708,7 @@
     <value>Abilita le regole di denominazione della macchina</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
-    <value>OOBE</value>
+    <value>Esperienza iniziale</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
     <value>Configura Windows 11 schermate di primo avvio e impostazioni predefinite di privacy.</value>

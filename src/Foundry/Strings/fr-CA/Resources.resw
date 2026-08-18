@@ -2708,7 +2708,7 @@
     <value>Activer les règles de dénomination des machines</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
-    <value>OOBE</value>
+    <value>Expérience prête à l’emploi</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
     <value>Configurez Windows 11 écrans de première exécution et les paramètres de confidentialité par défaut.</value>

@@ -2708,7 +2708,7 @@
     <value>머신 명명 규칙 활성화</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
-    <value>OOBE</value>
+    <value>초기 설정</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
     <value>Windows 11개의 첫 실행 화면과 개인 정보 기본값을 구성합니다.</value>

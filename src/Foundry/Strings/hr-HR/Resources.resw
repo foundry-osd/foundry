@@ -2708,7 +2708,7 @@
     <value>Omogući pravila za imenovanje stroja</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
-    <value>OOBE</value>
+    <value>Početno postavljanje</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
     <value>Konfigurirajte Windows 11 zaslona za prvo pokretanje i zadane postavke privatnosti.</value>

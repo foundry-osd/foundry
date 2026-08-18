@@ -2708,7 +2708,7 @@
     <value>启用机器命名规则</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
-    <value>OOBE</value>
+    <value>开箱即用体验</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
     <value>配置Windows 11个首次运行屏幕和隐私默认值。</value>

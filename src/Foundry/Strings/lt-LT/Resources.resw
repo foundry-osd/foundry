@@ -2708,7 +2708,7 @@
     <value>Įgalinti mašinos pavadinimo taisykles</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
-    <value>OOBE</value>
+    <value>Pradinė naudojimo patirtis</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
     <value>Konfigūruokite Windows 11 pirmojo paleidimo ekranų ir numatytuosius privatumo nustatymus.</value>

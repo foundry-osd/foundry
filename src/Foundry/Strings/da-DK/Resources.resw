@@ -2708,7 +2708,7 @@
     <value>Aktiver regler for maskinnavngivning</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
-    <value>OOBE</value>
+    <value>Første opsætning</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
     <value>Konfigurer Windows 11 førstegangsskærme og privatlivsstandarder.</value>

@@ -2708,7 +2708,7 @@
     <value>Включить правила именования компьютеров</value>
   </data>
   <data name="OobePageHeader.Title" xml:space="preserve">
-    <value>OOBE</value>
+    <value>Первоначальная настройка</value>
   </data>
   <data name="OobePageHeader.Description" xml:space="preserve">
     <value>Настройте Windows 11 экранов первого запуска и настройки конфиденциальности по умолчанию.</value>
