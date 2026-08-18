@@ -705,6 +705,24 @@
   <data name="Customization.WindowsOptionalFeatures.Action.Clear" xml:space="preserve">
     <value>Ponastavi vidne elemente</value>
   </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.EnableAll" xml:space="preserve">
+    <value>Omogoči vse</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.DisableAll" xml:space="preserve">
+    <value>Onemogoči vse</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.ResetAll" xml:space="preserve">
+    <value>Ponastavi vse</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationTitle" xml:space="preserve">
+    <value>Uporabiti množično spremembo?</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
+    <value>To bo posodobilo {0} vidnih funkcij. Ali želite nadaljevati?</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
+    <value>Uporabi</value>
+  </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MatchingSource" xml:space="preserve">
     <value>Omogočanje te funkcije zahteva ujemanje nastavitvenega medija sources\sxs.</value>
   </data>

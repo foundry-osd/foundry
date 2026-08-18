@@ -705,6 +705,24 @@
   <data name="Customization.WindowsOptionalFeatures.Action.Clear" xml:space="preserve">
     <value>Resetați elementele vizibile</value>
   </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.EnableAll" xml:space="preserve">
+    <value>Activați tot</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.DisableAll" xml:space="preserve">
+    <value>Dezactivați tot</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.ResetAll" xml:space="preserve">
+    <value>Resetați tot</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationTitle" xml:space="preserve">
+    <value>Aplicați modificarea în masă?</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
+    <value>Aceasta va actualiza {0} caracteristici vizibile. Doriți să continuați?</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
+    <value>Aplică</value>
+  </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MatchingSource" xml:space="preserve">
     <value>Activarea acestei caracteristici necesită o sursă corespunzătoare din mediul de instalare în sources\sxs.</value>
   </data>

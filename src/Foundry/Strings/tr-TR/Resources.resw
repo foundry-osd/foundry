@@ -705,6 +705,24 @@
   <data name="Customization.WindowsOptionalFeatures.Action.Clear" xml:space="preserve">
     <value>G&#246;r&#252;n&#252;r &#246;ğeleri sıfırla</value>
   </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.EnableAll" xml:space="preserve">
+    <value>Tümünü etkinleştir</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.DisableAll" xml:space="preserve">
+    <value>Tümünü devre dışı bırak</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.ResetAll" xml:space="preserve">
+    <value>Tümünü sıfırla</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationTitle" xml:space="preserve">
+    <value>Toplu değişiklik uygulansın mı?</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
+    <value>Bu işlem {0} görünür özelliği güncelleyecek. Devam etmek istiyor musunuz?</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
+    <value>Uygula</value>
+  </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MatchingSource" xml:space="preserve">
     <value>Bu &#246;zelliği etkinleştirmek i&#231;in sources\sxs i&#231;indeki eşleşen kurulum medyası kaynağı gerekir.</value>
   </data>

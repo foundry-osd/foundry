@@ -705,6 +705,24 @@
   <data name="Customization.WindowsOptionalFeatures.Action.Clear" xml:space="preserve">
     <value>Restablecer elementos visibles</value>
   </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.EnableAll" xml:space="preserve">
+    <value>Habilitar todo</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.DisableAll" xml:space="preserve">
+    <value>Deshabilitar todo</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.ResetAll" xml:space="preserve">
+    <value>Restablecer todo</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationTitle" xml:space="preserve">
+    <value>¿Aplicar cambio masivo?</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
+    <value>Esto actualizará {0} características visibles. ¿Deseas continuar?</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
+    <value>Aplicar</value>
+  </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MatchingSource" xml:space="preserve">
     <value>Para habilitar esta característica se requiere una carga útil correspondiente de sources\sxs del medio de instalación.</value>
   </data>

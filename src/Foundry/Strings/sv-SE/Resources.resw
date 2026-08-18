@@ -705,6 +705,24 @@
   <data name="Customization.WindowsOptionalFeatures.Action.Clear" xml:space="preserve">
     <value>&#197;terst&#228;ll synliga objekt</value>
   </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.EnableAll" xml:space="preserve">
+    <value>Aktivera alla</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.DisableAll" xml:space="preserve">
+    <value>Inaktivera alla</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.Action.ResetAll" xml:space="preserve">
+    <value>Återställ alla</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationTitle" xml:space="preserve">
+    <value>Tillämpa massändring?</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat" xml:space="preserve">
+    <value>Detta uppdaterar {0} synliga funktioner. Vill du fortsätta?</value>
+  </data>
+  <data name="Customization.WindowsOptionalFeatures.BulkConfirmationPrimary" xml:space="preserve">
+    <value>Tillämpa</value>
+  </data>
   <data name="Customization.WindowsOptionalFeatures.Warning.MatchingSource" xml:space="preserve">
     <value>Aktivering av den h&#228;r funktionen kr&#228;ver matchande installationsmediek&#228;llor i sources\sxs.</value>
   </data>

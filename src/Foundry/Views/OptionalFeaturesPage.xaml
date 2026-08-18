@@ -51,23 +51,43 @@
                     </wct:SettingsCard.HeaderIcon>
                 </wct:SettingsCard>
 
-                <TextBox x:Name="FeatureSearchBox"
+                <Grid
                     Grid.Row="1"
-                    MinWidth="{ThemeResource FoundryWideInputMinWidth}"
-                    MaxWidth="420"
-                    HorizontalAlignment="Right"
-                    AutomationProperties.Name="{x:Bind ViewModel.WindowsOptionalFeatureSearchLabel, Mode=OneWay}"
-                    PlaceholderText="{x:Bind ViewModel.WindowsOptionalFeatureSearchPlaceholder, Mode=OneWay}"
-                    TextChanged="OnFeatureSearchTextChanged">
-                    <TextBox.Header>
-                        <TextBlock Text="{x:Bind ViewModel.WindowsOptionalFeatureSearchLabel, Mode=OneWay}" />
-                    </TextBox.Header>
-                </TextBox>
+                    ColumnSpacing="{ThemeResource FoundrySettingsSectionSpacing}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox x:Name="FeatureSearchBox"
+                        MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                        MaxWidth="420"
+                        HorizontalAlignment="Left"
+                        AutomationProperties.Name="{x:Bind ViewModel.WindowsOptionalFeatureSearchLabel, Mode=OneWay}"
+                        PlaceholderText="{x:Bind ViewModel.WindowsOptionalFeatureSearchPlaceholder, Mode=OneWay}"
+                        TextChanged="OnFeatureSearchTextChanged" />
+
+                    <StackPanel
+                        Grid.Column="1"
+                        Orientation="Horizontal"
+                        Spacing="8">
+                        <Button
+                            Command="{x:Bind ViewModel.EnableAllVisibleWindowsOptionalFeaturesCommand}"
+                            Content="{x:Bind ViewModel.WindowsOptionalFeatureEnableAllText, Mode=OneWay}" />
+                        <Button
+                            Command="{x:Bind ViewModel.DisableAllVisibleWindowsOptionalFeaturesCommand}"
+                            Content="{x:Bind ViewModel.WindowsOptionalFeatureDisableAllText, Mode=OneWay}" />
+                        <Button
+                            Command="{x:Bind ViewModel.ResetAllVisibleWindowsOptionalFeaturesCommand}"
+                            Content="{x:Bind ViewModel.WindowsOptionalFeatureResetAllText, Mode=OneWay}" />
+                    </StackPanel>
+                </Grid>
 
                 <Grid Grid.Row="2">
                     <TreeView
                         HorizontalAlignment="Stretch"
                         HorizontalContentAlignment="Stretch"
+                        ItemInvoked="OnFeatureTreeItemInvoked"
                         ItemsSource="{x:Bind ViewModel.VisibleWindowsOptionalFeatureTreeRoots, Mode=OneWay}"
                         SelectionMode="None">
                         <TreeView.ItemTemplate>

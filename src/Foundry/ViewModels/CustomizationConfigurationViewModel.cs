@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Configuration;
 using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
@@ -16,6 +17,7 @@ namespace Foundry.ViewModels;
 public sealed partial class CustomizationConfigurationViewModel : ObservableObject, IDisposable
 {
     private readonly IFoundryConfigurationStateService configurationStateService;
+    private readonly IDialogService dialogService;
     private readonly IApplicationLocalizationService localizationService;
     private bool isApplyingState = true;
     private bool isSavingState;
@@ -23,10 +25,12 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
     public CustomizationConfigurationViewModel(
         IFoundryConfigurationStateService configurationStateService,
         ILanguageRegistryService languageRegistryService,
-        IApplicationLocalizationService localizationService)
+        IApplicationLocalizationService localizationService,
+        IDialogService dialogService)
     {
         this.configurationStateService = configurationStateService;
         this.localizationService = localizationService;
+        this.dialogService = dialogService;
 
         InitializeAppxRemovalCatalog();
         InitializeOperatingSystemSelectionOptions(languageRegistryService.GetLanguages());

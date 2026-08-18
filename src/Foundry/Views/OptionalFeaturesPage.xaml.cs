@@ -36,6 +36,18 @@ public sealed partial class OptionalFeaturesPage : Page
         ViewModel.WindowsOptionalFeatureSearchText = FeatureSearchBox.Text;
     }
 
+    private void OnFeatureTreeItemInvoked(TreeView sender, TreeViewItemInvokedEventArgs args)
+    {
+        if (args.InvokedItem is TreeViewNode
+            {
+                Content: WindowsOptionalFeatureTreeNodeViewModel { Children.Count: > 0 } node
+            })
+        {
+            node.IsExpanded = !node.IsExpanded;
+            args.Handled = true;
+        }
+    }
+
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
         Unloaded -= OnUnloaded;

@@ -5,6 +5,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Configuration;
 using Microsoft.UI.Xaml;
 
@@ -12,8 +13,11 @@ namespace Foundry.ViewModels;
 
 public sealed partial class CustomizationConfigurationViewModel
 {
+    private const int WindowsOptionalFeatureBulkConfirmationThreshold = 10;
+
     private readonly Dictionary<string, WindowsOptionalFeatureItemViewModel> windowsOptionalFeatureItemsById =
         new(StringComparer.OrdinalIgnoreCase);
+    private readonly HashSet<string> windowsOptionalFeatureBulkActionIds = new(StringComparer.OrdinalIgnoreCase);
     private readonly HashSet<string> expandedWindowsOptionalFeatureCategories = new(StringComparer.Ordinal);
     private readonly HashSet<string> expandedWindowsOptionalFeatureIds = new(StringComparer.OrdinalIgnoreCase);
     private bool isApplyingWindowsOptionalFeatureSelection;
@@ -39,6 +43,15 @@ public sealed partial class CustomizationConfigurationViewModel
 
     [ObservableProperty]
     public partial string WindowsOptionalFeatureConfiguredCountText { get; set; }
+
+    [ObservableProperty]
+    public partial string WindowsOptionalFeatureEnableAllText { get; set; }
+
+    [ObservableProperty]
+    public partial string WindowsOptionalFeatureDisableAllText { get; set; }
+
+    [ObservableProperty]
+    public partial string WindowsOptionalFeatureResetAllText { get; set; }
 
     [ObservableProperty]
     public partial string WindowsOptionalFeatureSearchText { get; set; } = string.Empty;
@@ -118,6 +131,9 @@ public sealed partial class CustomizationConfigurationViewModel
         WindowsOptionalFeatureSearchLabel = localizationService.GetString("Customization.WindowsOptionalFeaturesSearchLabel");
         WindowsOptionalFeatureSearchPlaceholder = localizationService.GetString("Customization.WindowsOptionalFeaturesSearchPlaceholder");
         WindowsOptionalFeatureEmptySearchText = localizationService.GetString("Customization.WindowsOptionalFeaturesEmptySearch");
+        WindowsOptionalFeatureEnableAllText = localizationService.GetString("Customization.WindowsOptionalFeatures.Action.EnableAll");
+        WindowsOptionalFeatureDisableAllText = localizationService.GetString("Customization.WindowsOptionalFeatures.Action.DisableAll");
+        WindowsOptionalFeatureResetAllText = localizationService.GetString("Customization.WindowsOptionalFeatures.Action.ResetAll");
 
         string unchangedText = localizationService.GetString("Customization.WindowsOptionalFeatures.State.Unchanged");
         string enableText = localizationService.GetString("Customization.WindowsOptionalFeatures.State.Enable");
@@ -231,6 +247,60 @@ public sealed partial class CustomizationConfigurationViewModel
         SaveWindowsOptionalFeatureState();
     }
 
+    [RelayCommand]
+    private Task EnableAllVisibleWindowsOptionalFeaturesAsync()
+        => ApplyVisibleWindowsOptionalFeatureStateAsync(WindowsOptionalFeatureState.Enable);
+
+    [RelayCommand]
+    private Task DisableAllVisibleWindowsOptionalFeaturesAsync()
+        => ApplyVisibleWindowsOptionalFeatureStateAsync(WindowsOptionalFeatureState.Disable);
+
+    [RelayCommand]
+    private Task ResetAllVisibleWindowsOptionalFeaturesAsync()
+        => ApplyVisibleWindowsOptionalFeatureStateAsync(WindowsOptionalFeatureState.Unchanged);
+
+    private async Task ApplyVisibleWindowsOptionalFeatureStateAsync(WindowsOptionalFeatureState state)
+    {
+        WindowsOptionalFeatureItemViewModel[] targets = windowsOptionalFeatureBulkActionIds
+            .Select(id => windowsOptionalFeatureItemsById[id])
+            .OrderBy(item => item.SortOrder)
+            .ToArray();
+        if (targets.Length == 0)
+        {
+            return;
+        }
+
+        if (targets.Length >= WindowsOptionalFeatureBulkConfirmationThreshold &&
+            !await dialogService.ConfirmAsync(new ConfirmationDialogRequest(
+                localizationService.GetString("Customization.WindowsOptionalFeatures.BulkConfirmationTitle"),
+                localizationService.FormatString(
+                    "Customization.WindowsOptionalFeatures.BulkConfirmationMessageFormat",
+                    targets.Length),
+                localizationService.GetString("Customization.WindowsOptionalFeatures.BulkConfirmationPrimary"),
+                localizationService.GetString("Common.Cancel"))))
+        {
+            return;
+        }
+
+        isApplyingWindowsOptionalFeatureSelection = true;
+        try
+        {
+            foreach (WindowsOptionalFeatureItemViewModel item in targets)
+            {
+                item.SetState(state);
+            }
+
+            NormalizeWindowsOptionalFeatureAncestorConflicts();
+        }
+        finally
+        {
+            isApplyingWindowsOptionalFeatureSelection = false;
+        }
+
+        RefreshWindowsOptionalFeatureSummaries();
+        SaveWindowsOptionalFeatureState();
+    }
+
     private void NormalizeWindowsOptionalFeatureAncestorConflicts()
     {
         foreach (WindowsOptionalFeatureItemViewModel item in windowsOptionalFeatureItemsById.Values
@@ -248,9 +318,11 @@ public sealed partial class CustomizationConfigurationViewModel
     {
         string searchText = WindowsOptionalFeatureSearchText.Trim();
         HashSet<string> visibleIds = new(StringComparer.OrdinalIgnoreCase);
+        windowsOptionalFeatureBulkActionIds.Clear();
         if (searchText.Length == 0)
         {
             visibleIds.UnionWith(windowsOptionalFeatureItemsById.Keys);
+            windowsOptionalFeatureBulkActionIds.UnionWith(windowsOptionalFeatureItemsById.Keys);
         }
         else
         {
@@ -259,6 +331,7 @@ public sealed partial class CustomizationConfigurationViewModel
                          item.FeatureName.Contains(searchText, StringComparison.OrdinalIgnoreCase)))
             {
                 visibleIds.Add(item.Id);
+                windowsOptionalFeatureBulkActionIds.Add(item.Id);
                 visibleIds.UnionWith(WindowsOptionalFeatureCatalog.GetAncestors(item.Id).Select(ancestor => ancestor.Id));
             }
         }
