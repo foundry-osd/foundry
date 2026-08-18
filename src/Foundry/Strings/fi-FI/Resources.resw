@@ -2576,31 +2576,31 @@
     <value>Määritä Wi-Fi-provisiointi ja profiilit.</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
-    <value>JSON profiilin hallinta</value>
+    <value>JSON-profiili</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
     <value>Ota käyttöön laitteet Autopilot JSON -profiililla.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-touch-laitteiston hajautusarvon lataus</value>
+    <value>Zero-touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Lataa laitteistohajakkeet Microsoft Graphin kautta.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Vuorovaikutteinen laitteiston hajautusarvon lataus</value>
+    <value>Interaktiivinen lataus</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Valmistelee teknikon laitekoodikirjautumisen laitteiston hajautusarvon rekisteröintiä varten OOBE-vaiheessa.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>Windowsin käyttöönottoasetukset</value>
+    <value>OS-valinta</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
     <value>Määritä käyttöönoton aikana tarjottavat Windows-versiot, päivitystasot, kielet ja versiot.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>Tietokoneen nimi</value>
+    <value>Koneen nimeäminen</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Määritä käyttöön otettujen laitteiden nimet.</value>
@@ -2612,19 +2612,19 @@
     <value>Määritä Windows 11 ensikertalaista näyttöä ja yksityisyyden oletusasetuksia.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>Windowsin valinnaiset ominaisuudet</value>
+    <value>Valinnaiset ominaisuudet</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
     <value>Ota käyttöön tai poista käytöstä Windows-komponentit käyttöönotetussa käyttöjärjestelmässä.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Tarjotun sovelluksen poistaminen</value>
+    <value>AppX-poisto</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Poista valitut varustetut Windows-sovellukset ennen OOBE.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>AI-komponenttien poisto</value>
+    <value>AI-komponentit</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
     <value>Poista tai poista käytöstä valitut Windows AI-komponentit ennen OOBE.</value>

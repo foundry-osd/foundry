@@ -2576,31 +2576,31 @@
     <value>กำหนดค่าการจัดสรรและโปรไฟล์ Wi-Fi</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
-    <value>JSON การจัดสรรโปรไฟล์</value>
+    <value>โปรไฟล์ JSON</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
     <value>จัดสรรอุปกรณ์ด้วยโปรไฟล์ Autopilot JSON</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>การอัปโหลดแฮชฮาร์ดแวร์แบบ zero-touch</value>
+    <value>แบบไม่ต้องสัมผัส</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>อัปโหลดแฮชฮาร์ดแวร์ผ่าน Microsoft Graph</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>การอัปโหลดแฮชฮาร์ดแวร์แบบโต้ตอบ</value>
+    <value>การอัปโหลดแบบโต้ตอบ</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>จัดเตรียมการลงชื่อเข้าใช้ของช่างเทคนิคด้วยรหัสอุปกรณ์สำหรับการลงทะเบียนแฮชฮาร์ดแวร์ระหว่าง OOBE</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>ตัวเลือกการปรับใช้ Windows</value>
+    <value>การเลือกระบบปฏิบัติการ</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
     <value>กำหนดเวอร์ชัน Windows ระดับการอัปเดต ภาษา และรุ่นที่มีให้เลือกระหว่างการปรับใช้</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>ชื่อคอมพิวเตอร์</value>
+    <value>การตั้งชื่อเครื่อง</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>กำหนดค่าชื่ออุปกรณ์ที่ปรับใช้</value>
@@ -2612,19 +2612,19 @@
     <value>กำหนดค่า Windows 11 หน้าจอที่ใช้งานครั้งแรกและค่าเริ่มต้นความเป็นส่วนตัว</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>คุณสมบัติเสริมของ Windows</value>
+    <value>ฟีเจอร์เสริม</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
     <value>เปิดใช้งานหรือปิดใช้งานส่วนประกอบ Windows ในระบบปฏิบัติการที่ปรับใช้</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>การลบแอปที่จัดเตรียมไว้</value>
+    <value>การลบ AppX</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>ลบแอป Windows ที่เลือกไว้ก่อนหน้า OOBE</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>การลบส่วนประกอบ AI</value>
+    <value>คอมโพเนนต์ AI</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
     <value>ลบหรือปิดใช้งานส่วนประกอบ AI ที่เลือก Windows ก่อน OOBE</value>

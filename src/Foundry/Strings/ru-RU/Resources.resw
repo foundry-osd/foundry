@@ -2576,25 +2576,25 @@
     <value>Настройте подготовку и профили Wi-Fi.</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
-    <value>JSON подготовка профиля</value>
+    <value>Профиль JSON</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
     <value>Подготавливайте устройства с помощью профиля Autopilot JSON.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-touch отправка аппаратного хеша</value>
+    <value>Без участия пользователя</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Отправляйте аппаратные хеши через Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Интерактивная отправка аппаратного хеша</value>
+    <value>Интерактивная отправка</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Подготавливает вход техника с помощью кода устройства для регистрации аппаратного хеша во время OOBE.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>Параметры развертывания Windows</value>
+    <value>Выбор ОС</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
     <value>Укажите версии Windows, уровни обновления, языки и выпуски, предлагаемые во время развертывания.</value>
@@ -2612,19 +2612,19 @@
     <value>Настройте Windows 11 экранов первого запуска и настройки конфиденциальности по умолчанию.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>Дополнительные функции Windows</value>
+    <value>Дополнительные компоненты</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
     <value>Включите или отключите компоненты Windows в развернутой операционной системе.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Предусмотренное удаление приложения</value>
+    <value>Удаление AppX</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Удалите выбранные подготовленные приложения Windows до OOBE.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>Удаление компонентов ИИ</value>
+    <value>Компоненты ИИ</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
     <value>Удалите или отключите выбранные компоненты AI Windows до OOBE.</value>

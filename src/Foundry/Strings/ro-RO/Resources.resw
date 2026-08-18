@@ -2576,31 +2576,31 @@
     <value>Configurați furnizarea și profilurile Wi-Fi.</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
-    <value>JSON furnizarea profilului</value>
+    <value>Profil JSON</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
     <value>Furnizați dispozitive cu un profil Autopilot JSON.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Încărcare zero-touch a hashului hardware</value>
+    <value>Fără atingere</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Încărcați hashurile hardware prin Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Încărcare interactivă a hashului hardware</value>
+    <value>Încărcare interactivă</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Pregătește conectarea tehnicianului cu cod de dispozitiv pentru înregistrarea hashului hardware în timpul OOBE.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>Opțiuni de implementare Windows</value>
+    <value>Selectare sistem de operare</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
     <value>Definiți versiunile Windows, nivelurile de actualizare, limbile și edițiile oferite în timpul implementării.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>Numele computerului</value>
+    <value>Denumirea computerului</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Configurați numele dispozitivelor implementate.</value>
@@ -2612,19 +2612,19 @@
     <value>Configurați Windows 11 ecrane de prima rulare și setări implicite de confidențialitate.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>Caracteristici opționale Windows</value>
+    <value>Caracteristici opționale</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
     <value>Activați sau dezactivați componentele Windows în sistemul de operare implementat.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Eliminarea aplicației furnizate</value>
+    <value>Eliminare AppX</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Eliminați aplicațiile selectate pentru Windows înainte de OOBE.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>Îndepărtarea componentelor AI</value>
+    <value>Componente IA</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
     <value>Eliminați sau dezactivați componentele AI Windows selectate înainte de OOBE.</value>

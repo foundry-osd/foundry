@@ -2576,25 +2576,25 @@
     <value>Konfigurera provisionering och profiler för Wi-Fi.</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
-    <value>JSON profilprovisionering</value>
+    <value>JSON-profil</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
     <value>Provisionera enheter med en Autopilot JSON-profil.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-touch-uppladdning av maskinvaruhash</value>
+    <value>Beröringsfri</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Ladda upp maskinvaruhashar via Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Interaktiv uppladdning av maskinvaruhash</value>
+    <value>Interaktiv uppladdning</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Förbereder teknikerinloggning med enhetskod för registrering av maskinvaruhash under OOBE.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>Distributionsalternativ för Windows</value>
+    <value>OS-val</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
     <value>Ange Windows-versioner, uppdateringsnivåer, språk och utgåvor som erbjuds under distributionen.</value>
@@ -2612,19 +2612,19 @@
     <value>Konfigurera Windows 11 förstagångsskärmar och sekretessinställningar.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>Windows tillvalsfunktioner</value>
+    <value>Valfria funktioner</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
     <value>Aktivera eller inaktivera Windows-komponenter i det distribuerade operativsystemet.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Borttagning av provisionerad app</value>
+    <value>AppX-borttagning</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Ta bort valda provisionerade Windows-appar före OOBE.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>Borttagning av AI-komponenter</value>
+    <value>AI-komponenter</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
     <value>Ta bort eller inaktivera valda Windows AI-komponenter före OOBE.</value>

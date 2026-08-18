@@ -2576,31 +2576,31 @@
     <value>Konfigurirajte zagotavljanje in profile Wi-Fi.</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
-    <value>Omogočanje profila JSON</value>
+    <value>Profil JSON</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
     <value>Zagotavljajte naprave s profilom Autopilot JSON.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-touch nalaganje zgoščene vrednosti strojne opreme</value>
+    <value>Brez dotika</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Naložite zgoščene vrednosti strojne opreme prek Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Interaktivno nalaganje zgoščene vrednosti strojne opreme</value>
+    <value>Interaktivno nalaganje</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Pripravi prijavo tehnika s kodo naprave za registracijo zgoščene vrednosti strojne opreme med OOBE.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>Možnosti uvajanja sistema Windows</value>
+    <value>Izbira OS</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
     <value>Določite različice sistema Windows, ravni posodobitev, jezike in izdaje, ki so na voljo med uvajanjem.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>Ime računalnika</value>
+    <value>Poimenovanje računalnika</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Konfigurirajte imena nameščenih naprav.</value>
@@ -2612,19 +2612,19 @@
     <value>Konfigurirajte Windows 11 zaslonov za prvi zagon in privzete nastavitve zasebnosti.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>Izbirne funkcije sistema Windows</value>
+    <value>Izbirne funkcije</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
     <value>Omogočite ali onemogočite komponente sistema Windows v nameščenem operacijskem sistemu.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Odstranitev omogočene aplikacije</value>
+    <value>Odstranitev AppX</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Odstranite izbrane omogočene Windows aplikacije pred OOBE.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>Odstranitev komponente AI</value>
+    <value>Komponente UI</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
     <value>Odstranite ali onemogočite izbrane komponente umetne inteligence Windows pred OOBE.</value>

@@ -2576,31 +2576,31 @@
     <value>Konfigurieren Sie das Wi-Fi Provisioning und die Profile.</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
-    <value>JSON Profilbereitstellung</value>
+    <value>JSON-Profil</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
     <value>Stellen Sie Geräte mit einem Autopilot JSON-Profil bereit.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-Touch-Hardware-Hash-Upload</value>
+    <value>Zero-touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Laden Sie Hardware-Hashes über Microsoft Graph hoch.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Interaktiver Hardware-Hash-Upload</value>
+    <value>Interaktiver Upload</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Stellt die Technikeranmeldung per Gerätecode für die Hardware-Hash-Registrierung während OOBE bereit.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>Windows-Bereitstellungsoptionen</value>
+    <value>OS-Auswahl</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
     <value>Legen Sie die Windows-Versionen, Updatestände, Sprachen und Editionen fest, die während der Bereitstellung angeboten werden.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>Computername</value>
+    <value>Computerbenennung</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Konfigurieren Sie die Namen bereitgestellter Geräte.</value>
@@ -2612,19 +2612,19 @@
     <value>Konfigurieren Sie Windows 11 Erstausführungsbildschirme und Datenschutzstandards.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>Optionale Windows-Funktionen</value>
+    <value>Optionale Funktionen</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
     <value>Aktivieren oder deaktivieren Sie Windows-Komponenten im bereitgestellten Betriebssystem.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Entfernung der bereitgestellten App</value>
+    <value>AppX-Entfernung</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Entfernen Sie ausgewählte bereitgestellte Windows Apps vor OOBE.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>Entfernung von KI-Komponenten</value>
+    <value>KI-Komponenten</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
     <value>Entfernen oder deaktivieren Sie ausgewählte Windows AI-Komponenten vor OOBE.</value>

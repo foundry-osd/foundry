@@ -2588,7 +2588,7 @@
     <value>Upload hardware hashes through Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Interactive hash upload</value>
+    <value>Interactive upload</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Upload hardware hashes interactively during deployment.</value>
@@ -2618,7 +2618,7 @@
     <value>Enable or disable Windows optional features.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>App removal</value>
+    <value>AppX removal</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Select provisioned apps to remove.</value>

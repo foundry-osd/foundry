@@ -2576,31 +2576,31 @@
     <value>Nakonfigurujte poskytovanie a profily Wi-Fi.</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
-    <value>JSON poskytovanie profilu</value>
+    <value>Profil JSON</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
     <value>Poskytujte zariadenia pomocou profilu Autopilot JSON.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-touch nahratie hardvérového hashu</value>
+    <value>Bez dotyku</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Nahrajte hardvérové hashy cez Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Interaktívne nahratie hardvérového hashu</value>
+    <value>Interaktívne nahratie</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Pripraví prihlásenie technika pomocou kódu zariadenia na registráciu hardvérového hashu počas OOBE.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>Možnosti nasadenia Windows</value>
+    <value>Výber OS</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
     <value>Definujte verzie Windows, úrovne aktualizácií, jazyky a edície ponúkané počas nasadenia.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>Názov počítača</value>
+    <value>Pomenovanie počítača</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Nakonfigurujte názvy nasadených zariadení.</value>
@@ -2612,19 +2612,19 @@
     <value>Nakonfigurujte Windows 11 obrazoviek prvého spustenia a predvolené nastavenia ochrany osobných údajov.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>Voliteľné funkcie systému Windows</value>
+    <value>Voliteľné funkcie</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
     <value>Povoliť alebo zakázať súčasti systému Windows v nasadzovanom operačnom systéme.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Odstránenie poskytovanej aplikácie</value>
+    <value>Odstránenie AppX</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Odstráňte vybraté zabezpečené aplikácie Windows pred OOBE.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>Odstránenie komponentov AI</value>
+    <value>Komponenty AI</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
     <value>Odstráňte alebo deaktivujte vybrané komponenty Windows AI pred OOBE.</value>

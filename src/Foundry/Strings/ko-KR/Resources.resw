@@ -2576,31 +2576,31 @@
     <value>Wi-Fi 프로비저닝 및 프로필을 구성합니다.</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
-    <value>JSON 프로필 프로비저닝</value>
+    <value>JSON 프로필</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
     <value>Autopilot JSON 프로필로 장치를 프로비저닝합니다.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>제로터치 하드웨어 해시 업로드</value>
+    <value>제로 터치</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Microsoft Graph를 통해 하드웨어 해시를 업로드합니다.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>대화형 하드웨어 해시 업로드</value>
+    <value>대화형 업로드</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>OOBE 중 하드웨어 해시 등록을 위해 기술자 장치 코드 로그인을 준비합니다.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>Windows 배포 옵션</value>
+    <value>OS 선택</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
     <value>배포 중 제공할 Windows 버전, 업데이트 수준, 언어 및 에디션을 정의합니다.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>컴퓨터 이름</value>
+    <value>컴퓨터 이름 지정</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>배포된 장치 이름을 구성합니다.</value>
@@ -2612,19 +2612,19 @@
     <value>Windows 11개의 첫 실행 화면과 개인 정보 기본값을 구성합니다.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>Windows 선택적 기능</value>
+    <value>선택적 기능</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
     <value>배포된 운영 체제에서 Windows 구성 요소를 활성화하거나 비활성화합니다.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>프로비저닝된 앱 제거</value>
+    <value>AppX 제거</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>OOBE 전에 선택한 프로비저닝된 Windows 앱을 제거합니다.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>AI 구성 요소 제거</value>
+    <value>AI 구성 요소</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
     <value>OOBE 이전에 선택한 Windows AI 구성 요소를 제거하거나 비활성화합니다.</value>

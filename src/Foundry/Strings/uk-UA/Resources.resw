@@ -2576,31 +2576,31 @@
     <value>Налаштуйте підготовку та профілі Wi-Fi.</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
-    <value>надання профілю JSON</value>
+    <value>Профіль JSON</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
     <value>Ініціалізуйте пристрої за допомогою профілю Autopilot JSON.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-touch завантаження апаратного хешу</value>
+    <value>Без участі користувача</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Завантажуйте апаратні хеші через Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Інтерактивне завантаження апаратного хешу</value>
+    <value>Інтерактивне передавання</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Готує вхід техніка за кодом пристрою для реєстрації апаратного хешу під час OOBE.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>Параметри розгортання Windows</value>
+    <value>Вибір ОС</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
     <value>Визначте версії Windows, рівні оновлень, мови та випуски, доступні під час розгортання.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>Ім&apos;я комп&apos;ютера</value>
+    <value>Ім’я комп’ютера</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Налаштуйте імена розгорнутих пристроїв.</value>
@@ -2612,19 +2612,19 @@
     <value>Налаштуйте Windows 11 екранів першого запуску та параметри конфіденційності за замовчуванням.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>Додаткові функції Windows</value>
+    <value>Додаткові компоненти</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
     <value>Увімкніть або вимкніть компоненти Windows у розгорнутій операційній системі.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Видалення передбаченої програми</value>
+    <value>Видалення AppX</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Видаліть вибрані надані Windows програми перед OOBE.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>Видалення компонента AI</value>
+    <value>Компоненти ШІ</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
     <value>Видаліть або вимкніть вибрані компоненти штучного інтелекту Windows перед OOBE.</value>

@@ -2576,31 +2576,31 @@
     <value>הגדר הקצאת Wi-Fi ופרופילים.</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
-    <value>JSON הקצאת פרופיל</value>
+    <value>פרופיל JSON</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
     <value>הקצה מכשירים באמצעות פרופיל JSON של Autopilot.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>העלאת zero-touch של hash חומרה</value>
+    <value>ללא מגע</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>העלה גיבובי חומרה דרך Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>העלאה אינטראקטיבית של hash חומרה</value>
+    <value>העלאה אינטראקטיבית</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>מכין כניסת טכנאי באמצעות קוד מכשיר לרישום hash חומרה במהלך OOBE.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>אפשרויות פריסת Windows</value>
+    <value>בחירת מערכת הפעלה</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
     <value>הגדר את גרסאות Windows, רמות העדכון, השפות והמהדורות שיוצעו במהלך הפריסה.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>שם המחשב</value>
+    <value>מתן שמות למחשבים</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>הגדר שמות למכשירים שנפרסו.</value>
@@ -2612,19 +2612,19 @@
     <value>הגדר Windows 11 מסכים בהפעלה ראשונה וברירות מחדל לפרטיות.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>תכונות אופציונליות של Windows</value>
+    <value>תכונות אופציונליות</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
     <value>הפעל או השבת את רכיבי Windows במערכת ההפעלה שנפרסה.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>הסרת אפליקציה מסודרת</value>
+    <value>הסרת AppX</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>הסר יישומי Windows שנבחרו לפני OOBE.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>הסרת רכיבי AI</value>
+    <value>רכיבי AI</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
     <value>הסר או השבת את רכיבי בינה מלאכותית Windows שנבחרו לפני OOBE.</value>

@@ -2576,31 +2576,31 @@
     <value>Configure Wi-Fi provisioning and profiles.</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
-    <value>JSON profile provisioning</value>
+    <value>JSON profile</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
     <value>Provision devices with an Autopilot JSON profile.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-touch hardware hash upload</value>
+    <value>Zero-touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Upload hardware hashes through Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Interactive hardware hash upload</value>
+    <value>Interactive upload</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Stage technician device-code sign-in for hardware hash registration during OOBE.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>Windows deployment options</value>
+    <value>OS selection</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
     <value>Define the Windows versions, update levels, languages, and editions offered during deployment.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>Computer name</value>
+    <value>Machine naming</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Configure deployed device names.</value>
@@ -2612,19 +2612,19 @@
     <value>Configure Windows 11 first-run screens and privacy defaults.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>Windows Optional Features</value>
+    <value>Optional features</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
     <value>Enable or disable Windows components in the deployed operating system.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Provisioned app removal</value>
+    <value>AppX removal</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Remove selected provisioned Windows apps before OOBE.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>AI component removal</value>
+    <value>AI components</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
     <value>Remove or disable selected Windows AI components before OOBE.</value>

@@ -2576,31 +2576,31 @@
     <value>Διαμορφώστε την παροχή Wi-Fi και τα προφίλ.</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
-    <value>Προμήθεια προφίλ JSON</value>
+    <value>Προφίλ JSON</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
     <value>Παρέχετε συσκευές με ένα προφίλ Autopilot JSON.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-touch αποστολή κατακερματισμού υλικού</value>
+    <value>Zero-touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Ανεβάστε hardware hashes μέσω Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Διαδραστική αποστολή κατακερματισμού υλικού</value>
+    <value>Διαδραστική μεταφόρτωση</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Προετοιμάζει σύνδεση τεχνικού με κωδικό συσκευής για εγγραφή κατακερματισμού υλικού κατά το OOBE.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>Επιλογές ανάπτυξης Windows</value>
+    <value>Επιλογή OS</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
     <value>Καθορίστε τις εκδόσεις Windows, τα επίπεδα ενημέρωσης, τις γλώσσες και τις εκδόσεις προϊόντος που προσφέρονται κατά την ανάπτυξη.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>Όνομα υπολογιστή</value>
+    <value>Ονομασία υπολογιστή</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Διαμορφώστε τα ονόματα των αναπτυγμένων συσκευών.</value>
@@ -2612,19 +2612,19 @@
     <value>Διαμορφώστε τις παραμέτρους Windows 11 οθόνες πρώτης εκτέλεσης και προεπιλογές απορρήτου.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>Προαιρετικές δυνατότητες των Windows</value>
+    <value>Προαιρετικές λειτουργίες</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
     <value>Ενεργοποιήστε ή απενεργοποιήστε τα στοιχεία των Windows στο αναπτυγμένο λειτουργικό σύστημα.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Προβλεπόμενη κατάργηση εφαρμογής</value>
+    <value>Αφαίρεση AppX</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Καταργήστε τις επιλεγμένες προβλεπόμενες εφαρμογές Windows πριν από το OOBE.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>Αφαίρεση εξαρτημάτων AI</value>
+    <value>Συστατικά AI</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
     <value>Καταργήστε ή απενεργοποιήστε τα επιλεγμένα στοιχεία Windows AI πριν από το OOBE.</value>

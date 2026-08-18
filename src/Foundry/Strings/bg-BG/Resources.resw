@@ -2576,31 +2576,31 @@
     <value>Конфигурирайте предоставянето и профилите на Wi-Fi.</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
-    <value>Осигуряване на профил JSON</value>
+    <value>JSON профил</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
     <value>Предоставете устройства с JSON профил Autopilot.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-touch качване на хардуерен хеш</value>
+    <value>Zero-touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Качете хардуерни хешове чрез Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Интерактивно качване на хардуерен хеш</value>
+    <value>Интерактивно качване</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Подготвя влизане на техник с код на устройство за регистрация на хардуерен хеш по време на OOBE.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>Опции за разполагане на Windows</value>
+    <value>Избор на OS</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
     <value>Определете версиите на Windows, нивата на актуализация, езиците и изданията, предлагани по време на разполагането.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>Име на компютъра</value>
+    <value>Именуване на машината</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Конфигурирайте имената на внедрените устройства.</value>
@@ -2612,19 +2612,19 @@
     <value>Конфигурирайте Windows 11 екрани за първо стартиране и настройки по подразбиране за поверителност.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>Допълнителни функции на Windows</value>
+    <value>Допълнителни функции</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
     <value>Активиране или деактивиране на компоненти на Windows в внедрената операционна система.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Премахване на осигурено приложение</value>
+    <value>Премахване на AppX</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Премахнете избраните предоставени Windows приложения преди OOBE.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>Премахване на AI компонент</value>
+    <value>AI компоненти</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
     <value>Премахнете или деактивирайте избрани Windows AI компоненти преди OOBE.</value>

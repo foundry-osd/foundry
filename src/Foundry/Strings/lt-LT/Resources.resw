@@ -2576,31 +2576,31 @@
     <value>Konfigūruokite Wi-Fi parengimą ir profilius.</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
-    <value>JSON profilio sudarymas</value>
+    <value>JSON profilis</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
     <value>Parenkite įrenginius naudodami Autopilot JSON profilį.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-touch aparatūros maišos įkėlimas</value>
+    <value>Be sąveikos</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Įkelkite aparatinės įrangos maišas per Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Interaktyvus aparatūros maišos įkėlimas</value>
+    <value>Interaktyvus įkėlimas</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Paruošia techniko prisijungimą naudojant įrenginio kodą aparatūros maišos registracijai OOBE metu.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>Windows diegimo parinktys</value>
+    <value>OS pasirinkimas</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
     <value>Nurodykite diegimo metu siūlomas Windows versijas, naujinimo lygius, kalbas ir leidimus.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>Kompiuterio pavadinimas</value>
+    <value>Kompiuterio vardas</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Konfigūruokite įdiegtų įrenginių pavadinimus.</value>
@@ -2612,19 +2612,19 @@
     <value>Konfigūruokite Windows 11 pirmojo paleidimo ekranų ir numatytuosius privatumo nustatymus.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>„Windows“ papildomos funkcijos</value>
+    <value>Pasirenkamos funkcijos</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
     <value>Įgalinti arba išjungti „Windows“ komponentus įdiegtoje operacinėje sistemoje.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Numatytas programos pašalinimas</value>
+    <value>AppX šalinimas</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Pašalinkite pasirinktas numatytas Windows programas prieš OOBE.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>AI komponento pašalinimas</value>
+    <value>DI komponentai</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
     <value>Pašalinkite arba išjunkite pasirinktus Windows AI komponentus prieš OOBE.</value>

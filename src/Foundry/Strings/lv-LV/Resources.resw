@@ -2576,31 +2576,31 @@
     <value>Konfigurējiet Wi-Fi nodrošināšanu un profilus.</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
-    <value>JSON profila nodrošināšana</value>
+    <value>JSON profils</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
     <value>Nodrošiniet ierīces ar Autopilot JSON profilu.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-touch aparatūras jaucējkoda augšupielāde</value>
+    <value>Bezskāriena</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Augšupielādējiet aparatūras jaucējvērtības, izmantojot Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Interaktīva aparatūras jaucējkoda augšupielāde</value>
+    <value>Interaktīva augšupielāde</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Sagatavo tehniķa pierakstīšanos ar ierīces kodu aparatūras jaucējkoda reģistrācijai OOBE laikā.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>Windows izvietošanas opcijas</value>
+    <value>OS atlase</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
     <value>Definējiet izvietošanas laikā piedāvātās Windows versijas, atjauninājumu līmeņus, valodas un izdevumus.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>Datora nosaukums</value>
+    <value>Ierīces nosaukšana</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Konfigurējiet izvietoto ierīču nosaukumus.</value>
@@ -2612,19 +2612,19 @@
     <value>Konfigurējiet Windows 11 pirmās palaišanas ekrānus un privātuma noklusējuma iestatījumus.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>Windows papildu līdzekļi</value>
+    <value>Papildu līdzekļi</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
     <value>Iespējot vai atspējot Windows komponentus izvietotajā operētājsistēmā.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Nodrošināta lietotņu noņemšana</value>
+    <value>AppX noņemšana</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Pirms OOBE noņemiet atlasītās nodrošinātās Windows lietotnes.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>AI komponentu noņemšana</value>
+    <value>MI komponenti</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
     <value>Pirms OOBE noņemiet vai atspējojiet atlasītos Windows AI komponentus.</value>

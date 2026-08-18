@@ -2576,31 +2576,31 @@
     <value>Konfigurálja a Wi-Fi kiépítését és profiljait.</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
-    <value>JSON profil létrehozása</value>
+    <value>JSON-profil</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
     <value>Építsen ki eszközöket Autopilot JSON-profillal.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-touch hardverhash-feltöltés</value>
+    <value>Felügyelet nélküli</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Töltse fel a hardverkivonatokat a Microsoft Graph használatával.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Interaktív hardverhash-feltöltés</value>
+    <value>Interaktív feltöltés</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Előkészíti a technikusi eszközkódos bejelentkezést a hardverhash regisztrálásához az OOBE során.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>Windows-telepítési lehetőségek</value>
+    <value>Operációsrendszer-választás</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
     <value>Adja meg a telepítés során felkínált Windows-verziókat, frissítési szinteket, nyelveket és kiadásokat.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>Számítógép neve</value>
+    <value>Gép elnevezése</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Konfigurálja a telepített eszközök nevét.</value>
@@ -2612,19 +2612,19 @@
     <value>Windows 11 első futtatási képernyő és adatvédelmi alapbeállítások konfigurálása.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>A Windows opcionális szolgáltatásai</value>
+    <value>Választható funkciók</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
     <value>Engedélyezze vagy tiltsa le a Windows összetevőket a telepített operációs rendszerben.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Előzetes alkalmazás eltávolítása</value>
+    <value>AppX eltávolítása</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Távolítsa el a kijelölt Windows alkalmazásokat OOBE előtt.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>AI alkatrész eltávolítása</value>
+    <value>MI-összetevők</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
     <value>Távolítsa el vagy tiltsa le a kiválasztott Windows AI-komponenseket OOBE előtt.</value>

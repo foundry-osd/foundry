@@ -2576,31 +2576,31 @@
     <value>設定 Wi-Fi 佈建和設定檔。</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
-    <value>JSON 設定檔配置</value>
+    <value>JSON 設定檔</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
     <value>使用 Autopilot JSON 設定檔佈建裝置。</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-touch 硬體雜湊上傳</value>
+    <value>零接觸</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>透過 Microsoft Graph 上傳硬體雜湊。</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>互動式硬體雜湊上傳</value>
+    <value>互動式上傳</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>在 OOBE 期間為硬體雜湊註冊準備技術人員裝置代碼登入。</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>Windows 部署選項</value>
+    <value>作業系統選擇</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
     <value>定義部署期間提供的 Windows 版本、更新層級、語言和版本類型。</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>電腦名稱</value>
+    <value>電腦命名</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>設定已部署裝置的名稱。</value>
@@ -2612,19 +2612,19 @@
     <value>配置Windows 11個首次運行螢幕和隱私預設值。</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>Windows 選用功能</value>
+    <value>選用功能</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
     <value>在已部署的作業系統中啟用或停用 Windows 元件。</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>已配置的應用程式刪除</value>
+    <value>AppX 移除</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>刪除 OOBE 之前選定的已配置 Windows 應用程式。</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>AI組件移除</value>
+    <value>AI 元件</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
     <value>刪除或停用OOBE之前選定的Windows AI組件。</value>

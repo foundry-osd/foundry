@@ -2576,31 +2576,31 @@
     <value>Seadistage Wi-Fi juurutamine ja profiilid.</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
-    <value>JSON profiili ettevalmistamine</value>
+    <value>JSON profiil</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
     <value>Valmistage seadmed ette Autopilot JSON profiiliga.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-touch riistvararäsi üleslaadimine</value>
+    <value>Zero-touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Laadige riistvara räsi üles Microsoft Graphi kaudu.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Interaktiivne riistvararäsi üleslaadimine</value>
+    <value>Interaktiivne üleslaadimine</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Valmistab ette tehniku seadmekoodiga sisselogimise riistvararäsi registreerimiseks OOBE ajal.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>Windowsi juurutussuvandid</value>
+    <value>OS valik</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
     <value>Määrake juurutamise ajal pakutavad Windowsi versioonid, värskendustasemed, keeled ja väljaanded.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>Arvuti nimi</value>
+    <value>Masina nimetamine</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Seadistage juurutatud seadmete nimed.</value>
@@ -2612,19 +2612,19 @@
     <value>Seadistage Windows 11 esmakordset ekraani ja privaatsuse vaikeseadeid.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>Windowsi valikulised funktsioonid</value>
+    <value>Valikulised funktsioonid</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
     <value>Lubage või keelake juurutatud operatsioonisüsteemis Windowsi komponendid.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Ettenähtud rakenduse eemaldamine</value>
+    <value>AppX eemaldamine</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Eemaldage valitud etteantud Windows rakendused enne OOBE.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>AI komponentide eemaldamine</value>
+    <value>AI komponendid</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
     <value>Eemaldage või keelake valitud Windows AI komponendid enne OOBE.</value>

@@ -2576,31 +2576,31 @@
     <value>Konfigurer Wi-Fi provisioning og profiler.</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
-    <value>JSON profilklargøring</value>
+    <value>JSON-profil</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
     <value>Provisionér enheder med en Autopilot JSON-profil.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-touch upload af hardwarehash</value>
+    <value>Zero-touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Upload hardware hashes gennem Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Interaktiv upload af hardwarehash</value>
+    <value>Interaktiv upload</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Klargør teknikerlogin med enhedskode til registrering af hardwarehash under OOBE.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>Indstillinger for Windows-udrulning</value>
+    <value>OS-valg</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
     <value>Definer de Windows-versioner, opdateringsniveauer, sprog og udgaver, der tilbydes under udrulning.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>Computernavn</value>
+    <value>Maskinnavngivning</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Konfigurer deployerede enhedsnavne.</value>
@@ -2612,19 +2612,19 @@
     <value>Konfigurer Windows 11 førstegangsskærme og privatlivsstandarder.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>Windows valgfri funktioner</value>
+    <value>Valgfrie funktioner</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
     <value>Aktiver eller deaktiver Windows-komponenter i det installerede operativsystem.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Fjernelse af klargjort app</value>
+    <value>AppX-fjernelse</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Fjern valgte klargjorte Windows apps før OOBE.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>Fjernelse af AI-komponent</value>
+    <value>AI-komponenter</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
     <value>Fjern eller deaktiver valgte Windows AI-komponenter før OOBE.</value>

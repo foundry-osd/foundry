@@ -2576,31 +2576,31 @@
     <value>قم بتكوين تهيئة Wi-Fi والملفات التعريفية.</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
-    <value>JSON توفير الملف الشخصي</value>
+    <value>ملف تعريف JSON</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
     <value>تهيئة الأجهزة باستخدام ملف تعريف Autopilot JSON.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>تحميل zero-touch لتجزئة الأجهزة</value>
+    <value>Zero-touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>قم بتحميل هاشات الأجهزة عبر Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>تحميل تفاعلي لتجزئة الأجهزة</value>
+    <value>تحميل تفاعلي</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>تجهيز تسجيل دخول الفني باستخدام رمز الجهاز لتسجيل تجزئة الأجهزة أثناء OOBE.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>خيارات نشر Windows</value>
+    <value>اختيار نظام التشغيل</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
     <value>حدد إصدارات Windows ومستويات التحديث واللغات والنسخ التي يتم تقديمها أثناء النشر.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>اسم الكمبيوتر</value>
+    <value>تسمية الجهاز</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>قم بتكوين أسماء الأجهزة المنشورة.</value>
@@ -2612,19 +2612,19 @@
     <value>قم بتكوين Windows 11 شاشة يتم تشغيلها لأول مرة وإعدادات الخصوصية الافتراضية.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>ميزات Windows الاختيارية</value>
+    <value>الميزات الاختيارية</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
     <value>تمكين أو تعطيل مكونات Windows في نظام التشغيل المنشور.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>إزالة التطبيق المقدمة</value>
+    <value>إزالة AppX</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>قم بإزالة تطبيقات Windows المتوفرة قبل OOBE.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>إزالة مكون الذكاء الاصطناعي</value>
+    <value>مكونات AI</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
     <value>قم بإزالة أو تعطيل مكونات Windows AI المحددة قبل OOBE.</value>

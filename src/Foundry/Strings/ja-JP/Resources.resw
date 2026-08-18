@@ -2576,31 +2576,31 @@
     <value>Wi-Fi のプロビジョニングとプロファイルを構成します。</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
-    <value>JSON プロファイルのプロビジョニング</value>
+    <value>JSON プロファイル</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
     <value>Autopilot JSON プロファイルでデバイスをプロビジョニングします。</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>ゼロタッチ ハードウェア ハッシュ アップロード</value>
+    <value>ゼロタッチ</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Microsoft Graph 経由でハードウェア ハッシュをアップロードします。</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>対話型ハードウェア ハッシュ アップロード</value>
+    <value>対話型アップロード</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>OOBE 中のハードウェア ハッシュ登録のために、技術者のデバイス コード サインインを準備します。</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>Windows 展開オプション</value>
+    <value>OS の選択</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
     <value>展開時に提供する Windows のバージョン、更新レベル、言語、エディションを定義します。</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>コンピュータ名</value>
+    <value>コンピューターの命名</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>展開されたデバイス名を構成します。</value>
@@ -2612,19 +2612,19 @@
     <value>Windows 11 の初回実行画面とプライバシーのデフォルトを構成します。</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>Windowsのオプション機能</value>
+    <value>オプション機能</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
     <value>導入されたオペレーティング システムで Windows コンポーネントを有効または無効にします。</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>プロビジョニングされたアプリの削除</value>
+    <value>AppX の削除</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>OOBE の前に、選択したプロビジョニング済みの Windows アプリを削除します。</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>AI コンポーネントの削除</value>
+    <value>AI コンポーネント</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
     <value>OOBE の前に選択した Windows AI コンポーネントを削除または無効にします。</value>

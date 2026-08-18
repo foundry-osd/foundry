@@ -2576,31 +2576,31 @@
     <value>Skonfiguruj aprowizację i profile Wi-Fi.</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
-    <value>Udostępnianie profilu JSON</value>
+    <value>Profil JSON</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
     <value>Aprowizuj urządzenia przy użyciu profilu Autopilot JSON.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Bezobsługowe przesyłanie skrótu sprzętowego</value>
+    <value>Bezobsługowy</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Prześlij skróty sprzętowe za pośrednictwem Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Interaktywne przesyłanie skrótu sprzętowego</value>
+    <value>Interaktywne przesyłanie</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Przygotowuje logowanie technika kodem urządzenia do rejestracji skrótu sprzętowego podczas OOBE.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>Opcje wdrażania systemu Windows</value>
+    <value>Wybór systemu</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
     <value>Określ wersje systemu Windows, poziomy aktualizacji, języki i edycje oferowane podczas wdrażania.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>Nazwa komputera</value>
+    <value>Nazewnictwo komputerów</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Skonfiguruj nazwy wdrożonych urządzeń.</value>
@@ -2612,19 +2612,19 @@
     <value>Skonfiguruj Windows 11 ekranów pierwszego uruchomienia i domyślne ustawienia prywatności.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>Opcjonalne funkcje systemu Windows</value>
+    <value>Funkcje opcjonalne</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
     <value>Włącz lub wyłącz składniki systemu Windows we wdrożonym systemie operacyjnym.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Zapewnione usuwanie aplikacji</value>
+    <value>Usuwanie AppX</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Usuń wybrane udostępnione aplikacje Windows przed OOBE.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>Usunięcie komponentu AI</value>
+    <value>Składniki AI</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
     <value>Usuń lub wyłącz wybrane komponenty AI Windows przed OOBE.</value>

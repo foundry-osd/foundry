@@ -2576,31 +2576,31 @@
     <value>Wi-Fi hazırlığını ve profillerini yapılandırın.</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
-    <value>JSON profil temel hazırlığı</value>
+    <value>JSON profili</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
     <value>Cihazları bir Autopilot JSON profiliyle hazırlayın.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-touch donanım karması yükleme</value>
+    <value>Sıfır dokunuş</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Donanım karmalarını Microsoft Graph üzerinden yükleyin.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Etkileşimli donanım karması yükleme</value>
+    <value>Etkileşimli yükleme</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>OOBE sırasında donanım karması kaydı için teknisyenin cihaz koduyla oturum açmasını hazırlar.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>Windows dağıtım seçenekleri</value>
+    <value>İşletim sistemi seçimi</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
     <value>Dağıtım sırasında sunulan Windows sürümlerini, güncelleştirme düzeylerini, dilleri ve edisyonları belirleyin.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>Bilgisayar adı</value>
+    <value>Makine adlandırma</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Dağıtılan cihaz adlarını yapılandırın.</value>
@@ -2612,19 +2612,19 @@
     <value>Windows 11 ilk çalıştırma ekranını ve gizlilik varsayılanlarını yapılandırın.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>Windows İsteğe Bağlı Özellikleri</value>
+    <value>İsteğe bağlı özellikler</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
     <value>Dağıtılan işletim sistemindeki Windows bileşenlerini etkinleştirin veya devre dışı bırakın.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Sağlanan uygulamanın kaldırılması</value>
+    <value>AppX kaldırma</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>OOBE&apos;den önce seçilen temel hazırlığı yapılmış Windows uygulamalarını kaldırın.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>AI bileşeninin kaldırılması</value>
+    <value>Yapay zeka bileşenleri</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
     <value>OOBE&apos;den önce seçilen Windows AI bileşenlerini kaldırın veya devre dışı bırakın.</value>

@@ -2576,31 +2576,31 @@
     <value>Configureer inrichting en profielen voor Wi-Fi.</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Title" xml:space="preserve">
-    <value>JSON profielinrichting</value>
+    <value>JSON-profiel</value>
   </data>
   <data name="Nav_AutopilotJsonProfileKey.Description" xml:space="preserve">
     <value>Richt apparaten in met een Autopilot JSON-profiel.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
-    <value>Zero-touch hardware-hash-upload</value>
+    <value>Zero-touch</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Description" xml:space="preserve">
     <value>Upload hardwarehashes via Microsoft Graph.</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Title" xml:space="preserve">
-    <value>Interactieve hardware-hash-upload</value>
+    <value>Interactieve upload</value>
   </data>
   <data name="Nav_AutopilotInteractiveHashUploadKey.Description" xml:space="preserve">
     <value>Bereidt aanmelding met apparaatcode voor technici voor om de hardware-hash tijdens OOBE te registreren.</value>
   </data>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
-    <value>Windows-implementatieopties</value>
+    <value>OS-selectie</value>
   </data>
   <data name="Nav_OsSelectionKey.Description" xml:space="preserve">
     <value>Definieer de Windows-versies, updateniveaus, talen en edities die tijdens de implementatie worden aangeboden.</value>
   </data>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
-    <value>Computernaam</value>
+    <value>Computernaamgeving</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Configureer namen van geïmplementeerde apparaten.</value>
@@ -2612,19 +2612,19 @@
     <value>Configureer Windows 11 eerste-run-schermen en privacy-standaardinstellingen.</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Title" xml:space="preserve">
-    <value>Optionele Windows-functies</value>
+    <value>Optionele functies</value>
   </data>
   <data name="Nav_OptionalFeaturesKey.Description" xml:space="preserve">
     <value>Schakel Windows-componenten in het geïmplementeerde besturingssysteem in of uit.</value>
   </data>
   <data name="Nav_AppRemovalKey.Title" xml:space="preserve">
-    <value>Ingerichte app-verwijdering</value>
+    <value>AppX verwijderen</value>
   </data>
   <data name="Nav_AppRemovalKey.Description" xml:space="preserve">
     <value>Verwijder geselecteerde ingerichte Windows-apps vóór OOBE.</value>
   </data>
   <data name="Nav_AiComponentsKey.Title" xml:space="preserve">
-    <value>Verwijdering van AI-componenten</value>
+    <value>AI-onderdelen</value>
   </data>
   <data name="Nav_AiComponentsKey.Description" xml:space="preserve">
     <value>Verwijder of schakel geselecteerde Windows AI-componenten vóór OOBE uit.</value>
