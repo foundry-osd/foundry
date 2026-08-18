@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 
 using Microsoft.UI.Dispatching;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
 
 namespace Foundry.Views;
 
@@ -36,16 +38,37 @@ public sealed partial class OptionalFeaturesPage : Page
         ViewModel.WindowsOptionalFeatureSearchText = FeatureSearchBox.Text;
     }
 
-    private void OnFeatureTreeItemInvoked(TreeView sender, TreeViewItemInvokedEventArgs args)
+    private void OnFeatureTreeRowTapped(object sender, TappedRoutedEventArgs args)
     {
-        if (args.InvokedItem is TreeViewNode
+        if (sender is not FrameworkElement row
+            || IsFeatureStateButtonInteraction(args.OriginalSource as DependencyObject, row))
+        {
+            return;
+        }
+
+        if (row is
             {
-                Content: WindowsOptionalFeatureTreeNodeViewModel { Children.Count: > 0 } node
+                DataContext: WindowsOptionalFeatureTreeNodeViewModel { Children.Count: > 0 } node
             })
         {
             node.IsExpanded = !node.IsExpanded;
             args.Handled = true;
         }
+    }
+
+    private static bool IsFeatureStateButtonInteraction(
+        DependencyObject? source,
+        DependencyObject row)
+    {
+        for (var current = source; current is not null && current != row; current = VisualTreeHelper.GetParent(current))
+        {
+            if (current is DropDownButton)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void OnUnloaded(object sender, RoutedEventArgs e)

@@ -35,7 +35,7 @@
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
             IsEnabled="{x:Bind ViewModel.IsWindowsOptionalFeatureOptionsEnabled, Mode=OneWay}">
-            <Grid RowSpacing="{ThemeResource FoundrySettingsSectionSpacing}">
+            <Grid RowSpacing="{ThemeResource FoundrySpace24}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -53,7 +53,7 @@
 
                 <Grid
                     Grid.Row="1"
-                    ColumnSpacing="{ThemeResource FoundrySettingsSectionSpacing}">
+                    ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
@@ -87,7 +87,6 @@
                     <TreeView
                         HorizontalAlignment="Stretch"
                         HorizontalContentAlignment="Stretch"
-                        ItemInvoked="OnFeatureTreeItemInvoked"
                         ItemsSource="{x:Bind ViewModel.VisibleWindowsOptionalFeatureTreeRoots, Mode=OneWay}"
                         SelectionMode="None">
                         <TreeView.ItemTemplate>
@@ -98,8 +97,9 @@
                                     ItemsSource="{x:Bind Children, Mode=OneWay}">
                                     <Grid
                                         MinHeight="56"
-                                        Padding="8,4"
-                                        ColumnSpacing="12">
+                                        Padding="16,8"
+                                        ColumnSpacing="12"
+                                        Tapped="OnFeatureTreeRowTapped">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
@@ -111,7 +111,7 @@
                                         <StackPanel
                                             Grid.Column="1"
                                             VerticalAlignment="Center"
-                                            Spacing="2">
+                                            Spacing="4">
                                             <TextBlock
                                                 Style="{ThemeResource BodyStrongTextBlockStyle}"
                                                 Text="{x:Bind DisplayName, Mode=OneWay}" />
