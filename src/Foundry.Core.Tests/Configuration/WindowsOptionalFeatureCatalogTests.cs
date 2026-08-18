@@ -151,6 +151,31 @@ public sealed class WindowsOptionalFeatureCatalogTests
                 .Select(entry => entry.FeatureName));
     }
 
+    [Fact]
+    public void GetChildren_ReturnsOnlyDirectChildrenInCatalogOrder()
+    {
+        Assert.Equal(
+            ["Microsoft-Hyper-V", "Microsoft-Hyper-V-Tools-All"],
+            WindowsOptionalFeatureCatalog.GetChildren("wf:microsoft-hyper-v-all")
+                .Select(entry => entry.FeatureName));
+    }
+
+    [Fact]
+    public void GetDescendants_ReturnsAllDescendantsInCatalogOrder()
+    {
+        Assert.Equal(
+            [
+                "Microsoft-Hyper-V",
+                "Microsoft-Hyper-V-Hypervisor",
+                "Microsoft-Hyper-V-Services",
+                "Microsoft-Hyper-V-Tools-All",
+                "Microsoft-Hyper-V-Management-Clients",
+                "Microsoft-Hyper-V-Management-PowerShell"
+            ],
+            WindowsOptionalFeatureCatalog.GetDescendants("wf:microsoft-hyper-v-all")
+                .Select(entry => entry.FeatureName));
+    }
+
     private static WindowsOptionalFeatureCatalogEntry FindFeature(string featureName)
         => WindowsOptionalFeatureCatalog.Entries.Single(
             entry => string.Equals(entry.FeatureName, featureName, StringComparison.OrdinalIgnoreCase));

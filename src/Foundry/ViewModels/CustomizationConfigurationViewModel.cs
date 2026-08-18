@@ -225,6 +225,31 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
         }
     }
 
+    private void SaveWindowsOptionalFeatureState()
+    {
+        if (isApplyingState || HasMachineNamePrefixValidationError)
+        {
+            return;
+        }
+
+        isSavingState = true;
+        try
+        {
+            configurationStateService.UpdateCustomization(new CustomizationSettings
+            {
+                MachineNaming = BuildMachineNamingSettings(),
+                Oobe = BuildOobeSettings(),
+                AiComponentRemoval = BuildAiComponentRemovalSettings(),
+                WindowsOptionalFeatures = BuildWindowsOptionalFeatureSettings(),
+                AppxRemoval = BuildAppxRemovalSettings()
+            });
+        }
+        finally
+        {
+            isSavingState = false;
+        }
+    }
+
     private void RefreshLocalizedText()
     {
         MachineNamingPrefixLabel = localizationService.GetString("Customization.MachineNamingPrefixLabel");

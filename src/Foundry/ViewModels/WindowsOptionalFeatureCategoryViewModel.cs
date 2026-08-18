@@ -49,9 +49,6 @@ public sealed partial class WindowsOptionalFeatureCategoryViewModel : Observable
     [NotifyPropertyChangedFor(nameof(ClearAutomationName))]
     public partial string ClearActionText { get; set; } = string.Empty;
 
-    [ObservableProperty]
-    public partial bool IsExpanded { get; set; }
-
     [RelayCommand]
     private void EnableVisible() => applyState(this, WindowsOptionalFeatureState.Enable);
 

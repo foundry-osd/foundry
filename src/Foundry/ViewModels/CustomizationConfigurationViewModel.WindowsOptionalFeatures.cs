@@ -14,12 +14,14 @@ public sealed partial class CustomizationConfigurationViewModel
 {
     private readonly Dictionary<string, WindowsOptionalFeatureItemViewModel> windowsOptionalFeatureItemsById =
         new(StringComparer.OrdinalIgnoreCase);
+    private readonly HashSet<string> expandedWindowsOptionalFeatureCategories = new(StringComparer.Ordinal);
+    private readonly HashSet<string> expandedWindowsOptionalFeatureIds = new(StringComparer.OrdinalIgnoreCase);
     private bool isApplyingWindowsOptionalFeatureSelection;
 
     public ObservableCollection<WindowsOptionalFeatureCategoryViewModel> WindowsOptionalFeatureCategories { get; } = [];
-    public ObservableCollection<WindowsOptionalFeatureCategoryViewModel> VisibleWindowsOptionalFeatureCategories { get; } = [];
+    public ObservableCollection<WindowsOptionalFeatureTreeNodeViewModel> VisibleWindowsOptionalFeatureTreeRoots { get; } = [];
     public bool IsWindowsOptionalFeatureOptionsEnabled => IsWindowsOptionalFeaturesEnabled;
-    public Visibility WindowsOptionalFeatureEmptySearchVisibility => VisibleWindowsOptionalFeatureCategories.Count == 0
+    public Visibility WindowsOptionalFeatureEmptySearchVisibility => VisibleWindowsOptionalFeatureTreeRoots.Count == 0
         ? Visibility.Visible
         : Visibility.Collapsed;
 
@@ -49,7 +51,7 @@ public sealed partial class CustomizationConfigurationViewModel
     {
         foreach (WindowsOptionalFeatureCatalogEntry entry in WindowsOptionalFeatureCatalog.Entries)
         {
-            var item = new WindowsOptionalFeatureItemViewModel(entry, WindowsOptionalFeatureCatalog.GetDepth(entry.Id));
+            var item = new WindowsOptionalFeatureItemViewModel(entry);
             item.PropertyChanged += OnWindowsOptionalFeatureItemPropertyChanged;
             windowsOptionalFeatureItemsById.Add(item.Id, item);
         }
@@ -94,14 +96,9 @@ public sealed partial class CustomizationConfigurationViewModel
 
     private WindowsOptionalFeatureSettings BuildWindowsOptionalFeatureSettings()
     {
-        if (!IsWindowsOptionalFeaturesEnabled)
-        {
-            return new WindowsOptionalFeatureSettings();
-        }
-
         return WindowsOptionalFeatureSettingsNormalizer.Normalize(new WindowsOptionalFeatureSettings
         {
-            IsEnabled = true,
+            IsEnabled = IsWindowsOptionalFeaturesEnabled,
             EnabledFeatureIds = windowsOptionalFeatureItemsById.Values
                 .Where(item => item.State == WindowsOptionalFeatureState.Enable)
                 .OrderBy(item => item.SortOrder)
@@ -141,7 +138,7 @@ public sealed partial class CustomizationConfigurationViewModel
                 foreach (WindowsOptionalFeatureItemViewModel item in category.AllItems)
                 {
                     item.DisplayName = localizationService.GetString(item.CatalogEntry.DisplayNameResourceKey);
-                    item.RefreshStateOptions(unchangedText, enableText, disableText);
+                    item.RefreshStateText(unchangedText, enableText, disableText);
                 }
             }
         }
@@ -231,7 +228,7 @@ public sealed partial class CustomizationConfigurationViewModel
         }
 
         RefreshWindowsOptionalFeatureSummaries();
-        SaveState();
+        SaveWindowsOptionalFeatureState();
     }
 
     private void NormalizeWindowsOptionalFeatureAncestorConflicts()
@@ -266,7 +263,7 @@ public sealed partial class CustomizationConfigurationViewModel
             }
         }
 
-        VisibleWindowsOptionalFeatureCategories.Clear();
+        VisibleWindowsOptionalFeatureTreeRoots.Clear();
         foreach (WindowsOptionalFeatureCategoryViewModel category in WindowsOptionalFeatureCategories)
         {
             category.VisibleItems.Clear();
@@ -277,8 +274,16 @@ public sealed partial class CustomizationConfigurationViewModel
 
             if (category.VisibleItems.Count > 0)
             {
-                category.IsExpanded = searchText.Length > 0 || category.IsExpanded;
-                VisibleWindowsOptionalFeatureCategories.Add(category);
+                IEnumerable<WindowsOptionalFeatureTreeNodeViewModel> roots = category.AllItems
+                    .Where(item => item.CatalogEntry.ParentId is null && visibleIds.Contains(item.Id))
+                    .Select(item => BuildWindowsOptionalFeatureTreeNode(item, visibleIds, searchText.Length > 0));
+                bool isSearching = searchText.Length > 0;
+                var categoryNode = new WindowsOptionalFeatureTreeNodeViewModel(
+                    category,
+                    roots,
+                    isSearching || expandedWindowsOptionalFeatureCategories.Contains(category.ResourceKey),
+                    isSearching ? null : UpdateExpandedWindowsOptionalFeatureCategory);
+                VisibleWindowsOptionalFeatureTreeRoots.Add(categoryNode);
             }
         }
 
@@ -305,6 +310,49 @@ public sealed partial class CustomizationConfigurationViewModel
                 categoryEnableCount,
                 categoryDisableCount);
         }
+
+        foreach (WindowsOptionalFeatureTreeNodeViewModel root in VisibleWindowsOptionalFeatureTreeRoots)
+        {
+            root.Refresh();
+        }
+    }
+
+    private WindowsOptionalFeatureTreeNodeViewModel BuildWindowsOptionalFeatureTreeNode(
+        WindowsOptionalFeatureItemViewModel item,
+        IReadOnlySet<string> visibleIds,
+        bool expand)
+    {
+        IEnumerable<WindowsOptionalFeatureTreeNodeViewModel> children = WindowsOptionalFeatureCatalog
+            .GetChildren(item.Id)
+            .Where(entry => visibleIds.Contains(entry.Id))
+            .Select(entry => BuildWindowsOptionalFeatureTreeNode(windowsOptionalFeatureItemsById[entry.Id], visibleIds, expand));
+        return new WindowsOptionalFeatureTreeNodeViewModel(
+            item,
+            children,
+            expand || expandedWindowsOptionalFeatureIds.Contains(item.Id),
+            expand ? null : UpdateExpandedWindowsOptionalFeature);
+    }
+
+    private void UpdateExpandedWindowsOptionalFeatureCategory(string resourceKey, bool isExpanded)
+    {
+        UpdateExpansionState(expandedWindowsOptionalFeatureCategories, resourceKey, isExpanded);
+    }
+
+    private void UpdateExpandedWindowsOptionalFeature(string id, bool isExpanded)
+    {
+        UpdateExpansionState(expandedWindowsOptionalFeatureIds, id, isExpanded);
+    }
+
+    private static void UpdateExpansionState(HashSet<string> expandedKeys, string key, bool isExpanded)
+    {
+        if (isExpanded)
+        {
+            expandedKeys.Add(key);
+        }
+        else
+        {
+            expandedKeys.Remove(key);
+        }
     }
 
     partial void OnIsWindowsOptionalFeaturesEnabledChanged(bool value)
@@ -314,25 +362,7 @@ public sealed partial class CustomizationConfigurationViewModel
             return;
         }
 
-        if (!value)
-        {
-            isApplyingWindowsOptionalFeatureSelection = true;
-            try
-            {
-                foreach (WindowsOptionalFeatureItemViewModel item in windowsOptionalFeatureItemsById.Values)
-                {
-                    item.SetState(WindowsOptionalFeatureState.Unchanged);
-                }
-            }
-            finally
-            {
-                isApplyingWindowsOptionalFeatureSelection = false;
-            }
-
-            RefreshWindowsOptionalFeatureSummaries();
-        }
-
-        SaveState();
+        SaveWindowsOptionalFeatureState();
     }
 
     partial void OnWindowsOptionalFeatureSearchTextChanged(string value)
@@ -342,7 +372,7 @@ public sealed partial class CustomizationConfigurationViewModel
 
     private void OnWindowsOptionalFeatureItemPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (!string.Equals(e.PropertyName, nameof(WindowsOptionalFeatureItemViewModel.SelectedState), StringComparison.Ordinal) ||
+        if (!string.Equals(e.PropertyName, nameof(WindowsOptionalFeatureItemViewModel.State), StringComparison.Ordinal) ||
             sender is not WindowsOptionalFeatureItemViewModel item ||
             isApplyingWindowsOptionalFeatureSelection)
         {
@@ -354,9 +384,7 @@ public sealed partial class CustomizationConfigurationViewModel
         {
             if (item.State == WindowsOptionalFeatureState.Disable)
             {
-                foreach (WindowsOptionalFeatureCatalogEntry descendant in WindowsOptionalFeatureCatalog.Entries.Where(entry =>
-                             WindowsOptionalFeatureCatalog.GetAncestors(entry.Id).Any(ancestor =>
-                                 string.Equals(ancestor.Id, item.Id, StringComparison.OrdinalIgnoreCase))))
+                foreach (WindowsOptionalFeatureCatalogEntry descendant in WindowsOptionalFeatureCatalog.GetDescendants(item.Id))
                 {
                     if (windowsOptionalFeatureItemsById[descendant.Id].State == WindowsOptionalFeatureState.Enable)
                     {
@@ -373,6 +401,6 @@ public sealed partial class CustomizationConfigurationViewModel
         }
 
         RefreshWindowsOptionalFeatureSummaries();
-        SaveState();
+        SaveWindowsOptionalFeatureState();
     }
 }

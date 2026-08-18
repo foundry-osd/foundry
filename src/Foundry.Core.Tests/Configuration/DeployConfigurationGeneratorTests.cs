@@ -299,6 +299,29 @@ public sealed class DeployConfigurationGeneratorTests
     }
 
     [Fact]
+    public void Generate_WhenWindowsOptionalFeaturesAreDisabled_DoesNotEmitDormantActions()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                WindowsOptionalFeatures = new WindowsOptionalFeatureSettings
+                {
+                    IsEnabled = false,
+                    EnabledFeatureIds = ["wf:netfx3"],
+                    DisabledFeatureIds = ["wf:telnetclient"]
+                }
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.False(result.Customization.WindowsOptionalFeatures.IsEnabled);
+        Assert.Empty(result.Customization.WindowsOptionalFeatures.Actions);
+    }
+
+    [Fact]
     public void Generate_WhenAiComponentRemovalIsEnabled_PropagatesSelectedOptions()
     {
         var generator = new DeployConfigurationGenerator();
