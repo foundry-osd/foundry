@@ -57,7 +57,10 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     public FoundryConfigurationDocument Current { get; private set; }
 
     /// <inheritdoc />
-    public bool IsNetworkConfigurationReady => EvaluateNetworkMediaReadiness().IsNetworkConfigurationReady;
+    public NetworkMediaReadinessEvaluation NetworkMediaReadiness => EvaluateNetworkMediaReadiness();
+
+    /// <inheritdoc />
+    public bool IsNetworkConfigurationReady => NetworkMediaReadiness.IsNetworkConfigurationReady;
 
     /// <inheritdoc />
     public bool IsDeployConfigurationReady
@@ -82,10 +85,10 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     }
 
     /// <inheritdoc />
-    public bool IsConnectProvisioningReady => EvaluateNetworkMediaReadiness().IsConnectProvisioningReady;
+    public bool IsConnectProvisioningReady => NetworkMediaReadiness.IsConnectProvisioningReady;
 
     /// <inheritdoc />
-    public bool AreRequiredSecretsReady => EvaluateNetworkMediaReadiness().AreRequiredSecretsReady;
+    public bool AreRequiredSecretsReady => NetworkMediaReadiness.AreRequiredSecretsReady;
 
     /// <inheritdoc />
     public bool IsAutopilotEnabled => Current.Autopilot.IsEnabled;

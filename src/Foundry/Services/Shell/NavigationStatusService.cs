@@ -61,53 +61,65 @@ internal sealed class NavigationStatusService : INavigationStatusService
 
         if (pageType == typeof(AutopilotJsonProfilePage))
         {
-            return Autopilot(configuration.Autopilot, AutopilotProvisioningMode.JsonProfile);
+            return AutopilotStatus(NavigationConfigurationStatusEvaluator.IsConfigured(
+                configuration,
+                ConfigurationNavigationTarget.AutopilotJsonProfile));
         }
 
         if (pageType == typeof(AutopilotZeroTouchPage))
         {
-            return Autopilot(configuration.Autopilot, AutopilotProvisioningMode.HardwareHashUpload);
+            return AutopilotStatus(NavigationConfigurationStatusEvaluator.IsConfigured(
+                configuration,
+                ConfigurationNavigationTarget.AutopilotHardwareHashUpload));
         }
 
         if (pageType == typeof(AutopilotInteractiveHashUploadPage))
         {
-            return Autopilot(configuration.Autopilot, AutopilotProvisioningMode.InteractiveHardwareHashUpload);
+            return AutopilotStatus(NavigationConfigurationStatusEvaluator.IsConfigured(
+                configuration,
+                ConfigurationNavigationTarget.AutopilotInteractiveHardwareHashUpload));
         }
 
         if (pageType == typeof(OsSelectionPage))
         {
-            return Standard(configuration.OperatingSystemSelection.IsEnabled);
+            return Standard(NavigationConfigurationStatusEvaluator.IsConfigured(
+                configuration,
+                ConfigurationNavigationTarget.OperatingSystemSelection));
         }
 
-        CustomizationSettings customization = configuration.Customization;
         if (pageType == typeof(MachineNamingPage))
         {
-            MachineNamingSettings settings = customization.MachineNaming;
-            bool isValid = string.IsNullOrWhiteSpace(settings.Prefix) || ComputerNameRules.IsValid(settings.Prefix);
-            return Standard(settings.IsEnabled && isValid);
+            return Standard(NavigationConfigurationStatusEvaluator.IsConfigured(
+                configuration,
+                ConfigurationNavigationTarget.MachineNaming));
         }
 
         if (pageType == typeof(OobePage))
         {
-            return Standard(customization.Oobe.IsEnabled);
+            return Standard(NavigationConfigurationStatusEvaluator.IsConfigured(
+                configuration,
+                ConfigurationNavigationTarget.Oobe));
         }
 
         if (pageType == typeof(OptionalFeaturesPage))
         {
-            WindowsOptionalFeatureSettings settings = customization.WindowsOptionalFeatures;
-            return Standard(settings.IsEnabled &&
-                (settings.EnabledFeatureIds.Count > 0 || settings.DisabledFeatureIds.Count > 0));
+            return Standard(NavigationConfigurationStatusEvaluator.IsConfigured(
+                configuration,
+                ConfigurationNavigationTarget.WindowsOptionalFeatures));
         }
 
         if (pageType == typeof(AppRemovalPage))
         {
-            return Standard(customization.AppxRemoval.IsEnabled && customization.AppxRemoval.PackageNames.Count > 0);
+            return Standard(NavigationConfigurationStatusEvaluator.IsConfigured(
+                configuration,
+                ConfigurationNavigationTarget.AppxRemoval));
         }
 
         if (pageType == typeof(AiComponentsPage))
         {
-            AiComponentRemovalSettings settings = customization.AiComponentRemoval;
-            return Standard(settings.IsEnabled && HasAiComponentAction(settings));
+            return Standard(NavigationConfigurationStatusEvaluator.IsConfigured(
+                configuration,
+                ConfigurationNavigationTarget.AiComponentRemoval));
         }
 
         return null;
@@ -117,23 +129,12 @@ internal sealed class NavigationStatusService : INavigationStatusService
         ? Configured("NavigationStatus.Configured", NavigationInfoBadgeSeverity.Success)
         : new NavigationStatus(null, "NavigationStatus.NotConfigured");
 
-    private static NavigationStatus Autopilot(AutopilotSettings settings, AutopilotProvisioningMode mode) =>
-        settings.IsEnabled && settings.ProvisioningMode == mode
-            ? Configured("NavigationStatus.ActiveProvisioningMode", NavigationInfoBadgeSeverity.Success)
-            : new NavigationStatus(null, "NavigationStatus.NotConfigured");
+    private static NavigationStatus AutopilotStatus(bool isConfigured) => isConfigured
+        ? Configured("NavigationStatus.ActiveProvisioningMode", NavigationInfoBadgeSeverity.Success)
+        : new NavigationStatus(null, "NavigationStatus.NotConfigured");
 
     private static NavigationStatus Configured(string resourceKey, NavigationInfoBadgeSeverity severity) =>
         new(severity, resourceKey);
-
-    private static bool HasAiComponentAction(AiComponentRemovalSettings settings) =>
-        settings.RemoveCopilot ||
-        settings.RemoveAiHub ||
-        settings.DisableRecall ||
-        settings.DisableClickToDo ||
-        settings.DisableAiServiceAutoStart ||
-        settings.DisableEdgeAi ||
-        settings.DisablePaintAi ||
-        settings.DisableNotepadAi;
 
     private void OnUnderlyingStatusChanged(object? sender, EventArgs e) =>
         StatusChanged?.Invoke(this, EventArgs.Empty);

@@ -36,6 +36,23 @@ public sealed class NetworkMediaReadinessEvaluatorTests
         Assert.False(evaluation.IsNetworkConfigurationReady);
         Assert.False(evaluation.IsConnectProvisioningReady);
         Assert.True(evaluation.AreRequiredSecretsReady);
+        Assert.Equal(NetworkConfigurationValidationCode.WiredProfileTemplateMissing, evaluation.NetworkConfigurationValidationCode);
+    }
+
+    [Fact]
+    public void Evaluate_WhenWifiValidationFailsBeforeEnabledWiredConfiguration_ExposesWifiCode()
+    {
+        var settings = new NetworkSettings
+        {
+            WifiProvisioned = false,
+            Wifi = new WifiSettings { IsEnabled = true },
+            Dot1x = new Dot1xSettings { IsEnabled = true }
+        };
+
+        NetworkMediaReadinessEvaluation evaluation = NetworkMediaReadinessEvaluator.Evaluate(settings);
+
+        Assert.False(evaluation.IsNetworkConfigurationReady);
+        Assert.Equal(NetworkConfigurationValidationCode.WifiProvisioningRequired, evaluation.NetworkConfigurationValidationCode);
     }
 
     [Fact]

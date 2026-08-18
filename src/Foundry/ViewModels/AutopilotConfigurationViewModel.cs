@@ -448,18 +448,17 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     /// <param name="mode">Provisioning mode represented by the current page.</param>
     public async Task ToggleProvisioningModeAsync(AutopilotProvisioningMode mode)
     {
-        if (IsModeActive(mode))
+        AutopilotProvisioningModeToggleResult result = AutopilotProvisioningModeToggleEvaluator.Evaluate(
+            IsAutopilotEnabled,
+            provisioningMode,
+            mode);
+
+        if (result.RequiresConfirmation && !await ConfirmProvisioningModeReplacementAsync(mode))
         {
-            ApplyProvisioningModeState(mode, isEnabled: false);
             return;
         }
 
-        if (IsAutopilotEnabled && !await ConfirmProvisioningModeReplacementAsync(mode))
-        {
-            return;
-        }
-
-        ApplyProvisioningModeState(mode, isEnabled: true);
+        ApplyProvisioningModeState(result.Mode, result.IsEnabled);
     }
 
     [RelayCommand(CanExecute = nameof(CanImportProfile))]

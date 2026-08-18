@@ -25,13 +25,15 @@ public static class NetworkMediaReadinessEvaluator
             }
             : settings;
 
-        bool isNetworkConfigurationReady = NetworkConfigurationValidator.Validate(validationSettings).IsValid;
+        NetworkConfigurationValidationResult validationResult = NetworkConfigurationValidator.Validate(validationSettings);
+        bool isNetworkConfigurationReady = validationResult.IsValid;
         bool areRequiredSecretsReady = !requiresPersonalWifiPassphrase ||
             IsPersonalWifiPassphraseValid(personalWifiPassphrase);
 
         return new NetworkMediaReadinessEvaluation
         {
             IsNetworkConfigurationReady = isNetworkConfigurationReady,
+            NetworkConfigurationValidationCode = validationResult.Code,
             IsConnectProvisioningReady = isNetworkConfigurationReady && areRequiredSecretsReady,
             AreRequiredSecretsReady = areRequiredSecretsReady
         };

@@ -24,6 +24,11 @@ public sealed record MediaPreflightOptions
     public bool IsNetworkConfigurationReady { get; init; }
 
     /// <summary>
+    /// Gets the first blocking network validation code.
+    /// </summary>
+    public NetworkConfigurationValidationCode NetworkConfigurationValidationCode { get; init; }
+
+    /// <summary>
     /// Gets a value indicating whether deployment configuration can be generated.
     /// </summary>
     public bool IsDeployConfigurationReady { get; init; }

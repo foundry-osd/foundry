@@ -3,8 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.ComponentModel;
-using Foundry.Core.Models.Configuration;
-using Foundry.Services.Configuration;
+using Foundry.Core.Services.Configuration;
 using Foundry.Services.Localization;
 
 namespace Foundry.Views;
@@ -12,14 +11,12 @@ namespace Foundry.Views;
 public sealed partial class StartPage : Page
 {
     private readonly IApplicationLocalizationService localizationService;
-    private readonly IFoundryConfigurationStateService configurationStateService;
 
     public StartMediaViewModel ViewModel { get; }
 
     public StartPage()
     {
         localizationService = App.GetService<IApplicationLocalizationService>();
-        configurationStateService = App.GetService<IFoundryConfigurationStateService>();
         ViewModel = App.GetService<StartMediaViewModel>();
         InitializeComponent();
         ApplyLocalizedText();
@@ -76,81 +73,53 @@ public sealed partial class StartPage : Page
 
     private void ReadinessActionButton_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is not FrameworkElement { Tag: StartReadinessNavigationTarget navigationTarget })
+        if (sender is not FrameworkElement { Tag: ConfigurationNavigationTarget navigationTarget })
         {
             return;
         }
 
         switch (navigationTarget)
         {
-            case StartReadinessNavigationTarget.Adk:
+            case ConfigurationNavigationTarget.Adk:
                 App.Current.NavigationService.NavigateTo(typeof(AdkPage));
                 break;
-            case StartReadinessNavigationTarget.General:
+            case ConfigurationNavigationTarget.General:
                 App.Current.NavigationService.NavigateTo(typeof(GeneralConfigurationPage));
                 break;
-            case StartReadinessNavigationTarget.Network:
-                App.Current.NavigationService.NavigateTo(GetNetworkPageType());
+            case ConfigurationNavigationTarget.EthernetDot1x:
+                App.Current.NavigationService.NavigateTo(typeof(EthernetDot1xPage));
                 break;
-            case StartReadinessNavigationTarget.Autopilot:
-                App.Current.NavigationService.NavigateTo(GetAutopilotPageType());
+            case ConfigurationNavigationTarget.Wifi:
+                App.Current.NavigationService.NavigateTo(typeof(WifiPage));
                 break;
-            case StartReadinessNavigationTarget.Customization:
-                App.Current.NavigationService.NavigateTo(GetCustomizationPageType());
+            case ConfigurationNavigationTarget.AutopilotJsonProfile:
+                App.Current.NavigationService.NavigateTo(typeof(AutopilotJsonProfilePage));
+                break;
+            case ConfigurationNavigationTarget.AutopilotHardwareHashUpload:
+                App.Current.NavigationService.NavigateTo(typeof(AutopilotZeroTouchPage));
+                break;
+            case ConfigurationNavigationTarget.AutopilotInteractiveHardwareHashUpload:
+                App.Current.NavigationService.NavigateTo(typeof(AutopilotInteractiveHashUploadPage));
+                break;
+            case ConfigurationNavigationTarget.OperatingSystemSelection:
+                App.Current.NavigationService.NavigateTo(typeof(OsSelectionPage));
+                break;
+            case ConfigurationNavigationTarget.MachineNaming:
+                App.Current.NavigationService.NavigateTo(typeof(MachineNamingPage));
+                break;
+            case ConfigurationNavigationTarget.Oobe:
+                App.Current.NavigationService.NavigateTo(typeof(OobePage));
+                break;
+            case ConfigurationNavigationTarget.WindowsOptionalFeatures:
+                App.Current.NavigationService.NavigateTo(typeof(OptionalFeaturesPage));
+                break;
+            case ConfigurationNavigationTarget.AppxRemoval:
+                App.Current.NavigationService.NavigateTo(typeof(AppRemovalPage));
+                break;
+            case ConfigurationNavigationTarget.AiComponentRemoval:
+                App.Current.NavigationService.NavigateTo(typeof(AiComponentsPage));
                 break;
         }
-    }
-
-    private Type GetNetworkPageType()
-    {
-        NetworkSettings settings = configurationStateService.Current.Network;
-        return !settings.Dot1x.IsEnabled && settings.WifiProvisioned
-            ? typeof(WifiPage)
-            : typeof(EthernetDot1xPage);
-    }
-
-    private Type GetAutopilotPageType()
-    {
-        return configurationStateService.Current.Autopilot.ProvisioningMode switch
-        {
-            AutopilotProvisioningMode.HardwareHashUpload => typeof(AutopilotZeroTouchPage),
-            AutopilotProvisioningMode.InteractiveHardwareHashUpload => typeof(AutopilotInteractiveHashUploadPage),
-            _ => typeof(AutopilotJsonProfilePage)
-        };
-    }
-
-    private Type GetCustomizationPageType()
-    {
-        FoundryConfigurationDocument configuration = configurationStateService.Current;
-        CustomizationSettings settings = configuration.Customization;
-        if (configuration.OperatingSystemSelection.IsEnabled)
-        {
-            return typeof(OsSelectionPage);
-        }
-
-        if (settings.MachineNaming.IsEnabled)
-        {
-            return typeof(MachineNamingPage);
-        }
-
-        if (settings.Oobe.IsEnabled)
-        {
-            return typeof(OobePage);
-        }
-
-        if (settings.WindowsOptionalFeatures.IsEnabled)
-        {
-            return typeof(OptionalFeaturesPage);
-        }
-
-        if (settings.AppxRemoval.IsEnabled)
-        {
-            return typeof(AppRemovalPage);
-        }
-
-        return settings.AiComponentRemoval.IsEnabled
-            ? typeof(AiComponentsPage)
-            : typeof(OsSelectionPage);
     }
 
     private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e)

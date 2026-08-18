@@ -28,6 +28,11 @@ public interface IFoundryConfigurationStateService
     FoundryConfigurationDocument Current { get; }
 
     /// <summary>
+    /// Gets the detailed network readiness evaluation used for media creation.
+    /// </summary>
+    NetworkMediaReadinessEvaluation NetworkMediaReadiness { get; }
+
+    /// <summary>
     /// Gets a value indicating whether network configuration can be emitted for Connect.
     /// </summary>
     bool IsNetworkConfigurationReady { get; }
