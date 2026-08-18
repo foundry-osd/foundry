@@ -53,22 +53,27 @@
                             PlaceholderText="{x:Bind ViewModel.WindowsOptionalFeatureSearchPlaceholder, Mode=OneWay}"
                             Text="{x:Bind ViewModel.WindowsOptionalFeatureSearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </wct:SettingsCard>
-                    <wct:SettingsCard
+                    <ContentControl
                         HorizontalContentAlignment="Stretch"
                         IsEnabled="{x:Bind ViewModel.IsWindowsOptionalFeatureOptionsEnabled, Mode=OneWay}">
-                        <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+                        <StackPanel
+                            HorizontalAlignment="Stretch"
+                            Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
                             <TextBlock
                                 HorizontalAlignment="Center"
                                 Style="{ThemeResource BodyTextBlockStyle}"
                                 Text="{x:Bind ViewModel.WindowsOptionalFeatureEmptySearchText, Mode=OneWay}"
                                 Visibility="{x:Bind ViewModel.WindowsOptionalFeatureEmptySearchVisibility, Mode=OneWay}" />
-                            <ItemsRepeater ItemsSource="{x:Bind ViewModel.VisibleWindowsOptionalFeatureCategories, Mode=OneWay}">
+                            <ItemsRepeater
+                                HorizontalAlignment="Stretch"
+                                ItemsSource="{x:Bind ViewModel.VisibleWindowsOptionalFeatureCategories, Mode=OneWay}">
                                 <ItemsRepeater.Layout>
                                     <StackLayout Spacing="{ThemeResource FoundrySettingsSectionSpacing}" />
                                 </ItemsRepeater.Layout>
                                 <ItemsRepeater.ItemTemplate>
                                     <DataTemplate x:DataType="viewModels:WindowsOptionalFeatureCategoryViewModel">
                                         <wct:SettingsExpander
+                                            HorizontalAlignment="Stretch"
                                             Description="{x:Bind SummaryText, Mode=OneWay}"
                                             Header="{x:Bind DisplayName, Mode=OneWay}"
                                             IsExpanded="{x:Bind IsExpanded, Mode=TwoWay}">
@@ -120,7 +125,7 @@
                                 </ItemsRepeater.ItemTemplate>
                             </ItemsRepeater>
                         </StackPanel>
-                    </wct:SettingsCard>
+                    </ContentControl>
                 </StackPanel>
             </ContentControl>
         </StackPanel>
