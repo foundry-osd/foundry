@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Utilities.Runtime;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
@@ -10,6 +11,10 @@ namespace Foundry.Views;
 
 public sealed partial class OptionalFeaturesPage : Page
 {
+    private static readonly TimeSpan FeatureTreeRepeatTapInterval = TimeSpan.FromMilliseconds(300);
+
+    private readonly RepeatActionGate<WindowsOptionalFeatureTreeNodeViewModel> featureTreeExpansionGate =
+        new(FeatureTreeRepeatTapInterval);
     private DispatcherQueueTimer? searchTimer;
 
     public CustomizationConfigurationViewModel ViewModel { get; }
@@ -51,8 +56,11 @@ public sealed partial class OptionalFeaturesPage : Page
                 DataContext: WindowsOptionalFeatureTreeNodeViewModel { Children.Count: > 0 } node
             })
         {
-            node.IsExpanded = !node.IsExpanded;
             args.Handled = true;
+            if (featureTreeExpansionGate.TryEnter(node))
+            {
+                node.IsExpanded = !node.IsExpanded;
+            }
         }
     }
 
