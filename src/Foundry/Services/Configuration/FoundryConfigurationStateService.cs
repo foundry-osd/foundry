@@ -433,21 +433,9 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
             DisableNotepadAi = settings.IsEnabled && settings.DisableNotepadAi
         };
 
-        return migratedSettings.IsEnabled && HasAnyAiComponentRemovalOptionEnabled(migratedSettings)
+        return migratedSettings.IsEnabled && migratedSettings.HasAnyAction()
             ? migratedSettings
             : new AiComponentRemovalSettings();
-    }
-
-    private static bool HasAnyAiComponentRemovalOptionEnabled(AiComponentRemovalSettings settings)
-    {
-        return settings.RemoveCopilot ||
-            settings.RemoveAiHub ||
-            settings.DisableRecall ||
-            settings.DisableClickToDo ||
-            settings.DisableAiServiceAutoStart ||
-            settings.DisableEdgeAi ||
-            settings.DisablePaintAi ||
-            settings.DisableNotepadAi;
     }
 
     private static bool HasLegacyAppxRemovalPackage(AppxRemovalSettings settings, string packageName)

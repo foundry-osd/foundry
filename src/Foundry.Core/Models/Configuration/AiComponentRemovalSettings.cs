@@ -10,6 +10,19 @@ namespace Foundry.Core.Models.Configuration;
 public sealed record AiComponentRemovalSettings
 {
     /// <summary>
+    /// Gets whether at least one AI component action is selected.
+    /// </summary>
+    public bool HasAnyAction() =>
+        RemoveCopilot ||
+        RemoveAiHub ||
+        DisableRecall ||
+        DisableClickToDo ||
+        DisableAiServiceAutoStart ||
+        DisableEdgeAi ||
+        DisablePaintAi ||
+        DisableNotepadAi;
+
+    /// <summary>
     /// Gets whether AI component removal should run before OOBE.
     /// </summary>
     public bool IsEnabled { get; init; }

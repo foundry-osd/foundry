@@ -37,7 +37,7 @@ public static class NavigationConfigurationStatusEvaluator
             ConfigurationNavigationTarget.AppxRemoval => customization.AppxRemoval.IsEnabled &&
                 customization.AppxRemoval.PackageNames.Count > 0,
             ConfigurationNavigationTarget.AiComponentRemoval => customization.AiComponentRemoval.IsEnabled &&
-                HasAiComponentAction(customization.AiComponentRemoval),
+                customization.AiComponentRemoval.HasAnyAction(),
             _ => false
         };
     }
@@ -45,13 +45,4 @@ public static class NavigationConfigurationStatusEvaluator
     private static bool IsActiveAutopilotMode(AutopilotSettings settings, AutopilotProvisioningMode mode) =>
         settings.IsEnabled && settings.ProvisioningMode == mode;
 
-    private static bool HasAiComponentAction(AiComponentRemovalSettings settings) =>
-        settings.RemoveCopilot ||
-        settings.RemoveAiHub ||
-        settings.DisableRecall ||
-        settings.DisableClickToDo ||
-        settings.DisableAiServiceAutoStart ||
-        settings.DisableEdgeAi ||
-        settings.DisablePaintAi ||
-        settings.DisableNotepadAi;
 }
