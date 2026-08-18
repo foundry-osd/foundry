@@ -25,7 +25,8 @@
                     <ToggleSwitch
                         x:Uid="AppRemovalPageEnableToggle"
                         behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
-                        IsOn="{x:Bind ViewModel.IsAppxRemovalEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        IsOn="{x:Bind ViewModel.IsAppxRemovalEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource FoundryPageHeaderToggleSwitchStyle}" />
                 </controls:PageHeader.ActionContent>
             </controls:PageHeader>
 

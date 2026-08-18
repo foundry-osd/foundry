@@ -26,7 +26,8 @@
                 <ToggleSwitch
                     x:Uid="OptionalFeaturesPageEnableToggle"
                     behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
-                    IsOn="{x:Bind ViewModel.IsWindowsOptionalFeaturesEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    IsOn="{x:Bind ViewModel.IsWindowsOptionalFeaturesEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource FoundryPageHeaderToggleSwitchStyle}" />
             </controls:PageHeader.ActionContent>
         </controls:PageHeader>
 

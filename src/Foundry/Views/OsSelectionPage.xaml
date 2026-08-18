@@ -25,7 +25,8 @@
                     <ToggleSwitch
                         x:Uid="OsSelectionPageEnableToggle"
                         behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
-                        IsOn="{x:Bind ViewModel.IsOperatingSystemSelectionEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        IsOn="{x:Bind ViewModel.IsOperatingSystemSelectionEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource FoundryPageHeaderToggleSwitchStyle}" />
                 </controls:PageHeader.ActionContent>
             </controls:PageHeader>
 
