@@ -16,14 +16,20 @@ public static class DeployMediaSecretEnvelopeProtector
     public const string Kind = "encrypted";
     public const string Algorithm = "aes-gcm-v1";
     public const string KeyId = "media";
+    public const string DeploymentKeyId = "deployment";
     public const int KeySizeBytes = 32;
     private const int NonceSizeBytes = 12;
     private const int TagSizeBytes = 16;
 
     public static byte[] DecryptBytes(SecretEnvelope envelope, byte[] key)
     {
+        return DecryptBytes(envelope, key, KeyId);
+    }
+
+    public static byte[] DecryptBytes(SecretEnvelope envelope, byte[] key, string expectedKeyId)
+    {
         ArgumentNullException.ThrowIfNull(envelope);
-        ValidateEnvelope(envelope);
+        ValidateEnvelope(envelope, expectedKeyId);
         ValidateKey(key);
 
         byte[] nonce = Base64UrlDecode(envelope.Nonce);
@@ -67,11 +73,25 @@ public static class DeployMediaSecretEnvelopeProtector
         }
     }
 
-    private static void ValidateEnvelope(SecretEnvelope envelope)
+    public static string DecryptString(SecretEnvelope envelope, byte[] key, string expectedKeyId)
     {
+        byte[] plaintext = DecryptBytes(envelope, key, expectedKeyId);
+        try
+        {
+            return Encoding.UTF8.GetString(plaintext);
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(plaintext);
+        }
+    }
+
+    private static void ValidateEnvelope(SecretEnvelope envelope, string expectedKeyId)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(expectedKeyId);
         if (!string.Equals(envelope.Kind, Kind, StringComparison.Ordinal) ||
             !string.Equals(envelope.Algorithm, Algorithm, StringComparison.Ordinal) ||
-            !string.Equals(envelope.KeyId, KeyId, StringComparison.Ordinal))
+            !string.Equals(envelope.KeyId, expectedKeyId, StringComparison.Ordinal))
         {
             throw new CryptographicException("Encrypted secret envelope is not supported.");
         }

@@ -9,4 +9,5 @@ public sealed record AutopilotProfileCatalogItem
     public required string FolderName { get; init; }
     public required string DisplayName { get; init; }
     public required string ConfigurationFilePath { get; init; }
+    public bool IsProtected { get; init; }
 }

@@ -11,6 +11,7 @@ using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
 using System.Text.Json;
+using System.Text;
 
 namespace Foundry.Deploy.Tests;
 
@@ -42,6 +43,34 @@ public sealed class ProvisionAutopilotStepTests
         Assert.Equal(expectedPath, context.RuntimeState.StagedAutopilotConfigurationPath);
         Assert.Equal(AutopilotProvisioningMode.JsonProfile, context.RuntimeState.AutopilotProvisioningMode);
         Assert.Equal(AutopilotHardwareHashUploadState.NotPlanned, context.RuntimeState.AutopilotHardwareHashUploadState);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WhenLiveJsonModeUsesProtectedProfile_WritesOnlyDecryptedTargetContent()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        string sourceConfigurationPath = Path.Combine(workspace.RootPath, "AutopilotConfigurationFile.json.encrypted");
+        await File.WriteAllTextAsync(sourceConfigurationPath, "encrypted", TestContext.Current.CancellationToken);
+        const string decryptedJson = """{"profile":"protected"}""";
+        ProvisionAutopilotStep step = CreateStep(contentService: new FakeAutopilotProfileContentService(decryptedJson));
+        DeploymentStepExecutionContext context = CreateContext(
+            workspace,
+            isDryRun: false,
+            provisioningMode: AutopilotProvisioningMode.JsonProfile,
+            selectedProfile: new AutopilotProfileCatalogItem
+            {
+                FolderName = "Corporate",
+                DisplayName = "Corporate",
+                ConfigurationFilePath = sourceConfigurationPath,
+                IsProtected = true
+            });
+
+        DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        string targetPath = Path.Combine(workspace.TargetWindowsRootPath, "Windows", "Provisioning", "Autopilot", "AutopilotConfigurationFile.json");
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        Assert.Equal(decryptedJson, await File.ReadAllTextAsync(targetPath, TestContext.Current.CancellationToken));
+        Assert.DoesNotContain("encrypted", await File.ReadAllTextAsync(targetPath, TestContext.Current.CancellationToken), StringComparison.Ordinal);
     }
 
     [Fact]
@@ -313,13 +342,15 @@ public sealed class ProvisionAutopilotStepTests
 
     private static ProvisionAutopilotStep CreateStep(
         IAutopilotHardwareHashCaptureService? captureService = null,
-        IAutopilotHardwareHashUploadService? uploadService = null)
+        IAutopilotHardwareHashUploadService? uploadService = null,
+        IAutopilotProfileContentService? contentService = null)
     {
         return new ProvisionAutopilotStep(
             captureService ?? new FakeAutopilotHardwareHashCaptureService(),
             uploadService ?? new FakeAutopilotHardwareHashUploadService(
                 AutopilotHardwareHashUploadResult.Completed("Device imported.")),
-            new AutopilotInteractiveRegistrationProvisioningService(new SetupCompleteScriptService()));
+            new AutopilotInteractiveRegistrationProvisioningService(new SetupCompleteScriptService()),
+            contentService ?? new FakeAutopilotProfileContentService());
     }
 
     private static DeploymentStepExecutionContext CreateContext(
@@ -456,6 +487,16 @@ public sealed class ProvisionAutopilotStepTests
         {
             Requests.Add(request);
             return Task.FromResult(result);
+        }
+    }
+
+    private sealed class FakeAutopilotProfileContentService(string? content = null) : IAutopilotProfileContentService
+    {
+        public Task<byte[]> ReadAsync(AutopilotProfileCatalogItem profile, CancellationToken cancellationToken = default)
+        {
+            return content is null
+                ? File.ReadAllBytesAsync(profile.ConfigurationFilePath, cancellationToken)
+                : Task.FromResult(Encoding.UTF8.GetBytes(content));
         }
     }
 

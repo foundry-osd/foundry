@@ -118,6 +118,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IPreOobeScriptProvisioningService, PreOobeScriptProvisioningService>();
         services.AddSingleton<PreOobeScriptDefinitionBuilder>();
         services.AddSingleton<INetworkProfileRoamingArtifactService, NetworkProfileRoamingArtifactService>();
+        services.AddSingleton<IAutopilotProfileContentService, AutopilotProfileContentService>();
         services.AddSingleton<IAutopilotProfileCatalogService, AutopilotProfileCatalogService>();
         services.AddSingleton<IAutopilotHardwareHashCaptureService, AutopilotHardwareHashCaptureService>();
         services.AddSingleton<IAutopilotInteractiveRegistrationProvisioningService, AutopilotInteractiveRegistrationProvisioningService>();

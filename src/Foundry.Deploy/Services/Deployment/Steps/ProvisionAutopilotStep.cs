@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
+using System.Security.Cryptography;
 using System.Text.Json;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Autopilot;
@@ -23,15 +24,18 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
     private readonly IAutopilotHardwareHashCaptureService _hardwareHashCaptureService;
     private readonly IAutopilotHardwareHashUploadService _hardwareHashUploadService;
     private readonly IAutopilotInteractiveRegistrationProvisioningService _interactiveRegistrationProvisioningService;
+    private readonly IAutopilotProfileContentService _autopilotProfileContentService;
 
     public ProvisionAutopilotStep(
         IAutopilotHardwareHashCaptureService hardwareHashCaptureService,
         IAutopilotHardwareHashUploadService hardwareHashUploadService,
-        IAutopilotInteractiveRegistrationProvisioningService interactiveRegistrationProvisioningService)
+        IAutopilotInteractiveRegistrationProvisioningService interactiveRegistrationProvisioningService,
+        IAutopilotProfileContentService autopilotProfileContentService)
     {
         _hardwareHashCaptureService = hardwareHashCaptureService;
         _hardwareHashUploadService = hardwareHashUploadService;
         _interactiveRegistrationProvisioningService = interactiveRegistrationProvisioningService;
+        _autopilotProfileContentService = autopilotProfileContentService;
     }
 
     public override int Order => 19;
@@ -85,7 +89,17 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
 
         context.EmitCurrentStepIndeterminate("Staging Autopilot profile...", "Copying AutopilotConfigurationFile.json...", DeploymentOperationNames.StageAutopilotProfile);
         Directory.CreateDirectory(targetDirectoryPath);
-        File.Copy(sourceConfigurationPath, targetConfigurationPath, overwrite: true);
+        byte[] profileContent = await _autopilotProfileContentService
+            .ReadAsync(context.Request.SelectedAutopilotProfile, cancellationToken)
+            .ConfigureAwait(false);
+        try
+        {
+            await File.WriteAllBytesAsync(targetConfigurationPath, profileContent, cancellationToken).ConfigureAwait(false);
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(profileContent);
+        }
 
         context.RuntimeState.StagedAutopilotConfigurationPath = targetConfigurationPath;
         context.RuntimeState.AutopilotHardwareHashUploadState = AutopilotHardwareHashUploadState.NotPlanned;
