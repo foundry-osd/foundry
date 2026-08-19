@@ -59,7 +59,10 @@ Cleanup rules:
 Configuration schema rules:
 - Treat Foundry authoring configuration, Foundry.Deploy runtime configuration, and Foundry.Connect runtime configuration as separate schema contracts
 - Preserve the separate Foundry authoring, Foundry.Deploy runtime, and Foundry.Connect runtime configuration schemas when adding shared utility capabilities.
-- Keep schema versions monotonic within each contract
+- Treat the schema versions in the latest published GitHub Release tag as the production baseline; values present only on `main`, pull requests, or intermediate builds are not production versions
+- Set each affected schema version to the latest published GitHub Release version plus one, accumulating all unreleased contract changes under that single next version
+- Do not increment a schema version again for additional unreleased changes before the next GitHub Release
+- Keep published schema versions monotonic within each contract
 - Bump a schema version only when the persisted or generated configuration contract changes in a way that affects runtime behavior or compatibility
 - Bump Foundry authoring schema when the user-facing persisted Foundry configuration shape, defaults, migration behavior, or semantic meaning changes
 - Bump Foundry.Deploy runtime schema when Deploy consumes new generated configuration, requires new boot media assets, changes the meaning of an existing Deploy field, or needs older boot media to show a compatibility warning
