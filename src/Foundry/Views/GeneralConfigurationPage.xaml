@@ -110,7 +110,7 @@
                                 Visibility="{x:Bind ViewModel.DeploymentProtectionFieldsVisibility, Mode=OneWay}">
                                 <StackPanel
                                     MinWidth="{ThemeResource FoundryWideInputMinWidth}"
-                                    Spacing="{ThemeResource FoundryCompactStackSpacing}">
+                                    Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
                                     <PasswordBox x:Name="DeploymentProtectionPasswordBox"
                                         PasswordChanged="DeploymentProtectionPasswordBox_PasswordChanged" />
                                     <PasswordBox x:Name="DeploymentProtectionConfirmationBox"
