@@ -530,9 +530,11 @@ Operativni sistem: {4}
   <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Verifikacija opcionalne funkcije Windows-a nije uspela za „{0}“.</value></data>
   <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Odgovarajući NetFx3 izvor je nedostupan. {0}</value></data>
   <data name="Common.Cancel" xml:space="preserve"><value>Otkaži</value></data>
-  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Pristup primeni</value></data>
-  <data name="DeploymentAccess.Prompt" xml:space="preserve"><value>Unesite lozinku za primenu da biste nastavili.</value></data>
+  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Zaštićena primena</value></data>
+  <data name="DeploymentAccess.Heading" xml:space="preserve"><value>Potrebna je lozinka</value></data>
+  <data name="DeploymentAccess.Description" xml:space="preserve"><value>Unesite lozinku tehničara da biste nastavili.</value></data>
   <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>Lozinka za primenu</value></data>
-  <data name="DeploymentAccess.Unlock" xml:space="preserve"><value>Otključaj</value></data>
+  <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Nastavi</value></data>
+  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Prikaži ili sakrij lozinku</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Lozinka nije tačna. Pokušajte ponovo.</value></data>
 </root>

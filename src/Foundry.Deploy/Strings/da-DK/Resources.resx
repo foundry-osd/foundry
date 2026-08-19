@@ -530,9 +530,11 @@ Vil du fortsætte med implementeringen?</value></data>
   <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Bekr&#230;ftelse af valgfri Windows-funktion mislykkedes for &#39;{0}&#39;.</value></data>
   <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Matchende NetFx3-kilde er ikke tilg&#230;ngelig. {0}</value></data>
   <data name="Common.Cancel" xml:space="preserve"><value>Annuller</value></data>
-  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Adgang til installation</value></data>
-  <data name="DeploymentAccess.Prompt" xml:space="preserve"><value>Indtast adgangskoden til installationen for at fortsætte.</value></data>
+  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Beskyttet installation</value></data>
+  <data name="DeploymentAccess.Heading" xml:space="preserve"><value>Adgangskode påkrævet</value></data>
+  <data name="DeploymentAccess.Description" xml:space="preserve"><value>Indtast teknikerens adgangskode for at fortsætte.</value></data>
   <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>Adgangskode til installation</value></data>
-  <data name="DeploymentAccess.Unlock" xml:space="preserve"><value>Lås op</value></data>
+  <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Fortsæt</value></data>
+  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Vis eller skjul adgangskoden</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Adgangskoden er forkert. Prøv igen.</value></data>
 </root>

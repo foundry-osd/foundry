@@ -14,9 +14,11 @@ public sealed class LocalizationResourceTests
     [
         "Common.Cancel",
         "DeploymentAccess.Title",
-        "DeploymentAccess.Prompt",
+        "DeploymentAccess.Heading",
+        "DeploymentAccess.Description",
         "DeploymentAccess.PasswordPlaceholder",
-        "DeploymentAccess.Unlock",
+        "DeploymentAccess.Continue",
+        "DeploymentAccess.TogglePasswordVisibility",
         "DeploymentAccess.InvalidPassword"
     ];
 
@@ -63,7 +65,7 @@ public sealed class LocalizationResourceTests
 
     [Theory]
     [MemberData(nameof(SatelliteCultures))]
-    public void SatelliteResourceSet_IsAvailableForAdkCulture(string cultureName)
+    public void SatelliteResourceSet_IsAvailableForSupportedCulture(string cultureName)
     {
         CultureInfo culture = CultureInfo.GetCultureInfo(cultureName);
 

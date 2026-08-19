@@ -530,9 +530,11 @@ Ali želite nadaljevati z uvajanjem?</value></data>
   <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Preverjanje izbirne funkcije Windows ni uspelo za &#39;{0}&#39;.</value></data>
   <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Ujemanje vira NetFx3 ni na voljo. {0}</value></data>
   <data name="Common.Cancel" xml:space="preserve"><value>Prekliči</value></data>
-  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Dostop do uvajanja</value></data>
-  <data name="DeploymentAccess.Prompt" xml:space="preserve"><value>Za nadaljevanje vnesite geslo za uvajanje.</value></data>
+  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Zaščiteno uvajanje</value></data>
+  <data name="DeploymentAccess.Heading" xml:space="preserve"><value>Zahtevano je geslo</value></data>
+  <data name="DeploymentAccess.Description" xml:space="preserve"><value>Za nadaljevanje vnesite geslo tehnika.</value></data>
   <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>Geslo za uvajanje</value></data>
-  <data name="DeploymentAccess.Unlock" xml:space="preserve"><value>Odkleni</value></data>
+  <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Nadaljuj</value></data>
+  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Pokaži ali skrij geslo</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Geslo ni pravilno. Poskusite znova.</value></data>
 </root>

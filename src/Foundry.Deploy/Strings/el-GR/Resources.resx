@@ -530,9 +530,11 @@
   <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Η επαλήθευση της προαιρετικής δυνατότητας των Windows απέτυχε για το &quot;{0}&quot;.</value></data>
   <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Η αντίστοιχη πηγή NetFx3 δεν είναι διαθέσιμη. {0}</value></data>
   <data name="Common.Cancel" xml:space="preserve"><value>Ακύρωση</value></data>
-  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Πρόσβαση στην ανάπτυξη</value></data>
-  <data name="DeploymentAccess.Prompt" xml:space="preserve"><value>Εισαγάγετε τον κωδικό πρόσβασης ανάπτυξης για να συνεχίσετε.</value></data>
+  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Προστατευμένη ανάπτυξη</value></data>
+  <data name="DeploymentAccess.Heading" xml:space="preserve"><value>Απαιτείται κωδικός πρόσβασης</value></data>
+  <data name="DeploymentAccess.Description" xml:space="preserve"><value>Εισαγάγετε τον κωδικό πρόσβασης τεχνικού για να συνεχίσετε.</value></data>
   <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>Κωδικός πρόσβασης ανάπτυξης</value></data>
-  <data name="DeploymentAccess.Unlock" xml:space="preserve"><value>Ξεκλείδωμα</value></data>
+  <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Συνέχεια</value></data>
+  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Εμφάνιση ή απόκρυψη κωδικού πρόσβασης</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Ο κωδικός πρόσβασης είναι λανθασμένος. Δοκιμάστε ξανά.</value></data>
 </root>

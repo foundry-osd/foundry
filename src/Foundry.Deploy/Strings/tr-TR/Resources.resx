@@ -530,9 +530,11 @@ Dağıtıma devam edilsin mi?</value></data>
   <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>&#39;{0}&#39; i&#231;in Windows isteğe bağlı &#246;zellik doğrulaması başarısız oldu.</value></data>
   <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Eşleşen NetFx3 kaynağı kullanılamıyor. {0}</value></data>
   <data name="Common.Cancel" xml:space="preserve"><value>İptal</value></data>
-  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Dağıtım erişimi</value></data>
-  <data name="DeploymentAccess.Prompt" xml:space="preserve"><value>Devam etmek için dağıtım parolasını girin.</value></data>
+  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Korumalı dağıtım</value></data>
+  <data name="DeploymentAccess.Heading" xml:space="preserve"><value>Parola gerekli</value></data>
+  <data name="DeploymentAccess.Description" xml:space="preserve"><value>Devam etmek için teknisyen parolasını girin.</value></data>
   <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>Dağıtım parolası</value></data>
-  <data name="DeploymentAccess.Unlock" xml:space="preserve"><value>Kilidi aç</value></data>
+  <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Devam</value></data>
+  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Parolayı göster veya gizle</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Parola yanlış. Tekrar deneyin.</value></data>
 </root>

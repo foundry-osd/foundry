@@ -530,9 +530,11 @@
   <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>فشل التحقق من الميزات الاختيارية لنظام التشغيل Windows لـ &#39;{0}&#39;.</value></data>
   <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>مصدر NetFx3 المطابق غير متوفر. {0}</value></data>
   <data name="Common.Cancel" xml:space="preserve"><value>إلغاء</value></data>
-  <data name="DeploymentAccess.Title" xml:space="preserve"><value>الوصول إلى النشر</value></data>
-  <data name="DeploymentAccess.Prompt" xml:space="preserve"><value>أدخل كلمة مرور النشر للمتابعة.</value></data>
+  <data name="DeploymentAccess.Title" xml:space="preserve"><value>النشر المحمي</value></data>
+  <data name="DeploymentAccess.Heading" xml:space="preserve"><value>كلمة المرور مطلوبة</value></data>
+  <data name="DeploymentAccess.Description" xml:space="preserve"><value>أدخل كلمة مرور الفني للمتابعة.</value></data>
   <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>كلمة مرور النشر</value></data>
-  <data name="DeploymentAccess.Unlock" xml:space="preserve"><value>إلغاء القفل</value></data>
+  <data name="DeploymentAccess.Continue" xml:space="preserve"><value>متابعة</value></data>
+  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>إظهار كلمة المرور أو إخفاؤها</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>كلمة المرور غير صحيحة. حاول مرة أخرى.</value></data>
 </root>

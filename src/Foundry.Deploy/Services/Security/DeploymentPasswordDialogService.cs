@@ -16,10 +16,12 @@ public sealed class DeploymentPasswordDialogService(ILocalizationService localiz
         var dialog = new DeploymentPasswordDialog
         {
             Title = localizationService.Strings["DeploymentAccess.Title"],
-            PromptText = localizationService.Strings["DeploymentAccess.Prompt"],
+            HeadingText = localizationService.Strings["DeploymentAccess.Heading"],
+            DescriptionText = localizationService.Strings["DeploymentAccess.Description"],
             PasswordPlaceholder = localizationService.Strings["DeploymentAccess.PasswordPlaceholder"],
-            UnlockText = localizationService.Strings["DeploymentAccess.Unlock"],
+            ContinueText = localizationService.Strings["DeploymentAccess.Continue"],
             CancelText = localizationService.Strings["Common.Cancel"],
+            TogglePasswordVisibilityText = localizationService.Strings["DeploymentAccess.TogglePasswordVisibility"],
             ErrorText = previousAttemptFailed
                 ? localizationService.Strings["DeploymentAccess.InvalidPassword"]
                 : string.Empty,

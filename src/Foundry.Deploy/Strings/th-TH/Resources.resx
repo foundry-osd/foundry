@@ -530,9 +530,11 @@
   <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>การตรวจสอบคุณสมบัติเสริมของ Windows ล้มเหลวสำหรับ &#39;{0}&#39;</value></data>
   <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>การจับคู่แหล่งที่มา NetFx3 ไม่พร้อมใช้งาน {0}</value></data>
   <data name="Common.Cancel" xml:space="preserve"><value>ยกเลิก</value></data>
-  <data name="DeploymentAccess.Title" xml:space="preserve"><value>การเข้าถึงการปรับใช้</value></data>
-  <data name="DeploymentAccess.Prompt" xml:space="preserve"><value>ป้อนรหัสผ่านการปรับใช้เพื่อดำเนินการต่อ</value></data>
+  <data name="DeploymentAccess.Title" xml:space="preserve"><value>การปรับใช้ที่ได้รับการป้องกัน</value></data>
+  <data name="DeploymentAccess.Heading" xml:space="preserve"><value>ต้องใช้รหัสผ่าน</value></data>
+  <data name="DeploymentAccess.Description" xml:space="preserve"><value>ป้อนรหัสผ่านของช่างเทคนิคเพื่อดำเนินการต่อ</value></data>
   <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>รหัสผ่านการปรับใช้</value></data>
-  <data name="DeploymentAccess.Unlock" xml:space="preserve"><value>ปลดล็อก</value></data>
+  <data name="DeploymentAccess.Continue" xml:space="preserve"><value>ดำเนินการต่อ</value></data>
+  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>แสดงหรือซ่อนรหัสผ่าน</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>รหัสผ่านไม่ถูกต้อง โปรดลองอีกครั้ง</value></data>
 </root>

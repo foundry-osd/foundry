@@ -530,9 +530,11 @@
   <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Неуспешна проверка на допълнителната функция на Windows за „{0}“.</value></data>
   <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Съответстващият източник NetFx3 не е наличен. {0}</value></data>
   <data name="Common.Cancel" xml:space="preserve"><value>Отказ</value></data>
-  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Достъп до разполагането</value></data>
-  <data name="DeploymentAccess.Prompt" xml:space="preserve"><value>Въведете паролата за разполагане, за да продължите.</value></data>
+  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Защитено разполагане</value></data>
+  <data name="DeploymentAccess.Heading" xml:space="preserve"><value>Изисква се парола</value></data>
+  <data name="DeploymentAccess.Description" xml:space="preserve"><value>Въведете паролата на техника, за да продължите.</value></data>
   <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>Парола за разполагане</value></data>
-  <data name="DeploymentAccess.Unlock" xml:space="preserve"><value>Отключване</value></data>
+  <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Продължи</value></data>
+  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Показване или скриване на паролата</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Паролата е неправилна. Опитайте отново.</value></data>
 </root>

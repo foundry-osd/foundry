@@ -530,9 +530,11 @@
   <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>“{0}”的 Windows 選用功能驗證失敗。</value></data>
   <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>符合的 NetFx3 來源不可用。 {0}</value></data>
   <data name="Common.Cancel" xml:space="preserve"><value>取消</value></data>
-  <data name="DeploymentAccess.Title" xml:space="preserve"><value>部署存取</value></data>
-  <data name="DeploymentAccess.Prompt" xml:space="preserve"><value>請輸入部署密碼以繼續。</value></data>
+  <data name="DeploymentAccess.Title" xml:space="preserve"><value>受保護的部署</value></data>
+  <data name="DeploymentAccess.Heading" xml:space="preserve"><value>需要密碼</value></data>
+  <data name="DeploymentAccess.Description" xml:space="preserve"><value>請輸入技術人員密碼以繼續。</value></data>
   <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>部署密碼</value></data>
-  <data name="DeploymentAccess.Unlock" xml:space="preserve"><value>解除鎖定</value></data>
+  <data name="DeploymentAccess.Continue" xml:space="preserve"><value>繼續</value></data>
+  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>顯示或隱藏密碼</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>密碼不正確，請再試一次。</value></data>
 </root>

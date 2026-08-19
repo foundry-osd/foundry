@@ -530,9 +530,11 @@
   <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>&#39;{0}&#39; の Windows オプション機能の検証に失敗しました。</value></data>
   <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>一致する NetFx3 ソースは利用できません。 {0}</value></data>
   <data name="Common.Cancel" xml:space="preserve"><value>キャンセル</value></data>
-  <data name="DeploymentAccess.Title" xml:space="preserve"><value>展開へのアクセス</value></data>
-  <data name="DeploymentAccess.Prompt" xml:space="preserve"><value>続行するには展開パスワードを入力してください。</value></data>
+  <data name="DeploymentAccess.Title" xml:space="preserve"><value>保護された展開</value></data>
+  <data name="DeploymentAccess.Heading" xml:space="preserve"><value>パスワードが必要です</value></data>
+  <data name="DeploymentAccess.Description" xml:space="preserve"><value>続行するには、技術者用パスワードを入力してください。</value></data>
   <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>展開パスワード</value></data>
-  <data name="DeploymentAccess.Unlock" xml:space="preserve"><value>ロック解除</value></data>
+  <data name="DeploymentAccess.Continue" xml:space="preserve"><value>続行</value></data>
+  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>パスワードの表示と非表示を切り替える</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>パスワードが正しくありません。もう一度お試しください。</value></data>
 </root>

@@ -530,9 +530,11 @@ Folytatja a telepítést?</value></data>
   <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>A Windows opcion&#225;lis funkci&#243;j&#225;nak ellenőrz&#233;se nem siker&#252;lt a(z) „{0}” eset&#233;ben.</value></data>
   <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>A megfelelő NetFx3 forr&#225;s nem &#233;rhető el. {0}</value></data>
   <data name="Common.Cancel" xml:space="preserve"><value>Mégse</value></data>
-  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Hozzáférés a telepítéshez</value></data>
-  <data name="DeploymentAccess.Prompt" xml:space="preserve"><value>A folytatáshoz adja meg a telepítési jelszót.</value></data>
+  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Védett telepítés</value></data>
+  <data name="DeploymentAccess.Heading" xml:space="preserve"><value>Jelszó szükséges</value></data>
+  <data name="DeploymentAccess.Description" xml:space="preserve"><value>A folytatáshoz adja meg a technikusi jelszót.</value></data>
   <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>Telepítési jelszó</value></data>
-  <data name="DeploymentAccess.Unlock" xml:space="preserve"><value>Feloldás</value></data>
+  <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Folytatás</value></data>
+  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Jelszó megjelenítése vagy elrejtése</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>A jelszó helytelen. Próbálja újra.</value></data>
 </root>
