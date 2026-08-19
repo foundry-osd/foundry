@@ -529,4 +529,10 @@ Doorgaan met de implementatie?</value></data>
   <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>De optionele Windows-functie &#39;{0}&#39; heeft een verwijderde payload en geen ondersteunde lokale brontoewijzing.</value></data>
   <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Verificatie van optionele Windows-functies mislukt voor &#39;{0}&#39;.</value></data>
   <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Overeenkomende NetFx3-bron is niet beschikbaar. {0}</value></data>
+  <data name="Common.Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Deployment access</value></data>
+  <data name="DeploymentAccess.Prompt" xml:space="preserve"><value>Enter the deployment password to continue.</value></data>
+  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>Deployment password</value></data>
+  <data name="DeploymentAccess.Unlock" xml:space="preserve"><value>Unlock</value></data>
+  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>The password is incorrect. Try again.</value></data>
 </root>

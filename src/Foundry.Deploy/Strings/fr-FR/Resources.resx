@@ -529,4 +529,10 @@ Continuer le déploiement ?</value></data>
   <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>La charge utile de la fonctionnalité facultative Windows « {0} » a été supprimée et aucun mappage de source locale n’est pris en charge.</value></data>
   <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>La vérification de la fonctionnalité facultative Windows « {0} » a échoué.</value></data>
   <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>La source NetFx3 correspondante est indisponible. {0}</value></data>
+  <data name="Common.Cancel" xml:space="preserve"><value>Annuler</value></data>
+  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Accès au déploiement</value></data>
+  <data name="DeploymentAccess.Prompt" xml:space="preserve"><value>Saisissez le mot de passe de déploiement pour continuer.</value></data>
+  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>Mot de passe de déploiement</value></data>
+  <data name="DeploymentAccess.Unlock" xml:space="preserve"><value>Déverrouiller</value></data>
+  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Le mot de passe est incorrect. Réessayez.</value></data>
 </root>

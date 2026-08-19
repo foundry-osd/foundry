@@ -3,19 +3,27 @@
 // See the LICENSE file in the project root for more information.
 
 using Microsoft.Extensions.Logging;
+using Foundry.Deploy.Services.Configuration;
+using Foundry.Deploy.Services.Security;
 
 namespace Foundry.Deploy.Services.Deployment;
 
 public sealed class DeploymentExecutionService : IDeploymentExecutionService
 {
     private readonly IDeploymentOrchestrator _deploymentOrchestrator;
+    private readonly IDeployConfigurationService _configurationService;
+    private readonly IDeploymentSecretKeySession _deploymentSecretKeySession;
     private readonly ILogger<DeploymentExecutionService> _logger;
 
     public DeploymentExecutionService(
         IDeploymentOrchestrator deploymentOrchestrator,
+        IDeployConfigurationService configurationService,
+        IDeploymentSecretKeySession deploymentSecretKeySession,
         ILogger<DeploymentExecutionService> logger)
     {
         _deploymentOrchestrator = deploymentOrchestrator;
+        _configurationService = configurationService;
+        _deploymentSecretKeySession = deploymentSecretKeySession;
         _logger = logger;
     }
 
@@ -25,6 +33,17 @@ public sealed class DeploymentExecutionService : IDeploymentExecutionService
 
         try
         {
+            DeployConfigurationLoadResult configuration = _configurationService.LoadOptional();
+            if (configuration.Exists && configuration.Document is null)
+            {
+                return AccessDenied();
+            }
+
+            if (configuration.Document?.Protection.IsEnabled == true && !_deploymentSecretKeySession.IsUnlocked)
+            {
+                return AccessDenied();
+            }
+
             DeploymentResult result = await _deploymentOrchestrator
                 .RunAsync(context)
                 .ConfigureAwait(false);
@@ -51,4 +70,10 @@ public sealed class DeploymentExecutionService : IDeploymentExecutionService
             };
         }
     }
+
+    private static DeploymentExecutionRunResult AccessDenied() => new()
+    {
+        IsSuccess = false,
+        Message = "Deployment access has not been authorized."
+    };
 }

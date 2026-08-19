@@ -61,6 +61,9 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeployConfigurationService, DeployConfigurationService>();
         services.AddSingleton<IDeploymentSecretKeySession, DeploymentSecretKeySession>();
         services.AddSingleton<IDeploymentProtectionUnlockService, DeploymentProtectionUnlockService>();
+        services.AddSingleton<IDeploymentPasswordDialogService, DeploymentPasswordDialogService>();
+        services.AddSingleton<IDeploymentAccessRetryDelay, DeploymentAccessRetryDelay>();
+        services.AddSingleton<IDeploymentAccessGate, DeploymentAccessGate>();
         services.AddSingleton(CreateTelemetryOptions);
         services.AddSingleton(CreateTelemetryContext);
         services.AddSingleton<ITelemetryService>(sp =>

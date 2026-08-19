@@ -529,4 +529,10 @@ Mit der Bereitstellung fortfahren?</value></data>
   <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Die optionale Windows-Funktion „{0}“ hat eine entfernte Nutzlast und keine unterst&#252;tzte lokale Quellenzuordnung.</value></data>
   <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Die &#220;berpr&#252;fung der optionalen Windows-Funktion f&#252;r „{0}“ ist fehlgeschlagen.</value></data>
   <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Die passende NetFx3-Quelle ist nicht verf&#252;gbar. {0}</value></data>
+  <data name="Common.Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Deployment access</value></data>
+  <data name="DeploymentAccess.Prompt" xml:space="preserve"><value>Enter the deployment password to continue.</value></data>
+  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>Deployment password</value></data>
+  <data name="DeploymentAccess.Unlock" xml:space="preserve"><value>Unlock</value></data>
+  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>The password is incorrect. Try again.</value></data>
 </root>

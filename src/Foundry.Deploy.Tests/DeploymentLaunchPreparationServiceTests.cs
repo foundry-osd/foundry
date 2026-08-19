@@ -353,5 +353,9 @@ public sealed class DeploymentLaunchPreparationServiceTests
             LastConfirmationMessage = message;
             return ConfirmationResult;
         }
+
+        public void Shutdown()
+        {
+        }
     }
 }

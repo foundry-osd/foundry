@@ -57,6 +57,11 @@ public sealed class ApplicationShellService : IApplicationShellService
         return result == MessageBoxResult.Yes;
     }
 
+    public void Shutdown()
+    {
+        Application.Current?.Shutdown();
+    }
+
     private static Window? ResolveOwnerWindow()
     {
         if (Application.Current?.Windows is null)

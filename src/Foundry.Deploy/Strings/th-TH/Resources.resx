@@ -529,4 +529,10 @@
   <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>คุณลักษณะเสริมของ Windows &#39;{0}&#39; มีเพย์โหลดที่ถูกลบออก และไม่มีการแมปแหล่งที่มาในเครื่องที่สนับสนุน</value></data>
   <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>การตรวจสอบคุณสมบัติเสริมของ Windows ล้มเหลวสำหรับ &#39;{0}&#39;</value></data>
   <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>การจับคู่แหล่งที่มา NetFx3 ไม่พร้อมใช้งาน {0}</value></data>
+  <data name="Common.Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Deployment access</value></data>
+  <data name="DeploymentAccess.Prompt" xml:space="preserve"><value>Enter the deployment password to continue.</value></data>
+  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>Deployment password</value></data>
+  <data name="DeploymentAccess.Unlock" xml:space="preserve"><value>Unlock</value></data>
+  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>The password is incorrect. Try again.</value></data>
 </root>

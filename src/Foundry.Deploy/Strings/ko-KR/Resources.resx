@@ -529,4 +529,10 @@
   <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Windows 선택적 기능 &#39;{0}&#39;의 페이로드가 제거되어 있으며 지원되는 로컬 원본 매핑이 없습니다.</value></data>
   <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>&#39;{0}&#39;에 대한 Windows 선택적 기능 확인에 실패했습니다.</value></data>
   <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>일치하는 NetFx3 소스를 사용할 수 없습니다. {0}</value></data>
+  <data name="Common.Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Deployment access</value></data>
+  <data name="DeploymentAccess.Prompt" xml:space="preserve"><value>Enter the deployment password to continue.</value></data>
+  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>Deployment password</value></data>
+  <data name="DeploymentAccess.Unlock" xml:space="preserve"><value>Unlock</value></data>
+  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>The password is incorrect. Try again.</value></data>
 </root>
