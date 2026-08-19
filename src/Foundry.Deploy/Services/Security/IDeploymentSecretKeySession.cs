@@ -4,7 +4,7 @@
 
 namespace Foundry.Deploy.Services.Security;
 
-public interface IDeploymentSecretKeySession
+public interface IDeploymentSecretKeySession : IDisposable
 {
     bool IsUnlocked { get; }
 

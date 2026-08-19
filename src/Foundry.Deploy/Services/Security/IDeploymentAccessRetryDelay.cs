@@ -6,5 +6,5 @@ namespace Foundry.Deploy.Services.Security;
 
 public interface IDeploymentAccessRetryDelay
 {
-    Task WaitAsync(CancellationToken cancellationToken);
+    Task WaitAsync(int failedAttemptNumber, CancellationToken cancellationToken);
 }

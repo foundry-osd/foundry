@@ -26,6 +26,7 @@ public sealed class DeploymentAccessGate(
         }
 
         bool previousAttemptFailed = false;
+        int failedAttemptCount = 0;
         while (true)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -41,7 +42,8 @@ public sealed class DeploymentAccessGate(
             }
 
             previousAttemptFailed = true;
-            await retryDelay.WaitAsync(cancellationToken);
+            failedAttemptCount++;
+            await retryDelay.WaitAsync(failedAttemptCount, cancellationToken);
         }
     }
 }

@@ -8,7 +8,6 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Foundry.Core.Models.Network;
 using Foundry.Core.Models.Configuration;
-using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Deployment.PreOobe;
 using Microsoft.Extensions.Logging;
 using CoreDeployNetworkProfileRoamingSettings = Foundry.Core.Models.Configuration.Deploy.DeployNetworkProfileRoamingSettings;
@@ -31,14 +30,14 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
         WriteIndented = true
     };
 
-    private readonly IMediaSecretKeyReader _mediaSecretKeyReader;
+    private readonly INetworkSecretKeyReader _networkSecretKeyReader;
     private readonly ILogger<NetworkProfileRoamingArtifactService> _logger;
 
     public NetworkProfileRoamingArtifactService(
-        IMediaSecretKeyReader mediaSecretKeyReader,
+        INetworkSecretKeyReader networkSecretKeyReader,
         ILogger<NetworkProfileRoamingArtifactService> logger)
     {
-        _mediaSecretKeyReader = mediaSecretKeyReader;
+        _networkSecretKeyReader = networkSecretKeyReader;
         _logger = logger;
     }
 
@@ -218,7 +217,7 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
             {
                 if (!string.IsNullOrWhiteSpace(certificate.PasswordSecretRelativePath))
                 {
-                    mediaSecretKey ??= await _mediaSecretKeyReader.ReadAsync(workspaceRootPath, cancellationToken).ConfigureAwait(false);
+                    mediaSecretKey ??= await _networkSecretKeyReader.ReadAsync(workspaceRootPath, cancellationToken).ConfigureAwait(false);
                 }
 
                 passwordRelativePath = await AddPfxPasswordDataFileAsync(

@@ -10,6 +10,15 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class DeploymentAccessGateTests
 {
+    [Theory]
+    [InlineData(1, 1)]
+    [InlineData(2, 2)]
+    [InlineData(6, 5)]
+    public void RetryDelay_IsProgressiveAndCapped(int failedAttemptNumber, int expectedSeconds)
+    {
+        Assert.Equal(TimeSpan.FromSeconds(expectedSeconds), DeploymentAccessRetryDelay.GetDelay(failedAttemptNumber));
+    }
+
     [Fact]
     public async Task AuthorizeAsync_WhenProtectionIsDisabled_DoesNotPrompt()
     {
@@ -31,6 +40,7 @@ public sealed class DeploymentAccessGateTests
     {
         var dialog = new FakePasswordDialogService("wrong", "correct");
         var unlock = new FakeUnlockService("correct");
+        var retryDelay = new ImmediateRetryDelay();
         var gate = new DeploymentAccessGate(
             new FakeConfigurationService(new FoundryDeployConfigurationDocument
             {
@@ -38,13 +48,14 @@ public sealed class DeploymentAccessGateTests
             }),
             unlock,
             dialog,
-            new ImmediateRetryDelay());
+            retryDelay);
 
         bool authorized = await gate.AuthorizeAsync(TestContext.Current.CancellationToken);
 
         Assert.True(authorized);
         Assert.Equal(2, dialog.PromptCount);
         Assert.Equal([false, true], dialog.PreviousAttemptFailedValues);
+        Assert.Equal([1], retryDelay.Attempts);
     }
 
     [Fact]
@@ -113,6 +124,12 @@ public sealed class DeploymentAccessGateTests
 
     private sealed class ImmediateRetryDelay : IDeploymentAccessRetryDelay
     {
-        public Task WaitAsync(CancellationToken cancellationToken) => Task.CompletedTask;
+        public List<int> Attempts { get; } = [];
+
+        public Task WaitAsync(int failedAttemptNumber, CancellationToken cancellationToken)
+        {
+            Attempts.Add(failedAttemptNumber);
+            return Task.CompletedTask;
+        }
     }
 }

@@ -6,6 +6,14 @@ namespace Foundry.Deploy.Services.Security;
 
 public sealed class DeploymentAccessRetryDelay : IDeploymentAccessRetryDelay
 {
-    public Task WaitAsync(CancellationToken cancellationToken) =>
-        Task.Delay(TimeSpan.FromMilliseconds(500), cancellationToken);
+    public Task WaitAsync(int failedAttemptNumber, CancellationToken cancellationToken)
+    {
+        return Task.Delay(GetDelay(failedAttemptNumber), cancellationToken);
+    }
+
+    internal static TimeSpan GetDelay(int failedAttemptNumber)
+    {
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(failedAttemptNumber);
+        return TimeSpan.FromSeconds(Math.Min(failedAttemptNumber, 5));
+    }
 }
