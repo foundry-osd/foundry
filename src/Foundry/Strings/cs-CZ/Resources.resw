@@ -1294,19 +1294,16 @@
     <value>Vyberte časové pásmo použité během nasazení.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Po úspěšném nasazení</value>
+    <value>Automatické restartování</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Zvolte, zda a kdy se má zařízení po nasazení restartovat.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Restartovat automaticky</value>
+    <value>Zvolte, zda se má zařízení po úspěšném nasazení automaticky restartovat.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Prodleva před restartováním</value>
+    <value>Prodleva restartování</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Zadejte prodlevu od 0 do 3600 sekund. Hodnota 0 znamená okamžité restartování.</value>
+    <value>Nastavte prodlevu před restartováním zařízení. Zadáním hodnoty 0 se zařízení restartuje okamžitě.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Zabezpečené spouštění</value>
@@ -2769,5 +2766,29 @@
   </data>
   <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
     <value>Změnit režim</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
+    <value>Ochrana heslem</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
+    <value>Před zahájením nasazení vyžadovat heslo technika.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
+    <value>Heslo pro nasazení</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
+    <value>Heslo nelze obnovit. Přihlašovací údaje a profily Autopilot na chráněném médiu jsou tímto heslem zašifrovány.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Password.Placeholder" xml:space="preserve">
+    <value>Heslo</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" xml:space="preserve">
+    <value>Potvrďte heslo</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Validation" xml:space="preserve">
+    <value>Zadejte shodná hesla o délce alespoň 8 znaků.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
+    <value>Pro vyšší úroveň ochrany použijte alespoň 12 znaků nebo přístupovou frázi.</value>
   </data>
 </root>

@@ -467,7 +467,7 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
         return Convert.ToBase64String(bytes).TrimEnd('=').Replace('+', '-').Replace('/', '_');
     }
 
-    private sealed class FakeMediaSecretKeyReader(byte[] key) : IMediaSecretKeyReader
+    private sealed class FakeMediaSecretKeyReader(byte[] key) : INetworkSecretKeyReader
     {
         public Task<byte[]> ReadAsync(string workspaceRootPath, CancellationToken cancellationToken = default)
         {

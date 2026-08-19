@@ -1294,19 +1294,16 @@
     <value>选择部署期间应用的时区。</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>成功部署后</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>选择设备是否以及何时在部署后重启。</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
     <value>自动重启</value>
   </data>
+  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
+    <value>选择设备是否在部署成功后自动重启。</value>
+  </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>重启前延迟</value>
+    <value>重启延迟</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>输入 0 到 3600 秒的延迟。使用 0 可立即重启。</value>
+    <value>设置设备重启前的延迟时间。输入 0 可立即重启。</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>安全启动</value>
@@ -2769,5 +2766,29 @@
   </data>
   <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
     <value>更改模式</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
+    <value>密码保护</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
+    <value>开始部署前要求输入技术人员密码。</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
+    <value>部署密码</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
+    <value>密码无法恢复。受保护介质上的凭据和 Autopilot 配置文件将使用该密码加密。</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Password.Placeholder" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" xml:space="preserve">
+    <value>确认密码</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Validation" xml:space="preserve">
+    <value>请输入至少包含 8 个字符且相同的密码。</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
+    <value>为增强保护，请使用至少 12 个字符或密码短语。</value>
   </data>
 </root>

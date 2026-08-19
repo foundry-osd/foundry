@@ -3,18 +3,19 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
+using Foundry.Utilities.Security;
 
-namespace Foundry.Deploy.Services.Autopilot;
+namespace Foundry.Deploy.Services.Network;
 
-public interface IMediaSecretKeyReader
+public interface INetworkSecretKeyReader
 {
     Task<byte[]> ReadAsync(string workspaceRootPath, CancellationToken cancellationToken = default);
 }
 
 /// <summary>
-/// Reads the generated boot media secret key from X:\Foundry\Config\Secrets\media-secrets.key.
+/// Reads the Foundry Connect network key from the generated boot media.
 /// </summary>
-public sealed class MediaSecretKeyReader : IMediaSecretKeyReader
+public sealed class NetworkSecretKeyReader : INetworkSecretKeyReader
 {
     private const string KeyRelativePath = @"Config\Secrets\media-secrets.key";
 
@@ -25,13 +26,14 @@ public sealed class MediaSecretKeyReader : IMediaSecretKeyReader
         string keyPath = Path.Combine(workspaceRootPath, KeyRelativePath);
         if (!File.Exists(keyPath))
         {
-            throw new FileNotFoundException("Autopilot media secret key was not found in the boot media configuration.", keyPath);
+            throw new FileNotFoundException("Network secret key was not found in the boot media configuration.", keyPath);
         }
 
         byte[] key = await File.ReadAllBytesAsync(keyPath, cancellationToken).ConfigureAwait(false);
-        if (key.Length != DeployMediaSecretEnvelopeProtector.KeySizeBytes)
+        if (key.Length != AesGcmEncryption.KeySizeBytes)
         {
-            throw new InvalidOperationException("Autopilot media secret key has an invalid length.");
+            global::System.Security.Cryptography.CryptographicOperations.ZeroMemory(key);
+            throw new InvalidOperationException("Network secret key has an invalid length.");
         }
 
         return key;

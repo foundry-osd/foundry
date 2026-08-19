@@ -1294,19 +1294,16 @@
     <value>Wählen Sie die Zeitzone aus, die während der Bereitstellung angewendet wird.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Nach erfolgreicher Bereitstellung</value>
+    <value>Automatischer Neustart</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Wählen Sie aus, ob und wann das Gerät nach der Bereitstellung neu gestartet wird.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Automatisch neu starten</value>
+    <value>Legen Sie fest, ob das Gerät nach einer erfolgreichen Bereitstellung automatisch neu gestartet wird.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Verzögerung vor dem Neustart</value>
+    <value>Neustartverzögerung</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Geben Sie eine Verzögerung von 0 bis 3600 Sekunden ein. Mit 0 wird sofort neu gestartet.</value>
+    <value>Legen Sie die Verzögerung vor dem Neustart des Geräts fest. Verwenden Sie 0 für einen sofortigen Neustart.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Sicherer Start</value>
@@ -2769,5 +2766,29 @@
   </data>
   <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
     <value>Modus ändern</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
+    <value>Kennwortschutz</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
+    <value>Vor dem Start einer Bereitstellung ein Technikerkennwort anfordern.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
+    <value>Bereitstellungskennwort</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
+    <value>Das Kennwort kann nicht wiederhergestellt werden. Anmeldeinformationen und Autopilot-Profile auf geschützten Medien werden damit verschlüsselt.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Password.Placeholder" xml:space="preserve">
+    <value>Kennwort</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" xml:space="preserve">
+    <value>Kennwort bestätigen</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Validation" xml:space="preserve">
+    <value>Geben Sie übereinstimmende Kennwörter mit mindestens 8 Zeichen ein.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
+    <value>Verwenden Sie für stärkeren Schutz mindestens 12 Zeichen oder eine Passphrase.</value>
   </data>
 </root>

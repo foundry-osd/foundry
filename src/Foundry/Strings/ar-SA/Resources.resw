@@ -1294,19 +1294,16 @@
     <value>اختر المنطقة الزمنية المطبقة أثناء النشر.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>بعد النشر الناجح</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>اختر ما إذا كان الجهاز سيُعاد تشغيله بعد النشر وموعد ذلك.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
     <value>إعادة التشغيل تلقائيًا</value>
   </data>
+  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
+    <value>اختر ما إذا كان الجهاز سيُعاد تشغيله تلقائيًا بعد نجاح عملية النشر.</value>
+  </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>التأخير قبل إعادة التشغيل</value>
+    <value>مهلة إعادة التشغيل</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>أدخل مهلة من 0 إلى 3600 ثانية. استخدم 0 لإعادة التشغيل فورًا.</value>
+    <value>حدّد المهلة قبل إعادة تشغيل الجهاز. استخدم 0 لإعادة التشغيل فورًا.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>التمهيد الآمن</value>
@@ -2769,5 +2766,29 @@
   </data>
   <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
     <value>تغيير النمط</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
+    <value>الحماية بكلمة مرور</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
+    <value>اطلب كلمة مرور فني قبل بدء عملية النشر.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
+    <value>كلمة مرور النشر</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
+    <value>لا يمكن استرداد كلمة المرور. يتم استخدامها لتشفير بيانات الاعتماد وملفات تعريف Autopilot الموجودة على الوسائط المحمية.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Password.Placeholder" xml:space="preserve">
+    <value>كلمة المرور</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" xml:space="preserve">
+    <value>تأكيد كلمة المرور</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Validation" xml:space="preserve">
+    <value>أدخل كلمتي مرور متطابقتين تتكونان من 8 أحرف على الأقل.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
+    <value>لحماية أقوى، استخدم 12 حرفًا على الأقل أو عبارة مرور.</value>
   </data>
 </root>

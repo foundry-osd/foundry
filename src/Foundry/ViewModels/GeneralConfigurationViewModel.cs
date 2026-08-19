@@ -24,6 +24,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
     private const string AutomaticSelectionValue = "";
 
     private readonly IFoundryConfigurationStateService configurationStateService;
+    private readonly IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService;
     private readonly IAdkService adkService;
     private readonly IWinPeLanguageDiscoveryService winPeLanguageDiscoveryService;
     private readonly IFilePickerService filePickerService;
@@ -36,6 +37,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
 
     public GeneralConfigurationViewModel(
         IFoundryConfigurationStateService configurationStateService,
+        IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService,
         IAdkService adkService,
         IWinPeLanguageDiscoveryService winPeLanguageDiscoveryService,
         IFilePickerService filePickerService,
@@ -43,6 +45,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
         ILogger logger)
     {
         this.configurationStateService = configurationStateService;
+        this.deploymentProtectionSecretStateService = deploymentProtectionSecretStateService;
         this.adkService = adkService;
         this.winPeLanguageDiscoveryService = winPeLanguageDiscoveryService;
         this.filePickerService = filePickerService;
@@ -58,6 +61,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
         GeneralSettings general = configurationStateService.Current.General;
         SelectedArchitecture = SelectOption(Architectures, general.Architecture);
         UseCa2023Signature = general.UseCa2023;
+        IsDeploymentProtectionEnabled = general.DeploymentProtection.IsEnabled;
         IncludeDellDrivers = general.IncludeDellDrivers;
         IncludeHpDrivers = general.IncludeHpDrivers;
         AutomaticRebootEnabled = general.AutomaticRebootEnabled;
@@ -70,6 +74,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
 
         configurationStateService.StateChanged += OnConfigurationStateChanged;
         isInitializing = false;
+        RefreshDeploymentProtectionState();
     }
 
     /// <summary>
@@ -98,6 +103,15 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
 
     [ObservableProperty]
     public partial bool UseCa2023Signature { get; set; }
+
+    [ObservableProperty]
+    public partial bool IsDeploymentProtectionEnabled { get; set; }
+
+    [ObservableProperty]
+    public partial bool IsDeploymentProtectionPasswordValid { get; set; }
+
+    [ObservableProperty]
+    public partial bool ShouldRecommendStrongerDeploymentPassword { get; set; }
 
     [ObservableProperty]
     public partial bool IncludeDellDrivers { get; set; }
@@ -135,6 +149,19 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
     /// </summary>
     public Visibility WinPeLanguageUnavailableVisibility => HasWinPeLanguages ? Visibility.Collapsed : Visibility.Visible;
 
+    public Visibility DeploymentProtectionFieldsVisibility =>
+        IsDeploymentProtectionEnabled ? Visibility.Visible : Visibility.Collapsed;
+
+    public Visibility DeploymentProtectionValidationVisibility =>
+        IsDeploymentProtectionEnabled &&
+        (deploymentProtectionSecretStateService.HasPassword || deploymentProtectionSecretStateService.HasConfirmation) &&
+        !IsDeploymentProtectionPasswordValid
+            ? Visibility.Visible
+            : Visibility.Collapsed;
+
+    public Visibility DeploymentProtectionRecommendationVisibility =>
+        ShouldRecommendStrongerDeploymentPassword ? Visibility.Visible : Visibility.Collapsed;
+
     public string DocumentationUrl => FoundryApplicationInfo.GeneralConfigurationDocumentationUrl;
 
     /// <inheritdoc />
@@ -160,7 +187,29 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
     /// </summary>
     public void RefreshAdkState()
     {
-        CanCreateMedia = adkService.CurrentStatus.CanCreateMedia;
+        RefreshMediaReadiness();
+    }
+
+    public void SetDeploymentProtectionPassword(string? value)
+    {
+        deploymentProtectionSecretStateService.SetPassword(value);
+        RefreshDeploymentProtectionState();
+    }
+
+    public void SetDeploymentProtectionPasswordConfirmation(string? value)
+    {
+        deploymentProtectionSecretStateService.SetConfirmation(value);
+        RefreshDeploymentProtectionState();
+    }
+
+    public char[] GetDeploymentProtectionPasswordCopy()
+    {
+        return deploymentProtectionSecretStateService.GetPasswordCopy();
+    }
+
+    public char[] GetDeploymentProtectionPasswordConfirmationCopy()
+    {
+        return deploymentProtectionSecretStateService.GetConfirmationCopy();
     }
 
     public void RefreshLocalizedText()
@@ -178,7 +227,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
         AvailableWinPeLanguages.Clear();
         HasWinPeLanguages = false;
 
-        if (!CanCreateMedia)
+        if (!adkService.CurrentStatus.CanCreateMedia)
         {
             WinPeLanguageUnavailableDescription = localizationService.GetString("GeneralConfiguration.WinPeLanguage.AdkBlocked");
             SelectedWinPeLanguage = null;
@@ -292,6 +341,26 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
         Save(configurationStateService.Current.General with { UseCa2023 = value });
     }
 
+    partial void OnIsDeploymentProtectionEnabledChanged(bool value)
+    {
+        OnPropertyChanged(nameof(DeploymentProtectionFieldsVisibility));
+        if (isInitializing)
+        {
+            return;
+        }
+
+        if (!value)
+        {
+            deploymentProtectionSecretStateService.Clear();
+        }
+
+        Save(configurationStateService.Current.General with
+        {
+            DeploymentProtection = new DeploymentProtectionSettings { IsEnabled = value }
+        });
+        RefreshDeploymentProtectionState();
+    }
+
     partial void OnIncludeDellDriversChanged(bool value)
     {
         if (isInitializing)
@@ -360,6 +429,21 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
     private void Save(GeneralSettings settings)
     {
         configurationStateService.UpdateGeneral(settings);
+    }
+
+    private void RefreshDeploymentProtectionState()
+    {
+        IsDeploymentProtectionPasswordValid = deploymentProtectionSecretStateService.IsValid;
+        ShouldRecommendStrongerDeploymentPassword = deploymentProtectionSecretStateService.ShouldRecommendStrongerPassword;
+        OnPropertyChanged(nameof(DeploymentProtectionValidationVisibility));
+        OnPropertyChanged(nameof(DeploymentProtectionRecommendationVisibility));
+        RefreshMediaReadiness();
+    }
+
+    private void RefreshMediaReadiness()
+    {
+        CanCreateMedia = adkService.CurrentStatus.CanCreateMedia &&
+            (!IsDeploymentProtectionEnabled || deploymentProtectionSecretStateService.IsValid);
     }
 
     private void ApplyLocalizationState(LocalizationSettings settings)

@@ -1294,19 +1294,16 @@
     <value>Изберете часовата зона, прилагана по време на разполагане.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>След успешно разполагане</value>
+    <value>Автоматично рестартиране</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Изберете дали и кога устройството да се рестартира след разполагането.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Автоматично рестартиране</value>
+    <value>Изберете дали устройството да се рестартира автоматично след успешно разполагане.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
     <value>Забавяне преди рестартиране</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Въведете забавяне от 0 до 3600 секунди. Използвайте 0 за незабавно рестартиране.</value>
+    <value>Задайте забавянето преди рестартиране на устройството. Използвайте 0 за незабавно рестартиране.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Защитено стартиране</value>
@@ -2769,5 +2766,29 @@
   </data>
   <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
     <value>Промяна на режима</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
+    <value>Защита с парола</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
+    <value>Изискване на парола на техник преди започване на разполагането.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
+    <value>Парола за разполагане</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
+    <value>Паролата не може да бъде възстановена. С нея се шифроват идентификационните данни и профилите на Autopilot в защитения носител.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Password.Placeholder" xml:space="preserve">
+    <value>Парола</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" xml:space="preserve">
+    <value>Потвърдете паролата</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Validation" xml:space="preserve">
+    <value>Въведете съвпадащи пароли с поне 8 знака.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
+    <value>За по-силна защита използвайте поне 12 знака или фраза за достъп.</value>
   </data>
 </root>

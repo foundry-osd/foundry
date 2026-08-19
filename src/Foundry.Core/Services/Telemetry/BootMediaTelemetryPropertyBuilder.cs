@@ -73,6 +73,7 @@ public static class BootMediaTelemetryPropertyBuilder
             ["boot_media_deploy_runtime_payload_source"] = deployRuntimePayloadSource,
             ["autopilot_enabled"] = options.IsAutopilotEnabled,
             ["autopilot_provisioning_mode"] = ResolveAutopilotProvisioningMode(options),
+            ["deployment_protection_enabled"] = document.General.DeploymentProtection.IsEnabled,
             ["deployment_reboot_mode"] = rebootPolicy.Mode
         };
 

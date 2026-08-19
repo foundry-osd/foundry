@@ -529,4 +529,12 @@ Kontynuować wdrażanie?</value></data>
   <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Opcjonalna funkcja systemu Windows „{0}” ma usunięty ładunek i nie jest obsługiwane lokalne mapowanie źr&#243;dła.</value></data>
   <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Weryfikacja opcjonalnych funkcji systemu Windows nie powiodła się dla „{0}”.</value></data>
   <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Pasujące źr&#243;dło NetFx3 jest niedostępne. {0}</value></data>
+  <data name="Common.Cancel" xml:space="preserve"><value>Anuluj</value></data>
+  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Chronione wdrożenie</value></data>
+  <data name="DeploymentAccess.Heading" xml:space="preserve"><value>Wymagane hasło</value></data>
+  <data name="DeploymentAccess.Description" xml:space="preserve"><value>Wprowadź hasło technika, aby kontynuować.</value></data>
+  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>Hasło wdrożenia</value></data>
+  <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Kontynuuj</value></data>
+  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Pokaż lub ukryj hasło</value></data>
+  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Hasło jest nieprawidłowe. Spróbuj ponownie.</value></data>
 </root>

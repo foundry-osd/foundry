@@ -1294,19 +1294,16 @@
     <value>Wybierz strefę czasową stosowaną podczas wdrażania.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Po pomyślnym wdrożeniu</value>
+    <value>Automatyczne ponowne uruchamianie</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Wybierz, czy i kiedy urządzenie ma zostać ponownie uruchomione po wdrożeniu.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Uruchom ponownie automatycznie</value>
+    <value>Wybierz, czy urządzenie ma zostać automatycznie ponownie uruchomione po pomyślnym wdrożeniu.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Opóźnienie przed ponownym uruchomieniem</value>
+    <value>Opóźnienie ponownego uruchomienia</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Wprowadź opóźnienie od 0 do 3600 sekund. Użyj wartości 0, aby uruchomić ponownie natychmiast.</value>
+    <value>Ustaw opóźnienie przed ponownym uruchomieniem urządzenia. Użyj wartości 0, aby uruchomić je ponownie natychmiast.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Bezpieczny rozruch</value>
@@ -2769,5 +2766,29 @@
   </data>
   <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
     <value>Zmień tryb</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
+    <value>Ochrona hasłem</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
+    <value>Wymagaj hasła technika przed rozpoczęciem wdrożenia.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
+    <value>Hasło wdrożenia</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
+    <value>Hasła nie można odzyskać. Dane uwierzytelniające i profile Autopilot na chronionym nośniku są nim szyfrowane.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Password.Placeholder" xml:space="preserve">
+    <value>Hasło</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" xml:space="preserve">
+    <value>Potwierdź hasło</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Validation" xml:space="preserve">
+    <value>Wprowadź zgodne hasła o długości co najmniej 8 znaków.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
+    <value>Aby zwiększyć ochronę, użyj co najmniej 12 znaków lub frazy hasłowej.</value>
   </data>
 </root>

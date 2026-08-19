@@ -1294,19 +1294,16 @@
     <value>Scegli il fuso orario applicato durante la distribuzione.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Dopo la distribuzione completata</value>
+    <value>Riavvio automatico</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Scegliere se e quando riavviare il dispositivo dopo la distribuzione.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Riavvia automaticamente</value>
+    <value>Scegli se riavviare automaticamente il dispositivo dopo una distribuzione riuscita.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Ritardo prima del riavvio</value>
+    <value>Ritardo del riavvio</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Immettere un ritardo da 0 a 3600 secondi. Usare 0 per riavviare immediatamente.</value>
+    <value>Imposta il ritardo prima del riavvio del dispositivo. Utilizza 0 per riavviarlo immediatamente.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Avvio protetto</value>
@@ -2769,5 +2766,29 @@
   </data>
   <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
     <value>Cambia modalità</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
+    <value>Protezione con password</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
+    <value>Richiedi la password di un tecnico prima di avviare una distribuzione.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
+    <value>Password di distribuzione</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
+    <value>La password non può essere recuperata. Le credenziali e i profili Autopilot presenti sul supporto protetto vengono crittografati con questa password.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Password.Placeholder" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" xml:space="preserve">
+    <value>Conferma password</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Validation" xml:space="preserve">
+    <value>Inserisci password corrispondenti di almeno 8 caratteri.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
+    <value>Per una protezione maggiore, utilizza almeno 12 caratteri o una passphrase.</value>
   </data>
 </root>

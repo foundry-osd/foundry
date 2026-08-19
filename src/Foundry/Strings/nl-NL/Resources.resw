@@ -1294,19 +1294,16 @@
     <value>Kies de tijdzone die tijdens de implementatie wordt toegepast.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Na een geslaagde implementatie</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Kies of en wanneer het apparaat na de implementatie opnieuw wordt opgestart.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
     <value>Automatisch opnieuw opstarten</value>
   </data>
+  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
+    <value>Kies of het apparaat automatisch opnieuw wordt opgestart na een geslaagde implementatie.</value>
+  </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Vertraging vóór opnieuw opstarten</value>
+    <value>Vertraging voor opnieuw opstarten</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Voer een vertraging van 0 tot 3600 seconden in. Gebruik 0 om onmiddellijk opnieuw op te starten.</value>
+    <value>Stel de vertraging in voordat het apparaat opnieuw wordt opgestart. Gebruik 0 om het direct opnieuw op te starten.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Veilig opstarten</value>
@@ -2769,5 +2766,29 @@
   </data>
   <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
     <value>Modus wijzigen</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
+    <value>Wachtwoordbeveiliging</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
+    <value>Vereis een technicuswachtwoord voordat een implementatie wordt gestart.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
+    <value>Implementatiewachtwoord</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
+    <value>Het wachtwoord kan niet worden hersteld. Referenties en Autopilot-profielen op beveiligde media worden ermee versleuteld.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Password.Placeholder" xml:space="preserve">
+    <value>Wachtwoord</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" xml:space="preserve">
+    <value>Wachtwoord bevestigen</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Validation" xml:space="preserve">
+    <value>Voer overeenkomende wachtwoorden van minimaal 8 tekens in.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
+    <value>Gebruik voor betere beveiliging minimaal 12 tekens of een wachtwoordzin.</value>
   </data>
 </root>

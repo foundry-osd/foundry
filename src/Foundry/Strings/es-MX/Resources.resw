@@ -1294,19 +1294,16 @@
     <value>Elige la zona horaria aplicada durante la implementación.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Después de una implementación correcta</value>
+    <value>Reinicio automático</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Elija si el dispositivo se reinicia después de la implementación y cuándo.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Reiniciar automáticamente</value>
+    <value>Elige si el dispositivo se reinicia automáticamente después de una implementación exitosa.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Retraso antes del reinicio</value>
+    <value>Retraso del reinicio</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Ingrese un retraso de 0 a 3600 segundos. Use 0 para reiniciar inmediatamente.</value>
+    <value>Establece el tiempo de espera antes de que el dispositivo se reinicie. Usa 0 para reiniciarlo de inmediato.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Arranque seguro</value>
@@ -2769,5 +2766,29 @@
   </data>
   <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
     <value>Cambiar modo</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
+    <value>Protección con contraseña</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
+    <value>Solicitar la contraseña de un técnico antes de iniciar una implementación.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
+    <value>Contraseña de implementación</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
+    <value>La contraseña no se puede recuperar. Las credenciales y los perfiles de Autopilot del medio protegido se cifran con ella.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Password.Placeholder" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" xml:space="preserve">
+    <value>Confirmar contraseña</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Validation" xml:space="preserve">
+    <value>Ingresa contraseñas coincidentes de al menos 8 caracteres.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
+    <value>Para una mayor protección, usa al menos 12 caracteres o una frase de contraseña.</value>
   </data>
 </root>

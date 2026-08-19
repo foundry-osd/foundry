@@ -1294,19 +1294,16 @@
     <value>Izaberite vremensku zonu koja se primenjuje tokom primene.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Nakon uspešne primene</value>
+    <value>Automatsko ponovno pokretanje</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Odaberite da li će se i kada uređaj ponovo pokrenuti nakon primene.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Automatski ponovo pokreni</value>
+    <value>Izaberite da li će se uređaj automatski ponovo pokrenuti nakon uspešne primene.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Odlaganje pre ponovnog pokretanja</value>
+    <value>Odlaganje ponovnog pokretanja</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Unesite odlaganje od 0 do 3600 sekundi. Koristite 0 za trenutno ponovno pokretanje.</value>
+    <value>Podesite vreme odlaganja pre nego što se uređaj ponovo pokrene. Koristite 0 za trenutno ponovno pokretanje.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Bezbedno pokretanje</value>
@@ -2769,5 +2766,29 @@
   </data>
   <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
     <value>Promeni režim</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
+    <value>Zaštita lozinkom</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
+    <value>Zahtevaj lozinku tehničara pre pokretanja primene.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
+    <value>Lozinka za primenu</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
+    <value>Lozinku nije moguće oporaviti. Akreditivi i Autopilot profili na zaštićenom medijumu šifruju se pomoću nje.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Password.Placeholder" xml:space="preserve">
+    <value>Lozinka</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" xml:space="preserve">
+    <value>Potvrdite lozinku</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Validation" xml:space="preserve">
+    <value>Unesite lozinke koje se podudaraju i imaju najmanje 8 znakova.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
+    <value>Za bolju zaštitu koristite najmanje 12 znakova ili pristupnu frazu.</value>
   </data>
 </root>

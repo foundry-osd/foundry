@@ -10,6 +10,18 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class LocalizationResourceTests
 {
+    private static readonly string[] DeploymentAccessResourceKeys =
+    [
+        "Common.Cancel",
+        "DeploymentAccess.Title",
+        "DeploymentAccess.Heading",
+        "DeploymentAccess.Description",
+        "DeploymentAccess.PasswordPlaceholder",
+        "DeploymentAccess.Continue",
+        "DeploymentAccess.TogglePasswordVisibility",
+        "DeploymentAccess.InvalidPassword"
+    ];
+
     public static TheoryData<string> SatelliteCultures => new()
     {
         "ar-SA",
@@ -53,7 +65,7 @@ public sealed class LocalizationResourceTests
 
     [Theory]
     [MemberData(nameof(SatelliteCultures))]
-    public void SatelliteResourceSet_IsAvailableForAdkCulture(string cultureName)
+    public void SatelliteResourceSet_IsAvailableForSupportedCulture(string cultureName)
     {
         CultureInfo culture = CultureInfo.GetCultureInfo(cultureName);
 
@@ -64,5 +76,9 @@ public sealed class LocalizationResourceTests
 
         Assert.NotNull(resourceSet);
         Assert.Equal("Foundry Deploy", resourceSet.GetString("App.Name"));
+        foreach (string key in DeploymentAccessResourceKeys)
+        {
+            Assert.False(string.IsNullOrWhiteSpace(resourceSet.GetString(key)), $"Resource '{key}' is missing for '{cultureName}'.");
+        }
     }
 }

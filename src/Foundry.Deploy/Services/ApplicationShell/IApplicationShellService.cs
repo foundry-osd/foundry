@@ -9,4 +9,6 @@ public interface IApplicationShellService
     void ShowAbout();
 
     bool ConfirmWarning(string title, string message);
+
+    void Shutdown();
 }

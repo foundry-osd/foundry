@@ -1294,19 +1294,16 @@
     <value>Válassza ki a telepítés során alkalmazott időzónát.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Sikeres üzembe helyezés után</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Válassza ki, hogy az eszköz újrainduljon-e az üzembe helyezés után, és mikor.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
     <value>Automatikus újraindítás</value>
   </data>
+  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
+    <value>Adja meg, hogy az eszköz automatikusan újrainduljon-e a sikeres telepítés után.</value>
+  </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Késleltetés újraindítás előtt</value>
+    <value>Újraindítás késleltetése</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Adjon meg 0 és 3600 másodperc közötti késleltetést. A 0 azonnali újraindítást jelent.</value>
+    <value>Állítsa be az eszköz újraindítása előtti késleltetést. Az azonnali újraindításhoz használjon 0 értéket.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Biztonságos rendszerindítás</value>
@@ -2769,5 +2766,29 @@
   </data>
   <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
     <value>Mód módosítása</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
+    <value>Jelszavas védelem</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
+    <value>A telepítés megkezdése előtt technikusi jelszó megkövetelése.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
+    <value>Telepítési jelszó</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
+    <value>A jelszó nem állítható helyre. A védett adathordozón lévő hitelesítő adatok és Autopilot-profilok ezzel vannak titkosítva.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Password.Placeholder" xml:space="preserve">
+    <value>Jelszó</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" xml:space="preserve">
+    <value>Jelszó megerősítése</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Validation" xml:space="preserve">
+    <value>Adjon meg egyező, legalább 8 karakteres jelszavakat.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
+    <value>Az erősebb védelem érdekében használjon legalább 12 karaktert vagy jelmondatot.</value>
   </data>
 </root>

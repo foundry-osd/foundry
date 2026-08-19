@@ -3,11 +3,12 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Models.Configuration;
-using Foundry.Core.Services.Autopilot;
+using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.WinPe;
 using Foundry.Services.Autopilot;
 using Foundry.Telemetry;
+using Foundry.Utilities.Security;
 using Serilog;
 using AppSettingsService = Foundry.Services.Settings.IAppSettingsService;
 
@@ -26,6 +27,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     private readonly IDeployConfigurationGenerator deployConfigurationGenerator;
     private readonly IConnectConfigurationGenerator connectConfigurationGenerator;
     private readonly INetworkSecretStateService networkSecretStateService;
+    private readonly IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService;
     private readonly IAutopilotHardwareHashSessionState autopilotHardwareHashSessionState;
     private readonly AppSettingsService appSettingsService;
     private readonly ILogger logger;
@@ -35,6 +37,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         IDeployConfigurationGenerator deployConfigurationGenerator,
         IConnectConfigurationGenerator connectConfigurationGenerator,
         INetworkSecretStateService networkSecretStateService,
+        IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService,
         IAutopilotHardwareHashSessionState autopilotHardwareHashSessionState,
         AppSettingsService appSettingsService,
         ILogger logger)
@@ -43,6 +46,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         this.deployConfigurationGenerator = deployConfigurationGenerator;
         this.connectConfigurationGenerator = connectConfigurationGenerator;
         this.networkSecretStateService = networkSecretStateService;
+        this.deploymentProtectionSecretStateService = deploymentProtectionSecretStateService;
         this.autopilotHardwareHashSessionState = autopilotHardwareHashSessionState;
         this.appSettingsService = appSettingsService;
         this.logger = logger.ForContext<FoundryConfigurationStateService>();
@@ -67,14 +71,31 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     {
         get
         {
+            if (Current.General.DeploymentProtection.IsEnabled &&
+                !deploymentProtectionSecretStateService.IsValid)
+            {
+                return false;
+            }
+
             try
             {
-                byte[]? mediaSecretsKey = Current.Autopilot.IsEnabled &&
-                                          Current.Autopilot.ProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload
-                    ? MediaSecretEnvelopeProtector.GenerateMediaKey()
+                byte[]? deploymentSecretsKey = Current.Autopilot.IsEnabled &&
+                                               Current.Autopilot.ProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload
+                    ? AesGcmEncryption.GenerateKey()
                     : null;
-                _ = GenerateDeployConfigurationJson(mediaSecretsKey: mediaSecretsKey);
-                return true;
+
+                try
+                {
+                    _ = GenerateDeployConfigurationJson(deploymentSecretsKey: deploymentSecretsKey);
+                    return true;
+                }
+                finally
+                {
+                    if (deploymentSecretsKey is not null)
+                    {
+                        System.Security.Cryptography.CryptographicOperations.ZeroMemory(deploymentSecretsKey);
+                    }
+                }
             }
             catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
             {
@@ -180,11 +201,15 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     }
 
     /// <inheritdoc />
-    public string GenerateDeployConfigurationJson(TelemetrySettings? telemetryOverride = null, byte[]? mediaSecretsKey = null)
+    public string GenerateDeployConfigurationJson(
+        TelemetrySettings? telemetryOverride = null,
+        byte[]? deploymentSecretsKey = null,
+        DeployProtectionSettings? protectionSettings = null)
     {
         FoundryConfigurationDocument document = CreateDocumentForDeployGeneration(telemetryOverride);
 
-        return deployConfigurationGenerator.Serialize(deployConfigurationGenerator.Generate(document, mediaSecretsKey));
+        return deployConfigurationGenerator.Serialize(
+            deployConfigurationGenerator.Generate(document, deploymentSecretsKey, protectionSettings));
     }
 
     /// <inheritdoc />

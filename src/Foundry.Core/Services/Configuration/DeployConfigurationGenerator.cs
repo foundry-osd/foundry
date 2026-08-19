@@ -18,22 +18,38 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
     /// <inheritdoc />
     public FoundryDeployConfigurationDocument Generate(FoundryConfigurationDocument document)
     {
-        return Generate(document, mediaSecretsKey: null);
+        return Generate(document, deploymentSecretsKey: null, protectionSettings: null);
     }
 
     /// <summary>
     /// Generates the reduced Foundry.Deploy runtime configuration and embeds encrypted media-only secrets when required.
     /// </summary>
     /// <param name="document">User-facing Foundry configuration.</param>
-    /// <param name="mediaSecretsKey">Media secret key used to encrypt boot-media-only secrets.</param>
+    /// <param name="deploymentSecretsKey">Deploy secret key used to encrypt boot-media-only secrets.</param>
     /// <returns>Reduced Foundry.Deploy configuration document.</returns>
-    public FoundryDeployConfigurationDocument Generate(FoundryConfigurationDocument document, byte[]? mediaSecretsKey)
+    public FoundryDeployConfigurationDocument Generate(FoundryConfigurationDocument document, byte[]? deploymentSecretsKey)
+    {
+        return Generate(document, deploymentSecretsKey, protectionSettings: null);
+    }
+
+    /// <summary>
+    /// Generates the reduced Foundry.Deploy runtime configuration with Deploy secrets and protection metadata.
+    /// </summary>
+    /// <param name="document">User-facing Foundry configuration.</param>
+    /// <param name="deploymentSecretsKey">Deploy secret key used to encrypt boot-media-only Deploy secrets.</param>
+    /// <param name="protectionSettings">Deployment media password-protection metadata.</param>
+    /// <returns>Reduced Foundry.Deploy configuration document.</returns>
+    public FoundryDeployConfigurationDocument Generate(
+        FoundryConfigurationDocument document,
+        byte[]? deploymentSecretsKey,
+        DeployProtectionSettings? protectionSettings)
     {
         ArgumentNullException.ThrowIfNull(document);
         AutopilotConfigurationValidator.ThrowIfNotReady(document.Autopilot, DateTimeOffset.UtcNow);
 
         return new FoundryDeployConfigurationDocument
         {
+            Protection = protectionSettings ?? new DeployProtectionSettings(),
             Completion = new DeployCompletionSettings
             {
                 AutomaticRebootEnabled = document.General.AutomaticRebootEnabled,
@@ -92,7 +108,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                     : null,
                 HardwareHashUpload = CreateDeployHardwareHashUploadSettings(
                     document.Autopilot,
-                    mediaSecretsKey)
+                    deploymentSecretsKey)
             },
             Telemetry = document.Telemetry
         };
@@ -107,7 +123,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
 
     private static DeployAutopilotHardwareHashUploadSettings CreateDeployHardwareHashUploadSettings(
         AutopilotSettings autopilot,
-        byte[]? mediaSecretsKey)
+        byte[]? deploymentSecretsKey)
     {
         if (!autopilot.IsEnabled ||
             autopilot.ProvisioningMode != AutopilotProvisioningMode.HardwareHashUpload)
@@ -123,11 +139,11 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
 
         SecretEnvelope? pfxSecret = null;
         SecretEnvelope? pfxPasswordSecret = null;
-        if (mediaSecretsKey is not null)
+        if (deploymentSecretsKey is not null)
         {
-            if (mediaSecretsKey.Length == 0)
+            if (deploymentSecretsKey.Length == 0)
             {
-                throw new InvalidOperationException("Autopilot hardware hash upload media generation requires a media secret key.");
+                throw new InvalidOperationException("Autopilot hardware hash upload media generation requires a Deploy secret key.");
             }
 
             AutopilotBootMediaCertificateSettings bootMediaCertificate = settings.BootMediaCertificate;
@@ -145,7 +161,10 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             byte[] pfxBytes = File.ReadAllBytes(bootMediaCertificate.PfxPath);
             try
             {
-                pfxSecret = MediaSecretEnvelopeProtector.EncryptBytes(pfxBytes, mediaSecretsKey);
+                pfxSecret = MediaSecretEnvelopeProtector.EncryptBytes(
+                    pfxBytes,
+                    deploymentSecretsKey,
+                    MediaSecretEnvelopeProtector.DeploymentKeyId);
             }
             finally
             {
@@ -154,7 +173,8 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
 
             pfxPasswordSecret = MediaSecretEnvelopeProtector.EncryptString(
                 bootMediaCertificate.PfxPassword,
-                mediaSecretsKey);
+                deploymentSecretsKey,
+                MediaSecretEnvelopeProtector.DeploymentKeyId);
         }
 
         return new DeployAutopilotHardwareHashUploadSettings

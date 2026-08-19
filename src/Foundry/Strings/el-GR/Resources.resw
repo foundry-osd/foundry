@@ -1294,19 +1294,16 @@
     <value>Επιλέξτε τη ζώνη ώρας που εφαρμόζεται κατά την ανάπτυξη.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Μετά την επιτυχή ανάπτυξη</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Επιλέξτε αν και πότε θα γίνει επανεκκίνηση της συσκευής μετά την ανάπτυξη.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
     <value>Αυτόματη επανεκκίνηση</value>
   </data>
+  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
+    <value>Επιλέξτε αν η συσκευή θα επανεκκινείται αυτόματα μετά από μια επιτυχημένη ανάπτυξη.</value>
+  </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Καθυστέρηση πριν από την επανεκκίνηση</value>
+    <value>Καθυστέρηση επανεκκίνησης</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Εισαγάγετε καθυστέρηση από 0 έως 3600 δευτερόλεπτα. Χρησιμοποιήστε το 0 για άμεση επανεκκίνηση.</value>
+    <value>Ορίστε την καθυστέρηση πριν από την επανεκκίνηση της συσκευής. Χρησιμοποιήστε 0 για άμεση επανεκκίνηση.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Ασφαλής εκκίνηση</value>
@@ -2769,5 +2766,29 @@
   </data>
   <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
     <value>Αλλαγή λειτουργίας</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
+    <value>Προστασία με κωδικό πρόσβασης</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
+    <value>Να απαιτείται κωδικός πρόσβασης τεχνικού πριν από την έναρξη μιας ανάπτυξης.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
+    <value>Κωδικός πρόσβασης ανάπτυξης</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
+    <value>Δεν είναι δυνατή η ανάκτηση του κωδικού πρόσβασης. Τα διαπιστευτήρια και τα προφίλ Autopilot στα προστατευμένα μέσα κρυπτογραφούνται με αυτόν.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Password.Placeholder" xml:space="preserve">
+    <value>Κωδικός πρόσβασης</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" xml:space="preserve">
+    <value>Επιβεβαίωση κωδικού πρόσβασης</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Validation" xml:space="preserve">
+    <value>Εισαγάγετε ίδιους κωδικούς πρόσβασης με τουλάχιστον 8 χαρακτήρες.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
+    <value>Για ισχυρότερη προστασία, χρησιμοποιήστε τουλάχιστον 12 χαρακτήρες ή μια φράση πρόσβασης.</value>
   </data>
 </root>

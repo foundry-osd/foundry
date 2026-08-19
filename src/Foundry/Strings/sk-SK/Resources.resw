@@ -1294,19 +1294,16 @@
     <value>Vyberte časové pásmo použité počas nasadenia.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Po úspešnom nasadení</value>
+    <value>Automatické reštartovanie</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Vyberte, či a kedy sa má zariadenie po nasadení reštartovať.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Reštartovať automaticky</value>
+    <value>Vyberte, či sa má zariadenie po úspešnom nasadení automaticky reštartovať.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Oneskorenie pred reštartovaním</value>
+    <value>Oneskorenie reštartovania</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Zadajte oneskorenie od 0 do 3600 sekúnd. Hodnota 0 znamená okamžité reštartovanie.</value>
+    <value>Nastavte oneskorenie pred reštartovaním zariadenia. Ak chcete zariadenie reštartovať okamžite, použite hodnotu 0.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Zabezpečené spustenie</value>
@@ -2769,5 +2766,29 @@
   </data>
   <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
     <value>Zmeniť režim</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
+    <value>Ochrana heslom</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
+    <value>Pred spustením nasadenia vyžadovať heslo technika.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
+    <value>Heslo nasadenia</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
+    <value>Heslo nie je možné obnoviť. Prihlasovacie údaje a profily Autopilot na chránenom médiu sú ním šifrované.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Password.Placeholder" xml:space="preserve">
+    <value>Heslo</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" xml:space="preserve">
+    <value>Potvrďte heslo</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Validation" xml:space="preserve">
+    <value>Zadajte zhodné heslá s najmenej 8 znakmi.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
+    <value>Na zvýšenie ochrany použite najmenej 12 znakov alebo prístupovú frázu.</value>
   </data>
 </root>

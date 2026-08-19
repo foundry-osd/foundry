@@ -529,4 +529,12 @@ Nastaviti s implementacijom?</value></data>
   <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Opcijska značajka sustava Windows &#39;{0}&#39; ima uklonjeni sadržaj i nema podržanog mapiranja lokalnog izvora.</value></data>
   <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Provjera izborne značajke sustava Windows nije uspjela za &#39;{0}&#39;.</value></data>
   <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Odgovarajući izvor NetFx3 nije dostupan. {0}</value></data>
+  <data name="Common.Cancel" xml:space="preserve"><value>Odustani</value></data>
+  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Zaštićena implementacija</value></data>
+  <data name="DeploymentAccess.Heading" xml:space="preserve"><value>Potrebna je lozinka</value></data>
+  <data name="DeploymentAccess.Description" xml:space="preserve"><value>Za nastavak unesite lozinku tehničara.</value></data>
+  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>Lozinka za implementaciju</value></data>
+  <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Nastavi</value></data>
+  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Prikaži ili sakrij lozinku</value></data>
+  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Lozinka nije točna. Pokušajte ponovno.</value></data>
 </root>

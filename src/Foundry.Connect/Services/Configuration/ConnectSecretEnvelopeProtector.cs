@@ -5,6 +5,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using Foundry.Connect.Models.Configuration;
+using Foundry.Utilities.Security;
 
 namespace Foundry.Connect.Services.Configuration;
 
@@ -13,9 +14,7 @@ internal static class ConnectSecretEnvelopeProtector
     private const string Kind = "encrypted";
     private const string Algorithm = "aes-gcm-v1";
     private const string KeyId = "media";
-    private const int KeySizeBytes = 32;
-    private const int NonceSizeBytes = 12;
-    private const int TagSizeBytes = 16;
+    private const int KeySizeBytes = AesGcmEncryption.KeySizeBytes;
 
     public static string Decrypt(SecretEnvelope envelope, byte[] key)
     {
@@ -23,26 +22,21 @@ internal static class ConnectSecretEnvelopeProtector
         ValidateEnvelope(envelope);
         ValidateKey(key);
 
-        byte[] nonce = Base64UrlDecode(envelope.Nonce);
-        byte[] tag = Base64UrlDecode(envelope.Tag);
-        byte[] ciphertext = Base64UrlDecode(envelope.Ciphertext);
-        byte[] plaintext = new byte[ciphertext.Length];
+        byte[]? plaintext = null;
 
         try
         {
-            if (nonce.Length != NonceSizeBytes)
-            {
-                throw new FoundryConnectConfigurationException("Encrypted secret nonce has an invalid length.");
-            }
-
-            if (tag.Length != TagSizeBytes)
-            {
-                throw new FoundryConnectConfigurationException("Encrypted secret tag has an invalid length.");
-            }
-
-            using var aes = new AesGcm(key, TagSizeBytes);
-            aes.Decrypt(nonce, ciphertext, tag, plaintext);
+            plaintext = AesGcmEncryption.Decrypt(
+                new AesGcmPayload(
+                    Base64Url.Decode(envelope.Nonce),
+                    Base64Url.Decode(envelope.Tag),
+                    Base64Url.Decode(envelope.Ciphertext)),
+                key);
             return Encoding.UTF8.GetString(plaintext);
+        }
+        catch (FormatException ex)
+        {
+            throw new FoundryConnectConfigurationException("Encrypted secret envelope contains invalid base64url data.", ex);
         }
         catch (CryptographicException ex)
         {
@@ -50,7 +44,10 @@ internal static class ConnectSecretEnvelopeProtector
         }
         finally
         {
-            CryptographicOperations.ZeroMemory(plaintext);
+            if (plaintext is not null)
+            {
+                CryptographicOperations.ZeroMemory(plaintext);
+            }
         }
     }
 
@@ -80,19 +77,4 @@ internal static class ConnectSecretEnvelopeProtector
         }
     }
 
-    private static byte[] Base64UrlDecode(string value)
-    {
-        string base64 = value.Replace('-', '+').Replace('_', '/');
-        int padding = (4 - base64.Length % 4) % 4;
-        base64 = base64.PadRight(base64.Length + padding, '=');
-
-        try
-        {
-            return Convert.FromBase64String(base64);
-        }
-        catch (FormatException ex)
-        {
-            throw new FoundryConnectConfigurationException("Encrypted secret envelope contains invalid base64url data.", ex);
-        }
-    }
 }

@@ -529,4 +529,12 @@
   <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Windows 可选功能“{0}”已删除有效负载并且不支持本地源映射。</value></data>
   <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>“{0}”的 Windows 可选功能验证失败。</value></data>
   <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>匹配的 NetFx3 源不可用。 {0}</value></data>
+  <data name="Common.Cancel" xml:space="preserve"><value>取消</value></data>
+  <data name="DeploymentAccess.Title" xml:space="preserve"><value>受保护的部署</value></data>
+  <data name="DeploymentAccess.Heading" xml:space="preserve"><value>需要密码</value></data>
+  <data name="DeploymentAccess.Description" xml:space="preserve"><value>请输入技术人员密码以继续。</value></data>
+  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>部署密码</value></data>
+  <data name="DeploymentAccess.Continue" xml:space="preserve"><value>继续</value></data>
+  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>显示或隐藏密码</value></data>
+  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>密码不正确，请重试。</value></data>
 </root>

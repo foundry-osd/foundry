@@ -1294,19 +1294,16 @@
     <value>Vælg den tidszone, der anvendes under udrulningen.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Efter fuldført installation</value>
+    <value>Automatisk genstart</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Vælg, om og hvornår enheden skal genstarte efter installationen.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Genstart automatisk</value>
+    <value>Vælg, om enheden skal genstarte automatisk efter en vellykket installation.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
     <value>Forsinkelse før genstart</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Angiv en forsinkelse på 0 til 3600 sekunder. Brug 0 for at genstarte med det samme.</value>
+    <value>Angiv forsinkelsen, før enheden genstarter. Brug 0 for at genstarte med det samme.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Sikker start</value>
@@ -2769,5 +2766,29 @@
   </data>
   <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
     <value>Skift tilstand</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
+    <value>Adgangskodebeskyttelse</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
+    <value>Kræv en teknikeradgangskode, før en installation startes.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
+    <value>Adgangskode til installation</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
+    <value>Adgangskoden kan ikke gendannes. Legitimationsoplysninger og Autopilot-profiler på beskyttede medier krypteres med den.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Password.Placeholder" xml:space="preserve">
+    <value>Adgangskode</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" xml:space="preserve">
+    <value>Bekræft adgangskode</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Validation" xml:space="preserve">
+    <value>Indtast ens adgangskoder på mindst 8 tegn.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
+    <value>Brug mindst 12 tegn eller en adgangssætning for at opnå bedre beskyttelse.</value>
   </data>
 </root>

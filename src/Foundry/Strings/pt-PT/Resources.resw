@@ -1294,19 +1294,16 @@
     <value>Escolha o fuso horário aplicado durante a implementação.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Após a implementação bem-sucedida</value>
+    <value>Reinício automático</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Escolha se e quando o dispositivo é reiniciado após a implementação.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Reiniciar automaticamente</value>
+    <value>Escolha se o dispositivo é reiniciado automaticamente após uma implementação bem-sucedida.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Atraso antes do reinício</value>
+    <value>Atraso do reinício</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Introduza um atraso de 0 a 3600 segundos. Utilize 0 para reiniciar imediatamente.</value>
+    <value>Defina o atraso antes de o dispositivo reiniciar. Utilize 0 para reiniciar imediatamente.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Arranque seguro</value>
@@ -2769,5 +2766,29 @@
   </data>
   <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
     <value>Alterar modo</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
+    <value>Proteção por palavra-passe</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
+    <value>Exigir uma palavra-passe de técnico antes de iniciar uma implementação.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
+    <value>Palavra-passe de implementação</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
+    <value>Não é possível recuperar a palavra-passe. As credenciais e os perfis do Autopilot no suporte protegido são encriptados com esta palavra-passe.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Password.Placeholder" xml:space="preserve">
+    <value>Palavra-passe</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" xml:space="preserve">
+    <value>Confirmar palavra-passe</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Validation" xml:space="preserve">
+    <value>Introduza palavras-passe correspondentes com, pelo menos, 8 carateres.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
+    <value>Para uma proteção mais forte, utilize pelo menos 12 carateres ou uma frase-passe.</value>
   </data>
 </root>

@@ -1294,19 +1294,16 @@
     <value>Виберіть часовий пояс, який застосовується під час розгортання.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Після успішного розгортання</value>
+    <value>Автоматичне перезавантаження</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Виберіть, чи потрібно та коли перезавантажувати пристрій після розгортання.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Перезавантажувати автоматично</value>
+    <value>Виберіть, чи має пристрій автоматично перезавантажуватися після успішного розгортання.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Затримка перед перезавантаженням</value>
+    <value>Затримка перезавантаження</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Введіть затримку від 0 до 3600 секунд. Значення 0 означає негайне перезавантаження.</value>
+    <value>Установіть затримку перед перезавантаженням пристрою. Укажіть 0, щоб перезавантажити негайно.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Безпечне завантаження</value>
@@ -2769,5 +2766,29 @@
   </data>
   <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
     <value>Змінити режим</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
+    <value>Захист паролем</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
+    <value>Вимагати пароль технічного спеціаліста перед початком розгортання.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
+    <value>Пароль розгортання</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
+    <value>Пароль неможливо відновити. Облікові дані та профілі Autopilot на захищеному носії шифруються за його допомогою.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Password.Placeholder" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" xml:space="preserve">
+    <value>Підтвердьте пароль</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Validation" xml:space="preserve">
+    <value>Введіть однакові паролі довжиною щонайменше 8 символів.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
+    <value>Для надійнішого захисту використовуйте щонайменше 12 символів або парольну фразу.</value>
   </data>
 </root>

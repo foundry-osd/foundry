@@ -529,4 +529,12 @@ Vai turpināt izvietošanu?</value></data>
   <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Windows papildu funkcijai “{0}” ir noņemta lietderīgā slodze un netiek atbalstīta vietējā avota kartēšana.</value></data>
   <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Neizdevās pārbaudīt operētājsistēmas Windows papildu funkciju “{0}”.</value></data>
   <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Atbilstošs NetFx3 avots nav pieejams. {0}</value></data>
+  <data name="Common.Cancel" xml:space="preserve"><value>Atcelt</value></data>
+  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Aizsargāta izvietošana</value></data>
+  <data name="DeploymentAccess.Heading" xml:space="preserve"><value>Nepieciešama parole</value></data>
+  <data name="DeploymentAccess.Description" xml:space="preserve"><value>Lai turpinātu, ievadiet tehniķa paroli.</value></data>
+  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>Izvietošanas parole</value></data>
+  <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Turpināt</value></data>
+  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Rādīt vai paslēpt paroli</value></data>
+  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Parole nav pareiza. Mēģiniet vēlreiz.</value></data>
 </root>

@@ -1294,19 +1294,16 @@
     <value>Dağıtım sırasında uygulanacak saat dilimini seçin.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Başarılı dağıtımdan sonra</value>
+    <value>Otomatik yeniden başlatma</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Dağıtımdan sonra cihazın yeniden başlatılıp başlatılmayacağını ve zamanını seçin.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Otomatik olarak yeniden başlat</value>
+    <value>Başarılı bir dağıtımdan sonra cihazın otomatik olarak yeniden başlatılıp başlatılmayacağını seçin.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Yeniden başlatma öncesi gecikme</value>
+    <value>Yeniden başlatma gecikmesi</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>0 ile 3600 saniye arasında bir gecikme girin. Hemen yeniden başlatmak için 0 kullanın.</value>
+    <value>Cihaz yeniden başlatılmadan önceki gecikmeyi ayarlayın. Hemen yeniden başlatmak için 0 kullanın.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Güvenli Önyükleme</value>
@@ -2769,5 +2766,29 @@
   </data>
   <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
     <value>Modu değiştir</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
+    <value>Parola koruması</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
+    <value>Dağıtımı başlatmadan önce teknisyen parolası isteyin.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
+    <value>Dağıtım parolası</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
+    <value>Parola kurtarılamaz. Korumalı medyadaki kimlik bilgileri ve Autopilot profilleri bu parolayla şifrelenir.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Password.Placeholder" xml:space="preserve">
+    <value>Parola</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" xml:space="preserve">
+    <value>Parolayı doğrulayın</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Validation" xml:space="preserve">
+    <value>En az 8 karakterden oluşan eşleşen parolalar girin.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
+    <value>Daha güçlü koruma için en az 12 karakter veya bir parola tümcesi kullanın.</value>
   </data>
 </root>

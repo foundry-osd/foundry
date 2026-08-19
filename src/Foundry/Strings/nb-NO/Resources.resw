@@ -1294,19 +1294,16 @@
     <value>Velg tidssonen som brukes under distribusjon.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Etter vellykket distribusjon</value>
+    <value>Automatisk omstart</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Velg om og når enheten skal starte på nytt etter distribusjonen.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Start på nytt automatisk</value>
+    <value>Velg om enheten skal startes på nytt automatisk etter en vellykket distribusjon.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
     <value>Forsinkelse før omstart</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Angi en forsinkelse fra 0 til 3600 sekunder. Bruk 0 for å starte på nytt umiddelbart.</value>
+    <value>Angi forsinkelsen før enheten startes på nytt. Bruk 0 for å starte på nytt umiddelbart.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Sikker oppstart</value>
@@ -2769,5 +2766,29 @@
   </data>
   <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
     <value>Endre modus</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
+    <value>Passordbeskyttelse</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
+    <value>Krev et teknikerpassord før en distribusjon startes.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
+    <value>Distribusjonspassord</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
+    <value>Passordet kan ikke gjenopprettes. Påloggingsinformasjon og Autopilot-profiler på beskyttede medier krypteres med passordet.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Password.Placeholder" xml:space="preserve">
+    <value>Passord</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" xml:space="preserve">
+    <value>Bekreft passord</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Validation" xml:space="preserve">
+    <value>Skriv inn samsvarende passord med minst 8 tegn.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
+    <value>Bruk minst 12 tegn eller en passfrase for bedre beskyttelse.</value>
   </data>
 </root>

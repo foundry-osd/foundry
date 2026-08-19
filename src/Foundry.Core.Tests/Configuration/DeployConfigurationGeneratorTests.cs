@@ -706,7 +706,7 @@ public sealed class DeployConfigurationGeneratorTests
             }
         };
 
-        FoundryDeployConfigurationDocument result = generator.Generate(document, mediaSecretsKey: [1, 2, 3]);
+        FoundryDeployConfigurationDocument result = generator.Generate(document, deploymentSecretsKey: [1, 2, 3]);
 
         Assert.True(result.Autopilot.IsEnabled);
         Assert.Equal(AutopilotProvisioningMode.InteractiveHardwareHashUpload, result.Autopilot.ProvisioningMode);
@@ -785,8 +785,18 @@ public sealed class DeployConfigurationGeneratorTests
 
             Assert.NotNull(result.Autopilot.HardwareHashUpload.CertificatePfxSecret);
             Assert.NotNull(result.Autopilot.HardwareHashUpload.CertificatePfxPasswordSecret);
-            Assert.Equal(pfxBytes, MediaSecretEnvelopeProtector.DecryptBytes(result.Autopilot.HardwareHashUpload.CertificatePfxSecret!, mediaKey));
-            Assert.Equal("PfxPassword-DoNotLeak", MediaSecretEnvelopeProtector.DecryptString(result.Autopilot.HardwareHashUpload.CertificatePfxPasswordSecret!, mediaKey));
+            Assert.Equal(
+                pfxBytes,
+                MediaSecretEnvelopeProtector.DecryptBytes(
+                    result.Autopilot.HardwareHashUpload.CertificatePfxSecret!,
+                    mediaKey,
+                    MediaSecretEnvelopeProtector.DeploymentKeyId));
+            Assert.Equal(
+                "PfxPassword-DoNotLeak",
+                MediaSecretEnvelopeProtector.DecryptString(
+                    result.Autopilot.HardwareHashUpload.CertificatePfxPasswordSecret!,
+                    mediaKey,
+                    MediaSecretEnvelopeProtector.DeploymentKeyId));
 
             string json = generator.Serialize(result);
             Assert.DoesNotContain(Convert.ToBase64String(pfxBytes), json, StringComparison.Ordinal);
@@ -829,7 +839,7 @@ public sealed class DeployConfigurationGeneratorTests
             };
 
             InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => generator.Generate(document, []));
-            Assert.Contains("media secret key", exception.Message, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("Deploy secret key", exception.Message, StringComparison.OrdinalIgnoreCase);
         }
         finally
         {

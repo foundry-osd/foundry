@@ -1294,19 +1294,16 @@
     <value>Välj tidszonen som används under distributionen.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Efter slutförd distribution</value>
+    <value>Automatisk omstart</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Välj om och när enheten ska startas om efter distributionen.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Starta om automatiskt</value>
+    <value>Välj om enheten ska startas om automatiskt efter en lyckad distribution.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
     <value>Fördröjning före omstart</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Ange en fördröjning från 0 till 3600 sekunder. Använd 0 för att starta om direkt.</value>
+    <value>Ange fördröjningen innan enheten startas om. Använd 0 för att starta om omedelbart.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Säker start</value>
@@ -2769,5 +2766,29 @@
   </data>
   <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
     <value>Ändra läge</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
+    <value>Lösenordsskydd</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
+    <value>Kräv ett teknikerlösenord innan en distribution startas.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
+    <value>Distributionslösenord</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
+    <value>Lösenordet kan inte återställas. Autentiseringsuppgifter och Autopilot-profiler på det skyddade mediet krypteras med det.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Password.Placeholder" xml:space="preserve">
+    <value>Lösenord</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" xml:space="preserve">
+    <value>Bekräfta lösenord</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Validation" xml:space="preserve">
+    <value>Ange matchande lösenord med minst 8 tecken.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
+    <value>Använd minst 12 tecken eller en lösenordsfras för starkare skydd.</value>
   </data>
 </root>

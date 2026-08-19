@@ -1294,19 +1294,16 @@
     <value>展開中に適用するタイム ゾーンを選択します。</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>展開が正常に完了した後</value>
+    <value>自動再起動</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>展開後にデバイスを再起動するかどうかと、そのタイミングを選択します。</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>自動的に再起動する</value>
+    <value>展開が正常に完了した後、デバイスを自動的に再起動するかどうかを選択します。</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>再起動までの待機時間</value>
+    <value>再起動の遅延</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>0～3600 秒の待機時間を入力します。すぐに再起動するには 0 を使用します。</value>
+    <value>デバイスが再起動するまでの遅延時間を設定します。すぐに再起動するには 0 を指定します。</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>セキュア ブート</value>
@@ -2769,5 +2766,29 @@
   </data>
   <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
     <value>モードを変更</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
+    <value>パスワード保護</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
+    <value>展開を開始する前に技術者用パスワードを要求します。</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
+    <value>展開パスワード</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
+    <value>パスワードは復元できません。保護されたメディア上の資格情報と Autopilot プロファイルは、このパスワードで暗号化されます。</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Password.Placeholder" xml:space="preserve">
+    <value>パスワード</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" xml:space="preserve">
+    <value>パスワードの確認</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Validation" xml:space="preserve">
+    <value>8 文字以上の一致するパスワードを入力してください。</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
+    <value>保護を強化するには、12 文字以上のパスワードまたはパスフレーズを使用してください。</value>
   </data>
 </root>

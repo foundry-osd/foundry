@@ -529,4 +529,12 @@ Continuați cu implementarea?</value></data>
   <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Caracteristica opțională Windows „{0}” are o sarcină utilă eliminată și nu este acceptată maparea surselor locale.</value></data>
   <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Verificarea caracteristicilor opționale Windows nu a reușit pentru „{0}”.</value></data>
   <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Sursa NetFx3 corespunzătoare nu este disponibilă. {0}</value></data>
+  <data name="Common.Cancel" xml:space="preserve"><value>Anulați</value></data>
+  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Implementare protejată</value></data>
+  <data name="DeploymentAccess.Heading" xml:space="preserve"><value>Parolă necesară</value></data>
+  <data name="DeploymentAccess.Description" xml:space="preserve"><value>Introduceți parola tehnicianului pentru a continua.</value></data>
+  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>Parolă de implementare</value></data>
+  <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Continuați</value></data>
+  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Afișați sau ascundeți parola</value></data>
+  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Parola este incorectă. Încercați din nou.</value></data>
 </root>

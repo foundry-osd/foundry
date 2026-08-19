@@ -1294,19 +1294,16 @@
     <value>Izvēlieties laika joslu, kas tiek lietota izvietošanas laikā.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Pēc sekmīgas izvietošanas</value>
+    <value>Automātiska restartēšana</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Izvēlieties, vai un kad ierīce pēc izvietošanas tiek restartēta.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Restartēt automātiski</value>
+    <value>Izvēlieties, vai pēc veiksmīgas izvietošanas ierīce tiek automātiski restartēta.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Aizkave pirms restartēšanas</value>
+    <value>Restartēšanas aizkave</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Ievadiet aizkavi no 0 līdz 3600 sekundēm. Izmantojiet 0, lai restartētu nekavējoties.</value>
+    <value>Iestatiet aizkavi pirms ierīces restartēšanas. Lai restartētu nekavējoties, izmantojiet 0.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Drošā sāknēšana</value>
@@ -2769,5 +2766,29 @@
   </data>
   <data name="Autopilot.ModeSwitchConfirmationPrimaryButton" xml:space="preserve">
     <value>Mainīt režīmu</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
+    <value>Aizsardzība ar paroli</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
+    <value>Pieprasīt tehniķa paroli pirms izvietošanas sākšanas.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
+    <value>Izvietošanas parole</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
+    <value>Paroli nevar atkopt. Ar to tiek šifrēti aizsargātajā datu nesējā esošie akreditācijas dati un Autopilot profili.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Password.Placeholder" xml:space="preserve">
+    <value>Parole</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" xml:space="preserve">
+    <value>Apstipriniet paroli</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Validation" xml:space="preserve">
+    <value>Ievadiet vienādas paroles, kurās ir vismaz 8 rakstzīmes.</value>
+  </data>
+  <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
+    <value>Lai nodrošinātu labāku aizsardzību, izmantojiet vismaz 12 rakstzīmes vai paroles frāzi.</value>
   </data>
 </root>

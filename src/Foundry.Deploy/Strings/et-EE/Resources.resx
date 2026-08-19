@@ -529,4 +529,12 @@ Kas jätkata juurutamisega?</value></data>
   <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Windowsi valikulise funktsiooni „{0}” last on eemaldatud ja toetatud kohaliku allika vastendus puudub.</value></data>
   <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Windowsi valikulise funktsiooni kinnitamine eba&#245;nnestus &#39;{0}&#39; puhul.</value></data>
   <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Sobiv NetFx3 allikas pole saadaval. {0}</value></data>
+  <data name="Common.Cancel" xml:space="preserve"><value>Loobu</value></data>
+  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Kaitstud juurutus</value></data>
+  <data name="DeploymentAccess.Heading" xml:space="preserve"><value>Parool on nõutav</value></data>
+  <data name="DeploymentAccess.Description" xml:space="preserve"><value>Jätkamiseks sisesta tehniku parool.</value></data>
+  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>Juurutusparool</value></data>
+  <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Jätka</value></data>
+  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Kuva või peida parool</value></data>
+  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Parool on vale. Proovi uuesti.</value></data>
 </root>

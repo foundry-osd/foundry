@@ -8,6 +8,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Autopilot;
+using Foundry.Deploy.Services.Security;
 using Foundry.Deploy.Services.Deployment;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -149,7 +150,7 @@ public sealed class AutopilotHardwareHashUploadServiceTests
         {
             Kind = DeployMediaSecretEnvelopeProtector.Kind,
             Algorithm = DeployMediaSecretEnvelopeProtector.Algorithm,
-            KeyId = DeployMediaSecretEnvelopeProtector.KeyId,
+            KeyId = DeployMediaSecretEnvelopeProtector.DeploymentKeyId,
             Nonce = Base64UrlEncode(nonce),
             Tag = Base64UrlEncode(tag),
             Ciphertext = Base64UrlEncode(ciphertext)
@@ -164,7 +165,7 @@ public sealed class AutopilotHardwareHashUploadServiceTests
             .Replace('/', '_');
     }
 
-    private sealed class StaticMediaSecretKeyReader(byte[]? key = null) : IMediaSecretKeyReader
+    private sealed class StaticMediaSecretKeyReader(byte[]? key = null) : IDeploymentSecretKeyProvider
     {
         public Task<byte[]> ReadAsync(string workspaceRootPath, CancellationToken cancellationToken = default)
         {

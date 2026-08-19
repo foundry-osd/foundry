@@ -22,6 +22,7 @@ using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
+using Foundry.Deploy.Services.Security;
 using Foundry.Deploy.Services.Startup;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Services.Theme;
@@ -58,6 +59,12 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IVolumeDiscovery, WindowsVolumeDiscovery>();
         services.AddSingleton<IDeploymentRuntimeContextService, DeploymentRuntimeContextService>();
         services.AddSingleton<IDeployConfigurationService, DeployConfigurationService>();
+        services.AddSingleton<IDeploymentSecretKeySession, DeploymentSecretKeySession>();
+        services.AddSingleton<IDeploymentSecretKeyProvider, DeploymentSecretKeyProvider>();
+        services.AddSingleton<IDeploymentProtectionUnlockService, DeploymentProtectionUnlockService>();
+        services.AddSingleton<IDeploymentPasswordDialogService, DeploymentPasswordDialogService>();
+        services.AddSingleton<IDeploymentAccessRetryDelay, DeploymentAccessRetryDelay>();
+        services.AddSingleton<IDeploymentAccessGate, DeploymentAccessGate>();
         services.AddSingleton(CreateTelemetryOptions);
         services.AddSingleton(CreateTelemetryContext);
         services.AddSingleton<ITelemetryService>(sp =>
@@ -112,10 +119,11 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IPreOobeScriptProvisioningService, PreOobeScriptProvisioningService>();
         services.AddSingleton<PreOobeScriptDefinitionBuilder>();
         services.AddSingleton<INetworkProfileRoamingArtifactService, NetworkProfileRoamingArtifactService>();
+        services.AddSingleton<IAutopilotProfileContentService, AutopilotProfileContentService>();
         services.AddSingleton<IAutopilotProfileCatalogService, AutopilotProfileCatalogService>();
         services.AddSingleton<IAutopilotHardwareHashCaptureService, AutopilotHardwareHashCaptureService>();
         services.AddSingleton<IAutopilotInteractiveRegistrationProvisioningService, AutopilotInteractiveRegistrationProvisioningService>();
-        services.AddSingleton<IMediaSecretKeyReader, MediaSecretKeyReader>();
+        services.AddSingleton<INetworkSecretKeyReader, NetworkSecretKeyReader>();
         services.AddSingleton<IAutopilotGraphTokenService>(sp =>
             new AutopilotGraphTokenService(
                 new HttpClient(),

@@ -16,6 +16,7 @@ using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
+using Foundry.Deploy.Services.Security;
 using Foundry.Deploy.Services.Startup;
 using Foundry.Deploy.Services.ApplicationShell;
 using Foundry.Deploy.Services.Localization;
@@ -34,6 +35,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 {
     private readonly IThemeService _themeService;
     private readonly IDeploymentStartupCoordinator _deploymentStartupCoordinator;
+    private readonly IDeploymentAccessGate _deploymentAccessGate;
     private readonly IDeploymentLaunchPreparationService _deploymentLaunchPreparationService;
     private readonly IDeploymentExecutionService _deploymentExecutionService;
     private readonly IDeploymentWizardStateService _deploymentWizardStateService;
@@ -126,6 +128,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         ILocalizationService localizationService,
         IThemeService themeService,
         IOperationProgressService operationProgressService,
+        IDeploymentAccessGate deploymentAccessGate,
         IDeploymentStartupCoordinator deploymentStartupCoordinator,
         IDeploymentRuntimeContextService deploymentRuntimeContextService,
         IDeploymentLaunchPreparationService deploymentLaunchPreparationService,
@@ -140,6 +143,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         : base(localizationService)
     {
         _themeService = themeService;
+        _deploymentAccessGate = deploymentAccessGate;
         _deploymentStartupCoordinator = deploymentStartupCoordinator;
         _deploymentLaunchPreparationService = deploymentLaunchPreparationService;
         _deploymentExecutionService = deploymentExecutionService;
@@ -177,6 +181,12 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     {
         if (_isInitialized)
         {
+            return;
+        }
+
+        if (!await _deploymentAccessGate.AuthorizeAsync())
+        {
+            _applicationShellService.Shutdown();
             return;
         }
 

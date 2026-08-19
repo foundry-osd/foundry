@@ -25,7 +25,7 @@ public sealed class DeployMediaSecretEnvelopeProtectorTests
     }
 
     [Fact]
-    public void DecryptString_WhenEnvelopeIsTampered_ThrowsWithoutLeakingSecret()
+    public void DecryptDeployChars_WhenEnvelopeIsTampered_ThrowsWithoutLeakingSecret()
     {
         byte[] key = RandomNumberGenerator.GetBytes(DeployMediaSecretEnvelopeProtector.KeySizeBytes);
         const string secret = "PfxPassword-DoNotLeak";
@@ -35,10 +35,22 @@ public sealed class DeployMediaSecretEnvelopeProtectorTests
         };
 
         CryptographicException exception = Assert.Throws<CryptographicException>(
-            () => DeployMediaSecretEnvelopeProtector.DecryptString(envelope, key));
+            () => DeployMediaSecretEnvelopeProtector.DecryptDeployChars(envelope, key));
 
         Assert.DoesNotContain(secret, exception.ToString(), StringComparison.Ordinal);
         Assert.DoesNotContain(Convert.ToBase64String(Encoding.UTF8.GetBytes(secret)), exception.ToString(), StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void DecryptDeployChars_ReturnsClearableCharacterBuffer()
+    {
+        byte[] key = RandomNumberGenerator.GetBytes(DeployMediaSecretEnvelopeProtector.KeySizeBytes);
+        SecretEnvelope envelope = Encrypt(Encoding.UTF8.GetBytes("PfxPassword"), key);
+
+        char[] decrypted = DeployMediaSecretEnvelopeProtector.DecryptDeployChars(envelope, key);
+
+        Assert.Equal("PfxPassword", new string(decrypted));
+        Assert.IsType<char[]>(decrypted);
     }
 
     private static SecretEnvelope Encrypt(byte[] plaintext, byte[] key)
