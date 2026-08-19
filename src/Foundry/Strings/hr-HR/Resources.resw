@@ -1294,19 +1294,16 @@
     <value>Odaberite vremensku zonu koja se primjenjuje tijekom implementacije.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Nakon uspješne implementacije</value>
+    <value>Automatsko ponovno pokretanje</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Odaberite hoće li se i kada uređaj ponovno pokrenuti nakon implementacije.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Automatski ponovno pokreni</value>
+    <value>Odaberite hoće li se uređaj automatski ponovno pokrenuti nakon uspješne implementacije.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Odgoda prije ponovnog pokretanja</value>
+    <value>Odgoda ponovnog pokretanja</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Unesite odgodu od 0 do 3600 sekundi. Upotrijebite 0 za trenutačno ponovno pokretanje.</value>
+    <value>Postavite odgodu prije ponovnog pokretanja uređaja. Upotrijebite 0 za trenutačno ponovno pokretanje.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Sigurno pokretanje</value>
@@ -2771,13 +2768,10 @@
     <value>Promijeni način</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
-    <value>Zaštita medija za implementaciju</value>
+    <value>Zaštita lozinkom</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Zahtijevajte lozinku prije nego što Foundry Deploy može upotrijebiti ovaj medij.</value>
-  </data>
-  <data name="GeneralConfiguration.DeploymentProtection.Toggle" xml:space="preserve">
-    <value>Zaštiti medij za implementaciju lozinkom</value>
+    <value>Zahtijevajte lozinku tehničara prije pokretanja implementacije.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Lozinka za implementaciju</value>

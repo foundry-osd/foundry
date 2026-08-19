@@ -1294,19 +1294,16 @@
     <value>Valige juurutamise ajal rakendatav ajavöönd.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Pärast edukat juurutamist</value>
+    <value>Automaatne taaskäivitamine</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Valige, kas ja millal seade pärast juurutamist taaskäivitatakse.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Taaskäivita automaatselt</value>
+    <value>Vali, kas seade taaskäivitatakse pärast edukat juurutamist automaatselt.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Viivitus enne taaskäivitamist</value>
+    <value>Taaskäivitamise viivitus</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Sisestage viivitus 0 kuni 3600 sekundit. Kohe taaskäivitamiseks kasutage väärtust 0.</value>
+    <value>Määra viivitus enne seadme taaskäivitamist. Koheseks taaskäivitamiseks kasuta väärtust 0.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Turvaline algkäivitus</value>
@@ -2771,13 +2768,10 @@
     <value>Muuda režiimi</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
-    <value>Juurutusandmekandja kaitse</value>
+    <value>Paroolikaitse</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Nõua parooli, enne kui Foundry Deploy saab seda andmekandjat kasutada.</value>
-  </data>
-  <data name="GeneralConfiguration.DeploymentProtection.Toggle" xml:space="preserve">
-    <value>Kaitse juurutusandmekandjat parooliga</value>
+    <value>Nõua enne juurutamise alustamist tehniku parooli.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Juurutusparool</value>

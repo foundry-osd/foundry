@@ -1294,19 +1294,16 @@
     <value>Escolha o fuso horário aplicado durante a implantação.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Após a implantação bem-sucedida</value>
+    <value>Reinicialização automática</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Escolha se e quando o dispositivo será reiniciado após a implantação.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Reiniciar automaticamente</value>
+    <value>Escolha se o dispositivo será reiniciado automaticamente após uma implantação bem-sucedida.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Atraso antes de reiniciar</value>
+    <value>Atraso da reinicialização</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Insira um atraso de 0 a 3600 segundos. Use 0 para reiniciar imediatamente.</value>
+    <value>Defina o atraso antes da reinicialização do dispositivo. Use 0 para reiniciar imediatamente.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Inicialização segura</value>
@@ -2771,13 +2768,10 @@
     <value>Alterar modo</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
-    <value>Proteção da mídia de implantação</value>
+    <value>Proteção por senha</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Exija uma senha antes que o Foundry Deploy possa usar esta mídia.</value>
-  </data>
-  <data name="GeneralConfiguration.DeploymentProtection.Toggle" xml:space="preserve">
-    <value>Proteger a mídia de implantação com uma senha</value>
+    <value>Exija uma senha de técnico antes de iniciar uma implantação.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Senha de implantação</value>

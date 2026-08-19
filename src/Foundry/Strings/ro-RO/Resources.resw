@@ -1294,19 +1294,16 @@
     <value>Alegeți fusul orar aplicat în timpul implementării.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>După implementarea reușită</value>
+    <value>Repornire automată</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Alegeți dacă și când repornește dispozitivul după implementare.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Repornește automat</value>
+    <value>Alegeți dacă dispozitivul repornește automat după o implementare reușită.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Întârziere înainte de repornire</value>
+    <value>Întârziere la repornire</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Introduceți o întârziere între 0 și 3600 de secunde. Utilizați 0 pentru repornire imediată.</value>
+    <value>Setați întârzierea înainte ca dispozitivul să repornească. Utilizați 0 pentru repornire imediată.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Pornire securizată</value>
@@ -2771,13 +2768,10 @@
     <value>Schimbați modul</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
-    <value>Protecția suportului de implementare</value>
+    <value>Protecție prin parolă</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Solicitați o parolă înainte ca Foundry Deploy să poată utiliza acest suport.</value>
-  </data>
-  <data name="GeneralConfiguration.DeploymentProtection.Toggle" xml:space="preserve">
-    <value>Protejați suportul de implementare cu o parolă</value>
+    <value>Solicitați parola unui tehnician înainte de a începe o implementare.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Parolă de implementare</value>

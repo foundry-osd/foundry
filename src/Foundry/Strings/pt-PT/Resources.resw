@@ -1294,19 +1294,16 @@
     <value>Escolha o fuso horário aplicado durante a implementação.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Após a implementação bem-sucedida</value>
+    <value>Reinício automático</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Escolha se e quando o dispositivo é reiniciado após a implementação.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Reiniciar automaticamente</value>
+    <value>Escolha se o dispositivo é reiniciado automaticamente após uma implementação bem-sucedida.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Atraso antes do reinício</value>
+    <value>Atraso do reinício</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Introduza um atraso de 0 a 3600 segundos. Utilize 0 para reiniciar imediatamente.</value>
+    <value>Defina o atraso antes de o dispositivo reiniciar. Utilize 0 para reiniciar imediatamente.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Arranque seguro</value>
@@ -2771,13 +2768,10 @@
     <value>Alterar modo</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
-    <value>Proteção do suporte de implementação</value>
+    <value>Proteção por palavra-passe</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Exigir uma palavra-passe antes de o Foundry Deploy poder utilizar este suporte.</value>
-  </data>
-  <data name="GeneralConfiguration.DeploymentProtection.Toggle" xml:space="preserve">
-    <value>Proteger o suporte de implementação com uma palavra-passe</value>
+    <value>Exigir uma palavra-passe de técnico antes de iniciar uma implementação.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Palavra-passe de implementação</value>

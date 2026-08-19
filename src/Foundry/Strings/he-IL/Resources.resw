@@ -1294,19 +1294,16 @@
     <value>בחר את אזור הזמן שיוחל במהלך הפריסה.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>לאחר פריסה מוצלחת</value>
+    <value>הפעלה מחדש אוטומטית</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>בחר אם ומתי המכשיר יופעל מחדש לאחר הפריסה.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>הפעל מחדש באופן אוטומטי</value>
+    <value>בחר אם המכשיר יופעל מחדש באופן אוטומטי לאחר פריסה מוצלחת.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>השהיה לפני הפעלה מחדש</value>
+    <value>השהיית הפעלה מחדש</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>הזן השהיה של 0 עד 3600 שניות. השתמש ב-0 להפעלה מחדש מיידית.</value>
+    <value>הגדר את ההשהיה לפני הפעלת המכשיר מחדש. השתמש ב-0 להפעלה מחדש מיידית.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>אתחול מאובטח</value>
@@ -2771,13 +2768,10 @@
     <value>שינוי מצב</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
-    <value>הגנה על מדיית הפריסה</value>
+    <value>הגנה באמצעות סיסמה</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>דרוש סיסמה לפני ש-Foundry Deploy יוכל להשתמש במדיה זו.</value>
-  </data>
-  <data name="GeneralConfiguration.DeploymentProtection.Toggle" xml:space="preserve">
-    <value>הגן על מדיית הפריסה באמצעות סיסמה</value>
+    <value>דרוש סיסמת טכנאי לפני התחלת פריסה.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>סיסמת פריסה</value>

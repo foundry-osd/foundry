@@ -1294,19 +1294,16 @@
     <value>Виберіть часовий пояс, який застосовується під час розгортання.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Після успішного розгортання</value>
+    <value>Автоматичне перезавантаження</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Виберіть, чи потрібно та коли перезавантажувати пристрій після розгортання.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Перезавантажувати автоматично</value>
+    <value>Виберіть, чи має пристрій автоматично перезавантажуватися після успішного розгортання.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Затримка перед перезавантаженням</value>
+    <value>Затримка перезавантаження</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Введіть затримку від 0 до 3600 секунд. Значення 0 означає негайне перезавантаження.</value>
+    <value>Установіть затримку перед перезавантаженням пристрою. Укажіть 0, щоб перезавантажити негайно.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Безпечне завантаження</value>
@@ -2771,13 +2768,10 @@
     <value>Змінити режим</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
-    <value>Захист носія розгортання</value>
+    <value>Захист паролем</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Вимагати пароль, перш ніж Foundry Deploy зможе використовувати цей носій.</value>
-  </data>
-  <data name="GeneralConfiguration.DeploymentProtection.Toggle" xml:space="preserve">
-    <value>Захистити носій розгортання паролем</value>
+    <value>Вимагати пароль технічного спеціаліста перед початком розгортання.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Пароль розгортання</value>

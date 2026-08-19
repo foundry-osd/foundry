@@ -105,17 +105,11 @@ public sealed partial class GeneralConfigurationPage : Page
         TimeZoneCard.Description = localizationService.GetString("GeneralConfiguration.TimeZone.Description");
         DeploymentCompletionCard.Header = localizationService.GetString("GeneralConfiguration.Completion.Header");
         DeploymentCompletionCard.Description = localizationService.GetString("GeneralConfiguration.Completion.Description");
-        string automaticRebootText = localizationService.GetString("GeneralConfiguration.Completion.AutomaticReboot");
-        AutomaticRebootToggle.OnContent = automaticRebootText;
-        AutomaticRebootToggle.OffContent = automaticRebootText;
         RebootDelayCard.Header = localizationService.GetString("GeneralConfiguration.Completion.Delay.Header");
         RebootDelayCard.Description = localizationService.GetString("GeneralConfiguration.Completion.Delay.Description");
 
         DeploymentProtectionCard.Header = localizationService.GetString("GeneralConfiguration.DeploymentProtection.Header");
         DeploymentProtectionCard.Description = localizationService.GetString("GeneralConfiguration.DeploymentProtection.Description");
-        string protectionToggleText = localizationService.GetString("GeneralConfiguration.DeploymentProtection.Toggle");
-        DeploymentProtectionToggle.OnContent = protectionToggleText;
-        DeploymentProtectionToggle.OffContent = protectionToggleText;
         DeploymentProtectionPasswordCard.Header = localizationService.GetString("GeneralConfiguration.DeploymentProtection.PasswordCard.Header");
         DeploymentProtectionPasswordCard.Description = localizationService.GetString("GeneralConfiguration.DeploymentProtection.PasswordCard.Description");
         DeploymentProtectionPasswordBox.PlaceholderText = localizationService.GetString("GeneralConfiguration.DeploymentProtection.Password.Placeholder");

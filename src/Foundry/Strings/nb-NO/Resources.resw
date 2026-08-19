@@ -1294,19 +1294,16 @@
     <value>Velg tidssonen som brukes under distribusjon.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Etter vellykket distribusjon</value>
+    <value>Automatisk omstart</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Velg om og når enheten skal starte på nytt etter distribusjonen.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Start på nytt automatisk</value>
+    <value>Velg om enheten skal startes på nytt automatisk etter en vellykket distribusjon.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
     <value>Forsinkelse før omstart</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Angi en forsinkelse fra 0 til 3600 sekunder. Bruk 0 for å starte på nytt umiddelbart.</value>
+    <value>Angi forsinkelsen før enheten startes på nytt. Bruk 0 for å starte på nytt umiddelbart.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Sikker oppstart</value>
@@ -2771,13 +2768,10 @@
     <value>Endre modus</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
-    <value>Beskyttelse av distribusjonsmedier</value>
+    <value>Passordbeskyttelse</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Krev et passord før Foundry Deploy kan bruke dette mediet.</value>
-  </data>
-  <data name="GeneralConfiguration.DeploymentProtection.Toggle" xml:space="preserve">
-    <value>Beskytt distribusjonsmediet med et passord</value>
+    <value>Krev et teknikerpassord før en distribusjon startes.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Distribusjonspassord</value>

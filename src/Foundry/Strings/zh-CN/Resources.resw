@@ -1294,19 +1294,16 @@
     <value>选择部署期间应用的时区。</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>成功部署后</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>选择设备是否以及何时在部署后重启。</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
     <value>自动重启</value>
   </data>
+  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
+    <value>选择设备是否在部署成功后自动重启。</value>
+  </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>重启前延迟</value>
+    <value>重启延迟</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>输入 0 到 3600 秒的延迟。使用 0 可立即重启。</value>
+    <value>设置设备重启前的延迟时间。输入 0 可立即重启。</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>安全启动</value>
@@ -2771,13 +2768,10 @@
     <value>更改模式</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
-    <value>部署介质保护</value>
+    <value>密码保护</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>要求先输入密码，Foundry Deploy 才能使用此介质。</value>
-  </data>
-  <data name="GeneralConfiguration.DeploymentProtection.Toggle" xml:space="preserve">
-    <value>使用密码保护部署介质</value>
+    <value>开始部署前要求输入技术人员密码。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>部署密码</value>

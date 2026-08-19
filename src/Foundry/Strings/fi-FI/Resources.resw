@@ -1294,19 +1294,16 @@
     <value>Valitse käyttöönoton aikana käytettävä aikavyöhyke.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Onnistuneen käyttöönoton jälkeen</value>
+    <value>Automaattinen uudelleenkäynnistys</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Valitse, käynnistetäänkö laite uudelleen käyttöönoton jälkeen ja milloin.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Käynnistä automaattisesti uudelleen</value>
+    <value>Valitse, käynnistetäänkö laite automaattisesti uudelleen onnistuneen käyttöönoton jälkeen.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Viive ennen uudelleenkäynnistystä</value>
+    <value>Uudelleenkäynnistyksen viive</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Anna viive väliltä 0–3600 sekuntia. Arvo 0 käynnistää uudelleen heti.</value>
+    <value>Määritä viive ennen laitteen uudelleenkäynnistystä. Arvolla 0 laite käynnistyy uudelleen heti.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Suojattu käynnistys</value>
@@ -2771,13 +2768,10 @@
     <value>Vaihda tilaa</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
-    <value>Käyttöönottomedian suojaus</value>
+    <value>Salasanasuojaus</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Vaadi salasana, ennen kuin Foundry Deploy voi käyttää tätä mediaa.</value>
-  </data>
-  <data name="GeneralConfiguration.DeploymentProtection.Toggle" xml:space="preserve">
-    <value>Suojaa käyttöönottomedia salasanalla</value>
+    <value>Vaadi teknikon salasana ennen käyttöönoton aloittamista.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Käyttöönoton salasana</value>

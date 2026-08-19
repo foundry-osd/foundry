@@ -1294,19 +1294,16 @@
     <value>Vyberte časové pásmo použité během nasazení.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Po úspěšném nasazení</value>
+    <value>Automatické restartování</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Zvolte, zda a kdy se má zařízení po nasazení restartovat.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Restartovat automaticky</value>
+    <value>Zvolte, zda se má zařízení po úspěšném nasazení automaticky restartovat.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Prodleva před restartováním</value>
+    <value>Prodleva restartování</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Zadejte prodlevu od 0 do 3600 sekund. Hodnota 0 znamená okamžité restartování.</value>
+    <value>Nastavte prodlevu před restartováním zařízení. Zadáním hodnoty 0 se zařízení restartuje okamžitě.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Zabezpečené spouštění</value>
@@ -2771,13 +2768,10 @@
     <value>Změnit režim</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
-    <value>Ochrana instalačního média</value>
+    <value>Ochrana heslem</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Před použitím tohoto média aplikací Foundry Deploy vyžadovat heslo.</value>
-  </data>
-  <data name="GeneralConfiguration.DeploymentProtection.Toggle" xml:space="preserve">
-    <value>Chránit instalační médium heslem</value>
+    <value>Před zahájením nasazení vyžadovat heslo technika.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Heslo pro nasazení</value>

@@ -1294,19 +1294,16 @@
     <value>Choose the time zone applied during deployment.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>After successful deployment</value>
+    <value>Automatic restart</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Choose whether and when the device restarts after deployment.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Restart automatically</value>
+    <value>Choose whether the device restarts automatically after a successful deployment.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Delay before restart</value>
+    <value>Restart delay</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Enter a delay from 0 to 3600 seconds. Use 0 to restart immediately.</value>
+    <value>Set the delay before the device restarts. Use 0 to restart immediately.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Secure Boot</value>
@@ -2771,13 +2768,10 @@
     <value>Change mode</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
-    <value>Deployment media protection</value>
+    <value>Password protection</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Require a password before Foundry Deploy can use this media.</value>
-  </data>
-  <data name="GeneralConfiguration.DeploymentProtection.Toggle" xml:space="preserve">
-    <value>Protect deployment media with a password</value>
+    <value>Require a technician password before starting a deployment.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Deployment password</value>

@@ -1294,19 +1294,16 @@
     <value>選擇部署期間套用的時區。</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>成功部署後</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>選擇裝置是否以及何時在部署後重新啟動。</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
     <value>自動重新啟動</value>
   </data>
+  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
+    <value>選擇裝置是否在成功部署後自動重新啟動。</value>
+  </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>重新啟動前的延遲</value>
+    <value>重新啟動延遲</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>輸入 0 到 3600 秒的延遲。使用 0 可立即重新啟動。</value>
+    <value>設定裝置重新啟動前的延遲時間。輸入 0 可立即重新啟動。</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>安全開機</value>
@@ -2771,13 +2768,10 @@
     <value>變更模式</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
-    <value>部署媒體保護</value>
+    <value>密碼保護</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>要求先輸入密碼，Foundry Deploy 才能使用此媒體。</value>
-  </data>
-  <data name="GeneralConfiguration.DeploymentProtection.Toggle" xml:space="preserve">
-    <value>使用密碼保護部署媒體</value>
+    <value>開始部署前要求輸入技術人員密碼。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>部署密碼</value>

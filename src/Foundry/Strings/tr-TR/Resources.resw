@@ -1294,19 +1294,16 @@
     <value>Dağıtım sırasında uygulanacak saat dilimini seçin.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Başarılı dağıtımdan sonra</value>
+    <value>Otomatik yeniden başlatma</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Dağıtımdan sonra cihazın yeniden başlatılıp başlatılmayacağını ve zamanını seçin.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Otomatik olarak yeniden başlat</value>
+    <value>Başarılı bir dağıtımdan sonra cihazın otomatik olarak yeniden başlatılıp başlatılmayacağını seçin.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Yeniden başlatma öncesi gecikme</value>
+    <value>Yeniden başlatma gecikmesi</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>0 ile 3600 saniye arasında bir gecikme girin. Hemen yeniden başlatmak için 0 kullanın.</value>
+    <value>Cihaz yeniden başlatılmadan önceki gecikmeyi ayarlayın. Hemen yeniden başlatmak için 0 kullanın.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Güvenli Önyükleme</value>
@@ -2771,13 +2768,10 @@
     <value>Modu değiştir</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
-    <value>Dağıtım medyası koruması</value>
+    <value>Parola koruması</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Foundry Deploy bu medyayı kullanmadan önce parola isteyin.</value>
-  </data>
-  <data name="GeneralConfiguration.DeploymentProtection.Toggle" xml:space="preserve">
-    <value>Dağıtım medyasını parolayla koru</value>
+    <value>Dağıtımı başlatmadan önce teknisyen parolası isteyin.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Dağıtım parolası</value>

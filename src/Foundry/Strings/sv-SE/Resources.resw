@@ -1294,19 +1294,16 @@
     <value>Välj tidszonen som används under distributionen.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Efter slutförd distribution</value>
+    <value>Automatisk omstart</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Välj om och när enheten ska startas om efter distributionen.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Starta om automatiskt</value>
+    <value>Välj om enheten ska startas om automatiskt efter en lyckad distribution.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
     <value>Fördröjning före omstart</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Ange en fördröjning från 0 till 3600 sekunder. Använd 0 för att starta om direkt.</value>
+    <value>Ange fördröjningen innan enheten startas om. Använd 0 för att starta om omedelbart.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Säker start</value>
@@ -2771,13 +2768,10 @@
     <value>Ändra läge</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
-    <value>Skydd av distributionsmedia</value>
+    <value>Lösenordsskydd</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Kräv ett lösenord innan Foundry Deploy kan använda det här mediet.</value>
-  </data>
-  <data name="GeneralConfiguration.DeploymentProtection.Toggle" xml:space="preserve">
-    <value>Skydda distributionsmedia med ett lösenord</value>
+    <value>Kräv ett teknikerlösenord innan en distribution startas.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Distributionslösenord</value>

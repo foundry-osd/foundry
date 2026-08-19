@@ -1294,19 +1294,16 @@
     <value>Pasirinkite diegimo metu taikomą laiko juostą.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Po sėkmingo diegimo</value>
+    <value>Automatinis paleidimas iš naujo</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Pasirinkite, ar ir kada įrenginys bus paleistas iš naujo po diegimo.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Paleisti iš naujo automatiškai</value>
+    <value>Pasirinkite, ar sėkmingai įdiegus įrenginys bus automatiškai paleistas iš naujo.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Delsa prieš paleidžiant iš naujo</value>
+    <value>Paleidimo iš naujo delsa</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Įveskite delsą nuo 0 iki 3600 sekundžių. Norėdami paleisti iš naujo iš karto, naudokite 0.</value>
+    <value>Nustatykite delsą prieš paleidžiant įrenginį iš naujo. Norėdami paleisti iš naujo iškart, naudokite 0.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Saugioji įkrova</value>
@@ -2771,13 +2768,10 @@
     <value>Keisti režimą</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
-    <value>Diegimo laikmenos apsauga</value>
+    <value>Apsauga slaptažodžiu</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Reikalauti slaptažodžio prieš leidžiant „Foundry Deploy“ naudoti šią laikmeną.</value>
-  </data>
-  <data name="GeneralConfiguration.DeploymentProtection.Toggle" xml:space="preserve">
-    <value>Apsaugoti diegimo laikmeną slaptažodžiu</value>
+    <value>Reikalauti techniko slaptažodžio prieš pradedant diegimą.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Diegimo slaptažodis</value>

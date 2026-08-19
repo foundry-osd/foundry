@@ -1294,19 +1294,16 @@
     <value>Choisissez le fuseau horaire appliqué pendant le déploiement.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Après un déploiement réussi</value>
+    <value>Redémarrage automatique</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Choisissez si et quand l’appareil redémarre après le déploiement.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Redémarrer automatiquement</value>
+    <value>Choisissez si l’appareil redémarre automatiquement après un déploiement réussi.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Délai avant le redémarrage</value>
+    <value>Délai de redémarrage</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Saisissez un délai de 0 à 3 600 secondes. Utilisez 0 pour redémarrer immédiatement.</value>
+    <value>Définissez le délai avant le redémarrage de l’appareil. Utilisez 0 pour le redémarrer immédiatement.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Démarrage sécurisé</value>
@@ -2771,13 +2768,10 @@
     <value>Modifier le mode</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
-    <value>Protection du support de déploiement</value>
+    <value>Protection par mot de passe</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Exiger un mot de passe avant que Foundry Deploy puisse utiliser ce support.</value>
-  </data>
-  <data name="GeneralConfiguration.DeploymentProtection.Toggle" xml:space="preserve">
-    <value>Protéger le support de déploiement par un mot de passe</value>
+    <value>Exiger le mot de passe d’un technicien avant de lancer un déploiement.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Mot de passe de déploiement</value>

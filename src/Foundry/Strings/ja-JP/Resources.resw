@@ -1294,19 +1294,16 @@
     <value>展開中に適用するタイム ゾーンを選択します。</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>展開が正常に完了した後</value>
+    <value>自動再起動</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>展開後にデバイスを再起動するかどうかと、そのタイミングを選択します。</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>自動的に再起動する</value>
+    <value>展開が正常に完了した後、デバイスを自動的に再起動するかどうかを選択します。</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>再起動までの待機時間</value>
+    <value>再起動の遅延</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>0～3600 秒の待機時間を入力します。すぐに再起動するには 0 を使用します。</value>
+    <value>デバイスが再起動するまでの遅延時間を設定します。すぐに再起動するには 0 を指定します。</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>セキュア ブート</value>
@@ -2771,13 +2768,10 @@
     <value>モードを変更</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
-    <value>展開メディアの保護</value>
+    <value>パスワード保護</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Foundry Deploy がこのメディアを使用する前にパスワードを要求します。</value>
-  </data>
-  <data name="GeneralConfiguration.DeploymentProtection.Toggle" xml:space="preserve">
-    <value>展開メディアをパスワードで保護する</value>
+    <value>展開を開始する前に技術者用パスワードを要求します。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>展開パスワード</value>

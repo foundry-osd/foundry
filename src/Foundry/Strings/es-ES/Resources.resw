@@ -1294,19 +1294,16 @@
     <value>Elige la zona horaria aplicada durante la implementación.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Después de una implementación correcta</value>
+    <value>Reinicio automático</value>
   </data>
   <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Elija si el dispositivo se reinicia después de la implementación y cuándo.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
-    <value>Reiniciar automáticamente</value>
+    <value>Elija si el dispositivo se reinicia automáticamente tras una implementación correcta.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Retraso antes del reinicio</value>
+    <value>Retraso del reinicio</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Especifique un retraso de 0 a 3600 segundos. Use 0 para reiniciar inmediatamente.</value>
+    <value>Establezca el tiempo de espera antes de que el dispositivo se reinicie. Use 0 para reiniciarlo inmediatamente.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Arranque seguro</value>
@@ -2771,13 +2768,10 @@
     <value>Cambiar modo</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
-    <value>Protección del medio de implementación</value>
+    <value>Protección con contraseña</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Solicitar una contraseña antes de que Foundry Deploy pueda usar este medio.</value>
-  </data>
-  <data name="GeneralConfiguration.DeploymentProtection.Toggle" xml:space="preserve">
-    <value>Proteger el medio de implementación con una contraseña</value>
+    <value>Solicitar la contraseña de un técnico antes de iniciar una implementación.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Contraseña de implementación</value>

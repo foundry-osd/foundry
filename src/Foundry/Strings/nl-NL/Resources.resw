@@ -1294,19 +1294,16 @@
     <value>Kies de tijdzone die tijdens de implementatie wordt toegepast.</value>
   </data>
   <data name="GeneralConfiguration.Completion.Header" xml:space="preserve">
-    <value>Na een geslaagde implementatie</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
-    <value>Kies of en wanneer het apparaat na de implementatie opnieuw wordt opgestart.</value>
-  </data>
-  <data name="GeneralConfiguration.Completion.AutomaticReboot" xml:space="preserve">
     <value>Automatisch opnieuw opstarten</value>
   </data>
+  <data name="GeneralConfiguration.Completion.Description" xml:space="preserve">
+    <value>Kies of het apparaat automatisch opnieuw wordt opgestart na een geslaagde implementatie.</value>
+  </data>
   <data name="GeneralConfiguration.Completion.Delay.Header" xml:space="preserve">
-    <value>Vertraging vóór opnieuw opstarten</value>
+    <value>Vertraging voor opnieuw opstarten</value>
   </data>
   <data name="GeneralConfiguration.Completion.Delay.Description" xml:space="preserve">
-    <value>Voer een vertraging van 0 tot 3600 seconden in. Gebruik 0 om onmiddellijk opnieuw op te starten.</value>
+    <value>Stel de vertraging in voordat het apparaat opnieuw wordt opgestart. Gebruik 0 om het direct opnieuw op te starten.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Header" xml:space="preserve">
     <value>Veilig opstarten</value>
@@ -2771,13 +2768,10 @@
     <value>Modus wijzigen</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
-    <value>Beveiliging van implementatiemedia</value>
+    <value>Wachtwoordbeveiliging</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Een wachtwoord vereisen voordat Foundry Deploy dit medium kan gebruiken.</value>
-  </data>
-  <data name="GeneralConfiguration.DeploymentProtection.Toggle" xml:space="preserve">
-    <value>Implementatiemedia beveiligen met een wachtwoord</value>
+    <value>Vereis een technicuswachtwoord voordat een implementatie wordt gestart.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Implementatiewachtwoord</value>
