@@ -2791,4 +2791,13 @@
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
     <value>Для надійнішого захисту використовуйте щонайменше 12 символів або парольну фразу.</value>
   </data>
+  <data name="StartOverview.State.Default" xml:space="preserve">
+    <value>За замовчуванням</value>
+  </data>
+  <data name="StartOverview.State.NotSelected" xml:space="preserve">
+    <value>Не вибрано</value>
+  </data>
+  <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
+    <value>Потребує уваги</value>
+  </data>
 </root>

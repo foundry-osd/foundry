@@ -2791,4 +2791,13 @@
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
     <value>Per una protezione maggiore, utilizza almeno 12 caratteri o una passphrase.</value>
   </data>
+  <data name="StartOverview.State.Default" xml:space="preserve">
+    <value>Predefinito</value>
+  </data>
+  <data name="StartOverview.State.NotSelected" xml:space="preserve">
+    <value>Non selezionato</value>
+  </data>
+  <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
+    <value>Richiede attenzione</value>
+  </data>
 </root>

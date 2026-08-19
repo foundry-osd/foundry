@@ -8,7 +8,7 @@ namespace Foundry.Controls;
 
 /// <summary>
 /// Renders a single numbered step within the <see cref="WorkflowStepper"/>.
-/// Shows a colored circle (green/orange/gray) with a checkmark, warning icon, or step number.
+/// Shows a colored circle with a checkmark, critical icon, or step number.
 /// </summary>
 public sealed partial class WorkflowStep : UserControl
 {
@@ -69,7 +69,7 @@ public sealed partial class WorkflowStep : UserControl
     public Brush CircleBackground => State switch
     {
         InfoBarSeverity.Success => (Brush)Resources["WorkflowStepReadyBrush"],
-        InfoBarSeverity.Warning => (Brush)Resources["WorkflowStepWarningBrush"],
+        InfoBarSeverity.Error => (Brush)Resources["WorkflowStepCriticalBrush"],
         _ => (Brush)Resources["WorkflowStepPendingBrush"],
     };
 
@@ -77,7 +77,7 @@ public sealed partial class WorkflowStep : UserControl
     public Brush CircleForeground => State switch
     {
         InfoBarSeverity.Success => (Brush)Resources["WorkflowStepReadyForegroundBrush"],
-        InfoBarSeverity.Warning => (Brush)Resources["WorkflowStepWarningForegroundBrush"],
+        InfoBarSeverity.Error => (Brush)Resources["WorkflowStepCriticalForegroundBrush"],
         _ => (Brush)Resources["WorkflowStepPendingForegroundBrush"],
     };
 
@@ -89,8 +89,8 @@ public sealed partial class WorkflowStep : UserControl
     /// <summary>Gets the visibility of the checkmark icon (Ready state only).</summary>
     public Visibility IsReady => State == InfoBarSeverity.Success ? Visibility.Visible : Visibility.Collapsed;
 
-    /// <summary>Gets the visibility of the warning icon (Warning state only).</summary>
-    public Visibility IsWarning => State == InfoBarSeverity.Warning ? Visibility.Visible : Visibility.Collapsed;
+    /// <summary>Gets the visibility of the critical icon.</summary>
+    public Visibility IsCritical => State == InfoBarSeverity.Error ? Visibility.Visible : Visibility.Collapsed;
 
     /// <summary>Gets the visibility of the step number (Pending state only).</summary>
     public Visibility IsPending => State == InfoBarSeverity.Informational ? Visibility.Visible : Visibility.Collapsed;

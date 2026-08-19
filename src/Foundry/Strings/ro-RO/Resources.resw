@@ -2791,4 +2791,13 @@
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
     <value>Pentru o protecție mai puternică, utilizați cel puțin 12 caractere sau o frază de acces.</value>
   </data>
+  <data name="StartOverview.State.Default" xml:space="preserve">
+    <value>Implicit</value>
+  </data>
+  <data name="StartOverview.State.NotSelected" xml:space="preserve">
+    <value>Neselectat</value>
+  </data>
+  <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
+    <value>Necesită atenție</value>
+  </data>
 </root>

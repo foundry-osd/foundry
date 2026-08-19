@@ -834,46 +834,6 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
             return string.Empty;
         }
 
-        string key = result.Code switch
-        {
-            NetworkConfigurationValidationCode.WifiProvisioningRequired => "Network.ErrorWifiProvisioningRequired",
-            NetworkConfigurationValidationCode.WiredProfileTemplateRequired => "Network.ErrorWiredProfileTemplateRequired",
-            NetworkConfigurationValidationCode.WiredProfileTemplateMissing => "Network.ErrorWiredProfileTemplateMissing",
-            NetworkConfigurationValidationCode.WiredCertificateRequired => "Network.ErrorWiredCertificateRequired",
-            NetworkConfigurationValidationCode.WiredCertificateMissing => "Network.ErrorWiredCertificateMissing",
-            NetworkConfigurationValidationCode.WifiSsidRequired => "Network.ErrorWifiSsidRequired",
-            NetworkConfigurationValidationCode.UnsupportedWifiSecurityType => "Network.ErrorUnsupportedWifiSecurityTypeFormat",
-            NetworkConfigurationValidationCode.WifiPersonalPassphraseInvalid => "Network.ErrorWifiPersonalPassphraseInvalid",
-            NetworkConfigurationValidationCode.WifiEnterpriseProfileTemplateRequired => "Network.ErrorWifiEnterpriseProfileTemplateRequired",
-            NetworkConfigurationValidationCode.WifiEnterpriseProfileTemplateMissing => "Network.ErrorWifiEnterpriseProfileTemplateMissing",
-            NetworkConfigurationValidationCode.WifiEnterpriseAuthenticationUnsupported => "Network.ErrorWifiEnterpriseAuthenticationUnsupported",
-            NetworkConfigurationValidationCode.WifiEnterpriseAuthenticationMismatch => "Network.ErrorWifiEnterpriseAuthenticationMismatchFormat",
-            NetworkConfigurationValidationCode.WifiEnterpriseCertificateRequired => "Network.ErrorWifiEnterpriseCertificateRequired",
-            NetworkConfigurationValidationCode.WifiEnterpriseCertificateMissing => "Network.ErrorWifiEnterpriseCertificateMissing",
-            _ => string.Empty
-        };
-
-        if (string.IsNullOrWhiteSpace(key))
-        {
-            return string.Empty;
-        }
-
-        object[] arguments = result.Code == NetworkConfigurationValidationCode.WifiEnterpriseAuthenticationMismatch
-            ? result.FormatArguments.Select(FormatEnterpriseSecurityTypeLabel).Cast<object>().ToArray()
-            : result.FormatArguments.Cast<object>().ToArray();
-
-        return result.FormatArguments.Count == 0
-            ? localizationService.GetString(key)
-            : localizationService.FormatString(key, arguments);
-    }
-
-    private string FormatEnterpriseSecurityTypeLabel(string securityType)
-    {
-        return securityType switch
-        {
-            NetworkConfigurationValidator.WifiSecurityEnterpriseWpa3 => localizationService.GetString("Wifi.SecurityTypeEnterpriseWpa3"),
-            NetworkConfigurationValidator.WifiSecurityEnterpriseWpa3192 => localizationService.GetString("Wifi.SecurityTypeEnterpriseWpa3192"),
-            _ => localizationService.GetString("Wifi.SecurityTypeEnterprise")
-        };
+        return NetworkConfigurationValidationTextFormatter.Format(localizationService, result);
     }
 }

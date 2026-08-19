@@ -2791,4 +2791,13 @@
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
     <value>Brug mindst 12 tegn eller en adgangssætning for at opnå bedre beskyttelse.</value>
   </data>
+  <data name="StartOverview.State.Default" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="StartOverview.State.NotSelected" xml:space="preserve">
+    <value>Ikke valgt</value>
+  </data>
+  <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
+    <value>Kræver opmærksomhed</value>
+  </data>
 </root>

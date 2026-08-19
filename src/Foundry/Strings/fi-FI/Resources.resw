@@ -2791,4 +2791,13 @@
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
     <value>Saat vahvemman suojauksen käyttämällä vähintään 12 merkkiä tai salauslausetta.</value>
   </data>
+  <data name="StartOverview.State.Default" xml:space="preserve">
+    <value>Oletus</value>
+  </data>
+  <data name="StartOverview.State.NotSelected" xml:space="preserve">
+    <value>Ei valittu</value>
+  </data>
+  <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
+    <value>Vaatii huomiota</value>
+  </data>
 </root>

@@ -2791,4 +2791,13 @@
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
     <value>Aby zwiększyć ochronę, użyj co najmniej 12 znaków lub frazy hasłowej.</value>
   </data>
+  <data name="StartOverview.State.Default" xml:space="preserve">
+    <value>Domyślne</value>
+  </data>
+  <data name="StartOverview.State.NotSelected" xml:space="preserve">
+    <value>Nie wybrano</value>
+  </data>
+  <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
+    <value>Wymaga uwagi</value>
+  </data>
 </root>

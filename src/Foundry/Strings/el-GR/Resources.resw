@@ -2791,4 +2791,13 @@
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
     <value>Για ισχυρότερη προστασία, χρησιμοποιήστε τουλάχιστον 12 χαρακτήρες ή μια φράση πρόσβασης.</value>
   </data>
+  <data name="StartOverview.State.Default" xml:space="preserve">
+    <value>Προεπιλογή</value>
+  </data>
+  <data name="StartOverview.State.NotSelected" xml:space="preserve">
+    <value>Δεν έχει επιλεγεί</value>
+  </data>
+  <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
+    <value>Χρειάζεται προσοχή</value>
+  </data>
 </root>

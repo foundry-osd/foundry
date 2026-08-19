@@ -2791,4 +2791,13 @@
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
     <value>Daha güçlü koruma için en az 12 karakter veya bir parola tümcesi kullanın.</value>
   </data>
+  <data name="StartOverview.State.Default" xml:space="preserve">
+    <value>Varsayılan</value>
+  </data>
+  <data name="StartOverview.State.NotSelected" xml:space="preserve">
+    <value>Seçilmedi</value>
+  </data>
+  <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
+    <value>Dikkat gerekiyor</value>
+  </data>
 </root>

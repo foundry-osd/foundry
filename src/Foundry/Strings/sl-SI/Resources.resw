@@ -2791,4 +2791,13 @@
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
     <value>Za močnejšo zaščito uporabite vsaj 12 znakov ali geselsko frazo.</value>
   </data>
+  <data name="StartOverview.State.Default" xml:space="preserve">
+    <value>Privzeto</value>
+  </data>
+  <data name="StartOverview.State.NotSelected" xml:space="preserve">
+    <value>Ni izbrano</value>
+  </data>
+  <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
+    <value>Zahteva pozornost</value>
+  </data>
 </root>

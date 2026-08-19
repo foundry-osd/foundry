@@ -33,12 +33,10 @@ public sealed partial class StartPage : Page
 
     private void ApplyLocalizedText()
     {
-        ReadinessPrerequisitesCard.Header = localizationService.GetString("StartMedia.Readiness.Prerequisites.Header");
-        ReadinessPrerequisitesCard.Description = localizationService.GetString("StartMedia.Readiness.Prerequisites.Description");
-        ReadinessMediaOutputCard.Header = localizationService.GetString("StartMedia.Readiness.MediaOutput.Header");
-        ReadinessMediaOutputCard.Description = localizationService.GetString("StartMedia.Readiness.MediaOutput.Description");
-        ReadinessFoundryConfigurationCard.Header = localizationService.GetString("StartMedia.Readiness.FoundryConfiguration.Header");
-        ReadinessFoundryConfigurationCard.Description = localizationService.GetString("StartMedia.Readiness.FoundryConfiguration.Description");
+        GeneralConfigurationOverviewCard.Header = localizationService.GetString("Nav_GeneralConfigurationKey.Title");
+        NetworkOverviewCard.Header = localizationService.GetString("Nav_NetworkSection.Title");
+        AutopilotOverviewCard.Header = localizationService.GetString("Nav_WindowsAutopilotSection.Title");
+        CustomizationOverviewCard.Header = localizationService.GetString("Nav_CustomizationSection.Title");
 
         IsoPathCard.Header = localizationService.GetString("StartMedia.IsoPath.Header");
         IsoPathCard.Description = localizationService.GetString("StartMedia.IsoPath.Description");
@@ -80,9 +78,6 @@ public sealed partial class StartPage : Page
 
         switch (navigationTarget)
         {
-            case ConfigurationNavigationTarget.Adk:
-                App.Current.NavigationService.NavigateTo(typeof(AdkPage));
-                break;
             case ConfigurationNavigationTarget.General:
                 App.Current.NavigationService.NavigateTo(typeof(GeneralConfigurationPage));
                 break;

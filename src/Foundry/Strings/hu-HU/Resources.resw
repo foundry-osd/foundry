@@ -2791,4 +2791,13 @@
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
     <value>Az erősebb védelem érdekében használjon legalább 12 karaktert vagy jelmondatot.</value>
   </data>
+  <data name="StartOverview.State.Default" xml:space="preserve">
+    <value>Alapértelmezett</value>
+  </data>
+  <data name="StartOverview.State.NotSelected" xml:space="preserve">
+    <value>Nincs kiválasztva</value>
+  </data>
+  <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
+    <value>Beavatkozást igényel</value>
+  </data>
 </root>

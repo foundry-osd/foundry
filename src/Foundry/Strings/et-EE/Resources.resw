@@ -2791,4 +2791,13 @@
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
     <value>Tugevama kaitse tagamiseks kasuta vähemalt 12 märki või paroolifraasi.</value>
   </data>
+  <data name="StartOverview.State.Default" xml:space="preserve">
+    <value>Vaikimisi</value>
+  </data>
+  <data name="StartOverview.State.NotSelected" xml:space="preserve">
+    <value>Pole valitud</value>
+  </data>
+  <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
+    <value>Vajab tähelepanu</value>
+  </data>
 </root>

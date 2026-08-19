@@ -2791,4 +2791,13 @@
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
     <value>Bruk minst 12 tegn eller en passfrase for bedre beskyttelse.</value>
   </data>
+  <data name="StartOverview.State.Default" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="StartOverview.State.NotSelected" xml:space="preserve">
+    <value>Ikke valgt</value>
+  </data>
+  <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
+    <value>Krever oppmerksomhet</value>
+  </data>
 </root>

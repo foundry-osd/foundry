@@ -5,6 +5,7 @@
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Adk;
 using Foundry.Core.Services.Application;
+using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.WinPe;
 using Foundry.Services.Adk;
 using Foundry.Services.Configuration;
@@ -23,6 +24,7 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
 {
     private readonly IAdkService adkService;
     private readonly IFoundryConfigurationStateService configurationStateService;
+    private readonly IConfigurationOverviewService configurationOverviewService;
     private readonly IApplicationLocalizationService localizationService;
     private readonly IAppDispatcher appDispatcher;
     private readonly IShellNavigationGuardService shellNavigationGuardService;
@@ -157,6 +159,7 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
     public HomeLandingViewModel(
         IAdkService adkService,
         IFoundryConfigurationStateService configurationStateService,
+        IConfigurationOverviewService configurationOverviewService,
         IApplicationLocalizationService localizationService,
         IAppDispatcher appDispatcher,
         IShellNavigationGuardService shellNavigationGuardService,
@@ -164,6 +167,7 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
     {
         this.adkService = adkService;
         this.configurationStateService = configurationStateService;
+        this.configurationOverviewService = configurationOverviewService;
         this.localizationService = localizationService;
         this.appDispatcher = appDispatcher;
         this.shellNavigationGuardService = shellNavigationGuardService;
@@ -310,7 +314,7 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
     {
         bool ready = status.CanCreateMedia;
 
-        AdkCardSeverity = ready ? InfoBarSeverity.Success : InfoBarSeverity.Warning;
+        AdkCardSeverity = ready ? InfoBarSeverity.Success : InfoBarSeverity.Error;
         AdkCardStatusText = ready
             ? localizationService.GetString("Adk.Status.ReadyTitle")
             : GetAdkBlockingTitle(status);
@@ -320,7 +324,7 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
             ? localizationService.GetString("Adk.WinPeAddon.Installed")
             : localizationService.GetString("Adk.WinPeAddon.Missing");
 
-        ApplyWorkflowReadiness(ready, IsConfigurationReady());
+        ApplyWorkflowReadiness(ready);
     }
 
     private void ApplyConfigurationSummary()
@@ -335,7 +339,7 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
         };
 
         ConfigWinPeLanguageValue = string.IsNullOrWhiteSpace(general.WinPeLanguage)
-            ? localizationService.GetString("Common.AutomaticOption")
+            ? localizationService.GetString("NavigationStatus.NotConfigured")
             : general.WinPeLanguage;
 
         ConfigSecureBootValue = general.UseCa2023
@@ -362,40 +366,46 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
             ? string.Join(", ", drivers)
             : localizationService.GetString("Home.Status.ConfigCard.NoDrivers");
 
-        ApplyWorkflowReadiness(adkReady, IsConfigurationReady());
+        ApplyWorkflowReadiness(adkReady);
     }
 
-    private bool IsConfigurationReady()
+    private void ApplyWorkflowReadiness(bool adkReady)
     {
-        return configurationStateService.IsNetworkConfigurationReady &&
-               configurationStateService.IsDeployConfigurationReady &&
-               configurationStateService.IsConnectProvisioningReady &&
-               configurationStateService.AreRequiredSecretsReady &&
-               (!configurationStateService.IsAutopilotEnabled || configurationStateService.IsAutopilotConfigurationReady);
-    }
-
-    private void ApplyWorkflowReadiness(bool adkReady, bool configurationReady)
-    {
-        bool workflowReady = adkReady && configurationReady;
+        HomeWorkflowReadinessEvaluation workflow = HomeWorkflowReadinessEvaluator.Evaluate(
+            adkReady,
+            configurationOverviewService.Evaluate());
         string readyText = localizationService.GetString("StartMedia.Readiness.State.Ready");
-        string blockedText = localizationService.GetString("StartMedia.Readiness.State.Blocked");
+        string needsAttentionText = localizationService.GetString("StartOverview.State.NeedsAttention");
+        string requiresAdkText = localizationService.GetString("Home.Status.ConfigCard.BlockedStatus");
 
-        Step1State = adkReady ? InfoBarSeverity.Success : InfoBarSeverity.Warning;
+        Step1State = ToSeverity(workflow.Adk);
         Step1StatusText = adkReady ? readyText : AdkCardStatusText;
-        Step2State = !adkReady
-            ? InfoBarSeverity.Informational
-            : configurationReady ? InfoBarSeverity.Success : InfoBarSeverity.Warning;
-        Step2StatusText = workflowReady ? readyText : blockedText;
-        Step3State = workflowReady ? InfoBarSeverity.Success : InfoBarSeverity.Informational;
-        Step3StatusText = workflowReady ? readyText : blockedText;
+        Step2State = ToSeverity(workflow.General);
+        Step2StatusText = GetStatusText(workflow.General, readyText, needsAttentionText, requiresAdkText);
+        Step3State = ToSeverity(workflow.Start);
+        Step3StatusText = GetStatusText(workflow.Start, readyText, needsAttentionText, requiresAdkText);
 
-        ConfigCardSeverity = !adkReady
-            ? InfoBarSeverity.Informational
-            : configurationReady ? InfoBarSeverity.Success : InfoBarSeverity.Warning;
-        ConfigCardStatusText = !adkReady
-            ? localizationService.GetString("Home.Status.ConfigCard.BlockedStatus")
-            : configurationReady ? readyText : blockedText;
+        ConfigCardSeverity = ToSeverity(workflow.General);
+        ConfigCardStatusText = Step2StatusText;
     }
+
+    private static InfoBarSeverity ToSeverity(HomeWorkflowState state) => state switch
+    {
+        HomeWorkflowState.Ready => InfoBarSeverity.Success,
+        HomeWorkflowState.NeedsAttention => InfoBarSeverity.Error,
+        _ => InfoBarSeverity.Informational
+    };
+
+    private static string GetStatusText(
+        HomeWorkflowState state,
+        string readyText,
+        string needsAttentionText,
+        string requiresAdkText) => state switch
+        {
+            HomeWorkflowState.Ready => readyText,
+            HomeWorkflowState.NeedsAttention => needsAttentionText,
+            _ => requiresAdkText
+        };
 
     private string GetAdkBlockingTitle(AdkInstallationStatus status)
     {

@@ -2791,4 +2791,13 @@
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
     <value>เพื่อการป้องกันที่รัดกุมยิ่งขึ้น ให้ใช้อย่างน้อย 12 อักขระหรือวลีรหัสผ่าน</value>
   </data>
+  <data name="StartOverview.State.Default" xml:space="preserve">
+    <value>ค่าเริ่มต้น</value>
+  </data>
+  <data name="StartOverview.State.NotSelected" xml:space="preserve">
+    <value>ไม่ได้เลือก</value>
+  </data>
+  <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
+    <value>ต้องตรวจสอบ</value>
+  </data>
 </root>

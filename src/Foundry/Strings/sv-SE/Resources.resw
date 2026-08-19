@@ -2791,4 +2791,13 @@
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
     <value>Använd minst 12 tecken eller en lösenordsfras för starkare skydd.</value>
   </data>
+  <data name="StartOverview.State.Default" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="StartOverview.State.NotSelected" xml:space="preserve">
+    <value>Inte valt</value>
+  </data>
+  <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
+    <value>Kräver åtgärd</value>
+  </data>
 </root>

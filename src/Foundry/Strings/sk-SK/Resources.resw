@@ -2791,4 +2791,13 @@
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
     <value>Na zvýšenie ochrany použite najmenej 12 znakov alebo prístupovú frázu.</value>
   </data>
+  <data name="StartOverview.State.Default" xml:space="preserve">
+    <value>Predvolené</value>
+  </data>
+  <data name="StartOverview.State.NotSelected" xml:space="preserve">
+    <value>Nevybraté</value>
+  </data>
+  <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
+    <value>Vyžaduje pozornosť</value>
+  </data>
 </root>

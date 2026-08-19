@@ -2791,4 +2791,13 @@
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
     <value>Gebruik voor betere beveiliging minimaal 12 tekens of een wachtwoordzin.</value>
   </data>
+  <data name="StartOverview.State.Default" xml:space="preserve">
+    <value>Standaard</value>
+  </data>
+  <data name="StartOverview.State.NotSelected" xml:space="preserve">
+    <value>Niet geselecteerd</value>
+  </data>
+  <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
+    <value>Vereist aandacht</value>
+  </data>
 </root>

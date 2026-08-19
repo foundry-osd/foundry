@@ -2791,4 +2791,13 @@
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
     <value>為加強保護，請使用至少 12 個字元或密碼片語。</value>
   </data>
+  <data name="StartOverview.State.Default" xml:space="preserve">
+    <value>預設</value>
+  </data>
+  <data name="StartOverview.State.NotSelected" xml:space="preserve">
+    <value>未選取</value>
+  </data>
+  <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
+    <value>需要注意</value>
+  </data>
 </root>

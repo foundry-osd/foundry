@@ -2791,4 +2791,13 @@
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
     <value>Kad apsauga būtų patikimesnė, naudokite bent 12 simbolių arba slaptafrazę.</value>
   </data>
+  <data name="StartOverview.State.Default" xml:space="preserve">
+    <value>Numatyta</value>
+  </data>
+  <data name="StartOverview.State.NotSelected" xml:space="preserve">
+    <value>Nepasirinkta</value>
+  </data>
+  <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
+    <value>Reikia dėmesio</value>
+  </data>
 </root>

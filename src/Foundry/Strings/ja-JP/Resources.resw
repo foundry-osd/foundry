@@ -2791,4 +2791,13 @@
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
     <value>保護を強化するには、12 文字以上のパスワードまたはパスフレーズを使用してください。</value>
   </data>
+  <data name="StartOverview.State.Default" xml:space="preserve">
+    <value>既定</value>
+  </data>
+  <data name="StartOverview.State.NotSelected" xml:space="preserve">
+    <value>未選択</value>
+  </data>
+  <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
+    <value>確認が必要</value>
+  </data>
 </root>

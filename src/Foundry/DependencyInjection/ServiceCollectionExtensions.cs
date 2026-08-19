@@ -105,6 +105,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentProtectionSecretStateService, DeploymentProtectionSecretStateService>();
         services.AddSingleton<IFoundryConfigurationStateService, FoundryConfigurationStateService>();
         services.AddSingleton<IWinPeLanguageDiscoveryService, WinPeLanguageDiscoveryService>();
+        services.AddSingleton<IConfigurationOverviewService, ConfigurationOverviewService>();
         services.AddSingleton<IWinPeEmbeddedAssetService, WinPeEmbeddedAssetService>();
         services.AddSingleton<IWinPeBuildService, WinPeBuildService>();
         services.AddSingleton<IWinPeWorkspacePreparationService, WinPeWorkspacePreparationService>();

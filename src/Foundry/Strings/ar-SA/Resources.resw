@@ -2791,4 +2791,13 @@
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
     <value>لحماية أقوى، استخدم 12 حرفًا على الأقل أو عبارة مرور.</value>
   </data>
+  <data name="StartOverview.State.Default" xml:space="preserve">
+    <value>الافتراضي</value>
+  </data>
+  <data name="StartOverview.State.NotSelected" xml:space="preserve">
+    <value>غير محدد</value>
+  </data>
+  <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
+    <value>يحتاج إلى اهتمام</value>
+  </data>
 </root>

@@ -2791,4 +2791,13 @@
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
     <value>להגנה חזקה יותר, השתמש ב-12 תווים לפחות או בביטוי סיסמה.</value>
   </data>
+  <data name="StartOverview.State.Default" xml:space="preserve">
+    <value>ברירת מחדל</value>
+  </data>
+  <data name="StartOverview.State.NotSelected" xml:space="preserve">
+    <value>לא נבחר</value>
+  </data>
+  <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
+    <value>דורש טיפול</value>
+  </data>
 </root>

@@ -2791,4 +2791,13 @@
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
     <value>Lai nodrošinātu labāku aizsardzību, izmantojiet vismaz 12 rakstzīmes vai paroles frāzi.</value>
   </data>
+  <data name="StartOverview.State.Default" xml:space="preserve">
+    <value>Noklusējums</value>
+  </data>
+  <data name="StartOverview.State.NotSelected" xml:space="preserve">
+    <value>Nav atlasīts</value>
+  </data>
+  <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
+    <value>Jāpievērš uzmanība</value>
+  </data>
 </root>
