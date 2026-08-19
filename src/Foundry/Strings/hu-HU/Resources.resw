@@ -2771,30 +2771,30 @@
     <value>Mód módosítása</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
-    <value>Deployment media protection</value>
+    <value>A telepítési adathordozó védelme</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Require a password before Foundry Deploy can use this media.</value>
+    <value>Jelszó megkövetelése, mielőtt a Foundry Deploy használhatná ezt az adathordozót.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Toggle" xml:space="preserve">
-    <value>Protect deployment media with a password</value>
+    <value>A telepítési adathordozó védelme jelszóval</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
-    <value>Deployment password</value>
+    <value>Telepítési jelszó</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>The password cannot be recovered. Credentials and Autopilot profiles on protected media are encrypted with it.</value>
+    <value>A jelszó nem állítható helyre. A védett adathordozón lévő hitelesítő adatok és Autopilot-profilok ezzel vannak titkosítva.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Password.Placeholder" xml:space="preserve">
-    <value>Password</value>
+    <value>Jelszó</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" xml:space="preserve">
-    <value>Confirm password</value>
+    <value>Jelszó megerősítése</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Validation" xml:space="preserve">
-    <value>Enter matching passwords with at least 8 characters.</value>
+    <value>Adjon meg egyező, legalább 8 karakteres jelszavakat.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
-    <value>For stronger protection, use at least 12 characters or a passphrase.</value>
+    <value>Az erősebb védelem érdekében használjon legalább 12 karaktert vagy jelmondatot.</value>
   </data>
 </root>

@@ -2771,30 +2771,30 @@
     <value>Modus wijzigen</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
-    <value>Deployment media protection</value>
+    <value>Beveiliging van implementatiemedia</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Require a password before Foundry Deploy can use this media.</value>
+    <value>Een wachtwoord vereisen voordat Foundry Deploy dit medium kan gebruiken.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Toggle" xml:space="preserve">
-    <value>Protect deployment media with a password</value>
+    <value>Implementatiemedia beveiligen met een wachtwoord</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
-    <value>Deployment password</value>
+    <value>Implementatiewachtwoord</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>The password cannot be recovered. Credentials and Autopilot profiles on protected media are encrypted with it.</value>
+    <value>Het wachtwoord kan niet worden hersteld. Referenties en Autopilot-profielen op beveiligde media worden ermee versleuteld.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Password.Placeholder" xml:space="preserve">
-    <value>Password</value>
+    <value>Wachtwoord</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" xml:space="preserve">
-    <value>Confirm password</value>
+    <value>Wachtwoord bevestigen</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Validation" xml:space="preserve">
-    <value>Enter matching passwords with at least 8 characters.</value>
+    <value>Voer overeenkomende wachtwoorden van minimaal 8 tekens in.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
-    <value>For stronger protection, use at least 12 characters or a passphrase.</value>
+    <value>Gebruik voor betere beveiliging minimaal 12 tekens of een wachtwoordzin.</value>
   </data>
 </root>

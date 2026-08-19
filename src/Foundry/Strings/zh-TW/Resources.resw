@@ -2771,30 +2771,30 @@
     <value>變更模式</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
-    <value>Deployment media protection</value>
+    <value>部署媒體保護</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Require a password before Foundry Deploy can use this media.</value>
+    <value>要求先輸入密碼，Foundry Deploy 才能使用此媒體。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Toggle" xml:space="preserve">
-    <value>Protect deployment media with a password</value>
+    <value>使用密碼保護部署媒體</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
-    <value>Deployment password</value>
+    <value>部署密碼</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>The password cannot be recovered. Credentials and Autopilot profiles on protected media are encrypted with it.</value>
+    <value>密碼無法復原。受保護媒體上的認證和 Autopilot 設定檔會使用此密碼加密。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Password.Placeholder" xml:space="preserve">
-    <value>Password</value>
+    <value>密碼</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" xml:space="preserve">
-    <value>Confirm password</value>
+    <value>確認密碼</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Validation" xml:space="preserve">
-    <value>Enter matching passwords with at least 8 characters.</value>
+    <value>請輸入至少包含 8 個字元且相符的密碼。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
-    <value>For stronger protection, use at least 12 characters or a passphrase.</value>
+    <value>為加強保護，請使用至少 12 個字元或密碼片語。</value>
   </data>
 </root>

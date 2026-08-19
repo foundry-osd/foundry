@@ -529,10 +529,10 @@
   <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Windows 可选功能“{0}”已删除有效负载并且不支持本地源映射。</value></data>
   <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>“{0}”的 Windows 可选功能验证失败。</value></data>
   <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>匹配的 NetFx3 源不可用。 {0}</value></data>
-  <data name="Common.Cancel" xml:space="preserve"><value>Cancel</value></data>
-  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Deployment access</value></data>
-  <data name="DeploymentAccess.Prompt" xml:space="preserve"><value>Enter the deployment password to continue.</value></data>
-  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>Deployment password</value></data>
-  <data name="DeploymentAccess.Unlock" xml:space="preserve"><value>Unlock</value></data>
-  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>The password is incorrect. Try again.</value></data>
+  <data name="Common.Cancel" xml:space="preserve"><value>取消</value></data>
+  <data name="DeploymentAccess.Title" xml:space="preserve"><value>部署访问</value></data>
+  <data name="DeploymentAccess.Prompt" xml:space="preserve"><value>请输入部署密码以继续。</value></data>
+  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>部署密码</value></data>
+  <data name="DeploymentAccess.Unlock" xml:space="preserve"><value>解锁</value></data>
+  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>密码不正确，请重试。</value></data>
 </root>

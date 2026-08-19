@@ -2771,30 +2771,30 @@
     <value>モードを変更</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
-    <value>Deployment media protection</value>
+    <value>展開メディアの保護</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Require a password before Foundry Deploy can use this media.</value>
+    <value>Foundry Deploy がこのメディアを使用する前にパスワードを要求します。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Toggle" xml:space="preserve">
-    <value>Protect deployment media with a password</value>
+    <value>展開メディアをパスワードで保護する</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
-    <value>Deployment password</value>
+    <value>展開パスワード</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>The password cannot be recovered. Credentials and Autopilot profiles on protected media are encrypted with it.</value>
+    <value>パスワードは復元できません。保護されたメディア上の資格情報と Autopilot プロファイルは、このパスワードで暗号化されます。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Password.Placeholder" xml:space="preserve">
-    <value>Password</value>
+    <value>パスワード</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" xml:space="preserve">
-    <value>Confirm password</value>
+    <value>パスワードの確認</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Validation" xml:space="preserve">
-    <value>Enter matching passwords with at least 8 characters.</value>
+    <value>8 文字以上の一致するパスワードを入力してください。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
-    <value>For stronger protection, use at least 12 characters or a passphrase.</value>
+    <value>保護を強化するには、12 文字以上のパスワードまたはパスフレーズを使用してください。</value>
   </data>
 </root>

@@ -2771,30 +2771,30 @@
     <value>Keisti režimą</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
-    <value>Deployment media protection</value>
+    <value>Diegimo laikmenos apsauga</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Require a password before Foundry Deploy can use this media.</value>
+    <value>Reikalauti slaptažodžio prieš leidžiant „Foundry Deploy“ naudoti šią laikmeną.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Toggle" xml:space="preserve">
-    <value>Protect deployment media with a password</value>
+    <value>Apsaugoti diegimo laikmeną slaptažodžiu</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
-    <value>Deployment password</value>
+    <value>Diegimo slaptažodis</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>The password cannot be recovered. Credentials and Autopilot profiles on protected media are encrypted with it.</value>
+    <value>Slaptažodžio atkurti negalima. Apsaugotoje laikmenoje esantys prisijungimo duomenys ir „Autopilot“ profiliai juo užšifruojami.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Password.Placeholder" xml:space="preserve">
-    <value>Password</value>
+    <value>Slaptažodis</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" xml:space="preserve">
-    <value>Confirm password</value>
+    <value>Patvirtinkite slaptažodį</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Validation" xml:space="preserve">
-    <value>Enter matching passwords with at least 8 characters.</value>
+    <value>Įveskite sutampančius bent 8 simbolių slaptažodžius.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
-    <value>For stronger protection, use at least 12 characters or a passphrase.</value>
+    <value>Kad apsauga būtų patikimesnė, naudokite bent 12 simbolių arba slaptafrazę.</value>
   </data>
 </root>

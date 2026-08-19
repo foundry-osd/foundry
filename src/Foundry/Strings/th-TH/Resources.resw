@@ -2771,30 +2771,30 @@
     <value>เปลี่ยนโหมด</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
-    <value>Deployment media protection</value>
+    <value>การป้องกันสื่อการปรับใช้</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Require a password before Foundry Deploy can use this media.</value>
+    <value>กำหนดให้ป้อนรหัสผ่านก่อนที่ Foundry Deploy จะใช้สื่อนี้ได้</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Toggle" xml:space="preserve">
-    <value>Protect deployment media with a password</value>
+    <value>ป้องกันสื่อการปรับใช้ด้วยรหัสผ่าน</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
-    <value>Deployment password</value>
+    <value>รหัสผ่านการปรับใช้</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>The password cannot be recovered. Credentials and Autopilot profiles on protected media are encrypted with it.</value>
+    <value>ไม่สามารถกู้คืนรหัสผ่านได้ ข้อมูลประจำตัวและโปรไฟล์ Autopilot ในสื่อที่มีการป้องกันจะถูกเข้ารหัสด้วยรหัสผ่านนี้</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Password.Placeholder" xml:space="preserve">
-    <value>Password</value>
+    <value>รหัสผ่าน</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" xml:space="preserve">
-    <value>Confirm password</value>
+    <value>ยืนยันรหัสผ่าน</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Validation" xml:space="preserve">
-    <value>Enter matching passwords with at least 8 characters.</value>
+    <value>ป้อนรหัสผ่านที่ตรงกันและมีความยาวอย่างน้อย 8 อักขระ</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
-    <value>For stronger protection, use at least 12 characters or a passphrase.</value>
+    <value>เพื่อการป้องกันที่รัดกุมยิ่งขึ้น ให้ใช้อย่างน้อย 12 อักขระหรือวลีรหัสผ่าน</value>
   </data>
 </root>

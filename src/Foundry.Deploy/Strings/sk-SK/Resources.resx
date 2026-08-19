@@ -529,10 +529,10 @@ Pokračovať v nasadzovaní?</value></data>
   <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Voliteľn&#225; funkcia syst&#233;mu Windows &#39;{0}&#39; m&#225; odstr&#225;nen&#233; užitočn&#233; zaťaženie a žiadne podporovan&#233; mapovanie lok&#225;lneho zdroja.</value></data>
   <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Overenie voliteľnej funkcie syst&#233;mu Windows pre &#39;{0}&#39; zlyhalo.</value></data>
   <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Zodpovedaj&#250;ci zdroj NetFx3 nie je k dispoz&#237;cii. {0}</value></data>
-  <data name="Common.Cancel" xml:space="preserve"><value>Cancel</value></data>
-  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Deployment access</value></data>
-  <data name="DeploymentAccess.Prompt" xml:space="preserve"><value>Enter the deployment password to continue.</value></data>
-  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>Deployment password</value></data>
-  <data name="DeploymentAccess.Unlock" xml:space="preserve"><value>Unlock</value></data>
-  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>The password is incorrect. Try again.</value></data>
+  <data name="Common.Cancel" xml:space="preserve"><value>Zrušiť</value></data>
+  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Prístup k nasadeniu</value></data>
+  <data name="DeploymentAccess.Prompt" xml:space="preserve"><value>Ak chcete pokračovať, zadajte heslo nasadenia.</value></data>
+  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>Heslo nasadenia</value></data>
+  <data name="DeploymentAccess.Unlock" xml:space="preserve"><value>Odomknúť</value></data>
+  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Heslo je nesprávne. Skúste to znova.</value></data>
 </root>

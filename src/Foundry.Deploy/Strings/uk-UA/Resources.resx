@@ -529,10 +529,10 @@ ErrorCode=0x80070005
   <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Додаткова функція Windows &quot;{0}&quot; має вилучене корисне навантаження та не підтримує локальне відображення джерела.</value></data>
   <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Помилка перевірки додаткової функції Windows для &quot;{0}&quot;.</value></data>
   <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Відповідне джерело NetFx3 недоступне. {0}</value></data>
-  <data name="Common.Cancel" xml:space="preserve"><value>Cancel</value></data>
-  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Deployment access</value></data>
-  <data name="DeploymentAccess.Prompt" xml:space="preserve"><value>Enter the deployment password to continue.</value></data>
-  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>Deployment password</value></data>
-  <data name="DeploymentAccess.Unlock" xml:space="preserve"><value>Unlock</value></data>
-  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>The password is incorrect. Try again.</value></data>
+  <data name="Common.Cancel" xml:space="preserve"><value>Скасувати</value></data>
+  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Доступ до розгортання</value></data>
+  <data name="DeploymentAccess.Prompt" xml:space="preserve"><value>Введіть пароль розгортання, щоб продовжити.</value></data>
+  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>Пароль розгортання</value></data>
+  <data name="DeploymentAccess.Unlock" xml:space="preserve"><value>Розблокувати</value></data>
+  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Пароль неправильний. Спробуйте ще раз.</value></data>
 </root>
