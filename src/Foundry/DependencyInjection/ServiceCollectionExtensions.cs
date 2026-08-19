@@ -102,6 +102,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IAutopilotHardwareHashSessionState, AutopilotHardwareHashSessionState>();
         services.AddSingleton<ILanguageRegistryService, EmbeddedLanguageRegistryService>();
         services.AddSingleton<INetworkSecretStateService, NetworkSecretStateService>();
+        services.AddSingleton<IDeploymentProtectionSecretStateService, DeploymentProtectionSecretStateService>();
         services.AddSingleton<IFoundryConfigurationStateService, FoundryConfigurationStateService>();
         services.AddSingleton<IWinPeLanguageDiscoveryService, WinPeLanguageDiscoveryService>();
         services.AddSingleton<IWinPeEmbeddedAssetService, WinPeEmbeddedAssetService>();

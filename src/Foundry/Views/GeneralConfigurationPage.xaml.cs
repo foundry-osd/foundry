@@ -49,6 +49,28 @@ public sealed partial class GeneralConfigurationPage : Page
         App.Current.NavigationService.NavigateTo(typeof(StartPage));
     }
 
+    private void DeploymentProtectionToggle_Toggled(object sender, RoutedEventArgs e)
+    {
+        if (DeploymentProtectionToggle.IsOn)
+        {
+            DeploymentProtectionPasswordBox.Focus(FocusState.Programmatic);
+            return;
+        }
+
+        DeploymentProtectionPasswordBox.Password = string.Empty;
+        DeploymentProtectionConfirmationBox.Password = string.Empty;
+    }
+
+    private void DeploymentProtectionPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+    {
+        ViewModel.SetDeploymentProtectionPassword(DeploymentProtectionPasswordBox.Password);
+    }
+
+    private void DeploymentProtectionConfirmationBox_PasswordChanged(object sender, RoutedEventArgs e)
+    {
+        ViewModel.SetDeploymentProtectionPasswordConfirmation(DeploymentProtectionConfirmationBox.Password);
+    }
+
     private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e)
     {
         if (DispatcherQueue.HasThreadAccess)
@@ -88,6 +110,18 @@ public sealed partial class GeneralConfigurationPage : Page
         AutomaticRebootToggle.OffContent = automaticRebootText;
         RebootDelayCard.Header = localizationService.GetString("GeneralConfiguration.Completion.Delay.Header");
         RebootDelayCard.Description = localizationService.GetString("GeneralConfiguration.Completion.Delay.Description");
+
+        DeploymentProtectionCard.Header = localizationService.GetString("GeneralConfiguration.DeploymentProtection.Header");
+        DeploymentProtectionCard.Description = localizationService.GetString("GeneralConfiguration.DeploymentProtection.Description");
+        string protectionToggleText = localizationService.GetString("GeneralConfiguration.DeploymentProtection.Toggle");
+        DeploymentProtectionToggle.OnContent = protectionToggleText;
+        DeploymentProtectionToggle.OffContent = protectionToggleText;
+        DeploymentProtectionPasswordCard.Header = localizationService.GetString("GeneralConfiguration.DeploymentProtection.PasswordCard.Header");
+        DeploymentProtectionPasswordCard.Description = localizationService.GetString("GeneralConfiguration.DeploymentProtection.PasswordCard.Description");
+        DeploymentProtectionPasswordBox.PlaceholderText = localizationService.GetString("GeneralConfiguration.DeploymentProtection.Password.Placeholder");
+        DeploymentProtectionConfirmationBox.PlaceholderText = localizationService.GetString("GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder");
+        DeploymentProtectionValidationText.Text = localizationService.GetString("GeneralConfiguration.DeploymentProtection.Validation");
+        DeploymentProtectionRecommendationText.Text = localizationService.GetString("GeneralConfiguration.DeploymentProtection.Recommendation");
 
         DriverOptionsCard.Header = localizationService.GetString("StartMedia.DriverOptions.Header");
         DriverOptionsCard.Description = localizationService.GetString("StartMedia.DriverOptions.Description");

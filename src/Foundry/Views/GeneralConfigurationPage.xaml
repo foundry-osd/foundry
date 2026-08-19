@@ -94,6 +94,37 @@
                         </wct:SettingsExpander.Items>
                     </wct:SettingsExpander>
 
+                    <wct:SettingsExpander x:Name="DeploymentProtectionCard"
+                        IsExpanded="{x:Bind ViewModel.IsDeploymentProtectionEnabled, Mode=OneWay}">
+                        <wct:SettingsExpander.HeaderIcon>
+                            <FontIcon Glyph="&#xE72E;" />
+                        </wct:SettingsExpander.HeaderIcon>
+                        <ToggleSwitch x:Name="DeploymentProtectionToggle"
+                            IsOn="{x:Bind ViewModel.IsDeploymentProtectionEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Toggled="DeploymentProtectionToggle_Toggled" />
+                        <wct:SettingsExpander.Items>
+                            <wct:SettingsCard x:Name="DeploymentProtectionPasswordCard"
+                                Visibility="{x:Bind ViewModel.DeploymentProtectionFieldsVisibility, Mode=OneWay}">
+                                <StackPanel
+                                    MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                    Spacing="{ThemeResource FoundryCompactStackSpacing}">
+                                    <PasswordBox x:Name="DeploymentProtectionPasswordBox"
+                                        PasswordChanged="DeploymentProtectionPasswordBox_PasswordChanged" />
+                                    <PasswordBox x:Name="DeploymentProtectionConfirmationBox"
+                                        PasswordChanged="DeploymentProtectionConfirmationBox_PasswordChanged" />
+                                    <TextBlock x:Name="DeploymentProtectionValidationText"
+                                        Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                                        TextWrapping="WrapWholeWords"
+                                        Visibility="{x:Bind ViewModel.DeploymentProtectionValidationVisibility, Mode=OneWay}" />
+                                    <TextBlock x:Name="DeploymentProtectionRecommendationText"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        TextWrapping="WrapWholeWords"
+                                        Visibility="{x:Bind ViewModel.DeploymentProtectionRecommendationVisibility, Mode=OneWay}" />
+                                </StackPanel>
+                            </wct:SettingsCard>
+                        </wct:SettingsExpander.Items>
+                    </wct:SettingsExpander>
+
                     <wct:SettingsExpander x:Name="DriverOptionsCard">
                         <wct:SettingsExpander.HeaderIcon>
                             <FontIcon Glyph="&#xE90F;" />
