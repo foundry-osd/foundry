@@ -22,6 +22,7 @@ using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
+using Foundry.Deploy.Services.Security;
 using Foundry.Deploy.Services.Startup;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Services.Theme;
@@ -58,6 +59,8 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IVolumeDiscovery, WindowsVolumeDiscovery>();
         services.AddSingleton<IDeploymentRuntimeContextService, DeploymentRuntimeContextService>();
         services.AddSingleton<IDeployConfigurationService, DeployConfigurationService>();
+        services.AddSingleton<IDeploymentSecretKeySession, DeploymentSecretKeySession>();
+        services.AddSingleton<IDeploymentProtectionUnlockService, DeploymentProtectionUnlockService>();
         services.AddSingleton(CreateTelemetryOptions);
         services.AddSingleton(CreateTelemetryContext);
         services.AddSingleton<ITelemetryService>(sp =>

@@ -11,6 +11,50 @@ namespace Foundry.Deploy.Tests;
 public sealed class DeployConfigurationModelTests
 {
     [Fact]
+    public void Deserialize_WhenProtectionIsMissing_DefaultsToDisabled()
+    {
+        FoundryDeployConfigurationDocument? document = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(
+            """{ "schemaVersion": 11 }""");
+
+        Assert.NotNull(document);
+        Assert.False(document.Protection.IsEnabled);
+    }
+
+    [Fact]
+    public void Deserialize_WhenProtectionIsConfigured_PreservesPasswordWrappingMetadata()
+    {
+        const string json = """
+            {
+              "schemaVersion": 11,
+              "protection": {
+                "isEnabled": true,
+                "keyDerivationAlgorithm": "pbkdf2-sha256",
+                "iterations": 600000,
+                "salt": "c2FsdA",
+                "protectedDeploymentKey": {
+                  "kind": "encrypted",
+                  "algorithm": "aes-gcm-v1",
+                  "keyId": "deployment-password",
+                  "nonce": "bm9uY2U",
+                  "tag": "dGFn",
+                  "ciphertext": "Y2lwaGVydGV4dA"
+                }
+              }
+            }
+            """;
+
+        FoundryDeployConfigurationDocument? document = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(
+            json,
+            new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+
+        Assert.NotNull(document);
+        Assert.True(document.Protection.IsEnabled);
+        Assert.Equal("pbkdf2-sha256", document.Protection.KeyDerivationAlgorithm);
+        Assert.Equal(600000, document.Protection.Iterations);
+        Assert.Equal("deployment-password", document.Protection.ProtectedDeploymentKey.KeyId);
+    }
+
+    [Fact]
     public void Deserialize_WhenWindowsOptionalFeaturesAreConfigured_PreservesActions()
     {
         const string json = """

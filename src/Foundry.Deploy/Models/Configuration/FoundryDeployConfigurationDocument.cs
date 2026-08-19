@@ -24,6 +24,11 @@ public sealed record FoundryDeployConfigurationDocument
     public int SchemaVersion { get; init; } = CurrentSchemaVersion;
 
     /// <summary>
+    /// Gets deployment media access-protection settings.
+    /// </summary>
+    public DeployProtectionSettings Protection { get; init; } = new();
+
+    /// <summary>
     /// Gets successful deployment completion behavior.
     /// </summary>
     public DeployCompletionSettings Completion { get; init; } = new();
