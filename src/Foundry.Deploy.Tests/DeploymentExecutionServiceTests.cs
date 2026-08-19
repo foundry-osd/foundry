@@ -47,6 +47,23 @@ public sealed class DeploymentExecutionServiceTests
         Assert.True(orchestrator.WasRun);
     }
 
+    [Fact]
+    public async Task ExecuteAsync_WhenEnabledFlagIsClearedButWrappedKeyRemains_DoesNotRunOrchestrator()
+    {
+        var orchestrator = new RecordingOrchestrator();
+        using var session = new DeploymentSecretKeySession();
+        var service = new DeploymentExecutionService(
+            orchestrator,
+            new FakeConfigurationService(isProtected: false, hasWrappedKey: true),
+            session,
+            NullLogger<DeploymentExecutionService>.Instance);
+
+        DeploymentExecutionRunResult result = await service.ExecuteAsync(CreateContext());
+
+        Assert.False(result.IsSuccess);
+        Assert.False(orchestrator.WasRun);
+    }
+
     private static DeploymentContext CreateContext() => new()
     {
         Mode = DeploymentMode.Iso,
@@ -57,14 +74,21 @@ public sealed class DeploymentExecutionServiceTests
         DriverPackSelectionKind = DriverPackSelectionKind.None
     };
 
-    private sealed class FakeConfigurationService(bool isProtected) : IDeployConfigurationService
+    private sealed class FakeConfigurationService(bool isProtected, bool hasWrappedKey = false) : IDeployConfigurationService
     {
         public DeployConfigurationLoadResult LoadOptional() => new()
         {
+            ConfigurationPath = string.Empty,
             Exists = true,
             Document = new FoundryDeployConfigurationDocument
             {
-                Protection = new DeployProtectionSettings { IsEnabled = isProtected }
+                Protection = new DeployProtectionSettings
+                {
+                    IsEnabled = isProtected,
+                    ProtectedDeploymentKey = hasWrappedKey
+                        ? new SecretEnvelope { Ciphertext = "wrapped" }
+                        : new SecretEnvelope()
+                }
             }
         };
     }

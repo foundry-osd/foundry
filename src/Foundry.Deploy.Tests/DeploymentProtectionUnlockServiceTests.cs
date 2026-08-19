@@ -47,6 +47,20 @@ public sealed class DeploymentProtectionUnlockServiceTests
     }
 
     [Fact]
+    public void TryUnlock_WhenEnabledFlagIsClearedButMetadataRemains_StillValidatesPassword()
+    {
+        using DeploymentMediaProtectionMaterial material = DeploymentMediaProtectionService.CreateProtected("correct horse battery staple");
+        DeployProtectionSettings settings = Map(material.Settings) with { IsEnabled = false };
+        using var session = new DeploymentSecretKeySession();
+        var service = new DeploymentProtectionUnlockService(session);
+
+        bool unlocked = service.TryUnlock(settings, "correct horse battery staple");
+
+        Assert.True(unlocked);
+        Assert.True(session.IsUnlocked);
+    }
+
+    [Fact]
     public void TryUnlock_WithTamperedEnvelope_DoesNotExposeCryptographicFailure()
     {
         using DeploymentMediaProtectionMaterial material = DeploymentMediaProtectionService.CreateProtected("correct horse battery staple");

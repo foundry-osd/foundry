@@ -37,6 +37,20 @@ public sealed class DeploymentProtectionSecretStateTests
         Assert.Throws<InvalidOperationException>(() => state.GetConfirmedPasswordCopy());
     }
 
+    [Theory]
+    [InlineData("", "")]
+    [InlineData("short", "short")]
+    [InlineData("deployment passphrase", "different passphrase")]
+    public void InvalidPasswordState_IsNotReady(string password, string confirmation)
+    {
+        using var state = new DeploymentProtectionSecretState();
+        state.SetPassword(password.AsSpan());
+        state.SetConfirmation(confirmation.AsSpan());
+
+        Assert.False(state.IsValid);
+        Assert.Throws<InvalidOperationException>(() => state.GetConfirmedPasswordCopy());
+    }
+
     [Fact]
     public void Clear_RemovesPasswordAndConfirmation()
     {

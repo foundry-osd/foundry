@@ -36,6 +36,47 @@ public sealed class DeploymentAccessGateTests
     }
 
     [Fact]
+    public async Task AuthorizeAsync_WhenEnabledFlagIsClearedButWrappedKeyRemains_StillPrompts()
+    {
+        var dialog = new FakePasswordDialogService("correct");
+        var gate = new DeploymentAccessGate(
+            new FakeConfigurationService(new FoundryDeployConfigurationDocument
+            {
+                Protection = CreateWrappedProtection(isEnabled: false)
+            }),
+            new FakeUnlockService("correct"),
+            dialog,
+            new ImmediateRetryDelay());
+
+        bool authorized = await gate.AuthorizeAsync(TestContext.Current.CancellationToken);
+
+        Assert.True(authorized);
+        Assert.Equal(1, dialog.PromptCount);
+    }
+
+    [Fact]
+    public async Task AuthorizeAsync_WhenEncryptedProfileRemainsWithoutProtectionMetadata_DeniesAccess()
+    {
+        string root = Path.Combine(Path.GetTempPath(), $"foundry-access-gate-{Guid.NewGuid():N}");
+        string configurationPath = Path.Combine(root, "Config", "foundry.deploy.config.json");
+        string profilePath = Path.Combine(root, "Config", "Autopilot", "Profile", "AutopilotConfigurationFile.json.encrypted");
+        Directory.CreateDirectory(Path.GetDirectoryName(profilePath)!);
+        await File.WriteAllTextAsync(profilePath, "encrypted", TestContext.Current.CancellationToken);
+        var dialog = new FakePasswordDialogService("unused");
+        var gate = new DeploymentAccessGate(
+            new FakeConfigurationService(new FoundryDeployConfigurationDocument(), configurationPath: configurationPath),
+            new FakeUnlockService(),
+            dialog,
+            new ImmediateRetryDelay());
+
+        bool authorized = await gate.AuthorizeAsync(TestContext.Current.CancellationToken);
+
+        Assert.False(authorized);
+        Assert.Equal(0, dialog.PromptCount);
+        Directory.Delete(root, recursive: true);
+    }
+
+    [Fact]
     public async Task AuthorizeAsync_WhenPasswordFails_AllowsRetryUntilSuccessful()
     {
         var dialog = new FakePasswordDialogService("wrong", "correct");
@@ -91,10 +132,33 @@ public sealed class DeploymentAccessGateTests
 
     private sealed class FakeConfigurationService(
         FoundryDeployConfigurationDocument? document,
-        bool exists = true) : IDeployConfigurationService
+        bool exists = true,
+        string configurationPath = "") : IDeployConfigurationService
     {
-        public DeployConfigurationLoadResult LoadOptional() => new() { Exists = exists, Document = document };
+        public DeployConfigurationLoadResult LoadOptional() => new()
+        {
+            ConfigurationPath = configurationPath,
+            Exists = exists,
+            Document = document
+        };
     }
+
+    private static DeployProtectionSettings CreateWrappedProtection(bool isEnabled) => new()
+    {
+        IsEnabled = isEnabled,
+        KeyDerivationAlgorithm = "pbkdf2-sha256",
+        Iterations = 600_000,
+        Salt = "salt",
+        ProtectedDeploymentKey = new SecretEnvelope
+        {
+            Kind = "encrypted",
+            Algorithm = "aes-gcm-v1",
+            KeyId = "deployment-password",
+            Nonce = "nonce",
+            Tag = "tag",
+            Ciphertext = "ciphertext"
+        }
+    };
 
     private sealed class FakeUnlockService(string acceptedPassword = "") : IDeploymentProtectionUnlockService
     {

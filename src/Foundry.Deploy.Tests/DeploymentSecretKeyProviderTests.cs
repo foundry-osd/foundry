@@ -62,7 +62,7 @@ public sealed class DeploymentSecretKeyProviderTests
         await File.WriteAllBytesAsync(keyPath, expected, TestContext.Current.CancellationToken);
         using var session = new DeploymentSecretKeySession();
         var provider = new DeploymentSecretKeyProvider(
-            new FakeConfigurationService(isProtected: false),
+            new FakeConfigurationService(isProtected: false, schemaVersion: 10),
             session);
 
         byte[] actual = await provider.ReadAsync(root, TestContext.Current.CancellationToken);
@@ -91,6 +91,24 @@ public sealed class DeploymentSecretKeyProviderTests
         Directory.Delete(root, recursive: true);
     }
 
+    [Fact]
+    public async Task ReadAsync_WhenEnabledFlagIsClearedButWrappedKeyRemains_DoesNotUseFiles()
+    {
+        string root = CreateWorkspace();
+        string keyPath = Path.Combine(root, "Config", "Secrets", "deployment-secrets.key");
+        Directory.CreateDirectory(Path.GetDirectoryName(keyPath)!);
+        await File.WriteAllBytesAsync(keyPath, RandomNumberGenerator.GetBytes(32), TestContext.Current.CancellationToken);
+        using var session = new DeploymentSecretKeySession();
+        var provider = new DeploymentSecretKeyProvider(
+            new FakeConfigurationService(isProtected: false, hasWrappedKey: true),
+            session);
+
+        await Assert.ThrowsAsync<InvalidOperationException>(
+            () => provider.ReadAsync(root, TestContext.Current.CancellationToken));
+
+        Directory.Delete(root, recursive: true);
+    }
+
     private static string CreateWorkspace()
     {
         string path = Path.Combine(Path.GetTempPath(), $"foundry-deploy-key-{Guid.NewGuid():N}");
@@ -98,14 +116,24 @@ public sealed class DeploymentSecretKeyProviderTests
         return path;
     }
 
-    private sealed class FakeConfigurationService(bool isProtected) : IDeployConfigurationService
+    private sealed class FakeConfigurationService(
+        bool isProtected,
+        bool hasWrappedKey = false,
+        int schemaVersion = Foundry.Core.Models.Configuration.ConfigurationSchemaVersions.DeployCurrent) : IDeployConfigurationService
     {
         public DeployConfigurationLoadResult LoadOptional() => new()
         {
             Exists = true,
             Document = new FoundryDeployConfigurationDocument
             {
-                Protection = new DeployProtectionSettings { IsEnabled = isProtected }
+                SchemaVersion = schemaVersion,
+                Protection = new DeployProtectionSettings
+                {
+                    IsEnabled = isProtected,
+                    ProtectedDeploymentKey = hasWrappedKey
+                        ? new SecretEnvelope { Ciphertext = "wrapped" }
+                        : new SecretEnvelope()
+                }
             }
         };
     }

@@ -5,6 +5,7 @@
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
@@ -69,12 +70,13 @@ public sealed class AutopilotHardwareHashUploadService(
         byte[] deploymentKey = await deploymentSecretKeyProvider.ReadAsync(request.WorkspaceRootPath, cancellationToken)
             .ConfigureAwait(false);
         byte[]? pfxBytes = null;
+        char[]? pfxPassword = null;
         try
         {
             pfxBytes = DeployMediaSecretEnvelopeProtector.DecryptDeployBytes(
                 request.Settings.CertificatePfxSecret!,
                 deploymentKey);
-            string pfxPassword = DeployMediaSecretEnvelopeProtector.DecryptDeployString(
+            pfxPassword = DeployMediaSecretEnvelopeProtector.DecryptDeployChars(
                 request.Settings.CertificatePfxPasswordSecret!,
                 deploymentKey);
 
@@ -111,6 +113,11 @@ public sealed class AutopilotHardwareHashUploadService(
             if (pfxBytes is not null)
             {
                 CryptographicOperations.ZeroMemory(pfxBytes);
+            }
+
+            if (pfxPassword is not null)
+            {
+                CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(pfxPassword.AsSpan()));
             }
         }
     }

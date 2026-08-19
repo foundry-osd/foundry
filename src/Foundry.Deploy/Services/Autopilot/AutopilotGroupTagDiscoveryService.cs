@@ -4,6 +4,7 @@
 
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using System.Runtime.InteropServices;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Security;
 
@@ -43,12 +44,13 @@ public sealed class AutopilotGroupTagDiscoveryService(
         byte[] deploymentKey = await deploymentSecretKeyProvider.ReadAsync(workspaceRootPath, cancellationToken)
             .ConfigureAwait(false);
         byte[]? pfxBytes = null;
+        char[]? pfxPassword = null;
         try
         {
             pfxBytes = DeployMediaSecretEnvelopeProtector.DecryptDeployBytes(
                 settings.CertificatePfxSecret!,
                 deploymentKey);
-            string pfxPassword = DeployMediaSecretEnvelopeProtector.DecryptDeployString(
+            pfxPassword = DeployMediaSecretEnvelopeProtector.DecryptDeployChars(
                 settings.CertificatePfxPasswordSecret!,
                 deploymentKey);
 
@@ -71,6 +73,11 @@ public sealed class AutopilotGroupTagDiscoveryService(
             if (pfxBytes is not null)
             {
                 CryptographicOperations.ZeroMemory(pfxBytes);
+            }
+
+            if (pfxPassword is not null)
+            {
+                CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(pfxPassword.AsSpan()));
             }
         }
     }

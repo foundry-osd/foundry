@@ -46,40 +46,24 @@ public static class DeployMediaSecretEnvelopeProtector
         }
     }
 
-    public static string DecryptString(SecretEnvelope envelope, byte[] key)
-    {
-        byte[] plaintext = DecryptBytes(envelope, key);
-        try
-        {
-            return Encoding.UTF8.GetString(plaintext);
-        }
-        finally
-        {
-            CryptographicOperations.ZeroMemory(plaintext);
-        }
-    }
-
-    public static string DecryptString(SecretEnvelope envelope, byte[] key, string expectedKeyId)
-    {
-        byte[] plaintext = DecryptBytes(envelope, key, expectedKeyId);
-        try
-        {
-            return Encoding.UTF8.GetString(plaintext);
-        }
-        finally
-        {
-            CryptographicOperations.ZeroMemory(plaintext);
-        }
-    }
-
     public static byte[] DecryptDeployBytes(SecretEnvelope envelope, byte[] key)
     {
         return DecryptBytes(envelope, key, ResolveDeployKeyId(envelope));
     }
 
-    public static string DecryptDeployString(SecretEnvelope envelope, byte[] key)
+    public static char[] DecryptDeployChars(SecretEnvelope envelope, byte[] key)
     {
-        return DecryptString(envelope, key, ResolveDeployKeyId(envelope));
+        byte[] plaintext = DecryptBytes(envelope, key, ResolveDeployKeyId(envelope));
+        try
+        {
+            char[] characters = new char[Encoding.UTF8.GetCharCount(plaintext)];
+            Encoding.UTF8.GetChars(plaintext, characters);
+            return characters;
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(plaintext);
+        }
     }
 
     private static string ResolveDeployKeyId(SecretEnvelope envelope)

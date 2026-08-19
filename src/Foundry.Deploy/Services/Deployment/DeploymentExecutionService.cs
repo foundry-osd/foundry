@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Microsoft.Extensions.Logging;
+using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Security;
 
@@ -39,7 +40,10 @@ public sealed class DeploymentExecutionService : IDeploymentExecutionService
                 return AccessDenied();
             }
 
-            if (configuration.Document?.Protection.IsEnabled == true && !_deploymentSecretKeySession.IsUnlocked)
+            DeployProtectionSettings protection = configuration.Document?.Protection ?? new DeployProtectionSettings();
+            bool requiresAuthorization = DeploymentProtectionDetector.RequiresUnlock(protection) ||
+                                         DeploymentProtectionDetector.HasProtectedArtifacts(configuration);
+            if (requiresAuthorization && !_deploymentSecretKeySession.IsUnlocked)
             {
                 return AccessDenied();
             }

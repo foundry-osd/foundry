@@ -12,10 +12,14 @@ namespace Foundry.Deploy.Services.Autopilot;
 /// </summary>
 public static class AutopilotCertificateCredential
 {
-    public static X509Certificate2 Load(byte[] pfxBytes, string password, string expectedThumbprint)
+    public static X509Certificate2 Load(byte[] pfxBytes, ReadOnlySpan<char> password, string expectedThumbprint)
     {
         ArgumentNullException.ThrowIfNull(pfxBytes);
-        ArgumentException.ThrowIfNullOrWhiteSpace(password);
+        if (password.IsEmpty || password.Trim().IsEmpty)
+        {
+            throw new ArgumentException("The PFX password is required.", nameof(password));
+        }
+
         ArgumentException.ThrowIfNullOrWhiteSpace(expectedThumbprint);
 
         try

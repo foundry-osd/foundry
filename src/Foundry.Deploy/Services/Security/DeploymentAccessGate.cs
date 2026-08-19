@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Configuration;
 
 namespace Foundry.Deploy.Services.Security;
@@ -20,7 +21,14 @@ public sealed class DeploymentAccessGate(
             return false;
         }
 
-        if (loadResult.Document?.Protection.IsEnabled != true)
+        DeployProtectionSettings protection = loadResult.Document?.Protection ?? new DeployProtectionSettings();
+        bool requiresUnlock = DeploymentProtectionDetector.RequiresUnlock(protection);
+        if (!requiresUnlock && DeploymentProtectionDetector.HasProtectedArtifacts(loadResult))
+        {
+            return false;
+        }
+
+        if (!requiresUnlock)
         {
             return true;
         }
@@ -36,7 +44,7 @@ public sealed class DeploymentAccessGate(
                 return false;
             }
 
-            if (unlockService.TryUnlock(loadResult.Document.Protection, prompt.Password))
+            if (unlockService.TryUnlock(protection, prompt.Password))
             {
                 return true;
             }

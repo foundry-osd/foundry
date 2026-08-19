@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
+using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Configuration;
 using Foundry.Utilities.Security;
 
@@ -24,7 +25,10 @@ public sealed class DeploymentSecretKeyProvider(
             throw new InvalidOperationException("Deploy configuration is invalid.");
         }
 
-        if (configuration.Document?.Protection.IsEnabled == true)
+        DeployProtectionSettings protection = configuration.Document?.Protection ?? new DeployProtectionSettings();
+        bool requiresUnlock = DeploymentProtectionDetector.RequiresUnlock(protection) ||
+                              DeploymentProtectionDetector.HasProtectedArtifacts(configuration, workspaceRootPath);
+        if (requiresUnlock)
         {
             if (!deploymentSecretKeySession.IsUnlocked)
             {

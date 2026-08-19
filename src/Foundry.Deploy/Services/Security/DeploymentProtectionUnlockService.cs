@@ -21,7 +21,7 @@ public sealed class DeploymentProtectionUnlockService(IDeploymentSecretKeySessio
         ArgumentNullException.ThrowIfNull(settings);
         session.Clear();
 
-        if (!settings.IsEnabled)
+        if (!DeploymentProtectionDetector.RequiresUnlock(settings))
         {
             return true;
         }
@@ -84,7 +84,8 @@ public sealed class DeploymentProtectionUnlockService(IDeploymentSecretKeySessio
 
     private static void ValidateSettings(DeployProtectionSettings settings)
     {
-        SecretEnvelope envelope = settings.ProtectedDeploymentKey;
+        SecretEnvelope envelope = settings.ProtectedDeploymentKey ??
+            throw new CryptographicException("Deployment protection metadata is invalid.");
         if (!string.Equals(settings.KeyDerivationAlgorithm, KeyDerivationAlgorithm, StringComparison.Ordinal) ||
             settings.Iterations != PasswordKeyDerivation.DefaultIterations ||
             string.IsNullOrWhiteSpace(settings.Salt) ||
