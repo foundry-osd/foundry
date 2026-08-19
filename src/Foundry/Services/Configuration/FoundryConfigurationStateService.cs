@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.WinPe;
@@ -69,12 +70,23 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         {
             try
             {
-                byte[]? mediaSecretsKey = Current.Autopilot.IsEnabled &&
-                                          Current.Autopilot.ProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload
+                byte[]? deploymentSecretsKey = Current.Autopilot.IsEnabled &&
+                                               Current.Autopilot.ProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload
                     ? MediaSecretEnvelopeProtector.GenerateMediaKey()
                     : null;
-                _ = GenerateDeployConfigurationJson(mediaSecretsKey: mediaSecretsKey);
-                return true;
+
+                try
+                {
+                    _ = GenerateDeployConfigurationJson(deploymentSecretsKey: deploymentSecretsKey);
+                    return true;
+                }
+                finally
+                {
+                    if (deploymentSecretsKey is not null)
+                    {
+                        System.Security.Cryptography.CryptographicOperations.ZeroMemory(deploymentSecretsKey);
+                    }
+                }
             }
             catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
             {
@@ -180,11 +192,15 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     }
 
     /// <inheritdoc />
-    public string GenerateDeployConfigurationJson(TelemetrySettings? telemetryOverride = null, byte[]? mediaSecretsKey = null)
+    public string GenerateDeployConfigurationJson(
+        TelemetrySettings? telemetryOverride = null,
+        byte[]? deploymentSecretsKey = null,
+        DeployProtectionSettings? protectionSettings = null)
     {
         FoundryConfigurationDocument document = CreateDocumentForDeployGeneration(telemetryOverride);
 
-        return deployConfigurationGenerator.Serialize(deployConfigurationGenerator.Generate(document, mediaSecretsKey));
+        return deployConfigurationGenerator.Serialize(
+            deployConfigurationGenerator.Generate(document, deploymentSecretsKey, protectionSettings));
     }
 
     /// <inheritdoc />

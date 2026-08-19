@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
@@ -128,11 +129,16 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
             Utf8NoBom,
             cancellationToken).ConfigureAwait(false);
 
-        await WriteMediaSecretsKeyAsync(
+        await WriteNetworkSecretsKeyAsync(
             foundryConfigPath,
             connectConfigurationJson,
-            deployConfigurationJson,
-            options.MediaSecretsKey,
+            options.NetworkSecretsKey,
+            cancellationToken).ConfigureAwait(false);
+
+        await WriteDeploymentSecretsKeyAsync(
+            foundryConfigPath,
+            options.DeploymentSecretsKey,
+            options.IsDeploymentProtectionEnabled,
             cancellationToken).ConfigureAwait(false);
 
         await File.WriteAllTextAsync(
@@ -163,20 +169,18 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
         }
         else
         {
-            await WriteAutopilotProfilesAsync(foundryConfigPath, options.AutopilotProfiles, cancellationToken).ConfigureAwait(false);
+            await WriteAutopilotProfilesAsync(foundryConfigPath, options, cancellationToken).ConfigureAwait(false);
         }
     }
 
-    private static async Task WriteMediaSecretsKeyAsync(
+    private static async Task WriteNetworkSecretsKeyAsync(
         string foundryConfigPath,
         string connectConfigurationJson,
-        string deployConfigurationJson,
-        byte[]? mediaSecretsKey,
+        byte[]? networkSecretsKey,
         CancellationToken cancellationToken)
     {
-        bool hasEncryptedSecrets = MediaSecretEnvelopeProtector.HasEncryptedSecrets(connectConfigurationJson) ||
-                                   MediaSecretEnvelopeProtector.HasEncryptedSecrets(deployConfigurationJson);
-        if (mediaSecretsKey is null || mediaSecretsKey.Length == 0)
+        bool hasEncryptedSecrets = MediaSecretEnvelopeProtector.HasEncryptedSecrets(connectConfigurationJson);
+        if (networkSecretsKey is null || networkSecretsKey.Length == 0)
         {
             if (hasEncryptedSecrets)
             {
@@ -191,7 +195,7 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
             throw new ArgumentException("A media secret key must not be provisioned without encrypted Foundry media secrets.");
         }
 
-        if (mediaSecretsKey.Length != 32)
+        if (networkSecretsKey.Length != 32)
         {
             throw new ArgumentException("Media secret key must be 32 bytes.");
         }
@@ -200,7 +204,41 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
         Directory.CreateDirectory(secretsPath);
         await File.WriteAllBytesAsync(
             Path.Combine(secretsPath, "media-secrets.key"),
-            mediaSecretsKey,
+            networkSecretsKey,
+            cancellationToken).ConfigureAwait(false);
+    }
+
+    private static async Task WriteDeploymentSecretsKeyAsync(
+        string foundryConfigPath,
+        byte[]? deploymentSecretsKey,
+        bool isDeploymentProtectionEnabled,
+        CancellationToken cancellationToken)
+    {
+        if (deploymentSecretsKey is null || deploymentSecretsKey.Length == 0)
+        {
+            if (isDeploymentProtectionEnabled)
+            {
+                throw new ArgumentException("Protected deployment media requires a Deploy secret key during provisioning.");
+            }
+
+            return;
+        }
+
+        if (deploymentSecretsKey.Length != 32)
+        {
+            throw new ArgumentException("Deploy secret key must be 32 bytes.");
+        }
+
+        if (isDeploymentProtectionEnabled)
+        {
+            return;
+        }
+
+        string secretsPath = Path.Combine(foundryConfigPath, "Secrets");
+        Directory.CreateDirectory(secretsPath);
+        await File.WriteAllBytesAsync(
+            Path.Combine(secretsPath, "deployment-secrets.key"),
+            deploymentSecretsKey,
             cancellationToken).ConfigureAwait(false);
     }
 
@@ -285,22 +323,55 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
 
     private static async Task WriteAutopilotProfilesAsync(
         string foundryConfigPath,
-        IReadOnlyList<AutopilotProfileSettings> autopilotProfiles,
+        WinPeMountedImageAssetProvisioningOptions options,
         CancellationToken cancellationToken)
     {
-        foreach (AutopilotProfileSettings profile in autopilotProfiles)
+        foreach (AutopilotProfileSettings profile in options.AutopilotProfiles)
         {
             if (string.IsNullOrWhiteSpace(profile.FolderName))
             {
                 throw new ArgumentException("Autopilot profile folder name is required.");
             }
 
-            string profilePath = ResolveSafeRelativePath(
-                foundryConfigPath,
-                Path.Combine("Autopilot", profile.FolderName, "AutopilotConfigurationFile.json"));
+            if (options.IsDeploymentProtectionEnabled)
+            {
+                if (options.DeploymentSecretsKey is not { Length: 32 })
+                {
+                    throw new ArgumentException("Protected Autopilot profiles require a 32-byte Deploy secret key.");
+                }
 
-            Directory.CreateDirectory(Path.GetDirectoryName(profilePath)!);
-            await File.WriteAllTextAsync(profilePath, profile.JsonContent, Utf8NoBom, cancellationToken).ConfigureAwait(false);
+                string encryptedProfilePath = ResolveSafeRelativePath(
+                    foundryConfigPath,
+                    Path.Combine("Autopilot", profile.FolderName, "AutopilotConfigurationFile.json.encrypted"));
+                byte[] plaintext = Utf8NoBom.GetBytes(profile.JsonContent);
+                try
+                {
+                    SecretEnvelope envelope = MediaSecretEnvelopeProtector.EncryptBytes(
+                        plaintext,
+                        options.DeploymentSecretsKey,
+                        MediaSecretEnvelopeProtector.DeploymentKeyId);
+                    string envelopeJson = JsonSerializer.Serialize(envelope, ConfigurationJsonDefaults.SerializerOptions);
+                    Directory.CreateDirectory(Path.GetDirectoryName(encryptedProfilePath)!);
+                    await File.WriteAllTextAsync(
+                        encryptedProfilePath,
+                        envelopeJson,
+                        Utf8NoBom,
+                        cancellationToken).ConfigureAwait(false);
+                }
+                finally
+                {
+                    CryptographicOperations.ZeroMemory(plaintext);
+                }
+            }
+            else
+            {
+                string profilePath = ResolveSafeRelativePath(
+                    foundryConfigPath,
+                    Path.Combine("Autopilot", profile.FolderName, "AutopilotConfigurationFile.json"));
+
+                Directory.CreateDirectory(Path.GetDirectoryName(profilePath)!);
+                await File.WriteAllTextAsync(profilePath, profile.JsonContent, Utf8NoBom, cancellationToken).ConfigureAwait(false);
+            }
         }
     }
 

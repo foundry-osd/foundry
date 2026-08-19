@@ -785,8 +785,18 @@ public sealed class DeployConfigurationGeneratorTests
 
             Assert.NotNull(result.Autopilot.HardwareHashUpload.CertificatePfxSecret);
             Assert.NotNull(result.Autopilot.HardwareHashUpload.CertificatePfxPasswordSecret);
-            Assert.Equal(pfxBytes, MediaSecretEnvelopeProtector.DecryptBytes(result.Autopilot.HardwareHashUpload.CertificatePfxSecret!, mediaKey));
-            Assert.Equal("PfxPassword-DoNotLeak", MediaSecretEnvelopeProtector.DecryptString(result.Autopilot.HardwareHashUpload.CertificatePfxPasswordSecret!, mediaKey));
+            Assert.Equal(
+                pfxBytes,
+                MediaSecretEnvelopeProtector.DecryptBytes(
+                    result.Autopilot.HardwareHashUpload.CertificatePfxSecret!,
+                    mediaKey,
+                    MediaSecretEnvelopeProtector.DeploymentKeyId));
+            Assert.Equal(
+                "PfxPassword-DoNotLeak",
+                MediaSecretEnvelopeProtector.DecryptString(
+                    result.Autopilot.HardwareHashUpload.CertificatePfxPasswordSecret!,
+                    mediaKey,
+                    MediaSecretEnvelopeProtector.DeploymentKeyId));
 
             string json = generator.Serialize(result);
             Assert.DoesNotContain(Convert.ToBase64String(pfxBytes), json, StringComparison.Ordinal);

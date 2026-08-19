@@ -2,9 +2,13 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.Json;
 using System.Xml.Linq;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Autopilot;
+using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.WinPe;
 
 namespace Foundry.Core.Tests.WinPe;
@@ -357,7 +361,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                 CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}",
                 FoundryConnectConfigurationJson = CreateConnectConfigurationWithEncryptedSecret(),
-                MediaSecretsKey = secretKey
+                NetworkSecretsKey = secretKey
             },
             CancellationToken.None);
 
@@ -366,7 +370,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
     }
 
     [Fact]
-    public async Task ProvisionAsync_WhenDeployConfigurationHasEncryptedSecret_WritesSecretKeyUnderConfigSecrets()
+    public async Task ProvisionAsync_WhenUnprotectedDeploymentKeyIsProvided_WritesSeparateDeploymentKey()
     {
         using TempMountedImage image = TempMountedImage.Create();
         string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
@@ -383,13 +387,13 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                 BootstrapScriptContent = "bootstrap",
                 CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}",
-                DeployConfigurationJson = CreateDeployConfigurationWithEncryptedSecret(),
-                MediaSecretsKey = secretKey
+                DeploymentSecretsKey = secretKey
             },
             CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
-        Assert.Equal(secretKey, await File.ReadAllBytesAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Secrets", "media-secrets.key")));
+        Assert.Equal(secretKey, await File.ReadAllBytesAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Secrets", "deployment-secrets.key")));
+        Assert.False(File.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Secrets", "media-secrets.key")));
     }
 
     [Fact]
@@ -410,7 +414,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                 BootstrapScriptContent = "bootstrap",
                 CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}",
-                MediaSecretsKey = secretKey
+                NetworkSecretsKey = secretKey
             },
             CancellationToken.None);
 
@@ -467,6 +471,65 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
 
         Assert.True(result.IsSuccess, result.Error?.Details);
         Assert.False(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Secrets")));
+    }
+
+    [Fact]
+    public async Task ProvisionAsync_WhenDeploymentProtectionIsEnabled_EncryptsProfilesWithoutWritingDeploymentKey()
+    {
+        using TempMountedImage image = TempMountedImage.Create();
+        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
+        File.WriteAllText(curlSourcePath, "curl");
+        byte[] deploymentKey = Enumerable.Range(32, 32).Select(static value => (byte)value).ToArray();
+        const string profileJson = "{\"Comment_File\":\"Protected profile\"}";
+        var service = new WinPeMountedImageAssetProvisioningService();
+
+        WinPeResult result = await service.ProvisionAsync(
+            new WinPeMountedImageAssetProvisioningOptions
+            {
+                MountedImagePath = image.MountedImagePath,
+                Architecture = WinPeArchitecture.X64,
+                BootstrapScriptContent = "bootstrap",
+                CurlExecutableSourcePath = curlSourcePath,
+                IanaWindowsTimeZoneMapJson = "{}",
+                IsDeploymentProtectionEnabled = true,
+                DeploymentSecretsKey = deploymentKey,
+                AutopilotProfiles =
+                [
+                    new AutopilotProfileSettings
+                    {
+                        Id = "protected-profile",
+                        DisplayName = "Protected profile",
+                        FolderName = "ProtectedProfile",
+                        Source = "import",
+                        ImportedAtUtc = DateTimeOffset.UtcNow,
+                        JsonContent = profileJson
+                    }
+                ]
+            },
+            CancellationToken.None);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        string profileRoot = Path.Combine(image.MountedImagePath, "Foundry", "Config", "Autopilot", "ProtectedProfile");
+        string encryptedPath = Path.Combine(profileRoot, "AutopilotConfigurationFile.json.encrypted");
+        Assert.True(File.Exists(encryptedPath));
+        Assert.False(File.Exists(Path.Combine(profileRoot, "AutopilotConfigurationFile.json")));
+        Assert.False(File.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Secrets", "deployment-secrets.key")));
+
+        SecretEnvelope envelope = JsonSerializer.Deserialize<SecretEnvelope>(
+            await File.ReadAllTextAsync(encryptedPath),
+            ConfigurationJsonDefaults.SerializerOptions)!;
+        byte[] plaintext = MediaSecretEnvelopeProtector.DecryptBytes(
+            envelope,
+            deploymentKey,
+            MediaSecretEnvelopeProtector.DeploymentKeyId);
+        try
+        {
+            Assert.Equal(profileJson, Encoding.UTF8.GetString(plaintext));
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(plaintext);
+        }
     }
 
     [Fact]

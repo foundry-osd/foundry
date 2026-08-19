@@ -16,7 +16,9 @@ public sealed record WinPeMountedImageAssetProvisioningOptions
     public string IanaWindowsTimeZoneMapJson { get; init; } = string.Empty;
     public string FoundryConnectConfigurationJson { get; init; } = string.Empty;
     public string DeployConfigurationJson { get; init; } = string.Empty;
-    public byte[]? MediaSecretsKey { get; init; }
+    public byte[]? NetworkSecretsKey { get; init; }
+    public byte[]? DeploymentSecretsKey { get; init; }
+    public bool IsDeploymentProtectionEnabled { get; init; }
     public IReadOnlyList<FoundryConnectProvisionedAssetFile> FoundryConnectAssetFiles { get; init; } = [];
 
     /// <summary>

@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Configuration;
 using Foundry.Telemetry;
 
@@ -136,7 +137,11 @@ public interface IFoundryConfigurationStateService
     /// Generates the Deploy configuration JSON for the current Foundry configuration.
     /// </summary>
     /// <param name="telemetryOverride">Optional runtime telemetry settings used only for the generated Deploy document.</param>
-    /// <param name="mediaSecretsKey">Optional media secret key used for boot-media-only Deploy secrets.</param>
+    /// <param name="deploymentSecretsKey">Optional Deploy secret key used for boot-media-only Deploy secrets.</param>
+    /// <param name="protectionSettings">Optional deployment media protection metadata.</param>
     /// <returns>Serialized Deploy configuration JSON.</returns>
-    string GenerateDeployConfigurationJson(TelemetrySettings? telemetryOverride = null, byte[]? mediaSecretsKey = null);
+    string GenerateDeployConfigurationJson(
+        TelemetrySettings? telemetryOverride = null,
+        byte[]? deploymentSecretsKey = null,
+        DeployProtectionSettings? protectionSettings = null);
 }

@@ -161,7 +161,10 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             byte[] pfxBytes = File.ReadAllBytes(bootMediaCertificate.PfxPath);
             try
             {
-                pfxSecret = MediaSecretEnvelopeProtector.EncryptBytes(pfxBytes, mediaSecretsKey);
+                pfxSecret = MediaSecretEnvelopeProtector.EncryptBytes(
+                    pfxBytes,
+                    mediaSecretsKey,
+                    MediaSecretEnvelopeProtector.DeploymentKeyId);
             }
             finally
             {
@@ -170,7 +173,8 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
 
             pfxPasswordSecret = MediaSecretEnvelopeProtector.EncryptString(
                 bootMediaCertificate.PfxPassword,
-                mediaSecretsKey);
+                mediaSecretsKey,
+                MediaSecretEnvelopeProtector.DeploymentKeyId);
         }
 
         return new DeployAutopilotHardwareHashUploadSettings

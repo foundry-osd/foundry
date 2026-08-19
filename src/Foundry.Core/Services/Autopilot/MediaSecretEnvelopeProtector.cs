@@ -30,6 +30,11 @@ public static class MediaSecretEnvelopeProtector
     public const string KeyId = "media";
 
     /// <summary>
+    /// Logical key identifier for Deploy-only secrets.
+    /// </summary>
+    public const string DeploymentKeyId = "deployment";
+
+    /// <summary>
     /// Required AES-256 media secret key length.
     /// </summary>
     public const int KeySizeBytes = 32;
@@ -63,11 +68,19 @@ public static class MediaSecretEnvelopeProtector
     /// <returns>Encrypted secret envelope safe to serialize into generated configuration.</returns>
     public static SecretEnvelope EncryptString(string plaintext, byte[] key)
     {
+        return EncryptString(plaintext, key, KeyId);
+    }
+
+    /// <summary>
+    /// Encrypts a UTF-8 string with an explicit logical key identifier.
+    /// </summary>
+    public static SecretEnvelope EncryptString(string plaintext, byte[] key, string keyId)
+    {
         ArgumentNullException.ThrowIfNull(plaintext);
         byte[] plaintextBytes = Encoding.UTF8.GetBytes(plaintext);
         try
         {
-            return EncryptBytes(plaintextBytes, key);
+            return EncryptBytes(plaintextBytes, key, keyId);
         }
         finally
         {
@@ -83,7 +96,15 @@ public static class MediaSecretEnvelopeProtector
     /// <returns>Decrypted string value.</returns>
     public static string DecryptString(SecretEnvelope envelope, byte[] key)
     {
-        byte[] plaintextBytes = DecryptBytes(envelope, key);
+        return DecryptString(envelope, key, KeyId);
+    }
+
+    /// <summary>
+    /// Decrypts a UTF-8 string with an explicit logical key identifier.
+    /// </summary>
+    public static string DecryptString(SecretEnvelope envelope, byte[] key, string keyId)
+    {
+        byte[] plaintextBytes = DecryptBytes(envelope, key, keyId);
         try
         {
             return Encoding.UTF8.GetString(plaintextBytes);
@@ -102,8 +123,17 @@ public static class MediaSecretEnvelopeProtector
     /// <returns>Encrypted secret envelope safe to serialize into generated configuration.</returns>
     public static SecretEnvelope EncryptBytes(byte[] plaintext, byte[] key)
     {
+        return EncryptBytes(plaintext, key, KeyId);
+    }
+
+    /// <summary>
+    /// Encrypts binary secret material with an explicit logical key identifier.
+    /// </summary>
+    public static SecretEnvelope EncryptBytes(byte[] plaintext, byte[] key, string keyId)
+    {
         ArgumentNullException.ThrowIfNull(plaintext);
         ValidateKey(key);
+        ValidateKeyId(keyId);
 
         byte[] nonce = new byte[NonceSizeBytes];
         byte[] tag = new byte[TagSizeBytes];
@@ -117,7 +147,7 @@ public static class MediaSecretEnvelopeProtector
         {
             Kind = Kind,
             Algorithm = Algorithm,
-            KeyId = KeyId,
+            KeyId = keyId,
             Nonce = Base64UrlEncode(nonce),
             Tag = Base64UrlEncode(tag),
             Ciphertext = Base64UrlEncode(ciphertext)
@@ -132,8 +162,17 @@ public static class MediaSecretEnvelopeProtector
     /// <returns>Decrypted bytes. The caller is responsible for zeroing the returned buffer.</returns>
     public static byte[] DecryptBytes(SecretEnvelope envelope, byte[] key)
     {
+        return DecryptBytes(envelope, key, KeyId);
+    }
+
+    /// <summary>
+    /// Decrypts binary secret material with an explicit logical key identifier.
+    /// </summary>
+    public static byte[] DecryptBytes(SecretEnvelope envelope, byte[] key, string keyId)
+    {
         ArgumentNullException.ThrowIfNull(envelope);
-        ValidateEnvelope(envelope);
+        ValidateKeyId(keyId);
+        ValidateEnvelope(envelope, keyId);
         ValidateKey(key);
 
         byte[] nonce = Base64UrlDecode(envelope.Nonce);
@@ -227,11 +266,11 @@ public static class MediaSecretEnvelopeProtector
         return false;
     }
 
-    private static void ValidateEnvelope(SecretEnvelope envelope)
+    private static void ValidateEnvelope(SecretEnvelope envelope, string keyId)
     {
         if (!string.Equals(envelope.Kind, Kind, StringComparison.Ordinal) ||
             !string.Equals(envelope.Algorithm, Algorithm, StringComparison.Ordinal) ||
-            !string.Equals(envelope.KeyId, KeyId, StringComparison.Ordinal))
+            !string.Equals(envelope.KeyId, keyId, StringComparison.Ordinal))
         {
             throw new CryptographicException("Encrypted secret envelope is not supported.");
         }
@@ -250,6 +289,14 @@ public static class MediaSecretEnvelopeProtector
         if (key.Length != KeySizeBytes)
         {
             throw new ArgumentException($"Media secret key must be {KeySizeBytes} bytes.", nameof(key));
+        }
+    }
+
+    private static void ValidateKeyId(string keyId)
+    {
+        if (string.IsNullOrWhiteSpace(keyId))
+        {
+            throw new ArgumentException("Encrypted secret key identifier is required.", nameof(keyId));
         }
     }
 
