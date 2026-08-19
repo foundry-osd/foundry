@@ -32,6 +32,10 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         };
         var document = new FoundryConfigurationDocument
         {
+            General = new GeneralSettings
+            {
+                DeploymentProtection = new DeploymentProtectionSettings { IsEnabled = true }
+            },
             Customization = new CustomizationSettings
             {
                 MachineNaming = new MachineNamingSettings
@@ -145,6 +149,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.Equal(TelemetryRuntimePayloadSources.Debug, result["boot_media_deploy_runtime_payload_source"]);
         Assert.True((bool)result["autopilot_enabled"]!);
         Assert.Equal("hardware_hash_upload", result["autopilot_provisioning_mode"]);
+        Assert.True((bool)result["deployment_protection_enabled"]!);
         Assert.True((bool)result["customization_any_enabled"]!);
         Assert.Equal("auto_generated_editable", result["customization_machine_naming_mode"]);
         Assert.True((bool)result["customization_appx_removal_enabled"]!);

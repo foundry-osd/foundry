@@ -328,14 +328,16 @@ public sealed class TelemetryEventPropertyPolicyTests
         {
             ["deployment_reboot_mode"] = "countdown",
             ["deployment_reboot_delay_seconds"] = 42,
+            ["deployment_protection_enabled"] = true,
             ["automatic_reboot_enabled"] = true
         };
 
         IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.OsdBootMediaFinished, input);
 
-        Assert.Equal(2, result.Count);
+        Assert.Equal(3, result.Count);
         Assert.Equal("countdown", result["deployment_reboot_mode"]);
         Assert.Equal(42, result["deployment_reboot_delay_seconds"]);
+        Assert.True((bool)result["deployment_protection_enabled"]!);
         Assert.False(result.ContainsKey("automatic_reboot_enabled"));
     }
 
