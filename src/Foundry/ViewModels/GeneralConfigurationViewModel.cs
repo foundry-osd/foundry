@@ -202,6 +202,16 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
         RefreshDeploymentProtectionState();
     }
 
+    public char[] GetDeploymentProtectionPasswordCopy()
+    {
+        return deploymentProtectionSecretStateService.GetPasswordCopy();
+    }
+
+    public char[] GetDeploymentProtectionPasswordConfirmationCopy()
+    {
+        return deploymentProtectionSecretStateService.GetConfirmationCopy();
+    }
+
     public void RefreshLocalizedText()
     {
         PageTitle = localizationService.GetString("GeneralConfigurationPage_Title.Text");

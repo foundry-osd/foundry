@@ -28,6 +28,16 @@ internal sealed partial class DeploymentProtectionSecretStateService : IDeployme
         state.SetConfirmation(value.AsSpan());
     }
 
+    public char[] GetPasswordCopy()
+    {
+        return state.GetPasswordCopy();
+    }
+
+    public char[] GetConfirmationCopy()
+    {
+        return state.GetConfirmationCopy();
+    }
+
     public char[] GetConfirmedPasswordCopy()
     {
         return state.GetConfirmedPasswordCopy();

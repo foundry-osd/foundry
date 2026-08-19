@@ -37,6 +37,22 @@ public sealed class DeploymentProtectionSecretStateTests
         Assert.Throws<InvalidOperationException>(() => state.GetConfirmedPasswordCopy());
     }
 
+    [Fact]
+    public void SetDifferentValues_ExposesIndependentCopiesForUiRestoration()
+    {
+        using var state = new DeploymentProtectionSecretState();
+        state.SetPassword("deployment passphrase".AsSpan());
+        state.SetConfirmation("different passphrase".AsSpan());
+
+        char[] password = state.GetPasswordCopy();
+        char[] confirmation = state.GetConfirmationCopy();
+
+        Assert.Equal("deployment passphrase", new string(password));
+        Assert.Equal("different passphrase", new string(confirmation));
+        Assert.NotSame(password, state.GetPasswordCopy());
+        Assert.NotSame(confirmation, state.GetConfirmationCopy());
+    }
+
     [Theory]
     [InlineData("", "")]
     [InlineData("short", "short")]

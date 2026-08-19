@@ -40,6 +40,18 @@ public sealed class DeploymentProtectionSecretState : IDisposable
         Replace(ref confirmation, value);
     }
 
+    public char[] GetPasswordCopy()
+    {
+        ObjectDisposedException.ThrowIf(isDisposed, this);
+        return password?.ToArray() ?? [];
+    }
+
+    public char[] GetConfirmationCopy()
+    {
+        ObjectDisposedException.ThrowIf(isDisposed, this);
+        return confirmation?.ToArray() ?? [];
+    }
+
     public char[] GetConfirmedPasswordCopy()
     {
         ObjectDisposedException.ThrowIf(isDisposed, this);

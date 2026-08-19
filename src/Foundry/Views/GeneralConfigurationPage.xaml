@@ -112,8 +112,10 @@
                                     MinWidth="{ThemeResource FoundryWideInputMinWidth}"
                                     Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
                                     <PasswordBox x:Name="DeploymentProtectionPasswordBox"
+                                        Loaded="DeploymentProtectionPasswordBox_Loaded"
                                         PasswordChanged="DeploymentProtectionPasswordBox_PasswordChanged" />
                                     <PasswordBox x:Name="DeploymentProtectionConfirmationBox"
+                                        Loaded="DeploymentProtectionConfirmationBox_Loaded"
                                         PasswordChanged="DeploymentProtectionConfirmationBox_PasswordChanged" />
                                     <TextBlock x:Name="DeploymentProtectionValidationText"
                                         Foreground="{ThemeResource SystemFillColorCriticalBrush}"

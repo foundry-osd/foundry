@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using Foundry.Services.Localization;
 using Serilog;
 
@@ -10,6 +12,7 @@ namespace Foundry.Views;
 public sealed partial class GeneralConfigurationPage : Page
 {
     private bool isInitializingWinPeLanguageSelection = true;
+    private bool isSynchronizingDeploymentProtectionPasswordBoxes;
     private readonly IApplicationLocalizationService localizationService;
     private readonly ILogger logger = Log.ForContext<GeneralConfigurationPage>();
 
@@ -63,12 +66,50 @@ public sealed partial class GeneralConfigurationPage : Page
 
     private void DeploymentProtectionPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
     {
+        if (isSynchronizingDeploymentProtectionPasswordBoxes)
+        {
+            return;
+        }
+
         ViewModel.SetDeploymentProtectionPassword(DeploymentProtectionPasswordBox.Password);
     }
 
     private void DeploymentProtectionConfirmationBox_PasswordChanged(object sender, RoutedEventArgs e)
     {
+        if (isSynchronizingDeploymentProtectionPasswordBoxes)
+        {
+            return;
+        }
+
         ViewModel.SetDeploymentProtectionPasswordConfirmation(DeploymentProtectionConfirmationBox.Password);
+    }
+
+    private void DeploymentProtectionPasswordBox_Loaded(object sender, RoutedEventArgs e)
+    {
+        SyncDeploymentProtectionPasswordBox(
+            DeploymentProtectionPasswordBox,
+            ViewModel.GetDeploymentProtectionPasswordCopy());
+    }
+
+    private void DeploymentProtectionConfirmationBox_Loaded(object sender, RoutedEventArgs e)
+    {
+        SyncDeploymentProtectionPasswordBox(
+            DeploymentProtectionConfirmationBox,
+            ViewModel.GetDeploymentProtectionPasswordConfirmationCopy());
+    }
+
+    private void SyncDeploymentProtectionPasswordBox(PasswordBox passwordBox, char[] value)
+    {
+        try
+        {
+            isSynchronizingDeploymentProtectionPasswordBoxes = true;
+            passwordBox.Password = new string(value);
+        }
+        finally
+        {
+            isSynchronizingDeploymentProtectionPasswordBoxes = false;
+            CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(value.AsSpan()));
+        }
     }
 
     private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e)

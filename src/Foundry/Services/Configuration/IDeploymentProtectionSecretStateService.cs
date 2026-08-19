@@ -21,6 +21,10 @@ public interface IDeploymentProtectionSecretStateService
 
     void SetConfirmation(string? value);
 
+    char[] GetPasswordCopy();
+
+    char[] GetConfirmationCopy();
+
     char[] GetConfirmedPasswordCopy();
 
     void Clear();
