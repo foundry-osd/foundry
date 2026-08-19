@@ -10,6 +10,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Foundry.Deploy.Services.Deployment;
+using Foundry.Deploy.Services.Security;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Autopilot;
@@ -18,14 +19,14 @@ namespace Foundry.Deploy.Services.Autopilot;
 /// Decrypts media certificate material in memory, authenticates to Graph, and imports the captured hardware hash.
 /// </summary>
 public sealed class AutopilotHardwareHashUploadService(
-    IMediaSecretKeyReader mediaSecretKeyReader,
+    IDeploymentSecretKeyProvider deploymentSecretKeyProvider,
     IAutopilotGraphTokenService tokenService,
     AutopilotGraphImportClient graphImportClient,
     ILogger<AutopilotHardwareHashUploadService> logger) : IAutopilotHardwareHashUploadService
 {
     private const string UploadResultFileName = "AutopilotUploadResult.json";
 
-    private readonly IMediaSecretKeyReader mediaSecretKeyReader = mediaSecretKeyReader;
+    private readonly IDeploymentSecretKeyProvider deploymentSecretKeyProvider = deploymentSecretKeyProvider;
     private readonly IAutopilotGraphTokenService tokenService = tokenService;
     private readonly AutopilotGraphImportClient graphImportClient = graphImportClient;
     private readonly ILogger logger = logger;
@@ -65,17 +66,17 @@ public sealed class AutopilotHardwareHashUploadService(
             "Preparing Autopilot hardware hash upload...",
             "Decrypting media certificate..."));
 
-        byte[] mediaKey = await mediaSecretKeyReader.ReadAsync(request.WorkspaceRootPath, cancellationToken)
+        byte[] deploymentKey = await deploymentSecretKeyProvider.ReadAsync(request.WorkspaceRootPath, cancellationToken)
             .ConfigureAwait(false);
         byte[]? pfxBytes = null;
         try
         {
-            pfxBytes = DeployMediaSecretEnvelopeProtector.DecryptBytes(
+            pfxBytes = DeployMediaSecretEnvelopeProtector.DecryptDeployBytes(
                 request.Settings.CertificatePfxSecret!,
-                mediaKey);
-            string pfxPassword = DeployMediaSecretEnvelopeProtector.DecryptString(
+                deploymentKey);
+            string pfxPassword = DeployMediaSecretEnvelopeProtector.DecryptDeployString(
                 request.Settings.CertificatePfxPasswordSecret!,
-                mediaKey);
+                deploymentKey);
 
             progress?.Report(new AutopilotHardwareHashUploadProgress(
                 "Authenticating Autopilot hardware hash upload...",
@@ -106,7 +107,7 @@ public sealed class AutopilotHardwareHashUploadService(
         }
         finally
         {
-            CryptographicOperations.ZeroMemory(mediaKey);
+            CryptographicOperations.ZeroMemory(deploymentKey);
             if (pfxBytes is not null)
             {
                 CryptographicOperations.ZeroMemory(pfxBytes);

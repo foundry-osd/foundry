@@ -5,6 +5,7 @@
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using Foundry.Deploy.Models.Configuration;
+using Foundry.Deploy.Services.Security;
 
 namespace Foundry.Deploy.Services.Autopilot;
 
@@ -23,11 +24,11 @@ public interface IAutopilotGroupTagDiscoveryService
 /// Uses the media certificate to authenticate to Graph and read current Windows Autopilot group tags.
 /// </summary>
 public sealed class AutopilotGroupTagDiscoveryService(
-    IMediaSecretKeyReader mediaSecretKeyReader,
+    IDeploymentSecretKeyProvider deploymentSecretKeyProvider,
     IAutopilotGraphTokenService tokenService,
     AutopilotGraphImportClient graphImportClient) : IAutopilotGroupTagDiscoveryService
 {
-    private readonly IMediaSecretKeyReader mediaSecretKeyReader = mediaSecretKeyReader;
+    private readonly IDeploymentSecretKeyProvider deploymentSecretKeyProvider = deploymentSecretKeyProvider;
     private readonly IAutopilotGraphTokenService tokenService = tokenService;
     private readonly AutopilotGraphImportClient graphImportClient = graphImportClient;
 
@@ -39,17 +40,17 @@ public sealed class AutopilotGroupTagDiscoveryService(
         ArgumentNullException.ThrowIfNull(settings);
         ValidateSettings(settings);
 
-        byte[] mediaKey = await mediaSecretKeyReader.ReadAsync(workspaceRootPath, cancellationToken)
+        byte[] deploymentKey = await deploymentSecretKeyProvider.ReadAsync(workspaceRootPath, cancellationToken)
             .ConfigureAwait(false);
         byte[]? pfxBytes = null;
         try
         {
-            pfxBytes = DeployMediaSecretEnvelopeProtector.DecryptBytes(
+            pfxBytes = DeployMediaSecretEnvelopeProtector.DecryptDeployBytes(
                 settings.CertificatePfxSecret!,
-                mediaKey);
-            string pfxPassword = DeployMediaSecretEnvelopeProtector.DecryptString(
+                deploymentKey);
+            string pfxPassword = DeployMediaSecretEnvelopeProtector.DecryptDeployString(
                 settings.CertificatePfxPasswordSecret!,
-                mediaKey);
+                deploymentKey);
 
             using X509Certificate2 certificate = AutopilotCertificateCredential.Load(
                 pfxBytes,
@@ -66,7 +67,7 @@ public sealed class AutopilotGroupTagDiscoveryService(
         }
         finally
         {
-            CryptographicOperations.ZeroMemory(mediaKey);
+            CryptographicOperations.ZeroMemory(deploymentKey);
             if (pfxBytes is not null)
             {
                 CryptographicOperations.ZeroMemory(pfxBytes);

@@ -5,6 +5,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using Foundry.Deploy.Models.Configuration;
+using Foundry.Utilities.Security;
 
 namespace Foundry.Deploy.Services.Autopilot;
 
@@ -17,9 +18,7 @@ public static class DeployMediaSecretEnvelopeProtector
     public const string Algorithm = "aes-gcm-v1";
     public const string KeyId = "media";
     public const string DeploymentKeyId = "deployment";
-    public const int KeySizeBytes = 32;
-    private const int NonceSizeBytes = 12;
-    private const int TagSizeBytes = 16;
+    public const int KeySizeBytes = AesGcmEncryption.KeySizeBytes;
 
     public static byte[] DecryptBytes(SecretEnvelope envelope, byte[] key)
     {
@@ -32,30 +31,17 @@ public static class DeployMediaSecretEnvelopeProtector
         ValidateEnvelope(envelope, expectedKeyId);
         ValidateKey(key);
 
-        byte[] nonce = Base64UrlDecode(envelope.Nonce);
-        byte[] tag = Base64UrlDecode(envelope.Tag);
-        byte[] ciphertext = Base64UrlDecode(envelope.Ciphertext);
-        byte[] plaintext = new byte[ciphertext.Length];
-
-        if (nonce.Length != NonceSizeBytes)
-        {
-            throw new CryptographicException("Encrypted secret nonce has an invalid length.");
-        }
-
-        if (tag.Length != TagSizeBytes)
-        {
-            throw new CryptographicException("Encrypted secret tag has an invalid length.");
-        }
-
         try
         {
-            using var aes = new AesGcm(key, TagSizeBytes);
-            aes.Decrypt(nonce, ciphertext, tag, plaintext);
-            return plaintext;
+            return AesGcmEncryption.Decrypt(
+                new AesGcmPayload(
+                    Base64Url.Decode(envelope.Nonce),
+                    Base64Url.Decode(envelope.Tag),
+                    Base64Url.Decode(envelope.Ciphertext)),
+                key);
         }
         catch (CryptographicException ex)
         {
-            CryptographicOperations.ZeroMemory(plaintext);
             throw new CryptographicException("Encrypted secret could not be decrypted.", ex);
         }
     }
@@ -86,6 +72,28 @@ public static class DeployMediaSecretEnvelopeProtector
         }
     }
 
+    public static byte[] DecryptDeployBytes(SecretEnvelope envelope, byte[] key)
+    {
+        return DecryptBytes(envelope, key, ResolveDeployKeyId(envelope));
+    }
+
+    public static string DecryptDeployString(SecretEnvelope envelope, byte[] key)
+    {
+        return DecryptString(envelope, key, ResolveDeployKeyId(envelope));
+    }
+
+    private static string ResolveDeployKeyId(SecretEnvelope envelope)
+    {
+        ArgumentNullException.ThrowIfNull(envelope);
+        if (string.Equals(envelope.KeyId, DeploymentKeyId, StringComparison.Ordinal) ||
+            string.Equals(envelope.KeyId, KeyId, StringComparison.Ordinal))
+        {
+            return envelope.KeyId;
+        }
+
+        throw new CryptographicException("Encrypted secret envelope is not supported.");
+    }
+
     private static void ValidateEnvelope(SecretEnvelope envelope, string expectedKeyId)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(expectedKeyId);
@@ -113,10 +121,4 @@ public static class DeployMediaSecretEnvelopeProtector
         }
     }
 
-    private static byte[] Base64UrlDecode(string value)
-    {
-        string base64 = value.Replace('-', '+').Replace('_', '/');
-        int padding = (4 - base64.Length % 4) % 4;
-        return Convert.FromBase64String(base64.PadRight(base64.Length + padding, '='));
-    }
 }

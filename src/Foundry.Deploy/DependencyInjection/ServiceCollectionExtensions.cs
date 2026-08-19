@@ -60,6 +60,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentRuntimeContextService, DeploymentRuntimeContextService>();
         services.AddSingleton<IDeployConfigurationService, DeployConfigurationService>();
         services.AddSingleton<IDeploymentSecretKeySession, DeploymentSecretKeySession>();
+        services.AddSingleton<IDeploymentSecretKeyProvider, DeploymentSecretKeyProvider>();
         services.AddSingleton<IDeploymentProtectionUnlockService, DeploymentProtectionUnlockService>();
         services.AddSingleton<IDeploymentPasswordDialogService, DeploymentPasswordDialogService>();
         services.AddSingleton<IDeploymentAccessRetryDelay, DeploymentAccessRetryDelay>();

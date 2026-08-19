@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
+using Foundry.Utilities.Security;
 
 namespace Foundry.Core.Services.Autopilot;
 
@@ -37,17 +38,17 @@ public static class MediaSecretEnvelopeProtector
     /// <summary>
     /// Required AES-256 media secret key length.
     /// </summary>
-    public const int KeySizeBytes = 32;
+    public const int KeySizeBytes = AesGcmEncryption.KeySizeBytes;
 
     /// <summary>
     /// Required AES-GCM nonce length.
     /// </summary>
-    public const int NonceSizeBytes = 12;
+    public const int NonceSizeBytes = AesGcmEncryption.NonceSizeBytes;
 
     /// <summary>
     /// Required AES-GCM authentication tag length.
     /// </summary>
-    public const int TagSizeBytes = 16;
+    public const int TagSizeBytes = AesGcmEncryption.TagSizeBytes;
 
     /// <summary>
     /// Creates a new random media secret key for generated boot media.
@@ -55,9 +56,7 @@ public static class MediaSecretEnvelopeProtector
     /// <returns>A 32-byte media secret key.</returns>
     public static byte[] GenerateMediaKey()
     {
-        byte[] key = new byte[KeySizeBytes];
-        RandomNumberGenerator.Fill(key);
-        return key;
+        return AesGcmEncryption.GenerateKey();
     }
 
     /// <summary>
@@ -135,22 +134,16 @@ public static class MediaSecretEnvelopeProtector
         ValidateKey(key);
         ValidateKeyId(keyId);
 
-        byte[] nonce = new byte[NonceSizeBytes];
-        byte[] tag = new byte[TagSizeBytes];
-        byte[] ciphertext = new byte[plaintext.Length];
-
-        RandomNumberGenerator.Fill(nonce);
-        using var aes = new AesGcm(key, TagSizeBytes);
-        aes.Encrypt(nonce, plaintext, ciphertext, tag);
+        AesGcmPayload payload = AesGcmEncryption.Encrypt(plaintext, key);
 
         return new SecretEnvelope
         {
             Kind = Kind,
             Algorithm = Algorithm,
             KeyId = keyId,
-            Nonce = Base64UrlEncode(nonce),
-            Tag = Base64UrlEncode(tag),
-            Ciphertext = Base64UrlEncode(ciphertext)
+            Nonce = Base64Url.Encode(payload.Nonce),
+            Tag = Base64Url.Encode(payload.Tag),
+            Ciphertext = Base64Url.Encode(payload.Ciphertext)
         };
     }
 
@@ -175,30 +168,17 @@ public static class MediaSecretEnvelopeProtector
         ValidateEnvelope(envelope, keyId);
         ValidateKey(key);
 
-        byte[] nonce = Base64UrlDecode(envelope.Nonce);
-        byte[] tag = Base64UrlDecode(envelope.Tag);
-        byte[] ciphertext = Base64UrlDecode(envelope.Ciphertext);
-        byte[] plaintext = new byte[ciphertext.Length];
-
-        if (nonce.Length != NonceSizeBytes)
-        {
-            throw new CryptographicException("Encrypted secret nonce has an invalid length.");
-        }
-
-        if (tag.Length != TagSizeBytes)
-        {
-            throw new CryptographicException("Encrypted secret tag has an invalid length.");
-        }
-
         try
         {
-            using var aes = new AesGcm(key, TagSizeBytes);
-            aes.Decrypt(nonce, ciphertext, tag, plaintext);
-            return plaintext;
+            return AesGcmEncryption.Decrypt(
+                new AesGcmPayload(
+                    Base64Url.Decode(envelope.Nonce),
+                    Base64Url.Decode(envelope.Tag),
+                    Base64Url.Decode(envelope.Ciphertext)),
+                key);
         }
         catch (CryptographicException ex)
         {
-            CryptographicOperations.ZeroMemory(plaintext);
             throw new CryptographicException("Encrypted secret could not be decrypted.", ex);
         }
     }
@@ -298,22 +278,6 @@ public static class MediaSecretEnvelopeProtector
         {
             throw new ArgumentException("Encrypted secret key identifier is required.", nameof(keyId));
         }
-    }
-
-    private static string Base64UrlEncode(byte[] value)
-    {
-        return Convert.ToBase64String(value)
-            .TrimEnd('=')
-            .Replace('+', '-')
-            .Replace('/', '_');
-    }
-
-    private static byte[] Base64UrlDecode(string value)
-    {
-        string base64 = value.Replace('-', '+').Replace('_', '/');
-        int padding = (4 - base64.Length % 4) % 4;
-        base64 = base64.PadRight(base64.Length + padding, '=');
-        return Convert.FromBase64String(base64);
     }
 
     private static bool HasStringProperty(JsonElement element, string propertyName, string expectedValue)
