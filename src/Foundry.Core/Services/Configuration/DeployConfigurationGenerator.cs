@@ -18,7 +18,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
     /// <inheritdoc />
     public FoundryDeployConfigurationDocument Generate(FoundryConfigurationDocument document)
     {
-        return Generate(document, mediaSecretsKey: null);
+        return Generate(document, deploymentSecretsKey: null, protectionSettings: null);
     }
 
     /// <summary>
@@ -29,11 +29,27 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
     /// <returns>Reduced Foundry.Deploy configuration document.</returns>
     public FoundryDeployConfigurationDocument Generate(FoundryConfigurationDocument document, byte[]? mediaSecretsKey)
     {
+        return Generate(document, mediaSecretsKey, protectionSettings: null);
+    }
+
+    /// <summary>
+    /// Generates the reduced Foundry.Deploy runtime configuration with Deploy secrets and protection metadata.
+    /// </summary>
+    /// <param name="document">User-facing Foundry configuration.</param>
+    /// <param name="deploymentSecretsKey">Deploy secret key used to encrypt boot-media-only Deploy secrets.</param>
+    /// <param name="protectionSettings">Deployment media password-protection metadata.</param>
+    /// <returns>Reduced Foundry.Deploy configuration document.</returns>
+    public FoundryDeployConfigurationDocument Generate(
+        FoundryConfigurationDocument document,
+        byte[]? deploymentSecretsKey,
+        DeployProtectionSettings? protectionSettings)
+    {
         ArgumentNullException.ThrowIfNull(document);
         AutopilotConfigurationValidator.ThrowIfNotReady(document.Autopilot, DateTimeOffset.UtcNow);
 
         return new FoundryDeployConfigurationDocument
         {
+            Protection = protectionSettings ?? new DeployProtectionSettings(),
             Completion = new DeployCompletionSettings
             {
                 AutomaticRebootEnabled = document.General.AutomaticRebootEnabled,
@@ -92,7 +108,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                     : null,
                 HardwareHashUpload = CreateDeployHardwareHashUploadSettings(
                     document.Autopilot,
-                    mediaSecretsKey)
+                    deploymentSecretsKey)
             },
             Telemetry = document.Telemetry
         };

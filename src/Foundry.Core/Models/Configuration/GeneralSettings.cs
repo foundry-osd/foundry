@@ -12,6 +12,11 @@ namespace Foundry.Core.Models.Configuration;
 public sealed record GeneralSettings
 {
     /// <summary>
+    /// Gets optional deployment media password-protection settings.
+    /// </summary>
+    public DeploymentProtectionSettings DeploymentProtection { get; init; } = new();
+
+    /// <summary>
     /// Gets the optional ISO output path requested by the user.
     /// </summary>
     public string? IsoOutputPath { get; init; }

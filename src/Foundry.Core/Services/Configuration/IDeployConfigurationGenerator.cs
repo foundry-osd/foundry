@@ -28,6 +28,18 @@ public interface IDeployConfigurationGenerator
     FoundryDeployConfigurationDocument Generate(FoundryConfigurationDocument document, byte[]? mediaSecretsKey);
 
     /// <summary>
+    /// Generates the deployment runtime configuration with Deploy secret key and protection metadata.
+    /// </summary>
+    /// <param name="document">The Foundry configuration document.</param>
+    /// <param name="deploymentSecretsKey">Optional Deploy secret key used for generated boot media secrets.</param>
+    /// <param name="protectionSettings">Deployment media protection metadata.</param>
+    /// <returns>The deployment runtime configuration.</returns>
+    FoundryDeployConfigurationDocument Generate(
+        FoundryConfigurationDocument document,
+        byte[]? deploymentSecretsKey,
+        DeployProtectionSettings? protectionSettings);
+
+    /// <summary>
     /// Serializes a deployment runtime configuration document to JSON.
     /// </summary>
     /// <param name="document">The deployment runtime document.</param>
