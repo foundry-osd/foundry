@@ -25,11 +25,11 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
     /// Generates the reduced Foundry.Deploy runtime configuration and embeds encrypted media-only secrets when required.
     /// </summary>
     /// <param name="document">User-facing Foundry configuration.</param>
-    /// <param name="mediaSecretsKey">Media secret key used to encrypt boot-media-only secrets.</param>
+    /// <param name="deploymentSecretsKey">Deploy secret key used to encrypt boot-media-only secrets.</param>
     /// <returns>Reduced Foundry.Deploy configuration document.</returns>
-    public FoundryDeployConfigurationDocument Generate(FoundryConfigurationDocument document, byte[]? mediaSecretsKey)
+    public FoundryDeployConfigurationDocument Generate(FoundryConfigurationDocument document, byte[]? deploymentSecretsKey)
     {
-        return Generate(document, mediaSecretsKey, protectionSettings: null);
+        return Generate(document, deploymentSecretsKey, protectionSettings: null);
     }
 
     /// <summary>
@@ -123,7 +123,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
 
     private static DeployAutopilotHardwareHashUploadSettings CreateDeployHardwareHashUploadSettings(
         AutopilotSettings autopilot,
-        byte[]? mediaSecretsKey)
+        byte[]? deploymentSecretsKey)
     {
         if (!autopilot.IsEnabled ||
             autopilot.ProvisioningMode != AutopilotProvisioningMode.HardwareHashUpload)
@@ -139,11 +139,11 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
 
         SecretEnvelope? pfxSecret = null;
         SecretEnvelope? pfxPasswordSecret = null;
-        if (mediaSecretsKey is not null)
+        if (deploymentSecretsKey is not null)
         {
-            if (mediaSecretsKey.Length == 0)
+            if (deploymentSecretsKey.Length == 0)
             {
-                throw new InvalidOperationException("Autopilot hardware hash upload media generation requires a media secret key.");
+                throw new InvalidOperationException("Autopilot hardware hash upload media generation requires a Deploy secret key.");
             }
 
             AutopilotBootMediaCertificateSettings bootMediaCertificate = settings.BootMediaCertificate;
@@ -163,7 +163,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             {
                 pfxSecret = MediaSecretEnvelopeProtector.EncryptBytes(
                     pfxBytes,
-                    mediaSecretsKey,
+                    deploymentSecretsKey,
                     MediaSecretEnvelopeProtector.DeploymentKeyId);
             }
             finally
@@ -173,7 +173,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
 
             pfxPasswordSecret = MediaSecretEnvelopeProtector.EncryptString(
                 bootMediaCertificate.PfxPassword,
-                mediaSecretsKey,
+                deploymentSecretsKey,
                 MediaSecretEnvelopeProtector.DeploymentKeyId);
         }
 

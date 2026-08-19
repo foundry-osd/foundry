@@ -14,7 +14,7 @@ public sealed class DeploymentProtectionPasswordRulesTests
     [InlineData("12345678", true)]
     public void IsValid_RequiresEightCharacters(string? password, bool expected)
     {
-        Assert.Equal(expected, DeploymentProtectionPasswordRules.IsValid(password));
+        Assert.Equal(expected, DeploymentProtectionPasswordRules.IsValid(password.AsSpan()));
     }
 
     [Theory]
@@ -27,6 +27,6 @@ public sealed class DeploymentProtectionPasswordRulesTests
         string? password,
         bool expected)
     {
-        Assert.Equal(expected, DeploymentProtectionPasswordRules.ShouldRecommendStrongerPassword(password));
+        Assert.Equal(expected, DeploymentProtectionPasswordRules.ShouldRecommendStrongerPassword(password.AsSpan()));
     }
 }

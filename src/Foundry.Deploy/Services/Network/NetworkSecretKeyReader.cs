@@ -32,6 +32,7 @@ public sealed class NetworkSecretKeyReader : INetworkSecretKeyReader
         byte[] key = await File.ReadAllBytesAsync(keyPath, cancellationToken).ConfigureAwait(false);
         if (key.Length != AesGcmEncryption.KeySizeBytes)
         {
+            global::System.Security.Cryptography.CryptographicOperations.ZeroMemory(key);
             throw new InvalidOperationException("Network secret key has an invalid length.");
         }
 

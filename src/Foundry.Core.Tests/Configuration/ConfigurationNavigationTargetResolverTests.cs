@@ -32,6 +32,16 @@ public sealed class ConfigurationNavigationTargetResolverTests
     }
 
     [Fact]
+    public void ResolveDeployFailure_WhenDeploymentProtectionRequiresAttention_ReturnsGeneralPage()
+    {
+        Assert.Equal(
+            ConfigurationNavigationTarget.General,
+            ConfigurationNavigationTargetResolver.ResolveDeployFailure(
+                AutopilotProvisioningMode.JsonProfile,
+                deploymentProtectionRequiresAttention: true));
+    }
+
+    [Fact]
     public void ResolveRequiredNetworkSecret_ReturnsWifiPage()
     {
         Assert.Equal(

@@ -177,75 +177,80 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
         var importCertificates = new List<NetworkProfileRoamingImportCertificate>();
         byte[]? mediaSecretKey = null;
 
-        foreach (NetworkProfileRoamingCertificate certificate in certificates)
+        try
         {
-            cancellationToken.ThrowIfCancellationRequested();
-
-            if (string.IsNullOrWhiteSpace(certificate.RelativePath))
+            foreach (NetworkProfileRoamingCertificate certificate in certificates)
             {
-                continue;
-            }
+                cancellationToken.ThrowIfCancellationRequested();
 
-            NetworkProfileRoamingTransportSettings? transportSettings = ResolveTransportSettings(certificate, settings);
-            if (transportSettings is null || !transportSettings.IsEnabled)
-            {
-                continue;
-            }
-
-            bool isPfxPrivateKey = string.Equals(certificate.Kind, NetworkProfileRoamingArtifacts.PfxPrivateKeyKind, StringComparison.OrdinalIgnoreCase);
-            if (isPfxPrivateKey && !transportSettings.IncludePrivateKeyMaterial)
-            {
-                continue;
-            }
-
-            string sourcePath = ResolveArtifactPath(artifactRootPath, certificate.RelativePath);
-            if (!File.Exists(sourcePath))
-            {
-                continue;
-            }
-
-            string stagedRelativePath = ToStagedDataRelativePath(certificate.RelativePath);
-            dataFiles.Add(new PreOobeScriptDataFile
-            {
-                FileName = stagedRelativePath,
-                Bytes = File.ReadAllBytes(sourcePath),
-                IsSensitive = isPfxPrivateKey
-            });
-
-            string? passwordRelativePath = null;
-            if (isPfxPrivateKey)
-            {
-                if (!string.IsNullOrWhiteSpace(certificate.PasswordSecretRelativePath))
+                if (string.IsNullOrWhiteSpace(certificate.RelativePath))
                 {
-                    mediaSecretKey ??= await _networkSecretKeyReader.ReadAsync(workspaceRootPath, cancellationToken).ConfigureAwait(false);
+                    continue;
                 }
 
-                passwordRelativePath = await AddPfxPasswordDataFileAsync(
-                        dataFiles,
-                        artifactRootPath,
-                        certificate,
-                        mediaSecretKey,
-                        cancellationToken)
-                    .ConfigureAwait(false);
+                NetworkProfileRoamingTransportSettings? transportSettings = ResolveTransportSettings(certificate, settings);
+                if (transportSettings is null || !transportSettings.IsEnabled)
+                {
+                    continue;
+                }
+
+                bool isPfxPrivateKey = string.Equals(certificate.Kind, NetworkProfileRoamingArtifacts.PfxPrivateKeyKind, StringComparison.OrdinalIgnoreCase);
+                if (isPfxPrivateKey && !transportSettings.IncludePrivateKeyMaterial)
+                {
+                    continue;
+                }
+
+                string sourcePath = ResolveArtifactPath(artifactRootPath, certificate.RelativePath);
+                if (!File.Exists(sourcePath))
+                {
+                    continue;
+                }
+
+                string stagedRelativePath = ToStagedDataRelativePath(certificate.RelativePath);
+                dataFiles.Add(new PreOobeScriptDataFile
+                {
+                    FileName = stagedRelativePath,
+                    Bytes = File.ReadAllBytes(sourcePath),
+                    IsSensitive = isPfxPrivateKey
+                });
+
+                string? passwordRelativePath = null;
+                if (isPfxPrivateKey)
+                {
+                    if (!string.IsNullOrWhiteSpace(certificate.PasswordSecretRelativePath))
+                    {
+                        mediaSecretKey ??= await _networkSecretKeyReader.ReadAsync(workspaceRootPath, cancellationToken).ConfigureAwait(false);
+                    }
+
+                    passwordRelativePath = await AddPfxPasswordDataFileAsync(
+                            dataFiles,
+                            artifactRootPath,
+                            certificate,
+                            mediaSecretKey,
+                            cancellationToken)
+                        .ConfigureAwait(false);
+                }
+
+                importCertificates.Add(new NetworkProfileRoamingImportCertificate
+                {
+                    RelativePath = stagedRelativePath,
+                    Kind = isPfxPrivateKey ? "pfx" : "certificate",
+                    StoreName = string.IsNullOrWhiteSpace(certificate.StoreName)
+                        ? (isPfxPrivateKey ? "My" : "Root")
+                        : certificate.StoreName.Trim(),
+                    PasswordRelativePath = passwordRelativePath
+                });
             }
 
-            importCertificates.Add(new NetworkProfileRoamingImportCertificate
-            {
-                RelativePath = stagedRelativePath,
-                Kind = isPfxPrivateKey ? "pfx" : "certificate",
-                StoreName = string.IsNullOrWhiteSpace(certificate.StoreName)
-                    ? (isPfxPrivateKey ? "My" : "Root")
-                    : certificate.StoreName.Trim(),
-                PasswordRelativePath = passwordRelativePath
-            });
+            return importCertificates;
         }
-
-        if (mediaSecretKey is not null)
+        finally
         {
-            CryptographicOperations.ZeroMemory(mediaSecretKey);
+            if (mediaSecretKey is not null)
+            {
+                CryptographicOperations.ZeroMemory(mediaSecretKey);
+            }
         }
-
-        return importCertificates;
     }
 
     private static NetworkProfileRoamingTransportSettings? ResolveTransportSettings(

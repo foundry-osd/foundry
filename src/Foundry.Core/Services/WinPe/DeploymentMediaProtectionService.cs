@@ -21,7 +21,7 @@ public static class DeploymentMediaProtectionService
 
     public static DeploymentMediaProtectionMaterial CreateProtected(ReadOnlySpan<char> password)
     {
-        if (password.Length < Configuration.DeploymentProtectionPasswordRules.MinimumLength)
+        if (!Configuration.DeploymentProtectionPasswordRules.IsValid(password))
         {
             throw new ArgumentException(
                 $"The deployment media password must contain at least {Configuration.DeploymentProtectionPasswordRules.MinimumLength} characters.",

@@ -1679,7 +1679,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 : GetBlockingReasonText(MediaPreflightBlockingReason.DeployConfigurationNotReady),
             options.IsDeployConfigurationReady
                 ? ConfigurationNavigationTarget.None
-                : ConfigurationNavigationTargetResolver.ResolveDeployFailure(options.AutopilotProvisioningMode));
+                : ConfigurationNavigationTargetResolver.ResolveDeployFailure(
+                    options.AutopilotProvisioningMode,
+                    foundryConfigurationStateService.Current.General.DeploymentProtection.IsEnabled &&
+                    !deploymentProtectionSecretStateService.IsValid));
     }
 
     private StartReadinessItemViewModel BuildConnectProvisioningReadinessItem(MediaPreflightOptions options)

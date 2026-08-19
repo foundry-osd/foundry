@@ -77,6 +77,28 @@ public sealed class DeploymentAccessGateTests
     }
 
     [Fact]
+    public async Task AuthorizeAsync_WhenConfigurationIsMissingButEncryptedProfileRemains_DeniesAccess()
+    {
+        string root = Path.Combine(Path.GetTempPath(), $"foundry-access-gate-{Guid.NewGuid():N}");
+        string configurationPath = Path.Combine(root, "Config", "foundry.deploy.config.json");
+        string profilePath = Path.Combine(root, "Config", "Autopilot", "Profile", "AutopilotConfigurationFile.json.encrypted");
+        Directory.CreateDirectory(Path.GetDirectoryName(profilePath)!);
+        await File.WriteAllTextAsync(profilePath, "encrypted", TestContext.Current.CancellationToken);
+        var dialog = new FakePasswordDialogService("unused");
+        var gate = new DeploymentAccessGate(
+            new FakeConfigurationService(document: null, exists: false, configurationPath: configurationPath),
+            new FakeUnlockService(),
+            dialog,
+            new ImmediateRetryDelay());
+
+        bool authorized = await gate.AuthorizeAsync(TestContext.Current.CancellationToken);
+
+        Assert.False(authorized);
+        Assert.Equal(0, dialog.PromptCount);
+        Directory.Delete(root, recursive: true);
+    }
+
+    [Fact]
     public async Task AuthorizeAsync_WhenPasswordFails_AllowsRetryUntilSuccessful()
     {
         var dialog = new FakePasswordDialogService("wrong", "correct");

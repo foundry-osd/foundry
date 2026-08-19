@@ -37,9 +37,9 @@ internal static class DeploymentProtectionDetector
         string? workspaceRootPath = null)
     {
         ArgumentNullException.ThrowIfNull(configuration);
-        if (configuration.Document is null)
+        if (configuration.Document is null && configuration.Exists)
         {
-            return configuration.Exists;
+            return true;
         }
 
         string? rootPath = ResolveWorkspaceRootPath(configuration.ConfigurationPath, workspaceRootPath);
@@ -58,6 +58,11 @@ internal static class DeploymentProtectionDetector
                     SearchOption.AllDirectories).Any())
             {
                 return true;
+            }
+
+            if (configuration.Document is null)
+            {
+                return false;
             }
 
             return configuration.Document.SchemaVersion >= ConfigurationSchemaVersions.DeployCurrent &&

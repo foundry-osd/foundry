@@ -50,6 +50,7 @@ public sealed class DeploymentSecretKeyProvider(
         byte[] key = await File.ReadAllBytesAsync(keyPath, cancellationToken).ConfigureAwait(false);
         if (key.Length != AesGcmEncryption.KeySizeBytes)
         {
+            global::System.Security.Cryptography.CryptographicOperations.ZeroMemory(key);
             throw new InvalidOperationException("Deploy secret key has an invalid length.");
         }
 

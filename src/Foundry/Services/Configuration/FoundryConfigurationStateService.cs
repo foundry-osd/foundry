@@ -4,11 +4,11 @@
 
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
-using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.WinPe;
 using Foundry.Services.Autopilot;
 using Foundry.Telemetry;
+using Foundry.Utilities.Security;
 using Serilog;
 using AppSettingsService = Foundry.Services.Settings.IAppSettingsService;
 
@@ -81,7 +81,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
             {
                 byte[]? deploymentSecretsKey = Current.Autopilot.IsEnabled &&
                                                Current.Autopilot.ProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload
-                    ? MediaSecretEnvelopeProtector.GenerateMediaKey()
+                    ? AesGcmEncryption.GenerateKey()
                     : null;
 
                 try

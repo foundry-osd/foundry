@@ -9,13 +9,13 @@ public static class DeploymentProtectionPasswordRules
     public const int MinimumLength = 8;
     public const int RecommendedLength = 12;
 
-    public static bool IsValid(string? password)
+    public static bool IsValid(ReadOnlySpan<char> password)
     {
-        return password?.Length >= MinimumLength;
+        return password.Length >= MinimumLength;
     }
 
-    public static bool ShouldRecommendStrongerPassword(string? password)
+    public static bool ShouldRecommendStrongerPassword(ReadOnlySpan<char> password)
     {
-        return IsValid(password) && password!.Length < RecommendedLength;
+        return IsValid(password) && password.Length < RecommendedLength;
     }
 }

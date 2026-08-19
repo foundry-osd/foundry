@@ -46,7 +46,11 @@ public static class ConfigurationNavigationTargetResolver
         _ => ConfigurationNavigationTarget.AutopilotJsonProfile
     };
 
-    public static ConfigurationNavigationTarget ResolveDeployFailure(AutopilotProvisioningMode mode) =>
-        ResolveAutopilot(mode);
+    public static ConfigurationNavigationTarget ResolveDeployFailure(
+        AutopilotProvisioningMode mode,
+        bool deploymentProtectionRequiresAttention = false) =>
+        deploymentProtectionRequiresAttention
+            ? ConfigurationNavigationTarget.General
+            : ResolveAutopilot(mode);
 
 }

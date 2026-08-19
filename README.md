@@ -103,7 +103,7 @@ Use the dedicated [network](https://foundry-osd.github.io/docs/configure/network
 
 Foundry OSD can optionally require a password before Foundry Deploy initializes. The password is defined by the administrator when creating the media and is never stored in the Foundry configuration or on the media. Deploy credentials and offline Autopilot JSON profiles are encrypted on protected media and decrypted only after successful authorization.
 
-The password cannot be recovered. If it is lost, recreate the deployment media with a new password. Foundry OSD keeps the password only for the current process session, so it must be entered again after restarting Foundry OSD or when recreating media.
+The password cannot be recovered. If it is lost, recreate the deployment media with a new password. Foundry OSD keeps the password only for the current process session, so it must be entered again after restarting Foundry OSD or after disabling and re-enabling password protection.
 
 Foundry Connect continues to handle network secrets automatically before Foundry Deploy starts. Password protection does not replace physical media controls, Secure Boot, restricted boot-device policies, or appropriate tenant permissions; keep deployment media secured and revoke exposed credentials when a device is lost.
 

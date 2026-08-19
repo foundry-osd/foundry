@@ -706,7 +706,7 @@ public sealed class DeployConfigurationGeneratorTests
             }
         };
 
-        FoundryDeployConfigurationDocument result = generator.Generate(document, mediaSecretsKey: [1, 2, 3]);
+        FoundryDeployConfigurationDocument result = generator.Generate(document, deploymentSecretsKey: [1, 2, 3]);
 
         Assert.True(result.Autopilot.IsEnabled);
         Assert.Equal(AutopilotProvisioningMode.InteractiveHardwareHashUpload, result.Autopilot.ProvisioningMode);
@@ -839,7 +839,7 @@ public sealed class DeployConfigurationGeneratorTests
             };
 
             InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => generator.Generate(document, []));
-            Assert.Contains("media secret key", exception.Message, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("Deploy secret key", exception.Message, StringComparison.OrdinalIgnoreCase);
         }
         finally
         {

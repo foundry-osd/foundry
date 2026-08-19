@@ -21,12 +21,12 @@ public sealed class DeploymentProtectionSecretState : IDisposable
     public bool HasConfirmation => confirmation is { Length: > 0 };
 
     public bool IsValid =>
-        password is { Length: >= DeploymentProtectionPasswordRules.MinimumLength } &&
+        DeploymentProtectionPasswordRules.IsValid(password) &&
         confirmation is not null &&
         password.AsSpan().SequenceEqual(confirmation);
 
     public bool ShouldRecommendStrongerPassword =>
-        IsValid && password!.Length < DeploymentProtectionPasswordRules.RecommendedLength;
+        IsValid && DeploymentProtectionPasswordRules.ShouldRecommendStrongerPassword(password);
 
     public void SetPassword(ReadOnlySpan<char> value)
     {
