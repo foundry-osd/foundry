@@ -489,7 +489,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         finally
         {
             deploymentProtectionMaterial?.Dispose();
-            deploymentProtectionSecretStateService.Clear();
             await TrackMediaCreatedAsync(
                 target,
                 options,
