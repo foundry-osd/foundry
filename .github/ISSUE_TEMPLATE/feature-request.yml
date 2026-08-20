@@ -1,63 +1,47 @@
 name: Feature request
-description: Suggest an improvement or a new capability
-title: "[Feature]: "
+description: Suggest an improvement to Foundry
 type: Feature
 body:
   - type: markdown
     attributes:
       value: |
-        Keep feature requests focused and tied to a concrete deployment or usage scenario.
+        Keep the request focused on one problem or workflow.
+        Remove sensitive information from screenshots and files.
   - type: dropdown
     id: area
     attributes:
-      label: Affected scope
-      description: Select the current repository label that best matches the request.
+      label: Affected area
       options:
-        - "project: foundry"
-        - "project: foundry-deploy"
-        - "project: foundry-connect"
-        - ui
-        - ci
-        - config
-        - unknown
+        - Foundry OSD
+        - Foundry Connect
+        - Foundry Deploy
+        - Documentation
+        - Other or not sure
     validations:
       required: true
   - type: textarea
     id: problem
     attributes:
-      label: Problem to solve
-      description: Describe the current limitation or friction.
-      placeholder: What is difficult, missing, or unclear today?
+      label: What problem would this solve?
+      placeholder: Describe the limitation or difficulty.
     validations:
       required: true
   - type: textarea
-    id: proposal
+    id: improvement
     attributes:
-      label: Proposed solution
-      description: Describe the change you would like to see.
-      placeholder: What should Foundry do differently?
+      label: What would you like to change?
+      placeholder: Describe the desired improvement.
     validations:
       required: true
   - type: textarea
-    id: alternatives
+    id: examples
     attributes:
-      label: Alternatives considered
-      description: Describe any workaround or alternative you considered.
-      placeholder: Optional, but useful for tradeoff discussion.
-  - type: textarea
-    id: use-case
-    attributes:
-      label: Use case
-      description: Explain when and why this would be used.
-      placeholder: Real deployment scenario, workflow, or contributor need.
-    validations:
-      required: true
+      label: Examples or attachments
+      description: Optional. Add examples, mockups, screenshots, or other useful context.
   - type: checkboxes
     id: checks
     attributes:
       label: Checklist
       options:
-        - label: I searched for existing issues before submitting this request.
-          required: true
-        - label: This request describes a specific improvement, not a general question.
+        - label: I searched for an existing request before submitting this issue.
           required: true
