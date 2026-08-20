@@ -102,11 +102,9 @@ public sealed class ConfigurationOverviewEvaluation
     public ConfigurationOverviewState this[ConfigurationOverviewItem item] => states[item];
 
     /// <summary>
-    /// Counts overview items in the requested state.
+    /// Gets the number of overview items that require user action.
     /// </summary>
-    /// <param name="state">State to count.</param>
-    /// <returns>The number of matching overview items.</returns>
-    public int Count(ConfigurationOverviewState state) => states.Values.Count(value => value == state);
+    public int NeedsAttentionCount => states.Values.Count(value => value == ConfigurationOverviewState.NeedsAttention);
 }
 
 /// <summary>

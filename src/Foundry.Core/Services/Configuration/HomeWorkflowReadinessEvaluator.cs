@@ -47,7 +47,7 @@ public static class HomeWorkflowReadinessEvaluator
         bool generalNeedsAttention = ConfigurationOverviewNavigationEvaluator.EvaluateTarget(
             overview,
             ConfigurationNavigationTarget.General) == ConfigurationOverviewState.NeedsAttention;
-        bool startNeedsAttention = overview.Count(ConfigurationOverviewState.NeedsAttention) > 0;
+        bool startNeedsAttention = overview.NeedsAttentionCount > 0;
 
         return new(
             HomeWorkflowState.Ready,

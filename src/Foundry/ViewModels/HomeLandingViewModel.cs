@@ -217,7 +217,7 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
 
         adkService.StatusChanged += OnAdkStatusChanged;
         localizationService.LanguageChanged += OnLanguageChanged;
-        configurationStateService.StateChanged += OnConfigurationStateChanged;
+        configurationOverviewService.Changed += OnConfigurationOverviewChanged;
         shellNavigationGuardService.StateChanged += OnShellNavigationStateChanged;
 
         ApplyLocalizedText();
@@ -228,7 +228,7 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
     {
         adkService.StatusChanged -= OnAdkStatusChanged;
         localizationService.LanguageChanged -= OnLanguageChanged;
-        configurationStateService.StateChanged -= OnConfigurationStateChanged;
+        configurationOverviewService.Changed -= OnConfigurationOverviewChanged;
         shellNavigationGuardService.StateChanged -= OnShellNavigationStateChanged;
     }
 
@@ -255,7 +255,7 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
         }
     }
 
-    private void OnConfigurationStateChanged(object? sender, EventArgs e)
+    private void OnConfigurationOverviewChanged(object? sender, EventArgs e)
     {
         if (!appDispatcher.TryEnqueue(ApplyConfigurationSummary))
         {

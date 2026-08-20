@@ -157,7 +157,7 @@ public sealed class ConfigurationOverviewEvaluatorTests
 
         ConfigurationOverviewEvaluation evaluation = ConfigurationOverviewEvaluator.Evaluate(CreateContext(configuration));
 
-        Assert.Equal(1, evaluation.Count(ConfigurationOverviewState.NeedsAttention));
+        Assert.Equal(1, evaluation.NeedsAttentionCount);
     }
 
     [Fact]

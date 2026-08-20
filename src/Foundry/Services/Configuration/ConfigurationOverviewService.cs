@@ -12,11 +12,13 @@ namespace Foundry.Services.Configuration;
 
 internal sealed class ConfigurationOverviewService : IConfigurationOverviewService
 {
+    private readonly object syncRoot = new();
     private readonly IAdkService adkService;
     private readonly IFoundryConfigurationStateService configurationStateService;
     private readonly IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService;
     private readonly INetworkSecretStateService networkSecretStateService;
     private readonly IWinPeLanguageDiscoveryService languageDiscoveryService;
+    private ConfigurationOverviewEvaluation? cachedEvaluation;
 
     public ConfigurationOverviewService(
         IAdkService adkService,
@@ -30,21 +32,51 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
         this.deploymentProtectionSecretStateService = deploymentProtectionSecretStateService;
         this.networkSecretStateService = networkSecretStateService;
         this.languageDiscoveryService = languageDiscoveryService;
+
+        adkService.StatusChanged += OnAdkStatusChanged;
+        configurationStateService.StateChanged += OnUnderlyingStateChanged;
+        deploymentProtectionSecretStateService.Changed += OnUnderlyingStateChanged;
+        networkSecretStateService.Changed += OnUnderlyingStateChanged;
     }
+
+    public event EventHandler? Changed;
 
     public ConfigurationOverviewEvaluation Evaluate()
     {
-        FoundryConfigurationDocument configuration = configurationStateService.Current;
-        return ConfigurationOverviewEvaluator.Evaluate(new ConfigurationOverviewContext
+        lock (syncRoot)
         {
-            Configuration = configuration,
-            EffectiveNetwork = networkSecretStateService.ApplyRequiredSecrets(configuration.Network),
-            IsWinPeLanguageReady = IsWinPeLanguageReady(configuration.General),
-            IsCustomDriverConfigurationReady = IsCustomDriverConfigurationReady(configuration.General),
-            IsDeploymentProtectionSecretReady = !configuration.General.DeploymentProtection.IsEnabled ||
-                deploymentProtectionSecretStateService.IsValid,
-            IsAutopilotConfigurationReady = configurationStateService.IsAutopilotConfigurationReady
-        });
+            if (cachedEvaluation is not null)
+            {
+                return cachedEvaluation;
+            }
+
+            FoundryConfigurationDocument configuration = configurationStateService.Current;
+            cachedEvaluation = ConfigurationOverviewEvaluator.Evaluate(new ConfigurationOverviewContext
+            {
+                Configuration = configuration,
+                EffectiveNetwork = networkSecretStateService.ApplyRequiredSecrets(configuration.Network),
+                IsWinPeLanguageReady = IsWinPeLanguageReady(configuration.General),
+                IsCustomDriverConfigurationReady = IsCustomDriverConfigurationReady(configuration.General),
+                IsDeploymentProtectionSecretReady = !configuration.General.DeploymentProtection.IsEnabled ||
+                    deploymentProtectionSecretStateService.IsValid,
+                IsAutopilotConfigurationReady = configurationStateService.IsAutopilotConfigurationReady
+            });
+            return cachedEvaluation;
+        }
+    }
+
+    private void OnAdkStatusChanged(object? sender, AdkStatusChangedEventArgs e) => Invalidate();
+
+    private void OnUnderlyingStateChanged(object? sender, EventArgs e) => Invalidate();
+
+    private void Invalidate()
+    {
+        lock (syncRoot)
+        {
+            cachedEvaluation = null;
+        }
+
+        Changed?.Invoke(this, EventArgs.Empty);
     }
 
     private bool IsWinPeLanguageReady(GeneralSettings settings)

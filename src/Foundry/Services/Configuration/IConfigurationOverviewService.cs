@@ -12,6 +12,11 @@ namespace Foundry.Services.Configuration;
 public interface IConfigurationOverviewService
 {
     /// <summary>
+    /// Occurs when persisted configuration or runtime readiness inputs change.
+    /// </summary>
+    event EventHandler? Changed;
+
+    /// <summary>
     /// Evaluates the current configuration and runtime-only readiness inputs.
     /// </summary>
     ConfigurationOverviewEvaluation Evaluate();

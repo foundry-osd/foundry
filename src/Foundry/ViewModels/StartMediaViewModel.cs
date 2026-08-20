@@ -118,8 +118,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IncludeHpDrivers = general.IncludeHpDrivers;
         CustomDriverDirectoryPath = general.CustomDriverDirectoryPath ?? string.Empty;
 
-        adkService.StatusChanged += OnAdkStatusChanged;
-        foundryConfigurationStateService.StateChanged += OnFoundryConfigurationStateChanged;
+        configurationOverviewService.Changed += OnConfigurationOverviewChanged;
         localizationService.LanguageChanged += OnLanguageChanged;
 
         isLoadingConfiguration = false;
@@ -271,8 +270,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     /// <inheritdoc />
     public void Dispose()
     {
-        adkService.StatusChanged -= OnAdkStatusChanged;
-        foundryConfigurationStateService.StateChanged -= OnFoundryConfigurationStateChanged;
+        configurationOverviewService.Changed -= OnConfigurationOverviewChanged;
         localizationService.LanguageChanged -= OnLanguageChanged;
     }
 
@@ -1306,19 +1304,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         RefreshEvaluation();
     }
 
-    private void OnAdkStatusChanged(object? sender, AdkStatusChangedEventArgs e)
+    private void OnConfigurationOverviewChanged(object? sender, EventArgs e)
     {
         if (!appDispatcher.TryEnqueue(() => RefreshEvaluation()))
         {
-            logger.Warning("Failed to enqueue Start page ADK status refresh. IsReady={IsReady}", e.Status.CanCreateMedia);
-        }
-    }
-
-    private void OnFoundryConfigurationStateChanged(object? sender, EventArgs e)
-    {
-        if (!appDispatcher.TryEnqueue(() => RefreshEvaluation()))
-        {
-            logger.Warning("Failed to enqueue Start page Foundry configuration refresh.");
+            logger.Warning("Failed to enqueue Start page configuration overview refresh.");
         }
     }
 
@@ -1531,7 +1521,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             return localizationService.GetString("StartMedia.Readiness.Status.ReadyUsb");
         }
 
-        int actionableItemCount = overview.Count(ConfigurationOverviewState.NeedsAttention);
+        int actionableItemCount = overview.NeedsAttentionCount;
 
         return actionableItemCount == 0
             ? localizationService.GetString("StartMedia.Readiness.Status.Warnings")

@@ -12,19 +12,15 @@ namespace Foundry.Services.Shell;
 internal sealed class NavigationStatusService : INavigationStatusService
 {
     private readonly IAdkService adkService;
-    private readonly IFoundryConfigurationStateService configurationStateService;
     private readonly IConfigurationOverviewService configurationOverviewService;
 
     public NavigationStatusService(
         IAdkService adkService,
-        IFoundryConfigurationStateService configurationStateService,
         IConfigurationOverviewService configurationOverviewService)
     {
         this.adkService = adkService;
-        this.configurationStateService = configurationStateService;
         this.configurationOverviewService = configurationOverviewService;
-        adkService.StatusChanged += OnUnderlyingStatusChanged;
-        configurationStateService.StateChanged += OnUnderlyingStatusChanged;
+        configurationOverviewService.Changed += OnUnderlyingStatusChanged;
     }
 
     public event EventHandler? StatusChanged;
