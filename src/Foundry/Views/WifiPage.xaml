@@ -19,7 +19,7 @@
             Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
             <controls:PageHeader
                 x:Uid="WifiPageHeader"
-                DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
+                DocumentationUrl="{x:Bind ViewModel.WifiDocumentationUrl, Mode=OneWay}"
                 IconGlyph="&#xE701;">
                 <controls:PageHeader.ActionContent>
                     <ToggleSwitch

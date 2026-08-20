@@ -20,7 +20,7 @@
 
         <controls:PageHeader
             x:Uid="OptionalFeaturesPageHeader"
-            DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
+            DocumentationUrl="{x:Bind ViewModel.OptionalFeaturesDocumentationUrl, Mode=OneWay}"
             IconGlyph="&#xE74C;">
             <controls:PageHeader.ActionContent>
                 <ToggleSwitch

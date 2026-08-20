@@ -275,7 +275,9 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     public Visibility WifiValidationVisibility => HasWifiValidationError ? Visibility.Visible : Visibility.Collapsed;
     public bool HasValidationError => HasDot1xValidationError || HasWifiValidationError;
 
-    public string DocumentationUrl => FoundryApplicationInfo.NetworkDocumentationUrl;
+    public string WifiDocumentationUrl => FoundryApplicationInfo.WifiDocumentationUrl;
+
+    public string EthernetDot1xDocumentationUrl => FoundryApplicationInfo.EthernetDot1xDocumentationUrl;
     public string ValidationMessage => HasDot1xValidationError ? Dot1xValidationMessage : WifiValidationMessage;
     public Visibility Dot1xCertificatePathVisibility => IsDot1xCertificatePathEnabled ? Visibility.Visible : Visibility.Collapsed;
     public Visibility WifiConfigurationFieldsVisibility => IsWifiConfigurationSectionEnabled ? Visibility.Visible : Visibility.Collapsed;

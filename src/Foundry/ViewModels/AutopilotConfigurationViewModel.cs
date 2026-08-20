@@ -365,7 +365,11 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     [ObservableProperty]
     public partial string ProfileFolderColumnHeader { get; set; }
 
-    public string DocumentationUrl => FoundryApplicationInfo.AutopilotDocumentationUrl;
+    public string JsonProfileDocumentationUrl => FoundryApplicationInfo.AutopilotJsonProfileDocumentationUrl;
+
+    public string ZeroTouchDocumentationUrl => FoundryApplicationInfo.AutopilotZeroTouchDocumentationUrl;
+
+    public string InteractiveDocumentationUrl => FoundryApplicationInfo.AutopilotInteractiveDocumentationUrl;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(ImportProfileCommand))]

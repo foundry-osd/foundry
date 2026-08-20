@@ -19,7 +19,7 @@
             Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
             <controls:PageHeader
                 x:Uid="OobePageHeader"
-                DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
+                DocumentationUrl="{x:Bind ViewModel.OobeDocumentationUrl, Mode=OneWay}"
                 IconGlyph="&#xF133;">
                 <controls:PageHeader.ActionContent>
                     <ToggleSwitch
