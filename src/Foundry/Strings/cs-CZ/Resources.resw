@@ -1785,65 +1785,11 @@
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Zkontrolujte upozornění na výstup médií</value>
   </data>
-  <data name="StartMedia.Readiness.Prerequisites.Header" xml:space="preserve">
-    <value>Předpoklady</value>
-  </data>
-  <data name="StartMedia.Readiness.Prerequisites.Description" xml:space="preserve">
-    <value>Kontroly, které musí být platné, než Foundry může vytvářet média.</value>
-  </data>
-  <data name="StartMedia.Readiness.MediaOutput.Header" xml:space="preserve">
-    <value>Mediální výstup</value>
-  </data>
-  <data name="StartMedia.Readiness.MediaOutput.Description" xml:space="preserve">
-    <value>Poslední možnosti výstupu ISO a USB.</value>
-  </data>
-  <data name="StartMedia.Readiness.FoundryConfiguration.Header" xml:space="preserve">
-    <value>Konfigurace Foundry</value>
-  </data>
-  <data name="StartMedia.Readiness.FoundryConfiguration.Description" xml:space="preserve">
-    <value>Nastavení nasazení používané Foundry v WinPE.</value>
-  </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Připraveno</value>
   </data>
-  <data name="StartMedia.Readiness.State.Warning" xml:space="preserve">
-    <value>Varování</value>
-  </data>
-  <data name="StartMedia.Readiness.State.Blocked" xml:space="preserve">
-    <value>Blokováno</value>
-  </data>
-  <data name="StartMedia.Readiness.State.NotConfigured" xml:space="preserve">
-    <value>Není nakonfigurováno</value>
-  </data>
-  <data name="StartMedia.Readiness.State.Loading" xml:space="preserve">
-    <value>Načítání</value>
-  </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
     <value>Recenze</value>
-  </data>
-  <data name="StartMedia.Readiness.Adk.Ready" xml:space="preserve">
-    <value>Windows ADK a doplněk Windows PE jsou připraveny.</value>
-  </data>
-  <data name="StartMedia.Readiness.Drivers.Ready" xml:space="preserve">
-    <value>Možnosti ovladače jsou platné.</value>
-  </data>
-  <data name="StartMedia.Readiness.UsbLayout.Format" xml:space="preserve">
-    <value>{0}; {1}</value>
-  </data>
-  <data name="StartMedia.Readiness.Network.Ready" xml:space="preserve">
-    <value>Lze zajistit konfiguraci sítě.</value>
-  </data>
-  <data name="StartMedia.Readiness.Deploy.Ready" xml:space="preserve">
-    <value>Lze vygenerovat konfiguraci nasazení.</value>
-  </data>
-  <data name="StartMedia.Readiness.Connect.Ready" xml:space="preserve">
-    <value>Lze vygenerovat balíček zřizování připojení.</value>
-  </data>
-  <data name="StartMedia.Readiness.Secrets.Ready" xml:space="preserve">
-    <value>Požadovaná tajemství médií jsou k dispozici.</value>
-  </data>
-  <data name="StartMedia.Readiness.Autopilot.Disabled" xml:space="preserve">
-    <value>Autopilot je zakázáno a neblokuje vytváření médií.</value>
   </data>
   <data name="StartMedia.Field.Adk" xml:space="preserve">
     <value>ADK</value>
@@ -2790,5 +2736,14 @@
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
     <value>Pro vyšší úroveň ochrany použijte alespoň 12 znaků nebo přístupovou frázi.</value>
+  </data>
+  <data name="StartOverview.State.Default" xml:space="preserve">
+    <value>Výchozí</value>
+  </data>
+  <data name="StartOverview.State.NotSelected" xml:space="preserve">
+    <value>Nevybráno</value>
+  </data>
+  <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
+    <value>Vyžaduje pozornost</value>
   </data>
 </root>

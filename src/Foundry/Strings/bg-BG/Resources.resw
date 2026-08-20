@@ -1785,65 +1785,11 @@
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Прегледайте предупрежденията за медийно извеждане</value>
   </data>
-  <data name="StartMedia.Readiness.Prerequisites.Header" xml:space="preserve">
-    <value>Предпоставки</value>
-  </data>
-  <data name="StartMedia.Readiness.Prerequisites.Description" xml:space="preserve">
-    <value>Проверки, които трябва да са валидни, преди Foundry да може да създава медия.</value>
-  </data>
-  <data name="StartMedia.Readiness.MediaOutput.Header" xml:space="preserve">
-    <value>Медиен изход</value>
-  </data>
-  <data name="StartMedia.Readiness.MediaOutput.Description" xml:space="preserve">
-    <value>Окончателни ISO и USB изходни избори.</value>
-  </data>
-  <data name="StartMedia.Readiness.FoundryConfiguration.Header" xml:space="preserve">
-    <value>Foundry конфигурация</value>
-  </data>
-  <data name="StartMedia.Readiness.FoundryConfiguration.Description" xml:space="preserve">
-    <value>Настройките за внедряване, използвани от Foundry в WinPE.</value>
-  </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Готови</value>
   </data>
-  <data name="StartMedia.Readiness.State.Warning" xml:space="preserve">
-    <value>Предупреждение</value>
-  </data>
-  <data name="StartMedia.Readiness.State.Blocked" xml:space="preserve">
-    <value>блокиран</value>
-  </data>
-  <data name="StartMedia.Readiness.State.NotConfigured" xml:space="preserve">
-    <value>Не е конфигуриран</value>
-  </data>
-  <data name="StartMedia.Readiness.State.Loading" xml:space="preserve">
-    <value>Зарежда се</value>
-  </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
     <value>Преглед</value>
-  </data>
-  <data name="StartMedia.Readiness.Adk.Ready" xml:space="preserve">
-    <value>Windows ADK и добавката Windows PE са готови.</value>
-  </data>
-  <data name="StartMedia.Readiness.Drivers.Ready" xml:space="preserve">
-    <value>Опциите на драйвера са валидни.</value>
-  </data>
-  <data name="StartMedia.Readiness.UsbLayout.Format" xml:space="preserve">
-    <value>{0}; {1}</value>
-  </data>
-  <data name="StartMedia.Readiness.Network.Ready" xml:space="preserve">
-    <value>Може да се предостави мрежова конфигурация.</value>
-  </data>
-  <data name="StartMedia.Readiness.Deploy.Ready" xml:space="preserve">
-    <value>Може да се генерира конфигурация за внедряване.</value>
-  </data>
-  <data name="StartMedia.Readiness.Connect.Ready" xml:space="preserve">
-    <value>Може да се генерира пакет за предоставяне на Connect.</value>
-  </data>
-  <data name="StartMedia.Readiness.Secrets.Ready" xml:space="preserve">
-    <value>Налични са необходимите медийни тайни.</value>
-  </data>
-  <data name="StartMedia.Readiness.Autopilot.Disabled" xml:space="preserve">
-    <value>Autopilot е деактивиран и не блокира създаването на мултимедия.</value>
   </data>
   <data name="StartMedia.Field.Adk" xml:space="preserve">
     <value>ADK</value>
@@ -2790,5 +2736,14 @@
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
     <value>За по-силна защита използвайте поне 12 знака или фраза за достъп.</value>
+  </data>
+  <data name="StartOverview.State.Default" xml:space="preserve">
+    <value>По подразбиране</value>
+  </data>
+  <data name="StartOverview.State.NotSelected" xml:space="preserve">
+    <value>Не е избрано</value>
+  </data>
+  <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
+    <value>Изисква внимание</value>
   </data>
 </root>

@@ -1785,65 +1785,11 @@
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>メディア出力の警告を確認する</value>
   </data>
-  <data name="StartMedia.Readiness.Prerequisites.Header" xml:space="preserve">
-    <value>前提条件</value>
-  </data>
-  <data name="StartMedia.Readiness.Prerequisites.Description" xml:space="preserve">
-    <value>Foundry がメディアを構築できる前に有効でなければならないチェック。</value>
-  </data>
-  <data name="StartMedia.Readiness.MediaOutput.Header" xml:space="preserve">
-    <value>メディア出力</value>
-  </data>
-  <data name="StartMedia.Readiness.MediaOutput.Description" xml:space="preserve">
-    <value>最終的な ISO および USB 出力の選択。</value>
-  </data>
-  <data name="StartMedia.Readiness.FoundryConfiguration.Header" xml:space="preserve">
-    <value>Foundry 設定</value>
-  </data>
-  <data name="StartMedia.Readiness.FoundryConfiguration.Description" xml:space="preserve">
-    <value>WinPE の Foundry によって使用される展開設定。</value>
-  </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>準備完了</value>
   </data>
-  <data name="StartMedia.Readiness.State.Warning" xml:space="preserve">
-    <value>警告</value>
-  </data>
-  <data name="StartMedia.Readiness.State.Blocked" xml:space="preserve">
-    <value>ブロックされました</value>
-  </data>
-  <data name="StartMedia.Readiness.State.NotConfigured" xml:space="preserve">
-    <value>未設定</value>
-  </data>
-  <data name="StartMedia.Readiness.State.Loading" xml:space="preserve">
-    <value>読み込み中</value>
-  </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
     <value>レビュー</value>
-  </data>
-  <data name="StartMedia.Readiness.Adk.Ready" xml:space="preserve">
-    <value>Windows ADK と Windows PE アドオンの準備ができました。</value>
-  </data>
-  <data name="StartMedia.Readiness.Drivers.Ready" xml:space="preserve">
-    <value>ドライバーのオプションは有効です。</value>
-  </data>
-  <data name="StartMedia.Readiness.UsbLayout.Format" xml:space="preserve">
-    <value>{0}; {1}</value>
-  </data>
-  <data name="StartMedia.Readiness.Network.Ready" xml:space="preserve">
-    <value>ネットワーク構成をプロビジョニングできます。</value>
-  </data>
-  <data name="StartMedia.Readiness.Deploy.Ready" xml:space="preserve">
-    <value>デプロイ構成を生成できます。</value>
-  </data>
-  <data name="StartMedia.Readiness.Connect.Ready" xml:space="preserve">
-    <value>Connect プロビジョニング バンドルを生成できます。</value>
-  </data>
-  <data name="StartMedia.Readiness.Secrets.Ready" xml:space="preserve">
-    <value>必要なメディア シークレットが利用可能です。</value>
-  </data>
-  <data name="StartMedia.Readiness.Autopilot.Disabled" xml:space="preserve">
-    <value>Autopilot は無効になっており、メディアの作成はブロックされません。</value>
   </data>
   <data name="StartMedia.Field.Adk" xml:space="preserve">
     <value>ADK</value>
@@ -2790,5 +2736,14 @@
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
     <value>保護を強化するには、12 文字以上のパスワードまたはパスフレーズを使用してください。</value>
+  </data>
+  <data name="StartOverview.State.Default" xml:space="preserve">
+    <value>既定</value>
+  </data>
+  <data name="StartOverview.State.NotSelected" xml:space="preserve">
+    <value>未選択</value>
+  </data>
+  <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
+    <value>確認が必要</value>
   </data>
 </root>

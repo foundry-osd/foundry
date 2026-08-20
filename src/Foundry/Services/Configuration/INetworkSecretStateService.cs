@@ -12,6 +12,11 @@ namespace Foundry.Services.Configuration;
 public interface INetworkSecretStateService
 {
     /// <summary>
+    /// Occurs when the effective in-memory network secrets change.
+    /// </summary>
+    event EventHandler? Changed;
+
+    /// <summary>
     /// Gets the in-memory personal Wi-Fi passphrase captured from the UI.
     /// </summary>
     string? PersonalWifiPassphrase { get; }

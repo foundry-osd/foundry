@@ -1785,65 +1785,11 @@
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Review media output warnings</value>
   </data>
-  <data name="StartMedia.Readiness.Prerequisites.Header" xml:space="preserve">
-    <value>Prerequisites</value>
-  </data>
-  <data name="StartMedia.Readiness.Prerequisites.Description" xml:space="preserve">
-    <value>Checks that must be valid before Foundry can build media.</value>
-  </data>
-  <data name="StartMedia.Readiness.MediaOutput.Header" xml:space="preserve">
-    <value>Media output</value>
-  </data>
-  <data name="StartMedia.Readiness.MediaOutput.Description" xml:space="preserve">
-    <value>Final ISO and USB output choices.</value>
-  </data>
-  <data name="StartMedia.Readiness.FoundryConfiguration.Header" xml:space="preserve">
-    <value>Foundry configuration</value>
-  </data>
-  <data name="StartMedia.Readiness.FoundryConfiguration.Description" xml:space="preserve">
-    <value>Deployment settings used by Foundry in WinPE.</value>
-  </data>
   <data name="StartMedia.Readiness.State.Ready" xml:space="preserve">
     <value>Ready</value>
   </data>
-  <data name="StartMedia.Readiness.State.Warning" xml:space="preserve">
-    <value>Warning</value>
-  </data>
-  <data name="StartMedia.Readiness.State.Blocked" xml:space="preserve">
-    <value>Blocked</value>
-  </data>
-  <data name="StartMedia.Readiness.State.NotConfigured" xml:space="preserve">
-    <value>Not configured</value>
-  </data>
-  <data name="StartMedia.Readiness.State.Loading" xml:space="preserve">
-    <value>Loading</value>
-  </data>
   <data name="StartMedia.Readiness.Action.Review" xml:space="preserve">
     <value>Review</value>
-  </data>
-  <data name="StartMedia.Readiness.Adk.Ready" xml:space="preserve">
-    <value>Windows ADK and the Windows PE Add-on are ready.</value>
-  </data>
-  <data name="StartMedia.Readiness.Drivers.Ready" xml:space="preserve">
-    <value>Driver options are valid.</value>
-  </data>
-  <data name="StartMedia.Readiness.UsbLayout.Format" xml:space="preserve">
-    <value>{0}; {1}</value>
-  </data>
-  <data name="StartMedia.Readiness.Network.Ready" xml:space="preserve">
-    <value>Network configuration can be provisioned.</value>
-  </data>
-  <data name="StartMedia.Readiness.Deploy.Ready" xml:space="preserve">
-    <value>Deploy configuration can be generated.</value>
-  </data>
-  <data name="StartMedia.Readiness.Connect.Ready" xml:space="preserve">
-    <value>Connect provisioning bundle can be generated.</value>
-  </data>
-  <data name="StartMedia.Readiness.Secrets.Ready" xml:space="preserve">
-    <value>Required media secrets are available.</value>
-  </data>
-  <data name="StartMedia.Readiness.Autopilot.Disabled" xml:space="preserve">
-    <value>Autopilot is disabled and does not block media creation.</value>
   </data>
   <data name="StartMedia.Field.Adk" xml:space="preserve">
     <value>ADK</value>
@@ -2790,5 +2736,14 @@
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Recommendation" xml:space="preserve">
     <value>For stronger protection, use at least 12 characters or a passphrase.</value>
+  </data>
+  <data name="StartOverview.State.Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="StartOverview.State.NotSelected" xml:space="preserve">
+    <value>Not selected</value>
+  </data>
+  <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
+    <value>Needs attention</value>
   </data>
 </root>

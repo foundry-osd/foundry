@@ -9,6 +9,8 @@ namespace Foundry.Services.Configuration;
 /// </summary>
 public interface IDeploymentProtectionSecretStateService
 {
+    event EventHandler? Changed;
+
     bool HasPassword { get; }
 
     bool HasConfirmation { get; }

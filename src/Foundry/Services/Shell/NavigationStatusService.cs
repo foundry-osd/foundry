@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
 using Foundry.Services.Adk;
 using Foundry.Services.Configuration;
@@ -13,127 +12,126 @@ namespace Foundry.Services.Shell;
 internal sealed class NavigationStatusService : INavigationStatusService
 {
     private readonly IAdkService adkService;
-    private readonly IFoundryConfigurationStateService configurationStateService;
-    private readonly INetworkSecretStateService networkSecretStateService;
+    private readonly IConfigurationOverviewService configurationOverviewService;
 
     public NavigationStatusService(
         IAdkService adkService,
-        IFoundryConfigurationStateService configurationStateService,
-        INetworkSecretStateService networkSecretStateService)
+        IConfigurationOverviewService configurationOverviewService)
     {
         this.adkService = adkService;
-        this.configurationStateService = configurationStateService;
-        this.networkSecretStateService = networkSecretStateService;
-        adkService.StatusChanged += OnUnderlyingStatusChanged;
-        configurationStateService.StateChanged += OnUnderlyingStatusChanged;
+        this.configurationOverviewService = configurationOverviewService;
+        configurationOverviewService.Changed += OnUnderlyingStatusChanged;
     }
 
     public event EventHandler? StatusChanged;
 
     public NavigationStatus? GetStatus(Type pageType)
     {
-        FoundryConfigurationDocument configuration = configurationStateService.Current;
         if (pageType == typeof(AdkPage))
         {
             return adkService.CurrentStatus.CanCreateMedia
-                ? Configured("NavigationStatus.AdkReady", NavigationInfoBadgeSeverity.Success)
-                : Configured("NavigationStatus.AdkNotReady", NavigationInfoBadgeSeverity.Critical);
+                ? CreateStatus("NavigationStatus.AdkReady", NavigationInfoBadgeSeverity.Success)
+                : CreateStatus("NavigationStatus.AdkNotReady", NavigationInfoBadgeSeverity.Critical);
+        }
+
+        ConfigurationNavigationTarget target = ResolveTarget(pageType);
+        if (target == ConfigurationNavigationTarget.None)
+        {
+            return null;
+        }
+
+        ConfigurationOverviewEvaluation overview = configurationOverviewService.Evaluate();
+        ConfigurationOverviewState state = ConfigurationOverviewNavigationEvaluator.EvaluateTarget(overview, target);
+        if (target == ConfigurationNavigationTarget.General && state != ConfigurationOverviewState.NeedsAttention)
+        {
+            return null;
+        }
+
+        bool isAutopilotTarget = target is ConfigurationNavigationTarget.AutopilotJsonProfile or
+            ConfigurationNavigationTarget.AutopilotHardwareHashUpload or
+            ConfigurationNavigationTarget.AutopilotInteractiveHardwareHashUpload;
+        return ToNavigationStatus(state, isAutopilotTarget);
+    }
+
+    private static ConfigurationNavigationTarget ResolveTarget(Type pageType)
+    {
+        if (pageType == typeof(GeneralConfigurationPage))
+        {
+            return ConfigurationNavigationTarget.General;
         }
 
         if (pageType == typeof(EthernetDot1xPage))
         {
-            NetworkSettings network = networkSecretStateService.ApplyRequiredSecrets(configuration.Network) with
-            {
-                WifiProvisioned = false,
-                Wifi = new WifiSettings()
-            };
-            return Standard(configuration.Network.Dot1x.IsEnabled && NetworkConfigurationValidator.Validate(network).IsValid);
+            return ConfigurationNavigationTarget.EthernetDot1x;
         }
 
         if (pageType == typeof(WifiPage))
         {
-            NetworkSettings network = networkSecretStateService.ApplyRequiredSecrets(configuration.Network) with
-            {
-                Dot1x = new Dot1xSettings()
-            };
-            return Standard(configuration.Network.WifiProvisioned && NetworkConfigurationValidator.Validate(network).IsValid);
+            return ConfigurationNavigationTarget.Wifi;
         }
 
         if (pageType == typeof(AutopilotJsonProfilePage))
         {
-            return AutopilotStatus(NavigationConfigurationStatusEvaluator.IsConfigured(
-                configuration,
-                ConfigurationNavigationTarget.AutopilotJsonProfile));
+            return ConfigurationNavigationTarget.AutopilotJsonProfile;
         }
 
         if (pageType == typeof(AutopilotZeroTouchPage))
         {
-            return AutopilotStatus(NavigationConfigurationStatusEvaluator.IsConfigured(
-                configuration,
-                ConfigurationNavigationTarget.AutopilotHardwareHashUpload));
+            return ConfigurationNavigationTarget.AutopilotHardwareHashUpload;
         }
 
         if (pageType == typeof(AutopilotInteractiveHashUploadPage))
         {
-            return AutopilotStatus(NavigationConfigurationStatusEvaluator.IsConfigured(
-                configuration,
-                ConfigurationNavigationTarget.AutopilotInteractiveHardwareHashUpload));
+            return ConfigurationNavigationTarget.AutopilotInteractiveHardwareHashUpload;
         }
 
         if (pageType == typeof(OsSelectionPage))
         {
-            return Standard(NavigationConfigurationStatusEvaluator.IsConfigured(
-                configuration,
-                ConfigurationNavigationTarget.OperatingSystemSelection));
+            return ConfigurationNavigationTarget.OperatingSystemSelection;
         }
 
         if (pageType == typeof(MachineNamingPage))
         {
-            return Standard(NavigationConfigurationStatusEvaluator.IsConfigured(
-                configuration,
-                ConfigurationNavigationTarget.MachineNaming));
+            return ConfigurationNavigationTarget.MachineNaming;
         }
 
         if (pageType == typeof(OobePage))
         {
-            return Standard(NavigationConfigurationStatusEvaluator.IsConfigured(
-                configuration,
-                ConfigurationNavigationTarget.Oobe));
+            return ConfigurationNavigationTarget.Oobe;
         }
 
         if (pageType == typeof(OptionalFeaturesPage))
         {
-            return Standard(NavigationConfigurationStatusEvaluator.IsConfigured(
-                configuration,
-                ConfigurationNavigationTarget.WindowsOptionalFeatures));
+            return ConfigurationNavigationTarget.WindowsOptionalFeatures;
         }
 
         if (pageType == typeof(AppRemovalPage))
         {
-            return Standard(NavigationConfigurationStatusEvaluator.IsConfigured(
-                configuration,
-                ConfigurationNavigationTarget.AppxRemoval));
+            return ConfigurationNavigationTarget.AppxRemoval;
         }
 
-        if (pageType == typeof(AiComponentsPage))
-        {
-            return Standard(NavigationConfigurationStatusEvaluator.IsConfigured(
-                configuration,
-                ConfigurationNavigationTarget.AiComponentRemoval));
-        }
-
-        return null;
+        return pageType == typeof(AiComponentsPage)
+            ? ConfigurationNavigationTarget.AiComponentRemoval
+            : ConfigurationNavigationTarget.None;
     }
 
-    private static NavigationStatus Standard(bool isConfigured) => isConfigured
-        ? Configured("NavigationStatus.Configured", NavigationInfoBadgeSeverity.Success)
-        : new NavigationStatus(null, "NavigationStatus.NotConfigured");
+    private static NavigationStatus ToNavigationStatus(
+        ConfigurationOverviewState state,
+        bool isAutopilotTarget)
+    {
+        return state switch
+        {
+            ConfigurationOverviewState.NeedsAttention => CreateStatus(
+                "StartOverview.State.NeedsAttention",
+                NavigationInfoBadgeSeverity.Critical),
+            ConfigurationOverviewState.Configured or ConfigurationOverviewState.Default => CreateStatus(
+                isAutopilotTarget ? "NavigationStatus.ActiveProvisioningMode" : "NavigationStatus.Configured",
+                NavigationInfoBadgeSeverity.Success),
+            _ => new NavigationStatus(null, "NavigationStatus.NotConfigured")
+        };
+    }
 
-    private static NavigationStatus AutopilotStatus(bool isConfigured) => isConfigured
-        ? Configured("NavigationStatus.ActiveProvisioningMode", NavigationInfoBadgeSeverity.Success)
-        : new NavigationStatus(null, "NavigationStatus.NotConfigured");
-
-    private static NavigationStatus Configured(string resourceKey, NavigationInfoBadgeSeverity severity) =>
+    private static NavigationStatus CreateStatus(string resourceKey, NavigationInfoBadgeSeverity severity) =>
         new(severity, resourceKey);
 
     private void OnUnderlyingStatusChanged(object? sender, EventArgs e) =>

@@ -135,7 +135,7 @@ public sealed partial class HomeStatusCard : UserControl
     public Brush BadgeBackground => Severity switch
     {
         InfoBarSeverity.Success => (Brush)Application.Current.Resources["FoundryStatusReadyBrush"],
-        InfoBarSeverity.Warning => (Brush)Application.Current.Resources["FoundryStatusWarningBrush"],
+        InfoBarSeverity.Error => (Brush)Application.Current.Resources["FoundryStatusBlockedBrush"],
         _ => (Brush)Application.Current.Resources["FoundryStatusNeutralBrush"],
     };
 
@@ -143,7 +143,7 @@ public sealed partial class HomeStatusCard : UserControl
     public Brush BadgeForeground => Severity switch
     {
         InfoBarSeverity.Success => (Brush)Application.Current.Resources["FoundryStatusReadyForegroundBrush"],
-        InfoBarSeverity.Warning => (Brush)Application.Current.Resources["FoundryStatusWarningForegroundBrush"],
+        InfoBarSeverity.Error => (Brush)Application.Current.Resources["FoundryStatusBlockedForegroundBrush"],
         _ => (Brush)Application.Current.Resources["FoundryStatusNeutralForegroundBrush"],
     };
 
@@ -151,7 +151,7 @@ public sealed partial class HomeStatusCard : UserControl
     public string BadgeGlyph => Severity switch
     {
         InfoBarSeverity.Success => "\uE73E",
-        InfoBarSeverity.Warning => "\uE7BA",
+        InfoBarSeverity.Error => "\uE711",
         _ => "\uE9CE",
     };
 

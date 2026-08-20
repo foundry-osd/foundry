@@ -41,7 +41,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IWinPeUsbMediaService usbMediaService;
     private readonly IFilePickerService filePickerService;
     private readonly IFoundryConfigurationStateService foundryConfigurationStateService;
+    private readonly IConfigurationOverviewService configurationOverviewService;
     private readonly IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService;
+    private readonly INetworkSecretStateService networkSecretStateService;
     private readonly ITelemetryService telemetryService;
     private readonly IOperationProgressService operationProgressService;
     private readonly IShellNavigationGuardService shellNavigationGuardService;
@@ -67,7 +69,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IWinPeUsbMediaService usbMediaService,
         IFilePickerService filePickerService,
         IFoundryConfigurationStateService foundryConfigurationStateService,
+        IConfigurationOverviewService configurationOverviewService,
         IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService,
+        INetworkSecretStateService networkSecretStateService,
         ITelemetryService telemetryService,
         IOperationProgressService operationProgressService,
         IShellNavigationGuardService shellNavigationGuardService,
@@ -86,7 +90,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         this.usbMediaService = usbMediaService;
         this.filePickerService = filePickerService;
         this.foundryConfigurationStateService = foundryConfigurationStateService;
+        this.configurationOverviewService = configurationOverviewService;
         this.deploymentProtectionSecretStateService = deploymentProtectionSecretStateService;
+        this.networkSecretStateService = networkSecretStateService;
         this.telemetryService = telemetryService;
         this.operationProgressService = operationProgressService;
         this.shellNavigationGuardService = shellNavigationGuardService;
@@ -112,8 +118,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IncludeHpDrivers = general.IncludeHpDrivers;
         CustomDriverDirectoryPath = general.CustomDriverDirectoryPath ?? string.Empty;
 
-        adkService.StatusChanged += OnAdkStatusChanged;
-        foundryConfigurationStateService.StateChanged += OnFoundryConfigurationStateChanged;
+        configurationOverviewService.Changed += OnConfigurationOverviewChanged;
         localizationService.LanguageChanged += OnLanguageChanged;
 
         isLoadingConfiguration = false;
@@ -142,19 +147,24 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     public ObservableCollection<SelectionOption<WinPeUsbDiskCandidate>> UsbCandidates { get; } = [];
 
     /// <summary>
-    /// Gets readiness items that describe prerequisite blockers.
+    /// Gets the General configuration overview rows.
     /// </summary>
-    public ObservableCollection<StartReadinessItemViewModel> PrerequisiteReadinessItems { get; } = [];
+    public ObservableCollection<StartConfigurationOverviewItemViewModel> GeneralConfigurationOverviewItems { get; } = [];
 
     /// <summary>
-    /// Gets readiness items that describe ISO and USB output blockers.
+    /// Gets the network configuration overview rows.
     /// </summary>
-    public ObservableCollection<StartReadinessItemViewModel> MediaOutputReadinessItems { get; } = [];
+    public ObservableCollection<StartConfigurationOverviewItemViewModel> NetworkOverviewItems { get; } = [];
 
     /// <summary>
-    /// Gets readiness items that describe configuration blockers.
+    /// Gets the Windows Autopilot overview rows.
     /// </summary>
-    public ObservableCollection<StartReadinessItemViewModel> FoundryConfigurationReadinessItems { get; } = [];
+    public ObservableCollection<StartConfigurationOverviewItemViewModel> AutopilotOverviewItems { get; } = [];
+
+    /// <summary>
+    /// Gets the customization overview rows.
+    /// </summary>
+    public ObservableCollection<StartConfigurationOverviewItemViewModel> CustomizationOverviewItems { get; } = [];
 
     [ObservableProperty]
     public partial string PageTitle { get; set; } = string.Empty;
@@ -232,21 +242,35 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     public partial InfoBarSeverity ReadinessSeverity { get; set; } = InfoBarSeverity.Informational;
 
     [ObservableProperty]
-    public partial bool IsPrerequisiteReadinessExpanded { get; set; }
+    public partial bool IsGeneralConfigurationOverviewExpanded { get; set; }
 
     [ObservableProperty]
-    public partial bool IsMediaOutputReadinessExpanded { get; set; }
+    public partial bool IsNetworkOverviewExpanded { get; set; }
 
     [ObservableProperty]
-    public partial bool IsFoundryConfigurationReadinessExpanded { get; set; }
+    public partial bool IsAutopilotOverviewExpanded { get; set; }
+
+    [ObservableProperty]
+    public partial bool IsCustomizationOverviewExpanded { get; set; }
+
+    [ObservableProperty]
+    public partial string GeneralConfigurationOverviewSummary { get; set; } = string.Empty;
+
+    [ObservableProperty]
+    public partial string NetworkOverviewSummary { get; set; } = string.Empty;
+
+    [ObservableProperty]
+    public partial string AutopilotOverviewSummary { get; set; } = string.Empty;
+
+    [ObservableProperty]
+    public partial string CustomizationOverviewSummary { get; set; } = string.Empty;
 
     public string DocumentationUrl => FoundryApplicationInfo.StartDocumentationUrl;
 
     /// <inheritdoc />
     public void Dispose()
     {
-        adkService.StatusChanged -= OnAdkStatusChanged;
-        foundryConfigurationStateService.StateChanged -= OnFoundryConfigurationStateChanged;
+        configurationOverviewService.Changed -= OnConfigurationOverviewChanged;
         localizationService.LanguageChanged -= OnLanguageChanged;
     }
 
@@ -1280,19 +1304,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         RefreshEvaluation();
     }
 
-    private void OnAdkStatusChanged(object? sender, AdkStatusChangedEventArgs e)
+    private void OnConfigurationOverviewChanged(object? sender, EventArgs e)
     {
         if (!appDispatcher.TryEnqueue(() => RefreshEvaluation()))
         {
-            logger.Warning("Failed to enqueue Start page ADK status refresh. IsReady={IsReady}", e.Status.CanCreateMedia);
-        }
-    }
-
-    private void OnFoundryConfigurationStateChanged(object? sender, EventArgs e)
-    {
-        if (!appDispatcher.TryEnqueue(() => RefreshEvaluation()))
-        {
-            logger.Warning("Failed to enqueue Start page Foundry configuration refresh.");
+            logger.Warning("Failed to enqueue Start page configuration overview refresh.");
         }
     }
 
@@ -1347,10 +1363,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         FinalExecutionStatus = options.IsFinalExecutionEnabled
             ? localizationService.GetString("StartMedia.FinalExecution.Ready")
             : localizationService.GetString("StartMedia.FinalExecution.Deferred");
+        ConfigurationOverviewEvaluation overview = configurationOverviewService.Evaluate();
         ReadinessSeverity = GetReadinessSeverity(evaluation);
-        StatusSummary = BuildStatusText(evaluation);
+        StatusSummary = BuildStatusText(evaluation, overview);
         GlobalSummary = BuildGlobalSummary(options, evaluation);
-        RebuildReadinessItems(options, evaluation);
+        RebuildConfigurationOverview(options, evaluation, overview);
 
     }
 
@@ -1485,7 +1502,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         logger.Debug("Media telemetry event queued. Target={Target}, Success={Success}.", properties["boot_media_target"], success);
     }
 
-    private string BuildStatusText(MediaPreflightEvaluation evaluation)
+    private string BuildStatusText(
+        MediaPreflightEvaluation evaluation,
+        ConfigurationOverviewEvaluation overview)
     {
         if (evaluation.CanCreateIso && evaluation.CanCreateUsb)
         {
@@ -1502,13 +1521,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             return localizationService.GetString("StartMedia.Readiness.Status.ReadyUsb");
         }
 
-        IReadOnlyList<MediaPreflightBlockingReason> blockingReasons = GetGlobalBlockingReasons(evaluation)
-            .Where(IsBlockingReadinessReason)
-            .ToList();
+        int actionableItemCount = overview.NeedsAttentionCount;
 
-        return blockingReasons.Count == 0
+        return actionableItemCount == 0
             ? localizationService.GetString("StartMedia.Readiness.Status.Warnings")
-            : string.Format(localizationService.GetString("StartMedia.Readiness.Status.NeedsAttention"), blockingReasons.Count);
+            : string.Format(localizationService.GetString("StartMedia.Readiness.Status.NeedsAttention"), actionableItemCount);
     }
 
     private InfoBarSeverity GetReadinessSeverity(MediaPreflightEvaluation evaluation)
@@ -1531,243 +1548,289 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         return InfoBarSeverity.Error;
     }
 
-    private void RebuildReadinessItems(MediaPreflightOptions options, MediaPreflightEvaluation evaluation)
+    private void RebuildConfigurationOverview(
+        MediaPreflightOptions options,
+        MediaPreflightEvaluation mediaEvaluation,
+        ConfigurationOverviewEvaluation overview)
     {
-        IsPrerequisiteReadinessExpanded = ReplaceReadinessItems(
-            PrerequisiteReadinessItems,
-            [
-                BuildAdkReadinessItem(options),
-                BuildWinPeLanguageReadinessItem(options, evaluation),
-                BuildDriverReadinessItem(evaluation)
-            ]);
+        FoundryConfigurationDocument configuration = foundryConfigurationStateService.Current;
+        NetworkSettings effectiveNetwork = networkSecretStateService.ApplyRequiredSecrets(configuration.Network);
 
-        IsMediaOutputReadinessExpanded = ReplaceReadinessItems(
-            MediaOutputReadinessItems,
-            [
-                BuildIsoOutputReadinessItem(options, evaluation),
-                BuildUsbTargetReadinessItem(options, evaluation),
-                BuildUsbLayoutReadinessItem(options, evaluation)
-            ]);
+        IsGeneralConfigurationOverviewExpanded = ReplaceOverviewItems(
+            GeneralConfigurationOverviewItems,
+            BuildGeneralConfigurationOverview(configuration, options, mediaEvaluation, overview));
+        IsNetworkOverviewExpanded = ReplaceOverviewItems(
+            NetworkOverviewItems,
+            BuildNetworkOverview(configuration, effectiveNetwork, overview));
+        IsAutopilotOverviewExpanded = ReplaceOverviewItems(
+            AutopilotOverviewItems,
+            BuildAutopilotOverview(options, overview));
+        IsCustomizationOverviewExpanded = ReplaceOverviewItems(
+            CustomizationOverviewItems,
+            BuildCustomizationOverview(configuration, overview));
 
-        IsFoundryConfigurationReadinessExpanded = ReplaceReadinessItems(
-            FoundryConfigurationReadinessItems,
-            [
-                BuildNetworkReadinessItem(options),
-                BuildDeployConfigurationReadinessItem(options),
-                BuildConnectProvisioningReadinessItem(options),
-                BuildRequiredSecretsReadinessItem(options),
-                BuildAutopilotReadinessItem(options)
-            ]);
+        GeneralConfigurationOverviewSummary = GetOverviewSummary(GeneralConfigurationOverviewItems);
+        NetworkOverviewSummary = GetOverviewSummary(NetworkOverviewItems);
+        AutopilotOverviewSummary = GetOverviewSummary(AutopilotOverviewItems);
+        CustomizationOverviewSummary = GetOverviewSummary(CustomizationOverviewItems);
     }
 
-    private StartReadinessItemViewModel BuildAdkReadinessItem(MediaPreflightOptions options)
+    private IReadOnlyList<StartConfigurationOverviewItemViewModel> BuildGeneralConfigurationOverview(
+        FoundryConfigurationDocument configuration,
+        MediaPreflightOptions options,
+        MediaPreflightEvaluation mediaEvaluation,
+        ConfigurationOverviewEvaluation overview)
     {
-        return CreateReadinessItem(
-            localizationService.GetString("StartMedia.Field.Adk"),
-            options.IsAdkReady ? StartReadinessState.Ready : StartReadinessState.Blocked,
-            options.IsAdkReady
-                ? localizationService.GetString("StartMedia.Readiness.Adk.Ready")
-                : GetBlockingReasonText(MediaPreflightBlockingReason.AdkNotReady),
-            options.IsAdkReady ? ConfigurationNavigationTarget.None : ConfigurationNavigationTarget.Adk);
-    }
-
-    private StartReadinessItemViewModel BuildWinPeLanguageReadinessItem(MediaPreflightOptions options, MediaPreflightEvaluation evaluation)
-    {
-        MediaPreflightBlockingReason? reason = GetFirstReason(
-            evaluation,
+        GeneralSettings general = configuration.General;
+        MediaPreflightBlockingReason? languageReason = GetFirstReason(
+            mediaEvaluation,
             MediaPreflightBlockingReason.MissingWinPeLanguage,
             MediaPreflightBlockingReason.WinPeLanguageUnavailable);
-
-        return CreateReadinessItem(
-            localizationService.GetString("StartMedia.Field.WinPeLanguage"),
-            reason.HasValue ? StartReadinessState.Blocked : StartReadinessState.Ready,
-            reason.HasValue
-                ? GetBlockingReasonText(reason.Value)
-                : FormatValue(NormalizeCultureName(options.WinPeLanguage)),
-            reason.HasValue ? ConfigurationNavigationTarget.General : ConfigurationNavigationTarget.None);
-    }
-
-    private StartReadinessItemViewModel BuildDriverReadinessItem(MediaPreflightEvaluation evaluation)
-    {
-        MediaPreflightBlockingReason? reason = GetFirstReason(
-            evaluation,
+        MediaPreflightBlockingReason? driverReason = GetFirstReason(
+            mediaEvaluation,
             MediaPreflightBlockingReason.CustomDriverDirectoryNotFound,
             MediaPreflightBlockingReason.CustomDriverDirectoryHasNoInfFiles);
 
-        return CreateReadinessItem(
-            localizationService.GetString("StartMedia.Field.Drivers"),
-            reason.HasValue ? StartReadinessState.Blocked : StartReadinessState.Ready,
-            reason.HasValue
-                ? GetBlockingReasonText(reason.Value)
-                : localizationService.GetString("StartMedia.Readiness.Drivers.Ready"),
-            reason.HasValue ? ConfigurationNavigationTarget.General : ConfigurationNavigationTarget.None);
+        return
+        [
+            CreateOverviewItem(ConfigurationOverviewItem.Architecture, overview, "StartMedia.Field.Architecture",
+                FormatArchitecture(options.Architecture), ConfigurationNavigationTarget.General),
+            CreateOverviewItem(ConfigurationOverviewItem.SecureBoot, overview, "GeneralConfiguration.SecureBoot.Header",
+                FormatSignatureMode(options.SignatureMode), ConfigurationNavigationTarget.General),
+            CreateOverviewItem(ConfigurationOverviewItem.WinPeLanguage, overview, "StartMedia.Field.WinPeLanguage",
+                languageReason.HasValue ? GetBlockingReasonText(languageReason.Value) : FormatValue(WinPeLanguage),
+                ConfigurationNavigationTarget.General),
+            CreateOverviewItem(ConfigurationOverviewItem.TimeZone, overview, "GeneralConfiguration.TimeZone.Header",
+                string.IsNullOrWhiteSpace(configuration.Localization.DefaultTimeZoneId)
+                    ? localizationService.GetString("Common.AutomaticOption")
+                    : configuration.Localization.DefaultTimeZoneId,
+                ConfigurationNavigationTarget.General),
+            CreateOverviewItem(ConfigurationOverviewItem.DeploymentCompletion, overview, "GeneralConfiguration.Completion.Header",
+                general.AutomaticRebootEnabled
+                    ? $"{DeploymentRebootDelay.NormalizeRuntime(general.AutomaticRebootDelaySeconds)} s"
+                    : localizationService.GetString("Common.Disabled"),
+                ConfigurationNavigationTarget.General),
+            CreateOverviewItem(ConfigurationOverviewItem.DeploymentProtection, overview, "GeneralConfiguration.DeploymentProtection.Header",
+                localizationService.GetString("GeneralConfiguration.DeploymentProtection.Description"),
+                ConfigurationNavigationTarget.General),
+            CreateOverviewItem(ConfigurationOverviewItem.DriverOptions, overview, "StartMedia.DriverOptions.Header",
+                driverReason.HasValue
+                    ? GetBlockingReasonText(driverReason.Value)
+                    : FormatDriverOptions(options.DriverVendors, options.CustomDriverDirectoryPath),
+                ConfigurationNavigationTarget.General)
+        ];
     }
 
-    private StartReadinessItemViewModel BuildIsoOutputReadinessItem(MediaPreflightOptions options, MediaPreflightEvaluation evaluation)
+    private IReadOnlyList<StartConfigurationOverviewItemViewModel> BuildNetworkOverview(
+        FoundryConfigurationDocument configuration,
+        NetworkSettings effectiveNetwork,
+        ConfigurationOverviewEvaluation overview)
     {
-        bool hasInvalidIsoPath = HasReason(evaluation, MediaPreflightBlockingReason.InvalidIsoPath);
-        return CreateReadinessItem(
-            localizationService.GetString("StartMedia.Field.IsoPath"),
-            hasInvalidIsoPath ? StartReadinessState.Warning : StartReadinessState.Ready,
-            hasInvalidIsoPath
-                ? GetBlockingReasonText(MediaPreflightBlockingReason.InvalidIsoPath)
-                : FormatValue(options.IsoOutputPath));
-    }
-
-    private StartReadinessItemViewModel BuildUsbTargetReadinessItem(MediaPreflightOptions options, MediaPreflightEvaluation evaluation)
-    {
-        bool isBelowMinimumSize = HasReason(evaluation, MediaPreflightBlockingReason.UsbTargetBelowMinimumSize);
-        StartReadinessState state = usbCandidateDiscoveryState switch
+        string ethernetDescription = configuration.Network.Dot1x.IsEnabled
+            ? FormatValue(Path.GetFileName(configuration.Network.Dot1x.ProfileTemplatePath))
+            : localizationService.GetString("Nav_EthernetDot1xKey.Description");
+        string wifiDescription = configuration.Network.Wifi.IsEnabled
+            ? string.Join(" · ", new[]
+            {
+                configuration.Network.Wifi.Ssid,
+                configuration.Network.Wifi.SecurityType
+            }.Where(value => !string.IsNullOrWhiteSpace(value)))
+            : localizationService.GetString("Nav_WifiKey.Description");
+        NetworkConfigurationValidationResult ethernetValidation = NetworkConfigurationValidator.Validate(effectiveNetwork with
         {
-            UsbCandidateDiscoveryState.Loading => StartReadinessState.Loading,
-            UsbCandidateDiscoveryState.Empty => StartReadinessState.Warning,
-            UsbCandidateDiscoveryState.Error => StartReadinessState.Warning,
-            _ when isBelowMinimumSize => StartReadinessState.Warning,
-            _ => options.SelectedUsbDisk is null ? StartReadinessState.NotConfigured : StartReadinessState.Ready
-        };
-
-        string description = isBelowMinimumSize
-            ? GetBlockingReasonText(MediaPreflightBlockingReason.UsbTargetBelowMinimumSize)
-            : state == StartReadinessState.Ready
-            ? FormatUsbCandidate(options.SelectedUsbDisk)
-            : string.IsNullOrWhiteSpace(UsbCandidateStatus)
-                ? localizationService.GetString("StartMedia.Usb.NotLoaded")
-                : UsbCandidateStatus;
-
-        return CreateReadinessItem(
-            localizationService.GetString("StartMedia.Field.UsbTarget"),
-            state,
-            description);
-    }
-
-    private StartReadinessItemViewModel BuildUsbLayoutReadinessItem(MediaPreflightOptions options, MediaPreflightEvaluation evaluation)
-    {
-        bool requiresGpt = HasReason(evaluation, MediaPreflightBlockingReason.Arm64RequiresGpt);
-        string description = requiresGpt
-            ? GetBlockingReasonText(MediaPreflightBlockingReason.Arm64RequiresGpt)
-            : string.Format(
-                localizationService.GetString("StartMedia.Readiness.UsbLayout.Format"),
-                evaluation.EffectiveUsbPartitionStyle,
-                FormatUsbFormatMode(options.UsbFormatMode));
-
-        return CreateReadinessItem(
-            localizationService.GetString("StartMedia.UsbLayout.Header"),
-            requiresGpt ? StartReadinessState.Warning : StartReadinessState.Ready,
-            description);
-    }
-
-    private StartReadinessItemViewModel BuildNetworkReadinessItem(MediaPreflightOptions options)
-    {
-        return CreateReadinessItem(
-            localizationService.GetString("StartMedia.Field.Network"),
-            options.IsNetworkConfigurationReady ? StartReadinessState.Ready : StartReadinessState.Blocked,
-            options.IsNetworkConfigurationReady
-                ? localizationService.GetString("StartMedia.Readiness.Network.Ready")
-                : GetBlockingReasonText(MediaPreflightBlockingReason.NetworkConfigurationNotReady),
-            options.IsNetworkConfigurationReady
-                ? ConfigurationNavigationTarget.None
-                : ConfigurationNavigationTargetResolver.ResolveNetwork(options.NetworkConfigurationValidationCode));
-    }
-
-    private StartReadinessItemViewModel BuildDeployConfigurationReadinessItem(MediaPreflightOptions options)
-    {
-        return CreateReadinessItem(
-            localizationService.GetString("StartMedia.Field.Deploy"),
-            options.IsDeployConfigurationReady ? StartReadinessState.Ready : StartReadinessState.Blocked,
-            options.IsDeployConfigurationReady
-                ? localizationService.GetString("StartMedia.Readiness.Deploy.Ready")
-                : GetBlockingReasonText(MediaPreflightBlockingReason.DeployConfigurationNotReady),
-            options.IsDeployConfigurationReady
-                ? ConfigurationNavigationTarget.None
-                : ConfigurationNavigationTargetResolver.ResolveDeployFailure(
-                    options.AutopilotProvisioningMode,
-                    foundryConfigurationStateService.Current.General.DeploymentProtection.IsEnabled &&
-                    !deploymentProtectionSecretStateService.IsValid));
-    }
-
-    private StartReadinessItemViewModel BuildConnectProvisioningReadinessItem(MediaPreflightOptions options)
-    {
-        return CreateReadinessItem(
-            localizationService.GetString("StartMedia.Field.Connect"),
-            options.IsConnectProvisioningReady ? StartReadinessState.Ready : StartReadinessState.Blocked,
-            options.IsConnectProvisioningReady
-                ? localizationService.GetString("StartMedia.Readiness.Connect.Ready")
-                : GetBlockingReasonText(MediaPreflightBlockingReason.ConnectProvisioningNotReady),
-            options.IsConnectProvisioningReady
-                ? ConfigurationNavigationTarget.None
-                : ResolveConnectReadinessNavigationTarget(options));
-    }
-
-    private static ConfigurationNavigationTarget ResolveConnectReadinessNavigationTarget(MediaPreflightOptions options)
-    {
-        return options.NetworkConfigurationValidationCode == NetworkConfigurationValidationCode.None
-            ? ConfigurationNavigationTargetResolver.ResolveRequiredNetworkSecret()
-            : ConfigurationNavigationTargetResolver.ResolveNetwork(options.NetworkConfigurationValidationCode);
-    }
-
-    private StartReadinessItemViewModel BuildRequiredSecretsReadinessItem(MediaPreflightOptions options)
-    {
-        return CreateReadinessItem(
-            localizationService.GetString("StartMedia.Field.Secrets"),
-            options.AreRequiredSecretsReady ? StartReadinessState.Ready : StartReadinessState.Blocked,
-            options.AreRequiredSecretsReady
-                ? localizationService.GetString("StartMedia.Readiness.Secrets.Ready")
-                : GetBlockingReasonText(MediaPreflightBlockingReason.RequiredSecretsNotReady),
-            options.AreRequiredSecretsReady
-                ? ConfigurationNavigationTarget.None
-                : ConfigurationNavigationTargetResolver.ResolveRequiredNetworkSecret());
-    }
-
-    private StartReadinessItemViewModel BuildAutopilotReadinessItem(MediaPreflightOptions options)
-    {
-        if (!options.IsAutopilotEnabled)
+            WifiProvisioned = false,
+            Wifi = new WifiSettings()
+        });
+        NetworkConfigurationValidationResult wifiValidation = NetworkConfigurationValidator.Validate(effectiveNetwork with
         {
-            return CreateReadinessItem(
-                localizationService.GetString("StartMedia.Field.Autopilot"),
-                StartReadinessState.NotConfigured,
-                localizationService.GetString("StartMedia.Readiness.Autopilot.Disabled"));
-        }
+            Dot1x = new Dot1xSettings()
+        });
 
-        return CreateReadinessItem(
-            localizationService.GetString("StartMedia.Field.Autopilot"),
-            options.IsAutopilotConfigurationReady ? StartReadinessState.Ready : StartReadinessState.Blocked,
-            options.IsAutopilotConfigurationReady
-                ? FormatAutopilot(options)
-                : GetAutopilotValidationText(options.AutopilotConfigurationValidationCode),
-            options.IsAutopilotConfigurationReady
-                ? ConfigurationNavigationTarget.None
-                : ConfigurationNavigationTargetResolver.ResolveAutopilot(options.AutopilotProvisioningMode));
+        return
+        [
+            CreateOverviewItem(ConfigurationOverviewItem.EthernetDot1x, overview, "Nav_EthernetDot1xKey.Title",
+                GetNetworkDescription(overview[ConfigurationOverviewItem.EthernetDot1x], ethernetDescription, ethernetValidation),
+                ConfigurationNavigationTarget.EthernetDot1x),
+            CreateOverviewItem(ConfigurationOverviewItem.Wifi, overview, "Nav_WifiKey.Title",
+                GetNetworkDescription(overview[ConfigurationOverviewItem.Wifi], FormatValue(wifiDescription), wifiValidation),
+                ConfigurationNavigationTarget.Wifi)
+        ];
     }
 
-    private StartReadinessItemViewModel CreateReadinessItem(
-        string title,
-        StartReadinessState state,
+    private IReadOnlyList<StartConfigurationOverviewItemViewModel> BuildAutopilotOverview(
+        MediaPreflightOptions options,
+        ConfigurationOverviewEvaluation overview)
+    {
+        string activeDescription = options.IsAutopilotConfigurationReady
+            ? FormatAutopilot(options)
+            : GetAutopilotValidationText(options.AutopilotConfigurationValidationCode);
+
+        return
+        [
+            CreateOverviewItem(ConfigurationOverviewItem.AutopilotJsonProfile, overview, "Nav_AutopilotJsonProfileKey.Title",
+                overview[ConfigurationOverviewItem.AutopilotJsonProfile] == ConfigurationOverviewState.NotSelected
+                    ? localizationService.GetString("Nav_AutopilotJsonProfileKey.Description")
+                    : activeDescription,
+                ConfigurationNavigationTarget.AutopilotJsonProfile),
+            CreateOverviewItem(ConfigurationOverviewItem.AutopilotZeroTouch, overview, "Nav_AutopilotZeroTouchKey.Title",
+                overview[ConfigurationOverviewItem.AutopilotZeroTouch] == ConfigurationOverviewState.NotSelected
+                    ? localizationService.GetString("Nav_AutopilotZeroTouchKey.Description")
+                    : activeDescription,
+                ConfigurationNavigationTarget.AutopilotHardwareHashUpload),
+            CreateOverviewItem(ConfigurationOverviewItem.AutopilotInteractive, overview, "Nav_AutopilotInteractiveHashUploadKey.Title",
+                overview[ConfigurationOverviewItem.AutopilotInteractive] == ConfigurationOverviewState.NotSelected
+                    ? localizationService.GetString("Nav_AutopilotInteractiveHashUploadKey.Description")
+                    : activeDescription,
+                ConfigurationNavigationTarget.AutopilotInteractiveHardwareHashUpload)
+        ];
+    }
+
+    private IReadOnlyList<StartConfigurationOverviewItemViewModel> BuildCustomizationOverview(
+        FoundryConfigurationDocument configuration,
+        ConfigurationOverviewEvaluation overview)
+    {
+        CustomizationSettings customization = configuration.Customization;
+        OperatingSystemSelectionSettings os = configuration.OperatingSystemSelection;
+        string osDescription = string.Join(" · ", new[]
+        {
+            os.DefaultLanguageCode,
+            os.DefaultReleaseId,
+            os.DefaultEdition
+        }.Where(value => !string.IsNullOrWhiteSpace(value)));
+        WindowsOptionalFeatureSettings optionalFeatures = customization.WindowsOptionalFeatures;
+        int configuredFeatureCount = optionalFeatures.EnabledFeatureIds.Count + optionalFeatures.DisabledFeatureIds.Count;
+        string optionalFeatureDescription = string.Format(
+            localizationService.GetString("Customization.WindowsOptionalFeatures.SummaryFormat"),
+            configuredFeatureCount,
+            optionalFeatures.EnabledFeatureIds.Count,
+            optionalFeatures.DisabledFeatureIds.Count);
+
+        return
+        [
+            CreateOverviewItem(ConfigurationOverviewItem.OperatingSystemSelection, overview, "Nav_OsSelectionKey.Title",
+                string.IsNullOrWhiteSpace(osDescription) ? localizationService.GetString("Nav_OsSelectionKey.Description") : osDescription,
+                ConfigurationNavigationTarget.OperatingSystemSelection),
+            CreateOverviewItem(ConfigurationOverviewItem.MachineNaming, overview, "Nav_MachineNamingKey.Title",
+                string.IsNullOrWhiteSpace(customization.MachineNaming.Prefix)
+                    ? localizationService.GetString("Nav_MachineNamingKey.Description")
+                    : customization.MachineNaming.Prefix,
+                ConfigurationNavigationTarget.MachineNaming),
+            CreateOverviewItem(ConfigurationOverviewItem.Oobe, overview, "Nav_OobeKey.Title",
+                customization.Oobe.IsEnabled
+                    ? FormatOobeSummary(customization.Oobe)
+                    : localizationService.GetString("Nav_OobeKey.Description"),
+                ConfigurationNavigationTarget.Oobe),
+            CreateOverviewItem(ConfigurationOverviewItem.OptionalFeatures, overview, "Nav_OptionalFeaturesKey.Title",
+                optionalFeatures.IsEnabled
+                    ? optionalFeatureDescription
+                    : localizationService.GetString("Nav_OptionalFeaturesKey.Description"),
+                ConfigurationNavigationTarget.WindowsOptionalFeatures),
+            CreateOverviewItem(ConfigurationOverviewItem.AppxRemoval, overview, "Nav_AppRemovalKey.Title",
+                customization.AppxRemoval.IsEnabled
+                    ? $"{localizationService.GetString("Customization.AppxRemovalPackagesLabel")}: {customization.AppxRemoval.PackageNames.Count}"
+                    : localizationService.GetString("Nav_AppRemovalKey.Description"),
+                ConfigurationNavigationTarget.AppxRemoval),
+            CreateOverviewItem(ConfigurationOverviewItem.AiComponents, overview, "Nav_AiComponentsKey.Title",
+                localizationService.GetString("Nav_AiComponentsKey.Description"),
+                ConfigurationNavigationTarget.AiComponentRemoval)
+        ];
+    }
+
+    private StartConfigurationOverviewItemViewModel CreateOverviewItem(
+        ConfigurationOverviewItem item,
+        ConfigurationOverviewEvaluation evaluation,
+        string titleKey,
         string description,
-        ConfigurationNavigationTarget navigationTarget = ConfigurationNavigationTarget.None)
+        ConfigurationNavigationTarget errorNavigationTarget)
     {
-        return new StartReadinessItemViewModel(
+        ConfigurationOverviewState state = evaluation[item];
+        string title = localizationService.GetString(titleKey);
+        bool needsAttention = state == ConfigurationOverviewState.NeedsAttention;
+        string actionText = needsAttention
+            ? $"{localizationService.GetString("StartMedia.Readiness.Action.Review")} {title}"
+            : string.Empty;
+
+        return new StartConfigurationOverviewItemViewModel(
             title,
             description,
-            localizationService.GetString($"StartMedia.Readiness.State.{state}"),
-            GetReadinessGlyph(state),
-            GetReadinessGlyphBrushKey(state),
-            state is StartReadinessState.Blocked or StartReadinessState.Warning,
-            navigationTarget,
-            navigationTarget == ConfigurationNavigationTarget.None
-                ? string.Empty
-                : localizationService.GetString("StartMedia.Readiness.Action.Review"));
+            GetOverviewStatus(state),
+            GetOverviewGlyph(state),
+            GetOverviewGlyphBrushKey(state),
+            state,
+            needsAttention ? errorNavigationTarget : ConfigurationNavigationTarget.None,
+            actionText,
+            actionText);
     }
 
-    private static bool ReplaceReadinessItems(
-        ObservableCollection<StartReadinessItemViewModel> target,
-        IEnumerable<StartReadinessItemViewModel> items)
+    private string GetNetworkDescription(
+        ConfigurationOverviewState state,
+        string configuredDescription,
+        NetworkConfigurationValidationResult validation) =>
+        state == ConfigurationOverviewState.NeedsAttention
+            ? NetworkConfigurationValidationTextFormatter.Format(localizationService, validation)
+            : configuredDescription;
+
+    private string FormatOobeSummary(OobeSettings settings)
+    {
+        string diagnosticData = localizationService.GetString($"Customization.OobeDiagnosticData{settings.DiagnosticDataLevel}");
+        string locationAccess = localizationService.GetString(settings.LocationAccess == OobeLocationAccessMode.ForceOff
+            ? "Customization.OobeLocationForceOff"
+            : "Customization.OobeLocationUserControlled");
+        return $"{diagnosticData} · {locationAccess}";
+    }
+
+    private string GetOverviewStatus(ConfigurationOverviewState state) => state switch
+    {
+        ConfigurationOverviewState.Configured => localizationService.GetString("NavigationStatus.Configured"),
+        ConfigurationOverviewState.Disabled => localizationService.GetString("Common.Disabled"),
+        ConfigurationOverviewState.NotConfigured => localizationService.GetString("NavigationStatus.NotConfigured"),
+        ConfigurationOverviewState.Default => localizationService.GetString("StartOverview.State.Default"),
+        ConfigurationOverviewState.NotSelected => localizationService.GetString("StartOverview.State.NotSelected"),
+        _ => localizationService.GetString("StartOverview.State.NeedsAttention")
+    };
+
+    private string GetOverviewSummary(IEnumerable<StartConfigurationOverviewItemViewModel> items)
+    {
+        List<StartConfigurationOverviewItemViewModel> attentionItems = items
+            .Where(item => item.NavigationTarget != ConfigurationNavigationTarget.None)
+            .ToList();
+        if (attentionItems.Count == 0)
+        {
+            IReadOnlyList<ConfigurationOverviewState> states = items.Select(item => item.State).ToList();
+            if (states.Contains(ConfigurationOverviewState.Configured))
+            {
+                return localizationService.GetString("NavigationStatus.Configured");
+            }
+
+            if (states.Contains(ConfigurationOverviewState.Default))
+            {
+                return localizationService.GetString("StartOverview.State.Default");
+            }
+
+            if (states.All(state => state == ConfigurationOverviewState.NotSelected))
+            {
+                return localizationService.GetString("StartOverview.State.NotSelected");
+            }
+
+            return states.All(state => state == ConfigurationOverviewState.NotConfigured)
+                ? localizationService.GetString("NavigationStatus.NotConfigured")
+                : localizationService.GetString("Common.Disabled");
+        }
+
+        string additionalItemCount = attentionItems.Count > 1 ? $" (+{attentionItems.Count - 1})" : string.Empty;
+        return $"{localizationService.GetString("StartOverview.State.NeedsAttention")}: {attentionItems[0].Title}{additionalItemCount}";
+    }
+
+    private static bool ReplaceOverviewItems(
+        ObservableCollection<StartConfigurationOverviewItemViewModel> target,
+        IEnumerable<StartConfigurationOverviewItemViewModel> items)
     {
         target.Clear();
         bool hasAttentionItem = false;
-        foreach (StartReadinessItemViewModel item in items)
+        foreach (StartConfigurationOverviewItemViewModel item in items)
         {
             target.Add(item);
-            hasAttentionItem |= item.ExpandsGroup;
+            hasAttentionItem |= item.NavigationTarget != ConfigurationNavigationTarget.None;
         }
 
         return hasAttentionItem;
@@ -1793,26 +1856,22 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         return evaluation.IsoBlockingReasons.Contains(reason) || evaluation.UsbBlockingReasons.Contains(reason);
     }
 
-    private static string GetReadinessGlyph(StartReadinessState state)
+    private static string GetOverviewGlyph(ConfigurationOverviewState state)
     {
         return state switch
         {
-            StartReadinessState.Ready => "\uE8FB",
-            StartReadinessState.Warning => "\uE7BA",
-            StartReadinessState.Blocked => "\uE711",
-            StartReadinessState.Loading => "\uE895",
+            ConfigurationOverviewState.Configured or ConfigurationOverviewState.Default => "\uE8FB",
+            ConfigurationOverviewState.NeedsAttention => "\uE711",
             _ => "\uE946"
         };
     }
 
-    private static string GetReadinessGlyphBrushKey(StartReadinessState state)
+    private static string GetOverviewGlyphBrushKey(ConfigurationOverviewState state)
     {
         return state switch
         {
-            StartReadinessState.Ready => "FoundryStatusReadyBrush",
-            StartReadinessState.Warning => "FoundryStatusWarningBrush",
-            StartReadinessState.Blocked => "FoundryStatusBlockedBrush",
-            StartReadinessState.Loading => "FoundryStatusBusyBrush",
+            ConfigurationOverviewState.Configured or ConfigurationOverviewState.Default => "FoundryStatusReadyBrush",
+            ConfigurationOverviewState.NeedsAttention => "FoundryStatusBlockedBrush",
             _ => "FoundryStatusNeutralBrush"
         };
     }
@@ -2243,15 +2302,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         Iso,
         Usb,
         UsbUpdate
-    }
-
-    private enum StartReadinessState
-    {
-        Ready,
-        Warning,
-        Blocked,
-        NotConfigured,
-        Loading
     }
 
     private enum UsbCandidateDiscoveryState

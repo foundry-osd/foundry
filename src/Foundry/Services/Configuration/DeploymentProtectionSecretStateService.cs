@@ -10,6 +10,8 @@ internal sealed partial class DeploymentProtectionSecretStateService : IDeployme
 {
     private readonly DeploymentProtectionSecretState state = new();
 
+    public event EventHandler? Changed;
+
     public bool HasPassword => state.HasPassword;
 
     public bool HasConfirmation => state.HasConfirmation;
@@ -20,12 +22,16 @@ internal sealed partial class DeploymentProtectionSecretStateService : IDeployme
 
     public void SetPassword(string? value)
     {
+        bool wasValid = state.IsValid;
         state.SetPassword(value.AsSpan());
+        RaiseChangedIfValidityChanged(wasValid);
     }
 
     public void SetConfirmation(string? value)
     {
+        bool wasValid = state.IsValid;
         state.SetConfirmation(value.AsSpan());
+        RaiseChangedIfValidityChanged(wasValid);
     }
 
     public char[] GetPasswordCopy()
@@ -45,11 +51,21 @@ internal sealed partial class DeploymentProtectionSecretStateService : IDeployme
 
     public void Clear()
     {
+        bool wasValid = state.IsValid;
         state.Clear();
+        RaiseChangedIfValidityChanged(wasValid);
     }
 
     public void Dispose()
     {
         state.Dispose();
+    }
+
+    private void RaiseChangedIfValidityChanged(bool previousValidity)
+    {
+        if (previousValidity != state.IsValid)
+        {
+            Changed?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

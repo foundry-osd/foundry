@@ -9,8 +9,8 @@
     xmlns:wct="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d">
     <Page.Resources>
-        <DataTemplate x:Key="StartReadinessItemTemplate"
-            x:DataType="viewModels:StartReadinessItemViewModel">
+        <DataTemplate x:Key="StartConfigurationOverviewItemTemplate"
+            x:DataType="viewModels:StartConfigurationOverviewItemViewModel">
             <Grid
                 MinHeight="56"
                 Padding="0,6"
@@ -47,8 +47,8 @@
                 </StackPanel>
                 <Button
                     Grid.Column="2"
-                    MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                     VerticalAlignment="Center"
+                    AutomationProperties.Name="{x:Bind ActionAutomationName}"
                     Click="ReadinessActionButton_Click"
                     Content="{x:Bind ActionText}"
                     Tag="{x:Bind NavigationTarget}"
@@ -95,44 +95,62 @@
                 Grid.Row="2"
                 VerticalScrollBarVisibility="Auto">
                 <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
-                    <wct:SettingsExpander x:Name="ReadinessPrerequisitesCard"
-                        IsExpanded="{x:Bind ViewModel.IsPrerequisiteReadinessExpanded, Mode=TwoWay}">
-                        <wct:SettingsExpander.HeaderIcon>
-                            <FontIcon Glyph="&#xE9D5;" />
-                        </wct:SettingsExpander.HeaderIcon>
-                        <wct:SettingsExpander.ItemsHeader>
-                            <Grid Padding="{ThemeResource FoundryDefaultContentPadding}">
-                                <ItemsControl
-                                    ItemTemplate="{StaticResource StartReadinessItemTemplate}"
-                                    ItemsSource="{x:Bind ViewModel.PrerequisiteReadinessItems, Mode=OneWay}" />
-                            </Grid>
-                        </wct:SettingsExpander.ItemsHeader>
-                    </wct:SettingsExpander>
-
-                    <wct:SettingsExpander x:Name="ReadinessMediaOutputCard"
-                        IsExpanded="{x:Bind ViewModel.IsMediaOutputReadinessExpanded, Mode=TwoWay}">
-                        <wct:SettingsExpander.HeaderIcon>
-                            <FontIcon Glyph="&#xE8A5;" />
-                        </wct:SettingsExpander.HeaderIcon>
-                        <wct:SettingsExpander.ItemsHeader>
-                            <Grid Padding="{ThemeResource FoundryDefaultContentPadding}">
-                                <ItemsControl
-                                    ItemTemplate="{StaticResource StartReadinessItemTemplate}"
-                                    ItemsSource="{x:Bind ViewModel.MediaOutputReadinessItems, Mode=OneWay}" />
-                            </Grid>
-                        </wct:SettingsExpander.ItemsHeader>
-                    </wct:SettingsExpander>
-
-                    <wct:SettingsExpander x:Name="ReadinessFoundryConfigurationCard"
-                        IsExpanded="{x:Bind ViewModel.IsFoundryConfigurationReadinessExpanded, Mode=TwoWay}">
+                    <wct:SettingsExpander x:Name="GeneralConfigurationOverviewCard"
+                        Description="{x:Bind ViewModel.GeneralConfigurationOverviewSummary, Mode=OneWay}"
+                        IsExpanded="{x:Bind ViewModel.IsGeneralConfigurationOverviewExpanded, Mode=TwoWay}">
                         <wct:SettingsExpander.HeaderIcon>
                             <FontIcon Glyph="&#xE713;" />
                         </wct:SettingsExpander.HeaderIcon>
                         <wct:SettingsExpander.ItemsHeader>
                             <Grid Padding="{ThemeResource FoundryDefaultContentPadding}">
                                 <ItemsControl
-                                    ItemTemplate="{StaticResource StartReadinessItemTemplate}"
-                                    ItemsSource="{x:Bind ViewModel.FoundryConfigurationReadinessItems, Mode=OneWay}" />
+                                    ItemTemplate="{StaticResource StartConfigurationOverviewItemTemplate}"
+                                    ItemsSource="{x:Bind ViewModel.GeneralConfigurationOverviewItems, Mode=OneWay}" />
+                            </Grid>
+                        </wct:SettingsExpander.ItemsHeader>
+                    </wct:SettingsExpander>
+
+                    <wct:SettingsExpander x:Name="NetworkOverviewCard"
+                        Description="{x:Bind ViewModel.NetworkOverviewSummary, Mode=OneWay}"
+                        IsExpanded="{x:Bind ViewModel.IsNetworkOverviewExpanded, Mode=TwoWay}">
+                        <wct:SettingsExpander.HeaderIcon>
+                            <FontIcon Glyph="&#xE774;" />
+                        </wct:SettingsExpander.HeaderIcon>
+                        <wct:SettingsExpander.ItemsHeader>
+                            <Grid Padding="{ThemeResource FoundryDefaultContentPadding}">
+                                <ItemsControl
+                                    ItemTemplate="{StaticResource StartConfigurationOverviewItemTemplate}"
+                                    ItemsSource="{x:Bind ViewModel.NetworkOverviewItems, Mode=OneWay}" />
+                            </Grid>
+                        </wct:SettingsExpander.ItemsHeader>
+                    </wct:SettingsExpander>
+
+                    <wct:SettingsExpander x:Name="AutopilotOverviewCard"
+                        Description="{x:Bind ViewModel.AutopilotOverviewSummary, Mode=OneWay}"
+                        IsExpanded="{x:Bind ViewModel.IsAutopilotOverviewExpanded, Mode=TwoWay}">
+                        <wct:SettingsExpander.HeaderIcon>
+                            <FontIcon Glyph="&#xE753;" />
+                        </wct:SettingsExpander.HeaderIcon>
+                        <wct:SettingsExpander.ItemsHeader>
+                            <Grid Padding="{ThemeResource FoundryDefaultContentPadding}">
+                                <ItemsControl
+                                    ItemTemplate="{StaticResource StartConfigurationOverviewItemTemplate}"
+                                    ItemsSource="{x:Bind ViewModel.AutopilotOverviewItems, Mode=OneWay}" />
+                            </Grid>
+                        </wct:SettingsExpander.ItemsHeader>
+                    </wct:SettingsExpander>
+
+                    <wct:SettingsExpander x:Name="CustomizationOverviewCard"
+                        Description="{x:Bind ViewModel.CustomizationOverviewSummary, Mode=OneWay}"
+                        IsExpanded="{x:Bind ViewModel.IsCustomizationOverviewExpanded, Mode=TwoWay}">
+                        <wct:SettingsExpander.HeaderIcon>
+                            <FontIcon Glyph="&#xE771;" />
+                        </wct:SettingsExpander.HeaderIcon>
+                        <wct:SettingsExpander.ItemsHeader>
+                            <Grid Padding="{ThemeResource FoundryDefaultContentPadding}">
+                                <ItemsControl
+                                    ItemTemplate="{StaticResource StartConfigurationOverviewItemTemplate}"
+                                    ItemsSource="{x:Bind ViewModel.CustomizationOverviewItems, Mode=OneWay}" />
                             </Grid>
                         </wct:SettingsExpander.ItemsHeader>
                     </wct:SettingsExpander>

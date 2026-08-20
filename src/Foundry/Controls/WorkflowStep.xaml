@@ -13,13 +13,13 @@
                 <ResourceDictionary x:Key="Light">
                     <SolidColorBrush x:Key="WorkflowStepReadyBrush"
                         Color="{ThemeResource SystemFillColorSuccess}" />
-                    <SolidColorBrush x:Key="WorkflowStepWarningBrush"
-                        Color="{ThemeResource SystemFillColorCaution}" />
+                    <SolidColorBrush x:Key="WorkflowStepCriticalBrush"
+                        Color="{ThemeResource SystemFillColorCritical}" />
                     <SolidColorBrush x:Key="WorkflowStepPendingBrush"
                         Color="{ThemeResource ControlFillColorSecondary}" />
                     <SolidColorBrush x:Key="WorkflowStepReadyForegroundBrush"
                         Color="White" />
-                    <StaticResource x:Key="WorkflowStepWarningForegroundBrush"
+                    <StaticResource x:Key="WorkflowStepCriticalForegroundBrush"
                         ResourceKey="TextFillColorInverseBrush" />
                     <SolidColorBrush x:Key="WorkflowStepPendingForegroundBrush"
                         Color="{ThemeResource TextFillColorSecondary}" />
@@ -27,13 +27,13 @@
                 <ResourceDictionary x:Key="Dark">
                     <SolidColorBrush x:Key="WorkflowStepReadyBrush"
                         Color="{ThemeResource SystemFillColorSuccess}" />
-                    <SolidColorBrush x:Key="WorkflowStepWarningBrush"
-                        Color="{ThemeResource SystemFillColorCaution}" />
+                    <SolidColorBrush x:Key="WorkflowStepCriticalBrush"
+                        Color="{ThemeResource SystemFillColorCritical}" />
                     <SolidColorBrush x:Key="WorkflowStepPendingBrush"
                         Color="{ThemeResource ControlFillColorSecondary}" />
                     <SolidColorBrush x:Key="WorkflowStepReadyForegroundBrush"
                         Color="White" />
-                    <StaticResource x:Key="WorkflowStepWarningForegroundBrush"
+                    <StaticResource x:Key="WorkflowStepCriticalForegroundBrush"
                         ResourceKey="TextFillColorInverseBrush" />
                     <SolidColorBrush x:Key="WorkflowStepPendingForegroundBrush"
                         Color="{ThemeResource TextFillColorSecondary}" />
@@ -41,13 +41,13 @@
                 <ResourceDictionary x:Key="HighContrast">
                     <SolidColorBrush x:Key="WorkflowStepReadyBrush"
                         Color="{ThemeResource SystemColorButtonFaceColor}" />
-                    <SolidColorBrush x:Key="WorkflowStepWarningBrush"
+                    <SolidColorBrush x:Key="WorkflowStepCriticalBrush"
                         Color="{ThemeResource SystemColorButtonFaceColor}" />
                     <SolidColorBrush x:Key="WorkflowStepPendingBrush"
                         Color="{ThemeResource SystemColorButtonFaceColor}" />
                     <SolidColorBrush x:Key="WorkflowStepReadyForegroundBrush"
                         Color="{ThemeResource SystemColorButtonTextColor}" />
-                    <SolidColorBrush x:Key="WorkflowStepWarningForegroundBrush"
+                    <SolidColorBrush x:Key="WorkflowStepCriticalForegroundBrush"
                         Color="{ThemeResource SystemColorButtonTextColor}" />
                     <SolidColorBrush x:Key="WorkflowStepPendingForegroundBrush"
                         Color="{ThemeResource SystemColorButtonTextColor}" />
@@ -82,8 +82,8 @@
                 <FontIcon
                     FontSize="16"
                     Foreground="{x:Bind CircleForeground, Mode=OneTime}"
-                    Glyph="&#xE7BA;"
-                    Visibility="{x:Bind IsWarning, Mode=OneTime}" />
+                    Glyph="&#xE711;"
+                    Visibility="{x:Bind IsCritical, Mode=OneTime}" />
                 <TextBlock
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
