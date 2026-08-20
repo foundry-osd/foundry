@@ -2041,7 +2041,7 @@
     <value>Kenraali</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Auta parantamaan Foundry lähettämällä anonyymiä käyttötelemetriaa. Mitään nimiä, salaisuuksia, SSID-tunnuksia, IP-osoitteita, tiedostopolkuja, levytunnisteita, tietokoneiden nimiä, Autopilot profiilinimiä tai laitteistotunnisteita ei lähetetä.</value>
+    <value>Auta parantamaan Foundrya lähettämällä anonyymiä käyttötelemetriaa. Salaisuudet ja suorat laitetunnisteet, kuten sarjanumerot ja laitteistotiivisteet, jätetään pois. Telemetria käyttää anonyymiä asennustunnistetta ja voi sisältää laitteen valmistajan ja mallin.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Ota telemetria käyttöön</value>

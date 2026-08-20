@@ -2041,7 +2041,7 @@
     <value>General</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Pošaljite anonimnu telemetriju korištenja kako biste poboljšali Foundry. Ne šalju se imena, tajne, SSID-ovi, IP adrese, staze datoteka, identifikatori diska, nazivi računala, imena Autopilot profila ili identifikatori hardvera.</value>
+    <value>Pošaljite anonimnu telemetriju korištenja kako biste poboljšali Foundry. Tajne i izravni identifikatori uređaja, uključujući serijske brojeve i sažetke hardvera, isključeni su. Telemetrija koristi anonimni identifikator instalacije i može uključivati proizvođača i model uređaja.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Omogući telemetriju</value>

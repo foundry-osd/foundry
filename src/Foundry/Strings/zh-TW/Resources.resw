@@ -2041,7 +2041,7 @@
     <value>一般</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>發送匿名使用情況遙測資料以幫助改進Foundry。不會傳送任何名稱、機密、SSID、IP 位址、檔案路徑、磁碟識別碼、電腦名稱、Autopilot 設定檔名稱或硬體識別碼。</value>
+    <value>傳送匿名使用情況遙測資料以協助改進 Foundry。系統會排除機密資訊以及序號和硬體雜湊等直接裝置識別碼。遙測使用匿名安裝識別碼，並且可能包含裝置製造商和型號。</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>啟用遙測</value>

@@ -2041,7 +2041,7 @@
     <value>Ģenerālis</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Nosūtiet anonīmu lietojuma telemetriju, lai palīdzētu uzlabot Foundry. Netiek nosūtīti vārdi, noslēpumi, SSID, IP adreses, failu ceļi, diska identifikatori, datoru nosaukumi, Autopilot profilu nosaukumi vai aparatūras identifikatori.</value>
+    <value>Nosūtiet anonīmu lietojuma telemetriju, lai palīdzētu uzlabot Foundry. Noslēpumi un tiešie ierīces identifikatori, tostarp sērijas numuri un aparatūras jaucējvērtības, netiek iekļauti. Telemetrija izmanto anonīmu instalācijas identifikatoru un var ietvert ierīces ražotāju un modeli.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Iespējot telemetriju</value>
