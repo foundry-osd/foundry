@@ -2041,7 +2041,7 @@
     <value>Generał</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Wysyłaj anonimowe dane telemetryczne dotyczące użytkowania, aby pomóc ulepszyć Foundry. Nie są wysyłane żadne nazwy, sekrety, identyfikatory SSID, adresy IP, ścieżki plików, identyfikatory dysków, nazwy komputerów, nazwy profili Autopilot ani identyfikatory sprzętu.</value>
+    <value>Wysyłaj anonimowe dane telemetryczne dotyczące użytkowania, aby pomóc ulepszyć Foundry. Sekrety i bezpośrednie identyfikatory urządzenia, w tym numery seryjne i skróty sprzętowe, są wykluczone. Telemetria używa anonimowego identyfikatora instalacji i może obejmować producenta oraz model urządzenia.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Włącz telemetrię</value>

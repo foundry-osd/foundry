@@ -19,7 +19,7 @@
             Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
             <controls:PageHeader
                 x:Uid="EthernetDot1xPageHeader"
-                DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
+                DocumentationUrl="{x:Bind ViewModel.EthernetDot1xDocumentationUrl, Mode=OneWay}"
                 IconGlyph="&#xE839;">
                 <controls:PageHeader.ActionContent>
                     <ToggleSwitch

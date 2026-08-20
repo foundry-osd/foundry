@@ -2041,7 +2041,7 @@
     <value>Generolas</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Siųskite anoniminę naudojimo telemetriją, kad padėtumėte tobulinti Foundry. Nesiunčiami vardai, paslaptys, SSID, IP adresai, failų keliai, disko identifikatoriai, kompiuterių pavadinimai, Autopilot profilių pavadinimai ar aparatinės įrangos identifikatoriai.</value>
+    <value>Siųskite anoniminę naudojimo telemetriją, kad padėtumėte tobulinti Foundry. Paslaptys ir tiesioginiai įrenginio identifikatoriai, įskaitant serijos numerius ir aparatinės įrangos maišos reikšmes, neįtraukiami. Telemetrija naudoja anoniminį diegimo identifikatorių ir gali apimti įrenginio gamintoją bei modelį.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Įgalinti telemetriją</value>

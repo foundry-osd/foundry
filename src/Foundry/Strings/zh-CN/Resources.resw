@@ -2041,7 +2041,7 @@
     <value>一般</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>发送匿名使用情况遥测数据以帮助改进Foundry。不会发送任何名称、机密、SSID、IP 地址、文件路径、磁盘标识符、计算机名称、Autopilot 配置文件名称或硬件标识符。</value>
+    <value>发送匿名使用情况遥测数据以帮助改进 Foundry。系统会排除机密信息以及序列号和硬件哈希等直接设备标识符。遥测使用匿名安装 ID，并且可能包含设备制造商和型号。</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>启用遥测</value>

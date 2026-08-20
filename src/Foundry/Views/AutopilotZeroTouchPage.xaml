@@ -18,7 +18,7 @@
             Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
             <controls:PageHeader
                 x:Uid="AutopilotZeroTouchPageHeader"
-                DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
+                DocumentationUrl="{x:Bind ViewModel.ZeroTouchDocumentationUrl, Mode=OneWay}"
                 IconGlyph="&#xE753;">
                 <controls:PageHeader.ActionContent>
                     <Button

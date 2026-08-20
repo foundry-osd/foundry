@@ -2041,7 +2041,7 @@
     <value>Allmänt</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Skicka anonym användningstelemetri för att förbättra Foundry. Inga namn, hemligheter, SSID, IP-adresser, filsökvägar, diskidentifierare, datornamn, Autopilot profilnamn eller maskinvaruidentifierare skickas.</value>
+    <value>Skicka anonym användningstelemetri för att förbättra Foundry. Hemligheter och direkta enhetsidentifierare, inklusive serienummer och maskinvaruhashar, utesluts. Telemetrin använder ett anonymt installations-ID och kan innehålla enhetens tillverkare och modell.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Aktivera telemetri</value>

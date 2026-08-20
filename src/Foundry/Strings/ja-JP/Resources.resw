@@ -2041,7 +2041,7 @@
     <value>一般</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Foundry の改善に役立てるため、匿名の使用状況テレメトリを送信します。名前、シークレット、SSID、IP アドレス、ファイル パス、ディスク識別子、コンピュータ名、Autopilot プロファイル名、ハードウェア識別子は送信されません。</value>
+    <value>Foundry の改善に役立てるため、匿名の使用状況テレメトリを送信します。シークレットと、シリアル番号やハードウェア ハッシュなどのデバイスを直接識別する情報は除外されます。テレメトリでは匿名のインストール ID が使用され、デバイスの製造元とモデルが含まれる場合があります。</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>テレメトリを有効にする</value>

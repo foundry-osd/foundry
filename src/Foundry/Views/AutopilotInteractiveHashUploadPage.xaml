@@ -18,7 +18,7 @@
             Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
             <controls:PageHeader
                 x:Uid="AutopilotInteractiveHashUploadPageHeader"
-                DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
+                DocumentationUrl="{x:Bind ViewModel.InteractiveDocumentationUrl, Mode=OneWay}"
                 IconGlyph="&#xE928;">
                 <controls:PageHeader.ActionContent>
                     <Button

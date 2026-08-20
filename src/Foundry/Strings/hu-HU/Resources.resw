@@ -2041,7 +2041,7 @@
     <value>tábornok</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Névtelen használati telemetria küldése az Foundry fejlesztéséhez. A rendszer nem küld neveket, titkokat, SSID-ket, IP-címeket, fájl útvonalakat, lemezazonosítókat, számítógépneveket, Autopilot profilneveket vagy hardverazonosítókat.</value>
+    <value>Küldjön névtelen használati telemetriát a Foundry fejlesztéséhez. A titkos adatok és a közvetlen eszközazonosítók, beleértve a sorozatszámokat és a hardverkivonatokat, ki vannak zárva. A telemetria névtelen telepítési azonosítót használ, és tartalmazhatja az eszköz gyártóját és modelljét.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Telemetria engedélyezése</value>

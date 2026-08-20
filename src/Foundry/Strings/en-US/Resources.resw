@@ -2062,7 +2062,7 @@
     <value>General</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Send anonymous usage telemetry to help improve Foundry. No names, secrets, SSIDs, IP addresses, file paths, disk identifiers, computer names, Autopilot profile names, or hardware identifiers are sent.</value>
+    <value>Send anonymous usage telemetry to help improve Foundry. Secrets and direct device identifiers, including serial numbers and hardware hashes, are excluded. Telemetry uses an anonymous installation ID and may include the device vendor and model.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Enable telemetry</value>
@@ -2672,7 +2672,7 @@
     <value>Choose provisioned Windows apps to remove from deployed devices.</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Enable app removal configuration</value>
+    <value>Enable AppX removals</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
     <value>AI components</value>

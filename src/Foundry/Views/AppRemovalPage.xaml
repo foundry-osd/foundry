@@ -19,7 +19,7 @@
             Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
             <controls:PageHeader
                 x:Uid="AppRemovalPageHeader"
-                DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
+                DocumentationUrl="{x:Bind ViewModel.AppRemovalDocumentationUrl, Mode=OneWay}"
                 IconGlyph="&#xE7B8;">
                 <controls:PageHeader.ActionContent>
                     <ToggleSwitch

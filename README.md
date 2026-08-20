@@ -16,7 +16,7 @@
 
 <p align="center">
   <a href="#download"><strong>Download</strong></a> ·
-  <a href="https://foundry-osd.github.io/"><strong>Documentation</strong></a> ·
+  <a href="https://docs.foundryosd.com"><strong>Documentation</strong></a> ·
   <a href="#capabilities"><strong>Capabilities</strong></a> ·
   <a href="#requirements"><strong>Requirements</strong></a> ·
   <a href="#workflow"><strong>Workflow</strong></a> ·
@@ -39,7 +39,7 @@ Install the latest MSI that matches the architecture of the admin workstation.
 
 Use the MSI release build for normal deployment work. Use [all releases](https://github.com/foundry-osd/foundry/releases) when you need release notes, checksums, or older builds.
 
-Start with the [Quick Start](https://foundry-osd.github.io/docs/start/quick-start) guide for the shortest end-to-end path.
+Start with the [Quick Start](https://docs.foundryosd.com/start-here/quick-start) guide for the shortest end-to-end path.
 
 ## Overview
 
@@ -62,7 +62,7 @@ This repository contains the Foundry OSD desktop application and the WinPE runti
 | Ethernet and Wi-Fi | Validate Ethernet, use pre-provisioned Wi-Fi, or connect to supported personal Wi-Fi networks from WinPE | Supports deployments on wired, wireless, enterprise, and non-enterprise networks |
 | Enterprise networking | Stage wired 802.1X and enterprise Wi-Fi profiles with optional trusted root CA certificates | Supports corporate network environments |
 | Deployment workflow | Choose target disk, Windows image, drivers, firmware, Autopilot, and deployment options from Foundry Deploy | Makes deployment decisions visible before execution |
-| Windows customization | Configure machine naming, language, time zone, OOBE, privacy defaults, categorized Windows Optional Features, AppX removal, and AI component controls | Produces cleaner and more predictable Windows installations with fully offline post-apply servicing |
+| Windows customization | Configure machine naming, language, time zone, OOBE, privacy defaults, categorized Windows Optional Features, AppX removals, and AI component controls | Produces cleaner and more predictable Windows installations with fully offline post-apply servicing |
 | Autopilot | Stage offline Autopilot JSON profiles or upload hardware hashes from WinPE | Covers offline provisioning and tenant-connected registration |
 | Readiness validation | Check ADK readiness, media settings, USB target identity, target disk eligibility, network provisioning, secrets, and Autopilot configuration | Catches missing or risky setup before media creation or deployment |
 
@@ -97,7 +97,7 @@ Most deployments follow the standard path:
 6. Select the target disk, operating system, driver pack, and deployment options.
 7. Review the summary and start deployment.
 
-Use the dedicated [network](https://foundry-osd.github.io/docs/configure/network), [Windows Autopilot](https://foundry-osd.github.io/docs/autopilot/overview), and [customization](https://foundry-osd.github.io/docs/configure/customization) sections when deployment media must carry predefined connectivity, provisioning, or Windows configuration.
+Use the dedicated [network](https://docs.foundryosd.com/foundry-osd/network), [Windows Autopilot](https://docs.foundryosd.com/foundry-osd/autopilot), and [customization](https://docs.foundryosd.com/foundry-osd/customization) sections when deployment media must carry predefined connectivity, provisioning, or Windows configuration.
 
 ### Protected deployment media
 
@@ -145,20 +145,20 @@ Foundry Project is split across focused repositories:
 
 - [`foundry`](https://github.com/foundry-osd/foundry): Foundry OSD, Foundry Connect, and Foundry Deploy.
 - [`catalog`](https://github.com/foundry-osd/catalog): Catalog automation for operating system, driver pack, and WinPE metadata.
-- [`foundry-osd.github.io`](https://foundry-osd.github.io/): Documentation, guides, and reference material.
+- [`GitBook`](https://docs.foundryosd.com): Documentation, guides, and reference material.
 
 ## Telemetry
 
 Foundry OSD collects anonymous usage telemetry to help prioritize project improvements. Telemetry is enabled by default and can be disabled from Settings. Generated Foundry Connect and Foundry Deploy runtime media follow the same setting.
 
-See the [telemetry documentation](https://foundry-osd.github.io/docs/reference/telemetry) for collected events, excluded data, and privacy details.
+See the [telemetry documentation](https://docs.foundryosd.com/reference/telemetry-and-privacy) for collected events, excluded data, and privacy details.
 
 ## Support
 
 Community involvement is welcome.
 
 - **Bugs and feature requests:** Use the [issue tracker](https://github.com/foundry-osd/foundry/issues).
-- **Local development:** Follow the [Developer Setup Guide](https://foundry-osd.github.io/docs/developer) for build requirements and local validation.
+- **Source and local development:** Review the [Foundry repository](https://github.com/foundry-osd/foundry) for solution structure and validation tooling.
 
 ## Third-Party Notices
 

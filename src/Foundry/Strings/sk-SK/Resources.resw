@@ -2041,7 +2041,7 @@
     <value>generál</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Send anonymous usage telemetry to help improve Foundry. No names, secrets, SSIDs, IP addresses, file paths, disk identifiers, computer names, Autopilot profile names, or hardware identifiers are sent.</value>
+    <value>Odosielajte anonymnú telemetriu používania, ktorá pomáha zlepšovať Foundry. Tajné údaje a priame identifikátory zariadenia vrátane sériových čísel a hardvérových hashov sú vylúčené. Telemetria používa anonymný identifikátor inštalácie a môže obsahovať výrobcu a model zariadenia.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Povoliť telemetriu</value>

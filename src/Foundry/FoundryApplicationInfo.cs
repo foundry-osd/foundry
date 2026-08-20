@@ -23,37 +23,77 @@ public static class FoundryApplicationInfo
     /// <summary>
     /// Gets the documentation entry URL.
     /// </summary>
-    public const string DocumentationUrl = "https://foundry-osd.github.io/docs/start";
+    public const string DocumentationUrl = "https://docs.foundryosd.com";
 
     /// <summary>
     /// Gets the ADK documentation URL.
     /// </summary>
-    public const string AdkDocumentationUrl = "https://foundry-osd.github.io/docs/start/requirements";
+    public const string AdkDocumentationUrl = DocumentationUrl + "/foundry-osd/adk";
 
     /// <summary>
-    /// Gets the Autopilot documentation URL.
+    /// Gets the Autopilot JSON profile documentation URL.
     /// </summary>
-    public const string AutopilotDocumentationUrl = "https://foundry-osd.github.io/docs/autopilot/overview";
+    public const string AutopilotJsonProfileDocumentationUrl = DocumentationUrl + "/foundry-osd/autopilot/json-profile";
 
     /// <summary>
-    /// Gets the customization documentation URL.
+    /// Gets the zero-touch Autopilot hardware hash upload documentation URL.
     /// </summary>
-    public const string CustomizationDocumentationUrl = "https://foundry-osd.github.io/docs/configure/customization";
+    public const string AutopilotZeroTouchDocumentationUrl = DocumentationUrl + "/foundry-osd/autopilot/zero-touch-hardware-hash";
+
+    /// <summary>
+    /// Gets the interactive Autopilot hardware hash upload documentation URL.
+    /// </summary>
+    public const string AutopilotInteractiveDocumentationUrl = DocumentationUrl + "/foundry-osd/autopilot/interactive-hardware-hash";
 
     /// <summary>
     /// Gets the general configuration documentation URL.
     /// </summary>
-    public const string GeneralConfigurationDocumentationUrl = "https://foundry-osd.github.io/docs/configure/general";
+    public const string GeneralConfigurationDocumentationUrl = DocumentationUrl + "/foundry-osd/general";
 
     /// <summary>
-    /// Gets the network configuration documentation URL.
+    /// Gets the Wi-Fi configuration documentation URL.
     /// </summary>
-    public const string NetworkDocumentationUrl = "https://foundry-osd.github.io/docs/configure/network";
+    public const string WifiDocumentationUrl = DocumentationUrl + "/foundry-osd/network/wifi";
+
+    /// <summary>
+    /// Gets the Ethernet 802.1X configuration documentation URL.
+    /// </summary>
+    public const string EthernetDot1xDocumentationUrl = DocumentationUrl + "/foundry-osd/network/ethernet-802.1x";
+
+    /// <summary>
+    /// Gets the operating system customization documentation URL.
+    /// </summary>
+    public const string OperatingSystemDocumentationUrl = DocumentationUrl + "/foundry-osd/customization/operating-system";
+
+    /// <summary>
+    /// Gets the machine naming documentation URL.
+    /// </summary>
+    public const string MachineNamingDocumentationUrl = DocumentationUrl + "/foundry-osd/customization/machine-naming";
+
+    /// <summary>
+    /// Gets the out-of-box experience documentation URL.
+    /// </summary>
+    public const string OobeDocumentationUrl = DocumentationUrl + "/foundry-osd/customization/oobe";
+
+    /// <summary>
+    /// Gets the Windows optional features documentation URL.
+    /// </summary>
+    public const string OptionalFeaturesDocumentationUrl = DocumentationUrl + "/foundry-osd/customization/optional-features";
+
+    /// <summary>
+    /// Gets the app removal documentation URL.
+    /// </summary>
+    public const string AppRemovalDocumentationUrl = DocumentationUrl + "/foundry-osd/customization/appx-removals";
+
+    /// <summary>
+    /// Gets the AI components documentation URL.
+    /// </summary>
+    public const string AiComponentsDocumentationUrl = DocumentationUrl + "/foundry-osd/customization/ai-components";
 
     /// <summary>
     /// Gets the media creation documentation URL.
     /// </summary>
-    public const string StartDocumentationUrl = "https://foundry-osd.github.io/docs/build-media/media-creation";
+    public const string StartDocumentationUrl = DocumentationUrl + "/foundry-osd/media";
 
     public const string RepositoryUrl = Constants.RepositoryUrl;
 

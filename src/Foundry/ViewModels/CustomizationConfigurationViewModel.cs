@@ -111,7 +111,17 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
         ? Visibility.Visible
         : Visibility.Collapsed;
 
-    public string DocumentationUrl => FoundryApplicationInfo.CustomizationDocumentationUrl;
+    public string OperatingSystemDocumentationUrl => FoundryApplicationInfo.OperatingSystemDocumentationUrl;
+
+    public string MachineNamingDocumentationUrl => FoundryApplicationInfo.MachineNamingDocumentationUrl;
+
+    public string OobeDocumentationUrl => FoundryApplicationInfo.OobeDocumentationUrl;
+
+    public string OptionalFeaturesDocumentationUrl => FoundryApplicationInfo.OptionalFeaturesDocumentationUrl;
+
+    public string AppRemovalDocumentationUrl => FoundryApplicationInfo.AppRemovalDocumentationUrl;
+
+    public string AiComponentsDocumentationUrl => FoundryApplicationInfo.AiComponentsDocumentationUrl;
 
     [ObservableProperty]
     public partial string MachineNamingPrefixLabel { get; set; }

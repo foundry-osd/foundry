@@ -2041,7 +2041,7 @@
     <value>Allgemein</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Senden Sie anonyme Nutzungstelemetriedaten, um Foundry zu verbessern. Es werden keine Namen, Geheimnisse, SSIDs, IP-Adressen, Dateipfade, Festplattenkennungen, Computernamen, Autopilot Profilnamen oder Hardwarekennungen gesendet.</value>
+    <value>Senden Sie anonyme Nutzungstelemetriedaten, um Foundry zu verbessern. Geheimnisse und direkte Gerätekennungen, einschließlich Seriennummern und Hardware-Hashes, werden ausgeschlossen. Die Telemetrie verwendet eine anonyme Installations-ID und kann den Gerätehersteller und das Modell enthalten.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Telemetrie aktivieren</value>
