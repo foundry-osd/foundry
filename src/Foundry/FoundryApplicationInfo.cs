@@ -83,7 +83,7 @@ public static class FoundryApplicationInfo
     /// <summary>
     /// Gets the app removal documentation URL.
     /// </summary>
-    public const string AppRemovalDocumentationUrl = DocumentationUrl + "/foundry-osd/customization/app-removal";
+    public const string AppRemovalDocumentationUrl = DocumentationUrl + "/foundry-osd/customization/appx-removals";
 
     /// <summary>
     /// Gets the AI components documentation URL.

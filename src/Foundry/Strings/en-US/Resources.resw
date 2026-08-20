@@ -2672,7 +2672,7 @@
     <value>Choose provisioned Windows apps to remove from deployed devices.</value>
   </data>
   <data name="AppRemovalPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Enable app removal configuration</value>
+    <value>Enable AppX removals</value>
   </data>
   <data name="AiComponentsPageHeader.Title" xml:space="preserve">
     <value>AI components</value>
