@@ -2062,7 +2062,7 @@
     <value>General</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Send anonymous usage telemetry to help improve Foundry. No names, secrets, SSIDs, IP addresses, file paths, disk identifiers, computer names, Autopilot profile names, or hardware identifiers are sent.</value>
+    <value>Send anonymous usage telemetry to help improve Foundry. Secrets and direct device identifiers, including serial numbers and hardware hashes, are excluded. Telemetry uses an anonymous installation ID and may include the device vendor and model.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Enable telemetry</value>
