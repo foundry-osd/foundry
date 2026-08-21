@@ -6,7 +6,6 @@
   - changed-files:
       - any-glob-to-any-file:
           - 'src/Foundry/**'
-          - 'src/Foundry.Tests/**'
 
 # Foundry shared business logic
 'project: foundry-core':
@@ -14,6 +13,17 @@
       - any-glob-to-any-file:
           - 'src/Foundry.Core/**'
           - 'src/Foundry.Core.Tests/**'
+
+# Shared support libraries
+'project: shared':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'src/Foundry.Localization/**'
+          - 'src/Foundry.Localization.Tests/**'
+          - 'src/Foundry.Telemetry/**'
+          - 'src/Foundry.Telemetry.Tests/**'
+          - 'src/Foundry.Utilities/**'
+          - 'src/Foundry.Utilities.Tests/**'
 
 # Foundry deployment application
 'project: foundry-deploy':
@@ -81,4 +91,7 @@ config:
           - '.gitignore'
           - 'src/.editorconfig'
           - 'src/settings.xamlstyler'
+          - 'src/Foundry.slnx'
+          - 'src/Directory.Build.props'
+          - 'src/Directory.Solution.props'
           - '.vscode/**'

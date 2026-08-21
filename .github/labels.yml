@@ -34,7 +34,7 @@
 
 - name: dependencies
   color: '0366d6'
-  description: Dependency version or package management change
+  description: Dependency, package, or project metadata change
 
 - name: tests
   color: 'bfd4f2'
@@ -49,6 +49,10 @@
 - name: 'project: foundry-core'
   color: '0052cc'
   description: Changes in the Foundry.Core shared business logic library
+
+- name: 'project: shared'
+  color: '0b7285'
+  description: Changes in shared localization, telemetry, or utility libraries
 
 - name: 'project: foundry-deploy'
   color: '0e8a16'

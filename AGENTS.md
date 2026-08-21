@@ -151,6 +151,9 @@ Git, worktree, and pull request rules:
 - Prefer scoped pull request titles when the change has a clear area, for example `feat(winpe): ...`, `fix(packaging): ...`, or `docs(readme): ...`
 - Write concise pull request descriptions in English
 - Include: summary, reason, main changes, and testing notes
+- Include when relevant: linked issues, breaking or schema changes, screenshots or recordings, and follow-up work
+- Remove credentials, tenant data, hardware hashes, device identifiers, and personal information from pull request attachments
+- Treat local ARM64 validation as required only for architecture-sensitive changes; both x64 and ARM64 CI checks remain blocking
 
 Subagent rules:
 - Use subagents when the user explicitly asks for them or when parallel read-only analysis materially helps the task

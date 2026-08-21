@@ -1,34 +1,42 @@
 <!--
-Pull request title rules:
-- Use an English Conventional Commit title
-- Keep it concise and specific
-
-Examples:
+Use an English Conventional Commit title, for example:
 - feat(ui): add deployment summary step
 - fix(deploy): handle missing driver package
+
+Keep the pull request focused and remove sections that do not apply.
 -->
 
 ## Summary
 
-Short summary of the change.
+<!-- What does this pull request change? -->
 
-## Why
+## Reason
 
-Explain why this change was needed.
+<!-- Why is this change needed? Link relevant context or decisions. -->
 
-## Changes
+## Main changes
 
-- Main change 1
-- Main change 2
+<!-- List the important implementation or documentation changes. -->
+
+-
 
 ## Testing
 
-- [ ] `dotnet build .\src\Foundry.slnx`
-- [ ] Manual testing completed
-- [ ] Not applicable
+<!-- Check only what you completed and include commands or results where useful. -->
 
-## Notes
+- [ ] `.\scripts\Test-FoundryFormat.ps1`
+- [ ] x64 Release build and relevant tests
+- [ ] ARM64 Release build and relevant tests, when relevant
+- [ ] Manual validation
 
-- Breaking changes:
-- Related issues:
-- Screenshots or recordings, if relevant:
+Validation not run and reason:
+
+<!-- Write "None" when every relevant check above was completed. -->
+
+## Additional information
+
+- Closes #
+- Breaking or schema changes:
+- Screenshots or recordings:
+<!-- Remove credentials, tenant data, hardware hashes, device identifiers, and personal information from attachments. -->
+- Follow-up work:
