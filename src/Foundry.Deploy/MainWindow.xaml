@@ -177,8 +177,7 @@
         </Grid>
 
         <Grid x:Name="SplashContentHost"
-            Grid.Row="0"
-            Grid.RowSpan="2"
+            Grid.Row="1"
             Margin="32"
             Visibility="{Binding Session.IsSplashPage, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid

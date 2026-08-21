@@ -11,33 +11,35 @@
         </Grid.RenderTransform>
 
         <StackPanel
-            Width="420"
+            MaxWidth="760"
+            Margin="48,32"
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
             <Image
-                Width="112"
-                Height="112"
-                Margin="0,0,0,24"
+                Width="96"
+                Height="96"
+                Margin="0,0,0,20"
                 HorizontalAlignment="Center"
                 AutomationProperties.Name="{Binding Strings[App.Name]}"
                 Source="/Assets/Images/foundry-about-logo.png"
                 Stretch="Uniform" />
             <TextBlock
                 HorizontalAlignment="Center"
-                Style="{StaticResource DisplayTextBlockStyle}"
+                Style="{StaticResource TitleLargeTextBlockStyle}"
                 Text="{Binding Strings[Splash.WelcomeDeploy]}"
                 TextAlignment="Center"
                 TextWrapping="Wrap" />
 
             <Grid x:Name="LandingActionHost"
-                Height="76"
-                Margin="0,30,0,0"
+                MinHeight="76"
+                Margin="0,28,0,0"
                 RenderTransformOrigin="0.5,0.5">
                 <Grid.RenderTransform>
                     <TranslateTransform x:Name="LandingActionTransform" />
                 </Grid.RenderTransform>
                 <StackPanel
-                    Width="260"
+                    MinWidth="260"
+                    MaxWidth="520"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Visibility="{Binding Session.IsStartupInitializing, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -54,7 +56,7 @@
                 </StackPanel>
 
                 <Button
-                    MinWidth="160"
+                    MinWidth="180"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     AutomationProperties.Name="{Binding Strings[Splash.Start]}"
