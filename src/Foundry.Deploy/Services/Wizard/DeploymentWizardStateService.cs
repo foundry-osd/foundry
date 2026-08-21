@@ -9,22 +9,27 @@ public sealed class DeploymentWizardStateService : IDeploymentWizardStateService
     public bool CanGoPrevious(DeploymentWizardStateSnapshot snapshot)
     {
         ArgumentNullException.ThrowIfNull(snapshot);
-        return !snapshot.IsDeploymentRunning && snapshot.WizardStepIndex > 0;
+        return !snapshot.IsDeploymentRunning && GetCurrentStepIndex(snapshot) > 0;
     }
 
     public bool CanGoNext(DeploymentWizardStateSnapshot snapshot)
     {
         ArgumentNullException.ThrowIfNull(snapshot);
 
-        if (snapshot.IsDeploymentRunning || snapshot.WizardStepIndex >= 3)
+        if (snapshot.IsDeploymentRunning || snapshot.CurrentStepId == DeploymentWizardStepId.Summary)
         {
             return false;
         }
 
-        if (snapshot.WizardStepIndex == 0)
+        if (snapshot.CurrentStepId == DeploymentWizardStepId.TargetDevice)
         {
             return !snapshot.IsCatalogLoading &&
                    snapshot.IsOperatingSystemCatalogReadyForNavigation;
+        }
+
+        if (snapshot.CurrentStepId == DeploymentWizardStepId.Autopilot)
+        {
+            return snapshot.HasValidAutopilotSelection;
         }
 
         return true;
@@ -45,11 +50,24 @@ public sealed class DeploymentWizardStateService : IDeploymentWizardStateService
         return !snapshot.IsDeploymentRunning &&
                !snapshot.IsCatalogLoading &&
                !snapshot.IsTargetDiskLoading &&
-               snapshot.WizardStepIndex == 3 &&
+               snapshot.CurrentStepId == DeploymentWizardStepId.Summary &&
                snapshot.IsTargetComputerNameValid &&
                snapshot.HasSelectedOperatingSystem &&
                hasTargetDisk &&
                snapshot.HasValidDriverPackSelection &&
                snapshot.HasValidAutopilotSelection;
+    }
+
+    private static int GetCurrentStepIndex(DeploymentWizardStateSnapshot snapshot)
+    {
+        for (int index = 0; index < snapshot.AvailableSteps.Count; index++)
+        {
+            if (snapshot.AvailableSteps[index].Id == snapshot.CurrentStepId)
+            {
+                return index;
+            }
+        }
+
+        return -1;
     }
 }

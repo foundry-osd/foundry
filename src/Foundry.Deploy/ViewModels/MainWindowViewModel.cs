@@ -468,9 +468,14 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
     private DeploymentWizardStateSnapshot BuildWizardStateSnapshot()
     {
+        IReadOnlyList<DeploymentWizardStepDefinition> availableSteps =
+            DeploymentWizardStepDefinition.CreateSequence(Preparation.IsAutopilotEnabled);
+        int normalizedStepIndex = Math.Clamp(WizardStepIndex, 0, availableSteps.Count - 1);
+
         return new DeploymentWizardStateSnapshot
         {
-            WizardStepIndex = WizardStepIndex,
+            CurrentStepId = availableSteps[normalizedStepIndex].Id,
+            AvailableSteps = availableSteps,
             IsDeploymentRunning = IsDeploymentRunning,
             IsCatalogLoading = IsCatalogLoading,
             IsTargetDiskLoading = Preparation.IsTargetDiskLoading,
