@@ -1,66 +1,42 @@
 name: Question
-description: Ask a usage, setup, or contribution question about Foundry
-title: "[Question]: "
+description: Ask for help with Foundry
 labels:
   - question
 body:
   - type: markdown
     attributes:
       value: |
-        Use this form for focused questions about using, building, or contributing to Foundry.
-        Do not use this form to report bugs or request new features.
-  - type: dropdown
-    id: scope
-    attributes:
-      label: Question scope
-      description: Select the area that best matches your question.
-      options:
-        - "project: foundry"
-        - "project: foundry-deploy"
-        - ui
-        - ci
-        - config
-        - other
-    validations:
-      required: true
+        Use this form for usage, setup, deployment, or contribution questions.
+        Remove sensitive information from logs, screenshots, and files.
   - type: dropdown
     id: kind
     attributes:
       label: Question type
-      description: Select the kind of help you need.
       options:
-        - Usage
-        - Setup
-        - Build
+        - Usage or setup
         - Deployment workflow
-        - Contribution
+        - Build or contribution
+        - Documentation
         - Other
     validations:
       required: true
   - type: textarea
     id: question
     attributes:
-      label: Your question
-      description: Ask the question as clearly as possible.
-      placeholder: What are you trying to do, and where are you blocked?
+      label: What do you need help with?
+      placeholder: Explain what you are trying to do and where you are blocked.
     validations:
       required: true
   - type: textarea
     id: context
     attributes:
-      label: Context
-      description: Add any relevant details that would help answer the question.
-      placeholder: |
-        Foundry version:
-        Windows version:
-        Architecture:
-        What you already tried:
+      label: Additional context
+      description: Optional. Include the Foundry version and what you already tried when relevant.
   - type: textarea
-    id: logs
+    id: evidence
     attributes:
-      label: Logs or screenshots
-      description: Paste logs or add screenshots if they help explain the question.
-      render: shell
+      label: Logs or attachments
+      description: Optional. Paste a short sanitized log or drag and drop screenshots, recordings, logs, or files.
   - type: checkboxes
     id: checks
     attributes:

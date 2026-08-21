@@ -1,1 +1,8 @@
-blank_issues_enabled: true
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation and troubleshooting
+    url: https://docs.foundryosd.com
+    about: Review the guides and troubleshooting information before opening an issue.
+  - name: Report a security vulnerability
+    url: https://github.com/foundry-osd/foundry/security/advisories/new
+    about: Report suspected vulnerabilities privately to the maintainers.

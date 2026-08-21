@@ -1,78 +1,76 @@
 name: Bug report
-description: Report a reproducible problem in Foundry
-title: "[Bug]: "
+description: Report a problem in Foundry
 type: Bug
 body:
   - type: markdown
     attributes:
       value: |
-        Please search existing issues before opening a new bug report.
+        Search existing issues before submitting a report.
+        Do not report security vulnerabilities here. Use [private vulnerability reporting](https://github.com/foundry-osd/foundry/security/advisories/new).
+        Remove sensitive information from logs, screenshots, and files.
   - type: dropdown
     id: area
     attributes:
-      label: Affected scope
-      description: Select the current repository label that best matches the problem.
+      label: Affected area
       options:
-        - "project: foundry"
-        - "project: foundry-deploy"
-        - "project: foundry-connect"
-        - ui
-        - ci
-        - config
-        - unknown
+        - Foundry OSD
+        - Foundry Connect
+        - Foundry Deploy
+        - Documentation
+        - Other or not sure
     validations:
       required: true
   - type: textarea
     id: current-behavior
     attributes:
-      label: Current behavior
-      description: Describe the problem and what is failing.
-      placeholder: A concise description of the issue.
+      label: What happened?
+      placeholder: Describe the problem.
     validations:
       required: true
   - type: textarea
     id: expected-behavior
     attributes:
-      label: Expected behavior
-      description: Describe what you expected to happen instead.
-      placeholder: A concise description of the expected result.
+      label: What did you expect?
+      placeholder: Describe the expected result.
     validations:
       required: true
   - type: textarea
     id: steps
     attributes:
-      label: Steps to reproduce
-      description: Provide a reliable reproduction path.
+      label: How can we reproduce it?
+      description: Add steps, frequency, or trigger conditions. Say if the issue is intermittent.
       placeholder: |
         1. Open ...
-        2. Click ...
+        2. Select ...
         3. Observe ...
     validations:
       required: true
-  - type: textarea
-    id: environment
+  - type: input
+    id: version
     attributes:
-      label: Environment
-      description: Include anything relevant for troubleshooting.
-      placeholder: |
-        Foundry version:
-        Windows version:
-        Architecture:
-        Device or OEM:
+      label: Foundry version
+      placeholder: v26.8.10.1
+    validations:
+      required: true
+  - type: dropdown
+    id: latest-release
+    attributes:
+      label: Does it happen on the latest release?
+      options:
+        - "Yes"
+        - "No"
+        - Not tested
     validations:
       required: true
   - type: textarea
-    id: logs
+    id: evidence
     attributes:
-      label: Logs or screenshots
-      description: Paste logs or add screenshots if they help explain the issue.
-      render: shell
+      label: Additional context or attachments
+      description: Optional. Add relevant Windows, architecture, or device details; paste a sanitized log; or drag and drop supporting files.
   - type: checkboxes
     id: checks
     attributes:
       label: Checklist
       options:
-        - label: I searched for existing issues before submitting this report.
-          required: true
-        - label: I can reproduce this issue on a current version of Foundry.
+        - label: I searched for an existing issue before submitting this report.
           required: true
