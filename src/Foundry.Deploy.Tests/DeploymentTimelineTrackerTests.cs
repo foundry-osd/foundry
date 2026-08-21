@@ -12,7 +12,7 @@ public sealed class DeploymentTimelineTrackerTests
     [Fact]
     public void Reset_CreatesOnePendingEntryPerPlannedOperation()
     {
-        var tracker = new DeploymentTimelineTracker(name => name);
+        var tracker = CreateTracker();
 
         tracker.Reset(["Prepare", "Apply", "Finalize"]);
 
@@ -23,7 +23,7 @@ public sealed class DeploymentTimelineTrackerTests
     [Fact]
     public void Apply_UpdatesOnlyTheReportedOneBasedStep()
     {
-        var tracker = new DeploymentTimelineTracker(name => name);
+        var tracker = CreateTracker();
         tracker.Reset(["Prepare", "Apply"]);
 
         tracker.Apply(CreateProgress(stepIndex: 2, state: DeploymentStepState.Running));
@@ -35,7 +35,7 @@ public sealed class DeploymentTimelineTrackerTests
     [Fact]
     public void FailAt_PreservesCompletedEntriesAndMarksReportedOperationFailed()
     {
-        var tracker = new DeploymentTimelineTracker(name => name);
+        var tracker = CreateTracker();
         tracker.Reset(["Prepare", "Apply", "Finalize"]);
         tracker.Apply(CreateProgress(1, DeploymentStepState.Succeeded));
 
@@ -49,12 +49,41 @@ public sealed class DeploymentTimelineTrackerTests
     [Fact]
     public void CompleteAll_UsesCompletedSemanticsForEveryOperation()
     {
-        var tracker = new DeploymentTimelineTracker(name => name);
+        var tracker = CreateTracker();
         tracker.Reset(["Prepare", "Apply"]);
 
         tracker.CompleteAll();
 
         Assert.All(tracker.Entries, entry => Assert.True(entry.IsCompleted));
+    }
+
+    [Fact]
+    public void CompleteAll_PreservesStepsReportedAsSkipped()
+    {
+        var tracker = CreateTracker();
+        tracker.Reset(["Prepare", "Apply"]);
+        tracker.Apply(CreateProgress(1, DeploymentStepState.Skipped));
+
+        tracker.CompleteAll();
+
+        Assert.Equal(DeploymentStepState.Skipped, tracker.Entries[0].State);
+        Assert.Equal(DeploymentStepState.Succeeded, tracker.Entries[1].State);
+    }
+
+    [Fact]
+    public void Apply_ExposesLocalizedStateTextForAutomation()
+    {
+        var tracker = CreateTracker();
+        tracker.Reset(["Prepare"]);
+
+        tracker.Apply(CreateProgress(1, DeploymentStepState.Running));
+
+        Assert.Equal("Localized Running", tracker.Entries[0].StateAutomationText);
+    }
+
+    private static DeploymentTimelineTracker CreateTracker()
+    {
+        return new DeploymentTimelineTracker(name => name, state => $"Localized {state}");
     }
 
     private static DeploymentStepProgress CreateProgress(int stepIndex, DeploymentStepState state)

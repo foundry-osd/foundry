@@ -686,7 +686,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         {
             rows.Add(new(GetString("Summary.AutopilotProfile"), SummaryAutopilotProfileText));
         }
-        else
+        else if (Preparation.IsHardwareHashUploadMode)
         {
             rows.Add(new(
                 GetString("Preparation.AutopilotHardwareHashUploadStatus"),

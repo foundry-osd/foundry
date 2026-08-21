@@ -10,10 +10,14 @@ namespace Foundry.Deploy.ViewModels;
 public sealed class DeploymentTimelineTracker
 {
     private readonly Func<string, string> _localizeStepName;
+    private readonly Func<DeploymentStepState, string> _localizeState;
 
-    public DeploymentTimelineTracker(Func<string, string> localizeStepName)
+    public DeploymentTimelineTracker(
+        Func<string, string> localizeStepName,
+        Func<DeploymentStepState, string> localizeState)
     {
         _localizeStepName = localizeStepName ?? throw new ArgumentNullException(nameof(localizeStepName));
+        _localizeState = localizeState ?? throw new ArgumentNullException(nameof(localizeState));
     }
 
     public ObservableCollection<DeploymentTimelineEntryViewModel> Entries { get; } = [];
@@ -25,7 +29,11 @@ public sealed class DeploymentTimelineTracker
         for (int index = 0; index < plannedSteps.Count; index++)
         {
             string name = plannedSteps[index];
-            Entries.Add(new DeploymentTimelineEntryViewModel(index + 1, name, _localizeStepName(name)));
+            Entries.Add(new DeploymentTimelineEntryViewModel(
+                index + 1,
+                name,
+                _localizeStepName(name),
+                _localizeState(DeploymentStepState.Pending)));
         }
     }
 
@@ -38,15 +46,28 @@ public sealed class DeploymentTimelineTracker
             return;
         }
 
-        Entries[index].Update(progress.StepName, _localizeStepName(progress.StepName), progress.State);
+        Entries[index].Update(
+            progress.StepName,
+            _localizeStepName(progress.StepName),
+            progress.State,
+            _localizeState(progress.State));
     }
 
     public void FailAt(int oneBasedStepIndex)
     {
+        SetState(oneBasedStepIndex, DeploymentStepState.Failed);
+    }
+
+    public void SetState(int oneBasedStepIndex, DeploymentStepState state)
+    {
         int index = oneBasedStepIndex - 1;
         if (index >= 0 && index < Entries.Count)
         {
-            Entries[index].State = DeploymentStepState.Failed;
+            Entries[index].Update(
+                Entries[index].RawName,
+                Entries[index].DisplayName,
+                state,
+                _localizeState(state));
         }
     }
 
@@ -54,7 +75,14 @@ public sealed class DeploymentTimelineTracker
     {
         foreach (DeploymentTimelineEntryViewModel entry in Entries)
         {
-            entry.State = DeploymentStepState.Succeeded;
+            if (entry.State != DeploymentStepState.Skipped)
+            {
+                entry.Update(
+                    entry.RawName,
+                    entry.DisplayName,
+                    DeploymentStepState.Succeeded,
+                    _localizeState(DeploymentStepState.Succeeded));
+            }
         }
     }
 
@@ -62,7 +90,7 @@ public sealed class DeploymentTimelineTracker
     {
         foreach (DeploymentTimelineEntryViewModel entry in Entries)
         {
-            entry.DisplayName = _localizeStepName(entry.RawName);
+            entry.RefreshLocalization(_localizeStepName(entry.RawName), _localizeState(entry.State));
         }
     }
 }

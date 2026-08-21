@@ -1,5 +1,4 @@
-﻿<Window
-    x:Class="Foundry.Deploy.Views.DeploymentErrorDetailsDialog"
+﻿<Window x:Class="Foundry.Deploy.Views.DeploymentErrorDetailsDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="{Binding Strings[Error.TechnicalDetailsTitle]}"
@@ -14,9 +13,10 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{Binding Strings[Error.TechnicalDetailsTitle]}" />
-        <TextBox
-            x:Name="DetailsTextBox"
+        <TextBlock
+            Style="{StaticResource TitleTextBlockStyle}"
+            Text="{Binding Strings[Error.TechnicalDetailsTitle]}" />
+        <TextBox x:Name="DetailsTextBox"
             Grid.Row="1"
             Margin="0,16,0,16"
             AcceptsReturn="True"

@@ -5,6 +5,7 @@
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using Foundry.Deploy.ViewModels;
@@ -87,6 +88,29 @@ public partial class DeploymentStatusView : UserControl
         {
             AnimateStateChange();
         }
+
+        if (e.PropertyName is nameof(DeploymentSessionViewModel.CurrentPage)
+            or nameof(DeploymentSessionViewModel.CurrentStepName)
+            or nameof(DeploymentSessionViewModel.FailedStepName)
+            or nameof(DeploymentSessionViewModel.CompletionInstructionText))
+        {
+            RaiseStatusLiveRegionChanged();
+        }
+    }
+
+    private void RaiseStatusLiveRegionChanged()
+    {
+        Dispatcher.BeginInvoke(() =>
+        {
+            if (!IsLoaded)
+            {
+                return;
+            }
+
+            AutomationPeer? peer = UIElementAutomationPeer.FromElement(StateContent) ??
+                                   UIElementAutomationPeer.CreatePeerForElement(StateContent);
+            peer?.RaiseAutomationEvent(AutomationEvents.LiveRegionChanged);
+        });
     }
 
     private void OnTimelineCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)

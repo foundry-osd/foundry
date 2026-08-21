@@ -65,7 +65,9 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         _processRunner = processRunner ?? throw new ArgumentNullException(nameof(processRunner));
         _networkAdapterSnapshotProvider = networkAdapterSnapshotProvider ?? new WindowsNetworkAdapterSnapshotProvider();
         _isDebugSafeMode = isDebugSafeMode;
-        _timelineTracker = new DeploymentTimelineTracker(DeploymentUiTextLocalizer.LocalizeStepName);
+        _timelineTracker = new DeploymentTimelineTracker(
+            DeploymentUiTextLocalizer.LocalizeStepName,
+            LocalizeTimelineState);
 
         _operationProgressService.ProgressChanged += OnOperationProgressChanged;
         _deploymentOrchestrator.StepProgressChanged += OnStepProgressChanged;
@@ -769,18 +771,30 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         int normalizedIndex = Math.Clamp(currentStepIndex, 0, _timelineTracker.Entries.Count);
         for (int index = 0; index < normalizedIndex - 1; index++)
         {
-            _timelineTracker.Entries[index].State = DeploymentStepState.Succeeded;
+            _timelineTracker.SetState(index + 1, DeploymentStepState.Succeeded);
         }
 
         if (normalizedIndex > 0)
         {
-            _timelineTracker.Entries[normalizedIndex - 1].State = currentState;
+            _timelineTracker.SetState(normalizedIndex, currentState);
         }
     }
 
     private string GetString(string key)
     {
         return Strings[key];
+    }
+
+    private string LocalizeTimelineState(DeploymentStepState state)
+    {
+        return state switch
+        {
+            DeploymentStepState.Running => GetString("Status.InProgress"),
+            DeploymentStepState.Succeeded => GetString("Status.StepCompleted"),
+            DeploymentStepState.Skipped => GetString("Status.StepSkipped"),
+            DeploymentStepState.Failed => GetString("Status.StepFailed"),
+            _ => GetString("Status.WaitingForProgress")
+        };
     }
 
     private string Format(string key, params object[] args)

@@ -1,11 +1,11 @@
-﻿<UserControl
-    x:Class="Foundry.Deploy.Views.SplashView"
+﻿<UserControl x:Class="Foundry.Deploy.Views.SplashView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <Grid x:Name="LandingContent" RenderTransformOrigin="0.5,0.5">
+    <Grid x:Name="LandingContent"
+        RenderTransformOrigin="0.5,0.5">
         <Grid.RenderTransform>
             <TranslateTransform x:Name="LandingTransform" />
         </Grid.RenderTransform>
@@ -29,8 +29,7 @@
                 TextAlignment="Center"
                 TextWrapping="Wrap" />
 
-            <Grid
-                x:Name="LandingActionHost"
+            <Grid x:Name="LandingActionHost"
                 Height="76"
                 Margin="0,30,0,0"
                 RenderTransformOrigin="0.5,0.5">
@@ -42,7 +41,9 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Visibility="{Binding Session.IsStartupInitializing, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <ProgressBar Height="4" IsIndeterminate="True" />
+                    <ProgressBar
+                        Height="4"
+                        IsIndeterminate="True" />
                     <TextBlock
                         Margin="0,12,0,0"
                         HorizontalAlignment="Center"
