@@ -116,6 +116,7 @@ public partial class CustomProgressRing : UserControl
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
+        SystemParameters.StaticPropertyChanged += OnSystemParametersChanged;
         AnimateToTarget(Value);
     }
 
@@ -126,8 +127,17 @@ public partial class CustomProgressRing : UserControl
 
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
+        SystemParameters.StaticPropertyChanged -= OnSystemParametersChanged;
         StopDeterminateAnimation();
         StopIndeterminateAnimation();
+    }
+
+    private void OnSystemParametersChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(SystemParameters.ClientAreaAnimation))
+        {
+            UpdateVisuals();
+        }
     }
 
     private void UpdateVisuals()
@@ -179,7 +189,10 @@ public partial class CustomProgressRing : UserControl
         BeginAnimation(DisplayedValueProperty, null);
         SetValue(DisplayedValueProperty, targetValue);
 
-        if (!IsLoaded || IsIndeterminate || !SystemParameters.ClientAreaAnimation || Math.Abs(targetValue - currentValue) < 0.01d)
+        if (!IsLoaded ||
+            IsIndeterminate ||
+            !ProgressAnimationDurationPolicy.ShouldAnimate(SystemParameters.ClientAreaAnimation) ||
+            Math.Abs(targetValue - currentValue) < 0.01d)
         {
             UpdateVisuals();
             return;
@@ -215,6 +228,13 @@ public partial class CustomProgressRing : UserControl
 
     private void StartIndeterminateAnimation()
     {
+        if (!ProgressAnimationDurationPolicy.ShouldAnimate(SystemParameters.ClientAreaAnimation))
+        {
+            StopIndeterminateAnimation();
+            IndeterminateRotateTransform.Angle = 0d;
+            return;
+        }
+
         IndeterminateRotateTransform.BeginAnimation(RotateTransform.AngleProperty, IndeterminateRotationAnimation);
     }
 

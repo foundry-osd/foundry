@@ -22,4 +22,9 @@ public static class ProgressAnimationDurationPolicy
                               ((MaximumDurationMilliseconds - MinimumDurationMilliseconds) * ratio);
         return TimeSpan.FromMilliseconds(milliseconds);
     }
+
+    public static bool ShouldAnimate(bool systemAnimationsEnabled)
+    {
+        return systemAnimationsEnabled;
+    }
 }
