@@ -7,10 +7,13 @@
     xmlns:runtime="clr-namespace:Foundry.Deploy.Services.Runtime"
     xmlns:views="clr-namespace:Foundry.Deploy.Views"
     Title="{Binding WindowTitle}"
+    Width="1280"
+    Height="800"
     Icon="/Assets/Icons/app.ico"
-    ResizeMode="NoResize"
-    WindowState="Maximized"
-    WindowStyle="None"
+    ResizeMode="CanResize"
+    WindowStartupLocation="CenterScreen"
+    WindowState="Normal"
+    WindowStyle="SingleBorderWindow"
     mc:Ignorable="d">
     <Window.Resources>
         <DataTemplate x:Key="SplashPageTemplate">
