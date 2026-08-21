@@ -29,13 +29,6 @@ public sealed record DeploymentSummaryCategoryViewModel(
         _ => "\uECCA"
     };
 
-    public string BrushResourceKey => Status switch
-    {
-        DeploymentSummaryStatus.Configured => "SystemFillColorSuccessBrush",
-        DeploymentSummaryStatus.Caution => "SystemFillColorCautionBrush",
-        _ => "TextFillColorSecondaryBrush"
-    };
-
     public bool CanEdit => EditStepId.HasValue;
 }
 
@@ -43,9 +36,11 @@ public sealed record DeploymentSummarySource
 {
     public required string TargetSummary { get; init; }
     public required IReadOnlyList<DeploymentSummaryRowViewModel> TargetRows { get; init; }
+    public bool IsTargetConfigured { get; init; }
     public bool HasTargetWarning { get; init; }
     public required string OperatingSystemSummary { get; init; }
     public required IReadOnlyList<DeploymentSummaryRowViewModel> OperatingSystemRows { get; init; }
+    public bool IsOperatingSystemConfigured { get; init; }
     public required string DriversSummary { get; init; }
     public required IReadOnlyList<DeploymentSummaryRowViewModel> DriverRows { get; init; }
     public bool IsDriversConfigured { get; init; }
@@ -81,13 +76,17 @@ public sealed class DeploymentSummaryBuilder
             new(
                 _localize("Summary.Category.TargetDevice"),
                 source.TargetSummary,
-                source.HasTargetWarning ? DeploymentSummaryStatus.Caution : DeploymentSummaryStatus.Configured,
+                source.IsTargetConfigured && !source.HasTargetWarning
+                    ? DeploymentSummaryStatus.Configured
+                    : DeploymentSummaryStatus.Caution,
                 source.TargetRows,
                 DeploymentWizardStepId.TargetDevice),
             new(
                 _localize("Summary.Category.OperatingSystem"),
                 source.OperatingSystemSummary,
-                DeploymentSummaryStatus.Configured,
+                source.IsOperatingSystemConfigured
+                    ? DeploymentSummaryStatus.Configured
+                    : DeploymentSummaryStatus.Caution,
                 source.OperatingSystemRows,
                 DeploymentWizardStepId.OperatingSystem),
             new(

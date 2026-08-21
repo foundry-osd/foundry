@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Nom de l'ordinateur</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1 à 15 caractères. A-Z, a-z, 0-9 et trait d'union uniquement.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Le nom de l'ordinateur doit contenir 1 à 15 caractères valides (lettres, chiffres ou trait d'union).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Machine cible</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Disque de destination</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Options de déploiement</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Disque cible</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Sélectionnez un disque cible. Les disques non éligibles sont bloqués.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Appliquer les mises à jour du micrologiciel</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Activer Autopilot pour ce déploiement</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Aucun profil Autopilot intégré n'a été trouvé sur ce support.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profil</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Téléversement zero-touch du hachage matériel</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Téléversement interactif du hachage matériel</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Disponible sur ce média: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Téléversement zero-touch du hachage matériel</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>État du téléchargement du hachage matériel</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Prêt à télécharger le hachage matériel</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Le certificat de téléchargement a expiré</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Le téléchargement du hachage matériel n'est pas disponible sur ce support car les informations de certificat requises sont manquantes. Le déploiement peut continuer, mais le téléchargement sera ignoré.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Le certificat Autopilot a expiré. Le déploiement peut continuer, mais le téléchargement sera ignoré.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Détails</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>ID du locataire</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Empreinte digitale du certificat</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Expiration du certificat</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Balise de groupe</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>La balise de groupe est facultative. Sélectionnez Aucun pour télécharger sans balise de groupe.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Détection du matériel...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>La détection du matériel a échoué.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Échec de la détection du matériel: {0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Méthode</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profil</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot balise de groupe</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Cible</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>Système</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Options de déploiement</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Non Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profil</value></data>
@@ -588,4 +577,5 @@ Continuer le déploiement?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Chronologie des opérations de déploiement</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Afficher les détails techniques</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Détails techniques</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>L’assistant d’inscription s’exécutera sur l’appareil déployé.</value></data>
 </root>

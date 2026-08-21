@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Computername</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 Zeichen. Nur A-Z, a-z, 0-9 und Bindestrich.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Der Computername muss 1 bis 15 gültige Zeichen (Buchstaben, Zahlen oder Bindestriche) enthalten.</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Zielmaschine</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Zielfestplatte</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Bereitstellungsoptionen</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Zielfestplatte</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Wählen Sie eine Zielfestplatte aus. Nicht berechtigte Datenträger werden blockiert.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Wenden Sie Firmware-Updates an</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Aktivieren Sie Autopilot für diese Bereitstellung</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Auf diesem Medium wurden keine eingebetteten Autopilot-Profile gefunden.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON Profil</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-Touch-Hardware-Hash-Upload</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktiver Hardware-Hash-Upload</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Verfügbar auf diesem Medium: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-Touch-Hardware-Hash-Upload</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Status des Hardware-Hash-Uploads</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Bereit zum Hochladen des Hardware-Hashs</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Das Upload-Zertifikat ist abgelaufen</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Der Hardware-Hash-Upload ist auf diesem Medium nicht möglich, da die erforderlichen Zertifikatsinformationen fehlen. Die Bereitstellung kann fortgesetzt werden, der Upload wird jedoch übersprungen.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Das Autopilot-Zertifikat ist abgelaufen. Die Bereitstellung kann fortgesetzt werden, der Upload wird jedoch übersprungen.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Details</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Mieter-ID</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Fingerabdruck des Zertifikats</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Ablauf des Zertifikats</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Gruppen-Tag</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Das Gruppen-Tag ist optional. Wählen Sie „Keine“ aus, um den Upload ohne Gruppen-Tag durchzuführen.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Hardware wird erkannt...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Die Hardwareerkennung ist fehlgeschlagen.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Hardware-Erkennung fehlgeschlagen: {0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Methode</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profil</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot Gruppen-Tag</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Ziel</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>System</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Bereitstellungsoptionen</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Nein Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON Profil</value></data>
@@ -588,4 +577,5 @@ Mit der Bereitstellung fortfahren?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Zeitleiste des Bereitstellungsvorgangs</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Technische Details anzeigen</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Technische Details</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Der Registrierungsassistent wird auf dem bereitgestellten Gerät ausgeführt.</value></data>
 </root>

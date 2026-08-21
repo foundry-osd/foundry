@@ -24,12 +24,9 @@ public sealed class DeploymentPreparationViewModelTests
         viewModel.ApplyAutopilotConfiguration(new DeployAutopilotSettings(), [profile]);
 
         Assert.True(viewModel.HasAutopilotProfiles);
-        Assert.True(viewModel.IsAutopilotSectionVisible);
         Assert.False(viewModel.IsAutopilotEnabled);
-        Assert.True(viewModel.IsAutopilotDisabledSummaryVisible);
         Assert.False(viewModel.IsAutopilotProfileSelectionEnabled);
         Assert.Null(viewModel.SelectedAutopilotProfile);
-        Assert.Contains("JSON", viewModel.AutopilotDisabledSummaryText, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -59,7 +56,6 @@ public sealed class DeploymentPreparationViewModelTests
 
         Assert.True(viewModel.HasAutopilotProfiles);
         Assert.True(viewModel.IsAutopilotEnabled);
-        Assert.True(viewModel.IsAutopilotSectionVisible);
         Assert.True(viewModel.IsAutopilotProfileSelectionEnabled);
         Assert.Null(viewModel.SelectedAutopilotProfile);
     }
@@ -73,7 +69,6 @@ public sealed class DeploymentPreparationViewModelTests
 
         Assert.False(viewModel.HasAutopilotProfiles);
         Assert.True(viewModel.IsAutopilotEnabled);
-        Assert.True(viewModel.IsAutopilotSectionVisible);
         Assert.False(viewModel.IsAutopilotProfileSelectionEnabled);
         Assert.Null(viewModel.SelectedAutopilotProfile);
         Assert.NotEqual(string.Empty, viewModel.AutopilotProfileHint);
@@ -119,7 +114,6 @@ public sealed class DeploymentPreparationViewModelTests
         Assert.False(viewModel.IsHardwareHashUploadMessageVisible);
         Assert.True(string.IsNullOrWhiteSpace(viewModel.AutopilotHardwareHashUploadMessage));
         Assert.Equal("tenant-id", viewModel.AutopilotHardwareHashTenantIdText);
-        Assert.Equal("ABCDEF123456", viewModel.AutopilotHardwareHashCertificateThumbprintText);
         Assert.Equal("Sales", viewModel.SelectedHardwareHashGroupTag?.GroupTag);
     }
 
@@ -145,6 +139,8 @@ public sealed class DeploymentPreparationViewModelTests
         Assert.False(viewModel.IsAutopilotProfileSelectionEnabled);
         Assert.False(viewModel.IsHardwareHashGroupTagControlsVisible);
         Assert.False(viewModel.IsHardwareHashUploadMessageVisible);
+        Assert.True(viewModel.IsInteractiveHardwareHashUploadStatusVisible);
+        Assert.False(string.IsNullOrWhiteSpace(viewModel.AutopilotInteractiveHardwareHashUploadStatusText));
         Assert.False(string.IsNullOrWhiteSpace(viewModel.AutopilotModeText));
         Assert.Null(viewModel.SelectedAutopilotProfile);
     }
@@ -337,7 +333,6 @@ public sealed class DeploymentPreparationViewModelTests
         viewModel.IsAutopilotEnabled = false;
 
         Assert.False(viewModel.IsAutopilotProfileSelectionEnabled);
-        Assert.True(viewModel.IsAutopilotSectionVisible);
 
         viewModel.IsAutopilotEnabled = true;
 

@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>שם המחשב</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 תווים. A-Z, a-z, 0-9 ומקף בלבד.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>שם המחשב חייב להכיל 1 עד 15 תווים חוקיים (אותיות, מספרים או מקף).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>מכונת מטרה</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>דיסק יעד</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>אפשרויות פריסה</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>דיסק מטרה</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>בחר דיסק יעד. דיסקים לא כשירים חסומים.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>החל עדכוני קושחה</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>אפשר Autopilot עבור פריסה זו</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>פרופיל</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>לא נמצאו פרופילים משובצים של Autopilot במדיה זו.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>פרופיל JSON</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>העלאת zero-touch של hash חומרה</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>העלאה אינטראקטיבית של hash חומרה</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>זמין במדיה זו: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>העלאת zero-touch של hash חומרה</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>סטטוס העלאת גיבוב של חומרה</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>מוכן להעלות hash של חומרה</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>פג תוקפו של אישור ההעלאה</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>העלאת גיבוב של חומרה אינה זמינה במדיה זו מכיוון שחסר מידע אישור נדרש. ניתן להמשיך בפריסה, אך ההעלאה תידלג.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>פג תוקף האישור Autopilot. ניתן להמשיך בפריסה, אך ההעלאה תידלג.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>פרטים</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>זיהוי דייר</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>טביעת אצבע של תעודה</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>תפוגה של תעודה</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>תג קבוצה</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>תג הקבוצה הוא אופציונלי. בחר ללא כדי להעלות ללא תג קבוצה.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>מזהה חומרה...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>זיהוי החומרה נכשל.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>זיהוי החומרה נכשל: {0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>שיטה Autopilot</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot פרופיל</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>תג קבוצתי Autopilot</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>יעד</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>מערכת</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>אפשרויות פריסה</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>לא Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>פרופיל JSON</value></data>
@@ -588,4 +577,5 @@ ErrorCode=0x80070005
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>קו זמן פעולת פריסה</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>הצג פרטים טכניים</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>פרטים טכניים</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>מסייע הרישום יופעל במכשיר שנפרס.</value></data>
 </root>

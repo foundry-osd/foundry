@@ -57,6 +57,31 @@
                 Visibility="{Binding IsHardwareHashUploadMessageVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
         </StackPanel>
 
+        <Border
+            Padding="12"
+            Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+            CornerRadius="6"
+            Visibility="{Binding IsInteractiveHardwareHashUploadStatusVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    FontFamily="{DynamicResource SymbolThemeFontFamily}"
+                    FontSize="16"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="&#xE946;" />
+                <TextBlock
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Text="{Binding AutopilotInteractiveHardwareHashUploadStatusText}"
+                    TextWrapping="Wrap" />
+            </Grid>
+        </Border>
+
         <Expander
             Margin="0,20,0,0"
             AutomationProperties.Name="{Binding DataContext.Strings[Autopilot.ConfigurationDetails], ElementName=ViewRoot}"

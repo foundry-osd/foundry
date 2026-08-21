@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Computernaam</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 tekens. Alleen A-Z, a-z, 0-9 en koppelteken.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>De computernaam moet 1 tot 15 geldige tekens bevatten (letters, cijfers of koppelteken).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Doelmachine</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Bestemmingsschijf</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Implementatieopties</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Doelschijf</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Selecteer een doelschijf. Niet-geschikte schijven worden geblokkeerd.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Firmware-updates toepassen</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Schakel Autopilot in voor deze implementatie</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profiel</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Er zijn geen ingebedde Autopilot-profielen gevonden op dit medium.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profiel</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch hardware-hash-upload</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interactieve hardware-hash-upload</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Beschikbaar op dit medium: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch hardware-hash-upload</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Uploadstatus van hardware-hash</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Klaar om hardware-hash te uploaden</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Uploadcertificaat is verlopen</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Hardware-hash-upload is niet beschikbaar op dit medium omdat de vereiste certificaatinformatie ontbreekt. De implementatie kan doorgaan, maar het uploaden wordt overgeslagen.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Het Autopilot-certificaat is verlopen. De implementatie kan doorgaan, maar het uploaden wordt overgeslagen.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Details</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Huurder-ID</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Vingerafdruk certificaat</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Vervaldatum certificaat</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Groepstag</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>De groepstag is optioneel. Selecteer Geen om te uploaden zonder een groepstag.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Hardware detecteren...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Hardwaredetectie mislukt.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Hardwaredetectie mislukt: {0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Methode</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profiel</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot groepstag</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Doel</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>Systeem</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Implementatieopties</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Nee Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profiel</value></data>
@@ -588,4 +577,5 @@ Doorgaan met de implementatie?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Tijdlijn van de implementatie</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Bekijk technische details</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Technische details</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>De registratieassistent wordt uitgevoerd op het geïmplementeerde apparaat.</value></data>
 </root>

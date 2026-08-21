@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Název počítače</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 znaků. Pouze A–Z, a–z, 0–9 a spojovník.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Název počítače musí obsahovat 1 až 15 platných znaků (písmena, číslice nebo spojovník).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Cílový stroj</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Cílový disk</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Možnosti nasazení</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Cílový disk</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Vyberte cílový disk. Nezpůsobilé disky jsou blokovány.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Použít aktualizace firmwaru</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Povolte pro toto nasazení Autopilot</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Na tomto médiu nebyly nalezeny žádné vložené profily Autopilot.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>Profil JSON</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch nahrání hardwarového hashe</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktivní nahrání hardwarového hashe</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Dostupné na tomto médiu: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch nahrání hardwarového hashe</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Stav nahrávání hardwarového hash</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Hardwarový hash je připraven nahrát</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Platnost certifikátu pro nahrávání vypršela</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Nahrání hardwarového hashu na tomto médiu není k dispozici, protože chybí požadované informace o certifikátu. Nasazování může pokračovat, ale nahrávání bude přeskočeno.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Platnost certifikátu Autopilot vypršela. Nasazování může pokračovat, ale nahrávání bude přeskočeno.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Podrobnosti</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>ID nájemce</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Otisk certifikátu</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Vypršení platnosti certifikátu</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Skupinová značka</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Značka skupiny je volitelná. Chcete-li nahrát bez značky skupiny, vyberte možnost Žádné.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Detekce hardwaru...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Detekce hardwaru se nezdařila.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Detekce hardwaru se nezdařila: {0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Metoda Autopilot</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Profil Autopilot</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Značka skupiny Autopilot</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Cíl</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>Systém</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Možnosti nasazení</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Ne Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>Profil JSON</value></data>
@@ -588,4 +577,5 @@ Pokračovat v nasazování?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Časová osa operace nasazení</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Zobrazit technické podrobnosti</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Technické detaily</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Na nasazeném zařízení se spustí pomocník registrace.</value></data>
 </root>

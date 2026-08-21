@@ -24,7 +24,6 @@ public sealed partial class DeploymentTimelineEntryViewModel : ObservableObject
     [NotifyPropertyChangedFor(nameof(IsCompleted))]
     [NotifyPropertyChangedFor(nameof(IsActive))]
     [NotifyPropertyChangedFor(nameof(Glyph))]
-    [NotifyPropertyChangedFor(nameof(BrushResourceKey))]
     private DeploymentStepState state = DeploymentStepState.Pending;
 
     [ObservableProperty]
@@ -42,14 +41,6 @@ public sealed partial class DeploymentTimelineEntryViewModel : ObservableObject
         DeploymentStepState.Running => "\uE915",
         DeploymentStepState.Failed => "\uEA39",
         _ => "\uECCA"
-    };
-
-    public string BrushResourceKey => State switch
-    {
-        DeploymentStepState.Succeeded or DeploymentStepState.Skipped => "SystemFillColorSuccessBrush",
-        DeploymentStepState.Running => "AccentFillColorDefaultBrush",
-        DeploymentStepState.Failed => "SystemFillColorCriticalBrush",
-        _ => "TextFillColorSecondaryBrush"
     };
 
     public void Update(string rawName, string displayName, DeploymentStepState newState, string newStateAutomationText)

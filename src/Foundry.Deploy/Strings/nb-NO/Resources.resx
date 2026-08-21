@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Datamaskinnavn</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 tegn. A-Z, a-z, 0-9 og bare bindestrek.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Datamaskinnavnet må inneholde 1 til 15 gyldige tegn (bokstaver, tall eller bindestrek).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Målmaskin</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Destinasjonsdisk</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Implementeringsalternativer</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Måldisk</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Velg en måldisk. Ikke-kvalifiserte disker er blokkert.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Bruk fastvareoppdateringer</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Aktiver Autopilot for denne distribusjonen</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Ingen innebygde Autopilot-profiler ble funnet på dette mediet.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profil</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch opplasting av maskinvarehash</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktiv opplasting av maskinvarehash</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Tilgjengelig på dette mediet: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch opplasting av maskinvarehash</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Maskinvarehash-opplastingsstatus</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Klar til å laste opp maskinvarehash</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Opplastingssertifikatet er utløpt</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Maskinvarehash-opplasting er utilgjengelig på dette mediet fordi nødvendig sertifikatinformasjon mangler. Implementeringen kan fortsette, men opplastingen blir hoppet over.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot-sertifikatet har utløpt. Implementeringen kan fortsette, men opplastingen blir hoppet over.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Detaljer</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Leietaker ID</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Sertifikat tommelfingeravtrykk</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Sertifikat utløper</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Gruppemerke</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Gruppekoden er valgfri. Velg Ingen for å laste opp uten en gruppetag.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Oppdager maskinvare...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Maskinvaregjenkjenning mislyktes.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Maskinvaredeteksjon mislyktes: {0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Metode</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profil</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot gruppetag</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Mål</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>System</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Implementeringsalternativer</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Nei Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profil</value></data>
@@ -588,4 +577,5 @@ Vil du fortsette med distribusjonen?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Tidslinje for distribusjonsoperasjonen</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Se tekniske detaljer</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Tekniske detaljer</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Registreringsassistenten kjøres på den distribuerte enheten.</value></data>
 </root>

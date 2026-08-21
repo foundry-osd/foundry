@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>ชื่อคอมพิวเตอร์</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 ตัวอักษร A-Z, a-z, 0-9 และขีดกลางเท่านั้น</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>ชื่อคอมพิวเตอร์ต้องมีอักขระที่ถูกต้อง 1 ถึง 15 ตัว (ตัวอักษร ตัวเลข หรือยัติภังค์)</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>เครื่องเป้าหมาย</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>ดิสก์ปลายทาง</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>ตัวเลือกการปรับใช้</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>ดิสก์เป้าหมาย</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>เลือกดิสก์เป้าหมาย ดิสก์ที่ไม่มีสิทธิ์ถูกบล็อก</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>ใช้การอัพเดตเฟิร์มแวร์</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>เปิดใช้งาน Autopilot สำหรับการปรับใช้นี้</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>โปรไฟล์</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>ไม่พบโปรไฟล์ Autopilot ที่ฝังอยู่ในสื่อนี้</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON โปรไฟล์</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>การอัปโหลดแฮชฮาร์ดแวร์แบบ zero-touch</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>การอัปโหลดแฮชฮาร์ดแวร์แบบโต้ตอบ</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>มีอยู่ในสื่อนี้: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>การอัปโหลดแฮชฮาร์ดแวร์แบบ zero-touch</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>สถานะการอัปโหลดแฮชของฮาร์ดแวร์</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>พร้อมอัปโหลดแฮชฮาร์ดแวร์</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>ใบรับรองการอัปโหลดหมดอายุแล้ว</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>การอัปโหลดแฮชฮาร์ดแวร์ไม่พร้อมใช้งานบนสื่อนี้ เนื่องจากข้อมูลใบรับรองที่จำเป็นขาดหายไป การปรับใช้สามารถดำเนินต่อไปได้ แต่การอัปโหลดจะถูกข้ามไป</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>ใบรับรอง Autopilot หมดอายุแล้ว การปรับใช้สามารถดำเนินต่อไปได้ แต่การอัปโหลดจะถูกข้ามไป</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>รายละเอียด</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>รหัสผู้เช่า</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>รหัสประจำตัวใบรับรอง</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>ใบรับรองหมดอายุ</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>แท็กกลุ่ม</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>แท็กกลุ่มเป็นทางเลือก เลือกไม่มีเพื่ออัปโหลดโดยไม่มีแท็กกลุ่ม</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>กำลังตรวจจับฮาร์ดแวร์...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>การตรวจหาฮาร์ดแวร์ล้มเหลว</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>การตรวจจับฮาร์ดแวร์ล้มเหลว: {0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot วิธีการ</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot ข้อมูลส่วนตัว</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot แท็กกลุ่ม</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>เป้าหมาย</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>ระบบ</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>ตัวเลือกการปรับใช้</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>ไม่ Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON โปรไฟล์</value></data>
@@ -588,4 +577,5 @@
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>ไทม์ไลน์การดำเนินการปรับใช้</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>ดูรายละเอียดทางเทคนิค</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>รายละเอียดทางเทคนิค</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>ผู้ช่วยการลงทะเบียนจะทำงานบนอุปกรณ์ที่ปรับใช้แล้ว</value></data>
 </root>

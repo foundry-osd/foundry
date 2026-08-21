@@ -53,14 +53,38 @@ public sealed class DeploymentSummaryBuilderTests
         Assert.All(categories.Skip(1), category => Assert.NotEqual(DeploymentSummaryStatus.Caution, category.Status));
     }
 
+    [Fact]
+    public void Build_ShowsIncompleteTargetAsCaution()
+    {
+        var builder = new DeploymentSummaryBuilder(key => key);
+        DeploymentSummarySource source = CreateSource() with { IsTargetConfigured = false };
+
+        DeploymentSummaryCategoryViewModel target = builder.Build(source)[0];
+
+        Assert.Equal(DeploymentSummaryStatus.Caution, target.Status);
+    }
+
+    [Fact]
+    public void Build_ShowsMissingOperatingSystemAsCaution()
+    {
+        var builder = new DeploymentSummaryBuilder(key => key);
+        DeploymentSummarySource source = CreateSource() with { IsOperatingSystemConfigured = false };
+
+        DeploymentSummaryCategoryViewModel operatingSystem = builder.Build(source)[1];
+
+        Assert.Equal(DeploymentSummaryStatus.Caution, operatingSystem.Status);
+    }
+
     private static DeploymentSummarySource CreateSource()
     {
         return new DeploymentSummarySource
         {
             TargetSummary = "PC-001",
             TargetRows = [new("Computer name", "PC-001")],
+            IsTargetConfigured = true,
             OperatingSystemSummary = "Windows 11",
             OperatingSystemRows = [new("Edition", "Enterprise")],
+            IsOperatingSystemConfigured = true,
             DriversSummary = "None",
             DriverRows = [],
             IsDriversConfigured = false,

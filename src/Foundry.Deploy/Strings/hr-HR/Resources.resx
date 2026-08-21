@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Naziv računala</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 znakova. A-Z, a-z, 0-9 i samo crtica.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Naziv računala mora sadržavati 1 do 15 valjanih znakova (slova, brojeva ili crtica).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Stroj za mete</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Odredišni disk</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Mogućnosti implementacije</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Ciljni disk</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Odaberite ciljni disk. Nepodobni diskovi su blokirani.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Primijenite ažuriranja firmvera</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Omogućite Autopilot za ovu implementaciju</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Na ovom mediju nisu pronađeni ugrađeni Autopilot profili.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profil</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch prijenos hardverskog hasha</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktivni prijenos hardverskog hasha</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Dostupno na ovom mediju: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch prijenos hardverskog hasha</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Status prijenosa raspršene vrijednosti hardvera</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Spremno za učitavanje hash hardvera</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Certifikat za prijenos je istekao</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Prijenos hash hardvera nije dostupan na ovom mediju jer nedostaju potrebni podaci o certifikatu. Implementacija se može nastaviti, ali će se prijenos preskočiti.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Certifikat Autopilot je istekao. Implementacija se može nastaviti, ali će se prijenos preskočiti.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>pojedinosti</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>ID stanara</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Otisak palca certifikata</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Istek certifikata</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Grupna oznaka</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Grupna oznaka nije obavezna. Odaberite Ništa za prijenos bez grupne oznake.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Otkrivanje hardvera...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Otkrivanje hardvera nije uspjelo.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Otkrivanje hardvera nije uspjelo: {0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Metoda</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profil</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot grupna oznaka</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Cilj</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>sustav</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Mogućnosti implementacije</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Ne Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profil</value></data>
@@ -588,4 +577,5 @@ Nastaviti s implementacijom?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Vremenska crta operacije implementacije</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Pogledajte tehničke detalje</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Tehnički detalji</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Pomoćnik za registraciju pokrenut će se na postavljenom uređaju.</value></data>
 </root>

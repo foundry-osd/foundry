@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Tietokoneen nimi</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 merkkiä. Vain A-Z, a-z, 0-9 ja tavuviiva.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Tietokoneen nimessä on oltava 1–15 kelvollista merkkiä (kirjaimia, numeroita tai tavuviivaa).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Kohdekone</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Kohdelevy</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Käyttöönottovaihtoehdot</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Kohdelevy</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Valitse kohdelevy. Ei-kelpoiset levyt on estetty.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Ota laiteohjelmistopäivitykset käyttöön</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Ota Autopilot käyttöön tälle käyttöönotolle</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profiili</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Tästä mediasta ei löytynyt upotettuja Autopilot-profiileja.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profiili</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch-laitteiston hajautusarvon lataus</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Vuorovaikutteinen laitteiston hajautusarvon lataus</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Saatavilla tästä mediasta: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch-laitteiston hajautusarvon lataus</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Laitteiston hajautuslatauksen tila</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Valmiina lataamaan laitteiston hash</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Latausvarmenne on vanhentunut</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Laitteiston hash-lataus ei ole saatavilla tälle medialle, koska vaaditut varmennetiedot puuttuvat. Käyttöönotto voi jatkua, mutta lataus ohitetaan.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot-varmenne on vanhentunut. Käyttöönotto voi jatkua, mutta lataus ohitetaan.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Yksityiskohdat</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Vuokralaisen tunnus</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Todistuksen peukalonjälki</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Varmenteen voimassaolo päättyy</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Ryhmätunniste</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Ryhmätunniste on valinnainen. Valitse Ei mitään, jos haluat ladata ilman ryhmätunnistetta.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Havaitaan laitteistoa...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Laitteiston tunnistus epäonnistui.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Laitteiston tunnistus epäonnistui: {0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Menetelmä</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profiili</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot ryhmätunniste</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Kohde</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>Järjestelmä</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Käyttöönottovaihtoehdot</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Ei Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profiili</value></data>
@@ -588,4 +577,5 @@ Jatketaanko käyttöönottoa?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Käyttöönoton aikajana</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Katso tekniset tiedot</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Tekniset tiedot</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Rekisteröintiavustaja suoritetaan käyttöönotetulla laitteella.</value></data>
 </root>

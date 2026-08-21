@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>اسم الكمبيوتر</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 حرفا. A-Z، وa-z، و0-9، والواصلة فقط.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>يجب أن يحتوي اسم الكمبيوتر على من 1 إلى 15 حرفًا صالحًا (أحرف أو أرقام أو واصلة).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>آلة الهدف</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>القرص الوجهة</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>خيارات النشر</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>القرص المستهدف</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>حدد القرص الهدف. يتم حظر الأقراص غير المؤهلة.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>تطبيق تحديثات البرامج الثابتة</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>قم بتمكين Autopilot لهذا النشر</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>الملف الشخصي</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>لم يتم العثور على ملفات تعريف Autopilot مضمنة على هذه الوسائط.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON الملف الشخصي</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>تحميل zero-touch لتجزئة الأجهزة</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>تحميل تفاعلي لتجزئة الأجهزة</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>متوفر على هذه الوسائط: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>تحميل zero-touch لتجزئة الأجهزة</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>حالة تحميل تجزئة الأجهزة</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>جاهز لتحميل تجزئة الأجهزة</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>انتهت صلاحية شهادة التحميل</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>لا يتوفر تحميل تجزئة الأجهزة على هذه الوسائط لأن معلومات الشهادة المطلوبة مفقودة. يمكن أن يستمر النشر، ولكن سيتم تخطي التحميل.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>انتهت صلاحية الشهادة Autopilot. يمكن أن يستمر النشر، ولكن سيتم تخطي التحميل.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>التفاصيل</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>معرف المستأجر</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>بصمة الشهادة</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>انتهاء صلاحية الشهادة</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>علامة المجموعة</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>علامة المجموعة اختيارية. حدد لا شيء للتحميل بدون علامة المجموعة.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>الكشف عن الأجهزة...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>فشل الكشف عن الأجهزة.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>فشل الكشف عن الأجهزة: {0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot الطريقة</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot الملف الشخصي</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot علامة المجموعة</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>الهدف</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>النظام</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>خيارات النشر</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>لا Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON الملف الشخصي</value></data>
@@ -588,4 +577,5 @@
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>الجدول الزمني لعملية النشر</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>عرض التفاصيل الفنية</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>التفاصيل الفنية</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>سيعمل مساعد التسجيل على الجهاز الذي تم نشره.</value></data>
 </root>

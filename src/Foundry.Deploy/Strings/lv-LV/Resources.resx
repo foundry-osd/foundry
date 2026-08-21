@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Datora nosaukums</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 rakstzīmes. Tikai A–Z, a–z, 0–9 un defise.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Datora nosaukumā ir jāsatur 1–15 derīgas rakstzīmes (burti, cipari vai defise).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Mērķa mašīna</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Galamērķa disks</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Izvietošanas iespējas</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Mērķa disks</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Izvēlieties mērķa disku. Nepiemērotie diski ir bloķēti.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Lietojiet programmaparatūras atjauninājumus</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Iespējojiet Autopilot šai izvietošanai</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profils</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Šajā datu nesējā netika atrasts neviens iegults Autopilot profils.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profils</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch aparatūras jaucējkoda augšupielāde</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktīva aparatūras jaucējkoda augšupielāde</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Pieejams šajā medijā: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch aparatūras jaucējkoda augšupielāde</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Aparatūras hash augšupielādes statuss</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Gatavs aparatūras hash augšupielādei</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Augšupielādes sertifikāta derīguma termiņš ir beidzies</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Aparatūras jauktā augšupielāde šajā datu nesējā nav pieejama, jo trūkst vajadzīgās sertifikāta informācijas. Izvietošanu var turpināt, taču augšupielāde tiks izlaista.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot sertifikātam ir beidzies derīguma termiņš. Izvietošanu var turpināt, taču augšupielāde tiks izlaista.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Sīkāka informācija</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Īrnieka ID</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Sertifikāta īkšķa nospiedums</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Sertifikāta derīguma termiņš</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Grupas atzīme</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Grupas atzīme nav obligāta. Atlasiet Nav, lai augšupielādētu bez grupas atzīmes.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Notiek aparatūras noteikšana...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Aparatūras noteikšana neizdevās.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Aparatūras noteikšana neizdevās: {0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Metode</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot profils</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot grupas atzīme</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Mērķis</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>Sistēma</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Izvietošanas iespējas</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Nē Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profils</value></data>
@@ -588,4 +577,5 @@ Vai turpināt izvietošanu?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Izvietošanas darbības laika skala</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Skatīt tehnisko informāciju</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Tehniskā informācija</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Reģistrācijas palīgs tiks palaists izvietotajā ierīcē.</value></data>
 </root>

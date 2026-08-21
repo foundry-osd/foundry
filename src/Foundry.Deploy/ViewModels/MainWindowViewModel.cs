@@ -97,8 +97,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         ? GetString("Summary.NoSelection")
         : new Converters.OperatingSystemSummaryConverter().Convert(SelectedOperatingSystem, typeof(string), string.Empty, LocalizationService.CurrentCulture)?.ToString() ?? GetString("Summary.NoSelection");
     public string SummaryFirmwareText => Preparation.ApplyFirmwareUpdates ? GetString("Common.Enabled") : GetString("Common.Disabled");
-    public string SummaryAutopilotEnabledText => Preparation.IsAutopilotEnabled ? GetString("Common.Yes") : GetString("Common.No");
-    public string SummaryAutopilotModeText => Preparation.AutopilotModeText;
     public string SummaryAutopilotProfileText => Preparation.SelectedAutopilotProfile?.DisplayName ?? GetString("Common.None");
     public string SummaryAutopilotGroupTagText => Preparation.EffectiveHardwareHashGroupTagText;
     public string SummaryWindowsOptionalFeaturesText
@@ -274,8 +272,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _debugAutopilotMode = mode;
         Preparation.ApplyDebugAutopilotMode(mode);
         RaiseDebugAutopilotModePropertiesChanged();
-        OnPropertyChanged(nameof(SummaryAutopilotEnabledText));
-        OnPropertyChanged(nameof(SummaryAutopilotModeText));
         OnPropertyChanged(nameof(SummaryAutopilotProfileText));
         OnPropertyChanged(nameof(SummaryAutopilotGroupTagText));
         NextWizardStepCommand.NotifyCanExecuteChanged();
@@ -432,8 +428,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(SummaryTargetDiskText));
         OnPropertyChanged(nameof(SummaryOperatingSystemText));
         OnPropertyChanged(nameof(SummaryFirmwareText));
-        OnPropertyChanged(nameof(SummaryAutopilotEnabledText));
-        OnPropertyChanged(nameof(SummaryAutopilotModeText));
         OnPropertyChanged(nameof(SummaryAutopilotProfileText));
         OnPropertyChanged(nameof(SummaryAutopilotGroupTagText));
         OnPropertyChanged(nameof(SummaryWindowsOptionalFeaturesText));
@@ -614,6 +608,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         var source = new DeploymentSummarySource
         {
             TargetSummary = Preparation.TargetComputerName,
+            IsTargetConfigured = ComputerNameRules.IsValid(Preparation.TargetComputerName) &&
+                                 (IsDebugSafeMode || Preparation.SelectedTargetDisk?.IsSelectable == true),
             HasTargetWarning = Preparation.SelectedTargetDisk is { IsSelectable: false },
             TargetRows =
             [
@@ -623,6 +619,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 new(GetString("Summary.Firmware"), SummaryFirmwareText)
             ],
             OperatingSystemSummary = SummaryOperatingSystemText,
+            IsOperatingSystemConfigured = operatingSystem is not null,
             OperatingSystemRows = operatingSystem is null
                 ? [new(GetString("Summary.SelectedOperatingSystem"), GetString("Summary.NoSelection"))]
                 :
@@ -780,8 +777,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             OnPropertyChanged(nameof(SummaryTargetDiskText));
             OnPropertyChanged(nameof(SummaryOperatingSystemText));
             OnPropertyChanged(nameof(SummaryFirmwareText));
-            OnPropertyChanged(nameof(SummaryAutopilotEnabledText));
-            OnPropertyChanged(nameof(SummaryAutopilotModeText));
             OnPropertyChanged(nameof(SummaryAutopilotProfileText));
             OnPropertyChanged(nameof(SummaryAutopilotGroupTagText));
             OnPropertyChanged(nameof(SummaryWindowsOptionalFeaturesText));

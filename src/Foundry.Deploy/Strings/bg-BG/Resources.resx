@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Име на компютъра</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 знака. A-Z, a-z, 0-9 и само тире.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Името на компютъра трябва да съдържа от 1 до 15 валидни знака (букви, цифри или тире).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Целева машина</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Целеви диск</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Опции за внедряване</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Целеви диск</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Изберете целеви диск. Неподходящите дискове са блокирани.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Прилагане на актуализации на фърмуера</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Активирайте Autopilot за това внедряване</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Профил</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>В този носител не бяха намерени вградени Autopilot профили.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON профил</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch качване на хардуерен хеш</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Интерактивно качване на хардуерен хеш</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Налично на тази медия: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch качване на хардуерен хеш</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Състояние на качване на хардуерен хеш</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Готов за качване на хардуерен хеш</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Сертификатът за качване е изтекъл</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Качването на хардуерен хеш не е налично на този носител, тъй като липсва необходимата информация за сертификата. Внедряването може да продължи, но качването ще бъде пропуснато.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Сертификатът Autopilot е изтекъл. Внедряването може да продължи, но качването ще бъде пропуснато.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Подробности</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>ID на наемателя</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Отпечатък на сертификат</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Изтичане на сертификата</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Групов етикет</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Етикетът на групата не е задължителен. Изберете Няма, за да качите без групов етикет.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Хардуерът се открива...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Неуспешно откриване на хардуер.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Неуспешно откриване на хардуер: {0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Метод</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Профил</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot групов етикет</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Цел</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>система</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Опции за внедряване</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Не Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON профил</value></data>
@@ -588,4 +577,5 @@
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>График на операцията по внедряване</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Вижте технически подробности</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Технически подробности</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Помощникът за регистрация ще се стартира на разположеното устройство.</value></data>
 </root>

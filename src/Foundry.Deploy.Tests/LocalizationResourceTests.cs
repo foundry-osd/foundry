@@ -41,6 +41,7 @@ public sealed class LocalizationResourceTests
         "Drivers.Title",
         "Autopilot.Title",
         "Autopilot.ConfigurationDetails",
+        "Autopilot.InteractiveHardwareHashUploadStatus",
         "Summary.Category.TargetDevice",
         "Summary.Category.OperatingSystem",
         "Summary.Category.Drivers",

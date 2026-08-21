@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Nom de l’ordinateur</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1 à 15 caractères. A-Z, a-z, 0-9 et tiret uniquement.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Le nom de l’ordinateur doit contenir 1 à 15 caractères valides (lettres, chiffres ou tiret).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Machine cible</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Disque de destination</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Options de déploiement</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Disque cible</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Sélectionnez un disque cible. Les disques non éligibles sont bloqués.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Appliquer les mises à jour du firmware</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Activer Autopilot pour ce déploiement</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Aucun profil Autopilot intégré n’a été trouvé sur ce média.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>Profil JSON</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Envoi zero-touch du hash matériel</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Envoi interactif du hash matériel</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Disponible sur ce média : {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Envoi zero-touch du hash matériel</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>État de l’envoi du hash matériel</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Prêt pour l’envoi du hash matériel</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Le certificat d’envoi a expiré</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>L’envoi du hash matériel n’est pas disponible sur ce média car les informations de certificat requises sont manquantes. Le déploiement peut continuer, mais l’envoi sera ignoré.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Le certificat Autopilot a expiré. Le déploiement peut continuer, mais l’envoi sera ignoré.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Détails</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>ID du tenant</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Empreinte du certificat</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Expiration du certificat</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Group tag</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Le group tag est optionnel. Sélectionnez Aucun pour envoyer sans group tag.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Détection du matériel...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Échec de la détection matérielle.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Échec de la détection matérielle : {0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Méthode Autopilot</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Profil Autopilot</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Group tag Autopilot</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Cible</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>Système</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Options de déploiement</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Pas d’Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>Profil JSON</value></data>
@@ -588,4 +577,5 @@ Continuer le déploiement ?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Chronologie des opérations de déploiement</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Afficher les détails techniques</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Détails techniques</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>L’assistant d’inscription s’exécutera sur l’appareil déployé.</value></data>
 </root>

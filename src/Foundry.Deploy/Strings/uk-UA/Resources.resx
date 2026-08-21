@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Ім'я комп'ютера</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 символів. A–Z, a–z, 0–9 і лише дефіс.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Ім’я комп’ютера має містити від 1 до 15 дійсних символів (літери, цифри або дефіс).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Цільова машина</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Диск призначення</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Варіанти розгортання</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Цільовий диск</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Виберіть цільовий диск. Невідповідні диски блокуються.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Застосуйте оновлення прошивки</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Увімкніть Autopilot для цього розгортання</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Профіль</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>На цьому носії не знайдено вбудованих профілів Autopilot.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>профіль JSON</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch завантаження апаратного хешу</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Інтерактивне завантаження апаратного хешу</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Доступно на цьому носії: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch завантаження апаратного хешу</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Статус завантаження апаратного хешу</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Готовий до завантаження апаратного хешу</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Термін дії сертифіката завантаження минув</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Завантаження хешу апаратного забезпечення недоступне на цьому носії, оскільки відсутня необхідна інформація про сертифікат. Розгортання можна продовжити, але завантаження буде пропущено.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Термін дії сертифіката Autopilot минув. Розгортання можна продовжити, але завантаження буде пропущено.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Подробиці</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>ID орендаря</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Відбиток сертифіката</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Термін дії сертифіката</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Тег групи</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Тег групи необов’язковий. Виберіть «Немає», щоб завантажити без тегу групи.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Виявлення обладнання...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Помилка виявлення обладнання.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Помилка виявлення обладнання: {0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Метод</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Профіль</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>тег групи Autopilot</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Цільова</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>система</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Варіанти розгортання</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Ні Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>профіль JSON</value></data>
@@ -588,4 +577,5 @@ ErrorCode=0x80070005
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Графік операції розгортання</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Переглянути технічні деталі</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Технічні деталі</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Помічник реєстрації буде запущений на розгорнутому пристрої.</value></data>
 </root>

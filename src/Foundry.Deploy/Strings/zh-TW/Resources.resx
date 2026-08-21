@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>電腦名稱</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 個字元。僅 A-Z、a-z、0-9 和連字號。</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>電腦名稱必須包含 1 到 15 個有效字元（字母、數字或連字號）。</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>標靶機</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>目標磁碟</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>部署選項</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>目標磁碟</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>選擇目標磁碟。不符合條件的磁碟將被阻止。</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>應用程式韌體更新</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>為此部署啟用Autopilot</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>公司簡介</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>在此媒體上未找到嵌入的 Autopilot 設定檔。</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON個人資料</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch 硬體雜湊上傳</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>互動式硬體雜湊上傳</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>在此媒體上可用：{0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch 硬體雜湊上傳</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>硬體哈希上傳狀態</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>準備上傳硬體哈希</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>上傳憑證已過期</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>由於缺少所需的證書信息，因此硬體哈希上傳在此媒體上不可用。部署可以繼續，但上傳將被跳過。</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot 證書已過期。部署可以繼續，但上傳將被跳過。</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>詳情</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>租戶ID</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>證書指紋</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>憑證過期</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>群組標籤</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>組標籤是可選的。選擇「無」可在不帶群組標籤的情況下上傳。</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>偵測硬體...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>硬體檢測失敗。</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>硬體偵測失敗：{0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot方法</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot 個人資料</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot組標籤</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>目標</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>系統</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>部署選項</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>沒有Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON個人資料</value></data>
@@ -588,4 +577,5 @@
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>部署作業時間表</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>檢視技術詳細資料</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>技術詳細資料</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>註冊小幫手將會在已部署的裝置上執行。</value></data>
 </root>

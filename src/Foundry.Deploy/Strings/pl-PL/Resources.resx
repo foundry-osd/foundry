@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Nazwa komputera</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 znaków. Tylko A-Z, a-z, 0-9 i łącznik.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Nazwa komputera musi zawierać od 1 do 15 prawidłowych znaków (liter, cyfr lub łączników).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Maszyna docelowa</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Dysk docelowy</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Opcje wdrożenia</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Dysk docelowy</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Wybierz dysk docelowy. Nieodpowiednie dyski są blokowane.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Zastosuj aktualizacje oprogramowania sprzętowego</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Włącz Autopilot dla tego wdrożenia</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Na tym nośniku nie znaleziono osadzonych profili Autopilot.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>Profil JSON</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Bezobsługowe przesyłanie skrótu sprzętowego</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktywne przesyłanie skrótu sprzętowego</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Dostępne na tym nośniku: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Bezobsługowe przesyłanie skrótu sprzętowego</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Stan przesyłania skrótu sprzętowego</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Gotowy do przesłania skrótu sprzętowego</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Certyfikat przesyłania wygasł</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Przesyłanie skrótu sprzętowego jest niedostępne na tym nośniku, ponieważ brakuje wymaganych informacji o certyfikacie. Wdrożenie może być kontynuowane, ale przesyłanie zostanie pominięte.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Certyfikat Autopilot wygasł. Wdrożenie może być kontynuowane, ale przesyłanie zostanie pominięte.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Szczegóły</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Identyfikator najemcy</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Odcisk palca certyfikatu</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Wygaśnięcie certyfikatu</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Etykieta grupowa</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Znacznik grupy jest opcjonalny. Wybierz opcję Brak, aby przesłać bez tagu grupy.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Wykrywanie sprzętu...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Wykrycie sprzętu nie powiodło się.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Wykrycie sprzętu nie powiodło się: {0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Metoda</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Profil Autopilot</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Znacznik grupowy Autopilot</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Cel</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>Systemu</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Opcje wdrożenia</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Nie Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>Profil JSON</value></data>
@@ -588,4 +577,5 @@ Kontynuować wdrażanie?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Oś czasu operacji wdrożenia</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Zobacz szczegóły techniczne</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Szczegóły techniczne</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Asystent rejestracji zostanie uruchomiony na wdrożonym urządzeniu.</value></data>
 </root>
