@@ -537,55 +537,55 @@
   <data name="DeploymentAccess.Continue" xml:space="preserve"><value>계속</value></data>
   <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>암호 표시 또는 숨기기</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>암호가 올바르지 않습니다. 다시 시도하세요.</value></data>
-  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>Target device</value></data>
-  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>Operating system</value></data>
-  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>Drivers</value></data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>대상 장치</value></data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>운영 체제</value></data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>장치 드라이버</value></data>
   <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Wizard.Step.Summary" xml:space="preserve"><value>Summary</value></data>
-  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>Deployment setup steps</value></data>
-  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>Return to summary</value></data>
-  <data name="Common.Edit" xml:space="preserve"><value>Edit</value></data>
-  <data name="Common.Copy" xml:space="preserve"><value>Copy</value></data>
-  <data name="Common.Close" xml:space="preserve"><value>Close</value></data>
-  <data name="TargetDevice.Title" xml:space="preserve"><value>Target device</value></data>
-  <data name="TargetDevice.Firmware" xml:space="preserve"><value>Firmware updates</value></data>
-  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>Not available on virtual machines</value></data>
-  <data name="OperatingSystem.Title" xml:space="preserve"><value>Operating system</value></data>
-  <data name="Drivers.Title" xml:space="preserve"><value>Drivers</value></data>
+  <data name="Wizard.Step.Summary" xml:space="preserve"><value>요약</value></data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>배포 설정 단계</value></data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>요약으로 돌아가기</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>편집</value></data>
+  <data name="Common.Copy" xml:space="preserve"><value>복사</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>닫기</value></data>
+  <data name="TargetDevice.Title" xml:space="preserve"><value>대상 장치</value></data>
+  <data name="TargetDevice.Firmware" xml:space="preserve"><value>펌웨어 업데이트</value></data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>가상 머신에서는 사용할 수 없습니다.</value></data>
+  <data name="OperatingSystem.Title" xml:space="preserve"><value>운영 체제</value></data>
+  <data name="Drivers.Title" xml:space="preserve"><value>장치 드라이버</value></data>
   <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>Configuration details</value></data>
-  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>Target device</value></data>
-  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>Operating system</value></data>
-  <data name="Summary.Category.Drivers" xml:space="preserve"><value>Drivers</value></data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>구성 세부정보</value></data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>대상 장치</value></data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>운영 체제</value></data>
+  <data name="Summary.Category.Drivers" xml:space="preserve"><value>장치 드라이버</value></data>
   <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Windows customization</value></data>
-  <data name="Summary.Category.Network" xml:space="preserve"><value>Network</value></data>
-  <data name="Summary.Category.Completion" xml:space="preserve"><value>Completion</value></data>
-  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Not configured</value></data>
-  <data name="Summary.Status.Configured" xml:space="preserve"><value>Configured</value></data>
-  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>No changes</value></data>
-  <data name="Summary.Hardware" xml:space="preserve"><value>Detected hardware</value></data>
-  <data name="Summary.Release" xml:space="preserve"><value>Release</value></data>
-  <data name="Summary.Edition" xml:space="preserve"><value>Edition</value></data>
-  <data name="Summary.Architecture" xml:space="preserve"><value>Architecture</value></data>
-  <data name="Summary.Language" xml:space="preserve"><value>Language</value></data>
-  <data name="Summary.LicenseChannel" xml:space="preserve"><value>License channel</value></data>
-  <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Windows 사용자 지정</value></data>
+  <data name="Summary.Category.Network" xml:space="preserve"><value>네트워크</value></data>
+  <data name="Summary.Category.Completion" xml:space="preserve"><value>완료</value></data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>구성되지 않음</value></data>
+  <data name="Summary.Status.Configured" xml:space="preserve"><value>구성됨</value></data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>변경 사항 없음</value></data>
+  <data name="Summary.Hardware" xml:space="preserve"><value>감지된 하드웨어</value></data>
+  <data name="Summary.Release" xml:space="preserve"><value>버전</value></data>
+  <data name="Summary.Edition" xml:space="preserve"><value>에디션</value></data>
+  <data name="Summary.Architecture" xml:space="preserve"><value>시스템 아키텍처</value></data>
+  <data name="Summary.Language" xml:space="preserve"><value>언어</value></data>
+  <data name="Summary.LicenseChannel" xml:space="preserve"><value>라이선스 채널</value></data>
+  <data name="Summary.Build" xml:space="preserve"><value>빌드</value></data>
   <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
-  <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX removal</value></data>
-  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>AI component removal</value></data>
-  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Network profile roaming</value></data>
-  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>Automatic restart</value></data>
-  <data name="Summary.ManualRestart" xml:space="preserve"><value>Manual restart</value></data>
-  <data name="Summary.RestartDelay" xml:space="preserve"><value>Restart delay</value></data>
-  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} seconds</value></data>
-  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>The selected target disk will be erased when deployment starts.</value></data>
-  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Welcome to Foundry Deploy</value></data>
-  <data name="Progress.Session" xml:space="preserve"><value>Session</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Timeline</value></data>
-  <data name="Progress.CurrentOperation" xml:space="preserve"><value>Current operation</value></data>
-  <data name="Progress.RingAutomationName" xml:space="preserve"><value>Overall deployment progress</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Deployment operation timeline</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>View technical details</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Technical details</value></data>
+  <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX 제거</value></data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>AI 구성 요소 제거</value></data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>네트워크 프로필 로밍</value></data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>자동 재시작</value></data>
+  <data name="Summary.ManualRestart" xml:space="preserve"><value>수동으로 다시 시작</value></data>
+  <data name="Summary.RestartDelay" xml:space="preserve"><value>재시작 지연</value></data>
+  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} 초</value></data>
+  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>배포가 시작되면 선택한 대상 디스크가 지워집니다.</value></data>
+  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Foundry Deploy에 오신 것을 환영합니다.</value></data>
+  <data name="Progress.Session" xml:space="preserve"><value>세션</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>타임라인</value></data>
+  <data name="Progress.CurrentOperation" xml:space="preserve"><value>현재 작업</value></data>
+  <data name="Progress.RingAutomationName" xml:space="preserve"><value>전체 배포 진행 상황</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>배포 작업 타임라인</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>기술 세부정보 보기</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>기술 세부사항</value></data>
 </root>

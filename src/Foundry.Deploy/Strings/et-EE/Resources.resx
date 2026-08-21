@@ -537,55 +537,55 @@ Kas jätkata juurutamisega?</value></data>
   <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Jätka</value></data>
   <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Kuva või peida parool</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Parool on vale. Proovi uuesti.</value></data>
-  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>Target device</value></data>
-  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>Operating system</value></data>
-  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>Drivers</value></data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>Sihtseade</value></data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>Operatsioonisüsteem</value></data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>Seadme draiverid</value></data>
   <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Wizard.Step.Summary" xml:space="preserve"><value>Summary</value></data>
-  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>Deployment setup steps</value></data>
-  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>Return to summary</value></data>
-  <data name="Common.Edit" xml:space="preserve"><value>Edit</value></data>
-  <data name="Common.Copy" xml:space="preserve"><value>Copy</value></data>
-  <data name="Common.Close" xml:space="preserve"><value>Close</value></data>
-  <data name="TargetDevice.Title" xml:space="preserve"><value>Target device</value></data>
-  <data name="TargetDevice.Firmware" xml:space="preserve"><value>Firmware updates</value></data>
-  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>Not available on virtual machines</value></data>
-  <data name="OperatingSystem.Title" xml:space="preserve"><value>Operating system</value></data>
-  <data name="Drivers.Title" xml:space="preserve"><value>Drivers</value></data>
+  <data name="Wizard.Step.Summary" xml:space="preserve"><value>Kokkuvõte</value></data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>Juurutamise seadistamise etapid</value></data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>Tagasi kokkuvõtte juurde</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>Muuda</value></data>
+  <data name="Common.Copy" xml:space="preserve"><value>Kopeeri lõikelauale</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>Sule aken</value></data>
+  <data name="TargetDevice.Title" xml:space="preserve"><value>Sihtseade</value></data>
+  <data name="TargetDevice.Firmware" xml:space="preserve"><value>Püsivara värskendused</value></data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>Pole virtuaalsetes masinates saadaval</value></data>
+  <data name="OperatingSystem.Title" xml:space="preserve"><value>Operatsioonisüsteem</value></data>
+  <data name="Drivers.Title" xml:space="preserve"><value>Seadme draiverid</value></data>
   <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>Configuration details</value></data>
-  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>Target device</value></data>
-  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>Operating system</value></data>
-  <data name="Summary.Category.Drivers" xml:space="preserve"><value>Drivers</value></data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>Konfiguratsiooni üksikasjad</value></data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>Sihtseade</value></data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>Operatsioonisüsteem</value></data>
+  <data name="Summary.Category.Drivers" xml:space="preserve"><value>Seadme draiverid</value></data>
   <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Windows customization</value></data>
-  <data name="Summary.Category.Network" xml:space="preserve"><value>Network</value></data>
-  <data name="Summary.Category.Completion" xml:space="preserve"><value>Completion</value></data>
-  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Not configured</value></data>
-  <data name="Summary.Status.Configured" xml:space="preserve"><value>Configured</value></data>
-  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>No changes</value></data>
-  <data name="Summary.Hardware" xml:space="preserve"><value>Detected hardware</value></data>
-  <data name="Summary.Release" xml:space="preserve"><value>Release</value></data>
-  <data name="Summary.Edition" xml:space="preserve"><value>Edition</value></data>
-  <data name="Summary.Architecture" xml:space="preserve"><value>Architecture</value></data>
-  <data name="Summary.Language" xml:space="preserve"><value>Language</value></data>
-  <data name="Summary.LicenseChannel" xml:space="preserve"><value>License channel</value></data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Windowsi kohandamine</value></data>
+  <data name="Summary.Category.Network" xml:space="preserve"><value>Võrk</value></data>
+  <data name="Summary.Category.Completion" xml:space="preserve"><value>Lõpetamine</value></data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Pole konfigureeritud</value></data>
+  <data name="Summary.Status.Configured" xml:space="preserve"><value>Konfigureeritud</value></data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Muudatusi pole</value></data>
+  <data name="Summary.Hardware" xml:space="preserve"><value>Tuvastati riistvara</value></data>
+  <data name="Summary.Release" xml:space="preserve"><value>Versioon</value></data>
+  <data name="Summary.Edition" xml:space="preserve"><value>Operatsioonisüsteemi väljaanne</value></data>
+  <data name="Summary.Architecture" xml:space="preserve"><value>Süsteemi arhitektuur</value></data>
+  <data name="Summary.Language" xml:space="preserve"><value>Keel</value></data>
+  <data name="Summary.LicenseChannel" xml:space="preserve"><value>Litsentsikanal</value></data>
   <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
   <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
-  <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX removal</value></data>
-  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>AI component removal</value></data>
-  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Network profile roaming</value></data>
-  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>Automatic restart</value></data>
-  <data name="Summary.ManualRestart" xml:space="preserve"><value>Manual restart</value></data>
-  <data name="Summary.RestartDelay" xml:space="preserve"><value>Restart delay</value></data>
-  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} seconds</value></data>
-  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>The selected target disk will be erased when deployment starts.</value></data>
-  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Welcome to Foundry Deploy</value></data>
-  <data name="Progress.Session" xml:space="preserve"><value>Session</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Timeline</value></data>
-  <data name="Progress.CurrentOperation" xml:space="preserve"><value>Current operation</value></data>
-  <data name="Progress.RingAutomationName" xml:space="preserve"><value>Overall deployment progress</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Deployment operation timeline</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>View technical details</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Technical details</value></data>
+  <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX eemaldamine</value></data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>AI komponentide eemaldamine</value></data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Võrguprofiili rändlus</value></data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>Automaatne taaskäivitamine</value></data>
+  <data name="Summary.ManualRestart" xml:space="preserve"><value>Käsitsi taaskäivitamine</value></data>
+  <data name="Summary.RestartDelay" xml:space="preserve"><value>Taaskäivitamise viivitus</value></data>
+  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} sekundit</value></data>
+  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Valitud sihtketas kustutatakse juurutamise alustamisel.</value></data>
+  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Tere tulemast Foundry Deploy</value></data>
+  <data name="Progress.Session" xml:space="preserve"><value>Juurutamise seanss</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Ajaskaala</value></data>
+  <data name="Progress.CurrentOperation" xml:space="preserve"><value>Praegune toiming</value></data>
+  <data name="Progress.RingAutomationName" xml:space="preserve"><value>Üldine juurutamise edenemine</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Juurutustoimingu ajaskaala</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Vaadake tehnilisi üksikasju</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Tehnilised üksikasjad</value></data>
 </root>

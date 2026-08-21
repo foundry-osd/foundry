@@ -537,55 +537,55 @@ Continuați cu implementarea?</value></data>
   <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Continuați</value></data>
   <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Afișați sau ascundeți parola</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Parola este incorectă. Încercați din nou.</value></data>
-  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>Target device</value></data>
-  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>Operating system</value></data>
-  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>Drivers</value></data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>Dispozitiv țintă</value></data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>Sistem de operare</value></data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>Drivere de dispozitiv</value></data>
   <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Wizard.Step.Summary" xml:space="preserve"><value>Summary</value></data>
-  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>Deployment setup steps</value></data>
-  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>Return to summary</value></data>
-  <data name="Common.Edit" xml:space="preserve"><value>Edit</value></data>
-  <data name="Common.Copy" xml:space="preserve"><value>Copy</value></data>
-  <data name="Common.Close" xml:space="preserve"><value>Close</value></data>
-  <data name="TargetDevice.Title" xml:space="preserve"><value>Target device</value></data>
-  <data name="TargetDevice.Firmware" xml:space="preserve"><value>Firmware updates</value></data>
-  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>Not available on virtual machines</value></data>
-  <data name="OperatingSystem.Title" xml:space="preserve"><value>Operating system</value></data>
-  <data name="Drivers.Title" xml:space="preserve"><value>Drivers</value></data>
+  <data name="Wizard.Step.Summary" xml:space="preserve"><value>Rezumat</value></data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>Pașii de configurare a implementării</value></data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>Reveniți la rezumat</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>Editați</value></data>
+  <data name="Common.Copy" xml:space="preserve"><value>Copiați în clipboard</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>Închide fereastra</value></data>
+  <data name="TargetDevice.Title" xml:space="preserve"><value>Dispozitiv țintă</value></data>
+  <data name="TargetDevice.Firmware" xml:space="preserve"><value>Actualizări de firmware</value></data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>Nu este disponibil pe mașinile virtuale</value></data>
+  <data name="OperatingSystem.Title" xml:space="preserve"><value>Sistem de operare</value></data>
+  <data name="Drivers.Title" xml:space="preserve"><value>Drivere de dispozitiv</value></data>
   <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>Configuration details</value></data>
-  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>Target device</value></data>
-  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>Operating system</value></data>
-  <data name="Summary.Category.Drivers" xml:space="preserve"><value>Drivers</value></data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>Detalii de configurare</value></data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>Dispozitiv țintă</value></data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>Sistem de operare</value></data>
+  <data name="Summary.Category.Drivers" xml:space="preserve"><value>Drivere de dispozitiv</value></data>
   <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Windows customization</value></data>
-  <data name="Summary.Category.Network" xml:space="preserve"><value>Network</value></data>
-  <data name="Summary.Category.Completion" xml:space="preserve"><value>Completion</value></data>
-  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Not configured</value></data>
-  <data name="Summary.Status.Configured" xml:space="preserve"><value>Configured</value></data>
-  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>No changes</value></data>
-  <data name="Summary.Hardware" xml:space="preserve"><value>Detected hardware</value></data>
-  <data name="Summary.Release" xml:space="preserve"><value>Release</value></data>
-  <data name="Summary.Edition" xml:space="preserve"><value>Edition</value></data>
-  <data name="Summary.Architecture" xml:space="preserve"><value>Architecture</value></data>
-  <data name="Summary.Language" xml:space="preserve"><value>Language</value></data>
-  <data name="Summary.LicenseChannel" xml:space="preserve"><value>License channel</value></data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Personalizare Windows</value></data>
+  <data name="Summary.Category.Network" xml:space="preserve"><value>Rețea</value></data>
+  <data name="Summary.Category.Completion" xml:space="preserve"><value>Finalizare</value></data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Nu este configurat</value></data>
+  <data name="Summary.Status.Configured" xml:space="preserve"><value>Configurat</value></data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Nicio modificare</value></data>
+  <data name="Summary.Hardware" xml:space="preserve"><value>Hardware detectat</value></data>
+  <data name="Summary.Release" xml:space="preserve"><value>Versiune</value></data>
+  <data name="Summary.Edition" xml:space="preserve"><value>Ediția sistemului de operare</value></data>
+  <data name="Summary.Architecture" xml:space="preserve"><value>Arhitectura sistemului</value></data>
+  <data name="Summary.Language" xml:space="preserve"><value>Limba</value></data>
+  <data name="Summary.LicenseChannel" xml:space="preserve"><value>Canal de licență</value></data>
   <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
   <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
-  <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX removal</value></data>
-  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>AI component removal</value></data>
-  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Network profile roaming</value></data>
-  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>Automatic restart</value></data>
-  <data name="Summary.ManualRestart" xml:space="preserve"><value>Manual restart</value></data>
-  <data name="Summary.RestartDelay" xml:space="preserve"><value>Restart delay</value></data>
-  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} seconds</value></data>
-  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>The selected target disk will be erased when deployment starts.</value></data>
-  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Welcome to Foundry Deploy</value></data>
-  <data name="Progress.Session" xml:space="preserve"><value>Session</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Timeline</value></data>
-  <data name="Progress.CurrentOperation" xml:space="preserve"><value>Current operation</value></data>
-  <data name="Progress.RingAutomationName" xml:space="preserve"><value>Overall deployment progress</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Deployment operation timeline</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>View technical details</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Technical details</value></data>
+  <data name="Summary.AppxRemoval" xml:space="preserve"><value>Eliminarea aplicațiilor AppX</value></data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>Eliminarea componentelor AI</value></data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Roamingul profilului de rețea</value></data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>Repornire automată</value></data>
+  <data name="Summary.ManualRestart" xml:space="preserve"><value>Repornire manuală</value></data>
+  <data name="Summary.RestartDelay" xml:space="preserve"><value>Întârziere de repornire</value></data>
+  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} secunde</value></data>
+  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Discul țintă selectat va fi șters când începe implementarea.</value></data>
+  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Bun venit la Foundry Deploy</value></data>
+  <data name="Progress.Session" xml:space="preserve"><value>Sesiune de implementare</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Cronologie</value></data>
+  <data name="Progress.CurrentOperation" xml:space="preserve"><value>Operațiune curentă</value></data>
+  <data name="Progress.RingAutomationName" xml:space="preserve"><value>Progresul general al implementării</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Cronologia operațiunii de implementare</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Vezi detalii tehnice</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Detalii tehnice</value></data>
 </root>
