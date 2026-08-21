@@ -26,6 +26,12 @@ public partial class CustomProgressRing : UserControl
         nameof(Value),
         typeof(double),
         typeof(CustomProgressRing),
+        new FrameworkPropertyMetadata(0d, FrameworkPropertyMetadataOptions.AffectsRender, OnValueChanged));
+
+    public static readonly DependencyProperty DisplayedValueProperty = DependencyProperty.Register(
+        nameof(DisplayedValue),
+        typeof(double),
+        typeof(CustomProgressRing),
         new FrameworkPropertyMetadata(0d, FrameworkPropertyMetadataOptions.AffectsRender, OnVisualPropertyChanged));
 
     public static readonly DependencyProperty IsIndeterminateProperty = DependencyProperty.Register(
@@ -66,6 +72,8 @@ public partial class CustomProgressRing : UserControl
         set => SetValue(ValueProperty, value);
     }
 
+    public double DisplayedValue => (double)GetValue(DisplayedValueProperty);
+
     public bool IsIndeterminate
     {
         get => (bool)GetValue(IsIndeterminateProperty);
@@ -98,9 +106,17 @@ public partial class CustomProgressRing : UserControl
         }
     }
 
+    private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is CustomProgressRing ring)
+        {
+            ring.AnimateToTarget((double)e.NewValue);
+        }
+    }
+
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
-        UpdateVisuals();
+        AnimateToTarget(Value);
     }
 
     private void OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -110,6 +126,7 @@ public partial class CustomProgressRing : UserControl
 
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
+        StopDeterminateAnimation();
         StopIndeterminateAnimation();
     }
 
@@ -134,6 +151,7 @@ public partial class CustomProgressRing : UserControl
 
         if (IsIndeterminate)
         {
+            StopDeterminateAnimation();
             DeterminateArc.Visibility = Visibility.Collapsed;
             IndeterminateArc.Visibility = Visibility.Visible;
             DeterminateArc.Data = Geometry.Empty;
@@ -145,8 +163,54 @@ public partial class CustomProgressRing : UserControl
         IndeterminateArc.Visibility = Visibility.Collapsed;
         DeterminateArc.Visibility = Visibility.Visible;
         IndeterminateArc.Data = Geometry.Empty;
-        DeterminateArc.Data = CreateProgressGeometry(center, radius, Value);
+        DeterminateArc.Data = CreateProgressGeometry(center, radius, DisplayedValue);
         StopIndeterminateAnimation();
+    }
+
+    private void AnimateToTarget(double reportedTarget)
+    {
+        double currentValue = ProgressAnimationDurationPolicy.ClampTarget(DisplayedValue);
+        double targetValue = ProgressAnimationDurationPolicy.ClampTarget(reportedTarget);
+        if (targetValue < currentValue && targetValue > 0d)
+        {
+            targetValue = currentValue;
+        }
+
+        BeginAnimation(DisplayedValueProperty, null);
+        SetValue(DisplayedValueProperty, targetValue);
+
+        if (!IsLoaded || IsIndeterminate || !SystemParameters.ClientAreaAnimation || Math.Abs(targetValue - currentValue) < 0.01d)
+        {
+            UpdateVisuals();
+            return;
+        }
+
+        var animation = new DoubleAnimation
+        {
+            From = currentValue,
+            To = targetValue,
+            Duration = ProgressAnimationDurationPolicy.GetDuration(currentValue, targetValue),
+            EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseOut },
+            FillBehavior = FillBehavior.HoldEnd
+        };
+        animation.Completed += OnDeterminateAnimationCompleted;
+        BeginAnimation(DisplayedValueProperty, animation, HandoffBehavior.SnapshotAndReplace);
+    }
+
+    private void OnDeterminateAnimationCompleted(object? sender, EventArgs e)
+    {
+        if (sender is AnimationClock clock && clock.Timeline is DoubleAnimation animation)
+        {
+            animation.Completed -= OnDeterminateAnimationCompleted;
+        }
+
+        BeginAnimation(DisplayedValueProperty, null);
+        UpdateVisuals();
+    }
+
+    private void StopDeterminateAnimation()
+    {
+        BeginAnimation(DisplayedValueProperty, null);
     }
 
     private void StartIndeterminateAnimation()

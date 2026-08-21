@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Diagnostics;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Net.NetworkInformation;
@@ -30,6 +31,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     private readonly IProcessRunner _processRunner;
     private readonly INetworkAdapterSnapshotProvider _networkAdapterSnapshotProvider;
     private readonly bool _isDebugSafeMode;
+    private readonly DeploymentTimelineTracker _timelineTracker;
     private string _rawCurrentStepName = "Waiting for deployment...";
     private string _rawCurrentStepProgressText = "Waiting for progress...";
     private string _rawFailedStepName = string.Empty;
@@ -63,6 +65,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         _processRunner = processRunner ?? throw new ArgumentNullException(nameof(processRunner));
         _networkAdapterSnapshotProvider = networkAdapterSnapshotProvider ?? new WindowsNetworkAdapterSnapshotProvider();
         _isDebugSafeMode = isDebugSafeMode;
+        _timelineTracker = new DeploymentTimelineTracker(DeploymentUiTextLocalizer.LocalizeStepName);
 
         _operationProgressService.ProgressChanged += OnOperationProgressChanged;
         _deploymentOrchestrator.StepProgressChanged += OnStepProgressChanged;
@@ -76,6 +79,9 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsSplashPage))]
     [NotifyPropertyChangedFor(nameof(IsSuccessPage))]
+    [NotifyPropertyChangedFor(nameof(IsProgressPage))]
+    [NotifyPropertyChangedFor(nameof(IsErrorPage))]
+    [NotifyPropertyChangedFor(nameof(IsDeploymentStatusPage))]
     private DeploymentPage currentPage = DeploymentPage.Splash;
 
     [ObservableProperty]
@@ -137,8 +143,13 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     public bool IsSplashPage => CurrentPage == DeploymentPage.Splash;
 
     public bool IsSuccessPage => CurrentPage == DeploymentPage.Success;
+    public bool IsProgressPage => CurrentPage == DeploymentPage.Progress;
+    public bool IsErrorPage => CurrentPage == DeploymentPage.Error;
+    public bool IsDeploymentStatusPage => CurrentPage is DeploymentPage.Progress or DeploymentPage.Success or DeploymentPage.Error;
 
     public bool IsStartupReady => !IsStartupInitializing;
+    public bool IsAutomaticRebootEnabled => _rebootPolicy.AutomaticRebootEnabled;
+    public ObservableCollection<DeploymentTimelineEntryViewModel> TimelineEntries => _timelineTracker.Entries;
 
     public int PlannedStepCount => _deploymentOrchestrator.PlannedSteps.Count;
     public string CompletionInstructionText => _rebootPolicy.AutomaticRebootEnabled && !_isDebugSafeMode
@@ -151,6 +162,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         _rebootPolicy = rebootPolicy;
         RebootCountdownSeconds = rebootPolicy.DelaySeconds;
         OnPropertyChanged(nameof(CompletionInstructionText));
+        OnPropertyChanged(nameof(IsAutomaticRebootEnabled));
     }
 
     public void SetComputerName(string computerName)
@@ -181,6 +193,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         ClearFailureDetails();
         _plannedStepCount = plannedStepCount;
         _activeStepIndex = 0;
+        _timelineTracker.Reset(_deploymentOrchestrator.PlannedSteps);
 
         DeploymentProgress = 0;
         UpdateGlobalProgressVisuals(0);
@@ -204,6 +217,9 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     {
         _isDeploymentInProgress = false;
         _lastLogsDirectoryPath = logsDirectoryPath ?? string.Empty;
+        _timelineTracker.CompleteAll();
+        _activeStepIndex = _plannedStepCount;
+        StepCounterText = BuildStepCounterText(_activeStepIndex);
         CurrentPage = DeploymentPage.Success;
     }
 
@@ -212,6 +228,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         _isDeploymentInProgress = false;
         _lastLogsDirectoryPath = logsDirectoryPath ?? _lastLogsDirectoryPath;
         SetFailureDetails(stepName, errorMessage);
+        _timelineTracker.FailAt(_activeStepIndex);
         CurrentPage = DeploymentPage.Error;
     }
 
@@ -241,6 +258,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         ClearFailureDetails();
         _plannedStepCount = plannedStepCount;
         _activeStepIndex = currentStepIndex;
+        SeedDebugTimeline(currentStepIndex, DeploymentStepState.Running);
         DeploymentProgress = progressPercent;
         UpdateGlobalProgressVisuals(progressPercent);
         ComputerNameText = computerName;
@@ -263,6 +281,9 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         StopElapsedTimeTracking();
         ClearFailureDetails();
         _plannedStepCount = plannedStepCount;
+        _activeStepIndex = plannedStepCount;
+        SeedDebugTimeline(plannedStepCount, DeploymentStepState.Succeeded);
+        _timelineTracker.CompleteAll();
         DeploymentProgress = 100;
         UpdateGlobalProgressVisuals(100);
         ComputerNameText = computerName;
@@ -279,6 +300,9 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         _isDeploymentInProgress = false;
         StopElapsedTimeTracking();
         ComputerNameText = computerName;
+        _plannedStepCount = _deploymentOrchestrator.PlannedSteps.Count;
+        _activeStepIndex = currentStepIndex;
+        SeedDebugTimeline(currentStepIndex, DeploymentStepState.Failed);
         StepCounterText = BuildStepCounterText(currentStepIndex);
         SetFailureDetails(failedStepName, failedStepErrorMessage);
         CurrentPage = DeploymentPage.Error;
@@ -342,6 +366,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
 
             SetCurrentStepName(stepProgress.StepName);
             StepCounterText = BuildStepCounterText(stepProgress.StepIndex);
+            _timelineTracker.Apply(stepProgress);
 
             DeploymentProgress = Math.Max(DeploymentProgress, stepProgress.ProgressPercent);
             UpdateGlobalProgressVisuals(DeploymentProgress);
@@ -734,7 +759,23 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
             StepCounterText = BuildStepCounterText(_activeStepIndex);
             OnPropertyChanged(nameof(CompletionInstructionText));
             CaptureNetworkSnapshot();
+            _timelineTracker.RefreshLocalization();
         });
+    }
+
+    private void SeedDebugTimeline(int currentStepIndex, DeploymentStepState currentState)
+    {
+        _timelineTracker.Reset(_deploymentOrchestrator.PlannedSteps);
+        int normalizedIndex = Math.Clamp(currentStepIndex, 0, _timelineTracker.Entries.Count);
+        for (int index = 0; index < normalizedIndex - 1; index++)
+        {
+            _timelineTracker.Entries[index].State = DeploymentStepState.Succeeded;
+        }
+
+        if (normalizedIndex > 0)
+        {
+            _timelineTracker.Entries[normalizedIndex - 1].State = currentState;
+        }
     }
 
     private string GetString(string key)
