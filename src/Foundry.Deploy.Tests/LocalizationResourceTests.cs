@@ -22,6 +22,61 @@ public sealed class LocalizationResourceTests
         "DeploymentAccess.InvalidPassword"
     ];
 
+    private static readonly string[] RedesignedInterfaceResourceKeys =
+    [
+        "Wizard.Step.TargetDevice",
+        "Wizard.Step.OperatingSystem",
+        "Wizard.Step.Drivers",
+        "Wizard.Step.Autopilot",
+        "Wizard.Step.Summary",
+        "Wizard.StepperAutomationName",
+        "Wizard.ReturnToSummary",
+        "Common.Edit",
+        "Common.Copy",
+        "Common.Close",
+        "TargetDevice.Title",
+        "TargetDevice.Firmware",
+        "TargetDevice.FirmwareUnavailableVirtualMachine",
+        "OperatingSystem.Title",
+        "Drivers.Title",
+        "Autopilot.Title",
+        "Autopilot.ConfigurationDetails",
+        "Summary.Category.TargetDevice",
+        "Summary.Category.OperatingSystem",
+        "Summary.Category.Drivers",
+        "Summary.Category.Autopilot",
+        "Summary.Category.WindowsCustomization",
+        "Summary.Category.Network",
+        "Summary.Category.Completion",
+        "Summary.Status.NotConfigured",
+        "Summary.Status.Configured",
+        "Summary.Status.NoChanges",
+        "Summary.Hardware",
+        "Summary.Release",
+        "Summary.Edition",
+        "Summary.Architecture",
+        "Summary.Language",
+        "Summary.LicenseChannel",
+        "Summary.Build",
+        "Summary.Oobe",
+        "Summary.AppxRemoval",
+        "Summary.AiComponentRemoval",
+        "Summary.NetworkProfileRoaming",
+        "Summary.AutomaticRestart",
+        "Summary.ManualRestart",
+        "Summary.RestartDelay",
+        "Summary.SecondsFormat",
+        "Summary.DiskEraseNotice",
+        "Splash.WelcomeDeploy",
+        "Progress.Session",
+        "Progress.Timeline",
+        "Progress.CurrentOperation",
+        "Progress.RingAutomationName",
+        "Progress.TimelineAutomationName",
+        "Error.ViewTechnicalDetails",
+        "Error.TechnicalDetailsTitle"
+    ];
+
     public static TheoryData<string> SatelliteCultures => new()
     {
         "ar-SA",
@@ -77,6 +132,11 @@ public sealed class LocalizationResourceTests
         Assert.NotNull(resourceSet);
         Assert.Equal("Foundry Deploy", resourceSet.GetString("App.Name"));
         foreach (string key in DeploymentAccessResourceKeys)
+        {
+            Assert.False(string.IsNullOrWhiteSpace(resourceSet.GetString(key)), $"Resource '{key}' is missing for '{cultureName}'.");
+        }
+
+        foreach (string key in RedesignedInterfaceResourceKeys)
         {
             Assert.False(string.IsNullOrWhiteSpace(resourceSet.GetString(key)), $"Resource '{key}' is missing for '{cultureName}'.");
         }
