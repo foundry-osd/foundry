@@ -571,10 +571,10 @@
   <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Ο επιλεγμένος δίσκος προορισμού θα διαγραφεί όταν ξεκινήσει η ανάπτυξη.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Καλώς ήλθατε στο Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Συνεδρία</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Χρονοδιάγραμμα</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Βήματα</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Τρέχουσα λειτουργία</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Συνολική πρόοδος ανάπτυξης</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Χρονοδιάγραμμα λειτουργίας ανάπτυξης</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Βήματα ανάπτυξης</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Προβολή τεχνικών λεπτομερειών</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Τεχνικές λεπτομέρειες</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Ο βοηθός εγγραφής θα εκτελεστεί στη συσκευή που αναπτύχθηκε.</value></data>

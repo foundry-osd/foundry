@@ -571,10 +571,10 @@
   <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Выбранный целевой диск будет удален при запуске развертывания.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Добро пожаловать в Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Сеанс</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Хронология</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Шаги</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Текущая операция</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Общий ход развертывания</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>График операции развертывания</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Шаги развертывания</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Посмотреть технические подробности</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Технические подробности</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Помощник регистрации будет запущен на развернутом устройстве.</value></data>

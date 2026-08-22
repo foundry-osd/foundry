@@ -571,10 +571,10 @@ Continuare con la distribuzione?</value></data>
   <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Il disco di destinazione selezionato verrà cancellato all&apos;avvio della distribuzione.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Benvenuto in Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Sessione di distribuzione</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Cronologia</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Passaggi</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Operazione corrente</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Avanzamento generale della distribuzione</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Cronologia dell&apos;operazione di distribuzione</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Passaggi della distribuzione</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Visualizza i dettagli tecnici</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Dettagli tecnici</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>L’assistente di registrazione verrà eseguito sul dispositivo distribuito.</value></data>

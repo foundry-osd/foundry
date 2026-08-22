@@ -571,10 +571,10 @@ Mit der Bereitstellung fortfahren?</value></data>
   <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Die ausgewählte Zielfestplatte wird gelöscht, wenn die Bereitstellung beginnt.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Willkommen bei Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Bereitstellungssitzung</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Zeitleiste</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Schritte</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Aktueller Vorgang</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Gesamtfortschritt der Bereitstellung</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Zeitleiste des Bereitstellungsvorgangs</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Bereitstellungsschritte</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Technische Details anzeigen</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Technische Details</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Der Registrierungsassistent wird auf dem bereitgestellten Gerät ausgeführt.</value></data>

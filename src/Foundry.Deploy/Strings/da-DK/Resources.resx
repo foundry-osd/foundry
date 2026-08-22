@@ -571,10 +571,10 @@ Vil du fortsætte med implementeringen?</value></data>
   <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Den valgte måldisk vil blive slettet, når implementeringen starter.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Velkommen til Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Implementeringssession</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Tidslinje</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Trin</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Aktuel operation</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Samlet fremskridt i implementeringen</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Tidslinje for implementeringsoperationen</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Implementeringstrin</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Se tekniske detaljer</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Tekniske detaljer</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Registreringsassistenten kører på den installerede enhed.</value></data>

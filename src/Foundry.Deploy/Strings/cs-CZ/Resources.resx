@@ -571,10 +571,10 @@ Pokračovat v nasazování?</value></data>
   <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Vybraný cílový disk bude vymazán při zahájení nasazení.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Vítejte ve Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Relace nasazení</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Časová osa</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Kroky</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Aktuální operace</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Celkový průběh nasazení</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Časová osa operace nasazení</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Kroky nasazení</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Zobrazit technické podrobnosti</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Technické detaily</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Na nasazeném zařízení se spustí pomocník registrace.</value></data>

@@ -571,10 +571,10 @@ Kas jätkata juurutamisega?</value></data>
   <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Valitud sihtketas kustutatakse juurutamise alustamisel.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Tere tulemast Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Juurutamise seanss</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Ajaskaala</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Sammud</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Praegune toiming</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Üldine juurutamise edenemine</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Juurutustoimingu ajaskaala</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Juurutamise sammud</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Vaadake tehnilisi üksikasju</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Tehnilised üksikasjad</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Registreerimisabiline käivitatakse juurutatud seadmes.</value></data>

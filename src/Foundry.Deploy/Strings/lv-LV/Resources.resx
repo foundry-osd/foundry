@@ -571,10 +571,10 @@ Vai turpināt izvietošanu?</value></data>
   <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Atlasītais mērķa disks tiks dzēsts, kad sākas izvietošana.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Laipni lūdzam Foundry Deploy!</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Izvietošanas sesija</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Laika skala</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Darbības</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Pašreizējā darbība</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Kopējā izvietošanas gaita</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Izvietošanas darbības laika skala</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Izvietošanas darbības</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Skatīt tehnisko informāciju</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Tehniskā informācija</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Reģistrācijas palīgs tiks palaists izvietotajā ierīcē.</value></data>

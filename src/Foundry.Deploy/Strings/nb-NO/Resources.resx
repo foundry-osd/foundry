@@ -571,10 +571,10 @@ Vil du fortsette med distribusjonen?</value></data>
   <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Den valgte måldisken vil bli slettet når distribusjonen starter.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Velkommen til Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Distribusjonsøkt</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Tidslinje</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Trinn</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Gjeldende operasjon</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Generell distribusjonsfremgang</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Tidslinje for distribusjonsoperasjonen</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Distribusjonstrinn</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Se tekniske detaljer</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Tekniske detaljer</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Registreringsassistenten kjøres på den distribuerte enheten.</value></data>

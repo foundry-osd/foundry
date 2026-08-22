@@ -571,10 +571,10 @@ Jatketaanko käyttöönottoa?</value></data>
   <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Valittu kohdelevy tyhjennetään, kun käyttöönotto alkaa.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Tervetuloa Foundry Deploy-palveluun</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Käyttöönottoistunto</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Aikajana</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Vaiheet</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Nykyinen toiminto</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Käyttöönoton yleinen edistyminen</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Käyttöönoton aikajana</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Käyttöönoton vaiheet</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Katso tekniset tiedot</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Tekniset tiedot</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Rekisteröintiavustaja suoritetaan käyttöönotetulla laitteella.</value></data>

@@ -571,10 +571,10 @@ Ali želite nadaljevati z uvajanjem?</value></data>
   <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Izbrani ciljni disk bo izbrisan, ko se začne uvajanje.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Dobrodošli v Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Seja uvajanja</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Časovnica</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Koraki</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Trenutna operacija</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Splošni napredek uvajanja</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Časovnica operacije uvajanja</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Koraki uvajanja</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Oglejte si tehnične podrobnosti</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Tehnične podrobnosti</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Pomočnik za registracijo se bo zagnal v uvedeni napravi.</value></data>

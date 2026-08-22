@@ -14,7 +14,7 @@ namespace Foundry.Deploy.Tests;
 public sealed class XamlResourceLoadingTests
 {
     [Fact]
-    public void ApplicationResources_LoadViewsAndProvideGlowEffects()
+    public void ApplicationResources_LoadViewsAndProvideExpectedStylesAndLayout()
     {
         Exception? failure = null;
         var thread = new Thread(() =>
@@ -23,7 +23,23 @@ public sealed class XamlResourceLoadingTests
             {
                 var application = new App();
                 application.InitializeComponent();
-                _ = new WizardView();
+                var wizardView = new WizardView();
+                var wizardContentCard = Assert.IsType<Border>(wizardView.FindName("WizardContentCard"));
+                var wizardFooter = Assert.IsType<Grid>(wizardView.FindName("WizardFooter"));
+                var nextButton = Assert.IsType<Button>(wizardView.FindName("NextButton"));
+                Assert.Equal(980, wizardContentCard.MaxWidth);
+                Assert.Equal(wizardContentCard.MaxWidth, wizardFooter.MaxWidth);
+                Assert.Equal(HorizontalAlignment.Center, wizardFooter.HorizontalAlignment);
+                Assert.Same(application.FindResource("AccentButtonStyle"), nextButton.Style.BasedOn);
+                wizardView.Measure(new Size(1280, 800));
+                wizardView.Arrange(new Rect(0, 0, 1280, 800));
+                wizardView.UpdateLayout();
+                Assert.Equal(wizardContentCard.ActualWidth, wizardFooter.ActualWidth);
+
+                var deploymentStatusView = new DeploymentStatusView();
+                var stepsRail = Assert.IsType<Grid>(deploymentStatusView.FindName("StepsRail"));
+                Assert.Equal(VerticalAlignment.Center, stepsRail.VerticalAlignment);
+                Assert.Equal(720, stepsRail.MaxHeight);
 
                 var progressBarStyle = Assert.IsType<Style>(application.FindResource("DeployProgressBarStyle"));
                 Setter effectSetter = Assert.Single(

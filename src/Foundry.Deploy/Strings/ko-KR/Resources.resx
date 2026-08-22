@@ -571,10 +571,10 @@
   <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>배포가 시작되면 선택한 대상 디스크가 지워집니다.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Foundry Deploy에 오신 것을 환영합니다.</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>세션</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>타임라인</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>단계</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>현재 작업</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>전체 배포 진행 상황</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>배포 작업 타임라인</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>배포 단계</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>기술 세부정보 보기</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>기술 세부사항</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>등록 도우미는 배포된 장치에서 실행됩니다.</value></data>

@@ -571,10 +571,10 @@ Dağıtıma devam edilsin mi?</value></data>
   <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Dağıtım başladığında seçilen hedef disk silinecek.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Foundry Deploy&apos;a hoş geldiniz</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Dağıtım oturumu</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Zaman çizelgesi</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Adımlar</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Mevcut işlem</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Genel dağıtım ilerlemesi</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Dağıtım işlemi zaman çizelgesi</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Dağıtım adımları</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Teknik ayrıntıları görüntüle</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Teknik ayrıntılar</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Kayıt yardımcısı dağıtılan cihazda çalıştırılacaktır.</value></data>

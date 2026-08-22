@@ -68,7 +68,10 @@
                     TextWrapping="Wrap" />
             </StackPanel>
 
-            <Grid Grid.Column="2">
+            <Grid x:Name="StepsRail"
+                Grid.Column="2"
+                MaxHeight="720"
+                VerticalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />

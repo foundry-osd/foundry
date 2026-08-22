@@ -571,10 +571,10 @@ Tęsti diegimą?</value></data>
   <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Pasirinktas tikslinis diskas bus ištrintas, kai prasidės diegimas.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Sveiki atvykę į Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Diegimo seansas</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Laiko juosta</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Veiksmai</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Dabartinė operacija</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Bendra diegimo pažanga</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Diegimo operacijos laiko juosta</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Diegimo veiksmai</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Peržiūrėkite techninę informaciją</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Techninė informacija</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Registravimo pagalbinė priemonė bus paleista įdiegtame įrenginyje.</value></data>

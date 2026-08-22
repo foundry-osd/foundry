@@ -571,10 +571,10 @@ ErrorCode=0x80070005
   <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Вибраний цільовий диск буде стерто, коли розпочнеться розгортання.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Ласкаво просимо до Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Сеанс</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Хронологія</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Кроки</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Поточна операція</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Загальний прогрес розгортання</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Графік операції розгортання</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Кроки розгортання</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Переглянути технічні деталі</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Технічні деталі</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Помічник реєстрації буде запущений на розгорнутому пристрої.</value></data>

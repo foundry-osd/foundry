@@ -571,10 +571,10 @@ Doorgaan met de implementatie?</value></data>
   <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>De geselecteerde doelschijf wordt gewist wanneer de implementatie start.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Welkom bij Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Implementatiesessie</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Tijdlijn</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Stappen</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Huidige bewerking</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Algemene voortgang van de implementatie</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Tijdlijn van de implementatie</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Implementatiestappen</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Bekijk technische details</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Technische details</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>De registratieassistent wordt uitgevoerd op het geïmplementeerde apparaat.</value></data>

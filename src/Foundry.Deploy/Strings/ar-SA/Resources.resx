@@ -571,10 +571,10 @@
   <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>سيتم مسح القرص الهدف المحدد عند بدء النشر.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>مرحبًا بك في Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>جلسة النشر</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>الجدول الزمني</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>الخطوات</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>العملية الحالية</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>تقدم النشر الإجمالي</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>الجدول الزمني لعملية النشر</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>خطوات النشر</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>عرض التفاصيل الفنية</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>التفاصيل الفنية</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>سيعمل مساعد التسجيل على الجهاز الذي تم نشره.</value></data>

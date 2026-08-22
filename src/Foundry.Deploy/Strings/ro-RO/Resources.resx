@@ -571,10 +571,10 @@ Continuați cu implementarea?</value></data>
   <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Discul țintă selectat va fi șters când începe implementarea.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Bun venit la Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Sesiune de implementare</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Cronologie</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Pași</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Operațiune curentă</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Progresul general al implementării</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Cronologia operațiunii de implementare</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Pași de implementare</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Vezi detalii tehnice</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Detalii tehnice</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Asistentul de înregistrare va rula pe dispozitivul implementat.</value></data>

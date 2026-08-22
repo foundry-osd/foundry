@@ -571,10 +571,10 @@ Folytatja a telepítést?</value></data>
   <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>A kiválasztott céllemez törlődik a központi telepítés megkezdésekor.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Üdvözöljük a Foundry Deployban</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Telepítési munkamenet</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Idővonal</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Lépések</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Jelenlegi művelet</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>A telepítés általános előrehaladása</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Telepítési művelet idővonala</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Telepítési lépések</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Technikai részletek megtekintése</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Technikai részletek</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>A regisztrációs segéd a telepített eszközön fog futni.</value></data>

@@ -571,10 +571,10 @@ Kontynuować wdrażanie?</value></data>
   <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Wybrany dysk docelowy zostanie wymazany po rozpoczęciu wdrażania.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Witamy w Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Sesja wdrożeniowa</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Oś czasu</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Kroki</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Bieżąca operacja</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Ogólny postęp wdrażania</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Oś czasu operacji wdrożenia</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Kroki wdrażania</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Zobacz szczegóły techniczne</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Szczegóły techniczne</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Asystent rejestracji zostanie uruchomiony na wdrożonym urządzeniu.</value></data>

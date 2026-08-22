@@ -571,10 +571,10 @@ Continuer le déploiement ?</value></data>
   <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Le disque cible sélectionné sera effacé au démarrage du déploiement.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Bienvenue dans Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Session</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Chronologie</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Étapes</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Opération en cours</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Progression globale du déploiement</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Chronologie des opérations de déploiement</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Étapes de déploiement</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Afficher les détails techniques</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Détails techniques</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>L’assistant d’inscription s’exécutera sur l’appareil déployé.</value></data>

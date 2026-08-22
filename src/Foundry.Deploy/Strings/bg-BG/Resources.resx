@@ -571,10 +571,10 @@
   <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Избраният целеви диск ще бъде изтрит, когато внедряването започне.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Добре дошли в Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Сесия</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Хронология</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Стъпки</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Текуща операция</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Цялостен напредък на внедряването</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>График на операцията по внедряване</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Стъпки за внедряване</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Вижте технически подробности</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Технически подробности</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Помощникът за регистрация ще се стартира на разположеното устройство.</value></data>

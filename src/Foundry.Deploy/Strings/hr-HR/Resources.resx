@@ -571,10 +571,10 @@ Nastaviti s implementacijom?</value></data>
   <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Odabrani ciljni disk bit će izbrisan kada započne implementacija.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Dobrodošli u Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Sesija implementacije</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Vremenska crta</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Koraci</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Trenutna operacija</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Sveukupni napredak implementacije</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Vremenska crta operacije implementacije</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Koraci implementacije</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Pogledajte tehničke detalje</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Tehnički detalji</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Pomoćnik za registraciju pokrenut će se na postavljenom uređaju.</value></data>

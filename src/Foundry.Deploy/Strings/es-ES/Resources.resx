@@ -571,10 +571,10 @@ Sistema operativo: {4}
   <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>El disco de destino seleccionado se borrará cuando comience la implementación.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Bienvenido a Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Sesión de implementación</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Cronología</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Pasos</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Operación actual</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Progreso general de la implementación</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Cronología de la operación de implementación</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Pasos de implementación</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Ver detalles técnicos</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Detalles técnicos</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>El asistente de registro se ejecutará en el dispositivo implementado.</value></data>

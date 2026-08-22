@@ -571,10 +571,10 @@ Continuar com a implantação?</value></data>
   <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>O disco de destino selecionado será apagado quando a implantação for iniciada.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Bem-vindo ao Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Sessão de implantação</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Linha do tempo</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Etapas</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Operação atual</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Progresso geral da implantação</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Linha do tempo da operação de implantação</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Etapas da implantação</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Ver detalhes técnicos</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Detalhes técnicos</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>O assistente de registro será executado no dispositivo implantado.</value></data>

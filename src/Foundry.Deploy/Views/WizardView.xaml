@@ -142,7 +142,7 @@
             </ItemsControl.ItemsPanel>
         </ItemsControl>
 
-        <Border
+        <Border x:Name="WizardContentCard"
             Grid.Row="1"
             Grid.Column="2"
             Style="{StaticResource WizardContentCardStyle}">
@@ -195,10 +195,13 @@
             </ScrollViewer>
         </Border>
 
-        <Grid
+        <Grid x:Name="WizardFooter"
             Grid.Row="2"
             Grid.Column="2"
-            Margin="0,12,0,0">
+            Width="{Binding ActualWidth, ElementName=WizardContentCard}"
+            MaxWidth="980"
+            Margin="0,12,0,0"
+            HorizontalAlignment="Center">
             <StackPanel
                 HorizontalAlignment="Right"
                 Orientation="Horizontal">
@@ -207,13 +210,15 @@
                     Margin="0,0,8,0"
                     Command="{Binding PreviousWizardStepCommand}"
                     Content="{Binding Strings[Common.Previous]}" />
-                <Button
+                <Button x:Name="NextButton"
                     MinWidth="140"
                     Margin="0,0,8,0"
                     Command="{Binding NextWizardStepCommand}"
                     Content="{Binding NextButtonText}">
                     <Button.Style>
-                        <Style TargetType="Button">
+                        <Style
+                            BasedOn="{StaticResource AccentButtonStyle}"
+                            TargetType="Button">
                             <Style.Triggers>
                                 <DataTrigger
                                     Binding="{Binding IsSummaryStep}"

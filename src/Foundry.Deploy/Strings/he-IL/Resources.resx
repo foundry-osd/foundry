@@ -571,10 +571,10 @@ ErrorCode=0x80070005
   <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>דיסק היעד שנבחר יימחק עם תחילת הפריסה.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>ברוכים הבאים ל-Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>הפעלת פריסה</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>ציר זמן</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>שלבים</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>פעולה נוכחית</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>התקדמות הפריסה הכוללת</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>קו זמן פעולת פריסה</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>שלבי פריסה</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>הצג פרטים טכניים</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>פרטים טכניים</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>מסייע הרישום יופעל במכשיר שנפרס.</value></data>

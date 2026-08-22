@@ -571,10 +571,10 @@
   <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>部署开始时，所选目标磁盘将被擦除。</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>欢迎来到 Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>会话</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>时间轴</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>步骤</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>当前操作</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>总体部署进度</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>部署操作时间表</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>部署步骤</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>查看技术详细信息</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>技术详细信息</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>注册助手将在已部署的设备上运行。</value></data>
