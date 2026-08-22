@@ -201,6 +201,7 @@
                     Margin="20,16,20,8"
                     IsIndeterminate="{Binding IsCurrentStepProgressIndeterminate}"
                     Maximum="100"
+                    Style="{StaticResource DeployProgressBarStyle}"
                     Value="{Binding CurrentStepProgress}" />
                 <TextBlock
                     HorizontalAlignment="Center"

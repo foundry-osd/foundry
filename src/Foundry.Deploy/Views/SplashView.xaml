@@ -45,7 +45,8 @@
                     Visibility="{Binding Session.IsStartupInitializing, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <ProgressBar
                         Height="4"
-                        IsIndeterminate="True" />
+                        IsIndeterminate="True"
+                        Style="{StaticResource DeployProgressBarStyle}" />
                     <TextBlock
                         Margin="0,12,0,0"
                         HorizontalAlignment="Center"

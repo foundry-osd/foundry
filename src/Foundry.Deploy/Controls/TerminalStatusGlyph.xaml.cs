@@ -81,21 +81,18 @@ public partial class TerminalStatusGlyph : UserControl
 
     private void UpdateVisuals()
     {
-        Brush brush = (Brush)FindResource(IsSuccess
+        var brush = (SolidColorBrush)FindResource(IsSuccess
             ? "SystemFillColorSuccessBrush"
             : "SystemFillColorCriticalBrush");
         ForegroundGlyph.Foreground = brush;
-        GlowGlyph.Foreground = brush;
         ForegroundGlyph.Text = Glyph;
-        GlowGlyph.Text = Glyph;
-        GlowGlyph.Visibility = SystemParameters.HighContrast ? Visibility.Collapsed : Visibility.Visible;
-        GlowGlyph.Effect = SystemParameters.HighContrast
+        ForegroundGlyph.Effect = SystemParameters.HighContrast
             ? null
             : new DropShadowEffect
             {
-                BlurRadius = 30,
-                Color = IsSuccess ? Color.FromRgb(15, 123, 15) : Color.FromRgb(196, 43, 28),
-                Opacity = 0.52,
+                BlurRadius = 16,
+                Color = brush.Color,
+                Opacity = 1,
                 ShadowDepth = 0
             };
     }

@@ -3,9 +3,37 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     MinWidth="120"
     MinHeight="120"
-    ClipToBounds="True"
     SnapsToDevicePixels="True"
     UseLayoutRounding="True">
+    <UserControl.Resources>
+        <Style x:Key="ProgressArcStyle"
+            TargetType="Path">
+            <Setter
+                Property="Fill"
+                Value="Transparent" />
+            <Setter
+                Property="Stroke"
+                Value="{Binding ProgressBrush, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+            <Setter
+                Property="StrokeEndLineCap"
+                Value="Round" />
+            <Setter
+                Property="StrokeStartLineCap"
+                Value="Round" />
+            <Setter
+                Property="StrokeThickness"
+                Value="{Binding Thickness, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect
+                        BlurRadius="16"
+                        Opacity="0.8"
+                        ShadowDepth="0"
+                        Color="#00B7FF" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Ellipse x:Name="TrackCircle"
             Fill="Transparent"
@@ -13,18 +41,10 @@
             StrokeThickness="{Binding Thickness, RelativeSource={RelativeSource AncestorType=UserControl}}" />
 
         <Path x:Name="DeterminateArc"
-            Fill="Transparent"
-            Stroke="{Binding ProgressBrush, RelativeSource={RelativeSource AncestorType=UserControl}}"
-            StrokeEndLineCap="Round"
-            StrokeStartLineCap="Round"
-            StrokeThickness="{Binding Thickness, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+            Style="{StaticResource ProgressArcStyle}" />
 
         <Path x:Name="IndeterminateArc"
-            Fill="Transparent"
-            Stroke="{Binding ProgressBrush, RelativeSource={RelativeSource AncestorType=UserControl}}"
-            StrokeEndLineCap="Round"
-            StrokeStartLineCap="Round"
-            StrokeThickness="{Binding Thickness, RelativeSource={RelativeSource AncestorType=UserControl}}"
+            Style="{StaticResource ProgressArcStyle}"
             Visibility="Collapsed">
             <Path.RenderTransform>
                 <RotateTransform x:Name="IndeterminateRotateTransform" />

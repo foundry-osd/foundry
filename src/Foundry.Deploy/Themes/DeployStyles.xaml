@@ -86,4 +86,18 @@
             Property="Margin"
             Value="0" />
     </Style>
+
+    <Style x:Key="DeployProgressBarStyle"
+        BasedOn="{StaticResource {x:Type ProgressBar}}"
+        TargetType="ProgressBar">
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect
+                    BlurRadius="20"
+                    Opacity="1"
+                    ShadowDepth="0"
+                    Color="#00B7FF" />
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

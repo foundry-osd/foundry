@@ -10,19 +10,12 @@
                 ScaleX="1"
                 ScaleY="1" />
         </Grid.RenderTransform>
-        <TextBlock x:Name="GlowGlyph"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            FontFamily="{DynamicResource SymbolThemeFontFamily}"
-            FontSize="116"
-            Opacity="0.42"
-            Text="{Binding Glyph, ElementName=ViewRoot}" />
         <TextBlock x:Name="ForegroundGlyph"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             AutomationProperties.Name="{Binding AutomationName, ElementName=ViewRoot}"
             FontFamily="{DynamicResource SymbolThemeFontFamily}"
-            FontSize="116"
+            FontSize="144"
             Text="{Binding Glyph, ElementName=ViewRoot}" />
     </Grid>
 </UserControl>
