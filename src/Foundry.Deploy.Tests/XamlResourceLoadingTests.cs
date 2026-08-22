@@ -7,7 +7,10 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 using Foundry.Deploy.Controls;
+using Foundry.Deploy.Services.Wizard;
+using Foundry.Deploy.ViewModels;
 using Foundry.Deploy.Views;
+using Foundry.Deploy.Views.Wizard;
 
 namespace Foundry.Deploy.Tests;
 
@@ -46,6 +49,32 @@ public sealed class XamlResourceLoadingTests
                 var stepsRail = Assert.IsType<Grid>(deploymentStatusView.FindName("StepsRail"));
                 Assert.Equal(VerticalAlignment.Center, stepsRail.VerticalAlignment);
                 Assert.Equal(720, stepsRail.MaxHeight);
+
+                var summaryStepView = new SummaryStepView();
+                var summaryRoot = Assert.IsType<StackPanel>(summaryStepView.Content);
+                var summaryCategories = Assert.Single(summaryRoot.Children.OfType<ItemsControl>());
+                var summaryCategoryExpander = Assert.IsType<Expander>(summaryCategories.ItemTemplate.LoadContent());
+                summaryCategoryExpander.DataContext = new DeploymentSummaryCategoryViewModel(
+                    "Target device",
+                    "PC-001",
+                    DeploymentSummaryStatus.Configured,
+                    [],
+                    DeploymentWizardStepId.TargetDevice);
+                var summaryHeader = Assert.IsType<Grid>(summaryCategoryExpander.Header);
+                var editButton = Assert.Single(summaryHeader.Children.OfType<Button>());
+                var summaryHost = new Grid { Width = 800, Height = 80 };
+                summaryHost.Children.Add(summaryCategoryExpander);
+                summaryHost.Measure(new Size(800, 80));
+                summaryHost.Arrange(new Rect(0, 0, 800, 80));
+                summaryHost.UpdateLayout();
+                var chevron = Assert.Single(
+                    FindVisualDescendants<TextBlock>(summaryCategoryExpander),
+                    textBlock => textBlock.Name == "ControlChevronIcon");
+                double editButtonRight = editButton.TranslatePoint(
+                    new Point(editButton.ActualWidth, 0),
+                    summaryCategoryExpander).X;
+                double chevronLeft = chevron.TranslatePoint(new Point(0, 0), summaryCategoryExpander).X;
+                Assert.True(chevronLeft - editButtonRight >= 12);
 
                 var progressBarStyle = Assert.IsType<Style>(application.FindResource("DeployProgressBarStyle"));
                 Setter effectSetter = Assert.Single(
@@ -94,5 +123,23 @@ public sealed class XamlResourceLoadingTests
         thread.Join();
 
         Assert.Null(failure);
+    }
+
+    private static IEnumerable<T> FindVisualDescendants<T>(DependencyObject parent)
+        where T : DependencyObject
+    {
+        for (int index = 0; index < VisualTreeHelper.GetChildrenCount(parent); index++)
+        {
+            DependencyObject child = VisualTreeHelper.GetChild(parent, index);
+            if (child is T match)
+            {
+                yield return match;
+            }
+
+            foreach (T descendant in FindVisualDescendants<T>(child))
+            {
+                yield return descendant;
+            }
+        }
     }
 }
