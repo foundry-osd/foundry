@@ -125,9 +125,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     public bool IsAutopilotStep => CurrentWizardStepId == DeploymentWizardStepId.Autopilot;
     public bool IsSummaryStep => CurrentWizardStepId == DeploymentWizardStepId.Summary;
     public bool IsReturningToSummary => _wizardNavigationState.IsReturningToSummary;
-    public string NextButtonText => IsReturningToSummary
-        ? GetString("Wizard.ReturnToSummary")
-        : GetString("Common.Next");
     public bool IsDebugAutopilotNoneMode => IsDebugAutopilotMode(DebugAutopilotMode.None);
     public bool IsDebugAutopilotJsonProfileMode => IsDebugAutopilotMode(DebugAutopilotMode.JsonProfile);
     public bool IsDebugAutopilotHardwareHashUploadValidCertificateMode => IsDebugAutopilotMode(DebugAutopilotMode.HardwareHashUploadValidCertificate);
@@ -535,7 +532,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(IsAutopilotStep));
         OnPropertyChanged(nameof(IsSummaryStep));
         OnPropertyChanged(nameof(IsReturningToSummary));
-        OnPropertyChanged(nameof(NextButtonText));
     }
 
     private void RefreshWizardSteps()
@@ -566,7 +562,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             .index;
         UpdateWizardStepStates();
         OnPropertyChanged(nameof(IsReturningToSummary));
-        OnPropertyChanged(nameof(NextButtonText));
         PreviousWizardStepCommand.NotifyCanExecuteChanged();
         NextWizardStepCommand.NotifyCanExecuteChanged();
         StartDeploymentCommand.NotifyCanExecuteChanged();

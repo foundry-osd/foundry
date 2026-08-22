@@ -27,10 +27,16 @@ public sealed class XamlResourceLoadingTests
                 var wizardContentCard = Assert.IsType<Border>(wizardView.FindName("WizardContentCard"));
                 var wizardFooter = Assert.IsType<Grid>(wizardView.FindName("WizardFooter"));
                 var nextButton = Assert.IsType<Button>(wizardView.FindName("NextButton"));
+                var returnToSummaryButton = Assert.IsType<Button>(wizardView.FindName("ReturnToSummaryButton"));
+                var deployButton = Assert.IsType<Button>(wizardView.FindName("DeployButton"));
                 Assert.Equal(980, wizardContentCard.MaxWidth);
                 Assert.Equal(wizardContentCard.MaxWidth, wizardFooter.MaxWidth);
                 Assert.Equal(HorizontalAlignment.Center, wizardFooter.HorizontalAlignment);
-                Assert.Same(application.FindResource("AccentButtonStyle"), nextButton.Style.BasedOn);
+                Assert.Same(application.FindResource(typeof(Button)), nextButton.Style.BasedOn);
+                Assert.Same(application.FindResource("AccentButtonStyle"), returnToSummaryButton.Style.BasedOn);
+                Assert.Equal(0, nextButton.Margin.Right);
+                Assert.Equal(0, returnToSummaryButton.Margin.Right);
+                Assert.Equal(0, deployButton.Margin.Right);
                 wizardView.Measure(new Size(1280, 800));
                 wizardView.Arrange(new Rect(0, 0, 1280, 800));
                 wizardView.UpdateLayout();

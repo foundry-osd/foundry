@@ -212,14 +212,20 @@
                     Content="{Binding Strings[Common.Previous]}" />
                 <Button x:Name="NextButton"
                     MinWidth="140"
-                    Margin="0,0,8,0"
                     Command="{Binding NextWizardStepCommand}"
-                    Content="{Binding NextButtonText}">
+                    Content="{Binding Strings[Common.Next]}">
                     <Button.Style>
                         <Style
-                            BasedOn="{StaticResource AccentButtonStyle}"
+                            BasedOn="{StaticResource {x:Type Button}}"
                             TargetType="Button">
                             <Style.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding IsReturningToSummary}"
+                                    Value="True">
+                                    <Setter
+                                        Property="Visibility"
+                                        Value="Collapsed" />
+                                </DataTrigger>
                                 <DataTrigger
                                     Binding="{Binding IsSummaryStep}"
                                     Value="True">
@@ -231,7 +237,37 @@
                         </Style>
                     </Button.Style>
                 </Button>
-                <Button
+                <Button x:Name="ReturnToSummaryButton"
+                    MinWidth="160"
+                    Command="{Binding NextWizardStepCommand}"
+                    Content="{Binding Strings[Wizard.ReturnToSummary]}">
+                    <Button.Style>
+                        <Style
+                            BasedOn="{StaticResource AccentButtonStyle}"
+                            TargetType="Button">
+                            <Setter
+                                Property="Visibility"
+                                Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding IsReturningToSummary}"
+                                    Value="True">
+                                    <Setter
+                                        Property="Visibility"
+                                        Value="Visible" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    Binding="{Binding IsSummaryStep}"
+                                    Value="True">
+                                    <Setter
+                                        Property="Visibility"
+                                        Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button x:Name="DeployButton"
                     MinWidth="160"
                     Command="{Binding StartDeploymentCommand}"
                     Content="{Binding Strings[Common.Deploy]}"
