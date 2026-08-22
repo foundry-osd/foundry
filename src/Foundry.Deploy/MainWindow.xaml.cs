@@ -66,12 +66,6 @@ public partial class MainWindow : Window
     {
         element.BeginAnimation(OpacityProperty, null);
         transform.BeginAnimation(TranslateTransform.XProperty, null);
-        if (!SystemParameters.ClientAreaAnimation)
-        {
-            element.Opacity = 1;
-            transform.X = 0;
-            return;
-        }
 
         var duration = TimeSpan.FromMilliseconds(220);
         var easing = new QuadraticEase { EasingMode = EasingMode.EaseOut };

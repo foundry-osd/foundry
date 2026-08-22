@@ -55,13 +55,6 @@ public partial class WizardView : UserControl
         StepContent.BeginAnimation(OpacityProperty, null);
         StepContentTransform.BeginAnimation(System.Windows.Media.TranslateTransform.XProperty, null);
 
-        if (!SystemParameters.ClientAreaAnimation)
-        {
-            StepContent.Opacity = 1;
-            StepContentTransform.X = 0;
-            return;
-        }
-
         var duration = TimeSpan.FromMilliseconds(220);
         var easing = new QuadraticEase { EasingMode = EasingMode.EaseOut };
         StepContent.BeginAnimation(

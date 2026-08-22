@@ -27,12 +27,4 @@ public sealed class ProgressAnimationDurationPolicyTests
         Assert.InRange(largeChange.TotalMilliseconds, 400, 450);
         Assert.True(largeChange > smallChange);
     }
-
-    [Theory]
-    [InlineData(true, true)]
-    [InlineData(false, false)]
-    public void ShouldAnimate_RespectsTheSystemAnimationPreference(bool systemAnimationsEnabled, bool expected)
-    {
-        Assert.Equal(expected, ProgressAnimationDurationPolicy.ShouldAnimate(systemAnimationsEnabled));
-    }
 }

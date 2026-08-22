@@ -84,16 +84,6 @@ public partial class SplashView : UserControl
     {
         element.BeginAnimation(OpacityProperty, null);
         transform?.BeginAnimation(TranslateTransform.YProperty, null);
-        if (!SystemParameters.ClientAreaAnimation)
-        {
-            element.Opacity = 1;
-            if (transform is not null)
-            {
-                transform.Y = 0;
-            }
-
-            return;
-        }
 
         var duration = TimeSpan.FromMilliseconds(220);
         var easing = new QuadraticEase { EasingMode = EasingMode.EaseOut };

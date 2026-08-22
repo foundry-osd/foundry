@@ -168,12 +168,6 @@ public partial class DeploymentStatusView : UserControl
     {
         StateContent.BeginAnimation(OpacityProperty, null);
         StateContentTransform.BeginAnimation(System.Windows.Media.TranslateTransform.XProperty, null);
-        if (!SystemParameters.ClientAreaAnimation)
-        {
-            StateContent.Opacity = 1;
-            StateContentTransform.X = 0;
-            return;
-        }
 
         var duration = TimeSpan.FromMilliseconds(220);
         var easing = new QuadraticEase { EasingMode = EasingMode.EaseOut };

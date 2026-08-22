@@ -73,7 +73,7 @@ public partial class TerminalStatusGlyph : UserControl
 
     private void OnSystemParametersChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
-        if (e.PropertyName is nameof(SystemParameters.HighContrast) or nameof(SystemParameters.ClientAreaAnimation))
+        if (e.PropertyName == nameof(SystemParameters.HighContrast))
         {
             UpdateVisuals();
         }
@@ -105,13 +105,6 @@ public partial class TerminalStatusGlyph : UserControl
         GlyphHost.BeginAnimation(OpacityProperty, null);
         GlyphScale.BeginAnimation(ScaleTransform.ScaleXProperty, null);
         GlyphScale.BeginAnimation(ScaleTransform.ScaleYProperty, null);
-        if (!SystemParameters.ClientAreaAnimation)
-        {
-            GlyphHost.Opacity = 1;
-            GlyphScale.ScaleX = 1;
-            GlyphScale.ScaleY = 1;
-            return;
-        }
 
         var duration = TimeSpan.FromMilliseconds(220);
         var easing = new QuadraticEase { EasingMode = EasingMode.EaseOut };
