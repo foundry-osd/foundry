@@ -46,7 +46,6 @@ public sealed class ThemeService : IThemeService, INotifyPropertyChanged
         }
 
         ResourceDictionary resources = app.Resources;
-        resources.MergedDictionaries.Clear();
 
         ResourceDictionary dictionary = theme switch
         {
@@ -55,7 +54,13 @@ public sealed class ThemeService : IThemeService, INotifyPropertyChanged
             _ => new ResourceDictionary { Source = new Uri("pack://application:,,,/PresentationFramework.Fluent;component/Themes/Fluent.xaml", UriKind.Absolute) }
         };
 
-        resources.MergedDictionaries.Add(dictionary);
+        if (resources.MergedDictionaries.Count == 0)
+        {
+            resources.MergedDictionaries.Add(dictionary);
+            return;
+        }
+
+        resources.MergedDictionaries[0] = dictionary;
     }
 
     private void OnPropertyChanged(string propertyName)

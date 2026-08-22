@@ -13,7 +13,9 @@ public sealed class DeploymentWizardStateServiceTests
     {
         var service = new DeploymentWizardStateService();
 
-        bool canGoNext = service.CanGoNext(CreateSnapshot(wizardStepIndex: 0, isCatalogLoading: true));
+        bool canGoNext = service.CanGoNext(CreateSnapshot(
+            currentStepId: DeploymentWizardStepId.TargetDevice,
+            isCatalogLoading: true));
 
         Assert.False(canGoNext);
     }
@@ -25,7 +27,7 @@ public sealed class DeploymentWizardStateServiceTests
 
         bool canStart = service.CanStartDeployment(
             CreateSnapshot(
-                wizardStepIndex: 3,
+                currentStepId: DeploymentWizardStepId.Summary,
                 isDebugSafeMode: true,
                 hasSelectedOperatingSystem: true,
                 hasTargetDiskSelection: false,
@@ -43,7 +45,7 @@ public sealed class DeploymentWizardStateServiceTests
 
         bool canStart = service.CanStartDeployment(
             CreateSnapshot(
-                wizardStepIndex: 3,
+                currentStepId: DeploymentWizardStepId.Summary,
                 hasSelectedOperatingSystem: true,
                 hasTargetDiskSelection: true,
                 isSelectedTargetDiskSelectable: false,
@@ -55,7 +57,8 @@ public sealed class DeploymentWizardStateServiceTests
     }
 
     private static DeploymentWizardStateSnapshot CreateSnapshot(
-        int wizardStepIndex,
+        DeploymentWizardStepId currentStepId,
+        bool includeAutopilot = false,
         bool isDeploymentRunning = false,
         bool isCatalogLoading = false,
         bool isTargetDiskLoading = false,
@@ -70,7 +73,8 @@ public sealed class DeploymentWizardStateServiceTests
     {
         return new DeploymentWizardStateSnapshot
         {
-            WizardStepIndex = wizardStepIndex,
+            CurrentStepId = currentStepId,
+            AvailableSteps = DeploymentWizardStepDefinition.CreateSequence(includeAutopilot),
             IsDeploymentRunning = isDeploymentRunning,
             IsCatalogLoading = isCatalogLoading,
             IsTargetDiskLoading = isTargetDiskLoading,

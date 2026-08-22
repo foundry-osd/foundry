@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Ime računalnika</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 znakov. Samo A-Z, a-z, 0-9 in vezaj.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Ime računalnika mora vsebovati od 1 do 15 veljavnih znakov (črke, številke ali vezaji).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Ciljni stroj</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Ciljni disk</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Možnosti uvajanja</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Ciljni disk</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Izberite ciljni disk. Neprimerni diski so blokirani.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Uporabite posodobitve vdelane programske opreme</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Omogoči Autopilot za to uvajanje</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>V tem mediju ni bilo najdenih nobenih vdelanih profilov Autopilot.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>profil JSON</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch nalaganje zgoščene vrednosti strojne opreme</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktivno nalaganje zgoščene vrednosti strojne opreme</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Dostopno na tem mediju: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch nalaganje zgoščene vrednosti strojne opreme</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Stanje nalaganja zgoščene vrednosti strojne opreme</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Pripravljen za nalaganje zgoščene vrednosti strojne opreme</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Potrdilo za nalaganje je poteklo</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Nalaganje zgoščene vrednosti strojne opreme na tem mediju ni na voljo, ker manjkajo zahtevane informacije o potrdilu. Uvajanje se lahko nadaljuje, vendar bo nalaganje preskočeno.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Potrdilo Autopilot je poteklo. Uvajanje se lahko nadaljuje, vendar bo nalaganje preskočeno.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Podrobnosti</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>ID najemnika</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Odtis potrdila</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Potek veljavnosti potrdila</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Oznaka skupine</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Oznaka skupine ni obvezna. Če želite naložiti brez oznake skupine, izberite Brez.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Zaznavanje strojne opreme...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Zaznavanje strojne opreme ni uspelo.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Zaznavanje strojne opreme ni uspelo: {0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Metoda</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profil</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot oznaka skupine</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Tarča</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>Sistem</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Možnosti uvajanja</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Ne Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>profil JSON</value></data>
@@ -537,4 +526,56 @@ Ali želite nadaljevati z uvajanjem?</value></data>
   <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Nadaljuj</value></data>
   <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Pokaži ali skrij geslo</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Geslo ni pravilno. Poskusite znova.</value></data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>Ciljna naprava</value></data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>Operacijski sistem</value></data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>Gonilniki naprav</value></data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Wizard.Step.Summary" xml:space="preserve"><value>Povzetek</value></data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>Koraki za nastavitev razmestitve</value></data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>Nazaj na povzetek</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>Uredi nastavitve</value></data>
+  <data name="Common.Copy" xml:space="preserve"><value>Kopiraj v odložišče</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>Zapri okno</value></data>
+  <data name="TargetDevice.Title" xml:space="preserve"><value>Ciljna naprava</value></data>
+  <data name="TargetDevice.Firmware" xml:space="preserve"><value>Posodobitve vdelane programske opreme</value></data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>Ni na voljo na virtualnih strojih</value></data>
+  <data name="OperatingSystem.Title" xml:space="preserve"><value>Operacijski sistem</value></data>
+  <data name="Drivers.Title" xml:space="preserve"><value>Gonilniki naprav</value></data>
+  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>Podrobnosti konfiguracije</value></data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>Ciljna naprava</value></data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>Operacijski sistem</value></data>
+  <data name="Summary.Category.Drivers" xml:space="preserve"><value>Gonilniki naprav</value></data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Prilagajanje operacijskega sistema Windows</value></data>
+  <data name="Summary.Category.Network" xml:space="preserve"><value>Omrežje</value></data>
+  <data name="Summary.Category.Completion" xml:space="preserve"><value>Dokončanje</value></data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Ni konfigurirano</value></data>
+  <data name="Summary.Status.Configured" xml:space="preserve"><value>Konfigurirano</value></data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Brez sprememb</value></data>
+  <data name="Summary.Hardware" xml:space="preserve"><value>Zaznana strojna oprema</value></data>
+  <data name="Summary.Release" xml:space="preserve"><value>Različica</value></data>
+  <data name="Summary.Edition" xml:space="preserve"><value>Izdaja operacijskega sistema</value></data>
+  <data name="Summary.Architecture" xml:space="preserve"><value>Arhitektura sistema</value></data>
+  <data name="Summary.Language" xml:space="preserve"><value>Jezik</value></data>
+  <data name="Summary.LicenseChannel" xml:space="preserve"><value>Licenčni kanal</value></data>
+  <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
+  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.AppxRemoval" xml:space="preserve"><value>Odstranitev aplikacij AppX</value></data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>Odstranitev komponent AI</value></data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Gostovanje omrežnih profilov</value></data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>Samodejni ponovni zagon</value></data>
+  <data name="Summary.ManualRestart" xml:space="preserve"><value>Ročni ponovni zagon</value></data>
+  <data name="Summary.RestartDelay" xml:space="preserve"><value>Zakasnitev ponovnega zagona</value></data>
+  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} sekund</value></data>
+  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Izbrani ciljni disk bo izbrisan, ko se začne uvajanje.</value></data>
+  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Dobrodošli v Foundry Deploy</value></data>
+  <data name="Progress.Session" xml:space="preserve"><value>Seja uvajanja</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Koraki</value></data>
+  <data name="Progress.CurrentOperation" xml:space="preserve"><value>Trenutna operacija</value></data>
+  <data name="Progress.RingAutomationName" xml:space="preserve"><value>Splošni napredek uvajanja</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Koraki uvajanja</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Oglejte si tehnične podrobnosti</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Tehnične podrobnosti</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Pomočnik za registracijo se bo zagnal v uvedeni napravi.</value></data>
 </root>

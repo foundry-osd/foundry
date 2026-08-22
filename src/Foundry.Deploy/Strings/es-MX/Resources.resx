@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Nombre de la computadora</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 caracteres. A-Z, a-z, 0-9 y guión únicamente.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>El nombre de la computadora debe contener de 1 a 15 caracteres válidos (letras, números o guiones).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Máquina objetivo</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Disco de destino</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Opciones de implementación</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Disco de destino</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Seleccione un disco de destino. Los discos no elegibles están bloqueados.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Aplicar actualizaciones de firmware</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Habilite Autopilot para esta implementación</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Perfil</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>No se encontraron perfiles Autopilot incrustados en este medio.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON perfil</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Carga zero-touch del hash de hardware</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Carga interactiva del hash de hardware</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Disponible en este medio: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Carga zero-touch del hash de hardware</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Estado de carga de hash de hardware</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Listo para cargar hash de hardware</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>El certificado de carga ha caducado</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>La carga de hash de hardware no está disponible en este medio porque falta la información del certificado requerida. La implementación puede continuar, pero se omitirá la carga.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>El certificado Autopilot ha caducado. La implementación puede continuar, pero se omitirá la carga.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Detalles</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>ID de inquilino</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Huella digital del certificado</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Caducidad del certificado</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Etiqueta de grupo</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>La etiqueta de grupo es opcional. Seleccione Ninguno para cargar sin una etiqueta de grupo.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Detectando hardware...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Error en la detección de hardware.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Error en la detección de hardware: {0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Método</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Perfil</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot etiqueta de grupo</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Objetivo</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>Sistema</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Opciones de implementación</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>No Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON perfil</value></data>
@@ -537,4 +526,56 @@ Sistema operativo: {4}
   <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Continuar</value></data>
   <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Mostrar u ocultar la contraseña</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>La contraseña es incorrecta. Inténtalo de nuevo.</value></data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>Dispositivo de destino</value></data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>Sistema operativo</value></data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>Controladores de dispositivo</value></data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Wizard.Step.Summary" xml:space="preserve"><value>Resumen</value></data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>Pasos de configuración de implementación</value></data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>Volver al resumen</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>Editar</value></data>
+  <data name="Common.Copy" xml:space="preserve"><value>Copiar al portapapeles</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>Cerrar ventana</value></data>
+  <data name="TargetDevice.Title" xml:space="preserve"><value>Dispositivo de destino</value></data>
+  <data name="TargetDevice.Firmware" xml:space="preserve"><value>Actualizaciones de firmware</value></data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>No disponible en máquinas virtuales</value></data>
+  <data name="OperatingSystem.Title" xml:space="preserve"><value>Sistema operativo</value></data>
+  <data name="Drivers.Title" xml:space="preserve"><value>Controladores de dispositivo</value></data>
+  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>Detalles de configuración</value></data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>Dispositivo de destino</value></data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>Sistema operativo</value></data>
+  <data name="Summary.Category.Drivers" xml:space="preserve"><value>Controladores de dispositivos</value></data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Personalización de Windows</value></data>
+  <data name="Summary.Category.Network" xml:space="preserve"><value>Red</value></data>
+  <data name="Summary.Category.Completion" xml:space="preserve"><value>Finalización</value></data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>No configurado</value></data>
+  <data name="Summary.Status.Configured" xml:space="preserve"><value>Configurado</value></data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Sin cambios</value></data>
+  <data name="Summary.Hardware" xml:space="preserve"><value>Hardware detectado</value></data>
+  <data name="Summary.Release" xml:space="preserve"><value>Versión</value></data>
+  <data name="Summary.Edition" xml:space="preserve"><value>Edición</value></data>
+  <data name="Summary.Architecture" xml:space="preserve"><value>Arquitectura</value></data>
+  <data name="Summary.Language" xml:space="preserve"><value>Idioma</value></data>
+  <data name="Summary.LicenseChannel" xml:space="preserve"><value>Canal de licencia</value></data>
+  <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
+  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.AppxRemoval" xml:space="preserve"><value>Eliminación de aplicaciones AppX</value></data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>Eliminación de componentes de IA</value></data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Itinerancia del perfil de red</value></data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>Reinicio automático</value></data>
+  <data name="Summary.ManualRestart" xml:space="preserve"><value>Reinicio manual</value></data>
+  <data name="Summary.RestartDelay" xml:space="preserve"><value>Retardo de reinicio</value></data>
+  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} segundos</value></data>
+  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>El disco de destino seleccionado se borrará cuando comience la implementación.</value></data>
+  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Bienvenido a Foundry Deploy</value></data>
+  <data name="Progress.Session" xml:space="preserve"><value>Sesión de implementación</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Pasos</value></data>
+  <data name="Progress.CurrentOperation" xml:space="preserve"><value>Operación actual</value></data>
+  <data name="Progress.RingAutomationName" xml:space="preserve"><value>Progreso general de la implementación</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Pasos de implementación</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Ver detalles técnicos</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Detalles técnicos</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>El asistente de registro se ejecutará en el dispositivo implementado.</value></data>
 </root>

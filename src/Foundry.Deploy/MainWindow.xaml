@@ -7,10 +7,13 @@
     xmlns:runtime="clr-namespace:Foundry.Deploy.Services.Runtime"
     xmlns:views="clr-namespace:Foundry.Deploy.Views"
     Title="{Binding WindowTitle}"
+    Width="1024"
+    Height="768"
     Icon="/Assets/Icons/app.ico"
-    ResizeMode="NoResize"
-    WindowState="Maximized"
-    WindowStyle="None"
+    ResizeMode="CanResize"
+    WindowStartupLocation="CenterScreen"
+    WindowState="Normal"
+    WindowStyle="SingleBorderWindow"
     mc:Ignorable="d">
     <Window.Resources>
         <DataTemplate x:Key="SplashPageTemplate">
@@ -21,17 +24,6 @@
             <views:WizardView />
         </DataTemplate>
 
-        <DataTemplate x:Key="ProgressPageTemplate">
-            <views:ProgressView />
-        </DataTemplate>
-
-        <DataTemplate x:Key="SuccessPageTemplate">
-            <views:SuccessView />
-        </DataTemplate>
-
-        <DataTemplate x:Key="ErrorPageTemplate">
-            <views:ErrorView />
-        </DataTemplate>
     </Window.Resources>
 
     <Grid>
@@ -188,8 +180,7 @@
         </Grid>
 
         <Grid x:Name="SplashContentHost"
-            Grid.Row="0"
-            Grid.RowSpan="2"
+            Grid.Row="1"
             Margin="32"
             Visibility="{Binding Session.IsSplashPage, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid
@@ -208,7 +199,26 @@
         <Grid x:Name="MainContentHost"
             Grid.Row="1"
             Margin="16"
-            Visibility="{Binding Session.IsSplashPage, Converter={StaticResource InverseBooleanConverter}}">
+            RenderTransformOrigin="0.5,0.5">
+            <Grid.RenderTransform>
+                <TranslateTransform x:Name="MainContentTransform" />
+            </Grid.RenderTransform>
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter
+                        Property="Visibility"
+                        Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Session.CurrentPage}"
+                            Value="{x:Static local:DeploymentPage.Wizard}">
+                            <Setter
+                                Property="Visibility"
+                                Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
             <Grid
                 Width="{Binding ElementName=MainContentHost, Path=ActualWidth}"
                 Height="{Binding ElementName=MainContentHost, Path=ActualHeight}"
@@ -216,46 +226,22 @@
                 MaxHeight="900"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center">
-                <ContentControl Content="{Binding}">
-                    <ContentControl.Style>
-                        <Style TargetType="ContentControl">
-                            <Setter
-                                Property="ContentTemplate"
-                                Value="{StaticResource WizardPageTemplate}" />
-                            <Style.Triggers>
-                                <DataTrigger
-                                    Binding="{Binding Session.CurrentPage}"
-                                    Value="{x:Static local:DeploymentPage.Wizard}">
-                                    <Setter
-                                        Property="ContentTemplate"
-                                        Value="{StaticResource WizardPageTemplate}" />
-                                </DataTrigger>
-                                <DataTrigger
-                                    Binding="{Binding Session.CurrentPage}"
-                                    Value="{x:Static local:DeploymentPage.Progress}">
-                                    <Setter
-                                        Property="ContentTemplate"
-                                        Value="{StaticResource ProgressPageTemplate}" />
-                                </DataTrigger>
-                                <DataTrigger
-                                    Binding="{Binding Session.CurrentPage}"
-                                    Value="{x:Static local:DeploymentPage.Success}">
-                                    <Setter
-                                        Property="ContentTemplate"
-                                        Value="{StaticResource SuccessPageTemplate}" />
-                                </DataTrigger>
-                                <DataTrigger
-                                    Binding="{Binding Session.CurrentPage}"
-                                    Value="{x:Static local:DeploymentPage.Error}">
-                                    <Setter
-                                        Property="ContentTemplate"
-                                        Value="{StaticResource ErrorPageTemplate}" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ContentControl.Style>
-                </ContentControl>
+                <ContentControl
+                    Content="{Binding}"
+                    ContentTemplate="{StaticResource WizardPageTemplate}" />
             </Grid>
+        </Grid>
+
+        <Grid x:Name="DeploymentStatusHost"
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Panel.ZIndex="0"
+            RenderTransformOrigin="0.5,0.5"
+            Visibility="{Binding Session.IsDeploymentStatusPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid.RenderTransform>
+                <TranslateTransform x:Name="DeploymentStatusTransform" />
+            </Grid.RenderTransform>
+            <views:DeploymentStatusView />
         </Grid>
 
     </Grid>

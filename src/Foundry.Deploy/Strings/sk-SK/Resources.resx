@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Názov počítača</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 znakov. Iba A-Z, a-z, 0-9 a spojovník.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Názov počítača musí obsahovať 1 až 15 platných znakov (písmená, čísla alebo spojovník).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Cieľový stroj</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Cieľový disk</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Možnosti nasadenia</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Cieľový disk</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Vyberte cieľový disk. Nevhodné disky sú zablokované.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Použite aktualizácie firmvéru</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Povoliť Autopilot pre toto nasadenie</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Na tomto médiu sa nenašli žiadne vložené profily Autopilot.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>Profil JSON</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch nahratie hardvérového hashu</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktívne nahratie hardvérového hashu</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Dostupné na tomto médiu: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch nahratie hardvérového hashu</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Stav nahrávania hardvérového hash</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Hardvérový hash je pripravený na odovzdanie</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Platnosť certifikátu nahrávania vypršala</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Nahrávanie hardvérového hash nie je na tomto médiu k dispozícii, pretože chýbajú požadované informácie o certifikáte. Nasadzovanie môže pokračovať, ale nahrávanie sa preskočí.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Platnosť certifikátu Autopilot vypršala. Nasadzovanie môže pokračovať, ale nahrávanie sa preskočí.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Podrobnosti</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>ID nájomcu</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Odtlačok certifikátu</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Platnosť certifikátu</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Skupinová značka</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Značka skupiny je voliteľná. Ak chcete odovzdať bez označenia skupiny, vyberte možnosť Žiadne.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Detekuje sa hardvér...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Detekcia hardvéru zlyhala.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Rozpoznanie hardvéru zlyhalo: {0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Metóda Autopilot</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Profil Autopilot</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Značka skupiny Autopilot</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Cieľ</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>Systém</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Možnosti nasadenia</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Nie Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>Profil JSON</value></data>
@@ -537,4 +526,56 @@ Pokračovať v nasadzovaní?</value></data>
   <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Pokračovať</value></data>
   <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Zobraziť alebo skryť heslo</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Heslo je nesprávne. Skúste to znova.</value></data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>Cieľové zariadenie</value></data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>Operačný systém</value></data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>Ovládače zariadení</value></data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Wizard.Step.Summary" xml:space="preserve"><value>Zhrnutie</value></data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>Kroky nastavenia nasadenia</value></data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>Späť na súhrn</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>Upraviť</value></data>
+  <data name="Common.Copy" xml:space="preserve"><value>Kopírovať</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>Zavrieť</value></data>
+  <data name="TargetDevice.Title" xml:space="preserve"><value>Cieľové zariadenie</value></data>
+  <data name="TargetDevice.Firmware" xml:space="preserve"><value>Aktualizácie firmvéru</value></data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>Nie je k dispozícii na virtuálnych počítačoch</value></data>
+  <data name="OperatingSystem.Title" xml:space="preserve"><value>Operačný systém</value></data>
+  <data name="Drivers.Title" xml:space="preserve"><value>Ovládače zariadení</value></data>
+  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>Podrobnosti o konfigurácii</value></data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>Cieľové zariadenie</value></data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>Operačný systém</value></data>
+  <data name="Summary.Category.Drivers" xml:space="preserve"><value>Ovládače zariadení</value></data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Prispôsobenie Windows</value></data>
+  <data name="Summary.Category.Network" xml:space="preserve"><value>Sieť</value></data>
+  <data name="Summary.Category.Completion" xml:space="preserve"><value>Dokončenie</value></data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Nie je nakonfigurované</value></data>
+  <data name="Summary.Status.Configured" xml:space="preserve"><value>Nakonfigurované</value></data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Žiadne zmeny</value></data>
+  <data name="Summary.Hardware" xml:space="preserve"><value>Zistený hardvér</value></data>
+  <data name="Summary.Release" xml:space="preserve"><value>Verzia</value></data>
+  <data name="Summary.Edition" xml:space="preserve"><value>Vydanie operačného systému</value></data>
+  <data name="Summary.Architecture" xml:space="preserve"><value>Architektúra systému</value></data>
+  <data name="Summary.Language" xml:space="preserve"><value>Jazyk</value></data>
+  <data name="Summary.LicenseChannel" xml:space="preserve"><value>Licenčný kanál</value></data>
+  <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
+  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.AppxRemoval" xml:space="preserve"><value>Odstránenie AppX</value></data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>Odstránenie komponentov AI</value></data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Roaming sieťového profilu</value></data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>Automatický reštart</value></data>
+  <data name="Summary.ManualRestart" xml:space="preserve"><value>Manuálny reštart</value></data>
+  <data name="Summary.RestartDelay" xml:space="preserve"><value>Oneskorenie reštartu</value></data>
+  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} sekúnd</value></data>
+  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Vybraný cieľový disk bude vymazaný pri spustení nasadenia.</value></data>
+  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Vitajte vo Foundry Deploy</value></data>
+  <data name="Progress.Session" xml:space="preserve"><value>Relácia nasadenia</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Kroky</value></data>
+  <data name="Progress.CurrentOperation" xml:space="preserve"><value>Aktuálna operácia</value></data>
+  <data name="Progress.RingAutomationName" xml:space="preserve"><value>Celkový priebeh nasadenia</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Kroky nasadenia</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Zobraziť technické podrobnosti</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Technické detaily</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Asistent registrácie sa spustí na nasadenom zariadení.</value></data>
 </root>

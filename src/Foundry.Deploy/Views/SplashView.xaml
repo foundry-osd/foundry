@@ -4,40 +4,68 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <Grid>
-        <TextBlock
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Style="{StaticResource DisplayTextBlockStyle}"
-            Text="{Binding Strings[Splash.Welcome]}"
-            TextAlignment="Center" />
+    <Grid x:Name="LandingContent"
+        RenderTransformOrigin="0.5,0.5">
+        <Grid.RenderTransform>
+            <TranslateTransform x:Name="LandingTransform" />
+        </Grid.RenderTransform>
 
         <StackPanel
-            Width="360"
-            Margin="0,160,0,0"
+            MaxWidth="760"
+            Margin="48,32"
             HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Visibility="{Binding Session.IsStartupInitializing, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <ProgressBar
-                Height="6"
-                IsIndeterminate="True" />
-            <TextBlock
-                Margin="0,12,0,0"
+            VerticalAlignment="Center">
+            <Image
+                Width="144"
+                Height="144"
+                Margin="0,0,0,20"
                 HorizontalAlignment="Center"
-                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                Style="{StaticResource BodyTextBlockStyle}"
-                Text="{Binding Strings[Splash.InitializingComponents]}"
-                TextAlignment="Center" />
-        </StackPanel>
+                AutomationProperties.Name="{Binding Strings[App.Name]}"
+                Source="/Assets/Images/foundry-about-logo.png"
+                Stretch="Uniform" />
+            <TextBlock
+                HorizontalAlignment="Center"
+                Style="{StaticResource TitleLargeTextBlockStyle}"
+                Text="{Binding Strings[Splash.WelcomeDeploy]}"
+                TextAlignment="Center"
+                TextWrapping="Wrap" />
 
-        <Button
-            Width="160"
-            Margin="0,0,0,24"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Bottom"
-            Command="{Binding BeginWizardCommand}"
-            Content="{Binding Strings[Splash.Start]}"
-            Style="{DynamicResource AccentButtonStyle}"
-            Visibility="{Binding Session.IsStartupInitializing, Converter={StaticResource InverseBooleanConverter}}" />
+            <Grid x:Name="LandingActionHost"
+                MinHeight="76"
+                Margin="0,28,0,0"
+                RenderTransformOrigin="0.5,0.5">
+                <Grid.RenderTransform>
+                    <TranslateTransform x:Name="LandingActionTransform" />
+                </Grid.RenderTransform>
+                <StackPanel
+                    MinWidth="260"
+                    MaxWidth="520"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Visibility="{Binding Session.IsStartupInitializing, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <ProgressBar
+                        Height="4"
+                        IsIndeterminate="True"
+                        Style="{StaticResource DeployProgressBarStyle}" />
+                    <TextBlock
+                        Margin="0,12,0,0"
+                        HorizontalAlignment="Center"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="{Binding Strings[Splash.InitializingComponents]}"
+                        TextAlignment="Center" />
+                </StackPanel>
+
+                <Button
+                    MinWidth="180"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    AutomationProperties.Name="{Binding Strings[Splash.Start]}"
+                    Command="{Binding BeginWizardCommand}"
+                    Content="{Binding Strings[Splash.Start]}"
+                    Style="{DynamicResource AccentButtonStyle}"
+                    Visibility="{Binding Session.IsStartupInitializing, Converter={StaticResource InverseBooleanConverter}}" />
+            </Grid>
+        </StackPanel>
     </Grid>
 </UserControl>

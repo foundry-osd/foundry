@@ -6,7 +6,8 @@ namespace Foundry.Deploy.Services.Wizard;
 
 public sealed record DeploymentWizardStateSnapshot
 {
-    public required int WizardStepIndex { get; init; }
+    public required DeploymentWizardStepId CurrentStepId { get; init; }
+    public required IReadOnlyList<DeploymentWizardStepDefinition> AvailableSteps { get; init; }
     public required bool IsDeploymentRunning { get; init; }
     public required bool IsCatalogLoading { get; init; }
     public required bool IsTargetDiskLoading { get; init; }

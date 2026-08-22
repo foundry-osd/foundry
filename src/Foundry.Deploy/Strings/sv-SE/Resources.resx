@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Datornamn</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 tecken. A-Z, a-z, 0-9 och endast bindestreck.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Datornamnet måste innehålla 1 till 15 giltiga tecken (bokstäver, siffror eller bindestreck).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Målmaskin</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Destinationsskiva</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Implementeringsalternativ</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Målskiva</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Välj en måldisk. Ej kvalificerade diskar är blockerade.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Applicera firmwareuppdateringar</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Aktivera Autopilot för denna distribution</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Inga inbäddade Autopilot-profiler hittades på det här mediet.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profil</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch-uppladdning av maskinvaruhash</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktiv uppladdning av maskinvaruhash</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Tillgängligt på detta media: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch-uppladdning av maskinvaruhash</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Hårdvaruhashuppladdningsstatus</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Redo att ladda upp hårdvaruhash</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Uppladdningscertifikatet har löpt ut</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Hårdvaruhashuppladdning är inte tillgänglig på det här mediet eftersom obligatorisk certifikatinformation saknas. Implementeringen kan fortsätta, men uppladdningen hoppas över.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot-certifikatet har löpt ut. Implementeringen kan fortsätta, men uppladdningen hoppas över.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Detaljer</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Hyresgäst ID</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Certifikats tumavtryck</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Certifikats giltighetstid</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Grupptagg</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Grupptaggen är valfri. Välj Ingen för att ladda upp utan en grupptagg.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Upptäcker hårdvara...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Maskinvaruavkänning misslyckades.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Hårdvaradetektering misslyckades: {0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Metod</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profil</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot grupptagg</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Mål</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>System</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Implementeringsalternativ</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Nej Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profil</value></data>
@@ -537,4 +526,56 @@ Fortsätt med implementeringen?</value></data>
   <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Fortsätt</value></data>
   <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Visa eller dölj lösenordet</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Lösenordet är felaktigt. Försök igen.</value></data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>Målenhet</value></data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>Operativsystem</value></data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>Drivrutiner</value></data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Wizard.Step.Summary" xml:space="preserve"><value>Sammanfattning</value></data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>Steg för att konfigurera distributionen</value></data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>Återgå till sammanfattningen</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>Redigera</value></data>
+  <data name="Common.Copy" xml:space="preserve"><value>Kopiera</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>Stäng</value></data>
+  <data name="TargetDevice.Title" xml:space="preserve"><value>Målenhet</value></data>
+  <data name="TargetDevice.Firmware" xml:space="preserve"><value>Firmwareuppdateringar</value></data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>Ej tillgängligt på virtuella maskiner</value></data>
+  <data name="OperatingSystem.Title" xml:space="preserve"><value>Operativsystem</value></data>
+  <data name="Drivers.Title" xml:space="preserve"><value>Drivrutiner</value></data>
+  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>Konfigurationsdetaljer</value></data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>Målenhet</value></data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>Operativsystem</value></data>
+  <data name="Summary.Category.Drivers" xml:space="preserve"><value>Drivrutiner</value></data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Windows-anpassning</value></data>
+  <data name="Summary.Category.Network" xml:space="preserve"><value>Nätverk</value></data>
+  <data name="Summary.Category.Completion" xml:space="preserve"><value>Slutförande</value></data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Ej konfigurerad</value></data>
+  <data name="Summary.Status.Configured" xml:space="preserve"><value>Konfigurerad</value></data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Inga ändringar</value></data>
+  <data name="Summary.Hardware" xml:space="preserve"><value>Detekterad hårdvara</value></data>
+  <data name="Summary.Release" xml:space="preserve"><value>Version</value></data>
+  <data name="Summary.Edition" xml:space="preserve"><value>Operativsystemutgåva</value></data>
+  <data name="Summary.Architecture" xml:space="preserve"><value>Systemarkitektur</value></data>
+  <data name="Summary.Language" xml:space="preserve"><value>Språk</value></data>
+  <data name="Summary.LicenseChannel" xml:space="preserve"><value>Licenskanal</value></data>
+  <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
+  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.AppxRemoval" xml:space="preserve"><value>Borttagning av AppX</value></data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>Borttagning av AI-komponenter</value></data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Nätverksprofilsroaming</value></data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>Automatisk omstart</value></data>
+  <data name="Summary.ManualRestart" xml:space="preserve"><value>Manuell omstart</value></data>
+  <data name="Summary.RestartDelay" xml:space="preserve"><value>Omstartsfördröjning</value></data>
+  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} sekunder</value></data>
+  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Den valda måldisken kommer att raderas när distributionen startar.</value></data>
+  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Välkommen till Foundry Deploy</value></data>
+  <data name="Progress.Session" xml:space="preserve"><value>Distributionssession</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Steg</value></data>
+  <data name="Progress.CurrentOperation" xml:space="preserve"><value>Pågående åtgärd</value></data>
+  <data name="Progress.RingAutomationName" xml:space="preserve"><value>Övergripande distributionsförlopp</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Distributionssteg</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Visa tekniska detaljer</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Tekniska detaljer</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Registreringsassistenten kommer att köras på den distribuerade enheten.</value></data>
 </root>

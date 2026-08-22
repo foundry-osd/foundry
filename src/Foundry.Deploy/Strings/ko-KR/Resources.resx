@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>컴퓨터 이름</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1~15자. A-Z, a-z, 0-9 및 하이픈만 가능합니다.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>컴퓨터 이름은 1~15자의 유효한 문자(문자, 숫자 또는 하이픈)를 포함해야 합니다.</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>대상 기계</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>대상 디스크</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>배포 옵션</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>대상 디스크</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>대상 디스크를 선택합니다. 부적격 디스크는 차단됩니다.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>펌웨어 업데이트 적용</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>이 배포에 대해 Autopilot 활성화</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>프로필</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>이 미디어에는 포함된 Autopilot 프로필이 없습니다.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON 프로필</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>제로터치 하드웨어 해시 업로드</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>대화형 하드웨어 해시 업로드</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>다음 미디어에서 볼 수 있습니다: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>제로터치 하드웨어 해시 업로드</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>하드웨어 해시 업로드 상태</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>하드웨어 해시를 업로드할 준비가 되었습니다.</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>업로드 인증서가 만료되었습니다.</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>필수 인증서 정보가 누락되어 이 미디어에서 하드웨어 해시 업로드를 사용할 수 없습니다. 배포는 계속할 수 있지만 업로드는 건너뜁니다.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot 인증서가 만료되었습니다. 배포는 계속할 수 있지만 업로드는 건너뜁니다.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>세부정보</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>테넌트 ID</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>인증서 지문</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>인증서 만료</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>그룹 태그</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>그룹 태그는 선택 사항입니다. 그룹 태그 없이 업로드하려면 없음을 선택하세요.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>하드웨어 감지 중...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>하드웨어 감지에 실패했습니다.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>하드웨어 감지 실패: {0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot 방법</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot 프로필</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot 그룹 태그</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>대상</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>시스템</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>배포 옵션</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>아니요 Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON 프로필</value></data>
@@ -537,4 +526,56 @@
   <data name="DeploymentAccess.Continue" xml:space="preserve"><value>계속</value></data>
   <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>암호 표시 또는 숨기기</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>암호가 올바르지 않습니다. 다시 시도하세요.</value></data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>대상 장치</value></data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>운영 체제</value></data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>장치 드라이버</value></data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Wizard.Step.Summary" xml:space="preserve"><value>요약</value></data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>배포 설정 단계</value></data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>요약으로 돌아가기</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>편집</value></data>
+  <data name="Common.Copy" xml:space="preserve"><value>복사</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>닫기</value></data>
+  <data name="TargetDevice.Title" xml:space="preserve"><value>대상 장치</value></data>
+  <data name="TargetDevice.Firmware" xml:space="preserve"><value>펌웨어 업데이트</value></data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>가상 머신에서는 사용할 수 없습니다.</value></data>
+  <data name="OperatingSystem.Title" xml:space="preserve"><value>운영 체제</value></data>
+  <data name="Drivers.Title" xml:space="preserve"><value>장치 드라이버</value></data>
+  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>구성 세부정보</value></data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>대상 장치</value></data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>운영 체제</value></data>
+  <data name="Summary.Category.Drivers" xml:space="preserve"><value>장치 드라이버</value></data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Windows 사용자 지정</value></data>
+  <data name="Summary.Category.Network" xml:space="preserve"><value>네트워크</value></data>
+  <data name="Summary.Category.Completion" xml:space="preserve"><value>완료</value></data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>구성되지 않음</value></data>
+  <data name="Summary.Status.Configured" xml:space="preserve"><value>구성됨</value></data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>변경 사항 없음</value></data>
+  <data name="Summary.Hardware" xml:space="preserve"><value>감지된 하드웨어</value></data>
+  <data name="Summary.Release" xml:space="preserve"><value>버전</value></data>
+  <data name="Summary.Edition" xml:space="preserve"><value>에디션</value></data>
+  <data name="Summary.Architecture" xml:space="preserve"><value>시스템 아키텍처</value></data>
+  <data name="Summary.Language" xml:space="preserve"><value>언어</value></data>
+  <data name="Summary.LicenseChannel" xml:space="preserve"><value>라이선스 채널</value></data>
+  <data name="Summary.Build" xml:space="preserve"><value>빌드</value></data>
+  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX 제거</value></data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>AI 구성 요소 제거</value></data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>네트워크 프로필 로밍</value></data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>자동 재시작</value></data>
+  <data name="Summary.ManualRestart" xml:space="preserve"><value>수동으로 다시 시작</value></data>
+  <data name="Summary.RestartDelay" xml:space="preserve"><value>재시작 지연</value></data>
+  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} 초</value></data>
+  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>배포가 시작되면 선택한 대상 디스크가 지워집니다.</value></data>
+  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Foundry Deploy에 오신 것을 환영합니다.</value></data>
+  <data name="Progress.Session" xml:space="preserve"><value>세션</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>단계</value></data>
+  <data name="Progress.CurrentOperation" xml:space="preserve"><value>현재 작업</value></data>
+  <data name="Progress.RingAutomationName" xml:space="preserve"><value>전체 배포 진행 상황</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>배포 단계</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>기술 세부정보 보기</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>기술 세부사항</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>등록 도우미는 배포된 장치에서 실행됩니다.</value></data>
 </root>

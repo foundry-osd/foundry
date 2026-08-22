@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Computername</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 Zeichen. Nur A-Z, a-z, 0-9 und Bindestrich.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Der Computername muss 1 bis 15 gültige Zeichen (Buchstaben, Zahlen oder Bindestriche) enthalten.</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Zielmaschine</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Zielfestplatte</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Bereitstellungsoptionen</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Zielfestplatte</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Wählen Sie eine Zielfestplatte aus. Nicht berechtigte Datenträger werden blockiert.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Wenden Sie Firmware-Updates an</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Aktivieren Sie Autopilot für diese Bereitstellung</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Auf diesem Medium wurden keine eingebetteten Autopilot-Profile gefunden.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON Profil</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-Touch-Hardware-Hash-Upload</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktiver Hardware-Hash-Upload</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Verfügbar auf diesem Medium: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-Touch-Hardware-Hash-Upload</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Status des Hardware-Hash-Uploads</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Bereit zum Hochladen des Hardware-Hashs</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Das Upload-Zertifikat ist abgelaufen</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Der Hardware-Hash-Upload ist auf diesem Medium nicht möglich, da die erforderlichen Zertifikatsinformationen fehlen. Die Bereitstellung kann fortgesetzt werden, der Upload wird jedoch übersprungen.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Das Autopilot-Zertifikat ist abgelaufen. Die Bereitstellung kann fortgesetzt werden, der Upload wird jedoch übersprungen.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Details</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Mieter-ID</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Fingerabdruck des Zertifikats</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Ablauf des Zertifikats</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Gruppen-Tag</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Das Gruppen-Tag ist optional. Wählen Sie „Keine“ aus, um den Upload ohne Gruppen-Tag durchzuführen.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Hardware wird erkannt...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Die Hardwareerkennung ist fehlgeschlagen.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Hardware-Erkennung fehlgeschlagen: {0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Methode</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profil</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot Gruppen-Tag</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Ziel</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>System</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Bereitstellungsoptionen</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Nein Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON Profil</value></data>
@@ -537,4 +526,56 @@ Mit der Bereitstellung fortfahren?</value></data>
   <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Fortfahren</value></data>
   <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Kennwort anzeigen oder ausblenden</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Das Kennwort ist falsch. Versuchen Sie es erneut.</value></data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>Zielgerät</value></data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>Betriebssystem</value></data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>Gerätetreiber</value></data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Wizard.Step.Summary" xml:space="preserve"><value>Zusammenfassung</value></data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>Schritte zur Einrichtung der Bereitstellung</value></data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>Zurück zur Zusammenfassung</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>Bearbeiten</value></data>
+  <data name="Common.Copy" xml:space="preserve"><value>Kopieren</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>Schließen</value></data>
+  <data name="TargetDevice.Title" xml:space="preserve"><value>Zielgerät</value></data>
+  <data name="TargetDevice.Firmware" xml:space="preserve"><value>Firmware-Updates</value></data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>Nicht verfügbar auf virtuellen Maschinen</value></data>
+  <data name="OperatingSystem.Title" xml:space="preserve"><value>Betriebssystem</value></data>
+  <data name="Drivers.Title" xml:space="preserve"><value>Gerätetreiber</value></data>
+  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>Konfigurationsdetails</value></data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>Zielgerät</value></data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>Betriebssystem</value></data>
+  <data name="Summary.Category.Drivers" xml:space="preserve"><value>Gerätetreiber</value></data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Windows-Anpassung</value></data>
+  <data name="Summary.Category.Network" xml:space="preserve"><value>Netzwerk</value></data>
+  <data name="Summary.Category.Completion" xml:space="preserve"><value>Fertigstellung</value></data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Nicht konfiguriert</value></data>
+  <data name="Summary.Status.Configured" xml:space="preserve"><value>Konfiguriert</value></data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Keine Änderungen</value></data>
+  <data name="Summary.Hardware" xml:space="preserve"><value>Erkannte Hardware</value></data>
+  <data name="Summary.Release" xml:space="preserve"><value>Version</value></data>
+  <data name="Summary.Edition" xml:space="preserve"><value>Betriebssystemedition</value></data>
+  <data name="Summary.Architecture" xml:space="preserve"><value>Systemarchitektur</value></data>
+  <data name="Summary.Language" xml:space="preserve"><value>Sprache</value></data>
+  <data name="Summary.LicenseChannel" xml:space="preserve"><value>Lizenzkanal</value></data>
+  <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
+  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX-Entfernung</value></data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>KI-Komponentenentfernung</value></data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Netzwerkprofil-Roaming</value></data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>Automatischer Neustart</value></data>
+  <data name="Summary.ManualRestart" xml:space="preserve"><value>Manueller Neustart</value></data>
+  <data name="Summary.RestartDelay" xml:space="preserve"><value>Neustartverzögerung</value></data>
+  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} Sekunden</value></data>
+  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Die ausgewählte Zielfestplatte wird gelöscht, wenn die Bereitstellung beginnt.</value></data>
+  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Willkommen bei Foundry Deploy</value></data>
+  <data name="Progress.Session" xml:space="preserve"><value>Bereitstellungssitzung</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Schritte</value></data>
+  <data name="Progress.CurrentOperation" xml:space="preserve"><value>Aktueller Vorgang</value></data>
+  <data name="Progress.RingAutomationName" xml:space="preserve"><value>Gesamtfortschritt der Bereitstellung</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Bereitstellungsschritte</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Technische Details anzeigen</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Technische Details</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Der Registrierungsassistent wird auf dem bereitgestellten Gerät ausgeführt.</value></data>
 </root>

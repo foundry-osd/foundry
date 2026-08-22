@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>اسم الكمبيوتر</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 حرفا. A-Z، وa-z، و0-9، والواصلة فقط.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>يجب أن يحتوي اسم الكمبيوتر على من 1 إلى 15 حرفًا صالحًا (أحرف أو أرقام أو واصلة).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>آلة الهدف</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>القرص الوجهة</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>خيارات النشر</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>القرص المستهدف</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>حدد القرص الهدف. يتم حظر الأقراص غير المؤهلة.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>تطبيق تحديثات البرامج الثابتة</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>قم بتمكين Autopilot لهذا النشر</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>الملف الشخصي</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>لم يتم العثور على ملفات تعريف Autopilot مضمنة على هذه الوسائط.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON الملف الشخصي</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>تحميل zero-touch لتجزئة الأجهزة</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>تحميل تفاعلي لتجزئة الأجهزة</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>متوفر على هذه الوسائط: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>تحميل zero-touch لتجزئة الأجهزة</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>حالة تحميل تجزئة الأجهزة</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>جاهز لتحميل تجزئة الأجهزة</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>انتهت صلاحية شهادة التحميل</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>لا يتوفر تحميل تجزئة الأجهزة على هذه الوسائط لأن معلومات الشهادة المطلوبة مفقودة. يمكن أن يستمر النشر، ولكن سيتم تخطي التحميل.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>انتهت صلاحية الشهادة Autopilot. يمكن أن يستمر النشر، ولكن سيتم تخطي التحميل.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>التفاصيل</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>معرف المستأجر</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>بصمة الشهادة</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>انتهاء صلاحية الشهادة</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>علامة المجموعة</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>علامة المجموعة اختيارية. حدد لا شيء للتحميل بدون علامة المجموعة.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>الكشف عن الأجهزة...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>فشل الكشف عن الأجهزة.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>فشل الكشف عن الأجهزة: {0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot الطريقة</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot الملف الشخصي</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot علامة المجموعة</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>الهدف</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>النظام</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>خيارات النشر</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>لا Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON الملف الشخصي</value></data>
@@ -537,4 +526,56 @@
   <data name="DeploymentAccess.Continue" xml:space="preserve"><value>متابعة</value></data>
   <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>إظهار كلمة المرور أو إخفاؤها</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>كلمة المرور غير صحيحة. حاول مرة أخرى.</value></data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>الجهاز المستهدف</value></data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>نظام التشغيل</value></data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>برامج تشغيل الأجهزة</value></data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Wizard.Step.Summary" xml:space="preserve"><value>ملخص</value></data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>خطوات إعداد النشر</value></data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>العودة إلى الملخص</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>تحرير</value></data>
+  <data name="Common.Copy" xml:space="preserve"><value>نسخ</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>إغلاق</value></data>
+  <data name="TargetDevice.Title" xml:space="preserve"><value>الجهاز المستهدف</value></data>
+  <data name="TargetDevice.Firmware" xml:space="preserve"><value>تحديثات البرامج الثابتة</value></data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>غير متوفر على الأجهزة الافتراضية</value></data>
+  <data name="OperatingSystem.Title" xml:space="preserve"><value>نظام التشغيل</value></data>
+  <data name="Drivers.Title" xml:space="preserve"><value>برامج تشغيل الأجهزة</value></data>
+  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>تفاصيل التكوين</value></data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>الجهاز المستهدف</value></data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>نظام التشغيل</value></data>
+  <data name="Summary.Category.Drivers" xml:space="preserve"><value>برامج تشغيل الأجهزة</value></data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>تخصيص Windows</value></data>
+  <data name="Summary.Category.Network" xml:space="preserve"><value>الشبكة</value></data>
+  <data name="Summary.Category.Completion" xml:space="preserve"><value>الانتهاء</value></data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>لم يتم تكوينه</value></data>
+  <data name="Summary.Status.Configured" xml:space="preserve"><value>تم التهيئة</value></data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>لا توجد تغييرات</value></data>
+  <data name="Summary.Hardware" xml:space="preserve"><value>الأجهزة التي تم اكتشافها</value></data>
+  <data name="Summary.Release" xml:space="preserve"><value>الإصدار</value></data>
+  <data name="Summary.Edition" xml:space="preserve"><value>إصدار نظام التشغيل</value></data>
+  <data name="Summary.Architecture" xml:space="preserve"><value>بنية النظام</value></data>
+  <data name="Summary.Language" xml:space="preserve"><value>اللغة</value></data>
+  <data name="Summary.LicenseChannel" xml:space="preserve"><value>قناة الترخيص</value></data>
+  <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
+  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.AppxRemoval" xml:space="preserve"><value>إزالة AppX</value></data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>إزالة مكون الذكاء الاصطناعي</value></data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>تجوال ملف تعريف الشبكة</value></data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>إعادة التشغيل التلقائي</value></data>
+  <data name="Summary.ManualRestart" xml:space="preserve"><value>إعادة التشغيل اليدوي</value></data>
+  <data name="Summary.RestartDelay" xml:space="preserve"><value>تأخير إعادة التشغيل</value></data>
+  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} ثانية</value></data>
+  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>سيتم مسح القرص الهدف المحدد عند بدء النشر.</value></data>
+  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>مرحبًا بك في Foundry Deploy</value></data>
+  <data name="Progress.Session" xml:space="preserve"><value>جلسة النشر</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>الخطوات</value></data>
+  <data name="Progress.CurrentOperation" xml:space="preserve"><value>العملية الحالية</value></data>
+  <data name="Progress.RingAutomationName" xml:space="preserve"><value>تقدم النشر الإجمالي</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>خطوات النشر</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>عرض التفاصيل الفنية</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>التفاصيل الفنية</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>سيعمل مساعد التسجيل على الجهاز الذي تم نشره.</value></data>
 </root>

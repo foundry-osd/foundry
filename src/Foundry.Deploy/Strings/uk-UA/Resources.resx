@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Ім'я комп'ютера</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 символів. A–Z, a–z, 0–9 і лише дефіс.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Ім’я комп’ютера має містити від 1 до 15 дійсних символів (літери, цифри або дефіс).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Цільова машина</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Диск призначення</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Варіанти розгортання</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Цільовий диск</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Виберіть цільовий диск. Невідповідні диски блокуються.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Застосуйте оновлення прошивки</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Увімкніть Autopilot для цього розгортання</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Профіль</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>На цьому носії не знайдено вбудованих профілів Autopilot.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>профіль JSON</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch завантаження апаратного хешу</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Інтерактивне завантаження апаратного хешу</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Доступно на цьому носії: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch завантаження апаратного хешу</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Статус завантаження апаратного хешу</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Готовий до завантаження апаратного хешу</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Термін дії сертифіката завантаження минув</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Завантаження хешу апаратного забезпечення недоступне на цьому носії, оскільки відсутня необхідна інформація про сертифікат. Розгортання можна продовжити, але завантаження буде пропущено.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Термін дії сертифіката Autopilot минув. Розгортання можна продовжити, але завантаження буде пропущено.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Подробиці</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>ID орендаря</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Відбиток сертифіката</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Термін дії сертифіката</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Тег групи</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Тег групи необов’язковий. Виберіть «Немає», щоб завантажити без тегу групи.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Виявлення обладнання...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Помилка виявлення обладнання.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Помилка виявлення обладнання: {0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Метод</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Профіль</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>тег групи Autopilot</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Цільова</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>система</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Варіанти розгортання</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Ні Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>профіль JSON</value></data>
@@ -537,4 +526,56 @@ ErrorCode=0x80070005
   <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Продовжити</value></data>
   <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Показати або приховати пароль</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Пароль неправильний. Спробуйте ще раз.</value></data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>Цільовий пристрій</value></data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>Операційна система</value></data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>Драйвери пристроїв</value></data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Wizard.Step.Summary" xml:space="preserve"><value>Підсумок</value></data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>Етапи налаштування розгортання</value></data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>Повернутися до резюме</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>Редагувати</value></data>
+  <data name="Common.Copy" xml:space="preserve"><value>Копіювати</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>Закрити</value></data>
+  <data name="TargetDevice.Title" xml:space="preserve"><value>Цільовий пристрій</value></data>
+  <data name="TargetDevice.Firmware" xml:space="preserve"><value>Оновлення мікропрограми</value></data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>Недоступно на віртуальних машинах</value></data>
+  <data name="OperatingSystem.Title" xml:space="preserve"><value>Операційна система</value></data>
+  <data name="Drivers.Title" xml:space="preserve"><value>Драйвери пристроїв</value></data>
+  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>Деталі конфігурації</value></data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>Цільовий пристрій</value></data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>Операційна система</value></data>
+  <data name="Summary.Category.Drivers" xml:space="preserve"><value>Драйвери пристроїв</value></data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Налаштування Windows</value></data>
+  <data name="Summary.Category.Network" xml:space="preserve"><value>Мережа</value></data>
+  <data name="Summary.Category.Completion" xml:space="preserve"><value>Завершення</value></data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Не налаштовано</value></data>
+  <data name="Summary.Status.Configured" xml:space="preserve"><value>Налаштовано</value></data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Без змін</value></data>
+  <data name="Summary.Hardware" xml:space="preserve"><value>Виявлене обладнання</value></data>
+  <data name="Summary.Release" xml:space="preserve"><value>Версія</value></data>
+  <data name="Summary.Edition" xml:space="preserve"><value>Редакція</value></data>
+  <data name="Summary.Architecture" xml:space="preserve"><value>Архітектура системи</value></data>
+  <data name="Summary.Language" xml:space="preserve"><value>Мова</value></data>
+  <data name="Summary.LicenseChannel" xml:space="preserve"><value>Ліцензійний канал</value></data>
+  <data name="Summary.Build" xml:space="preserve"><value>Збірка</value></data>
+  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.AppxRemoval" xml:space="preserve"><value>Видалення AppX</value></data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>Видалення компонента ШІ</value></data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Роумінг мережевих профілів</value></data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>Автоматичний перезапуск</value></data>
+  <data name="Summary.ManualRestart" xml:space="preserve"><value>Перезапуск вручну</value></data>
+  <data name="Summary.RestartDelay" xml:space="preserve"><value>Затримка перезапуску</value></data>
+  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} секунд</value></data>
+  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Вибраний цільовий диск буде стерто, коли розпочнеться розгортання.</value></data>
+  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Ласкаво просимо до Foundry Deploy</value></data>
+  <data name="Progress.Session" xml:space="preserve"><value>Сеанс</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Кроки</value></data>
+  <data name="Progress.CurrentOperation" xml:space="preserve"><value>Поточна операція</value></data>
+  <data name="Progress.RingAutomationName" xml:space="preserve"><value>Загальний прогрес розгортання</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Кроки розгортання</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Переглянути технічні деталі</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Технічні деталі</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Помічник реєстрації буде запущений на розгорнутому пристрої.</value></data>
 </root>

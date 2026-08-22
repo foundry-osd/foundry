@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Computernavn</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 tegn. Kun A-Z, a-z, 0-9 og bindestreg.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Computernavn skal indeholde 1 til 15 gyldige tegn (bogstaver, tal eller bindestreg).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Målmaskine</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Destinationsdisk</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Implementeringsmuligheder</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Mål disk</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Vælg en måldisk. Ikke-kvalificerede diske er blokeret.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Anvend firmwareopdateringer</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Aktiver Autopilot for denne implementering</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Der blev ikke fundet nogen indlejrede Autopilot-profiler på dette medie.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profil</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch upload af hardwarehash</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktiv upload af hardwarehash</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Tilgængelig på dette medie: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch upload af hardwarehash</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Hardware hash upload status</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Klar til at uploade hardware-hash</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Uploadcertifikat er udløbet</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Hardware-hash-upload er ikke tilgængelig på dette medie, fordi de nødvendige certifikatoplysninger mangler. Implementeringen kan fortsætte, men upload vil blive sprunget over.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot-certifikatet er udløbet. Implementeringen kan fortsætte, men upload vil blive sprunget over.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Detaljer</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Lejer ID</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Certifikat tommelfingeraftryk</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Certifikatets udløb</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Gruppemærke</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Gruppemærket er valgfrit. Vælg Ingen for at uploade uden et gruppetag.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Registrerer hardware...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Hardwaregenkendelse mislykkedes.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Hardwaregenkendelse mislykkedes: {0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Metode</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profil</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot gruppetag</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Mål</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>System</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Implementeringsmuligheder</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Nej Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profil</value></data>
@@ -537,4 +526,56 @@ Vil du fortsætte med implementeringen?</value></data>
   <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Fortsæt</value></data>
   <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Vis eller skjul adgangskoden</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Adgangskoden er forkert. Prøv igen.</value></data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>Målenhed</value></data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>Operativsystem</value></data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>Enhedsdrivere</value></data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Wizard.Step.Summary" xml:space="preserve"><value>Resumé</value></data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>Trin i implementeringsopsætningen</value></data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>Vend tilbage til oversigt</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>Rediger</value></data>
+  <data name="Common.Copy" xml:space="preserve"><value>Kopiér</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>Luk</value></data>
+  <data name="TargetDevice.Title" xml:space="preserve"><value>Målenhed</value></data>
+  <data name="TargetDevice.Firmware" xml:space="preserve"><value>Firmwareopdateringer</value></data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>Ikke tilgængelig på virtuelle maskiner</value></data>
+  <data name="OperatingSystem.Title" xml:space="preserve"><value>Operativsystem</value></data>
+  <data name="Drivers.Title" xml:space="preserve"><value>Enhedsdrivere</value></data>
+  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>Konfigurationsdetaljer</value></data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>Målenhed</value></data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>Operativsystem</value></data>
+  <data name="Summary.Category.Drivers" xml:space="preserve"><value>Enhedsdrivere</value></data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Windows-tilpasning</value></data>
+  <data name="Summary.Category.Network" xml:space="preserve"><value>Netværk</value></data>
+  <data name="Summary.Category.Completion" xml:space="preserve"><value>Afslutning</value></data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Ikke konfigureret</value></data>
+  <data name="Summary.Status.Configured" xml:space="preserve"><value>Konfigureret</value></data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Ingen ændringer</value></data>
+  <data name="Summary.Hardware" xml:space="preserve"><value>Detekteret hardware</value></data>
+  <data name="Summary.Release" xml:space="preserve"><value>Version</value></data>
+  <data name="Summary.Edition" xml:space="preserve"><value>Operativsystemudgave</value></data>
+  <data name="Summary.Architecture" xml:space="preserve"><value>Systemarkitektur</value></data>
+  <data name="Summary.Language" xml:space="preserve"><value>Sprog</value></data>
+  <data name="Summary.LicenseChannel" xml:space="preserve"><value>Licenskanal</value></data>
+  <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
+  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX-fjernelse</value></data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>Fjernelse af AI-komponenter</value></data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Netværksprofil-roaming</value></data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>Automatisk genstart</value></data>
+  <data name="Summary.ManualRestart" xml:space="preserve"><value>Manuel genstart</value></data>
+  <data name="Summary.RestartDelay" xml:space="preserve"><value>Genstartsforsinkelse</value></data>
+  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} sekunder</value></data>
+  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Den valgte måldisk vil blive slettet, når implementeringen starter.</value></data>
+  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Velkommen til Foundry Deploy</value></data>
+  <data name="Progress.Session" xml:space="preserve"><value>Implementeringssession</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Trin</value></data>
+  <data name="Progress.CurrentOperation" xml:space="preserve"><value>Aktuel operation</value></data>
+  <data name="Progress.RingAutomationName" xml:space="preserve"><value>Samlet fremskridt i implementeringen</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Implementeringstrin</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Se tekniske detaljer</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Tekniske detaljer</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Registreringsassistenten kører på den installerede enhed.</value></data>
 </root>

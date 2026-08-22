@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Kompiuterio pavadinimas</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 simbolių. Tik A–Z, a–z, 0–9 ir brūkšneliu.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Kompiuterio pavadinime turi būti nuo 1 iki 15 galiojančių simbolių (raidžių, skaičių arba brūkšnelio).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Tikslinė mašina</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Paskirties diskas</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Diegimo parinktys</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Tikslinis diskas</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Pasirinkite tikslinį diską. Netinkami diskai yra užblokuoti.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Taikykite programinės įrangos naujinimus</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Įgalinti Autopilot šiam diegimui</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profilis</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Šioje laikmenoje nerasta įterptų Autopilot profilių.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profilis</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch aparatūros maišos įkėlimas</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktyvus aparatūros maišos įkėlimas</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Prieinama šioje laikmenoje: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch aparatūros maišos įkėlimas</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Aparatinės įrangos maišos įkėlimo būsena</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Paruošta įkelti aparatinės įrangos maišą</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Baigėsi įkėlimo sertifikato galiojimas</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Aparatinės įrangos maišos įkėlimas šioje laikmenoje nepasiekiamas, nes trūksta reikiamos sertifikato informacijos. Diegimas gali tęstis, bet įkėlimas bus praleistas.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot sertifikatas pasibaigė. Diegimas gali tęstis, bet įkėlimas bus praleistas.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Detalės</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Nuomininko ID</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Sertifikato nykščio atspaudas</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Sertifikato galiojimo laikas</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Grupės žyma</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Grupės žyma yra neprivaloma. Pasirinkite Nėra, jei norite įkelti be grupės žymos.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Aptinkama aparatinė įranga...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Nepavyko aptikti aparatinės įrangos.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Nepavyko aptikti aparatinės įrangos: {0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Metodas</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot profilis</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot grupės žyma</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Tikslas</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>Sistema</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Diegimo parinktys</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Ne Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profilis</value></data>
@@ -537,4 +526,56 @@ Tęsti diegimą?</value></data>
   <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Tęsti</value></data>
   <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Rodyti arba slėpti slaptažodį</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Slaptažodis neteisingas. Bandykite dar kartą.</value></data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>Tikslinis įrenginys</value></data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>Operacinė sistema</value></data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>Įrenginių tvarkyklės</value></data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Wizard.Step.Summary" xml:space="preserve"><value>Santrauka</value></data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>Diegimo sąrankos žingsniai</value></data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>Grįžti į santrauką</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>Redaguoti</value></data>
+  <data name="Common.Copy" xml:space="preserve"><value>Kopijuoti</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>Uždaryti</value></data>
+  <data name="TargetDevice.Title" xml:space="preserve"><value>Tikslinis įrenginys</value></data>
+  <data name="TargetDevice.Firmware" xml:space="preserve"><value>Firmware atnaujinimai</value></data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>Nepasiekiama virtualiose mašinose</value></data>
+  <data name="OperatingSystem.Title" xml:space="preserve"><value>Operacinė sistema</value></data>
+  <data name="Drivers.Title" xml:space="preserve"><value>Įrenginių tvarkyklės</value></data>
+  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>Išsami konfigūracijos informacija</value></data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>Tikslinis įrenginys</value></data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>Operacinė sistema</value></data>
+  <data name="Summary.Category.Drivers" xml:space="preserve"><value>Įrenginių tvarkyklės</value></data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Windows tinkinimas</value></data>
+  <data name="Summary.Category.Network" xml:space="preserve"><value>Tinklas</value></data>
+  <data name="Summary.Category.Completion" xml:space="preserve"><value>Užbaigimas</value></data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Nekonfigūruota</value></data>
+  <data name="Summary.Status.Configured" xml:space="preserve"><value>Sukonfigūruota</value></data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Jokių pakeitimų</value></data>
+  <data name="Summary.Hardware" xml:space="preserve"><value>Aptikta aparatinė įranga</value></data>
+  <data name="Summary.Release" xml:space="preserve"><value>Versija</value></data>
+  <data name="Summary.Edition" xml:space="preserve"><value>Operacinės sistemos leidimas</value></data>
+  <data name="Summary.Architecture" xml:space="preserve"><value>Sistemos architektūra</value></data>
+  <data name="Summary.Language" xml:space="preserve"><value>Kalba</value></data>
+  <data name="Summary.LicenseChannel" xml:space="preserve"><value>Licencijos kanalas</value></data>
+  <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
+  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX pašalinimas</value></data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>AI komponentų pašalinimas</value></data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Tinklo profilio tarptinklinis ryšys</value></data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>Automatinis paleidimas iš naujo</value></data>
+  <data name="Summary.ManualRestart" xml:space="preserve"><value>Rankinis paleidimas iš naujo</value></data>
+  <data name="Summary.RestartDelay" xml:space="preserve"><value>Iš naujo paleisties delsa</value></data>
+  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} sekundės</value></data>
+  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Pasirinktas tikslinis diskas bus ištrintas, kai prasidės diegimas.</value></data>
+  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Sveiki atvykę į Foundry Deploy</value></data>
+  <data name="Progress.Session" xml:space="preserve"><value>Diegimo seansas</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Veiksmai</value></data>
+  <data name="Progress.CurrentOperation" xml:space="preserve"><value>Dabartinė operacija</value></data>
+  <data name="Progress.RingAutomationName" xml:space="preserve"><value>Bendra diegimo pažanga</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Diegimo veiksmai</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Peržiūrėkite techninę informaciją</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Techninė informacija</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Registravimo pagalbinė priemonė bus paleista įdiegtame įrenginyje.</value></data>
 </root>

@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Numele computerului</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 caractere. A-Z, a-z, 0-9 și numai cratima.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Numele computerului trebuie să conțină între 1 și 15 caractere valide (litere, cifre sau cratimă).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Mașină țintă</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Disc destinație</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Opțiuni de implementare</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Disc țintă</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Selectați un disc țintă. Discurile neeligibile sunt blocate.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Aplicați actualizări de firmware</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Activați Autopilot pentru această implementare</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Nu au fost găsite profiluri Autopilot încorporate pe acest media.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>Profilul JSON</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Încărcare zero-touch a hashului hardware</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Încărcare interactivă a hashului hardware</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Disponibil pe această media: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Încărcare zero-touch a hashului hardware</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Starea încărcării hash hardware</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Gata pentru a încărca hash hardware</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Certificatul de încărcare a expirat</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Încărcarea hash hardware nu este disponibilă pe acest suport, deoarece lipsesc informațiile necesare despre certificat. Implementarea poate continua, dar încărcarea va fi omisă.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Certificatul Autopilot a expirat. Implementarea poate continua, dar încărcarea va fi omisă.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Detalii</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>ID locatar</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Amprenta digitală a certificatului</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Expirarea certificatului</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Eticheta de grup</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Eticheta de grup este opțională. Selectați Niciunul pentru a încărca fără o etichetă de grup.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Se detectează hardware-ul...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Detectarea hardware-ului a eșuat.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Detectarea hardware-ului a eșuat: {0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Metoda</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profil</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Eticheta de grup Autopilot</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>țintă</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>Sistem</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Opțiuni de implementare</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Nu Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>Profilul JSON</value></data>
@@ -537,4 +526,56 @@ Continuați cu implementarea?</value></data>
   <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Continuați</value></data>
   <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Afișați sau ascundeți parola</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Parola este incorectă. Încercați din nou.</value></data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>Dispozitiv țintă</value></data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>Sistem de operare</value></data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>Drivere de dispozitiv</value></data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Wizard.Step.Summary" xml:space="preserve"><value>Rezumat</value></data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>Pașii de configurare a implementării</value></data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>Reveniți la rezumat</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>Editați</value></data>
+  <data name="Common.Copy" xml:space="preserve"><value>Copiați în clipboard</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>Închide fereastra</value></data>
+  <data name="TargetDevice.Title" xml:space="preserve"><value>Dispozitiv țintă</value></data>
+  <data name="TargetDevice.Firmware" xml:space="preserve"><value>Actualizări de firmware</value></data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>Nu este disponibil pe mașinile virtuale</value></data>
+  <data name="OperatingSystem.Title" xml:space="preserve"><value>Sistem de operare</value></data>
+  <data name="Drivers.Title" xml:space="preserve"><value>Drivere de dispozitiv</value></data>
+  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>Detalii de configurare</value></data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>Dispozitiv țintă</value></data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>Sistem de operare</value></data>
+  <data name="Summary.Category.Drivers" xml:space="preserve"><value>Drivere de dispozitiv</value></data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Personalizare Windows</value></data>
+  <data name="Summary.Category.Network" xml:space="preserve"><value>Rețea</value></data>
+  <data name="Summary.Category.Completion" xml:space="preserve"><value>Finalizare</value></data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Nu este configurat</value></data>
+  <data name="Summary.Status.Configured" xml:space="preserve"><value>Configurat</value></data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Nicio modificare</value></data>
+  <data name="Summary.Hardware" xml:space="preserve"><value>Hardware detectat</value></data>
+  <data name="Summary.Release" xml:space="preserve"><value>Versiune</value></data>
+  <data name="Summary.Edition" xml:space="preserve"><value>Ediția sistemului de operare</value></data>
+  <data name="Summary.Architecture" xml:space="preserve"><value>Arhitectura sistemului</value></data>
+  <data name="Summary.Language" xml:space="preserve"><value>Limba</value></data>
+  <data name="Summary.LicenseChannel" xml:space="preserve"><value>Canal de licență</value></data>
+  <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
+  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.AppxRemoval" xml:space="preserve"><value>Eliminarea aplicațiilor AppX</value></data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>Eliminarea componentelor AI</value></data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Roamingul profilului de rețea</value></data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>Repornire automată</value></data>
+  <data name="Summary.ManualRestart" xml:space="preserve"><value>Repornire manuală</value></data>
+  <data name="Summary.RestartDelay" xml:space="preserve"><value>Întârziere de repornire</value></data>
+  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} secunde</value></data>
+  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Discul țintă selectat va fi șters când începe implementarea.</value></data>
+  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Bun venit la Foundry Deploy</value></data>
+  <data name="Progress.Session" xml:space="preserve"><value>Sesiune de implementare</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Pași</value></data>
+  <data name="Progress.CurrentOperation" xml:space="preserve"><value>Operațiune curentă</value></data>
+  <data name="Progress.RingAutomationName" xml:space="preserve"><value>Progresul general al implementării</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Pași de implementare</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Vezi detalii tehnice</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Detalii tehnice</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Asistentul de înregistrare va rula pe dispozitivul implementat.</value></data>
 </root>

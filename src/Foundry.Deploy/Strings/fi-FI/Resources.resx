@@ -36,20 +36,15 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Tietokoneen nimi</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 merkkiä. Vain A-Z, a-z, 0-9 ja tavuviiva.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Tietokoneen nimessä on oltava 1–15 kelvollista merkkiä (kirjaimia, numeroita tai tavuviivaa).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Kohdekone</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Kohdelevy</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Käyttöönottovaihtoehdot</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Kohdelevy</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Valitse kohdelevy. Ei-kelpoiset levyt on estetty.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Ota laiteohjelmistopäivitykset käyttöön</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Ota Autopilot käyttöön tälle käyttöönotolle</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profiili</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Tästä mediasta ei löytynyt upotettuja Autopilot-profiileja.</value></data>
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profiili</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch-laitteiston hajautusarvon lataus</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Vuorovaikutteinen laitteiston hajautusarvon lataus</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Saatavilla tästä mediasta: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch-laitteiston hajautusarvon lataus</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Laitteiston hajautuslatauksen tila</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Valmiina lataamaan laitteiston hash</value></data>
@@ -57,12 +52,9 @@
   <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Latausvarmenne on vanhentunut</value></data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Laitteiston hash-lataus ei ole saatavilla tälle medialle, koska vaaditut varmennetiedot puuttuvat. Käyttöönotto voi jatkua, mutta lataus ohitetaan.</value></data>
   <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot-varmenne on vanhentunut. Käyttöönotto voi jatkua, mutta lataus ohitetaan.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Yksityiskohdat</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Vuokralaisen tunnus</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Todistuksen peukalonjälki</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Varmenteen voimassaolo päättyy</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Ryhmätunniste</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Ryhmätunniste on valinnainen. Valitse Ei mitään, jos haluat ladata ilman ryhmätunnistetta.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Havaitaan laitteistoa...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Laitteiston tunnistus epäonnistui.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Laitteiston tunnistus epäonnistui: {0}</value></data>
@@ -104,9 +96,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Menetelmä</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profiili</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot ryhmätunniste</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Kohde</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>Järjestelmä</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Käyttöönottovaihtoehdot</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Ei Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profiili</value></data>
@@ -537,4 +526,56 @@ Jatketaanko käyttöönottoa?</value></data>
   <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Jatka</value></data>
   <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Näytä tai piilota salasana</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Salasana on virheellinen. Yritä uudelleen.</value></data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>Kohdelaite</value></data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>Käyttöjärjestelmä</value></data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>Laiteohjaimet</value></data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Wizard.Step.Summary" xml:space="preserve"><value>Yhteenveto</value></data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>Käyttöönoton vaiheet</value></data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>Palaa yhteenvetoon</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>Muokkaa</value></data>
+  <data name="Common.Copy" xml:space="preserve"><value>Kopioi</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>Sulje</value></data>
+  <data name="TargetDevice.Title" xml:space="preserve"><value>Kohdelaite</value></data>
+  <data name="TargetDevice.Firmware" xml:space="preserve"><value>Laiteohjelmistopäivitykset</value></data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>Ei saatavilla virtuaalikoneissa</value></data>
+  <data name="OperatingSystem.Title" xml:space="preserve"><value>Käyttöjärjestelmä</value></data>
+  <data name="Drivers.Title" xml:space="preserve"><value>Laiteohjaimet</value></data>
+  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>Kokoonpanon tiedot</value></data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>Kohdelaite</value></data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>Käyttöjärjestelmä</value></data>
+  <data name="Summary.Category.Drivers" xml:space="preserve"><value>Laiteohjaimet</value></data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Windowsin mukauttaminen</value></data>
+  <data name="Summary.Category.Network" xml:space="preserve"><value>Verkko</value></data>
+  <data name="Summary.Category.Completion" xml:space="preserve"><value>Valmis</value></data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Ei määritetty</value></data>
+  <data name="Summary.Status.Configured" xml:space="preserve"><value>Määritetty</value></data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Ei muutoksia</value></data>
+  <data name="Summary.Hardware" xml:space="preserve"><value>Havaittu laitteisto</value></data>
+  <data name="Summary.Release" xml:space="preserve"><value>Versio</value></data>
+  <data name="Summary.Edition" xml:space="preserve"><value>Käyttöjärjestelmäversio</value></data>
+  <data name="Summary.Architecture" xml:space="preserve"><value>Järjestelmän arkkitehtuuri</value></data>
+  <data name="Summary.Language" xml:space="preserve"><value>Kieli</value></data>
+  <data name="Summary.LicenseChannel" xml:space="preserve"><value>Lisenssikanava</value></data>
+  <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
+  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX poisto</value></data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>AI-komponenttien poisto</value></data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Verkkoprofiilin verkkovierailu</value></data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>Automaattinen uudelleenkäynnistys</value></data>
+  <data name="Summary.ManualRestart" xml:space="preserve"><value>Manuaalinen uudelleenkäynnistys</value></data>
+  <data name="Summary.RestartDelay" xml:space="preserve"><value>Uudelleenkäynnistysviive</value></data>
+  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} sekuntia</value></data>
+  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Valittu kohdelevy tyhjennetään, kun käyttöönotto alkaa.</value></data>
+  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Tervetuloa Foundry Deploy-palveluun</value></data>
+  <data name="Progress.Session" xml:space="preserve"><value>Käyttöönottoistunto</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Vaiheet</value></data>
+  <data name="Progress.CurrentOperation" xml:space="preserve"><value>Nykyinen toiminto</value></data>
+  <data name="Progress.RingAutomationName" xml:space="preserve"><value>Käyttöönoton yleinen edistyminen</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Käyttöönoton vaiheet</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Katso tekniset tiedot</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Tekniset tiedot</value></data>
+  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Rekisteröintiavustaja suoritetaan käyttöönotetulla laitteella.</value></data>
 </root>

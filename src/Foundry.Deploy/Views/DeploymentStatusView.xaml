@@ -1,0 +1,270 @@
+﻿<UserControl x:Class="Foundry.Deploy.Views.DeploymentStatusView" x:Name="ViewRoot"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Foundry.Deploy.Controls"
+    xmlns:deployment="clr-namespace:Foundry.Deploy.Services.Deployment"
+    DataContext="{Binding Session}">
+    <Grid>
+        <TextBlock
+            Margin="260,44,260,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Style="{StaticResource TitleLargeTextBlockStyle}"
+            Text="{Binding ComputerNameText}"
+            TextAlignment="Center"
+            TextTrimming="CharacterEllipsis" />
+
+        <Grid Margin="24,98,24,72">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="230" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="230" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel
+                Grid.Column="0"
+                VerticalAlignment="Center">
+                <TextBlock
+                    Margin="0,0,0,14"
+                    Style="{StaticResource SubtitleTextBlockStyle}"
+                    Text="{Binding Strings[Progress.Session]}" />
+                <Separator Margin="0,0,0,14" />
+                <TextBlock
+                    Margin="0,0,0,5"
+                    Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="{Binding Strings[Progress.Networking]}" />
+                <TextBlock
+                    Text="{Binding IpAddress}"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    Margin="0,3,0,0"
+                    Text="{Binding MacAddress}"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    Margin="0,3,0,0"
+                    Text="{Binding SubnetMask}"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    Margin="0,3,0,18"
+                    Text="{Binding GatewayAddress}"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    Margin="0,0,0,5"
+                    Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="{Binding Strings[Progress.StartTime]}" />
+                <TextBlock
+                    Margin="0,0,0,18"
+                    Text="{Binding StartTimeText}"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    Margin="0,0,0,5"
+                    Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="{Binding Strings[Progress.ElapsedTime]}" />
+                <TextBlock
+                    Text="{Binding ElapsedTimeText}"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+
+            <Grid x:Name="StepsRail"
+                Grid.Column="2"
+                MaxHeight="720"
+                VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock
+                    Margin="0,0,0,14"
+                    Style="{StaticResource SubtitleTextBlockStyle}"
+                    Text="{Binding Strings[Progress.Timeline]}" />
+                <Separator
+                    Grid.Row="1"
+                    Margin="0,0,0,10" />
+                <ScrollViewer x:Name="TimelineScrollViewer"
+                    Grid.Row="2"
+                    VerticalScrollBarVisibility="Auto">
+                    <ItemsControl x:Name="TimelineItems"
+                        AutomationProperties.Name="{Binding Strings[Progress.TimelineAutomationName]}"
+                        ItemsSource="{Binding TimelineEntries}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="28" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontFamily="{DynamicResource SymbolThemeFontFamily}"
+                                        FontSize="15"
+                                        Text="{Binding Glyph}">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter
+                                                    Property="Foreground"
+                                                    Value="{DynamicResource TextFillColorSecondaryBrush}" />
+                                                <Style.Triggers>
+                                                    <DataTrigger
+                                                        Binding="{Binding State}"
+                                                        Value="{x:Static deployment:DeploymentStepState.Succeeded}">
+                                                        <Setter
+                                                            Property="Foreground"
+                                                            Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                                                    </DataTrigger>
+                                                    <DataTrigger
+                                                        Binding="{Binding State}"
+                                                        Value="{x:Static deployment:DeploymentStepState.Skipped}">
+                                                        <Setter
+                                                            Property="Foreground"
+                                                            Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                                                    </DataTrigger>
+                                                    <DataTrigger
+                                                        Binding="{Binding State}"
+                                                        Value="{x:Static deployment:DeploymentStepState.Running}">
+                                                        <Setter
+                                                            Property="Foreground"
+                                                            Value="{DynamicResource AccentFillColorDefaultBrush}" />
+                                                    </DataTrigger>
+                                                    <DataTrigger
+                                                        Binding="{Binding State}"
+                                                        Value="{x:Static deployment:DeploymentStepState.Failed}">
+                                                        <Setter
+                                                            Property="Foreground"
+                                                            Value="{DynamicResource SystemFillColorCriticalBrush}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        VerticalAlignment="Center"
+                                        AutomationProperties.ItemStatus="{Binding StateAutomationText}"
+                                        Text="{Binding DisplayName}"
+                                        TextWrapping="Wrap" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+
+        <Grid
+            Width="180"
+            Height="180"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+            <Grid Visibility="{Binding IsProgressPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <controls:CustomProgressRing x:Name="OverallProgressRing"
+                    AutomationProperties.Name="{Binding Strings[Progress.RingAutomationName]}"
+                    IsIndeterminate="{Binding IsGlobalProgressIndeterminate}"
+                    ProgressBrush="{DynamicResource AccentFillColorDefaultBrush}"
+                    Thickness="14"
+                    TrackBrush="{DynamicResource ControlStrongFillColorDefaultBrush}"
+                    Value="{Binding DeploymentProgress}" />
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource TitleLargeTextBlockStyle}"
+                    Text="{Binding DisplayedValue, ElementName=OverallProgressRing, StringFormat={}{0:0}%}" />
+            </Grid>
+            <controls:TerminalStatusGlyph
+                AutomationName="{Binding Strings[Success.Completed]}"
+                IsSuccess="True"
+                Visibility="{Binding IsSuccessPage, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <controls:TerminalStatusGlyph
+                AutomationName="{Binding Strings[Error.Title]}"
+                IsSuccess="False"
+                Visibility="{Binding IsErrorPage, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        </Grid>
+
+        <Grid x:Name="StateContent"
+            Width="430"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            AutomationProperties.LiveSetting="Polite">
+            <Grid.RenderTransform>
+                <TranslateTransform x:Name="StateContentTransform"
+                    Y="155" />
+            </Grid.RenderTransform>
+            <StackPanel Visibility="{Binding IsProgressPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Style="{StaticResource SubtitleTextBlockStyle}"
+                    Text="{Binding CurrentStepName}"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap" />
+                <ProgressBar
+                    Height="4"
+                    Margin="20,16,20,8"
+                    IsIndeterminate="{Binding IsCurrentStepProgressIndeterminate}"
+                    Maximum="100"
+                    Style="{StaticResource DeployProgressBarStyle}"
+                    Value="{Binding CurrentStepProgress}" />
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="{Binding CurrentStepProgressText}"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+
+            <StackPanel Visibility="{Binding IsSuccessPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Style="{StaticResource SubtitleTextBlockStyle}"
+                    Text="{Binding Strings[Success.Completed]}"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    Margin="0,10,0,14"
+                    HorizontalAlignment="Center"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="{Binding CompletionInstructionText}"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap" />
+                <Button
+                    MinWidth="140"
+                    HorizontalAlignment="Center"
+                    Command="{Binding RebootNowCommand}"
+                    Content="{Binding Strings[Success.RebootNow]}"
+                    Style="{DynamicResource AccentButtonStyle}" />
+            </StackPanel>
+
+            <StackPanel Visibility="{Binding IsErrorPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Style="{StaticResource SubtitleTextBlockStyle}"
+                    Text="{Binding Strings[Error.Title]}"
+                    TextAlignment="Center" />
+                <TextBlock
+                    Margin="0,8,0,14"
+                    HorizontalAlignment="Center"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="{Binding FailedStepName}"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap" />
+                <Button
+                    MinWidth="180"
+                    HorizontalAlignment="Center"
+                    Click="ViewTechnicalDetails_Click"
+                    Content="{Binding Strings[Error.ViewTechnicalDetails]}" />
+            </StackPanel>
+        </Grid>
+
+        <TextBlock
+            Margin="260,0,260,24"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+            Style="{StaticResource BodyTextBlockStyle}"
+            Text="{Binding StepCounterText}"
+            TextAlignment="Center" />
+    </Grid>
+</UserControl>
