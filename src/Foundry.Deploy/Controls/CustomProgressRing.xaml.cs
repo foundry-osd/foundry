@@ -212,11 +212,6 @@ public partial class CustomProgressRing : UserControl
 
     private void OnDeterminateAnimationCompleted(object? sender, EventArgs e)
     {
-        if (sender is AnimationClock clock && clock.Timeline is DoubleAnimation animation)
-        {
-            animation.Completed -= OnDeterminateAnimationCompleted;
-        }
-
         BeginAnimation(DisplayedValueProperty, null);
         UpdateVisuals();
     }
