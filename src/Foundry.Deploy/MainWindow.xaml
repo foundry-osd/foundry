@@ -9,6 +9,7 @@
     Title="{Binding WindowTitle}"
     Width="1024"
     Height="768"
+    MinWidth="1024"
     Icon="/Assets/Icons/app.ico"
     ResizeMode="CanResize"
     WindowStartupLocation="CenterScreen"

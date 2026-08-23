@@ -99,110 +99,11 @@
             </Grid>
         </DataTemplate>
 
-        <DataTemplate x:Key="CompactStepTemplate">
-            <Button
-                MinWidth="44"
-                AutomationProperties.Name="{Binding Title}"
-                Command="{Binding DataContext.NavigateToWizardStepCommand, ElementName=ViewRoot}"
-                CommandParameter="{Binding}"
-                IsEnabled="{Binding IsEnabled}"
-                Style="{StaticResource WizardStepperButtonStyle}">
-                <Grid Margin="2,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="16" />
-                        <ColumnDefinition Width="16" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="32" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Border x:Name="CompactStepLeftConnector"
-                        Grid.ColumnSpan="2"
-                        Height="2"
-                        VerticalAlignment="Center">
-                        <Border.Style>
-                            <Style TargetType="Border">
-                                <Setter
-                                    Property="Background"
-                                    Value="{DynamicResource DividerStrokeColorDefaultBrush}" />
-                                <Style.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding IsPreviousConnectorCompleted}"
-                                        Value="True">
-                                        <Setter
-                                            Property="Background"
-                                            Value="{DynamicResource SystemFillColorSuccessBrush}" />
-                                    </DataTrigger>
-                                    <DataTrigger
-                                        Binding="{Binding IsFirst}"
-                                        Value="True">
-                                        <Setter
-                                            Property="Visibility"
-                                            Value="Collapsed" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
-                    </Border>
-                    <Border x:Name="CompactStepRightConnector"
-                        Grid.Column="2"
-                        Grid.ColumnSpan="2"
-                        Height="2"
-                        VerticalAlignment="Center">
-                        <Border.Style>
-                            <Style TargetType="Border">
-                                <Setter
-                                    Property="Background"
-                                    Value="{DynamicResource DividerStrokeColorDefaultBrush}" />
-                                <Style.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding IsConnectorCompleted}"
-                                        Value="True">
-                                        <Setter
-                                            Property="Background"
-                                            Value="{DynamicResource SystemFillColorSuccessBrush}" />
-                                    </DataTrigger>
-                                    <DataTrigger
-                                        Binding="{Binding IsLast}"
-                                        Value="True">
-                                        <Setter
-                                            Property="Visibility"
-                                            Value="Collapsed" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
-                    </Border>
-                    <Border x:Name="CompactStepMarker"
-                        Grid.Column="1"
-                        Grid.ColumnSpan="2"
-                        Style="{StaticResource WizardStepMarkerStyle}">
-                        <Grid>
-                            <TextBlock x:Name="CompactStepNumber"
-                                Style="{StaticResource WizardStepNumberStyle}"
-                                Text="{Binding DisplayNumber}" />
-                            <TextBlock Style="{StaticResource WizardStepCheckStyle}" />
-                        </Grid>
-                    </Border>
-                    <TextBlock
-                        Grid.Row="1"
-                        Grid.ColumnSpan="4"
-                        MaxWidth="150"
-                        Margin="4,8,4,0"
-                        HorizontalAlignment="Center"
-                        FontSize="12"
-                        Style="{StaticResource WizardStepTitleStyle}"
-                        Text="{Binding Title}"
-                        TextAlignment="Center"
-                        TextTrimming="CharacterEllipsis" />
-                </Grid>
-            </Button>
-        </DataTemplate>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid
+        MaxWidth="1186"
+        HorizontalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="StepperColumn"
                 Width="190" />
@@ -211,37 +112,18 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition x:Name="CompactStepperRow"
-                Height="0" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <ItemsControl x:Name="VerticalStepper"
-            Grid.Row="1"
             Grid.Column="0"
+            Margin="0,8,0,0"
             AutomationProperties.Name="{Binding Strings[Wizard.StepperAutomationName]}"
             ItemTemplate="{StaticResource VerticalStepTemplate}"
             ItemsSource="{Binding WizardSteps}" />
 
-        <ItemsControl x:Name="CompactStepper"
-            Grid.Row="0"
-            Grid.Column="0"
-            Grid.ColumnSpan="3"
-            Margin="0,0,0,12"
-            AutomationProperties.Name="{Binding Strings[Wizard.StepperAutomationName]}"
-            ItemTemplate="{StaticResource CompactStepTemplate}"
-            ItemsSource="{Binding WizardSteps}"
-            Visibility="Collapsed">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <UniformGrid Rows="1" />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
-
         <Border x:Name="WizardContentCard"
-            Grid.Row="1"
             Grid.Column="2"
             Style="{StaticResource WizardContentCardStyle}">
             <ScrollViewer
@@ -294,7 +176,7 @@
         </Border>
 
         <Grid x:Name="WizardFooter"
-            Grid.Row="2"
+            Grid.Row="1"
             Grid.Column="2"
             Width="{Binding ActualWidth, ElementName=WizardContentCard}"
             MaxWidth="980"

@@ -12,7 +12,6 @@ namespace Foundry.Deploy.Views;
 
 public partial class WizardView : UserControl
 {
-    private const double CompactWidth = 880;
     private int _previousStepIndex;
 
     public WizardView()
@@ -20,7 +19,6 @@ public partial class WizardView : UserControl
         InitializeComponent();
         DataContextChanged += OnDataContextChanged;
         Loaded += OnLoaded;
-        SizeChanged += OnSizeChanged;
         Unloaded += OnUnloaded;
     }
 
@@ -65,16 +63,6 @@ public partial class WizardView : UserControl
             System.Windows.Media.TranslateTransform.XProperty,
             new DoubleAnimation(14 * direction, 0, duration) { EasingFunction = easing },
             HandoffBehavior.SnapshotAndReplace);
-    }
-
-    private void OnSizeChanged(object sender, SizeChangedEventArgs e)
-    {
-        bool isCompact = e.NewSize.Width < CompactWidth;
-        StepperColumn.Width = isCompact ? new GridLength(0) : new GridLength(220);
-        StepperGapColumn.Width = isCompact ? new GridLength(0) : new GridLength(24);
-        CompactStepperRow.Height = isCompact ? GridLength.Auto : new GridLength(0);
-        VerticalStepper.Visibility = isCompact ? Visibility.Collapsed : Visibility.Visible;
-        CompactStepper.Visibility = isCompact ? Visibility.Visible : Visibility.Collapsed;
     }
 
     private void OnLoaded(object sender, RoutedEventArgs e)

@@ -32,6 +32,7 @@ public sealed class XamlResourceLoadingTests
                 var nextButton = Assert.IsType<Button>(wizardView.FindName("NextButton"));
                 var returnToSummaryButton = Assert.IsType<Button>(wizardView.FindName("ReturnToSummaryButton"));
                 var deployButton = Assert.IsType<Button>(wizardView.FindName("DeployButton"));
+                var verticalStepper = Assert.IsType<ItemsControl>(wizardView.FindName("VerticalStepper"));
                 var stepperColumn = Assert.IsType<ColumnDefinition>(wizardView.FindName("StepperColumn"));
                 var stepperGapColumn = Assert.IsType<ColumnDefinition>(wizardView.FindName("StepperGapColumn"));
                 Assert.Equal(980, wizardContentCard.MaxWidth);
@@ -44,10 +45,27 @@ public sealed class XamlResourceLoadingTests
                 Assert.Equal(0, nextButton.Margin.Right);
                 Assert.Equal(0, returnToSummaryButton.Margin.Right);
                 Assert.Equal(0, deployButton.Margin.Right);
-                wizardView.Measure(new Size(1280, 800));
-                wizardView.Arrange(new Rect(0, 0, 1280, 800));
+                wizardView.Measure(new Size(1440, 900));
+                wizardView.Arrange(new Rect(0, 0, 1440, 900));
                 wizardView.UpdateLayout();
                 Assert.Equal(wizardContentCard.ActualWidth, wizardFooter.ActualWidth);
+                double stepperLeft = verticalStepper.TranslatePoint(new Point(), wizardView).X;
+                double stepperRight = verticalStepper.TranslatePoint(
+                    new Point(verticalStepper.ActualWidth, 0),
+                    wizardView).X;
+                Point cardOrigin = wizardContentCard.TranslatePoint(new Point(), wizardView);
+                double cardRight = cardOrigin.X + wizardContentCard.ActualWidth;
+                Assert.Equal(16, cardOrigin.X - stepperRight, precision: 3);
+                Assert.Equal(stepperLeft, 1440 - cardRight, precision: 3);
+                Assert.Equal(8, verticalStepper.TranslatePoint(new Point(), wizardContentCard).Y, precision: 3);
+
+                var narrowWizardView = new WizardView();
+                var narrowVerticalStepper = Assert.IsType<ItemsControl>(
+                    narrowWizardView.FindName("VerticalStepper"));
+                narrowWizardView.Measure(new Size(800, 700));
+                narrowWizardView.Arrange(new Rect(0, 0, 800, 700));
+                narrowWizardView.UpdateLayout();
+                Assert.Equal(Visibility.Visible, narrowVerticalStepper.Visibility);
 
                 var verticalStepTemplate = Assert.IsType<DataTemplate>(
                     wizardView.FindResource("VerticalStepTemplate"));
@@ -131,75 +149,6 @@ public sealed class XamlResourceLoadingTests
                     FindVisualDescendants<Button>(disabledVerticalRoot),
                     button => button.Name == "VerticalStepButton");
                 Assert.False(disabledVerticalButton.IsEnabled);
-
-                var compactStepTemplate = Assert.IsType<DataTemplate>(
-                    wizardView.FindResource("CompactStepTemplate"));
-                var currentStep = new DeploymentWizardStepViewModel(
-                    new DeploymentWizardStepDefinition(
-                        DeploymentWizardStepId.OperatingSystem,
-                        "Wizard.Step.OperatingSystem"),
-                    "Operating system",
-                    displayNumber: 2,
-                    isFirst: false,
-                    isLast: false)
-                {
-                    IsCurrent = true,
-                    IsConnectorCompleted = true,
-                    IsPreviousConnectorCompleted = true
-                };
-                var compactStep = Assert.IsType<Button>(compactStepTemplate.LoadContent());
-                compactStep.DataContext = currentStep;
-                var compactHost = new Grid { Width = 180, Height = 76 };
-                compactHost.Children.Add(compactStep);
-                compactHost.Measure(new Size(180, 76));
-                compactHost.Arrange(new Rect(0, 0, 180, 76));
-                compactHost.UpdateLayout();
-                var compactMarker = Assert.Single(
-                    FindVisualDescendants<Border>(compactStep),
-                    border => border.Name == "CompactStepMarker");
-                var compactNumber = Assert.Single(
-                    FindVisualDescendants<TextBlock>(compactStep),
-                    textBlock => textBlock.Name == "CompactStepNumber");
-                var compactLeftConnector = Assert.Single(
-                    FindVisualDescendants<Border>(compactStep),
-                    border => border.Name == "CompactStepLeftConnector");
-                var compactRightConnector = Assert.Single(
-                    FindVisualDescendants<Border>(compactStep),
-                    border => border.Name == "CompactStepRightConnector");
-                var compactButtonSurface = Assert.Single(
-                    FindVisualDescendants<Border>(compactStep),
-                    border => border.Name == "ButtonSurface");
-                Assert.Equal(32, compactMarker.ActualWidth);
-                Assert.Equal(32, compactMarker.ActualHeight);
-                Assert.Equal("2", compactNumber.Text);
-                Assert.Equal(2, compactLeftConnector.ActualHeight);
-                Assert.Equal(2, compactRightConnector.ActualHeight);
-                Assert.Same(application.FindResource("AccentFillColorDefaultBrush"), compactMarker.Background);
-                Assert.Same(
-                    application.FindResource("SystemFillColorSuccessBrush"),
-                    compactRightConnector.Background);
-                Assert.Equal(
-                    Colors.Transparent,
-                    Assert.IsType<SolidColorBrush>(compactButtonSurface.Background).Color);
-
-                var disabledCompactStep = new DeploymentWizardStepViewModel(
-                    new DeploymentWizardStepDefinition(
-                        DeploymentWizardStepId.Summary,
-                        "Wizard.Step.Summary"),
-                    "Summary",
-                    displayNumber: 4,
-                    isFirst: false,
-                    isLast: true)
-                {
-                    IsEnabled = false,
-                    IsPreviousConnectorCompleted = true
-                };
-                var disabledCompactButton = Assert.IsType<Button>(compactStepTemplate.LoadContent());
-                disabledCompactButton.DataContext = disabledCompactStep;
-                disabledCompactButton.Measure(new Size(180, 76));
-                disabledCompactButton.Arrange(new Rect(0, 0, 180, 76));
-                disabledCompactButton.UpdateLayout();
-                Assert.False(disabledCompactButton.IsEnabled);
 
                 var deploymentStatusView = new DeploymentStatusView();
                 var stepsRail = Assert.IsType<Grid>(deploymentStatusView.FindName("StepsRail"));
