@@ -68,7 +68,7 @@
                                 <Button
                                     Grid.Column="3"
                                     Margin="8,0,12,0"
-                                    Padding="10,4"
+                                    Padding="12,4"
                                     AutomationProperties.HelpText="{Binding DataContext.Strings[Common.Edit], ElementName=ViewRoot}"
                                     AutomationProperties.Name="{Binding Title}"
                                     Command="{Binding DataContext.EditSummaryStepCommand, ElementName=ViewRoot}"
@@ -85,7 +85,7 @@
                                     <Grid Margin="0,4">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="220" />
-                                            <ColumnDefinition Width="20" />
+                                            <ColumnDefinition Width="16" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <TextBlock
@@ -114,7 +114,7 @@
             CornerRadius="6">
             <StackPanel Orientation="Horizontal">
                 <TextBlock
-                    Margin="0,0,10,0"
+                    Margin="0,0,12,0"
                     VerticalAlignment="Center"
                     FontFamily="{DynamicResource SymbolThemeFontFamily}"
                     Foreground="{DynamicResource SystemFillColorCriticalBrush}"

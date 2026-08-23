@@ -7,13 +7,13 @@
             Style="{StaticResource TitleTextBlockStyle}"
             Text="{Binding DataContext.Strings[TargetDevice.Title], ElementName=ViewRoot}" />
         <TextBlock
-            Margin="0,4,0,20"
+            Margin="0,4,0,24"
             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
             Text="{Binding DetectedHardwareSummary}"
             TextWrapping="Wrap" />
 
         <WrapPanel ItemWidth="340">
-            <StackPanel Margin="0,0,24,20">
+            <StackPanel Margin="0,0,24,16">
                 <TextBlock
                     Margin="0,0,0,8"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
@@ -39,7 +39,7 @@
                     Visibility="{Binding HasTargetComputerNameValidationError, Converter={StaticResource BooleanToVisibilityConverter}}" />
             </StackPanel>
 
-            <StackPanel Margin="0,0,0,20">
+            <StackPanel Margin="0,0,0,16">
                 <TextBlock
                     Margin="0,0,0,8"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
@@ -58,9 +58,9 @@
             </StackPanel>
         </WrapPanel>
 
-        <Separator Margin="0,4,0,20" />
+        <Separator Margin="0,8,0,24" />
         <TextBlock
-            Margin="0,0,0,10"
+            Margin="0,0,0,8"
             Style="{StaticResource SubtitleTextBlockStyle}"
             Text="{Binding DataContext.Strings[TargetDevice.Firmware], ElementName=ViewRoot}" />
         <CheckBox
@@ -72,7 +72,7 @@
                 TextWrapping="Wrap" />
         </CheckBox>
         <TextBlock
-            Margin="24,6,0,0"
+            Margin="24,8,0,0"
             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
             Text="{Binding DataContext.Strings[TargetDevice.FirmwareUnavailableVirtualMachine], ElementName=ViewRoot}">
             <TextBlock.Style>

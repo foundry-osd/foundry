@@ -29,7 +29,7 @@
                         Value="0,0,0,8" />
                     <Setter
                         Property="Padding"
-                        Value="14,12" />
+                        Value="16,12" />
                 </Style>
             </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
@@ -63,7 +63,7 @@
                 ItemsSource="{Binding DriverPackModelOptions}"
                 SelectedItem="{Binding SelectedDriverPackModel}" />
             <TextBlock
-                Margin="0,20,0,8"
+                Margin="0,16,0,8"
                 Style="{StaticResource BodyStrongTextBlockStyle}"
                 Text="{Binding DataContext.Strings[DriverPack.Version], ElementName=ViewRoot}" />
             <ComboBox

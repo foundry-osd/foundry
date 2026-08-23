@@ -49,6 +49,7 @@ public sealed class XamlResourceLoadingTests
                 wizardView.Arrange(new Rect(0, 0, 1440, 900));
                 wizardView.UpdateLayout();
                 Assert.Equal(wizardContentCard.ActualWidth, wizardFooter.ActualWidth);
+                Assert.Equal(980, wizardContentCard.ActualWidth, precision: 3);
                 double stepperLeft = verticalStepper.TranslatePoint(new Point(), wizardView).X;
                 double stepperRight = verticalStepper.TranslatePoint(
                     new Point(verticalStepper.ActualWidth, 0),
@@ -112,7 +113,7 @@ public sealed class XamlResourceLoadingTests
                 Assert.Equal(Visibility.Visible, verticalCheck.Visibility);
                 Assert.Equal(Visibility.Collapsed, verticalNumber.Visibility);
                 Assert.Equal(2, verticalConnector.ActualWidth);
-                Assert.Equal(18, verticalConnector.ActualHeight);
+                Assert.Equal(16, verticalConnector.ActualHeight);
                 Assert.Same(application.FindResource("SystemFillColorSuccessBrush"), verticalCheck.Foreground);
                 Assert.Same(application.FindResource("SystemFillColorSuccessBrush"), verticalConnector.Background);
                 double markerCenter = verticalMarker.TranslatePoint(

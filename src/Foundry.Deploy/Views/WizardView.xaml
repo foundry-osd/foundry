@@ -33,7 +33,7 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="32" />
-                    <RowDefinition Height="18" />
+                    <RowDefinition Height="16" />
                 </Grid.RowDefinitions>
                 <Button x:Name="VerticalStepButton"
                     Grid.ColumnSpan="3"
@@ -102,6 +102,7 @@
     </UserControl.Resources>
 
     <Grid
+        Width="{Binding ActualWidth, ElementName=ViewRoot}"
         MaxWidth="1186"
         HorizontalAlignment="Center">
         <Grid.ColumnDefinitions>

@@ -6,11 +6,11 @@
             Style="{StaticResource TitleTextBlockStyle}"
             Text="{Binding Strings[OperatingSystem.Title]}" />
         <TextBlock
-            Margin="0,4,0,20"
+            Margin="0,4,0,24"
             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
             Text="{Binding Strings[OperatingSystem.Windows11]}" />
         <WrapPanel ItemWidth="340">
-            <StackPanel Margin="0,0,24,20">
+            <StackPanel Margin="0,0,24,16">
                 <TextBlock
                     Margin="0,0,0,8"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
@@ -20,7 +20,7 @@
                     ItemsSource="{Binding OperatingSystemCatalog.ReleaseIdFilters}"
                     SelectedItem="{Binding OperatingSystemCatalog.SelectedReleaseId}" />
             </StackPanel>
-            <StackPanel Margin="0,0,0,20">
+            <StackPanel Margin="0,0,0,16">
                 <TextBlock
                     Margin="0,0,0,8"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
@@ -32,7 +32,7 @@
                     SelectedValue="{Binding OperatingSystemCatalog.SelectedMediaSourceId}"
                     SelectedValuePath="SourceId" />
             </StackPanel>
-            <StackPanel Margin="0,0,24,20">
+            <StackPanel Margin="0,0,24,16">
                 <TextBlock
                     Margin="0,0,0,8"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
@@ -42,7 +42,7 @@
                     ItemsSource="{Binding OperatingSystemCatalog.LanguageFilters}"
                     SelectedItem="{Binding OperatingSystemCatalog.SelectedLanguageCode}" />
             </StackPanel>
-            <StackPanel Margin="0,0,0,20">
+            <StackPanel Margin="0,0,0,16">
                 <TextBlock
                     Margin="0,0,0,8"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
@@ -52,7 +52,7 @@
                     ItemsSource="{Binding OperatingSystemCatalog.EditionFilters}"
                     SelectedItem="{Binding OperatingSystemCatalog.SelectedEdition}" />
             </StackPanel>
-            <StackPanel Margin="0,0,24,20">
+            <StackPanel Margin="0,0,24,16">
                 <TextBlock
                     Margin="0,0,0,8"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
