@@ -32,7 +32,11 @@ public sealed class XamlResourceLoadingTests
                 var nextButton = Assert.IsType<Button>(wizardView.FindName("NextButton"));
                 var returnToSummaryButton = Assert.IsType<Button>(wizardView.FindName("ReturnToSummaryButton"));
                 var deployButton = Assert.IsType<Button>(wizardView.FindName("DeployButton"));
+                var stepperColumn = Assert.IsType<ColumnDefinition>(wizardView.FindName("StepperColumn"));
+                var stepperGapColumn = Assert.IsType<ColumnDefinition>(wizardView.FindName("StepperGapColumn"));
                 Assert.Equal(980, wizardContentCard.MaxWidth);
+                Assert.Equal(190, stepperColumn.Width.Value);
+                Assert.Equal(16, stepperGapColumn.Width.Value);
                 Assert.Equal(wizardContentCard.MaxWidth, wizardFooter.MaxWidth);
                 Assert.Equal(HorizontalAlignment.Center, wizardFooter.HorizontalAlignment);
                 Assert.Same(application.FindResource(typeof(Button)), nextButton.Style.BasedOn);
@@ -57,7 +61,8 @@ public sealed class XamlResourceLoadingTests
                     isLast: false)
                 {
                     IsCompleted = true,
-                    IsEnabled = true
+                    IsEnabled = true,
+                    IsConnectorCompleted = true
                 };
                 var verticalStep = Assert.IsType<Button>(verticalStepTemplate.LoadContent());
                 verticalStep.DataContext = completedStep;
@@ -83,6 +88,7 @@ public sealed class XamlResourceLoadingTests
                 Assert.Equal(Visibility.Visible, verticalCheck.Visibility);
                 Assert.Equal(Visibility.Collapsed, verticalNumber.Visibility);
                 Assert.Equal(2, verticalConnector.ActualWidth);
+                Assert.Equal(18, verticalConnector.ActualHeight);
                 Assert.Same(application.FindResource("SystemFillColorSuccessBrush"), verticalCheck.Foreground);
                 Assert.Same(application.FindResource("SystemFillColorSuccessBrush"), verticalConnector.Background);
 
@@ -115,7 +121,9 @@ public sealed class XamlResourceLoadingTests
                     isFirst: false,
                     isLast: false)
                 {
-                    IsCurrent = true
+                    IsCurrent = true,
+                    IsConnectorCompleted = true,
+                    IsPreviousConnectorCompleted = true
                 };
                 var compactStep = Assert.IsType<Button>(compactStepTemplate.LoadContent());
                 compactStep.DataContext = currentStep;
@@ -136,12 +144,21 @@ public sealed class XamlResourceLoadingTests
                 var compactRightConnector = Assert.Single(
                     FindVisualDescendants<Border>(compactStep),
                     border => border.Name == "CompactStepRightConnector");
+                var compactButtonSurface = Assert.Single(
+                    FindVisualDescendants<Border>(compactStep),
+                    border => border.Name == "ButtonSurface");
                 Assert.Equal(32, compactMarker.ActualWidth);
                 Assert.Equal(32, compactMarker.ActualHeight);
                 Assert.Equal("2", compactNumber.Text);
                 Assert.Equal(2, compactLeftConnector.ActualHeight);
                 Assert.Equal(2, compactRightConnector.ActualHeight);
                 Assert.Same(application.FindResource("AccentFillColorDefaultBrush"), compactMarker.Background);
+                Assert.Same(
+                    application.FindResource("SystemFillColorSuccessBrush"),
+                    compactRightConnector.Background);
+                Assert.Equal(
+                    Colors.Transparent,
+                    Assert.IsType<SolidColorBrush>(compactButtonSurface.Background).Color);
 
                 var disabledCompactStep = new DeploymentWizardStepViewModel(
                     new DeploymentWizardStepDefinition(
@@ -153,7 +170,7 @@ public sealed class XamlResourceLoadingTests
                     isLast: true)
                 {
                     IsEnabled = false,
-                    IsPreviousCompleted = true
+                    IsPreviousConnectorCompleted = true
                 };
                 var disabledCompactButton = Assert.IsType<Button>(compactStepTemplate.LoadContent());
                 disabledCompactButton.DataContext = disabledCompactStep;

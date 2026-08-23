@@ -42,5 +42,8 @@ public partial class DeploymentWizardStepViewModel : ObservableObject
     private bool isEnabled;
 
     [ObservableProperty]
-    private bool isPreviousCompleted;
+    private bool isConnectorCompleted;
+
+    [ObservableProperty]
+    private bool isPreviousConnectorCompleted;
 }

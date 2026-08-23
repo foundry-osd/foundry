@@ -31,6 +31,12 @@ public sealed class DeploymentWizardNavigationState
         return targetIndex >= 0 && targetIndex <= _furthestIndex;
     }
 
+    public bool HasAdvancedPast(DeploymentWizardStepId stepId)
+    {
+        int targetIndex = IndexOf(stepId);
+        return targetIndex >= 0 && targetIndex < _furthestIndex;
+    }
+
     public bool TryNavigateTo(DeploymentWizardStepId stepId)
     {
         if (!CanNavigateTo(stepId))

@@ -49,4 +49,18 @@ public sealed class DeploymentWizardNavigationStateTests
 
         Assert.Equal(DeploymentWizardStepId.OperatingSystem, state.CurrentStepId);
     }
+
+    [Fact]
+    public void HasAdvancedPast_RemainsTrueAfterNavigatingBackToCompletedStep()
+    {
+        var state = new DeploymentWizardNavigationState(
+            DeploymentWizardStepDefinition.CreateSequence(includeAutopilot: false));
+        state.Advance();
+        state.Advance();
+        state.Advance();
+
+        Assert.True(state.TryNavigateTo(DeploymentWizardStepId.OperatingSystem));
+
+        Assert.True(state.HasAdvancedPast(DeploymentWizardStepId.OperatingSystem));
+    }
 }

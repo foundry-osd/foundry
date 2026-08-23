@@ -34,12 +34,12 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="32" />
-                        <ColumnDefinition Width="12" />
+                        <ColumnDefinition Width="8" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="32" />
-                        <RowDefinition Height="24" />
+                        <RowDefinition Height="18" />
                     </Grid.RowDefinitions>
                     <Border x:Name="VerticalStepMarker"
                         Style="{StaticResource WizardStepMarkerStyle}">
@@ -68,7 +68,7 @@
                                     Value="{DynamicResource DividerStrokeColorDefaultBrush}" />
                                 <Style.Triggers>
                                     <DataTrigger
-                                        Binding="{Binding IsCompleted}"
+                                        Binding="{Binding IsConnectorCompleted}"
                                         Value="True">
                                         <Setter
                                             Property="Background"
@@ -119,7 +119,7 @@
                                     Value="{DynamicResource DividerStrokeColorDefaultBrush}" />
                                 <Style.Triggers>
                                     <DataTrigger
-                                        Binding="{Binding IsPreviousCompleted}"
+                                        Binding="{Binding IsPreviousConnectorCompleted}"
                                         Value="True">
                                         <Setter
                                             Property="Background"
@@ -148,7 +148,7 @@
                                     Value="{DynamicResource DividerStrokeColorDefaultBrush}" />
                                 <Style.Triggers>
                                     <DataTrigger
-                                        Binding="{Binding IsCompleted}"
+                                        Binding="{Binding IsConnectorCompleted}"
                                         Value="True">
                                         <Setter
                                             Property="Background"
@@ -195,9 +195,9 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="StepperColumn"
-                Width="220" />
+                Width="190" />
             <ColumnDefinition x:Name="StepperGapColumn"
-                Width="24" />
+                Width="16" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>

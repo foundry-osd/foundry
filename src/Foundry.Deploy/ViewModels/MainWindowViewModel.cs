@@ -581,7 +581,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             step.IsCurrent = index == WizardStepIndex;
             step.IsCompleted = index < WizardStepIndex || _wizardNavigationState.CanNavigateTo(step.Id) && !step.IsCurrent;
             step.IsEnabled = _wizardNavigationState.CanNavigateTo(step.Id) && !step.IsCurrent;
-            step.IsPreviousCompleted = index > 0 && WizardSteps[index - 1].IsCompleted;
+            step.IsConnectorCompleted = _wizardNavigationState.HasAdvancedPast(step.Id);
+            step.IsPreviousConnectorCompleted = index > 0 && WizardSteps[index - 1].IsConnectorCompleted;
         }
     }
 
