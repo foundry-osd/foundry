@@ -25,68 +25,79 @@
         </DataTemplate>
 
         <DataTemplate x:Key="VerticalStepTemplate">
-            <Button
-                AutomationProperties.Name="{Binding Title}"
-                Command="{Binding DataContext.NavigateToWizardStepCommand, ElementName=ViewRoot}"
-                CommandParameter="{Binding}"
-                IsEnabled="{Binding IsEnabled}"
-                Style="{StaticResource WizardStepperButtonStyle}">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="32" />
-                        <ColumnDefinition Width="8" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="32" />
-                        <RowDefinition Height="18" />
-                    </Grid.RowDefinitions>
-                    <Border x:Name="VerticalStepMarker"
-                        Style="{StaticResource WizardStepMarkerStyle}">
-                        <Grid>
-                            <TextBlock x:Name="VerticalStepNumber"
-                                Style="{StaticResource WizardStepNumberStyle}"
-                                Text="{Binding DisplayNumber}" />
-                            <TextBlock x:Name="VerticalStepCheck"
-                                Style="{StaticResource WizardStepCheckStyle}" />
-                        </Grid>
-                    </Border>
-                    <TextBlock
-                        Grid.Column="2"
-                        VerticalAlignment="Center"
-                        Style="{StaticResource WizardStepTitleStyle}"
-                        Text="{Binding Title}"
-                        TextWrapping="Wrap" />
-                    <Border x:Name="VerticalStepConnector"
-                        Grid.Row="1"
-                        Width="2"
-                        HorizontalAlignment="Center">
-                        <Border.Style>
-                            <Style TargetType="Border">
-                                <Setter
-                                    Property="Background"
-                                    Value="{DynamicResource DividerStrokeColorDefaultBrush}" />
-                                <Style.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding IsConnectorCompleted}"
-                                        Value="True">
-                                        <Setter
-                                            Property="Background"
-                                            Value="{DynamicResource SystemFillColorSuccessBrush}" />
-                                    </DataTrigger>
-                                    <DataTrigger
-                                        Binding="{Binding IsLast}"
-                                        Value="True">
-                                        <Setter
-                                            Property="Visibility"
-                                            Value="Collapsed" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
-                    </Border>
-                </Grid>
-            </Button>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="32" />
+                    <ColumnDefinition Width="8" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="32" />
+                    <RowDefinition Height="18" />
+                </Grid.RowDefinitions>
+                <Button x:Name="VerticalStepButton"
+                    Grid.RowSpan="2"
+                    Grid.ColumnSpan="3"
+                    AutomationProperties.Name="{Binding Title}"
+                    Command="{Binding DataContext.NavigateToWizardStepCommand, ElementName=ViewRoot}"
+                    CommandParameter="{Binding}"
+                    IsEnabled="{Binding IsEnabled}"
+                    Style="{StaticResource WizardVerticalStepperButtonStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="32" />
+                            <ColumnDefinition Width="8" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border x:Name="VerticalStepMarker"
+                            Style="{StaticResource WizardStepMarkerStyle}">
+                            <Grid>
+                                <TextBlock x:Name="VerticalStepNumber"
+                                    Style="{StaticResource WizardStepNumberStyle}"
+                                    Text="{Binding DisplayNumber}" />
+                                <TextBlock x:Name="VerticalStepCheck"
+                                    Style="{StaticResource WizardStepCheckStyle}" />
+                            </Grid>
+                        </Border>
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource WizardStepTitleStyle}"
+                            Text="{Binding Title}"
+                            TextWrapping="Wrap" />
+                    </Grid>
+                </Button>
+                <Border x:Name="VerticalStepConnector"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Width="2"
+                    HorizontalAlignment="Center"
+                    IsHitTestVisible="False">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter
+                                Property="Background"
+                                Value="{DynamicResource DividerStrokeColorDefaultBrush}" />
+                            <Style.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding IsConnectorCompleted}"
+                                    Value="True">
+                                    <Setter
+                                        Property="Background"
+                                        Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    Binding="{Binding IsLast}"
+                                    Value="True">
+                                    <Setter
+                                        Property="Visibility"
+                                        Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                </Border>
+            </Grid>
         </DataTemplate>
 
         <DataTemplate x:Key="CompactStepTemplate">

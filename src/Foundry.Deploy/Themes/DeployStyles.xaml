@@ -56,18 +56,21 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border x:Name="ButtonSurface"
-                        Padding="{TemplateBinding Padding}"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="4">
-                        <ContentPresenter
-                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                    <Grid Background="Transparent">
+                        <Border x:Name="ButtonSurface"
+                            Padding="{TemplateBinding Padding}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                            Content="{TemplateBinding Content}"
-                            ContentTemplate="{TemplateBinding ContentTemplate}" />
-                    </Border>
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="4">
+                            <ContentPresenter
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}" />
+                        </Border>
+                    </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger
                             Property="IsMouseOver"
@@ -101,6 +104,17 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style x:Key="WizardVerticalStepperButtonStyle"
+        BasedOn="{StaticResource WizardStepperButtonStyle}"
+        TargetType="Button">
+        <Setter
+            Property="VerticalAlignment"
+            Value="Stretch" />
+        <Setter
+            Property="VerticalContentAlignment"
+            Value="Top" />
     </Style>
 
     <Style x:Key="WizardStepMarkerStyle"

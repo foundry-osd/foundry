@@ -64,7 +64,7 @@ public sealed class XamlResourceLoadingTests
                     IsEnabled = true,
                     IsConnectorCompleted = true
                 };
-                var verticalStep = Assert.IsType<Button>(verticalStepTemplate.LoadContent());
+                var verticalStep = Assert.IsAssignableFrom<FrameworkElement>(verticalStepTemplate.LoadContent());
                 verticalStep.DataContext = completedStep;
                 var stepHost = new Grid { Width = 220, Height = 72 };
                 stepHost.Children.Add(verticalStep);
@@ -83,6 +83,12 @@ public sealed class XamlResourceLoadingTests
                 var verticalConnector = Assert.Single(
                     FindVisualDescendants<Border>(verticalStep),
                     border => border.Name == "VerticalStepConnector");
+                var verticalButtonSurface = Assert.Single(
+                    FindVisualDescendants<Border>(verticalStep),
+                    border => border.Name == "ButtonSurface");
+                var verticalStepButton = Assert.Single(
+                    FindVisualDescendants<Button>(verticalStep),
+                    button => button.Name == "VerticalStepButton");
                 Assert.Equal(32, verticalMarker.ActualWidth);
                 Assert.Equal(32, verticalMarker.ActualHeight);
                 Assert.Equal(Visibility.Visible, verticalCheck.Visibility);
@@ -91,6 +97,13 @@ public sealed class XamlResourceLoadingTests
                 Assert.Equal(18, verticalConnector.ActualHeight);
                 Assert.Same(application.FindResource("SystemFillColorSuccessBrush"), verticalCheck.Foreground);
                 Assert.Same(application.FindResource("SystemFillColorSuccessBrush"), verticalConnector.Background);
+                double markerCenter = verticalMarker.TranslatePoint(
+                    new Point(0, verticalMarker.ActualHeight / 2),
+                    verticalButtonSurface).Y;
+                Assert.Equal(verticalButtonSurface.ActualHeight / 2, markerCenter, precision: 3);
+                Assert.True(
+                    verticalStepButton.ActualHeight >= 44,
+                    $"Expected a minimum 44px hit target, but measured {verticalStepButton.ActualHeight}px.");
 
                 var disabledVerticalStep = new DeploymentWizardStepViewModel(
                     new DeploymentWizardStepDefinition(
@@ -103,11 +116,15 @@ public sealed class XamlResourceLoadingTests
                 {
                     IsEnabled = false,
                 };
-                var disabledVerticalButton = Assert.IsType<Button>(verticalStepTemplate.LoadContent());
-                disabledVerticalButton.DataContext = disabledVerticalStep;
-                disabledVerticalButton.Measure(new Size(220, 72));
-                disabledVerticalButton.Arrange(new Rect(0, 0, 220, 72));
-                disabledVerticalButton.UpdateLayout();
+                var disabledVerticalRoot = Assert.IsAssignableFrom<FrameworkElement>(
+                    verticalStepTemplate.LoadContent());
+                disabledVerticalRoot.DataContext = disabledVerticalStep;
+                disabledVerticalRoot.Measure(new Size(220, 72));
+                disabledVerticalRoot.Arrange(new Rect(0, 0, 220, 72));
+                disabledVerticalRoot.UpdateLayout();
+                var disabledVerticalButton = Assert.Single(
+                    FindVisualDescendants<Button>(disabledVerticalRoot),
+                    button => button.Name == "VerticalStepButton");
                 Assert.False(disabledVerticalButton.IsEnabled);
 
                 var compactStepTemplate = Assert.IsType<DataTemplate>(
