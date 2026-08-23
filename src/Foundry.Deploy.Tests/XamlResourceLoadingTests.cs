@@ -101,9 +101,14 @@ public sealed class XamlResourceLoadingTests
                     new Point(0, verticalMarker.ActualHeight / 2),
                     verticalButtonSurface).Y;
                 Assert.Equal(verticalButtonSurface.ActualHeight / 2, markerCenter, precision: 3);
+                double buttonBottom = verticalStepButton.TranslatePoint(
+                    new Point(0, verticalStepButton.ActualHeight),
+                    verticalStep).Y;
+                double connectorTop = verticalConnector.TranslatePoint(new Point(), verticalStep).Y;
+                Assert.Equal(verticalButtonSurface.ActualHeight, verticalStepButton.ActualHeight, precision: 3);
                 Assert.True(
-                    verticalStepButton.ActualHeight >= 44,
-                    $"Expected a minimum 44px hit target, but measured {verticalStepButton.ActualHeight}px.");
+                    buttonBottom <= connectorTop,
+                    $"The button extends to {buttonBottom}px and overlaps the connector starting at {connectorTop}px.");
 
                 var disabledVerticalStep = new DeploymentWizardStepViewModel(
                     new DeploymentWizardStepDefinition(

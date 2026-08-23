@@ -36,13 +36,12 @@
                     <RowDefinition Height="18" />
                 </Grid.RowDefinitions>
                 <Button x:Name="VerticalStepButton"
-                    Grid.RowSpan="2"
                     Grid.ColumnSpan="3"
                     AutomationProperties.Name="{Binding Title}"
                     Command="{Binding DataContext.NavigateToWizardStepCommand, ElementName=ViewRoot}"
                     CommandParameter="{Binding}"
                     IsEnabled="{Binding IsEnabled}"
-                    Style="{StaticResource WizardVerticalStepperButtonStyle}">
+                    Style="{StaticResource WizardStepperButtonStyle}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="32" />
