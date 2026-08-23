@@ -23,20 +23,24 @@
             Value="{DynamicResource CardStrokeColorDefaultBrush}" />
     </Style>
 
-    <Style x:Key="WizardStepButtonStyle"
+    <Style x:Key="WizardStepperButtonStyle"
+        BasedOn="{StaticResource {x:Type Button}}"
         TargetType="Button">
         <Setter
             Property="HorizontalContentAlignment"
+            Value="Stretch" />
+        <Setter
+            Property="VerticalContentAlignment"
             Value="Stretch" />
         <Setter
             Property="HorizontalAlignment"
             Value="Stretch" />
         <Setter
             Property="Padding"
-            Value="12,10" />
+            Value="0" />
         <Setter
             Property="Margin"
-            Value="0,0,0,6" />
+            Value="0" />
         <Setter
             Property="Background"
             Value="Transparent" />
@@ -45,30 +49,147 @@
             Value="Transparent" />
         <Setter
             Property="BorderThickness"
-            Value="1" />
+            Value="0" />
         <Setter
             Property="IsTabStop"
             Value="True" />
+    </Style>
+
+    <Style x:Key="WizardStepMarkerStyle"
+        TargetType="Border">
+        <Setter
+            Property="Width"
+            Value="32" />
+        <Setter
+            Property="Height"
+            Value="32" />
+        <Setter
+            Property="Background"
+            Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+        <Setter
+            Property="BorderBrush"
+            Value="{DynamicResource ControlStrokeColorDefaultBrush}" />
+        <Setter
+            Property="BorderThickness"
+            Value="1" />
+        <Setter
+            Property="CornerRadius"
+            Value="16" />
         <Style.Triggers>
+            <DataTrigger
+                Binding="{Binding IsCompleted}"
+                Value="True">
+                <Setter
+                    Property="Background"
+                    Value="Transparent" />
+                <Setter
+                    Property="BorderBrush"
+                    Value="Transparent" />
+            </DataTrigger>
             <DataTrigger
                 Binding="{Binding IsCurrent}"
                 Value="True">
                 <Setter
                     Property="Background"
-                    Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+                    Value="{DynamicResource AccentFillColorDefaultBrush}" />
                 <Setter
                     Property="BorderBrush"
                     Value="{DynamicResource AccentFillColorDefaultBrush}" />
             </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="WizardStepNumberStyle"
+        TargetType="TextBlock">
+        <Setter
+            Property="HorizontalAlignment"
+            Value="Center" />
+        <Setter
+            Property="VerticalAlignment"
+            Value="Center" />
+        <Setter
+            Property="FontSize"
+            Value="14" />
+        <Setter
+            Property="FontWeight"
+            Value="SemiBold" />
+        <Setter
+            Property="Foreground"
+            Value="{DynamicResource TextFillColorSecondaryBrush}" />
+        <Style.Triggers>
             <DataTrigger
-                Binding="{Binding IsFuture}"
+                Binding="{Binding IsCompleted}"
                 Value="True">
                 <Setter
-                    Property="Opacity"
-                    Value="0.62" />
+                    Property="Visibility"
+                    Value="Collapsed" />
+            </DataTrigger>
+            <DataTrigger
+                Binding="{Binding IsCurrent}"
+                Value="True">
                 <Setter
-                    Property="IsTabStop"
-                    Value="False" />
+                    Property="Foreground"
+                    Value="{DynamicResource TextOnAccentFillColorPrimaryBrush}" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="WizardStepCheckStyle"
+        TargetType="TextBlock">
+        <Setter
+            Property="HorizontalAlignment"
+            Value="Center" />
+        <Setter
+            Property="VerticalAlignment"
+            Value="Center" />
+        <Setter
+            Property="FontFamily"
+            Value="{DynamicResource SymbolThemeFontFamily}" />
+        <Setter
+            Property="FontSize"
+            Value="16" />
+        <Setter
+            Property="Foreground"
+            Value="{DynamicResource SystemFillColorSuccessBrush}" />
+        <Setter
+            Property="Text"
+            Value="&#xE930;" />
+        <Setter
+            Property="Visibility"
+            Value="Collapsed" />
+        <Style.Triggers>
+            <DataTrigger
+                Binding="{Binding IsCompleted}"
+                Value="True">
+                <Setter
+                    Property="Visibility"
+                    Value="Visible" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="WizardStepTitleStyle"
+        TargetType="TextBlock">
+        <Setter
+            Property="Foreground"
+            Value="{DynamicResource TextFillColorSecondaryBrush}" />
+        <Style.Triggers>
+            <DataTrigger
+                Binding="{Binding IsCompleted}"
+                Value="True">
+                <Setter
+                    Property="Foreground"
+                    Value="{DynamicResource TextFillColorPrimaryBrush}" />
+            </DataTrigger>
+            <DataTrigger
+                Binding="{Binding IsCurrent}"
+                Value="True">
+                <Setter
+                    Property="Foreground"
+                    Value="{DynamicResource TextFillColorPrimaryBrush}" />
+                <Setter
+                    Property="FontWeight"
+                    Value="SemiBold" />
             </DataTrigger>
         </Style.Triggers>
     </Style>

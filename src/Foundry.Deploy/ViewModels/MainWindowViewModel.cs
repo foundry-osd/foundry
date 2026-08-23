@@ -546,9 +546,15 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
 
         WizardSteps.Clear();
-        foreach (DeploymentWizardStepDefinition definition in definitions)
+        for (int index = 0; index < definitions.Count; index++)
         {
-            WizardSteps.Add(new DeploymentWizardStepViewModel(definition, GetWizardStepTitle(definition.Id)));
+            DeploymentWizardStepDefinition definition = definitions[index];
+            WizardSteps.Add(new DeploymentWizardStepViewModel(
+                definition,
+                GetWizardStepTitle(definition.Id),
+                index + 1,
+                index == 0,
+                index == definitions.Count - 1));
         }
 
         SynchronizeWizardNavigation();
@@ -574,8 +580,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             DeploymentWizardStepViewModel step = WizardSteps[index];
             step.IsCurrent = index == WizardStepIndex;
             step.IsCompleted = index < WizardStepIndex || _wizardNavigationState.CanNavigateTo(step.Id) && !step.IsCurrent;
-            step.IsFuture = index > WizardStepIndex && !step.IsCompleted;
             step.IsEnabled = _wizardNavigationState.CanNavigateTo(step.Id) && !step.IsCurrent;
+            step.IsPreviousCompleted = index > 0 && WizardSteps[index - 1].IsCompleted;
         }
     }
 

@@ -9,14 +9,25 @@ namespace Foundry.Deploy.ViewModels;
 
 public partial class DeploymentWizardStepViewModel : ObservableObject
 {
-    public DeploymentWizardStepViewModel(DeploymentWizardStepDefinition definition, string title)
+    public DeploymentWizardStepViewModel(
+        DeploymentWizardStepDefinition definition,
+        string title,
+        int displayNumber,
+        bool isFirst,
+        bool isLast)
     {
         Definition = definition;
         Title = title;
+        DisplayNumber = displayNumber;
+        IsFirst = isFirst;
+        IsLast = isLast;
     }
 
     public DeploymentWizardStepDefinition Definition { get; }
     public DeploymentWizardStepId Id => Definition.Id;
+    public int DisplayNumber { get; }
+    public bool IsFirst { get; }
+    public bool IsLast { get; }
 
     [ObservableProperty]
     private string title;
@@ -28,20 +39,8 @@ public partial class DeploymentWizardStepViewModel : ObservableObject
     private bool isCurrent;
 
     [ObservableProperty]
-    private bool isFuture;
-
-    [ObservableProperty]
     private bool isEnabled;
 
-    public string Glyph => IsCompleted ? "\uE930" : IsCurrent ? "\uE915" : "\uECCA";
-
-    partial void OnIsCompletedChanged(bool value)
-    {
-        OnPropertyChanged(nameof(Glyph));
-    }
-
-    partial void OnIsCurrentChanged(bool value)
-    {
-        OnPropertyChanged(nameof(Glyph));
-    }
+    [ObservableProperty]
+    private bool isPreviousCompleted;
 }

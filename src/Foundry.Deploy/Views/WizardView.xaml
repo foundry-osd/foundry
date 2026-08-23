@@ -30,47 +30,61 @@
                 Command="{Binding DataContext.NavigateToWizardStepCommand, ElementName=ViewRoot}"
                 CommandParameter="{Binding}"
                 IsEnabled="{Binding IsEnabled}"
-                Style="{StaticResource WizardStepButtonStyle}">
+                Style="{StaticResource WizardStepperButtonStyle}">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="28" />
+                        <ColumnDefinition Width="32" />
+                        <ColumnDefinition Width="12" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="32" />
+                        <RowDefinition Height="24" />
+                    </Grid.RowDefinitions>
+                    <Border x:Name="VerticalStepMarker"
+                        Style="{StaticResource WizardStepMarkerStyle}">
+                        <Grid>
+                            <TextBlock x:Name="VerticalStepNumber"
+                                Style="{StaticResource WizardStepNumberStyle}"
+                                Text="{Binding DisplayNumber}" />
+                            <TextBlock x:Name="VerticalStepCheck"
+                                Style="{StaticResource WizardStepCheckStyle}" />
+                        </Grid>
+                    </Border>
                     <TextBlock
-                        HorizontalAlignment="Center"
-                        FontFamily="{DynamicResource SymbolThemeFontFamily}"
-                        FontSize="16"
-                        Text="{Binding Glyph}">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
+                        Grid.Column="2"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource WizardStepTitleStyle}"
+                        Text="{Binding Title}"
+                        TextWrapping="Wrap" />
+                    <Border x:Name="VerticalStepConnector"
+                        Grid.Row="1"
+                        Width="2"
+                        HorizontalAlignment="Center">
+                        <Border.Style>
+                            <Style TargetType="Border">
                                 <Setter
-                                    Property="Foreground"
-                                    Value="{DynamicResource TextFillColorSecondaryBrush}" />
+                                    Property="Background"
+                                    Value="{DynamicResource DividerStrokeColorDefaultBrush}" />
                                 <Style.Triggers>
                                     <DataTrigger
                                         Binding="{Binding IsCompleted}"
                                         Value="True">
                                         <Setter
-                                            Property="Foreground"
+                                            Property="Background"
                                             Value="{DynamicResource SystemFillColorSuccessBrush}" />
                                     </DataTrigger>
                                     <DataTrigger
-                                        Binding="{Binding IsCurrent}"
+                                        Binding="{Binding IsLast}"
                                         Value="True">
                                         <Setter
-                                            Property="Foreground"
-                                            Value="{DynamicResource AccentFillColorDefaultBrush}" />
+                                            Property="Visibility"
+                                            Value="Collapsed" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                    <TextBlock
-                        Grid.Column="1"
-                        Margin="8,0,0,0"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="{Binding Title}"
-                        TextWrapping="Wrap" />
+                        </Border.Style>
+                    </Border>
                 </Grid>
             </Button>
         </DataTemplate>
@@ -78,28 +92,102 @@
         <DataTemplate x:Key="CompactStepTemplate">
             <Button
                 MinWidth="44"
-                Margin="2"
-                Padding="8"
                 AutomationProperties.Name="{Binding Title}"
                 Command="{Binding DataContext.NavigateToWizardStepCommand, ElementName=ViewRoot}"
                 CommandParameter="{Binding}"
                 IsEnabled="{Binding IsEnabled}"
-                Style="{StaticResource WizardStepButtonStyle}">
-                <StackPanel HorizontalAlignment="Center">
+                Style="{StaticResource WizardStepperButtonStyle}">
+                <Grid Margin="2,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="16" />
+                        <ColumnDefinition Width="16" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="32" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Border x:Name="CompactStepLeftConnector"
+                        Grid.ColumnSpan="2"
+                        Height="2"
+                        VerticalAlignment="Center">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter
+                                    Property="Background"
+                                    Value="{DynamicResource DividerStrokeColorDefaultBrush}" />
+                                <Style.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding IsPreviousCompleted}"
+                                        Value="True">
+                                        <Setter
+                                            Property="Background"
+                                            Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                                    </DataTrigger>
+                                    <DataTrigger
+                                        Binding="{Binding IsFirst}"
+                                        Value="True">
+                                        <Setter
+                                            Property="Visibility"
+                                            Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+                    <Border x:Name="CompactStepRightConnector"
+                        Grid.Column="2"
+                        Grid.ColumnSpan="2"
+                        Height="2"
+                        VerticalAlignment="Center">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter
+                                    Property="Background"
+                                    Value="{DynamicResource DividerStrokeColorDefaultBrush}" />
+                                <Style.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding IsCompleted}"
+                                        Value="True">
+                                        <Setter
+                                            Property="Background"
+                                            Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                                    </DataTrigger>
+                                    <DataTrigger
+                                        Binding="{Binding IsLast}"
+                                        Value="True">
+                                        <Setter
+                                            Property="Visibility"
+                                            Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+                    <Border x:Name="CompactStepMarker"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        Style="{StaticResource WizardStepMarkerStyle}">
+                        <Grid>
+                            <TextBlock x:Name="CompactStepNumber"
+                                Style="{StaticResource WizardStepNumberStyle}"
+                                Text="{Binding DisplayNumber}" />
+                            <TextBlock Style="{StaticResource WizardStepCheckStyle}" />
+                        </Grid>
+                    </Border>
                     <TextBlock
-                        HorizontalAlignment="Center"
-                        FontFamily="{DynamicResource SymbolThemeFontFamily}"
-                        FontSize="16"
-                        Text="{Binding Glyph}" />
-                    <TextBlock
+                        Grid.Row="1"
+                        Grid.ColumnSpan="4"
                         MaxWidth="150"
-                        Margin="4,4,4,0"
+                        Margin="4,8,4,0"
                         HorizontalAlignment="Center"
                         FontSize="12"
+                        Style="{StaticResource WizardStepTitleStyle}"
                         Text="{Binding Title}"
                         TextAlignment="Center"
                         TextTrimming="CharacterEllipsis" />
-                </StackPanel>
+                </Grid>
             </Button>
         </DataTemplate>
     </UserControl.Resources>
