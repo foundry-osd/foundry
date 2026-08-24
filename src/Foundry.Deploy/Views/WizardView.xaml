@@ -127,53 +127,49 @@
         <Border x:Name="WizardContentCard"
             Grid.Column="2"
             Style="{StaticResource WizardContentCardStyle}">
-            <ScrollViewer
-                HorizontalScrollBarVisibility="Disabled"
-                VerticalScrollBarVisibility="Auto">
-                <ContentControl x:Name="StepContent"
-                    Content="{Binding}">
-                    <ContentControl.RenderTransform>
-                        <TranslateTransform x:Name="StepContentTransform" />
-                    </ContentControl.RenderTransform>
-                    <ContentControl.Style>
-                        <Style TargetType="ContentControl">
-                            <Setter
-                                Property="ContentTemplate"
-                                Value="{StaticResource TargetStepTemplate}" />
-                            <Style.Triggers>
-                                <DataTrigger
-                                    Binding="{Binding IsOperatingSystemStep}"
-                                    Value="True">
-                                    <Setter
-                                        Property="ContentTemplate"
-                                        Value="{StaticResource OperatingSystemCatalogStepTemplate}" />
-                                </DataTrigger>
-                                <DataTrigger
-                                    Binding="{Binding IsDriversStep}"
-                                    Value="True">
-                                    <Setter
-                                        Property="ContentTemplate"
-                                        Value="{StaticResource DriverPackStepTemplate}" />
-                                </DataTrigger>
-                                <DataTrigger
-                                    Binding="{Binding IsAutopilotStep}"
-                                    Value="True">
-                                    <Setter
-                                        Property="ContentTemplate"
-                                        Value="{StaticResource AutopilotStepTemplate}" />
-                                </DataTrigger>
-                                <DataTrigger
-                                    Binding="{Binding IsSummaryStep}"
-                                    Value="True">
-                                    <Setter
-                                        Property="ContentTemplate"
-                                        Value="{StaticResource SummaryStepTemplate}" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ContentControl.Style>
-                </ContentControl>
-            </ScrollViewer>
+            <ContentControl x:Name="StepContent"
+                Content="{Binding}">
+                <ContentControl.RenderTransform>
+                    <TranslateTransform x:Name="StepContentTransform" />
+                </ContentControl.RenderTransform>
+                <ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                        <Setter
+                            Property="ContentTemplate"
+                            Value="{StaticResource TargetStepTemplate}" />
+                        <Style.Triggers>
+                            <DataTrigger
+                                Binding="{Binding IsOperatingSystemStep}"
+                                Value="True">
+                                <Setter
+                                    Property="ContentTemplate"
+                                    Value="{StaticResource OperatingSystemCatalogStepTemplate}" />
+                            </DataTrigger>
+                            <DataTrigger
+                                Binding="{Binding IsDriversStep}"
+                                Value="True">
+                                <Setter
+                                    Property="ContentTemplate"
+                                    Value="{StaticResource DriverPackStepTemplate}" />
+                            </DataTrigger>
+                            <DataTrigger
+                                Binding="{Binding IsAutopilotStep}"
+                                Value="True">
+                                <Setter
+                                    Property="ContentTemplate"
+                                    Value="{StaticResource AutopilotStepTemplate}" />
+                            </DataTrigger>
+                            <DataTrigger
+                                Binding="{Binding IsSummaryStep}"
+                                Value="True">
+                                <Setter
+                                    Property="ContentTemplate"
+                                    Value="{StaticResource SummaryStepTemplate}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+            </ContentControl>
         </Border>
 
         <Grid x:Name="WizardFooter"

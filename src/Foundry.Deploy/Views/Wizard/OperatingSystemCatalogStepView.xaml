@@ -2,70 +2,79 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:Foundry.Deploy.Controls">
-    <StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <controls:WizardPageHeader x:Name="PageHeader"
             Title="{Binding Strings[OperatingSystem.Title]}"
             Description="{Binding Strings[OperatingSystem.Description]}"
             Glyph="&#xEC77;" />
-        <WrapPanel ItemWidth="340">
-            <StackPanel Margin="0,0,24,16">
-                <TextBlock
-                    Margin="0,0,0,8"
-                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="{Binding Strings[Catalog.Version]}" />
-                <ComboBox
-                    IsEnabled="{Binding OperatingSystemCatalog.IsReleaseIdSelectionEnabled}"
-                    ItemsSource="{Binding OperatingSystemCatalog.ReleaseIdFilters}"
-                    SelectedItem="{Binding OperatingSystemCatalog.SelectedReleaseId}" />
-            </StackPanel>
-            <StackPanel Margin="0,0,0,16">
-                <TextBlock
-                    Margin="0,0,0,8"
-                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="{Binding Strings[Catalog.Media]}" />
-                <ComboBox
-                    DisplayMemberPath="DisplayName"
-                    IsEnabled="{Binding OperatingSystemCatalog.IsMediaSelectionEnabled}"
-                    ItemsSource="{Binding OperatingSystemCatalog.MediaFilters}"
-                    SelectedValue="{Binding OperatingSystemCatalog.SelectedMediaSourceId}"
-                    SelectedValuePath="SourceId" />
-            </StackPanel>
-            <StackPanel Margin="0,0,24,16">
-                <TextBlock
-                    Margin="0,0,0,8"
-                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="{Binding Strings[Catalog.Language]}" />
-                <ComboBox
-                    IsEnabled="{Binding OperatingSystemCatalog.IsLanguageSelectionEnabled}"
-                    ItemsSource="{Binding OperatingSystemCatalog.LanguageFilters}"
-                    SelectedItem="{Binding OperatingSystemCatalog.SelectedLanguageCode}" />
-            </StackPanel>
-            <StackPanel Margin="0,0,0,16">
-                <TextBlock
-                    Margin="0,0,0,8"
-                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="{Binding Strings[Catalog.EditionTarget]}" />
-                <ComboBox
-                    IsEnabled="{Binding OperatingSystemCatalog.IsEditionSelectionEnabled}"
-                    ItemsSource="{Binding OperatingSystemCatalog.EditionFilters}"
-                    SelectedItem="{Binding OperatingSystemCatalog.SelectedEdition}" />
-            </StackPanel>
-            <StackPanel Margin="0,0,24,16">
-                <TextBlock
-                    Margin="0,0,0,8"
-                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="{Binding Strings[Catalog.LicenseChannel]}" />
-                <ComboBox
-                    IsEnabled="{Binding OperatingSystemCatalog.IsLicenseChannelSelectionEnabled}"
-                    ItemsSource="{Binding OperatingSystemCatalog.LicenseChannelFilters}"
-                    SelectedItem="{Binding OperatingSystemCatalog.SelectedLicenseChannel}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding ., Converter={StaticResource OsCatalogFilterDisplayConverter}, ConverterParameter=LicenseChannel}" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            </StackPanel>
-        </WrapPanel>
-    </StackPanel>
+        <ScrollViewer x:Name="PageContentScrollViewer"
+            Grid.Row="1"
+            HorizontalScrollBarVisibility="Disabled"
+            VerticalScrollBarVisibility="Auto">
+            <WrapPanel ItemWidth="340">
+                <StackPanel Margin="0,0,24,16">
+                    <TextBlock
+                        Margin="0,0,0,8"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding Strings[Catalog.Version]}" />
+                    <ComboBox
+                        IsEnabled="{Binding OperatingSystemCatalog.IsReleaseIdSelectionEnabled}"
+                        ItemsSource="{Binding OperatingSystemCatalog.ReleaseIdFilters}"
+                        SelectedItem="{Binding OperatingSystemCatalog.SelectedReleaseId}" />
+                </StackPanel>
+                <StackPanel Margin="0,0,0,16">
+                    <TextBlock
+                        Margin="0,0,0,8"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding Strings[Catalog.Media]}" />
+                    <ComboBox
+                        DisplayMemberPath="DisplayName"
+                        IsEnabled="{Binding OperatingSystemCatalog.IsMediaSelectionEnabled}"
+                        ItemsSource="{Binding OperatingSystemCatalog.MediaFilters}"
+                        SelectedValue="{Binding OperatingSystemCatalog.SelectedMediaSourceId}"
+                        SelectedValuePath="SourceId" />
+                </StackPanel>
+                <StackPanel Margin="0,0,24,16">
+                    <TextBlock
+                        Margin="0,0,0,8"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding Strings[Catalog.Language]}" />
+                    <ComboBox
+                        IsEnabled="{Binding OperatingSystemCatalog.IsLanguageSelectionEnabled}"
+                        ItemsSource="{Binding OperatingSystemCatalog.LanguageFilters}"
+                        SelectedItem="{Binding OperatingSystemCatalog.SelectedLanguageCode}" />
+                </StackPanel>
+                <StackPanel Margin="0,0,0,16">
+                    <TextBlock
+                        Margin="0,0,0,8"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding Strings[Catalog.EditionTarget]}" />
+                    <ComboBox
+                        IsEnabled="{Binding OperatingSystemCatalog.IsEditionSelectionEnabled}"
+                        ItemsSource="{Binding OperatingSystemCatalog.EditionFilters}"
+                        SelectedItem="{Binding OperatingSystemCatalog.SelectedEdition}" />
+                </StackPanel>
+                <StackPanel Margin="0,0,24,16">
+                    <TextBlock
+                        Margin="0,0,0,8"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding Strings[Catalog.LicenseChannel]}" />
+                    <ComboBox
+                        IsEnabled="{Binding OperatingSystemCatalog.IsLicenseChannelSelectionEnabled}"
+                        ItemsSource="{Binding OperatingSystemCatalog.LicenseChannelFilters}"
+                        SelectedItem="{Binding OperatingSystemCatalog.SelectedLicenseChannel}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ., Converter={StaticResource OsCatalogFilterDisplayConverter}, ConverterParameter=LicenseChannel}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+            </WrapPanel>
+        </ScrollViewer>
+    </Grid>
 </UserControl>

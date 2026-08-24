@@ -540,7 +540,12 @@
   <data name="TargetDevice.Description" xml:space="preserve"><value>コンピューター名とターゲット ディスクを選択し、検出されたハードウェアを確認します。</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>展開設定</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>デバイス情報</value></data>
-  <data name="TargetDevice.Device" xml:space="preserve"><value>デバイス</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>デバイス ID</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>プラットフォーム</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>製造元</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>モデル</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>製品</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>シリアル番号</value></data>
   <data name="TargetDevice.Architecture" xml:space="preserve"><value>アーキテクチャ</value></data>
   <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
   <data name="TargetDevice.PowerSource" xml:space="preserve"><value>電源</value></data>

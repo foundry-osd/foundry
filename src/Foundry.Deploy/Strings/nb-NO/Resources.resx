@@ -581,7 +581,12 @@ Vil du fortsette med distribusjonen?</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Velg datamaskinnavnet og måldisken, og se deretter gjennom den registrerte maskinvaren.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Distribusjonsinnstillinger</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Enhetsoversikt</value></data>
-  <data name="TargetDevice.Device" xml:space="preserve"><value>Enhet</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Enhetsidentitet</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>Plattform</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Produsent</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>Modell</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>Produkt</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Serienummer</value></data>
   <data name="TargetDevice.Architecture" xml:space="preserve"><value>Arkitektur</value></data>
   <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
   <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Strømkilde</value></data>

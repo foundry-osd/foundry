@@ -581,7 +581,12 @@ Continuar com a implantação?</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Escolha o nome do computador e o disco de destino e revise o hardware detectado.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Configurações de implantação</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Inventário do dispositivo</value></data>
-  <data name="TargetDevice.Device" xml:space="preserve"><value>Dispositivo</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Identidade do dispositivo</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>Plataforma</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Fabricante</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>Modelo</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>Produto</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Número de série</value></data>
   <data name="TargetDevice.Architecture" xml:space="preserve"><value>Arquitetura</value></data>
   <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
   <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Fonte de alimentação</value></data>

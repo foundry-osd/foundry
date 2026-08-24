@@ -189,20 +189,10 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     public bool HasTargetComputerNameValidationError => !string.IsNullOrWhiteSpace(TargetComputerNameValidationMessage);
 
     public HardwareProfile? DetectedHardware => _detectedHardware;
-    public string HardwareDeviceText
-    {
-        get
-        {
-            if (_detectedHardware is null)
-            {
-                return GetString("Common.Unavailable");
-            }
-
-            string value = string.Join(" | ", new[] { _detectedHardware.Manufacturer, _detectedHardware.Model, _detectedHardware.Product }
-                .Where(item => !string.IsNullOrWhiteSpace(item)));
-            return string.IsNullOrWhiteSpace(value) ? GetString("Common.Unavailable") : value;
-        }
-    }
+    public string HardwareManufacturerText => GetHardwareValue(_detectedHardware?.Manufacturer);
+    public string HardwareModelText => GetHardwareValue(_detectedHardware?.Model);
+    public string HardwareProductText => GetHardwareValue(_detectedHardware?.Product);
+    public string HardwareSerialNumberText => GetHardwareValue(_detectedHardware?.SerialNumber);
     public string HardwareArchitectureText => string.IsNullOrWhiteSpace(_detectedHardware?.Architecture)
         ? GetString("Common.Unavailable")
         : _detectedHardware.Architecture;
@@ -764,11 +754,19 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
 
     private void RaiseHardwareInventoryPropertiesChanged()
     {
-        OnPropertyChanged(nameof(HardwareDeviceText));
+        OnPropertyChanged(nameof(HardwareManufacturerText));
+        OnPropertyChanged(nameof(HardwareModelText));
+        OnPropertyChanged(nameof(HardwareProductText));
+        OnPropertyChanged(nameof(HardwareSerialNumberText));
         OnPropertyChanged(nameof(HardwareArchitectureText));
         OnPropertyChanged(nameof(HardwareTpmText));
         OnPropertyChanged(nameof(HardwarePowerText));
         OnPropertyChanged(nameof(HardwareFirmwareText));
+    }
+
+    private string GetHardwareValue(string? value)
+    {
+        return string.IsNullOrWhiteSpace(value) ? GetString("Common.Unavailable") : value;
     }
 
     private string ResolveComputerNameValidationMessage(string? value)

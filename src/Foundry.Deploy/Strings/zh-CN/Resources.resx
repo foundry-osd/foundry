@@ -540,7 +540,12 @@
   <data name="TargetDevice.Description" xml:space="preserve"><value>选择计算机名称和目标磁盘，然后查看检测到的硬件。</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>部署设置</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>设备信息</value></data>
-  <data name="TargetDevice.Device" xml:space="preserve"><value>设备</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>设备标识</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>平台</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>制造商</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>型号</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>产品</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>序列号</value></data>
   <data name="TargetDevice.Architecture" xml:space="preserve"><value>体系结构</value></data>
   <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
   <data name="TargetDevice.PowerSource" xml:space="preserve"><value>电源</value></data>

@@ -581,7 +581,12 @@ ErrorCode=0x80070005
   <data name="TargetDevice.Description" xml:space="preserve"><value>Виберіть ім’я комп’ютера й цільовий диск, а потім перегляньте відомості про виявлене обладнання.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Параметри розгортання</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Інвентаризація пристрою</value></data>
-  <data name="TargetDevice.Device" xml:space="preserve"><value>Пристрій</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Ідентифікація пристрою</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>Платформа</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Виробник</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>Модель</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>Продукт</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Серійний номер</value></data>
   <data name="TargetDevice.Architecture" xml:space="preserve"><value>Архітектура</value></data>
   <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
   <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Джерело живлення</value></data>

@@ -540,7 +540,12 @@ ErrorCode=0x80070005
   <data name="TargetDevice.Description" xml:space="preserve"><value>בחר את שם המחשב ואת דיסק היעד, ולאחר מכן בדוק את החומרה שזוהתה.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>הגדרות פריסה</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>פרטי המכשיר</value></data>
-  <data name="TargetDevice.Device" xml:space="preserve"><value>מכשיר</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>זהות המכשיר</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>פלטפורמה</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>יצרן</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>דגם</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>מוצר</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>מספר סידורי</value></data>
   <data name="TargetDevice.Architecture" xml:space="preserve"><value>ארכיטקטורה</value></data>
   <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
   <data name="TargetDevice.PowerSource" xml:space="preserve"><value>מקור מתח</value></data>

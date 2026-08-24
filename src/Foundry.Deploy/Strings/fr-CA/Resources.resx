@@ -581,7 +581,12 @@ Continuer le déploiement?</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Choisissez le nom de l’ordinateur et le disque cible, puis vérifiez le matériel détecté.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Paramètres de déploiement</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Inventaire de l’appareil</value></data>
-  <data name="TargetDevice.Device" xml:space="preserve"><value>Appareil</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Identité de l’appareil</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>Plateforme</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Fabricant</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>Modèle</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>Produit</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Numéro de série</value></data>
   <data name="TargetDevice.Architecture" xml:space="preserve"><value>Architecture</value></data>
   <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
   <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Source d’alimentation</value></data>

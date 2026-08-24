@@ -581,7 +581,12 @@ Doorgaan met de implementatie?</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Kies de computernaam en de doelschijf en controleer vervolgens de gedetecteerde hardware.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Implementatie-instellingen</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Apparaatinventaris</value></data>
-  <data name="TargetDevice.Device" xml:space="preserve"><value>Apparaat</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Apparaatidentiteit</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>Platform</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Fabrikant</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>Model</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>Product</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Serienummer</value></data>
   <data name="TargetDevice.Architecture" xml:space="preserve"><value>Architectuur</value></data>
   <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
   <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Voedingsbron</value></data>

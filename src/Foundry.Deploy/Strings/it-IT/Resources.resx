@@ -581,7 +581,12 @@ Continuare con la distribuzione?</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Scegliere il nome del computer e il disco di destinazione, quindi esaminare l’hardware rilevato.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Impostazioni di distribuzione</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Inventario del dispositivo</value></data>
-  <data name="TargetDevice.Device" xml:space="preserve"><value>Dispositivo</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Identità del dispositivo</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>Piattaforma</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Produttore</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>Modello</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>Prodotto</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Numero di serie</value></data>
   <data name="TargetDevice.Architecture" xml:space="preserve"><value>Architettura</value></data>
   <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
   <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Fonte di alimentazione</value></data>

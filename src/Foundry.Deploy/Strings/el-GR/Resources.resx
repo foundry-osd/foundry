@@ -581,7 +581,12 @@
   <data name="TargetDevice.Description" xml:space="preserve"><value>Επιλέξτε το όνομα υπολογιστή και τον δίσκο προορισμού και, στη συνέχεια, ελέγξτε το υλικό που εντοπίστηκε.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Ρυθμίσεις ανάπτυξης</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Απογραφή συσκευής</value></data>
-  <data name="TargetDevice.Device" xml:space="preserve"><value>Συσκευή</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Ταυτότητα συσκευής</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>Πλατφόρμα</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Κατασκευαστής</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>Μοντέλο</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>Προϊόν</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Σειριακός αριθμός</value></data>
   <data name="TargetDevice.Architecture" xml:space="preserve"><value>Αρχιτεκτονική</value></data>
   <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
   <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Πηγή τροφοδοσίας</value></data>

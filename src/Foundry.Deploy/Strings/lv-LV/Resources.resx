@@ -581,7 +581,12 @@ Vai turpināt izvietošanu?</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Izvēlieties datora nosaukumu un mērķa disku, pēc tam pārskatiet noteikto aparatūru.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Izvietošanas iestatījumi</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Ierīces inventārs</value></data>
-  <data name="TargetDevice.Device" xml:space="preserve"><value>Ierīce</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Ierīces identitāte</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>Platforma</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Ražotājs</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>Modelis</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>Produkts</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Sērijas numurs</value></data>
   <data name="TargetDevice.Architecture" xml:space="preserve"><value>Arhitektūra</value></data>
   <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
   <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Barošanas avots</value></data>

@@ -581,7 +581,12 @@ Pokračovat v nasazování?</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Zvolte název počítače a cílový disk a poté zkontrolujte zjištěný hardware.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Nastavení nasazení</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Inventář zařízení</value></data>
-  <data name="TargetDevice.Device" xml:space="preserve"><value>Zařízení</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Identita zařízení</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>Platforma</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Výrobce</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>Model</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>Produkt</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Sériové číslo</value></data>
   <data name="TargetDevice.Architecture" xml:space="preserve"><value>Architektura</value></data>
   <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
   <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Zdroj napájení</value></data>

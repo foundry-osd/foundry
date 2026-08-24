@@ -581,7 +581,12 @@ Mit der Bereitstellung fortfahren?</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Wählen Sie den Computernamen und den Zieldatenträger aus und überprüfen Sie anschließend die erkannte Hardware.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Bereitstellungseinstellungen</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Geräteinventar</value></data>
-  <data name="TargetDevice.Device" xml:space="preserve"><value>Gerät</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Geräteidentität</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>Plattform</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Hersteller</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>Modell</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>Produkt</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Seriennummer</value></data>
   <data name="TargetDevice.Architecture" xml:space="preserve"><value>Architektur</value></data>
   <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
   <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Stromquelle</value></data>

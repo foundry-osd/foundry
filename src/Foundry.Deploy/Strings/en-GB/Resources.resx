@@ -540,7 +540,12 @@ Continue with deployment?</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Choose the computer name and target disk, then review the detected hardware.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Deployment settings</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Device inventory</value></data>
-  <data name="TargetDevice.Device" xml:space="preserve"><value>Device</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Device identity</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>Platform</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Manufacturer</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>Model</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>Product</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Serial number</value></data>
   <data name="TargetDevice.Architecture" xml:space="preserve"><value>Architecture</value></data>
   <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
   <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Power source</value></data>

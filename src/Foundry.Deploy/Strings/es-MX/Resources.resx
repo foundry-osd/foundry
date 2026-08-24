@@ -581,7 +581,12 @@ Sistema operativo: {4}
   <data name="TargetDevice.Description" xml:space="preserve"><value>Elija el nombre del equipo y el disco de destino y, a continuación, revise el hardware detectado.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Configuración de implementación</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Inventario del dispositivo</value></data>
-  <data name="TargetDevice.Device" xml:space="preserve"><value>Dispositivo</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Identidad del dispositivo</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>Plataforma</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Fabricante</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>Modelo</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>Producto</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Número de serie</value></data>
   <data name="TargetDevice.Architecture" xml:space="preserve"><value>Arquitectura</value></data>
   <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
   <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Fuente de alimentación</value></data>

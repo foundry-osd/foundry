@@ -581,7 +581,12 @@ Jatketaanko käyttöönottoa?</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Valitse tietokoneen nimi ja kohdelevy ja tarkista sitten havaittu laitteisto.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Käyttöönottoasetukset</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Laitetiedot</value></data>
-  <data name="TargetDevice.Device" xml:space="preserve"><value>Laite</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Laitteen tunnistetiedot</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>Alusta</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Valmistaja</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>Malli</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>Tuote</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Sarjanumero</value></data>
   <data name="TargetDevice.Architecture" xml:space="preserve"><value>Arkkitehtuuri</value></data>
   <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
   <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Virtalähde</value></data>

@@ -24,6 +24,7 @@ public sealed class DeploymentPreparationViewModelTests
             Manufacturer = "Contoso",
             Model = "Model 1",
             Product = "Product 1",
+            SerialNumber = "SN-123",
             Architecture = "x64",
             IsTpmPresent = true,
             IsOnBattery = false,
@@ -32,7 +33,10 @@ public sealed class DeploymentPreparationViewModelTests
 
         viewModel.SetDetectedHardware(profile);
 
-        Assert.Equal("Contoso | Model 1 | Product 1", viewModel.HardwareDeviceText);
+        Assert.Equal("Contoso", viewModel.HardwareManufacturerText);
+        Assert.Equal("Model 1", viewModel.HardwareModelText);
+        Assert.Equal("Product 1", viewModel.HardwareProductText);
+        Assert.Equal("SN-123", viewModel.HardwareSerialNumberText);
         Assert.Equal("x64", viewModel.HardwareArchitectureText);
         Assert.Equal(viewModel.Strings["Common.Yes"], viewModel.HardwareTpmText);
         Assert.Equal(viewModel.Strings["Preparation.PowerAc"], viewModel.HardwarePowerText);
@@ -46,7 +50,10 @@ public sealed class DeploymentPreparationViewModelTests
 
         viewModel.SetDetectedHardware(null);
 
-        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareDeviceText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareManufacturerText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareModelText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareProductText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareSerialNumberText);
         Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareArchitectureText);
         Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareTpmText);
         Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwarePowerText);
@@ -68,7 +75,10 @@ public sealed class DeploymentPreparationViewModelTests
         viewModel.SetHardwareDetectionFailure("Hardware detection failed.");
 
         Assert.Null(viewModel.DetectedHardware);
-        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareDeviceText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareManufacturerText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareModelText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareProductText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareSerialNumberText);
         Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareArchitectureText);
         Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareTpmText);
         Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwarePowerText);

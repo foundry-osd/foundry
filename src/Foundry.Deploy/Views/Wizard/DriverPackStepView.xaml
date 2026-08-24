@@ -2,72 +2,83 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:Foundry.Deploy.Controls">
-    <StackPanel DataContext="{Binding DriverPackSelection}">
+    <Grid DataContext="{Binding DriverPackSelection}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <controls:WizardPageHeader x:Name="PageHeader"
             Title="{Binding DataContext.Strings[Drivers.Title], ElementName=ViewRoot}"
             Description="{Binding DataContext.Strings[Drivers.Description], ElementName=ViewRoot}"
             Glyph="&#xE74C;" />
-        <ListBox
-            AutomationProperties.Name="{Binding DataContext.Strings[DriverPack.Source], ElementName=ViewRoot}"
-            BorderThickness="0"
-            ItemsSource="{Binding DriverPackOptions}"
-            SelectedItem="{Binding SelectedDriverPackOption}">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel />
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
-                    <Setter
-                        Property="HorizontalContentAlignment"
-                        Value="Stretch" />
-                    <Setter
-                        Property="Margin"
-                        Value="0,0,0,8" />
-                    <Setter
-                        Property="Padding"
-                        Value="16,12" />
-                </Style>
-            </ListBox.ItemContainerStyle>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="24" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock
-                            FontFamily="{DynamicResource SymbolThemeFontFamily}"
-                            Text="&#xE8B9;" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="{Binding DisplayName}"
-                            TextWrapping="Wrap" />
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <ScrollViewer x:Name="PageContentScrollViewer"
+            Grid.Row="1"
+            HorizontalScrollBarVisibility="Disabled"
+            VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <ListBox
+                    AutomationProperties.Name="{Binding DataContext.Strings[DriverPack.Source], ElementName=ViewRoot}"
+                    BorderThickness="0"
+                    ItemsSource="{Binding DriverPackOptions}"
+                    SelectedItem="{Binding SelectedDriverPackOption}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter
+                                Property="HorizontalContentAlignment"
+                                Value="Stretch" />
+                            <Setter
+                                Property="Margin"
+                                Value="0,0,0,8" />
+                            <Setter
+                                Property="Padding"
+                                Value="16,12" />
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="24" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock
+                                    FontFamily="{DynamicResource SymbolThemeFontFamily}"
+                                    Text="&#xE8B9;" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{Binding DisplayName}"
+                                    TextWrapping="Wrap" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
 
-        <StackPanel
-            Margin="0,12,0,0"
-            Visibility="{Binding IsDriverPackModelSelectionEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBlock
-                Margin="0,0,0,8"
-                Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="{Binding DataContext.Strings[DriverPack.Model], ElementName=ViewRoot}" />
-            <ComboBox
-                ItemsSource="{Binding DriverPackModelOptions}"
-                SelectedItem="{Binding SelectedDriverPackModel}" />
-            <TextBlock
-                Margin="0,16,0,8"
-                Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="{Binding DataContext.Strings[DriverPack.Version], ElementName=ViewRoot}" />
-            <ComboBox
-                IsEnabled="{Binding IsDriverPackVersionSelectionEnabled}"
-                ItemsSource="{Binding DriverPackVersionOptions}"
-                SelectedItem="{Binding SelectedDriverPackVersion}" />
-        </StackPanel>
-    </StackPanel>
+                <StackPanel
+                    Margin="0,12,0,0"
+                    Visibility="{Binding IsDriverPackModelSelectionEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBlock
+                        Margin="0,0,0,8"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding DataContext.Strings[DriverPack.Model], ElementName=ViewRoot}" />
+                    <ComboBox
+                        ItemsSource="{Binding DriverPackModelOptions}"
+                        SelectedItem="{Binding SelectedDriverPackModel}" />
+                    <TextBlock
+                        Margin="0,16,0,8"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding DataContext.Strings[DriverPack.Version], ElementName=ViewRoot}" />
+                    <ComboBox
+                        IsEnabled="{Binding IsDriverPackVersionSelectionEnabled}"
+                        ItemsSource="{Binding DriverPackVersionOptions}"
+                        SelectedItem="{Binding SelectedDriverPackVersion}" />
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </UserControl>

@@ -581,7 +581,12 @@ Tęsti diegimą?</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Pasirinkite kompiuterio vardą ir paskirties diską, tada peržiūrėkite aptiktą aparatinę įrangą.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Diegimo parametrai</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Įrenginio inventorius</value></data>
-  <data name="TargetDevice.Device" xml:space="preserve"><value>Įrenginys</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Įrenginio tapatybė</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>Platforma</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Gamintojas</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>Modelis</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>Produktas</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Serijos numeris</value></data>
   <data name="TargetDevice.Architecture" xml:space="preserve"><value>Architektūra</value></data>
   <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
   <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Maitinimo šaltinis</value></data>

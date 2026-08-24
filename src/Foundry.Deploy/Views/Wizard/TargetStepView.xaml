@@ -3,196 +3,273 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:Foundry.Deploy.Controls"
     xmlns:rules="clr-namespace:Foundry.Deploy.Validation">
-    <StackPanel DataContext="{Binding Preparation}">
+    <Grid DataContext="{Binding Preparation}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <controls:WizardPageHeader x:Name="PageHeader"
             Title="{Binding DataContext.Strings[TargetDevice.Title], ElementName=ViewRoot}"
             Description="{Binding DataContext.Strings[TargetDevice.Description], ElementName=ViewRoot}"
             Glyph="&#xE772;" />
 
-        <TextBlock x:Name="DeploymentSettingsTitle"
-            Margin="0,0,0,12"
-            Style="{StaticResource SubtitleTextBlockStyle}"
-            Text="{Binding DataContext.Strings[TargetDevice.DeploymentSettings], ElementName=ViewRoot}" />
-        <WrapPanel ItemWidth="340">
-            <StackPanel Margin="0,0,24,16">
-                <TextBlock
-                    Margin="0,0,0,8"
-                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="{Binding DataContext.Strings[Preparation.ComputerName], ElementName=ViewRoot}" />
-                <TextBox x:Name="TargetComputerNameTextBox"
-                    AutomationProperties.Name="{Binding DataContext.Strings[Preparation.ComputerName], ElementName=ViewRoot}"
-                    IsReadOnly="{Binding IsTargetComputerNameReadOnly}"
-                    MaxLength="{x:Static rules:ComputerNameRules.MaxLength}"
-                    PreviewTextInput="TargetComputerNameTextBox_PreviewTextInput"
-                    Text="{Binding TargetComputerName, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBlock
-                    Margin="0,4,0,0"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{Binding DataContext.Strings[Preparation.ComputerNameHint], ElementName=ViewRoot}"
-                    TextWrapping="Wrap" />
-                <TextBlock
-                    Margin="0,4,0,0"
-                    Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{Binding TargetComputerNameValidationMessage}"
-                    TextWrapping="Wrap"
-                    Visibility="{Binding HasTargetComputerNameValidationError, Converter={StaticResource BooleanToVisibilityConverter}}" />
-            </StackPanel>
+        <ScrollViewer x:Name="PageContentScrollViewer"
+            Grid.Row="1"
+            HorizontalScrollBarVisibility="Disabled"
+            VerticalScrollBarVisibility="Auto">
+            <StackPanel>
 
-            <StackPanel Margin="0,0,0,16">
-                <TextBlock
-                    Margin="0,0,0,8"
-                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="{Binding DataContext.Strings[Preparation.TargetDisk], ElementName=ViewRoot}" />
-                <ComboBox
-                    AutomationProperties.Name="{Binding DataContext.Strings[Preparation.TargetDisk], ElementName=ViewRoot}"
-                    DisplayMemberPath="DisplayLabel"
-                    ItemsSource="{Binding TargetDisks}"
-                    SelectedItem="{Binding SelectedTargetDisk}" />
-                <TextBlock
-                    Margin="0,4,0,0"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{Binding TargetDiskSelectionHint}"
-                    TextWrapping="Wrap" />
-            </StackPanel>
-        </WrapPanel>
+                <TextBlock x:Name="DeploymentSettingsTitle"
+                    Margin="0,0,0,12"
+                    Style="{StaticResource SubtitleTextBlockStyle}"
+                    Text="{Binding DataContext.Strings[TargetDevice.DeploymentSettings], ElementName=ViewRoot}" />
+                <WrapPanel ItemWidth="340">
+                    <StackPanel Margin="0,0,24,16">
+                        <TextBlock
+                            Margin="0,0,0,8"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="{Binding DataContext.Strings[Preparation.ComputerName], ElementName=ViewRoot}" />
+                        <TextBox x:Name="TargetComputerNameTextBox"
+                            AutomationProperties.Name="{Binding DataContext.Strings[Preparation.ComputerName], ElementName=ViewRoot}"
+                            IsReadOnly="{Binding IsTargetComputerNameReadOnly}"
+                            MaxLength="{x:Static rules:ComputerNameRules.MaxLength}"
+                            PreviewTextInput="TargetComputerNameTextBox_PreviewTextInput"
+                            Text="{Binding TargetComputerName, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock
+                            Margin="0,4,0,0"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="{Binding DataContext.Strings[Preparation.ComputerNameHint], ElementName=ViewRoot}"
+                            TextWrapping="Wrap" />
+                        <TextBlock
+                            Margin="0,4,0,0"
+                            Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="{Binding TargetComputerNameValidationMessage}"
+                            TextWrapping="Wrap"
+                            Visibility="{Binding HasTargetComputerNameValidationError, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    </StackPanel>
 
-        <Border x:Name="DiskEraseNotice"
-            Margin="0,0,0,12"
-            Padding="12"
-            Background="{DynamicResource SystemFillColorCautionBackgroundBrush}"
-            BorderBrush="{DynamicResource SystemFillColorCautionBrush}"
-            BorderThickness="1"
-            CornerRadius="6">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <TextBlock
-                    Margin="0,0,12,0"
-                    VerticalAlignment="Center"
-                    FontFamily="{DynamicResource SymbolThemeFontFamily}"
-                    Foreground="{DynamicResource SystemFillColorCautionBrush}"
-                    Text="&#xE7BA;" />
-                <TextBlock
-                    Grid.Column="1"
-                    VerticalAlignment="Center"
-                    Text="{Binding DataContext.Strings[TargetDevice.DiskEraseNotice], ElementName=ViewRoot}"
-                    TextWrapping="Wrap" />
-            </Grid>
-        </Border>
+                    <StackPanel Margin="0,0,0,16">
+                        <TextBlock
+                            Margin="0,0,0,8"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="{Binding DataContext.Strings[Preparation.TargetDisk], ElementName=ViewRoot}" />
+                        <ComboBox
+                            AutomationProperties.Name="{Binding DataContext.Strings[Preparation.TargetDisk], ElementName=ViewRoot}"
+                            DisplayMemberPath="DisplayLabel"
+                            ItemsSource="{Binding TargetDisks}"
+                            SelectedItem="{Binding SelectedTargetDisk}" />
+                        <TextBlock
+                            Margin="0,4,0,0"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="{Binding TargetDiskSelectionHint}"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </WrapPanel>
 
-        <Separator x:Name="DeviceInventorySeparator"
-            Margin="0,0,0,12" />
-        <TextBlock x:Name="DeviceInventoryTitle"
-            Margin="0,0,0,12"
-            Style="{StaticResource SubtitleTextBlockStyle}"
-            Text="{Binding DataContext.Strings[TargetDevice.DeviceInventory], ElementName=ViewRoot}" />
-        <Grid x:Name="DeviceInventoryGrid">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <StackPanel Margin="0,0,24,0">
-                <TextBlock
-                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="{Binding DataContext.Strings[TargetDevice.Device], ElementName=ViewRoot}" />
-                <TextBlock
-                    Margin="0,4,0,0"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Text="{Binding HardwareDeviceText}"
-                    TextWrapping="Wrap" />
-            </StackPanel>
-            <StackPanel
-                Grid.Column="1"
-                Margin="0,0,24,0">
-                <TextBlock
-                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="{Binding DataContext.Strings[TargetDevice.Architecture], ElementName=ViewRoot}" />
-                <TextBlock
-                    Margin="0,4,0,0"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Text="{Binding HardwareArchitectureText}"
-                    TextWrapping="Wrap" />
-            </StackPanel>
-            <StackPanel
-                Grid.Column="2"
-                Margin="0,0,24,0">
-                <TextBlock
-                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="{Binding DataContext.Strings[TargetDevice.Tpm], ElementName=ViewRoot}" />
-                <TextBlock
-                    Margin="0,4,0,0"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Text="{Binding HardwareTpmText}"
-                    TextWrapping="Wrap" />
-            </StackPanel>
-            <StackPanel
-                Grid.Column="3"
-                Margin="0,0,24,0">
-                <TextBlock
-                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="{Binding DataContext.Strings[TargetDevice.PowerSource], ElementName=ViewRoot}" />
-                <TextBlock
-                    Margin="0,4,0,0"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Text="{Binding HardwarePowerText}"
-                    TextWrapping="Wrap" />
-            </StackPanel>
-            <StackPanel Grid.Column="4">
-                <TextBlock
-                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="{Binding DataContext.Strings[TargetDevice.FirmwareStatus], ElementName=ViewRoot}" />
-                <TextBlock
-                    Margin="0,4,0,0"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Text="{Binding HardwareFirmwareText}"
-                    TextWrapping="Wrap" />
-            </StackPanel>
-        </Grid>
+                <Border x:Name="DiskEraseNotice"
+                    Margin="0,0,0,12"
+                    Padding="12"
+                    Background="{DynamicResource SystemFillColorCautionBackgroundBrush}"
+                    BorderBrush="{DynamicResource SystemFillColorCautionBrush}"
+                    BorderThickness="1"
+                    CornerRadius="6">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Margin="0,0,12,0"
+                            VerticalAlignment="Center"
+                            FontFamily="{DynamicResource SymbolThemeFontFamily}"
+                            Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                            Text="&#xE7BA;" />
+                        <TextBlock
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Text="{Binding DataContext.Strings[TargetDevice.DiskEraseNotice], ElementName=ViewRoot}"
+                            TextWrapping="Wrap" />
+                    </Grid>
+                </Border>
 
-        <Separator x:Name="FirmwareSeparator"
-            Margin="0,12,0,12" />
-        <TextBlock
-            Margin="0,0,0,12"
-            Style="{StaticResource SubtitleTextBlockStyle}"
-            Text="{Binding DataContext.Strings[TargetDevice.Firmware], ElementName=ViewRoot}" />
-        <CheckBox
-            AutomationProperties.Name="{Binding DataContext.Strings[Preparation.FirmwareUpdates], ElementName=ViewRoot}"
-            IsChecked="{Binding ApplyFirmwareUpdates}"
-            IsEnabled="{Binding IsFirmwareUpdatesOptionEnabled}">
-            <TextBlock
-                Text="{Binding DataContext.Strings[Preparation.FirmwareUpdates], ElementName=ViewRoot}"
-                TextWrapping="Wrap" />
-        </CheckBox>
-        <TextBlock
-            Margin="24,8,0,0"
-            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-            Text="{Binding DataContext.Strings[TargetDevice.FirmwareUnavailableVirtualMachine], ElementName=ViewRoot}">
-            <TextBlock.Style>
-                <Style
-                    BasedOn="{StaticResource CaptionTextBlockStyle}"
-                    TargetType="TextBlock">
-                    <Setter
-                        Property="Visibility"
-                        Value="Visible" />
-                    <Style.Triggers>
-                        <DataTrigger
-                            Binding="{Binding IsFirmwareUpdatesOptionEnabled}"
-                            Value="True">
+                <Separator x:Name="DeviceInventorySeparator"
+                    Margin="0,0,0,12" />
+                <TextBlock x:Name="DeviceInventoryTitle"
+                    Margin="0,0,0,12"
+                    Style="{StaticResource SubtitleTextBlockStyle}"
+                    Text="{Binding DataContext.Strings[TargetDevice.DeviceInventory], ElementName=ViewRoot}" />
+                <Grid x:Name="DeviceInventoryGrid"
+                    Grid.IsSharedSizeScope="True">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="24" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <TextBlock
+                            Margin="0,0,0,12"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="{Binding DataContext.Strings[TargetDevice.DeviceIdentity], ElementName=ViewRoot}" />
+                        <Grid x:Name="DeviceIdentityGrid">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition
+                                    Width="Auto"
+                                    SharedSizeGroup="InventoryLabel" />
+                                <ColumnDefinition Width="16" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{Binding DataContext.Strings[TargetDevice.Manufacturer], ElementName=ViewRoot}" />
+                            <TextBlock
+                                Grid.Column="2"
+                                Text="{Binding HardwareManufacturerText}"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                Grid.Row="1"
+                                Margin="0,8,0,0"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{Binding DataContext.Strings[TargetDevice.Model], ElementName=ViewRoot}" />
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Margin="0,8,0,0"
+                                Text="{Binding HardwareModelText}"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                Grid.Row="2"
+                                Margin="0,8,0,0"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{Binding DataContext.Strings[TargetDevice.Product], ElementName=ViewRoot}" />
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                Margin="0,8,0,0"
+                                Text="{Binding HardwareProductText}"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                Grid.Row="3"
+                                Margin="0,8,0,0"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{Binding DataContext.Strings[TargetDevice.SerialNumber], ElementName=ViewRoot}" />
+                            <TextBlock
+                                Grid.Row="3"
+                                Grid.Column="2"
+                                Margin="0,8,0,0"
+                                Text="{Binding HardwareSerialNumberText}"
+                                TextWrapping="Wrap" />
+                        </Grid>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2">
+                        <TextBlock
+                            Margin="0,0,0,12"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="{Binding DataContext.Strings[TargetDevice.Platform], ElementName=ViewRoot}" />
+                        <Grid x:Name="PlatformGrid">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition
+                                    Width="Auto"
+                                    SharedSizeGroup="InventoryLabel" />
+                                <ColumnDefinition Width="16" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{Binding DataContext.Strings[TargetDevice.Architecture], ElementName=ViewRoot}" />
+                            <TextBlock
+                                Grid.Column="2"
+                                Text="{Binding HardwareArchitectureText}"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                Grid.Row="1"
+                                Margin="0,8,0,0"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{Binding DataContext.Strings[TargetDevice.Tpm], ElementName=ViewRoot}" />
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Margin="0,8,0,0"
+                                Text="{Binding HardwareTpmText}"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                Grid.Row="2"
+                                Margin="0,8,0,0"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{Binding DataContext.Strings[TargetDevice.PowerSource], ElementName=ViewRoot}" />
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                Margin="0,8,0,0"
+                                Text="{Binding HardwarePowerText}"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                Grid.Row="3"
+                                Margin="0,8,0,0"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{Binding DataContext.Strings[TargetDevice.FirmwareStatus], ElementName=ViewRoot}" />
+                            <TextBlock
+                                Grid.Row="3"
+                                Grid.Column="2"
+                                Margin="0,8,0,0"
+                                Text="{Binding HardwareFirmwareText}"
+                                TextWrapping="Wrap" />
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+
+                <Separator x:Name="FirmwareSeparator"
+                    Margin="0,12,0,12" />
+                <TextBlock
+                    Margin="0,0,0,12"
+                    Style="{StaticResource SubtitleTextBlockStyle}"
+                    Text="{Binding DataContext.Strings[TargetDevice.Firmware], ElementName=ViewRoot}" />
+                <CheckBox
+                    AutomationProperties.Name="{Binding DataContext.Strings[Preparation.FirmwareUpdates], ElementName=ViewRoot}"
+                    IsChecked="{Binding ApplyFirmwareUpdates}"
+                    IsEnabled="{Binding IsFirmwareUpdatesOptionEnabled}">
+                    <TextBlock
+                        Text="{Binding DataContext.Strings[Preparation.FirmwareUpdates], ElementName=ViewRoot}"
+                        TextWrapping="Wrap" />
+                </CheckBox>
+                <TextBlock
+                    Margin="24,8,0,0"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="{Binding DataContext.Strings[TargetDevice.FirmwareUnavailableVirtualMachine], ElementName=ViewRoot}">
+                    <TextBlock.Style>
+                        <Style
+                            BasedOn="{StaticResource CaptionTextBlockStyle}"
+                            TargetType="TextBlock">
                             <Setter
                                 Property="Visibility"
-                                Value="Collapsed" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
-        </TextBlock>
-    </StackPanel>
+                                Value="Visible" />
+                            <Style.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding IsFirmwareUpdatesOptionEnabled}"
+                                    Value="True">
+                                    <Setter
+                                        Property="Visibility"
+                                        Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </UserControl>

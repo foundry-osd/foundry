@@ -581,7 +581,12 @@ Fortsätt med implementeringen?</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Välj datornamnet och måldisken och granska sedan den identifierade maskinvaran.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Distributionsinställningar</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Enhetsinventering</value></data>
-  <data name="TargetDevice.Device" xml:space="preserve"><value>Enhet</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Enhetsidentitet</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>Plattform</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Tillverkare</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>Modell</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>Produkt</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Serienummer</value></data>
   <data name="TargetDevice.Architecture" xml:space="preserve"><value>Arkitektur</value></data>
   <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
   <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Strömkälla</value></data>

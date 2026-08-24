@@ -581,7 +581,12 @@
   <data name="TargetDevice.Description" xml:space="preserve"><value>Изберете името на компютъра и целевия диск, след което прегледайте открития хардуер.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Настройки за разполагане</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Инвентаризация на устройството</value></data>
-  <data name="TargetDevice.Device" xml:space="preserve"><value>Устройство</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Идентификация на устройството</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>Платформа</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Производител</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>Модел</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>Продукт</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Сериен номер</value></data>
   <data name="TargetDevice.Architecture" xml:space="preserve"><value>Архитектура</value></data>
   <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
   <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Източник на захранване</value></data>

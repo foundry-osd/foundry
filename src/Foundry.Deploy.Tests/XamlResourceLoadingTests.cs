@@ -28,6 +28,7 @@ public sealed class XamlResourceLoadingTests
                 application.InitializeComponent();
                 var wizardView = new WizardView();
                 var wizardContentCard = Assert.IsType<Border>(wizardView.FindName("WizardContentCard"));
+                Assert.IsType<ContentControl>(wizardContentCard.Child);
                 var wizardFooter = Assert.IsType<Grid>(wizardView.FindName("WizardFooter"));
                 var nextButton = Assert.IsType<Button>(wizardView.FindName("NextButton"));
                 var returnToSummaryButton = Assert.IsType<Button>(wizardView.FindName("ReturnToSummaryButton"));
@@ -82,6 +83,10 @@ public sealed class XamlResourceLoadingTests
                 var diskEraseNotice = Assert.IsType<Border>(targetStepView.FindName("DiskEraseNotice"));
                 var deviceInventorySeparator = Assert.IsType<Separator>(targetStepView.FindName("DeviceInventorySeparator"));
                 var deviceInventoryGrid = Assert.IsType<Grid>(targetStepView.FindName("DeviceInventoryGrid"));
+                var targetContentScroller = Assert.IsType<ScrollViewer>(
+                    targetStepView.FindName("PageContentScrollViewer"));
+                var deviceIdentityGrid = Assert.IsType<Grid>(targetStepView.FindName("DeviceIdentityGrid"));
+                var platformGrid = Assert.IsType<Grid>(targetStepView.FindName("PlatformGrid"));
                 var firmwareSeparator = Assert.IsType<Separator>(targetStepView.FindName("FirmwareSeparator"));
                 Assert.Equal("\uE772", targetHeader.Glyph);
                 Assert.Equal(new Thickness(0, 0, 0, 32), targetHeader.Margin);
@@ -91,15 +96,23 @@ public sealed class XamlResourceLoadingTests
                 Assert.Equal(new Thickness(0, 0, 0, 12), diskEraseNotice.Margin);
                 Assert.Equal(new Thickness(0, 0, 0, 12), deviceInventorySeparator.Margin);
                 Assert.Equal(new Thickness(0, 12, 0, 12), firmwareSeparator.Margin);
-                Assert.Equal(5, deviceInventoryGrid.ColumnDefinitions.Count);
-                Assert.Equal(new GridLength(2, GridUnitType.Star), deviceInventoryGrid.ColumnDefinitions[0].Width);
+                Assert.Equal(3, deviceInventoryGrid.ColumnDefinitions.Count);
+                Assert.Equal(new GridLength(24), deviceInventoryGrid.ColumnDefinitions[1].Width);
+                Assert.Equal(3, deviceIdentityGrid.ColumnDefinitions.Count);
+                Assert.Equal(4, deviceIdentityGrid.RowDefinitions.Count);
+                Assert.Equal(3, platformGrid.ColumnDefinitions.Count);
+                Assert.Equal(4, platformGrid.RowDefinitions.Count);
+                Assert.Equal(1, Grid.GetRow(targetContentScroller));
 
-                var operatingSystemHeader = Assert.IsType<WizardPageHeader>(
-                    new OperatingSystemCatalogStepView().FindName("PageHeader"));
-                var driversHeader = Assert.IsType<WizardPageHeader>(
-                    new DriverPackStepView().FindName("PageHeader"));
-                var autopilotHeader = Assert.IsType<WizardPageHeader>(
-                    new AutopilotStepView().FindName("PageHeader"));
+                var operatingSystemView = new OperatingSystemCatalogStepView();
+                var driversView = new DriverPackStepView();
+                var autopilotView = new AutopilotStepView();
+                var operatingSystemHeader = Assert.IsType<WizardPageHeader>(operatingSystemView.FindName("PageHeader"));
+                var driversHeader = Assert.IsType<WizardPageHeader>(driversView.FindName("PageHeader"));
+                var autopilotHeader = Assert.IsType<WizardPageHeader>(autopilotView.FindName("PageHeader"));
+                Assert.Equal(1, Grid.GetRow(Assert.IsType<ScrollViewer>(operatingSystemView.FindName("PageContentScrollViewer"))));
+                Assert.Equal(1, Grid.GetRow(Assert.IsType<ScrollViewer>(driversView.FindName("PageContentScrollViewer"))));
+                Assert.Equal(1, Grid.GetRow(Assert.IsType<ScrollViewer>(autopilotView.FindName("PageContentScrollViewer"))));
                 Assert.Equal("\uEC77", operatingSystemHeader.Glyph);
                 Assert.Equal("\uE74C", driversHeader.Glyph);
                 Assert.Equal("\uE753", autopilotHeader.Glyph);
@@ -238,11 +251,13 @@ public sealed class XamlResourceLoadingTests
                 Assert.Equal(16, VerticalGap(failedStep, technicalDetailsButton, deploymentStatusView), precision: 3);
 
                 var summaryStepView = new SummaryStepView();
-                var summaryRoot = Assert.IsType<StackPanel>(summaryStepView.Content);
+                Assert.IsType<Grid>(summaryStepView.Content);
                 var summaryPageHeader = Assert.IsType<WizardPageHeader>(summaryStepView.FindName("PageHeader"));
+                var summaryContentScroller = Assert.IsType<ScrollViewer>(summaryStepView.FindName("PageContentScrollViewer"));
+                Assert.Equal(1, Grid.GetRow(summaryContentScroller));
                 Assert.Equal("\uE9D5", summaryPageHeader.Glyph);
                 Assert.Null(summaryStepView.FindName("DiskEraseNotice"));
-                var summaryCategories = Assert.Single(summaryRoot.Children.OfType<ItemsControl>());
+                var summaryCategories = Assert.IsType<ItemsControl>(summaryContentScroller.Content);
                 var summaryCategoryExpander = Assert.IsType<Expander>(summaryCategories.ItemTemplate.LoadContent());
                 summaryCategoryExpander.DataContext = new DeploymentSummaryCategoryViewModel(
                     "Target device",

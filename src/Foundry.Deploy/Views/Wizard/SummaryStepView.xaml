@@ -3,107 +3,115 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:Foundry.Deploy.Controls"
     xmlns:viewModels="clr-namespace:Foundry.Deploy.ViewModels">
-    <StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <controls:WizardPageHeader x:Name="PageHeader"
             Title="{Binding Strings[Summary.Title]}"
             Description="{Binding Strings[Summary.Description]}"
             Glyph="&#xE9D5;" />
-        <ItemsControl ItemsSource="{Binding SummaryCategories}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="{x:Type viewModels:DeploymentSummaryCategoryViewModel}">
-                    <Expander
-                        Margin="0,0,0,8"
-                        AutomationProperties.Name="{Binding Title}"
-                        IsExpanded="False">
-                        <Expander.Header>
-                            <Grid MinHeight="42">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="28" />
-                                    <ColumnDefinition Width="180" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock
-                                    VerticalAlignment="Center"
-                                    FontFamily="{DynamicResource SymbolThemeFontFamily}"
-                                    FontSize="16"
-                                    Text="{Binding Glyph}">
-                                    <TextBlock.Style>
-                                        <Style TargetType="TextBlock">
-                                            <Setter
-                                                Property="Foreground"
-                                                Value="{DynamicResource TextFillColorSecondaryBrush}" />
-                                            <Style.Triggers>
-                                                <DataTrigger
-                                                    Binding="{Binding Status}"
-                                                    Value="{x:Static viewModels:DeploymentSummaryStatus.Configured}">
-                                                    <Setter
-                                                        Property="Foreground"
-                                                        Value="{DynamicResource SystemFillColorSuccessBrush}" />
-                                                </DataTrigger>
-                                                <DataTrigger
-                                                    Binding="{Binding Status}"
-                                                    Value="{x:Static viewModels:DeploymentSummaryStatus.Caution}">
-                                                    <Setter
-                                                        Property="Foreground"
-                                                        Value="{DynamicResource SystemFillColorCautionBrush}" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </TextBlock.Style>
-                                </TextBlock>
-                                <TextBlock
-                                    Grid.Column="1"
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                                    Text="{Binding Title}"
-                                    TextWrapping="Wrap" />
-                                <TextBlock
-                                    Grid.Column="2"
-                                    Margin="16,0"
-                                    VerticalAlignment="Center"
-                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                    Text="{Binding Summary}"
-                                    TextTrimming="CharacterEllipsis" />
-                                <Button
-                                    Grid.Column="3"
-                                    Margin="8,0,12,0"
-                                    Padding="12,4"
-                                    AutomationProperties.HelpText="{Binding DataContext.Strings[Common.Edit], ElementName=ViewRoot}"
-                                    AutomationProperties.Name="{Binding Title}"
-                                    Command="{Binding DataContext.EditSummaryStepCommand, ElementName=ViewRoot}"
-                                    CommandParameter="{Binding EditStepId}"
-                                    Content="{Binding DataContext.Strings[Common.Edit], ElementName=ViewRoot}"
-                                    Visibility="{Binding CanEdit, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                            </Grid>
-                        </Expander.Header>
-                        <ItemsControl
-                            Margin="28,8,12,12"
-                            ItemsSource="{Binding Rows}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate DataType="{x:Type viewModels:DeploymentSummaryRowViewModel}">
-                                    <Grid Margin="0,4">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="220" />
-                                            <ColumnDefinition Width="16" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock
-                                            Style="{StaticResource BodyStrongTextBlockStyle}"
-                                            Text="{Binding Label}"
-                                            TextWrapping="Wrap" />
-                                        <TextBlock
-                                            Grid.Column="2"
-                                            Text="{Binding Value}"
-                                            TextWrapping="Wrap" />
-                                    </Grid>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </Expander>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-
-    </StackPanel>
+        <ScrollViewer x:Name="PageContentScrollViewer"
+            Grid.Row="1"
+            HorizontalScrollBarVisibility="Disabled"
+            VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding SummaryCategories}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type viewModels:DeploymentSummaryCategoryViewModel}">
+                        <Expander
+                            Margin="0,0,0,8"
+                            AutomationProperties.Name="{Binding Title}"
+                            IsExpanded="False">
+                            <Expander.Header>
+                                <Grid MinHeight="42">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="28" />
+                                        <ColumnDefinition Width="180" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontFamily="{DynamicResource SymbolThemeFontFamily}"
+                                        FontSize="16"
+                                        Text="{Binding Glyph}">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter
+                                                    Property="Foreground"
+                                                    Value="{DynamicResource TextFillColorSecondaryBrush}" />
+                                                <Style.Triggers>
+                                                    <DataTrigger
+                                                        Binding="{Binding Status}"
+                                                        Value="{x:Static viewModels:DeploymentSummaryStatus.Configured}">
+                                                        <Setter
+                                                            Property="Foreground"
+                                                            Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                                                    </DataTrigger>
+                                                    <DataTrigger
+                                                        Binding="{Binding Status}"
+                                                        Value="{x:Static viewModels:DeploymentSummaryStatus.Caution}">
+                                                        <Setter
+                                                            Property="Foreground"
+                                                            Value="{DynamicResource SystemFillColorCautionBrush}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="{Binding Title}"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Grid.Column="2"
+                                        Margin="16,0"
+                                        VerticalAlignment="Center"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Text="{Binding Summary}"
+                                        TextTrimming="CharacterEllipsis" />
+                                    <Button
+                                        Grid.Column="3"
+                                        Margin="8,0,12,0"
+                                        Padding="12,4"
+                                        AutomationProperties.HelpText="{Binding DataContext.Strings[Common.Edit], ElementName=ViewRoot}"
+                                        AutomationProperties.Name="{Binding Title}"
+                                        Command="{Binding DataContext.EditSummaryStepCommand, ElementName=ViewRoot}"
+                                        CommandParameter="{Binding EditStepId}"
+                                        Content="{Binding DataContext.Strings[Common.Edit], ElementName=ViewRoot}"
+                                        Visibility="{Binding CanEdit, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                </Grid>
+                            </Expander.Header>
+                            <ItemsControl
+                                Margin="28,8,12,12"
+                                ItemsSource="{Binding Rows}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type viewModels:DeploymentSummaryRowViewModel}">
+                                        <Grid Margin="0,4">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="220" />
+                                                <ColumnDefinition Width="16" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock
+                                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                                Text="{Binding Label}"
+                                                TextWrapping="Wrap" />
+                                            <TextBlock
+                                                Grid.Column="2"
+                                                Text="{Binding Value}"
+                                                TextWrapping="Wrap" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Expander>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
 </UserControl>

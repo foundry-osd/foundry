@@ -540,7 +540,12 @@
   <data name="TargetDevice.Description" xml:space="preserve"><value>컴퓨터 이름과 대상 디스크를 선택한 다음 검색된 하드웨어를 검토하세요.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>배포 설정</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>장치 정보</value></data>
-  <data name="TargetDevice.Device" xml:space="preserve"><value>장치</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>장치 ID</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>플랫폼</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>제조업체</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>모델</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>제품</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>일련 번호</value></data>
   <data name="TargetDevice.Architecture" xml:space="preserve"><value>아키텍처</value></data>
   <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
   <data name="TargetDevice.PowerSource" xml:space="preserve"><value>전원</value></data>

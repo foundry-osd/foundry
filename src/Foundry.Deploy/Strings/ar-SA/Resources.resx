@@ -540,7 +540,12 @@
   <data name="TargetDevice.Description" xml:space="preserve"><value>اختر اسم الكمبيوتر والقرص الهدف، ثم راجع الأجهزة المكتشفة.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>إعدادات النشر</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>معلومات الجهاز</value></data>
-  <data name="TargetDevice.Device" xml:space="preserve"><value>الجهاز</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>هوية الجهاز</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>النظام الأساسي</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>الشركة المصنعة</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>الطراز</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>المنتج</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>الرقم التسلسلي</value></data>
   <data name="TargetDevice.Architecture" xml:space="preserve"><value>البنية</value></data>
   <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
   <data name="TargetDevice.PowerSource" xml:space="preserve"><value>مصدر الطاقة</value></data>

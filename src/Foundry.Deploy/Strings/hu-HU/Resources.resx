@@ -581,7 +581,12 @@ Folytatja a telepítést?</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Válassza ki a számítógép nevét és a céllemezt, majd tekintse át az észlelt hardvert.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Üzembehelyezési beállítások</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Eszközleltár</value></data>
-  <data name="TargetDevice.Device" xml:space="preserve"><value>Eszköz</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Eszközazonosító adatok</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>Platform</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Gyártó</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>Modell</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>Termék</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Sorozatszám</value></data>
   <data name="TargetDevice.Architecture" xml:space="preserve"><value>Architektúra</value></data>
   <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
   <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Áramforrás</value></data>

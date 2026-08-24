@@ -540,7 +540,12 @@
   <data name="TargetDevice.Description" xml:space="preserve"><value>選擇電腦名稱與目標磁碟，然後檢視偵測到的硬體。</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>部署設定</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>裝置資訊</value></data>
-  <data name="TargetDevice.Device" xml:space="preserve"><value>裝置</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>裝置識別資訊</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>平台</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>製造商</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>型號</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>產品</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>序號</value></data>
   <data name="TargetDevice.Architecture" xml:space="preserve"><value>架構</value></data>
   <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
   <data name="TargetDevice.PowerSource" xml:space="preserve"><value>電源</value></data>
