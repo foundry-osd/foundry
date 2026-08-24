@@ -365,45 +365,14 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
             return string.Empty;
         }
 
-        if (_detectedHardware is null)
+        if (_detectedHardware is null || _selectedOperatingSystem is null)
         {
             return modelOptions[0];
         }
 
-        string[] hardwareTokens =
-        [
-            _detectedHardware.Model.Trim(),
-            _detectedHardware.Product.Trim()
-        ];
-        hardwareTokens = hardwareTokens
-            .Where(token => !string.IsNullOrWhiteSpace(token))
-            .Distinct(StringComparer.OrdinalIgnoreCase)
-            .ToArray();
-
-        if (hardwareTokens.Length == 0)
-        {
-            return modelOptions[0];
-        }
-
-        string? exactOptionMatch = modelOptions.FirstOrDefault(option =>
-            hardwareTokens.Any(token => option.Equals(token, StringComparison.OrdinalIgnoreCase)));
-        if (!string.IsNullOrWhiteSpace(exactOptionMatch))
-        {
-            return exactOptionMatch;
-        }
-
-        string? containsOptionMatch = modelOptions.FirstOrDefault(option =>
-            hardwareTokens.Any(token => IsFuzzyModelMatch(option, token)));
-        if (!string.IsNullOrWhiteSpace(containsOptionMatch))
-        {
-            return containsOptionMatch;
-        }
-
-        DriverPackCatalogItem? bestPackMatch = SortDriverPackCandidates(sourceCandidates
-            .Where(item => item.ModelNames.Any(modelName =>
-                hardwareTokens.Any(token => IsFuzzyModelMatch(modelName, token)))),
-            _selectedOperatingSystem?.ReleaseId ?? string.Empty)
-            .FirstOrDefault();
+        DriverPackCatalogItem? bestPackMatch = _driverPackSelectionService
+            .SelectBest(sourceCandidates, _detectedHardware, _selectedOperatingSystem)
+            .DriverPack;
 
         if (bestPackMatch is not null)
         {
@@ -681,21 +650,6 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
                extension.Equals(".msi", StringComparison.OrdinalIgnoreCase) ||
                extension.Equals(".zip", StringComparison.OrdinalIgnoreCase) ||
                extension.Equals(".7z", StringComparison.OrdinalIgnoreCase);
-    }
-
-    private static bool ContainsIgnoreCase(string source, string value)
-    {
-        if (string.IsNullOrWhiteSpace(source) || string.IsNullOrWhiteSpace(value))
-        {
-            return false;
-        }
-
-        return source.Contains(value, StringComparison.OrdinalIgnoreCase);
-    }
-
-    private static bool IsFuzzyModelMatch(string source, string value)
-    {
-        return ContainsIgnoreCase(source, value) || ContainsIgnoreCase(value, source);
     }
 
     private static DriverPackCatalogItem[] SortDriverPackCandidates(

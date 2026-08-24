@@ -74,7 +74,12 @@ public sealed class DriverPackSelectionService : IDriverPackSelectionService
             };
         }
 
-        DriverPackCatalogItem[] modelCandidates = candidates
+        DriverPackCatalogItem[] systemIdCandidates = manufacturer == "lenovo"
+            ? candidates.Where(item => IsSystemIdMatch(item, hardware)).ToArray()
+            : [];
+        DriverPackCatalogItem[] modelCandidates = systemIdCandidates.Length > 0
+            ? systemIdCandidates
+            : candidates
             .Where(item => item.ModelNames.Any(modelName => ContainsIgnoreCase(modelName, model) || ContainsIgnoreCase(modelName, product)))
             .ToArray();
         DriverPackCatalogItem[] modelReleaseCandidates = SelectReleaseCandidates(modelCandidates, targetReleaseId);
@@ -115,6 +120,20 @@ public sealed class DriverPackSelectionService : IDriverPackSelectionService
         }
 
         return source.Contains(value, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool IsSystemIdMatch(DriverPackCatalogItem item, HardwareProfile hardware)
+    {
+        return item.SystemIds.Any(systemId =>
+            StartsWithIgnoreCase(hardware.Model, systemId) ||
+            StartsWithIgnoreCase(hardware.Product, systemId));
+    }
+
+    private static bool StartsWithIgnoreCase(string value, string prefix)
+    {
+        return !string.IsNullOrWhiteSpace(value) &&
+               !string.IsNullOrWhiteSpace(prefix) &&
+               value.Trim().StartsWith(prefix.Trim(), StringComparison.OrdinalIgnoreCase);
     }
 
     private static bool IsReleaseIdMatch(DriverPackCatalogItem item, string targetReleaseId)

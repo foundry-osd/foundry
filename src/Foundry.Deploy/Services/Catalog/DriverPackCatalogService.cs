@@ -56,7 +56,7 @@ public sealed class DriverPackCatalogService : IDriverPackCatalogService
         }
     }
 
-    private static DriverPackCatalogItem ParseItem(XElement driverPack)
+    internal static DriverPackCatalogItem ParseItem(XElement driverPack)
     {
         XElement? osInfo = driverPack.Element("OsInfo");
         XElement? hashes = driverPack.Element("Hashes");
@@ -65,6 +65,12 @@ public sealed class DriverPackCatalogService : IDriverPackCatalogService
             .Descendants("Model")
             .Select(model => (model.Attribute("name")?.Value ?? string.Empty).Trim())
             .Where(modelName => !string.IsNullOrWhiteSpace(modelName))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+        IReadOnlyList<string> systemIds = driverPack
+            .Descendants("Model")
+            .SelectMany(model => (model.Attribute("systemId")?.Value ?? string.Empty)
+                .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
             .Distinct(StringComparer.OrdinalIgnoreCase)
             .ToArray();
 
@@ -85,6 +91,7 @@ public sealed class DriverPackCatalogService : IDriverPackCatalogService
             OsReleaseId = ReadAttribute(osInfo, "releaseId"),
             OsArchitecture = NormalizeArchitecture(ReadAttribute(osInfo, "architecture")),
             ModelNames = models,
+            SystemIds = systemIds,
             Sha256 = ReadAttribute(hashes, "sha256")
         };
     }

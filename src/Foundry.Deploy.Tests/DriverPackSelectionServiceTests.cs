@@ -172,13 +172,56 @@ public sealed class DriverPackSelectionServiceTests
         Assert.Equal("Matched by hardware model/product and compatible OS release.", result.SelectionReason);
     }
 
+    [Fact]
+    public void SelectBest_WhenLenovoModelsShareMarketingName_PrefersMatchingMachineType()
+    {
+        var service = new DriverPackSelectionService(NullLogger<DriverPackSelectionService>.Instance);
+        HardwareProfile hardware = new()
+        {
+            Manufacturer = "Lenovo",
+            Model = "21Y6000JMX",
+            Product = "ThinkPad E14 Gen 8"
+        };
+        OperatingSystemCatalogItem operatingSystem = new()
+        {
+            WindowsRelease = "11",
+            ReleaseId = "25H2",
+            Architecture = "x64"
+        };
+
+        DriverPackCatalogItem newerWrongType = CreateCatalogItem(
+            id: "21y2-21y3",
+            manufacturer: "Lenovo",
+            releaseId: "25H2",
+            architecture: "x64",
+            releaseDate: new DateTimeOffset(2026, 05, 19, 0, 0, 0, TimeSpan.Zero),
+            modelNames: ["ThinkPad E14 Gen 8 Type 21Y2 21Y3"],
+            systemIds: ["21Y2", "21Y3"]);
+        DriverPackCatalogItem olderMatchingType = CreateCatalogItem(
+            id: "21y6-21y7",
+            manufacturer: "Lenovo",
+            releaseId: "25H2",
+            architecture: "x64",
+            releaseDate: new DateTimeOffset(2026, 04, 28, 0, 0, 0, TimeSpan.Zero),
+            modelNames: ["ThinkPad E14 Gen 8 Type 21Y6 21Y7"],
+            systemIds: ["21Y6", "21Y7"]);
+
+        DriverPackSelectionResult result = service.SelectBest(
+            [newerWrongType, olderMatchingType],
+            hardware,
+            operatingSystem);
+
+        Assert.Equal("21y6-21y7", result.DriverPack?.Id);
+    }
+
     private static DriverPackCatalogItem CreateCatalogItem(
         string id,
         string manufacturer,
         string releaseId,
         string architecture,
         DateTimeOffset releaseDate,
-        IReadOnlyList<string> modelNames)
+        IReadOnlyList<string> modelNames,
+        IReadOnlyList<string>? systemIds = null)
     {
         return new DriverPackCatalogItem
         {
@@ -191,7 +234,8 @@ public sealed class DriverPackSelectionServiceTests
             OsReleaseId = releaseId,
             OsArchitecture = architecture,
             ReleaseDate = releaseDate,
-            ModelNames = modelNames
+            ModelNames = modelNames,
+            SystemIds = systemIds ?? []
         };
     }
 }
