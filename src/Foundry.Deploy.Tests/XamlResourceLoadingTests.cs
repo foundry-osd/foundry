@@ -161,10 +161,52 @@ public sealed class XamlResourceLoadingTests
                 var deploymentStatusView = new DeploymentStatusView();
                 var stepsRail = Assert.IsType<Grid>(deploymentStatusView.FindName("StepsRail"));
                 var centralStateHost = Assert.IsType<Grid>(deploymentStatusView.FindName("CentralStateHost"));
+                var successGlyph = Assert.IsType<TerminalStatusGlyph>(deploymentStatusView.FindName("SuccessGlyph"));
+                var successTitle = Assert.IsType<TextBlock>(deploymentStatusView.FindName("SuccessTitle"));
+                var successInstruction = Assert.IsType<TextBlock>(deploymentStatusView.FindName("SuccessInstruction"));
+                var successButton = Assert.IsType<Button>(deploymentStatusView.FindName("SuccessButton"));
+                var errorGlyph = Assert.IsType<TerminalStatusGlyph>(deploymentStatusView.FindName("ErrorGlyph"));
+                var errorTitle = Assert.IsType<TextBlock>(deploymentStatusView.FindName("ErrorTitle"));
+                var failedStep = Assert.IsType<TextBlock>(deploymentStatusView.FindName("FailedStep"));
+                var technicalDetailsButton = Assert.IsType<Button>(deploymentStatusView.FindName("TechnicalDetailsButton"));
                 Assert.Equal(VerticalAlignment.Center, stepsRail.VerticalAlignment);
                 Assert.Equal(720, stepsRail.MaxHeight);
                 Assert.IsType<ScaleTransform>(centralStateHost.RenderTransform);
                 Assert.Equal(new Point(0.5, 0.5), centralStateHost.RenderTransformOrigin);
+                Assert.Same(application.FindResource("TitleTextBlockStyle"), successTitle.Style);
+                Assert.Same(application.FindResource("TitleTextBlockStyle"), errorTitle.Style);
+
+                successTitle.Text = "Deployment completed";
+                successInstruction.Text = "Remove the boot media, then select Reboot.";
+                successTitle.Visibility = Visibility.Visible;
+                successGlyph.Visibility = Visibility.Visible;
+                successInstruction.Visibility = Visibility.Visible;
+                successButton.Visibility = Visibility.Visible;
+                errorTitle.Visibility = Visibility.Collapsed;
+                errorGlyph.Visibility = Visibility.Collapsed;
+                failedStep.Visibility = Visibility.Collapsed;
+                technicalDetailsButton.Visibility = Visibility.Collapsed;
+                deploymentStatusView.Measure(new Size(1440, 900));
+                deploymentStatusView.Arrange(new Rect(0, 0, 1440, 900));
+                deploymentStatusView.UpdateLayout();
+                Assert.Equal(24, VerticalGap(successTitle, successGlyph, deploymentStatusView), precision: 3);
+                Assert.Equal(24, VerticalGap(successGlyph, successInstruction, deploymentStatusView), precision: 3);
+                Assert.Equal(16, VerticalGap(successInstruction, successButton, deploymentStatusView), precision: 3);
+
+                successTitle.Visibility = Visibility.Collapsed;
+                successGlyph.Visibility = Visibility.Collapsed;
+                successInstruction.Visibility = Visibility.Collapsed;
+                successButton.Visibility = Visibility.Collapsed;
+                errorTitle.Text = "Deployment failed";
+                failedStep.Text = "Apply operating system image";
+                errorTitle.Visibility = Visibility.Visible;
+                errorGlyph.Visibility = Visibility.Visible;
+                failedStep.Visibility = Visibility.Visible;
+                technicalDetailsButton.Visibility = Visibility.Visible;
+                deploymentStatusView.UpdateLayout();
+                Assert.Equal(24, VerticalGap(errorTitle, errorGlyph, deploymentStatusView), precision: 3);
+                Assert.Equal(24, VerticalGap(errorGlyph, failedStep, deploymentStatusView), precision: 3);
+                Assert.Equal(16, VerticalGap(failedStep, technicalDetailsButton, deploymentStatusView), precision: 3);
 
                 var summaryStepView = new SummaryStepView();
                 var summaryRoot = Assert.IsType<StackPanel>(summaryStepView.Content);
@@ -257,5 +299,17 @@ public sealed class XamlResourceLoadingTests
                 yield return descendant;
             }
         }
+    }
+
+    private static double VerticalGap(
+        FrameworkElement upperElement,
+        FrameworkElement lowerElement,
+        UIElement relativeTo)
+    {
+        double upperBottom = upperElement.TranslatePoint(
+            new Point(0, upperElement.ActualHeight),
+            relativeTo).Y;
+        double lowerTop = lowerElement.TranslatePoint(new Point(), relativeTo).Y;
+        return lowerTop - upperBottom;
     }
 }

@@ -106,8 +106,8 @@ public partial class DeploymentStatusView : UserControl
                 return;
             }
 
-            AutomationPeer? peer = UIElementAutomationPeer.FromElement(StateContent) ??
-                                   UIElementAutomationPeer.CreatePeerForElement(StateContent);
+            AutomationPeer? peer = UIElementAutomationPeer.FromElement(CentralStateHost) ??
+                                   UIElementAutomationPeer.CreatePeerForElement(CentralStateHost);
             peer?.RaiseAutomationEvent(AutomationEvents.LiveRegionChanged);
         });
     }
