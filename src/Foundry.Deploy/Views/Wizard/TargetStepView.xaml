@@ -23,8 +23,13 @@
                     Margin="0,0,0,12"
                     Style="{StaticResource SubtitleTextBlockStyle}"
                     Text="{Binding DataContext.Strings[TargetDevice.DeploymentSettings], ElementName=ViewRoot}" />
-                <WrapPanel ItemWidth="340">
-                    <StackPanel Margin="0,0,24,16">
+                <Grid Margin="0,0,0,16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="24" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
                         <TextBlock
                             Margin="0,0,0,8"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
@@ -50,7 +55,7 @@
                             Visibility="{Binding HasTargetComputerNameValidationError, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     </StackPanel>
 
-                    <StackPanel Margin="0,0,0,16">
+                    <StackPanel Grid.Column="2">
                         <TextBlock
                             Margin="0,0,0,8"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
@@ -67,7 +72,7 @@
                             Text="{Binding TargetDiskSelectionHint}"
                             TextWrapping="Wrap" />
                     </StackPanel>
-                </WrapPanel>
+                </Grid>
 
                 <Border x:Name="DiskEraseNotice"
                     Margin="0,0,0,12"

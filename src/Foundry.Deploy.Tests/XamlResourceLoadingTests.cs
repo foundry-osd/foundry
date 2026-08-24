@@ -88,9 +88,25 @@ public sealed class XamlResourceLoadingTests
                 var deviceIdentityGrid = Assert.IsType<Grid>(targetStepView.FindName("DeviceIdentityGrid"));
                 var platformGrid = Assert.IsType<Grid>(targetStepView.FindName("PlatformGrid"));
                 var firmwareSeparator = Assert.IsType<Separator>(targetStepView.FindName("FirmwareSeparator"));
+                var targetComputerNameTextBox = Assert.IsType<TextBox>(
+                    targetStepView.FindName("TargetComputerNameTextBox"));
                 targetStepView.Measure(new Size(980, 700));
                 targetStepView.Arrange(new Rect(0, 0, 980, 700));
                 targetStepView.UpdateLayout();
+                var targetDiskComboBox = Assert.Single(FindVisualDescendants<ComboBox>(targetStepView));
+                Point computerNameOrigin = targetComputerNameTextBox.TranslatePoint(new Point(), targetStepView);
+                Point targetDiskOrigin = targetDiskComboBox.TranslatePoint(new Point(), targetStepView);
+                Point diskNoticeOrigin = diskEraseNotice.TranslatePoint(new Point(), targetStepView);
+                Assert.Equal(diskNoticeOrigin.X, computerNameOrigin.X, precision: 3);
+                Assert.Equal(targetComputerNameTextBox.ActualWidth, targetDiskComboBox.ActualWidth, precision: 3);
+                Assert.Equal(
+                    24,
+                    targetDiskOrigin.X - computerNameOrigin.X - targetComputerNameTextBox.ActualWidth,
+                    precision: 3);
+                Assert.Equal(
+                    diskNoticeOrigin.X + diskEraseNotice.ActualWidth,
+                    targetDiskOrigin.X + targetDiskComboBox.ActualWidth,
+                    precision: 3);
                 Assert.Equal("\uE772", targetHeader.Glyph);
                 var targetHeaderGlyph = Assert.Single(
                     FindVisualDescendants<TextBlock>(targetHeader),
