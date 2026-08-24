@@ -49,7 +49,6 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
     public event EventHandler? StateChanged;
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(DriverPackModeDisplay))]
     [NotifyPropertyChangedFor(nameof(IsOemDriverSourceSelected))]
     [NotifyPropertyChangedFor(nameof(IsDriverPackModelSelectionEnabled))]
     [NotifyPropertyChangedFor(nameof(IsDriverPackVersionSelectionEnabled))]
@@ -72,16 +71,7 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
 
     public ObservableCollection<string> DriverPackVersionOptions { get; } = [];
 
-    public int CatalogCount => DriverPacks.Count;
-
     public DriverPackSelectionKind EffectiveSelectionKind => GetEffectiveSelectionKind();
-
-    public string DriverPackModeDisplay => SelectedDriverPackOption?.Kind switch
-    {
-        DriverPackSelectionKind.MicrosoftUpdateCatalog => GetString("DriverPack.MicrosoftUpdateCatalog"),
-        DriverPackSelectionKind.OemCatalog => GetString("DriverPack.OemDriverPack"),
-        _ => GetString("Common.None")
-    };
 
     public bool IsOemDriverSourceSelected => SelectedDriverPackOption?.Kind == DriverPackSelectionKind.OemCatalog;
 
@@ -91,7 +81,7 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
 
     public string SelectedDriverPackSelectionDisplay => BuildSelectedDriverPackSelectionDisplay();
 
-    public void ApplyCatalog(IReadOnlyList<DriverPackCatalogItem> driverPacks)
+    public void ReplaceCatalog(IReadOnlyList<DriverPackCatalogItem> driverPacks)
     {
         ArgumentNullException.ThrowIfNull(driverPacks);
 
@@ -101,7 +91,6 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
             DriverPacks.Add(item);
         }
 
-        OnPropertyChanged(nameof(CatalogCount));
         RefreshDriverPackOptions();
     }
 
@@ -114,11 +103,6 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
         _selectedOperatingSystem = selectedOperatingSystem;
         _effectiveArchitecture = NormalizeArchitecture(effectiveArchitecture);
         RefreshDriverPackOptions();
-    }
-
-    public void ReplaceCatalog(IReadOnlyList<DriverPackCatalogItem> driverPacks)
-    {
-        ApplyCatalog(driverPacks);
     }
 
     public void SetDetectedHardware(HardwareProfile? detectedHardware)
@@ -733,7 +717,6 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
         RunOnUiThread(() =>
         {
             RefreshDriverPackOptions();
-            OnPropertyChanged(nameof(DriverPackModeDisplay));
             OnPropertyChanged(nameof(SelectedDriverPackSelectionDisplay));
         });
     }

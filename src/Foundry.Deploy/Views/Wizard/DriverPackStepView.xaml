@@ -23,11 +23,6 @@
                     BorderThickness="0"
                     ItemsSource="{Binding DriverPackOptions}"
                     SelectedItem="{Binding SelectedDriverPackOption}">
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel />
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter
