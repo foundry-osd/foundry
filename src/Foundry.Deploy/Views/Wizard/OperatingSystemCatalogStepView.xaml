@@ -13,11 +13,14 @@
             Glyph="&#xEC77;" />
         <ScrollViewer x:Name="PageContentScrollViewer"
             Grid.Row="1"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Center"
             HorizontalScrollBarVisibility="Disabled"
             Style="{StaticResource ScrollViewerContentGutterStyle}"
             VerticalScrollBarVisibility="Auto">
-            <WrapPanel ItemWidth="340">
-                <StackPanel Margin="0,0,24,16">
+            <StackPanel x:Name="OperatingSystemForm"
+                MaxWidth="720">
+                <StackPanel Margin="0,0,0,16">
                     <TextBlock
                         Margin="0,0,0,8"
                         Style="{StaticResource BodyStrongTextBlockStyle}"
@@ -39,7 +42,7 @@
                         SelectedValue="{Binding OperatingSystemCatalog.SelectedMediaSourceId}"
                         SelectedValuePath="SourceId" />
                 </StackPanel>
-                <StackPanel Margin="0,0,24,16">
+                <StackPanel Margin="0,0,0,16">
                     <TextBlock
                         Margin="0,0,0,8"
                         Style="{StaticResource BodyStrongTextBlockStyle}"
@@ -59,7 +62,7 @@
                         ItemsSource="{Binding OperatingSystemCatalog.EditionFilters}"
                         SelectedItem="{Binding OperatingSystemCatalog.SelectedEdition}" />
                 </StackPanel>
-                <StackPanel Margin="0,0,24,16">
+                <StackPanel>
                     <TextBlock
                         Margin="0,0,0,8"
                         Style="{StaticResource BodyStrongTextBlockStyle}"
@@ -75,7 +78,7 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
                 </StackPanel>
-            </WrapPanel>
+            </StackPanel>
         </ScrollViewer>
     </Grid>
 </UserControl>

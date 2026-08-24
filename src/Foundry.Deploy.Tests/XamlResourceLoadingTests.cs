@@ -145,9 +145,18 @@ public sealed class XamlResourceLoadingTests
                 var driversView = new DriverPackStepView();
                 var autopilotView = new AutopilotStepView();
                 var operatingSystemHeader = Assert.IsType<WizardPageHeader>(operatingSystemView.FindName("PageHeader"));
+                var operatingSystemScroller = Assert.IsType<ScrollViewer>(operatingSystemView.FindName("PageContentScrollViewer"));
+                var operatingSystemForm = Assert.IsType<StackPanel>(operatingSystemView.FindName("OperatingSystemForm"));
                 var driversHeader = Assert.IsType<WizardPageHeader>(driversView.FindName("PageHeader"));
                 var autopilotHeader = Assert.IsType<WizardPageHeader>(autopilotView.FindName("PageHeader"));
-                Assert.Equal(1, Grid.GetRow(Assert.IsType<ScrollViewer>(operatingSystemView.FindName("PageContentScrollViewer"))));
+                Assert.Equal(1, Grid.GetRow(operatingSystemScroller));
+                Assert.Equal(VerticalAlignment.Center, operatingSystemScroller.VerticalContentAlignment);
+                Assert.Equal(HorizontalAlignment.Stretch, operatingSystemScroller.HorizontalContentAlignment);
+                Assert.Equal(720, operatingSystemForm.MaxWidth);
+                Assert.Equal(5, operatingSystemForm.Children.Count);
+                Assert.All(
+                    operatingSystemForm.Children.Cast<StackPanel>(),
+                    field => Assert.IsType<ComboBox>(field.Children[1]));
                 Assert.Equal(1, Grid.GetRow(Assert.IsType<ScrollViewer>(driversView.FindName("PageContentScrollViewer"))));
                 Assert.Equal(1, Grid.GetRow(Assert.IsType<ScrollViewer>(autopilotView.FindName("PageContentScrollViewer"))));
                 Assert.Equal("\uEC77", operatingSystemHeader.Glyph);
