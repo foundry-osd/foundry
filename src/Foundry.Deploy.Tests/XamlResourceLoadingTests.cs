@@ -150,6 +150,7 @@ public sealed class XamlResourceLoadingTests
                 var operatingSystemViewport = Assert.IsType<Grid>(operatingSystemView.FindName("OperatingSystemFormViewport"));
                 var operatingSystemForm = Assert.IsType<StackPanel>(operatingSystemView.FindName("OperatingSystemForm"));
                 var driversHeader = Assert.IsType<WizardPageHeader>(driversView.FindName("PageHeader"));
+                var driverPackSourceList = Assert.IsType<ListBox>(driversView.FindName("DriverPackSourceList"));
                 var autopilotHeader = Assert.IsType<WizardPageHeader>(autopilotView.FindName("PageHeader"));
                 Assert.Equal(1, Grid.GetRow(operatingSystemScroller));
                 Assert.Equal(HorizontalAlignment.Stretch, operatingSystemScroller.HorizontalContentAlignment);
@@ -168,6 +169,9 @@ public sealed class XamlResourceLoadingTests
                 Assert.Equal(1, Grid.GetRow(Assert.IsType<ScrollViewer>(autopilotView.FindName("PageContentScrollViewer"))));
                 Assert.Equal("\uEC77", operatingSystemHeader.Glyph);
                 Assert.Equal("\uE78C", driversHeader.Glyph);
+                Assert.Same(
+                    DependencyProperty.UnsetValue,
+                    driverPackSourceList.ReadLocalValue(Control.BorderThicknessProperty));
                 Assert.Equal("\uE753", autopilotHeader.Glyph);
 
                 var verticalStepTemplate = Assert.IsType<DataTemplate>(
