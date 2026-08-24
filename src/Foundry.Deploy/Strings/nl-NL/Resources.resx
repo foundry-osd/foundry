@@ -134,11 +134,11 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
   <data name="Progress.Networking" xml:space="preserve"><value>Netwerken</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Begintijd</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Verstreken tijd</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>Implementatie is succesvol voltooid.</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Implementatie voltooid</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Deze computer wordt over {0}s opnieuw opgestart.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Opnieuw opstarten</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Implementatie is mislukt</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>Mislukte stap</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>Mislukte stap: {0}</value></data>
   <data name="Error.Message" xml:space="preserve"><value>Foutmelding</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Welkom</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Componenten initialiseren...</value></data>
@@ -575,7 +575,7 @@ Doorgaan met de implementatie?</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Huidige bewerking</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Algemene voortgang van de implementatie</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Implementatiestappen</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Bekijk technische details</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Technische details</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Foutdetails weergeven</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Foutdetails</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>De registratieassistent wordt uitgevoerd op het geïmplementeerde apparaat.</value></data>
 </root>

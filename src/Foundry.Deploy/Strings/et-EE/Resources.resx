@@ -134,11 +134,11 @@ Toiming: kontrollige ketta atribuute ja proovige juurutamist uuesti.</value></da
   <data name="Progress.Networking" xml:space="preserve"><value>Võrgustiku loomine</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Algusaeg</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Kulunud aeg</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>Juurutamine on edukalt lõpule viidud.</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Juurutamine lõpetatud</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>See arvuti taaskäivitub {0}s pärast.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Taaskäivitage</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Juurutamine ebaõnnestus</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>Ebaõnnestunud samm</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>Nurjunud samm: {0}</value></data>
   <data name="Error.Message" xml:space="preserve"><value>Veateade</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Tere tulemast</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Komponentide lähtestamine...</value></data>
@@ -575,7 +575,7 @@ Kas jätkata juurutamisega?</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Praegune toiming</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Üldine juurutamise edenemine</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Juurutamise sammud</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Vaadake tehnilisi üksikasju</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Tehnilised üksikasjad</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Kuva tõrke üksikasjad</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Tõrke üksikasjad</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Registreerimisabiline käivitatakse juurutatud seadmes.</value></data>
 </root>

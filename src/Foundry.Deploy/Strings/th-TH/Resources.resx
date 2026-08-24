@@ -134,11 +134,11 @@
   <data name="Progress.Networking" xml:space="preserve"><value>เครือข่าย</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>เวลาเริ่มต้น</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>เวลาที่ผ่านไป</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>การปรับใช้เสร็จสมบูรณ์แล้ว</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>การปรับใช้เสร็จสมบูรณ์</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>คอมพิวเตอร์เครื่องนี้จะรีสตาร์ตใน {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>รีบูต</value></data>
   <data name="Error.Title" xml:space="preserve"><value>การทำให้ใช้งานได้ล้มเหลว</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>ขั้นตอนที่ล้มเหลว</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>ขั้นตอนที่ล้มเหลว: {0}</value></data>
   <data name="Error.Message" xml:space="preserve"><value>ข้อความแสดงข้อผิดพลาด</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>ยินดีต้อนรับ</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>กำลังเริ่มต้นส่วนประกอบ...</value></data>
@@ -575,7 +575,7 @@
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>การดำเนินการปัจจุบัน</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>ความคืบหน้าการปรับใช้โดยรวม</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>ขั้นตอนการปรับใช้</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>ดูรายละเอียดทางเทคนิค</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>รายละเอียดทางเทคนิค</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>ดูรายละเอียดข้อผิดพลาด</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>รายละเอียดข้อผิดพลาด</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>ผู้ช่วยการลงทะเบียนจะทำงานบนอุปกรณ์ที่ปรับใช้แล้ว</value></data>
 </root>

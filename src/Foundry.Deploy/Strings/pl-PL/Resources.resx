@@ -134,11 +134,11 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Sieć</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Czas rozpoczęcia</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Czas, który upłynął</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>Wdrożenie zostało zakończone pomyślnie.</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Wdrożenie zakończone</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Ten komputer zostanie ponownie uruchomiony za {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Uruchom ponownie</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Wdrożenie nie powiodło się</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>Nieudany krok</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>Krok zakończony niepowodzeniem: {0}</value></data>
   <data name="Error.Message" xml:space="preserve"><value>Komunikat o błędzie</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Witamy</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Inicjowanie komponentów...</value></data>
@@ -575,7 +575,7 @@ Kontynuować wdrażanie?</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Bieżąca operacja</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Ogólny postęp wdrażania</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Kroki wdrażania</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Zobacz szczegóły techniczne</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Szczegóły techniczne</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Wyświetl szczegóły błędu</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Szczegóły błędu</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Asystent rejestracji zostanie uruchomiony na wdrożonym urządzeniu.</value></data>
 </root>

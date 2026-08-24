@@ -134,11 +134,11 @@
   <data name="Progress.Networking" xml:space="preserve"><value>сеть</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Время начала</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Прошедшее время</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>Развертывание завершено успешно.</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Развертывание завершено</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Этот компьютер перезагрузится через {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Перезагрузить</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Развертывание не удалось</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>Неудачный шаг</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>Сбой на этапе: {0}</value></data>
   <data name="Error.Message" xml:space="preserve"><value>Сообщение об ошибке</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Добро пожаловать</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Инициализация компонентов...</value></data>
@@ -575,7 +575,7 @@
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Текущая операция</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Общий ход развертывания</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Шаги развертывания</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Посмотреть технические подробности</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Технические подробности</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Просмотреть сведения об ошибке</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Сведения об ошибке</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Помощник регистрации будет запущен на развернутом устройстве.</value></data>
 </root>

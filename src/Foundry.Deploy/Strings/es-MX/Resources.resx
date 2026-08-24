@@ -134,11 +134,11 @@ Acción: Verifique los atributos del disco y vuelva a intentar la implementació
   <data name="Progress.Networking" xml:space="preserve"><value>Redes</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Hora de inicio</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>tiempo transcurrido</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>La implementación se completó con éxito.</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Implementación completada</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Esta computadora se reiniciará en {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Reiniciar</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Error en la implementación</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>Paso fallido</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>Paso fallido: {0}</value></data>
   <data name="Error.Message" xml:space="preserve"><value>Mensaje de error</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Bienvenido</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Inicializando componentes...</value></data>
@@ -575,7 +575,7 @@ Sistema operativo: {4}
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Operación actual</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Progreso general de la implementación</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Pasos de implementación</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Ver detalles técnicos</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Detalles técnicos</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Ver detalles del error</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Detalles del error</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>El asistente de registro se ejecutará en el dispositivo implementado.</value></data>
 </root>

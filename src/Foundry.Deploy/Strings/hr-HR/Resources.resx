@@ -134,11 +134,11 @@ Radnja: Provjerite atribute diska i ponovno pokušajte implementaciju.</value></
   <data name="Progress.Networking" xml:space="preserve"><value>umrežavanje</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Vrijeme početka</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Proteklo vrijeme</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>Implementacija je uspješno dovršena.</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Implementacija dovršena</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Ovo će se računalo ponovno pokrenuti za {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Ponovno pokretanje</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Implementacija nije uspjela</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>Neuspjeli korak</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>Neuspjeli korak: {0}</value></data>
   <data name="Error.Message" xml:space="preserve"><value>Poruka o pogrešci</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Dobrodošli</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Pokretanje komponenti...</value></data>
@@ -575,7 +575,7 @@ Nastaviti s implementacijom?</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Trenutna operacija</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Sveukupni napredak implementacije</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Koraci implementacije</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Pogledajte tehničke detalje</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Tehnički detalji</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Prikaži pojedinosti o pogrešci</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Pojedinosti o pogrešci</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Pomoćnik za registraciju pokrenut će se na postavljenom uređaju.</value></data>
 </root>

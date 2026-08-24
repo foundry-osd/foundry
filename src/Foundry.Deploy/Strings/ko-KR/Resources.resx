@@ -134,11 +134,11 @@
   <data name="Progress.Networking" xml:space="preserve"><value>네트워킹</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>시작 시간</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>경과 시간</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>배포가 성공적으로 완료되었습니다.</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>배포 완료</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>이 컴퓨터는 {0}s 후에 다시 시작됩니다.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>재부팅</value></data>
   <data name="Error.Title" xml:space="preserve"><value>배포 실패</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>실패한 단계</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>실패한 단계: {0}</value></data>
   <data name="Error.Message" xml:space="preserve"><value>오류 메시지</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>환영합니다</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>구성요소 초기화 중...</value></data>
@@ -575,7 +575,7 @@
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>현재 작업</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>전체 배포 진행 상황</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>배포 단계</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>기술 세부정보 보기</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>기술 세부사항</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>오류 세부 정보 보기</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>오류 세부 정보</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>등록 도우미는 배포된 장치에서 실행됩니다.</value></data>
 </root>

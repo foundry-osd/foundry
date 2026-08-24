@@ -134,11 +134,11 @@ ErrorCode=0x80070005
   <data name="Progress.Networking" xml:space="preserve"><value>Мережа</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Час початку</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Час, що минув</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>Розгортання успішно завершено.</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Розгортання завершено</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Цей комп’ютер перезавантажиться через {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Перезавантаження</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Помилка розгортання</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>Невдалий крок</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>Невдалий крок: {0}</value></data>
   <data name="Error.Message" xml:space="preserve"><value>Повідомлення про помилку</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Ласкаво просимо</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Ініціалізація компонентів...</value></data>
@@ -575,7 +575,7 @@ ErrorCode=0x80070005
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Поточна операція</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Загальний прогрес розгортання</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Кроки розгортання</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Переглянути технічні деталі</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Технічні деталі</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Переглянути відомості про помилку</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Відомості про помилку</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Помічник реєстрації буде запущений на розгорнутому пристрої.</value></data>
 </root>

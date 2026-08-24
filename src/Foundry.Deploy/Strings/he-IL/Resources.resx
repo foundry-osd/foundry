@@ -134,11 +134,11 @@ ErrorCode=0x80070005
   <data name="Progress.Networking" xml:space="preserve"><value>רשת</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>שעת התחלה</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>זמן שחלף</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>הפריסה הושלמה בהצלחה.</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>הפריסה הושלמה</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>מחשב זה יופעל מחדש בעוד {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>אתחול מחדש</value></data>
   <data name="Error.Title" xml:space="preserve"><value>הפריסה נכשלה</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>שלב כושל</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>שלב שנכשל: {0}</value></data>
   <data name="Error.Message" xml:space="preserve"><value>הודעת שגיאה</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>ברוך הבא</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>מאתחל רכיבים...</value></data>
@@ -575,7 +575,7 @@ ErrorCode=0x80070005
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>פעולה נוכחית</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>התקדמות הפריסה הכוללת</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>שלבי פריסה</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>הצג פרטים טכניים</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>פרטים טכניים</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>הצג פרטי שגיאה</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>פרטי שגיאה</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>מסייע הרישום יופעל במכשיר שנפרס.</value></data>
 </root>

@@ -134,11 +134,11 @@ Action: Verify disk attributes and retry deployment.</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Networking</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Start time</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Elapsed time</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>Deployment completed successfully.</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Deployment completed</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>This computer will restart in {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Reboot</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Deployment failed</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>Failed step</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>Failed step: {0}</value></data>
   <data name="Error.Message" xml:space="preserve"><value>Error message</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Welcome</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Initializing components...</value></data>
@@ -575,7 +575,7 @@ Continue with deployment?</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Current operation</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Overall deployment progress</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Deployment steps</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>View technical details</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Technical details</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>View error details</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Error details</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>The registration assistant will run on the deployed device.</value></data>
 </root>

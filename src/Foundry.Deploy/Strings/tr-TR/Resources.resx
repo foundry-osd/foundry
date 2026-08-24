@@ -134,11 +134,11 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
   <data name="Progress.Networking" xml:space="preserve"><value>Ağ oluşturma</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Başlangıç zamanı</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Geçen süre</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>Dağıtım başarıyla tamamlandı.</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Dağıtım tamamlandı</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Bu bilgisayar {0}s içinde yeniden başlatılacak.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Yeniden başlat</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Dağıtım başarısız oldu</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>Başarısız adım</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>Başarısız adım: {0}</value></data>
   <data name="Error.Message" xml:space="preserve"><value>Hata mesajı</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Hoş geldiniz</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Bileşenler başlatılıyor...</value></data>
@@ -575,7 +575,7 @@ Dağıtıma devam edilsin mi?</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Mevcut işlem</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Genel dağıtım ilerlemesi</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Dağıtım adımları</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Teknik ayrıntıları görüntüle</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Teknik ayrıntılar</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Hata ayrıntılarını görüntüle</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Hata ayrıntıları</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Kayıt yardımcısı dağıtılan cihazda çalıştırılacaktır.</value></data>
 </root>

@@ -137,6 +137,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     private int rebootCountdownSeconds = DeploymentRebootDelay.DefaultSeconds;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(FailedStepText))]
     private string failedStepName = string.Empty;
 
     [ObservableProperty]
@@ -157,6 +158,8 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     public string CompletionInstructionText => _rebootPolicy.AutomaticRebootEnabled && !_isDebugSafeMode
         ? Format("Success.RebootCountdownFormat", RebootCountdownSeconds)
         : GetString("Success.ManualRebootInstruction");
+
+    public string FailedStepText => Format("Error.FailedStepFormat", FailedStepName);
 
     public void ConfigureRebootPolicy(DeploymentRebootPolicy rebootPolicy)
     {

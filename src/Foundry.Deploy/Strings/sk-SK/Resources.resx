@@ -134,11 +134,11 @@ Akcia: Overte atribúty disku a zopakujte nasadenie.</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>vytváranie sietí</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Čas začiatku</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Uplynulý čas</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>Nasadenie úspešne dokončené.</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Nasadenie dokončené</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Tento počítač sa reštartuje o {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Reštartujte</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Nasadenie zlyhalo</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>Nevydarený krok</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>Neúspešný krok: {0}</value></data>
   <data name="Error.Message" xml:space="preserve"><value>Chybové hlásenie</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Vitajte</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Inicializujú sa komponenty...</value></data>
@@ -575,7 +575,7 @@ Pokračovať v nasadzovaní?</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Aktuálna operácia</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Celkový priebeh nasadenia</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Kroky nasadenia</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Zobraziť technické podrobnosti</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Technické detaily</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Zobraziť podrobnosti o chybe</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Podrobnosti o chybe</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Asistent registrácie sa spustí na nasadenom zariadení.</value></data>
 </root>

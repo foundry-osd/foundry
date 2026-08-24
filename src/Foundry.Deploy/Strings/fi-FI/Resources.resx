@@ -134,11 +134,11 @@ Toimi: Tarkista levyn attribuutit ja yritä käyttöönottoa uudelleen.</value><
   <data name="Progress.Networking" xml:space="preserve"><value>Verkostoituminen</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Aloitusaika</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Kulunut aika</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>Käyttöönotto suoritettu onnistuneesti.</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Käyttöönotto valmis</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Tämä tietokone käynnistyy uudelleen {0}s kuluttua.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Käynnistä uudelleen</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Käyttöönotto epäonnistui</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>Epäonnistui vaihe</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>Epäonnistunut vaihe: {0}</value></data>
   <data name="Error.Message" xml:space="preserve"><value>Virheilmoitus</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Tervetuloa</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Komponentteja alustetaan...</value></data>
@@ -575,7 +575,7 @@ Jatketaanko käyttöönottoa?</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Nykyinen toiminto</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Käyttöönoton yleinen edistyminen</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Käyttöönoton vaiheet</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Katso tekniset tiedot</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Tekniset tiedot</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Näytä virheen tiedot</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Virheen tiedot</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Rekisteröintiavustaja suoritetaan käyttöönotetulla laitteella.</value></data>
 </root>

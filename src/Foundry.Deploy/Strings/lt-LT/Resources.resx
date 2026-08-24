@@ -134,11 +134,11 @@ Veiksmas: patikrinkite disko atributus ir bandykite iš naujo įdiegti.</value><
   <data name="Progress.Networking" xml:space="preserve"><value>Tinklo kūrimas</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Pradžios laikas</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Praėjęs laikas</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>Diegimas sėkmingai baigtas.</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Diegimas baigtas</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Šis kompiuteris bus paleistas iš naujo po {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Perkraukite</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Diegimas nepavyko</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>Nepavyko žingsnis</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>Nepavykęs veiksmas: {0}</value></data>
   <data name="Error.Message" xml:space="preserve"><value>Klaidos pranešimas</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Sveiki atvykę</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Inicijuojami komponentai...</value></data>
@@ -575,7 +575,7 @@ Tęsti diegimą?</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Dabartinė operacija</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Bendra diegimo pažanga</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Diegimo veiksmai</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Peržiūrėkite techninę informaciją</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Techninė informacija</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Peržiūrėti klaidos informaciją</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Klaidos informacija</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Registravimo pagalbinė priemonė bus paleista įdiegtame įrenginyje.</value></data>
 </root>

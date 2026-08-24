@@ -297,7 +297,7 @@
                         HorizontalAlignment="Center"
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                         Style="{StaticResource BodyTextBlockStyle}"
-                        Text="{Binding FailedStepName}"
+                        Text="{Binding FailedStepText}"
                         TextAlignment="Center"
                         TextWrapping="Wrap" />
                     <Button x:Name="TechnicalDetailsButton"

@@ -134,11 +134,11 @@ Detaljer: Åtkomst nekad vid montering av bild till målsökväg.
   <data name="Progress.Networking" xml:space="preserve"><value>Nätverk</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Starttid</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Förfluten tid</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>Implementeringen slutfördes.</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Implementeringen är slutförd</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Den här datorn startas om om {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Starta om</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Implementeringen misslyckades</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>Misslyckat steg</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>Misslyckat steg: {0}</value></data>
   <data name="Error.Message" xml:space="preserve"><value>Felmeddelande</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Välkommen</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Initierar komponenter...</value></data>
@@ -575,7 +575,7 @@ Fortsätt med implementeringen?</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Pågående åtgärd</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Övergripande distributionsförlopp</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Distributionssteg</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Visa tekniska detaljer</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Tekniska detaljer</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Visa felinformation</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Felinformation</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Registreringsassistenten kommer att köras på den distribuerade enheten.</value></data>
 </root>

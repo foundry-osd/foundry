@@ -134,11 +134,11 @@ Aktion: Überprüfen Sie die Festplattenattribute und wiederholen Sie die Bereit
   <data name="Progress.Networking" xml:space="preserve"><value>Vernetzung</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Startzeit</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Verstrichene Zeit</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>Die Bereitstellung wurde erfolgreich abgeschlossen.</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Bereitstellung abgeschlossen</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Dieser Computer wird in {0}s neu gestartet.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Neustart</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Die Bereitstellung ist fehlgeschlagen</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>Schritt fehlgeschlagen</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>Fehlgeschlagener Schritt: {0}</value></data>
   <data name="Error.Message" xml:space="preserve"><value>Fehlermeldung</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Willkommen</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Komponenten werden initialisiert...</value></data>
@@ -575,7 +575,7 @@ Mit der Bereitstellung fortfahren?</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Aktueller Vorgang</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Gesamtfortschritt der Bereitstellung</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Bereitstellungsschritte</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Technische Details anzeigen</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Technische Details</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Fehlerdetails anzeigen</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Fehlerdetails</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Der Registrierungsassistent wird auf dem bereitgestellten Gerät ausgeführt.</value></data>
 </root>

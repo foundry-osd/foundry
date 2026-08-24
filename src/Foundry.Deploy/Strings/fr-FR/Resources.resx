@@ -134,11 +134,11 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
   <data name="Progress.Networking" xml:space="preserve"><value>Réseau</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Heure de début</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Temps écoulé</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>Déploiement terminé avec succès.</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Déploiement terminé</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Cet ordinateur va redémarrer dans {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Redémarrer</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Le déploiement a échoué</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>Étape en échec</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>Étape en échec : {0}</value></data>
   <data name="Error.Message" xml:space="preserve"><value>Message d’erreur</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Bienvenue</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Initialisation des composants...</value></data>
@@ -575,7 +575,7 @@ Continuer le déploiement ?</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Opération en cours</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Progression globale du déploiement</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Étapes de déploiement</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Afficher les détails techniques</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Détails techniques</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Afficher les détails de l’erreur</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Détails de l’erreur</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>L’assistant d’inscription s’exécutera sur l’appareil déployé.</value></data>
 </root>

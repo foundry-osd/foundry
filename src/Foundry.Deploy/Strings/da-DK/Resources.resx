@@ -134,11 +134,11 @@ Handling: Bekræft diskattributter, og prøv implementeringen igen.</value></dat
   <data name="Progress.Networking" xml:space="preserve"><value>Netværk</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Starttidspunkt</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Forløbet tid</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>Implementeringen blev gennemført.</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Implementering fuldført</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Denne computer genstarter om {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Genstart</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Implementeringen mislykkedes</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>Mislykket trin</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>Mislykket trin: {0}</value></data>
   <data name="Error.Message" xml:space="preserve"><value>Fejlmeddelelse</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Velkommen</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Initialiserer komponenter...</value></data>
@@ -575,7 +575,7 @@ Vil du fortsætte med implementeringen?</value></data>
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>Aktuel operation</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Samlet fremskridt i implementeringen</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Implementeringstrin</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Se tekniske detaljer</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Tekniske detaljer</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Vis fejldetaljer</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Fejldetaljer</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Registreringsassistenten kører på den installerede enhed.</value></data>
 </root>

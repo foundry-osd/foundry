@@ -74,6 +74,7 @@ public sealed class LocalizationResourceTests
         "Progress.CurrentOperation",
         "Progress.RingAutomationName",
         "Progress.TimelineAutomationName",
+        "Error.FailedStepFormat",
         "Error.ViewTechnicalDetails",
         "Error.TechnicalDetailsTitle"
     ];
@@ -141,5 +142,22 @@ public sealed class LocalizationResourceTests
         {
             Assert.False(string.IsNullOrWhiteSpace(resourceSet.GetString(key)), $"Resource '{key}' is missing for '{cultureName}'.");
         }
+
+        Assert.Contains("{0}", resourceSet.GetString("Error.FailedStepFormat"));
+    }
+
+    [Fact]
+    public void ReferenceResources_UseApprovedTerminalStateCopy()
+    {
+        ResourceSet? resourceSet = LocalizationText.ResourceManager.GetResourceSet(
+            CultureInfo.GetCultureInfo("en-US"),
+            createIfNotExists: true,
+            tryParents: false);
+
+        Assert.NotNull(resourceSet);
+        Assert.Equal("Deployment completed", resourceSet.GetString("Success.Completed"));
+        Assert.Equal("Failed step: {0}", resourceSet.GetString("Error.FailedStepFormat"));
+        Assert.Equal("View error details", resourceSet.GetString("Error.ViewTechnicalDetails"));
+        Assert.Equal("Error details", resourceSet.GetString("Error.TechnicalDetailsTitle"));
     }
 }

@@ -134,11 +134,11 @@
   <data name="Progress.Networking" xml:space="preserve"><value>الشبكات</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>وقت البدء</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>الوقت المنقضي</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>اكتمل النشر بنجاح.</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>اكتمل النشر</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>سيتم إعادة تشغيل هذا الكمبيوتر خلال {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>إعادة التشغيل</value></data>
   <data name="Error.Title" xml:space="preserve"><value>فشل النشر</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>خطوة فاشلة</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>الخطوة الفاشلة: {0}</value></data>
   <data name="Error.Message" xml:space="preserve"><value>رسالة خطأ</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>مرحبًا</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>تهيئة المكونات...</value></data>
@@ -575,7 +575,7 @@
   <data name="Progress.CurrentOperation" xml:space="preserve"><value>العملية الحالية</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>تقدم النشر الإجمالي</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>خطوات النشر</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>عرض التفاصيل الفنية</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>التفاصيل الفنية</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>عرض تفاصيل الخطأ</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>تفاصيل الخطأ</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>سيعمل مساعد التسجيل على الجهاز الذي تم نشره.</value></data>
 </root>
