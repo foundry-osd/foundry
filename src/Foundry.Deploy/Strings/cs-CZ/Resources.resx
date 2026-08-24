@@ -183,25 +183,25 @@ Pokračovat v nasazování?</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Požadovaný restartovací spustitelný soubor 'wpeutil.exe' nebyl nalezen.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Neznámý krok</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>Nebyly poskytnuty žádné podrobnosti o chybě.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Shromážděte proměnné nasazení</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Inicializujte pracovní prostor nasazení</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Ověřte konfiguraci cíle</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Zkontrolujte mezipaměť nasazení</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Připravte rozložení cílového disku</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Stáhnout obrázek operačního systému</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Použít bitovou kopii operačního systému</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Nakonfigurujte název cílového počítače</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Nakonfigurujte nastavení OOBE</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Nakonfigurujte prostředí pro obnovu</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Stáhnout balíček ovladače</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extrahujte balíček ovladače</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Přizpůsobení fáze před OOBE</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Použít balíček ovladače</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Stáhněte si aktualizaci firmwaru</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Použít aktualizaci firmwaru</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Uzavřete oddíl pro obnovení</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Ustanovení Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Dokončete nasazení a zapište protokoly</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Shromáždi proměnné</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Inicializuj nasazení</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Ověř konfiguraci</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Zkontroluj mezipaměť</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Připrav disk</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Stáhni operační systém</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Aplikuj operační systém</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Nastav název počítače</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Nakonfiguruj OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Nakonfiguruj obnovení Windows</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Stáhni ovladače</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Rozbal ovladače</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Připrav přizpůsobení</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Aplikuj ovladače</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Stáhni firmware</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Aplikuj firmware</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Zapečeť oddíl pro obnovení</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Zprovozni Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Dokonči nasazení</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Shromažďování proměnných nasazení...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Shromažďování kontextu nasazení...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Proměnné nasazení byly shromážděny.</value></data>
@@ -504,7 +504,7 @@ Pokračovat v nasazování?</value></data>
     <value>Interaktivní asistent registrace Autopilotu byl připraven (simulace).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Odeberte spouštěcí médium a potom vyberte Restartovat.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Nakonfigurujte voliteln&#233; funkce syst&#233;mu Windows</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Nakonfiguruj volitelné funkce</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Konfigurace voliteln&#253;ch funkc&#237; syst&#233;mu Windows...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Kontrola stavů funkc&#237;...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Př&#237;prava odpov&#237;daj&#237;c&#237;ch instalačn&#237;ch zdrojů m&#233;di&#237;...</value></data>

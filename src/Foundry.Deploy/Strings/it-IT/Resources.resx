@@ -183,25 +183,25 @@ Continuare con la distribuzione?</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>L'eseguibile di riavvio richiesto "wpeutil.exe" non è stato trovato.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Passaggio sconosciuto</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>Non sono stati forniti dettagli sull'errore.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Raccogli le variabili di distribuzione</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Inizializza l'area di lavoro di distribuzione</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Convalidare la configurazione di destinazione</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Controlla la cache di distribuzione</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Preparare il layout del disco di destinazione</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Scarica l'immagine del sistema operativo</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Applicare l'immagine del sistema operativo</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Configura il nome del computer di destinazione</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Configurare le impostazioni OOBE</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Configurare l'ambiente di ripristino</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Scarica il pacchetto driver</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Estrai il pacchetto driver</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Personalizzazione della fase pre-OOBE</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Applica il pacchetto driver</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Scarica l'aggiornamento del firmware</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Applicare l'aggiornamento del firmware</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Sigillare la partizione di ripristino</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Fornitura Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Finalizzare la distribuzione e scrivere i log</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Raccogliere variabili</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Inizializzare distribuzione</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Convalidare configurazione</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Controllare cache</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Preparare il disco</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Scaricare sistema operativo</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Applicare sistema operativo</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Impostare nome computer</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Configurare OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Configurare ripristino Windows</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Scaricare driver</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Estrarre driver</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Preparare personalizzazioni</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Applicare driver</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Scaricare firmware</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Applicare firmware</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Sigillare partizione di ripristino</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Provisionare Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Completare distribuzione</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Raccolta delle variabili di distribuzione...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Raccolta del contesto di distribuzione in corso...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Variabili di distribuzione raccolte.</value></data>
@@ -504,7 +504,7 @@ Continuare con la distribuzione?</value></data>
     <value>Assistente di registrazione interattiva di Autopilot preparato (simulazione).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Rimuovere il supporto di avvio, quindi selezionare Riavvia.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Configura le funzionalit&#224; facoltative di Windows</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Configurare funzionalità opzionali</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Configurazione delle funzionalit&#224; facoltative di Windows...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Ispezione degli stati delle funzionalit&#224;...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Preparazione delle origini multimediali di configurazione corrispondenti in corso...</value></data>

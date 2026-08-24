@@ -183,25 +183,25 @@ Jatketaanko käyttöönottoa?</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Vaadittua uudelleenkäynnistyssuoritettavaa tiedostoa 'wpeutil.exe' ei löytynyt.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Tuntematon askel</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>Virhetietoja ei annettu.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Kerää käyttöönottomuuttujat</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Alusta käyttöönottotyötila</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Vahvista kohdemääritys</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Tarkista käyttöönottovälimuisti</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Valmistele kohdelevyasettelu</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Lataa käyttöjärjestelmän kuva</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Käytä käyttöjärjestelmän kuvaa</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Määritä kohdetietokoneen nimi</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Määritä OOBE-asetukset</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Määritä palautusympäristö</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Lataa ajuripaketti</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Pura ajuripaketti</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Vaihe pre-OOBE-räätälöinti</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Käytä ohjainpakettia</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Lataa laiteohjelmistopäivitys</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Ota laiteohjelmistopäivitys käyttöön</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Tiivistä palautusosio</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Varaus Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Viimeistele käyttöönotto ja kirjoita lokit</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Kerää muuttujat</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Alusta käyttöönotto</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Vahvista määritys</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Tarkista välimuisti</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Valmistele levy</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Lataa käyttöjärjestelmä</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Käytä käyttöjärjestelmää</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Määritä tietokoneen nimi</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Määritä OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Määritä Windowsin palautus</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Lataa ohjaimet</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Pura ohjaimet</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Valmistele mukautukset</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Käytä ohjaimia</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Lataa laiteohjelmisto</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Käytä laiteohjelmistoa</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Sinetöi palautusosio</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Valmistele Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Viimeistele käyttöönotto</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Keräätään käyttöönottomuuttujia...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Keräätään käyttöönottokontekstia...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Käyttöönottomuuttujat kerätty.</value></data>
@@ -504,7 +504,7 @@ Jatketaanko käyttöönottoa?</value></data>
     <value>Vuorovaikutteinen Autopilot-rekisteröintiavustaja on valmisteltu (simulointi).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Poista käynnistysmedia ja valitse sitten Käynnistä uudelleen.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>M&#228;&#228;rit&#228; Windowsin valinnaiset ominaisuudet</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Määritä valinnaiset ominaisuudet</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>M&#228;&#228;ritet&#228;&#228;n Windowsin valinnaisia ominaisuuksia...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Tarkastetaan ominaisuuden tiloja...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Valmistellaan vastaavia asetusten medial&#228;hteit&#228;...</value></data>

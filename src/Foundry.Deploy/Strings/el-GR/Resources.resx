@@ -183,25 +183,25 @@
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Το απαιτούμενο εκτελέσιμο αρχείο επανεκκίνησης 'wpeutil.exe' δεν βρέθηκε.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Άγνωστο βήμα</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>Δεν δόθηκαν λεπτομέρειες σφάλματος.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Συλλέξτε μεταβλητές ανάπτυξης</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Αρχικοποίηση χώρου εργασίας ανάπτυξης</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Επικύρωση διαμόρφωσης στόχου</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Ελέγξτε την κρυφή μνήμη ανάπτυξης</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Προετοιμάστε τη διάταξη του δίσκου στόχου</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Λήψη εικόνας λειτουργικού συστήματος</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Εφαρμογή εικόνας λειτουργικού συστήματος</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Διαμόρφωση ονόματος υπολογιστή προορισμού</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Διαμορφώστε τις ρυθμίσεις OOBE</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Διαμόρφωση περιβάλλοντος ανάκτησης</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Κατεβάστε το πακέτο προγραμμάτων οδήγησης</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Εξαγωγή πακέτου προγραμμάτων οδήγησης</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Προσαρμογή σταδίου πριν από το OOBE</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Εφαρμογή πακέτου προγραμμάτων οδήγησης</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Λήψη ενημέρωσης υλικολογισμικού</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Εφαρμογή ενημέρωσης υλικολογισμικού</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Διαμέρισμα ανάκτησης σφραγίδων</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Παροχή Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Ολοκληρώστε την ανάπτυξη και γράψτε αρχεία καταγραφής</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Συλλογή μεταβλητών</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Αρχικοποίηση ανάπτυξης</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Επαλήθευση διαμόρφωσης</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Έλεγχος κρυφής μνήμης</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Προετοιμασία δίσκου</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Λήψη λειτουργικού συστήματος</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Εφαρμογή λειτουργικού συστήματος</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Ορισμός ονόματος υπολογιστή</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Διαμόρφωση OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Διαμόρφωση ανάκτησης Windows</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Λήψη προγραμμάτων οδήγησης</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Εξαγωγή προγραμμάτων οδήγησης</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Προετοιμασία προσαρμογών</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Εφαρμογή προγραμμάτων οδήγησης</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Λήψη υλικολογισμικού</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Εφαρμογή υλικολογισμικού</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Σφράγιση διαμερίσματος ανάκτησης</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Προετοιμασία Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Ολοκλήρωση ανάπτυξης</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Συλλογή μεταβλητών ανάπτυξης...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Συλλογή πλαισίου ανάπτυξης...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Συγκεντρώθηκαν μεταβλητές ανάπτυξης.</value></data>
@@ -504,7 +504,7 @@
     <value>Ο διαδραστικός βοηθός εγγραφής Autopilot προετοιμάστηκε (προσομοίωση).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Αφαιρέστε το μέσο εκκίνησης και, στη συνέχεια, επιλέξτε Επανεκκίνηση.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Διαμορφώστε τις προαιρετικές δυνατότητες των Windows</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Διαμόρφωση προαιρετικών λειτουργιών</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Διαμόρφωση προαιρετικών λειτουργιών των Windows...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Έλεγχος χαρακτηριστικών καταστάσεων...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Προετοιμασία αντίστοιχων πηγών μέσων εγκατάστασης...</value></data>

@@ -184,25 +184,25 @@ Continue with deployment?</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Required reboot executable 'wpeutil.exe' was not found.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Unknown step</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>No error details were provided.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Gather deployment variables</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Initialize deployment workspace</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Validate target configuration</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Check deployment cache</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Prepare target disk layout</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Download operating system image</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Apply operating system image</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Configure target computer name</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Configure OOBE settings</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Configure recovery environment</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Download driver pack</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extract driver pack</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Stage pre-OOBE customization</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Apply driver pack</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Download firmware update</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Apply firmware update</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Gather variables</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Initialize deployment</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Validate configuration</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Check cache</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Prepare disk</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Download operating system</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Apply operating system</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Set computer name</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Configure OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Configure Windows recovery</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Download drivers</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extract drivers</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Stage customizations</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Apply drivers</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Download firmware</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Apply firmware</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Seal recovery partition</value></data>
   <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Provision Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Finalize deployment and write logs</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Finalize deployment</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Gathering deployment variables...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Collecting deployment context...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Deployment variables gathered.</value></data>
@@ -504,7 +504,7 @@ Continue with deployment?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Interactive Autopilot registration assistant staged (simulation).</value>
   </data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Configure Windows optional features</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Configure optional features</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Configuring Windows optional features...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Inspecting feature states...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Preparing matching setup media sources...</value></data>

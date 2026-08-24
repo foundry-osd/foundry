@@ -183,25 +183,25 @@
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Изискваният изпълним файл за рестартиране 'wpeutil.exe' не е намерен.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Неизвестна стъпка</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>Не бяха предоставени подробности за грешката.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Съберете променливи за внедряване</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Инициализирайте работното пространство за внедряване</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Потвърдете целевата конфигурация</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Проверете кеша за внедряване</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Подгответе целевото оформление на диска</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Изтегляне на изображение на операционната система</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Прилагане на изображението на операционната система</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Конфигурирайте името на целевия компютър</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Конфигурирайте настройките на OOBE</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Конфигурирайте среда за възстановяване</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Изтегляне на пакет драйвери</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Извличане на драйверен пакет</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Етап на персонализиране преди OOBE</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Прилагане на пакет драйвери</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Изтеглете актуализация на фърмуера</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Прилагане на актуализация на фърмуера</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Раздел за възстановяване на печат</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Предоставяне Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Завършете внедряването и запишете регистрационни файлове</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Събери променливи</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Инициализирай внедряването</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Потвърди конфигурацията</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Провери кеша</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Подготви диска</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Изтегли операционната система</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Приложи операционната система</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Задай името на компютъра</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Конфигурирай OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Конфигурирай възстановяването на Windows</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Изтегли драйвери</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Извлечи драйвери</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Подготви персонализациите</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Приложи драйвери</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Изтегли фърмуер</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Приложи фърмуер</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Запечатай дяла за възстановяване</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Подготви Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Завърши внедряването</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Събират се променливи за внедряване...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Събира се контекст на внедряване...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Събрани променливи за внедряване.</value></data>
@@ -504,7 +504,7 @@
     <value>Интерактивният помощник за регистрация на Autopilot е подготвен (симулация).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Премахнете носителя за стартиране, след което изберете „Рестартиране“.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Конфигурирайте допълнителните функции на Windows</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Конфигурирай допълнителни функции</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Конфигуриране на допълнителни функции на Windows...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Проверява се състоянието на функцията...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Подготвят се съвпадащи медийни източници за настройка...</value></data>

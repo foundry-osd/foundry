@@ -183,25 +183,25 @@ Vai turpināt izvietošanu?</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Nepieciešamais atsāknēšanas izpildāmais fails “wpeutil.exe” netika atrasts.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Nezināms solis</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>Sīkāka informācija par kļūdu netika sniegta.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Apkopojiet izvietošanas mainīgos</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Inicializējiet izvietošanas darbvietu</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Apstipriniet mērķa konfigurāciju</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Pārbaudiet izvietošanas kešatmiņu</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Sagatavojiet mērķa diska izkārtojumu</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Lejupielādēt operētājsistēmas attēlu</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Lietot operētājsistēmas attēlu</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Konfigurējiet mērķa datora nosaukumu</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Konfigurējiet OOBE iestatījumus</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Konfigurējiet atkopšanas vidi</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Lejupielādēt draivera pakotni</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Izvilkt draivera pakotni</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Pielāgošana pirms OOBE</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Lietojiet draivera pakotni</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Lejupielādējiet programmaparatūras atjauninājumu</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Lietojiet programmaparatūras atjauninājumu</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Blīvējiet atkopšanas nodalījumu</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Nodrošinājums Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Pabeidziet izvietošanu un ierakstiet žurnālus</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Ievāc mainīgos</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Inicializē izvēršanu</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Pārbaudi konfigurāciju</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Pārbaudi kešatmiņu</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Sagatavo disku</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Lejupielādē operētājsistēmu</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Lieto operētājsistēmu</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Iestati datora nosaukumu</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Konfigurē OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Konfigurē Windows atkopšanu</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Lejupielādē draiverus</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Izvelc draiverus</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Sagatavo pielāgojumus</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Lieto draiverus</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Lejupielādē aparātprogrammatūru</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Lieto aparātprogrammatūru</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Noslēdz atkopšanas nodalījumu</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Sagatavo Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Pabeidz izvēršanu</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Notiek izvietošanas mainīgo apkopošana...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Notiek izvietošanas konteksta apkopošana...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Izvietošanas mainīgie ir apkopoti.</value></data>
@@ -504,7 +504,7 @@ Vai turpināt izvietošanu?</value></data>
     <value>Interaktīvais Autopilot reģistrācijas palīgs ir sagatavots (simulācija).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Izņemiet sāknēšanas datu nesēju un pēc tam atlasiet Restartēt.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Konfigurējiet Windows papildu līdzekļus</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Konfigurē izvēles līdzekļus</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Notiek Windows papildu līdzekļu konfigurēšana...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Notiek funkciju stāvokļa pārbaude...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Notiek atbilstošu iestatīšanas multivides avotu sagatavošana...</value></data>

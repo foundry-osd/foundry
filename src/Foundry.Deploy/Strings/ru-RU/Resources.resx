@@ -183,25 +183,25 @@
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Требуемый исполняемый файл перезагрузки «wpeutil.exe» не найден.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Неизвестный шаг</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>Никаких подробностей об ошибке не было предоставлено.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Сбор переменных развертывания</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Инициализировать рабочую область развертывания</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Проверка целевой конфигурации</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Проверьте кэш развертывания</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Подготовьте макет целевого диска</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Скачать образ операционной системы</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Применить образ операционной системы</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Настройте имя целевого компьютера</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Настройте параметры OOBE</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Настройка среды восстановления</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Скачать пакет драйверов</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Извлечь пакет драйверов</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Этап настройки перед OOBE</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Применить пакет драйверов</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Загрузите обновление прошивки</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Применить обновление прошивки</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Запечатать раздел восстановления</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Положение Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Завершить развертывание и записать журналы</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Сбор переменных</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Инициализация развертывания</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Проверка конфигурации</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Проверка кэша</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Подготовка диска</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Загрузка операционной системы</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Применение операционной системы</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Настройка имени компьютера</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Настройка OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Настройка восстановления Windows</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Загрузка драйверов</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Распаковка драйверов</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Подготовка настроек</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Применение драйверов</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Загрузка прошивки</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Применение прошивки</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Запечатывание раздела восстановления</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Подготовка Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Завершение развертывания</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Сбор переменных развертывания...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Сбор контекста развертывания...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Переменные развертывания собраны.</value></data>
@@ -504,7 +504,7 @@
     <value>Интерактивный помощник регистрации Autopilot подготовлен (симуляция).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Извлеките загрузочный носитель, затем выберите «Перезапустить».</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Настройка дополнительных функций Windows</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Настройка дополнительных компонентов</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Настройка дополнительных функций Windows...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Проверка состояний компонентов...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Подготовка соответствующих источников мультимедиа для настройки...</value></data>

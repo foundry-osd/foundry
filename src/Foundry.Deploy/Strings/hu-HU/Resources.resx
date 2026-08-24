@@ -183,25 +183,25 @@ Folytatja a telepítést?</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>A szükséges újraindítási végrehajtható "wpeutil.exe" nem található.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Ismeretlen lépés</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>A hiba részleteit nem közölték.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Gyűjtsd össze a telepítési változókat</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Inicializálja a telepítési munkaterületet</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Érvényesítse a célkonfigurációt</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Ellenőrizze a telepítési gyorsítótárat</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Készítse elő a céllemez elrendezését</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Töltse le az operációs rendszer képét</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Alkalmazza az operációs rendszer képét</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Konfigurálja a célszámítógép nevét</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Konfigurálja a OOBE beállításokat</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Konfigurálja a helyreállítási környezetet</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Töltse le az illesztőprogram-csomagot</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Illesztőprogram-csomag kibontása</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Stage pre-OOBE testreszabás</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Illesztőprogram-csomag alkalmazása</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Firmware frissítés letöltése</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Alkalmazza a firmware frissítést</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Tömítse le a helyreállítási partíciót</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Ellátás Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Fejezze be a telepítést és írjon naplókat</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Változók összegyűjtése</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Telepítés inicializálása</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Konfiguráció ellenőrzése</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Gyorsítótár ellenőrzése</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Lemez előkészítése</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Operációs rendszer letöltése</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Operációs rendszer alkalmazása</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Számítógépnév beállítása</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>OOBE konfigurálása</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Windows-helyreállítás konfigurálása</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Illesztőprogramok letöltése</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Illesztőprogramok kibontása</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Testreszabások előkészítése</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Illesztőprogramok alkalmazása</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Firmware letöltése</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Firmware alkalmazása</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Helyreállítási partíció lezárása</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Autopilot előkészítése</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Telepítés befejezése</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Telepítési változók gyűjtése...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Telepítési kontextus gyűjtése...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>A telepítési változók összegyűjtve.</value></data>
@@ -504,7 +504,7 @@ Folytatja a telepítést?</value></data>
     <value>Az interaktív Autopilot regisztrációs segéd előkészítve (szimuláció).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Távolítsa el a rendszerindító adathordozót, majd válassza az Újraindítás lehetőséget.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>A Windows opcion&#225;lis funkci&#243;inak konfigur&#225;l&#225;sa</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Opcionális funkciók konfigurálása</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>A Windows opcion&#225;lis szolg&#225;ltat&#225;sainak konfigur&#225;l&#225;sa...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>A funkci&#243;k &#225;llapot&#225;nak ellenőrz&#233;se...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>A megfelelő be&#225;ll&#237;t&#225;si m&#233;diaforr&#225;sok elők&#233;sz&#237;t&#233;se...</value></data>

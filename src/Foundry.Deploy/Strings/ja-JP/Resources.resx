@@ -183,25 +183,25 @@
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>必要な再起動実行可能ファイル「wpeutil.exe」が見つかりませんでした。</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>不明なステップ</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>エラーの詳細は提供されませんでした。</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>デプロイメント変数を収集する</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>デプロイメントワークスペースを初期化する</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>ターゲット構成を検証する</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>デプロイメントキャッシュを確認する</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>ターゲットディスクレイアウトの準備</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>オペレーティング システム イメージをダウンロードする</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>オペレーティング システム イメージを適用する</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>ターゲットコンピュータ名の構成</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>OOBE 設定を構成する</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>回復環境を構成する</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>ドライバーパックをダウンロードする</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>ドライバーパックを抽出する</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>OOBE 前の段階のカスタマイズ</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>ドライバーパックを適用する</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>ファームウェアアップデートをダウンロードする</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>ファームウェアアップデートを適用する</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>シール回収パーティション</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>プロビジョン Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>導入を完了してログを書き込む</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>変数を収集</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>展開を初期化</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>構成を検証</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>キャッシュを確認</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>ディスクを準備</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>オペレーティング システムをダウンロード</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>オペレーティング システムを適用</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>コンピューター名を設定</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>OOBE を構成</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Windows 回復を構成</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>ドライバーをダウンロード</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>ドライバーを展開</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>カスタマイズを準備</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>ドライバーを適用</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>ファームウェアをダウンロード</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>ファームウェアを適用</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>回復パーティションを封印</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Autopilot をプロビジョニング</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>展開を完了</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>デプロイメント変数を収集しています...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>デプロイメントコンテキストを収集しています...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>デプロイ変数が収集されました。</value></data>
@@ -504,7 +504,7 @@
     <value>対話型 Autopilot 登録アシスタントをステージングしました (シミュレーション)。</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>ブート メディアを取り外してから、[再起動] を選択してください。</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Windows のオプション機能を構成する</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>オプション機能を構成</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Windows のオプション機能を構成しています...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>機能の状態を検査しています...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>一致するセットアップ メディア ソースを準備しています...</value></data>

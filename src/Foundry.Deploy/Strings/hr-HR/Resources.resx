@@ -183,25 +183,25 @@ Nastaviti s implementacijom?</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Potrebna izvršna datoteka za ponovno pokretanje 'wpeutil.exe' nije pronađena.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Nepoznat korak</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>Nisu navedene pojedinosti o pogrešci.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Prikupite varijable implementacije</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Inicijalizirajte radni prostor za implementaciju</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Potvrdite konfiguraciju cilja</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Provjerite predmemoriju implementacije</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Pripremite ciljni izgled diska</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Preuzmite sliku operativnog sustava</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Primijeni sliku operativnog sustava</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Konfigurirajte naziv ciljnog računala</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Konfigurirajte OOBE postavke</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Konfigurirajte okruženje za oporavak</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Preuzmite paket upravljačkih programa</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Ekstrakt paketa vozača</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Faza prilagodbe prije OOBE</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Primijeni paket vozača</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Preuzmite ažuriranje firmvera</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Primijeni ažuriranje firmvera</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Pregrada za oporavak pečata</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Odredba Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Dovršite implementaciju i zapišite zapisnike</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Prikupi varijable</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Inicijaliziraj implementaciju</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Provjeri konfiguraciju</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Provjeri predmemoriju</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Pripremi disk</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Preuzmi operacijski sustav</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Primijeni operacijski sustav</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Postavi naziv računala</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Konfiguriraj OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Konfiguriraj oporavak sustava Windows</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Preuzmi upravljačke programe</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Raspakiraj upravljačke programe</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Pripremi prilagodbe</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Primijeni upravljačke programe</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Preuzmi firmver</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Primijeni firmver</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Zapečati particiju za oporavak</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Konfiguriraj Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Dovrši implementaciju</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Prikupljanje varijabli implementacije...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Prikupljanje konteksta implementacije...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Prikupljene varijable implementacije.</value></data>
@@ -504,7 +504,7 @@ Nastaviti s implementacijom?</value></data>
     <value>Interaktivni pomoćnik za registraciju Autopilota je pripremljen (simulacija).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Uklonite medij za pokretanje, a zatim odaberite Ponovno pokreni.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Konfigurirajte dodatne značajke sustava Windows</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Konfiguriraj dodatne značajke</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Konfiguriranje dodatnih značajki sustava Windows...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Provjera stanja značajki...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Priprema odgovarajućih izvora medija za postavljanje...</value></data>

@@ -183,25 +183,25 @@ Dağıtıma devam edilsin mi?</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Gerekli yeniden başlatma yürütülebilir dosyası 'wpeutil.exe' bulunamadı.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Bilinmeyen adım</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>Hiçbir hata ayrıntısı sağlanmadı.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Dağıtım değişkenlerini toplayın</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Dağıtım çalışma alanını başlat</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Hedef yapılandırmayı doğrula</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Dağıtım önbelleğini kontrol edin</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Hedef disk düzenini hazırlayın</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>İşletim sistemi görüntüsünü indirin</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>İşletim sistemi görüntüsünü uygula</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Hedef bilgisayar adını yapılandırın</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>OOBE ayarlarını yapılandırın</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Kurtarma ortamını yapılandırın</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Sürücü paketini indirin</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Sürücü paketini çıkart</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Sahne öncesi OOBE özelleştirmesi</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Sürücü paketini uygula</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Ürün yazılımı güncellemesini indirin</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Firmware güncellemesini uygula</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Mühür kurtarma bölümü</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Provizyon Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Dağıtımı sonlandırın ve günlükleri yazın</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Değişkenleri topla</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Dağıtımı başlat</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Yapılandırmayı doğrula</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Önbelleği kontrol et</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Diski hazırla</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>İşletim sistemini indir</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>İşletim sistemini uygula</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Bilgisayar adını ayarla</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>OOBE’yi yapılandır</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Windows kurtarmayı yapılandır</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Sürücüleri indir</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Sürücüleri çıkar</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Özelleştirmeleri hazırla</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Sürücüleri uygula</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Ürün yazılımını indir</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Ürün yazılımını uygula</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Kurtarma bölümünü mühürle</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Autopilot’u hazırla</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Dağıtımı tamamla</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Dağıtım değişkenleri toplanıyor...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Dağıtım bağlamı toplanıyor...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Dağıtım değişkenleri toplandı.</value></data>
@@ -504,7 +504,7 @@ Dağıtıma devam edilsin mi?</value></data>
     <value>Etkileşimli Autopilot kayıt yardımcısı hazırlandı (simülasyon).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Önyükleme medyasını çıkarın ve ardından Yeniden Başlat'ı seçin.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Windows isteğe bağlı &#246;zelliklerini yapılandırma</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>İsteğe bağlı özellikleri yapılandır</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Windows&#39;un isteğe bağlı &#246;zellikleri yapılandırılıyor...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>&#214;zellik durumları inceleniyor...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Eşleşen kurulum medya kaynakları hazırlanıyor...</value></data>

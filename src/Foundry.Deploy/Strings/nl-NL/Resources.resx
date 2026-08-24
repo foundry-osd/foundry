@@ -183,25 +183,25 @@ Doorgaan met de implementatie?</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Het vereiste herstartbare uitvoerbare bestand 'wpeutil.exe' is niet gevonden.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Onbekende stap</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>Er zijn geen foutdetails verstrekt.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Verzamel implementatievariabelen</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Initialiseer de implementatiewerkruimte</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Valideer de doelconfiguratie</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Controleer de implementatiecache</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Bereid de doelschijfindeling voor</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Download besturingssysteemimage</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Pas een besturingssysteemimage toe</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Configureer de naam van de doelcomputer</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Configureer OOBE instellingen</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Herstelomgeving configureren</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Driverpakket downloaden</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Pak het driverpakket uit</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Fase pre-OOBE-aanpassing</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Driverpakket toepassen</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Firmware-update downloaden</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Firmware-update toepassen</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Herstelpartitie afsluiten</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Voorziening Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Voltooi de implementatie en schrijf logboeken</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Variabelen verzamelen</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Implementatie initialiseren</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Configuratie valideren</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Cache controleren</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Schijf voorbereiden</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Besturingssysteem downloaden</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Besturingssysteem toepassen</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Computernaam instellen</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>OOBE configureren</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Windows-herstel configureren</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Drivers downloaden</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Drivers uitpakken</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Aanpassingen voorbereiden</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Drivers toepassen</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Firmware downloaden</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Firmware toepassen</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Recovery-partitie verzegelen</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Autopilot inrichten</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Implementatie voltooien</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Implementatievariabelen verzamelen...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Implementatiecontext verzamelen...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Implementatievariabelen verzameld.</value></data>
@@ -504,7 +504,7 @@ Doorgaan met de implementatie?</value></data>
     <value>Interactieve Autopilot-registratieassistent voorbereid (simulatie).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Verwijder het opstartmedium en selecteer vervolgens Opnieuw opstarten.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Configureer optionele Windows-functies</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Optionele functies configureren</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Optionele Windows-functies configureren...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Functiestatussen inspecteren...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Overeenkomende mediabronnen voorbereiden...</value></data>

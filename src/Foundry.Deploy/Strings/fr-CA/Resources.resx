@@ -183,25 +183,25 @@ Continuer le déploiement?</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>L'exécutable de redémarrage requis « wpeutil.exe » est introuvable.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Étape inconnue</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>Aucun détail d'erreur n'a été fourni.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Rassembler les variables de déploiement</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Initialiser l'espace de travail de déploiement</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Valider la configuration cible</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Vérifier le cache de déploiement</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Préparer la disposition du disque cible</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Télécharger l'image du système d'exploitation</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Appliquer l'image du système d'exploitation</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Configurer le nom de l'ordinateur cible</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Configurer les paramètres OOBE</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Configurer l'environnement de récupération</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Télécharger le pack de pilotes</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extraire le pack de pilotes</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Personnalisation de l'étape pré-OOBE</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Appliquer le pack de pilotes</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Télécharger la mise à jour du micrologiciel</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Appliquer la mise à jour du micrologiciel</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Cloison de récupération de joint</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Mise à disposition Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Finaliser le déploiement et rédiger les journaux</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Collecter les variables</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Initialiser le déploiement</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Valider la configuration</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Vérifier le cache</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Préparer le disque</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Télécharger le système d’exploitation</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Appliquer le système d’exploitation</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Définir le nom de l’ordinateur</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Configurer l’OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Configurer la récupération Windows</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Télécharger les pilotes</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extraire les pilotes</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Préparer les personnalisations</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Appliquer les pilotes</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Télécharger le micrologiciel</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Appliquer le micrologiciel</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Sceller la partition de récupération</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Provisionner Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Finaliser le déploiement</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Collecte des variables de déploiement...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Collecte du contexte de déploiement...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Variables de déploiement collectées.</value></data>
@@ -504,7 +504,7 @@ Continuer le déploiement?</value></data>
     <value>Assistant d&apos;enregistrement Autopilot interactif préparé (simulation).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Retirez le support de démarrage, puis sélectionnez Redémarrer.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Configurer les fonctionnalit&#233;s optionnelles de Windows</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Configurer les fonctionnalités optionnelles</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Configuration des fonctionnalit&#233;s optionnelles de Windows...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Inspection des &#233;tats des fonctionnalit&#233;s...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Pr&#233;paration des sources multim&#233;dias de configuration correspondantes...</value></data>

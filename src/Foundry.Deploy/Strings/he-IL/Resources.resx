@@ -183,25 +183,25 @@ ErrorCode=0x80070005
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>קובץ ההפעלה 'wpeutil.exe' הנדרש לא נמצא.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>צעד לא ידוע</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>לא נמסרו פרטי שגיאה.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>אסוף משתני פריסה</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>אתחול סביבת העבודה של הפריסה</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>אמת את תצורת היעד</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>בדוק את מטמון הפריסה</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>הכן פריסת דיסק יעד</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>הורד את תמונת מערכת ההפעלה</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>החל תמונת מערכת ההפעלה</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>הגדר את שם מחשב היעד</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>הגדר את הגדרות OOBE</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>הגדר סביבת שחזור</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>הורד חבילת מנהלי התקנים</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>חלץ חבילת דרייברים</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>שלב התאמה אישית לפני OOBE</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>החל חבילת נהגים</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>הורד עדכון קושחה</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>החל עדכון קושחה</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>אטום מחיצת שחזור</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>הפרשה Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>סיים את הפריסה וכתיבת יומנים</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>איסוף משתנים</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>אתחול פריסה</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>אימות תצורה</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>בדיקת מטמון</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>הכנת דיסק</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>הורדת מערכת הפעלה</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>החלת מערכת הפעלה</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>הגדרת שם מחשב</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>הגדרת OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>הגדרת שחזור Windows</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>הורדת מנהלי התקנים</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>חילוץ מנהלי התקנים</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>הכנת התאמות</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>החלת מנהלי התקנים</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>הורדת קושחה</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>החלת קושחה</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>איטום מחיצת שחזור</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>הכנת Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>סיום פריסה</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>אוסף משתני פריסה...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>אוסף את הקשר הפריסה...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>משתני פריסה נאספו.</value></data>
@@ -504,7 +504,7 @@ ErrorCode=0x80070005
     <value>מסייע הרישום האינטראקטיבי של Autopilot הוכן (סימולציה).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>הסר את מדיית האתחול ולאחר מכן בחר הפעל מחדש.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>הגדר תכונות אופציונליות של Windows</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>הגדרת תכונות אופציונליות</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>הגדרת תכונות אופציונליות של Windows...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>בודק מצבי תכונה...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>מכין מקורות מדיה תואמים להגדרה...</value></data>

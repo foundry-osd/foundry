@@ -183,25 +183,25 @@
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>未找到所需的重新启动可执行文件“wpeutil.exe”。</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>未知步骤</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>没有提供错误详细信息。</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>收集部署变量</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>初始化部署工作区</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>验证目标配置</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>检查部署缓存</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>准备目标磁盘布局</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>下载操作系统镜像</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>应用操作系统镜像</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>配置目标计算机名称</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>配置OOBE设置</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>配置恢复环境</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>下载驱动包</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>提取驱动包</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>阶段 OOBE 前定制</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>应用驱动包</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>下载固件更新</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>应用固件更新</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>密封回收分区</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>提供Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>完成部署并写入日志</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>收集变量</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>初始化部署</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>验证配置</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>检查缓存</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>准备磁盘</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>下载操作系统</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>应用操作系统</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>设置计算机名</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>配置 OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>配置 Windows 恢复</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>下载驱动程序</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>解压驱动程序</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>准备自定义项</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>应用驱动程序</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>下载固件</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>应用固件</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>封闭恢复分区</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>配置 Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>完成部署</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>正在收集部署变量...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>正在收集部署上下文...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>收集部署变量。</value></data>
@@ -504,7 +504,7 @@
     <value>交互式 Autopilot 注册助手已暂存（模拟）。</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>移除启动介质，然后选择“重启”。</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>配置 Windows 可选功能</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>配置可选功能</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>配置 Windows 可选功能...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>检查功能状态...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>正在准备匹配的设置媒体源...</value></data>

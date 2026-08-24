@@ -183,25 +183,25 @@ Pokračovať v nasadzovaní?</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Požadovaný reštartovací spustiteľný súbor „wpeutil.exe“ sa nenašiel.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Neznámy krok</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>Neboli poskytnuté žiadne podrobnosti o chybe.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Zhromaždite premenné nasadenia</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Inicializujte pracovný priestor nasadenia</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Overte konfiguráciu cieľa</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Skontrolujte vyrovnávaciu pamäť nasadenia</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Pripravte rozloženie cieľového disku</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Stiahnite si obrázok operačného systému</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Použiť obraz operačného systému</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Nakonfigurujte názov cieľového počítača</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Nakonfigurujte nastavenia OOBE</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Nakonfigurujte prostredie obnovy</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Stiahnite si balík ovládačov</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extrahujte balík ovládačov</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Fáza prispôsobenia pred OOBE</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Použiť balík ovládačov</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Stiahnite si aktualizáciu firmvéru</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Použiť aktualizáciu firmvéru</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Utesnite obnovovací oddiel</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Ustanovenie Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Dokončite nasadenie a zapíšte denníky</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Zhromaždi premenné</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Inicializuj nasadenie</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Over konfiguráciu</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Skontroluj vyrovnávaciu pamäť</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Priprav disk</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Stiahni operačný systém</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Aplikuj operačný systém</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Nastav názov počítača</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Konfiguruj OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Konfiguruj obnovenie Windows</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Stiahni ovládače</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Rozbaľ ovládače</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Priprav prispôsobenia</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Aplikuj ovládače</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Stiahni firmvér</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Aplikuj firmvér</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Uzavri obnovovaciu oblasť</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Priprav Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Dokonči nasadenie</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Zhromažďujú sa premenné nasadenia...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Zhromažďuje sa kontext nasadenia...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Zhromaždili sa premenné nasadenia.</value></data>
@@ -504,7 +504,7 @@ Pokračovať v nasadzovaní?</value></data>
     <value>Interaktívny asistent registrácie Autopilotu bol pripravený (simulácia).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Odstráňte zavádzacie médium a potom vyberte položku Reštartovať.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Nakonfigurujte voliteľn&#233; funkcie syst&#233;mu Windows</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Konfiguruj voliteľné funkcie</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Konfigur&#225;cia voliteľn&#253;ch funkci&#237; syst&#233;mu Windows...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Kontroluje sa stav funkci&#237;...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Pripravuj&#250; sa zodpovedaj&#250;ce zdroje m&#233;di&#237; nastavenia...</value></data>

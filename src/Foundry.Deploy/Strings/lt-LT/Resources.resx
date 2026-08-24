@@ -183,25 +183,25 @@ Tęsti diegimą?</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Reikalingas iš naujo paleisti vykdomasis failas „wpeutil.exe“ nerastas.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Nežinomas žingsnis</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>Išsamios informacijos apie klaidą nepateikta.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Surinkite diegimo kintamuosius</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Inicijuoti diegimo darbo sritį</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Patvirtinkite tikslo konfigūraciją</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Patikrinkite diegimo talpyklą</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Paruoškite tikslinio disko išdėstymą</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Atsisiųsti operacinės sistemos vaizdą</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Taikyti operacinės sistemos vaizdą</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Konfigūruokite tikslinio kompiuterio pavadinimą</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Konfigūruokite OOBE nustatymus</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Konfigūruoti atkūrimo aplinką</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Atsisiųsti tvarkyklės paketą</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Ištraukite tvarkyklės paketą</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Išankstinis OOBE pritaikymas</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Taikyti tvarkyklės paketą</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Atsisiųskite programinės įrangos naujinimą</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Taikykite programinės įrangos naujinimą</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Sandarinimo atkūrimo pertvara</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Suteikimas Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Užbaikite diegimą ir rašykite žurnalus</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Surink kintamuosius</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Inicializuok diegimą</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Patikrink konfigūraciją</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Patikrink talpyklą</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Paruošk diską</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Atsisiųsk operacinę sistemą</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Pritaikyk operacinę sistemą</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Nustatyk kompiuterio pavadinimą</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Konfigūruok OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Konfigūruok Windows atkūrimą</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Atsisiųsk tvarkykles</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Išskleisk tvarkykles</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Paruošk tinkinimus</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Pritaikyk tvarkykles</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Atsisiųsk programinę-aparatinę įrangą</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Pritaikyk programinę-aparatinę įrangą</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Užfiksuok atkūrimo skaidinį</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Paruošk Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Baik diegimą</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Renkami diegimo kintamieji...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Renkamas diegimo kontekstas...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Surinkti diegimo kintamieji.</value></data>
@@ -504,7 +504,7 @@ Tęsti diegimą?</value></data>
     <value>Interaktyvus Autopilot registracijos pagalbininkas paruoštas (modeliavimas).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Pašalinkite paleidimo laikmeną, tada pasirinkite Paleisti iš naujo.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Konfigūruokite pasirenkamas Windows funkcijas</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Konfigūruok pasirinktines funkcijas</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Konfigūruojamos pasirenkamos Windows funkcijos...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Tikrinamos funkcijos būsenos...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Ruošiami atitinkami sąrankos medijos šaltiniai...</value></data>

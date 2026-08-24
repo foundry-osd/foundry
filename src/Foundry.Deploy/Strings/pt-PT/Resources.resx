@@ -183,25 +183,25 @@ Continuar com a implantação?</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>O executável de reinicialização necessária 'wpeutil.exe' não foi encontrado.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Etapa desconhecida</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>Nenhum detalhe do erro foi fornecido.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Reúna variáveis de implantação</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Inicializar o espaço de trabalho de implantação</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Validar configuração de destino</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Verifique o cache de implantação</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Preparar o layout do disco de destino</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Baixar imagem do sistema operacional</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Aplicar imagem do sistema operacional</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Configurar o nome do computador de destino</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Definir configurações de OOBE</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Configurar ambiente de recuperação</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Baixe o pacote de drivers</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extrair pacote de driver</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Personalização pré-OOBE do estágio</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Aplicar pacote de driver</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Baixar atualização de firmware</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Aplicar atualização de firmware</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Recolher variáveis</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Inicializar implementação</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Validar configuração</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Verificar cache</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Preparar disco</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Descarregar sistema operativo</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Aplicar sistema operativo</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Definir nome do computador</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Configurar OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Configurar recuperação do Windows</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Descarregar controladores</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extrair controladores</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Preparar personalizações</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Aplicar controladores</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Descarregar firmware</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Aplicar firmware</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Selar partição de recuperação</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Provisão Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Finalizar a implantação e gravar logs</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Provisionar Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Concluir implementação</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Reunindo variáveis de implantação...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Coletando contexto de implantação...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Variáveis de implantação coletadas.</value></data>
@@ -504,7 +504,7 @@ Continuar com a implantação?</value></data>
     <value>Assistente de registo interativo do Autopilot preparado (simulação).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Remova o suporte de arranque e selecione Reiniciar.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Configurar as funcionalidades opcionais do Windows</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Configurar funcionalidades opcionais</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Configurando as caracter&#237;sticas opcionais do Windows...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Inspecionando estados de recursos...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Prepara&#231;&#227;o de fontes de media de configura&#231;&#227;o correspondentes...</value></data>

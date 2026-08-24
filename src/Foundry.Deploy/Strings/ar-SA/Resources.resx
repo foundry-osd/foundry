@@ -183,25 +183,25 @@
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>لم يتم العثور على الملف القابل للتنفيذ لإعادة التشغيل "wpeutil.exe".</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>خطوة غير معروفة</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>لم يتم تقديم تفاصيل الخطأ.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>جمع متغيرات النشر</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>تهيئة مساحة عمل النشر</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>التحقق من صحة التكوين المستهدف</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>تحقق من ذاكرة التخزين المؤقت للنشر</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>إعداد تخطيط القرص الهدف</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>تحميل صورة نظام التشغيل</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>تطبيق صورة نظام التشغيل</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>تكوين اسم الكمبيوتر الهدف</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>قم بتكوين إعدادات OOBE</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>تكوين بيئة الاسترداد</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>قم بتنزيل حزمة برامج التشغيل</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>استخراج حزمة برنامج التشغيل</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>مرحلة التخصيص المسبق لـ OOBE</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>تطبيق حزمة السائق</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>قم بتنزيل تحديث البرامج الثابتة</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>تطبيق تحديث البرامج الثابتة</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>جمع المتغيرات</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>تهيئة النشر</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>التحقق من التكوين</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>فحص ذاكرة التخزين المؤقت</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>إعداد القرص</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>تنزيل نظام التشغيل</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>تطبيق نظام التشغيل</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>تعيين اسم الكمبيوتر</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>تهيئة OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>تهيئة استرداد Windows</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>تنزيل برامج التشغيل</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>استخراج برامج التشغيل</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>تجهيز التخصيصات</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>تطبيق برامج التشغيل</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>تنزيل البرنامج الثابت</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>تطبيق البرنامج الثابت</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>ختم قسم الاسترداد</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>توفير Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>الانتهاء من النشر وكتابة السجلات</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>تجهيز Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>إنهاء النشر</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>جارٍ جمع متغيرات النشر...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>جارٍ جمع سياق النشر...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>تم جمع متغيرات النشر.</value></data>
@@ -504,7 +504,7 @@
     <value>تم تجهيز مساعد تسجيل Autopilot التفاعلي (محاكاة).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>أزل وسائط التمهيد، ثم حدد إعادة التشغيل.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>تكوين ميزات Windows الاختيارية</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>تهيئة الميزات الاختيارية</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>تكوين ميزات Windows الاختيارية...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>جارٍ فحص حالات الميزات...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>جارٍ تحضير مصادر وسائط الإعداد المطابقة...</value></data>

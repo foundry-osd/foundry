@@ -183,25 +183,25 @@ Fortsätt med implementeringen?</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Krävd omstart körbar "wpeutil.exe" hittades inte.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Okänt steg</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>Inga feldetaljer lämnades.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Samla in distributionsvariabler</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Initiera distributionsarbetsytan</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Validera målkonfiguration</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Kontrollera distributionscachen</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Förbered måldisklayouten</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Ladda ner operativsystemavbildning</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Använd operativsystemavbildning</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Konfigurera måldatorns namn</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Konfigurera OOBE inställningar</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Konfigurera återställningsmiljö</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Ladda ner drivrutinspaket</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extrahera drivrutinspaket</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Steg pre-OOBE anpassning</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Applicera drivrutinspaket</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Ladda ner firmwareuppdatering</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Applicera firmwareuppdatering</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Försegla återställningspartition</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Provision Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Slutför distributionen och skriv loggar</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Samla variabler</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Initiera distribution</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Validera konfiguration</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Kontrollera cache</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Förbered disk</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Ladda ner operativsystem</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Tillämpa operativsystem</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Ange datornamn</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Konfigurera OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Konfigurera Windows-återställning</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Ladda ner drivrutiner</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extrahera drivrutiner</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Förbered anpassningar</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Tillämpa drivrutiner</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Ladda ner firmware</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Tillämpa firmware</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Försegla återställningspartitionen</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Provisionera Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Slutför distribution</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Samlar in implementeringsvariabler...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Samlar in implementeringskontext...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Driftsättningsvariabler samlade in.</value></data>
@@ -504,7 +504,7 @@ Fortsätt med implementeringen?</value></data>
     <value>Den interaktiva Autopilot-registreringsassistenten har förberetts (simulering).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Ta bort startmediet och välj sedan Starta om.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Konfigurera Windows valfria funktioner</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Konfigurera valfria funktioner</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Konfigurerar Windows valfria funktioner...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Inspekterar funktionstillst&#229;nd...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>F&#246;rbereder matchande konfigurationsmediek&#228;llor...</value></data>

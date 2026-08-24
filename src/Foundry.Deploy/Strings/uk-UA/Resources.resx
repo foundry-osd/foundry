@@ -183,25 +183,25 @@ ErrorCode=0x80070005
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Виконуваний файл wpeutil.exe, необхідний для перезавантаження, не знайдено.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Невідомий крок</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>Деталі помилки не надано.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Зберіть змінні розгортання</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Ініціалізація робочої області розгортання</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Перевірте цільову конфігурацію</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Перевірте кеш розгортання</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Підготуйте макет цільового диска</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Завантажити образ операційної системи</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Застосувати образ операційної системи</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Налаштуйте ім'я цільового комп'ютера</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Налаштуйте параметри OOBE</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Налаштувати середовище відновлення</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Завантажте пакет драйверів</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Витягти пакет драйверів</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Етап налаштування до OOBE</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Застосувати пакет драйверів</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Завантажте оновлення прошивки</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Застосувати оновлення мікропрограми</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Перегородка відновлення ущільнення</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Положення Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Завершити розгортання та записати журнали</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Збір змінних</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Ініціалізація розгортання</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Перевірка конфігурації</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Перевірка кешу</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Підготовка диска</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Завантаження операційної системи</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Застосування операційної системи</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Налаштування імені комп’ютера</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Налаштування OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Налаштування відновлення Windows</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Завантаження драйверів</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Розпакування драйверів</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Підготовка налаштувань</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Застосування драйверів</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Завантаження прошивки</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Застосування прошивки</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Запечатування розділу відновлення</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Підготовка Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Завершення розгортання</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Збір змінних розгортання...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Збір контексту розгортання...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Змінні розгортання зібрано.</value></data>
@@ -504,7 +504,7 @@ ErrorCode=0x80070005
     <value>Інтерактивний помічник реєстрації Autopilot підготовлено (симуляція).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Вийміть завантажувальний носій, а потім виберіть «Перезавантажити».</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Налаштування додаткових функцій Windows</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Налаштування додаткових компонентів</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Налаштування додаткових функцій Windows...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Перевірка станів функцій...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Підготовка відповідних медіаджерел налаштування...</value></data>

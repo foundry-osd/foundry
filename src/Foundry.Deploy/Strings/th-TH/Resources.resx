@@ -183,25 +183,25 @@
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>ไม่พบไฟล์ปฏิบัติการรีบูตที่จำเป็น 'wpeutil.exe'</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>ขั้นตอนที่ไม่รู้จัก</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>ไม่มีการระบุรายละเอียดข้อผิดพลาด</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>รวบรวมตัวแปรการปรับใช้</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>เตรียมข้อมูลเบื้องต้นพื้นที่ทำงานการปรับใช้</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>ตรวจสอบการกำหนดค่าเป้าหมาย</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>ตรวจสอบแคชการปรับใช้</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>เตรียมเค้าโครงดิสก์เป้าหมาย</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>ดาวน์โหลดภาพระบบปฏิบัติการ</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>ใช้อิมเมจระบบปฏิบัติการ</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>กำหนดค่าชื่อคอมพิวเตอร์เป้าหมาย</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>กำหนดการตั้งค่า OOBE</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>กำหนดค่าสภาพแวดล้อมการกู้คืน</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>ดาวน์โหลดชุดไดรเวอร์</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>แยกชุดไดรเวอร์</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>การปรับแต่งสเตจก่อน OOBE</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>ใช้ชุดไดรเวอร์</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>ดาวน์โหลดอัพเดตเฟิร์มแวร์</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>ใช้การอัพเดตเฟิร์มแวร์</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>พาร์ติชั่นการกู้คืนซีล</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>เสบียง Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>ดำเนินการปรับใช้ให้เสร็จสิ้นและเขียนบันทึก</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>รวบรวมตัวแปร</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>เริ่มต้นการปรับใช้</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>ตรวจสอบการกำหนดค่า</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>ตรวจสอบแคช</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>เตรียมดิสก์</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>ดาวน์โหลดระบบปฏิบัติการ</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>ติดตั้งระบบปฏิบัติการ</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>ตั้งชื่อคอมพิวเตอร์</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>ตั้งค่า OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>ตั้งค่าการกู้คืน Windows</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>ดาวน์โหลดไดรเวอร์</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>แยกไฟล์ไดรเวอร์</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>เตรียมการปรับแต่ง</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>ใช้ไดรเวอร์</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>ดาวน์โหลดเฟิร์มแวร์</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>ใช้เฟิร์มแวร์</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>ซีลพาร์ติชันการกู้คืน</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>เตรียม Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>เสร็จสิ้นการปรับใช้</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>กำลังรวบรวมตัวแปรการปรับใช้...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>กำลังรวบรวมบริบทการปรับใช้...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>รวบรวมตัวแปรการปรับใช้แล้ว</value></data>
@@ -504,7 +504,7 @@
     <value>จัดเตรียมผู้ช่วยลงทะเบียน Autopilot แบบโต้ตอบแล้ว (การจำลอง)</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>นำสื่อสำหรับบูตออก แล้วเลือก รีสตาร์ต</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>กำหนดค่าคุณสมบัติเสริมของ Windows</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>ตั้งค่าฟีเจอร์เสริม</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>กำลังกำหนดค่าคุณสมบัติเสริมของ Windows...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>กำลังตรวจสอบสถานะฟีเจอร์...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>กำลังเตรียมแหล่งสื่อการตั้งค่าที่ตรงกัน...</value></data>

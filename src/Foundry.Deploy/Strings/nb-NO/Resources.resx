@@ -183,25 +183,25 @@ Vil du fortsette med distribusjonen?</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Nødvendig omstart kjørbar 'wpeutil.exe' ble ikke funnet.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Ukjent trinn</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>Ingen feildetaljer ble oppgitt.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Samle distribusjonsvariabler</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Initialiser arbeidsområdet for distribusjon</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Valider målkonfigurasjon</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Sjekk distribusjonsbufferen</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Forbered måldisklayout</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Last ned bilde av operativsystemet</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Bruk operativsystembilde</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Konfigurer navnet på måldatamaskinen</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Konfigurer OOBE-innstillinger</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Konfigurer gjenopprettingsmiljø</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Last ned driverpakke</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Pakk ut driverpakke</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Stage pre-OOBE-tilpasning</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Bruk driverpakke</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Last ned fastvareoppdatering</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Bruk fastvareoppdatering</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Samle variabler</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Initialiser utrulling</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Valider konfigurasjon</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Kontroller cache</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Forbered disk</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Last ned operativsystem</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Installer operativsystem</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Angi datamaskinnavn</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Konfigurer OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Konfigurer Windows-gjenoppretting</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Last ned drivere</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Pakk ut drivere</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Forbered tilpasninger</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Installer drivere</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Last ned firmware</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Installer firmware</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Forsegl gjenopprettingspartisjon</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Avsetning Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Fullfør distribusjon og skriv logger</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Provisioner Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Fullfør utrulling</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Samler inn distribusjonsvariabler...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Samler inn implementeringskontekst …</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Implementeringsvariabler samlet.</value></data>
@@ -504,7 +504,7 @@ Vil du fortsette med distribusjonen?</value></data>
     <value>Den interaktive Autopilot-registreringsassistenten er klargjort (simulering).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Fjern oppstartsmediet, og velg deretter Start på nytt.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Konfigurer valgfrie Windows-funksjoner</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Konfigurer valgfrie funksjoner</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Konfigurerer valgfrie Windows-funksjoner...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Inspiserer funksjonstilstander...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Forbereder samsvarende mediekilder for oppsett ...</value></data>
