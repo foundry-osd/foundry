@@ -173,7 +173,7 @@ public sealed class XamlResourceLoadingTests
                 Assert.NotSame(
                     DependencyProperty.UnsetValue,
                     driverPackSourceList.ReadLocalValue(Control.BorderThicknessProperty));
-                Assert.Equal(new Thickness(0, 1, 0, 0), driverPackSourceList.Padding);
+                Assert.Equal(new Thickness(0, 4, 0, 0), driverPackSourceList.Padding);
                 Assert.Equal("\uE753", autopilotHeader.Glyph);
 
                 var verticalStepTemplate = Assert.IsType<DataTemplate>(
