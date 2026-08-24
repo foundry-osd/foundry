@@ -15,6 +15,7 @@
         <ScrollViewer x:Name="PageContentScrollViewer"
             Grid.Row="1"
             HorizontalScrollBarVisibility="Disabled"
+            Style="{StaticResource ScrollViewerContentGutterStyle}"
             VerticalScrollBarVisibility="Auto">
             <ItemsControl ItemsSource="{Binding SummaryCategories}">
                 <ItemsControl.ItemTemplate>

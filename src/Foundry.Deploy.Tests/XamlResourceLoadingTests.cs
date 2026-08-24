@@ -4,6 +4,7 @@
 
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 using Foundry.Deploy.Controls;
@@ -90,10 +91,13 @@ public sealed class XamlResourceLoadingTests
                 var firmwareSeparator = Assert.IsType<Separator>(targetStepView.FindName("FirmwareSeparator"));
                 var targetComputerNameTextBox = Assert.IsType<TextBox>(
                     targetStepView.FindName("TargetComputerNameTextBox"));
-                targetStepView.Measure(new Size(980, 700));
-                targetStepView.Arrange(new Rect(0, 0, 980, 700));
+                targetStepView.Measure(new Size(980, 500));
+                targetStepView.Arrange(new Rect(0, 0, 980, 500));
                 targetStepView.UpdateLayout();
                 var targetDiskComboBox = Assert.Single(FindVisualDescendants<ComboBox>(targetStepView));
+                var targetVerticalScrollBar = Assert.Single(
+                    FindVisualDescendants<ScrollBar>(targetContentScroller),
+                    scrollBar => scrollBar.Orientation == Orientation.Vertical && scrollBar.Maximum > 0);
                 Point computerNameOrigin = targetComputerNameTextBox.TranslatePoint(new Point(), targetStepView);
                 Point targetDiskOrigin = targetDiskComboBox.TranslatePoint(new Point(), targetStepView);
                 Point diskNoticeOrigin = diskEraseNotice.TranslatePoint(new Point(), targetStepView);
@@ -107,6 +111,13 @@ public sealed class XamlResourceLoadingTests
                     diskNoticeOrigin.X + diskEraseNotice.ActualWidth,
                     targetDiskOrigin.X + targetDiskComboBox.ActualWidth,
                     precision: 3);
+                double diskNoticeRight = diskEraseNotice.TranslatePoint(
+                    new Point(diskEraseNotice.ActualWidth, 0),
+                    targetStepView).X;
+                double scrollBarLeft = targetVerticalScrollBar.TranslatePoint(new Point(), targetStepView).X;
+                Assert.True(
+                    diskNoticeRight <= scrollBarLeft,
+                    $"Scrollable content ends at {diskNoticeRight}, under the scrollbar starting at {scrollBarLeft}.");
                 Assert.Equal("\uE772", targetHeader.Glyph);
                 var targetHeaderGlyph = Assert.Single(
                     FindVisualDescendants<TextBlock>(targetHeader),

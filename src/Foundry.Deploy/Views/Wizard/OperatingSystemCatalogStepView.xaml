@@ -14,6 +14,7 @@
         <ScrollViewer x:Name="PageContentScrollViewer"
             Grid.Row="1"
             HorizontalScrollBarVisibility="Disabled"
+            Style="{StaticResource ScrollViewerContentGutterStyle}"
             VerticalScrollBarVisibility="Auto">
             <WrapPanel ItemWidth="340">
                 <StackPanel Margin="0,0,24,16">

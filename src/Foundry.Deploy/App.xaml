@@ -12,8 +12,8 @@
             <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
             <converters:OsCatalogFilterDisplayConverter x:Key="OsCatalogFilterDisplayConverter" />
 
-            <Style x:Key="ScrollViewerContentGutterBorderStyle"
-                TargetType="Border">
+            <Style x:Key="ScrollViewerContentGutterStyle"
+                TargetType="ScrollViewer">
                 <Setter
                     Property="Padding"
                     Value="0" />
