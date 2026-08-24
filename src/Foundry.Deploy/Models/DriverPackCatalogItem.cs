@@ -21,6 +21,7 @@ public sealed record DriverPackCatalogItem
     public string OsReleaseId { get; init; } = string.Empty;
     public string OsArchitecture { get; init; } = string.Empty;
     public IReadOnlyList<string> ModelNames { get; init; } = Array.Empty<string>();
+    public IReadOnlyList<string> SystemIds { get; init; } = Array.Empty<string>();
     public string Sha256 { get; init; } = string.Empty;
 
     public string DisplayLabel =>

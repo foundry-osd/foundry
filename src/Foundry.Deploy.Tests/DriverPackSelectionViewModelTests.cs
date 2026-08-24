@@ -76,10 +76,55 @@ public sealed class DriverPackSelectionViewModelTests
         Assert.Equal("23h2", selected?.Id);
     }
 
+    [Fact]
+    public void ResolveEffectiveSelection_WhenLenovoModelsShareMarketingName_SelectsMatchingMachineType()
+    {
+        var viewModel = new DriverPackSelectionViewModel(
+            new DriverPackSelectionService(NullLogger<DriverPackSelectionService>.Instance),
+            new LocalizationService(),
+            "x64");
+        HardwareProfile hardware = new()
+        {
+            Manufacturer = "Lenovo",
+            Model = "21Y6000JMX",
+            Product = "ThinkPad E14 Gen 8"
+        };
+        OperatingSystemCatalogItem operatingSystem = new()
+        {
+            WindowsRelease = "11",
+            ReleaseId = "25H2",
+            Architecture = "x64"
+        };
+
+        viewModel.UpdateSelectionContext(hardware, operatingSystem, "x64");
+        viewModel.ApplyCatalog(
+        [
+            CreateCatalogItem(
+                "21y2-21y3",
+                "25H2",
+                new DateTimeOffset(2026, 05, 19, 0, 0, 0, TimeSpan.Zero),
+                "ThinkPad E14 Gen 8 Type 21Y2 21Y3",
+                ["21Y2", "21Y3"]),
+            CreateCatalogItem(
+                "21y6-21y7",
+                "25H2",
+                new DateTimeOffset(2026, 04, 28, 0, 0, 0, TimeSpan.Zero),
+                "ThinkPad E14 Gen 8 Type 21Y6 21Y7",
+                ["21Y6", "21Y7"])
+        ]);
+
+        DriverPackCatalogItem? selected = viewModel.ResolveEffectiveSelection();
+
+        Assert.Equal("ThinkPad E14 Gen 8 Type 21Y6 21Y7", viewModel.SelectedDriverPackModel);
+        Assert.Equal("21y6-21y7", selected?.Id);
+    }
+
     private static DriverPackCatalogItem CreateCatalogItem(
         string id,
         string releaseId,
-        DateTimeOffset releaseDate)
+        DateTimeOffset releaseDate,
+        string modelName = "ThinkPad X13 Yoga Gen 3 Type 21AW 21AX",
+        IReadOnlyList<string>? systemIds = null)
     {
         return new DriverPackCatalogItem
         {
@@ -92,7 +137,8 @@ public sealed class DriverPackSelectionViewModelTests
             OsReleaseId = releaseId,
             OsArchitecture = "x64",
             ReleaseDate = releaseDate,
-            ModelNames = ["ThinkPad X13 Yoga Gen 3 Type 21AW 21AX"]
+            ModelNames = [modelName],
+            SystemIds = systemIds ?? []
         };
     }
 }
