@@ -155,7 +155,7 @@ public sealed class LocalizationResourceTests
             tryParents: false);
 
         Assert.NotNull(resourceSet);
-        Assert.Equal("Deployment completed", resourceSet.GetString("Success.Completed"));
+        Assert.Equal("Deployment complete", resourceSet.GetString("Success.Completed"));
         Assert.Equal("Failed step: {0}", resourceSet.GetString("Error.FailedStepFormat"));
         Assert.Equal("View error details", resourceSet.GetString("Error.ViewTechnicalDetails"));
         Assert.Equal("Error details", resourceSet.GetString("Error.TechnicalDetailsTitle"));

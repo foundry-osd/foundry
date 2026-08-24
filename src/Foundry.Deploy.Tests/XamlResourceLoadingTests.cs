@@ -176,7 +176,7 @@ public sealed class XamlResourceLoadingTests
                 Assert.Same(application.FindResource("TitleTextBlockStyle"), successTitle.Style);
                 Assert.Same(application.FindResource("TitleTextBlockStyle"), errorTitle.Style);
 
-                successTitle.Text = "Deployment completed";
+                successTitle.Text = "Deployment complete";
                 successInstruction.Text = "Remove the boot media, then select Reboot.";
                 successTitle.Visibility = Visibility.Visible;
                 successGlyph.Visibility = Visibility.Visible;

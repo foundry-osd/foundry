@@ -134,7 +134,7 @@ Action: Verify disk attributes and retry deployment.</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Networking</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Start time</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Elapsed time</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>Deployment completed</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Deployment complete</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>This computer will restart in {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Reboot</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Deployment failed</value></data>
