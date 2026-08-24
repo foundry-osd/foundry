@@ -162,7 +162,6 @@ public sealed class XamlResourceLoadingTests
                         "Wizard.Step.TargetDevice"),
                     "Target device",
                     displayNumber: 1,
-                    isFirst: true,
                     isLast: false)
                 {
                     IsCompleted = true,
@@ -221,7 +220,6 @@ public sealed class XamlResourceLoadingTests
                         "Wizard.Step.Drivers"),
                     "Drivers",
                     displayNumber: 3,
-                    isFirst: false,
                     isLast: false)
                 {
                     IsEnabled = false,

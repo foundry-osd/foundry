@@ -29,10 +29,6 @@
   <data name="Language.English" xml:space="preserve"><value>อังกฤษ</value></data>
   <data name="Language.French" xml:space="preserve"><value>ฝรั่งเศส</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>เปิดไฟล์บันทึก</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. เป้าหมาย</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. ระบบปฏิบัติการ</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. ชุดไดรเวอร์</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. สรุป</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>ชื่อคอมพิวเตอร์</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 ตัวอักษร A-Z, a-z, 0-9 และขีดกลางเท่านั้น</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>ชื่อคอมพิวเตอร์ต้องมีอักขระที่ถูกต้อง 1 ถึง 15 ตัว (ตัวอักษร ตัวเลข หรือยัติภังค์)</value></data>
@@ -63,7 +59,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>เครื่องปรับอากาศ</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>กำลังโหลดดิสก์เป้าหมาย...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>การค้นพบดิสก์เป้าหมายล้มเหลว: {0}</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>ระบบปฏิบัติการ</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>เวอร์ชัน</value></data>
 <data name="Catalog.Media" xml:space="preserve"><value>การอัปเดต Windows</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (ล่าสุด)</value></data>
@@ -74,7 +69,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>กำลังโหลดแคตตาล็อก...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>แคตตาล็อกที่โหลด: {0} รายการระบบปฏิบัติการ, {1} ชุดไดรเวอร์</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>โหลดแคตตาล็อกล้มเหลว: {0}</value></data>
-  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>แหล่งที่มาของไดรเวอร์</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>รุ่น</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>เวอร์ชัน</value></data>
@@ -139,7 +133,6 @@
   <data name="Success.RebootNow" xml:space="preserve"><value>รีบูต</value></data>
   <data name="Error.Title" xml:space="preserve"><value>การทำให้ใช้งานได้ล้มเหลว</value></data>
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>ขั้นตอนที่ล้มเหลว: {0}</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>ข้อความแสดงข้อผิดพลาด</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>ยินดีต้อนรับ</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>กำลังเริ่มต้นส่วนประกอบ...</value></data>
   <data name="Splash.Start" xml:space="preserve"><value>เริ่ม</value></data>
@@ -589,7 +582,6 @@
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>ยินดีต้อนรับสู่ Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>เซสชัน</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>ขั้นตอน</value></data>
-  <data name="Progress.CurrentOperation" xml:space="preserve"><value>การดำเนินการปัจจุบัน</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>ความคืบหน้าการปรับใช้โดยรวม</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>ขั้นตอนการปรับใช้</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>ดูรายละเอียดข้อผิดพลาด</value></data>

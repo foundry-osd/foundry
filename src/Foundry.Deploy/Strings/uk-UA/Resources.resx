@@ -29,10 +29,6 @@
   <data name="Language.English" xml:space="preserve"><value>англійська</value></data>
   <data name="Language.French" xml:space="preserve"><value>французька</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Відкрити файл журналу</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Цільовий</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Операційна система</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Пакет драйверів</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Підведення підсумків</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Ім'я комп'ютера</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 символів. A–Z, a–z, 0–9 і лише дефіс.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Ім’я комп’ютера має містити від 1 до 15 дійсних символів (літери, цифри або дефіс).</value></data>
@@ -63,7 +59,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Завантаження цільових дисків...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Не вдалося знайти цільовий диск: {0}</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Операційна система</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Версія</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Оновлення Windows</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Найновіше)</value></data>
@@ -74,7 +69,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Завантаження каталогів...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Завантажено каталоги: {0} записи операційної системи, {1} пакети драйверів.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Помилка завантаження каталогу: {0}</value></data>
-  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Джерело драйвера</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Модель</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Версія</value></data>
@@ -139,7 +133,6 @@ ErrorCode=0x80070005
   <data name="Success.RebootNow" xml:space="preserve"><value>Перезавантаження</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Помилка розгортання</value></data>
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>Невдалий крок: {0}</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>Повідомлення про помилку</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Ласкаво просимо</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Ініціалізація компонентів...</value></data>
   <data name="Splash.Start" xml:space="preserve"><value>старт</value></data>
@@ -572,7 +565,6 @@ ErrorCode=0x80070005
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Ласкаво просимо до Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Сеанс</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Кроки</value></data>
-  <data name="Progress.CurrentOperation" xml:space="preserve"><value>Поточна операція</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Загальний прогрес розгортання</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Кроки розгортання</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Переглянути відомості про помилку</value></data>

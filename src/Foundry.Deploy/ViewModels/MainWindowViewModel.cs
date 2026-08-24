@@ -119,7 +119,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
     }
     public DeploymentWizardStepId CurrentWizardStepId => WizardSteps[WizardStepIndex].Id;
-    public bool IsTargetDeviceStep => CurrentWizardStepId == DeploymentWizardStepId.TargetDevice;
     public bool IsOperatingSystemStep => CurrentWizardStepId == DeploymentWizardStepId.OperatingSystem;
     public bool IsDriversStep => CurrentWizardStepId == DeploymentWizardStepId.Drivers;
     public bool IsAutopilotStep => CurrentWizardStepId == DeploymentWizardStepId.Autopilot;
@@ -526,7 +525,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     {
         UpdateWizardStepStates();
         OnPropertyChanged(nameof(CurrentWizardStepId));
-        OnPropertyChanged(nameof(IsTargetDeviceStep));
         OnPropertyChanged(nameof(IsOperatingSystemStep));
         OnPropertyChanged(nameof(IsDriversStep));
         OnPropertyChanged(nameof(IsAutopilotStep));
@@ -553,7 +551,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 definition,
                 GetWizardStepTitle(definition.Id),
                 index + 1,
-                index == 0,
                 index == definitions.Count - 1));
         }
 

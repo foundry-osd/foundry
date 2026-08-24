@@ -29,10 +29,6 @@
   <data name="Language.English" xml:space="preserve"><value>אנגלית</value></data>
   <data name="Language.French" xml:space="preserve"><value>צרפתית</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>פתח קובץ יומן</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. יעד</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. מערכת הפעלה</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. חבילת דרייברים</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. סיכום</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>שם המחשב</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 תווים. A-Z, a-z, 0-9 ומקף בלבד.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>שם המחשב חייב להכיל 1 עד 15 תווים חוקיים (אותיות, מספרים או מקף).</value></data>
@@ -63,7 +59,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>טוען דיסקי יעד...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>גילוי דיסק יעד נכשל: {0}</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>מערכת הפעלה</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>גרסה</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>עדכון Windows</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (העדכנית ביותר)</value></data>
@@ -74,7 +69,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>טוען קטלוגים...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>קטלוגים נטענים: {0} ערכי מערכת הפעלה, {1} חבילות מנהלי התקנים.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>טעינת הקטלוג נכשלה: {0}</value></data>
-  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>מקור מנהל ההתקן</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>דגם</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>גרסה</value></data>
@@ -139,7 +133,6 @@ ErrorCode=0x80070005
   <data name="Success.RebootNow" xml:space="preserve"><value>אתחול מחדש</value></data>
   <data name="Error.Title" xml:space="preserve"><value>הפריסה נכשלה</value></data>
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>שלב שנכשל: {0}</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>הודעת שגיאה</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>ברוך הבא</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>מאתחל רכיבים...</value></data>
   <data name="Splash.Start" xml:space="preserve"><value>התחל</value></data>
@@ -589,7 +582,6 @@ ErrorCode=0x80070005
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>ברוכים הבאים ל-Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>הפעלת פריסה</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>שלבים</value></data>
-  <data name="Progress.CurrentOperation" xml:space="preserve"><value>פעולה נוכחית</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>התקדמות הפריסה הכוללת</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>שלבי פריסה</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>הצג פרטי שגיאה</value></data>

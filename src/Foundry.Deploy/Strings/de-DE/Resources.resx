@@ -29,10 +29,6 @@
   <data name="Language.English" xml:space="preserve"><value>Englisch</value></data>
   <data name="Language.French" xml:space="preserve"><value>Französisch</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Protokolldatei öffnen</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Ziel</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Betriebssystem</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Treiberpaket</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Zusammenfassung</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Computername</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 Zeichen. Nur A-Z, a-z, 0-9 und Bindestrich.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Der Computername muss 1 bis 15 gültige Zeichen (Buchstaben, Zahlen oder Bindestriche) enthalten.</value></data>
@@ -63,7 +59,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>Wechselstrom</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Zieldatenträger werden geladen...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Erkennung des Ziellaufwerks fehlgeschlagen: {0}</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Betriebssystem</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Version</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Windows-Update</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Aktuellstes)</value></data>
@@ -74,7 +69,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Kataloge werden geladen...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Geladene Kataloge: {0} Betriebssystemeinträge, {1} Treiberpakete.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Laden des Katalogs fehlgeschlagen: {0}</value></data>
-  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Treiberquelle</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Modell</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Version</value></data>
@@ -139,7 +133,6 @@ Aktion: Überprüfen Sie die Festplattenattribute und wiederholen Sie die Bereit
   <data name="Success.RebootNow" xml:space="preserve"><value>Neustart</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Die Bereitstellung ist fehlgeschlagen</value></data>
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>Fehlgeschlagener Schritt: {0}</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>Fehlermeldung</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Willkommen</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Komponenten werden initialisiert...</value></data>
   <data name="Splash.Start" xml:space="preserve"><value>Starten</value></data>
@@ -572,7 +565,6 @@ Mit der Bereitstellung fortfahren?</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Willkommen bei Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Bereitstellungssitzung</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Schritte</value></data>
-  <data name="Progress.CurrentOperation" xml:space="preserve"><value>Aktueller Vorgang</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Gesamtfortschritt der Bereitstellung</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Bereitstellungsschritte</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Fehlerdetails anzeigen</value></data>

@@ -46,11 +46,9 @@ public sealed class DeploymentWizardStepDefinitionTests
             definition,
             "Operating system",
             displayNumber: 2,
-            isFirst: false,
             isLast: true);
 
         Assert.Equal(2, step.DisplayNumber);
-        Assert.False(step.IsFirst);
         Assert.True(step.IsLast);
     }
 }

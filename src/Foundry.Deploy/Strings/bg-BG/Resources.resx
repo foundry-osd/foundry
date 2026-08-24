@@ -29,10 +29,6 @@
   <data name="Language.English" xml:space="preserve"><value>английски</value></data>
   <data name="Language.French" xml:space="preserve"><value>френски</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Отворете регистрационния файл</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Цел</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Операционна система</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Пакет драйвери</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Обобщение</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Име на компютъра</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 знака. A-Z, a-z, 0-9 и само тире.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Името на компютъра трябва да съдържа от 1 до 15 валидни знака (букви, цифри или тире).</value></data>
@@ -63,7 +59,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Целевите дискове се зареждат...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Неуспешно откриване на целевия диск: {0}</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Операционна система</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Версия</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Актуализация на Windows</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (най-скорошен)</value></data>
@@ -74,7 +69,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Каталозите се зареждат...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Заредени каталози: {0} записи на операционната система, {1} пакети с драйвери.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Неуспешно зареждане на каталог: {0}</value></data>
-  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Източник на драйвер</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Модел</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Версия</value></data>
@@ -139,7 +133,6 @@
   <data name="Success.RebootNow" xml:space="preserve"><value>Рестартирайте</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Внедряването не бе успешно</value></data>
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>Неуспешна стъпка: {0}</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>Съобщение за грешка</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Добре дошли</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Компонентите се инициализират...</value></data>
   <data name="Splash.Start" xml:space="preserve"><value>Започнете</value></data>
@@ -536,7 +529,7 @@
   <data name="Common.Edit" xml:space="preserve"><value>Редактиране</value></data>
   <data name="Common.Copy" xml:space="preserve"><value>Копиране</value></data>
   <data name="Common.Close" xml:space="preserve"><value>Затваряне</value></data>
-  <data name="TargetDevice.Title" xml:space="preserve"><value>Прицелно устройство</value></data>
+  <data name="TargetDevice.Title" xml:space="preserve"><value>Целево устройство</value></data>
   <data name="TargetDevice.Firmware" xml:space="preserve"><value>Актуализации на фърмуера</value></data>
   <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>Не се предлага на виртуални машини</value></data>
   <data name="OperatingSystem.Title" xml:space="preserve"><value>Операционна система</value></data>
@@ -572,7 +565,6 @@
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Добре дошли в Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Сесия</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Стъпки</value></data>
-  <data name="Progress.CurrentOperation" xml:space="preserve"><value>Текуща операция</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Цялостен напредък на внедряването</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Стъпки за внедряване</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Преглед на подробностите за грешката</value></data>

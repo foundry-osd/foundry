@@ -29,10 +29,6 @@
   <data name="Language.English" xml:space="preserve"><value>angličtina</value></data>
   <data name="Language.French" xml:space="preserve"><value>francúzsky</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Otvorte súbor denníka</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Cieľ</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operačný systém</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Balík ovládačov</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Zhrnutie</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Názov počítača</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 znakov. Iba A-Z, a-z, 0-9 a spojovník.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Názov počítača musí obsahovať 1 až 15 platných znakov (písmená, čísla alebo spojovník).</value></data>
@@ -63,7 +59,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Načítavam cieľové disky...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Zistenie cieľového disku zlyhalo: {0}</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operačný systém</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Verzia</value></data>
 <data name="Catalog.Media" xml:space="preserve"><value>Aktualizácia Windows</value></data>
 <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Najnovšia)</value></data>
@@ -74,7 +69,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Načítavajú sa katalógy...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Načítané katalógy: {0} položky operačného systému, {1} balíky ovládačov.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Načítanie katalógu zlyhalo: {0}</value></data>
-  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Zdroj ovládača</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Model</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Verzia</value></data>
@@ -139,7 +133,6 @@ Akcia: Overte atribúty disku a zopakujte nasadenie.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Reštartujte</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Nasadenie zlyhalo</value></data>
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>Neúspešný krok: {0}</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>Chybové hlásenie</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Vitajte</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Inicializujú sa komponenty...</value></data>
   <data name="Splash.Start" xml:space="preserve"><value>Štart</value></data>
@@ -572,7 +565,6 @@ Pokračovať v nasadzovaní?</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Vitajte vo Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Relácia nasadenia</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Kroky</value></data>
-  <data name="Progress.CurrentOperation" xml:space="preserve"><value>Aktuálna operácia</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Celkový priebeh nasadenia</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Kroky nasadenia</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Zobraziť podrobnosti o chybe</value></data>

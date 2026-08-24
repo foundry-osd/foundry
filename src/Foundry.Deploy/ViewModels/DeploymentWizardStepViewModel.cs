@@ -13,20 +13,17 @@ public partial class DeploymentWizardStepViewModel : ObservableObject
         DeploymentWizardStepDefinition definition,
         string title,
         int displayNumber,
-        bool isFirst,
         bool isLast)
     {
         Definition = definition;
         Title = title;
         DisplayNumber = displayNumber;
-        IsFirst = isFirst;
         IsLast = isLast;
     }
 
     public DeploymentWizardStepDefinition Definition { get; }
     public DeploymentWizardStepId Id => Definition.Id;
     public int DisplayNumber { get; }
-    public bool IsFirst { get; }
     public bool IsLast { get; }
 
     [ObservableProperty]

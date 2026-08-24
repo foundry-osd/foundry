@@ -29,10 +29,6 @@
   <data name="Language.English" xml:space="preserve"><value>engelsk</value></data>
   <data name="Language.French" xml:space="preserve"><value>fransk</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Åpne loggfilen</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Mål</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operativsystem</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Driverpakke</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Sammendrag</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Datamaskinnavn</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 tegn. A-Z, a-z, 0-9 og bare bindestrek.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Datamaskinnavnet må inneholde 1 til 15 gyldige tegn (bokstaver, tall eller bindestrek).</value></data>
@@ -63,7 +59,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Laster inn måldisker...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Oppdaging av måldisk mislyktes: {0}</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operativsystem</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versjon</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Windows-oppdatering</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Nyeste)</value></data>
@@ -74,7 +69,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Laster kataloger...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Kataloger lastet: {0} operativsystemoppføringer, {1} driverpakker.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Kataloginnlasting mislyktes: {0}</value></data>
-  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Driverkilde</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Modell</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Versjon</value></data>
@@ -139,7 +133,6 @@ Handling: Bekreft diskattributter og prøv distribusjon på nytt.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Start på nytt</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Implementeringen mislyktes</value></data>
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>Mislykket trinn: {0}</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>Feilmelding</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Velkommen</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Initialiserer komponenter...</value></data>
   <data name="Splash.Start" xml:space="preserve"><value>Start</value></data>
@@ -572,7 +565,6 @@ Vil du fortsette med distribusjonen?</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Velkommen til Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Distribusjonsøkt</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Trinn</value></data>
-  <data name="Progress.CurrentOperation" xml:space="preserve"><value>Gjeldende operasjon</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Generell distribusjonsfremgang</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Distribusjonstrinn</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Vis feildetaljer</value></data>

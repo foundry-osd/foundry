@@ -29,10 +29,6 @@
   <data name="Language.English" xml:space="preserve"><value>engleză</value></data>
   <data name="Language.French" xml:space="preserve"><value>francez</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Deschideți fișierul jurnal</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Țintă</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Sistem de operare</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Pachet de șoferi</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Rezumat</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Numele computerului</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 caractere. A-Z, a-z, 0-9 și numai cratima.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Numele computerului trebuie să conțină între 1 și 15 caractere valide (litere, cifre sau cratimă).</value></data>
@@ -63,7 +59,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Se încarcă discurile țintă...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Descoperirea discului țintă a eșuat: {0}</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Sistem de operare</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versiune</value></data>
 <data name="Catalog.Media" xml:space="preserve"><value>Actualizare Windows</value></data>
 <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Cea mai recentă)</value></data>
@@ -74,7 +69,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Se încarcă cataloagele...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Cataloage încărcate: {0} intrări ale sistemului de operare, {1} pachete de drivere.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Încărcarea catalogului a eșuat: {0}</value></data>
-  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Sursa driverului</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Model</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Versiune</value></data>
@@ -139,7 +133,6 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
   <data name="Success.RebootNow" xml:space="preserve"><value>Reporniți</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Implementarea a eșuat</value></data>
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>Pas nereușit: {0}</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>Mesaj de eroare</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Bun venit</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Initializarea componentelor...</value></data>
   <data name="Splash.Start" xml:space="preserve"><value>Începeți</value></data>
@@ -572,7 +565,6 @@ Continuați cu implementarea?</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Bun venit la Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Sesiune de implementare</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Pași</value></data>
-  <data name="Progress.CurrentOperation" xml:space="preserve"><value>Operațiune curentă</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Progresul general al implementării</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Pași de implementare</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Vedeți detaliile erorii</value></data>

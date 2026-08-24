@@ -93,9 +93,6 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     private bool isGlobalProgressIndeterminate = true;
 
     [ObservableProperty]
-    private string globalProgressPercentText = "0%";
-
-    [ObservableProperty]
     private string currentStepName = LocalizationText.GetString("Status.WaitingForDeployment");
 
     [ObservableProperty]
@@ -151,7 +148,6 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     public bool IsDeploymentStatusPage => CurrentPage is DeploymentPage.Progress or DeploymentPage.Success or DeploymentPage.Error;
 
     public bool IsStartupReady => !IsStartupInitializing;
-    public bool IsAutomaticRebootEnabled => _rebootPolicy.AutomaticRebootEnabled;
     public ObservableCollection<DeploymentTimelineEntryViewModel> TimelineEntries => _timelineTracker.Entries;
 
     public int PlannedStepCount => _deploymentOrchestrator.PlannedSteps.Count;
@@ -167,7 +163,6 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         _rebootPolicy = rebootPolicy;
         RebootCountdownSeconds = rebootPolicy.DelaySeconds;
         OnPropertyChanged(nameof(CompletionInstructionText));
-        OnPropertyChanged(nameof(IsAutomaticRebootEnabled));
     }
 
     public void SetComputerName(string computerName)
@@ -422,7 +417,6 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     private void UpdateGlobalProgressVisuals(int progressValue)
     {
         int clampedProgress = Math.Clamp(progressValue, 0, 100);
-        GlobalProgressPercentText = $"{clampedProgress}%";
         IsGlobalProgressIndeterminate = _isDeploymentInProgress && clampedProgress <= 0;
     }
 

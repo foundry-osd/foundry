@@ -29,10 +29,6 @@
   <data name="Language.English" xml:space="preserve"><value>angleščina</value></data>
   <data name="Language.French" xml:space="preserve"><value>francosko</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Odpri datoteko dnevnika</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Tarča</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operacijski sistem</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Paket voznikov</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Povzetek</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Ime računalnika</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 znakov. Samo A-Z, a-z, 0-9 in vezaj.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Ime računalnika mora vsebovati od 1 do 15 veljavnih znakov (črke, številke ali vezaji).</value></data>
@@ -63,7 +59,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Nalaganje ciljnih diskov...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Odkrivanje ciljnega diska ni uspelo: {0}</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operacijski sistem</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Različica</value></data>
 <data name="Catalog.Media" xml:space="preserve"><value>Posodobitev sistema Windows</value></data>
 <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Najnovejša)</value></data>
@@ -74,7 +69,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Nalaganje katalogov...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Naloženi katalogi: {0} vnosi operacijskega sistema, {1} paketi gonilnikov.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Nalaganje kataloga ni uspelo: {0}</value></data>
-  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Vir gonilnika</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Model</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Različica</value></data>
@@ -139,7 +133,6 @@ Ukrep: Preverite atribute diska in znova poskusite razmestiti.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Znova zaženite</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Razmestitev ni uspela</value></data>
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>Neuspešen korak: {0}</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>Sporočilo o napaki</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>dobrodošli</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Inicializacija komponent...</value></data>
   <data name="Splash.Start" xml:space="preserve"><value>Začetek</value></data>
@@ -572,7 +565,6 @@ Ali želite nadaljevati z uvajanjem?</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Dobrodošli v Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Seja uvajanja</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Koraki</value></data>
-  <data name="Progress.CurrentOperation" xml:space="preserve"><value>Trenutna operacija</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Splošni napredek uvajanja</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Koraki uvajanja</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Prikaži podrobnosti napake</value></data>

@@ -29,10 +29,6 @@
   <data name="Language.English" xml:space="preserve"><value>英语</value></data>
   <data name="Language.French" xml:space="preserve"><value>法语</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>打开日志文件</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. 目标</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2、操作系统</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3.驱动包</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. 总结</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>计算机名称</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 个字符。仅 A-Z、a-z、0-9 和连字符。</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>计算机名称必须包含 1 到 15 个有效字符（字母、数字或连字符）。</value></data>
@@ -63,7 +59,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>交流电</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>正在加载目标磁盘...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>目标磁盘发现失败：{0}</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>操作系统</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>版本</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Windows 更新</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0}（最新）</value></data>
@@ -74,7 +69,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>正在加载目录...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>加载的目录：{0}操作系统条目、{1}驱动程序包。</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>目录加载失败：{0}</value></data>
-  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>驱动源码</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>型号</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>版本</value></data>
@@ -139,7 +133,6 @@
   <data name="Success.RebootNow" xml:space="preserve"><value>重新启动</value></data>
   <data name="Error.Title" xml:space="preserve"><value>部署失败</value></data>
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>失败的步骤：{0}</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>错误信息</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>欢迎</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>正在初始化组件...</value></data>
   <data name="Splash.Start" xml:space="preserve"><value>开始</value></data>
@@ -589,7 +582,6 @@
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>欢迎来到 Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>会话</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>步骤</value></data>
-  <data name="Progress.CurrentOperation" xml:space="preserve"><value>当前操作</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>总体部署进度</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>部署步骤</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>查看错误详细信息</value></data>

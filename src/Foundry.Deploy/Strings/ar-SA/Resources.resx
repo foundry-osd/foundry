@@ -29,10 +29,6 @@
   <data name="Language.English" xml:space="preserve"><value>الإنجليزية</value></data>
   <data name="Language.French" xml:space="preserve"><value>الفرنسية</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>فتح ملف السجل</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. الهدف</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. نظام التشغيل</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. حزمة السائق</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. ملخص</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>اسم الكمبيوتر</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 حرفا. A-Z، وa-z، و0-9، والواصلة فقط.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>يجب أن يحتوي اسم الكمبيوتر على من 1 إلى 15 حرفًا صالحًا (أحرف أو أرقام أو واصلة).</value></data>
@@ -63,7 +59,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>تكييف</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>جارٍ تحميل الأقراص المستهدفة...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>فشل اكتشاف القرص الهدف: {0}</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>نظام التشغيل</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>الإصدار</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>تحديث Windows</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (الأحدث)</value></data>
@@ -74,7 +69,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>جارٍ تحميل الكتالوجات...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>الكتالوجات المحملة: {0} إدخالات نظام التشغيل، {1} حزم برامج التشغيل.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>فشل تحميل الكتالوج: {0}</value></data>
-  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>مصدر السائق</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>نموذج</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>الإصدار</value></data>
@@ -139,7 +133,6 @@
   <data name="Success.RebootNow" xml:space="preserve"><value>إعادة التشغيل</value></data>
   <data name="Error.Title" xml:space="preserve"><value>فشل النشر</value></data>
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>الخطوة الفاشلة: {0}</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>رسالة خطأ</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>مرحبًا</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>تهيئة المكونات...</value></data>
   <data name="Splash.Start" xml:space="preserve"><value>ابدأ</value></data>
@@ -589,7 +582,6 @@
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>مرحبًا بك في Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>جلسة النشر</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>الخطوات</value></data>
-  <data name="Progress.CurrentOperation" xml:space="preserve"><value>العملية الحالية</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>تقدم النشر الإجمالي</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>خطوات النشر</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>عرض تفاصيل الخطأ</value></data>

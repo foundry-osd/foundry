@@ -29,10 +29,6 @@
   <data name="Language.English" xml:space="preserve"><value>englanti</value></data>
   <data name="Language.French" xml:space="preserve"><value>ranskalainen</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Avaa lokitiedosto</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Kohde</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Käyttöjärjestelmä</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Ohjainpaketti</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Yhteenveto</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Tietokoneen nimi</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 merkkiä. Vain A-Z, a-z, 0-9 ja tavuviiva.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Tietokoneen nimessä on oltava 1–15 kelvollista merkkiä (kirjaimia, numeroita tai tavuviivaa).</value></data>
@@ -63,7 +59,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Ladataan kohdelevyjä...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Kohdelevyn etsintä epäonnistui: {0}</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Käyttöjärjestelmä</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versio</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Windows-päivitys</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (uusin)</value></data>
@@ -74,7 +69,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Ladataan luetteloita...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Ladatut luettelot: {0} käyttöjärjestelmämerkinnät, {1} ohjainpaketit.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Katalogin lataus epäonnistui: {0}</value></data>
-  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Kuljettajan lähde</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Malli</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Versio</value></data>
@@ -139,7 +133,6 @@ Toimi: Tarkista levyn attribuutit ja yritä käyttöönottoa uudelleen.</value><
   <data name="Success.RebootNow" xml:space="preserve"><value>Käynnistä uudelleen</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Käyttöönotto epäonnistui</value></data>
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>Epäonnistunut vaihe: {0}</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>Virheilmoitus</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Tervetuloa</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Komponentteja alustetaan...</value></data>
   <data name="Splash.Start" xml:space="preserve"><value>Aloita</value></data>
@@ -572,7 +565,6 @@ Jatketaanko käyttöönottoa?</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Tervetuloa Foundry Deploy-palveluun</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Käyttöönottoistunto</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Vaiheet</value></data>
-  <data name="Progress.CurrentOperation" xml:space="preserve"><value>Nykyinen toiminto</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Käyttöönoton yleinen edistyminen</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Käyttöönoton vaiheet</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Näytä virheen tiedot</value></data>

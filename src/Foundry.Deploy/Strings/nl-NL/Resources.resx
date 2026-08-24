@@ -29,10 +29,6 @@
   <data name="Language.English" xml:space="preserve"><value>Engels</value></data>
   <data name="Language.French" xml:space="preserve"><value>Frans</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Logbestand openen</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Doel</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Besturingssysteem</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Driverpakket</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Samenvatting</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Computernaam</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 tekens. Alleen A-Z, a-z, 0-9 en koppelteken.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>De computernaam moet 1 tot 15 geldige tekens bevatten (letters, cijfers of koppelteken).</value></data>
@@ -63,7 +59,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Doelschijven laden...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Detectie van doelschijf mislukt: {0}</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Besturingssysteem</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versie</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Windows-update</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Meest recent)</value></data>
@@ -74,7 +69,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Catalogi laden...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Geladen catalogi: {0} besturingssysteemgegevens, {1} driverpakketten.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Catalogus laden mislukt: {0}</value></data>
-  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Bron van stuurprogramma</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Model</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Versie</value></data>
@@ -139,7 +133,6 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
   <data name="Success.RebootNow" xml:space="preserve"><value>Opnieuw opstarten</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Implementatie is mislukt</value></data>
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>Mislukte stap: {0}</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>Foutmelding</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Welkom</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Componenten initialiseren...</value></data>
   <data name="Splash.Start" xml:space="preserve"><value>Begin</value></data>
@@ -572,7 +565,6 @@ Doorgaan met de implementatie?</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Welkom bij Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Implementatiesessie</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Stappen</value></data>
-  <data name="Progress.CurrentOperation" xml:space="preserve"><value>Huidige bewerking</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Algemene voortgang van de implementatie</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Implementatiestappen</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Foutdetails weergeven</value></data>

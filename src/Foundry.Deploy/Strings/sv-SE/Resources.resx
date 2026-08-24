@@ -29,10 +29,6 @@
   <data name="Language.English" xml:space="preserve"><value>engelska</value></data>
   <data name="Language.French" xml:space="preserve"><value>franska</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Öppna loggfilen</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Mål</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operativsystem</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Förarpaket</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Sammanfattning</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Datornamn</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 tecken. A-Z, a-z, 0-9 och endast bindestreck.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Datornamnet måste innehålla 1 till 15 giltiga tecken (bokstäver, siffror eller bindestreck).</value></data>
@@ -63,7 +59,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Laddar måldiskar...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Måldiskupptäckt misslyckades: {0}</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operativsystem</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Version</value></data>
 <data name="Catalog.Media" xml:space="preserve"><value>Windows-uppdatering</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Senaste)</value></data>
@@ -74,7 +69,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Laddar kataloger...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Kataloger laddade: {0} operativsystemposter, {1} drivrutinspaket.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Katalogladdning misslyckades: {0}</value></data>
-  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Drivrutinkälla</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Modell</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Version</value></data>
@@ -139,7 +133,6 @@ Detaljer: Åtkomst nekad vid montering av bild till målsökväg.
   <data name="Success.RebootNow" xml:space="preserve"><value>Starta om</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Implementeringen misslyckades</value></data>
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>Misslyckat steg: {0}</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>Felmeddelande</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Välkommen</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Initierar komponenter...</value></data>
   <data name="Splash.Start" xml:space="preserve"><value>Starta</value></data>
@@ -572,7 +565,6 @@ Fortsätt med implementeringen?</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Välkommen till Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Distributionssession</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Steg</value></data>
-  <data name="Progress.CurrentOperation" xml:space="preserve"><value>Pågående åtgärd</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Övergripande distributionsförlopp</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Distributionssteg</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Visa felinformation</value></data>

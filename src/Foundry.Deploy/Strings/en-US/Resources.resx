@@ -29,10 +29,6 @@
   <data name="Language.English" xml:space="preserve"><value>English</value></data>
   <data name="Language.French" xml:space="preserve"><value>French</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Open log file</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Target</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operating system</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Driver pack</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Summary</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Computer name</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 characters. A-Z, a-z, 0-9, and hyphen only.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Computer name must contain 1 to 15 valid characters (letters, numbers, or hyphen).</value></data>
@@ -63,7 +59,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Loading target disks...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Target disk discovery failed: {0}</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operating system</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Version</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Windows update</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Latest)</value></data>
@@ -74,7 +69,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Loading catalogs...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Catalogs loaded: {0} operating system entries, {1} driver packs.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Catalog load failed: {0}</value></data>
-  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Driver source</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Model</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Version</value></data>
@@ -140,7 +134,6 @@ Action: Verify disk attributes and retry deployment.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Reboot</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Deployment failed</value></data>
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>Failed step: {0}</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>Error message</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Welcome</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Initializing components...</value></data>
   <data name="Splash.Start" xml:space="preserve"><value>Start</value></data>
@@ -589,7 +582,6 @@ Continue with deployment?</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Welcome to Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Session</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Steps</value></data>
-  <data name="Progress.CurrentOperation" xml:space="preserve"><value>Current operation</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Overall deployment progress</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Deployment steps</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>View error details</value></data>

@@ -88,7 +88,6 @@ public sealed class LocalizationResourceTests
         "Splash.WelcomeDeploy",
         "Progress.Session",
         "Progress.Timeline",
-        "Progress.CurrentOperation",
         "Progress.RingAutomationName",
         "Progress.TimelineAutomationName",
         "Error.FailedStepFormat",

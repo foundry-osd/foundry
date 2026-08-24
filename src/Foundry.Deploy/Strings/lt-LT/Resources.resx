@@ -29,10 +29,6 @@
   <data name="Language.English" xml:space="preserve"><value>anglų kalba</value></data>
   <data name="Language.French" xml:space="preserve"><value>prancūzų</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Atidaryti žurnalo failą</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Taikinys</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operacinė sistema</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Vairuotojo paketas</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Santrauka</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Kompiuterio pavadinimas</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 simbolių. Tik A–Z, a–z, 0–9 ir brūkšneliu.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Kompiuterio pavadinime turi būti nuo 1 iki 15 galiojančių simbolių (raidžių, skaičių arba brūkšnelio).</value></data>
@@ -63,7 +59,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Įkeliami tiksliniai diskai...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Nepavyko aptikti tikslinio disko: {0}</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operacinė sistema</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versija</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Windows naujinimas</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Naujausia)</value></data>
@@ -74,7 +69,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Įkeliami katalogai...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Įkelti katalogai: {0} operacinės sistemos įrašai, {1} tvarkyklių paketai.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Katalogo įkėlimas nepavyko: {0}</value></data>
-  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Vairuotojo šaltinis</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Modelis</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Versija</value></data>
@@ -139,7 +133,6 @@ Veiksmas: patikrinkite disko atributus ir bandykite iš naujo įdiegti.</value><
   <data name="Success.RebootNow" xml:space="preserve"><value>Perkraukite</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Diegimas nepavyko</value></data>
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>Nepavykęs veiksmas: {0}</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>Klaidos pranešimas</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Sveiki atvykę</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Inicijuojami komponentai...</value></data>
   <data name="Splash.Start" xml:space="preserve"><value>Pradėti</value></data>
@@ -572,7 +565,6 @@ Tęsti diegimą?</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Sveiki atvykę į Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Diegimo seansas</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Veiksmai</value></data>
-  <data name="Progress.CurrentOperation" xml:space="preserve"><value>Dabartinė operacija</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Bendra diegimo pažanga</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Diegimo veiksmai</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Peržiūrėti klaidos informaciją</value></data>
