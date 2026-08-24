@@ -95,7 +95,10 @@ public sealed class XamlResourceLoadingTests
                 var targetHeaderGlyph = Assert.Single(
                     FindVisualDescendants<TextBlock>(targetHeader),
                     textBlock => textBlock.Text == targetHeader.Glyph);
+                var targetHeaderLayout = Assert.IsType<Grid>(targetHeader.Content);
                 Assert.Equal(32, targetHeaderGlyph.FontSize);
+                Assert.Equal(new GridLength(40), targetHeaderLayout.ColumnDefinitions[0].Width);
+                Assert.Equal(new GridLength(16), targetHeaderLayout.ColumnDefinitions[1].Width);
                 Assert.Equal(new Thickness(0, 0, 0, 32), targetHeader.Margin);
                 Assert.Same(application.FindResource("SubtitleTextBlockStyle"), deploymentSettings.Style);
                 Assert.Same(application.FindResource("SubtitleTextBlockStyle"), deviceInventory.Style);

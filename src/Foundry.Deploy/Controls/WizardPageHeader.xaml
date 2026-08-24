@@ -4,7 +4,7 @@
     Margin="0,0,0,32">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="32" />
+            <ColumnDefinition Width="40" />
             <ColumnDefinition Width="16" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
