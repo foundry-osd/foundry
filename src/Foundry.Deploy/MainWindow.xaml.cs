@@ -4,8 +4,7 @@
 
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
+using Foundry.Deploy.Motion;
 using Foundry.Deploy.ViewModels;
 
 namespace Foundry.Deploy;
@@ -47,11 +46,11 @@ public partial class MainWindow : Window
         DeploymentPage currentPage = _viewModel.Session.CurrentPage;
         if (currentPage == DeploymentPage.Wizard)
         {
-            AnimatePage(MainContentHost, MainContentTransform);
+            TransitionAnimator.FadeAndTranslateY(MainContentHost, MainContentTransform, 12);
         }
         else if (IsStatusPage(currentPage) && !IsStatusPage(_previousPage))
         {
-            AnimatePage(DeploymentStatusHost, DeploymentStatusTransform);
+            TransitionAnimator.FadeAndTranslateY(DeploymentStatusHost, DeploymentStatusTransform, 12);
         }
 
         _previousPage = currentPage;
@@ -62,20 +61,4 @@ public partial class MainWindow : Window
         return page is DeploymentPage.Progress or DeploymentPage.Success or DeploymentPage.Error;
     }
 
-    private static void AnimatePage(UIElement element, TranslateTransform transform)
-    {
-        element.BeginAnimation(OpacityProperty, null);
-        transform.BeginAnimation(TranslateTransform.XProperty, null);
-
-        var duration = TimeSpan.FromMilliseconds(220);
-        var easing = new QuadraticEase { EasingMode = EasingMode.EaseOut };
-        element.BeginAnimation(
-            OpacityProperty,
-            new DoubleAnimation(0, 1, duration) { EasingFunction = easing },
-            HandoffBehavior.SnapshotAndReplace);
-        transform.BeginAnimation(
-            TranslateTransform.XProperty,
-            new DoubleAnimation(14, 0, duration) { EasingFunction = easing },
-            HandoffBehavior.SnapshotAndReplace);
-    }
 }

@@ -5,8 +5,8 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
+using Foundry.Deploy.Motion;
 
 namespace Foundry.Deploy.Controls;
 
@@ -99,22 +99,12 @@ public partial class TerminalStatusGlyph : UserControl
 
     private void PlayEntranceAnimation()
     {
-        GlyphHost.BeginAnimation(OpacityProperty, null);
-        GlyphScale.BeginAnimation(ScaleTransform.ScaleXProperty, null);
-        GlyphScale.BeginAnimation(ScaleTransform.ScaleYProperty, null);
-
-        var duration = TimeSpan.FromMilliseconds(220);
-        var easing = new QuadraticEase { EasingMode = EasingMode.EaseOut };
-        GlyphHost.BeginAnimation(OpacityProperty, new DoubleAnimation(0.45, 1, duration), HandoffBehavior.SnapshotAndReplace);
-        GlyphScale.BeginAnimation(ScaleTransform.ScaleXProperty, new DoubleAnimation(0.94, 1, duration) { EasingFunction = easing }, HandoffBehavior.SnapshotAndReplace);
-        GlyphScale.BeginAnimation(ScaleTransform.ScaleYProperty, new DoubleAnimation(0.94, 1, duration) { EasingFunction = easing }, HandoffBehavior.SnapshotAndReplace);
+        TransitionAnimator.FadeAndScale(GlyphHost, GlyphScale, 0.94, 0.45);
     }
 
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
-        GlyphHost.BeginAnimation(OpacityProperty, null);
-        GlyphScale.BeginAnimation(ScaleTransform.ScaleXProperty, null);
-        GlyphScale.BeginAnimation(ScaleTransform.ScaleYProperty, null);
+        TransitionAnimator.Clear(GlyphHost, GlyphScale);
         SystemParameters.StaticPropertyChanged -= OnSystemParametersChanged;
     }
 }

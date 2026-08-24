@@ -5,8 +5,7 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
+using Foundry.Deploy.Motion;
 using Foundry.Deploy.ViewModels;
 
 namespace Foundry.Deploy.Views;
@@ -39,14 +38,12 @@ public partial class SplashView : UserControl
             AttachSession(viewModel.Session);
         }
 
-        AnimateElement(LandingContent, LandingTransform, 14);
     }
 
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
         DetachSession();
-        LandingContent.BeginAnimation(OpacityProperty, null);
-        LandingTransform.BeginAnimation(TranslateTransform.YProperty, null);
+        TransitionAnimator.Clear(LandingActionHost, LandingActionTransform);
     }
 
     private void AttachSession(DeploymentSessionViewModel session)
@@ -74,26 +71,10 @@ public partial class SplashView : UserControl
 
     private void OnSessionPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(DeploymentSessionViewModel.IsStartupInitializing))
+        if (e.PropertyName == nameof(DeploymentSessionViewModel.IsStartupInitializing) &&
+            sender is DeploymentSessionViewModel { IsStartupInitializing: false })
         {
-            AnimateElement(LandingActionHost, LandingActionTransform, 8);
+            TransitionAnimator.FadeAndTranslateY(LandingActionHost, LandingActionTransform, 8);
         }
-    }
-
-    private static void AnimateElement(UIElement element, TranslateTransform? transform, double offset)
-    {
-        element.BeginAnimation(OpacityProperty, null);
-        transform?.BeginAnimation(TranslateTransform.YProperty, null);
-
-        var duration = TimeSpan.FromMilliseconds(220);
-        var easing = new QuadraticEase { EasingMode = EasingMode.EaseOut };
-        element.BeginAnimation(
-            OpacityProperty,
-            new DoubleAnimation(0, 1, duration) { EasingFunction = easing },
-            HandoffBehavior.SnapshotAndReplace);
-        transform?.BeginAnimation(
-            TranslateTransform.YProperty,
-            new DoubleAnimation(offset, 0, duration) { EasingFunction = easing },
-            HandoffBehavior.SnapshotAndReplace);
     }
 }

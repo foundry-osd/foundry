@@ -68,6 +68,13 @@ public sealed class XamlResourceLoadingTests
                 narrowWizardView.UpdateLayout();
                 Assert.Equal(Visibility.Visible, narrowVerticalStepper.Visibility);
 
+                var splashView = new SplashView();
+                var landingContent = Assert.IsType<Grid>(splashView.FindName("LandingContent"));
+                splashView.RaiseEvent(new RoutedEventArgs(FrameworkElement.LoadedEvent));
+                Assert.False(
+                    landingContent.HasAnimatedProperties,
+                    "The Welcome page should be stable when the application opens.");
+
                 var verticalStepTemplate = Assert.IsType<DataTemplate>(
                     wizardView.FindResource("VerticalStepTemplate"));
                 var completedStep = new DeploymentWizardStepViewModel(
@@ -153,8 +160,11 @@ public sealed class XamlResourceLoadingTests
 
                 var deploymentStatusView = new DeploymentStatusView();
                 var stepsRail = Assert.IsType<Grid>(deploymentStatusView.FindName("StepsRail"));
+                var centralStateHost = Assert.IsType<Grid>(deploymentStatusView.FindName("CentralStateHost"));
                 Assert.Equal(VerticalAlignment.Center, stepsRail.VerticalAlignment);
                 Assert.Equal(720, stepsRail.MaxHeight);
+                Assert.IsType<ScaleTransform>(centralStateHost.RenderTransform);
+                Assert.Equal(new Point(0.5, 0.5), centralStateHost.RenderTransformOrigin);
 
                 var summaryStepView = new SummaryStepView();
                 var summaryRoot = Assert.IsType<StackPanel>(summaryStepView.Content);

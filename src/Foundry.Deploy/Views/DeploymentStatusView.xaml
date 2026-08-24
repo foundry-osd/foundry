@@ -154,108 +154,113 @@
             </Grid>
         </Grid>
 
-        <Grid
-            Width="180"
-            Height="180"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center">
-            <Grid Visibility="{Binding IsProgressPage, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <controls:CustomProgressRing x:Name="OverallProgressRing"
-                    AutomationProperties.Name="{Binding Strings[Progress.RingAutomationName]}"
-                    IsIndeterminate="{Binding IsGlobalProgressIndeterminate}"
-                    ProgressBrush="{DynamicResource AccentFillColorDefaultBrush}"
-                    Thickness="14"
-                    TrackBrush="{DynamicResource ControlStrongFillColorDefaultBrush}"
-                    Value="{Binding DeploymentProgress}" />
-                <TextBlock
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource TitleLargeTextBlockStyle}"
-                    Text="{Binding DisplayedValue, ElementName=OverallProgressRing, StringFormat={}{0:0}%}" />
-            </Grid>
-            <controls:TerminalStatusGlyph
-                AutomationName="{Binding Strings[Success.Completed]}"
-                IsSuccess="True"
-                Visibility="{Binding IsSuccessPage, Converter={StaticResource BooleanToVisibilityConverter}}" />
-            <controls:TerminalStatusGlyph
-                AutomationName="{Binding Strings[Error.Title]}"
-                IsSuccess="False"
-                Visibility="{Binding IsErrorPage, Converter={StaticResource BooleanToVisibilityConverter}}" />
-        </Grid>
-
-        <Grid x:Name="StateContent"
-            Width="430"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            AutomationProperties.LiveSetting="Polite">
+        <Grid x:Name="CentralStateHost"
+            RenderTransformOrigin="0.5,0.5">
             <Grid.RenderTransform>
-                <TranslateTransform x:Name="StateContentTransform"
-                    Y="155" />
+                <ScaleTransform x:Name="CentralStateScale" />
             </Grid.RenderTransform>
-            <StackPanel Visibility="{Binding IsProgressPage, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <TextBlock
-                    HorizontalAlignment="Center"
-                    Style="{StaticResource SubtitleTextBlockStyle}"
-                    Text="{Binding CurrentStepName}"
-                    TextAlignment="Center"
-                    TextWrapping="Wrap" />
-                <ProgressBar
-                    Height="4"
-                    Margin="20,16,20,8"
-                    IsIndeterminate="{Binding IsCurrentStepProgressIndeterminate}"
-                    Maximum="100"
-                    Style="{StaticResource DeployProgressBarStyle}"
-                    Value="{Binding CurrentStepProgress}" />
-                <TextBlock
-                    HorizontalAlignment="Center"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{Binding CurrentStepProgressText}"
-                    TextAlignment="Center"
-                    TextWrapping="Wrap" />
-            </StackPanel>
+            <Grid
+                Width="180"
+                Height="180"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                <Grid Visibility="{Binding IsProgressPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <controls:CustomProgressRing x:Name="OverallProgressRing"
+                        AutomationProperties.Name="{Binding Strings[Progress.RingAutomationName]}"
+                        IsIndeterminate="{Binding IsGlobalProgressIndeterminate}"
+                        ProgressBrush="{DynamicResource AccentFillColorDefaultBrush}"
+                        Thickness="14"
+                        TrackBrush="{DynamicResource ControlStrongFillColorDefaultBrush}"
+                        Value="{Binding DeploymentProgress}" />
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource TitleLargeTextBlockStyle}"
+                        Text="{Binding DisplayedValue, ElementName=OverallProgressRing, StringFormat={}{0:0}%}" />
+                </Grid>
+                <controls:TerminalStatusGlyph
+                    AutomationName="{Binding Strings[Success.Completed]}"
+                    IsSuccess="True"
+                    Visibility="{Binding IsSuccessPage, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <controls:TerminalStatusGlyph
+                    AutomationName="{Binding Strings[Error.Title]}"
+                    IsSuccess="False"
+                    Visibility="{Binding IsErrorPage, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            </Grid>
 
-            <StackPanel Visibility="{Binding IsSuccessPage, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <TextBlock
-                    HorizontalAlignment="Center"
-                    Style="{StaticResource SubtitleTextBlockStyle}"
-                    Text="{Binding Strings[Success.Completed]}"
-                    TextAlignment="Center"
-                    TextWrapping="Wrap" />
-                <TextBlock
-                    Margin="0,10,0,14"
-                    HorizontalAlignment="Center"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Text="{Binding CompletionInstructionText}"
-                    TextAlignment="Center"
-                    TextWrapping="Wrap" />
-                <Button
-                    MinWidth="140"
-                    HorizontalAlignment="Center"
-                    Command="{Binding RebootNowCommand}"
-                    Content="{Binding Strings[Success.RebootNow]}"
-                    Style="{DynamicResource AccentButtonStyle}" />
-            </StackPanel>
+            <Grid x:Name="StateContent"
+                Width="430"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                AutomationProperties.LiveSetting="Polite">
+                <Grid.RenderTransform>
+                    <TranslateTransform Y="155" />
+                </Grid.RenderTransform>
+                <StackPanel Visibility="{Binding IsProgressPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource SubtitleTextBlockStyle}"
+                        Text="{Binding CurrentStepName}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                    <ProgressBar
+                        Height="4"
+                        Margin="20,16,20,8"
+                        IsIndeterminate="{Binding IsCurrentStepProgressIndeterminate}"
+                        Maximum="100"
+                        Style="{StaticResource DeployProgressBarStyle}"
+                        Value="{Binding CurrentStepProgress}" />
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{Binding CurrentStepProgressText}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                </StackPanel>
 
-            <StackPanel Visibility="{Binding IsErrorPage, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <TextBlock
-                    HorizontalAlignment="Center"
-                    Style="{StaticResource SubtitleTextBlockStyle}"
-                    Text="{Binding Strings[Error.Title]}"
-                    TextAlignment="Center" />
-                <TextBlock
-                    Margin="0,8,0,14"
-                    HorizontalAlignment="Center"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Text="{Binding FailedStepName}"
-                    TextAlignment="Center"
-                    TextWrapping="Wrap" />
-                <Button
-                    MinWidth="180"
-                    HorizontalAlignment="Center"
-                    Click="ViewTechnicalDetails_Click"
-                    Content="{Binding Strings[Error.ViewTechnicalDetails]}" />
-            </StackPanel>
+                <StackPanel Visibility="{Binding IsSuccessPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource SubtitleTextBlockStyle}"
+                        Text="{Binding Strings[Success.Completed]}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="0,10,0,14"
+                        HorizontalAlignment="Center"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Text="{Binding CompletionInstructionText}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                    <Button
+                        MinWidth="140"
+                        HorizontalAlignment="Center"
+                        Command="{Binding RebootNowCommand}"
+                        Content="{Binding Strings[Success.RebootNow]}"
+                        Style="{DynamicResource AccentButtonStyle}" />
+                </StackPanel>
+
+                <StackPanel Visibility="{Binding IsErrorPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource SubtitleTextBlockStyle}"
+                        Text="{Binding Strings[Error.Title]}"
+                        TextAlignment="Center" />
+                    <TextBlock
+                        Margin="0,8,0,14"
+                        HorizontalAlignment="Center"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Text="{Binding FailedStepName}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                    <Button
+                        MinWidth="180"
+                        HorizontalAlignment="Center"
+                        Click="ViewTechnicalDetails_Click"
+                        Content="{Binding Strings[Error.ViewTechnicalDetails]}" />
+                </StackPanel>
+            </Grid>
         </Grid>
 
         <TextBlock

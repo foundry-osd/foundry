@@ -5,7 +5,7 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Animation;
+using Foundry.Deploy.Motion;
 using Foundry.Deploy.ViewModels;
 
 namespace Foundry.Deploy.Views;
@@ -50,19 +50,7 @@ public partial class WizardView : UserControl
 
     private void AnimateStep(int direction)
     {
-        StepContent.BeginAnimation(OpacityProperty, null);
-        StepContentTransform.BeginAnimation(System.Windows.Media.TranslateTransform.XProperty, null);
-
-        var duration = TimeSpan.FromMilliseconds(220);
-        var easing = new QuadraticEase { EasingMode = EasingMode.EaseOut };
-        StepContent.BeginAnimation(
-            OpacityProperty,
-            new DoubleAnimation(0, 1, duration) { EasingFunction = easing },
-            HandoffBehavior.SnapshotAndReplace);
-        StepContentTransform.BeginAnimation(
-            System.Windows.Media.TranslateTransform.XProperty,
-            new DoubleAnimation(14 * direction, 0, duration) { EasingFunction = easing },
-            HandoffBehavior.SnapshotAndReplace);
+        TransitionAnimator.FadeAndTranslateX(StepContent, StepContentTransform, 14 * direction);
     }
 
     private void OnLoaded(object sender, RoutedEventArgs e)
@@ -81,7 +69,6 @@ public partial class WizardView : UserControl
             viewModel.PropertyChanged -= OnViewModelPropertyChanged;
         }
 
-        StepContent.BeginAnimation(OpacityProperty, null);
-        StepContentTransform.BeginAnimation(System.Windows.Media.TranslateTransform.XProperty, null);
+        TransitionAnimator.Clear(StepContent, StepContentTransform);
     }
 }

@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Automation.Peers;
 using System.Windows.Controls;
-using System.Windows.Media.Animation;
+using Foundry.Deploy.Motion;
 using Foundry.Deploy.ViewModels;
 
 namespace Foundry.Deploy.Views;
@@ -39,8 +39,7 @@ public partial class DeploymentStatusView : UserControl
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
         DetachSession();
-        StateContent.BeginAnimation(OpacityProperty, null);
-        StateContentTransform.BeginAnimation(System.Windows.Media.TranslateTransform.XProperty, null);
+        TransitionAnimator.Clear(CentralStateHost, CentralStateScale);
     }
 
     private void AttachSession(DeploymentSessionViewModel? session)
@@ -86,7 +85,7 @@ public partial class DeploymentStatusView : UserControl
     {
         if (e.PropertyName == nameof(DeploymentSessionViewModel.CurrentPage))
         {
-            AnimateStateChange();
+            AnimateTerminalStateChange();
         }
 
         if (e.PropertyName is nameof(DeploymentSessionViewModel.CurrentPage)
@@ -164,21 +163,12 @@ public partial class DeploymentStatusView : UserControl
         });
     }
 
-    private void AnimateStateChange()
+    private void AnimateTerminalStateChange()
     {
-        StateContent.BeginAnimation(OpacityProperty, null);
-        StateContentTransform.BeginAnimation(System.Windows.Media.TranslateTransform.XProperty, null);
-
-        var duration = TimeSpan.FromMilliseconds(220);
-        var easing = new QuadraticEase { EasingMode = EasingMode.EaseOut };
-        StateContent.BeginAnimation(
-            OpacityProperty,
-            new DoubleAnimation(0, 1, duration) { EasingFunction = easing },
-            HandoffBehavior.SnapshotAndReplace);
-        StateContentTransform.BeginAnimation(
-            System.Windows.Media.TranslateTransform.XProperty,
-            new DoubleAnimation(14, 0, duration) { EasingFunction = easing },
-            HandoffBehavior.SnapshotAndReplace);
+        if (_session?.CurrentPage is DeploymentPage.Success or DeploymentPage.Error)
+        {
+            TransitionAnimator.FadeAndScale(CentralStateHost, CentralStateScale, 0.98);
+        }
     }
 
     private void ViewTechnicalDetails_Click(object sender, RoutedEventArgs e)
