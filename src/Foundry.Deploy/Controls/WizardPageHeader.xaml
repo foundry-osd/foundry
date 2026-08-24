@@ -12,7 +12,7 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             FontFamily="{DynamicResource SymbolThemeFontFamily}"
-            FontSize="24"
+            FontSize="32"
             Text="{Binding Glyph, ElementName=Root}" />
         <StackPanel
             Grid.Column="2"

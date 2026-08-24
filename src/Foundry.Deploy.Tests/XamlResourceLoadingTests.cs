@@ -88,7 +88,14 @@ public sealed class XamlResourceLoadingTests
                 var deviceIdentityGrid = Assert.IsType<Grid>(targetStepView.FindName("DeviceIdentityGrid"));
                 var platformGrid = Assert.IsType<Grid>(targetStepView.FindName("PlatformGrid"));
                 var firmwareSeparator = Assert.IsType<Separator>(targetStepView.FindName("FirmwareSeparator"));
+                targetStepView.Measure(new Size(980, 700));
+                targetStepView.Arrange(new Rect(0, 0, 980, 700));
+                targetStepView.UpdateLayout();
                 Assert.Equal("\uE772", targetHeader.Glyph);
+                var targetHeaderGlyph = Assert.Single(
+                    FindVisualDescendants<TextBlock>(targetHeader),
+                    textBlock => textBlock.Text == targetHeader.Glyph);
+                Assert.Equal(32, targetHeaderGlyph.FontSize);
                 Assert.Equal(new Thickness(0, 0, 0, 32), targetHeader.Margin);
                 Assert.Same(application.FindResource("SubtitleTextBlockStyle"), deploymentSettings.Style);
                 Assert.Same(application.FindResource("SubtitleTextBlockStyle"), deviceInventory.Style);
