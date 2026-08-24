@@ -21,7 +21,7 @@
                 MinHeight="{Binding ActualHeight, ElementName=PageContentScrollViewer}">
                 <StackPanel x:Name="OperatingSystemForm"
                     MaxWidth="600"
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Stretch"
                     VerticalAlignment="Center">
                     <StackPanel Margin="0,0,0,16">
                         <TextBlock

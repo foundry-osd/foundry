@@ -158,7 +158,7 @@ public sealed class XamlResourceLoadingTests
                 Assert.Equal("PageContentScrollViewer", viewportHeightBinding.ElementName);
                 Assert.Equal("ActualHeight", viewportHeightBinding.Path.Path);
                 Assert.Equal(600, operatingSystemForm.MaxWidth);
-                Assert.Equal(HorizontalAlignment.Center, operatingSystemForm.HorizontalAlignment);
+                Assert.Equal(HorizontalAlignment.Stretch, operatingSystemForm.HorizontalAlignment);
                 Assert.Equal(VerticalAlignment.Center, operatingSystemForm.VerticalAlignment);
                 Assert.Equal(5, operatingSystemForm.Children.Count);
                 Assert.All(
