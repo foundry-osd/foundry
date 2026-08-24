@@ -169,9 +169,11 @@ public sealed class XamlResourceLoadingTests
                 Assert.Equal(1, Grid.GetRow(Assert.IsType<ScrollViewer>(autopilotView.FindName("PageContentScrollViewer"))));
                 Assert.Equal("\uEC77", operatingSystemHeader.Glyph);
                 Assert.Equal("\uE78C", driversHeader.Glyph);
-                Assert.Same(
+                Assert.Equal(new Thickness(0), driverPackSourceList.BorderThickness);
+                Assert.NotSame(
                     DependencyProperty.UnsetValue,
                     driverPackSourceList.ReadLocalValue(Control.BorderThicknessProperty));
+                Assert.Equal(new Thickness(0, 1, 0, 0), driverPackSourceList.Padding);
                 Assert.Equal("\uE753", autopilotHeader.Glyph);
 
                 var verticalStepTemplate = Assert.IsType<DataTemplate>(

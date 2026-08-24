@@ -18,7 +18,9 @@
             VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <ListBox x:Name="DriverPackSourceList"
+                    Padding="0,1,0,0"
                     AutomationProperties.Name="{Binding DataContext.Strings[DriverPack.Source], ElementName=ViewRoot}"
+                    BorderThickness="0"
                     ItemsSource="{Binding DriverPackOptions}"
                     SelectedItem="{Binding SelectedDriverPackOption}">
                     <ListBox.ItemsPanel>
