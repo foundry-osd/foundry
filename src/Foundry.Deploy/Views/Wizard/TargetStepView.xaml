@@ -11,7 +11,7 @@
         <controls:WizardPageHeader x:Name="PageHeader"
             Title="{Binding DataContext.Strings[TargetDevice.Title], ElementName=ViewRoot}"
             Description="{Binding DataContext.Strings[TargetDevice.Description], ElementName=ViewRoot}"
-            Glyph="&#xE772;" />
+            Glyph="&#xEDA2;" />
 
         <ScrollViewer x:Name="PageContentScrollViewer"
             Grid.Row="1"

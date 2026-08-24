@@ -10,7 +10,7 @@
         <controls:WizardPageHeader x:Name="PageHeader"
             Title="{Binding DataContext.Strings[Drivers.Title], ElementName=ViewRoot}"
             Description="{Binding DataContext.Strings[Drivers.Description], ElementName=ViewRoot}"
-            Glyph="&#xE74C;" />
+            Glyph="&#xE78C;" />
         <ScrollViewer x:Name="PageContentScrollViewer"
             Grid.Row="1"
             HorizontalScrollBarVisibility="Disabled"

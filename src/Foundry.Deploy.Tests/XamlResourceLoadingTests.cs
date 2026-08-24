@@ -118,7 +118,7 @@ public sealed class XamlResourceLoadingTests
                 Assert.True(
                     diskNoticeRight <= scrollBarLeft,
                     $"Scrollable content ends at {diskNoticeRight}, under the scrollbar starting at {scrollBarLeft}.");
-                Assert.Equal("\uE772", targetHeader.Glyph);
+                Assert.Equal("\uEDA2", targetHeader.Glyph);
                 var targetHeaderGlyph = Assert.Single(
                     FindVisualDescendants<TextBlock>(targetHeader),
                     textBlock => textBlock.Text == targetHeader.Glyph);
@@ -151,7 +151,7 @@ public sealed class XamlResourceLoadingTests
                 Assert.Equal(1, Grid.GetRow(Assert.IsType<ScrollViewer>(driversView.FindName("PageContentScrollViewer"))));
                 Assert.Equal(1, Grid.GetRow(Assert.IsType<ScrollViewer>(autopilotView.FindName("PageContentScrollViewer"))));
                 Assert.Equal("\uEC77", operatingSystemHeader.Glyph);
-                Assert.Equal("\uE74C", driversHeader.Glyph);
+                Assert.Equal("\uE78C", driversHeader.Glyph);
                 Assert.Equal("\uE753", autopilotHeader.Glyph);
 
                 var verticalStepTemplate = Assert.IsType<DataTemplate>(
