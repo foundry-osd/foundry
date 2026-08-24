@@ -568,7 +568,7 @@ Kas jätkata juurutamisega?</value></data>
   <data name="Summary.ManualRestart" xml:space="preserve"><value>Käsitsi taaskäivitamine</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Taaskäivitamise viivitus</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} sekundit</value></data>
-  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Valitud sihtketas kustutatakse juurutamise alustamisel.</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Valitud sihtketas kustutatakse juurutamise alustamisel.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Tere tulemast Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Juurutamise seanss</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Sammud</value></data>
@@ -578,4 +578,16 @@ Kas jätkata juurutamisega?</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Kuva tõrke üksikasjad</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Tõrke üksikasjad</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Registreerimisabiline käivitatakse juurutatud seadmes.</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>Valige arvuti nimi ja sihtketas ning seejärel vaadake tuvastatud riistvara üle.</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Juurutamise sätted</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Seadme inventuur</value></data>
+  <data name="TargetDevice.Device" xml:space="preserve"><value>Seade</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Arhitektuur</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Toiteallikas</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Püsivara olek</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>Valige Windowsi versioon, keel, väljaanne ja litsentsikanal.</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>Valige draiverite allikas ning vajaduse korral sobiv mudel ja versioon.</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>Vaadake üle selle seadme Autopiloti ettevalmistamise sätted.</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>Vaadake oma valikud enne juurutamise alustamist üle.</value></data>
 </root>

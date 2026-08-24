@@ -16,6 +16,66 @@ namespace Foundry.Deploy.Tests;
 public sealed class DeploymentPreparationViewModelTests
 {
     [Fact]
+    public void SetDetectedHardware_ExposesLocalizedInventoryValues()
+    {
+        using DeploymentPreparationViewModel viewModel = CreateViewModel();
+        var profile = new HardwareProfile
+        {
+            Manufacturer = "Contoso",
+            Model = "Model 1",
+            Product = "Product 1",
+            Architecture = "x64",
+            IsTpmPresent = true,
+            IsOnBattery = false,
+            SystemFirmwareHardwareId = "firmware-id"
+        };
+
+        viewModel.SetDetectedHardware(profile);
+
+        Assert.Equal("Contoso | Model 1 | Product 1", viewModel.HardwareDeviceText);
+        Assert.Equal("x64", viewModel.HardwareArchitectureText);
+        Assert.Equal(viewModel.Strings["Common.Yes"], viewModel.HardwareTpmText);
+        Assert.Equal(viewModel.Strings["Preparation.PowerAc"], viewModel.HardwarePowerText);
+        Assert.Equal(viewModel.Strings["Common.Detected"], viewModel.HardwareFirmwareText);
+    }
+
+    [Fact]
+    public void SetDetectedHardware_WhenUnavailable_DoesNotReportNegativeHardwareState()
+    {
+        using DeploymentPreparationViewModel viewModel = CreateViewModel();
+
+        viewModel.SetDetectedHardware(null);
+
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareDeviceText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareArchitectureText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareTpmText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwarePowerText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareFirmwareText);
+    }
+
+    [Fact]
+    public void SetHardwareDetectionFailure_ClearsPreviouslyDetectedInventory()
+    {
+        using DeploymentPreparationViewModel viewModel = CreateViewModel();
+        viewModel.SetDetectedHardware(new HardwareProfile
+        {
+            Manufacturer = "Contoso",
+            Architecture = "x64",
+            IsTpmPresent = true,
+            SystemFirmwareHardwareId = "firmware-id"
+        });
+
+        viewModel.SetHardwareDetectionFailure("Hardware detection failed.");
+
+        Assert.Null(viewModel.DetectedHardware);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareDeviceText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareArchitectureText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareTpmText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwarePowerText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareFirmwareText);
+    }
+
+    [Fact]
     public void ApplyAutopilotConfiguration_WhenProfilesExistButConfigIsDisabled_KeepsAutopilotDisabled()
     {
         using DeploymentPreparationViewModel viewModel = CreateViewModel();

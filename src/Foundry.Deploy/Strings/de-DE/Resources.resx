@@ -568,7 +568,7 @@ Mit der Bereitstellung fortfahren?</value></data>
   <data name="Summary.ManualRestart" xml:space="preserve"><value>Manueller Neustart</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Neustartverzögerung</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} Sekunden</value></data>
-  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Die ausgewählte Zielfestplatte wird gelöscht, wenn die Bereitstellung beginnt.</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Die ausgewählte Zielfestplatte wird gelöscht, wenn die Bereitstellung beginnt.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Willkommen bei Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Bereitstellungssitzung</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Schritte</value></data>
@@ -578,4 +578,16 @@ Mit der Bereitstellung fortfahren?</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Fehlerdetails anzeigen</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Fehlerdetails</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Der Registrierungsassistent wird auf dem bereitgestellten Gerät ausgeführt.</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>Wählen Sie den Computernamen und den Zieldatenträger aus und überprüfen Sie anschließend die erkannte Hardware.</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Bereitstellungseinstellungen</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Geräteinventar</value></data>
+  <data name="TargetDevice.Device" xml:space="preserve"><value>Gerät</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Architektur</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Stromquelle</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Firmwarestatus</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>Wählen Sie die Windows-Version, die Sprache, die Edition und den Lizenzkanal aus.</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>Wählen Sie die Treiberquelle und bei Bedarf das passende Modell und die passende Version aus.</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>Überprüfen Sie die Einstellungen für die Autopilot-Bereitstellung auf diesem Gerät.</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>Überprüfen Sie Ihre Auswahl, bevor Sie die Bereitstellung starten.</value></data>
 </root>

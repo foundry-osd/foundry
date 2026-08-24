@@ -568,7 +568,7 @@ Ali želite nadaljevati z uvajanjem?</value></data>
   <data name="Summary.ManualRestart" xml:space="preserve"><value>Ročni ponovni zagon</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Zakasnitev ponovnega zagona</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} sekund</value></data>
-  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Izbrani ciljni disk bo izbrisan, ko se začne uvajanje.</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Izbrani ciljni disk bo izbrisan, ko se začne uvajanje.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Dobrodošli v Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Seja uvajanja</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Koraki</value></data>
@@ -578,4 +578,16 @@ Ali želite nadaljevati z uvajanjem?</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Prikaži podrobnosti napake</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Podrobnosti napake</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Pomočnik za registracijo se bo zagnal v uvedeni napravi.</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>Izberite ime računalnika in ciljni disk, nato pa preglejte zaznano strojno opremo.</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Nastavitve uvedbe</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Inventar naprave</value></data>
+  <data name="TargetDevice.Device" xml:space="preserve"><value>Naprava</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Arhitektura</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Vir napajanja</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Stanje vdelane programske opreme</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>Izberite izdajo sistema Windows, jezik, različico in licenčni kanal.</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>Izberite vir gonilnikov ter po potrebi ustrezni model in različico.</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>Preglejte nastavitve omogočanja uporabe rešitve Autopilot za to napravo.</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>Pred začetkom uvedbe preglejte svoje izbire.</value></data>
 </root>

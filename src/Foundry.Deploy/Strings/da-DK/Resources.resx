@@ -568,7 +568,7 @@ Vil du fortsætte med implementeringen?</value></data>
   <data name="Summary.ManualRestart" xml:space="preserve"><value>Manuel genstart</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Genstartsforsinkelse</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} sekunder</value></data>
-  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Den valgte måldisk vil blive slettet, når implementeringen starter.</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Den valgte måldisk vil blive slettet, når implementeringen starter.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Velkommen til Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Implementeringssession</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Trin</value></data>
@@ -578,4 +578,16 @@ Vil du fortsætte med implementeringen?</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Vis fejldetaljer</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Fejldetaljer</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Registreringsassistenten kører på den installerede enhed.</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>Vælg computernavnet og destinationsdisken, og gennemse derefter den registrerede hardware.</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Indstillinger for udrulning</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Enhedsoversigt</value></data>
+  <data name="TargetDevice.Device" xml:space="preserve"><value>Enhed</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Arkitektur</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Strømkilde</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Firmwarestatus</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>Vælg Windows-version, sprog, udgave og licenskanal.</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>Vælg driverkilden og om nødvendigt den tilsvarende model og version.</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>Gennemse indstillingerne for Autopilot-klargøring for denne enhed.</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>Gennemse dine valg, før udrulningen startes.</value></data>
 </root>

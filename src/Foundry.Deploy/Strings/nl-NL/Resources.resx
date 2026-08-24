@@ -568,7 +568,7 @@ Doorgaan met de implementatie?</value></data>
   <data name="Summary.ManualRestart" xml:space="preserve"><value>Handmatige herstart</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Herstartvertraging</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} seconden</value></data>
-  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>De geselecteerde doelschijf wordt gewist wanneer de implementatie start.</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>De geselecteerde doelschijf wordt gewist wanneer de implementatie start.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Welkom bij Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Implementatiesessie</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Stappen</value></data>
@@ -578,4 +578,16 @@ Doorgaan met de implementatie?</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Foutdetails weergeven</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Foutdetails</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>De registratieassistent wordt uitgevoerd op het geïmplementeerde apparaat.</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>Kies de computernaam en de doelschijf en controleer vervolgens de gedetecteerde hardware.</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Implementatie-instellingen</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Apparaatinventaris</value></data>
+  <data name="TargetDevice.Device" xml:space="preserve"><value>Apparaat</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Architectuur</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Voedingsbron</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Firmwarestatus</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>Kies de Windows-versie, de taal, de editie en het licentiekanaal.</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>Kies de bron voor stuurprogramma’s en, indien nodig, het bijbehorende model en de bijbehorende versie.</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>Controleer de instellingen voor Autopilot-inrichting op dit apparaat.</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>Controleer uw selecties voordat u de implementatie start.</value></data>
 </root>

@@ -537,11 +537,22 @@
   <data name="Common.Copy" xml:space="preserve"><value>نسخ</value></data>
   <data name="Common.Close" xml:space="preserve"><value>إغلاق</value></data>
   <data name="TargetDevice.Title" xml:space="preserve"><value>الجهاز المستهدف</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>اختر اسم الكمبيوتر والقرص الهدف، ثم راجع الأجهزة المكتشفة.</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>إعدادات النشر</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>معلومات الجهاز</value></data>
+  <data name="TargetDevice.Device" xml:space="preserve"><value>الجهاز</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>البنية</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>مصدر الطاقة</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>حالة البرنامج الثابت</value></data>
   <data name="TargetDevice.Firmware" xml:space="preserve"><value>تحديثات البرامج الثابتة</value></data>
   <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>غير متوفر على الأجهزة الافتراضية</value></data>
   <data name="OperatingSystem.Title" xml:space="preserve"><value>نظام التشغيل</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>اختر إصدار Windows واللغة والنسخة وقناة الترخيص.</value></data>
   <data name="Drivers.Title" xml:space="preserve"><value>برامج تشغيل الأجهزة</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>اختر مصدر برامج التشغيل، وعند الحاجة، الطراز والإصدار المطابقين.</value></data>
   <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>راجع إعدادات توفير Autopilot لهذا الجهاز.</value></data>
   <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>تفاصيل التكوين</value></data>
   <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>الجهاز المستهدف</value></data>
   <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>نظام التشغيل</value></data>
@@ -550,6 +561,7 @@
   <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>تخصيص Windows</value></data>
   <data name="Summary.Category.Network" xml:space="preserve"><value>الشبكة</value></data>
   <data name="Summary.Category.Completion" xml:space="preserve"><value>الانتهاء</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>راجع اختياراتك قبل بدء النشر.</value></data>
   <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>لم يتم تكوينه</value></data>
   <data name="Summary.Status.Configured" xml:space="preserve"><value>تم التهيئة</value></data>
   <data name="Summary.Status.NoChanges" xml:space="preserve"><value>لا توجد تغييرات</value></data>
@@ -568,7 +580,7 @@
   <data name="Summary.ManualRestart" xml:space="preserve"><value>إعادة التشغيل اليدوي</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>تأخير إعادة التشغيل</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} ثانية</value></data>
-  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>سيتم مسح القرص الهدف المحدد عند بدء النشر.</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>سيتم مسح القرص الهدف المحدد عند بدء النشر.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>مرحبًا بك في Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>جلسة النشر</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>الخطوات</value></data>

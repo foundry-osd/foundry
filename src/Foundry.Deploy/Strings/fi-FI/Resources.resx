@@ -568,7 +568,7 @@ Jatketaanko käyttöönottoa?</value></data>
   <data name="Summary.ManualRestart" xml:space="preserve"><value>Manuaalinen uudelleenkäynnistys</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Uudelleenkäynnistysviive</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} sekuntia</value></data>
-  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Valittu kohdelevy tyhjennetään, kun käyttöönotto alkaa.</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Valittu kohdelevy tyhjennetään, kun käyttöönotto alkaa.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Tervetuloa Foundry Deploy-palveluun</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Käyttöönottoistunto</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Vaiheet</value></data>
@@ -578,4 +578,16 @@ Jatketaanko käyttöönottoa?</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Näytä virheen tiedot</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Virheen tiedot</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Rekisteröintiavustaja suoritetaan käyttöönotetulla laitteella.</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>Valitse tietokoneen nimi ja kohdelevy ja tarkista sitten havaittu laitteisto.</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Käyttöönottoasetukset</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Laitetiedot</value></data>
+  <data name="TargetDevice.Device" xml:space="preserve"><value>Laite</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Arkkitehtuuri</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Virtalähde</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Laiteohjelmiston tila</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>Valitse Windows-versio, kieli, tuoteversio ja käyttöoikeuskanava.</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>Valitse ohjainten lähde sekä tarvittaessa vastaava malli ja versio.</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>Tarkista tämän laitteen Autopilot-valmisteluasetukset.</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>Tarkista valintasi ennen käyttöönoton aloittamista.</value></data>
 </root>

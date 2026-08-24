@@ -537,11 +537,22 @@
   <data name="Common.Copy" xml:space="preserve"><value>คัดลอก</value></data>
   <data name="Common.Close" xml:space="preserve"><value>ปิด</value></data>
   <data name="TargetDevice.Title" xml:space="preserve"><value>อุปกรณ์เป้าหมาย</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>เลือกชื่อคอมพิวเตอร์และดิสก์เป้าหมาย จากนั้นตรวจสอบฮาร์ดแวร์ที่ตรวจพบ</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>การตั้งค่าการปรับใช้</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>ข้อมูลอุปกรณ์</value></data>
+  <data name="TargetDevice.Device" xml:space="preserve"><value>อุปกรณ์</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>สถาปัตยกรรม</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>แหล่งพลังงาน</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>สถานะเฟิร์มแวร์</value></data>
   <data name="TargetDevice.Firmware" xml:space="preserve"><value>อัพเดตเฟิร์มแวร์</value></data>
   <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>ไม่มีให้บริการบนเครื่องเสมือน</value></data>
   <data name="OperatingSystem.Title" xml:space="preserve"><value>ระบบปฏิบัติการ</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>เลือกรุ่นภาษา เอดิชัน และช่องทางสิทธิการใช้งานของ Windows</value></data>
   <data name="Drivers.Title" xml:space="preserve"><value>ไดรเวอร์อุปกรณ์</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>เลือกแหล่งไดรเวอร์ และเลือกรุ่นกับเวอร์ชันที่ตรงกันเมื่อจำเป็น</value></data>
   <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>ตรวจสอบการตั้งค่าการเตรียมใช้งาน Autopilot สำหรับอุปกรณ์นี้</value></data>
   <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>รายละเอียดการกำหนดค่า</value></data>
   <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>อุปกรณ์เป้าหมาย</value></data>
   <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>ระบบปฏิบัติการ</value></data>
@@ -550,6 +561,7 @@
   <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>การปรับแต่ง Windows</value></data>
   <data name="Summary.Category.Network" xml:space="preserve"><value>เครือข่าย</value></data>
   <data name="Summary.Category.Completion" xml:space="preserve"><value>เสร็จสิ้น</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>ตรวจสอบรายการที่เลือกก่อนเริ่มการปรับใช้</value></data>
   <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>ไม่ได้กำหนดค่า</value></data>
   <data name="Summary.Status.Configured" xml:space="preserve"><value>กำหนดค่าแล้ว</value></data>
   <data name="Summary.Status.NoChanges" xml:space="preserve"><value>ไม่มีการเปลี่ยนแปลง</value></data>
@@ -568,7 +580,7 @@
   <data name="Summary.ManualRestart" xml:space="preserve"><value>รีสตาร์ทด้วยตนเอง</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>รีสตาร์ทล่าช้า</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} วินาที</value></data>
-  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>ดิสก์เป้าหมายที่เลือกจะถูกลบเมื่อเริ่มใช้งาน</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>ดิสก์เป้าหมายที่เลือกจะถูกลบเมื่อเริ่มใช้งาน</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>ยินดีต้อนรับสู่ Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>เซสชัน</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>ขั้นตอน</value></data>

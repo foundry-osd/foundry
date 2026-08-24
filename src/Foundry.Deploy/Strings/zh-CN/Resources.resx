@@ -537,11 +537,22 @@
   <data name="Common.Copy" xml:space="preserve"><value>复制</value></data>
   <data name="Common.Close" xml:space="preserve"><value>关闭</value></data>
   <data name="TargetDevice.Title" xml:space="preserve"><value>目标设备</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>选择计算机名称和目标磁盘，然后查看检测到的硬件。</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>部署设置</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>设备信息</value></data>
+  <data name="TargetDevice.Device" xml:space="preserve"><value>设备</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>体系结构</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>电源</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>固件状态</value></data>
   <data name="TargetDevice.Firmware" xml:space="preserve"><value>固件更新</value></data>
   <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>在虚拟机上不可用</value></data>
   <data name="OperatingSystem.Title" xml:space="preserve"><value>操作系统</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>选择 Windows 版本、语言、版本类别和许可证通道。</value></data>
   <data name="Drivers.Title" xml:space="preserve"><value>设备驱动程序</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>选择驱动程序源，并在需要时选择匹配的型号和版本。</value></data>
   <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>查看此设备的 Autopilot 预配设置。</value></data>
   <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>配置详细信息</value></data>
   <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>目标设备</value></data>
   <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>操作系统</value></data>
@@ -550,6 +561,7 @@
   <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Windows 自定义</value></data>
   <data name="Summary.Category.Network" xml:space="preserve"><value>网络</value></data>
   <data name="Summary.Category.Completion" xml:space="preserve"><value>完成</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>开始部署前，请检查所选内容。</value></data>
   <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>未配置</value></data>
   <data name="Summary.Status.Configured" xml:space="preserve"><value>已配置</value></data>
   <data name="Summary.Status.NoChanges" xml:space="preserve"><value>无更改</value></data>
@@ -568,7 +580,7 @@
   <data name="Summary.ManualRestart" xml:space="preserve"><value>手动重启</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>重启延迟</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0}秒</value></data>
-  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>部署开始时，所选目标磁盘将被擦除。</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>部署开始时，所选目标磁盘将被擦除。</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>欢迎来到 Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>会话</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>步骤</value></data>

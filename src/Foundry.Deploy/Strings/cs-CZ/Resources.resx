@@ -568,7 +568,7 @@ Pokračovat v nasazování?</value></data>
   <data name="Summary.ManualRestart" xml:space="preserve"><value>Ruční restart</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Zpoždění restartu</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} sekund</value></data>
-  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Vybraný cílový disk bude vymazán při zahájení nasazení.</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Vybraný cílový disk bude vymazán při zahájení nasazení.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Vítejte ve Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Relace nasazení</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Kroky</value></data>
@@ -578,4 +578,16 @@ Pokračovat v nasazování?</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Zobrazit podrobnosti o chybě</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Podrobnosti o chybě</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Na nasazeném zařízení se spustí pomocník registrace.</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>Zvolte název počítače a cílový disk a poté zkontrolujte zjištěný hardware.</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Nastavení nasazení</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Inventář zařízení</value></data>
+  <data name="TargetDevice.Device" xml:space="preserve"><value>Zařízení</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Architektura</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Zdroj napájení</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Stav firmwaru</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>Zvolte verzi Windows, jazyk, edici a licenční kanál.</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>Zvolte zdroj ovladačů a v případě potřeby odpovídající model a verzi.</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>Zkontrolujte nastavení zřizování pomocí Autopilotu pro toto zařízení.</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>Před zahájením nasazení zkontrolujte své volby.</value></data>
 </root>

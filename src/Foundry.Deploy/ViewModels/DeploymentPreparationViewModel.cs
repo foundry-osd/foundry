@@ -189,6 +189,36 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     public bool HasTargetComputerNameValidationError => !string.IsNullOrWhiteSpace(TargetComputerNameValidationMessage);
 
     public HardwareProfile? DetectedHardware => _detectedHardware;
+    public string HardwareDeviceText
+    {
+        get
+        {
+            if (_detectedHardware is null)
+            {
+                return GetString("Common.Unavailable");
+            }
+
+            string value = string.Join(" | ", new[] { _detectedHardware.Manufacturer, _detectedHardware.Model, _detectedHardware.Product }
+                .Where(item => !string.IsNullOrWhiteSpace(item)));
+            return string.IsNullOrWhiteSpace(value) ? GetString("Common.Unavailable") : value;
+        }
+    }
+    public string HardwareArchitectureText => string.IsNullOrWhiteSpace(_detectedHardware?.Architecture)
+        ? GetString("Common.Unavailable")
+        : _detectedHardware.Architecture;
+    public string HardwareTpmText => _detectedHardware is null
+        ? GetString("Common.Unavailable")
+        : _detectedHardware.IsTpmPresent
+            ? GetString("Common.Yes")
+            : GetString("Common.No");
+    public string HardwarePowerText => _detectedHardware is null
+        ? GetString("Common.Unavailable")
+        : _detectedHardware.IsOnBattery
+            ? GetString("Preparation.PowerBattery")
+            : GetString("Preparation.PowerAc");
+    public string HardwareFirmwareText => !string.IsNullOrWhiteSpace(_detectedHardware?.SystemFirmwareHardwareId)
+        ? GetString("Common.Detected")
+        : GetString("Common.Unavailable");
 
     /// <summary>
     /// Builds the hardware hash upload settings to carry into a deployment launch request.
@@ -294,6 +324,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
             _detectedHardwareSummaryRaw = "Hardware detection failed.";
             DetectedHardwareSummary = DeploymentUiTextLocalizer.LocalizeMessage(_detectedHardwareSummaryRaw);
             OnPropertyChanged(nameof(IsFirmwareUpdatesOptionEnabled));
+            RaiseHardwareInventoryPropertiesChanged();
             RaiseStateChanged();
             return;
         }
@@ -307,13 +338,17 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
             profile.SystemFirmwareHardwareId.Length > 0 ? GetString("Common.Detected") : GetString("Common.Unavailable"));
         DetectedHardwareSummary = _detectedHardwareSummaryRaw;
         OnPropertyChanged(nameof(IsFirmwareUpdatesOptionEnabled));
+        RaiseHardwareInventoryPropertiesChanged();
         RaiseStateChanged();
     }
 
     public void SetHardwareDetectionFailure(string message)
     {
+        _detectedHardware = null;
         _detectedHardwareSummaryRaw = message;
         DetectedHardwareSummary = DeploymentUiTextLocalizer.LocalizeMessage(message);
+        OnPropertyChanged(nameof(IsFirmwareUpdatesOptionEnabled));
+        RaiseHardwareInventoryPropertiesChanged();
         RaiseStateChanged();
     }
 
@@ -711,6 +746,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
             else
             {
                 DetectedHardwareSummary = DeploymentUiTextLocalizer.LocalizeMessage(_detectedHardwareSummaryRaw);
+                RaiseHardwareInventoryPropertiesChanged();
             }
 
             TargetComputerNameValidationMessage = ResolveComputerNameValidationMessage(TargetComputerName);
@@ -724,6 +760,15 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
             OnPropertyChanged(nameof(TargetDisks));
             OnPropertyChanged(nameof(SelectedTargetDisk));
         });
+    }
+
+    private void RaiseHardwareInventoryPropertiesChanged()
+    {
+        OnPropertyChanged(nameof(HardwareDeviceText));
+        OnPropertyChanged(nameof(HardwareArchitectureText));
+        OnPropertyChanged(nameof(HardwareTpmText));
+        OnPropertyChanged(nameof(HardwarePowerText));
+        OnPropertyChanged(nameof(HardwareFirmwareText));
     }
 
     private string ResolveComputerNameValidationMessage(string? value)

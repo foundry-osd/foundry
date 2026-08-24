@@ -568,7 +568,7 @@ Operativni sistem: {4}
   <data name="Summary.ManualRestart" xml:space="preserve"><value>Ručno ponovno pokretanje</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Kašnjenje ponovnog pokretanja</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} sekundi</value></data>
-  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Izabrani ciljni disk će biti obrisan kada implementacija počne.</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Izabrani ciljni disk će biti obrisan kada implementacija počne.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Dobrodošli u Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Sesija primene</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Koraci</value></data>
@@ -578,4 +578,16 @@ Operativni sistem: {4}
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Prikaži detalje greške</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Detalji greške</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Pomoćnik za registraciju će se pokrenuti na primenjenom uređaju.</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>Izaberite ime računara i ciljni disk, a zatim pregledajte otkriveni hardver.</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Postavke primene</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Inventar uređaja</value></data>
+  <data name="TargetDevice.Device" xml:space="preserve"><value>Uređaj</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Arhitektura</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Izvor napajanja</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Status firmvera</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>Izaberite izdanje operativnog sistema Windows, jezik, ediciju i kanal licence.</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>Izaberite izvor upravljačkih programa i, kada je potrebno, odgovarajući model i verziju.</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>Pregledajte postavke Autopilot obezbeđivanja za ovaj uređaj.</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>Pregledajte izabrane opcije pre nego što pokrenete primenu.</value></data>
 </root>

@@ -1,14 +1,12 @@
 ﻿<UserControl x:Class="Foundry.Deploy.Views.Wizard.OperatingSystemCatalogStepView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Foundry.Deploy.Controls">
     <StackPanel>
-        <TextBlock
-            Style="{StaticResource TitleTextBlockStyle}"
-            Text="{Binding Strings[OperatingSystem.Title]}" />
-        <TextBlock
-            Margin="0,4,0,24"
-            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-            Text="{Binding Strings[OperatingSystem.Windows11]}" />
+        <controls:WizardPageHeader x:Name="PageHeader"
+            Title="{Binding Strings[OperatingSystem.Title]}"
+            Description="{Binding Strings[OperatingSystem.Description]}"
+            Glyph="&#xEC77;" />
         <WrapPanel ItemWidth="340">
             <StackPanel Margin="0,0,24,16">
                 <TextBlock

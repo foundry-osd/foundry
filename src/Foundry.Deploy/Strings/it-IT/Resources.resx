@@ -568,7 +568,7 @@ Continuare con la distribuzione?</value></data>
   <data name="Summary.ManualRestart" xml:space="preserve"><value>Riavvio manuale</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Ritardo del riavvio</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} secondi</value></data>
-  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Il disco di destinazione selezionato verrà cancellato all&apos;avvio della distribuzione.</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Il disco di destinazione selezionato verrà cancellato all&apos;avvio della distribuzione.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Benvenuto in Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Sessione di distribuzione</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Passaggi</value></data>
@@ -578,4 +578,16 @@ Continuare con la distribuzione?</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Visualizza dettagli errore</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Dettagli errore</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>L’assistente di registrazione verrà eseguito sul dispositivo distribuito.</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>Scegliere il nome del computer e il disco di destinazione, quindi esaminare l’hardware rilevato.</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Impostazioni di distribuzione</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Inventario del dispositivo</value></data>
+  <data name="TargetDevice.Device" xml:space="preserve"><value>Dispositivo</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Architettura</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Fonte di alimentazione</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Stato del firmware</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>Scegliere la versione di Windows, la lingua, l’edizione e il canale di licenza.</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>Scegliere l’origine dei driver e, quando necessario, il modello e la versione corrispondenti.</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>Esaminare le impostazioni di provisioning di Autopilot per questo dispositivo.</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>Esaminare le selezioni prima di avviare la distribuzione.</value></data>
 </root>

@@ -568,7 +568,7 @@ Dağıtıma devam edilsin mi?</value></data>
   <data name="Summary.ManualRestart" xml:space="preserve"><value>Manuel yeniden başlatma</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Yeniden başlatma gecikmesi</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} saniye</value></data>
-  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Dağıtım başladığında seçilen hedef disk silinecek.</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Dağıtım başladığında seçilen hedef disk silinecek.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Foundry Deploy&apos;a hoş geldiniz</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Dağıtım oturumu</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Adımlar</value></data>
@@ -578,4 +578,16 @@ Dağıtıma devam edilsin mi?</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Hata ayrıntılarını görüntüle</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Hata ayrıntıları</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Kayıt yardımcısı dağıtılan cihazda çalıştırılacaktır.</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>Bilgisayar adını ve hedef diski seçin, ardından algılanan donanımı gözden geçirin.</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Dağıtım ayarları</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Cihaz envanteri</value></data>
+  <data name="TargetDevice.Device" xml:space="preserve"><value>Cihaz</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Mimari</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Güç kaynağı</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Üretici yazılımı durumu</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>Windows sürümünü, dili, edisyonu ve lisans kanalını seçin.</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>Sürücü kaynağını ve gerektiğinde eşleşen modeli ve sürümü seçin.</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>Bu cihazın Autopilot sağlama ayarlarını gözden geçirin.</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>Dağıtımı başlatmadan önce seçimlerinizi gözden geçirin.</value></data>
 </root>

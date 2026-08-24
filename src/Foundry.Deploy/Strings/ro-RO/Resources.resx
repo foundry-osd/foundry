@@ -568,7 +568,7 @@ Continuați cu implementarea?</value></data>
   <data name="Summary.ManualRestart" xml:space="preserve"><value>Repornire manuală</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Întârziere de repornire</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} secunde</value></data>
-  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Discul țintă selectat va fi șters când începe implementarea.</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Discul țintă selectat va fi șters când începe implementarea.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Bun venit la Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Sesiune de implementare</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Pași</value></data>
@@ -578,4 +578,16 @@ Continuați cu implementarea?</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Vedeți detaliile erorii</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Detalii despre eroare</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Asistentul de înregistrare va rula pe dispozitivul implementat.</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>Alegeți numele computerului și discul țintă, apoi verificați hardware-ul detectat.</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Setări de implementare</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Inventarul dispozitivului</value></data>
+  <data name="TargetDevice.Device" xml:space="preserve"><value>Dispozitiv</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Arhitectură</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Sursă de alimentare</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Starea firmware-ului</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>Alegeți versiunea Windows, limba, ediția și canalul de licențiere.</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>Alegeți sursa driverelor și, atunci când este necesar, modelul și versiunea corespunzătoare.</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>Verificați setările de asigurare a accesului Autopilot pentru acest dispozitiv.</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>Verificați selecțiile înainte de a începe implementarea.</value></data>
 </root>

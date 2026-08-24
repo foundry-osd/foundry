@@ -568,7 +568,7 @@
   <data name="Summary.ManualRestart" xml:space="preserve"><value>Ручной перезапуск</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Задержка перезапуска</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} секунды</value></data>
-  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Выбранный целевой диск будет удален при запуске развертывания.</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Выбранный целевой диск будет удален при запуске развертывания.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Добро пожаловать в Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Сеанс</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Шаги</value></data>
@@ -578,4 +578,16 @@
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Просмотреть сведения об ошибке</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Сведения об ошибке</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Помощник регистрации будет запущен на развернутом устройстве.</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>Выберите имя компьютера и целевой диск, затем просмотрите сведения об обнаруженном оборудовании.</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Параметры развертывания</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Инвентаризация устройства</value></data>
+  <data name="TargetDevice.Device" xml:space="preserve"><value>Устройство</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Архитектура</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Источник питания</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Состояние встроенного ПО</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>Выберите выпуск Windows, язык, редакцию и канал лицензирования.</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>Выберите источник драйверов и при необходимости соответствующие модель и версию.</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>Просмотрите параметры подготовки Autopilot для этого устройства.</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>Проверьте выбранные параметры перед началом развертывания.</value></data>
 </root>

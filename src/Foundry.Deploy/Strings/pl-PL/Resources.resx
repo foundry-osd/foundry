@@ -568,7 +568,7 @@ Kontynuować wdrażanie?</value></data>
   <data name="Summary.ManualRestart" xml:space="preserve"><value>Ręczny restart</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Opóźnienie ponownego uruchomienia</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} sekund</value></data>
-  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Wybrany dysk docelowy zostanie wymazany po rozpoczęciu wdrażania.</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Wybrany dysk docelowy zostanie wymazany po rozpoczęciu wdrażania.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Witamy w Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Sesja wdrożeniowa</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Kroki</value></data>
@@ -578,4 +578,16 @@ Kontynuować wdrażanie?</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Wyświetl szczegóły błędu</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Szczegóły błędu</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Asystent rejestracji zostanie uruchomiony na wdrożonym urządzeniu.</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>Wybierz nazwę komputera i dysk docelowy, a następnie przejrzyj wykryty sprzęt.</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Ustawienia wdrożenia</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Inwentaryzacja urządzenia</value></data>
+  <data name="TargetDevice.Device" xml:space="preserve"><value>Urządzenie</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Architektura</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Źródło zasilania</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Stan oprogramowania układowego</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>Wybierz wersję systemu Windows, język, edycję i kanał licencjonowania.</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>Wybierz źródło sterowników oraz, w razie potrzeby, odpowiedni model i wersję.</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>Przejrzyj ustawienia aprowizacji rozwiązania Autopilot dla tego urządzenia.</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>Przejrzyj wybrane opcje przed rozpoczęciem wdrożenia.</value></data>
 </root>

@@ -75,6 +75,27 @@ public sealed class XamlResourceLoadingTests
                     landingContent.HasAnimatedProperties,
                     "The Welcome page should be stable when the application opens.");
 
+                var targetStepView = new TargetStepView();
+                var targetHeader = Assert.IsType<WizardPageHeader>(targetStepView.FindName("PageHeader"));
+                var deploymentSettings = Assert.IsType<TextBlock>(targetStepView.FindName("DeploymentSettingsTitle"));
+                var deviceInventory = Assert.IsType<TextBlock>(targetStepView.FindName("DeviceInventoryTitle"));
+                var diskEraseNotice = Assert.IsType<Border>(targetStepView.FindName("DiskEraseNotice"));
+                Assert.Equal("\uE772", targetHeader.Glyph);
+                Assert.Equal(new Thickness(0, 0, 0, 24), targetHeader.Margin);
+                Assert.Same(application.FindResource("SubtitleTextBlockStyle"), deploymentSettings.Style);
+                Assert.Same(application.FindResource("SubtitleTextBlockStyle"), deviceInventory.Style);
+                Assert.Same(application.FindResource("SystemFillColorCautionBrush"), diskEraseNotice.BorderBrush);
+
+                var operatingSystemHeader = Assert.IsType<WizardPageHeader>(
+                    new OperatingSystemCatalogStepView().FindName("PageHeader"));
+                var driversHeader = Assert.IsType<WizardPageHeader>(
+                    new DriverPackStepView().FindName("PageHeader"));
+                var autopilotHeader = Assert.IsType<WizardPageHeader>(
+                    new AutopilotStepView().FindName("PageHeader"));
+                Assert.Equal("\uEC77", operatingSystemHeader.Glyph);
+                Assert.Equal("\uE74C", driversHeader.Glyph);
+                Assert.Equal("\uE753", autopilotHeader.Glyph);
+
                 var verticalStepTemplate = Assert.IsType<DataTemplate>(
                     wizardView.FindResource("VerticalStepTemplate"));
                 var completedStep = new DeploymentWizardStepViewModel(
@@ -210,6 +231,9 @@ public sealed class XamlResourceLoadingTests
 
                 var summaryStepView = new SummaryStepView();
                 var summaryRoot = Assert.IsType<StackPanel>(summaryStepView.Content);
+                var summaryPageHeader = Assert.IsType<WizardPageHeader>(summaryStepView.FindName("PageHeader"));
+                Assert.Equal("\uE9D5", summaryPageHeader.Glyph);
+                Assert.Null(summaryStepView.FindName("DiskEraseNotice"));
                 var summaryCategories = Assert.Single(summaryRoot.Children.OfType<ItemsControl>());
                 var summaryCategoryExpander = Assert.IsType<Expander>(summaryCategories.ItemTemplate.LoadContent());
                 summaryCategoryExpander.DataContext = new DeploymentSummaryCategoryViewModel(

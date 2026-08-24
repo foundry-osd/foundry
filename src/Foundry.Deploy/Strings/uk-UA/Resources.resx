@@ -568,7 +568,7 @@ ErrorCode=0x80070005
   <data name="Summary.ManualRestart" xml:space="preserve"><value>Перезапуск вручну</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Затримка перезапуску</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} секунд</value></data>
-  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Вибраний цільовий диск буде стерто, коли розпочнеться розгортання.</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Вибраний цільовий диск буде стерто, коли розпочнеться розгортання.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Ласкаво просимо до Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Сеанс</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Кроки</value></data>
@@ -578,4 +578,16 @@ ErrorCode=0x80070005
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Переглянути відомості про помилку</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Відомості про помилку</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Помічник реєстрації буде запущений на розгорнутому пристрої.</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>Виберіть ім’я комп’ютера й цільовий диск, а потім перегляньте відомості про виявлене обладнання.</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Параметри розгортання</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Інвентаризація пристрою</value></data>
+  <data name="TargetDevice.Device" xml:space="preserve"><value>Пристрій</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Архітектура</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Джерело живлення</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Стан мікропрограми</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>Виберіть випуск Windows, мову, редакцію та канал ліцензування.</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>Виберіть джерело драйверів і, за потреби, відповідні модель і версію.</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>Перегляньте параметри підготовки Autopilot для цього пристрою.</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>Перегляньте вибрані параметри перед початком розгортання.</value></data>
 </root>

@@ -568,7 +568,7 @@ Fortsätt med implementeringen?</value></data>
   <data name="Summary.ManualRestart" xml:space="preserve"><value>Manuell omstart</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Omstartsfördröjning</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} sekunder</value></data>
-  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Den valda måldisken kommer att raderas när distributionen startar.</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Den valda måldisken kommer att raderas när distributionen startar.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Välkommen till Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Distributionssession</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Steg</value></data>
@@ -578,4 +578,16 @@ Fortsätt med implementeringen?</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Visa felinformation</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Felinformation</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Registreringsassistenten kommer att köras på den distribuerade enheten.</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>Välj datornamnet och måldisken och granska sedan den identifierade maskinvaran.</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Distributionsinställningar</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Enhetsinventering</value></data>
+  <data name="TargetDevice.Device" xml:space="preserve"><value>Enhet</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Arkitektur</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Strömkälla</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Status för inbyggd programvara</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>Välj Windows-version, språk, utgåva och licenskanal.</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>Välj drivrutinskälla och vid behov motsvarande modell och version.</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>Granska inställningarna för Autopilot-etablering för den här enheten.</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>Granska dina val innan du startar distributionen.</value></data>
 </root>

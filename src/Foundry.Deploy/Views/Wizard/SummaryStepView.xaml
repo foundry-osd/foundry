@@ -1,14 +1,14 @@
 ﻿<UserControl x:Class="Foundry.Deploy.Views.Wizard.SummaryStepView" x:Name="ViewRoot"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Foundry.Deploy.Controls"
     xmlns:viewModels="clr-namespace:Foundry.Deploy.ViewModels">
     <StackPanel>
-        <TextBlock
-            Style="{StaticResource TitleTextBlockStyle}"
-            Text="{Binding Strings[Summary.Title]}" />
-        <ItemsControl
-            Margin="0,16,0,0"
-            ItemsSource="{Binding SummaryCategories}">
+        <controls:WizardPageHeader x:Name="PageHeader"
+            Title="{Binding Strings[Summary.Title]}"
+            Description="{Binding Strings[Summary.Description]}"
+            Glyph="&#xE9D5;" />
+        <ItemsControl ItemsSource="{Binding SummaryCategories}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type viewModels:DeploymentSummaryCategoryViewModel}">
                     <Expander
@@ -105,25 +105,5 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <Border
-            Margin="0,12,0,0"
-            Padding="12"
-            Background="{DynamicResource SystemFillColorCriticalBackgroundBrush}"
-            BorderBrush="{DynamicResource SystemFillColorCriticalBrush}"
-            BorderThickness="1"
-            CornerRadius="6">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock
-                    Margin="0,0,12,0"
-                    VerticalAlignment="Center"
-                    FontFamily="{DynamicResource SymbolThemeFontFamily}"
-                    Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                    Text="&#xEA39;" />
-                <TextBlock
-                    VerticalAlignment="Center"
-                    Text="{Binding Strings[Summary.DiskEraseNotice]}"
-                    TextWrapping="Wrap" />
-            </StackPanel>
-        </Border>
     </StackPanel>
 </UserControl>

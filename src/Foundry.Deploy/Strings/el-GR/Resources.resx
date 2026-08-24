@@ -568,7 +568,7 @@
   <data name="Summary.ManualRestart" xml:space="preserve"><value>Μη αυτόματη επανεκκίνηση</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Καθυστέρηση επανεκκίνησης</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} δευτερόλεπτα</value></data>
-  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Ο επιλεγμένος δίσκος προορισμού θα διαγραφεί όταν ξεκινήσει η ανάπτυξη.</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Ο επιλεγμένος δίσκος προορισμού θα διαγραφεί όταν ξεκινήσει η ανάπτυξη.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Καλώς ήλθατε στο Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Συνεδρία</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Βήματα</value></data>
@@ -578,4 +578,16 @@
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Προβολή λεπτομερειών σφάλματος</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Λεπτομέρειες σφάλματος</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Ο βοηθός εγγραφής θα εκτελεστεί στη συσκευή που αναπτύχθηκε.</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>Επιλέξτε το όνομα υπολογιστή και τον δίσκο προορισμού και, στη συνέχεια, ελέγξτε το υλικό που εντοπίστηκε.</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Ρυθμίσεις ανάπτυξης</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Απογραφή συσκευής</value></data>
+  <data name="TargetDevice.Device" xml:space="preserve"><value>Συσκευή</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Αρχιτεκτονική</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Πηγή τροφοδοσίας</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Κατάσταση υλικολογισμικού</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>Επιλέξτε την έκδοση των Windows, τη γλώσσα, την έκδοση προϊόντος και το κανάλι άδειας χρήσης.</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>Επιλέξτε την προέλευση των προγραμμάτων οδήγησης και, όταν απαιτείται, το αντίστοιχο μοντέλο και την έκδοση.</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>Ελέγξτε τις ρυθμίσεις προμήθειας Autopilot για αυτήν τη συσκευή.</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>Ελέγξτε τις επιλογές σας πριν ξεκινήσετε την ανάπτυξη.</value></data>
 </root>

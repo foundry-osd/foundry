@@ -568,7 +568,7 @@ Vai turpināt izvietošanu?</value></data>
   <data name="Summary.ManualRestart" xml:space="preserve"><value>Manuāla restartēšana</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Restartēšanas aizkave</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} sekundes</value></data>
-  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>Atlasītais mērķa disks tiks dzēsts, kad sākas izvietošana.</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Atlasītais mērķa disks tiks dzēsts, kad sākas izvietošana.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Laipni lūdzam Foundry Deploy!</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Izvietošanas sesija</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Darbības</value></data>
@@ -578,4 +578,16 @@ Vai turpināt izvietošanu?</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Skatīt informāciju par kļūdu</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Informācija par kļūdu</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Reģistrācijas palīgs tiks palaists izvietotajā ierīcē.</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>Izvēlieties datora nosaukumu un mērķa disku, pēc tam pārskatiet noteikto aparatūru.</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Izvietošanas iestatījumi</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Ierīces inventārs</value></data>
+  <data name="TargetDevice.Device" xml:space="preserve"><value>Ierīce</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Arhitektūra</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Barošanas avots</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Aparātprogrammatūras statuss</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>Izvēlieties Windows laidienu, valodu, izdevumu un licences kanālu.</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>Izvēlieties draiveru avotu un, ja nepieciešams, atbilstošo modeli un versiju.</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>Pārskatiet šīs ierīces Autopilot nodrošināšanas iestatījumus.</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>Pirms izvietošanas sākšanas pārskatiet savu izvēli.</value></data>
 </root>

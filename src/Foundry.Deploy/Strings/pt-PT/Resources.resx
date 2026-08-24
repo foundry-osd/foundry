@@ -568,7 +568,7 @@ Continuar com a implantação?</value></data>
   <data name="Summary.ManualRestart" xml:space="preserve"><value>Reinício manual</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Atraso do reinício</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} segundos</value></data>
-  <data name="Summary.DiskEraseNotice" xml:space="preserve"><value>O disco de destino selecionado será apagado quando a implementação começar.</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>O disco de destino selecionado será apagado quando a implementação começar.</value></data>
   <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Bem-vindo ao Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Sessão de implantação</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Passos</value></data>
@@ -578,4 +578,16 @@ Continuar com a implantação?</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Ver detalhes do erro</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Detalhes do erro</value></data>
   <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>O assistente de registo será executado no dispositivo implementado.</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>Escolha o nome do computador e o disco de destino e, em seguida, reveja o hardware detetado.</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Definições de implementação</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Inventário do dispositivo</value></data>
+  <data name="TargetDevice.Device" xml:space="preserve"><value>Dispositivo</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Arquitetura</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Fonte de alimentação</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Estado do firmware</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>Escolha a versão do Windows, o idioma, a edição e o canal de licença.</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>Escolha a origem dos controladores e, quando necessário, o modelo e a versão correspondentes.</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>Reveja as definições de aprovisionamento do Autopilot para este dispositivo.</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>Reveja as suas seleções antes de iniciar a implementação.</value></data>
 </root>
