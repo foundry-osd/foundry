@@ -80,11 +80,19 @@ public sealed class XamlResourceLoadingTests
                 var deploymentSettings = Assert.IsType<TextBlock>(targetStepView.FindName("DeploymentSettingsTitle"));
                 var deviceInventory = Assert.IsType<TextBlock>(targetStepView.FindName("DeviceInventoryTitle"));
                 var diskEraseNotice = Assert.IsType<Border>(targetStepView.FindName("DiskEraseNotice"));
+                var deviceInventorySeparator = Assert.IsType<Separator>(targetStepView.FindName("DeviceInventorySeparator"));
+                var deviceInventoryGrid = Assert.IsType<Grid>(targetStepView.FindName("DeviceInventoryGrid"));
+                var firmwareSeparator = Assert.IsType<Separator>(targetStepView.FindName("FirmwareSeparator"));
                 Assert.Equal("\uE772", targetHeader.Glyph);
-                Assert.Equal(new Thickness(0, 0, 0, 24), targetHeader.Margin);
+                Assert.Equal(new Thickness(0, 0, 0, 32), targetHeader.Margin);
                 Assert.Same(application.FindResource("SubtitleTextBlockStyle"), deploymentSettings.Style);
                 Assert.Same(application.FindResource("SubtitleTextBlockStyle"), deviceInventory.Style);
                 Assert.Same(application.FindResource("SystemFillColorCautionBrush"), diskEraseNotice.BorderBrush);
+                Assert.Equal(new Thickness(0, 0, 0, 12), diskEraseNotice.Margin);
+                Assert.Equal(new Thickness(0, 0, 0, 12), deviceInventorySeparator.Margin);
+                Assert.Equal(new Thickness(0, 12, 0, 12), firmwareSeparator.Margin);
+                Assert.Equal(5, deviceInventoryGrid.ColumnDefinitions.Count);
+                Assert.Equal(new GridLength(2, GridUnitType.Star), deviceInventoryGrid.ColumnDefinitions[0].Width);
 
                 var operatingSystemHeader = Assert.IsType<WizardPageHeader>(
                     new OperatingSystemCatalogStepView().FindName("PageHeader"));

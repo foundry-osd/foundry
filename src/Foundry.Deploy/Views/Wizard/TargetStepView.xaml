@@ -60,7 +60,7 @@
         </WrapPanel>
 
         <Border x:Name="DiskEraseNotice"
-            Margin="0,0,0,24"
+            Margin="0,0,0,12"
             Padding="12"
             Background="{DynamicResource SystemFillColorCautionBackgroundBrush}"
             BorderBrush="{DynamicResource SystemFillColorCautionBrush}"
@@ -85,13 +85,21 @@
             </Grid>
         </Border>
 
-        <Separator Margin="0,0,0,24" />
+        <Separator x:Name="DeviceInventorySeparator"
+            Margin="0,0,0,12" />
         <TextBlock x:Name="DeviceInventoryTitle"
             Margin="0,0,0,12"
             Style="{StaticResource SubtitleTextBlockStyle}"
             Text="{Binding DataContext.Strings[TargetDevice.DeviceInventory], ElementName=ViewRoot}" />
-        <WrapPanel ItemWidth="220">
-            <StackPanel Margin="0,0,24,16">
+        <Grid x:Name="DeviceInventoryGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Margin="0,0,24,0">
                 <TextBlock
                     Style="{StaticResource BodyStrongTextBlockStyle}"
                     Text="{Binding DataContext.Strings[TargetDevice.Device], ElementName=ViewRoot}" />
@@ -101,7 +109,9 @@
                     Text="{Binding HardwareDeviceText}"
                     TextWrapping="Wrap" />
             </StackPanel>
-            <StackPanel Margin="0,0,24,16">
+            <StackPanel
+                Grid.Column="1"
+                Margin="0,0,24,0">
                 <TextBlock
                     Style="{StaticResource BodyStrongTextBlockStyle}"
                     Text="{Binding DataContext.Strings[TargetDevice.Architecture], ElementName=ViewRoot}" />
@@ -111,7 +121,9 @@
                     Text="{Binding HardwareArchitectureText}"
                     TextWrapping="Wrap" />
             </StackPanel>
-            <StackPanel Margin="0,0,24,16">
+            <StackPanel
+                Grid.Column="2"
+                Margin="0,0,24,0">
                 <TextBlock
                     Style="{StaticResource BodyStrongTextBlockStyle}"
                     Text="{Binding DataContext.Strings[TargetDevice.Tpm], ElementName=ViewRoot}" />
@@ -121,7 +133,9 @@
                     Text="{Binding HardwareTpmText}"
                     TextWrapping="Wrap" />
             </StackPanel>
-            <StackPanel Margin="0,0,24,16">
+            <StackPanel
+                Grid.Column="3"
+                Margin="0,0,24,0">
                 <TextBlock
                     Style="{StaticResource BodyStrongTextBlockStyle}"
                     Text="{Binding DataContext.Strings[TargetDevice.PowerSource], ElementName=ViewRoot}" />
@@ -131,7 +145,7 @@
                     Text="{Binding HardwarePowerText}"
                     TextWrapping="Wrap" />
             </StackPanel>
-            <StackPanel Margin="0,0,24,16">
+            <StackPanel Grid.Column="4">
                 <TextBlock
                     Style="{StaticResource BodyStrongTextBlockStyle}"
                     Text="{Binding DataContext.Strings[TargetDevice.FirmwareStatus], ElementName=ViewRoot}" />
@@ -141,9 +155,10 @@
                     Text="{Binding HardwareFirmwareText}"
                     TextWrapping="Wrap" />
             </StackPanel>
-        </WrapPanel>
+        </Grid>
 
-        <Separator Margin="0,8,0,24" />
+        <Separator x:Name="FirmwareSeparator"
+            Margin="0,12,0,12" />
         <TextBlock
             Margin="0,0,0,12"
             Style="{StaticResource SubtitleTextBlockStyle}"
