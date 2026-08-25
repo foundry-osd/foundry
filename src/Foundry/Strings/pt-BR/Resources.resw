@@ -2746,4 +2746,16 @@
   <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
     <value>Requer atenção</value>
   </data>
+  <data name="Nav_ReportBugKey.Title" xml:space="preserve">
+    <value>Relatar um bug</value>
+  </data>
+  <data name="Nav_ReportBugKey.Description" xml:space="preserve">
+    <value>Abra o formulário de relatório de bugs do GitHub no navegador.</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Title" xml:space="preserve">
+    <value>Não foi possível abrir o relatório de bug</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
+    <value>O Foundry não conseguiu abrir o formulário de relatório de bug. Copie este link e abra-o no navegador.</value>
+  </data>
 </root>

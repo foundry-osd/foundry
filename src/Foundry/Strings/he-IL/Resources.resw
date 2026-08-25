@@ -2746,4 +2746,16 @@
   <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
     <value>דורש טיפול</value>
   </data>
+  <data name="Nav_ReportBugKey.Title" xml:space="preserve">
+    <value>דיווח על באג</value>
+  </data>
+  <data name="Nav_ReportBugKey.Description" xml:space="preserve">
+    <value>פתח את טופס הדיווח על באגים של GitHub בדפדפן שלך.</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Title" xml:space="preserve">
+    <value>לא ניתן לפתוח את דיווח הבאג</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
+    <value>Foundry לא הצליח לפתוח את טופס הדיווח על הבאג. העתק את הקישור הזה ופתח אותו בדפדפן שלך.</value>
+  </data>
 </root>

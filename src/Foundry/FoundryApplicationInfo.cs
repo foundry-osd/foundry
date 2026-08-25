@@ -108,6 +108,11 @@ public static class FoundryApplicationInfo
     public const string IssuesUrl = Constants.RepositoryUrl + "/issues";
 
     /// <summary>
+    /// Gets the GitHub bug report form URL.
+    /// </summary>
+    public const string BugReportUrl = IssuesUrl + "/new?template=bug-report.yml";
+
+    /// <summary>
     /// Gets the license document URL.
     /// </summary>
     public const string LicenseUrl = Constants.RepositoryUrl + "/blob/main/LICENSE";

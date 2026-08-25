@@ -2746,4 +2746,16 @@
   <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
     <value>يحتاج إلى اهتمام</value>
   </data>
+  <data name="Nav_ReportBugKey.Title" xml:space="preserve">
+    <value>الإبلاغ عن خطأ</value>
+  </data>
+  <data name="Nav_ReportBugKey.Description" xml:space="preserve">
+    <value>افتح نموذج الإبلاغ عن الأخطاء على GitHub في متصفحك.</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Title" xml:space="preserve">
+    <value>تعذر فتح بلاغ الخطأ</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
+    <value>تعذر على Foundry فتح نموذج الإبلاغ عن الخطأ. انسخ هذا الرابط وافتحه في متصفحك.</value>
+  </data>
 </root>

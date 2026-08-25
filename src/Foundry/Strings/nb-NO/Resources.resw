@@ -2746,4 +2746,16 @@
   <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
     <value>Krever oppmerksomhet</value>
   </data>
+  <data name="Nav_ReportBugKey.Title" xml:space="preserve">
+    <value>Rapporter en feil</value>
+  </data>
+  <data name="Nav_ReportBugKey.Description" xml:space="preserve">
+    <value>Åpne GitHubs skjema for feilrapportering i nettleseren.</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Title" xml:space="preserve">
+    <value>Kunne ikke åpne feilrapporten</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
+    <value>Foundry kunne ikke åpne skjemaet for feilrapportering. Kopier denne lenken, og åpne den i nettleseren.</value>
+  </data>
 </root>

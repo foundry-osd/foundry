@@ -2746,4 +2746,16 @@
   <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
     <value>Χρειάζεται προσοχή</value>
   </data>
+  <data name="Nav_ReportBugKey.Title" xml:space="preserve">
+    <value>Αναφορά σφάλματος</value>
+  </data>
+  <data name="Nav_ReportBugKey.Description" xml:space="preserve">
+    <value>Ανοίξτε τη φόρμα αναφοράς σφάλματος του GitHub στο πρόγραμμα περιήγησής σας.</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Title" xml:space="preserve">
+    <value>Δεν ήταν δυνατό το άνοιγμα της αναφοράς σφάλματος</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
+    <value>Το Foundry δεν μπόρεσε να ανοίξει τη φόρμα αναφοράς σφάλματος. Αντιγράψτε αυτόν τον σύνδεσμο και ανοίξτε τον στο πρόγραμμα περιήγησής σας.</value>
+  </data>
 </root>
