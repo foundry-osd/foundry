@@ -2746,4 +2746,16 @@
   <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
     <value>Kräver åtgärd</value>
   </data>
+  <data name="Nav_ReportBugKey.Title" xml:space="preserve">
+    <value>Rapportera ett fel</value>
+  </data>
+  <data name="Nav_ReportBugKey.Description" xml:space="preserve">
+    <value>Öppna GitHubs formulär för felrapportering i webbläsaren.</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Title" xml:space="preserve">
+    <value>Det gick inte att öppna felrapporten</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
+    <value>Foundry kunde inte öppna formuläret för felrapportering. Kopiera den här länken och öppna den i webbläsaren.</value>
+  </data>
 </root>

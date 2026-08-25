@@ -2746,4 +2746,16 @@
   <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
     <value>Nécessite votre attention</value>
   </data>
+  <data name="Nav_ReportBugKey.Title" xml:space="preserve">
+    <value>Signaler un bogue</value>
+  </data>
+  <data name="Nav_ReportBugKey.Description" xml:space="preserve">
+    <value>Ouvrez le formulaire de signalement de bogue GitHub dans votre navigateur.</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Title" xml:space="preserve">
+    <value>Impossible d’ouvrir le rapport de bogue</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
+    <value>Foundry n’a pas pu ouvrir le formulaire de signalement de bogue. Copiez ce lien et ouvrez-le dans votre navigateur.</value>
+  </data>
 </root>

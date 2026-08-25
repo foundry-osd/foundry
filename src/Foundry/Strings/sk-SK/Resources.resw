@@ -2746,4 +2746,16 @@
   <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
     <value>Vyžaduje pozornosť</value>
   </data>
+  <data name="Nav_ReportBugKey.Title" xml:space="preserve">
+    <value>Nahlásiť chybu</value>
+  </data>
+  <data name="Nav_ReportBugKey.Description" xml:space="preserve">
+    <value>Otvorte formulár na hlásenie chýb na GitHube vo svojom prehliadači.</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Title" xml:space="preserve">
+    <value>Hlásenie chyby nebolo možné otvoriť</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
+    <value>Aplikácii Foundry sa nepodarilo otvoriť formulár na hlásenie chyby. Skopírujte tento odkaz a otvorte ho vo svojom prehliadači.</value>
+  </data>
 </root>

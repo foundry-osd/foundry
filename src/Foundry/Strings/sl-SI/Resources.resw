@@ -2746,4 +2746,16 @@
   <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
     <value>Zahteva pozornost</value>
   </data>
+  <data name="Nav_ReportBugKey.Title" xml:space="preserve">
+    <value>Prijavi napako</value>
+  </data>
+  <data name="Nav_ReportBugKey.Description" xml:space="preserve">
+    <value>V brskalniku odprite obrazec GitHub za prijavo napak.</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Title" xml:space="preserve">
+    <value>Poročila o napaki ni bilo mogoče odpreti</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
+    <value>Foundry ni mogel odpreti obrazca za prijavo napake. Kopirajte to povezavo in jo odprite v brskalniku.</value>
+  </data>
 </root>

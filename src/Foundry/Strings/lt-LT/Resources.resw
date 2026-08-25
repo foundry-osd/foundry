@@ -2746,4 +2746,16 @@
   <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
     <value>Reikia dėmesio</value>
   </data>
+  <data name="Nav_ReportBugKey.Title" xml:space="preserve">
+    <value>Pranešti apie klaidą</value>
+  </data>
+  <data name="Nav_ReportBugKey.Description" xml:space="preserve">
+    <value>Atidarykite „GitHub“ klaidos pranešimo formą naršyklėje.</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Title" xml:space="preserve">
+    <value>Nepavyko atidaryti klaidos pranešimo</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
+    <value>„Foundry“ nepavyko atidaryti klaidos pranešimo formos. Nukopijuokite šią nuorodą ir atidarykite ją naršyklėje.</value>
+  </data>
 </root>
