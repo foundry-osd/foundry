@@ -152,6 +152,7 @@ public sealed class XamlResourceLoadingTests
                 var driversHeader = Assert.IsType<WizardPageHeader>(driversView.FindName("PageHeader"));
                 var driverPackSourceList = Assert.IsType<ListBox>(driversView.FindName("DriverPackSourceList"));
                 var autopilotHeader = Assert.IsType<WizardPageHeader>(autopilotView.FindName("PageHeader"));
+                var autopilotStatusGlyph = Assert.IsType<TextBlock>(autopilotView.FindName("HardwareHashUploadStatusGlyph"));
                 Assert.Equal(1, Grid.GetRow(operatingSystemScroller));
                 Assert.Equal(HorizontalAlignment.Stretch, operatingSystemScroller.HorizontalContentAlignment);
                 var viewportHeightBinding = Assert.IsType<Binding>(
@@ -175,6 +176,9 @@ public sealed class XamlResourceLoadingTests
                     driverPackSourceList.ReadLocalValue(Control.BorderThicknessProperty));
                 Assert.Equal(new Thickness(0, 4, 0, 0), driverPackSourceList.Padding);
                 Assert.Equal("\uE753", autopilotHeader.Glyph);
+                Assert.Equal(HorizontalAlignment.Center, autopilotStatusGlyph.HorizontalAlignment);
+                Assert.Equal(VerticalAlignment.Center, autopilotStatusGlyph.VerticalAlignment);
+                Assert.Equal(new Thickness(0), autopilotStatusGlyph.Margin);
 
                 var verticalStepTemplate = Assert.IsType<DataTemplate>(
                     wizardView.FindResource("VerticalStepTemplate"));

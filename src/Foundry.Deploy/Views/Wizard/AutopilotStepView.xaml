@@ -149,18 +149,18 @@
                         Margin="0,24,0,0"
                         Visibility="{Binding IsHardwareHashUploadControlsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <Border
-                            Padding="12"
+                            Padding="16,12"
                             Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
                             CornerRadius="6">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="24" />
-                                    <ColumnDefinition Width="12" />
+                                    <ColumnDefinition Width="32" />
+                                    <ColumnDefinition Width="16" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock
-                                    Margin="0,2,0,0"
-                                    VerticalAlignment="Top"
+                                <TextBlock x:Name="HardwareHashUploadStatusGlyph"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
                                     FontFamily="{DynamicResource SymbolThemeFontFamily}"
                                     FontSize="16">
                                     <TextBlock.Style>
