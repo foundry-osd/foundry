@@ -29,40 +29,27 @@
   <data name="Language.English" xml:space="preserve"><value>engelsk</value></data>
   <data name="Language.French" xml:space="preserve"><value>fransk</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Åpne loggfilen</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Mål</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operativsystem</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Driverpakke</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Sammendrag</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Datamaskinnavn</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 tegn. A-Z, a-z, 0-9 og bare bindestrek.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Datamaskinnavnet må inneholde 1 til 15 gyldige tegn (bokstaver, tall eller bindestrek).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Målmaskin</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Destinasjonsdisk</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Implementeringsalternativer</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Måldisk</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Velg en måldisk. Ikke-kvalifiserte disker er blokkert.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Bruk fastvareoppdateringer</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Aktiver Autopilot for denne distribusjonen</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Ingen innebygde Autopilot-profiler ble funnet på dette mediet.</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profil</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profilklargjøring</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch opplasting av maskinvarehash</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktiv opplasting av maskinvarehash</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Tilgjengelig på dette mediet: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch opplasting av maskinvarehash</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Maskinvarehash-opplastingsstatus</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Klar til å laste opp maskinvarehash</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Ikke klar til å laste opp maskinvarehash</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Opplastingssertifikatet er utløpt</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Maskinvarehash-opplasting er utilgjengelig på dette mediet fordi nødvendig sertifikatinformasjon mangler. Implementeringen kan fortsette, men opplastingen blir hoppet over.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot-sertifikatet har utløpt. Implementeringen kan fortsette, men opplastingen blir hoppet over.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Detaljer</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Opplasting av maskinvarehash er ikke tilgjengelig</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Nødvendig sertifikatinformasjon mangler. Implementeringen kan fortsette uten å laste opp maskinvarehashen.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot-sertifikatet er utløpt. Implementeringen kan fortsette uten å laste opp maskinvarehashen.</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Leietaker ID</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Sertifikat tommelfingeravtrykk</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Sertifikat utløper</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Gruppemerke</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Gruppekoden er valgfri. Velg Ingen for å laste opp uten en gruppetag.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Oppdager maskinvare...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Maskinvaregjenkjenning mislyktes.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Maskinvaredeteksjon mislyktes: {0}</value></data>
@@ -71,7 +58,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Laster inn måldisker...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Oppdaging av måldisk mislyktes: {0}</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operativsystem</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versjon</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Windows-oppdatering</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Nyeste)</value></data>
@@ -82,7 +68,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Laster kataloger...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Kataloger lastet: {0} operativsystemoppføringer, {1} driverpakker.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Kataloginnlasting mislyktes: {0}</value></data>
-  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Driverkilde</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Modell</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Versjon</value></data>
@@ -101,12 +86,9 @@
   <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} konfigurert ({1} aktiver, {2} deaktiver)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Fastvare</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Metode</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot-metode</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profil</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot gruppetag</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Mål</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>System</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Implementeringsalternativer</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Nei Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profil</value></data>
@@ -145,12 +127,11 @@ Handling: Bekreft diskattributter og prøv distribusjon på nytt.</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Nettverk</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Starttid</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Forløpt tid</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>Implementeringen er fullført.</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Implementeringen er fullført</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Denne datamaskinen starter på nytt om {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Start på nytt</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Implementeringen mislyktes</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>Mislykket trinn</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>Feilmelding</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>Mislykket trinn: {0}</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Velkommen</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Initialiserer komponenter...</value></data>
   <data name="Splash.Start" xml:space="preserve"><value>Start</value></data>
@@ -194,25 +175,25 @@ Vil du fortsette med distribusjonen?</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Nødvendig omstart kjørbar 'wpeutil.exe' ble ikke funnet.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Ukjent trinn</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>Ingen feildetaljer ble oppgitt.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Samle distribusjonsvariabler</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Initialiser arbeidsområdet for distribusjon</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Valider målkonfigurasjon</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Sjekk distribusjonsbufferen</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Forbered måldisklayout</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Last ned bilde av operativsystemet</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Bruk operativsystembilde</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Konfigurer navnet på måldatamaskinen</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Konfigurer OOBE-innstillinger</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Konfigurer gjenopprettingsmiljø</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Last ned driverpakke</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Pakk ut driverpakke</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Stage pre-OOBE-tilpasning</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Bruk driverpakke</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Last ned fastvareoppdatering</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Bruk fastvareoppdatering</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Samle variabler</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Initialiser utrulling</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Valider konfigurasjon</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Kontroller cache</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Forbered disk</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Last ned operativsystem</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Installer operativsystem</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Angi datamaskinnavn</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Konfigurer OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Konfigurer Windows-gjenoppretting</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Last ned drivere</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Pakk ut drivere</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Forbered tilpasninger</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Installer drivere</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Last ned firmware</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Installer firmware</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Forsegl gjenopprettingspartisjon</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Avsetning Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Fullfør distribusjon og skriv logger</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Provisioner Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Fullfør utrulling</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Samler inn distribusjonsvariabler...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Samler inn implementeringskontekst …</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Implementeringsvariabler samlet.</value></data>
@@ -515,7 +496,7 @@ Vil du fortsette med distribusjonen?</value></data>
     <value>Den interaktive Autopilot-registreringsassistenten er klargjort (simulering).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Fjern oppstartsmediet, og velg deretter Start på nytt.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Konfigurer valgfrie Windows-funksjoner</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Konfigurer valgfrie funksjoner</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Konfigurerer valgfrie Windows-funksjoner...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Inspiserer funksjonstilstander...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Forbereder samsvarende mediekilder for oppsett ...</value></data>
@@ -537,4 +518,73 @@ Vil du fortsette med distribusjonen?</value></data>
   <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Fortsett</value></data>
   <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Vis eller skjul passord</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Passordet er feil. Prøv på nytt.</value></data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>Målenhet</value></data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>Operativsystem</value></data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>Enhetsdrivere</value></data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Wizard.Step.Summary" xml:space="preserve"><value>Sammendrag</value></data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>Oppsettstrinn for distribusjon</value></data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>Gå tilbake til sammendraget</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>Rediger</value></data>
+  <data name="Common.Copy" xml:space="preserve"><value>Kopier</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>Lukk</value></data>
+  <data name="TargetDevice.Title" xml:space="preserve"><value>Målenhet</value></data>
+  <data name="TargetDevice.Firmware" xml:space="preserve"><value>Fastvareoppdateringer</value></data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>Ikke tilgjengelig på virtuelle maskiner</value></data>
+  <data name="OperatingSystem.Title" xml:space="preserve"><value>Operativsystem</value></data>
+  <data name="Drivers.Title" xml:space="preserve"><value>Enhetsdrivere</value></data>
+  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>Konfigurasjonsdetaljer</value></data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>Målenhet</value></data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>Operativsystem</value></data>
+  <data name="Summary.Category.Drivers" xml:space="preserve"><value>Enhetsdrivere</value></data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Windows-tilpasning</value></data>
+  <data name="Summary.Category.Network" xml:space="preserve"><value>Nettverk</value></data>
+  <data name="Summary.Category.Completion" xml:space="preserve"><value>Fullføring</value></data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Ikke konfigurert</value></data>
+  <data name="Summary.Status.Configured" xml:space="preserve"><value>Konfigurert</value></data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Ingen endringer</value></data>
+  <data name="Summary.Hardware" xml:space="preserve"><value>Oppdaget maskinvare</value></data>
+  <data name="Summary.Release" xml:space="preserve"><value>Versjon</value></data>
+  <data name="Summary.Edition" xml:space="preserve"><value>Operativsystemutgave</value></data>
+  <data name="Summary.Architecture" xml:space="preserve"><value>Systemarkitektur</value></data>
+  <data name="Summary.Language" xml:space="preserve"><value>Språk</value></data>
+  <data name="Summary.LicenseChannel" xml:space="preserve"><value>Lisenskanal</value></data>
+  <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
+  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX-fjerning</value></data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>Fjerning av AI-komponenter</value></data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Nettverksprofilroaming</value></data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>Automatisk omstart</value></data>
+  <data name="Summary.ManualRestart" xml:space="preserve"><value>Manuell omstart</value></data>
+  <data name="Summary.RestartDelay" xml:space="preserve"><value>Forsinket omstart</value></data>
+  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} sekunder</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Den valgte måldisken vil bli slettet når distribusjonen starter.</value></data>
+  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Velkommen til Foundry Deploy</value></data>
+  <data name="Progress.Session" xml:space="preserve"><value>Distribusjonsøkt</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Trinn</value></data>
+  <data name="Progress.RingAutomationName" xml:space="preserve"><value>Generell distribusjonsfremgang</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Distribusjonstrinn</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Vis feildetaljer</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Feildetaljer</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>Velg datamaskinnavnet og måldisken, og se deretter gjennom den registrerte maskinvaren.</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Distribusjonsinnstillinger</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Enhetsoversikt</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Enhetsidentitet</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>Plattform</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Produsent</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>Modell</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>Produkt</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Serienummer</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Arkitektur</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Strømkilde</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Fastvarestatus</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>Velg Windows-versjon, språk, utgave og lisenskanal.</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>Velg driverkilden og, om nødvendig, tilsvarende modell og versjon.</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>Se gjennom innstillingene for Autopilot-klargjøring for denne enheten.</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>Se gjennom valgene før du starter distribusjonen.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Legger til en frakoblet Autopilot-profil i Windows-installasjonen.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Laster opp maskinvarehashen for denne enheten til Windows Autopilot under distribusjonen.</value></data>
 </root>

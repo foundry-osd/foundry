@@ -34,7 +34,7 @@ public sealed class DriverPackSelectionViewModelTests
         };
 
         viewModel.UpdateSelectionContext(hardware, operatingSystem, "x64");
-        viewModel.ApplyCatalog([]);
+        viewModel.ReplaceCatalog([]);
 
         Assert.Equal(DriverPackSelectionKind.None, viewModel.EffectiveSelectionKind);
     }
@@ -61,7 +61,7 @@ public sealed class DriverPackSelectionViewModelTests
         DateTimeOffset catalogDate = new(2024, 06, 13, 0, 0, 0, TimeSpan.Zero);
 
         viewModel.UpdateSelectionContext(hardware, operatingSystem, "x64");
-        viewModel.ApplyCatalog(
+        viewModel.ReplaceCatalog(
         [
             CreateCatalogItem("21h2", "21H2", catalogDate),
             CreateCatalogItem("22h2", "22H2", catalogDate),
@@ -97,7 +97,7 @@ public sealed class DriverPackSelectionViewModelTests
         };
 
         viewModel.UpdateSelectionContext(hardware, operatingSystem, "x64");
-        viewModel.ApplyCatalog(
+        viewModel.ReplaceCatalog(
         [
             CreateCatalogItem(
                 "21y2-21y3",

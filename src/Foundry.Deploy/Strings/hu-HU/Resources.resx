@@ -29,40 +29,27 @@
   <data name="Language.English" xml:space="preserve"><value>angolul</value></data>
   <data name="Language.French" xml:space="preserve"><value>francia</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Nyissa meg a naplófájlt</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Cél</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operációs rendszer</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Driver csomag</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Összegzés</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Számítógép neve</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 karakter. Csak A-Z, a-z, 0-9 és kötőjel.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>A számítógép nevének 1–15 érvényes karaktert (betűket, számokat vagy kötőjelet) kell tartalmaznia.</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Célgép</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Cél lemez</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Telepítési lehetőségek</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Céllemez</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Válasszon ki egy céllemezt. A nem megfelelő lemezek blokkolva vannak.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Alkalmazzon firmware-frissítéseket</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Engedélyezze a Autopilot alkalmazást ehhez a telepítéshez</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Ezen az adathordozón nem található beágyazott Autopilot profil.</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profil</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profil létrehozása</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch hardverhash-feltöltés</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktív hardverhash-feltöltés</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Elérhető ezen a médián: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch hardverhash-feltöltés</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Hardver hash feltöltési állapota</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Készen áll a hardveres hash feltöltésére</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Nem áll készen a hardveres hash feltöltésére</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>A feltöltési tanúsítvány lejárt</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>A hardveres hash-feltöltés nem érhető el ezen az adathordozón, mert hiányoznak a szükséges tanúsítványinformációk. A telepítés folytatódhat, de a feltöltés kimarad.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>A Autopilot tanúsítvány lejárt. A telepítés folytatódhat, de a feltöltés kimarad.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Részletek</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>A hardveres hash-feltöltés nem érhető el</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Hiányoznak a szükséges tanúsítványinformációk. A telepítés a hardveres hash feltöltése nélkül is folytatható.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Az Autopilot tanúsítvány lejárt. A telepítés a hardveres hash feltöltése nélkül is folytatható.</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Bérlői azonosító</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Tanúsítvány ujjlenyomata</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Tanúsítvány lejárata</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Csoportcímke</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>A csoportcímke nem kötelező. Válassza a Nincs lehetőséget a csoportcímke nélküli feltöltéshez.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Hardver észlelése...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>A hardverészlelés nem sikerült.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>A hardverészlelés nem sikerült: {0}</value></data>
@@ -71,7 +58,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Céllemezek betöltése...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>A céllemez felderítése nem sikerült: {0}</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operációs rendszer</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Verzió</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Windows-frissítés</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Legfrissebb)</value></data>
@@ -82,7 +68,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Katalógusok betöltése...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Betöltött katalógusok: {0} operációs rendszer bejegyzések, {1} illesztőprogram-csomagok.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>A katalógus betöltése sikertelen: {0}</value></data>
-  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Illesztőprogram forrása</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Modell</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Verzió</value></data>
@@ -101,12 +86,9 @@
   <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} konfigur&#225;lva ({1} enged&#233;lyezve, {2} letiltva)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Módszer</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot-módszer</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profil</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot csoportcímke</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Cél</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>Rendszer</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Telepítési lehetőségek</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Nem Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profil</value></data>
@@ -145,12 +127,11 @@ Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a közpo
   <data name="Progress.Networking" xml:space="preserve"><value>Hálózatépítés</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Kezdési idő</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Eltelt idő</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>A telepítés sikeresen befejeződött.</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>A telepítés befejeződött</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Ez a számítógép {0}s múlva újraindul.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Indítsa újra</value></data>
   <data name="Error.Title" xml:space="preserve"><value>A telepítés nem sikerült</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>Sikertelen lépés</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>Hibaüzenet</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>Sikertelen lépés: {0}</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Üdvözöljük</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Összetevők inicializálása...</value></data>
   <data name="Splash.Start" xml:space="preserve"><value>Indítsa el</value></data>
@@ -194,25 +175,25 @@ Folytatja a telepítést?</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>A szükséges újraindítási végrehajtható "wpeutil.exe" nem található.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Ismeretlen lépés</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>A hiba részleteit nem közölték.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Gyűjtsd össze a telepítési változókat</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Inicializálja a telepítési munkaterületet</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Érvényesítse a célkonfigurációt</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Ellenőrizze a telepítési gyorsítótárat</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Készítse elő a céllemez elrendezését</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Töltse le az operációs rendszer képét</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Alkalmazza az operációs rendszer képét</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Konfigurálja a célszámítógép nevét</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Konfigurálja a OOBE beállításokat</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Konfigurálja a helyreállítási környezetet</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Töltse le az illesztőprogram-csomagot</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Illesztőprogram-csomag kibontása</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Stage pre-OOBE testreszabás</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Illesztőprogram-csomag alkalmazása</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Firmware frissítés letöltése</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Alkalmazza a firmware frissítést</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Tömítse le a helyreállítási partíciót</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Ellátás Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Fejezze be a telepítést és írjon naplókat</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Változók összegyűjtése</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Telepítés inicializálása</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Konfiguráció ellenőrzése</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Gyorsítótár ellenőrzése</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Lemez előkészítése</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Operációs rendszer letöltése</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Operációs rendszer alkalmazása</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Számítógépnév beállítása</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>OOBE konfigurálása</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Windows-helyreállítás konfigurálása</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Illesztőprogramok letöltése</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Illesztőprogramok kibontása</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Testreszabások előkészítése</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Illesztőprogramok alkalmazása</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Firmware letöltése</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Firmware alkalmazása</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Helyreállítási partíció lezárása</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Autopilot előkészítése</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Telepítés befejezése</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Telepítési változók gyűjtése...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Telepítési kontextus gyűjtése...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>A telepítési változók összegyűjtve.</value></data>
@@ -515,7 +496,7 @@ Folytatja a telepítést?</value></data>
     <value>Az interaktív Autopilot regisztrációs segéd előkészítve (szimuláció).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Távolítsa el a rendszerindító adathordozót, majd válassza az Újraindítás lehetőséget.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>A Windows opcion&#225;lis funkci&#243;inak konfigur&#225;l&#225;sa</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Opcionális funkciók konfigurálása</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>A Windows opcion&#225;lis szolg&#225;ltat&#225;sainak konfigur&#225;l&#225;sa...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>A funkci&#243;k &#225;llapot&#225;nak ellenőrz&#233;se...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>A megfelelő be&#225;ll&#237;t&#225;si m&#233;diaforr&#225;sok elők&#233;sz&#237;t&#233;se...</value></data>
@@ -537,4 +518,73 @@ Folytatja a telepítést?</value></data>
   <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Folytatás</value></data>
   <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Jelszó megjelenítése vagy elrejtése</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>A jelszó helytelen. Próbálja újra.</value></data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>Céleszköz</value></data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>Operációs rendszer</value></data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>Eszköz illesztőprogramok</value></data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Wizard.Step.Summary" xml:space="preserve"><value>Összefoglalás</value></data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>A telepítés beállításának lépései</value></data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>Vissza az összefoglalóhoz</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>Szerkesztés</value></data>
+  <data name="Common.Copy" xml:space="preserve"><value>Másolás a vágólapra</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>Bezárás</value></data>
+  <data name="TargetDevice.Title" xml:space="preserve"><value>Céleszköz</value></data>
+  <data name="TargetDevice.Firmware" xml:space="preserve"><value>Firmware frissítések</value></data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>Nem érhető el virtuális gépeken</value></data>
+  <data name="OperatingSystem.Title" xml:space="preserve"><value>Operációs rendszer</value></data>
+  <data name="Drivers.Title" xml:space="preserve"><value>Eszköz illesztőprogramok</value></data>
+  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>Konfiguráció részletei</value></data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>Céleszköz</value></data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>Operációs rendszer</value></data>
+  <data name="Summary.Category.Drivers" xml:space="preserve"><value>Eszköz illesztőprogramok</value></data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Windows testreszabása</value></data>
+  <data name="Summary.Category.Network" xml:space="preserve"><value>Hálózat</value></data>
+  <data name="Summary.Category.Completion" xml:space="preserve"><value>Befejezés</value></data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Nincs konfigurálva</value></data>
+  <data name="Summary.Status.Configured" xml:space="preserve"><value>Konfigurálva</value></data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Nincs változás</value></data>
+  <data name="Summary.Hardware" xml:space="preserve"><value>Észlelt hardver</value></data>
+  <data name="Summary.Release" xml:space="preserve"><value>Verzió</value></data>
+  <data name="Summary.Edition" xml:space="preserve"><value>Kiadás</value></data>
+  <data name="Summary.Architecture" xml:space="preserve"><value>Architektúra</value></data>
+  <data name="Summary.Language" xml:space="preserve"><value>Nyelv</value></data>
+  <data name="Summary.LicenseChannel" xml:space="preserve"><value>Licenccsatorna</value></data>
+  <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
+  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX eltávolítás</value></data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>AI komponens eltávolítása</value></data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Hálózati profilok roamingja</value></data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>Automatikus újraindítás</value></data>
+  <data name="Summary.ManualRestart" xml:space="preserve"><value>Kézi újraindítás</value></data>
+  <data name="Summary.RestartDelay" xml:space="preserve"><value>Újraindítási késleltetés</value></data>
+  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} másodperc</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>A kiválasztott céllemez törlődik a központi telepítés megkezdésekor.</value></data>
+  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Üdvözöljük a Foundry Deployban</value></data>
+  <data name="Progress.Session" xml:space="preserve"><value>Telepítési munkamenet</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Lépések</value></data>
+  <data name="Progress.RingAutomationName" xml:space="preserve"><value>A telepítés általános előrehaladása</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Telepítési lépések</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Hiba részleteinek megtekintése</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Hiba részletei</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>Válassza ki a számítógép nevét és a céllemezt, majd tekintse át az észlelt hardvert.</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Üzembehelyezési beállítások</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Eszközleltár</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Eszközazonosító adatok</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>Platform</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Gyártó</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>Modell</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>Termék</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Sorozatszám</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Architektúra</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Áramforrás</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Belső vezérlőprogram állapota</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>Válassza ki a Windows-verziót, a nyelvet, a kiadást és a licenccsatornát.</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>Válassza ki az illesztőprogramok forrását, és szükség esetén a megfelelő modellt és verziót.</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>Tekintse át az eszköz Autopilot-kiépítési beállításait.</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>Az üzembe helyezés megkezdése előtt tekintse át a választásait.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Offline Autopilot-profilt ad a Windows-telepítéshez.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>A telepítés során feltölti az eszköz hardverkivonatát a Windows Autopilotba.</value></data>
 </root>

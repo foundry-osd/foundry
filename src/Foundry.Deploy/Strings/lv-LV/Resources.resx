@@ -29,40 +29,27 @@
   <data name="Language.English" xml:space="preserve"><value>angļu valoda</value></data>
   <data name="Language.French" xml:space="preserve"><value>franču valoda</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Atveriet žurnāla failu</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Mērķis</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operētājsistēma</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Vadītāja pakotne</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Kopsavilkums</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Datora nosaukums</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 rakstzīmes. Tikai A–Z, a–z, 0–9 un defise.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Datora nosaukumā ir jāsatur 1–15 derīgas rakstzīmes (burti, cipari vai defise).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Mērķa mašīna</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Galamērķa disks</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Izvietošanas iespējas</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Mērķa disks</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Izvēlieties mērķa disku. Nepiemērotie diski ir bloķēti.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Lietojiet programmaparatūras atjauninājumus</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Iespējojiet Autopilot šai izvietošanai</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profils</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Šajā datu nesējā netika atrasts neviens iegults Autopilot profils.</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profils</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profila nodrošināšana</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch aparatūras jaucējkoda augšupielāde</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktīva aparatūras jaucējkoda augšupielāde</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Pieejams šajā medijā: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch aparatūras jaucējkoda augšupielāde</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Aparatūras hash augšupielādes statuss</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Gatavs aparatūras hash augšupielādei</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Nav gatavs augšupielādēt aparatūras hash</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Augšupielādes sertifikāta derīguma termiņš ir beidzies</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Aparatūras jauktā augšupielāde šajā datu nesējā nav pieejama, jo trūkst vajadzīgās sertifikāta informācijas. Izvietošanu var turpināt, taču augšupielāde tiks izlaista.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot sertifikātam ir beidzies derīguma termiņš. Izvietošanu var turpināt, taču augšupielāde tiks izlaista.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Sīkāka informācija</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Aparatūras hash augšupielāde nav pieejama</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Trūkst nepieciešamās sertifikāta informācijas. Izvietošanu var turpināt, neaugšupielādējot aparatūras hash.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot sertifikāta derīguma termiņš ir beidzies. Izvietošanu var turpināt, neaugšupielādējot aparatūras hash.</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Īrnieka ID</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Sertifikāta īkšķa nospiedums</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Sertifikāta derīguma termiņš</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Grupas atzīme</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Grupas atzīme nav obligāta. Atlasiet Nav, lai augšupielādētu bez grupas atzīmes.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Notiek aparatūras noteikšana...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Aparatūras noteikšana neizdevās.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Aparatūras noteikšana neizdevās: {0}</value></data>
@@ -71,7 +58,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Notiek mērķa disku ielāde...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Mērķa diska atklāšana neizdevās: {0}</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operētājsistēma</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versija</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Windows atjauninājums</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Jaunākais)</value></data>
@@ -82,7 +68,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Notiek katalogu ielāde...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Ielādētie katalogi: {0} operētājsistēmas ieraksti, {1} draiveru pakotnes.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Kataloga ielāde neizdevās: {0}</value></data>
-  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Vadītāja avots</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Modelis</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Versija</value></data>
@@ -101,12 +86,9 @@
   <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} konfigurēts ({1} iespējot, {2} atspējot)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Programmaparatūra</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Metode</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot metode</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot profils</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot grupas atzīme</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Mērķis</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>Sistēma</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Izvietošanas iespējas</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Nē Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profils</value></data>
@@ -145,12 +127,11 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
   <data name="Progress.Networking" xml:space="preserve"><value>Tīklošana</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Sākuma laiks</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Pagājušais laiks</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>Izvietošana veiksmīgi pabeigta.</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Izvietošana pabeigta</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Šis dators tiks restartēts pēc {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Reboot</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Izvietošana neizdevās</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>Neveiksmīgs solis</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>Kļūdas ziņojums</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>Neizdevusies darbība: {0}</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Laipni lūdzam</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Notiek komponentu inicializācija...</value></data>
   <data name="Splash.Start" xml:space="preserve"><value>Sākt</value></data>
@@ -194,25 +175,25 @@ Vai turpināt izvietošanu?</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Nepieciešamais atsāknēšanas izpildāmais fails “wpeutil.exe” netika atrasts.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Nezināms solis</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>Sīkāka informācija par kļūdu netika sniegta.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Apkopojiet izvietošanas mainīgos</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Inicializējiet izvietošanas darbvietu</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Apstipriniet mērķa konfigurāciju</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Pārbaudiet izvietošanas kešatmiņu</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Sagatavojiet mērķa diska izkārtojumu</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Lejupielādēt operētājsistēmas attēlu</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Lietot operētājsistēmas attēlu</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Konfigurējiet mērķa datora nosaukumu</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Konfigurējiet OOBE iestatījumus</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Konfigurējiet atkopšanas vidi</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Lejupielādēt draivera pakotni</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Izvilkt draivera pakotni</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Pielāgošana pirms OOBE</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Lietojiet draivera pakotni</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Lejupielādējiet programmaparatūras atjauninājumu</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Lietojiet programmaparatūras atjauninājumu</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Blīvējiet atkopšanas nodalījumu</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Nodrošinājums Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Pabeidziet izvietošanu un ierakstiet žurnālus</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Ievāc mainīgos</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Inicializē izvēršanu</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Pārbaudi konfigurāciju</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Pārbaudi kešatmiņu</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Sagatavo disku</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Lejupielādē operētājsistēmu</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Lieto operētājsistēmu</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Iestati datora nosaukumu</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Konfigurē OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Konfigurē Windows atkopšanu</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Lejupielādē draiverus</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Izvelc draiverus</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Sagatavo pielāgojumus</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Lieto draiverus</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Lejupielādē aparātprogrammatūru</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Lieto aparātprogrammatūru</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Noslēdz atkopšanas nodalījumu</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Sagatavo Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Pabeidz izvēršanu</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Notiek izvietošanas mainīgo apkopošana...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Notiek izvietošanas konteksta apkopošana...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Izvietošanas mainīgie ir apkopoti.</value></data>
@@ -515,7 +496,7 @@ Vai turpināt izvietošanu?</value></data>
     <value>Interaktīvais Autopilot reģistrācijas palīgs ir sagatavots (simulācija).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Izņemiet sāknēšanas datu nesēju un pēc tam atlasiet Restartēt.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Konfigurējiet Windows papildu līdzekļus</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Konfigurē izvēles līdzekļus</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Notiek Windows papildu līdzekļu konfigurēšana...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Notiek funkciju stāvokļa pārbaude...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Notiek atbilstošu iestatīšanas multivides avotu sagatavošana...</value></data>
@@ -537,4 +518,73 @@ Vai turpināt izvietošanu?</value></data>
   <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Turpināt</value></data>
   <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Rādīt vai paslēpt paroli</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Parole nav pareiza. Mēģiniet vēlreiz.</value></data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>Mērķa ierīce</value></data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>Operētājsistēma</value></data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>Ierīču draiveri</value></data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Wizard.Step.Summary" xml:space="preserve"><value>Kopsavilkums</value></data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>Izvietošanas iestatīšanas darbības</value></data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>Atgriezties uz kopsavilkumu</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>Rediģēt</value></data>
+  <data name="Common.Copy" xml:space="preserve"><value>Kopēt</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>Aizvērt</value></data>
+  <data name="TargetDevice.Title" xml:space="preserve"><value>Mērķa ierīce</value></data>
+  <data name="TargetDevice.Firmware" xml:space="preserve"><value>Programmaparatūras atjauninājumi</value></data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>Nav pieejams virtuālajās mašīnās</value></data>
+  <data name="OperatingSystem.Title" xml:space="preserve"><value>Operētājsistēma</value></data>
+  <data name="Drivers.Title" xml:space="preserve"><value>Ierīču draiveri</value></data>
+  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>Konfigurācijas informācija</value></data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>Mērķa ierīce</value></data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>Operētājsistēma</value></data>
+  <data name="Summary.Category.Drivers" xml:space="preserve"><value>Ierīču draiveri</value></data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Windows pielāgošana</value></data>
+  <data name="Summary.Category.Network" xml:space="preserve"><value>Tīkls</value></data>
+  <data name="Summary.Category.Completion" xml:space="preserve"><value>Pabeigšana</value></data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Nav konfigurēts</value></data>
+  <data name="Summary.Status.Configured" xml:space="preserve"><value>Konfigurēts</value></data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Nav izmaiņu</value></data>
+  <data name="Summary.Hardware" xml:space="preserve"><value>Konstatēta aparatūra</value></data>
+  <data name="Summary.Release" xml:space="preserve"><value>Versija</value></data>
+  <data name="Summary.Edition" xml:space="preserve"><value>Operētājsistēmas izdevums</value></data>
+  <data name="Summary.Architecture" xml:space="preserve"><value>Sistēmas arhitektūra</value></data>
+  <data name="Summary.Language" xml:space="preserve"><value>Valoda</value></data>
+  <data name="Summary.LicenseChannel" xml:space="preserve"><value>Licences kanāls</value></data>
+  <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
+  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX noņemšana</value></data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>AI komponentu noņemšana</value></data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Tīkla profila viesabonēšana</value></data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>Automātiska restartēšana</value></data>
+  <data name="Summary.ManualRestart" xml:space="preserve"><value>Manuāla restartēšana</value></data>
+  <data name="Summary.RestartDelay" xml:space="preserve"><value>Restartēšanas aizkave</value></data>
+  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} sekundes</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Atlasītais mērķa disks tiks dzēsts, kad sākas izvietošana.</value></data>
+  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Laipni lūdzam Foundry Deploy!</value></data>
+  <data name="Progress.Session" xml:space="preserve"><value>Izvietošanas sesija</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Darbības</value></data>
+  <data name="Progress.RingAutomationName" xml:space="preserve"><value>Kopējā izvietošanas gaita</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Izvietošanas darbības</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Skatīt informāciju par kļūdu</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Informācija par kļūdu</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>Izvēlieties datora nosaukumu un mērķa disku, pēc tam pārskatiet noteikto aparatūru.</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Izvietošanas iestatījumi</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Ierīces inventārs</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Ierīces identitāte</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>Platforma</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Ražotājs</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>Modelis</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>Produkts</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Sērijas numurs</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Arhitektūra</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Barošanas avots</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Aparātprogrammatūras statuss</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>Izvēlieties Windows laidienu, valodu, izdevumu un licences kanālu.</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>Izvēlieties draiveru avotu un, ja nepieciešams, atbilstošo modeli un versiju.</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>Pārskatiet šīs ierīces Autopilot nodrošināšanas iestatījumus.</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>Pirms izvietošanas sākšanas pārskatiet savu izvēli.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Pievieno Windows instalācijai bezsaistes Autopilot profilu.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Izvietošanas laikā augšupielādē šīs ierīces aparatūras jaucējkodu pakalpojumā Windows Autopilot.</value></data>
 </root>

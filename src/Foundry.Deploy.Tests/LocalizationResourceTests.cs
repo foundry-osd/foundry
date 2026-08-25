@@ -4,6 +4,7 @@
 
 using System.Globalization;
 using System.Resources;
+using System.Xml.Linq;
 using Foundry.Deploy.Services.Localization;
 
 namespace Foundry.Deploy.Tests;
@@ -20,6 +21,81 @@ public sealed class LocalizationResourceTests
         "DeploymentAccess.Continue",
         "DeploymentAccess.TogglePasswordVisibility",
         "DeploymentAccess.InvalidPassword"
+    ];
+
+    private static readonly string[] RedesignedInterfaceResourceKeys =
+    [
+        "Wizard.Step.TargetDevice",
+        "Wizard.Step.OperatingSystem",
+        "Wizard.Step.Drivers",
+        "Wizard.Step.Autopilot",
+        "Wizard.Step.Summary",
+        "Wizard.StepperAutomationName",
+        "Wizard.ReturnToSummary",
+        "Common.Edit",
+        "Common.Copy",
+        "Common.Close",
+        "TargetDevice.Title",
+        "TargetDevice.Description",
+        "TargetDevice.DeploymentSettings",
+        "TargetDevice.DeviceInventory",
+        "TargetDevice.DeviceIdentity",
+        "TargetDevice.Platform",
+        "TargetDevice.Manufacturer",
+        "TargetDevice.Model",
+        "TargetDevice.Product",
+        "TargetDevice.SerialNumber",
+        "TargetDevice.Architecture",
+        "TargetDevice.Tpm",
+        "TargetDevice.PowerSource",
+        "TargetDevice.FirmwareStatus",
+        "TargetDevice.DiskEraseNotice",
+        "TargetDevice.Firmware",
+        "TargetDevice.FirmwareUnavailableVirtualMachine",
+        "OperatingSystem.Title",
+        "OperatingSystem.Description",
+        "Drivers.Title",
+        "Drivers.Description",
+        "Autopilot.Title",
+        "Autopilot.Description",
+        "Autopilot.JsonProfileMethodDescription",
+        "Autopilot.HardwareHashUploadMethodDescription",
+        "Autopilot.ConfigurationDetails",
+        "Preparation.AutopilotHardwareHashUnavailableStatus",
+        "Summary.Category.TargetDevice",
+        "Summary.Category.OperatingSystem",
+        "Summary.Category.Drivers",
+        "Summary.Category.Autopilot",
+        "Summary.Category.WindowsCustomization",
+        "Summary.Category.Network",
+        "Summary.Category.Completion",
+        "Summary.Description",
+        "Summary.Status.NotConfigured",
+        "Summary.Status.Configured",
+        "Summary.Status.NoChanges",
+        "Summary.Hardware",
+        "Summary.Release",
+        "Summary.Edition",
+        "Summary.Architecture",
+        "Summary.Language",
+        "Summary.LicenseChannel",
+        "Summary.Build",
+        "Summary.Oobe",
+        "Summary.AppxRemoval",
+        "Summary.AiComponentRemoval",
+        "Summary.NetworkProfileRoaming",
+        "Summary.AutomaticRestart",
+        "Summary.ManualRestart",
+        "Summary.RestartDelay",
+        "Summary.SecondsFormat",
+        "Splash.WelcomeDeploy",
+        "Progress.Session",
+        "Progress.Timeline",
+        "Progress.RingAutomationName",
+        "Progress.TimelineAutomationName",
+        "Error.FailedStepFormat",
+        "Error.ViewTechnicalDetails",
+        "Error.TechnicalDetailsTitle"
     ];
 
     public static TheoryData<string> SatelliteCultures => new()
@@ -80,5 +156,80 @@ public sealed class LocalizationResourceTests
         {
             Assert.False(string.IsNullOrWhiteSpace(resourceSet.GetString(key)), $"Resource '{key}' is missing for '{cultureName}'.");
         }
+
+        foreach (string key in RedesignedInterfaceResourceKeys)
+        {
+            Assert.False(string.IsNullOrWhiteSpace(resourceSet.GetString(key)), $"Resource '{key}' is missing for '{cultureName}'.");
+        }
+
+        Assert.Contains("{0}", resourceSet.GetString("Error.FailedStepFormat"));
     }
+
+    [Theory]
+    [InlineData("en-US")]
+    [MemberData(nameof(SatelliteCultures))]
+    public void ProvisioningModeTitles_MatchFoundryPageTitles(string cultureName)
+    {
+        string repositoryRoot = FindRepositoryRoot();
+        string foundryResourcePath = Path.Combine(repositoryRoot, "src", "Foundry", "Strings", cultureName, "Resources.resw");
+        string deployResourcePath = Path.Combine(repositoryRoot, "src", "Foundry.Deploy", "Strings", cultureName, "Resources.resx");
+
+        XDocument foundryResources = XDocument.Load(foundryResourcePath);
+        XDocument deployResources = XDocument.Load(deployResourcePath);
+
+        Assert.Equal(
+            GetResourceValue(foundryResources, "AutopilotJsonProfilePageHeader.Title"),
+            GetResourceValue(deployResources, "Preparation.AutopilotModeJsonProfile"));
+        Assert.Equal(
+            GetResourceValue(foundryResources, "AutopilotZeroTouchPageHeader.Title"),
+            GetResourceValue(deployResources, "Preparation.AutopilotModeHardwareHashUpload"));
+    }
+
+    [Fact]
+    public void ReferenceResources_UseApprovedTerminalStateCopy()
+    {
+        ResourceSet? resourceSet = LocalizationText.ResourceManager.GetResourceSet(
+            CultureInfo.GetCultureInfo("en-US"),
+            createIfNotExists: true,
+            tryParents: false);
+
+        Assert.NotNull(resourceSet);
+        Assert.Equal("Deployment complete", resourceSet.GetString("Success.Completed"));
+        Assert.Equal(
+            "Hardware hash upload unavailable",
+            resourceSet.GetString("Preparation.AutopilotHardwareHashUnavailableStatus"));
+        Assert.Equal(
+            "The Autopilot certificate has expired. Deployment can continue without uploading the hardware hash.",
+            resourceSet.GetString("Preparation.AutopilotHardwareHashExpiredMessage"));
+        Assert.Equal(
+            "Required certificate information is missing. Deployment can continue without uploading the hardware hash.",
+            resourceSet.GetString("Preparation.AutopilotHardwareHashMissingMetadataMessage"));
+        Assert.Equal("Failed step: {0}", resourceSet.GetString("Error.FailedStepFormat"));
+        Assert.Equal("View error details", resourceSet.GetString("Error.ViewTechnicalDetails"));
+        Assert.Equal("Error details", resourceSet.GetString("Error.TechnicalDetailsTitle"));
+    }
+
+    private static string FindRepositoryRoot()
+    {
+        DirectoryInfo? directory = new(AppContext.BaseDirectory);
+        while (directory is not null)
+        {
+            if (File.Exists(Path.Combine(directory.FullName, "src", "Foundry.slnx")))
+            {
+                return directory.FullName;
+            }
+
+            directory = directory.Parent;
+        }
+
+        throw new DirectoryNotFoundException("Could not locate the repository root.");
+    }
+
+    private static string GetResourceValue(XDocument document, string key) =>
+        document.Root?
+            .Elements("data")
+            .Single(element => string.Equals((string?)element.Attribute("name"), key, StringComparison.Ordinal))
+            .Element("value")?
+            .Value
+        ?? throw new InvalidDataException($"Resource '{key}' is missing.");
 }

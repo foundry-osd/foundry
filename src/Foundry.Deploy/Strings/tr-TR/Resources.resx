@@ -29,40 +29,27 @@
   <data name="Language.English" xml:space="preserve"><value>İngilizce</value></data>
   <data name="Language.French" xml:space="preserve"><value>Fransızca</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Günlük dosyasını aç</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Hedef</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. İşletim sistemi</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Sürücü paketi</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Özet</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Bilgisayar adı</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 karakter. A-Z, a-z, 0-9 ve yalnızca kısa çizgi.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Bilgisayar adı 1 ila 15 arasında geçerli karakter (harf, sayı veya kısa çizgi) içermelidir.</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Hedef makine</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Hedef disk</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Dağıtım seçenekleri</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Hedef disk</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Bir hedef disk seçin. Uygun olmayan diskler engellenir.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Ürün yazılımı güncellemelerini uygulayın</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Bu dağıtım için Autopilot'yi etkinleştirin</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Bu medyada gömülü Autopilot profili bulunamadı.</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profili</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profil temel hazırlığı</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch donanım karması yükleme</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Etkileşimli donanım karması yükleme</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Bu medyada mevcut: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch donanım karması yükleme</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Donanım karma yükleme durumu</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Donanım karmasını yüklemeye hazır</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Donanım karmasını yüklemeye hazır değil</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Yükleme sertifikasının süresi doldu</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Gerekli sertifika bilgileri eksik olduğundan donanım karma yüklemesi bu ortamda kullanılamıyor. Dağıtım devam edebilir ancak yükleme atlanacaktır.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot sertifikasının süresi doldu. Dağıtım devam edebilir ancak yükleme atlanacaktır.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Ayrıntılar</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Donanım karma yüklemesi kullanılamıyor</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Gerekli sertifika bilgileri eksik. Dağıtım, donanım karması yüklenmeden devam edebilir.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot sertifikasının süresi doldu. Dağıtım, donanım karması yüklenmeden devam edebilir.</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Kiracı Kimliği</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Sertifika parmak izi</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Sertifikanın geçerlilik süresi</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Grup etiketi</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Grup etiketi isteğe bağlıdır. Grup etiketi olmadan yüklemek için Hiçbiri'ni seçin.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Donanım algılanıyor...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Donanım algılaması başarısız oldu.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Donanım algılaması başarısız oldu: {0}</value></data>
@@ -71,7 +58,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>klima</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Hedef diskler yükleniyor...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Hedef disk keşfi başarısız oldu: {0}</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>İşletim sistemi</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Sürüm</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Windows güncelleştirmesi</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (En son)</value></data>
@@ -82,7 +68,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Kataloglar yükleniyor...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Yüklenen kataloglar: {0} işletim sistemi girişleri, {1} sürücü paketleri.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Katalog yükleme başarısız oldu: {0}</value></data>
-  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Sürücü kaynağı</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Modeli</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Sürüm</value></data>
@@ -101,12 +86,9 @@
   <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} yapılandırıldı ({1} etkinleştir, {2} devre dışı bırak)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Yöntem</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot yöntemi</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profili</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot grup etiketi</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Hedef</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>Sistem</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Dağıtım seçenekleri</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Hayır Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profili</value></data>
@@ -145,12 +127,11 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
   <data name="Progress.Networking" xml:space="preserve"><value>Ağ oluşturma</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Başlangıç zamanı</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Geçen süre</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>Dağıtım başarıyla tamamlandı.</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Dağıtım tamamlandı</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Bu bilgisayar {0}s içinde yeniden başlatılacak.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Yeniden başlat</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Dağıtım başarısız oldu</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>Başarısız adım</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>Hata mesajı</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>Başarısız adım: {0}</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Hoş geldiniz</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Bileşenler başlatılıyor...</value></data>
   <data name="Splash.Start" xml:space="preserve"><value>Başlat</value></data>
@@ -194,25 +175,25 @@ Dağıtıma devam edilsin mi?</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Gerekli yeniden başlatma yürütülebilir dosyası 'wpeutil.exe' bulunamadı.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Bilinmeyen adım</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>Hiçbir hata ayrıntısı sağlanmadı.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Dağıtım değişkenlerini toplayın</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Dağıtım çalışma alanını başlat</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Hedef yapılandırmayı doğrula</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Dağıtım önbelleğini kontrol edin</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Hedef disk düzenini hazırlayın</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>İşletim sistemi görüntüsünü indirin</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>İşletim sistemi görüntüsünü uygula</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Hedef bilgisayar adını yapılandırın</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>OOBE ayarlarını yapılandırın</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Kurtarma ortamını yapılandırın</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Sürücü paketini indirin</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Sürücü paketini çıkart</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Sahne öncesi OOBE özelleştirmesi</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Sürücü paketini uygula</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Ürün yazılımı güncellemesini indirin</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Firmware güncellemesini uygula</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Mühür kurtarma bölümü</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Provizyon Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Dağıtımı sonlandırın ve günlükleri yazın</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Değişkenleri topla</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Dağıtımı başlat</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Yapılandırmayı doğrula</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Önbelleği kontrol et</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Diski hazırla</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>İşletim sistemini indir</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>İşletim sistemini uygula</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Bilgisayar adını ayarla</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>OOBE’yi yapılandır</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Windows kurtarmayı yapılandır</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Sürücüleri indir</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Sürücüleri çıkar</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Özelleştirmeleri hazırla</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Sürücüleri uygula</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Ürün yazılımını indir</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Ürün yazılımını uygula</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Kurtarma bölümünü mühürle</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Autopilot’u hazırla</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Dağıtımı tamamla</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Dağıtım değişkenleri toplanıyor...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Dağıtım bağlamı toplanıyor...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Dağıtım değişkenleri toplandı.</value></data>
@@ -515,7 +496,7 @@ Dağıtıma devam edilsin mi?</value></data>
     <value>Etkileşimli Autopilot kayıt yardımcısı hazırlandı (simülasyon).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Önyükleme medyasını çıkarın ve ardından Yeniden Başlat'ı seçin.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Windows isteğe bağlı &#246;zelliklerini yapılandırma</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>İsteğe bağlı özellikleri yapılandır</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Windows&#39;un isteğe bağlı &#246;zellikleri yapılandırılıyor...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>&#214;zellik durumları inceleniyor...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Eşleşen kurulum medya kaynakları hazırlanıyor...</value></data>
@@ -537,4 +518,73 @@ Dağıtıma devam edilsin mi?</value></data>
   <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Devam</value></data>
   <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Parolayı göster veya gizle</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Parola yanlış. Tekrar deneyin.</value></data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>Hedef cihaz</value></data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>İşletim sistemi</value></data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>Aygıt sürücüleri</value></data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Wizard.Step.Summary" xml:space="preserve"><value>Özet</value></data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>Dağıtım kurulum adımları</value></data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>Özete dön</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>Düzenle</value></data>
+  <data name="Common.Copy" xml:space="preserve"><value>Panoya kopyala</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>Pencereyi kapat</value></data>
+  <data name="TargetDevice.Title" xml:space="preserve"><value>Hedef cihaz</value></data>
+  <data name="TargetDevice.Firmware" xml:space="preserve"><value>Cihaz yazılımı güncellemeleri</value></data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>Sanal makinelerde kullanılamaz</value></data>
+  <data name="OperatingSystem.Title" xml:space="preserve"><value>İşletim sistemi</value></data>
+  <data name="Drivers.Title" xml:space="preserve"><value>Aygıt sürücüleri</value></data>
+  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>Yapılandırma ayrıntıları</value></data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>Hedef cihaz</value></data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>İşletim sistemi</value></data>
+  <data name="Summary.Category.Drivers" xml:space="preserve"><value>Aygıt sürücüleri</value></data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Windows özelleştirmesi</value></data>
+  <data name="Summary.Category.Network" xml:space="preserve"><value>Ağ</value></data>
+  <data name="Summary.Category.Completion" xml:space="preserve"><value>Tamamlama</value></data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Yapılandırılmadı</value></data>
+  <data name="Summary.Status.Configured" xml:space="preserve"><value>Yapılandırılmış</value></data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Değişiklik yok</value></data>
+  <data name="Summary.Hardware" xml:space="preserve"><value>Algılanan donanım</value></data>
+  <data name="Summary.Release" xml:space="preserve"><value>Sürüm</value></data>
+  <data name="Summary.Edition" xml:space="preserve"><value>İşletim sistemi sürümü</value></data>
+  <data name="Summary.Architecture" xml:space="preserve"><value>Sistem mimarisi</value></data>
+  <data name="Summary.Language" xml:space="preserve"><value>Dil</value></data>
+  <data name="Summary.LicenseChannel" xml:space="preserve"><value>Lisans kanalı</value></data>
+  <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
+  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX kaldırma</value></data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>AI bileşenlerinin kaldırılması</value></data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Ağ profili dolaşımı</value></data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>Otomatik yeniden başlatma</value></data>
+  <data name="Summary.ManualRestart" xml:space="preserve"><value>Manuel yeniden başlatma</value></data>
+  <data name="Summary.RestartDelay" xml:space="preserve"><value>Yeniden başlatma gecikmesi</value></data>
+  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} saniye</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Dağıtım başladığında seçilen hedef disk silinecek.</value></data>
+  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Foundry Deploy&apos;a hoş geldiniz</value></data>
+  <data name="Progress.Session" xml:space="preserve"><value>Dağıtım oturumu</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Adımlar</value></data>
+  <data name="Progress.RingAutomationName" xml:space="preserve"><value>Genel dağıtım ilerlemesi</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Dağıtım adımları</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Hata ayrıntılarını görüntüle</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Hata ayrıntıları</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>Bilgisayar adını ve hedef diski seçin, ardından algılanan donanımı gözden geçirin.</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Dağıtım ayarları</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Cihaz envanteri</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Cihaz kimliği</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>Platform</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Üretici</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>Model</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>Ürün</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Seri numarası</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Mimari</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Güç kaynağı</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Üretici yazılımı durumu</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>Windows sürümünü, dili, edisyonu ve lisans kanalını seçin.</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>Sürücü kaynağını ve gerektiğinde eşleşen modeli ve sürümü seçin.</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>Bu cihazın Autopilot sağlama ayarlarını gözden geçirin.</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>Dağıtımı başlatmadan önce seçimlerinizi gözden geçirin.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Çevrimdışı bir Autopilot profilini Windows yüklemesine ekler.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Dağıtım sırasında bu cihazın donanım karmasını Windows Autopilot'a yükler.</value></data>
 </root>

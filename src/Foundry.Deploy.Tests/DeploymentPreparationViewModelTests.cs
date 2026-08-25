@@ -16,6 +16,76 @@ namespace Foundry.Deploy.Tests;
 public sealed class DeploymentPreparationViewModelTests
 {
     [Fact]
+    public void SetDetectedHardware_ExposesLocalizedInventoryValues()
+    {
+        using DeploymentPreparationViewModel viewModel = CreateViewModel();
+        var profile = new HardwareProfile
+        {
+            Manufacturer = "Contoso",
+            Model = "Model 1",
+            Product = "Product 1",
+            SerialNumber = "SN-123",
+            Architecture = "x64",
+            IsTpmPresent = true,
+            IsOnBattery = false,
+            SystemFirmwareHardwareId = "firmware-id"
+        };
+
+        viewModel.SetDetectedHardware(profile);
+
+        Assert.Equal("Contoso", viewModel.HardwareManufacturerText);
+        Assert.Equal("Model 1", viewModel.HardwareModelText);
+        Assert.Equal("Product 1", viewModel.HardwareProductText);
+        Assert.Equal("SN-123", viewModel.HardwareSerialNumberText);
+        Assert.Equal("x64", viewModel.HardwareArchitectureText);
+        Assert.Equal(viewModel.Strings["Common.Yes"], viewModel.HardwareTpmText);
+        Assert.Equal(viewModel.Strings["Preparation.PowerAc"], viewModel.HardwarePowerText);
+        Assert.Equal(viewModel.Strings["Common.Detected"], viewModel.HardwareFirmwareText);
+    }
+
+    [Fact]
+    public void SetDetectedHardware_WhenUnavailable_DoesNotReportNegativeHardwareState()
+    {
+        using DeploymentPreparationViewModel viewModel = CreateViewModel();
+
+        viewModel.SetDetectedHardware(null);
+
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareManufacturerText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareModelText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareProductText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareSerialNumberText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareArchitectureText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareTpmText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwarePowerText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareFirmwareText);
+    }
+
+    [Fact]
+    public void SetHardwareDetectionFailure_ClearsPreviouslyDetectedInventory()
+    {
+        using DeploymentPreparationViewModel viewModel = CreateViewModel();
+        viewModel.SetDetectedHardware(new HardwareProfile
+        {
+            Manufacturer = "Contoso",
+            Architecture = "x64",
+            IsTpmPresent = true,
+            SystemFirmwareHardwareId = "firmware-id"
+        });
+
+        viewModel.SetHardwareDetectionFailure("Hardware detection failed.");
+
+        Assert.Null(viewModel.DetectedHardware);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareManufacturerText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareModelText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareProductText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareSerialNumberText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareArchitectureText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareTpmText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwarePowerText);
+        Assert.Equal(viewModel.Strings["Common.Unavailable"], viewModel.HardwareFirmwareText);
+    }
+
+    [Fact]
     public void ApplyAutopilotConfiguration_WhenProfilesExistButConfigIsDisabled_KeepsAutopilotDisabled()
     {
         using DeploymentPreparationViewModel viewModel = CreateViewModel();
@@ -24,12 +94,9 @@ public sealed class DeploymentPreparationViewModelTests
         viewModel.ApplyAutopilotConfiguration(new DeployAutopilotSettings(), [profile]);
 
         Assert.True(viewModel.HasAutopilotProfiles);
-        Assert.True(viewModel.IsAutopilotSectionVisible);
         Assert.False(viewModel.IsAutopilotEnabled);
-        Assert.True(viewModel.IsAutopilotDisabledSummaryVisible);
         Assert.False(viewModel.IsAutopilotProfileSelectionEnabled);
         Assert.Null(viewModel.SelectedAutopilotProfile);
-        Assert.Contains("JSON", viewModel.AutopilotDisabledSummaryText, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -59,7 +126,6 @@ public sealed class DeploymentPreparationViewModelTests
 
         Assert.True(viewModel.HasAutopilotProfiles);
         Assert.True(viewModel.IsAutopilotEnabled);
-        Assert.True(viewModel.IsAutopilotSectionVisible);
         Assert.True(viewModel.IsAutopilotProfileSelectionEnabled);
         Assert.Null(viewModel.SelectedAutopilotProfile);
     }
@@ -73,7 +139,6 @@ public sealed class DeploymentPreparationViewModelTests
 
         Assert.False(viewModel.HasAutopilotProfiles);
         Assert.True(viewModel.IsAutopilotEnabled);
-        Assert.True(viewModel.IsAutopilotSectionVisible);
         Assert.False(viewModel.IsAutopilotProfileSelectionEnabled);
         Assert.Null(viewModel.SelectedAutopilotProfile);
         Assert.NotEqual(string.Empty, viewModel.AutopilotProfileHint);
@@ -115,11 +180,12 @@ public sealed class DeploymentPreparationViewModelTests
         Assert.Same(hardwareHashUpload, viewModel.AutopilotHardwareHashUpload);
         Assert.True(viewModel.IsHardwareHashCertificateUsable);
         Assert.True(viewModel.IsHardwareHashGroupTagControlsVisible);
-        Assert.False(string.IsNullOrWhiteSpace(viewModel.AutopilotHardwareHashUploadStatusText));
+        Assert.Equal(
+            viewModel.Strings["Preparation.AutopilotHardwareHashReadyStatus"],
+            viewModel.AutopilotHardwareHashUploadStatusText);
         Assert.False(viewModel.IsHardwareHashUploadMessageVisible);
         Assert.True(string.IsNullOrWhiteSpace(viewModel.AutopilotHardwareHashUploadMessage));
         Assert.Equal("tenant-id", viewModel.AutopilotHardwareHashTenantIdText);
-        Assert.Equal("ABCDEF123456", viewModel.AutopilotHardwareHashCertificateThumbprintText);
         Assert.Equal("Sales", viewModel.SelectedHardwareHashGroupTag?.GroupTag);
     }
 
@@ -169,9 +235,13 @@ public sealed class DeploymentPreparationViewModelTests
         Assert.True(viewModel.IsHardwareHashCertificateExpired);
         Assert.False(viewModel.IsHardwareHashCertificateUsable);
         Assert.False(viewModel.IsHardwareHashGroupTagControlsVisible);
-        Assert.False(string.IsNullOrWhiteSpace(viewModel.AutopilotHardwareHashUploadStatusText));
+        Assert.Equal(
+            viewModel.Strings["Preparation.AutopilotHardwareHashUnavailableStatus"],
+            viewModel.AutopilotHardwareHashUploadStatusText);
         Assert.True(viewModel.IsHardwareHashUploadMessageVisible);
-        Assert.False(string.IsNullOrWhiteSpace(viewModel.AutopilotHardwareHashUploadMessage));
+        Assert.Equal(
+            viewModel.Strings["Preparation.AutopilotHardwareHashExpiredMessage"],
+            viewModel.AutopilotHardwareHashUploadMessage);
     }
 
     [Fact]
@@ -192,6 +262,12 @@ public sealed class DeploymentPreparationViewModelTests
         Assert.False(viewModel.IsHardwareHashCertificateUsable);
         Assert.False(viewModel.IsHardwareHashGroupTagControlsVisible);
         Assert.True(viewModel.IsHardwareHashUploadMessageVisible);
+        Assert.Equal(
+            viewModel.Strings["Preparation.AutopilotHardwareHashUnavailableStatus"],
+            viewModel.AutopilotHardwareHashUploadStatusText);
+        Assert.Equal(
+            viewModel.Strings["Preparation.AutopilotHardwareHashMissingMetadataMessage"],
+            viewModel.AutopilotHardwareHashUploadMessage);
     }
 
     [Fact]
@@ -337,7 +413,6 @@ public sealed class DeploymentPreparationViewModelTests
         viewModel.IsAutopilotEnabled = false;
 
         Assert.False(viewModel.IsAutopilotProfileSelectionEnabled);
-        Assert.True(viewModel.IsAutopilotSectionVisible);
 
         viewModel.IsAutopilotEnabled = true;
 

@@ -29,40 +29,27 @@
   <data name="Language.English" xml:space="preserve"><value>Αγγλικά</value></data>
   <data name="Language.French" xml:space="preserve"><value>Γαλλικά</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Ανοίξτε το αρχείο καταγραφής</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Στόχος</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Λειτουργικό σύστημα</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Driver pack</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Περίληψη</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Όνομα υπολογιστή</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 χαρακτήρες. A-Z, a-z, 0-9 και μόνο παύλα.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Το όνομα υπολογιστή πρέπει να περιέχει 1 έως 15 έγκυρους χαρακτήρες (γράμματα, αριθμούς ή παύλα).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Μηχανή στόχου</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Δίσκος προορισμού</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Επιλογές ανάπτυξης</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Δίσκος στόχος</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Επιλέξτε έναν δίσκο προορισμού. Οι μη κατάλληλοι δίσκοι είναι αποκλεισμένοι.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Εφαρμόστε ενημερώσεις υλικολογισμικού</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Ενεργοποιήστε το Autopilot για αυτήν την ανάπτυξη</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Προφίλ</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Δεν βρέθηκαν ενσωματωμένα προφίλ Autopilot σε αυτό το μέσο.</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>προφίλ JSON</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>Προμήθεια προφίλ JSON</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch αποστολή κατακερματισμού υλικού</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Διαδραστική αποστολή κατακερματισμού υλικού</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Διαθέσιμο σε αυτό το μέσο: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch αποστολή κατακερματισμού υλικού</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Κατάσταση μεταφόρτωσης κατακερματισμού υλικού</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Έτοιμο για μεταφόρτωση κατακερματισμού υλικού</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Δεν είναι έτοιμο για μεταφόρτωση κατακερματισμού υλικού</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Το πιστοποιητικό μεταφόρτωσης έχει λήξει</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Η μεταφόρτωση κατακερματισμού υλικού δεν είναι διαθέσιμη σε αυτό το μέσο επειδή λείπουν οι απαιτούμενες πληροφορίες πιστοποιητικού. Η ανάπτυξη μπορεί να συνεχιστεί, αλλά η μεταφόρτωση θα παραλειφθεί.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Το πιστοποιητικό Autopilot έχει λήξει. Η ανάπτυξη μπορεί να συνεχιστεί, αλλά η μεταφόρτωση θα παραλειφθεί.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Λεπτομέρειες</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Η μεταφόρτωση κατακερματισμού υλικού δεν είναι διαθέσιμη</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Λείπουν οι απαιτούμενες πληροφορίες πιστοποιητικού. Η ανάπτυξη μπορεί να συνεχιστεί χωρίς μεταφόρτωση του κατακερματισμού υλικού.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Το πιστοποιητικό Autopilot έχει λήξει. Η ανάπτυξη μπορεί να συνεχιστεί χωρίς μεταφόρτωση του κατακερματισμού υλικού.</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Ταυτότητα μισθωτή</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Αποτύπωμα πιστοποιητικού</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Λήξη πιστοποιητικού</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Ετικέτα ομάδας</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Η ετικέτα ομάδας είναι προαιρετική. Επιλέξτε Κανένα για μεταφόρτωση χωρίς ετικέτα ομάδας.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Ανίχνευση υλικού...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Ο εντοπισμός υλικού απέτυχε.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Ο εντοπισμός υλικού απέτυχε: {0}</value></data>
@@ -71,7 +58,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Φόρτωση δίσκων προορισμού...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Ο εντοπισμός δίσκου στόχου απέτυχε: {0}</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Λειτουργικό σύστημα</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Έκδοση</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Ενημέρωση Windows</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Πιο πρόσφατο)</value></data>
@@ -82,7 +68,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Φόρτωση καταλόγων...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Φορτωμένοι κατάλογοι: {0} καταχωρήσεις λειτουργικού συστήματος, {1} πακέτα προγραμμάτων οδήγησης.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Η φόρτωση του καταλόγου απέτυχε: {0}</value></data>
-  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Πηγή προγράμματος οδήγησης</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Μοντέλο</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Έκδοση</value></data>
@@ -101,12 +86,9 @@
   <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} διαμορφώθηκε ({1} ενεργοποίηση, {2} απενεργοποίηση)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Υλικολογισμικό</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Μέθοδος</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Μέθοδος Autopilot</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Προφίλ</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>ετικέτα ομάδας Autopilot</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Στόχος</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>Σύστημα</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Επιλογές ανάπτυξης</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Όχι Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>προφίλ JSON</value></data>
@@ -145,12 +127,11 @@
   <data name="Progress.Networking" xml:space="preserve"><value>Δικτύωση</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Ώρα έναρξης</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Χρόνος που πέρασε</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>Η ανάπτυξη ολοκληρώθηκε με επιτυχία.</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Η ανάπτυξη ολοκληρώθηκε</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Αυτός ο υπολογιστής θα επανεκκινηθεί σε {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Επανεκκίνηση</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Η ανάπτυξη απέτυχε</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>Αποτυχημένο βήμα</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>Μήνυμα σφάλματος</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>Αποτυχημένο βήμα: {0}</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Καλώς ήρθατε</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Αρχικοποίηση στοιχείων...</value></data>
   <data name="Splash.Start" xml:space="preserve"><value>Έναρξη</value></data>
@@ -194,25 +175,25 @@
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Το απαιτούμενο εκτελέσιμο αρχείο επανεκκίνησης 'wpeutil.exe' δεν βρέθηκε.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Άγνωστο βήμα</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>Δεν δόθηκαν λεπτομέρειες σφάλματος.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Συλλέξτε μεταβλητές ανάπτυξης</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Αρχικοποίηση χώρου εργασίας ανάπτυξης</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Επικύρωση διαμόρφωσης στόχου</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Ελέγξτε την κρυφή μνήμη ανάπτυξης</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Προετοιμάστε τη διάταξη του δίσκου στόχου</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Λήψη εικόνας λειτουργικού συστήματος</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Εφαρμογή εικόνας λειτουργικού συστήματος</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Διαμόρφωση ονόματος υπολογιστή προορισμού</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Διαμορφώστε τις ρυθμίσεις OOBE</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Διαμόρφωση περιβάλλοντος ανάκτησης</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Κατεβάστε το πακέτο προγραμμάτων οδήγησης</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Εξαγωγή πακέτου προγραμμάτων οδήγησης</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Προσαρμογή σταδίου πριν από το OOBE</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Εφαρμογή πακέτου προγραμμάτων οδήγησης</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Λήψη ενημέρωσης υλικολογισμικού</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Εφαρμογή ενημέρωσης υλικολογισμικού</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Διαμέρισμα ανάκτησης σφραγίδων</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Παροχή Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Ολοκληρώστε την ανάπτυξη και γράψτε αρχεία καταγραφής</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Συλλογή μεταβλητών</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Αρχικοποίηση ανάπτυξης</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Επαλήθευση διαμόρφωσης</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Έλεγχος κρυφής μνήμης</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Προετοιμασία δίσκου</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Λήψη λειτουργικού συστήματος</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Εφαρμογή λειτουργικού συστήματος</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Ορισμός ονόματος υπολογιστή</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Διαμόρφωση OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Διαμόρφωση ανάκτησης Windows</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Λήψη προγραμμάτων οδήγησης</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Εξαγωγή προγραμμάτων οδήγησης</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Προετοιμασία προσαρμογών</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Εφαρμογή προγραμμάτων οδήγησης</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Λήψη υλικολογισμικού</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Εφαρμογή υλικολογισμικού</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Σφράγιση διαμερίσματος ανάκτησης</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Προετοιμασία Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Ολοκλήρωση ανάπτυξης</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Συλλογή μεταβλητών ανάπτυξης...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Συλλογή πλαισίου ανάπτυξης...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Συγκεντρώθηκαν μεταβλητές ανάπτυξης.</value></data>
@@ -515,7 +496,7 @@
     <value>Ο διαδραστικός βοηθός εγγραφής Autopilot προετοιμάστηκε (προσομοίωση).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Αφαιρέστε το μέσο εκκίνησης και, στη συνέχεια, επιλέξτε Επανεκκίνηση.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Διαμορφώστε τις προαιρετικές δυνατότητες των Windows</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Διαμόρφωση προαιρετικών λειτουργιών</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Διαμόρφωση προαιρετικών λειτουργιών των Windows...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Έλεγχος χαρακτηριστικών καταστάσεων...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Προετοιμασία αντίστοιχων πηγών μέσων εγκατάστασης...</value></data>
@@ -537,4 +518,73 @@
   <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Συνέχεια</value></data>
   <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Εμφάνιση ή απόκρυψη κωδικού πρόσβασης</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Ο κωδικός πρόσβασης είναι λανθασμένος. Δοκιμάστε ξανά.</value></data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>Συσκευή στόχου</value></data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>Λειτουργικό σύστημα</value></data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>Προγράμματα οδήγησης συσκευών</value></data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Wizard.Step.Summary" xml:space="preserve"><value>Σύνοψη</value></data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>Βήματα εγκατάστασης ανάπτυξης</value></data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>Επιστροφή στη σύνοψη</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>Επεξεργασία</value></data>
+  <data name="Common.Copy" xml:space="preserve"><value>Αντιγραφή</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>Κλείσιμο</value></data>
+  <data name="TargetDevice.Title" xml:space="preserve"><value>Συσκευή στόχου</value></data>
+  <data name="TargetDevice.Firmware" xml:space="preserve"><value>Ενημερώσεις υλικολογισμικού</value></data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>Δεν διατίθεται σε εικονικές μηχανές</value></data>
+  <data name="OperatingSystem.Title" xml:space="preserve"><value>Λειτουργικό σύστημα</value></data>
+  <data name="Drivers.Title" xml:space="preserve"><value>Προγράμματα οδήγησης συσκευών</value></data>
+  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>Λεπτομέρειες διαμόρφωσης</value></data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>Συσκευή στόχου</value></data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>Λειτουργικό σύστημα</value></data>
+  <data name="Summary.Category.Drivers" xml:space="preserve"><value>Προγράμματα οδήγησης συσκευών</value></data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Προσαρμογή των Windows</value></data>
+  <data name="Summary.Category.Network" xml:space="preserve"><value>Δίκτυο</value></data>
+  <data name="Summary.Category.Completion" xml:space="preserve"><value>Ολοκλήρωση</value></data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Δεν έχει διαμορφωθεί</value></data>
+  <data name="Summary.Status.Configured" xml:space="preserve"><value>Διαμορφώθηκε</value></data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Καμία αλλαγή</value></data>
+  <data name="Summary.Hardware" xml:space="preserve"><value>Εντοπίστηκε υλικό</value></data>
+  <data name="Summary.Release" xml:space="preserve"><value>Έκδοση</value></data>
+  <data name="Summary.Edition" xml:space="preserve"><value>Έκδοση λειτουργικού συστήματος</value></data>
+  <data name="Summary.Architecture" xml:space="preserve"><value>Αρχιτεκτονική συστήματος</value></data>
+  <data name="Summary.Language" xml:space="preserve"><value>Γλώσσα</value></data>
+  <data name="Summary.LicenseChannel" xml:space="preserve"><value>Κανάλι άδειας χρήσης</value></data>
+  <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
+  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.AppxRemoval" xml:space="preserve"><value>Αφαίρεση AppX</value></data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>Αφαίρεση στοιχείων AI</value></data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Περιαγωγή προφίλ δικτύου</value></data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>Αυτόματη επανεκκίνηση</value></data>
+  <data name="Summary.ManualRestart" xml:space="preserve"><value>Μη αυτόματη επανεκκίνηση</value></data>
+  <data name="Summary.RestartDelay" xml:space="preserve"><value>Καθυστέρηση επανεκκίνησης</value></data>
+  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} δευτερόλεπτα</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Ο επιλεγμένος δίσκος προορισμού θα διαγραφεί όταν ξεκινήσει η ανάπτυξη.</value></data>
+  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Καλώς ήλθατε στο Foundry Deploy</value></data>
+  <data name="Progress.Session" xml:space="preserve"><value>Συνεδρία</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Βήματα</value></data>
+  <data name="Progress.RingAutomationName" xml:space="preserve"><value>Συνολική πρόοδος ανάπτυξης</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Βήματα ανάπτυξης</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Προβολή λεπτομερειών σφάλματος</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Λεπτομέρειες σφάλματος</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>Επιλέξτε το όνομα υπολογιστή και τον δίσκο προορισμού και, στη συνέχεια, ελέγξτε το υλικό που εντοπίστηκε.</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Ρυθμίσεις ανάπτυξης</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Απογραφή συσκευής</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Ταυτότητα συσκευής</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>Πλατφόρμα</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Κατασκευαστής</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>Μοντέλο</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>Προϊόν</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Σειριακός αριθμός</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Αρχιτεκτονική</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Πηγή τροφοδοσίας</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Κατάσταση υλικολογισμικού</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>Επιλέξτε την έκδοση των Windows, τη γλώσσα, την έκδοση προϊόντος και το κανάλι άδειας χρήσης.</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>Επιλέξτε την προέλευση των προγραμμάτων οδήγησης και, όταν απαιτείται, το αντίστοιχο μοντέλο και την έκδοση.</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>Ελέγξτε τις ρυθμίσεις προμήθειας Autopilot για αυτήν τη συσκευή.</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>Ελέγξτε τις επιλογές σας πριν ξεκινήσετε την ανάπτυξη.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Προσθέτει ένα προφίλ Autopilot χωρίς σύνδεση στην εγκατάσταση των Windows.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Αποστέλλει τον κατακερματισμό υλικού αυτής της συσκευής στο Windows Autopilot κατά την ανάπτυξη.</value></data>
 </root>

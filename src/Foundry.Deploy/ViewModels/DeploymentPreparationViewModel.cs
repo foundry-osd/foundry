@@ -104,10 +104,8 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
 
     public bool IsFirmwareUpdatesOptionEnabled => _detectedHardware?.IsVirtualMachine != true;
     public bool HasAutopilotProfiles => AutopilotProfiles.Count > 0;
-    public bool IsAutopilotSectionVisible => IsAutopilotEnabled || HasAutopilotProfiles;
     public bool IsJsonProfileMode => AutopilotProvisioningMode == AutopilotProvisioningMode.JsonProfile;
     public bool IsHardwareHashUploadMode => AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload;
-    public bool IsAutopilotDisabledSummaryVisible => IsAutopilotSectionVisible && !IsAutopilotEnabled;
     public bool IsJsonProfileControlsVisible => IsAutopilotEnabled && IsJsonProfileMode;
     public bool IsHardwareHashUploadControlsVisible => IsAutopilotEnabled && IsHardwareHashUploadMode;
     public bool IsAutopilotProfileSelectionEnabled => IsJsonProfileControlsVisible && HasAutopilotProfiles;
@@ -124,7 +122,6 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     public bool IsHardwareHashGroupTagControlsVisible => IsHardwareHashUploadControlsVisible && IsHardwareHashCertificateUsable;
     public bool IsHardwareHashUploadMessageVisible => IsHardwareHashUploadControlsVisible && !IsHardwareHashCertificateUsable;
     public string AutopilotHardwareHashTenantIdText => NormalizeMetadataValue(AutopilotHardwareHashUpload.TenantId);
-    public string AutopilotHardwareHashCertificateThumbprintText => NormalizeMetadataValue(AutopilotHardwareHashUpload.ActiveCertificateThumbprint);
     public string AutopilotHardwareHashCertificateExpirationText =>
         AutopilotHardwareHashUpload.ActiveCertificateExpiresOnUtc is DateTimeOffset expiresOn
             ? expiresOn.ToLocalTime().ToString("g", LocalizationService.CurrentCulture)
@@ -147,7 +144,6 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         AutopilotProvisioningMode.InteractiveHardwareHashUpload => GetString("Preparation.AutopilotModeInteractiveHardwareHashUpload"),
         _ => GetString("Preparation.AutopilotModeJsonProfile")
     };
-    public string AutopilotDisabledSummaryText => Format("Preparation.AutopilotConfiguredModeFormat", AutopilotModeText);
     public string AutopilotHardwareHashUploadStatusText
     {
         get
@@ -157,9 +153,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
                 return GetString("Preparation.AutopilotHardwareHashReadyStatus");
             }
 
-            return IsHardwareHashCertificateExpired
-                ? GetString("Preparation.AutopilotHardwareHashExpiredStatus")
-                : GetString("Preparation.AutopilotHardwareHashNotReadyStatus");
+            return GetString("Preparation.AutopilotHardwareHashUnavailableStatus");
         }
     }
 
@@ -188,6 +182,26 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     public bool HasTargetComputerNameValidationError => !string.IsNullOrWhiteSpace(TargetComputerNameValidationMessage);
 
     public HardwareProfile? DetectedHardware => _detectedHardware;
+    public string HardwareManufacturerText => GetHardwareValue(_detectedHardware?.Manufacturer);
+    public string HardwareModelText => GetHardwareValue(_detectedHardware?.Model);
+    public string HardwareProductText => GetHardwareValue(_detectedHardware?.Product);
+    public string HardwareSerialNumberText => GetHardwareValue(_detectedHardware?.SerialNumber);
+    public string HardwareArchitectureText => string.IsNullOrWhiteSpace(_detectedHardware?.Architecture)
+        ? GetString("Common.Unavailable")
+        : _detectedHardware.Architecture;
+    public string HardwareTpmText => _detectedHardware is null
+        ? GetString("Common.Unavailable")
+        : _detectedHardware.IsTpmPresent
+            ? GetString("Common.Yes")
+            : GetString("Common.No");
+    public string HardwarePowerText => _detectedHardware is null
+        ? GetString("Common.Unavailable")
+        : _detectedHardware.IsOnBattery
+            ? GetString("Preparation.PowerBattery")
+            : GetString("Preparation.PowerAc");
+    public string HardwareFirmwareText => !string.IsNullOrWhiteSpace(_detectedHardware?.SystemFirmwareHardwareId)
+        ? GetString("Common.Detected")
+        : GetString("Common.Unavailable");
 
     /// <summary>
     /// Builds the hardware hash upload settings to carry into a deployment launch request.
@@ -270,7 +284,6 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         }
 
         OnPropertyChanged(nameof(HasAutopilotProfiles));
-        OnPropertyChanged(nameof(IsAutopilotSectionVisible));
         OnPropertyChanged(nameof(IsAutopilotProfileSelectionEnabled));
         OnPropertyChanged(nameof(AutopilotProfileHint));
         OnPropertyChanged(nameof(HasAutopilotProfileHint));
@@ -294,6 +307,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
             _detectedHardwareSummaryRaw = "Hardware detection failed.";
             DetectedHardwareSummary = DeploymentUiTextLocalizer.LocalizeMessage(_detectedHardwareSummaryRaw);
             OnPropertyChanged(nameof(IsFirmwareUpdatesOptionEnabled));
+            RaiseHardwareInventoryPropertiesChanged();
             RaiseStateChanged();
             return;
         }
@@ -307,13 +321,17 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
             profile.SystemFirmwareHardwareId.Length > 0 ? GetString("Common.Detected") : GetString("Common.Unavailable"));
         DetectedHardwareSummary = _detectedHardwareSummaryRaw;
         OnPropertyChanged(nameof(IsFirmwareUpdatesOptionEnabled));
+        RaiseHardwareInventoryPropertiesChanged();
         RaiseStateChanged();
     }
 
     public void SetHardwareDetectionFailure(string message)
     {
+        _detectedHardware = null;
         _detectedHardwareSummaryRaw = message;
         DetectedHardwareSummary = DeploymentUiTextLocalizer.LocalizeMessage(message);
+        OnPropertyChanged(nameof(IsFirmwareUpdatesOptionEnabled));
+        RaiseHardwareInventoryPropertiesChanged();
         RaiseStateChanged();
     }
 
@@ -404,8 +422,6 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
 
     partial void OnIsAutopilotEnabledChanged(bool value)
     {
-        OnPropertyChanged(nameof(IsAutopilotSectionVisible));
-        OnPropertyChanged(nameof(IsAutopilotDisabledSummaryVisible));
         OnPropertyChanged(nameof(IsJsonProfileControlsVisible));
         OnPropertyChanged(nameof(IsHardwareHashUploadControlsVisible));
         OnPropertyChanged(nameof(IsAutopilotProfileSelectionEnabled));
@@ -490,11 +506,9 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         OnPropertyChanged(nameof(IsJsonProfileControlsVisible));
         OnPropertyChanged(nameof(IsHardwareHashUploadControlsVisible));
         OnPropertyChanged(nameof(IsAutopilotProfileSelectionEnabled));
-        OnPropertyChanged(nameof(IsAutopilotDisabledSummaryVisible));
         OnPropertyChanged(nameof(AutopilotProfileHint));
         OnPropertyChanged(nameof(HasAutopilotProfileHint));
         OnPropertyChanged(nameof(AutopilotModeText));
-        OnPropertyChanged(nameof(AutopilotDisabledSummaryText));
         RaiseHardwareHashPropertiesChanged();
         RaiseStateChanged();
     }
@@ -685,7 +699,6 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
             ConfigurationFilePath = @"X:\Foundry\Debug\Autopilot\AutopilotConfigurationFile.json"
         });
         OnPropertyChanged(nameof(HasAutopilotProfiles));
-        OnPropertyChanged(nameof(IsAutopilotSectionVisible));
         OnPropertyChanged(nameof(IsAutopilotProfileSelectionEnabled));
         OnPropertyChanged(nameof(AutopilotProfileHint));
         OnPropertyChanged(nameof(HasAutopilotProfileHint));
@@ -713,19 +726,36 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
             else
             {
                 DetectedHardwareSummary = DeploymentUiTextLocalizer.LocalizeMessage(_detectedHardwareSummaryRaw);
+                RaiseHardwareInventoryPropertiesChanged();
             }
 
             TargetComputerNameValidationMessage = ResolveComputerNameValidationMessage(TargetComputerName);
             OnPropertyChanged(nameof(AutopilotProfileHint));
             OnPropertyChanged(nameof(HasAutopilotProfileHint));
             OnPropertyChanged(nameof(AutopilotModeText));
-            OnPropertyChanged(nameof(AutopilotDisabledSummaryText));
             RefreshHardwareHashGroupTagOptions();
             RaiseHardwareHashPropertiesChanged();
             OnPropertyChanged(nameof(TargetDiskSelectionHint));
             OnPropertyChanged(nameof(TargetDisks));
             OnPropertyChanged(nameof(SelectedTargetDisk));
         });
+    }
+
+    private void RaiseHardwareInventoryPropertiesChanged()
+    {
+        OnPropertyChanged(nameof(HardwareManufacturerText));
+        OnPropertyChanged(nameof(HardwareModelText));
+        OnPropertyChanged(nameof(HardwareProductText));
+        OnPropertyChanged(nameof(HardwareSerialNumberText));
+        OnPropertyChanged(nameof(HardwareArchitectureText));
+        OnPropertyChanged(nameof(HardwareTpmText));
+        OnPropertyChanged(nameof(HardwarePowerText));
+        OnPropertyChanged(nameof(HardwareFirmwareText));
+    }
+
+    private string GetHardwareValue(string? value)
+    {
+        return string.IsNullOrWhiteSpace(value) ? GetString("Common.Unavailable") : value;
     }
 
     private string ResolveComputerNameValidationMessage(string? value)
@@ -794,7 +824,6 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         OnPropertyChanged(nameof(IsHardwareHashGroupTagControlsVisible));
         OnPropertyChanged(nameof(IsHardwareHashUploadMessageVisible));
         OnPropertyChanged(nameof(AutopilotHardwareHashTenantIdText));
-        OnPropertyChanged(nameof(AutopilotHardwareHashCertificateThumbprintText));
         OnPropertyChanged(nameof(AutopilotHardwareHashCertificateExpirationText));
         OnPropertyChanged(nameof(AutopilotHardwareHashUploadStatusText));
         OnPropertyChanged(nameof(AutopilotHardwareHashUploadMessage));

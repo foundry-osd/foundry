@@ -29,40 +29,27 @@
   <data name="Language.English" xml:space="preserve"><value>английский</value></data>
   <data name="Language.French" xml:space="preserve"><value>французский</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Открыть файл журнала</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Цель</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Операционная система</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Пакет драйверов</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Резюме</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Имя компьютера</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 символов. Только A-Z, a-z, 0-9 и дефис.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Имя компьютера должно содержать от 1 до 15 допустимых символов (букв, цифр или дефиса).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Целевая машина</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Целевой диск</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Варианты развертывания</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Целевой диск</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Выберите целевой диск. Неподходящие диски блокируются.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Применить обновления прошивки</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Включите Autopilot для этого развертывания.</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Профиль</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>На этом носителе не обнаружено встроенных профилей Autopilot.</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON профиль</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON подготовка профиля</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch отправка аппаратного хеша</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Интерактивная отправка аппаратного хеша</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Доступно на этом носителе: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch отправка аппаратного хеша</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Статус загрузки аппаратного хеша</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Готово загрузить аппаратный хэш</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Не готов загрузить аппаратный хэш</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Срок действия сертификата загрузки истек</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Загрузка хэша оборудования недоступна на этом носителе, поскольку отсутствует необходимая информация о сертификате. Развертывание можно продолжить, но загрузка будет пропущена.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Срок действия сертификата Autopilot истек. Развертывание можно продолжить, но загрузка будет пропущена.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Подробности</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Загрузка аппаратного хеша недоступна</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Отсутствует необходимая информация о сертификате. Развертывание можно продолжить без загрузки аппаратного хеша.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Срок действия сертификата Autopilot истек. Развертывание можно продолжить без загрузки аппаратного хеша.</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Идентификатор арендатора</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Отпечаток сертификата</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Срок действия сертификата</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Тег группы</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Тег группы не является обязательным. Выберите «Нет», чтобы загрузить без тега группы.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Обнаружение оборудования...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Не удалось обнаружить оборудование.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Не удалось обнаружить оборудование: {0}</value></data>
@@ -71,7 +58,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>переменного тока</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Загрузка целевых дисков...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Не удалось обнаружить целевой диск: {0}</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Операционная система</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Версия</value></data>
 <data name="Catalog.Media" xml:space="preserve"><value>Обновление Windows</value></data>
 <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Последнее)</value></data>
@@ -82,7 +68,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Загрузка каталогов...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Загружены каталоги: записи операционной системы {0}, пакеты драйверов {1}.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Не удалось загрузить каталог: {0}</value></data>
-  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Источник драйвера</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Модель</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Версия</value></data>
@@ -101,12 +86,9 @@
   <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} настроено ({1} включить, {2} отключить)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Прошивка</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Метод</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Метод Autopilot</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Профиль</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot групповой тег</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Цель</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>Система</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Варианты развертывания</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Нет Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON профиль</value></data>
@@ -145,12 +127,11 @@
   <data name="Progress.Networking" xml:space="preserve"><value>сеть</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Время начала</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Прошедшее время</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>Развертывание завершено успешно.</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Развертывание завершено</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Этот компьютер перезагрузится через {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Перезагрузить</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Развертывание не удалось</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>Неудачный шаг</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>Сообщение об ошибке</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>Сбой на этапе: {0}</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Добро пожаловать</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Инициализация компонентов...</value></data>
   <data name="Splash.Start" xml:space="preserve"><value>Старт</value></data>
@@ -194,25 +175,25 @@
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Требуемый исполняемый файл перезагрузки «wpeutil.exe» не найден.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Неизвестный шаг</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>Никаких подробностей об ошибке не было предоставлено.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Сбор переменных развертывания</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Инициализировать рабочую область развертывания</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Проверка целевой конфигурации</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Проверьте кэш развертывания</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Подготовьте макет целевого диска</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Скачать образ операционной системы</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Применить образ операционной системы</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Настройте имя целевого компьютера</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Настройте параметры OOBE</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Настройка среды восстановления</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Скачать пакет драйверов</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Извлечь пакет драйверов</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Этап настройки перед OOBE</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Применить пакет драйверов</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Загрузите обновление прошивки</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Применить обновление прошивки</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Запечатать раздел восстановления</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Положение Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Завершить развертывание и записать журналы</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Сбор переменных</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Инициализация развертывания</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Проверка конфигурации</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Проверка кэша</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Подготовка диска</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Загрузка операционной системы</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Применение операционной системы</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Настройка имени компьютера</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Настройка OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Настройка восстановления Windows</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Загрузка драйверов</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Распаковка драйверов</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Подготовка настроек</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Применение драйверов</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Загрузка прошивки</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Применение прошивки</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Запечатывание раздела восстановления</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Подготовка Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Завершение развертывания</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Сбор переменных развертывания...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Сбор контекста развертывания...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Переменные развертывания собраны.</value></data>
@@ -515,7 +496,7 @@
     <value>Интерактивный помощник регистрации Autopilot подготовлен (симуляция).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Извлеките загрузочный носитель, затем выберите «Перезапустить».</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Настройка дополнительных функций Windows</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Настройка дополнительных компонентов</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Настройка дополнительных функций Windows...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Проверка состояний компонентов...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Подготовка соответствующих источников мультимедиа для настройки...</value></data>
@@ -537,4 +518,73 @@
   <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Продолжить</value></data>
   <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Показать или скрыть пароль</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Неверный пароль. Повторите попытку.</value></data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>Целевое устройство</value></data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>Операционная система</value></data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>Драйверы устройств</value></data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Wizard.Step.Summary" xml:space="preserve"><value>Сводка</value></data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>Этапы настройки развертывания</value></data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>Вернуться к сводке</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>Изменить</value></data>
+  <data name="Common.Copy" xml:space="preserve"><value>Копировать</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>Закрыть</value></data>
+  <data name="TargetDevice.Title" xml:space="preserve"><value>Целевое устройство</value></data>
+  <data name="TargetDevice.Firmware" xml:space="preserve"><value>Обновления прошивки</value></data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>Недоступно на виртуальных машинах.</value></data>
+  <data name="OperatingSystem.Title" xml:space="preserve"><value>Операционная система</value></data>
+  <data name="Drivers.Title" xml:space="preserve"><value>Драйверы устройств</value></data>
+  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>Подробности конфигурации</value></data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>Целевое устройство</value></data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>Операционная система</value></data>
+  <data name="Summary.Category.Drivers" xml:space="preserve"><value>Драйверы устройств</value></data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Настройка Windows</value></data>
+  <data name="Summary.Category.Network" xml:space="preserve"><value>Сеть</value></data>
+  <data name="Summary.Category.Completion" xml:space="preserve"><value>Завершение</value></data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Не настроено</value></data>
+  <data name="Summary.Status.Configured" xml:space="preserve"><value>Настроено</value></data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Без изменений</value></data>
+  <data name="Summary.Hardware" xml:space="preserve"><value>Обнаружено оборудование</value></data>
+  <data name="Summary.Release" xml:space="preserve"><value>Версия</value></data>
+  <data name="Summary.Edition" xml:space="preserve"><value>Редакция</value></data>
+  <data name="Summary.Architecture" xml:space="preserve"><value>Архитектура системы</value></data>
+  <data name="Summary.Language" xml:space="preserve"><value>Язык</value></data>
+  <data name="Summary.LicenseChannel" xml:space="preserve"><value>Лицензионный канал</value></data>
+  <data name="Summary.Build" xml:space="preserve"><value>Сборка</value></data>
+  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.AppxRemoval" xml:space="preserve"><value>Удаление AppX</value></data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>Удаление компонентов ИИ</value></data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Роуминг сетевых профилей</value></data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>Автоматический перезапуск</value></data>
+  <data name="Summary.ManualRestart" xml:space="preserve"><value>Ручной перезапуск</value></data>
+  <data name="Summary.RestartDelay" xml:space="preserve"><value>Задержка перезапуска</value></data>
+  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} секунды</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Выбранный целевой диск будет удален при запуске развертывания.</value></data>
+  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Добро пожаловать в Foundry Deploy</value></data>
+  <data name="Progress.Session" xml:space="preserve"><value>Сеанс</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Шаги</value></data>
+  <data name="Progress.RingAutomationName" xml:space="preserve"><value>Общий ход развертывания</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Шаги развертывания</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Просмотреть сведения об ошибке</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Сведения об ошибке</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>Выберите имя компьютера и целевой диск, затем просмотрите сведения об обнаруженном оборудовании.</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Параметры развертывания</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Инвентаризация устройства</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Идентификация устройства</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>Платформа</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Производитель</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>Модель</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>Продукт</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Серийный номер</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Архитектура</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Источник питания</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Состояние встроенного ПО</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>Выберите выпуск Windows, язык, редакцию и канал лицензирования.</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>Выберите источник драйверов и при необходимости соответствующие модель и версию.</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>Просмотрите параметры подготовки Autopilot для этого устройства.</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>Проверьте выбранные параметры перед началом развертывания.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Добавляет автономный профиль Autopilot в установку Windows.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Отправляет аппаратный хеш этого устройства в Windows Autopilot во время развертывания.</value></data>
 </root>

@@ -29,40 +29,27 @@
   <data name="Language.English" xml:space="preserve"><value>英語</value></data>
   <data name="Language.French" xml:space="preserve"><value>フランス語</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>ログファイルを開く</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. ターゲット</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. オペレーティングシステム</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3.ドライバーパック</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. まとめ</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>コンピュータ名</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1 ～ 15 文字。 A ～ Z、a ～ z、0 ～ 9、およびハイフンのみ。</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>コンピュータ名には、1 ～ 15 個の有効な文字 (文字、数字、またはハイフン) が含まれている必要があります。</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>対象マシン</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>宛先ディスク</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>導入オプション</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>ターゲットディスク</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>ターゲットディスクを選択します。不適格なディスクはブロックされます。</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>ファームウェアアップデートを適用する</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>この展開に対して Autopilot を有効にする</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>プロフィール</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>このメディアには埋め込まれた Autopilot プロファイルが見つかりませんでした。</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON プロフィール</value></data>
-  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>ゼロタッチ ハードウェア ハッシュ アップロード</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON プロファイルのプロビジョニング</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>ゼロタッチ ハードウェア ハッシュのアップロード</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>対話型ハードウェア ハッシュ アップロード</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>このメディアで利用可能: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>ゼロタッチ ハードウェア ハッシュ アップロード</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>ハードウェア ハッシュのアップロード ステータス</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>ハードウェア ハッシュをアップロードする準備ができました</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>ハードウェア ハッシュをアップロードする準備ができていません</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>アップロード証明書の有効期限が切れています</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>必要な証明書情報が欠落しているため、このメディアではハードウェア ハッシュ アップロードを利用できません。展開は続行できますが、アップロードはスキップされます。</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot 証明書の有効期限が切れました。展開は続行できますが、アップロードはスキップされます。</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>詳細</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>ハードウェア ハッシュのアップロードは利用できません</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>必要な証明書情報がありません。ハードウェア ハッシュをアップロードせずに展開を続行できます。</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot 証明書の有効期限が切れています。ハードウェア ハッシュをアップロードせずに展開を続行できます。</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>テナントID</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>証明書の拇印</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>証明書の有効期限</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>グループタグ</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>グループタグはオプションです。グループタグなしでアップロードするには、「なし」を選択します。</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>ハードウェアを検出中...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>ハードウェアの検出に失敗しました。</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>ハードウェアの検出に失敗しました: {0}</value></data>
@@ -71,7 +58,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>交流</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>ターゲットディスクをロードしています...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>ターゲット ディスクの検出に失敗しました: {0}</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>オペレーティングシステム</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>バージョン</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Windows 更新プログラム</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (最新)</value></data>
@@ -82,7 +68,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>カタログを読み込んでいます...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>ロードされたカタログ: {0} オペレーティング システム エントリ、{1} ドライバー パック。</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>カタログのロードに失敗しました: {0}</value></data>
-  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>ドライバーソース</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>モデル</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>バージョン</value></data>
@@ -104,9 +89,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot メソッド</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot プロフィール</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot グループタグ</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>ターゲット</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>システム</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>導入オプション</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>いいえ Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON プロフィール</value></data>
@@ -145,12 +127,11 @@
   <data name="Progress.Networking" xml:space="preserve"><value>ネットワーキング</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>開始時間</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>経過時間</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>デプロイは正常に完了しました。</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>デプロイが完了しました</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>このコンピューターは{0}s後に再起動します。</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>再起動</value></data>
   <data name="Error.Title" xml:space="preserve"><value>導入に失敗しました</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>失敗したステップ</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>エラーメッセージ</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>失敗したステップ: {0}</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>ようこそ</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>コンポーネントを初期化しています...</value></data>
   <data name="Splash.Start" xml:space="preserve"><value>スタート</value></data>
@@ -194,25 +175,25 @@
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>必要な再起動実行可能ファイル「wpeutil.exe」が見つかりませんでした。</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>不明なステップ</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>エラーの詳細は提供されませんでした。</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>デプロイメント変数を収集する</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>デプロイメントワークスペースを初期化する</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>ターゲット構成を検証する</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>デプロイメントキャッシュを確認する</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>ターゲットディスクレイアウトの準備</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>オペレーティング システム イメージをダウンロードする</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>オペレーティング システム イメージを適用する</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>ターゲットコンピュータ名の構成</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>OOBE 設定を構成する</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>回復環境を構成する</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>ドライバーパックをダウンロードする</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>ドライバーパックを抽出する</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>OOBE 前の段階のカスタマイズ</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>ドライバーパックを適用する</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>ファームウェアアップデートをダウンロードする</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>ファームウェアアップデートを適用する</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>シール回収パーティション</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>プロビジョン Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>導入を完了してログを書き込む</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>変数を収集</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>展開を初期化</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>構成を検証</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>キャッシュを確認</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>ディスクを準備</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>オペレーティング システムをダウンロード</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>オペレーティング システムを適用</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>コンピューター名を設定</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>OOBE を構成</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Windows 回復を構成</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>ドライバーをダウンロード</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>ドライバーを展開</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>カスタマイズを準備</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>ドライバーを適用</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>ファームウェアをダウンロード</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>ファームウェアを適用</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>回復パーティションを封印</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Autopilot をプロビジョニング</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>展開を完了</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>デプロイメント変数を収集しています...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>デプロイメントコンテキストを収集しています...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>デプロイ変数が収集されました。</value></data>
@@ -515,7 +496,7 @@
     <value>対話型 Autopilot 登録アシスタントをステージングしました (シミュレーション)。</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>ブート メディアを取り外してから、[再起動] を選択してください。</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Windows のオプション機能を構成する</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>オプション機能を構成</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Windows のオプション機能を構成しています...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>機能の状態を検査しています...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>一致するセットアップ メディア ソースを準備しています...</value></data>
@@ -537,4 +518,73 @@
   <data name="DeploymentAccess.Continue" xml:space="preserve"><value>続行</value></data>
   <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>パスワードの表示と非表示を切り替える</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>パスワードが正しくありません。もう一度お試しください。</value></data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>ターゲットデバイス</value></data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>オペレーティングシステム</value></data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>デバイスドライバー</value></data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Wizard.Step.Summary" xml:space="preserve"><value>概要</value></data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>デプロイメントのセットアップ手順</value></data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>概要に戻る</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>編集</value></data>
+  <data name="Common.Copy" xml:space="preserve"><value>コピー</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>閉じる</value></data>
+  <data name="TargetDevice.Title" xml:space="preserve"><value>ターゲットデバイス</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>コンピューター名とターゲット ディスクを選択し、検出されたハードウェアを確認します。</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>展開設定</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>デバイス情報</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>デバイス ID</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>プラットフォーム</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>製造元</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>モデル</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>製品</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>シリアル番号</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>アーキテクチャ</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>電源</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>ファームウェアの状態</value></data>
+  <data name="TargetDevice.Firmware" xml:space="preserve"><value>ファームウェアのアップデート</value></data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>仮想マシンでは使用できません</value></data>
+  <data name="OperatingSystem.Title" xml:space="preserve"><value>オペレーティングシステム</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>Windows のリリース、言語、エディション、ライセンス チャネルを選択します。</value></data>
+  <data name="Drivers.Title" xml:space="preserve"><value>デバイスドライバー</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>ドライバーの入手元を選択し、必要に応じて一致するモデルとバージョンを選択します。</value></data>
+  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>このデバイスの Autopilot プロビジョニング設定を確認します。</value></data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>構成の詳細</value></data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>ターゲットデバイス</value></data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>オペレーティングシステム</value></data>
+  <data name="Summary.Category.Drivers" xml:space="preserve"><value>デバイスドライバー</value></data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Windows のカスタマイズ</value></data>
+  <data name="Summary.Category.Network" xml:space="preserve"><value>ネットワーク</value></data>
+  <data name="Summary.Category.Completion" xml:space="preserve"><value>完成</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>展開を開始する前に選択内容を確認します。</value></data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>未構成</value></data>
+  <data name="Summary.Status.Configured" xml:space="preserve"><value>設定済み</value></data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>変更なし</value></data>
+  <data name="Summary.Hardware" xml:space="preserve"><value>ハードウェアが検出されました</value></data>
+  <data name="Summary.Release" xml:space="preserve"><value>バージョン</value></data>
+  <data name="Summary.Edition" xml:space="preserve"><value>エディション</value></data>
+  <data name="Summary.Architecture" xml:space="preserve"><value>システムアーキテクチャ</value></data>
+  <data name="Summary.Language" xml:space="preserve"><value>言語</value></data>
+  <data name="Summary.LicenseChannel" xml:space="preserve"><value>ライセンスチャネル</value></data>
+  <data name="Summary.Build" xml:space="preserve"><value>ビルド</value></data>
+  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX 削除</value></data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>AI コンポーネントの削除</value></data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>ネットワーク プロファイルのローミング</value></data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>自動再起動</value></data>
+  <data name="Summary.ManualRestart" xml:space="preserve"><value>手動再起動</value></data>
+  <data name="Summary.RestartDelay" xml:space="preserve"><value>再起動の遅延</value></data>
+  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} 秒</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>選択したターゲット ディスクは、展開の開始時に消去されます。</value></data>
+  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Foundry Deploy へようこそ</value></data>
+  <data name="Progress.Session" xml:space="preserve"><value>セッション</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>手順</value></data>
+  <data name="Progress.RingAutomationName" xml:space="preserve"><value>全体的な展開の進行状況</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>展開手順</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>エラーの詳細を表示</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>エラーの詳細</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>オフラインの Autopilot プロファイルを Windows インストールに追加します。</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>展開中にこのデバイスのハードウェア ハッシュを Windows Autopilot にアップロードします。</value></data>
 </root>

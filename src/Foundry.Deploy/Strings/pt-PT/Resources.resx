@@ -29,40 +29,27 @@
   <data name="Language.English" xml:space="preserve"><value>Inglês</value></data>
   <data name="Language.French" xml:space="preserve"><value>Francês</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Abrir arquivo de registro</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Alvo</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Sistema operacional</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Pacote de driver</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Resumo</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Nome do computador</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 caracteres. A-Z, a-z, 0-9 e apenas hífen.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>O nome do computador deve conter de 1 a 15 caracteres válidos (letras, números ou hífen).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Máquina alvo</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Disco de destino</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Opções de implantação</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Disco de destino</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Selecione um disco de destino. Os discos não elegíveis são bloqueados.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Aplicar atualizações de firmware</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Habilite Autopilot para esta implantação</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Perfil</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Nenhum perfil Autopilot incorporado foi encontrado nesta mídia.</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON perfil</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON provisionamento de perfil</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Carregamento zero-touch do hash de hardware</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Carregamento interativo do hash de hardware</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Disponível nesta mídia: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Carregamento zero-touch do hash de hardware</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Status de upload de hash de hardware</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Pronto para fazer upload de hash de hardware</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Não está pronto para fazer upload do hash de hardware</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>O certificado de upload expirou</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>O upload de hash de hardware não está disponível nesta mídia porque faltam as informações necessárias do certificado. A implantação pode continuar, mas o upload será ignorado.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>O certificado Autopilot expirou. A implantação pode continuar, mas o upload será ignorado.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Detalhes</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Upload de hash de hardware indisponível</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>As informações necessárias do certificado estão em falta. A implementação pode continuar sem carregar o hash de hardware.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>O certificado Autopilot expirou. A implementação pode continuar sem carregar o hash de hardware.</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>ID do locatário</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Impressão digital do certificado</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Expiração do certificado</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Etiqueta de grupo</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>A tag de grupo é opcional. Selecione Nenhum para fazer upload sem uma tag de grupo.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Detectando hardware...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Falha na detecção de hardware.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Falha na detecção de hardware: {0}</value></data>
@@ -71,7 +58,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Carregando discos de destino...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Falha na descoberta do disco de destino: {0}</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Sistema operacional</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versão</value></data>
 <data name="Catalog.Media" xml:space="preserve"><value>Atualização do Windows</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Mais recente)</value></data>
@@ -82,7 +68,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Carregando catálogos...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Catálogos carregados: entradas do sistema operacional {0}, pacotes de drivers {1}.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Falha no carregamento do catálogo: {0}</value></data>
-  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Fonte do driver</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Modelo</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Versão</value></data>
@@ -101,12 +86,9 @@
   <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} configurado ({1} ativar, {2} desativar)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Método</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Método do Autopilot</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Perfil</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot etiqueta do grupo</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Alvo</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>Sistema</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Opções de implantação</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Não Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON perfil</value></data>
@@ -145,12 +127,11 @@ Ação: Verifique os atributos do disco e tente novamente a implantação.</valu
   <data name="Progress.Networking" xml:space="preserve"><value>Rede</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Hora de início</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Tempo decorrido</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>A implantação foi concluída com sucesso.</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Implementação concluída</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Este computador será reiniciado dentro de {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Reiniciar</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Falha na implantação</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>Etapa falhada</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>Mensagem de erro</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>Passo com falha: {0}</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Bem vindo</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Inicializando componentes...</value></data>
   <data name="Splash.Start" xml:space="preserve"><value>Começar</value></data>
@@ -194,25 +175,25 @@ Continuar com a implantação?</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>O executável de reinicialização necessária 'wpeutil.exe' não foi encontrado.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Etapa desconhecida</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>Nenhum detalhe do erro foi fornecido.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Reúna variáveis de implantação</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Inicializar o espaço de trabalho de implantação</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Validar configuração de destino</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Verifique o cache de implantação</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Preparar o layout do disco de destino</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Baixar imagem do sistema operacional</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Aplicar imagem do sistema operacional</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Configurar o nome do computador de destino</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Definir configurações de OOBE</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Configurar ambiente de recuperação</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Baixe o pacote de drivers</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extrair pacote de driver</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Personalização pré-OOBE do estágio</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Aplicar pacote de driver</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Baixar atualização de firmware</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Aplicar atualização de firmware</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Recolher variáveis</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Inicializar implementação</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Validar configuração</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Verificar cache</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Preparar disco</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Descarregar sistema operativo</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Aplicar sistema operativo</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Definir nome do computador</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Configurar OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Configurar recuperação do Windows</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Descarregar controladores</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extrair controladores</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Preparar personalizações</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Aplicar controladores</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Descarregar firmware</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Aplicar firmware</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Selar partição de recuperação</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Provisão Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Finalizar a implantação e gravar logs</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Provisionar Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Concluir implementação</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Reunindo variáveis de implantação...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Coletando contexto de implantação...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Variáveis de implantação coletadas.</value></data>
@@ -515,7 +496,7 @@ Continuar com a implantação?</value></data>
     <value>Assistente de registo interativo do Autopilot preparado (simulação).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Remova o suporte de arranque e selecione Reiniciar.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Configurar as funcionalidades opcionais do Windows</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Configurar funcionalidades opcionais</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Configurando as caracter&#237;sticas opcionais do Windows...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Inspecionando estados de recursos...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Prepara&#231;&#227;o de fontes de media de configura&#231;&#227;o correspondentes...</value></data>
@@ -537,4 +518,73 @@ Continuar com a implantação?</value></data>
   <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Continuar</value></data>
   <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Mostrar ou ocultar a palavra-passe</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>A palavra-passe está incorreta. Tente novamente.</value></data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>Dispositivo de destino</value></data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>Sistema operativo</value></data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>Drivers de dispositivo</value></data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Wizard.Step.Summary" xml:space="preserve"><value>Resumo</value></data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>Passos de configuração da implementação</value></data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>Voltar ao resumo</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>Editar</value></data>
+  <data name="Common.Copy" xml:space="preserve"><value>Copiar para a área de transferência</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>Fechar janela</value></data>
+  <data name="TargetDevice.Title" xml:space="preserve"><value>Dispositivo de destino</value></data>
+  <data name="TargetDevice.Firmware" xml:space="preserve"><value>Atualizações de firmware</value></data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>Não disponível em máquinas virtuais</value></data>
+  <data name="OperatingSystem.Title" xml:space="preserve"><value>Sistema operativo</value></data>
+  <data name="Drivers.Title" xml:space="preserve"><value>Drivers de dispositivo</value></data>
+  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>Detalhes de configuração</value></data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>Dispositivo de destino</value></data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>Sistema operativo</value></data>
+  <data name="Summary.Category.Drivers" xml:space="preserve"><value>Drivers de dispositivo</value></data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Personalização do Windows</value></data>
+  <data name="Summary.Category.Network" xml:space="preserve"><value>Rede</value></data>
+  <data name="Summary.Category.Completion" xml:space="preserve"><value>Conclusão</value></data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Não configurado</value></data>
+  <data name="Summary.Status.Configured" xml:space="preserve"><value>Configurado</value></data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Sem alterações</value></data>
+  <data name="Summary.Hardware" xml:space="preserve"><value>Hardware detectado</value></data>
+  <data name="Summary.Release" xml:space="preserve"><value>Versão</value></data>
+  <data name="Summary.Edition" xml:space="preserve"><value>Edição do sistema operacional</value></data>
+  <data name="Summary.Architecture" xml:space="preserve"><value>Arquitetura do sistema</value></data>
+  <data name="Summary.Language" xml:space="preserve"><value>Idioma</value></data>
+  <data name="Summary.LicenseChannel" xml:space="preserve"><value>Canal de licença</value></data>
+  <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
+  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.AppxRemoval" xml:space="preserve"><value>Remoção de aplicações AppX</value></data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>Remoção de componentes de IA</value></data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Itinerância do perfil de rede</value></data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>Reinício automático</value></data>
+  <data name="Summary.ManualRestart" xml:space="preserve"><value>Reinício manual</value></data>
+  <data name="Summary.RestartDelay" xml:space="preserve"><value>Atraso do reinício</value></data>
+  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} segundos</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>O disco de destino selecionado será apagado quando a implementação começar.</value></data>
+  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Bem-vindo ao Foundry Deploy</value></data>
+  <data name="Progress.Session" xml:space="preserve"><value>Sessão de implantação</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Passos</value></data>
+  <data name="Progress.RingAutomationName" xml:space="preserve"><value>Progresso geral da implantação</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Passos da implementação</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Ver detalhes do erro</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Detalhes do erro</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>Escolha o nome do computador e o disco de destino e, em seguida, reveja o hardware detetado.</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Definições de implementação</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Inventário do dispositivo</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Identidade do dispositivo</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>Plataforma</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Fabricante</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>Modelo</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>Produto</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Número de série</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Arquitetura</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Fonte de alimentação</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Estado do firmware</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>Escolha a versão do Windows, o idioma, a edição e o canal de licença.</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>Escolha a origem dos controladores e, quando necessário, o modelo e a versão correspondentes.</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>Reveja as definições de aprovisionamento do Autopilot para este dispositivo.</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>Reveja as suas seleções antes de iniciar a implementação.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Adiciona um perfil offline do Autopilot à instalação do Windows.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Carrega o hash de hardware deste dispositivo para o Windows Autopilot durante a implementação.</value></data>
 </root>

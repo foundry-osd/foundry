@@ -29,40 +29,27 @@
   <data name="Language.English" xml:space="preserve"><value>英语</value></data>
   <data name="Language.French" xml:space="preserve"><value>法语</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>打开日志文件</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. 目标</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2、操作系统</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3.驱动包</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. 总结</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>计算机名称</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 个字符。仅 A-Z、a-z、0-9 和连字符。</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>计算机名称必须包含 1 到 15 个有效字符（字母、数字或连字符）。</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>靶机</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>目标磁盘</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>部署选项</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>目标盘</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>选择目标磁盘。不符合条件的磁盘将被阻止。</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>应用固件更新</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>为此部署启用Autopilot</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>公司简介</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>在此介质上未找到嵌入的 Autopilot 配置文件。</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON个人资料</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON 配置文件配置</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch 硬件哈希上传</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>交互式硬件哈希上传</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>在此媒体上可用：{0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch 硬件哈希上传</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>硬件哈希上传状态</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>准备上传硬件哈希</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>尚未准备好上传硬件哈希值</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>上传证书已过期</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>由于缺少所需的证书信息，因此硬件哈希上传在此媒体上不可用。部署可以继续，但上传将被跳过。</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot 证书已过期。部署可以继续，但上传将被跳过。</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>详情</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>硬件哈希上传不可用</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>缺少必需的证书信息。可以继续部署而不上传硬件哈希。</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot 证书已过期。可以继续部署而不上传硬件哈希。</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>租户ID</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>证书指纹</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>证书过期</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>组标签</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>组标签是可选的。选择“无”可在不带组标签的情况下上传。</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>检测硬件...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>硬件检测失败。</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>硬件检测失败：{0}</value></data>
@@ -71,7 +58,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>交流电</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>正在加载目标磁盘...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>目标磁盘发现失败：{0}</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>操作系统</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>版本</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Windows 更新</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0}（最新）</value></data>
@@ -82,7 +68,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>正在加载目录...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>加载的目录：{0}操作系统条目、{1}驱动程序包。</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>目录加载失败：{0}</value></data>
-  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>驱动源码</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>型号</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>版本</value></data>
@@ -104,9 +89,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot方法</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot 个人资料</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot组标签</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>目标</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>系统</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>部署选项</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>没有Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON个人资料</value></data>
@@ -145,12 +127,11 @@
   <data name="Progress.Networking" xml:space="preserve"><value>网络</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>开始时间</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>经过时间</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>部署成功完成。</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>部署已完成</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>这台计算机将在 {0}s 后重启。</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>重新启动</value></data>
   <data name="Error.Title" xml:space="preserve"><value>部署失败</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>步骤失败</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>错误信息</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>失败的步骤：{0}</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>欢迎</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>正在初始化组件...</value></data>
   <data name="Splash.Start" xml:space="preserve"><value>开始</value></data>
@@ -194,25 +175,25 @@
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>未找到所需的重新启动可执行文件“wpeutil.exe”。</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>未知步骤</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>没有提供错误详细信息。</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>收集部署变量</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>初始化部署工作区</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>验证目标配置</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>检查部署缓存</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>准备目标磁盘布局</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>下载操作系统镜像</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>应用操作系统镜像</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>配置目标计算机名称</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>配置OOBE设置</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>配置恢复环境</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>下载驱动包</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>提取驱动包</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>阶段 OOBE 前定制</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>应用驱动包</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>下载固件更新</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>应用固件更新</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>密封回收分区</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>提供Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>完成部署并写入日志</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>收集变量</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>初始化部署</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>验证配置</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>检查缓存</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>准备磁盘</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>下载操作系统</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>应用操作系统</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>设置计算机名</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>配置 OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>配置 Windows 恢复</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>下载驱动程序</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>解压驱动程序</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>准备自定义项</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>应用驱动程序</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>下载固件</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>应用固件</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>封闭恢复分区</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>配置 Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>完成部署</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>正在收集部署变量...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>正在收集部署上下文...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>收集部署变量。</value></data>
@@ -515,7 +496,7 @@
     <value>交互式 Autopilot 注册助手已暂存（模拟）。</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>移除启动介质，然后选择“重启”。</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>配置 Windows 可选功能</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>配置可选功能</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>配置 Windows 可选功能...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>检查功能状态...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>正在准备匹配的设置媒体源...</value></data>
@@ -537,4 +518,73 @@
   <data name="DeploymentAccess.Continue" xml:space="preserve"><value>继续</value></data>
   <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>显示或隐藏密码</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>密码不正确，请重试。</value></data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>目标设备</value></data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>操作系统</value></data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>设备驱动程序</value></data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Wizard.Step.Summary" xml:space="preserve"><value>摘要</value></data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>部署设置步骤</value></data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>返回摘要</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>编辑</value></data>
+  <data name="Common.Copy" xml:space="preserve"><value>复制</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>关闭</value></data>
+  <data name="TargetDevice.Title" xml:space="preserve"><value>目标设备</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>选择计算机名称和目标磁盘，然后查看检测到的硬件。</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>部署设置</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>设备信息</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>设备标识</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>平台</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>制造商</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>型号</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>产品</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>序列号</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>体系结构</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>电源</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>固件状态</value></data>
+  <data name="TargetDevice.Firmware" xml:space="preserve"><value>固件更新</value></data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>在虚拟机上不可用</value></data>
+  <data name="OperatingSystem.Title" xml:space="preserve"><value>操作系统</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>选择 Windows 版本、语言、版本类别和许可证通道。</value></data>
+  <data name="Drivers.Title" xml:space="preserve"><value>设备驱动程序</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>选择驱动程序源，并在需要时选择匹配的型号和版本。</value></data>
+  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>查看此设备的 Autopilot 预配设置。</value></data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>配置详细信息</value></data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>目标设备</value></data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>操作系统</value></data>
+  <data name="Summary.Category.Drivers" xml:space="preserve"><value>设备驱动程序</value></data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Windows 自定义</value></data>
+  <data name="Summary.Category.Network" xml:space="preserve"><value>网络</value></data>
+  <data name="Summary.Category.Completion" xml:space="preserve"><value>完成</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>开始部署前，请检查所选内容。</value></data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>未配置</value></data>
+  <data name="Summary.Status.Configured" xml:space="preserve"><value>已配置</value></data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>无更改</value></data>
+  <data name="Summary.Hardware" xml:space="preserve"><value>检测到的硬件</value></data>
+  <data name="Summary.Release" xml:space="preserve"><value>版本</value></data>
+  <data name="Summary.Edition" xml:space="preserve"><value>操作系统版本</value></data>
+  <data name="Summary.Architecture" xml:space="preserve"><value>系统架构</value></data>
+  <data name="Summary.Language" xml:space="preserve"><value>语言</value></data>
+  <data name="Summary.LicenseChannel" xml:space="preserve"><value>授权渠道</value></data>
+  <data name="Summary.Build" xml:space="preserve"><value>内部版本</value></data>
+  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX 删除</value></data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>AI 组件移除</value></data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>网络配置文件漫游</value></data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>自动重启</value></data>
+  <data name="Summary.ManualRestart" xml:space="preserve"><value>手动重启</value></data>
+  <data name="Summary.RestartDelay" xml:space="preserve"><value>重启延迟</value></data>
+  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0}秒</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>部署开始时，所选目标磁盘将被擦除。</value></data>
+  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>欢迎来到 Foundry Deploy</value></data>
+  <data name="Progress.Session" xml:space="preserve"><value>会话</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>步骤</value></data>
+  <data name="Progress.RingAutomationName" xml:space="preserve"><value>总体部署进度</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>部署步骤</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>查看错误详细信息</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>错误详细信息</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>将离线 Autopilot 配置文件添加到 Windows 安装中。</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>在部署期间将此设备的硬件哈希上传到 Windows Autopilot。</value></data>
 </root>

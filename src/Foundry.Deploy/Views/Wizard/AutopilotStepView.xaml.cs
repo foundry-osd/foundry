@@ -4,11 +4,11 @@
 
 using System.Windows.Controls;
 
-namespace Foundry.Deploy.Views;
+namespace Foundry.Deploy.Views.Wizard;
 
-public partial class DeploymentSessionSummaryView : UserControl
+public partial class AutopilotStepView : UserControl
 {
-    public DeploymentSessionSummaryView()
+    public AutopilotStepView()
     {
         InitializeComponent();
     }

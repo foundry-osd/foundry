@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Globalization;
+using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Localization;
 
 namespace Foundry.Deploy.Tests;
@@ -11,6 +12,40 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
 {
     private readonly CultureInfo _originalCulture = CultureInfo.CurrentCulture;
     private readonly CultureInfo _originalUiCulture = CultureInfo.CurrentUICulture;
+
+    public static TheoryData<string, string> ConciseDeploymentStepLabels => new()
+    {
+        { DeploymentStepNames.GatherDeploymentVariables, "Gather variables" },
+        { DeploymentStepNames.InitializeDeploymentWorkspace, "Initialize deployment" },
+        { DeploymentStepNames.ValidateTargetConfiguration, "Validate configuration" },
+        { DeploymentStepNames.ResolveCacheStrategy, "Check cache" },
+        { DeploymentStepNames.PrepareTargetDiskLayout, "Prepare disk" },
+        { DeploymentStepNames.DownloadOperatingSystemImage, "Download operating system" },
+        { DeploymentStepNames.ApplyOperatingSystemImage, "Apply operating system" },
+        { DeploymentStepNames.ConfigureTargetComputerName, "Set computer name" },
+        { DeploymentStepNames.ConfigureOobeSettings, "Configure OOBE" },
+        { DeploymentStepNames.ConfigureWindowsOptionalFeatures, "Configure optional features" },
+        { DeploymentStepNames.ConfigureRecoveryEnvironment, "Configure Windows recovery" },
+        { DeploymentStepNames.DownloadDriverPack, "Download drivers" },
+        { DeploymentStepNames.ExtractDriverPack, "Extract drivers" },
+        { DeploymentStepNames.StagePreOobeCustomization, "Stage customizations" },
+        { DeploymentStepNames.ApplyDriverPack, "Apply drivers" },
+        { DeploymentStepNames.DownloadFirmwareUpdate, "Download firmware" },
+        { DeploymentStepNames.ApplyFirmwareUpdate, "Apply firmware" },
+        { DeploymentStepNames.SealRecoveryPartition, "Seal recovery partition" },
+        { DeploymentStepNames.ProvisionAutopilot, "Provision Autopilot" },
+        { DeploymentStepNames.FinalizeDeploymentAndWriteLogs, "Finalize deployment" }
+    };
+
+    [Theory]
+    [MemberData(nameof(ConciseDeploymentStepLabels))]
+    public void LocalizeStepName_UsesConciseReferenceLabel(string stepName, string expected)
+    {
+        CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
+        CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
+
+        Assert.Equal(expected, DeploymentUiTextLocalizer.LocalizeStepName(stepName));
+    }
 
     [Theory]
     [InlineData("Applying Windows drivers: 17,6%", "Application des pilotes Windows : 17,6 %")]
@@ -98,7 +133,7 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
         CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("fr-FR");
         CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("fr-FR");
 
-        Assert.Equal("Préparation d’Autopilot", DeploymentUiTextLocalizer.LocalizeStepName("Provision Autopilot"));
+        Assert.Equal("Provisionner Autopilot", DeploymentUiTextLocalizer.LocalizeStepName("Provision Autopilot"));
     }
 
     [Fact]
@@ -108,7 +143,7 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
         CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("fr-FR");
 
         Assert.Equal(
-            "Configuration des fonctionnalités facultatives Windows",
+            "Configurer les fonctionnalités facultatives",
             DeploymentUiTextLocalizer.LocalizeStepName("Configure Windows optional features"));
     }
 

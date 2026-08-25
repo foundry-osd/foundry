@@ -29,40 +29,27 @@
   <data name="Language.English" xml:space="preserve"><value>อังกฤษ</value></data>
   <data name="Language.French" xml:space="preserve"><value>ฝรั่งเศส</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>เปิดไฟล์บันทึก</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. เป้าหมาย</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. ระบบปฏิบัติการ</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. ชุดไดรเวอร์</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. สรุป</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>ชื่อคอมพิวเตอร์</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 ตัวอักษร A-Z, a-z, 0-9 และขีดกลางเท่านั้น</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>ชื่อคอมพิวเตอร์ต้องมีอักขระที่ถูกต้อง 1 ถึง 15 ตัว (ตัวอักษร ตัวเลข หรือยัติภังค์)</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>เครื่องเป้าหมาย</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>ดิสก์ปลายทาง</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>ตัวเลือกการปรับใช้</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>ดิสก์เป้าหมาย</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>เลือกดิสก์เป้าหมาย ดิสก์ที่ไม่มีสิทธิ์ถูกบล็อก</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>ใช้การอัพเดตเฟิร์มแวร์</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>เปิดใช้งาน Autopilot สำหรับการปรับใช้นี้</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>โปรไฟล์</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>ไม่พบโปรไฟล์ Autopilot ที่ฝังอยู่ในสื่อนี้</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON โปรไฟล์</value></data>
-  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>การอัปโหลดแฮชฮาร์ดแวร์แบบ zero-touch</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON การจัดสรรโปรไฟล์</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>การอัปโหลดแฮชฮาร์ดแวร์แบบ Zero-touch</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>การอัปโหลดแฮชฮาร์ดแวร์แบบโต้ตอบ</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>มีอยู่ในสื่อนี้: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>การอัปโหลดแฮชฮาร์ดแวร์แบบ zero-touch</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>สถานะการอัปโหลดแฮชของฮาร์ดแวร์</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>พร้อมอัปโหลดแฮชฮาร์ดแวร์</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>ไม่พร้อมที่จะอัปโหลดแฮชฮาร์ดแวร์</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>ใบรับรองการอัปโหลดหมดอายุแล้ว</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>การอัปโหลดแฮชฮาร์ดแวร์ไม่พร้อมใช้งานบนสื่อนี้ เนื่องจากข้อมูลใบรับรองที่จำเป็นขาดหายไป การปรับใช้สามารถดำเนินต่อไปได้ แต่การอัปโหลดจะถูกข้ามไป</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>ใบรับรอง Autopilot หมดอายุแล้ว การปรับใช้สามารถดำเนินต่อไปได้ แต่การอัปโหลดจะถูกข้ามไป</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>รายละเอียด</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>การอัปโหลดแฮชฮาร์ดแวร์ไม่พร้อมใช้งาน</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>ไม่มีข้อมูลใบรับรองที่จำเป็น การปรับใช้สามารถดำเนินต่อไปได้โดยไม่ต้องอัปโหลดแฮชฮาร์ดแวร์</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>ใบรับรอง Autopilot หมดอายุแล้ว การปรับใช้สามารถดำเนินต่อไปได้โดยไม่ต้องอัปโหลดแฮชฮาร์ดแวร์</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>รหัสผู้เช่า</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>รหัสประจำตัวใบรับรอง</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>ใบรับรองหมดอายุ</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>แท็กกลุ่ม</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>แท็กกลุ่มเป็นทางเลือก เลือกไม่มีเพื่ออัปโหลดโดยไม่มีแท็กกลุ่ม</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>กำลังตรวจจับฮาร์ดแวร์...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>การตรวจหาฮาร์ดแวร์ล้มเหลว</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>การตรวจจับฮาร์ดแวร์ล้มเหลว: {0}</value></data>
@@ -71,7 +58,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>เครื่องปรับอากาศ</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>กำลังโหลดดิสก์เป้าหมาย...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>การค้นพบดิสก์เป้าหมายล้มเหลว: {0}</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>ระบบปฏิบัติการ</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>เวอร์ชัน</value></data>
 <data name="Catalog.Media" xml:space="preserve"><value>การอัปเดต Windows</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (ล่าสุด)</value></data>
@@ -82,7 +68,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>กำลังโหลดแคตตาล็อก...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>แคตตาล็อกที่โหลด: {0} รายการระบบปฏิบัติการ, {1} ชุดไดรเวอร์</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>โหลดแคตตาล็อกล้มเหลว: {0}</value></data>
-  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>แหล่งที่มาของไดรเวอร์</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>รุ่น</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>เวอร์ชัน</value></data>
@@ -104,9 +89,6 @@
   <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot วิธีการ</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot ข้อมูลส่วนตัว</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot แท็กกลุ่ม</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>เป้าหมาย</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>ระบบ</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>ตัวเลือกการปรับใช้</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>ไม่ Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON โปรไฟล์</value></data>
@@ -145,12 +127,11 @@
   <data name="Progress.Networking" xml:space="preserve"><value>เครือข่าย</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>เวลาเริ่มต้น</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>เวลาที่ผ่านไป</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>การปรับใช้เสร็จสมบูรณ์แล้ว</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>การปรับใช้เสร็จสมบูรณ์</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>คอมพิวเตอร์เครื่องนี้จะรีสตาร์ตใน {0}s.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>รีบูต</value></data>
   <data name="Error.Title" xml:space="preserve"><value>การทำให้ใช้งานได้ล้มเหลว</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>ขั้นตอนที่ล้มเหลว</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>ข้อความแสดงข้อผิดพลาด</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>ขั้นตอนที่ล้มเหลว: {0}</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>ยินดีต้อนรับ</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>กำลังเริ่มต้นส่วนประกอบ...</value></data>
   <data name="Splash.Start" xml:space="preserve"><value>เริ่ม</value></data>
@@ -194,25 +175,25 @@
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>ไม่พบไฟล์ปฏิบัติการรีบูตที่จำเป็น 'wpeutil.exe'</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>ขั้นตอนที่ไม่รู้จัก</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>ไม่มีการระบุรายละเอียดข้อผิดพลาด</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>รวบรวมตัวแปรการปรับใช้</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>เตรียมข้อมูลเบื้องต้นพื้นที่ทำงานการปรับใช้</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>ตรวจสอบการกำหนดค่าเป้าหมาย</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>ตรวจสอบแคชการปรับใช้</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>เตรียมเค้าโครงดิสก์เป้าหมาย</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>ดาวน์โหลดภาพระบบปฏิบัติการ</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>ใช้อิมเมจระบบปฏิบัติการ</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>กำหนดค่าชื่อคอมพิวเตอร์เป้าหมาย</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>กำหนดการตั้งค่า OOBE</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>กำหนดค่าสภาพแวดล้อมการกู้คืน</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>ดาวน์โหลดชุดไดรเวอร์</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>แยกชุดไดรเวอร์</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>การปรับแต่งสเตจก่อน OOBE</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>ใช้ชุดไดรเวอร์</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>ดาวน์โหลดอัพเดตเฟิร์มแวร์</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>ใช้การอัพเดตเฟิร์มแวร์</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>พาร์ติชั่นการกู้คืนซีล</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>เสบียง Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>ดำเนินการปรับใช้ให้เสร็จสิ้นและเขียนบันทึก</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>รวบรวมตัวแปร</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>เริ่มต้นการปรับใช้</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>ตรวจสอบการกำหนดค่า</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>ตรวจสอบแคช</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>เตรียมดิสก์</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>ดาวน์โหลดระบบปฏิบัติการ</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>ติดตั้งระบบปฏิบัติการ</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>ตั้งชื่อคอมพิวเตอร์</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>ตั้งค่า OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>ตั้งค่าการกู้คืน Windows</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>ดาวน์โหลดไดรเวอร์</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>แยกไฟล์ไดรเวอร์</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>เตรียมการปรับแต่ง</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>ใช้ไดรเวอร์</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>ดาวน์โหลดเฟิร์มแวร์</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>ใช้เฟิร์มแวร์</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>ซีลพาร์ติชันการกู้คืน</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>เตรียม Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>เสร็จสิ้นการปรับใช้</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>กำลังรวบรวมตัวแปรการปรับใช้...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>กำลังรวบรวมบริบทการปรับใช้...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>รวบรวมตัวแปรการปรับใช้แล้ว</value></data>
@@ -515,7 +496,7 @@
     <value>จัดเตรียมผู้ช่วยลงทะเบียน Autopilot แบบโต้ตอบแล้ว (การจำลอง)</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>นำสื่อสำหรับบูตออก แล้วเลือก รีสตาร์ต</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>กำหนดค่าคุณสมบัติเสริมของ Windows</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>ตั้งค่าฟีเจอร์เสริม</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>กำลังกำหนดค่าคุณสมบัติเสริมของ Windows...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>กำลังตรวจสอบสถานะฟีเจอร์...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>กำลังเตรียมแหล่งสื่อการตั้งค่าที่ตรงกัน...</value></data>
@@ -537,4 +518,73 @@
   <data name="DeploymentAccess.Continue" xml:space="preserve"><value>ดำเนินการต่อ</value></data>
   <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>แสดงหรือซ่อนรหัสผ่าน</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>รหัสผ่านไม่ถูกต้อง โปรดลองอีกครั้ง</value></data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>อุปกรณ์เป้าหมาย</value></data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>ระบบปฏิบัติการ</value></data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>ไดรเวอร์อุปกรณ์</value></data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Wizard.Step.Summary" xml:space="preserve"><value>สรุป</value></data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>ขั้นตอนการตั้งค่าการปรับใช้</value></data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>กลับสู่สรุป</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>แก้ไข</value></data>
+  <data name="Common.Copy" xml:space="preserve"><value>คัดลอก</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>ปิด</value></data>
+  <data name="TargetDevice.Title" xml:space="preserve"><value>อุปกรณ์เป้าหมาย</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>เลือกชื่อคอมพิวเตอร์และดิสก์เป้าหมาย จากนั้นตรวจสอบฮาร์ดแวร์ที่ตรวจพบ</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>การตั้งค่าการปรับใช้</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>ข้อมูลอุปกรณ์</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>ข้อมูลระบุตัวตนอุปกรณ์</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>แพลตฟอร์ม</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>ผู้ผลิต</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>รุ่น</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>ผลิตภัณฑ์</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>หมายเลขประจำเครื่อง</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>สถาปัตยกรรม</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>แหล่งพลังงาน</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>สถานะเฟิร์มแวร์</value></data>
+  <data name="TargetDevice.Firmware" xml:space="preserve"><value>อัพเดตเฟิร์มแวร์</value></data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>ไม่มีให้บริการบนเครื่องเสมือน</value></data>
+  <data name="OperatingSystem.Title" xml:space="preserve"><value>ระบบปฏิบัติการ</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>เลือกรุ่นภาษา เอดิชัน และช่องทางสิทธิการใช้งานของ Windows</value></data>
+  <data name="Drivers.Title" xml:space="preserve"><value>ไดรเวอร์อุปกรณ์</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>เลือกแหล่งไดรเวอร์ และเลือกรุ่นกับเวอร์ชันที่ตรงกันเมื่อจำเป็น</value></data>
+  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>ตรวจสอบการตั้งค่าการเตรียมใช้งาน Autopilot สำหรับอุปกรณ์นี้</value></data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>รายละเอียดการกำหนดค่า</value></data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>อุปกรณ์เป้าหมาย</value></data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>ระบบปฏิบัติการ</value></data>
+  <data name="Summary.Category.Drivers" xml:space="preserve"><value>ไดรเวอร์อุปกรณ์</value></data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>การปรับแต่ง Windows</value></data>
+  <data name="Summary.Category.Network" xml:space="preserve"><value>เครือข่าย</value></data>
+  <data name="Summary.Category.Completion" xml:space="preserve"><value>เสร็จสิ้น</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>ตรวจสอบรายการที่เลือกก่อนเริ่มการปรับใช้</value></data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>ไม่ได้กำหนดค่า</value></data>
+  <data name="Summary.Status.Configured" xml:space="preserve"><value>กำหนดค่าแล้ว</value></data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>ไม่มีการเปลี่ยนแปลง</value></data>
+  <data name="Summary.Hardware" xml:space="preserve"><value>ฮาร์ดแวร์ที่ตรวจพบ</value></data>
+  <data name="Summary.Release" xml:space="preserve"><value>เวอร์ชัน</value></data>
+  <data name="Summary.Edition" xml:space="preserve"><value>รุ่นระบบปฏิบัติการ</value></data>
+  <data name="Summary.Architecture" xml:space="preserve"><value>สถาปัตยกรรมระบบ</value></data>
+  <data name="Summary.Language" xml:space="preserve"><value>ภาษา</value></data>
+  <data name="Summary.LicenseChannel" xml:space="preserve"><value>ช่องทางการอนุญาต</value></data>
+  <data name="Summary.Build" xml:space="preserve"><value>บิลด์</value></data>
+  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.AppxRemoval" xml:space="preserve"><value>การลบ AppX</value></data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>การลบส่วนประกอบ AI</value></data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>การโรมมิ่งโปรไฟล์เครือข่าย</value></data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>รีสตาร์ทอัตโนมัติ</value></data>
+  <data name="Summary.ManualRestart" xml:space="preserve"><value>รีสตาร์ทด้วยตนเอง</value></data>
+  <data name="Summary.RestartDelay" xml:space="preserve"><value>รีสตาร์ทล่าช้า</value></data>
+  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} วินาที</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>ดิสก์เป้าหมายที่เลือกจะถูกลบเมื่อเริ่มใช้งาน</value></data>
+  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>ยินดีต้อนรับสู่ Foundry Deploy</value></data>
+  <data name="Progress.Session" xml:space="preserve"><value>เซสชัน</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>ขั้นตอน</value></data>
+  <data name="Progress.RingAutomationName" xml:space="preserve"><value>ความคืบหน้าการปรับใช้โดยรวม</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>ขั้นตอนการปรับใช้</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>ดูรายละเอียดข้อผิดพลาด</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>รายละเอียดข้อผิดพลาด</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>เพิ่มโปรไฟล์ Autopilot แบบออฟไลน์ลงในการติดตั้ง Windows</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>อัปโหลดแฮชฮาร์ดแวร์ของอุปกรณ์นี้ไปยัง Windows Autopilot ระหว่างการปรับใช้</value></data>
 </root>

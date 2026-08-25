@@ -29,40 +29,27 @@
   <data name="Language.English" xml:space="preserve"><value>inglise keel</value></data>
   <data name="Language.French" xml:space="preserve"><value>prantsuse keel</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Ava logifail</value></data>
-  <data name="Wizard.StepTarget" xml:space="preserve"><value>1. Sihtmärk</value></data>
-  <data name="Wizard.StepOperatingSystemCatalog" xml:space="preserve"><value>2. Operatsioonisüsteem</value></data>
-  <data name="Wizard.StepDriverPack" xml:space="preserve"><value>3. Juhipakett</value></data>
-  <data name="Wizard.StepSummary" xml:space="preserve"><value>4. Kokkuvõte</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Arvuti nimi</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 tähemärki. Ainult A–Z, a–z, 0–9 ja sidekriips.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Arvuti nimi peab sisaldama 1–15 kehtivat tähemärki (tähti, numbreid või sidekriipsu).</value></data>
-  <data name="Preparation.SectionTargetMachine" xml:space="preserve"><value>Sihtmasin</value></data>
   <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Sihtketas</value></data>
-  <data name="Preparation.SectionDeploymentOptions" xml:space="preserve"><value>Juurutamisvalikud</value></data>
-  <data name="Preparation.SectionAutopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Sihtketas</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Valige sihtketas. Sobimatud kettad on blokeeritud.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Rakendage püsivara värskendusi</value></data>
-  <data name="Preparation.AutopilotEnable" xml:space="preserve"><value>Lubage selle juurutamise jaoks Autopilot</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profiil</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Sellelt meediumilt ei leitud manustatud Autopilot profiile.</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profiil</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profiili ettevalmistamine</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch riistvararäsi üleslaadimine</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktiivne riistvararäsi üleslaadimine</value></data>
-  <data name="Preparation.AutopilotConfiguredModeFormat" xml:space="preserve"><value>Saadaval sellel meedial: {0}</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch riistvararäsi üleslaadimine</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Riistvara räsi üleslaadimise olek</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Riistvararäsi üleslaadimiseks valmis</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Pole valmis riistvararäsi üles laadima</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Üleslaadimise sertifikaat on aegunud</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Riistvara räsi üleslaadimine pole sellel meediumil saadaval, kuna nõutav sertifikaadi teave puudub. Juurutamist saab jätkata, kuid üleslaadimine jäetakse vahele.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot sertifikaat on aegunud. Juurutamist saab jätkata, kuid üleslaadimine jäetakse vahele.</value></data>
-  <data name="Preparation.AutopilotHardwareHashDetails" xml:space="preserve"><value>Üksikasjad</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Riistvararäsi üleslaadimine pole saadaval</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Nõutav sertifikaadi teave puudub. Juurutamist saab jätkata ilma riistvararäsi üles laadimata.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopiloti sertifikaat on aegunud. Juurutamist saab jätkata ilma riistvararäsi üles laadimata.</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Üürniku ID</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateThumbprint" xml:space="preserve"><value>Sertifikaadi pöidlajälg</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Sertifikaadi kehtivusaeg</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Grupi silt</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagHint" xml:space="preserve"><value>Grupi silt on valikuline. Ilma rühmasildita üleslaadimiseks valige Puudub.</value></data>
   <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Riistvara tuvastamine...</value></data>
   <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Riistvara tuvastamine ebaõnnestus.</value></data>
   <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Riistvara tuvastamine ebaõnnestus: {0}</value></data>
@@ -71,7 +58,6 @@
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
   <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Sihtketaste laadimine...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Sihtketta leidmine ebaõnnestus: {0}</value></data>
-  <data name="Catalog.OperatingSystem" xml:space="preserve"><value>Operatsioonisüsteem</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versioon</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Windowsi värskendus</value></data>
   <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (uusim)</value></data>
@@ -82,7 +68,6 @@
   <data name="Catalog.Loading" xml:space="preserve"><value>Kataloogide laadimine...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Laaditud kataloogid: {0} operatsioonisüsteemi kirjed, {1} draiveripaketid.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Kataloogi laadimine ebaõnnestus: {0}</value></data>
-  <data name="OperatingSystem.Windows11" xml:space="preserve"><value>Windows 11</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Draiveri allikas</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Mudel</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Versioon</value></data>
@@ -101,12 +86,9 @@
   <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} seadistatud ({1} luba, {2} keela)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Püsivara</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Meetod</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopiloti meetod</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profiil</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot rühmamärgend</value></data>
-  <data name="Summary.SectionTarget" xml:space="preserve"><value>Sihtmärk</value></data>
-  <data name="Summary.SectionSystem" xml:space="preserve"><value>Süsteem</value></data>
-  <data name="Summary.SectionDeployment" xml:space="preserve"><value>Juurutamisvalikud</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Ei Autopilot</value></data>
   <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profiil</value></data>
@@ -145,12 +127,11 @@ Toiming: kontrollige ketta atribuute ja proovige juurutamist uuesti.</value></da
   <data name="Progress.Networking" xml:space="preserve"><value>Võrgustiku loomine</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Algusaeg</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Kulunud aeg</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>Juurutamine on edukalt lõpule viidud.</value></data>
+  <data name="Success.Completed" xml:space="preserve"><value>Juurutamine lõpetatud</value></data>
   <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>See arvuti taaskäivitub {0}s pärast.</value></data>
   <data name="Success.RebootNow" xml:space="preserve"><value>Taaskäivitage</value></data>
   <data name="Error.Title" xml:space="preserve"><value>Juurutamine ebaõnnestus</value></data>
-  <data name="Error.FailedStep" xml:space="preserve"><value>Ebaõnnestunud samm</value></data>
-  <data name="Error.Message" xml:space="preserve"><value>Veateade</value></data>
+  <data name="Error.FailedStepFormat" xml:space="preserve"><value>Nurjunud samm: {0}</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Tere tulemast</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Komponentide lähtestamine...</value></data>
   <data name="Splash.Start" xml:space="preserve"><value>Alusta</value></data>
@@ -194,25 +175,25 @@ Kas jätkata juurutamisega?</value></data>
   <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Nõutavat taaskäivitusfaili 'wpeutil.exe' ei leitud.</value></data>
   <data name="Status.UnknownStep" xml:space="preserve"><value>Tundmatu samm</value></data>
   <data name="Status.NoErrorDetails" xml:space="preserve"><value>Vea üksikasju ei esitatud.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Koguge juurutamise muutujad</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Käivitage juurutamise tööruum</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Kinnitage sihtmärgi konfiguratsioon</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Kontrollige juurutamise vahemälu</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Valmistage ette sihtketta paigutus</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Laadige alla operatsioonisüsteemi pilt</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Rakenda operatsioonisüsteemi kujutis</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Konfigureerige sihtarvuti nimi</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Seadistage OOBE seaded</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Taastekeskkonna seadistamine</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Laadige alla draiveripakett</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Ekstraktige draiveripakett</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Etapi OOBE-eelne kohandamine</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Rakendage draiveripakett</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Laadige alla püsivara värskendus</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Rakendage püsivara värskendus</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Tihendage taastamise vahesein</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Varustus Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Viige juurutamine lõpule ja kirjutage logid</value></data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Kogu muutujad</value></data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Initsialiseeri juurutamine</value></data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Kinnita konfiguratsioon</value></data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Kontrolli vahemälu</value></data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Valmista ketas</value></data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Laadi operatsioonisüsteem alla</value></data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Paigalda operatsioonisüsteem</value></data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Määra arvuti nimi</value></data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Konfigureeri OOBE</value></data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Konfigureeri Windowsi taastamine</value></data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Laadi draiverid alla</value></data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Paki draiverid lahti</value></data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Valmista kohandused</value></data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Paigalda draiverid</value></data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Laadi püsivara alla</value></data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Paigalda püsivara</value></data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Sulge taastepartitsioon</value></data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Valmista Autopilot</value></data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Lõpeta juurutamine</value></data>
   <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Juurutusmuutujate kogumine...</value></data>
   <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Juurutamise konteksti kogumine...</value></data>
   <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Juurutamise muutujad on kogutud.</value></data>
@@ -515,7 +496,7 @@ Kas jätkata juurutamisega?</value></data>
     <value>Interaktiivne Autopiloti registreerimisabiline on ette valmistatud (simulatsioon).</value>
   </data>
   <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Eemaldage algkäivitusmeedium ja valige Taaskäivita.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Windowsi valikuliste funktsioonide konfigureerimine</value></data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Konfigureeri valikulised funktsioonid</value></data>
   <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Windowsi valikuliste funktsioonide konfigureerimine...</value></data>
   <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Funktsiooni oleku kontrollimine...</value></data>
   <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Sobivate seadistusmeediumiallikate ettevalmistamine...</value></data>
@@ -537,4 +518,73 @@ Kas jätkata juurutamisega?</value></data>
   <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Jätka</value></data>
   <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Kuva või peida parool</value></data>
   <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Parool on vale. Proovi uuesti.</value></data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>Sihtseade</value></data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>Operatsioonisüsteem</value></data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>Seadme draiverid</value></data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Wizard.Step.Summary" xml:space="preserve"><value>Kokkuvõte</value></data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>Juurutamise seadistamise etapid</value></data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>Tagasi kokkuvõtte juurde</value></data>
+  <data name="Common.Edit" xml:space="preserve"><value>Muuda</value></data>
+  <data name="Common.Copy" xml:space="preserve"><value>Kopeeri lõikelauale</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>Sule aken</value></data>
+  <data name="TargetDevice.Title" xml:space="preserve"><value>Sihtseade</value></data>
+  <data name="TargetDevice.Firmware" xml:space="preserve"><value>Püsivara värskendused</value></data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>Pole virtuaalsetes masinates saadaval</value></data>
+  <data name="OperatingSystem.Title" xml:space="preserve"><value>Operatsioonisüsteem</value></data>
+  <data name="Drivers.Title" xml:space="preserve"><value>Seadme draiverid</value></data>
+  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>Konfiguratsiooni üksikasjad</value></data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>Sihtseade</value></data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>Operatsioonisüsteem</value></data>
+  <data name="Summary.Category.Drivers" xml:space="preserve"><value>Seadme draiverid</value></data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Windowsi kohandamine</value></data>
+  <data name="Summary.Category.Network" xml:space="preserve"><value>Võrk</value></data>
+  <data name="Summary.Category.Completion" xml:space="preserve"><value>Lõpetamine</value></data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Pole konfigureeritud</value></data>
+  <data name="Summary.Status.Configured" xml:space="preserve"><value>Konfigureeritud</value></data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Muudatusi pole</value></data>
+  <data name="Summary.Hardware" xml:space="preserve"><value>Tuvastati riistvara</value></data>
+  <data name="Summary.Release" xml:space="preserve"><value>Versioon</value></data>
+  <data name="Summary.Edition" xml:space="preserve"><value>Operatsioonisüsteemi väljaanne</value></data>
+  <data name="Summary.Architecture" xml:space="preserve"><value>Süsteemi arhitektuur</value></data>
+  <data name="Summary.Language" xml:space="preserve"><value>Keel</value></data>
+  <data name="Summary.LicenseChannel" xml:space="preserve"><value>Litsentsikanal</value></data>
+  <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
+  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX eemaldamine</value></data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>AI komponentide eemaldamine</value></data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Võrguprofiili rändlus</value></data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>Automaatne taaskäivitamine</value></data>
+  <data name="Summary.ManualRestart" xml:space="preserve"><value>Käsitsi taaskäivitamine</value></data>
+  <data name="Summary.RestartDelay" xml:space="preserve"><value>Taaskäivitamise viivitus</value></data>
+  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} sekundit</value></data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Valitud sihtketas kustutatakse juurutamise alustamisel.</value></data>
+  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Tere tulemast Foundry Deploy</value></data>
+  <data name="Progress.Session" xml:space="preserve"><value>Juurutamise seanss</value></data>
+  <data name="Progress.Timeline" xml:space="preserve"><value>Sammud</value></data>
+  <data name="Progress.RingAutomationName" xml:space="preserve"><value>Üldine juurutamise edenemine</value></data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Juurutamise sammud</value></data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Kuva tõrke üksikasjad</value></data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Tõrke üksikasjad</value></data>
+  <data name="TargetDevice.Description" xml:space="preserve"><value>Valige arvuti nimi ja sihtketas ning seejärel vaadake tuvastatud riistvara üle.</value></data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Juurutamise sätted</value></data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Seadme inventuur</value></data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Seadme identiteet</value></data>
+  <data name="TargetDevice.Platform" xml:space="preserve"><value>Platvorm</value></data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Tootja</value></data>
+  <data name="TargetDevice.Model" xml:space="preserve"><value>Mudel</value></data>
+  <data name="TargetDevice.Product" xml:space="preserve"><value>Toode</value></data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Seerianumber</value></data>
+  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Arhitektuur</value></data>
+  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Toiteallikas</value></data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Püsivara olek</value></data>
+  <data name="OperatingSystem.Description" xml:space="preserve"><value>Valige Windowsi versioon, keel, väljaanne ja litsentsikanal.</value></data>
+  <data name="Drivers.Description" xml:space="preserve"><value>Valige draiverite allikas ning vajaduse korral sobiv mudel ja versioon.</value></data>
+  <data name="Autopilot.Description" xml:space="preserve"><value>Vaadake üle selle seadme Autopiloti ettevalmistamise sätted.</value></data>
+  <data name="Summary.Description" xml:space="preserve"><value>Vaadake oma valikud enne juurutamise alustamist üle.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Lisab Windowsi installi võrguühenduseta Autopiloti profiili.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Laadib selle seadme riistvararäsi juurutamise ajal Windows Autopiloti.</value></data>
 </root>
