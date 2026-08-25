@@ -41,7 +41,6 @@
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON poskytovanie profilu</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch nahratie hardvérového hashu</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktívne nahratie hardvérového hashu</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch nahratie hardvérového hashu</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Stav nahrávania hardvérového hash</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Hardvérový hash je pripravený na odovzdanie</value></data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Nahrávanie hardvérového hash nie je k dispozícii</value></data>
@@ -81,12 +80,7 @@
   <data name="Summary.NoDiskSelected" xml:space="preserve"><value>Nie je vybratý žiadny disk</value></data>
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Operačný systém</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Žiadny výber</value></data>
-  <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Vybraný balík ovládačov</value></data>
   <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Voliteľn&#233; funkcie syst&#233;mu Windows</value></data>
-  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} nakonfigurovan&#233; ({1} povoliť, {2} zak&#225;zať)</value></data>
-  <data name="Summary.Firmware" xml:space="preserve"><value>Firmvér</value></data>
-  <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Metóda Autopilot</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Profil Autopilot</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Značka skupiny Autopilot</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
@@ -107,8 +101,8 @@ ErrorCode=0x80070005
 Podrobnosti: Prístup bol odmietnutý pri pripájaní obrazu k cieľovej ceste.
 Akcia: Overte atribúty disku a zopakujte nasadenie.</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>Obnoviť</value></data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Odporúča sa aktualizovať zavádzacie médium</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Toto zavádzacie médium bolo vygenerované pomocou staršieho formátu konfigurácie Foundry OSD. Aktualizujte zavádzacie médium, aby ste zabezpečili kompatibilitu s najnovšími funkciami.</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Odporúča sa znova vygenerovať zavádzací obraz</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Tento zavádzací obraz používa starší formát konfigurácie Foundry OSD. Znova ho vygenerujte, aby ste zabezpečili kompatibilitu s najnovšími funkciami.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Verzia: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>Predchádzajúce</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Ďalej</value></data>
@@ -134,7 +128,7 @@ Akcia: Overte atribúty disku a zopakujte nasadenie.</value></data>
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>Neúspešný krok: {0}</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Vitajte</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Inicializujú sa komponenty...</value></data>
-  <data name="Splash.Start" xml:space="preserve"><value>Štart</value></data>
+  <data name="Splash.StartDeployment" xml:space="preserve"><value>Spustiť nasadenie</value></data>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>Disk {0} | {1} | {2} | {3}{4}</value></data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
   <data name="Disk.UnknownSize" xml:space="preserve"><value>Neznáma veľkosť</value></data>
@@ -545,7 +539,6 @@ Pokračovať v nasadzovaní?</value></data>
   <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Nie je nakonfigurované</value></data>
   <data name="Summary.Status.Configured" xml:space="preserve"><value>Nakonfigurované</value></data>
   <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Žiadne zmeny</value></data>
-  <data name="Summary.Hardware" xml:space="preserve"><value>Zistený hardvér</value></data>
   <data name="Summary.Release" xml:space="preserve"><value>Verzia</value></data>
   <data name="Summary.Edition" xml:space="preserve"><value>Vydanie operačného systému</value></data>
   <data name="Summary.Architecture" xml:space="preserve"><value>Architektúra systému</value></data>
@@ -561,7 +554,6 @@ Pokračovať v nasadzovaní?</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Oneskorenie reštartu</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} sekúnd</value></data>
   <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Vybraný cieľový disk bude vymazaný pri spustení nasadenia.</value></data>
-  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Vitajte vo Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Relácia nasadenia</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Kroky</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Celkový priebeh nasadenia</value></data>
@@ -587,4 +579,32 @@ Pokračovať v nasadzovaní?</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Pred začatím nasadenia skontrolujte svoje voľby.</value></data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Pridá offline profil Autopilotu do inštalácie systému Windows.</value></data>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Počas nasadenia nahrá hardvérový hash tohto zariadenia do služby Windows Autopilot.</value></data>
+  <data name="Summary.Status" xml:space="preserve"><value>Stav</value></data>
+  <data name="Summary.ProvisioningMethod" xml:space="preserve"><value>Spôsob zabezpečenia</value></data>
+  <data name="Summary.WarningDetails" xml:space="preserve"><value>Podrobnosti o upozornení</value></data>
+  <data name="Summary.DiagnosticData" xml:space="preserve"><value>Diagnostické údaje</value></data>
+  <data name="Summary.LocationAccess" xml:space="preserve"><value>Prístup k polohe</value></data>
+  <data name="Summary.SkipLicenseTerms" xml:space="preserve"><value>Preskočiť licenčné podmienky</value></data>
+  <data name="Summary.HidePrivacySetup" xml:space="preserve"><value>Skryť nastavenie ochrany osobných údajov</value></data>
+  <data name="Summary.TailoredExperiences" xml:space="preserve"><value>Prispôsobené zážitky</value></data>
+  <data name="Summary.AdvertisingId" xml:space="preserve"><value>ID reklamy</value></data>
+  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve"><value>Online rozpoznávanie reči</value></data>
+  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve"><value>Diagnostika písania rukou a písania</value></data>
+  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve"><value>Odstránenie aplikácie a umelej inteligencie</value></data>
+  <data name="Summary.TotalConfigured" xml:space="preserve"><value>Celkom nakonfigurované</value></data>
+  <data name="Summary.FeaturesEnabled" xml:space="preserve"><value>Povolené funkcie</value></data>
+  <data name="Summary.FeaturesDisabled" xml:space="preserve"><value>Funkcie vypnuté</value></data>
+  <data name="Summary.WiredDot1x" xml:space="preserve"><value>Káblové pripojenie 802.1X</value></data>
+  <data name="Summary.Wifi" xml:space="preserve"><value>Wi-Fi</value></data>
+  <data name="Summary.PrivateKeyMaterial" xml:space="preserve"><value>Materiál súkromného kľúča</value></data>
+  <data name="Summary.Included" xml:space="preserve"><value>Zahrnuté</value></data>
+  <data name="Summary.NotIncluded" xml:space="preserve"><value>Nie je súčasťou</value></data>
+  <data name="Summary.RestartBehavior" xml:space="preserve"><value>Reštartovať správanie</value></data>
+  <data name="Summary.Automatic" xml:space="preserve"><value>Automatické</value></data>
+  <data name="Summary.Manual" xml:space="preserve"><value>Manuálne</value></data>
+  <data name="Summary.DiagnosticData.Required" xml:space="preserve"><value>Povinné</value></data>
+  <data name="Summary.DiagnosticData.Optional" xml:space="preserve"><value>Voliteľné</value></data>
+  <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>Vypnuté</value></data>
+  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>Používateľom ovládané</value></data>
+  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>Vynútené vypnutie</value></data>
 </root>

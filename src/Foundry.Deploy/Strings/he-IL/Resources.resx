@@ -41,7 +41,6 @@
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON הקצאת פרופיל</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>העלאת Hash חומרה ב-Zero-touch</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>העלאה אינטראקטיבית של hash חומרה</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>העלאת zero-touch של hash חומרה</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>סטטוס העלאת גיבוב של חומרה</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>מוכן להעלות hash של חומרה</value></data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>העלאת גיבוב החומרה אינה זמינה</value></data>
@@ -81,12 +80,7 @@
   <data name="Summary.NoDiskSelected" xml:space="preserve"><value>לא נבחר דיסק</value></data>
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>מערכת הפעלה</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>אין בחירה</value></data>
-  <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>חבילת מנהלי התקנים שנבחרה</value></data>
   <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>תכונות אופציונליות של Windows</value></data>
-  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} מוגדר ({1} הפעל, {2} השבת)</value></data>
-  <data name="Summary.Firmware" xml:space="preserve"><value>קושחה</value></data>
-  <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>שיטת Autopilot</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot פרופיל</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>תג קבוצתי Autopilot</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
@@ -107,8 +101,8 @@ ErrorCode=0x80070005
 פרטים: הגישה נדחתה בעת הרכבת התמונה לנתיב היעד.
 פעולה: אמת את תכונות הדיסק ונסה שוב לפרוס.</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>רענן</value></data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>מומלץ לעדכן את מדיית האתחול</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>מדיית האתחול הזו נוצרה באמצעות תבנית תצורה ישנה יותר של Foundry OSD. עדכן את מדיית האתחול כדי להבטיח תאימות לתכונות העדכניות ביותר.</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>מומלץ ליצור מחדש את תמונת האתחול</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>תמונת האתחול הזו משתמשת בתבנית תצורה ישנה יותר של Foundry OSD. צור אותה מחדש כדי להבטיח תאימות לתכונות העדכניות ביותר.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>גרסה: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>הקודם</value></data>
   <data name="Common.Next" xml:space="preserve"><value>הבא</value></data>
@@ -134,7 +128,7 @@ ErrorCode=0x80070005
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>שלב שנכשל: {0}</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>ברוך הבא</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>מאתחל רכיבים...</value></data>
-  <data name="Splash.Start" xml:space="preserve"><value>התחל</value></data>
+  <data name="Splash.StartDeployment" xml:space="preserve"><value>התחל פריסה</value></data>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>דיסק {0} | {1} | {2} | {3}{4}</value></data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
   <data name="Disk.UnknownSize" xml:space="preserve"><value>גודל לא ידוע</value></data>
@@ -562,7 +556,6 @@ ErrorCode=0x80070005
   <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>לא מוגדר</value></data>
   <data name="Summary.Status.Configured" xml:space="preserve"><value>מוגדר</value></data>
   <data name="Summary.Status.NoChanges" xml:space="preserve"><value>אין שינויים</value></data>
-  <data name="Summary.Hardware" xml:space="preserve"><value>זוהתה חומרה</value></data>
   <data name="Summary.Release" xml:space="preserve"><value>גרסה</value></data>
   <data name="Summary.Edition" xml:space="preserve"><value>מהדורת מערכת ההפעלה</value></data>
   <data name="Summary.Architecture" xml:space="preserve"><value>ארכיטקטורת מערכת</value></data>
@@ -578,7 +571,6 @@ ErrorCode=0x80070005
   <data name="Summary.RestartDelay" xml:space="preserve"><value>עיכוב הפעלה מחדש</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} שניות</value></data>
   <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>דיסק היעד שנבחר יימחק עם תחילת הפריסה.</value></data>
-  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>ברוכים הבאים ל-Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>הפעלת פריסה</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>שלבים</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>התקדמות הפריסה הכוללת</value></data>
@@ -587,4 +579,32 @@ ErrorCode=0x80070005
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>פרטי שגיאה</value></data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>מוסיף פרופיל Autopilot לא מקוון להתקנת Windows.</value></data>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>מעלה את ה-hash של חומרת המכשיר ל-Windows Autopilot במהלך הפריסה.</value></data>
+  <data name="Summary.Status" xml:space="preserve"><value>סטטוס</value></data>
+  <data name="Summary.ProvisioningMethod" xml:space="preserve"><value>שיטת אספקה</value></data>
+  <data name="Summary.WarningDetails" xml:space="preserve"><value>פרטי אזהרה</value></data>
+  <data name="Summary.DiagnosticData" xml:space="preserve"><value>נתוני אבחון</value></data>
+  <data name="Summary.LocationAccess" xml:space="preserve"><value>גישת מיקום</value></data>
+  <data name="Summary.SkipLicenseTerms" xml:space="preserve"><value>תנאי רישיון דילוג</value></data>
+  <data name="Summary.HidePrivacySetup" xml:space="preserve"><value>הסתרת הגדרת פרטיות</value></data>
+  <data name="Summary.TailoredExperiences" xml:space="preserve"><value>חוויות מותאמות</value></data>
+  <data name="Summary.AdvertisingId" xml:space="preserve"><value>מזהה פרסום</value></data>
+  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve"><value>זיהוי דיבור מקוון</value></data>
+  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve"><value>אבחון בדיו והקלדה</value></data>
+  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve"><value>הסרת יישומים ובינה מלאכותית</value></data>
+  <data name="Summary.TotalConfigured" xml:space="preserve"><value>סך הכל מוגדר</value></data>
+  <data name="Summary.FeaturesEnabled" xml:space="preserve"><value>תכונות מופעלות</value></data>
+  <data name="Summary.FeaturesDisabled" xml:space="preserve"><value>תכונות מושבתות</value></data>
+  <data name="Summary.WiredDot1x" xml:space="preserve"><value>Wired 802.1X</value></data>
+  <data name="Summary.Wifi" xml:space="preserve"><value>Wi-Fi</value></data>
+  <data name="Summary.PrivateKeyMaterial" xml:space="preserve"><value>Private - key material</value></data>
+  <data name="Summary.Included" xml:space="preserve"><value>Included</value></data>
+  <data name="Summary.NotIncluded" xml:space="preserve"><value>Not included</value></data>
+  <data name="Summary.RestartBehavior" xml:space="preserve"><value>Restart behavior</value></data>
+  <data name="Summary.Automatic" xml:space="preserve"><value>Automatic</value></data>
+  <data name="Summary.Manual" xml:space="preserve"><value>Manual</value></data>
+  <data name="Summary.DiagnosticData.Required" xml:space="preserve"><value>Required</value></data>
+  <data name="Summary.DiagnosticData.Optional" xml:space="preserve"><value>Optional</value></data>
+  <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>Off</value></data>
+  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>User controlled</value></data>
+  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>Forced Off</value></data>
 </root>

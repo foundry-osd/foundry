@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Effects;
 
 namespace Foundry.Deploy.Controls;
 
@@ -132,6 +133,8 @@ public partial class CustomProgressRing : UserControl
 
     private void UpdateVisuals()
     {
+        UpdateGlowColor();
+
         double width = Math.Max(0d, ActualWidth);
         double height = Math.Max(0d, ActualHeight);
         double diameter = Math.Min(width, height);
@@ -165,6 +168,29 @@ public partial class CustomProgressRing : UserControl
         IndeterminateArc.Data = Geometry.Empty;
         DeterminateArc.Data = CreateProgressGeometry(center, radius, DisplayedValue);
         StopIndeterminateAnimation();
+    }
+
+    private void UpdateGlowColor()
+    {
+        if (ProgressBrush is not SolidColorBrush progressBrush)
+        {
+            return;
+        }
+
+        UpdateGlowColor(DeterminateArc, progressBrush.Color);
+        UpdateGlowColor(IndeterminateArc, progressBrush.Color);
+    }
+
+    private static void UpdateGlowColor(System.Windows.Shapes.Path path, Color color)
+    {
+        if (path.Effect is not DropShadowEffect effect || effect.Color == color)
+        {
+            return;
+        }
+
+        DropShadowEffect updatedEffect = effect.CloneCurrentValue();
+        updatedEffect.Color = color;
+        path.Effect = updatedEffect;
     }
 
     private void AnimateToTarget(double reportedTarget)

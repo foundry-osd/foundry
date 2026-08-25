@@ -41,7 +41,6 @@
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON provisioning del profilo</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Caricamento zero-touch dell’hash hardware</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Caricamento interattivo dell’hash hardware</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Caricamento zero-touch dell’hash hardware</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Stato di caricamento dell'hash hardware</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Pronto per caricare l'hash hardware</value></data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Caricamento dell'hash hardware non disponibile</value></data>
@@ -81,12 +80,7 @@
   <data name="Summary.NoDiskSelected" xml:space="preserve"><value>Nessun disco selezionato</value></data>
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Sistema operativo</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Nessuna selezione</value></data>
-  <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Pacchetto driver selezionato</value></data>
   <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Funzionalit&#224; facoltative di Windows</value></data>
-  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} configurato ({1} abilita, {2} disabilita)</value></data>
-  <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
-  <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Metodo Autopilot</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profilo</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot tag di gruppo</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
@@ -107,8 +101,8 @@ Codice errore=0x80070005
 Dettagli: accesso negato durante il montaggio dell'immagine sul percorso di destinazione.
 Azione: verificare gli attributi del disco e riprovare la distribuzione.</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>Aggiorna</value></data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Aggiornamento del supporto di avvio consigliato</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Questo supporto di avvio è stato generato con un formato di configurazione Foundry OSD precedente. Aggiorna il supporto di avvio per garantire la compatibilità con le funzionalità più recenti.</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Rigenerazione dell’immagine di avvio consigliata</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Questa immagine di avvio utilizza un formato di configurazione Foundry OSD precedente. Rigenerala per garantire la compatibilità con le funzionalità più recenti.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Versione: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>Precedente</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Avanti</value></data>
@@ -134,7 +128,7 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>Passaggio non riuscito: {0}</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Benvenuto</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Inizializzazione dei componenti...</value></data>
-  <data name="Splash.Start" xml:space="preserve"><value>Inizia</value></data>
+  <data name="Splash.StartDeployment" xml:space="preserve"><value>Avvia distribuzione</value></data>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>Disco {0} | {1} | {2} | {3}{4}</value></data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
   <data name="Disk.UnknownSize" xml:space="preserve"><value>Dimensioni sconosciute</value></data>
@@ -545,7 +539,6 @@ Continuare con la distribuzione?</value></data>
   <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Non configurato</value></data>
   <data name="Summary.Status.Configured" xml:space="preserve"><value>Configurato</value></data>
   <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Nessuna modifica</value></data>
-  <data name="Summary.Hardware" xml:space="preserve"><value>Hardware rilevato</value></data>
   <data name="Summary.Release" xml:space="preserve"><value>Versione</value></data>
   <data name="Summary.Edition" xml:space="preserve"><value>Edizione del sistema operativo</value></data>
   <data name="Summary.Architecture" xml:space="preserve"><value>Architettura del sistema</value></data>
@@ -561,7 +554,6 @@ Continuare con la distribuzione?</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Ritardo del riavvio</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} secondi</value></data>
   <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Il disco di destinazione selezionato verrà cancellato all&apos;avvio della distribuzione.</value></data>
-  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Benvenuto in Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Sessione di distribuzione</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Passaggi</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Avanzamento generale della distribuzione</value></data>
@@ -587,4 +579,32 @@ Continuare con la distribuzione?</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Esaminare le selezioni prima di avviare la distribuzione.</value></data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Include un profilo Autopilot offline nell'installazione di Windows.</value></data>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Carica l'hash hardware del dispositivo in Windows Autopilot durante la distribuzione.</value></data>
+  <data name="Summary.Status" xml:space="preserve"><value>Stato</value></data>
+  <data name="Summary.ProvisioningMethod" xml:space="preserve"><value>Metodo di provisioning</value></data>
+  <data name="Summary.WarningDetails" xml:space="preserve"><value>Dettagli di avviso</value></data>
+  <data name="Summary.DiagnosticData" xml:space="preserve"><value>Dati diagnostici</value></data>
+  <data name="Summary.LocationAccess" xml:space="preserve"><value>Accesso alla posizione</value></data>
+  <data name="Summary.SkipLicenseTerms" xml:space="preserve"><value>Salta i termini di licenza</value></data>
+  <data name="Summary.HidePrivacySetup" xml:space="preserve"><value>Nascondi la configurazione della privacy</value></data>
+  <data name="Summary.TailoredExperiences" xml:space="preserve"><value>Esperienze su misura</value></data>
+  <data name="Summary.AdvertisingId" xml:space="preserve"><value>ID pubblicitario</value></data>
+  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve"><value>Riconoscimento vocale online</value></data>
+  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve"><value>Diagnostica dell&apos;input penna e della digitazione</value></data>
+  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve"><value>Rimozione dell&apos;applicazione e dell&apos;intelligenza artificiale</value></data>
+  <data name="Summary.TotalConfigured" xml:space="preserve"><value>Totale configurato</value></data>
+  <data name="Summary.FeaturesEnabled" xml:space="preserve"><value>Funzionalità abilitate</value></data>
+  <data name="Summary.FeaturesDisabled" xml:space="preserve"><value>Funzionalità disabilitate</value></data>
+  <data name="Summary.WiredDot1x" xml:space="preserve"><value>Cablato 802.1X</value></data>
+  <data name="Summary.Wifi" xml:space="preserve"><value>Wi-Fi</value></data>
+  <data name="Summary.PrivateKeyMaterial" xml:space="preserve"><value>Materiale a chiave privata</value></data>
+  <data name="Summary.Included" xml:space="preserve"><value>Incluso</value></data>
+  <data name="Summary.NotIncluded" xml:space="preserve"><value>Non incluso</value></data>
+  <data name="Summary.RestartBehavior" xml:space="preserve"><value>Comportamento di riavvio</value></data>
+  <data name="Summary.Automatic" xml:space="preserve"><value>Automatico</value></data>
+  <data name="Summary.Manual" xml:space="preserve"><value>Manuale</value></data>
+  <data name="Summary.DiagnosticData.Required" xml:space="preserve"><value>Richiesto</value></data>
+  <data name="Summary.DiagnosticData.Optional" xml:space="preserve"><value>Facoltativo</value></data>
+  <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>Off</value></data>
+  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>Controllato dall&apos;utente</value></data>
+  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>Forzato off</value></data>
 </root>

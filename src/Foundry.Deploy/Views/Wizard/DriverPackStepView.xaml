@@ -7,17 +7,17 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <controls:WizardPageHeader x:Name="PageHeader"
+        <controls:WizardPageHeader
             Title="{Binding DataContext.Strings[Drivers.Title], ElementName=ViewRoot}"
             Description="{Binding DataContext.Strings[Drivers.Description], ElementName=ViewRoot}"
             Glyph="&#xE78C;" />
-        <ScrollViewer x:Name="PageContentScrollViewer"
+        <ScrollViewer
             Grid.Row="1"
             HorizontalScrollBarVisibility="Disabled"
             Style="{StaticResource ScrollViewerContentGutterStyle}"
             VerticalScrollBarVisibility="Auto">
             <StackPanel>
-                <ListBox x:Name="DriverPackSourceList"
+                <ListBox
                     Padding="0,4,0,0"
                     AutomationProperties.Name="{Binding DataContext.Strings[DriverPack.Source], ElementName=ViewRoot}"
                     BorderThickness="0"
@@ -64,6 +64,7 @@
                         Style="{StaticResource BodyStrongTextBlockStyle}"
                         Text="{Binding DataContext.Strings[DriverPack.Model], ElementName=ViewRoot}" />
                     <ComboBox
+                        AutomationProperties.Name="{Binding DataContext.Strings[DriverPack.Model], ElementName=ViewRoot}"
                         ItemsSource="{Binding DriverPackModelOptions}"
                         SelectedItem="{Binding SelectedDriverPackModel}" />
                     <TextBlock
@@ -71,6 +72,7 @@
                         Style="{StaticResource BodyStrongTextBlockStyle}"
                         Text="{Binding DataContext.Strings[DriverPack.Version], ElementName=ViewRoot}" />
                     <ComboBox
+                        AutomationProperties.Name="{Binding DataContext.Strings[DriverPack.Version], ElementName=ViewRoot}"
                         IsEnabled="{Binding IsDriverPackVersionSelectionEnabled}"
                         ItemsSource="{Binding DriverPackVersionOptions}"
                         SelectedItem="{Binding SelectedDriverPackVersion}" />

@@ -41,7 +41,6 @@
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON 設定檔配置</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch 硬體雜湊上傳</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>互動式硬體雜湊上傳</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch 硬體雜湊上傳</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>硬體哈希上傳狀態</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>準備上傳硬體哈希</value></data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>硬體哈希上傳無法使用</value></data>
@@ -81,12 +80,7 @@
   <data name="Summary.NoDiskSelected" xml:space="preserve"><value>未選擇磁碟</value></data>
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>作業系統</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>沒有選擇</value></data>
-  <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>選定的驅動程式包</value></data>
   <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Windows 選用功能</value></data>
-  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>已配置 {0}（{1} 啟用，{2} 停用）</value></data>
-  <data name="Summary.Firmware" xml:space="preserve"><value>韌體</value></data>
-  <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot方法</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot 個人資料</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot組標籤</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
@@ -107,8 +101,8 @@
 詳細資訊：將映像安裝到目標路徑時存取被拒絕。
 操作：驗證磁碟屬性並重試部署。</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>重新整理</value></data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>建議更新開機媒體</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>此開機媒體是使用較舊的 Foundry OSD 設定格式產生的。請更新開機媒體，以確保與最新功能相容。</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>建議重新產生開機映像</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>此開機映像使用較舊的 Foundry OSD 設定格式。請重新產生，以確保與最新功能相容。</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>版本：{0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>上一頁</value></data>
   <data name="Common.Next" xml:space="preserve"><value>下一步</value></data>
@@ -134,7 +128,7 @@
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>失敗的步驟：{0}</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>歡迎</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>正在初始化組件...</value></data>
-  <data name="Splash.Start" xml:space="preserve"><value>開始</value></data>
+  <data name="Splash.StartDeployment" xml:space="preserve"><value>開始部署</value></data>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>磁碟{0} | {1} | {2} | {3}{4}</value></data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
   <data name="Disk.UnknownSize" xml:space="preserve"><value>尺寸未知</value></data>
@@ -562,7 +556,6 @@
   <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>未配置</value></data>
   <data name="Summary.Status.Configured" xml:space="preserve"><value>已設定</value></data>
   <data name="Summary.Status.NoChanges" xml:space="preserve"><value>無變更</value></data>
-  <data name="Summary.Hardware" xml:space="preserve"><value>偵測到的硬體</value></data>
   <data name="Summary.Release" xml:space="preserve"><value>版本</value></data>
   <data name="Summary.Edition" xml:space="preserve"><value>作業系統版本</value></data>
   <data name="Summary.Architecture" xml:space="preserve"><value>系統架構</value></data>
@@ -578,7 +571,6 @@
   <data name="Summary.RestartDelay" xml:space="preserve"><value>重啟延遲</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0}秒</value></data>
   <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>部署開始時，所選目標磁碟將會被清除。</value></data>
-  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>歡迎來到 Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>工作階段</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>步驟</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>總體部署進度</value></data>
@@ -587,4 +579,32 @@
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>錯誤詳細資料</value></data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>將離線 Autopilot 設定檔新增至 Windows 安裝。</value></data>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>在部署期間將此裝置的硬體雜湊上傳至 Windows Autopilot。</value></data>
+  <data name="Summary.Status" xml:space="preserve"><value>狀態</value></data>
+  <data name="Summary.ProvisioningMethod" xml:space="preserve"><value>佈建方法</value></data>
+  <data name="Summary.WarningDetails" xml:space="preserve"><value>警告詳細資料</value></data>
+  <data name="Summary.DiagnosticData" xml:space="preserve"><value>診斷資料</value></data>
+  <data name="Summary.LocationAccess" xml:space="preserve"><value>位置存取</value></data>
+  <data name="Summary.SkipLicenseTerms" xml:space="preserve"><value>略過授權條款</value></data>
+  <data name="Summary.HidePrivacySetup" xml:space="preserve"><value>隱藏隱私權設定</value></data>
+  <data name="Summary.TailoredExperiences" xml:space="preserve"><value>量身打造的體驗</value></data>
+  <data name="Summary.AdvertisingId" xml:space="preserve"><value>廣告識別碼</value></data>
+  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve"><value>線上語音辨識</value></data>
+  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve"><value>筆跡與輸入診斷</value></data>
+  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve"><value>移除應用程式和 AI</value></data>
+  <data name="Summary.TotalConfigured" xml:space="preserve"><value>設定總數</value></data>
+  <data name="Summary.FeaturesEnabled" xml:space="preserve"><value>已啟用的功能</value></data>
+  <data name="Summary.FeaturesDisabled" xml:space="preserve"><value>已停用的功能</value></data>
+  <data name="Summary.WiredDot1x" xml:space="preserve"><value>有線 802.1X</value></data>
+  <data name="Summary.Wifi" xml:space="preserve"><value>Wi-Fi</value></data>
+  <data name="Summary.PrivateKeyMaterial" xml:space="preserve"><value>私密金鑰資料</value></data>
+  <data name="Summary.Included" xml:space="preserve"><value>已包含</value></data>
+  <data name="Summary.NotIncluded" xml:space="preserve"><value>未包含</value></data>
+  <data name="Summary.RestartBehavior" xml:space="preserve"><value>重新啟動行為</value></data>
+  <data name="Summary.Automatic" xml:space="preserve"><value>自動</value></data>
+  <data name="Summary.Manual" xml:space="preserve"><value>手動</value></data>
+  <data name="Summary.DiagnosticData.Required" xml:space="preserve"><value>必要</value></data>
+  <data name="Summary.DiagnosticData.Optional" xml:space="preserve"><value>選用</value></data>
+  <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>關閉</value></data>
+  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>使用者控制</value></data>
+  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>強制關閉</value></data>
 </root>

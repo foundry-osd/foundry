@@ -41,7 +41,6 @@
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON furnizarea profilului</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Încărcare zero-touch a hashului hardware</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Încărcare interactivă a hashului hardware</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Încărcare zero-touch a hashului hardware</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Starea încărcării hash hardware</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Gata pentru a încărca hash hardware</value></data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Încărcarea hashului hardware nu este disponibilă</value></data>
@@ -81,12 +80,7 @@
   <data name="Summary.NoDiskSelected" xml:space="preserve"><value>Niciun disc selectat</value></data>
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Sistem de operare</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Fără selecție</value></data>
-  <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Pachetul de driver selectat</value></data>
   <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Caracteristici opționale Windows</value></data>
-  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} configurat ({1} activat, {2} dezactivat)</value></data>
-  <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
-  <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Metodă Autopilot</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profil</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Eticheta de grup Autopilot</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
@@ -107,8 +101,8 @@ ErrorCode=0x80070005
 Detalii: Accesul a fost interzis la montarea imaginii pe calea țintă.
 Acțiune: Verificați atributele discului și reîncercați implementarea.</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>Reîmprospătați</value></data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Se recomandă actualizarea suportului de pornire</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Acest suport de pornire a fost generat cu un format de configurare Foundry OSD mai vechi. Actualizați suportul de pornire pentru a asigura compatibilitatea cu cele mai recente caracteristici.</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Se recomandă regenerarea imaginii de pornire</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Această imagine de pornire utilizează un format de configurare Foundry OSD mai vechi. Regenerați-o pentru a asigura compatibilitatea cu cele mai recente caracteristici.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Versiune: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>Anterior</value></data>
   <data name="Common.Next" xml:space="preserve"><value>În continuare</value></data>
@@ -134,7 +128,7 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>Pas nereușit: {0}</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Bun venit</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Initializarea componentelor...</value></data>
-  <data name="Splash.Start" xml:space="preserve"><value>Începeți</value></data>
+  <data name="Splash.StartDeployment" xml:space="preserve"><value>Porniți implementarea</value></data>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>Disc {0} | {1} | {2} | {3}{4}</value></data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
   <data name="Disk.UnknownSize" xml:space="preserve"><value>Dimensiune necunoscută</value></data>
@@ -545,7 +539,6 @@ Continuați cu implementarea?</value></data>
   <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Nu este configurat</value></data>
   <data name="Summary.Status.Configured" xml:space="preserve"><value>Configurat</value></data>
   <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Nicio modificare</value></data>
-  <data name="Summary.Hardware" xml:space="preserve"><value>Hardware detectat</value></data>
   <data name="Summary.Release" xml:space="preserve"><value>Versiune</value></data>
   <data name="Summary.Edition" xml:space="preserve"><value>Ediția sistemului de operare</value></data>
   <data name="Summary.Architecture" xml:space="preserve"><value>Arhitectura sistemului</value></data>
@@ -561,7 +554,6 @@ Continuați cu implementarea?</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Întârziere de repornire</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} secunde</value></data>
   <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Discul țintă selectat va fi șters când începe implementarea.</value></data>
-  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Bun venit la Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Sesiune de implementare</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Pași</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Progresul general al implementării</value></data>
@@ -587,4 +579,32 @@ Continuați cu implementarea?</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Verificați selecțiile înainte de a începe implementarea.</value></data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Adaugă un profil Autopilot offline la instalarea Windows.</value></data>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Încarcă hashul hardware al acestui dispozitiv în Windows Autopilot în timpul implementării.</value></data>
+  <data name="Summary.Status" xml:space="preserve"><value>Stare</value></data>
+  <data name="Summary.ProvisioningMethod" xml:space="preserve"><value>Metodă de provizionare</value></data>
+  <data name="Summary.WarningDetails" xml:space="preserve"><value>Detalii de avertizare</value></data>
+  <data name="Summary.DiagnosticData" xml:space="preserve"><value>Date de diagnosticare</value></data>
+  <data name="Summary.LocationAccess" xml:space="preserve"><value>Acces la locație</value></data>
+  <data name="Summary.SkipLicenseTerms" xml:space="preserve"><value>Ignorați termenii licenței</value></data>
+  <data name="Summary.HidePrivacySetup" xml:space="preserve"><value>Ascundeți configurarea confidențialității</value></data>
+  <data name="Summary.TailoredExperiences" xml:space="preserve"><value>Experiențe personalizate</value></data>
+  <data name="Summary.AdvertisingId" xml:space="preserve"><value>ID de publicitate</value></data>
+  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve"><value>Recunoaștere vocală online</value></data>
+  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve"><value>Diagnosticare prin scriere și tastare</value></data>
+  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve"><value>Eliminare aplicație și IA</value></data>
+  <data name="Summary.TotalConfigured" xml:space="preserve"><value>Total configurat</value></data>
+  <data name="Summary.FeaturesEnabled" xml:space="preserve"><value>Caracteristici activate</value></data>
+  <data name="Summary.FeaturesDisabled" xml:space="preserve"><value>Caracteristici dezactivate</value></data>
+  <data name="Summary.WiredDot1x" xml:space="preserve"><value>Cu fir 802.1X</value></data>
+  <data name="Summary.Wifi" xml:space="preserve"><value>Wi-Fi</value></data>
+  <data name="Summary.PrivateKeyMaterial" xml:space="preserve"><value>Material cu cheie privată</value></data>
+  <data name="Summary.Included" xml:space="preserve"><value>Inclus</value></data>
+  <data name="Summary.NotIncluded" xml:space="preserve"><value>Nu este inclus</value></data>
+  <data name="Summary.RestartBehavior" xml:space="preserve"><value>Comportament repornire</value></data>
+  <data name="Summary.Automatic" xml:space="preserve"><value>Automat</value></data>
+  <data name="Summary.Manual" xml:space="preserve"><value>Manual</value></data>
+  <data name="Summary.DiagnosticData.Required" xml:space="preserve"><value>Necesar</value></data>
+  <data name="Summary.DiagnosticData.Optional" xml:space="preserve"><value>Opțional</value></data>
+  <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>Dezactivat</value></data>
+  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>Controlat de utilizator</value></data>
+  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>Forțat</value></data>
 </root>

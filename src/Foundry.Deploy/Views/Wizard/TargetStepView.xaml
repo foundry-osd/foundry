@@ -8,19 +8,19 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <controls:WizardPageHeader x:Name="PageHeader"
+        <controls:WizardPageHeader
             Title="{Binding DataContext.Strings[TargetDevice.Title], ElementName=ViewRoot}"
             Description="{Binding DataContext.Strings[TargetDevice.Description], ElementName=ViewRoot}"
             Glyph="&#xEDA2;" />
 
-        <ScrollViewer x:Name="PageContentScrollViewer"
+        <ScrollViewer
             Grid.Row="1"
             HorizontalScrollBarVisibility="Disabled"
             Style="{StaticResource ScrollViewerContentGutterStyle}"
             VerticalScrollBarVisibility="Auto">
             <StackPanel>
 
-                <TextBlock x:Name="DeploymentSettingsTitle"
+                <TextBlock
                     Margin="0,0,0,12"
                     Style="{StaticResource SubtitleTextBlockStyle}"
                     Text="{Binding DataContext.Strings[TargetDevice.DeploymentSettings], ElementName=ViewRoot}" />
@@ -101,14 +101,12 @@
                     </Grid>
                 </Border>
 
-                <Separator x:Name="DeviceInventorySeparator"
-                    Margin="0,0,0,12" />
-                <TextBlock x:Name="DeviceInventoryTitle"
+                <Separator Margin="0,0,0,12" />
+                <TextBlock
                     Margin="0,0,0,12"
                     Style="{StaticResource SubtitleTextBlockStyle}"
                     Text="{Binding DataContext.Strings[TargetDevice.DeviceInventory], ElementName=ViewRoot}" />
-                <Grid x:Name="DeviceInventoryGrid"
-                    Grid.IsSharedSizeScope="True">
+                <Grid Grid.IsSharedSizeScope="True">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="24" />
@@ -119,7 +117,7 @@
                             Margin="0,0,0,12"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
                             Text="{Binding DataContext.Strings[TargetDevice.DeviceIdentity], ElementName=ViewRoot}" />
-                        <Grid x:Name="DeviceIdentityGrid">
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition
                                     Width="Auto"
@@ -180,7 +178,7 @@
                             Margin="0,0,0,12"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
                             Text="{Binding DataContext.Strings[TargetDevice.Platform], ElementName=ViewRoot}" />
-                        <Grid x:Name="PlatformGrid">
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition
                                     Width="Auto"
@@ -238,8 +236,7 @@
                     </StackPanel>
                 </Grid>
 
-                <Separator x:Name="FirmwareSeparator"
-                    Margin="0,12,0,12" />
+                <Separator Margin="0,12,0,12" />
                 <TextBlock
                     Margin="0,0,0,12"
                     Style="{StaticResource SubtitleTextBlockStyle}"

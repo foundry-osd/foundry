@@ -41,7 +41,6 @@
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON dodjela profila</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch prijenos hardverskog hasha</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktivni prijenos hardverskog hasha</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch prijenos hardverskog hasha</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Status prijenosa raspršene vrijednosti hardvera</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Spremno za učitavanje hash hardvera</value></data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Prijenos hash hardvera nije dostupan</value></data>
@@ -81,12 +80,7 @@
   <data name="Summary.NoDiskSelected" xml:space="preserve"><value>Nije odabran disk</value></data>
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Operativni sustav</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Bez odabira</value></data>
-  <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Odabrani paket vozača</value></data>
   <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Izborne značajke sustava Windows</value></data>
-  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} konfigurirano ({1} omogući, {2} onemogući)</value></data>
-  <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
-  <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Metoda Autopilot</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profil</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot grupna oznaka</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
@@ -107,8 +101,8 @@
 Pojedinosti: Pristup odbijen tijekom montiranja slike na ciljnu putanju.
 Radnja: Provjerite atribute diska i ponovno pokušajte implementaciju.</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>Osvježiti</value></data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Preporučuje se ažuriranje medija za pokretanje</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Ovaj medij za pokretanje generiran je starijim formatom konfiguracije Foundry OSD. Ažurirajte medij za pokretanje kako biste osigurali kompatibilnost s najnovijim značajkama.</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Preporučuje se ponovno generiranje slike za pokretanje</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Ova slika za pokretanje koristi stariji format konfiguracije Foundry OSD. Ponovno je generirajte kako biste osigurali kompatibilnost s najnovijim značajkama.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Verzija: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>Prethodno</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Sljedeći</value></data>
@@ -134,7 +128,7 @@ Radnja: Provjerite atribute diska i ponovno pokušajte implementaciju.</value></
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>Neuspjeli korak: {0}</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Dobrodošli</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Pokretanje komponenti...</value></data>
-  <data name="Splash.Start" xml:space="preserve"><value>Start</value></data>
+  <data name="Splash.StartDeployment" xml:space="preserve"><value>Pokreni implementaciju</value></data>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>Disk {0} | {1} | {2} | {3}{4}</value></data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
   <data name="Disk.UnknownSize" xml:space="preserve"><value>Nepoznata veličina</value></data>
@@ -545,7 +539,6 @@ Nastaviti s implementacijom?</value></data>
   <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Nije konfigurirano</value></data>
   <data name="Summary.Status.Configured" xml:space="preserve"><value>Konfigurirano</value></data>
   <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Nema promjena</value></data>
-  <data name="Summary.Hardware" xml:space="preserve"><value>Otkriven hardver</value></data>
   <data name="Summary.Release" xml:space="preserve"><value>Verzija</value></data>
   <data name="Summary.Edition" xml:space="preserve"><value>Izdanje operativnog sustava</value></data>
   <data name="Summary.Architecture" xml:space="preserve"><value>Arhitektura sustava</value></data>
@@ -561,7 +554,6 @@ Nastaviti s implementacijom?</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Odgoda ponovnog pokretanja</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} sekundi</value></data>
   <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Odabrani ciljni disk bit će izbrisan kada započne implementacija.</value></data>
-  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Dobrodošli u Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Sesija implementacije</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Koraci</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Sveukupni napredak implementacije</value></data>
@@ -587,4 +579,32 @@ Nastaviti s implementacijom?</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Pregledajte svoje odabire prije pokretanja implementacije.</value></data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Dodaje izvanmrežni Autopilot profil u instalaciju sustava Windows.</value></data>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Prenosi hardverski hash ovog uređaja u Windows Autopilot tijekom implementacije.</value></data>
+  <data name="Summary.Status" xml:space="preserve"><value>Status</value></data>
+  <data name="Summary.ProvisioningMethod" xml:space="preserve"><value>Način pružanja usluga</value></data>
+  <data name="Summary.WarningDetails" xml:space="preserve"><value>Pojedinosti upozorenja</value></data>
+  <data name="Summary.DiagnosticData" xml:space="preserve"><value>Dijagnostički podaci</value></data>
+  <data name="Summary.LocationAccess" xml:space="preserve"><value>Pristup lokaciji</value></data>
+  <data name="Summary.SkipLicenseTerms" xml:space="preserve"><value>Preskoči uvjete licence</value></data>
+  <data name="Summary.HidePrivacySetup" xml:space="preserve"><value>Sakrij postavke privatnosti</value></data>
+  <data name="Summary.TailoredExperiences" xml:space="preserve"><value>Doživljaji po mjeri</value></data>
+  <data name="Summary.AdvertisingId" xml:space="preserve"><value>ID oglašavanja</value></data>
+  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve"><value>Online prepoznavanje govora</value></data>
+  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve"><value>Dijagnostika rukopisa i tipkanja</value></data>
+  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve"><value>Uklanjanje aplikacija i umjetne inteligencije</value></data>
+  <data name="Summary.TotalConfigured" xml:space="preserve"><value>Ukupno konfigurirano</value></data>
+  <data name="Summary.FeaturesEnabled" xml:space="preserve"><value>Omogućene značajke</value></data>
+  <data name="Summary.FeaturesDisabled" xml:space="preserve"><value>Značajke onemogućene</value></data>
+  <data name="Summary.WiredDot1x" xml:space="preserve"><value>Ožičeno 802.1X</value></data>
+  <data name="Summary.Wifi" xml:space="preserve"><value>Wi-Fi</value></data>
+  <data name="Summary.PrivateKeyMaterial" xml:space="preserve"><value>Materijal s privatnim ključem</value></data>
+  <data name="Summary.Included" xml:space="preserve"><value>Uključeno</value></data>
+  <data name="Summary.NotIncluded" xml:space="preserve"><value>Nije uključeno</value></data>
+  <data name="Summary.RestartBehavior" xml:space="preserve"><value>Ponavljanje pokretanja</value></data>
+  <data name="Summary.Automatic" xml:space="preserve"><value>Automatsko</value></data>
+  <data name="Summary.Manual" xml:space="preserve"><value>Priručnik</value></data>
+  <data name="Summary.DiagnosticData.Required" xml:space="preserve"><value>Obavezno</value></data>
+  <data name="Summary.DiagnosticData.Optional" xml:space="preserve"><value>Nije obavezno</value></data>
+  <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>Isključeno</value></data>
+  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>Korisnički upravljano</value></data>
+  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>Prisilno isključeno</value></data>
 </root>

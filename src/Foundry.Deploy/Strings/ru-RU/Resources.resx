@@ -41,7 +41,6 @@
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON подготовка профиля</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch отправка аппаратного хеша</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Интерактивная отправка аппаратного хеша</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch отправка аппаратного хеша</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Статус загрузки аппаратного хеша</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Готово загрузить аппаратный хэш</value></data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Загрузка аппаратного хеша недоступна</value></data>
@@ -81,12 +80,7 @@
   <data name="Summary.NoDiskSelected" xml:space="preserve"><value>Диск не выбран</value></data>
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Операционная система</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Нет выбора</value></data>
-  <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Выбранный пакет драйверов</value></data>
   <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Дополнительные функции Windows</value></data>
-  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} настроено ({1} включить, {2} отключить)</value></data>
-  <data name="Summary.Firmware" xml:space="preserve"><value>Прошивка</value></data>
-  <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Метод Autopilot</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Профиль</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot групповой тег</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
@@ -107,8 +101,8 @@
 Подробности: Доступ запрещен при подключении образа к целевому пути.
 Действие: Проверьте атрибуты диска и повторите развертывание.</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>Обновить</value></data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Рекомендуется обновить загрузочный носитель</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Этот загрузочный носитель был создан с использованием более старого формата конфигурации Foundry OSD. Обновите загрузочный носитель, чтобы обеспечить совместимость с новейшими функциями.</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Рекомендуется повторно создать загрузочный образ</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Этот загрузочный образ использует более старый формат конфигурации Foundry OSD. Создайте его повторно, чтобы обеспечить совместимость с новейшими функциями.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Версия: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>Предыдущий</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Далее</value></data>
@@ -134,7 +128,7 @@
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>Сбой на этапе: {0}</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Добро пожаловать</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Инициализация компонентов...</value></data>
-  <data name="Splash.Start" xml:space="preserve"><value>Старт</value></data>
+  <data name="Splash.StartDeployment" xml:space="preserve"><value>Начать развертывание</value></data>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>Диск {0} | {1} | {2} | {3}{4}</value></data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
   <data name="Disk.UnknownSize" xml:space="preserve"><value>Неизвестный размер</value></data>
@@ -545,7 +539,6 @@
   <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Не настроено</value></data>
   <data name="Summary.Status.Configured" xml:space="preserve"><value>Настроено</value></data>
   <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Без изменений</value></data>
-  <data name="Summary.Hardware" xml:space="preserve"><value>Обнаружено оборудование</value></data>
   <data name="Summary.Release" xml:space="preserve"><value>Версия</value></data>
   <data name="Summary.Edition" xml:space="preserve"><value>Редакция</value></data>
   <data name="Summary.Architecture" xml:space="preserve"><value>Архитектура системы</value></data>
@@ -561,7 +554,6 @@
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Задержка перезапуска</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} секунды</value></data>
   <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Выбранный целевой диск будет удален при запуске развертывания.</value></data>
-  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Добро пожаловать в Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Сеанс</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Шаги</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Общий ход развертывания</value></data>
@@ -587,4 +579,32 @@
   <data name="Summary.Description" xml:space="preserve"><value>Проверьте выбранные параметры перед началом развертывания.</value></data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Добавляет автономный профиль Autopilot в установку Windows.</value></data>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Отправляет аппаратный хеш этого устройства в Windows Autopilot во время развертывания.</value></data>
+  <data name="Summary.Status" xml:space="preserve"><value>Status</value></data>
+  <data name="Summary.ProvisioningMethod" xml:space="preserve"><value>Provisioning method</value></data>
+  <data name="Summary.WarningDetails" xml:space="preserve"><value>Warning details</value></data>
+  <data name="Summary.DiagnosticData" xml:space="preserve"><value>Diagnostic data</value></data>
+  <data name="Summary.LocationAccess" xml:space="preserve"><value>Location access</value></data>
+  <data name="Summary.SkipLicenseTerms" xml:space="preserve"><value>Skip license terms</value></data>
+  <data name="Summary.HidePrivacySetup" xml:space="preserve"><value>Hide privacy setup</value></data>
+  <data name="Summary.TailoredExperiences" xml:space="preserve"><value>Tailored experiences</value></data>
+  <data name="Summary.AdvertisingId" xml:space="preserve"><value>Advertising ID</value></data>
+  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve"><value>Online speech recognition</value></data>
+  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve"><value>Inking and typing diagnostics</value></data>
+  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve"><value>Application and AI removal</value></data>
+  <data name="Summary.TotalConfigured" xml:space="preserve"><value>Total configured</value></data>
+  <data name="Summary.FeaturesEnabled" xml:space="preserve"><value>Features enabled</value></data>
+  <data name="Summary.FeaturesDisabled" xml:space="preserve"><value>Функции отключены</value></data>
+  <data name="Summary.WiredDot1x" xml:space="preserve"><value>Проводной 802.1X</value></data>
+  <data name="Summary.Wifi" xml:space="preserve"><value>Wi-Fi</value></data>
+  <data name="Summary.PrivateKeyMaterial" xml:space="preserve"><value>Материал с закрытым ключом</value></data>
+  <data name="Summary.Included" xml:space="preserve"><value>Включен</value></data>
+  <data name="Summary.NotIncluded" xml:space="preserve"><value>Не включен</value></data>
+  <data name="Summary.RestartBehavior" xml:space="preserve"><value>Поведение при перезапуске</value></data>
+  <data name="Summary.Automatic" xml:space="preserve"><value>Автоматический</value></data>
+  <data name="Summary.Manual" xml:space="preserve"><value>Ручной</value></data>
+  <data name="Summary.DiagnosticData.Required" xml:space="preserve"><value>Обязательный</value></data>
+  <data name="Summary.DiagnosticData.Optional" xml:space="preserve"><value>Необязательный</value></data>
+  <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>Выключен</value></data>
+  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>Контролируемый пользователем</value></data>
+  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>Принудительно выключен</value></data>
 </root>

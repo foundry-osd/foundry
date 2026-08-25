@@ -41,7 +41,6 @@
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profilklargøring</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch upload af hardwarehash</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktiv upload af hardwarehash</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch upload af hardwarehash</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Hardware hash upload status</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Klar til at uploade hardware-hash</value></data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Upload af hardware-hash er ikke tilgængelig</value></data>
@@ -81,12 +80,7 @@
   <data name="Summary.NoDiskSelected" xml:space="preserve"><value>Ingen disk valgt</value></data>
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Operativsystem</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Intet valg</value></data>
-  <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Valgt driverpakke</value></data>
   <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Windows valgfri funktioner</value></data>
-  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} konfigureret ({1} aktiver, {2} deaktiver)</value></data>
-  <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
-  <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot-metode</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profil</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot gruppetag</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
@@ -107,8 +101,8 @@ ErrorCode=0x80070005
 Detaljer: Adgang nægtet under montering af billedet til målstien.
 Handling: Bekræft diskattributter, og prøv implementeringen igen.</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>Opdater</value></data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Opdatering af startmedie anbefales</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Dette startmedie blev genereret med et ældre Foundry OSD-konfigurationsformat. Opdater startmediet for at sikre kompatibilitet med de nyeste funktioner.</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Det anbefales at generere startafbildningen igen</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Denne startafbildning bruger et ældre Foundry OSD-konfigurationsformat. Generer den igen for at sikre kompatibilitet med de nyeste funktioner.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Version: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>Forrige</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Næste</value></data>
@@ -134,7 +128,7 @@ Handling: Bekræft diskattributter, og prøv implementeringen igen.</value></dat
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>Mislykket trin: {0}</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Velkommen</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Initialiserer komponenter...</value></data>
-  <data name="Splash.Start" xml:space="preserve"><value>Start</value></data>
+  <data name="Splash.StartDeployment" xml:space="preserve"><value>Start udrulning</value></data>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>Disk {0} | {1} | {2} | {3}{4}</value></data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
   <data name="Disk.UnknownSize" xml:space="preserve"><value>Ukendt størrelse</value></data>
@@ -545,7 +539,6 @@ Vil du fortsætte med implementeringen?</value></data>
   <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Ikke konfigureret</value></data>
   <data name="Summary.Status.Configured" xml:space="preserve"><value>Konfigureret</value></data>
   <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Ingen ændringer</value></data>
-  <data name="Summary.Hardware" xml:space="preserve"><value>Detekteret hardware</value></data>
   <data name="Summary.Release" xml:space="preserve"><value>Version</value></data>
   <data name="Summary.Edition" xml:space="preserve"><value>Operativsystemudgave</value></data>
   <data name="Summary.Architecture" xml:space="preserve"><value>Systemarkitektur</value></data>
@@ -561,7 +554,6 @@ Vil du fortsætte med implementeringen?</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Genstartsforsinkelse</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} sekunder</value></data>
   <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Den valgte måldisk vil blive slettet, når implementeringen starter.</value></data>
-  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Velkommen til Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Implementeringssession</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Trin</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Samlet fremskridt i implementeringen</value></data>
@@ -587,4 +579,32 @@ Vil du fortsætte med implementeringen?</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Gennemse dine valg, før udrulningen startes.</value></data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Føjer en offline Autopilot-profil til Windows-installationen.</value></data>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Uploader denne enheds hardwarehash til Windows Autopilot under udrulningen.</value></data>
+  <data name="Summary.Status" xml:space="preserve"><value>Status</value></data>
+  <data name="Summary.ProvisioningMethod" xml:space="preserve"><value>Klargøringsmetode</value></data>
+  <data name="Summary.WarningDetails" xml:space="preserve"><value>Advarselsoplysninger</value></data>
+  <data name="Summary.DiagnosticData" xml:space="preserve"><value>Diagnostiske data</value></data>
+  <data name="Summary.LocationAccess" xml:space="preserve"><value>Adgang til placering</value></data>
+  <data name="Summary.SkipLicenseTerms" xml:space="preserve"><value>Spring licensvilkår over</value></data>
+  <data name="Summary.HidePrivacySetup" xml:space="preserve"><value>Skjul opsætning af personlige oplysninger</value></data>
+  <data name="Summary.TailoredExperiences" xml:space="preserve"><value>Skræddersyede oplevelser</value></data>
+  <data name="Summary.AdvertisingId" xml:space="preserve"><value>Annonce-id</value></data>
+  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve"><value>Online talegenkendelse</value></data>
+  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve"><value>Diagnosticering af håndskrift og indtastning</value></data>
+  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve"><value>Fjernelse af applikation og kunstig intelligens</value></data>
+  <data name="Summary.TotalConfigured" xml:space="preserve"><value>Konfigureret i alt</value></data>
+  <data name="Summary.FeaturesEnabled" xml:space="preserve"><value>Aktiverede funktioner</value></data>
+  <data name="Summary.FeaturesDisabled" xml:space="preserve"><value>Funktioner deaktiveret</value></data>
+  <data name="Summary.WiredDot1x" xml:space="preserve"><value>Kablet 802.1X</value></data>
+  <data name="Summary.Wifi" xml:space="preserve"><value>Wi-Fi</value></data>
+  <data name="Summary.PrivateKeyMaterial" xml:space="preserve"><value>Privat nøglemateriale</value></data>
+  <data name="Summary.Included" xml:space="preserve"><value>Inkluderet</value></data>
+  <data name="Summary.NotIncluded" xml:space="preserve"><value>Ikke inkluderet</value></data>
+  <data name="Summary.RestartBehavior" xml:space="preserve"><value>Genstartadfærd</value></data>
+  <data name="Summary.Automatic" xml:space="preserve"><value>Automatisk</value></data>
+  <data name="Summary.Manual" xml:space="preserve"><value>Manuel</value></data>
+  <data name="Summary.DiagnosticData.Required" xml:space="preserve"><value>Påkrævet</value></data>
+  <data name="Summary.DiagnosticData.Optional" xml:space="preserve"><value>Valgfri</value></data>
+  <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>Fra</value></data>
+  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>Brugerstyret</value></data>
+  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>Tvunget fra</value></data>
 </root>

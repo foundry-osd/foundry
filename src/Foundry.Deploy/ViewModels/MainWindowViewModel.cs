@@ -99,25 +99,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     public string SummaryFirmwareText => Preparation.ApplyFirmwareUpdates ? GetString("Common.Enabled") : GetString("Common.Disabled");
     public string SummaryAutopilotProfileText => Preparation.SelectedAutopilotProfile?.DisplayName ?? GetString("Common.None");
     public string SummaryAutopilotGroupTagText => Preparation.EffectiveHardwareHashGroupTagText;
-    public string SummaryWindowsOptionalFeaturesText
-    {
-        get
-        {
-            DeployWindowsOptionalFeatureSettings settings = _wizardContext.WindowsOptionalFeatures;
-            DeployWindowsOptionalFeatureAction[] actions = settings.Actions?.ToArray() ?? [];
-            if (!settings.IsEnabled || actions.Length == 0)
-            {
-                return GetString("Common.Disabled");
-            }
-
-            int enableCount = actions.Count(action => action.Enable);
-            return Format(
-                "Summary.WindowsOptionalFeaturesFormat",
-                actions.Length,
-                enableCount,
-                actions.Length - enableCount);
-        }
-    }
     public DeploymentWizardStepId CurrentWizardStepId => WizardSteps[WizardStepIndex].Id;
     public bool IsOperatingSystemStep => CurrentWizardStepId == DeploymentWizardStepId.OperatingSystem;
     public bool IsDriversStep => CurrentWizardStepId == DeploymentWizardStepId.Drivers;
@@ -426,7 +407,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(SummaryFirmwareText));
         OnPropertyChanged(nameof(SummaryAutopilotProfileText));
         OnPropertyChanged(nameof(SummaryAutopilotGroupTagText));
-        OnPropertyChanged(nameof(SummaryWindowsOptionalFeaturesText));
         NextWizardStepCommand.NotifyCanExecuteChanged();
         StartDeploymentCommand.NotifyCanExecuteChanged();
     }
@@ -549,7 +529,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             DeploymentWizardStepDefinition definition = definitions[index];
             WizardSteps.Add(new DeploymentWizardStepViewModel(
                 definition,
-                GetWizardStepTitle(definition.Id),
+                GetString(definition.ResourceKey),
                 index + 1,
                 index == definitions.Count - 1));
         }
@@ -582,19 +562,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
     }
 
-    private string GetWizardStepTitle(DeploymentWizardStepId stepId)
-    {
-        return stepId switch
-        {
-            DeploymentWizardStepId.TargetDevice => GetString("Wizard.Step.TargetDevice"),
-            DeploymentWizardStepId.OperatingSystem => GetString("Wizard.Step.OperatingSystem"),
-            DeploymentWizardStepId.Drivers => GetString("Wizard.Step.Drivers"),
-            DeploymentWizardStepId.Autopilot => GetString("Wizard.Step.Autopilot"),
-            DeploymentWizardStepId.Summary => GetString("Wizard.Step.Summary"),
-            _ => stepId.ToString()
-        };
-    }
-
     private void RefreshSummaryCategories()
     {
         bool hasCustomization = _wizardContext.Oobe.IsEnabled ||
@@ -609,20 +576,14 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             IsTargetConfigured = ComputerNameRules.IsValid(Preparation.TargetComputerName) &&
                                  (IsDebugSafeMode || Preparation.SelectedTargetDisk?.IsSelectable == true),
             HasTargetWarning = Preparation.SelectedTargetDisk is { IsSelectable: false },
-            TargetRows =
-            [
-                new(GetString("Summary.Hardware"), Preparation.DetectedHardwareSummary),
-                new(GetString("Preparation.ComputerName"), Preparation.TargetComputerName),
-                new(GetString("Summary.TargetDisk"), SummaryTargetDiskText),
-                new(GetString("Summary.Firmware"), SummaryFirmwareText)
-            ],
+            TargetRows = BuildTargetSummaryRows(),
             OperatingSystemSummary = SummaryOperatingSystemText,
             IsOperatingSystemConfigured = operatingSystem is not null,
             OperatingSystemRows = operatingSystem is null
                 ? [new(GetString("Summary.SelectedOperatingSystem"), GetString("Summary.NoSelection"))]
                 :
                 [
-                    new(GetString("Summary.Release"), $"{operatingSystem.WindowsRelease} {operatingSystem.ReleaseId}"),
+                    new(GetString("Summary.Release"), $"Windows {operatingSystem.WindowsRelease} {operatingSystem.ReleaseId}"),
                     new(GetString("Summary.Edition"), operatingSystem.Edition),
                     new(GetString("Summary.Architecture"), operatingSystem.Architecture),
                     new(GetString("Summary.Language"), operatingSystem.LanguageCode),
@@ -630,7 +591,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                     new(GetString("Summary.Build"), operatingSystem.Build)
                 ],
             DriversSummary = DriverPackSelection.SelectedDriverPackSelectionDisplay,
-            DriverRows = [new(GetString("Summary.SelectedDriverPack"), DriverPackSelection.SelectedDriverPackSelectionDisplay)],
+            DriverRows = BuildDriverSummaryRows(),
             IsDriversConfigured = DriverPackSelection.EffectiveSelectionKind != DriverPackSelectionKind.None,
             AutopilotSummary = Preparation.AutopilotModeText,
             AutopilotRows = BuildAutopilotSummaryRows(),
@@ -639,18 +600,12 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             WindowsCustomizationSummary = hasCustomization
                 ? GetString("Summary.Status.Configured")
                 : GetString("Summary.Status.NoChanges"),
-            WindowsCustomizationRows =
-            [
-                new(GetString("Summary.Oobe"), GetEnabledText(_wizardContext.Oobe.IsEnabled)),
-                new(GetString("Summary.WindowsOptionalFeatures"), SummaryWindowsOptionalFeaturesText),
-                new(GetString("Summary.AppxRemoval"), GetEnabledText(_wizardContext.AppxRemoval.IsEnabled)),
-                new(GetString("Summary.AiComponentRemoval"), GetEnabledText(_wizardContext.AiComponentRemoval.IsEnabled))
-            ],
+            WindowsCustomizationRows = BuildWindowsCustomizationSummaryRows(),
             IsWindowsCustomizationConfigured = hasCustomization,
             NetworkSummary = hasNetwork
                 ? GetString("Summary.Status.Configured")
                 : GetString("Summary.Status.NotConfigured"),
-            NetworkRows = [new(GetString("Summary.NetworkProfileRoaming"), GetEnabledText(hasNetwork))],
+            NetworkRows = BuildNetworkSummaryRows(),
             IsNetworkConfigured = hasNetwork,
             CompletionSummary = _wizardContext.Completion.AutomaticRebootEnabled
                 ? GetString("Summary.AutomaticRestart")
@@ -666,6 +621,57 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
     }
 
+    private IReadOnlyList<DeploymentSummaryRowViewModel> BuildTargetSummaryRows()
+    {
+        return
+        [
+            DeploymentSummaryRowViewModel.Section(GetString("TargetDevice.DeploymentSettings")),
+            new(GetString("Preparation.ComputerName"), Preparation.TargetComputerName),
+            new(GetString("Summary.TargetDisk"), SummaryTargetDiskText),
+            new(GetString("TargetDevice.Firmware"), SummaryFirmwareText),
+            DeploymentSummaryRowViewModel.Separator(),
+            DeploymentSummaryRowViewModel.Section(GetString("TargetDevice.DeviceInventory")),
+            new(GetString("TargetDevice.Manufacturer"), Preparation.HardwareManufacturerText),
+            new(GetString("TargetDevice.Model"), Preparation.HardwareModelText),
+            new(GetString("TargetDevice.Product"), Preparation.HardwareProductText),
+            new(GetString("TargetDevice.Architecture"), Preparation.HardwareArchitectureText),
+            new(GetString("TargetDevice.Tpm"), Preparation.HardwareTpmText),
+            new(GetString("TargetDevice.PowerSource"), Preparation.HardwarePowerText),
+            new(GetString("TargetDevice.FirmwareStatus"), Preparation.HardwareFirmwareText)
+        ];
+    }
+
+    private IReadOnlyList<DeploymentSummaryRowViewModel> BuildDriverSummaryRows()
+    {
+        if (DriverPackSelection.EffectiveSelectionKind == DriverPackSelectionKind.None)
+        {
+            return [new(GetString("DriverPack.Source"), GetString("Common.None"))];
+        }
+
+        if (DriverPackSelection.EffectiveSelectionKind == DriverPackSelectionKind.MicrosoftUpdateCatalog)
+        {
+            return [new(GetString("DriverPack.Source"), GetString("DriverPack.MicrosoftUpdateCatalog"))];
+        }
+
+        string manufacturer = DriverPackSelection.SelectedDriverPackOption?.DisplayName ?? GetString("DriverPack.Oem");
+        DriverPackCatalogItem? selectedPack = DriverPackSelection.ResolveEffectiveDriverPackSelection();
+        if (selectedPack is null)
+        {
+            return
+            [
+                new(GetString("TargetDevice.Manufacturer"), manufacturer),
+                new(GetString("Summary.Status"), Format("DriverPack.NoMatchingModelVersionFormat", manufacturer))
+            ];
+        }
+
+        return
+        [
+            new(GetString("TargetDevice.Manufacturer"), selectedPack.Manufacturer),
+            new(GetString("DriverPack.Model"), DriverPackSelection.SelectedDriverPackModel),
+            new(GetString("DriverPack.Version"), DriverPackSelection.SelectedDriverPackVersion)
+        ];
+    }
+
     private IReadOnlyList<DeploymentSummaryRowViewModel> BuildAutopilotSummaryRows()
     {
         if (!Preparation.IsAutopilotEnabled)
@@ -675,7 +681,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         var rows = new List<DeploymentSummaryRowViewModel>
         {
-            new(GetString("Summary.AutopilotMode"), Preparation.AutopilotModeText)
+            new(GetString("Summary.ProvisioningMethod"), Preparation.AutopilotModeText)
         };
         if (Preparation.IsJsonProfileMode)
         {
@@ -687,16 +693,72 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 GetString("Preparation.AutopilotHardwareHashUploadStatus"),
                 Preparation.AutopilotHardwareHashUploadStatusText));
             rows.Add(new(GetString("Summary.AutopilotGroupTag"), SummaryAutopilotGroupTagText));
+            rows.Add(DeploymentSummaryRowViewModel.Separator());
+            rows.Add(DeploymentSummaryRowViewModel.Section(GetString("Autopilot.ConfigurationDetails")));
+            rows.Add(new(
+                GetString("Preparation.AutopilotHardwareHashTenantId"),
+                Preparation.AutopilotHardwareHashTenantIdText));
+            rows.Add(new(
+                GetString("Preparation.AutopilotHardwareHashCertificateExpiration"),
+                Preparation.AutopilotHardwareHashCertificateExpirationText));
+            if (Preparation.IsHardwareHashUploadMessageVisible)
+            {
+                rows.Add(new(GetString("Summary.WarningDetails"), Preparation.AutopilotHardwareHashUploadMessage));
+            }
         }
 
         return rows;
+    }
+
+    private IReadOnlyList<DeploymentSummaryRowViewModel> BuildWindowsCustomizationSummaryRows()
+    {
+        return WindowsCustomizationSummaryBuilder.Build(
+            _wizardContext.Oobe,
+            _wizardContext.AppxRemoval,
+            _wizardContext.AiComponentRemoval,
+            _wizardContext.WindowsOptionalFeatures,
+            GetString,
+            CurrentCulture);
+    }
+
+    private IReadOnlyList<DeploymentSummaryRowViewModel> BuildNetworkSummaryRows()
+    {
+        var roaming = _wizardContext.Network.ProfileRoaming;
+        if (!roaming.IsAnyEnabled)
+        {
+            return [new(GetString("Summary.NetworkProfileRoaming"), GetString("Common.Disabled"))];
+        }
+
+        var rows = new List<DeploymentSummaryRowViewModel>();
+        AddNetworkTransportRows(rows, "Summary.WiredDot1x", roaming.WiredDot1x.IsEnabled, roaming.WiredDot1x.IncludePrivateKeyMaterial);
+        rows.Add(DeploymentSummaryRowViewModel.Separator());
+        AddNetworkTransportRows(rows, "Summary.Wifi", roaming.Wifi.IsEnabled, roaming.Wifi.IncludePrivateKeyMaterial);
+        return rows;
+    }
+
+    private void AddNetworkTransportRows(
+        ICollection<DeploymentSummaryRowViewModel> rows,
+        string sectionKey,
+        bool isEnabled,
+        bool includePrivateKeyMaterial)
+    {
+        rows.Add(DeploymentSummaryRowViewModel.Section(GetString(sectionKey)));
+        rows.Add(new(GetString("Summary.NetworkProfileRoaming"), GetEnabledText(isEnabled)));
+        if (isEnabled)
+        {
+            rows.Add(new(
+                GetString("Summary.PrivateKeyMaterial"),
+                GetString(includePrivateKeyMaterial ? "Summary.Included" : "Summary.NotIncluded")));
+        }
     }
 
     private IReadOnlyList<DeploymentSummaryRowViewModel> BuildCompletionSummaryRows()
     {
         var rows = new List<DeploymentSummaryRowViewModel>
         {
-            new(GetString("Summary.AutomaticRestart"), GetEnabledText(_wizardContext.Completion.AutomaticRebootEnabled))
+            new(
+                GetString("Summary.RestartBehavior"),
+                GetString(_wizardContext.Completion.AutomaticRebootEnabled ? "Summary.Automatic" : "Summary.Manual"))
         };
         if (_wizardContext.Completion.AutomaticRebootEnabled)
         {
@@ -730,7 +792,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         Session.ConfigureRebootPolicy(DeploymentRebootPolicy.Create(_wizardContext.Completion));
         Session.SetComputerName(Preparation.TargetComputerName);
         Session.CompleteStartupInitialization();
-        OnPropertyChanged(nameof(SummaryWindowsOptionalFeaturesText));
     }
 
     private void RunOnUi(Action action)
@@ -777,7 +838,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             OnPropertyChanged(nameof(SummaryFirmwareText));
             OnPropertyChanged(nameof(SummaryAutopilotProfileText));
             OnPropertyChanged(nameof(SummaryAutopilotGroupTagText));
-            OnPropertyChanged(nameof(SummaryWindowsOptionalFeaturesText));
             RefreshWizardSteps();
             RefreshSummaryCategories();
         });

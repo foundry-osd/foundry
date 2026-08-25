@@ -26,7 +26,6 @@ public partial class DeploymentStatusView : UserControl
 
     private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
-        DetachSession();
         AttachSession(e.NewValue as DeploymentSessionViewModel);
     }
 

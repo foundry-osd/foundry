@@ -4,30 +4,42 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <Grid x:Name="LandingContent">
+    <Grid>
         <StackPanel
             MaxWidth="760"
             Margin="48,32"
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
-            <Image
-                Width="144"
-                Height="144"
-                Margin="0,0,0,20"
+            <StackPanel
+                Margin="0,0,0,16"
                 HorizontalAlignment="Center"
-                AutomationProperties.Name="{Binding Strings[App.Name]}"
-                Source="/Assets/Images/foundry-about-logo.png"
-                Stretch="Uniform" />
+                Orientation="Horizontal">
+                <StackPanel.RenderTransform>
+                    <TranslateTransform X="-8" />
+                </StackPanel.RenderTransform>
+                <Image
+                    Width="96"
+                    Height="96"
+                    Margin="0,0,16,0"
+                    VerticalAlignment="Center"
+                    AutomationProperties.Name="{Binding Strings[App.Name]}"
+                    Source="/Assets/Images/foundry-about-logo.png"
+                    Stretch="Uniform" />
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Style="{StaticResource TitleLargeTextBlockStyle}"
+                    Text="{Binding Strings[App.Name]}" />
+            </StackPanel>
             <TextBlock
                 HorizontalAlignment="Center"
-                Style="{StaticResource TitleLargeTextBlockStyle}"
-                Text="{Binding Strings[Splash.WelcomeDeploy]}"
+                Style="{StaticResource DisplayTextBlockStyle}"
+                Text="{Binding Strings[Splash.Welcome]}"
                 TextAlignment="Center"
                 TextWrapping="Wrap" />
 
             <Grid x:Name="LandingActionHost"
                 MinHeight="76"
-                Margin="0,28,0,0"
+                Margin="0,12,0,0"
                 RenderTransformOrigin="0.5,0.5">
                 <Grid.RenderTransform>
                     <TranslateTransform x:Name="LandingActionTransform" />
@@ -52,12 +64,13 @@
                 </StackPanel>
 
                 <Button
-                    MinWidth="180"
+                    Height="38"
+                    MinWidth="210"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    AutomationProperties.Name="{Binding Strings[Splash.Start]}"
+                    AutomationProperties.Name="{Binding Strings[Splash.StartDeployment]}"
                     Command="{Binding BeginWizardCommand}"
-                    Content="{Binding Strings[Splash.Start]}"
+                    Content="{Binding Strings[Splash.StartDeployment]}"
                     Style="{DynamicResource AccentButtonStyle}"
                     Visibility="{Binding Session.IsStartupInitializing, Converter={StaticResource InverseBooleanConverter}}" />
             </Grid>

@@ -41,7 +41,6 @@
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON توفير الملف الشخصي</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>تحميل تجزئة الأجهزة بطريقة Zero-touch</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>تحميل تفاعلي لتجزئة الأجهزة</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>تحميل zero-touch لتجزئة الأجهزة</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>حالة تحميل تجزئة الأجهزة</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>جاهز لتحميل تجزئة الأجهزة</value></data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>تحميل تجزئة الأجهزة غير متاح</value></data>
@@ -81,12 +80,7 @@
   <data name="Summary.NoDiskSelected" xml:space="preserve"><value>لم يتم تحديد أي قرص</value></data>
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>نظام التشغيل</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>لا يوجد اختيار</value></data>
-  <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>حزمة برامج التشغيل المحددة</value></data>
   <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>ميزات Windows الاختيارية</value></data>
-  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>تم تكوين {0} ({1} تمكين، {2} تعطيل)</value></data>
-  <data name="Summary.Firmware" xml:space="preserve"><value>البرامج الثابتة</value></data>
-  <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>طريقة Autopilot</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot الملف الشخصي</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot علامة المجموعة</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
@@ -107,8 +101,8 @@
 التفاصيل: تم رفض الوصول أثناء تثبيت الصورة على المسار المستهدف.
 الإجراء: تحقق من سمات القرص وأعد محاولة النشر.</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>تحديث</value></data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>يوصى بتحديث وسيط التمهيد</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>تم إنشاء وسيط التمهيد هذا بتنسيق تكوين قديم لـ Foundry OSD. حدّث وسيط التمهيد لضمان التوافق مع أحدث الميزات.</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>يوصى بإعادة إنشاء صورة التمهيد</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>تستخدم صورة التمهيد هذه تنسيق تكوين أقدم لـ Foundry OSD. أعد إنشاءها لضمان التوافق مع أحدث الميزات.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>الإصدار: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>السابق</value></data>
   <data name="Common.Next" xml:space="preserve"><value>التالي</value></data>
@@ -134,7 +128,7 @@
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>الخطوة الفاشلة: {0}</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>مرحبًا</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>تهيئة المكونات...</value></data>
-  <data name="Splash.Start" xml:space="preserve"><value>ابدأ</value></data>
+  <data name="Splash.StartDeployment" xml:space="preserve"><value>بدء النشر</value></data>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>القرص {0} | {1} | {2} | {3}{4}</value></data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
   <data name="Disk.UnknownSize" xml:space="preserve"><value>حجم غير معروف</value></data>
@@ -562,7 +556,6 @@
   <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>لم يتم تكوينه</value></data>
   <data name="Summary.Status.Configured" xml:space="preserve"><value>تم التهيئة</value></data>
   <data name="Summary.Status.NoChanges" xml:space="preserve"><value>لا توجد تغييرات</value></data>
-  <data name="Summary.Hardware" xml:space="preserve"><value>الأجهزة التي تم اكتشافها</value></data>
   <data name="Summary.Release" xml:space="preserve"><value>الإصدار</value></data>
   <data name="Summary.Edition" xml:space="preserve"><value>إصدار نظام التشغيل</value></data>
   <data name="Summary.Architecture" xml:space="preserve"><value>بنية النظام</value></data>
@@ -578,7 +571,6 @@
   <data name="Summary.RestartDelay" xml:space="preserve"><value>تأخير إعادة التشغيل</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} ثانية</value></data>
   <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>سيتم مسح القرص الهدف المحدد عند بدء النشر.</value></data>
-  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>مرحبًا بك في Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>جلسة النشر</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>الخطوات</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>تقدم النشر الإجمالي</value></data>
@@ -587,4 +579,32 @@
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>تفاصيل الخطأ</value></data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>يضيف ملف تعريف Autopilot غير متصل إلى تثبيت Windows.</value></data>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>يحمّل تجزئة أجهزة هذا الجهاز إلى Windows Autopilot أثناء النشر.</value></data>
+  <data name="Summary.Status" xml:space="preserve"><value>الحالة</value></data>
+  <data name="Summary.ProvisioningMethod" xml:space="preserve"><value>طريقة التزويد</value></data>
+  <data name="Summary.WarningDetails" xml:space="preserve"><value>تفاصيل التحذير</value></data>
+  <data name="Summary.DiagnosticData" xml:space="preserve"><value>بيانات التشخيص</value></data>
+  <data name="Summary.LocationAccess" xml:space="preserve"><value>الوصول إلى الموقع</value></data>
+  <data name="Summary.SkipLicenseTerms" xml:space="preserve"><value>تخطي شروط الترخيص</value></data>
+  <data name="Summary.HidePrivacySetup" xml:space="preserve"><value>إخفاء إعداد الخصوصية</value></data>
+  <data name="Summary.TailoredExperiences" xml:space="preserve"><value>تجارب مخصصة</value></data>
+  <data name="Summary.AdvertisingId" xml:space="preserve"><value>معرف الإعلان</value></data>
+  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve"><value>التعرف على الكلام عبر الإنترنت</value></data>
+  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve"><value>تشخيص الكتابة بالحبر والكتابة</value></data>
+  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve"><value>إزالة التطبيق والذكاء الاصطناعي</value></data>
+  <data name="Summary.TotalConfigured" xml:space="preserve"><value>إجمالي التكوين</value></data>
+  <data name="Summary.FeaturesEnabled" xml:space="preserve"><value>تم تمكين الميزات</value></data>
+  <data name="Summary.FeaturesDisabled" xml:space="preserve"><value>الميزات معطلة</value></data>
+  <data name="Summary.WiredDot1x" xml:space="preserve"><value>سلكي 802.1X</value></data>
+  <data name="Summary.Wifi" xml:space="preserve"><value>Wi-Fi</value></data>
+  <data name="Summary.PrivateKeyMaterial" xml:space="preserve"><value>مواد المفتاح الخاص</value></data>
+  <data name="Summary.Included" xml:space="preserve"><value>مشمولة</value></data>
+  <data name="Summary.NotIncluded" xml:space="preserve"><value>غير مشمولة</value></data>
+  <data name="Summary.RestartBehavior" xml:space="preserve"><value>سلوك إعادة التشغيل</value></data>
+  <data name="Summary.Automatic" xml:space="preserve"><value>تلقائي</value></data>
+  <data name="Summary.Manual" xml:space="preserve"><value>يدوي</value></data>
+  <data name="Summary.DiagnosticData.Required" xml:space="preserve"><value>مطلوب</value></data>
+  <data name="Summary.DiagnosticData.Optional" xml:space="preserve"><value>اختياري</value></data>
+  <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>إيقاف</value></data>
+  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>يتم التحكم فيه بواسطة المستخدم</value></data>
+  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>إجباري</value></data>
 </root>

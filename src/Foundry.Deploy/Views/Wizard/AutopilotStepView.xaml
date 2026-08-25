@@ -7,7 +7,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <controls:WizardPageHeader x:Name="PageHeader"
+        <controls:WizardPageHeader
             Title="{Binding DataContext.Strings[Autopilot.Title], ElementName=ViewRoot}"
             Description="{Binding DataContext.Strings[Autopilot.Description], ElementName=ViewRoot}"
             Glyph="&#xE753;" />
@@ -18,9 +18,8 @@
             HorizontalScrollBarVisibility="Disabled"
             Style="{StaticResource ScrollViewerContentGutterStyle}"
             VerticalScrollBarVisibility="Auto">
-            <Grid x:Name="AutopilotContentViewport"
-                MinHeight="{Binding ActualHeight, ElementName=PageContentScrollViewer}">
-                <StackPanel x:Name="AutopilotContent"
+            <Grid MinHeight="{Binding ActualHeight, ElementName=PageContentScrollViewer}">
+                <StackPanel
                     MaxWidth="600"
                     Margin="0,0,0,32"
                     HorizontalAlignment="Stretch"
@@ -158,7 +157,7 @@
                                     <ColumnDefinition Width="16" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock x:Name="HardwareHashUploadStatusGlyph"
+                                <TextBlock
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     FontFamily="{DynamicResource SymbolThemeFontFamily}"

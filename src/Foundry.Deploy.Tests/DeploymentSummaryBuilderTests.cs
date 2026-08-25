@@ -75,6 +75,52 @@ public sealed class DeploymentSummaryBuilderTests
         Assert.Equal(DeploymentSummaryStatus.Caution, operatingSystem.Status);
     }
 
+    [Fact]
+    public void Build_DisablesExpansionWhenRowsDoNotAddInformation()
+    {
+        var builder = new DeploymentSummaryBuilder(key => key);
+        DeploymentSummarySource source = CreateSource() with
+        {
+            WindowsCustomizationRows = [new("Summary.Status", "No changes")]
+        };
+
+        IReadOnlyList<DeploymentSummaryCategoryViewModel> categories = builder.Build(source);
+
+        Assert.False(categories[2].CanExpand);
+        Assert.False(categories[4].CanExpand);
+        Assert.True(categories[5].CanExpand);
+    }
+
+    [Fact]
+    public void IsExpanded_IgnoresExpansionWhenCategoryHasNoAdditionalInformation()
+    {
+        var category = new DeploymentSummaryCategoryViewModel(
+            "Windows customization",
+            "No changes",
+            DeploymentSummaryStatus.Neutral,
+            [new("Status", "No changes")],
+            null);
+
+        category.IsExpanded = true;
+
+        Assert.False(category.IsExpanded);
+    }
+
+    [Fact]
+    public void IsExpanded_AllowsExpansionWhenCategoryHasAdditionalInformation()
+    {
+        var category = new DeploymentSummaryCategoryViewModel(
+            "Network",
+            "Not configured",
+            DeploymentSummaryStatus.Neutral,
+            [new("Network profile roaming", "Disabled")],
+            null);
+
+        category.IsExpanded = true;
+
+        Assert.True(category.IsExpanded);
+    }
+
     private static DeploymentSummarySource CreateSource()
     {
         return new DeploymentSummarySource
@@ -97,7 +143,7 @@ public sealed class DeploymentSummaryBuilderTests
             WindowsCustomizationRows = [],
             IsNetworkConfigured = false,
             NetworkSummary = "Not configured",
-            NetworkRows = [],
+            NetworkRows = [new("Network profile roaming", "Disabled")],
             CompletionSummary = "Automatic restart",
             CompletionRows = []
         };

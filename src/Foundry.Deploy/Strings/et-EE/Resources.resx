@@ -41,7 +41,6 @@
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profiili ettevalmistamine</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch riistvararäsi üleslaadimine</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktiivne riistvararäsi üleslaadimine</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch riistvararäsi üleslaadimine</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Riistvara räsi üleslaadimise olek</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Riistvararäsi üleslaadimiseks valmis</value></data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Riistvararäsi üleslaadimine pole saadaval</value></data>
@@ -81,12 +80,7 @@
   <data name="Summary.NoDiskSelected" xml:space="preserve"><value>Ketast pole valitud</value></data>
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Operatsioonisüsteem</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Valikut pole</value></data>
-  <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Valitud draiveripakett</value></data>
   <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Windowsi valikulised funktsioonid</value></data>
-  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} seadistatud ({1} luba, {2} keela)</value></data>
-  <data name="Summary.Firmware" xml:space="preserve"><value>Püsivara</value></data>
-  <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopiloti meetod</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profiil</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot rühmamärgend</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
@@ -107,8 +101,8 @@ ErrorCode=0x80070005
 Üksikasjad. Juurdepääs on keelatud pildi paigaldamisel sihtteele.
 Toiming: kontrollige ketta atribuute ja proovige juurutamist uuesti.</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>Värskenda</value></data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Soovitatav on algkandja värskendamine</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>See algkandja loodi vanema Foundry OSD konfiguratsioonivorminguga. Värskendage algkandjat, et tagada ühilduvus uusimate funktsioonidega.</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Soovitatav on alglaadimistõmmis uuesti luua</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>See alglaadimistõmmis kasutab vanemat Foundry OSD konfiguratsioonivormingut. Looge see uuesti, et tagada ühilduvus uusimate funktsioonidega.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Versioon: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>Eelmine</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Edasi</value></data>
@@ -134,7 +128,7 @@ Toiming: kontrollige ketta atribuute ja proovige juurutamist uuesti.</value></da
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>Nurjunud samm: {0}</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Tere tulemast</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Komponentide lähtestamine...</value></data>
-  <data name="Splash.Start" xml:space="preserve"><value>Alusta</value></data>
+  <data name="Splash.StartDeployment" xml:space="preserve"><value>Alusta juurutamist</value></data>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>Ketas {0} | {1} | {2} | {3}{4}</value></data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
   <data name="Disk.UnknownSize" xml:space="preserve"><value>Tundmatu suurus</value></data>
@@ -545,7 +539,6 @@ Kas jätkata juurutamisega?</value></data>
   <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Pole konfigureeritud</value></data>
   <data name="Summary.Status.Configured" xml:space="preserve"><value>Konfigureeritud</value></data>
   <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Muudatusi pole</value></data>
-  <data name="Summary.Hardware" xml:space="preserve"><value>Tuvastati riistvara</value></data>
   <data name="Summary.Release" xml:space="preserve"><value>Versioon</value></data>
   <data name="Summary.Edition" xml:space="preserve"><value>Operatsioonisüsteemi väljaanne</value></data>
   <data name="Summary.Architecture" xml:space="preserve"><value>Süsteemi arhitektuur</value></data>
@@ -561,7 +554,6 @@ Kas jätkata juurutamisega?</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Taaskäivitamise viivitus</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} sekundit</value></data>
   <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Valitud sihtketas kustutatakse juurutamise alustamisel.</value></data>
-  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Tere tulemast Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Juurutamise seanss</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Sammud</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Üldine juurutamise edenemine</value></data>
@@ -587,4 +579,32 @@ Kas jätkata juurutamisega?</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Vaadake oma valikud enne juurutamise alustamist üle.</value></data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Lisab Windowsi installi võrguühenduseta Autopiloti profiili.</value></data>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Laadib selle seadme riistvararäsi juurutamise ajal Windows Autopiloti.</value></data>
+  <data name="Summary.Status" xml:space="preserve"><value>Olek</value></data>
+  <data name="Summary.ProvisioningMethod" xml:space="preserve"><value>Ettevalmistusmeetod</value></data>
+  <data name="Summary.WarningDetails" xml:space="preserve"><value>Hoiatuse üksikasjad</value></data>
+  <data name="Summary.DiagnosticData" xml:space="preserve"><value>Diagnostikaandmed</value></data>
+  <data name="Summary.LocationAccess" xml:space="preserve"><value>Juurdepääs asukohale</value></data>
+  <data name="Summary.SkipLicenseTerms" xml:space="preserve"><value>Jäta litsentsitingimused vahele</value></data>
+  <data name="Summary.HidePrivacySetup" xml:space="preserve"><value>Peida privaatsuse seadistus</value></data>
+  <data name="Summary.TailoredExperiences" xml:space="preserve"><value>Kohandatud elamused</value></data>
+  <data name="Summary.AdvertisingId" xml:space="preserve"><value>Reklaami ID</value></data>
+  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve"><value>Veebikõnetuvastus</value></data>
+  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve"><value>Tindi ja trüki diagnostika</value></data>
+  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve"><value>Rakenduse ja tehisintellekti eemaldamine</value></data>
+  <data name="Summary.TotalConfigured" xml:space="preserve"><value>Kokku konfigureeritud</value></data>
+  <data name="Summary.FeaturesEnabled" xml:space="preserve"><value>Funktsioonid lubatud</value></data>
+  <data name="Summary.FeaturesDisabled" xml:space="preserve"><value>Funktsioonid keelatud</value></data>
+  <data name="Summary.WiredDot1x" xml:space="preserve"><value>Juhtmega 802.1X</value></data>
+  <data name="Summary.Wifi" xml:space="preserve"><value>Wi-Fi</value></data>
+  <data name="Summary.PrivateKeyMaterial" xml:space="preserve"><value>Privaatvõtme materjal</value></data>
+  <data name="Summary.Included" xml:space="preserve"><value>Komplektis</value></data>
+  <data name="Summary.NotIncluded" xml:space="preserve"><value>Ei sisaldu</value></data>
+  <data name="Summary.RestartBehavior" xml:space="preserve"><value>Taaskäivituskäitumine</value></data>
+  <data name="Summary.Automatic" xml:space="preserve"><value>Automaatne</value></data>
+  <data name="Summary.Manual" xml:space="preserve"><value>Käsitsi</value></data>
+  <data name="Summary.DiagnosticData.Required" xml:space="preserve"><value>Nõutav</value></data>
+  <data name="Summary.DiagnosticData.Optional" xml:space="preserve"><value>Valikuline</value></data>
+  <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>Väljas</value></data>
+  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>Kasutaja kontrolli all</value></data>
+  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>Sunnitud välja lülitatud</value></data>
 </root>
