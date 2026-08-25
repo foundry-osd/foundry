@@ -44,10 +44,9 @@
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch завантаження апаратного хешу</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Статус завантаження апаратного хешу</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Готовий до завантаження апаратного хешу</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Не готовий до завантаження хешу обладнання</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Термін дії сертифіката завантаження минув</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Завантаження хешу апаратного забезпечення недоступне на цьому носії, оскільки відсутня необхідна інформація про сертифікат. Розгортання можна продовжити, але завантаження буде пропущено.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Термін дії сертифіката Autopilot минув. Розгортання можна продовжити, але завантаження буде пропущено.</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Завантаження апаратного хешу недоступне</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Відсутня необхідна інформація про сертифікат. Розгортання можна продовжити без завантаження апаратного хешу.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Термін дії сертифіката Autopilot минув. Розгортання можна продовжити без завантаження апаратного хешу.</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>ID орендаря</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Термін дії сертифіката</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Тег групи</value></data>

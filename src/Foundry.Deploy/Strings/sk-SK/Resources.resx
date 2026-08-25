@@ -44,10 +44,9 @@
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch nahratie hardvérového hashu</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Stav nahrávania hardvérového hash</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Hardvérový hash je pripravený na odovzdanie</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Nie je pripravené na nahranie hardvérového hash</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Platnosť certifikátu nahrávania vypršala</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Nahrávanie hardvérového hash nie je na tomto médiu k dispozícii, pretože chýbajú požadované informácie o certifikáte. Nasadzovanie môže pokračovať, ale nahrávanie sa preskočí.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Platnosť certifikátu Autopilot vypršala. Nasadzovanie môže pokračovať, ale nahrávanie sa preskočí.</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Nahrávanie hardvérového hash nie je k dispozícii</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Chýbajú požadované informácie o certifikáte. Nasadzovanie môže pokračovať bez nahrania hardvérového hash.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Platnosť certifikátu Autopilot vypršala. Nasadzovanie môže pokračovať bez nahrania hardvérového hash.</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>ID nájomcu</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Platnosť certifikátu</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Skupinová značka</value></data>

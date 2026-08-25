@@ -44,10 +44,9 @@
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch aparatūros maišos įkėlimas</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Aparatinės įrangos maišos įkėlimo būsena</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Paruošta įkelti aparatinės įrangos maišą</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Neparengta įkelti aparatinės įrangos maišos</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Baigėsi įkėlimo sertifikato galiojimas</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Aparatinės įrangos maišos įkėlimas šioje laikmenoje nepasiekiamas, nes trūksta reikiamos sertifikato informacijos. Diegimas gali tęstis, bet įkėlimas bus praleistas.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot sertifikatas pasibaigė. Diegimas gali tęstis, bet įkėlimas bus praleistas.</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Aparatinės įrangos maišos įkėlimas nepasiekiamas</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Trūksta reikiamos sertifikato informacijos. Diegimą galima tęsti neįkeliant aparatinės įrangos maišos.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Baigėsi Autopilot sertifikato galiojimas. Diegimą galima tęsti neįkeliant aparatinės įrangos maišos.</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Nuomininko ID</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Sertifikato galiojimo laikas</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Grupės žyma</value></data>

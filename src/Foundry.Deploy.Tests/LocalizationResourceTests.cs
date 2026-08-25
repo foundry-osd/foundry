@@ -60,6 +60,7 @@ public sealed class LocalizationResourceTests
         "Autopilot.JsonProfileMethodDescription",
         "Autopilot.HardwareHashUploadMethodDescription",
         "Autopilot.ConfigurationDetails",
+        "Preparation.AutopilotHardwareHashUnavailableStatus",
         "Summary.Category.TargetDevice",
         "Summary.Category.OperatingSystem",
         "Summary.Category.Drivers",
@@ -173,6 +174,15 @@ public sealed class LocalizationResourceTests
 
         Assert.NotNull(resourceSet);
         Assert.Equal("Deployment complete", resourceSet.GetString("Success.Completed"));
+        Assert.Equal(
+            "Hardware hash upload unavailable",
+            resourceSet.GetString("Preparation.AutopilotHardwareHashUnavailableStatus"));
+        Assert.Equal(
+            "The Autopilot certificate has expired. Deployment can continue without uploading the hardware hash.",
+            resourceSet.GetString("Preparation.AutopilotHardwareHashExpiredMessage"));
+        Assert.Equal(
+            "Required certificate information is missing. Deployment can continue without uploading the hardware hash.",
+            resourceSet.GetString("Preparation.AutopilotHardwareHashMissingMetadataMessage"));
         Assert.Equal("Failed step: {0}", resourceSet.GetString("Error.FailedStepFormat"));
         Assert.Equal("View error details", resourceSet.GetString("Error.ViewTechnicalDetails"));
         Assert.Equal("Error details", resourceSet.GetString("Error.TechnicalDetailsTitle"));

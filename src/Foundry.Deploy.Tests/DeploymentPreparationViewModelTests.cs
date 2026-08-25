@@ -180,7 +180,9 @@ public sealed class DeploymentPreparationViewModelTests
         Assert.Same(hardwareHashUpload, viewModel.AutopilotHardwareHashUpload);
         Assert.True(viewModel.IsHardwareHashCertificateUsable);
         Assert.True(viewModel.IsHardwareHashGroupTagControlsVisible);
-        Assert.False(string.IsNullOrWhiteSpace(viewModel.AutopilotHardwareHashUploadStatusText));
+        Assert.Equal(
+            viewModel.Strings["Preparation.AutopilotHardwareHashReadyStatus"],
+            viewModel.AutopilotHardwareHashUploadStatusText);
         Assert.False(viewModel.IsHardwareHashUploadMessageVisible);
         Assert.True(string.IsNullOrWhiteSpace(viewModel.AutopilotHardwareHashUploadMessage));
         Assert.Equal("tenant-id", viewModel.AutopilotHardwareHashTenantIdText);
@@ -233,9 +235,13 @@ public sealed class DeploymentPreparationViewModelTests
         Assert.True(viewModel.IsHardwareHashCertificateExpired);
         Assert.False(viewModel.IsHardwareHashCertificateUsable);
         Assert.False(viewModel.IsHardwareHashGroupTagControlsVisible);
-        Assert.False(string.IsNullOrWhiteSpace(viewModel.AutopilotHardwareHashUploadStatusText));
+        Assert.Equal(
+            viewModel.Strings["Preparation.AutopilotHardwareHashUnavailableStatus"],
+            viewModel.AutopilotHardwareHashUploadStatusText);
         Assert.True(viewModel.IsHardwareHashUploadMessageVisible);
-        Assert.False(string.IsNullOrWhiteSpace(viewModel.AutopilotHardwareHashUploadMessage));
+        Assert.Equal(
+            viewModel.Strings["Preparation.AutopilotHardwareHashExpiredMessage"],
+            viewModel.AutopilotHardwareHashUploadMessage);
     }
 
     [Fact]
@@ -256,6 +262,12 @@ public sealed class DeploymentPreparationViewModelTests
         Assert.False(viewModel.IsHardwareHashCertificateUsable);
         Assert.False(viewModel.IsHardwareHashGroupTagControlsVisible);
         Assert.True(viewModel.IsHardwareHashUploadMessageVisible);
+        Assert.Equal(
+            viewModel.Strings["Preparation.AutopilotHardwareHashUnavailableStatus"],
+            viewModel.AutopilotHardwareHashUploadStatusText);
+        Assert.Equal(
+            viewModel.Strings["Preparation.AutopilotHardwareHashMissingMetadataMessage"],
+            viewModel.AutopilotHardwareHashUploadMessage);
     }
 
     [Fact]

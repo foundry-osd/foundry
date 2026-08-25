@@ -44,10 +44,9 @@
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>제로터치 하드웨어 해시 업로드</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>하드웨어 해시 업로드 상태</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>하드웨어 해시를 업로드할 준비가 되었습니다.</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>하드웨어 해시를 업로드할 준비가 되지 않았습니다.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>업로드 인증서가 만료되었습니다.</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>필수 인증서 정보가 누락되어 이 미디어에서 하드웨어 해시 업로드를 사용할 수 없습니다. 배포는 계속할 수 있지만 업로드는 건너뜁니다.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot 인증서가 만료되었습니다. 배포는 계속할 수 있지만 업로드는 건너뜁니다.</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>하드웨어 해시 업로드를 사용할 수 없음</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>필수 인증서 정보가 없습니다. 하드웨어 해시를 업로드하지 않고 배포를 계속할 수 있습니다.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot 인증서가 만료되었습니다. 하드웨어 해시를 업로드하지 않고 배포를 계속할 수 있습니다.</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>테넌트 ID</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>인증서 만료</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>그룹 태그</value></data>

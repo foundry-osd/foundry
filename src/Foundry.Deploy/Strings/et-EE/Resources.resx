@@ -44,10 +44,9 @@
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch riistvararäsi üleslaadimine</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Riistvara räsi üleslaadimise olek</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Riistvararäsi üleslaadimiseks valmis</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Pole valmis riistvararäsi üles laadima</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Üleslaadimise sertifikaat on aegunud</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Riistvara räsi üleslaadimine pole sellel meediumil saadaval, kuna nõutav sertifikaadi teave puudub. Juurutamist saab jätkata, kuid üleslaadimine jäetakse vahele.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot sertifikaat on aegunud. Juurutamist saab jätkata, kuid üleslaadimine jäetakse vahele.</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Riistvararäsi üleslaadimine pole saadaval</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Nõutav sertifikaadi teave puudub. Juurutamist saab jätkata ilma riistvararäsi üles laadimata.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopiloti sertifikaat on aegunud. Juurutamist saab jätkata ilma riistvararäsi üles laadimata.</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Üürniku ID</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Sertifikaadi kehtivusaeg</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Grupi silt</value></data>

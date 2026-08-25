@@ -44,10 +44,9 @@
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Bezobsługowe przesyłanie skrótu sprzętowego</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Stan przesyłania skrótu sprzętowego</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Gotowy do przesłania skrótu sprzętowego</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Nie jest gotowy do przesłania skrótu sprzętowego</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Certyfikat przesyłania wygasł</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Przesyłanie skrótu sprzętowego jest niedostępne na tym nośniku, ponieważ brakuje wymaganych informacji o certyfikacie. Wdrożenie może być kontynuowane, ale przesyłanie zostanie pominięte.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Certyfikat Autopilot wygasł. Wdrożenie może być kontynuowane, ale przesyłanie zostanie pominięte.</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Przesyłanie skrótu sprzętowego jest niedostępne</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Brakuje wymaganych informacji o certyfikacie. Wdrożenie może być kontynuowane bez przesyłania skrótu sprzętowego.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Certyfikat Autopilot wygasł. Wdrożenie może być kontynuowane bez przesyłania skrótu sprzętowego.</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Identyfikator najemcy</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Wygaśnięcie certyfikatu</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Etykieta grupowa</value></data>

@@ -44,10 +44,9 @@
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch hardverhash-feltöltés</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Hardver hash feltöltési állapota</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Készen áll a hardveres hash feltöltésére</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Nem áll készen a hardveres hash feltöltésére</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>A feltöltési tanúsítvány lejárt</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>A hardveres hash-feltöltés nem érhető el ezen az adathordozón, mert hiányoznak a szükséges tanúsítványinformációk. A telepítés folytatódhat, de a feltöltés kimarad.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>A Autopilot tanúsítvány lejárt. A telepítés folytatódhat, de a feltöltés kimarad.</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>A hardveres hash-feltöltés nem érhető el</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Hiányoznak a szükséges tanúsítványinformációk. A telepítés a hardveres hash feltöltése nélkül is folytatható.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Az Autopilot tanúsítvány lejárt. A telepítés a hardveres hash feltöltése nélkül is folytatható.</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Bérlői azonosító</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Tanúsítvány lejárata</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Csoportcímke</value></data>

@@ -44,10 +44,9 @@
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch hardware-hash-upload</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Uploadstatus van hardware-hash</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Klaar om hardware-hash te uploaden</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Niet klaar om hardware-hash te uploaden</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Uploadcertificaat is verlopen</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Hardware-hash-upload is niet beschikbaar op dit medium omdat de vereiste certificaatinformatie ontbreekt. De implementatie kan doorgaan, maar het uploaden wordt overgeslagen.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Het Autopilot-certificaat is verlopen. De implementatie kan doorgaan, maar het uploaden wordt overgeslagen.</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Uploaden van hardware-hash niet beschikbaar</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Vereiste certificaatinformatie ontbreekt. De implementatie kan doorgaan zonder de hardware-hash te uploaden.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Het Autopilot-certificaat is verlopen. De implementatie kan doorgaan zonder de hardware-hash te uploaden.</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Huurder-ID</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Vervaldatum certificaat</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Groepstag</value></data>

@@ -153,9 +153,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
                 return GetString("Preparation.AutopilotHardwareHashReadyStatus");
             }
 
-            return IsHardwareHashCertificateExpired
-                ? GetString("Preparation.AutopilotHardwareHashExpiredStatus")
-                : GetString("Preparation.AutopilotHardwareHashNotReadyStatus");
+            return GetString("Preparation.AutopilotHardwareHashUnavailableStatus");
         }
     }
 

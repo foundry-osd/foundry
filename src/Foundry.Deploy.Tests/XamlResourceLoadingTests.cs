@@ -179,6 +179,16 @@ public sealed class XamlResourceLoadingTests
                 Assert.Equal(HorizontalAlignment.Center, autopilotStatusGlyph.HorizontalAlignment);
                 Assert.Equal(VerticalAlignment.Center, autopilotStatusGlyph.VerticalAlignment);
                 Assert.Equal(new Thickness(0), autopilotStatusGlyph.Margin);
+                Assert.Equal("\uE73E", autopilotStatusGlyph.Text);
+                Assert.Same(application.FindResource("SystemFillColorSuccessBrush"), autopilotStatusGlyph.Foreground);
+
+                autopilotStatusGlyph.DataContext = new AutopilotStatusTestState();
+                autopilotStatusGlyph.Dispatcher.Invoke(
+                    static () => { },
+                    System.Windows.Threading.DispatcherPriority.DataBind);
+
+                Assert.Equal("\uE7BA", autopilotStatusGlyph.Text);
+                Assert.Same(application.FindResource("SystemFillColorCautionBrush"), autopilotStatusGlyph.Foreground);
 
                 var verticalStepTemplate = Assert.IsType<DataTemplate>(
                     wizardView.FindResource("VerticalStepTemplate"));
@@ -419,5 +429,10 @@ public sealed class XamlResourceLoadingTests
             relativeTo).Y;
         double lowerTop = lowerElement.TranslatePoint(new Point(), relativeTo).Y;
         return lowerTop - upperBottom;
+    }
+
+    public sealed class AutopilotStatusTestState
+    {
+        public bool IsHardwareHashUploadMessageVisible => true;
     }
 }

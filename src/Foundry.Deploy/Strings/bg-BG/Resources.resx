@@ -44,10 +44,9 @@
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch качване на хардуерен хеш</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Състояние на качване на хардуерен хеш</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Готов за качване на хардуерен хеш</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Не е готов за качване на хардуерен хеш</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Сертификатът за качване е изтекъл</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Качването на хардуерен хеш не е налично на този носител, тъй като липсва необходимата информация за сертификата. Внедряването може да продължи, но качването ще бъде пропуснато.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Сертификатът Autopilot е изтекъл. Внедряването може да продължи, но качването ще бъде пропуснато.</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Качването на хардуерен хеш не е налично</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Необходимата информация за сертификата липсва. Внедряването може да продължи без качване на хардуерния хеш.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Сертификатът Autopilot е изтекъл. Внедряването може да продължи без качване на хардуерния хеш.</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>ID на наемателя</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Изтичане на сертификата</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Групов етикет</value></data>

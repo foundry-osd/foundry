@@ -167,17 +167,17 @@
                                         <Style TargetType="TextBlock">
                                             <Setter
                                                 Property="Foreground"
-                                                Value="{DynamicResource TextFillColorSecondaryBrush}" />
+                                                Value="{DynamicResource SystemFillColorSuccessBrush}" />
                                             <Setter
                                                 Property="Text"
-                                                Value="&#xE946;" />
+                                                Value="&#xE73E;" />
                                             <Style.Triggers>
                                                 <DataTrigger
                                                     Binding="{Binding IsHardwareHashUploadMessageVisible}"
                                                     Value="True">
                                                     <Setter
                                                         Property="Foreground"
-                                                        Value="{DynamicResource SystemFillColorCriticalBrush}" />
+                                                        Value="{DynamicResource SystemFillColorCautionBrush}" />
                                                     <Setter
                                                         Property="Text"
                                                         Value="&#xE7BA;" />
@@ -189,14 +189,11 @@
                                 <StackPanel Grid.Column="2">
                                     <TextBlock
                                         Style="{StaticResource BodyStrongTextBlockStyle}"
-                                        Text="{Binding DataContext.Strings[Preparation.AutopilotHardwareHashUploadStatus], ElementName=ViewRoot}" />
-                                    <TextBlock
-                                        Margin="0,4,0,0"
                                         Text="{Binding AutopilotHardwareHashUploadStatusText}"
                                         TextWrapping="Wrap" />
                                     <TextBlock
-                                        Margin="0,8,0,0"
-                                        Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                                        Margin="0,4,0,0"
+                                        Foreground="{DynamicResource SystemFillColorCautionBrush}"
                                         Text="{Binding AutopilotHardwareHashUploadMessage}"
                                         TextWrapping="Wrap"
                                         Visibility="{Binding IsHardwareHashUploadMessageVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />

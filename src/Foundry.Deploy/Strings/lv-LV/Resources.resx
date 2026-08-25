@@ -44,10 +44,9 @@
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch aparatūras jaucējkoda augšupielāde</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Aparatūras hash augšupielādes statuss</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Gatavs aparatūras hash augšupielādei</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Nav gatavs augšupielādēt aparatūras hash</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Augšupielādes sertifikāta derīguma termiņš ir beidzies</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Aparatūras jauktā augšupielāde šajā datu nesējā nav pieejama, jo trūkst vajadzīgās sertifikāta informācijas. Izvietošanu var turpināt, taču augšupielāde tiks izlaista.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot sertifikātam ir beidzies derīguma termiņš. Izvietošanu var turpināt, taču augšupielāde tiks izlaista.</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Aparatūras hash augšupielāde nav pieejama</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Trūkst nepieciešamās sertifikāta informācijas. Izvietošanu var turpināt, neaugšupielādējot aparatūras hash.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot sertifikāta derīguma termiņš ir beidzies. Izvietošanu var turpināt, neaugšupielādējot aparatūras hash.</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Īrnieka ID</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Sertifikāta derīguma termiņš</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Grupas atzīme</value></data>

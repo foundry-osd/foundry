@@ -44,10 +44,9 @@
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch nalaganje zgoščene vrednosti strojne opreme</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Stanje nalaganja zgoščene vrednosti strojne opreme</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Pripravljen za nalaganje zgoščene vrednosti strojne opreme</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Ni pripravljen za nalaganje zgoščene vrednosti strojne opreme</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Potrdilo za nalaganje je poteklo</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Nalaganje zgoščene vrednosti strojne opreme na tem mediju ni na voljo, ker manjkajo zahtevane informacije o potrdilu. Uvajanje se lahko nadaljuje, vendar bo nalaganje preskočeno.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Potrdilo Autopilot je poteklo. Uvajanje se lahko nadaljuje, vendar bo nalaganje preskočeno.</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Nalaganje zgoščene vrednosti strojne opreme ni na voljo</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Manjkajo zahtevane informacije o potrdilu. Uvajanje se lahko nadaljuje brez nalaganja zgoščene vrednosti strojne opreme.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Potrdilo Autopilot je poteklo. Uvajanje se lahko nadaljuje brez nalaganja zgoščene vrednosti strojne opreme.</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>ID najemnika</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Potek veljavnosti potrdila</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Oznaka skupine</value></data>

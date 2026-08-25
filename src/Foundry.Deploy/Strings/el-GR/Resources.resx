@@ -44,10 +44,9 @@
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch αποστολή κατακερματισμού υλικού</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Κατάσταση μεταφόρτωσης κατακερματισμού υλικού</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Έτοιμο για μεταφόρτωση κατακερματισμού υλικού</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Δεν είναι έτοιμο για μεταφόρτωση κατακερματισμού υλικού</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Το πιστοποιητικό μεταφόρτωσης έχει λήξει</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Η μεταφόρτωση κατακερματισμού υλικού δεν είναι διαθέσιμη σε αυτό το μέσο επειδή λείπουν οι απαιτούμενες πληροφορίες πιστοποιητικού. Η ανάπτυξη μπορεί να συνεχιστεί, αλλά η μεταφόρτωση θα παραλειφθεί.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Το πιστοποιητικό Autopilot έχει λήξει. Η ανάπτυξη μπορεί να συνεχιστεί, αλλά η μεταφόρτωση θα παραλειφθεί.</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Η μεταφόρτωση κατακερματισμού υλικού δεν είναι διαθέσιμη</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Λείπουν οι απαιτούμενες πληροφορίες πιστοποιητικού. Η ανάπτυξη μπορεί να συνεχιστεί χωρίς μεταφόρτωση του κατακερματισμού υλικού.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Το πιστοποιητικό Autopilot έχει λήξει. Η ανάπτυξη μπορεί να συνεχιστεί χωρίς μεταφόρτωση του κατακερματισμού υλικού.</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Ταυτότητα μισθωτή</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Λήξη πιστοποιητικού</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Ετικέτα ομάδας</value></data>

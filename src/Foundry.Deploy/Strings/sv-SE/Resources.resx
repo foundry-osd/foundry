@@ -44,10 +44,9 @@
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch-uppladdning av maskinvaruhash</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Hårdvaruhashuppladdningsstatus</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Redo att ladda upp hårdvaruhash</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Inte redo att ladda upp hårdvaruhash</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Uppladdningscertifikatet har löpt ut</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Hårdvaruhashuppladdning är inte tillgänglig på det här mediet eftersom obligatorisk certifikatinformation saknas. Implementeringen kan fortsätta, men uppladdningen hoppas över.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot-certifikatet har löpt ut. Implementeringen kan fortsätta, men uppladdningen hoppas över.</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Uppladdning av hårdvaruhash är inte tillgänglig</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Obligatorisk certifikatinformation saknas. Implementeringen kan fortsätta utan att ladda upp hårdvaruhashen.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot-certifikatet har löpt ut. Implementeringen kan fortsätta utan att ladda upp hårdvaruhashen.</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Hyresgäst ID</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Certifikats giltighetstid</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Grupptagg</value></data>

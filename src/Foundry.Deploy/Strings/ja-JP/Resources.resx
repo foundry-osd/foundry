@@ -44,10 +44,9 @@
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>ゼロタッチ ハードウェア ハッシュ アップロード</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>ハードウェア ハッシュのアップロード ステータス</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>ハードウェア ハッシュをアップロードする準備ができました</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>ハードウェア ハッシュをアップロードする準備ができていません</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>アップロード証明書の有効期限が切れています</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>必要な証明書情報が欠落しているため、このメディアではハードウェア ハッシュ アップロードを利用できません。展開は続行できますが、アップロードはスキップされます。</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot 証明書の有効期限が切れました。展開は続行できますが、アップロードはスキップされます。</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>ハードウェア ハッシュのアップロードは利用できません</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>必要な証明書情報がありません。ハードウェア ハッシュをアップロードせずに展開を続行できます。</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot 証明書の有効期限が切れています。ハードウェア ハッシュをアップロードせずに展開を続行できます。</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>テナントID</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>証明書の有効期限</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>グループタグ</value></data>

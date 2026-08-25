@@ -44,10 +44,9 @@
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-Touch-Hardware-Hash-Upload</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Status des Hardware-Hash-Uploads</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Bereit zum Hochladen des Hardware-Hashs</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Nicht bereit zum Hochladen des Hardware-Hashs</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Das Upload-Zertifikat ist abgelaufen</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Der Hardware-Hash-Upload ist auf diesem Medium nicht möglich, da die erforderlichen Zertifikatsinformationen fehlen. Die Bereitstellung kann fortgesetzt werden, der Upload wird jedoch übersprungen.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Das Autopilot-Zertifikat ist abgelaufen. Die Bereitstellung kann fortgesetzt werden, der Upload wird jedoch übersprungen.</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Hardware-Hash-Upload nicht verfügbar</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Erforderliche Zertifikatsinformationen fehlen. Die Bereitstellung kann ohne Hochladen des Hardware-Hashs fortgesetzt werden.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Das Autopilot-Zertifikat ist abgelaufen. Die Bereitstellung kann ohne Hochladen des Hardware-Hashs fortgesetzt werden.</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Mieter-ID</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Ablauf des Zertifikats</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Gruppen-Tag</value></data>

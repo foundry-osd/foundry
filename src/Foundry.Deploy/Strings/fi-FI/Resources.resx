@@ -44,10 +44,9 @@
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch-laitteiston hajautusarvon lataus</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Laitteiston hajautuslatauksen tila</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Valmiina lataamaan laitteiston hash</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Ei valmis lataamaan laitteistotiivistettä</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Latausvarmenne on vanhentunut</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Laitteiston hash-lataus ei ole saatavilla tälle medialle, koska vaaditut varmennetiedot puuttuvat. Käyttöönotto voi jatkua, mutta lataus ohitetaan.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot-varmenne on vanhentunut. Käyttöönotto voi jatkua, mutta lataus ohitetaan.</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Laitteiston hash-lataus ei ole käytettävissä</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Vaaditut varmennetiedot puuttuvat. Käyttöönottoa voidaan jatkaa lataamatta laitteiston hash-arvoa.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot-varmenne on vanhentunut. Käyttöönottoa voidaan jatkaa lataamatta laitteiston hash-arvoa.</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Vuokralaisen tunnus</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Varmenteen voimassaolo päättyy</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Ryhmätunniste</value></data>

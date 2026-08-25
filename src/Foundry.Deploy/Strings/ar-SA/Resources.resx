@@ -44,10 +44,9 @@
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>تحميل zero-touch لتجزئة الأجهزة</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>حالة تحميل تجزئة الأجهزة</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>جاهز لتحميل تجزئة الأجهزة</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>غير جاهز لتحميل تجزئة الأجهزة</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>انتهت صلاحية شهادة التحميل</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>لا يتوفر تحميل تجزئة الأجهزة على هذه الوسائط لأن معلومات الشهادة المطلوبة مفقودة. يمكن أن يستمر النشر، ولكن سيتم تخطي التحميل.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>انتهت صلاحية الشهادة Autopilot. يمكن أن يستمر النشر، ولكن سيتم تخطي التحميل.</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>تحميل تجزئة الأجهزة غير متاح</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>معلومات الشهادة المطلوبة مفقودة. يمكن أن يستمر النشر بدون تحميل تجزئة الأجهزة.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>انتهت صلاحية شهادة Autopilot. يمكن أن يستمر النشر بدون تحميل تجزئة الأجهزة.</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>معرف المستأجر</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>انتهاء صلاحية الشهادة</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>علامة المجموعة</value></data>

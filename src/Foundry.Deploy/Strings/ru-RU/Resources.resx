@@ -44,10 +44,9 @@
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch отправка аппаратного хеша</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Статус загрузки аппаратного хеша</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Готово загрузить аппаратный хэш</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Не готов загрузить аппаратный хэш</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Срок действия сертификата загрузки истек</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Загрузка хэша оборудования недоступна на этом носителе, поскольку отсутствует необходимая информация о сертификате. Развертывание можно продолжить, но загрузка будет пропущена.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Срок действия сертификата Autopilot истек. Развертывание можно продолжить, но загрузка будет пропущена.</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Загрузка аппаратного хеша недоступна</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Отсутствует необходимая информация о сертификате. Развертывание можно продолжить без загрузки аппаратного хеша.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Срок действия сертификата Autopilot истек. Развертывание можно продолжить без загрузки аппаратного хеша.</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Идентификатор арендатора</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Срок действия сертификата</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Тег группы</value></data>

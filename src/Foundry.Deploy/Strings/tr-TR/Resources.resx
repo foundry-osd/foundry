@@ -44,10 +44,9 @@
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch donanım karması yükleme</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Donanım karma yükleme durumu</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Donanım karmasını yüklemeye hazır</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Donanım karmasını yüklemeye hazır değil</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Yükleme sertifikasının süresi doldu</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Gerekli sertifika bilgileri eksik olduğundan donanım karma yüklemesi bu ortamda kullanılamıyor. Dağıtım devam edebilir ancak yükleme atlanacaktır.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot sertifikasının süresi doldu. Dağıtım devam edebilir ancak yükleme atlanacaktır.</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Donanım karma yüklemesi kullanılamıyor</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Gerekli sertifika bilgileri eksik. Dağıtım, donanım karması yüklenmeden devam edebilir.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot sertifikasının süresi doldu. Dağıtım, donanım karması yüklenmeden devam edebilir.</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Kiracı Kimliği</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Sertifikanın geçerlilik süresi</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Grup etiketi</value></data>

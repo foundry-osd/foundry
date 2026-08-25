@@ -44,10 +44,9 @@
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch opplasting av maskinvarehash</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Maskinvarehash-opplastingsstatus</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Klar til å laste opp maskinvarehash</value></data>
-  <data name="Preparation.AutopilotHardwareHashNotReadyStatus" xml:space="preserve"><value>Ikke klar til å laste opp maskinvarehash</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredStatus" xml:space="preserve"><value>Opplastingssertifikatet er utløpt</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Maskinvarehash-opplasting er utilgjengelig på dette mediet fordi nødvendig sertifikatinformasjon mangler. Implementeringen kan fortsette, men opplastingen blir hoppet over.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot-sertifikatet har utløpt. Implementeringen kan fortsette, men opplastingen blir hoppet over.</value></data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Opplasting av maskinvarehash er ikke tilgjengelig</value></data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Nødvendig sertifikatinformasjon mangler. Implementeringen kan fortsette uten å laste opp maskinvarehashen.</value></data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot-sertifikatet er utløpt. Implementeringen kan fortsette uten å laste opp maskinvarehashen.</value></data>
   <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>Leietaker ID</value></data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Sertifikat utløper</value></data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Gruppemerke</value></data>
