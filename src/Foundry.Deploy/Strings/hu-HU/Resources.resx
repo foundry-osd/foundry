@@ -41,7 +41,6 @@
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profil létrehozása</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch hardverhash-feltöltés</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktív hardverhash-feltöltés</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch hardverhash-feltöltés</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Hardver hash feltöltési állapota</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Készen áll a hardveres hash feltöltésére</value></data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>A hardveres hash-feltöltés nem érhető el</value></data>
@@ -81,12 +80,7 @@
   <data name="Summary.NoDiskSelected" xml:space="preserve"><value>Nincs lemez kiválasztva</value></data>
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Operációs rendszer</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Nincs kiválasztás</value></data>
-  <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Kiválasztott illesztőprogram-csomag</value></data>
   <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>A Windows opcion&#225;lis szolg&#225;ltat&#225;sai</value></data>
-  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} konfigur&#225;lva ({1} enged&#233;lyezve, {2} letiltva)</value></data>
-  <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
-  <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot-módszer</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profil</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot csoportcímke</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
@@ -107,8 +101,8 @@ ErrorCode=0x80070005
 Részletek: A hozzáférés megtagadva a kép célútvonalhoz való csatlakoztatása közben.
 Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a központi telepítéssel.</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>Frissítés</value></data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>A rendszerindító adathordozó frissítése ajánlott</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Ez a rendszerindító adathordozó egy régebbi Foundry OSD konfigurációs formátummal készült. Frissítse a rendszerindító adathordozót a legújabb funkciókkal való kompatibilitás biztosításához.</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>A rendszerindító lemezkép újbóli létrehozása ajánlott</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Ez a rendszerindító lemezkép egy régebbi Foundry OSD konfigurációs formátumot használ. Hozza létre újra a legújabb funkciókkal való kompatibilitás biztosításához.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Verzió: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>Előző</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Következő</value></data>
@@ -134,7 +128,7 @@ Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a közpo
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>Sikertelen lépés: {0}</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Üdvözöljük</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Összetevők inicializálása...</value></data>
-  <data name="Splash.Start" xml:space="preserve"><value>Indítsa el</value></data>
+  <data name="Splash.StartDeployment" xml:space="preserve"><value>Telepítés indítása</value></data>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>Lemez {0} | {1} | {2} | {3}{4}</value></data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
   <data name="Disk.UnknownSize" xml:space="preserve"><value>Ismeretlen méret</value></data>
@@ -545,7 +539,6 @@ Folytatja a telepítést?</value></data>
   <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Nincs konfigurálva</value></data>
   <data name="Summary.Status.Configured" xml:space="preserve"><value>Konfigurálva</value></data>
   <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Nincs változás</value></data>
-  <data name="Summary.Hardware" xml:space="preserve"><value>Észlelt hardver</value></data>
   <data name="Summary.Release" xml:space="preserve"><value>Verzió</value></data>
   <data name="Summary.Edition" xml:space="preserve"><value>Kiadás</value></data>
   <data name="Summary.Architecture" xml:space="preserve"><value>Architektúra</value></data>
@@ -561,7 +554,6 @@ Folytatja a telepítést?</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Újraindítási késleltetés</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} másodperc</value></data>
   <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>A kiválasztott céllemez törlődik a központi telepítés megkezdésekor.</value></data>
-  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Üdvözöljük a Foundry Deployban</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Telepítési munkamenet</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Lépések</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>A telepítés általános előrehaladása</value></data>
@@ -587,4 +579,32 @@ Folytatja a telepítést?</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Az üzembe helyezés megkezdése előtt tekintse át a választásait.</value></data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Offline Autopilot-profilt ad a Windows-telepítéshez.</value></data>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>A telepítés során feltölti az eszköz hardverkivonatát a Windows Autopilotba.</value></data>
+  <data name="Summary.Status" xml:space="preserve"><value>Állapot</value></data>
+  <data name="Summary.ProvisioningMethod" xml:space="preserve"><value>Provisioning method</value></data>
+  <data name="Summary.WarningDetails" xml:space="preserve"><value>Warning details</value></data>
+  <data name="Summary.DiagnosticData" xml:space="preserve"><value>Diagnostic data</value></data>
+  <data name="Summary.LocationAccess" xml:space="preserve"><value>Location access</value></data>
+  <data name="Summary.SkipLicenseTerms" xml:space="preserve"><value>Skip license terms</value></data>
+  <data name="Summary.HidePrivacySetup" xml:space="preserve"><value>Hide privacy setup</value></data>
+  <data name="Summary.TailoredExperiences" xml:space="preserve"><value>Tailored experiences</value></data>
+  <data name="Summary.AdvertisingId" xml:space="preserve"><value>Advertising ID</value></data>
+  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve"><value>Online speech recognition</value></data>
+  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve"><value>Inking and typing diagnostics</value></data>
+  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve"><value>Application and AI removal</value></data>
+  <data name="Summary.TotalConfigured" xml:space="preserve"><value>Total configured</value></data>
+  <data name="Summary.FeaturesEnabled" xml:space="preserve"><value>Features enabled</value></data>
+  <data name="Summary.FeaturesDisabled" xml:space="preserve"><value>Funkciók letiltva</value></data>
+  <data name="Summary.WiredDot1x" xml:space="preserve"><value>Vezetékes 802.1X</value></data>
+  <data name="Summary.Wifi" xml:space="preserve"><value>Wi-Fi</value></data>
+  <data name="Summary.PrivateKeyMaterial" xml:space="preserve"><value>Privát kulcsú anyag</value></data>
+  <data name="Summary.Included" xml:space="preserve"><value>Tartalmazza</value></data>
+  <data name="Summary.NotIncluded" xml:space="preserve"><value>Nem tartalmazza</value></data>
+  <data name="Summary.RestartBehavior" xml:space="preserve"><value>Újraindítási viselkedés</value></data>
+  <data name="Summary.Automatic" xml:space="preserve"><value>Automatikus</value></data>
+  <data name="Summary.Manual" xml:space="preserve"><value>Kézi</value></data>
+  <data name="Summary.DiagnosticData.Required" xml:space="preserve"><value>Szükséges</value></data>
+  <data name="Summary.DiagnosticData.Optional" xml:space="preserve"><value>Opcionális</value></data>
+  <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>Ki</value></data>
+  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>Felhasználó által vezérelt</value></data>
+  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>Kényszerített</value></data>
 </root>

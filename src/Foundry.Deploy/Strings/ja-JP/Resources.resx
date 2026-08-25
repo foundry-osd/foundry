@@ -41,7 +41,6 @@
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON プロファイルのプロビジョニング</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>ゼロタッチ ハードウェア ハッシュのアップロード</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>対話型ハードウェア ハッシュ アップロード</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>ゼロタッチ ハードウェア ハッシュ アップロード</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>ハードウェア ハッシュのアップロード ステータス</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>ハードウェア ハッシュをアップロードする準備ができました</value></data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>ハードウェア ハッシュのアップロードは利用できません</value></data>
@@ -81,12 +80,7 @@
   <data name="Summary.NoDiskSelected" xml:space="preserve"><value>ディスクが選択されていません</value></data>
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>オペレーティングシステム</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>選択なし</value></data>
-  <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>選択されたドライバー パック</value></data>
   <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Windowsのオプション機能</value></data>
-  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} が構成されました ({1} が有効、{2} が無効)</value></data>
-  <data name="Summary.Firmware" xml:space="preserve"><value>ファームウェア</value></data>
-  <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot メソッド</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot プロフィール</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot グループタグ</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
@@ -107,8 +101,8 @@
 詳細: イメージをターゲット パスにマウント中にアクセスが拒否されました。
 処置: ディスク属性を確認し、デプロイメントを再試行してください。</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>リフレッシュ</value></data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>ブート メディアの更新を推奨</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>このブート メディアは古い Foundry OSD 構成形式で生成されています。最新機能との互換性を確保するため、ブート メディアを更新してください。</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>ブート イメージの再生成を推奨</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>このブート イメージは古い Foundry OSD 構成形式を使用しています。最新機能との互換性を確保するため、再生成してください。</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>バージョン: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>前へ</value></data>
   <data name="Common.Next" xml:space="preserve"><value>次へ</value></data>
@@ -134,7 +128,7 @@
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>失敗したステップ: {0}</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>ようこそ</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>コンポーネントを初期化しています...</value></data>
-  <data name="Splash.Start" xml:space="preserve"><value>スタート</value></data>
+  <data name="Splash.StartDeployment" xml:space="preserve"><value>展開を開始</value></data>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>ディスク {0} | {1} | {2} | {3}{4}</value></data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
   <data name="Disk.UnknownSize" xml:space="preserve"><value>不明なサイズ</value></data>
@@ -562,7 +556,6 @@
   <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>未構成</value></data>
   <data name="Summary.Status.Configured" xml:space="preserve"><value>設定済み</value></data>
   <data name="Summary.Status.NoChanges" xml:space="preserve"><value>変更なし</value></data>
-  <data name="Summary.Hardware" xml:space="preserve"><value>ハードウェアが検出されました</value></data>
   <data name="Summary.Release" xml:space="preserve"><value>バージョン</value></data>
   <data name="Summary.Edition" xml:space="preserve"><value>エディション</value></data>
   <data name="Summary.Architecture" xml:space="preserve"><value>システムアーキテクチャ</value></data>
@@ -578,7 +571,6 @@
   <data name="Summary.RestartDelay" xml:space="preserve"><value>再起動の遅延</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} 秒</value></data>
   <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>選択したターゲット ディスクは、展開の開始時に消去されます。</value></data>
-  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Foundry Deploy へようこそ</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>セッション</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>手順</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>全体的な展開の進行状況</value></data>
@@ -587,4 +579,32 @@
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>エラーの詳細</value></data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>オフラインの Autopilot プロファイルを Windows インストールに追加します。</value></data>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>展開中にこのデバイスのハードウェア ハッシュを Windows Autopilot にアップロードします。</value></data>
+  <data name="Summary.Status" xml:space="preserve"><value>ステータス</value></data>
+  <data name="Summary.ProvisioningMethod" xml:space="preserve"><value>プロビジョニング方法</value></data>
+  <data name="Summary.WarningDetails" xml:space="preserve"><value>警告の詳細</value></data>
+  <data name="Summary.DiagnosticData" xml:space="preserve"><value>診断データ</value></data>
+  <data name="Summary.LocationAccess" xml:space="preserve"><value>ロケーションアクセス</value></data>
+  <data name="Summary.SkipLicenseTerms" xml:space="preserve"><value>ライセンス条件をスキップ</value></data>
+  <data name="Summary.HidePrivacySetup" xml:space="preserve"><value>プライバシー設定を非表示にする</value></data>
+  <data name="Summary.TailoredExperiences" xml:space="preserve"><value>カスタマイズされたエクスペリエンス</value></data>
+  <data name="Summary.AdvertisingId" xml:space="preserve"><value>広告ID</value></data>
+  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve"><value>オンライン音声認識</value></data>
+  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve"><value>インクとタイプの診断</value></data>
+  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve"><value>アプリケーションとAIの削除</value></data>
+  <data name="Summary.TotalConfigured" xml:space="preserve"><value>構成済みの合計</value></data>
+  <data name="Summary.FeaturesEnabled" xml:space="preserve"><value>有効な機能</value></data>
+  <data name="Summary.FeaturesDisabled" xml:space="preserve"><value>無効な機能</value></data>
+  <data name="Summary.WiredDot1x" xml:space="preserve"><value>有線802.1X</value></data>
+  <data name="Summary.Wifi" xml:space="preserve"><value>Wi-Fi</value></data>
+  <data name="Summary.PrivateKeyMaterial" xml:space="preserve"><value>秘密鍵素材</value></data>
+  <data name="Summary.Included" xml:space="preserve"><value>含まれている</value></data>
+  <data name="Summary.NotIncluded" xml:space="preserve"><value>含まれていない</value></data>
+  <data name="Summary.RestartBehavior" xml:space="preserve"><value>再起動動作</value></data>
+  <data name="Summary.Automatic" xml:space="preserve"><value>自動</value></data>
+  <data name="Summary.Manual" xml:space="preserve"><value>手動</value></data>
+  <data name="Summary.DiagnosticData.Required" xml:space="preserve"><value>必須</value></data>
+  <data name="Summary.DiagnosticData.Optional" xml:space="preserve"><value>オプション</value></data>
+  <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>オフ</value></data>
+  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>ユーザー制御</value></data>
+  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>強制オフ</value></data>
 </root>

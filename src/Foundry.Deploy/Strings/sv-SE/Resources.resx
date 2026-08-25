@@ -41,7 +41,6 @@
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profilprovisionering</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch-uppladdning av maskinvaruhash</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktiv uppladdning av maskinvaruhash</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch-uppladdning av maskinvaruhash</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Hårdvaruhashuppladdningsstatus</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Redo att ladda upp hårdvaruhash</value></data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Uppladdning av hårdvaruhash är inte tillgänglig</value></data>
@@ -81,12 +80,7 @@
   <data name="Summary.NoDiskSelected" xml:space="preserve"><value>Ingen disk har valts</value></data>
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Operativsystem</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Inget urval</value></data>
-  <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Valt förarpaket</value></data>
   <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Windows tillvalsfunktioner</value></data>
-  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} konfigurerad ({1} aktivera, {2} inaktivera)</value></data>
-  <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
-  <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot-metod</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profil</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot grupptagg</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
@@ -107,8 +101,8 @@ ErrorCode=0x80070005
 Detaljer: Åtkomst nekad vid montering av bild till målsökväg.
 Åtgärd: Verifiera diskattribut och försök distribuera igen.</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>Uppdatera</value></data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Uppdatering av startmedia rekommenderas</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Detta startmedia skapades med ett äldre Foundry OSD-konfigurationsformat. Uppdatera startmediet för att säkerställa kompatibilitet med de senaste funktionerna.</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Regenerering av startavbildningen rekommenderas</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Den här startavbildningen använder ett äldre Foundry OSD-konfigurationsformat. Generera den på nytt för att säkerställa kompatibilitet med de senaste funktionerna.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Version: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>Föregående</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Nästa</value></data>
@@ -134,7 +128,7 @@ Detaljer: Åtkomst nekad vid montering av bild till målsökväg.
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>Misslyckat steg: {0}</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Välkommen</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Initierar komponenter...</value></data>
-  <data name="Splash.Start" xml:space="preserve"><value>Starta</value></data>
+  <data name="Splash.StartDeployment" xml:space="preserve"><value>Starta distribution</value></data>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>Disk {0} | {1} | {2} | {3}{4}</value></data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
   <data name="Disk.UnknownSize" xml:space="preserve"><value>Okänd storlek</value></data>
@@ -545,7 +539,6 @@ Fortsätt med implementeringen?</value></data>
   <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Ej konfigurerad</value></data>
   <data name="Summary.Status.Configured" xml:space="preserve"><value>Konfigurerad</value></data>
   <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Inga ändringar</value></data>
-  <data name="Summary.Hardware" xml:space="preserve"><value>Detekterad hårdvara</value></data>
   <data name="Summary.Release" xml:space="preserve"><value>Version</value></data>
   <data name="Summary.Edition" xml:space="preserve"><value>Operativsystemutgåva</value></data>
   <data name="Summary.Architecture" xml:space="preserve"><value>Systemarkitektur</value></data>
@@ -561,7 +554,6 @@ Fortsätt med implementeringen?</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Omstartsfördröjning</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} sekunder</value></data>
   <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Den valda måldisken kommer att raderas när distributionen startar.</value></data>
-  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Välkommen till Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Distributionssession</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Steg</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Övergripande distributionsförlopp</value></data>
@@ -587,4 +579,32 @@ Fortsätt med implementeringen?</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Granska dina val innan du startar distributionen.</value></data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Lägger till en offlineprofil för Autopilot i Windows-installationen.</value></data>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Laddar upp enhetens maskinvaruhash till Windows Autopilot under distributionen.</value></data>
+  <data name="Summary.Status" xml:space="preserve"><value>Status</value></data>
+  <data name="Summary.ProvisioningMethod" xml:space="preserve"><value>Etableringsmetod</value></data>
+  <data name="Summary.WarningDetails" xml:space="preserve"><value>Varningsinformation</value></data>
+  <data name="Summary.DiagnosticData" xml:space="preserve"><value>Diagnostikdata</value></data>
+  <data name="Summary.LocationAccess" xml:space="preserve"><value>Platsåtkomst</value></data>
+  <data name="Summary.SkipLicenseTerms" xml:space="preserve"><value>Hoppa över licensvillkor</value></data>
+  <data name="Summary.HidePrivacySetup" xml:space="preserve"><value>Dölj sekretessinställningar</value></data>
+  <data name="Summary.TailoredExperiences" xml:space="preserve"><value>Anpassade upplevelser</value></data>
+  <data name="Summary.AdvertisingId" xml:space="preserve"><value>Annons-ID</value></data>
+  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve"><value>Taligenkänning online</value></data>
+  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve"><value>Diagnostik för pennanteckningar och tangentbord</value></data>
+  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve"><value>Borttagning av program och AI</value></data>
+  <data name="Summary.TotalConfigured" xml:space="preserve"><value>Totalt konfigurerade</value></data>
+  <data name="Summary.FeaturesEnabled" xml:space="preserve"><value>Aktiverade funktioner</value></data>
+  <data name="Summary.FeaturesDisabled" xml:space="preserve"><value>Inaktiverade funktioner</value></data>
+  <data name="Summary.WiredDot1x" xml:space="preserve"><value>Trådbundet 802.1X</value></data>
+  <data name="Summary.Wifi" xml:space="preserve"><value>Wi-Fi</value></data>
+  <data name="Summary.PrivateKeyMaterial" xml:space="preserve"><value>Material för privat nyckel</value></data>
+  <data name="Summary.Included" xml:space="preserve"><value>Ingår</value></data>
+  <data name="Summary.NotIncluded" xml:space="preserve"><value>Ingår inte</value></data>
+  <data name="Summary.RestartBehavior" xml:space="preserve"><value>Omstartsbeteende</value></data>
+  <data name="Summary.Automatic" xml:space="preserve"><value>Automatisk</value></data>
+  <data name="Summary.Manual" xml:space="preserve"><value>Manuell</value></data>
+  <data name="Summary.DiagnosticData.Required" xml:space="preserve"><value>Obligatorisk</value></data>
+  <data name="Summary.DiagnosticData.Optional" xml:space="preserve"><value>Valfri</value></data>
+  <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>Av</value></data>
+  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>Användarkontrollerad</value></data>
+  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>Tvingad av</value></data>
 </root>

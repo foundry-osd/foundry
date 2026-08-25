@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.ComponentModel;
 using Foundry.Deploy.Services.Wizard;
 
 namespace Foundry.Deploy.ViewModels;
@@ -13,15 +14,38 @@ public enum DeploymentSummaryStatus
     Caution
 }
 
-public sealed record DeploymentSummaryRowViewModel(string Label, string Value);
+public enum DeploymentSummaryRowKind
+{
+    Value,
+    Section,
+    Separator
+}
+
+public sealed record DeploymentSummaryRowViewModel(
+    string Label,
+    string Value,
+    DeploymentSummaryRowKind Kind = DeploymentSummaryRowKind.Value)
+{
+    public static DeploymentSummaryRowViewModel Section(string title)
+    {
+        return new(title, string.Empty, DeploymentSummaryRowKind.Section);
+    }
+
+    public static DeploymentSummaryRowViewModel Separator()
+    {
+        return new(string.Empty, string.Empty, DeploymentSummaryRowKind.Separator);
+    }
+}
 
 public sealed record DeploymentSummaryCategoryViewModel(
     string Title,
     string Summary,
     DeploymentSummaryStatus Status,
     IReadOnlyList<DeploymentSummaryRowViewModel> Rows,
-    DeploymentWizardStepId? EditStepId)
+    DeploymentWizardStepId? EditStepId) : INotifyPropertyChanged
 {
+    private bool isExpanded;
+
     public string Glyph => Status switch
     {
         DeploymentSummaryStatus.Configured => "\uE930",
@@ -30,6 +54,34 @@ public sealed record DeploymentSummaryCategoryViewModel(
     };
 
     public bool CanEdit => EditStepId.HasValue;
+
+    public bool CanExpand => Rows.Count > 0 &&
+        !(Rows.Count == 1 &&
+          Rows[0].Kind == DeploymentSummaryRowKind.Value &&
+          string.Equals(Rows[0].Value, Summary, StringComparison.Ordinal));
+
+    public bool IsExpanded
+    {
+        get => isExpanded;
+        set
+        {
+            bool nextValue = CanExpand && value;
+            if (isExpanded == nextValue)
+            {
+                if (value != nextValue)
+                {
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsExpanded)));
+                }
+
+                return;
+            }
+
+            isExpanded = nextValue;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsExpanded)));
+        }
+    }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
 }
 
 public sealed record DeploymentSummarySource

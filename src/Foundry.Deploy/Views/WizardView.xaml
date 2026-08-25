@@ -35,7 +35,7 @@
                     <RowDefinition Height="32" />
                     <RowDefinition Height="16" />
                 </Grid.RowDefinitions>
-                <Button x:Name="VerticalStepButton"
+                <Button
                     Grid.ColumnSpan="3"
                     AutomationProperties.Name="{Binding Title}"
                     Command="{Binding DataContext.NavigateToWizardStepCommand, ElementName=ViewRoot}"
@@ -48,14 +48,12 @@
                             <ColumnDefinition Width="8" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Border x:Name="VerticalStepMarker"
-                            Style="{StaticResource WizardStepMarkerStyle}">
+                        <Border Style="{StaticResource WizardStepMarkerStyle}">
                             <Grid>
-                                <TextBlock x:Name="VerticalStepNumber"
+                                <TextBlock
                                     Style="{StaticResource WizardStepNumberStyle}"
                                     Text="{Binding DisplayNumber}" />
-                                <TextBlock x:Name="VerticalStepCheck"
-                                    Style="{StaticResource WizardStepCheckStyle}" />
+                                <TextBlock Style="{StaticResource WizardStepCheckStyle}" />
                             </Grid>
                         </Border>
                         <TextBlock
@@ -66,7 +64,7 @@
                             TextWrapping="Wrap" />
                     </Grid>
                 </Button>
-                <Border x:Name="VerticalStepConnector"
+                <Border
                     Grid.Row="1"
                     Grid.Column="0"
                     Width="2"
@@ -106,10 +104,8 @@
         MaxWidth="1186"
         HorizontalAlignment="Center">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="StepperColumn"
-                Width="190" />
-            <ColumnDefinition x:Name="StepperGapColumn"
-                Width="16" />
+            <ColumnDefinition Width="190" />
+            <ColumnDefinition Width="16" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -117,7 +113,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ItemsControl x:Name="VerticalStepper"
+        <ItemsControl
             Grid.Column="0"
             Margin="0,8,0,0"
             AutomationProperties.Name="{Binding Strings[Wizard.StepperAutomationName]}"
@@ -172,7 +168,7 @@
             </ContentControl>
         </Border>
 
-        <Grid x:Name="WizardFooter"
+        <Grid
             Grid.Row="1"
             Grid.Column="2"
             Width="{Binding ActualWidth, ElementName=WizardContentCard}"
@@ -187,7 +183,7 @@
                     Margin="0,0,8,0"
                     Command="{Binding PreviousWizardStepCommand}"
                     Content="{Binding Strings[Common.Previous]}" />
-                <Button x:Name="NextButton"
+                <Button
                     MinWidth="140"
                     Command="{Binding NextWizardStepCommand}"
                     Content="{Binding Strings[Common.Next]}">
@@ -214,7 +210,7 @@
                         </Style>
                     </Button.Style>
                 </Button>
-                <Button x:Name="ReturnToSummaryButton"
+                <Button
                     MinWidth="160"
                     Command="{Binding NextWizardStepCommand}"
                     Content="{Binding Strings[Wizard.ReturnToSummary]}">
@@ -244,7 +240,7 @@
                         </Style>
                     </Button.Style>
                 </Button>
-                <Button x:Name="DeployButton"
+                <Button
                     MinWidth="160"
                     Command="{Binding StartDeploymentCommand}"
                     Content="{Binding Strings[Common.Deploy]}"

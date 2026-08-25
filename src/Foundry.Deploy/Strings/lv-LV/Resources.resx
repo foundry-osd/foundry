@@ -41,7 +41,6 @@
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profila nodrošināšana</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch aparatūras jaucējkoda augšupielāde</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktīva aparatūras jaucējkoda augšupielāde</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch aparatūras jaucējkoda augšupielāde</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Aparatūras hash augšupielādes statuss</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Gatavs aparatūras hash augšupielādei</value></data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Aparatūras hash augšupielāde nav pieejama</value></data>
@@ -81,12 +80,7 @@
   <data name="Summary.NoDiskSelected" xml:space="preserve"><value>Nav atlasīts neviens disks</value></data>
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Operētājsistēma</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Nav atlases</value></data>
-  <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Atlasīta draivera pakotne</value></data>
   <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Windows papildu līdzekļi</value></data>
-  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} konfigurēts ({1} iespējot, {2} atspējot)</value></data>
-  <data name="Summary.Firmware" xml:space="preserve"><value>Programmaparatūra</value></data>
-  <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot metode</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot profils</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot grupas atzīme</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
@@ -107,8 +101,8 @@ ErrorCode=0x80070005
 Detalizēta informācija: Piekļuve liegta, pievienojot attēlu mērķa ceļam.
 Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>Atsvaidzināt</value></data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Ieteicams atjaunināt sāknēšanas datu nesēju</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Šis sāknēšanas datu nesējs tika ģenerēts ar vecāku Foundry OSD konfigurācijas formātu. Atjauniniet sāknēšanas datu nesēju, lai nodrošinātu saderību ar jaunākajiem līdzekļiem.</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Ieteicams atkārtoti ģenerēt sāknēšanas attēlu</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Šis sāknēšanas attēls izmanto vecāku Foundry OSD konfigurācijas formātu. Ģenerējiet to atkārtoti, lai nodrošinātu saderību ar jaunākajiem līdzekļiem.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Versija: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>Iepriekšējais</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Tālāk</value></data>
@@ -134,7 +128,7 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>Neizdevusies darbība: {0}</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Laipni lūdzam</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Notiek komponentu inicializācija...</value></data>
-  <data name="Splash.Start" xml:space="preserve"><value>Sākt</value></data>
+  <data name="Splash.StartDeployment" xml:space="preserve"><value>Sākt izvietošanu</value></data>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>Disks {0} | {1} | {2} | {3}{4}</value></data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
   <data name="Disk.UnknownSize" xml:space="preserve"><value>Nezināms izmērs</value></data>
@@ -545,7 +539,6 @@ Vai turpināt izvietošanu?</value></data>
   <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Nav konfigurēts</value></data>
   <data name="Summary.Status.Configured" xml:space="preserve"><value>Konfigurēts</value></data>
   <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Nav izmaiņu</value></data>
-  <data name="Summary.Hardware" xml:space="preserve"><value>Konstatēta aparatūra</value></data>
   <data name="Summary.Release" xml:space="preserve"><value>Versija</value></data>
   <data name="Summary.Edition" xml:space="preserve"><value>Operētājsistēmas izdevums</value></data>
   <data name="Summary.Architecture" xml:space="preserve"><value>Sistēmas arhitektūra</value></data>
@@ -561,7 +554,6 @@ Vai turpināt izvietošanu?</value></data>
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Restartēšanas aizkave</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} sekundes</value></data>
   <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Atlasītais mērķa disks tiks dzēsts, kad sākas izvietošana.</value></data>
-  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Laipni lūdzam Foundry Deploy!</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Izvietošanas sesija</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Darbības</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Kopējā izvietošanas gaita</value></data>
@@ -587,4 +579,32 @@ Vai turpināt izvietošanu?</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Pirms izvietošanas sākšanas pārskatiet savu izvēli.</value></data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Pievieno Windows instalācijai bezsaistes Autopilot profilu.</value></data>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Izvietošanas laikā augšupielādē šīs ierīces aparatūras jaucējkodu pakalpojumā Windows Autopilot.</value></data>
+  <data name="Summary.Status" xml:space="preserve"><value>Statuss</value></data>
+  <data name="Summary.ProvisioningMethod" xml:space="preserve"><value>Nodrošinājuma metode</value></data>
+  <data name="Summary.WarningDetails" xml:space="preserve"><value>Brīdinājuma informācija</value></data>
+  <data name="Summary.DiagnosticData" xml:space="preserve"><value>Diagnostikas dati</value></data>
+  <data name="Summary.LocationAccess" xml:space="preserve"><value>Atrašanās vietas piekļuve</value></data>
+  <data name="Summary.SkipLicenseTerms" xml:space="preserve"><value>Izlaist licences nosacījumus</value></data>
+  <data name="Summary.HidePrivacySetup" xml:space="preserve"><value>Paslēpt konfidencialitātes iestatījumus</value></data>
+  <data name="Summary.TailoredExperiences" xml:space="preserve"><value>Pielāgoti piedzīvojumi</value></data>
+  <data name="Summary.AdvertisingId" xml:space="preserve"><value>Reklāmas ID</value></data>
+  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve"><value>Tiešsaistes runas atpazīšana</value></data>
+  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve"><value>Tintes un rakstīšanas diagnostika</value></data>
+  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve"><value>Lietojumprogrammu un MI noņemšana</value></data>
+  <data name="Summary.TotalConfigured" xml:space="preserve"><value>Kopā konfigurēts</value></data>
+  <data name="Summary.FeaturesEnabled" xml:space="preserve"><value>Ieslēgtas funkcijas</value></data>
+  <data name="Summary.FeaturesDisabled" xml:space="preserve"><value>Funkcijas atspējotas</value></data>
+  <data name="Summary.WiredDot1x" xml:space="preserve"><value>Vadu 802.1X</value></data>
+  <data name="Summary.Wifi" xml:space="preserve"><value>Wi-Fi</value></data>
+  <data name="Summary.PrivateKeyMaterial" xml:space="preserve"><value>Privātās atslēgas materiāls</value></data>
+  <data name="Summary.Included" xml:space="preserve"><value>Iekļauts</value></data>
+  <data name="Summary.NotIncluded" xml:space="preserve"><value>Nav iekļauts</value></data>
+  <data name="Summary.RestartBehavior" xml:space="preserve"><value>Restartēšana</value></data>
+  <data name="Summary.Automatic" xml:space="preserve"><value>Automātiska</value></data>
+  <data name="Summary.Manual" xml:space="preserve"><value>Manuāla</value></data>
+  <data name="Summary.DiagnosticData.Required" xml:space="preserve"><value>Nepieciešams</value></data>
+  <data name="Summary.DiagnosticData.Optional" xml:space="preserve"><value>Neobligāti</value></data>
+  <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>Izslēgts</value></data>
+  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>Lietotāja kontrolēts</value></data>
+  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>Piespiedu izslēgšana</value></data>
 </root>

@@ -7,7 +7,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <controls:WizardPageHeader x:Name="PageHeader"
+        <controls:WizardPageHeader
             Title="{Binding Strings[OperatingSystem.Title]}"
             Description="{Binding Strings[OperatingSystem.Description]}"
             Glyph="&#xEC77;" />
@@ -17,9 +17,8 @@
             HorizontalScrollBarVisibility="Disabled"
             Style="{StaticResource ScrollViewerContentGutterStyle}"
             VerticalScrollBarVisibility="Auto">
-            <Grid x:Name="OperatingSystemFormViewport"
-                MinHeight="{Binding ActualHeight, ElementName=PageContentScrollViewer}">
-                <StackPanel x:Name="OperatingSystemForm"
+            <Grid MinHeight="{Binding ActualHeight, ElementName=PageContentScrollViewer}">
+                <StackPanel
                     MaxWidth="600"
                     Margin="0,0,0,32"
                     HorizontalAlignment="Stretch"
@@ -30,6 +29,7 @@
                             Style="{StaticResource BodyStrongTextBlockStyle}"
                             Text="{Binding Strings[Catalog.Version]}" />
                         <ComboBox
+                            AutomationProperties.Name="{Binding Strings[Catalog.Version]}"
                             IsEnabled="{Binding OperatingSystemCatalog.IsReleaseIdSelectionEnabled}"
                             ItemsSource="{Binding OperatingSystemCatalog.ReleaseIdFilters}"
                             SelectedItem="{Binding OperatingSystemCatalog.SelectedReleaseId}" />
@@ -40,6 +40,7 @@
                             Style="{StaticResource BodyStrongTextBlockStyle}"
                             Text="{Binding Strings[Catalog.Media]}" />
                         <ComboBox
+                            AutomationProperties.Name="{Binding Strings[Catalog.Media]}"
                             DisplayMemberPath="DisplayName"
                             IsEnabled="{Binding OperatingSystemCatalog.IsMediaSelectionEnabled}"
                             ItemsSource="{Binding OperatingSystemCatalog.MediaFilters}"
@@ -52,6 +53,7 @@
                             Style="{StaticResource BodyStrongTextBlockStyle}"
                             Text="{Binding Strings[Catalog.Language]}" />
                         <ComboBox
+                            AutomationProperties.Name="{Binding Strings[Catalog.Language]}"
                             IsEnabled="{Binding OperatingSystemCatalog.IsLanguageSelectionEnabled}"
                             ItemsSource="{Binding OperatingSystemCatalog.LanguageFilters}"
                             SelectedItem="{Binding OperatingSystemCatalog.SelectedLanguageCode}" />
@@ -62,6 +64,7 @@
                             Style="{StaticResource BodyStrongTextBlockStyle}"
                             Text="{Binding Strings[Catalog.EditionTarget]}" />
                         <ComboBox
+                            AutomationProperties.Name="{Binding Strings[Catalog.EditionTarget]}"
                             IsEnabled="{Binding OperatingSystemCatalog.IsEditionSelectionEnabled}"
                             ItemsSource="{Binding OperatingSystemCatalog.EditionFilters}"
                             SelectedItem="{Binding OperatingSystemCatalog.SelectedEdition}" />
@@ -72,6 +75,7 @@
                             Style="{StaticResource BodyStrongTextBlockStyle}"
                             Text="{Binding Strings[Catalog.LicenseChannel]}" />
                         <ComboBox
+                            AutomationProperties.Name="{Binding Strings[Catalog.LicenseChannel]}"
                             IsEnabled="{Binding OperatingSystemCatalog.IsLicenseChannelSelectionEnabled}"
                             ItemsSource="{Binding OperatingSystemCatalog.LicenseChannelFilters}"
                             SelectedItem="{Binding OperatingSystemCatalog.SelectedLicenseChannel}">

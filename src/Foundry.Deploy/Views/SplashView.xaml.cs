@@ -24,11 +24,7 @@ public partial class SplashView : UserControl
 
     private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
-        DetachSession();
-        if (e.NewValue is MainWindowViewModel viewModel)
-        {
-            AttachSession(viewModel.Session);
-        }
+        AttachSession((e.NewValue as MainWindowViewModel)?.Session);
     }
 
     private void OnLoaded(object sender, RoutedEventArgs e)
@@ -37,7 +33,6 @@ public partial class SplashView : UserControl
         {
             AttachSession(viewModel.Session);
         }
-
     }
 
     private void OnUnloaded(object sender, RoutedEventArgs e)
@@ -46,7 +41,7 @@ public partial class SplashView : UserControl
         TransitionAnimator.Clear(LandingActionHost, LandingActionTransform);
     }
 
-    private void AttachSession(DeploymentSessionViewModel session)
+    private void AttachSession(DeploymentSessionViewModel? session)
     {
         if (_session == session)
         {
@@ -55,6 +50,11 @@ public partial class SplashView : UserControl
 
         DetachSession();
         _session = session;
+        if (_session is null)
+        {
+            return;
+        }
+
         _session.PropertyChanged += OnSessionPropertyChanged;
     }
 

@@ -41,7 +41,6 @@
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>надання профілю JSON</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch завантаження апаратного хешу</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Інтерактивне завантаження апаратного хешу</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch завантаження апаратного хешу</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Статус завантаження апаратного хешу</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Готовий до завантаження апаратного хешу</value></data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Завантаження апаратного хешу недоступне</value></data>
@@ -81,12 +80,7 @@
   <data name="Summary.NoDiskSelected" xml:space="preserve"><value>Диск не вибрано</value></data>
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Операційна система</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Без вибору</value></data>
-  <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Вибраний пакет драйверів</value></data>
   <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Додаткові функції Windows</value></data>
-  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} налаштовано ({1} увімкнути, {2} вимкнути)</value></data>
-  <data name="Summary.Firmware" xml:space="preserve"><value>Прошивка</value></data>
-  <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Метод Autopilot</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Профіль</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>тег групи Autopilot</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
@@ -107,8 +101,8 @@ ErrorCode=0x80070005
 Подробиці: доступ заборонено під час монтування образу до цільового шляху.
 Дія: перевірте атрибути диска та повторіть розгортання.</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>Оновити</value></data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Рекомендовано оновити завантажувальний носій</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Цей завантажувальний носій створено зі старішим форматом конфігурації Foundry OSD. Оновіть завантажувальний носій, щоб забезпечити сумісність із найновішими функціями.</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Рекомендовано повторно створити завантажувальний образ</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Цей завантажувальний образ використовує старіший формат конфігурації Foundry OSD. Створіть його повторно, щоб забезпечити сумісність із найновішими функціями.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Версія: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>Попередній</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Далі</value></data>
@@ -134,7 +128,7 @@ ErrorCode=0x80070005
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>Невдалий крок: {0}</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Ласкаво просимо</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Ініціалізація компонентів...</value></data>
-  <data name="Splash.Start" xml:space="preserve"><value>старт</value></data>
+  <data name="Splash.StartDeployment" xml:space="preserve"><value>Розпочати розгортання</value></data>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>Диск {0} | {1} | {2} | {3}{4}</value></data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
   <data name="Disk.UnknownSize" xml:space="preserve"><value>Невідомий розмір</value></data>
@@ -545,7 +539,6 @@ ErrorCode=0x80070005
   <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Не налаштовано</value></data>
   <data name="Summary.Status.Configured" xml:space="preserve"><value>Налаштовано</value></data>
   <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Без змін</value></data>
-  <data name="Summary.Hardware" xml:space="preserve"><value>Виявлене обладнання</value></data>
   <data name="Summary.Release" xml:space="preserve"><value>Версія</value></data>
   <data name="Summary.Edition" xml:space="preserve"><value>Редакція</value></data>
   <data name="Summary.Architecture" xml:space="preserve"><value>Архітектура системи</value></data>
@@ -561,7 +554,6 @@ ErrorCode=0x80070005
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Затримка перезапуску</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} секунд</value></data>
   <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Вибраний цільовий диск буде стерто, коли розпочнеться розгортання.</value></data>
-  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Ласкаво просимо до Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Сеанс</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Кроки</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Загальний прогрес розгортання</value></data>
@@ -587,4 +579,32 @@ ErrorCode=0x80070005
   <data name="Summary.Description" xml:space="preserve"><value>Перегляньте вибрані параметри перед початком розгортання.</value></data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Додає автономний профіль Autopilot до інсталяції Windows.</value></data>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Під час розгортання завантажує апаратний хеш цього пристрою до Windows Autopilot.</value></data>
+  <data name="Summary.Status" xml:space="preserve"><value>Стан</value></data>
+  <data name="Summary.ProvisioningMethod" xml:space="preserve"><value>Метод підготовки</value></data>
+  <data name="Summary.WarningDetails" xml:space="preserve"><value>Відомості про попередження</value></data>
+  <data name="Summary.DiagnosticData" xml:space="preserve"><value>Діагностичні дані</value></data>
+  <data name="Summary.LocationAccess" xml:space="preserve"><value>Доступ до розташування</value></data>
+  <data name="Summary.SkipLicenseTerms" xml:space="preserve"><value>Пропустити умови ліцензії</value></data>
+  <data name="Summary.HidePrivacySetup" xml:space="preserve"><value>Приховати налаштування конфіденційності</value></data>
+  <data name="Summary.TailoredExperiences" xml:space="preserve"><value>Персоналізовані можливості</value></data>
+  <data name="Summary.AdvertisingId" xml:space="preserve"><value>Рекламний ідентифікатор</value></data>
+  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve"><value>Розпізнавання мовлення в Інтернеті</value></data>
+  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve"><value>Діагностика рукописного вводу та введення тексту</value></data>
+  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve"><value>Видалення програм і ШІ</value></data>
+  <data name="Summary.TotalConfigured" xml:space="preserve"><value>Усього настроєно</value></data>
+  <data name="Summary.FeaturesEnabled" xml:space="preserve"><value>Увімкнуті компоненти</value></data>
+  <data name="Summary.FeaturesDisabled" xml:space="preserve"><value>Вимкнуті компоненти</value></data>
+  <data name="Summary.WiredDot1x" xml:space="preserve"><value>Дротовий 802.1X</value></data>
+  <data name="Summary.Wifi" xml:space="preserve"><value>Wi-Fi</value></data>
+  <data name="Summary.PrivateKeyMaterial" xml:space="preserve"><value>Матеріал закритого ключа</value></data>
+  <data name="Summary.Included" xml:space="preserve"><value>Включено</value></data>
+  <data name="Summary.NotIncluded" xml:space="preserve"><value>Не включено</value></data>
+  <data name="Summary.RestartBehavior" xml:space="preserve"><value>Поведінка перезапуску</value></data>
+  <data name="Summary.Automatic" xml:space="preserve"><value>Автоматично</value></data>
+  <data name="Summary.Manual" xml:space="preserve"><value>Вручну</value></data>
+  <data name="Summary.DiagnosticData.Required" xml:space="preserve"><value>Обовязкові</value></data>
+  <data name="Summary.DiagnosticData.Optional" xml:space="preserve"><value>Необовязкові</value></data>
+  <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>Вимкнуто</value></data>
+  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>Керується користувачем</value></data>
+  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>Примусово вимкнуто</value></data>
 </root>

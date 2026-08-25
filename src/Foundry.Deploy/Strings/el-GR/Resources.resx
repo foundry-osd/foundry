@@ -41,7 +41,6 @@
   <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>Προμήθεια προφίλ JSON</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch αποστολή κατακερματισμού υλικού</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Διαδραστική αποστολή κατακερματισμού υλικού</value></data>
-  <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch αποστολή κατακερματισμού υλικού</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Κατάσταση μεταφόρτωσης κατακερματισμού υλικού</value></data>
   <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Έτοιμο για μεταφόρτωση κατακερματισμού υλικού</value></data>
   <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Η μεταφόρτωση κατακερματισμού υλικού δεν είναι διαθέσιμη</value></data>
@@ -81,12 +80,7 @@
   <data name="Summary.NoDiskSelected" xml:space="preserve"><value>Δεν έχει επιλεγεί δίσκος</value></data>
   <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Λειτουργικό σύστημα</value></data>
   <data name="Summary.NoSelection" xml:space="preserve"><value>Καμία επιλογή</value></data>
-  <data name="Summary.SelectedDriverPack" xml:space="preserve"><value>Επιλεγμένο πακέτο προγραμμάτων οδήγησης</value></data>
   <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Προαιρετικές δυνατότητες των Windows</value></data>
-  <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} διαμορφώθηκε ({1} ενεργοποίηση, {2} απενεργοποίηση)</value></data>
-  <data name="Summary.Firmware" xml:space="preserve"><value>Υλικολογισμικό</value></data>
-  <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Μέθοδος Autopilot</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Προφίλ</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>ετικέτα ομάδας Autopilot</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
@@ -107,8 +101,8 @@
 Λεπτομέρειες: Δεν επιτρέπεται η πρόσβαση κατά την προσάρτηση της εικόνας στη διαδρομή προορισμού.
 Ενέργεια: Επαληθεύστε τα χαρακτηριστικά του δίσκου και δοκιμάστε ξανά την ανάπτυξη.</value></data>
   <data name="Common.Refresh" xml:space="preserve"><value>Ανανέωση</value></data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Συνιστάται ενημέρωση του μέσου εκκίνησης</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Αυτό το μέσο εκκίνησης δημιουργήθηκε με παλαιότερη μορφή ρύθμισης παραμέτρων Foundry OSD. Ενημερώστε το μέσο εκκίνησης για να διασφαλίσετε τη συμβατότητα με τις πιο πρόσφατες δυνατότητες.</value></data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Συνιστάται η εκ νέου δημιουργία του ειδώλου εκκίνησης</value></data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Αυτό το είδωλο εκκίνησης χρησιμοποιεί παλαιότερη μορφή ρύθμισης παραμέτρων Foundry OSD. Δημιουργήστε το ξανά για να διασφαλίσετε τη συμβατότητα με τις πιο πρόσφατες δυνατότητες.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Έκδοση: {0}</value></data>
   <data name="Common.Previous" xml:space="preserve"><value>Προηγούμενο</value></data>
   <data name="Common.Next" xml:space="preserve"><value>Επόμενο</value></data>
@@ -134,7 +128,7 @@
   <data name="Error.FailedStepFormat" xml:space="preserve"><value>Αποτυχημένο βήμα: {0}</value></data>
   <data name="Splash.Welcome" xml:space="preserve"><value>Καλώς ήρθατε</value></data>
   <data name="Splash.InitializingComponents" xml:space="preserve"><value>Αρχικοποίηση στοιχείων...</value></data>
-  <data name="Splash.Start" xml:space="preserve"><value>Έναρξη</value></data>
+  <data name="Splash.StartDeployment" xml:space="preserve"><value>Έναρξη ανάπτυξης</value></data>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>Δίσκος {0} | {1} | {2} | {3}{4}</value></data>
   <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
   <data name="Disk.UnknownSize" xml:space="preserve"><value>Άγνωστο μέγεθος</value></data>
@@ -545,7 +539,6 @@
   <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Δεν έχει διαμορφωθεί</value></data>
   <data name="Summary.Status.Configured" xml:space="preserve"><value>Διαμορφώθηκε</value></data>
   <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Καμία αλλαγή</value></data>
-  <data name="Summary.Hardware" xml:space="preserve"><value>Εντοπίστηκε υλικό</value></data>
   <data name="Summary.Release" xml:space="preserve"><value>Έκδοση</value></data>
   <data name="Summary.Edition" xml:space="preserve"><value>Έκδοση λειτουργικού συστήματος</value></data>
   <data name="Summary.Architecture" xml:space="preserve"><value>Αρχιτεκτονική συστήματος</value></data>
@@ -561,7 +554,6 @@
   <data name="Summary.RestartDelay" xml:space="preserve"><value>Καθυστέρηση επανεκκίνησης</value></data>
   <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} δευτερόλεπτα</value></data>
   <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Ο επιλεγμένος δίσκος προορισμού θα διαγραφεί όταν ξεκινήσει η ανάπτυξη.</value></data>
-  <data name="Splash.WelcomeDeploy" xml:space="preserve"><value>Καλώς ήλθατε στο Foundry Deploy</value></data>
   <data name="Progress.Session" xml:space="preserve"><value>Συνεδρία</value></data>
   <data name="Progress.Timeline" xml:space="preserve"><value>Βήματα</value></data>
   <data name="Progress.RingAutomationName" xml:space="preserve"><value>Συνολική πρόοδος ανάπτυξης</value></data>
@@ -587,4 +579,32 @@
   <data name="Summary.Description" xml:space="preserve"><value>Ελέγξτε τις επιλογές σας πριν ξεκινήσετε την ανάπτυξη.</value></data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Προσθέτει ένα προφίλ Autopilot χωρίς σύνδεση στην εγκατάσταση των Windows.</value></data>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Αποστέλλει τον κατακερματισμό υλικού αυτής της συσκευής στο Windows Autopilot κατά την ανάπτυξη.</value></data>
+  <data name="Summary.Status" xml:space="preserve"><value>Κατάσταση</value></data>
+  <data name="Summary.ProvisioningMethod" xml:space="preserve"><value>Μέθοδος παροχής</value></data>
+  <data name="Summary.WarningDetails" xml:space="preserve"><value>Λεπτομέρειες προειδοποίησης</value></data>
+  <data name="Summary.DiagnosticData" xml:space="preserve"><value>Διαγνωστικά δεδομένα</value></data>
+  <data name="Summary.LocationAccess" xml:space="preserve"><value>Πρόσβαση στην τοποθεσία</value></data>
+  <data name="Summary.SkipLicenseTerms" xml:space="preserve"><value>Παράλειψη όρων άδειας</value></data>
+  <data name="Summary.HidePrivacySetup" xml:space="preserve"><value>Απόκρυψη ρυθμίσεων απορρήτου</value></data>
+  <data name="Summary.TailoredExperiences" xml:space="preserve"><value>Προσαρμοσμένες εμπειρίες</value></data>
+  <data name="Summary.AdvertisingId" xml:space="preserve"><value>Αναγνωριστικό διαφήμισης</value></data>
+  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve"><value>Διαδικτυακή αναγνώριση ομιλίας</value></data>
+  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve"><value>Διαγνωστικά μελάνης και πληκτρολόγησης</value></data>
+  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve"><value>Αφαίρεση εφαρμογής και τεχνητής νοημοσύνης</value></data>
+  <data name="Summary.TotalConfigured" xml:space="preserve"><value>Σύνολο ρυθμισμένων παραμέτρων</value></data>
+  <data name="Summary.FeaturesEnabled" xml:space="preserve"><value>Ενεργοποίηση λειτουργιών</value></data>
+  <data name="Summary.FeaturesDisabled" xml:space="preserve"><value>Τα χαρακτηριστικά είναι απενεργοποιημένα</value></data>
+  <data name="Summary.WiredDot1x" xml:space="preserve"><value>ΕΝΣΥΡΜΑΤΕΣ 802.1X</value></data>
+  <data name="Summary.Wifi" xml:space="preserve"><value>Wi-Fi</value></data>
+  <data name="Summary.PrivateKeyMaterial" xml:space="preserve"><value>Υλικό ιδιωτικού κλειδιού</value></data>
+  <data name="Summary.Included" xml:space="preserve"><value>Περιλαμβάνεται</value></data>
+  <data name="Summary.NotIncluded" xml:space="preserve"><value>Δεν περιλαμβάνονται</value></data>
+  <data name="Summary.RestartBehavior" xml:space="preserve"><value>Επανεκκίνηση συμπεριφοράς</value></data>
+  <data name="Summary.Automatic" xml:space="preserve"><value>Aυτόματος</value></data>
+  <data name="Summary.Manual" xml:space="preserve"><value>Χειροκίνητες</value></data>
+  <data name="Summary.DiagnosticData.Required" xml:space="preserve"><value>Απαιτείται</value></data>
+  <data name="Summary.DiagnosticData.Optional" xml:space="preserve"><value>Προαιρετικό</value></data>
+  <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>Απενεργοποιημένο</value></data>
+  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>ÎÎ¹ÎºÏÎ¿ÎµÏÎ±ÏÎ¼Î¿Î³Î® Plasma ÏÎ¿Ï KTorrent</value></data>
+  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>Αναγκαστική απενεργοποίηση</value></data>
 </root>

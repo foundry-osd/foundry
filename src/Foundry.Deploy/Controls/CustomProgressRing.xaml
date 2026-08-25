@@ -35,7 +35,7 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <Ellipse x:Name="TrackCircle"
+        <Ellipse
             Fill="Transparent"
             Stroke="{Binding TrackBrush, RelativeSource={RelativeSource AncestorType=UserControl}}"
             StrokeThickness="{Binding Thickness, RelativeSource={RelativeSource AncestorType=UserControl}}" />

@@ -8,11 +8,11 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <controls:WizardPageHeader x:Name="PageHeader"
+        <controls:WizardPageHeader
             Title="{Binding Strings[Summary.Title]}"
             Description="{Binding Strings[Summary.Description]}"
             Glyph="&#xE9D5;" />
-        <ScrollViewer x:Name="PageContentScrollViewer"
+        <ScrollViewer
             Grid.Row="1"
             HorizontalScrollBarVisibility="Disabled"
             Style="{StaticResource ScrollViewerContentGutterStyle}"
@@ -23,7 +23,8 @@
                         <Expander
                             Margin="0,0,0,8"
                             AutomationProperties.Name="{Binding Title}"
-                            IsExpanded="False">
+                            Focusable="{Binding CanExpand}"
+                            IsExpanded="{Binding IsExpanded, Mode=TwoWay}">
                             <Expander.Header>
                                 <Grid MinHeight="42">
                                     <Grid.ColumnDefinitions>
@@ -78,33 +79,107 @@
                                         Grid.Column="3"
                                         Margin="8,0,12,0"
                                         Padding="12,4"
-                                        AutomationProperties.HelpText="{Binding DataContext.Strings[Common.Edit], ElementName=ViewRoot}"
-                                        AutomationProperties.Name="{Binding Title}"
                                         Command="{Binding DataContext.EditSummaryStepCommand, ElementName=ViewRoot}"
                                         CommandParameter="{Binding EditStepId}"
                                         Content="{Binding DataContext.Strings[Common.Edit], ElementName=ViewRoot}"
-                                        Visibility="{Binding CanEdit, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        Visibility="{Binding CanEdit, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <AutomationProperties.Name>
+                                            <MultiBinding StringFormat="{}{0}: {1}">
+                                                <Binding
+                                                    ElementName="ViewRoot"
+                                                    Path="DataContext.Strings[Common.Edit]" />
+                                                <Binding Path="Title" />
+                                            </MultiBinding>
+                                        </AutomationProperties.Name>
+                                    </Button>
                                 </Grid>
                             </Expander.Header>
                             <ItemsControl
-                                Margin="28,8,12,12"
+                                Margin="28,12,12,16"
                                 ItemsSource="{Binding Rows}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate DataType="{x:Type viewModels:DeploymentSummaryRowViewModel}">
-                                        <Grid Margin="0,4">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="220" />
-                                                <ColumnDefinition Width="16" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
+                                        <Grid>
+                                            <Grid Margin="0,4">
+                                                <Grid.Style>
+                                                    <Style TargetType="Grid">
+                                                        <Setter
+                                                            Property="Visibility"
+                                                            Value="Visible" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger
+                                                                Binding="{Binding Kind}"
+                                                                Value="{x:Static viewModels:DeploymentSummaryRowKind.Section}">
+                                                                <Setter
+                                                                    Property="Visibility"
+                                                                    Value="Collapsed" />
+                                                            </DataTrigger>
+                                                            <DataTrigger
+                                                                Binding="{Binding Kind}"
+                                                                Value="{x:Static viewModels:DeploymentSummaryRowKind.Separator}">
+                                                                <Setter
+                                                                    Property="Visibility"
+                                                                    Value="Collapsed" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Grid.Style>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="220" />
+                                                    <ColumnDefinition Width="16" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock
+                                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                    Text="{Binding Label}"
+                                                    TextWrapping="Wrap" />
+                                                <TextBlock
+                                                    Grid.Column="2"
+                                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                                    Text="{Binding Value}"
+                                                    TextWrapping="Wrap" />
+                                            </Grid>
                                             <TextBlock
-                                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                                Margin="0,0,0,8"
                                                 Text="{Binding Label}"
-                                                TextWrapping="Wrap" />
-                                            <TextBlock
-                                                Grid.Column="2"
-                                                Text="{Binding Value}"
-                                                TextWrapping="Wrap" />
+                                                TextWrapping="Wrap">
+                                                <TextBlock.Style>
+                                                    <Style
+                                                        BasedOn="{StaticResource BodyStrongTextBlockStyle}"
+                                                        TargetType="TextBlock">
+                                                        <Setter
+                                                            Property="Visibility"
+                                                            Value="Collapsed" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger
+                                                                Binding="{Binding Kind}"
+                                                                Value="{x:Static viewModels:DeploymentSummaryRowKind.Section}">
+                                                                <Setter
+                                                                    Property="Visibility"
+                                                                    Value="Visible" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                            <Separator Margin="0,8,0,16">
+                                                <Separator.Style>
+                                                    <Style TargetType="Separator">
+                                                        <Setter
+                                                            Property="Visibility"
+                                                            Value="Collapsed" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger
+                                                                Binding="{Binding Kind}"
+                                                                Value="{x:Static viewModels:DeploymentSummaryRowKind.Separator}">
+                                                                <Setter
+                                                                    Property="Visibility"
+                                                                    Value="Visible" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Separator.Style>
+                                            </Separator>
                                         </Grid>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
