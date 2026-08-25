@@ -569,7 +569,6 @@
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Шаги развертывания</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Просмотреть сведения об ошибке</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Сведения об ошибке</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Помощник регистрации будет запущен на развернутом устройстве.</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Выберите имя компьютера и целевой диск, затем просмотрите сведения об обнаруженном оборудовании.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Параметры развертывания</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Инвентаризация устройства</value></data>
@@ -587,4 +586,6 @@
   <data name="Drivers.Description" xml:space="preserve"><value>Выберите источник драйверов и при необходимости соответствующие модель и версию.</value></data>
   <data name="Autopilot.Description" xml:space="preserve"><value>Просмотрите параметры подготовки Autopilot для этого устройства.</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Проверьте выбранные параметры перед началом развертывания.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Добавляет автономный профиль Autopilot в установку Windows.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Отправляет аппаратный хеш этого устройства в Windows Autopilot во время развертывания.</value></data>
 </root>

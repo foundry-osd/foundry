@@ -569,7 +569,6 @@ Operativni sistem: {4}
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Koraci raspoređivanja</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Prikaži detalje greške</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Detalji greške</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Pomoćnik za registraciju će se pokrenuti na primenjenom uređaju.</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Izaberite ime računara i ciljni disk, a zatim pregledajte otkriveni hardver.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Postavke primene</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Inventar uređaja</value></data>
@@ -587,4 +586,6 @@ Operativni sistem: {4}
   <data name="Drivers.Description" xml:space="preserve"><value>Izaberite izvor upravljačkih programa i, kada je potrebno, odgovarajući model i verziju.</value></data>
   <data name="Autopilot.Description" xml:space="preserve"><value>Pregledajte postavke Autopilot obezbeđivanja za ovaj uređaj.</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Pregledajte izabrane opcije pre nego što pokrenete primenu.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Dodaje vanmrežni Autopilot profil u instalaciju operativnog sistema Windows.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Tokom primene otprema hardverski heš ovog uređaja u Windows Autopilot.</value></data>
 </root>

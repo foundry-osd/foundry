@@ -569,7 +569,6 @@ Continuare con la distribuzione?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Passaggi della distribuzione</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Visualizza dettagli errore</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Dettagli errore</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>L’assistente di registrazione verrà eseguito sul dispositivo distribuito.</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Scegliere il nome del computer e il disco di destinazione, quindi esaminare l’hardware rilevato.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Impostazioni di distribuzione</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Inventario del dispositivo</value></data>
@@ -587,4 +586,6 @@ Continuare con la distribuzione?</value></data>
   <data name="Drivers.Description" xml:space="preserve"><value>Scegliere l’origine dei driver e, quando necessario, il modello e la versione corrispondenti.</value></data>
   <data name="Autopilot.Description" xml:space="preserve"><value>Esaminare le impostazioni di provisioning di Autopilot per questo dispositivo.</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Esaminare le selezioni prima di avviare la distribuzione.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Include un profilo Autopilot offline nell'installazione di Windows.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Carica l'hash hardware del dispositivo in Windows Autopilot durante la distribuzione.</value></data>
 </root>

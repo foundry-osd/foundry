@@ -569,7 +569,6 @@ Continuar com a implantação?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Passos da implementação</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Ver detalhes do erro</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Detalhes do erro</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>O assistente de registo será executado no dispositivo implementado.</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Escolha o nome do computador e o disco de destino e, em seguida, reveja o hardware detetado.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Definições de implementação</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Inventário do dispositivo</value></data>
@@ -587,4 +586,6 @@ Continuar com a implantação?</value></data>
   <data name="Drivers.Description" xml:space="preserve"><value>Escolha a origem dos controladores e, quando necessário, o modelo e a versão correspondentes.</value></data>
   <data name="Autopilot.Description" xml:space="preserve"><value>Reveja as definições de aprovisionamento do Autopilot para este dispositivo.</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Reveja as suas seleções antes de iniciar a implementação.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Adiciona um perfil offline do Autopilot à instalação do Windows.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Carrega o hash de hardware deste dispositivo para o Windows Autopilot durante a implementação.</value></data>
 </root>

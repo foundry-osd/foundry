@@ -569,7 +569,6 @@ Ali želite nadaljevati z uvajanjem?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Koraki uvajanja</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Prikaži podrobnosti napake</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Podrobnosti napake</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Pomočnik za registracijo se bo zagnal v uvedeni napravi.</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Izberite ime računalnika in ciljni disk, nato pa preglejte zaznano strojno opremo.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Nastavitve uvedbe</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Inventar naprave</value></data>
@@ -587,4 +586,6 @@ Ali želite nadaljevati z uvajanjem?</value></data>
   <data name="Drivers.Description" xml:space="preserve"><value>Izberite vir gonilnikov ter po potrebi ustrezni model in različico.</value></data>
   <data name="Autopilot.Description" xml:space="preserve"><value>Preglejte nastavitve omogočanja uporabe rešitve Autopilot za to napravo.</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Pred začetkom uvedbe preglejte svoje izbire.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>V namestitev sistema Windows doda profil Autopilot brez povezave.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Med uvajanjem naloži zgoščeno vrednost strojne opreme te naprave v Windows Autopilot.</value></data>
 </root>

@@ -569,7 +569,6 @@ Vil du fortsætte med implementeringen?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Implementeringstrin</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Vis fejldetaljer</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Fejldetaljer</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Registreringsassistenten kører på den installerede enhed.</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Vælg computernavnet og destinationsdisken, og gennemse derefter den registrerede hardware.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Indstillinger for udrulning</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Enhedsoversigt</value></data>
@@ -587,4 +586,6 @@ Vil du fortsætte med implementeringen?</value></data>
   <data name="Drivers.Description" xml:space="preserve"><value>Vælg driverkilden og om nødvendigt den tilsvarende model og version.</value></data>
   <data name="Autopilot.Description" xml:space="preserve"><value>Gennemse indstillingerne for Autopilot-klargøring for denne enhed.</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Gennemse dine valg, før udrulningen startes.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Føjer en offline Autopilot-profil til Windows-installationen.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Uploader denne enheds hardwarehash til Windows Autopilot under udrulningen.</value></data>
 </root>

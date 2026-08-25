@@ -586,5 +586,6 @@
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>ขั้นตอนการปรับใช้</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>ดูรายละเอียดข้อผิดพลาด</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>รายละเอียดข้อผิดพลาด</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>ผู้ช่วยการลงทะเบียนจะทำงานบนอุปกรณ์ที่ปรับใช้แล้ว</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>เพิ่มโปรไฟล์ Autopilot แบบออฟไลน์ลงในการติดตั้ง Windows</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>อัปโหลดแฮชฮาร์ดแวร์ของอุปกรณ์นี้ไปยัง Windows Autopilot ระหว่างการปรับใช้</value></data>
 </root>

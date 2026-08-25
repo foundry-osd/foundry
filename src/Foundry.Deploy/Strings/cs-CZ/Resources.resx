@@ -569,7 +569,6 @@ Pokračovat v nasazování?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Kroky nasazení</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Zobrazit podrobnosti o chybě</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Podrobnosti o chybě</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Na nasazeném zařízení se spustí pomocník registrace.</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Zvolte název počítače a cílový disk a poté zkontrolujte zjištěný hardware.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Nastavení nasazení</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Inventář zařízení</value></data>
@@ -587,4 +586,6 @@ Pokračovat v nasazování?</value></data>
   <data name="Drivers.Description" xml:space="preserve"><value>Zvolte zdroj ovladačů a v případě potřeby odpovídající model a verzi.</value></data>
   <data name="Autopilot.Description" xml:space="preserve"><value>Zkontrolujte nastavení zřizování pomocí Autopilotu pro toto zařízení.</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Před zahájením nasazení zkontrolujte své volby.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Vloží offline profil Autopilotu do instalace Windows.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Nahraje hardwarový hash tohoto zařízení do Windows Autopilotu během nasazení.</value></data>
 </root>

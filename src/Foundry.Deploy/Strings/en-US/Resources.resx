@@ -586,5 +586,6 @@ Continue with deployment?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Deployment steps</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>View error details</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Error details</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>The registration assistant will run on the deployed device.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Stages an offline Autopilot profile in the Windows installation.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Uploads this device's hardware hash to Windows Autopilot during deployment.</value></data>
 </root>

@@ -569,7 +569,6 @@ Mit der Bereitstellung fortfahren?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Bereitstellungsschritte</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Fehlerdetails anzeigen</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Fehlerdetails</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Der Registrierungsassistent wird auf dem bereitgestellten Gerät ausgeführt.</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Wählen Sie den Computernamen und den Zieldatenträger aus und überprüfen Sie anschließend die erkannte Hardware.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Bereitstellungseinstellungen</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Geräteinventar</value></data>
@@ -587,4 +586,6 @@ Mit der Bereitstellung fortfahren?</value></data>
   <data name="Drivers.Description" xml:space="preserve"><value>Wählen Sie die Treiberquelle und bei Bedarf das passende Modell und die passende Version aus.</value></data>
   <data name="Autopilot.Description" xml:space="preserve"><value>Überprüfen Sie die Einstellungen für die Autopilot-Bereitstellung auf diesem Gerät.</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Überprüfen Sie Ihre Auswahl, bevor Sie die Bereitstellung starten.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Fügt der Windows-Installation ein Offline-Autopilot-Profil hinzu.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Lädt den Hardware-Hash dieses Geräts während der Bereitstellung in Windows Autopilot hoch.</value></data>
 </root>

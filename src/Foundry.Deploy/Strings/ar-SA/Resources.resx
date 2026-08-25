@@ -586,5 +586,6 @@
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>خطوات النشر</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>عرض تفاصيل الخطأ</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>تفاصيل الخطأ</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>سيعمل مساعد التسجيل على الجهاز الذي تم نشره.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>يضيف ملف تعريف Autopilot غير متصل إلى تثبيت Windows.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>يحمّل تجزئة أجهزة هذا الجهاز إلى Windows Autopilot أثناء النشر.</value></data>
 </root>

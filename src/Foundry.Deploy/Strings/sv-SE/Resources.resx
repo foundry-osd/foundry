@@ -569,7 +569,6 @@ Fortsätt med implementeringen?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Distributionssteg</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Visa felinformation</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Felinformation</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Registreringsassistenten kommer att köras på den distribuerade enheten.</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Välj datornamnet och måldisken och granska sedan den identifierade maskinvaran.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Distributionsinställningar</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Enhetsinventering</value></data>
@@ -587,4 +586,6 @@ Fortsätt med implementeringen?</value></data>
   <data name="Drivers.Description" xml:space="preserve"><value>Välj drivrutinskälla och vid behov motsvarande modell och version.</value></data>
   <data name="Autopilot.Description" xml:space="preserve"><value>Granska inställningarna för Autopilot-etablering för den här enheten.</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Granska dina val innan du startar distributionen.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Lägger till en offlineprofil för Autopilot i Windows-installationen.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Laddar upp enhetens maskinvaruhash till Windows Autopilot under distributionen.</value></data>
 </root>

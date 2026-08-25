@@ -569,7 +569,6 @@ Continuer le déploiement ?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Étapes de déploiement</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Afficher les détails de l’erreur</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Détails de l’erreur</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>L’assistant d’inscription s’exécutera sur l’appareil déployé.</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Choisissez le nom de l’ordinateur et le disque cible, puis vérifiez le matériel détecté.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Paramètres de déploiement</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Inventaire de l’appareil</value></data>
@@ -587,4 +586,6 @@ Continuer le déploiement ?</value></data>
   <data name="Drivers.Description" xml:space="preserve"><value>Choisissez la source des pilotes et, si nécessaire, le modèle et la version correspondants.</value></data>
   <data name="Autopilot.Description" xml:space="preserve"><value>Vérifiez les paramètres de provisionnement Autopilot pour cet appareil.</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Vérifiez vos sélections avant de démarrer le déploiement.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Ajoute un profil Autopilot hors connexion à l’installation de Windows.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Envoie le hash matériel de cet appareil à Windows Autopilot pendant le déploiement.</value></data>
 </root>

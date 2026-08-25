@@ -569,7 +569,6 @@ Tęsti diegimą?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Diegimo veiksmai</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Peržiūrėti klaidos informaciją</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Klaidos informacija</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Registravimo pagalbinė priemonė bus paleista įdiegtame įrenginyje.</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Pasirinkite kompiuterio vardą ir paskirties diską, tada peržiūrėkite aptiktą aparatinę įrangą.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Diegimo parametrai</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Įrenginio inventorius</value></data>
@@ -587,4 +586,6 @@ Tęsti diegimą?</value></data>
   <data name="Drivers.Description" xml:space="preserve"><value>Pasirinkite tvarkyklių šaltinį ir, kai reikia, atitinkamą modelį bei versiją.</value></data>
   <data name="Autopilot.Description" xml:space="preserve"><value>Peržiūrėkite šio įrenginio „Autopilot“ parengimo parametrus.</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Prieš pradėdami diegimą peržiūrėkite savo pasirinkimus.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Prideda autonominį „Autopilot“ profilį prie „Windows“ diegimo.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Diegimo metu įkelia šio įrenginio aparatinės įrangos maišą į „Windows Autopilot“.</value></data>
 </root>

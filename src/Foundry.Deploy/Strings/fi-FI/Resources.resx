@@ -569,7 +569,6 @@ Jatketaanko käyttöönottoa?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Käyttöönoton vaiheet</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Näytä virheen tiedot</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Virheen tiedot</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Rekisteröintiavustaja suoritetaan käyttöönotetulla laitteella.</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Valitse tietokoneen nimi ja kohdelevy ja tarkista sitten havaittu laitteisto.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Käyttöönottoasetukset</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Laitetiedot</value></data>
@@ -587,4 +586,6 @@ Jatketaanko käyttöönottoa?</value></data>
   <data name="Drivers.Description" xml:space="preserve"><value>Valitse ohjainten lähde sekä tarvittaessa vastaava malli ja versio.</value></data>
   <data name="Autopilot.Description" xml:space="preserve"><value>Tarkista tämän laitteen Autopilot-valmisteluasetukset.</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Tarkista valintasi ennen käyttöönoton aloittamista.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Lisää offline-tilassa olevan Autopilot-profiilin Windows-asennukseen.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Lataa tämän laitteen laitteiston hajautusarvon Windows Autopilotiin käyttöönoton aikana.</value></data>
 </root>

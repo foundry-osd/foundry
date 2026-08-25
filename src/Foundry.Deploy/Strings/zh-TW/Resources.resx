@@ -586,5 +586,6 @@
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>部署步驟</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>檢視錯誤詳細資料</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>錯誤詳細資料</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>註冊小幫手將會在已部署的裝置上執行。</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>將離線 Autopilot 設定檔新增至 Windows 安裝。</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>在部署期間將此裝置的硬體雜湊上傳至 Windows Autopilot。</value></data>
 </root>

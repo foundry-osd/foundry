@@ -569,7 +569,6 @@ Folytatja a telepítést?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Telepítési lépések</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Hiba részleteinek megtekintése</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Hiba részletei</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>A regisztrációs segéd a telepített eszközön fog futni.</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Válassza ki a számítógép nevét és a céllemezt, majd tekintse át az észlelt hardvert.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Üzembehelyezési beállítások</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Eszközleltár</value></data>
@@ -587,4 +586,6 @@ Folytatja a telepítést?</value></data>
   <data name="Drivers.Description" xml:space="preserve"><value>Válassza ki az illesztőprogramok forrását, és szükség esetén a megfelelő modellt és verziót.</value></data>
   <data name="Autopilot.Description" xml:space="preserve"><value>Tekintse át az eszköz Autopilot-kiépítési beállításait.</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Az üzembe helyezés megkezdése előtt tekintse át a választásait.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Offline Autopilot-profilt ad a Windows-telepítéshez.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>A telepítés során feltölti az eszköz hardverkivonatát a Windows Autopilotba.</value></data>
 </root>

@@ -569,7 +569,6 @@ Dağıtıma devam edilsin mi?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Dağıtım adımları</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Hata ayrıntılarını görüntüle</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Hata ayrıntıları</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Kayıt yardımcısı dağıtılan cihazda çalıştırılacaktır.</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Bilgisayar adını ve hedef diski seçin, ardından algılanan donanımı gözden geçirin.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Dağıtım ayarları</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Cihaz envanteri</value></data>
@@ -587,4 +586,6 @@ Dağıtıma devam edilsin mi?</value></data>
   <data name="Drivers.Description" xml:space="preserve"><value>Sürücü kaynağını ve gerektiğinde eşleşen modeli ve sürümü seçin.</value></data>
   <data name="Autopilot.Description" xml:space="preserve"><value>Bu cihazın Autopilot sağlama ayarlarını gözden geçirin.</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Dağıtımı başlatmadan önce seçimlerinizi gözden geçirin.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Çevrimdışı bir Autopilot profilini Windows yüklemesine ekler.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Dağıtım sırasında bu cihazın donanım karmasını Windows Autopilot'a yükler.</value></data>
 </root>

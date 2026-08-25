@@ -586,5 +586,6 @@
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>部署步骤</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>查看错误详细信息</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>错误详细信息</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>注册助手将在已部署的设备上运行。</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>将离线 Autopilot 配置文件添加到 Windows 安装中。</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>在部署期间将此设备的硬件哈希上传到 Windows Autopilot。</value></data>
 </root>

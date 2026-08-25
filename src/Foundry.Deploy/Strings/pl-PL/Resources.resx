@@ -569,7 +569,6 @@ Kontynuować wdrażanie?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Kroki wdrażania</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Wyświetl szczegóły błędu</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Szczegóły błędu</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Asystent rejestracji zostanie uruchomiony na wdrożonym urządzeniu.</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Wybierz nazwę komputera i dysk docelowy, a następnie przejrzyj wykryty sprzęt.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Ustawienia wdrożenia</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Inwentaryzacja urządzenia</value></data>
@@ -587,4 +586,6 @@ Kontynuować wdrażanie?</value></data>
   <data name="Drivers.Description" xml:space="preserve"><value>Wybierz źródło sterowników oraz, w razie potrzeby, odpowiedni model i wersję.</value></data>
   <data name="Autopilot.Description" xml:space="preserve"><value>Przejrzyj ustawienia aprowizacji rozwiązania Autopilot dla tego urządzenia.</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Przejrzyj wybrane opcje przed rozpoczęciem wdrożenia.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Dodaje profil Autopilot offline do instalacji systemu Windows.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Przesyła skrót sprzętowy tego urządzenia do usługi Windows Autopilot podczas wdrażania.</value></data>
 </root>

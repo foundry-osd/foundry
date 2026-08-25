@@ -569,7 +569,6 @@
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Βήματα ανάπτυξης</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Προβολή λεπτομερειών σφάλματος</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Λεπτομέρειες σφάλματος</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Ο βοηθός εγγραφής θα εκτελεστεί στη συσκευή που αναπτύχθηκε.</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Επιλέξτε το όνομα υπολογιστή και τον δίσκο προορισμού και, στη συνέχεια, ελέγξτε το υλικό που εντοπίστηκε.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Ρυθμίσεις ανάπτυξης</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Απογραφή συσκευής</value></data>
@@ -587,4 +586,6 @@
   <data name="Drivers.Description" xml:space="preserve"><value>Επιλέξτε την προέλευση των προγραμμάτων οδήγησης και, όταν απαιτείται, το αντίστοιχο μοντέλο και την έκδοση.</value></data>
   <data name="Autopilot.Description" xml:space="preserve"><value>Ελέγξτε τις ρυθμίσεις προμήθειας Autopilot για αυτήν τη συσκευή.</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Ελέγξτε τις επιλογές σας πριν ξεκινήσετε την ανάπτυξη.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Προσθέτει ένα προφίλ Autopilot χωρίς σύνδεση στην εγκατάσταση των Windows.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Αποστέλλει τον κατακερματισμό υλικού αυτής της συσκευής στο Windows Autopilot κατά την ανάπτυξη.</value></data>
 </root>

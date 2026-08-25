@@ -586,5 +586,6 @@
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>배포 단계</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>오류 세부 정보 보기</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>오류 세부 정보</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>등록 도우미는 배포된 장치에서 실행됩니다.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>오프라인 Autopilot 프로필을 Windows 설치에 추가합니다.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>배포 중에 이 디바이스의 하드웨어 해시를 Windows Autopilot에 업로드합니다.</value></data>
 </root>

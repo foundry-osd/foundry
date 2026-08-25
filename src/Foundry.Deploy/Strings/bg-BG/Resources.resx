@@ -569,7 +569,6 @@
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Стъпки за внедряване</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Преглед на подробностите за грешката</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Подробности за грешката</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Помощникът за регистрация ще се стартира на разположеното устройство.</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Изберете името на компютъра и целевия диск, след което прегледайте открития хардуер.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Настройки за разполагане</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Инвентаризация на устройството</value></data>
@@ -587,4 +586,6 @@
   <data name="Drivers.Description" xml:space="preserve"><value>Изберете източника на драйвери и при необходимост съответстващия модел и версия.</value></data>
   <data name="Autopilot.Description" xml:space="preserve"><value>Прегледайте настройките за осигуряване на Autopilot за това устройство.</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Прегледайте избраните настройки, преди да започнете разполагането.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Добавя офлайн профил на Autopilot към инсталацията на Windows.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Качва хардуерния хеш на това устройство в Windows Autopilot по време на разполагането.</value></data>
 </root>

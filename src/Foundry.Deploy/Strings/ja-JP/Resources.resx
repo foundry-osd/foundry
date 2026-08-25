@@ -586,5 +586,6 @@
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>展開手順</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>エラーの詳細を表示</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>エラーの詳細</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>登録アシスタントは展開後のデバイスで実行されます。</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>オフラインの Autopilot プロファイルを Windows インストールに追加します。</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>展開中にこのデバイスのハードウェア ハッシュを Windows Autopilot にアップロードします。</value></data>
 </root>

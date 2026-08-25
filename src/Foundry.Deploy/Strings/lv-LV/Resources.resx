@@ -569,7 +569,6 @@ Vai turpināt izvietošanu?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Izvietošanas darbības</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Skatīt informāciju par kļūdu</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Informācija par kļūdu</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Reģistrācijas palīgs tiks palaists izvietotajā ierīcē.</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Izvēlieties datora nosaukumu un mērķa disku, pēc tam pārskatiet noteikto aparatūru.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Izvietošanas iestatījumi</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Ierīces inventārs</value></data>
@@ -587,4 +586,6 @@ Vai turpināt izvietošanu?</value></data>
   <data name="Drivers.Description" xml:space="preserve"><value>Izvēlieties draiveru avotu un, ja nepieciešams, atbilstošo modeli un versiju.</value></data>
   <data name="Autopilot.Description" xml:space="preserve"><value>Pārskatiet šīs ierīces Autopilot nodrošināšanas iestatījumus.</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Pirms izvietošanas sākšanas pārskatiet savu izvēli.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Pievieno Windows instalācijai bezsaistes Autopilot profilu.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Izvietošanas laikā augšupielādē šīs ierīces aparatūras jaucējkodu pakalpojumā Windows Autopilot.</value></data>
 </root>

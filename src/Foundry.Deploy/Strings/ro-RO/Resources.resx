@@ -569,7 +569,6 @@ Continuați cu implementarea?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Pași de implementare</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Vedeți detaliile erorii</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Detalii despre eroare</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Asistentul de înregistrare va rula pe dispozitivul implementat.</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Alegeți numele computerului și discul țintă, apoi verificați hardware-ul detectat.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Setări de implementare</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Inventarul dispozitivului</value></data>
@@ -587,4 +586,6 @@ Continuați cu implementarea?</value></data>
   <data name="Drivers.Description" xml:space="preserve"><value>Alegeți sursa driverelor și, atunci când este necesar, modelul și versiunea corespunzătoare.</value></data>
   <data name="Autopilot.Description" xml:space="preserve"><value>Verificați setările de asigurare a accesului Autopilot pentru acest dispozitiv.</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Verificați selecțiile înainte de a începe implementarea.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Adaugă un profil Autopilot offline la instalarea Windows.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Încarcă hashul hardware al acestui dispozitiv în Windows Autopilot în timpul implementării.</value></data>
 </root>

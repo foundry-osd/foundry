@@ -106,11 +106,8 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     public bool HasAutopilotProfiles => AutopilotProfiles.Count > 0;
     public bool IsJsonProfileMode => AutopilotProvisioningMode == AutopilotProvisioningMode.JsonProfile;
     public bool IsHardwareHashUploadMode => AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload;
-    public bool IsInteractiveHardwareHashUploadMode =>
-        AutopilotProvisioningMode == AutopilotProvisioningMode.InteractiveHardwareHashUpload;
     public bool IsJsonProfileControlsVisible => IsAutopilotEnabled && IsJsonProfileMode;
     public bool IsHardwareHashUploadControlsVisible => IsAutopilotEnabled && IsHardwareHashUploadMode;
-    public bool IsInteractiveHardwareHashUploadStatusVisible => IsAutopilotEnabled && IsInteractiveHardwareHashUploadMode;
     public bool IsAutopilotProfileSelectionEnabled => IsJsonProfileControlsVisible && HasAutopilotProfiles;
     public bool HasHardwareHashUploadMetadata =>
         !string.IsNullOrWhiteSpace(AutopilotHardwareHashUpload.TenantId) &&
@@ -147,8 +144,6 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         AutopilotProvisioningMode.InteractiveHardwareHashUpload => GetString("Preparation.AutopilotModeInteractiveHardwareHashUpload"),
         _ => GetString("Preparation.AutopilotModeJsonProfile")
     };
-    public string AutopilotInteractiveHardwareHashUploadStatusText =>
-        GetString("Autopilot.InteractiveHardwareHashUploadStatus");
     public string AutopilotHardwareHashUploadStatusText
     {
         get
@@ -431,7 +426,6 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     {
         OnPropertyChanged(nameof(IsJsonProfileControlsVisible));
         OnPropertyChanged(nameof(IsHardwareHashUploadControlsVisible));
-        OnPropertyChanged(nameof(IsInteractiveHardwareHashUploadStatusVisible));
         OnPropertyChanged(nameof(IsAutopilotProfileSelectionEnabled));
         OnPropertyChanged(nameof(AutopilotProfileHint));
         OnPropertyChanged(nameof(HasAutopilotProfileHint));
@@ -511,10 +505,8 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     {
         OnPropertyChanged(nameof(IsJsonProfileMode));
         OnPropertyChanged(nameof(IsHardwareHashUploadMode));
-        OnPropertyChanged(nameof(IsInteractiveHardwareHashUploadMode));
         OnPropertyChanged(nameof(IsJsonProfileControlsVisible));
         OnPropertyChanged(nameof(IsHardwareHashUploadControlsVisible));
-        OnPropertyChanged(nameof(IsInteractiveHardwareHashUploadStatusVisible));
         OnPropertyChanged(nameof(IsAutopilotProfileSelectionEnabled));
         OnPropertyChanged(nameof(AutopilotProfileHint));
         OnPropertyChanged(nameof(HasAutopilotProfileHint));
@@ -743,7 +735,6 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
             OnPropertyChanged(nameof(AutopilotProfileHint));
             OnPropertyChanged(nameof(HasAutopilotProfileHint));
             OnPropertyChanged(nameof(AutopilotModeText));
-            OnPropertyChanged(nameof(AutopilotInteractiveHardwareHashUploadStatusText));
             RefreshHardwareHashGroupTagOptions();
             RaiseHardwareHashPropertiesChanged();
             OnPropertyChanged(nameof(TargetDiskSelectionHint));

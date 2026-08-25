@@ -569,7 +569,6 @@ Vil du fortsette med distribusjonen?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Distribusjonstrinn</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Vis feildetaljer</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Feildetaljer</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Registreringsassistenten kjøres på den distribuerte enheten.</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Velg datamaskinnavnet og måldisken, og se deretter gjennom den registrerte maskinvaren.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Distribusjonsinnstillinger</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Enhetsoversikt</value></data>
@@ -587,4 +586,6 @@ Vil du fortsette med distribusjonen?</value></data>
   <data name="Drivers.Description" xml:space="preserve"><value>Velg driverkilden og, om nødvendig, tilsvarende modell og versjon.</value></data>
   <data name="Autopilot.Description" xml:space="preserve"><value>Se gjennom innstillingene for Autopilot-klargjøring for denne enheten.</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Se gjennom valgene før du starter distribusjonen.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Legger til en frakoblet Autopilot-profil i Windows-installasjonen.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Laster opp maskinvarehashen for denne enheten til Windows Autopilot under distribusjonen.</value></data>
 </root>

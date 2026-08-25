@@ -569,7 +569,6 @@ ErrorCode=0x80070005
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Кроки розгортання</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Переглянути відомості про помилку</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Відомості про помилку</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Помічник реєстрації буде запущений на розгорнутому пристрої.</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Виберіть ім’я комп’ютера й цільовий диск, а потім перегляньте відомості про виявлене обладнання.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Параметри розгортання</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Інвентаризація пристрою</value></data>
@@ -587,4 +586,6 @@ ErrorCode=0x80070005
   <data name="Drivers.Description" xml:space="preserve"><value>Виберіть джерело драйверів і, за потреби, відповідні модель і версію.</value></data>
   <data name="Autopilot.Description" xml:space="preserve"><value>Перегляньте параметри підготовки Autopilot для цього пристрою.</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Перегляньте вибрані параметри перед початком розгортання.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Додає автономний профіль Autopilot до інсталяції Windows.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Під час розгортання завантажує апаратний хеш цього пристрою до Windows Autopilot.</value></data>
 </root>

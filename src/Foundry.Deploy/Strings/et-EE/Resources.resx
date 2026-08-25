@@ -569,7 +569,6 @@ Kas jätkata juurutamisega?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Juurutamise sammud</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Kuva tõrke üksikasjad</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Tõrke üksikasjad</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>Registreerimisabiline käivitatakse juurutatud seadmes.</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Valige arvuti nimi ja sihtketas ning seejärel vaadake tuvastatud riistvara üle.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Juurutamise sätted</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Seadme inventuur</value></data>
@@ -587,4 +586,6 @@ Kas jätkata juurutamisega?</value></data>
   <data name="Drivers.Description" xml:space="preserve"><value>Valige draiverite allikas ning vajaduse korral sobiv mudel ja versioon.</value></data>
   <data name="Autopilot.Description" xml:space="preserve"><value>Vaadake üle selle seadme Autopiloti ettevalmistamise sätted.</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Vaadake oma valikud enne juurutamise alustamist üle.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Lisab Windowsi installi võrguühenduseta Autopiloti profiili.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Laadib selle seadme riistvararäsi juurutamise ajal Windows Autopiloti.</value></data>
 </root>

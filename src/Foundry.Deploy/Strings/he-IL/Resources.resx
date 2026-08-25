@@ -586,5 +586,6 @@ ErrorCode=0x80070005
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>שלבי פריסה</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>הצג פרטי שגיאה</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>פרטי שגיאה</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>מסייע הרישום יופעל במכשיר שנפרס.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>מוסיף פרופיל Autopilot לא מקוון להתקנת Windows.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>מעלה את ה-hash של חומרת המכשיר ל-Windows Autopilot במהלך הפריסה.</value></data>
 </root>

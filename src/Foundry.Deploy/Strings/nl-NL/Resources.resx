@@ -569,7 +569,6 @@ Doorgaan met de implementatie?</value></data>
   <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Implementatiestappen</value></data>
   <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Foutdetails weergeven</value></data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Foutdetails</value></data>
-  <data name="Autopilot.InteractiveHardwareHashUploadStatus" xml:space="preserve"><value>De registratieassistent wordt uitgevoerd op het geïmplementeerde apparaat.</value></data>
   <data name="TargetDevice.Description" xml:space="preserve"><value>Kies de computernaam en de doelschijf en controleer vervolgens de gedetecteerde hardware.</value></data>
   <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Implementatie-instellingen</value></data>
   <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Apparaatinventaris</value></data>
@@ -587,4 +586,6 @@ Doorgaan met de implementatie?</value></data>
   <data name="Drivers.Description" xml:space="preserve"><value>Kies de bron voor stuurprogramma’s en, indien nodig, het bijbehorende model en de bijbehorende versie.</value></data>
   <data name="Autopilot.Description" xml:space="preserve"><value>Controleer de instellingen voor Autopilot-inrichting op dit apparaat.</value></data>
   <data name="Summary.Description" xml:space="preserve"><value>Controleer uw selecties voordat u de implementatie start.</value></data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Voegt een offline Autopilot-profiel toe aan de Windows-installatie.</value></data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Uploadt de hardware-hash van dit apparaat tijdens de implementatie naar Windows Autopilot.</value></data>
 </root>
