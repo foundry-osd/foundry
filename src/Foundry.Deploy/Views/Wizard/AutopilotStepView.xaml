@@ -49,34 +49,59 @@
                         </Style>
                     </StackPanel.Style>
 
-                    <TextBlock
-                        Margin="0,0,0,8"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="{Binding DataContext.Strings[Summary.AutopilotMode], ElementName=ViewRoot}" />
                     <Border
                         Padding="16"
                         Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
                         CornerRadius="6">
-                        <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="32" />
+                                <ColumnDefinition Width="16" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
                             <TextBlock
-                                Style="{StaticResource SubtitleTextBlockStyle}"
-                                Text="{Binding AutopilotModeText}"
-                                TextWrapping="Wrap" />
-                            <TextBlock
-                                Margin="0,4,0,0"
-                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="{Binding DataContext.Strings[Autopilot.JsonProfileMethodDescription], ElementName=ViewRoot}"
-                                TextWrapping="Wrap"
-                                Visibility="{Binding IsJsonProfileControlsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                            <TextBlock
-                                Margin="0,4,0,0"
-                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="{Binding DataContext.Strings[Autopilot.HardwareHashUploadMethodDescription], ElementName=ViewRoot}"
-                                TextWrapping="Wrap"
-                                Visibility="{Binding IsHardwareHashUploadControlsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                        </StackPanel>
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontFamily="{DynamicResource SymbolThemeFontFamily}"
+                                FontSize="24">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter
+                                            Property="Text"
+                                            Value="&#xE8A5;" />
+                                        <Style.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding IsHardwareHashUploadControlsVisible}"
+                                                Value="True">
+                                                <Setter
+                                                    Property="Text"
+                                                    Value="&#xE753;" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <StackPanel Grid.Column="2">
+                                <TextBlock
+                                    Style="{StaticResource SubtitleTextBlockStyle}"
+                                    Text="{Binding AutopilotModeText}"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    Margin="0,4,0,0"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="{Binding DataContext.Strings[Autopilot.JsonProfileMethodDescription], ElementName=ViewRoot}"
+                                    TextWrapping="Wrap"
+                                    Visibility="{Binding IsJsonProfileControlsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                <TextBlock
+                                    Margin="0,4,0,0"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="{Binding DataContext.Strings[Autopilot.HardwareHashUploadMethodDescription], ElementName=ViewRoot}"
+                                    TextWrapping="Wrap"
+                                    Visibility="{Binding IsHardwareHashUploadControlsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            </StackPanel>
+                        </Grid>
                     </Border>
 
                     <StackPanel
