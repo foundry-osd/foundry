@@ -20,6 +20,7 @@
             <Grid x:Name="OperatingSystemFormViewport"
                 MinHeight="{Binding ActualHeight, ElementName=PageContentScrollViewer}">
                 <StackPanel x:Name="OperatingSystemForm"
+                    Margin="0,0,0,32"
                     MaxWidth="600"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Center">
