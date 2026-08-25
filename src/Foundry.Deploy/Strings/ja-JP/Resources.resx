@@ -38,8 +38,8 @@
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>ファームウェアアップデートを適用する</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>プロフィール</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>このメディアには埋め込まれた Autopilot プロファイルが見つかりませんでした。</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON プロフィール</value></data>
-  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>ゼロタッチ ハードウェア ハッシュ アップロード</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON プロファイルのプロビジョニング</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>ゼロタッチ ハードウェア ハッシュのアップロード</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>対話型ハードウェア ハッシュ アップロード</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>ゼロタッチ ハードウェア ハッシュ アップロード</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>ハードウェア ハッシュのアップロード ステータス</value></data>

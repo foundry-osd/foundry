@@ -4,6 +4,7 @@
 
 using System.Globalization;
 using System.Resources;
+using System.Xml.Linq;
 using Foundry.Deploy.Services.Localization;
 
 namespace Foundry.Deploy.Tests;
@@ -164,6 +165,26 @@ public sealed class LocalizationResourceTests
         Assert.Contains("{0}", resourceSet.GetString("Error.FailedStepFormat"));
     }
 
+    [Theory]
+    [InlineData("en-US")]
+    [MemberData(nameof(SatelliteCultures))]
+    public void ProvisioningModeTitles_MatchFoundryPageTitles(string cultureName)
+    {
+        string repositoryRoot = FindRepositoryRoot();
+        string foundryResourcePath = Path.Combine(repositoryRoot, "src", "Foundry", "Strings", cultureName, "Resources.resw");
+        string deployResourcePath = Path.Combine(repositoryRoot, "src", "Foundry.Deploy", "Strings", cultureName, "Resources.resx");
+
+        XDocument foundryResources = XDocument.Load(foundryResourcePath);
+        XDocument deployResources = XDocument.Load(deployResourcePath);
+
+        Assert.Equal(
+            GetResourceValue(foundryResources, "AutopilotJsonProfilePageHeader.Title"),
+            GetResourceValue(deployResources, "Preparation.AutopilotModeJsonProfile"));
+        Assert.Equal(
+            GetResourceValue(foundryResources, "AutopilotZeroTouchPageHeader.Title"),
+            GetResourceValue(deployResources, "Preparation.AutopilotModeHardwareHashUpload"));
+    }
+
     [Fact]
     public void ReferenceResources_UseApprovedTerminalStateCopy()
     {
@@ -187,4 +208,28 @@ public sealed class LocalizationResourceTests
         Assert.Equal("View error details", resourceSet.GetString("Error.ViewTechnicalDetails"));
         Assert.Equal("Error details", resourceSet.GetString("Error.TechnicalDetailsTitle"));
     }
+
+    private static string FindRepositoryRoot()
+    {
+        DirectoryInfo? directory = new(AppContext.BaseDirectory);
+        while (directory is not null)
+        {
+            if (File.Exists(Path.Combine(directory.FullName, "src", "Foundry.slnx")))
+            {
+                return directory.FullName;
+            }
+
+            directory = directory.Parent;
+        }
+
+        throw new DirectoryNotFoundException("Could not locate the repository root.");
+    }
+
+    private static string GetResourceValue(XDocument document, string key) =>
+        document.Root?
+            .Elements("data")
+            .Single(element => string.Equals((string?)element.Attribute("name"), key, StringComparison.Ordinal))
+            .Element("value")?
+            .Value
+        ?? throw new InvalidDataException($"Resource '{key}' is missing.");
 }

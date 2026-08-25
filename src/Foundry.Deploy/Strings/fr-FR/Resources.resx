@@ -38,8 +38,8 @@
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Appliquer les mises à jour du firmware</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Aucun profil Autopilot intégré n’a été trouvé sur ce média.</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>Profil JSON</value></data>
-  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Envoi zero-touch du hash matériel</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>Provisionnement par profil JSON</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Téléversement zero-touch du hachage matériel</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Envoi interactif du hash matériel</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Envoi zero-touch du hash matériel</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>État de l’envoi du hash matériel</value></data>

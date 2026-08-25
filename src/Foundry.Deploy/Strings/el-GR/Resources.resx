@@ -38,7 +38,7 @@
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Εφαρμόστε ενημερώσεις υλικολογισμικού</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Προφίλ</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Δεν βρέθηκαν ενσωματωμένα προφίλ Autopilot σε αυτό το μέσο.</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>προφίλ JSON</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>Προμήθεια προφίλ JSON</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch αποστολή κατακερματισμού υλικού</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Διαδραστική αποστολή κατακερματισμού υλικού</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch αποστολή κατακερματισμού υλικού</value></data>

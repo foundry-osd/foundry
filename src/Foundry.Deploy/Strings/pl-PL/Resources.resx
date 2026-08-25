@@ -38,7 +38,7 @@
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Zastosuj aktualizacje oprogramowania sprzętowego</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Na tym nośniku nie znaleziono osadzonych profili Autopilot.</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>Profil JSON</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>Udostępnianie profilu JSON</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Bezobsługowe przesyłanie skrótu sprzętowego</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktywne przesyłanie skrótu sprzętowego</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Bezobsługowe przesyłanie skrótu sprzętowego</value></data>

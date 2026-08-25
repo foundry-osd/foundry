@@ -38,7 +38,7 @@
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Ürün yazılımı güncellemelerini uygulayın</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Bu medyada gömülü Autopilot profili bulunamadı.</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profili</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profil temel hazırlığı</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch donanım karması yükleme</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Etkileşimli donanım karması yükleme</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch donanım karması yükleme</value></data>

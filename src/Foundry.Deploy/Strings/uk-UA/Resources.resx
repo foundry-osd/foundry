@@ -38,7 +38,7 @@
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Застосуйте оновлення прошивки</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Профіль</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>На цьому носії не знайдено вбудованих профілів Autopilot.</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>профіль JSON</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>надання профілю JSON</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch завантаження апаратного хешу</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Інтерактивне завантаження апаратного хешу</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch завантаження апаратного хешу</value></data>

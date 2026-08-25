@@ -38,7 +38,7 @@
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Ota laiteohjelmistopäivitykset käyttöön</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profiili</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Tästä mediasta ei löytynyt upotettuja Autopilot-profiileja.</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profiili</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profiilin hallinta</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch-laitteiston hajautusarvon lataus</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Vuorovaikutteinen laitteiston hajautusarvon lataus</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch-laitteiston hajautusarvon lataus</value></data>

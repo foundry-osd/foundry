@@ -38,7 +38,7 @@
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Taikykite programinės įrangos naujinimus</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profilis</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Šioje laikmenoje nerasta įterptų Autopilot profilių.</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profilis</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON profilio sudarymas</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch aparatūros maišos įkėlimas</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Interaktyvus aparatūros maišos įkėlimas</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch aparatūros maišos įkėlimas</value></data>

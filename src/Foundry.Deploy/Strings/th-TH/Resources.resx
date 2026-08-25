@@ -38,8 +38,8 @@
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>ใช้การอัพเดตเฟิร์มแวร์</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>โปรไฟล์</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>ไม่พบโปรไฟล์ Autopilot ที่ฝังอยู่ในสื่อนี้</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON โปรไฟล์</value></data>
-  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>การอัปโหลดแฮชฮาร์ดแวร์แบบ zero-touch</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON การจัดสรรโปรไฟล์</value></data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>การอัปโหลดแฮชฮาร์ดแวร์แบบ Zero-touch</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>การอัปโหลดแฮชฮาร์ดแวร์แบบโต้ตอบ</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>การอัปโหลดแฮชฮาร์ดแวร์แบบ zero-touch</value></data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>สถานะการอัปโหลดแฮชของฮาร์ดแวร์</value></data>

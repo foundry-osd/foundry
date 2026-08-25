@@ -38,7 +38,7 @@
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Прилагане на актуализации на фърмуера</value></data>
   <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Профил</value></data>
   <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>В този носител не бяха намерени вградени Autopilot профили.</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON профил</value></data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>Осигуряване на профил JSON</value></data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch качване на хардуерен хеш</value></data>
   <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Интерактивно качване на хардуерен хеш</value></data>
   <data name="Preparation.AutopilotHardwareHashUpload" xml:space="preserve"><value>Zero-touch качване на хардуерен хеш</value></data>
