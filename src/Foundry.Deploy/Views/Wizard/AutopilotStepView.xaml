@@ -134,11 +134,33 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock
-                                    VerticalAlignment="Center"
+                                    Margin="0,2,0,0"
+                                    VerticalAlignment="Top"
                                     FontFamily="{DynamicResource SymbolThemeFontFamily}"
-                                    FontSize="16"
-                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                    Text="&#xE946;" />
+                                    FontSize="16">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter
+                                                Property="Foreground"
+                                                Value="{DynamicResource TextFillColorSecondaryBrush}" />
+                                            <Setter
+                                                Property="Text"
+                                                Value="&#xE946;" />
+                                            <Style.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding IsHardwareHashUploadMessageVisible}"
+                                                    Value="True">
+                                                    <Setter
+                                                        Property="Foreground"
+                                                        Value="{DynamicResource SystemFillColorCriticalBrush}" />
+                                                    <Setter
+                                                        Property="Text"
+                                                        Value="&#xE7BA;" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
                                 <StackPanel Grid.Column="2">
                                     <TextBlock
                                         Style="{StaticResource BodyStrongTextBlockStyle}"

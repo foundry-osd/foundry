@@ -87,7 +87,7 @@
   <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>تم تكوين {0} ({1} تمكين، {2} تعطيل)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>البرامج الثابتة</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot الطريقة</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>طريقة Autopilot</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot الملف الشخصي</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot علامة المجموعة</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>

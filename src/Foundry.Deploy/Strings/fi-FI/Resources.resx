@@ -87,7 +87,7 @@
   <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} m&#228;&#228;ritetty ({1} k&#228;ytt&#246;&#246;n, {2} pois k&#228;yt&#246;st&#228;)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Laiteohjelmisto</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Menetelmä</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot-menetelmä</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profiili</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot ryhmätunniste</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>

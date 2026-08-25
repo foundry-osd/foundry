@@ -87,7 +87,7 @@
   <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} configur&#233; ({1} activ&#233;, {2} d&#233;sactiv&#233;)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Micrologiciel</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Méthode</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Méthode Autopilot</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profil</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot balise de groupe</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>

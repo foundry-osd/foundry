@@ -87,7 +87,7 @@
   <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} מוגדר ({1} הפעל, {2} השבת)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>קושחה</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>שיטה Autopilot</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>שיטת Autopilot</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot פרופיל</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>תג קבוצתי Autopilot</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>

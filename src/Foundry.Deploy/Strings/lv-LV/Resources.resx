@@ -87,7 +87,7 @@
   <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} konfigurēts ({1} iespējot, {2} atspējot)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Programmaparatūra</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Metode</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot metode</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot profils</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot grupas atzīme</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>

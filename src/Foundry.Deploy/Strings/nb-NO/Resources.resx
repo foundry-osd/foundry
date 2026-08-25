@@ -87,7 +87,7 @@
   <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} konfigurert ({1} aktiver, {2} deaktiver)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Fastvare</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Metode</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot-metode</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profil</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot gruppetag</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>

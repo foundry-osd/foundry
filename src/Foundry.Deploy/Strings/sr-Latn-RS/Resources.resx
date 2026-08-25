@@ -87,7 +87,7 @@
   <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} konfigurisano ({1} omogući, {2} onemogući)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Firmvare</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Metod</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot metod</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profil</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot grupna oznaka</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>

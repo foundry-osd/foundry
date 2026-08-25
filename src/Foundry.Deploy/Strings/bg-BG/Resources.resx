@@ -87,7 +87,7 @@
   <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} конфигуриран ({1} активиране, {2} деактивиране)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>фърмуер</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Метод</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Метод на Autopilot</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Профил</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot групов етикет</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>

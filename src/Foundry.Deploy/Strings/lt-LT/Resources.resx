@@ -87,7 +87,7 @@
   <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} sukonfigūruota ({1} įjungti, {2} išjungti)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Metodas</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot metodas</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot profilis</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot grupės žyma</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>

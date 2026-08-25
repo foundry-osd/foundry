@@ -87,7 +87,7 @@
   <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} configured ({1} enable, {2} disable)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Firmware</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Method</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot method</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profile</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot group tag</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>

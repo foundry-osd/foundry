@@ -87,7 +87,7 @@
   <data name="Summary.WindowsOptionalFeaturesFormat" xml:space="preserve"><value>{0} διαμορφώθηκε ({1} ενεργοποίηση, {2} απενεργοποίηση)</value></data>
   <data name="Summary.Firmware" xml:space="preserve"><value>Υλικολογισμικό</value></data>
   <data name="Summary.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Autopilot Μέθοδος</value></data>
+  <data name="Summary.AutopilotMode" xml:space="preserve"><value>Μέθοδος Autopilot</value></data>
   <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Προφίλ</value></data>
   <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>ετικέτα ομάδας Autopilot</value></data>
   <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
