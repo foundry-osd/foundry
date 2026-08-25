@@ -2746,4 +2746,16 @@
   <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
     <value>ต้องตรวจสอบ</value>
   </data>
+  <data name="Nav_ReportBugKey.Title" xml:space="preserve">
+    <value>รายงานข้อบกพร่อง</value>
+  </data>
+  <data name="Nav_ReportBugKey.Description" xml:space="preserve">
+    <value>เปิดแบบฟอร์มรายงานข้อบกพร่องของ GitHub ในเบราว์เซอร์ของคุณ</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Title" xml:space="preserve">
+    <value>ไม่สามารถเปิดรายงานข้อบกพร่องได้</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
+    <value>Foundry ไม่สามารถเปิดแบบฟอร์มรายงานข้อบกพร่องได้ คัดลอกลิงก์นี้แล้วเปิดในเบราว์เซอร์ของคุณ</value>
+  </data>
 </root>

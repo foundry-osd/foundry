@@ -24,8 +24,10 @@ namespace Foundry.Views
         private readonly IExternalProcessLauncher externalProcessLauncher;
         private readonly ILogger logger = Log.ForContext<MainWindow>();
         private const string DocumentationNavigationTag = "Foundry.External.Documentation";
+        private const string BugReportNavigationTag = "Foundry.External.BugReport";
         private const string AboutNavigationTag = "Foundry.External.About";
         private const string UpdateNavigationTag = "Foundry.Navigation.UpdateAvailable";
+        private const string BugReportNavigationGlyph = "\uEBE8";
         private const string UpdateNavigationGlyph = "\uEBD3";
         private ContentDialog? operationDialog;
         private TextBlock? operationStatusText;
@@ -85,6 +87,7 @@ namespace Foundry.Views
         private void ApplyLocalizedShellText()
         {
             EnsureExternalDocumentationFooterItem();
+            EnsureExternalBugReportFooterItem();
             EnsureExternalAboutFooterItem();
             RefreshUpdateFooterItem();
         }
@@ -179,6 +182,9 @@ namespace Foundry.Views
                     return;
                 case DocumentationNavigationTag:
                     await OpenDocumentationAsync();
+                    return;
+                case BugReportNavigationTag:
+                    await OpenBugReportAsync();
                     return;
                 case AboutNavigationTag:
                     await ShowAboutDialogAsync();
@@ -515,11 +521,32 @@ namespace Foundry.Views
                     Tag = AboutNavigationTag,
                     Icon = new FontIcon { Glyph = "\uE946" }
                 };
-                NavView.FooterMenuItems.Insert(Math.Min(1, NavView.FooterMenuItems.Count), item);
+                NavView.FooterMenuItems.Insert(Math.Min(2, NavView.FooterMenuItems.Count), item);
             }
 
             item.Content = localizationService.GetString("Nav_AboutKey.Title");
             string description = localizationService.GetString("Nav_AboutKey.Description");
+            ToolTipService.SetToolTip(item, description);
+            AutomationProperties.SetName(item, item.Content?.ToString() ?? string.Empty);
+            AutomationProperties.SetHelpText(item, description);
+            item.IsEnabled = shellNavigationGuardService.State != ShellNavigationState.OperationRunning;
+        }
+
+        private void EnsureExternalBugReportFooterItem()
+        {
+            NavigationViewItem? item = FindNavigationItem(NavView.FooterMenuItems, BugReportNavigationTag);
+            if (item is null)
+            {
+                item = new()
+                {
+                    Tag = BugReportNavigationTag,
+                    Icon = new FontIcon { Glyph = BugReportNavigationGlyph }
+                };
+                NavView.FooterMenuItems.Insert(Math.Min(1, NavView.FooterMenuItems.Count), item);
+            }
+
+            item.Content = localizationService.GetString("Nav_ReportBugKey.Title");
+            string description = localizationService.GetString("Nav_ReportBugKey.Description");
             ToolTipService.SetToolTip(item, description);
             AutomationProperties.SetName(item, item.Content?.ToString() ?? string.Empty);
             AutomationProperties.SetHelpText(item, description);
@@ -544,6 +571,28 @@ namespace Foundry.Views
 
         internal async Task OpenDocumentationAsync()
         {
+            await OpenExternalUriAsync(
+                new Uri(FoundryApplicationInfo.DocumentationUrl),
+                "Documentation.ExternalLaunchFailed.Title",
+                "Documentation.ExternalLaunchFailed.Message",
+                "Documentation");
+        }
+
+        private async Task OpenBugReportAsync()
+        {
+            await OpenExternalUriAsync(
+                new Uri(FoundryApplicationInfo.BugReportUrl),
+                "BugReport.ExternalLaunchFailed.Title",
+                "BugReport.ExternalLaunchFailed.Message",
+                "BugReport");
+        }
+
+        private async Task OpenExternalUriAsync(
+            Uri uri,
+            string failureTitleResourceKey,
+            string failureMessageResourceKey,
+            string target)
+        {
             if (shellNavigationGuardService.State == ShellNavigationState.OperationRunning)
             {
                 return;
@@ -551,21 +600,24 @@ namespace Foundry.Views
 
             try
             {
-                await externalProcessLauncher.OpenUriAsync(new Uri(FoundryApplicationInfo.DocumentationUrl));
+                await externalProcessLauncher.OpenUriAsync(uri);
             }
             catch (Exception ex)
             {
-                logger.Warning(ex, "Failed to open documentation URL.");
-                await ShowDocumentationFallbackDialogAsync();
+                logger.Warning(ex, "Failed to open external URI. Target={Target}", target);
+                await ShowExternalUriFallbackDialogAsync(uri, failureTitleResourceKey, failureMessageResourceKey);
             }
         }
 
-        private async Task ShowDocumentationFallbackDialogAsync()
+        private async Task ShowExternalUriFallbackDialogAsync(
+            Uri uri,
+            string failureTitleResourceKey,
+            string failureMessageResourceKey)
         {
             ContentDialog dialog = new()
             {
                 XamlRoot = RootGrid.XamlRoot,
-                Title = localizationService.GetString("Documentation.ExternalLaunchFailed.Title"),
+                Title = localizationService.GetString(failureTitleResourceKey),
                 PrimaryButtonText = localizationService.GetString("Common.Close"),
                 DefaultButton = ContentDialogButton.Primary,
                 Content = new StackPanel
@@ -575,12 +627,12 @@ namespace Foundry.Views
                     {
                         new TextBlock
                         {
-                            Text = localizationService.GetString("Documentation.ExternalLaunchFailed.Message"),
+                            Text = localizationService.GetString(failureMessageResourceKey),
                             TextWrapping = TextWrapping.Wrap
                         },
                         new Microsoft.UI.Xaml.Controls.TextBox
                         {
-                            Text = FoundryApplicationInfo.DocumentationUrl,
+                            Text = uri.AbsoluteUri,
                             IsReadOnly = true
                         }
                     }

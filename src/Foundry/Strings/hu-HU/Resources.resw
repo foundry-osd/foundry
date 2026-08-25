@@ -2746,4 +2746,16 @@
   <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
     <value>Beavatkozást igényel</value>
   </data>
+  <data name="Nav_ReportBugKey.Title" xml:space="preserve">
+    <value>Hiba jelentése</value>
+  </data>
+  <data name="Nav_ReportBugKey.Description" xml:space="preserve">
+    <value>Nyissa meg a GitHub hibabejelentő űrlapját a böngészőjében.</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Title" xml:space="preserve">
+    <value>A hibajelentést nem lehetett megnyitni</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
+    <value>A Foundry nem tudta megnyitni a hibabejelentő űrlapot. Másolja ezt a hivatkozást, és nyissa meg a böngészőjében.</value>
+  </data>
 </root>

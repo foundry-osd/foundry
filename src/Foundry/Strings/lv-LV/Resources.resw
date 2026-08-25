@@ -2746,4 +2746,16 @@
   <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
     <value>Jāpievērš uzmanība</value>
   </data>
+  <data name="Nav_ReportBugKey.Title" xml:space="preserve">
+    <value>Ziņot par kļūdu</value>
+  </data>
+  <data name="Nav_ReportBugKey.Description" xml:space="preserve">
+    <value>Pārlūkprogrammā atveriet GitHub kļūdu ziņojuma veidlapu.</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Title" xml:space="preserve">
+    <value>Neizdevās atvērt kļūdas ziņojumu</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
+    <value>Foundry neizdevās atvērt kļūdas ziņojuma veidlapu. Nokopējiet šo saiti un atveriet to pārlūkprogrammā.</value>
+  </data>
 </root>

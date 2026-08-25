@@ -2746,4 +2746,16 @@
   <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
     <value>Потребує уваги</value>
   </data>
+  <data name="Nav_ReportBugKey.Title" xml:space="preserve">
+    <value>Повідомити про помилку</value>
+  </data>
+  <data name="Nav_ReportBugKey.Description" xml:space="preserve">
+    <value>Відкрийте форму повідомлення про помилку GitHub у браузері.</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Title" xml:space="preserve">
+    <value>Не вдалося відкрити повідомлення про помилку</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
+    <value>Foundry не вдалося відкрити форму повідомлення про помилку. Скопіюйте це посилання та відкрийте його в браузері.</value>
+  </data>
 </root>

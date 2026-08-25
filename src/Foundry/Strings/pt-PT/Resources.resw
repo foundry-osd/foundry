@@ -2746,4 +2746,16 @@
   <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
     <value>Requer atenção</value>
   </data>
+  <data name="Nav_ReportBugKey.Title" xml:space="preserve">
+    <value>Comunicar um erro</value>
+  </data>
+  <data name="Nav_ReportBugKey.Description" xml:space="preserve">
+    <value>Abra o formulário de comunicação de erros do GitHub no seu browser.</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Title" xml:space="preserve">
+    <value>Não foi possível abrir o relatório de erro</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
+    <value>O Foundry não conseguiu abrir o formulário de comunicação de erros. Copie esta ligação e abra-a no seu browser.</value>
+  </data>
 </root>

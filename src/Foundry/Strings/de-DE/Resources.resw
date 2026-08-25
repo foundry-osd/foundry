@@ -2746,4 +2746,16 @@
   <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
     <value>Erfordert Aufmerksamkeit</value>
   </data>
+  <data name="Nav_ReportBugKey.Title" xml:space="preserve">
+    <value>Fehler melden</value>
+  </data>
+  <data name="Nav_ReportBugKey.Description" xml:space="preserve">
+    <value>Öffnen Sie das GitHub-Formular zum Melden von Fehlern in Ihrem Browser.</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Title" xml:space="preserve">
+    <value>Fehlerbericht konnte nicht geöffnet werden</value>
+  </data>
+  <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
+    <value>Foundry konnte das Formular zum Melden des Fehlers nicht öffnen. Kopieren Sie diesen Link und öffnen Sie ihn in Ihrem Browser.</value>
+  </data>
 </root>
