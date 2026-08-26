@@ -259,7 +259,6 @@ Continuer le déploiement ?</value></data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>Environnement de récupération configuré.</value></data>
   <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>Environnement de récupération configuré (simulation).</value></data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>Aucun script de personnalisation pré-OOBE n’est requis.</value></data>
-  <data name="StepResult.PreOobeCustomizationsDeferredWithDriverPack" xml:space="preserve"><value>Les personnalisations pré-OOBE seront préparées avec le pack de pilotes au premier démarrage.</value></data>
   <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>Préparation des personnalisations pré-OOBE...</value></data>
   <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>Personnalisations pré-OOBE préparées.</value></data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>Personnalisations pré-OOBE préparées (simulation).</value></data>
@@ -296,7 +295,6 @@ Continuer le déploiement ?</value></data>
   <data name="StepProgress.Staging" xml:space="preserve"><value>Préparation</value></data>
   <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>{0} téléchargés</value></data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>Pack de pilotes appliqué.</value></data>
-  <data name="StepResult.DriverPackStagedForFirstBoot" xml:space="preserve"><value>Pack de pilotes préparé pour le premier démarrage.</value></data>
   <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>Pack de pilotes appliqué (simulation).</value></data>
   <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>Téléchargement de la mise à jour firmware...</value></data>
   <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>Préparation de la recherche Microsoft Update Catalog...</value></data>

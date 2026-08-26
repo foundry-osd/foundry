@@ -23,7 +23,7 @@ public sealed class ApplyDriverPackStep(IWindowsDeploymentService windowsDeploym
         {
             DriverPackInstallMode.None => Task.FromResult(DeploymentStepResult.Skipped("No driver pack operation is required.")),
             DriverPackInstallMode.OfflineInf => ApplyLiveAsync(context, cancellationToken),
-            DriverPackInstallMode.DeferredSetupComplete => Task.FromResult(DeploymentStepResult.Skipped("Deferred driver packs are staged with pre-OOBE customizations.")),
+            DriverPackInstallMode.DeferredSetupComplete => Task.FromResult(DeploymentStepResult.Skipped("Driver pack prepared for deferred installation.")),
             _ => Task.FromResult(DeploymentStepResult.Failed("Unsupported driver pack install mode."))
         };
     }
@@ -36,7 +36,7 @@ public sealed class ApplyDriverPackStep(IWindowsDeploymentService windowsDeploym
         {
             DriverPackInstallMode.None => Task.FromResult(DeploymentStepResult.Skipped("No driver pack operation is required.")),
             DriverPackInstallMode.OfflineInf => SimulateAsync(context, cancellationToken),
-            DriverPackInstallMode.DeferredSetupComplete => Task.FromResult(DeploymentStepResult.Skipped("Deferred driver packs are staged with pre-OOBE customizations.")),
+            DriverPackInstallMode.DeferredSetupComplete => Task.FromResult(DeploymentStepResult.Skipped("Driver pack prepared for deferred installation.")),
             _ => Task.FromResult(DeploymentStepResult.Failed("Unsupported driver pack install mode."))
         };
     }

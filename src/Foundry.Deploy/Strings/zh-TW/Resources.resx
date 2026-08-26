@@ -259,7 +259,6 @@
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>恢復環境已配置。</value></data>
   <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>配置恢復環境（模擬）。</value></data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>不需要 OOBE 前的自訂腳本。</value></data>
-  <data name="StepResult.PreOobeCustomizationsDeferredWithDriverPack" xml:space="preserve"><value>預 OOBE 自訂將與首次啟動驅動程式套件一起進行。</value></data>
   <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>進行 OOBE 前客製化...</value></data>
   <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>預 OOBE 定制已上演。</value></data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>預 OOBE 定制已上演（模擬）。</value></data>
@@ -296,7 +295,6 @@
   <data name="StepProgress.Staging" xml:space="preserve"><value>分期</value></data>
   <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>{0}已下載</value></data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>應用驅動程式包。</value></data>
-  <data name="StepResult.DriverPackStagedForFirstBoot" xml:space="preserve"><value>為首次啟動準備的驅動程式包。</value></data>
   <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>應用驅動程式包（模擬）。</value></data>
   <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>正在下載韌體更新...</value></data>
   <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>正在準備 Microsoft Update Catalog 查找...</value></data>

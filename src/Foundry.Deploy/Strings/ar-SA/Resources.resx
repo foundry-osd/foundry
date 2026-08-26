@@ -259,7 +259,6 @@
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>تم تكوين بيئة الاسترداد.</value></data>
   <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>تم تكوين بيئة الاسترداد (المحاكاة).</value></data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>ليست هناك حاجة إلى برامج نصية لتخصيص ما قبل OOBE.</value></data>
-  <data name="StepResult.PreOobeCustomizationsDeferredWithDriverPack" xml:space="preserve"><value>سيتم تنظيم تخصيصات ما قبل OOBE باستخدام حزمة برامج تشغيل التمهيد الأول.</value></data>
   <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>الإعداد المرحلي لتخصيصات ما قبل OOBE...</value></data>
   <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>تم تنظيم تخصيصات ما قبل OOBE.</value></data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>تم تنظيم تخصيصات ما قبل OOBE (المحاكاة).</value></data>
@@ -296,7 +295,6 @@
   <data name="StepProgress.Staging" xml:space="preserve"><value>التدريج</value></data>
   <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>تم التحميل {0}</value></data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>تم تطبيق حزمة برامج التشغيل.</value></data>
-  <data name="StepResult.DriverPackStagedForFirstBoot" xml:space="preserve"><value>تم تنظيم حزمة برامج التشغيل للتمهيد الأول.</value></data>
   <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>تم تطبيق حزمة برامج التشغيل (المحاكاة).</value></data>
   <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>جارٍ تنزيل تحديث البرنامج الثابت...</value></data>
   <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>جارٍ تحضير البحث Microsoft Update Catalog...</value></data>

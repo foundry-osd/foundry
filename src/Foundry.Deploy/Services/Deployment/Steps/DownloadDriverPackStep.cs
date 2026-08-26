@@ -184,7 +184,6 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
         runtimeState.DriverPackExtractionMethod = null;
         runtimeState.ExtractedDriverPackPath = null;
         runtimeState.DeferredDriverPackagePath = null;
-        runtimeState.DriverPackSetupCompleteHookPath = null;
     }
 
 }

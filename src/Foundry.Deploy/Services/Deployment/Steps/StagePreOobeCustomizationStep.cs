@@ -79,7 +79,7 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
             context.RuntimeState.TargetWindowsPartitionRoot,
             scripts);
 
-        ApplyPreOobeResult(context.RuntimeState, result, driverPackSettings is not null);
+        ApplyPreOobeResult(context.RuntimeState, result);
 
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
@@ -123,7 +123,7 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
             return DeploymentStepResult.Skipped("No pre-OOBE customization scripts are required.");
         }
 
-        ApplyDryRunPreOobeResult(context.RuntimeState, scripts, driverPackSettings is not null);
+        ApplyDryRunPreOobeResult(context.RuntimeState, scripts);
 
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
@@ -138,37 +138,35 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
         DeploymentStepExecutionContext context,
         CancellationToken cancellationToken)
     {
-        string sourcePath = context.RuntimeState.DownloadedDriverPackPath ?? string.Empty;
-        if (!File.Exists(sourcePath))
+        (DeferredDriverPackagePlan? plan, DeploymentStepResult? failure) = ResolveDeferredDriverPackage(context);
+        if (failure is not null)
         {
-            return (null, DeploymentStepResult.Failed("Driver pack source payload is unavailable for deferred staging."));
+            return (null, failure);
         }
 
-        DriverPackExecutionPlan executionPlan = _driverPackStrategyResolver.Resolve(
-            context.Request.DriverPackSelectionKind,
-            context.Request.DriverPack,
-            sourcePath);
-        if (executionPlan.DeferredCommandKind == DeferredDriverPackageCommandKind.None)
-        {
-            return (null, DeploymentStepResult.Failed("Deferred driver pack staging was requested without a supported deferred command."));
-        }
-
-        string packageFileName = Path.GetFileName(sourcePath);
-        string targetPackagePath = BuildTargetPackagePath(context.RuntimeState.TargetWindowsPartitionRoot!, packageFileName);
         IProgress<double> stepProgress = context.CreateStepPercentProgressReporter("Staging pre-OOBE customizations...", "Staging package");
 
         context.EmitCurrentStepIndeterminate("Staging pre-OOBE customizations...", "Staging package...", DeploymentOperationNames.StageDeferredDriverPack);
-        await CopyFileWithProgressAsync(sourcePath, targetPackagePath, stepProgress, cancellationToken).ConfigureAwait(false);
+        await CopyFileWithProgressAsync(plan!.SourcePath, plan.TargetPath, stepProgress, cancellationToken).ConfigureAwait(false);
 
-        context.RuntimeState.DeferredDriverPackagePath = targetPackagePath;
-        return (new PreOobeDriverPackScriptSettings
-        {
-            CommandKind = executionPlan.DeferredCommandKind,
-            RuntimePackagePath = BuildRuntimePackagePath(packageFileName)
-        }, null);
+        context.RuntimeState.DeferredDriverPackagePath = plan.TargetPath;
+        return (plan.ScriptSettings, null);
     }
 
     private (PreOobeDriverPackScriptSettings? Settings, DeploymentStepResult? Failure) PrepareDeferredDriverPackageDryRun(
+        DeploymentStepExecutionContext context)
+    {
+        (DeferredDriverPackagePlan? plan, DeploymentStepResult? failure) = ResolveDeferredDriverPackage(context);
+        if (failure is not null)
+        {
+            return (null, failure);
+        }
+
+        context.RuntimeState.DeferredDriverPackagePath = plan!.TargetPath;
+        return (plan.ScriptSettings, null);
+    }
+
+    private (DeferredDriverPackagePlan? Plan, DeploymentStepResult? Failure) ResolveDeferredDriverPackage(
         DeploymentStepExecutionContext context)
     {
         string sourcePath = context.RuntimeState.DownloadedDriverPackPath ?? string.Empty;
@@ -187,15 +185,20 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
         }
 
         string packageFileName = Path.GetFileName(sourcePath);
-        context.RuntimeState.DeferredDriverPackagePath = BuildTargetPackagePath(
-            context.RuntimeState.TargetWindowsPartitionRoot!,
-            packageFileName);
-        return (new PreOobeDriverPackScriptSettings
-        {
-            CommandKind = executionPlan.DeferredCommandKind,
-            RuntimePackagePath = BuildRuntimePackagePath(packageFileName)
-        }, null);
+        return (new DeferredDriverPackagePlan(
+            sourcePath,
+            BuildTargetPackagePath(context.RuntimeState.TargetWindowsPartitionRoot!, packageFileName),
+            new PreOobeDriverPackScriptSettings
+            {
+                CommandKind = executionPlan.DeferredCommandKind,
+                RuntimePackagePath = BuildRuntimePackagePath(packageFileName)
+            }), null);
     }
+
+    private sealed record DeferredDriverPackagePlan(
+        string SourcePath,
+        string TargetPath,
+        PreOobeDriverPackScriptSettings ScriptSettings);
 
     private static string BuildTargetPackagePath(string targetWindowsPartitionRoot, string packageFileName)
     {
@@ -222,23 +225,17 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
 
     private static void ApplyPreOobeResult(
         DeploymentRuntimeState runtimeState,
-        PreOobeScriptProvisioningResult result,
-        bool includesDeferredDriverPack)
+        PreOobeScriptProvisioningResult result)
     {
         runtimeState.PreOobeSetupCompletePath = result.SetupCompletePath;
         runtimeState.PreOobeRunnerPath = result.RunnerPath;
         runtimeState.PreOobeManifestPath = result.ManifestPath;
         runtimeState.PreOobeScriptPaths = result.StagedScriptPaths;
-        if (includesDeferredDriverPack)
-        {
-            runtimeState.DriverPackSetupCompleteHookPath = result.SetupCompletePath;
-        }
     }
 
     private static void ApplyDryRunPreOobeResult(
         DeploymentRuntimeState runtimeState,
-        IReadOnlyList<PreOobeScriptDefinition> scripts,
-        bool includesDeferredDriverPack)
+        IReadOnlyList<PreOobeScriptDefinition> scripts)
     {
         string preOobeRoot = Path.Combine(
             runtimeState.TargetWindowsPartitionRoot!,
@@ -258,10 +255,6 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
         runtimeState.PreOobeScriptPaths = scripts
             .Select(script => Path.Combine(preOobeRoot, "Scripts", script.FileName))
             .ToArray();
-        if (includesDeferredDriverPack)
-        {
-            runtimeState.DriverPackSetupCompleteHookPath = runtimeState.PreOobeSetupCompletePath;
-        }
     }
 
     private static async Task CopyFileWithProgressAsync(

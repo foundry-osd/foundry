@@ -94,7 +94,6 @@ public sealed class FinalizeDeploymentAndWriteLogsStep : DeploymentStepBase
             driverPackExtractionMethod = runtimeState.DriverPackExtractionMethod,
             extractedDriverPackPath = runtimeState.ExtractedDriverPackPath,
             deferredDriverPackagePath = runtimeState.DeferredDriverPackagePath,
-            driverPackSetupCompleteHookPath = runtimeState.DriverPackSetupCompleteHookPath,
             preOobeSetupCompletePath = runtimeState.PreOobeSetupCompletePath,
             preOobeRunnerPath = runtimeState.PreOobeRunnerPath,
             preOobeManifestPath = runtimeState.PreOobeManifestPath,

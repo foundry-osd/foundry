@@ -157,8 +157,7 @@ public sealed class ConfigureWindowsOptionalFeaturesStepTests
         DeploymentStepExecutionContext context)
     {
         var step = new ConfigureWindowsOptionalFeaturesStep(service);
-        int stepNumber = DeploymentStepNames.ExecutionOrder.ToList().IndexOf(step.Name) + 1;
-        context.SetCurrentStep(step, stepNumber);
+        context.SetCurrentStep(step, 1);
         return await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
     }
 
@@ -200,7 +199,7 @@ public sealed class ConfigureWindowsOptionalFeaturesStepTests
         return new DeploymentStepExecutionContext(
             request,
             runtime,
-            DeploymentStepNames.ExecutionOrder,
+            [DeploymentStepNames.ConfigureWindowsOptionalFeatures],
             new FakeOperationProgressService(),
             new FakeDeploymentLogService(),
             new FakeTargetDiskService(),

@@ -74,6 +74,47 @@ public sealed class PreOobeNetworkProfileRoamingStepTests
             runner.IndexOf("Cleanup-PreOobe.ps1", StringComparison.Ordinal));
     }
 
+    [Fact]
+    public async Task StagePreOobeCustomizationStep_WhenDeferredDriverPayloadIsMissing_FailsWithoutStaging()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        DeploymentStepExecutionContext context = CreateContext(tempDirectory);
+        context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredSetupComplete;
+        var step = new StagePreOobeCustomizationStep(
+            new PreOobeScriptProvisioningService(new SetupCompleteScriptService()),
+            new PreOobeScriptDefinitionBuilder(),
+            new FakeDriverPackStrategyResolver());
+
+        DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.Null(context.RuntimeState.DeferredDriverPackagePath);
+        Assert.Null(context.RuntimeState.PreOobeSetupCompletePath);
+        Assert.Empty(context.RuntimeState.PreOobeScriptPaths);
+    }
+
+    [Fact]
+    public async Task StagePreOobeCustomizationStep_WhenDeferredDriverCommandIsUnsupported_FailsWithoutStaging()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string driverPackagePath = Path.Combine(tempDirectory.RootPath, "driver.exe");
+        File.WriteAllBytes(driverPackagePath, [1, 2, 3]);
+        DeploymentStepExecutionContext context = CreateContext(tempDirectory);
+        context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredSetupComplete;
+        context.RuntimeState.DownloadedDriverPackPath = driverPackagePath;
+        var step = new StagePreOobeCustomizationStep(
+            new PreOobeScriptProvisioningService(new SetupCompleteScriptService()),
+            new PreOobeScriptDefinitionBuilder(),
+            new FakeDriverPackStrategyResolver(DeferredDriverPackageCommandKind.None));
+
+        DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.Null(context.RuntimeState.DeferredDriverPackagePath);
+        Assert.Null(context.RuntimeState.PreOobeSetupCompletePath);
+        Assert.Empty(context.RuntimeState.PreOobeScriptPaths);
+    }
+
     private static PreOobeNetworkProfileRoamingPayload CreateRoamingPayload()
     {
         return new PreOobeNetworkProfileRoamingPayload
@@ -150,7 +191,8 @@ public sealed class PreOobeNetworkProfileRoamingStepTests
         }
     }
 
-    private sealed class FakeDriverPackStrategyResolver : IDriverPackStrategyResolver
+    private sealed class FakeDriverPackStrategyResolver(
+        DeferredDriverPackageCommandKind commandKind = DeferredDriverPackageCommandKind.LenovoExecutable) : IDriverPackStrategyResolver
     {
         public DriverPackExecutionPlan Resolve(
             DriverPackSelectionKind selectionKind,
@@ -161,92 +203,12 @@ public sealed class PreOobeNetworkProfileRoamingStepTests
             {
                 InstallMode = DriverPackInstallMode.DeferredSetupComplete,
                 ExtractionMethod = DriverPackExtractionMethod.None,
-                DeferredCommandKind = DeferredDriverPackageCommandKind.LenovoExecutable,
+                DeferredCommandKind = commandKind,
                 DownloadedPath = downloadedPath,
                 EffectiveFileExtension = ".exe",
                 Manufacturer = "Lenovo",
                 RequiresInfPayload = false
             };
-        }
-    }
-
-    private sealed class FakeWindowsDeploymentService : IWindowsDeploymentService
-    {
-        public Task<DeploymentTargetLayout> PrepareTargetDiskAsync(int diskNumber, string workingDirectory, CancellationToken cancellationToken = default)
-        {
-            throw new NotSupportedException();
-        }
-
-        public Task<int> ResolveImageIndexAsync(string imagePath, string requestedEdition, string workingDirectory, CancellationToken cancellationToken = default)
-        {
-            throw new NotSupportedException();
-        }
-
-        public Task ApplyImageAsync(string imagePath, int imageIndex, string windowsPartitionRoot, string scratchDirectory, string workingDirectory, CancellationToken cancellationToken = default, IProgress<double>? progress = null)
-        {
-            throw new NotSupportedException();
-        }
-
-        public Task<string?> GetAppliedWindowsEditionAsync(string windowsPartitionRoot, string workingDirectory, CancellationToken cancellationToken = default)
-        {
-            throw new NotSupportedException();
-        }
-
-        public Task ConfigureOfflineComputerNameAsync(string windowsPartitionRoot, string computerName, string processorArchitecture, string? defaultTimeZoneId = null, CancellationToken cancellationToken = default)
-        {
-            throw new NotSupportedException();
-        }
-
-        public Task ConfigureOfflineOobeAsync(string windowsPartitionRoot, DeployOobeSettings settings, string processorArchitecture, string workingDirectory, CancellationToken cancellationToken = default)
-        {
-            throw new NotSupportedException();
-        }
-
-        public Task ConfigureOfflineAiComponentRemovalAsync(string windowsPartitionRoot, DeployAiComponentRemovalSettings settings, string workingDirectory, CancellationToken cancellationToken = default)
-        {
-            throw new NotSupportedException();
-        }
-
-        public Task<WindowsOptionalFeatureServicingResult> ConfigureOfflineWindowsOptionalFeaturesAsync(
-            string setupMediaImagePath,
-            string windowsPartitionRoot,
-            int appliedImageIndex,
-            DeployWindowsOptionalFeatureSettings settings,
-            string scratchDirectory,
-            string sourceExtractionDirectory,
-            string workingDirectory,
-            CancellationToken cancellationToken = default,
-            IProgress<double>? progress = null,
-            Action? onInspectionStarted = null,
-            Action? onSourcePreparationStarted = null,
-            Action? onServicingStarted = null)
-        {
-            throw new NotSupportedException();
-        }
-
-        public Task ConfigureRecoveryEnvironmentAsync(string windowsPartitionRoot, string recoveryPartitionRoot, string workingDirectory, CancellationToken cancellationToken = default)
-        {
-            throw new NotSupportedException();
-        }
-
-        public Task SealRecoveryPartitionAsync(string recoveryPartitionRoot, char recoveryPartitionLetter, string workingDirectory, CancellationToken cancellationToken = default)
-        {
-            throw new NotSupportedException();
-        }
-
-        public Task ApplyOfflineDriversAsync(string windowsPartitionRoot, string driverRoot, string scratchDirectory, string workingDirectory, CancellationToken cancellationToken = default, IProgress<double>? progress = null)
-        {
-            throw new NotSupportedException();
-        }
-
-        public Task ApplyRecoveryDriversAsync(string recoveryPartitionRoot, string driverRoot, string scratchDirectory, string workingDirectory, CancellationToken cancellationToken = default, IProgress<double>? mountProgress = null, IProgress<double>? applyProgress = null, IProgress<double>? unmountProgress = null, Action? onMountStarted = null, Action? onApplyStarted = null, Action? onUnmountStarted = null)
-        {
-            throw new NotSupportedException();
-        }
-
-        public Task ConfigureBootAsync(string windowsPartitionRoot, string systemPartitionRoot, int operatingSystemBuildMajor, string workingDirectory, CancellationToken cancellationToken = default)
-        {
-            throw new NotSupportedException();
         }
     }
 

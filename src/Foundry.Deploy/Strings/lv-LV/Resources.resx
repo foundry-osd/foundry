@@ -259,7 +259,6 @@ Vai turpināt izvietošanu?</value></data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>Atkopšanas vide ir konfigurēta.</value></data>
   <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>Konfigurēta atkopšanas vide (simulācija).</value></data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>Nav nepieciešami pielāgošanas skripti pirms OOBE.</value></data>
-  <data name="StepResult.PreOobeCustomizationsDeferredWithDriverPack" xml:space="preserve"><value>Pielāgojumi pirms OOBE tiks veikti ar pirmās palaišanas draivera pakotni.</value></data>
   <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>Pirms OOBE pielāgojumu sagatavošana...</value></data>
   <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>Pielāgojumi pirms OOBE.</value></data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>Pirms OOBE inscenēti pielāgojumi (simulācija).</value></data>
@@ -296,7 +295,6 @@ Vai turpināt izvietošanu?</value></data>
   <data name="StepProgress.Staging" xml:space="preserve"><value>Iestudējums</value></data>
   <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>{0} lejupielādēts</value></data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>Draivera pakotne ir lietota.</value></data>
-  <data name="StepResult.DriverPackStagedForFirstBoot" xml:space="preserve"><value>Draivera pakotne sagatavota pirmajai palaišanai.</value></data>
   <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>Lietota draivera pakotne (simulācija).</value></data>
   <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>Notiek programmaparatūras atjauninājuma lejupielāde...</value></data>
   <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>Notiek Microsoft Update Catalog uzmeklēšanas sagatavošana...</value></data>

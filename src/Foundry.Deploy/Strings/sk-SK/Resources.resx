@@ -259,7 +259,6 @@ Pokračovať v nasadzovaní?</value></data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>Prostredie obnovy je nakonfigurované.</value></data>
   <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>Prostredie obnovy je nakonfigurované (simulácia).</value></data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>Nevyžadujú sa žiadne skripty prispôsobenia pred OOBE.</value></data>
-  <data name="StepResult.PreOobeCustomizationsDeferredWithDriverPack" xml:space="preserve"><value>Prispôsobenia pred spustením OOBE sa budú realizovať s balíkom ovládačov pri prvom spustení.</value></data>
   <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>Pripravujú sa prispôsobenia pred OOBE...</value></data>
   <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>Pripravené úpravy pred OOBE.</value></data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>Pripravené úpravy pred OOBE (simulácia).</value></data>
@@ -296,7 +295,6 @@ Pokračovať v nasadzovaní?</value></data>
   <data name="StepProgress.Staging" xml:space="preserve"><value>Inscenácia</value></data>
   <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>{0} stiahnuté</value></data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>Použitý balík ovládačov.</value></data>
-  <data name="StepResult.DriverPackStagedForFirstBoot" xml:space="preserve"><value>Balík ovládačov pripravený na prvé spustenie.</value></data>
   <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>Použitý balík ovládačov (simulácia).</value></data>
   <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>Sťahuje sa aktualizácia firmvéru...</value></data>
   <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>Pripravuje sa vyhľadávanie Microsoft Update Catalog...</value></data>

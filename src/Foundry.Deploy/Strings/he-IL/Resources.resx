@@ -259,7 +259,6 @@ ErrorCode=0x80070005
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>הוגדרה סביבת שחזור.</value></data>
   <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>מוגדרת סביבת שחזור (סימולציה).</value></data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>אין צורך בתסריטים להתאמה אישית של OOBE.</value></data>
-  <data name="StepResult.PreOobeCustomizationsDeferredWithDriverPack" xml:space="preserve"><value>ההתאמות האישיות לפני OOBE יתבצעו עם חבילת מנהלי ההתקן של האתחול הראשון.</value></data>
   <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>ביצוע התאמות אישיות לפני OOBE...</value></data>
   <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>בוצעו התאמות אישיות לפני OOBE.</value></data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>התאמות אישיות לפני OOBE בשלבים (סימולציה).</value></data>
@@ -296,7 +295,6 @@ ErrorCode=0x80070005
   <data name="StepProgress.Staging" xml:space="preserve"><value>בימוי</value></data>
   <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>הורדת {0}</value></data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>חבילת מנהלי התקנים הוחלה.</value></data>
-  <data name="StepResult.DriverPackStagedForFirstBoot" xml:space="preserve"><value>חבילת דרייברים מבוימת לאתחול ראשון.</value></data>
   <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>חבילת דרייברים הוחלה (סימולציה).</value></data>
   <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>מוריד עדכון קושחה...</value></data>
   <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>מכין חיפוש Microsoft Update Catalog...</value></data>

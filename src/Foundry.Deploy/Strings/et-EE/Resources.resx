@@ -259,7 +259,6 @@ Kas jätkata juurutamisega?</value></data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>Taastekeskkond on konfigureeritud.</value></data>
   <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>Taastekeskkond on konfigureeritud (simulatsioon).</value></data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>OOBE-eelseid kohandamisskripte pole vaja.</value></data>
-  <data name="StepResult.PreOobeCustomizationsDeferredWithDriverPack" xml:space="preserve"><value>OOBE-eelsed kohandused viiakse läbi esimese alglaadimise draiveripaketiga.</value></data>
   <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>OOBE-eelsete kohandamiste lavastamine...</value></data>
   <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>OOBE-eelsed kohandused on tehtud.</value></data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>OOBE-eelsed kohandused on lavastatud (simulatsioon).</value></data>
@@ -296,7 +295,6 @@ Kas jätkata juurutamisega?</value></data>
   <data name="StepProgress.Staging" xml:space="preserve"><value>Lavastus</value></data>
   <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>{0} alla laaditud</value></data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>Draiveripakett on rakendatud.</value></data>
-  <data name="StepResult.DriverPackStagedForFirstBoot" xml:space="preserve"><value>Draiveri pakett on lavastatud esimeseks käivitamiseks.</value></data>
   <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>Rakendatud draiveripakett (simulatsioon).</value></data>
   <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>Püsivara värskenduse allalaadimine...</value></data>
   <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>Microsoft Update Catalog otsingu ettevalmistamine...</value></data>

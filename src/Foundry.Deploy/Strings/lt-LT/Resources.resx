@@ -259,7 +259,6 @@ Tęsti diegimą?</value></data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>Sukonfigūruota atkūrimo aplinka.</value></data>
   <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>Sukonfigūruota atkūrimo aplinka (modeliavimas).</value></data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>Nereikia jokių išankstinių OOBE tinkinimo scenarijų.</value></data>
-  <data name="StepResult.PreOobeCustomizationsDeferredWithDriverPack" xml:space="preserve"><value>Išankstiniai OOBE tinkinimai bus atlikti naudojant pirmosios įkrovos tvarkyklės paketą.</value></data>
   <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>Išankstinių OOBE tinkinimų nustatymas...</value></data>
   <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>Surengti pritaikymai prieš OOBE.</value></data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>Parengti pritaikymai prieš OOBE (modeliavimas).</value></data>
@@ -296,7 +295,6 @@ Tęsti diegimą?</value></data>
   <data name="StepProgress.Staging" xml:space="preserve"><value>Inscenizacija</value></data>
   <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>{0} atsisiųsta</value></data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>Taikomas tvarkyklės paketas.</value></data>
-  <data name="StepResult.DriverPackStagedForFirstBoot" xml:space="preserve"><value>Tvarkyklės paketas paruoštas pirmam paleidimui.</value></data>
   <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>Taikomas tvarkyklės paketas (modeliavimas).</value></data>
   <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>Atsisiunčiamas programinės aparatinės įrangos naujinimas...</value></data>
   <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>Ruošiama Microsoft Update Catalog paieška...</value></data>
