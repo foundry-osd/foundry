@@ -9,8 +9,6 @@ namespace Foundry.Deploy.Services.Deployment.Steps;
 
 public sealed class GatherDeploymentVariablesStep : DeploymentStepBase
 {
-    public override int Order => 1;
-
     public override string Name => DeploymentStepNames.GatherDeploymentVariables;
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)

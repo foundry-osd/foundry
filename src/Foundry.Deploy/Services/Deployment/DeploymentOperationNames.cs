@@ -47,7 +47,6 @@ public static class DeploymentOperationNames
     public const string MountRecoveryImage = "recovery.mount";
     public const string UnmountRecoveryImage = "recovery.unmount";
     public const string StageDeferredDriverPack = "driver_pack.stage_deferred";
-    public const string UpdateSetupComplete = "setup_complete.update";
     public const string DownloadFirmware = "firmware.download";
     public const string ResolveFirmware = "firmware.resolve";
     public const string ApplyFirmware = "firmware.apply";
@@ -84,6 +83,7 @@ public static class DeploymentOperationNames
             DeploymentStepNames.ConfigureRecoveryEnvironment => ConfigureRecovery,
             DeploymentStepNames.StagePreOobeCustomization => StagePreOobe,
             DeploymentStepNames.ApplyDriverPack => ApplyDriverPack,
+            DeploymentStepNames.ApplyRecoveryDrivers => ApplyRecoveryDrivers,
             DeploymentStepNames.DownloadFirmwareUpdate => DownloadFirmware,
             DeploymentStepNames.ApplyFirmwareUpdate => ApplyFirmware,
             DeploymentStepNames.SealRecoveryPartition => SealRecovery,

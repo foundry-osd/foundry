@@ -17,8 +17,6 @@ public sealed class DownloadOperatingSystemImageStep : DeploymentStepBase
         _artifactDownloadService = artifactDownloadService;
     }
 
-    public override int Order => 6;
-
     public override string Name => DeploymentStepNames.DownloadOperatingSystemImage;
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)

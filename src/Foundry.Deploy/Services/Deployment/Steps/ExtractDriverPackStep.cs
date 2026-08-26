@@ -22,8 +22,6 @@ public sealed class ExtractDriverPackStep : DeploymentStepBase
         _driverPackExtractionService = driverPackExtractionService;
     }
 
-    public override int Order => 13;
-
     public override string Name => DeploymentStepNames.ExtractDriverPack;
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)

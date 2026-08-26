@@ -16,8 +16,6 @@ public sealed class SealRecoveryPartitionStep : DeploymentStepBase
         _windowsDeploymentService = windowsDeploymentService;
     }
 
-    public override int Order => 18;
-
     public override string Name => DeploymentStepNames.SealRecoveryPartition;
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)

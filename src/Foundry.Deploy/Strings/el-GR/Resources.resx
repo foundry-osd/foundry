@@ -183,6 +183,7 @@
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Εξαγωγή προγραμμάτων οδήγησης</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Προετοιμασία προσαρμογών</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Εφαρμογή προγραμμάτων οδήγησης</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>Εφαρμογή προγραμμάτων οδήγησης ανάκτησης</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Λήψη υλικολογισμικού</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Εφαρμογή υλικολογισμικού</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Σφράγιση διαμερίσματος ανάκτησης</value></data>
@@ -258,7 +259,6 @@
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>Ρυθμίστηκε το περιβάλλον ανάκτησης.</value></data>
   <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>Ρυθμίστηκε το περιβάλλον ανάκτησης (προσομοίωση).</value></data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>Δεν απαιτούνται σενάρια προσαρμογής πριν από το OOBE.</value></data>
-  <data name="StepResult.PreOobeCustomizationsDeferredWithDriverPack" xml:space="preserve"><value>Οι προσαρμογές πριν από το OOBE θα πραγματοποιηθούν με το πακέτο προγράμματος οδήγησης πρώτης εκκίνησης.</value></data>
   <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>Σταδιοποίηση προσαρμογών πριν από το OOBE...</value></data>
   <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>Οι προσαρμογές πριν από το OOBE πραγματοποιήθηκαν σταδιακά.</value></data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>Σταδιακές προσαρμογές πριν από το OOBE (προσομοίωση).</value></data>
@@ -295,7 +295,6 @@
   <data name="StepProgress.Staging" xml:space="preserve"><value>Σκηνοποίηση</value></data>
   <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>Έγινε λήψη του {0}</value></data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>Εφαρμόστηκε το πακέτο προγράμματος οδήγησης.</value></data>
-  <data name="StepResult.DriverPackStagedForFirstBoot" xml:space="preserve"><value>Πακέτο προγράμματος οδήγησης για την πρώτη εκκίνηση.</value></data>
   <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>Εφαρμόστηκε πακέτο προγράμματος οδήγησης (προσομοίωση).</value></data>
   <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>Λήψη ενημέρωσης υλικολογισμικού...</value></data>
   <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>Προετοιμασία αναζήτησης Microsoft Update Catalog...</value></data>

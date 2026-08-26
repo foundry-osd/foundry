@@ -184,6 +184,7 @@ Continue with deployment?</value></data>
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extract drivers</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Stage customizations</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Apply drivers</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>Apply recovery drivers</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Download firmware</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Apply firmware</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Seal recovery partition</value></data>
@@ -259,7 +260,6 @@ Continue with deployment?</value></data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>Recovery environment configured.</value></data>
   <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>Recovery environment configured (simulation).</value></data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>No pre-OOBE customization scripts are required.</value></data>
-  <data name="StepResult.PreOobeCustomizationsDeferredWithDriverPack" xml:space="preserve"><value>Pre-OOBE customizations will be staged with the first-boot driver pack.</value></data>
   <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>Staging pre-OOBE customizations...</value></data>
   <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>Pre-OOBE customizations staged.</value></data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>Pre-OOBE customizations staged (simulation).</value></data>
@@ -296,7 +296,6 @@ Continue with deployment?</value></data>
   <data name="StepProgress.Staging" xml:space="preserve"><value>Staging</value></data>
   <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>{0} downloaded</value></data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>Driver pack applied.</value></data>
-  <data name="StepResult.DriverPackStagedForFirstBoot" xml:space="preserve"><value>Driver pack staged for first boot.</value></data>
   <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>Driver pack applied (simulation).</value></data>
   <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>Downloading firmware update...</value></data>
   <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>Preparing Microsoft Update Catalog lookup...</value></data>

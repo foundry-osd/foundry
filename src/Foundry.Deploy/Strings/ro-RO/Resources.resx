@@ -183,6 +183,7 @@ Continuați cu implementarea?</value></data>
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extrage drivere</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Pregătește personalizările</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Aplică drivere</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>Aplică drivere de recuperare</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Descarcă firmware</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Aplică firmware</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Sigilează partiția de recuperare</value></data>
@@ -258,7 +259,6 @@ Continuați cu implementarea?</value></data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>Mediu de recuperare configurat.</value></data>
   <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>Mediu de recuperare configurat (simulare).</value></data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>Nu sunt necesare scripturi de personalizare pre-OOBE.</value></data>
-  <data name="StepResult.PreOobeCustomizationsDeferredWithDriverPack" xml:space="preserve"><value>Personalizările pre-OOBE vor fi realizate cu pachetul de drivere pentru prima pornire.</value></data>
   <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>Se realizează personalizări pre-OOBE...</value></data>
   <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>Personalizări pre-OOBE puse în scenă.</value></data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>Personalizări pre-OOBE puse în scenă (simulare).</value></data>
@@ -295,7 +295,6 @@ Continuați cu implementarea?</value></data>
   <data name="StepProgress.Staging" xml:space="preserve"><value>Înscenare</value></data>
   <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>{0} descărcat</value></data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>Pachetul de șoferi a fost aplicat.</value></data>
-  <data name="StepResult.DriverPackStagedForFirstBoot" xml:space="preserve"><value>Pachetul de drivere pregătit pentru prima pornire.</value></data>
   <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>Pachetul de drivere aplicat (simulare).</value></data>
   <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>Se descarcă actualizarea firmware-ului...</value></data>
   <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>Se pregătește căutarea Microsoft Update Catalog...</value></data>

@@ -21,8 +21,6 @@ public sealed class ValidateTargetConfigurationStep : DeploymentStepBase
         _hardwareProfileService = hardwareProfileService;
     }
 
-    public override int Order => 3;
-
     public override string Name => DeploymentStepNames.ValidateTargetConfiguration;
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)

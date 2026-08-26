@@ -16,8 +16,6 @@ public sealed class ConfigureRecoveryEnvironmentStep : DeploymentStepBase
         _windowsDeploymentService = windowsDeploymentService;
     }
 
-    public override int Order => 11;
-
     public override string Name => DeploymentStepNames.ConfigureRecoveryEnvironment;
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)

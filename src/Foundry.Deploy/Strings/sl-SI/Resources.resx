@@ -183,6 +183,7 @@ Ali želite nadaljevati z uvajanjem?</value></data>
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Razpakiraj gonilnike</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Pripravi prilagoditve</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Uporabi gonilnike</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>Uporabi gonilnike za obnovitev</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Prenesi vdelano programsko opremo</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Uporabi vdelano programsko opremo</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Zapečati obnovitveno particijo</value></data>
@@ -258,7 +259,6 @@ Ali želite nadaljevati z uvajanjem?</value></data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>Obnovitveno okolje je konfigurirano.</value></data>
   <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>Obnovitveno okolje je konfigurirano (simulacija).</value></data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>Skripti za prilagajanje pred OOBE niso potrebni.</value></data>
-  <data name="StepResult.PreOobeCustomizationsDeferredWithDriverPack" xml:space="preserve"><value>Prilagoditve pred OOBE bodo uprizorjene s paketom gonilnikov za prvi zagon.</value></data>
   <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>Uprizarjanje prilagoditev pred OOBE...</value></data>
   <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>Izvedene prilagoditve pred OOBE.</value></data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>Izvedene prilagoditve pred OOBE (simulacija).</value></data>
@@ -295,7 +295,6 @@ Ali želite nadaljevati z uvajanjem?</value></data>
   <data name="StepProgress.Staging" xml:space="preserve"><value>Uprizoritev</value></data>
   <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>{0} prenesen</value></data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>Uporabljen je paket gonilnikov.</value></data>
-  <data name="StepResult.DriverPackStagedForFirstBoot" xml:space="preserve"><value>Paket gonilnikov pripravljen za prvi zagon.</value></data>
   <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>Uporabljen je paket gonilnikov (simulacija).</value></data>
   <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>Prenos posodobitve vdelane programske opreme...</value></data>
   <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>Priprava iskanja Microsoft Update Catalog...</value></data>

@@ -10,8 +10,6 @@ namespace Foundry.Deploy.Services.Deployment.Steps;
 
 public sealed class FinalizeDeploymentAndWriteLogsStep : DeploymentStepBase
 {
-    public override int Order => 20;
-
     public override string Name => DeploymentStepNames.FinalizeDeploymentAndWriteLogs;
 
     protected override Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
@@ -96,7 +94,6 @@ public sealed class FinalizeDeploymentAndWriteLogsStep : DeploymentStepBase
             driverPackExtractionMethod = runtimeState.DriverPackExtractionMethod,
             extractedDriverPackPath = runtimeState.ExtractedDriverPackPath,
             deferredDriverPackagePath = runtimeState.DeferredDriverPackagePath,
-            driverPackSetupCompleteHookPath = runtimeState.DriverPackSetupCompleteHookPath,
             preOobeSetupCompletePath = runtimeState.PreOobeSetupCompletePath,
             preOobeRunnerPath = runtimeState.PreOobeRunnerPath,
             preOobeManifestPath = runtimeState.PreOobeManifestPath,

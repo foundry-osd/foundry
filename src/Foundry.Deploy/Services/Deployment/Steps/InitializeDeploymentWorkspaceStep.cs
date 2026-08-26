@@ -8,8 +8,6 @@ namespace Foundry.Deploy.Services.Deployment.Steps;
 
 public sealed class InitializeDeploymentWorkspaceStep : DeploymentStepBase
 {
-    public override int Order => 2;
-
     public override string Name => DeploymentStepNames.InitializeDeploymentWorkspace;
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)

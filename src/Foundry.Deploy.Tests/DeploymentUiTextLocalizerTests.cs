@@ -30,6 +30,7 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
         { DeploymentStepNames.ExtractDriverPack, "Extract drivers" },
         { DeploymentStepNames.StagePreOobeCustomization, "Stage customizations" },
         { DeploymentStepNames.ApplyDriverPack, "Apply drivers" },
+        { DeploymentStepNames.ApplyRecoveryDrivers, "Apply recovery drivers" },
         { DeploymentStepNames.DownloadFirmwareUpdate, "Download firmware" },
         { DeploymentStepNames.ApplyFirmwareUpdate, "Apply firmware" },
         { DeploymentStepNames.SealRecoveryPartition, "Seal recovery partition" },
@@ -91,7 +92,6 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
     [InlineData("No pre-OOBE customization scripts are required.", "Aucun script de personnalisation pré-OOBE n’est requis.")]
     [InlineData("Pre-OOBE customizations staged.", "Personnalisations pré-OOBE préparées.")]
     [InlineData("Pre-OOBE customizations staged (simulation).", "Personnalisations pré-OOBE préparées (simulation).")]
-    [InlineData("Pre-OOBE customizations will be staged with the deferred driver pack.", "Les personnalisations pré-OOBE seront préparées avec le pack de pilotes au premier démarrage.")]
     [InlineData("Downloading Driver pack...", "Téléchargement du pack de pilotes...")]
     [InlineData("Capturing Autopilot hardware hash...", "Capture du hash matériel Autopilot...")]
     [InlineData("Running OA3Tool...", "Exécution de OA3Tool...")]

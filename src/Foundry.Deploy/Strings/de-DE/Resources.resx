@@ -183,6 +183,7 @@ Mit der Bereitstellung fortfahren?</value></data>
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Treiber entpacken</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Anpassungen vorbereiten</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Treiber anwenden</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>Wiederherstellungstreiber anwenden</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Firmware herunterladen</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Firmware anwenden</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Wiederherstellungspartition versiegeln</value></data>
@@ -258,7 +259,6 @@ Mit der Bereitstellung fortfahren?</value></data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>Wiederherstellungsumgebung konfiguriert.</value></data>
   <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>Wiederherstellungsumgebung konfiguriert (Simulation).</value></data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>Es sind keine Pre-OOBE-Anpassungsskripte erforderlich.</value></data>
-  <data name="StepResult.PreOobeCustomizationsDeferredWithDriverPack" xml:space="preserve"><value>Anpassungen vor OOBE werden mit dem First-Boot-Treiberpaket bereitgestellt.</value></data>
   <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>Staging von Pre-OOBE-Anpassungen...</value></data>
   <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>Vor-OOBE-Anpassungen durchgeführt.</value></data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>Inszenierte Anpassungen vor der OOBE (Simulation).</value></data>
@@ -295,7 +295,6 @@ Mit der Bereitstellung fortfahren?</value></data>
   <data name="StepProgress.Staging" xml:space="preserve"><value>Inszenierung</value></data>
   <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>{0} heruntergeladen</value></data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>Treiberpaket angewendet.</value></data>
-  <data name="StepResult.DriverPackStagedForFirstBoot" xml:space="preserve"><value>Treiberpaket für den ersten Start bereitgestellt.</value></data>
   <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>Treiberpaket angewendet (Simulation).</value></data>
   <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>Firmware-Update wird heruntergeladen...</value></data>
   <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>Microsoft Update Catalog-Suche wird vorbereitet...</value></data>

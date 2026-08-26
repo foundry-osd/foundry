@@ -7,37 +7,57 @@ using Foundry.Deploy.Services.Deployment.PreOobe;
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Network;
+using Foundry.Utilities.IO;
+using Foundry.Utilities.Progress;
 
 namespace Foundry.Deploy.Services.Deployment.Steps;
 
 /// <summary>
-/// Stages pre-OOBE customization scripts that do not require a deferred driver package.
+/// Stages pre-OOBE customizations and deferred driver-package provisioning.
 /// </summary>
 public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
 {
+    private const int FileCopyBufferSize = 80 * 1024;
+
     private readonly IPreOobeScriptProvisioningService _preOobeScriptProvisioningService;
     private readonly PreOobeScriptDefinitionBuilder _preOobeScriptDefinitionBuilder;
+    private readonly IDriverPackStrategyResolver _driverPackStrategyResolver;
     private readonly INetworkProfileRoamingArtifactService? _networkProfileRoamingArtifactService;
 
     public StagePreOobeCustomizationStep(
         IPreOobeScriptProvisioningService preOobeScriptProvisioningService,
         PreOobeScriptDefinitionBuilder preOobeScriptDefinitionBuilder,
+        IDriverPackStrategyResolver driverPackStrategyResolver,
         INetworkProfileRoamingArtifactService? networkProfileRoamingArtifactService = null)
     {
         _preOobeScriptProvisioningService = preOobeScriptProvisioningService;
         _preOobeScriptDefinitionBuilder = preOobeScriptDefinitionBuilder;
+        _driverPackStrategyResolver = driverPackStrategyResolver;
         _networkProfileRoamingArtifactService = networkProfileRoamingArtifactService;
     }
 
-    public override int Order => 14;
-
     public override string Name => DeploymentStepNames.StagePreOobeCustomization;
 
-    protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
+    protected override async Task<DeploymentStepResult> ExecuteLiveAsync(
+        DeploymentStepExecutionContext context,
+        CancellationToken cancellationToken)
     {
+        if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot))
+        {
+            return DeploymentStepResult.Failed("Target Windows partition is unavailable.");
+        }
+
+        PreOobeDriverPackScriptSettings? driverPackSettings = null;
         if (context.RuntimeState.DriverPackInstallMode == DriverPackInstallMode.DeferredSetupComplete)
         {
-            return DeploymentStepResult.Skipped("Pre-OOBE customizations will be staged with the deferred driver pack.");
+            (driverPackSettings, DeploymentStepResult? failure) = await StageDeferredDriverPackageAsync(
+                    context,
+                    cancellationToken)
+                .ConfigureAwait(false);
+            if (failure is not null)
+            {
+                return failure;
+            }
         }
 
         PreOobeNetworkProfileRoamingPayload? networkProfileRoaming = await LoadNetworkProfileRoamingPayloadAsync(
@@ -47,15 +67,11 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
         IReadOnlyList<PreOobeScriptDefinition> scripts = _preOobeScriptDefinitionBuilder.Build(
             context.RuntimeState.AppxRemoval,
             context.RuntimeState.AiComponentRemoval,
-            networkProfileRoaming: networkProfileRoaming);
+            driverPackSettings,
+            networkProfileRoaming);
         if (scripts.Count == 0)
         {
             return DeploymentStepResult.Skipped("No pre-OOBE customization scripts are required.");
-        }
-
-        if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot))
-        {
-            return DeploymentStepResult.Failed("Target Windows partition is unavailable.");
         }
 
         context.EmitCurrentStepIndeterminate("Staging pre-OOBE customizations...", "Updating SetupComplete hook...", DeploymentOperationNames.StagePreOobe);
@@ -73,12 +89,23 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
         return DeploymentStepResult.Succeeded("Pre-OOBE customizations staged.");
     }
 
-    protected override async Task<DeploymentStepResult> ExecuteDryRunAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
+    protected override async Task<DeploymentStepResult> ExecuteDryRunAsync(
+        DeploymentStepExecutionContext context,
+        CancellationToken cancellationToken)
     {
+        if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot))
+        {
+            return DeploymentStepResult.Failed("Target Windows partition is unavailable.");
+        }
+
+        PreOobeDriverPackScriptSettings? driverPackSettings = null;
         if (context.RuntimeState.DriverPackInstallMode == DriverPackInstallMode.DeferredSetupComplete)
         {
-            await Task.Delay(80, cancellationToken).ConfigureAwait(false);
-            return DeploymentStepResult.Skipped("Pre-OOBE customizations will be staged with the deferred driver pack.");
+            (driverPackSettings, DeploymentStepResult? failure) = PrepareDeferredDriverPackageDryRun(context);
+            if (failure is not null)
+            {
+                return failure;
+            }
         }
 
         PreOobeNetworkProfileRoamingPayload? networkProfileRoaming = await LoadNetworkProfileRoamingPayloadAsync(
@@ -88,16 +115,12 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
         IReadOnlyList<PreOobeScriptDefinition> scripts = _preOobeScriptDefinitionBuilder.Build(
             context.RuntimeState.AppxRemoval,
             context.RuntimeState.AiComponentRemoval,
-            networkProfileRoaming: networkProfileRoaming);
+            driverPackSettings,
+            networkProfileRoaming);
         if (scripts.Count == 0)
         {
             await Task.Delay(80, cancellationToken).ConfigureAwait(false);
             return DeploymentStepResult.Skipped("No pre-OOBE customization scripts are required.");
-        }
-
-        if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot))
-        {
-            return DeploymentStepResult.Failed("Target Windows partition is unavailable.");
         }
 
         ApplyDryRunPreOobeResult(context.RuntimeState, scripts);
@@ -111,7 +134,98 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
         return DeploymentStepResult.Succeeded("Pre-OOBE customizations staged (simulation).");
     }
 
-    private static void ApplyPreOobeResult(DeploymentRuntimeState runtimeState, PreOobeScriptProvisioningResult result)
+    private async Task<(PreOobeDriverPackScriptSettings? Settings, DeploymentStepResult? Failure)> StageDeferredDriverPackageAsync(
+        DeploymentStepExecutionContext context,
+        CancellationToken cancellationToken)
+    {
+        (DeferredDriverPackagePlan? plan, DeploymentStepResult? failure) = ResolveDeferredDriverPackage(context);
+        if (failure is not null)
+        {
+            return (null, failure);
+        }
+
+        IProgress<double> stepProgress = context.CreateStepPercentProgressReporter("Staging pre-OOBE customizations...", "Staging package");
+
+        context.EmitCurrentStepIndeterminate("Staging pre-OOBE customizations...", "Staging package...", DeploymentOperationNames.StageDeferredDriverPack);
+        await CopyFileWithProgressAsync(plan!.SourcePath, plan.TargetPath, stepProgress, cancellationToken).ConfigureAwait(false);
+
+        context.RuntimeState.DeferredDriverPackagePath = plan.TargetPath;
+        return (plan.ScriptSettings, null);
+    }
+
+    private (PreOobeDriverPackScriptSettings? Settings, DeploymentStepResult? Failure) PrepareDeferredDriverPackageDryRun(
+        DeploymentStepExecutionContext context)
+    {
+        (DeferredDriverPackagePlan? plan, DeploymentStepResult? failure) = ResolveDeferredDriverPackage(context);
+        if (failure is not null)
+        {
+            return (null, failure);
+        }
+
+        context.RuntimeState.DeferredDriverPackagePath = plan!.TargetPath;
+        return (plan.ScriptSettings, null);
+    }
+
+    private (DeferredDriverPackagePlan? Plan, DeploymentStepResult? Failure) ResolveDeferredDriverPackage(
+        DeploymentStepExecutionContext context)
+    {
+        string sourcePath = context.RuntimeState.DownloadedDriverPackPath ?? string.Empty;
+        if (!File.Exists(sourcePath))
+        {
+            return (null, DeploymentStepResult.Failed("Driver pack source payload is unavailable for deferred staging."));
+        }
+
+        DriverPackExecutionPlan executionPlan = _driverPackStrategyResolver.Resolve(
+            context.Request.DriverPackSelectionKind,
+            context.Request.DriverPack,
+            sourcePath);
+        if (executionPlan.DeferredCommandKind == DeferredDriverPackageCommandKind.None)
+        {
+            return (null, DeploymentStepResult.Failed("Deferred driver pack staging was requested without a supported deferred command."));
+        }
+
+        string packageFileName = Path.GetFileName(sourcePath);
+        return (new DeferredDriverPackagePlan(
+            sourcePath,
+            BuildTargetPackagePath(context.RuntimeState.TargetWindowsPartitionRoot!, packageFileName),
+            new PreOobeDriverPackScriptSettings
+            {
+                CommandKind = executionPlan.DeferredCommandKind,
+                RuntimePackagePath = BuildRuntimePackagePath(packageFileName)
+            }), null);
+    }
+
+    private sealed record DeferredDriverPackagePlan(
+        string SourcePath,
+        string TargetPath,
+        PreOobeDriverPackScriptSettings ScriptSettings);
+
+    private static string BuildTargetPackagePath(string targetWindowsPartitionRoot, string packageFileName)
+    {
+        return Path.Combine(
+            targetWindowsPartitionRoot,
+            "Windows",
+            "Temp",
+            "Foundry",
+            "DriverPack",
+            "Packages",
+            packageFileName);
+    }
+
+    private static string BuildRuntimePackagePath(string packageFileName)
+    {
+        return Path.Combine(
+            "%SystemRoot%",
+            "Temp",
+            "Foundry",
+            "DriverPack",
+            "Packages",
+            packageFileName);
+    }
+
+    private static void ApplyPreOobeResult(
+        DeploymentRuntimeState runtimeState,
+        PreOobeScriptProvisioningResult result)
     {
         runtimeState.PreOobeSetupCompletePath = result.SetupCompletePath;
         runtimeState.PreOobeRunnerPath = result.RunnerPath;
@@ -141,6 +255,53 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
         runtimeState.PreOobeScriptPaths = scripts
             .Select(script => Path.Combine(preOobeRoot, "Scripts", script.FileName))
             .ToArray();
+    }
+
+    private static async Task CopyFileWithProgressAsync(
+        string sourcePath,
+        string destinationPath,
+        IProgress<double>? progress,
+        CancellationToken cancellationToken)
+    {
+        string? destinationDirectory = Path.GetDirectoryName(destinationPath);
+        if (string.IsNullOrWhiteSpace(destinationDirectory))
+        {
+            throw new InvalidOperationException("Unable to resolve the destination directory for deferred driver staging.");
+        }
+
+        Directory.CreateDirectory(destinationDirectory);
+        long totalBytes = new FileInfo(sourcePath).Length;
+        progress?.Report(0d);
+
+        await using FileStream sourceStream = new(
+            sourcePath,
+            FileMode.Open,
+            FileAccess.Read,
+            FileShare.Read,
+            FileCopyBufferSize,
+            useAsync: true);
+        await using FileStream destinationStream = new(
+            destinationPath,
+            FileMode.Create,
+            FileAccess.Write,
+            FileShare.None,
+            FileCopyBufferSize,
+            useAsync: true);
+
+        await StreamCopy.CopyAsync(
+            sourceStream,
+            destinationStream,
+            copiedBytes =>
+            {
+                double? percentage = TransferProgress.CalculatePercentage(copiedBytes, totalBytes);
+                if (percentage.HasValue)
+                {
+                    progress?.Report(percentage.Value);
+                }
+            },
+            cancellationToken).ConfigureAwait(false);
+
+        progress?.Report(100d);
     }
 
     private Task<PreOobeNetworkProfileRoamingPayload?> LoadNetworkProfileRoamingPayloadAsync(

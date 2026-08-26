@@ -183,6 +183,7 @@
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>解压驱动程序</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>准备自定义项</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>应用驱动程序</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>应用恢复驱动程序</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>下载固件</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>应用固件</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>封闭恢复分区</value></data>
@@ -258,7 +259,6 @@
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>恢复环境已配置。</value></data>
   <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>配置恢复环境（模拟）。</value></data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>不需要 OOBE 前的自定义脚本。</value></data>
-  <data name="StepResult.PreOobeCustomizationsDeferredWithDriverPack" xml:space="preserve"><value>预 OOBE 自定义将与首次启动驱动程序包一起进行。</value></data>
   <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>进行 OOBE 前定制...</value></data>
   <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>预 OOBE 定制已上演。</value></data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>预 OOBE 定制已上演（模拟）。</value></data>
@@ -295,7 +295,6 @@
   <data name="StepProgress.Staging" xml:space="preserve"><value>分期</value></data>
   <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>{0}已下载</value></data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>应用驱动程序包。</value></data>
-  <data name="StepResult.DriverPackStagedForFirstBoot" xml:space="preserve"><value>为首次启动准备的驱动程序包。</value></data>
   <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>应用驱动程序包（模拟）。</value></data>
   <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>正在下载固件更新...</value></data>
   <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>正在准备 Microsoft Update Catalog 查找...</value></data>

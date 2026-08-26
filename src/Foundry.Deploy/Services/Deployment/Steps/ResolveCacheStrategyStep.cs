@@ -19,8 +19,6 @@ public sealed class ResolveCacheStrategyStep : DeploymentStepBase
         _targetDiskService = targetDiskService;
     }
 
-    public override int Order => 4;
-
     public override string Name => DeploymentStepNames.ResolveCacheStrategy;
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)

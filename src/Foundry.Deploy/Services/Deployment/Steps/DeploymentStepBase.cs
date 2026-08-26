@@ -6,8 +6,6 @@ namespace Foundry.Deploy.Services.Deployment.Steps;
 
 public abstract class DeploymentStepBase : IDeploymentStep
 {
-    public abstract int Order { get; }
-
     public abstract string Name { get; }
 
     public Task<DeploymentStepResult> ExecuteAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)

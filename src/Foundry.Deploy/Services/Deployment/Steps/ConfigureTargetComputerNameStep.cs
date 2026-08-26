@@ -16,8 +16,6 @@ public sealed class ConfigureTargetComputerNameStep : DeploymentStepBase
         _windowsDeploymentService = windowsDeploymentService;
     }
 
-    public override int Order => 8;
-
     public override string Name => DeploymentStepNames.ConfigureTargetComputerName;
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)

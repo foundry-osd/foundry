@@ -17,8 +17,6 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
         _windowsDeploymentService = windowsDeploymentService;
     }
 
-    public override int Order => 7;
-
     public override string Name => DeploymentStepNames.ApplyOperatingSystemImage;
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)

@@ -9,11 +9,11 @@ using Foundry.Deploy.Services.Logging;
 namespace Foundry.Deploy.Services.Deployment.Steps;
 
 /// <summary>
-/// Applies extracted INF drivers to the offline Windows image.
+/// Applies extracted INF drivers to the configured Windows recovery environment.
 /// </summary>
-public sealed class ApplyDriverPackStep(IWindowsDeploymentService windowsDeploymentService) : DeploymentStepBase
+public sealed class ApplyRecoveryDriversStep(IWindowsDeploymentService windowsDeploymentService) : DeploymentStepBase
 {
-    public override string Name => DeploymentStepNames.ApplyDriverPack;
+    public override string Name => DeploymentStepNames.ApplyRecoveryDrivers;
 
     protected override Task<DeploymentStepResult> ExecuteLiveAsync(
         DeploymentStepExecutionContext context,
@@ -22,8 +22,8 @@ public sealed class ApplyDriverPackStep(IWindowsDeploymentService windowsDeploym
         return context.RuntimeState.DriverPackInstallMode switch
         {
             DriverPackInstallMode.None => Task.FromResult(DeploymentStepResult.Skipped("No driver pack operation is required.")),
+            DriverPackInstallMode.DeferredSetupComplete => Task.FromResult(DeploymentStepResult.Skipped("No driver pack operation is required.")),
             DriverPackInstallMode.OfflineInf => ApplyLiveAsync(context, cancellationToken),
-            DriverPackInstallMode.DeferredSetupComplete => Task.FromResult(DeploymentStepResult.Skipped("Driver pack prepared for deferred installation.")),
             _ => Task.FromResult(DeploymentStepResult.Failed("Unsupported driver pack install mode."))
         };
     }
@@ -35,8 +35,8 @@ public sealed class ApplyDriverPackStep(IWindowsDeploymentService windowsDeploym
         return context.RuntimeState.DriverPackInstallMode switch
         {
             DriverPackInstallMode.None => Task.FromResult(DeploymentStepResult.Skipped("No driver pack operation is required.")),
+            DriverPackInstallMode.DeferredSetupComplete => Task.FromResult(DeploymentStepResult.Skipped("No driver pack operation is required.")),
             DriverPackInstallMode.OfflineInf => SimulateAsync(context, cancellationToken),
-            DriverPackInstallMode.DeferredSetupComplete => Task.FromResult(DeploymentStepResult.Skipped("Driver pack prepared for deferred installation.")),
             _ => Task.FromResult(DeploymentStepResult.Failed("Unsupported driver pack install mode."))
         };
     }
@@ -55,24 +55,31 @@ public sealed class ApplyDriverPackStep(IWindowsDeploymentService windowsDeploym
         string targetFoundryRoot = context.EnsureTargetFoundryRoot();
         string workingDirectory = Path.Combine(targetFoundryRoot, "Temp", "Deployment");
         string scratchDirectory = Path.Combine(targetFoundryRoot, "Temp", "Dism");
-        const string stepMessage = "Applying driver pack...";
+        const string stepMessage = "Applying WinRE drivers...";
 
-        context.EmitCurrentStepIndeterminate(stepMessage, "Applying Windows drivers...", DeploymentOperationNames.ApplyDriverPack);
-        IProgress<double> progress = context.CreateStepPercentProgressReporter(stepMessage, "Applying Windows drivers");
+        IProgress<double> mountProgress = context.CreateStepPercentProgressReporter(stepMessage, "Mounting WinRE");
+        IProgress<double> applyProgress = context.CreateStepPercentProgressReporter(stepMessage, "Applying WinRE drivers");
+        IProgress<double> unmountProgress = context.CreateStepPercentProgressReporter(stepMessage, "Unmounting WinRE");
+
         await windowsDeploymentService
-            .ApplyOfflineDriversAsync(
-                context.RuntimeState.TargetWindowsPartitionRoot!,
+            .ApplyRecoveryDriversAsync(
+                context.RuntimeState.TargetRecoveryPartitionRoot!,
                 driverRoot,
                 scratchDirectory,
                 workingDirectory,
                 cancellationToken,
-                progress)
+                mountProgress,
+                applyProgress,
+                unmountProgress,
+                onMountStarted: () => context.EmitCurrentStepIndeterminate(stepMessage, "Mounting WinRE...", DeploymentOperationNames.MountRecoveryImage),
+                onApplyStarted: () => context.EmitCurrentStepIndeterminate(stepMessage, "Applying WinRE drivers...", DeploymentOperationNames.ApplyRecoveryDrivers),
+                onUnmountStarted: () => context.EmitCurrentStepIndeterminate(stepMessage, "Unmounting WinRE...", DeploymentOperationNames.UnmountRecoveryImage))
             .ConfigureAwait(false);
 
         int infCount = Directory.EnumerateFiles(driverRoot, "*.inf", SearchOption.AllDirectories).Count();
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
-            $"Driver pack applied offline to Windows: {infCount} INF files from '{driverRoot}'.",
+            $"Drivers applied to WinRE: {infCount} INF files from '{driverRoot}'.",
             cancellationToken).ConfigureAwait(false);
 
         return DeploymentStepResult.Succeeded("Driver pack applied.");
@@ -94,24 +101,29 @@ public sealed class ApplyDriverPackStep(IWindowsDeploymentService windowsDeploym
             SearchOption.AllDirectories).Count();
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
-            $"[DRY-RUN] Simulated offline driver pack apply to Windows: {infCount} INF files.",
+            $"[DRY-RUN] Simulated recovery driver apply: {infCount} INF files.",
             cancellationToken).ConfigureAwait(false);
-        await Task.Delay(150, cancellationToken).ConfigureAwait(false);
+        await Task.Delay(100, cancellationToken).ConfigureAwait(false);
 
         return DeploymentStepResult.Succeeded("Driver pack applied (simulation).");
     }
 
     private static DeploymentStepResult? Validate(DeploymentStepExecutionContext context)
     {
+        if (!context.RuntimeState.WinReConfigured)
+        {
+            return DeploymentStepResult.Failed("Recovery partition is unavailable.");
+        }
+
+        if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetRecoveryPartitionRoot))
+        {
+            return DeploymentStepResult.Failed("Recovery partition is unavailable.");
+        }
+
         if (string.IsNullOrWhiteSpace(context.RuntimeState.ExtractedDriverPackPath) ||
             !Directory.Exists(context.RuntimeState.ExtractedDriverPackPath))
         {
             return DeploymentStepResult.Failed("No extracted INF driver payload is available.");
-        }
-
-        if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot))
-        {
-            return DeploymentStepResult.Failed("Target Windows partition is unavailable.");
         }
 
         return null;

@@ -5,15 +5,10 @@
 namespace Foundry.Deploy.Services.Deployment;
 
 /// <summary>
-/// Represents one ordered step in the Foundry.Deploy workflow.
+/// Represents one step in the Foundry.Deploy workflow.
 /// </summary>
 public interface IDeploymentStep
 {
-    /// <summary>
-    /// Gets the numeric execution order used by the orchestrator.
-    /// </summary>
-    int Order { get; }
-
     /// <summary>
     /// Gets the stable step name used for progress, validation, and runtime state.
     /// </summary>

@@ -24,8 +24,6 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
         _artifactDownloadService = artifactDownloadService;
     }
 
-    public override int Order => 12;
-
     public override string Name => DeploymentStepNames.DownloadDriverPack;
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
@@ -186,7 +184,6 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
         runtimeState.DriverPackExtractionMethod = null;
         runtimeState.ExtractedDriverPackPath = null;
         runtimeState.DeferredDriverPackagePath = null;
-        runtimeState.DriverPackSetupCompleteHookPath = null;
     }
 
 }

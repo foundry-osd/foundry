@@ -183,6 +183,7 @@
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>แยกไฟล์ไดรเวอร์</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>เตรียมการปรับแต่ง</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>ใช้ไดรเวอร์</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>ใช้ไดรเวอร์การกู้คืน</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>ดาวน์โหลดเฟิร์มแวร์</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>ใช้เฟิร์มแวร์</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>ซีลพาร์ติชันการกู้คืน</value></data>
@@ -258,7 +259,6 @@
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>กำหนดค่าสภาพแวดล้อมการกู้คืนแล้ว</value></data>
   <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>สภาพแวดล้อมการกู้คืนที่กำหนดค่าไว้ (การจำลอง)</value></data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>ไม่จำเป็นต้องมีสคริปต์การปรับแต่งล่วงหน้า OOBE</value></data>
-  <data name="StepResult.PreOobeCustomizationsDeferredWithDriverPack" xml:space="preserve"><value>การปรับแต่ง Pre-OOBE จะถูกจัดฉากด้วยแพ็กไดรเวอร์สำหรับบูตครั้งแรก</value></data>
   <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>กำลังจัดเตรียมการปรับแต่งก่อน OOBE...</value></data>
   <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>ปรับแต่ง Pre-OOBE เป็นระยะ</value></data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>การปรับแต่ง Pre-OOBE เป็นฉาก (การจำลอง)</value></data>
@@ -295,7 +295,6 @@
   <data name="StepProgress.Staging" xml:space="preserve"><value>การแสดงละคร</value></data>
   <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>{0} ดาวน์โหลดแล้ว</value></data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>ใช้ชุดไดรเวอร์แล้ว</value></data>
-  <data name="StepResult.DriverPackStagedForFirstBoot" xml:space="preserve"><value>ชุดไดรเวอร์จัดเตรียมไว้สำหรับการบูตครั้งแรก</value></data>
   <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>ใช้ชุดไดรเวอร์ (การจำลอง)</value></data>
   <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>กำลังดาวน์โหลดอัพเดตเฟิร์มแวร์...</value></data>
   <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>กำลังเตรียมการค้นหา Microsoft Update Catalog...</value></data>

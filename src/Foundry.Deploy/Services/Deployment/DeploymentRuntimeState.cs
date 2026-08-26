@@ -158,11 +158,6 @@ public sealed record DeploymentRuntimeState
     public string? DeferredDriverPackagePath { get; set; }
 
     /// <summary>
-    /// Gets or sets the offline SetupComplete.cmd path used by deferred driver provisioning.
-    /// </summary>
-    public string? DriverPackSetupCompleteHookPath { get; set; }
-
-    /// <summary>
     /// Gets or sets the offline SetupComplete.cmd path used to launch the pre-OOBE runner.
     /// </summary>
     public string? PreOobeSetupCompletePath { get; set; }
