@@ -183,6 +183,7 @@ Operativni sistem: {4}
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Ispakuj drajvere</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Pripremi prilagođavanja</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Primeni drajvere</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>Primeni drajvere za oporavak</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Preuzmi firmver</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Primeni firmver</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Zapečati particiju za oporavak</value></data>

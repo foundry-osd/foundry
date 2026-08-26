@@ -183,6 +183,7 @@ Nastaviti s implementacijom?</value></data>
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Raspakiraj upravljačke programe</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Pripremi prilagodbe</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Primijeni upravljačke programe</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>Primijeni upravljačke programe za oporavak</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Preuzmi firmver</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Primijeni firmver</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Zapečati particiju za oporavak</value></data>

@@ -16,9 +16,91 @@ namespace Foundry.Deploy.Tests;
 public sealed class DeploymentOrchestratorTests
 {
     [Fact]
-    public void DeploymentStepNames_All_OrdersAutopilotProvisioningAfterRecoverySeal()
+    public void Constructor_WhenStepsAreRegisteredOutOfOrder_UsesCanonicalExecutionOrder()
     {
-        List<string> steps = DeploymentStepNames.All.ToList();
+        string[] expectedOrder =
+        [
+            DeploymentStepNames.GatherDeploymentVariables,
+            DeploymentStepNames.InitializeDeploymentWorkspace,
+            DeploymentStepNames.ValidateTargetConfiguration,
+            DeploymentStepNames.ResolveCacheStrategy,
+            DeploymentStepNames.PrepareTargetDiskLayout,
+            DeploymentStepNames.DownloadOperatingSystemImage,
+            DeploymentStepNames.ApplyOperatingSystemImage,
+            DeploymentStepNames.DownloadDriverPack,
+            DeploymentStepNames.ExtractDriverPack,
+            DeploymentStepNames.ApplyDriverPack,
+            DeploymentStepNames.DownloadFirmwareUpdate,
+            DeploymentStepNames.ApplyFirmwareUpdate,
+            DeploymentStepNames.ConfigureTargetComputerName,
+            DeploymentStepNames.ConfigureOobeSettings,
+            DeploymentStepNames.ConfigureWindowsOptionalFeatures,
+            DeploymentStepNames.StagePreOobeCustomization,
+            DeploymentStepNames.ConfigureRecoveryEnvironment,
+            DeploymentStepNames.ApplyRecoveryDrivers,
+            DeploymentStepNames.SealRecoveryPartition,
+            DeploymentStepNames.ProvisionAutopilot,
+            DeploymentStepNames.FinalizeDeploymentAndWriteLogs
+        ];
+        IDeploymentStep[] registeredSteps = expectedOrder
+            .Reverse()
+            .Select(name => (IDeploymentStep)new SucceedingStep(name))
+            .ToArray();
+
+        var orchestrator = new DeploymentOrchestrator(
+            new FakeOperationProgressService(),
+            new FakeDeploymentLogService(),
+            new FakeTargetDiskService(),
+            registeredSteps,
+            new RecordingTelemetryService(),
+            NullLogger<DeploymentOrchestrator>.Instance);
+
+        Assert.Equal(expectedOrder, orchestrator.PlannedSteps);
+    }
+
+    [Fact]
+    public void Constructor_WhenStepRegistrationIsDuplicated_Throws()
+    {
+        IDeploymentStep[] steps = DeploymentStepNames.ExecutionOrder
+            .Select(name => (IDeploymentStep)new SucceedingStep(name))
+            .Append(new SucceedingStep(DeploymentStepNames.ApplyDriverPack))
+            .ToArray();
+
+        InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => CreateOrchestrator(steps));
+
+        Assert.Contains("Duplicate deployment step registration", exception.Message, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void Constructor_WhenStepRegistrationIsMissing_Throws()
+    {
+        IDeploymentStep[] steps = DeploymentStepNames.ExecutionOrder
+            .Where(name => name != DeploymentStepNames.ApplyRecoveryDrivers)
+            .Select(name => (IDeploymentStep)new SucceedingStep(name))
+            .ToArray();
+
+        InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => CreateOrchestrator(steps));
+
+        Assert.Contains(DeploymentStepNames.ApplyRecoveryDrivers, exception.Message, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void Constructor_WhenStepRegistrationIsUnexpected_Throws()
+    {
+        IDeploymentStep[] steps = DeploymentStepNames.ExecutionOrder
+            .Select(name => (IDeploymentStep)new SucceedingStep(name))
+            .Append(new SucceedingStep("Unexpected deployment step"))
+            .ToArray();
+
+        InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => CreateOrchestrator(steps));
+
+        Assert.Contains("Unexpected deployment step", exception.Message, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void DeploymentStepNames_ExecutionOrder_OrdersAutopilotProvisioningAfterRecoverySeal()
+    {
+        List<string> steps = DeploymentStepNames.ExecutionOrder.ToList();
         int sealIndex = steps.IndexOf(DeploymentStepNames.SealRecoveryPartition);
         int autopilotIndex = steps.IndexOf(DeploymentStepNames.ProvisionAutopilot);
         int finalizeIndex = steps.IndexOf(DeploymentStepNames.FinalizeDeploymentAndWriteLogs);
@@ -29,15 +111,17 @@ public sealed class DeploymentOrchestratorTests
     }
 
     [Fact]
-    public void DeploymentStepNames_All_OrdersOptionalFeatureServicingAfterOobeAndBeforeRecovery()
+    public void DeploymentStepNames_ExecutionOrder_OrdersCustomizationBeforeRecovery()
     {
-        List<string> steps = DeploymentStepNames.All.ToList();
+        List<string> steps = DeploymentStepNames.ExecutionOrder.ToList();
         int oobeIndex = steps.IndexOf(DeploymentStepNames.ConfigureOobeSettings);
         int optionalFeaturesIndex = steps.IndexOf(DeploymentStepNames.ConfigureWindowsOptionalFeatures);
+        int customizationIndex = steps.IndexOf(DeploymentStepNames.StagePreOobeCustomization);
         int recoveryIndex = steps.IndexOf(DeploymentStepNames.ConfigureRecoveryEnvironment);
 
         Assert.Equal(oobeIndex + 1, optionalFeaturesIndex);
-        Assert.Equal(optionalFeaturesIndex + 1, recoveryIndex);
+        Assert.Equal(optionalFeaturesIndex + 1, customizationIndex);
+        Assert.Equal(customizationIndex + 1, recoveryIndex);
     }
 
     [Fact]
@@ -195,19 +279,29 @@ public sealed class DeploymentOrchestratorTests
 
     private static IDeploymentStep[] CreateSteps(string targetWindowsRoot)
     {
-        return DeploymentStepNames.All
-            .Select((name, index) => (IDeploymentStep)(name switch
+        return DeploymentStepNames.ExecutionOrder
+            .Select(name => (IDeploymentStep)(name switch
             {
-                DeploymentStepNames.PrepareTargetDiskLayout => new PrepareTargetLayoutStep(index + 1, targetWindowsRoot),
-                DeploymentStepNames.DownloadOperatingSystemImage => new FailingStep(index + 1, name),
-                _ => new SucceedingStep(index + 1, name)
+                DeploymentStepNames.PrepareTargetDiskLayout => new PrepareTargetLayoutStep(targetWindowsRoot),
+                DeploymentStepNames.DownloadOperatingSystemImage => new FailingStep(name),
+                _ => new SucceedingStep(name)
             }))
             .ToArray();
     }
 
-    private sealed class PrepareTargetLayoutStep(int order, string targetWindowsRoot) : IDeploymentStep
+    private static DeploymentOrchestrator CreateOrchestrator(IEnumerable<IDeploymentStep> steps)
     {
-        public int Order => order;
+        return new DeploymentOrchestrator(
+            new FakeOperationProgressService(),
+            new FakeDeploymentLogService(),
+            new FakeTargetDiskService(),
+            steps,
+            new RecordingTelemetryService(),
+            NullLogger<DeploymentOrchestrator>.Instance);
+    }
+
+    private sealed class PrepareTargetLayoutStep(string targetWindowsRoot) : IDeploymentStep
+    {
         public string Name => DeploymentStepNames.PrepareTargetDiskLayout;
 
         public async Task<DeploymentStepResult> ExecuteAsync(
@@ -223,9 +317,8 @@ public sealed class DeploymentOrchestratorTests
         }
     }
 
-    private sealed class FailingStep(int order, string name) : IDeploymentStep
+    private sealed class FailingStep(string name) : IDeploymentStep
     {
-        public int Order => order;
         public string Name { get; } = name;
 
         public Task<DeploymentStepResult> ExecuteAsync(
@@ -242,9 +335,8 @@ public sealed class DeploymentOrchestratorTests
         }
     }
 
-    private sealed class SucceedingStep(int order, string name) : IDeploymentStep
+    private sealed class SucceedingStep(string name) : IDeploymentStep
     {
-        public int Order => order;
         public string Name { get; } = name;
 
         public Task<DeploymentStepResult> ExecuteAsync(

@@ -17,8 +17,6 @@ public sealed class PrepareTargetDiskLayoutStep : DeploymentStepBase
         _windowsDeploymentService = windowsDeploymentService;
     }
 
-    public override int Order => 5;
-
     public override string Name => DeploymentStepNames.PrepareTargetDiskLayout;
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)

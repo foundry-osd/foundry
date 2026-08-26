@@ -20,8 +20,6 @@ public sealed class ConfigureWindowsOptionalFeaturesStep : DeploymentStepBase
         _windowsDeploymentService = windowsDeploymentService;
     }
 
-    public override int Order => 10;
-
     public override string Name => DeploymentStepNames.ConfigureWindowsOptionalFeatures;
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(

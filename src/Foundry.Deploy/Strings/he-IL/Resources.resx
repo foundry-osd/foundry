@@ -183,6 +183,7 @@ ErrorCode=0x80070005
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>חילוץ מנהלי התקנים</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>הכנת התאמות</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>החלת מנהלי התקנים</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>החלת מנהלי התקני שחזור</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>הורדת קושחה</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>החלת קושחה</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>איטום מחיצת שחזור</value></data>

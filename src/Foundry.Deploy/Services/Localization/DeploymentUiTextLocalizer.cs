@@ -35,6 +35,7 @@ public static partial class DeploymentUiTextLocalizer
             "Extract driver pack" => LocalizationText.GetString("Step.ExtractDriverPack"),
             "Stage pre-OOBE customization" => LocalizationText.GetString("Step.StagePreOobeCustomization"),
             "Apply driver pack" => LocalizationText.GetString("Step.ApplyDriverPack"),
+            "Apply recovery drivers" => LocalizationText.GetString("Step.ApplyRecoveryDrivers"),
             "Download firmware update" => LocalizationText.GetString("Step.DownloadFirmwareUpdate"),
             "Apply firmware update" => LocalizationText.GetString("Step.ApplyFirmwareUpdate"),
             "Seal recovery partition" => LocalizationText.GetString("Step.SealRecoveryPartition"),

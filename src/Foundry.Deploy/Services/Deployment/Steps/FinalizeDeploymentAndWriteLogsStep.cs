@@ -10,8 +10,6 @@ namespace Foundry.Deploy.Services.Deployment.Steps;
 
 public sealed class FinalizeDeploymentAndWriteLogsStep : DeploymentStepBase
 {
-    public override int Order => 20;
-
     public override string Name => DeploymentStepNames.FinalizeDeploymentAndWriteLogs;
 
     protected override Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)

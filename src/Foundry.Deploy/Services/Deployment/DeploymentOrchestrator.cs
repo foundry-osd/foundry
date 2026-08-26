@@ -17,7 +17,7 @@ using Microsoft.Extensions.Logging;
 namespace Foundry.Deploy.Services.Deployment;
 
 /// <summary>
-/// Runs the deployment workflow in the registered step order and persists progress/log state.
+/// Runs the deployment workflow in its canonical order and persists progress/log state.
 /// </summary>
 public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 {
@@ -45,24 +45,33 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         _telemetryService = telemetryService;
         _logger = logger;
 
-        _steps = steps
-            .OrderBy(step => step.Order)
+        var stepsByName = new Dictionary<string, IDeploymentStep>(StringComparer.Ordinal);
+        foreach (IDeploymentStep step in steps)
+        {
+            if (!stepsByName.TryAdd(step.Name, step))
+            {
+                throw new InvalidOperationException($"Duplicate deployment step registration: '{step.Name}'.");
+            }
+        }
+
+        string[] missingSteps = DeploymentStepNames.ExecutionOrder
+            .Where(stepName => !stepsByName.ContainsKey(stepName))
+            .ToArray();
+        string[] unexpectedSteps = stepsByName.Keys
+            .Where(stepName => !DeploymentStepNames.ExecutionOrder.Contains(stepName, StringComparer.Ordinal))
+            .Order(StringComparer.Ordinal)
             .ToArray();
 
-        if (_steps.Count != DeploymentStepNames.All.Count)
+        if (missingSteps.Length > 0 || unexpectedSteps.Length > 0)
         {
             throw new InvalidOperationException(
-                $"Expected {DeploymentStepNames.All.Count} deployment steps but found {_steps.Count}.");
+                $"The registered deployment steps do not match the expected workflow. Missing: {FormatStepNames(missingSteps)}. Unexpected: {FormatStepNames(unexpectedSteps)}.");
         }
 
-        PlannedSteps = _steps
-            .Select(step => step.Name)
+        _steps = DeploymentStepNames.ExecutionOrder
+            .Select(stepName => stepsByName[stepName])
             .ToArray();
-
-        if (!PlannedSteps.SequenceEqual(DeploymentStepNames.All))
-        {
-            throw new InvalidOperationException("The registered deployment steps do not match the expected workflow.");
-        }
+        PlannedSteps = DeploymentStepNames.ExecutionOrder.ToArray();
     }
 
     /// <inheritdoc />
@@ -70,6 +79,11 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
     /// <inheritdoc />
     public event EventHandler<DeploymentStepProgress>? StepProgressChanged;
+
+    private static string FormatStepNames(IReadOnlyCollection<string> stepNames)
+    {
+        return stepNames.Count == 0 ? "none" : string.Join(", ", stepNames);
+    }
 
     /// <inheritdoc />
     public async Task<DeploymentResult> RunAsync(DeploymentContext context, CancellationToken cancellationToken = default)

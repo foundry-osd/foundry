@@ -183,6 +183,7 @@ Pokračovat v nasazování?</value></data>
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Rozbal ovladače</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Připrav přizpůsobení</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Aplikuj ovladače</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>Aplikuj ovladače pro obnovení</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Stáhni firmware</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Aplikuj firmware</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Zapečeť oddíl pro obnovení</value></data>

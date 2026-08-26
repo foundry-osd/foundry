@@ -183,6 +183,7 @@ Dağıtıma devam edilsin mi?</value></data>
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Sürücüleri çıkar</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Özelleştirmeleri hazırla</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Sürücüleri uygula</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>Kurtarma sürücülerini uygula</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Ürün yazılımını indir</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Ürün yazılımını uygula</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Kurtarma bölümünü mühürle</value></data>

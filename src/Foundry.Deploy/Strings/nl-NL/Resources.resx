@@ -183,6 +183,7 @@ Doorgaan met de implementatie?</value></data>
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Drivers uitpakken</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Aanpassingen voorbereiden</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Drivers toepassen</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>Hersteldrivers toepassen</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Firmware downloaden</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Firmware toepassen</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Recovery-partitie verzegelen</value></data>

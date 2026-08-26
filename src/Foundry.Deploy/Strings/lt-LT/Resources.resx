@@ -183,6 +183,7 @@ Tęsti diegimą?</value></data>
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Išskleisk tvarkykles</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Paruošk tinkinimus</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Pritaikyk tvarkykles</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>Pritaikyk atkūrimo tvarkykles</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Atsisiųsk programinę-aparatinę įrangą</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Pritaikyk programinę-aparatinę įrangą</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Užfiksuok atkūrimo skaidinį</value></data>

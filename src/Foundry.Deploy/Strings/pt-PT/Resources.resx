@@ -183,6 +183,7 @@ Continuar com a implantação?</value></data>
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extrair controladores</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Preparar personalizações</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Aplicar controladores</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>Aplicar controladores de recuperação</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Descarregar firmware</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Aplicar firmware</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Selar partição de recuperação</value></data>

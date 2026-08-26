@@ -183,6 +183,7 @@ Vai turpināt izvietošanu?</value></data>
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Izvelc draiverus</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Sagatavo pielāgojumus</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Lieto draiverus</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>Lieto atkopšanas draiverus</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Lejupielādē aparātprogrammatūru</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Lieto aparātprogrammatūru</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Noslēdz atkopšanas nodalījumu</value></data>

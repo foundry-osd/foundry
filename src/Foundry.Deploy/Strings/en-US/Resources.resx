@@ -184,6 +184,7 @@ Continue with deployment?</value></data>
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extract drivers</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Stage customizations</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Apply drivers</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>Apply recovery drivers</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Download firmware</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Apply firmware</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Seal recovery partition</value></data>

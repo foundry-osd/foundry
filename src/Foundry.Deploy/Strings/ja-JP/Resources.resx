@@ -183,6 +183,7 @@
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>ドライバーを展開</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>カスタマイズを準備</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>ドライバーを適用</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>回復ドライバーを適用</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>ファームウェアをダウンロード</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>ファームウェアを適用</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>回復パーティションを封印</value></data>

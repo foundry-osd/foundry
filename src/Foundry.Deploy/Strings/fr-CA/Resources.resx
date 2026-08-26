@@ -183,6 +183,7 @@ Continuer le déploiement?</value></data>
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extraire les pilotes</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Préparer les personnalisations</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Appliquer les pilotes</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>Appliquer les pilotes de récupération</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Télécharger le micrologiciel</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Appliquer le micrologiciel</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Sceller la partition de récupération</value></data>

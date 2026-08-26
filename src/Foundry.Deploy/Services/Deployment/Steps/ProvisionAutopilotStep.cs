@@ -38,8 +38,6 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
         _autopilotProfileContentService = autopilotProfileContentService;
     }
 
-    public override int Order => 19;
-
     public override string Name => DeploymentStepNames.ProvisionAutopilot;
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)

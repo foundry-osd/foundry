@@ -183,6 +183,7 @@
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Распаковка драйверов</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Подготовка настроек</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Применение драйверов</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>Применение драйверов восстановления</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Загрузка прошивки</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Применение прошивки</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Запечатывание раздела восстановления</value></data>

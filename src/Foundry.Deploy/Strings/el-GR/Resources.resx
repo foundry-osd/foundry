@@ -183,6 +183,7 @@
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Εξαγωγή προγραμμάτων οδήγησης</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Προετοιμασία προσαρμογών</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Εφαρμογή προγραμμάτων οδήγησης</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>Εφαρμογή προγραμμάτων οδήγησης ανάκτησης</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Λήψη υλικολογισμικού</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Εφαρμογή υλικολογισμικού</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Σφράγιση διαμερίσματος ανάκτησης</value></data>

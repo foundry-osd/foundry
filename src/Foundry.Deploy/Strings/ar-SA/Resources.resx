@@ -183,6 +183,7 @@
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>استخراج برامج التشغيل</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>تجهيز التخصيصات</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>تطبيق برامج التشغيل</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>تطبيق برامج تشغيل الاسترداد</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>تنزيل البرنامج الثابت</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>تطبيق البرنامج الثابت</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>ختم قسم الاسترداد</value></data>

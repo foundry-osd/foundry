@@ -24,8 +24,6 @@ public sealed class ConfigureOobeSettingsStep : DeploymentStepBase
     }
 
     /// <inheritdoc />
-    public override int Order => 9;
-
     /// <inheritdoc />
     public override string Name => DeploymentStepNames.ConfigureOobeSettings;
 

@@ -183,6 +183,7 @@
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>แยกไฟล์ไดรเวอร์</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>เตรียมการปรับแต่ง</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>ใช้ไดรเวอร์</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>ใช้ไดรเวอร์การกู้คืน</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>ดาวน์โหลดเฟิร์มแวร์</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>ใช้เฟิร์มแวร์</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>ซีลพาร์ติชันการกู้คืน</value></data>

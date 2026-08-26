@@ -183,6 +183,7 @@ Mit der Bereitstellung fortfahren?</value></data>
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Treiber entpacken</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Anpassungen vorbereiten</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Treiber anwenden</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>Wiederherstellungstreiber anwenden</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Firmware herunterladen</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Firmware anwenden</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Wiederherstellungspartition versiegeln</value></data>

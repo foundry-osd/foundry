@@ -30,6 +30,7 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
         { DeploymentStepNames.ExtractDriverPack, "Extract drivers" },
         { DeploymentStepNames.StagePreOobeCustomization, "Stage customizations" },
         { DeploymentStepNames.ApplyDriverPack, "Apply drivers" },
+        { DeploymentStepNames.ApplyRecoveryDrivers, "Apply recovery drivers" },
         { DeploymentStepNames.DownloadFirmwareUpdate, "Download firmware" },
         { DeploymentStepNames.ApplyFirmwareUpdate, "Apply firmware" },
         { DeploymentStepNames.SealRecoveryPartition, "Seal recovery partition" },

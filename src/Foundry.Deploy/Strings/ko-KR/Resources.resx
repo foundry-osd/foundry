@@ -183,6 +183,7 @@
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>드라이버 추출</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>사용자 지정 준비</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>드라이버 적용</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>복구 드라이버 적용</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>펌웨어 다운로드</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>펌웨어 적용</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>복구 파티션 봉인</value></data>

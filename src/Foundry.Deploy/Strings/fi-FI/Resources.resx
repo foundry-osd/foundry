@@ -183,6 +183,7 @@ Jatketaanko käyttöönottoa?</value></data>
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Pura ohjaimet</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Valmistele mukautukset</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Käytä ohjaimia</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>Käytä palautusohjaimia</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Lataa laiteohjelmisto</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Käytä laiteohjelmistoa</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Sinetöi palautusosio</value></data>

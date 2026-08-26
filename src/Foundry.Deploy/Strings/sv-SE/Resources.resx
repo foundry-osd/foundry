@@ -183,6 +183,7 @@ Fortsätt med implementeringen?</value></data>
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extrahera drivrutiner</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Förbered anpassningar</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Tillämpa drivrutiner</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>Tillämpa återställningsdrivrutiner</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Ladda ner firmware</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Tillämpa firmware</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Försegla återställningspartitionen</value></data>

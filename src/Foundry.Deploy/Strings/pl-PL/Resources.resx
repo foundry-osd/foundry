@@ -183,6 +183,7 @@ Kontynuować wdrażanie?</value></data>
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Rozpakuj sterowniki</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Przygotuj modyfikacje</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Zastosuj sterowniki</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>Zastosuj sterowniki odzyskiwania</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Pobierz firmware</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Zastosuj firmware</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Zamknij partycję odzyskiwania</value></data>

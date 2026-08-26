@@ -183,6 +183,7 @@ Sistema operativo: {4}
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extraer controladores</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Preparar personalizaciones</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Aplicar controladores</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>Aplicar controladores de recuperación</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Descargar firmware</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Aplicar firmware</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Sellar partición de recuperación</value></data>

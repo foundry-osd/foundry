@@ -183,6 +183,7 @@ Vil du fortsette med distribusjonen?</value></data>
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Pakk ut drivere</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Forbered tilpasninger</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Installer drivere</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>Installer gjenopprettingsdrivere</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Last ned firmware</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Installer firmware</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Forsegl gjenopprettingspartisjon</value></data>

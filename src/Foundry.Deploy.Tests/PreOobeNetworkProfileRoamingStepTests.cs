@@ -29,6 +29,7 @@ public sealed class PreOobeNetworkProfileRoamingStepTests
         var step = new StagePreOobeCustomizationStep(
             new PreOobeScriptProvisioningService(new SetupCompleteScriptService()),
             new PreOobeScriptDefinitionBuilder(),
+            new FakeDriverPackStrategyResolver(),
             new StaticNetworkProfileRoamingArtifactService(CreateRoamingPayload()));
 
         DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
@@ -42,7 +43,7 @@ public sealed class PreOobeNetworkProfileRoamingStepTests
     }
 
     [Fact]
-    public async Task ApplyDriverPackStep_WhenDeferredDriverAndRoamingPayloadExist_StagesImporterWithDriverScripts()
+    public async Task StagePreOobeCustomizationStep_WhenDeferredDriverAndRoamingPayloadExist_StagesDriverPackageAndScripts()
     {
         using var tempDirectory = new TemporaryDirectory();
         string driverPackagePath = Path.Combine(tempDirectory.RootPath, "driver.exe");
@@ -50,8 +51,7 @@ public sealed class PreOobeNetworkProfileRoamingStepTests
         DeploymentStepExecutionContext context = CreateContext(tempDirectory);
         context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredSetupComplete;
         context.RuntimeState.DownloadedDriverPackPath = driverPackagePath;
-        var step = new ApplyDriverPackStep(
-            new FakeWindowsDeploymentService(),
+        var step = new StagePreOobeCustomizationStep(
             new PreOobeScriptProvisioningService(new SetupCompleteScriptService()),
             new PreOobeScriptDefinitionBuilder(),
             new FakeDriverPackStrategyResolver(),
@@ -60,6 +60,8 @@ public sealed class PreOobeNetworkProfileRoamingStepTests
         DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
 
         Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        Assert.NotNull(context.RuntimeState.DeferredDriverPackagePath);
+        Assert.True(File.Exists(context.RuntimeState.DeferredDriverPackagePath));
         Assert.Contains(context.RuntimeState.PreOobeScriptPaths, path => path.EndsWith("Install-DriverPack.ps1", StringComparison.OrdinalIgnoreCase));
         Assert.Contains(context.RuntimeState.PreOobeScriptPaths, path => path.EndsWith("Import-NetworkProfiles.ps1", StringComparison.OrdinalIgnoreCase));
         Assert.Contains(context.RuntimeState.PreOobeScriptPaths, path => path.EndsWith("Cleanup-PreOobe.ps1", StringComparison.OrdinalIgnoreCase));

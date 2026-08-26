@@ -183,6 +183,7 @@
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>解压驱动程序</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>准备自定义项</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>应用驱动程序</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>应用恢复驱动程序</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>下载固件</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>应用固件</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>封闭恢复分区</value></data>

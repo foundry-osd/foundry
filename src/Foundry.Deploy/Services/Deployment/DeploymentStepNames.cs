@@ -24,6 +24,7 @@ public static class DeploymentStepNames
     public const string ConfigureRecoveryEnvironment = "Configure recovery environment";
     public const string StagePreOobeCustomization = "Stage pre-OOBE customization";
     public const string ApplyDriverPack = "Apply driver pack";
+    public const string ApplyRecoveryDrivers = "Apply recovery drivers";
     public const string DownloadFirmwareUpdate = "Download firmware update";
     public const string ApplyFirmwareUpdate = "Apply firmware update";
     public const string SealRecoveryPartition = "Seal recovery partition";
@@ -33,7 +34,7 @@ public static class DeploymentStepNames
     /// <summary>
     /// Gets the canonical deployment workflow order validated by <see cref="DeploymentOrchestrator"/>.
     /// </summary>
-    public static readonly IReadOnlyList<string> All =
+    public static readonly IReadOnlyList<string> ExecutionOrder =
     [
         GatherDeploymentVariables,
         InitializeDeploymentWorkspace,
@@ -42,16 +43,17 @@ public static class DeploymentStepNames
         PrepareTargetDiskLayout,
         DownloadOperatingSystemImage,
         ApplyOperatingSystemImage,
-        ConfigureTargetComputerName,
-        ConfigureOobeSettings,
-        ConfigureWindowsOptionalFeatures,
-        ConfigureRecoveryEnvironment,
         DownloadDriverPack,
         ExtractDriverPack,
-        StagePreOobeCustomization,
         ApplyDriverPack,
         DownloadFirmwareUpdate,
         ApplyFirmwareUpdate,
+        ConfigureTargetComputerName,
+        ConfigureOobeSettings,
+        ConfigureWindowsOptionalFeatures,
+        StagePreOobeCustomization,
+        ConfigureRecoveryEnvironment,
+        ApplyRecoveryDrivers,
         SealRecoveryPartition,
         ProvisionAutopilot,
         FinalizeDeploymentAndWriteLogs

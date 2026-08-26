@@ -183,6 +183,7 @@ ErrorCode=0x80070005
   <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Розпакування драйверів</value></data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Підготовка налаштувань</value></data>
   <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Застосування драйверів</value></data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>Застосування драйверів відновлення</value></data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Завантаження прошивки</value></data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Застосування прошивки</value></data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Запечатування розділу відновлення</value></data>
