@@ -103,7 +103,7 @@ public sealed class AutopilotTenantOnboardingService(
                 TenantId = tenantId,
                 PersistedApplicationObjectId = application.ObjectId,
                 ManagedAppDisplayName = AutopilotHardwareHashUploadSettings.ManagedAppRegistrationDisplayName,
-                Applications = [application],
+                Applications = (AutopilotGraphApplication[])[application],
                 ServicePrincipal = servicePrincipal,
                 ActiveCertificate = currentSettings.ActiveCertificate,
                 KeyCredentials = keyCredentials,

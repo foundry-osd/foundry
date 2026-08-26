@@ -469,7 +469,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     private async Task ImportProfileAsync()
     {
         string? filePath = await filePickerService.PickOpenFileAsync(
-            new FileOpenPickerRequest(localizationService.GetString("Autopilot.ImportPickerTitle"), [".json"]));
+            new FileOpenPickerRequest(localizationService.GetString("Autopilot.ImportPickerTitle"), (string[])[".json"]));
         if (string.IsNullOrWhiteSpace(filePath))
         {
             return;
@@ -479,7 +479,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         try
         {
             AutopilotProfileSettings profile = await autopilotProfileImportService.ImportFromJsonFileAsync(filePath);
-            MergeProfiles([profile]);
+            MergeProfiles((AutopilotProfileSettings[])[profile]);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or JsonException or InvalidOperationException or ArgumentException)
         {
@@ -658,7 +658,9 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         string? outputPath = await filePickerService.PickSaveFileAsync(new FileSavePickerRequest(
             localizationService.GetString("Autopilot.HardwareHashCertificateSavePickerTitle"),
             "foundry-osd-autopilot-registration.pfx",
-            [new FilePickerTypeChoice(localizationService.GetString("Autopilot.HardwareHashCertificatePfxFileType"), [".pfx"])],
+            (FilePickerTypeChoice[])[new FilePickerTypeChoice(
+                localizationService.GetString("Autopilot.HardwareHashCertificatePfxFileType"),
+                (string[])[".pfx"])],
             ".pfx"));
         if (string.IsNullOrWhiteSpace(outputPath) || SelectedCertificateValidityOption is null)
         {
@@ -771,7 +773,9 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     private async Task SelectBootMediaCertificatePfxAsync()
     {
         string? filePath = await filePickerService.PickOpenFileAsync(
-            new FileOpenPickerRequest(localizationService.GetString("Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle"), [".pfx"]));
+            new FileOpenPickerRequest(
+                localizationService.GetString("Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle"),
+                (string[])[".pfx"]));
         if (string.IsNullOrWhiteSpace(filePath))
         {
             return;

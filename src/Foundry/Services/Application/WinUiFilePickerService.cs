@@ -70,7 +70,7 @@ public sealed class WinUiFilePickerService : IFilePickerService
     {
         if (filters.Count == 0)
         {
-            return ["*"];
+            return (string[])["*"];
         }
 
         return filters.Select(NormalizeExtension).Distinct(StringComparer.OrdinalIgnoreCase).ToArray();

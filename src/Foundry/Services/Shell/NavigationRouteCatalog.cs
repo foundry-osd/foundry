@@ -27,6 +27,7 @@ public sealed record NavigationRoute(
 public static class NavigationRouteCatalog
 {
     public static IReadOnlyList<NavigationRoute> PrimaryRoutes { get; } =
+    (NavigationRoute[])
     [
         CreatePrimary<HomeLandingPage>("Nav_HomeKey", "E80F", NavigationSection.General, true),
         CreatePrimary<AdkPage>("Nav_AdkKey", "EC7A", NavigationSection.General, true),
@@ -46,6 +47,7 @@ public static class NavigationRouteCatalog
     ];
 
     private static IReadOnlyList<NavigationRoute> Routes { get; } =
+    (NavigationRoute[])
     [
         .. PrimaryRoutes,
         CreateSettings<SettingsPage>("SettingsPage.PageTitle", null),
