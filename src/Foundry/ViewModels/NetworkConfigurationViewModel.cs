@@ -333,7 +333,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     [RelayCommand]
     private async Task BrowseDot1xProfileTemplateAsync()
     {
-        string? path = await PickOpenFileAsync("Network.ProfileTemplatePickerTitle", [".xml"]);
+        string? path = await PickOpenFileAsync("Network.ProfileTemplatePickerTitle", (string[])[".xml"]);
         if (!string.IsNullOrWhiteSpace(path))
         {
             Dot1xProfileTemplatePath = path;
@@ -343,7 +343,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     [RelayCommand]
     private async Task BrowseDot1xCertificateAsync()
     {
-        string? path = await PickOpenFileAsync("Dot1x.CertificatePickerTitle", [".cer", ".crt", ".pfx", "*"]);
+        string? path = await PickOpenFileAsync("Dot1x.CertificatePickerTitle", (string[])[".cer", ".crt", ".pfx", "*"]);
         if (!string.IsNullOrWhiteSpace(path))
         {
             Dot1xCertificatePath = path;
@@ -353,7 +353,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     [RelayCommand]
     private async Task BrowseWifiEnterpriseProfileTemplateAsync()
     {
-        string? path = await PickOpenFileAsync("Network.ProfileTemplatePickerTitle", [".xml"]);
+        string? path = await PickOpenFileAsync("Network.ProfileTemplatePickerTitle", (string[])[".xml"]);
         if (!string.IsNullOrWhiteSpace(path))
         {
             WifiEnterpriseProfileTemplatePath = path;
@@ -363,7 +363,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     [RelayCommand]
     private async Task BrowseWifiCertificateAsync()
     {
-        string? path = await PickOpenFileAsync("Wifi.CertificatePickerTitle", [".cer", ".crt", ".pfx", "*"]);
+        string? path = await PickOpenFileAsync("Wifi.CertificatePickerTitle", (string[])[".cer", ".crt", ".pfx", "*"]);
         if (!string.IsNullOrWhiteSpace(path))
         {
             WifiCertificatePath = path;

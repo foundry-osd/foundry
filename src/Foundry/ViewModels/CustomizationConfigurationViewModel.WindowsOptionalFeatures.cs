@@ -241,7 +241,7 @@ public sealed partial class CustomizationConfigurationViewModel
     private void ApplyWindowsOptionalFeatureItemState(
         WindowsOptionalFeatureItemViewModel item,
         WindowsOptionalFeatureState state)
-        => ApplyWindowsOptionalFeatureSelection([item.Id], state);
+        => ApplyWindowsOptionalFeatureSelection((string[])[item.Id], state);
 
     private void ApplyWindowsOptionalFeatureSelection(
         IEnumerable<string> featureIds,

@@ -297,7 +297,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             new FileSavePickerRequest(
                 localizationService.GetString("StartMedia.IsoPicker.Title"),
                 "Foundry",
-                [new(localizationService.GetString("StartMedia.IsoPicker.Filter"), [".iso"])],
+                (FilePickerTypeChoice[])[new(
+                    localizationService.GetString("StartMedia.IsoPicker.Filter"),
+                    (string[])[".iso"])],
                 ".iso"));
 
         if (!string.IsNullOrWhiteSpace(path))
@@ -1592,6 +1594,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             MediaPreflightBlockingReason.CustomDriverDirectoryHasNoInfFiles);
 
         return
+        (StartConfigurationOverviewItemViewModel[])
         [
             CreateOverviewItem(ConfigurationOverviewItem.Architecture, overview, "StartMedia.Field.Architecture",
                 FormatArchitecture(options.Architecture), ConfigurationNavigationTarget.General),
@@ -1647,6 +1650,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         });
 
         return
+        (StartConfigurationOverviewItemViewModel[])
         [
             CreateOverviewItem(ConfigurationOverviewItem.EthernetDot1x, overview, "Nav_EthernetDot1xKey.Title",
                 GetNetworkDescription(overview[ConfigurationOverviewItem.EthernetDot1x], ethernetDescription, ethernetValidation),
@@ -1666,6 +1670,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             : GetAutopilotValidationText(options.AutopilotConfigurationValidationCode);
 
         return
+        (StartConfigurationOverviewItemViewModel[])
         [
             CreateOverviewItem(ConfigurationOverviewItem.AutopilotJsonProfile, overview, "Nav_AutopilotJsonProfileKey.Title",
                 overview[ConfigurationOverviewItem.AutopilotJsonProfile] == ConfigurationOverviewState.NotSelected
@@ -1706,6 +1711,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             optionalFeatures.DisabledFeatureIds.Count);
 
         return
+        (StartConfigurationOverviewItemViewModel[])
         [
             CreateOverviewItem(ConfigurationOverviewItem.OperatingSystemSelection, overview, "Nav_OsSelectionKey.Title",
                 string.IsNullOrWhiteSpace(osDescription) ? localizationService.GetString("Nav_OsSelectionKey.Description") : osDescription,

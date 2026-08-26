@@ -12,6 +12,7 @@ namespace Foundry.ViewModels;
 internal sealed class MediaCreationTelemetryProgressTracker
 {
     private static readonly IReadOnlyList<StatusStepMapping> CustomizationStatusMappings =
+    (StatusStepMapping[])
     [
         new("Resolving WinRE source catalog", MediaCreationStepNames.ResolveWinReSourceCatalog),
         new("Selected WinRE source package", MediaCreationStepNames.SelectWinReSourcePackage),
@@ -33,6 +34,7 @@ internal sealed class MediaCreationTelemetryProgressTracker
     ];
 
     private static readonly IReadOnlyList<StatusStepMapping> DownloadStatusMappings =
+    (StatusStepMapping[])
     [
         new("Downloading driver package", MediaCreationStepNames.DownloadWinPeDriverPackage),
         new("Downloading WinRE source package", MediaCreationStepNames.DownloadWinReSourcePackage),
@@ -41,6 +43,7 @@ internal sealed class MediaCreationTelemetryProgressTracker
     ];
 
     private static readonly IReadOnlyList<StatusStepMapping> FinalMediaStatusMappings =
+    (StatusStepMapping[])
     [
         new("Preparing ISO output path", MediaCreationStepNames.PrepareIsoOutputPath),
         new("Preparing ISO workspace", MediaCreationStepNames.PrepareIsoWorkspace),
