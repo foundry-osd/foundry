@@ -32,7 +32,6 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>ชื่อคอมพิวเตอร์</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 ตัวอักษร A-Z, a-z, 0-9 และขีดกลางเท่านั้น</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>ชื่อคอมพิวเตอร์ต้องมีอักขระที่ถูกต้อง 1 ถึง 15 ตัว (ตัวอักษร ตัวเลข หรือยัติภังค์)</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>ดิสก์ปลายทาง</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>ดิสก์เป้าหมาย</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>เลือกดิสก์เป้าหมาย ดิสก์ที่ไม่มีสิทธิ์ถูกบล็อก</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>ใช้การอัพเดตเฟิร์มแวร์</value></data>
@@ -116,8 +115,6 @@
   <data name="Common.No" xml:space="preserve"><value>ไม่</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>เปิดใช้งานแล้ว</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>ปิดการใช้งาน</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>พร้อม</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>ไม่พร้อม</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>เครือข่าย</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>เวลาเริ่มต้น</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>เวลาที่ผ่านไป</value></data>
@@ -350,10 +347,6 @@
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot การจับแฮชฮาร์ดแวร์ล้มเหลว: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot การนำเข้าแฮชฮาร์ดแวร์ล้มเหลว: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot การอัพโหลดแฮชฮาร์ดแวร์ถูกข้าม: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} นาที</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} นาที</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} วินาที</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} วินาที</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot โปรไฟล์ถูกจัดฉาก</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot โปรไฟล์เป็นฉาก (จำลอง)</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

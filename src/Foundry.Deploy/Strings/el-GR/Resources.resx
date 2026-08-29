@@ -32,7 +32,6 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Όνομα υπολογιστή</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 χαρακτήρες. A-Z, a-z, 0-9 και μόνο παύλα.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Το όνομα υπολογιστή πρέπει να περιέχει 1 έως 15 έγκυρους χαρακτήρες (γράμματα, αριθμούς ή παύλα).</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Δίσκος προορισμού</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Δίσκος στόχος</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Επιλέξτε έναν δίσκο προορισμού. Οι μη κατάλληλοι δίσκοι είναι αποκλεισμένοι.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Εφαρμόστε ενημερώσεις υλικολογισμικού</value></data>
@@ -116,8 +115,6 @@
   <data name="Common.No" xml:space="preserve"><value>Όχι</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Ενεργοποιημένο</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>ΑμεΑ</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>Έτοιμοι</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Δεν είναι έτοιμο</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Δικτύωση</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Ώρα έναρξης</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Χρόνος που πέρασε</value></data>
@@ -350,10 +347,6 @@
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot η κατακερματισμός υλικού απέτυχε: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot η εισαγωγή κατακερματισμού υλικού απέτυχε: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot η μεταφόρτωση κατακερματισμού υλικού παραβλέφθηκε: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} λεπτό</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} λεπτά</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} δευτερόλεπτο</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} δευτερόλεπτα</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Το προφίλ Autopilot σκηνοθετήθηκε.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Το προφίλ Autopilot σκηνοθετήθηκε (προσομοίωση).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

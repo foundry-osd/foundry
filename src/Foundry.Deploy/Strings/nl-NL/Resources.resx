@@ -32,7 +32,6 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Computernaam</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 tekens. Alleen A-Z, a-z, 0-9 en koppelteken.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>De computernaam moet 1 tot 15 geldige tekens bevatten (letters, cijfers of koppelteken).</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Bestemmingsschijf</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Doelschijf</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Selecteer een doelschijf. Niet-geschikte schijven worden geblokkeerd.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Firmware-updates toepassen</value></data>
@@ -116,8 +115,6 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
   <data name="Common.No" xml:space="preserve"><value>Nee</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Ingeschakeld</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Uitgeschakeld</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>Klaar</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Niet klaar</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Netwerken</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Begintijd</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Verstreken tijd</value></data>
@@ -350,10 +347,6 @@ Doorgaan met de implementatie?</value></data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot hardware-hash-opname mislukt: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot hardware-hash-import mislukt: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot hardware-hash-upload overgeslagen: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minuut</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minuten</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} seconde</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} seconden</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot profiel geënsceneerd.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profiel geënsceneerd (simulatie).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

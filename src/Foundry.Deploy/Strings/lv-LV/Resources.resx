@@ -32,7 +32,6 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Datora nosaukums</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 rakstzīmes. Tikai A–Z, a–z, 0–9 un defise.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Datora nosaukumā ir jāsatur 1–15 derīgas rakstzīmes (burti, cipari vai defise).</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Galamērķa disks</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Mērķa disks</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Izvēlieties mērķa disku. Nepiemērotie diski ir bloķēti.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Lietojiet programmaparatūras atjauninājumus</value></data>
@@ -116,8 +115,6 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
   <data name="Common.No" xml:space="preserve"><value>Nē</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Iespējots</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Atspējots</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>Gatavs</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Nav gatavs</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Tīklošana</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Sākuma laiks</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Pagājušais laiks</value></data>
@@ -350,10 +347,6 @@ Vai turpināt izvietošanu?</value></data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot aparatūras jaucējfunkcijas tveršana neizdevās: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot aparatūras jaucējkoda importēšana neizdevās: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot aparatūras hash augšupielāde ir izlaista: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minūti</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minūtes</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} otrā</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} sekundes</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot profils iestudēts.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profils iestudēts (simulācija).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

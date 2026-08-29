@@ -32,7 +32,6 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Nome del computer</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 caratteri. Solo A-Z, a-z, 0-9 e trattino.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Il nome del computer deve contenere da 1 a 15 caratteri validi (lettere, numeri o trattini).</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Disco di destinazione</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Disco di destinazione</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Seleziona un disco di destinazione. I dischi non idonei vengono bloccati.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Applicare gli aggiornamenti del firmware</value></data>
@@ -116,8 +115,6 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
   <data name="Common.No" xml:space="preserve"><value>No</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Abilitato</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Disabilitato</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>Pronto</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Non pronto</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Rete</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Ora di inizio</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Tempo trascorso</value></data>
@@ -350,10 +347,6 @@ Continuare con la distribuzione?</value></data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot acquisizione hash hardware non riuscita: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot Importazione hash hardware non riuscita: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot Caricamento hash hardware saltato: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minuto</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minuti</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} secondo</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} secondi</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot profilo messo in scena.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profilo messo in scena (simulazione).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

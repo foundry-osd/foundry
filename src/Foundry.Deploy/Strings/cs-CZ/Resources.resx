@@ -32,7 +32,6 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Název počítače</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 znaků. Pouze A–Z, a–z, 0–9 a spojovník.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Název počítače musí obsahovat 1 až 15 platných znaků (písmena, číslice nebo spojovník).</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Cílový disk</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Cílový disk</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Vyberte cílový disk. Nezpůsobilé disky jsou blokovány.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Použít aktualizace firmwaru</value></data>
@@ -116,8 +115,6 @@ Akce: Ověřte atributy disku a opakujte nasazení.</value></data>
   <data name="Common.No" xml:space="preserve"><value>Ne</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Povoleno</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Zakázáno</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>Připraveno</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Není připraven</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>vytváření sítí</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Čas zahájení</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Uplynulý čas</value></data>
@@ -350,10 +347,6 @@ Pokračovat v nasazování?</value></data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot zachycení hardwarového hash se nezdařilo: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Import hardwarového hash Autopilot se nezdařil: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Nahrání hardwarového hash Autopilot bylo přeskočeno: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minuta</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minut</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} sekunda</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} sekund</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Profil Autopilot vytvořen.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profil zinscenovaný (simulace).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

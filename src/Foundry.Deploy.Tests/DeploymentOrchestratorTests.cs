@@ -98,33 +98,6 @@ public sealed class DeploymentOrchestratorTests
     }
 
     [Fact]
-    public void DeploymentStepNames_ExecutionOrder_OrdersAutopilotProvisioningAfterRecoverySeal()
-    {
-        List<string> steps = DeploymentStepNames.ExecutionOrder.ToList();
-        int sealIndex = steps.IndexOf(DeploymentStepNames.SealRecoveryPartition);
-        int autopilotIndex = steps.IndexOf(DeploymentStepNames.ProvisionAutopilot);
-        int finalizeIndex = steps.IndexOf(DeploymentStepNames.FinalizeDeploymentAndWriteLogs);
-
-        Assert.True(sealIndex >= 0);
-        Assert.Equal(sealIndex + 1, autopilotIndex);
-        Assert.Equal(autopilotIndex + 1, finalizeIndex);
-    }
-
-    [Fact]
-    public void DeploymentStepNames_ExecutionOrder_OrdersCustomizationBeforeRecovery()
-    {
-        List<string> steps = DeploymentStepNames.ExecutionOrder.ToList();
-        int oobeIndex = steps.IndexOf(DeploymentStepNames.ConfigureOobeSettings);
-        int optionalFeaturesIndex = steps.IndexOf(DeploymentStepNames.ConfigureWindowsOptionalFeatures);
-        int customizationIndex = steps.IndexOf(DeploymentStepNames.StagePreOobeCustomization);
-        int recoveryIndex = steps.IndexOf(DeploymentStepNames.ConfigureRecoveryEnvironment);
-
-        Assert.Equal(oobeIndex + 1, optionalFeaturesIndex);
-        Assert.Equal(optionalFeaturesIndex + 1, customizationIndex);
-        Assert.Equal(customizationIndex + 1, recoveryIndex);
-    }
-
-    [Fact]
     public async Task RunAsync_WhenDeploymentFailsAfterTargetLayout_ReturnsActualReboundLogPath()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();

@@ -32,7 +32,6 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Computernavn</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 tegn. Kun A-Z, a-z, 0-9 og bindestreg.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Computernavn skal indeholde 1 til 15 gyldige tegn (bogstaver, tal eller bindestreg).</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Destinationsdisk</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Mål disk</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Vælg en måldisk. Ikke-kvalificerede diske er blokeret.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Anvend firmwareopdateringer</value></data>
@@ -116,8 +115,6 @@ Handling: Bekræft diskattributter, og prøv implementeringen igen.</value></dat
   <data name="Common.No" xml:space="preserve"><value>Nej</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Aktiveret</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Deaktiveret</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>Klar</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Ikke klar</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Netværk</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Starttidspunkt</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Forløbet tid</value></data>
@@ -350,10 +347,6 @@ Vil du fortsætte med implementeringen?</value></data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot hardware hash-opsamling mislykkedes: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot import af hardwarehash mislykkedes: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot hardware hash upload sprunget over: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minut</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minutter</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} sekund</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} sekunder</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot profil iscenesat.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profil iscenesat (simulering).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

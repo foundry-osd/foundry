@@ -32,7 +32,6 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>컴퓨터 이름</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1~15자. A-Z, a-z, 0-9 및 하이픈만 가능합니다.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>컴퓨터 이름은 1~15자의 유효한 문자(문자, 숫자 또는 하이픈)를 포함해야 합니다.</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>대상 디스크</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>대상 디스크</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>대상 디스크를 선택합니다. 부적격 디스크는 차단됩니다.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>펌웨어 업데이트 적용</value></data>
@@ -116,8 +115,6 @@
   <data name="Common.No" xml:space="preserve"><value>아니요</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>활성화됨</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>장애인</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>준비</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>준비되지 않음</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>네트워킹</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>시작 시간</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>경과 시간</value></data>
@@ -350,10 +347,6 @@
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot 하드웨어 해시 캡처 실패: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot 하드웨어 해시 가져오기 실패: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot 하드웨어 해시 업로드 건너뛰기: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0}분</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0}분</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} 초</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} 초</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot 프로필이 준비되었습니다.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot 프로필이 준비되었습니다(시뮬레이션).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

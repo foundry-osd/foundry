@@ -32,7 +32,6 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>電腦名稱</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 個字元。僅 A-Z、a-z、0-9 和連字號。</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>電腦名稱必須包含 1 到 15 個有效字元（字母、數字或連字號）。</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>目標磁碟</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>目標磁碟</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>選擇目標磁碟。不符合條件的磁碟將被阻止。</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>應用程式韌體更新</value></data>
@@ -116,8 +115,6 @@
   <data name="Common.No" xml:space="preserve"><value>否</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>啟用</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>殘障人士</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>準備好</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>還沒準備好</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>網路</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>開始時間</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>經過時間</value></data>
@@ -350,10 +347,6 @@
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot硬體哈希捕獲失敗：{0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot硬體哈希導入失敗：{0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot 硬體哈希上傳已跳過：{0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0}分鐘</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0}分鐘</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0}第二</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0}秒</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot 個人檔案上演。</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot 設定檔已上演（模擬）。</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

@@ -32,7 +32,6 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Nom de l’ordinateur</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1 à 15 caractères. A-Z, a-z, 0-9 et tiret uniquement.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Le nom de l’ordinateur doit contenir 1 à 15 caractères valides (lettres, chiffres ou tiret).</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Disque de destination</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Disque cible</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Sélectionnez un disque cible. Les disques non éligibles sont bloqués.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Appliquer les mises à jour du firmware</value></data>
@@ -116,8 +115,6 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
   <data name="Common.No" xml:space="preserve"><value>Non</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Activé</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Désactivé</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>Prêt</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Non prêt</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Réseau</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Heure de début</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Temps écoulé</value></data>
@@ -350,10 +347,6 @@ Continuer le déploiement ?</value></data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>La capture du hash matériel Autopilot a échoué : {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>L’import du hash matériel Autopilot a échoué : {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Envoi du hash matériel Autopilot ignoré : {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minute</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minutes</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} seconde</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} secondes</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Profil Autopilot préparé.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Profil Autopilot préparé (simulation).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

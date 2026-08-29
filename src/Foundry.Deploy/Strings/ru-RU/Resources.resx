@@ -32,7 +32,6 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Имя компьютера</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 символов. Только A-Z, a-z, 0-9 и дефис.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Имя компьютера должно содержать от 1 до 15 допустимых символов (букв, цифр или дефиса).</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Целевой диск</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Целевой диск</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Выберите целевой диск. Неподходящие диски блокируются.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Применить обновления прошивки</value></data>
@@ -116,8 +115,6 @@
   <data name="Common.No" xml:space="preserve"><value>Нет</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Включено</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Отключено</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>Готово</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Не готов</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>сеть</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Время начала</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Прошедшее время</value></data>
@@ -350,10 +347,6 @@
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot не удалось получить аппаратный хэш: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot не удалось импортировать аппаратный хэш: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot загрузка аппаратного хеша пропущена: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} минута</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} минут</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} секунда</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} секунды</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Профиль Autopilot подготовлен.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Профиль Autopilot поставлен (симуляция).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

@@ -32,7 +32,6 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Numele computerului</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 caractere. A-Z, a-z, 0-9 și numai cratima.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Numele computerului trebuie să conțină între 1 și 15 caractere valide (litere, cifre sau cratimă).</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Disc destinație</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Disc țintă</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Selectați un disc țintă. Discurile neeligibile sunt blocate.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Aplicați actualizări de firmware</value></data>
@@ -116,8 +115,6 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
   <data name="Common.No" xml:space="preserve"><value>Nu</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Activat</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Dezactivat</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>Gata</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Nu este gata</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Rețele</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Ora de începere</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Timp scurs</value></data>
@@ -350,10 +347,6 @@ Continuați cu implementarea?</value></data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Captura hash hardware Autopilot nu a reușit: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Importarea hash hardware Autopilot nu a reușit: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Încărcarea hash hardware Autopilot a fost omisă: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minut</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minute</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} secunde</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} secunde</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Profil Autopilot pus în scenă.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profil pus în scenă (simulare).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

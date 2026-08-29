@@ -32,7 +32,6 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Computername</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 Zeichen. Nur A-Z, a-z, 0-9 und Bindestrich.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Der Computername muss 1 bis 15 gültige Zeichen (Buchstaben, Zahlen oder Bindestriche) enthalten.</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Zielfestplatte</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Zielfestplatte</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Wählen Sie eine Zielfestplatte aus. Nicht berechtigte Datenträger werden blockiert.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Wenden Sie Firmware-Updates an</value></data>
@@ -116,8 +115,6 @@ Aktion: Überprüfen Sie die Festplattenattribute und wiederholen Sie die Bereit
   <data name="Common.No" xml:space="preserve"><value>Nein</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Aktiviert</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Deaktiviert</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>Bereit</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Nicht bereit</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Vernetzung</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Startzeit</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Verstrichene Zeit</value></data>
@@ -350,10 +347,6 @@ Mit der Bereitstellung fortfahren?</value></data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot Hardware-Hash-Erfassung fehlgeschlagen: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot Hardware-Hash-Import fehlgeschlagen: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot Hardware-Hash-Upload übersprungen: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} Minute</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} Minuten</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} Sekunde</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} Sekunden</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot Profil inszeniert.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot Profil bereitgestellt (Simulation).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

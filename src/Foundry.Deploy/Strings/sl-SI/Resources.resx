@@ -32,7 +32,6 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Ime računalnika</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 znakov. Samo A-Z, a-z, 0-9 in vezaj.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Ime računalnika mora vsebovati od 1 do 15 veljavnih znakov (črke, številke ali vezaji).</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Ciljni disk</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Ciljni disk</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Izberite ciljni disk. Neprimerni diski so blokirani.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Uporabite posodobitve vdelane programske opreme</value></data>
@@ -116,8 +115,6 @@ Ukrep: Preverite atribute diska in znova poskusite razmestiti.</value></data>
   <data name="Common.No" xml:space="preserve"><value>št</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Omogočeno</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Onemogočen</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>pripravljena</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Ni pripravljen</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Mreženje</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Začetni čas</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Pretečeni čas</value></data>
@@ -350,10 +347,6 @@ Ali želite nadaljevati z uvajanjem?</value></data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot zajem razpršitve strojne opreme ni uspel: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot uvoz razpršitve strojne opreme ni uspel: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot nalaganje zgoščene opreme strojne opreme preskočeno: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minuta</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minut</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} sekunda</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} sekund</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot profil uprizorjen.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profil uprizorjen (simulacija).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

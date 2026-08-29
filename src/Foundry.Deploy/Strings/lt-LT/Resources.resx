@@ -32,7 +32,6 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Kompiuterio pavadinimas</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 simbolių. Tik A–Z, a–z, 0–9 ir brūkšneliu.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Kompiuterio pavadinime turi būti nuo 1 iki 15 galiojančių simbolių (raidžių, skaičių arba brūkšnelio).</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Paskirties diskas</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Tikslinis diskas</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Pasirinkite tikslinį diską. Netinkami diskai yra užblokuoti.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Taikykite programinės įrangos naujinimus</value></data>
@@ -116,8 +115,6 @@ Veiksmas: patikrinkite disko atributus ir bandykite iš naujo įdiegti.</value><
   <data name="Common.No" xml:space="preserve"><value>Nr</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Įjungta</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Išjungta</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>Paruošta</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Nepasiruošęs</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Tinklo kūrimas</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Pradžios laikas</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Praėjęs laikas</value></data>
@@ -350,10 +347,6 @@ Tęsti diegimą?</value></data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot aparatinės įrangos maišos užfiksuoti nepavyko: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot aparatinės įrangos maišos importavimas nepavyko: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot aparatinės įrangos maišos įkėlimas praleistas: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minutę</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minučių</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} sekundę</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} sekundės</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot profilis surengtas.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profilis surengtas (modeliavimas).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

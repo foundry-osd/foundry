@@ -458,28 +458,6 @@ public static partial class DeploymentUiTextLocalizer
             : value;
     }
 
-    private static string LocalizeRemainingDuration(string value)
-    {
-        Match match = RemainingDurationRegex().Match(value);
-        if (!match.Success)
-        {
-            return value;
-        }
-
-        string key = match.Groups["unit"].Value switch
-        {
-            "minute" => "Duration.MinuteFormat",
-            "minutes" => "Duration.MinutesFormat",
-            "second" => "Duration.SecondFormat",
-            "seconds" => "Duration.SecondsFormat",
-            _ => string.Empty
-        };
-
-        return string.IsNullOrWhiteSpace(key)
-            ? value
-            : LocalizationText.Format(key, match.Groups["value"].Value);
-    }
-
     private static string LocalizeCompactRemainingDuration(string value)
     {
         Match match = RemainingDurationRegex().Match(value);

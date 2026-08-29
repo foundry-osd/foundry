@@ -32,7 +32,6 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Naziv računala</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 znakova. A-Z, a-z, 0-9 i samo crtica.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Naziv računala mora sadržavati 1 do 15 valjanih znakova (slova, brojeva ili crtica).</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Odredišni disk</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Ciljni disk</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Odaberite ciljni disk. Nepodobni diskovi su blokirani.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Primijenite ažuriranja firmvera</value></data>
@@ -116,8 +115,6 @@ Radnja: Provjerite atribute diska i ponovno pokušajte implementaciju.</value></
   <data name="Common.No" xml:space="preserve"><value>Ne</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Omogućeno</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Onesposobljeno</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>Spreman</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Nije spreman</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>umrežavanje</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Vrijeme početka</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Proteklo vrijeme</value></data>
@@ -350,10 +347,6 @@ Nastaviti s implementacijom?</value></data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot Hvatanje hash hardvera nije uspjelo: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot uvoz hash hardvera nije uspio: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot prijenos hash hardvera preskočen: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minuta</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minuta</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} drugi</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} sekundi</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot profil postavljen.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profil insceniran (simulacija).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

@@ -32,7 +32,6 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Tietokoneen nimi</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 merkkiä. Vain A-Z, a-z, 0-9 ja tavuviiva.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Tietokoneen nimessä on oltava 1–15 kelvollista merkkiä (kirjaimia, numeroita tai tavuviivaa).</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Kohdelevy</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Kohdelevy</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Valitse kohdelevy. Ei-kelpoiset levyt on estetty.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Ota laiteohjelmistopäivitykset käyttöön</value></data>
@@ -116,8 +115,6 @@ Toimi: Tarkista levyn attribuutit ja yritä käyttöönottoa uudelleen.</value><
   <data name="Common.No" xml:space="preserve"><value>Ei</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Käytössä</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Ei käytössä</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>Valmis</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Ei valmis</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Verkostoituminen</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Aloitusaika</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Kulunut aika</value></data>
@@ -350,10 +347,6 @@ Jatketaanko käyttöönottoa?</value></data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot laitteiston hajautus epäonnistui: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot laitteiston hash-tuonti epäonnistui: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot laitteiston hash-lataus ohitettu: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minuutti</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minuuttia</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} toinen</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} sekuntia</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot profiili lavastettu.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profiili vaiheistettu (simulaatio).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

@@ -32,7 +32,6 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Nome do computador</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 caracteres. A-Z, a-z, 0-9 e apenas hífen.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>O nome do computador deve conter de 1 a 15 caracteres válidos (letras, números ou hífen).</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Disco de destino</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Disco de destino</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Selecione um disco de destino. Os discos não elegíveis são bloqueados.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Aplicar atualizações de firmware</value></data>
@@ -116,8 +115,6 @@ Ação: Verifique os atributos do disco e tente novamente a implantação.</valu
   <data name="Common.No" xml:space="preserve"><value>Não</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Habilitado</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Desativado</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>Pronto</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Não está pronto</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Rede</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Hora de início</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Tempo decorrido</value></data>
@@ -350,10 +347,6 @@ Continuar com a implantação?</value></data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot falha na captura de hash de hardware: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot importação de hash de hardware falhou: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot upload de hash de hardware ignorado: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minuto</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minutos</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} segundo</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} segundos</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot perfil encenado.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Perfil Autopilot encenado (simulação).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

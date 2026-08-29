@@ -32,7 +32,6 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>コンピュータ名</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1 ～ 15 文字。 A ～ Z、a ～ z、0 ～ 9、およびハイフンのみ。</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>コンピュータ名には、1 ～ 15 個の有効な文字 (文字、数字、またはハイフン) が含まれている必要があります。</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>宛先ディスク</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>ターゲットディスク</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>ターゲットディスクを選択します。不適格なディスクはブロックされます。</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>ファームウェアアップデートを適用する</value></data>
@@ -116,8 +115,6 @@
   <data name="Common.No" xml:space="preserve"><value>いいえ</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>有効</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>障害者</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>準備完了</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>準備ができていません</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>ネットワーキング</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>開始時間</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>経過時間</value></data>
@@ -350,10 +347,6 @@
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot ハードウェア ハッシュのキャプチャに失敗しました: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot ハードウェア ハッシュのインポートに失敗しました: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot ハードウェア ハッシュのアップロードがスキップされました: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0}分</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} 分</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0}秒</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} 秒</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot プロフィールがステージングされました。</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot プロファイルがステージングされました (シミュレーション)。</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

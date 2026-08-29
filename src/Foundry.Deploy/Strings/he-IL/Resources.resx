@@ -32,7 +32,6 @@
   <data name="Preparation.ComputerName" xml:space="preserve"><value>שם המחשב</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 תווים. A-Z, a-z, 0-9 ומקף בלבד.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>שם המחשב חייב להכיל 1 עד 15 תווים חוקיים (אותיות, מספרים או מקף).</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>דיסק יעד</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>דיסק מטרה</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>בחר דיסק יעד. דיסקים לא כשירים חסומים.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>החל עדכוני קושחה</value></data>
@@ -116,8 +115,6 @@ ErrorCode=0x80070005
   <data name="Common.No" xml:space="preserve"><value>לא</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>מופעל</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>מושבת</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>מוכן</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>לא מוכן</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>רשת</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>שעת התחלה</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>זמן שחלף</value></data>
@@ -350,10 +347,6 @@ ErrorCode=0x80070005
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot לכידת hash חומרה נכשלה: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot ייבוא גיבוב חומרה נכשל: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot העלאת גיבוב חומרה דילגה: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} דקה</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} דקות</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} שנייה</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} שניות</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>פרופיל Autopilot מבוים.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot פרופיל מבויים (סימולציה).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
