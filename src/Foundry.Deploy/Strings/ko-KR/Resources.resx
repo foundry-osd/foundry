@@ -26,13 +26,10 @@
   <data name="Theme.System" xml:space="preserve"><value>시스템</value></data>
   <data name="Theme.Light" xml:space="preserve"><value>빛</value></data>
   <data name="Theme.Dark" xml:space="preserve"><value>어둠</value></data>
-  <data name="Language.English" xml:space="preserve"><value>영어</value></data>
-  <data name="Language.French" xml:space="preserve"><value>프랑스어</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>로그 파일 열기</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>컴퓨터 이름</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1~15자. A-Z, a-z, 0-9 및 하이픈만 가능합니다.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>컴퓨터 이름은 1~15자의 유효한 문자(문자, 숫자 또는 하이픈)를 포함해야 합니다.</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>대상 디스크</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>대상 디스크</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>대상 디스크를 선택합니다. 부적격 디스크는 차단됩니다.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>펌웨어 업데이트 적용</value></data>
@@ -55,7 +52,6 @@
   <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | 파워: {2} | 펌웨어: {3}</value></data>
   <data name="Preparation.PowerBattery" xml:space="preserve"><value>배터리</value></data>
   <data name="Preparation.PowerAc" xml:space="preserve"><value>교류</value></data>
-  <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>대상 디스크 로드 중...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>대상 디스크 검색 실패: {0}</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>버전</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Windows 업데이트</value></data>
@@ -64,14 +60,12 @@
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>라이선스 채널</value></data>
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>에디션(대상)</value></data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>아키텍처: {0}</value></data>
-  <data name="Catalog.Loading" xml:space="preserve"><value>카탈로그 로드 중...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>로드된 카탈로그: {0} 운영 체제 항목, {1} 드라이버 팩.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>카탈로그 로드 실패: {0}</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>드라이버 소스</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>모델</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>버전</value></data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
-  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>OEM 드라이버 팩</value></data>
   <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
   <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: 일치하는 모델 또는 버전이 없습니다.</value></data>
   <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0}(+{1} 모델)</value></data>
@@ -100,7 +94,6 @@
 오류코드=0x80070005
 세부정보: 대상 경로에 이미지를 마운트하는 동안 액세스가 거부되었습니다.
 조치: 디스크 속성을 확인하고 배포를 다시 시도하십시오.</value></data>
-  <data name="Common.Refresh" xml:space="preserve"><value>새로고침</value></data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>부팅 이미지 다시 생성 권장</value></data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>이 부팅 이미지는 이전 Foundry OSD 구성 형식을 사용합니다. 최신 기능과의 호환성을 보장하려면 다시 생성하세요.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>버전: {0}</value></data>
@@ -116,8 +109,6 @@
   <data name="Common.No" xml:space="preserve"><value>아니요</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>활성화됨</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>장애인</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>준비</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>준비되지 않음</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>네트워킹</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>시작 시간</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>경과 시간</value></data>
@@ -246,13 +237,8 @@
   <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>오프라인 AI 정책 작성 중...</value></data>
   <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>오프라인 사용자 정의가 구성되었습니다.</value></data>
   <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>오프라인 사용자 정의가 구성되었습니다(시뮬레이션).</value></data>
-  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>OOBE 사용자 정의가 비활성화되었습니다.</value></data>
   <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>OOBE 설정 구성 중...</value></data>
   <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>최초 실행 개인정보 보호 기본값을 작성하는 중...</value></data>
-  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>OOBE 사용자 정의가 구성되었습니다.</value></data>
-  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>OOBE 설정이 구성되었습니다.</value></data>
-  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>OOBE 사용자 정의가 시뮬레이션되었습니다.</value></data>
-  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>OOBE 설정이 구성되었습니다(시뮬레이션).</value></data>
   <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>복구 환경 구성 중...</value></data>
   <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Windows 복구 환경 준비 중...</value></data>
   <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>복구 파티션을 사용할 수 없습니다.</value></data>
@@ -350,10 +336,6 @@
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot 하드웨어 해시 캡처 실패: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot 하드웨어 해시 가져오기 실패: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot 하드웨어 해시 업로드 건너뛰기: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0}분</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0}분</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} 초</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} 초</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot 프로필이 준비되었습니다.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot 프로필이 준비되었습니다(시뮬레이션).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

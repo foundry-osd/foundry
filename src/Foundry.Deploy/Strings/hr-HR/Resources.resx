@@ -26,13 +26,10 @@
   <data name="Theme.System" xml:space="preserve"><value>sustav</value></data>
   <data name="Theme.Light" xml:space="preserve"><value>Svjetlo</value></data>
   <data name="Theme.Dark" xml:space="preserve"><value>tamno</value></data>
-  <data name="Language.English" xml:space="preserve"><value>engleski</value></data>
-  <data name="Language.French" xml:space="preserve"><value>francuski</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Otvori datoteku dnevnika</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Naziv računala</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 znakova. A-Z, a-z, 0-9 i samo crtica.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Naziv računala mora sadržavati 1 do 15 valjanih znakova (slova, brojeva ili crtica).</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Odredišni disk</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Ciljni disk</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Odaberite ciljni disk. Nepodobni diskovi su blokirani.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Primijenite ažuriranja firmvera</value></data>
@@ -55,7 +52,6 @@
   <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | Snaga: {2} | Firmware: {3}</value></data>
   <data name="Preparation.PowerBattery" xml:space="preserve"><value>Baterija</value></data>
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
-  <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Učitavanje ciljnih diskova...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Otkrivanje ciljnog diska nije uspjelo: {0}</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Verzija</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Ažuriranje sustava Windows</value></data>
@@ -64,14 +60,12 @@
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Licencni kanal</value></data>
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>Izdanje (ciljano)</value></data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>Arhitektura: {0}</value></data>
-  <data name="Catalog.Loading" xml:space="preserve"><value>Učitavanje kataloga...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Učitani katalozi: {0} unosi operativnog sustava, {1} paketi upravljačkih programa.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Učitavanje kataloga nije uspjelo: {0}</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Izvor vozača</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Model</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Verzija</value></data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
-  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>OEM paket upravljačkih programa</value></data>
   <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
   <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: nema odgovarajućeg modela ili verzije</value></data>
   <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (+{1} modeli)</value></data>
@@ -100,7 +94,6 @@
 Šifra greške=0x80070005
 Pojedinosti: Pristup odbijen tijekom montiranja slike na ciljnu putanju.
 Radnja: Provjerite atribute diska i ponovno pokušajte implementaciju.</value></data>
-  <data name="Common.Refresh" xml:space="preserve"><value>Osvježiti</value></data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Preporučuje se ponovno generiranje slike za pokretanje</value></data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Ova slika za pokretanje koristi stariji format konfiguracije Foundry OSD. Ponovno je generirajte kako biste osigurali kompatibilnost s najnovijim značajkama.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Verzija: {0}</value></data>
@@ -116,8 +109,6 @@ Radnja: Provjerite atribute diska i ponovno pokušajte implementaciju.</value></
   <data name="Common.No" xml:space="preserve"><value>Ne</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Omogućeno</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Onesposobljeno</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>Spreman</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Nije spreman</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>umrežavanje</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Vrijeme početka</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Proteklo vrijeme</value></data>
@@ -246,13 +237,8 @@ Nastaviti s implementacijom?</value></data>
   <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>Pisanje offline AI pravila...</value></data>
   <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>Izvanmrežna prilagodba konfigurirana.</value></data>
   <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>Konfigurirano izvanmrežno prilagođavanje (simulacija).</value></data>
-  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>OOBE prilagodba onemogućena.</value></data>
   <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>Konfiguriranje OOBE postavki...</value></data>
   <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>Pisanje zadanih postavki privatnosti za prvo pokretanje...</value></data>
-  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>OOBE prilagodba konfigurirana.</value></data>
-  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>OOBE postavke konfigurirane.</value></data>
-  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>OOBE simulirana prilagodba.</value></data>
-  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>OOBE postavke konfigurirane (simulacija).</value></data>
   <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>Konfiguriranje okruženja za oporavak...</value></data>
   <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Priprema okruženja za oporavak Windows...</value></data>
   <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>Particija za oporavak nije dostupna.</value></data>
@@ -350,10 +336,6 @@ Nastaviti s implementacijom?</value></data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot Hvatanje hash hardvera nije uspjelo: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot uvoz hash hardvera nije uspio: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot prijenos hash hardvera preskočen: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minuta</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minuta</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} drugi</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} sekundi</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot profil postavljen.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profil insceniran (simulacija).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

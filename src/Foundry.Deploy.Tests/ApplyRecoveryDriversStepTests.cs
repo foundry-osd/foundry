@@ -41,26 +41,20 @@ public sealed class ApplyRecoveryDriversStepTests
         Assert.Equal(0, fixture.DeploymentService.RecoveryApplyCount);
     }
 
-    [Fact]
-    public async Task ExecuteAsync_WhenRecoveryIsNotConfigured_Fails()
+    [Theory]
+    [InlineData(false, true)]
+    [InlineData(true, false)]
+    public async Task ExecuteAsync_WhenRecoveryIsUnavailable_Fails(
+        bool isRecoveryConfigured,
+        bool hasRecoveryPartition)
     {
         using var fixture = new DriverApplicationStepTestFixture();
         DeploymentStepExecutionContext context = fixture.CreateContext();
-        context.RuntimeState.WinReConfigured = false;
-        var step = new ApplyRecoveryDriversStep(fixture.DeploymentService);
-
-        DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
-
-        Assert.Equal(DeploymentStepState.Failed, result.State);
-        Assert.Equal(0, fixture.DeploymentService.RecoveryApplyCount);
-    }
-
-    [Fact]
-    public async Task ExecuteAsync_WhenRecoveryPartitionIsUnavailable_Fails()
-    {
-        using var fixture = new DriverApplicationStepTestFixture();
-        DeploymentStepExecutionContext context = fixture.CreateContext();
-        context.RuntimeState.TargetRecoveryPartitionRoot = null;
+        context.RuntimeState.WinReConfigured = isRecoveryConfigured;
+        if (!hasRecoveryPartition)
+        {
+            context.RuntimeState.TargetRecoveryPartitionRoot = null;
+        }
         var step = new ApplyRecoveryDriversStep(fixture.DeploymentService);
 
         DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);

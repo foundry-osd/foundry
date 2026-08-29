@@ -26,13 +26,10 @@
   <data name="Theme.System" xml:space="preserve"><value>Sistema</value></data>
   <data name="Theme.Light" xml:space="preserve"><value>Šviesa</value></data>
   <data name="Theme.Dark" xml:space="preserve"><value>Tamsus</value></data>
-  <data name="Language.English" xml:space="preserve"><value>anglų kalba</value></data>
-  <data name="Language.French" xml:space="preserve"><value>prancūzų</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Atidaryti žurnalo failą</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Kompiuterio pavadinimas</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 simbolių. Tik A–Z, a–z, 0–9 ir brūkšneliu.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Kompiuterio pavadinime turi būti nuo 1 iki 15 galiojančių simbolių (raidžių, skaičių arba brūkšnelio).</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Paskirties diskas</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Tikslinis diskas</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Pasirinkite tikslinį diską. Netinkami diskai yra užblokuoti.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Taikykite programinės įrangos naujinimus</value></data>
@@ -55,7 +52,6 @@
   <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | Galia: {2} | Programinė įranga: {3}</value></data>
   <data name="Preparation.PowerBattery" xml:space="preserve"><value>Baterija</value></data>
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
-  <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Įkeliami tiksliniai diskai...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Nepavyko aptikti tikslinio disko: {0}</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versija</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Windows naujinimas</value></data>
@@ -64,14 +60,12 @@
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Licencijos kanalas</value></data>
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>leidimas (tikslas)</value></data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>Architektūra: {0}</value></data>
-  <data name="Catalog.Loading" xml:space="preserve"><value>Įkeliami katalogai...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Įkelti katalogai: {0} operacinės sistemos įrašai, {1} tvarkyklių paketai.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Katalogo įkėlimas nepavyko: {0}</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Vairuotojo šaltinis</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Modelis</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Versija</value></data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
-  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>OEM tvarkyklės paketas</value></data>
   <data name="DriverPack.Oem" xml:space="preserve"><value>OĮG</value></data>
   <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: nėra tinkamo modelio ar versijos</value></data>
   <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (+{1} modeliai)</value></data>
@@ -100,7 +94,6 @@
 ErrorCode=0x80070005
 Išsami informacija: prieiga uždrausta montuojant vaizdą į tikslinį kelią.
 Veiksmas: patikrinkite disko atributus ir bandykite iš naujo įdiegti.</value></data>
-  <data name="Common.Refresh" xml:space="preserve"><value>Atnaujinti</value></data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Rekomenduojama iš naujo sugeneruoti įkrovos atvaizdą</value></data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Šis įkrovos atvaizdas naudoja senesnį Foundry OSD konfigūracijos formatą. Sugeneruokite jį iš naujo, kad užtikrintumėte suderinamumą su naujausiomis funkcijomis.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Versija: {0}</value></data>
@@ -116,8 +109,6 @@ Veiksmas: patikrinkite disko atributus ir bandykite iš naujo įdiegti.</value><
   <data name="Common.No" xml:space="preserve"><value>Nr</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Įjungta</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Išjungta</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>Paruošta</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Nepasiruošęs</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Tinklo kūrimas</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Pradžios laikas</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Praėjęs laikas</value></data>
@@ -246,13 +237,8 @@ Tęsti diegimą?</value></data>
   <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>Rašoma neprisijungus AI politika...</value></data>
   <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>Sukonfigūruotas tinkinimas neprisijungus.</value></data>
   <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>Sukonfigūruotas tinkinimas neprisijungus (modeliavimas).</value></data>
-  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>OOBE tinkinimas išjungtas.</value></data>
   <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>Konfigūruojami OOBE nustatymai...</value></data>
   <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>Rašomi pirmojo paleidimo numatytieji privatumo nustatymai...</value></data>
-  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>OOBE tinkinimas sukonfigūruotas.</value></data>
-  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>OOBE nustatymai sukonfigūruoti.</value></data>
-  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>OOBE modeliuojamas tinkinimas.</value></data>
-  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>OOBE sukonfigūruoti nustatymai (modeliavimas).</value></data>
   <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>Konfigūruojama atkūrimo aplinka...</value></data>
   <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Ruošiama Windows atkūrimo aplinka...</value></data>
   <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>Atkūrimo skaidinys nepasiekiamas.</value></data>
@@ -350,10 +336,6 @@ Tęsti diegimą?</value></data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot aparatinės įrangos maišos užfiksuoti nepavyko: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot aparatinės įrangos maišos importavimas nepavyko: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot aparatinės įrangos maišos įkėlimas praleistas: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minutę</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minučių</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} sekundę</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} sekundės</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot profilis surengtas.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profilis surengtas (modeliavimas).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

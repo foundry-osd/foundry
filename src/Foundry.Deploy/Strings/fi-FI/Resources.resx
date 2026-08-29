@@ -26,13 +26,10 @@
   <data name="Theme.System" xml:space="preserve"><value>Järjestelmä</value></data>
   <data name="Theme.Light" xml:space="preserve"><value>Kevyt</value></data>
   <data name="Theme.Dark" xml:space="preserve"><value>Tumma</value></data>
-  <data name="Language.English" xml:space="preserve"><value>englanti</value></data>
-  <data name="Language.French" xml:space="preserve"><value>ranskalainen</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Avaa lokitiedosto</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Tietokoneen nimi</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 merkkiä. Vain A-Z, a-z, 0-9 ja tavuviiva.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Tietokoneen nimessä on oltava 1–15 kelvollista merkkiä (kirjaimia, numeroita tai tavuviivaa).</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Kohdelevy</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Kohdelevy</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Valitse kohdelevy. Ei-kelpoiset levyt on estetty.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Ota laiteohjelmistopäivitykset käyttöön</value></data>
@@ -55,7 +52,6 @@
   <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | Teho: {2} | Laiteohjelmisto: {3}</value></data>
   <data name="Preparation.PowerBattery" xml:space="preserve"><value>Akku</value></data>
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
-  <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Ladataan kohdelevyjä...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Kohdelevyn etsintä epäonnistui: {0}</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versio</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Windows-päivitys</value></data>
@@ -64,14 +60,12 @@
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Lisenssikanava</value></data>
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>Painos (kohde)</value></data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>Arkkitehtuuri: {0}</value></data>
-  <data name="Catalog.Loading" xml:space="preserve"><value>Ladataan luetteloita...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Ladatut luettelot: {0} käyttöjärjestelmämerkinnät, {1} ohjainpaketit.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Katalogin lataus epäonnistui: {0}</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Kuljettajan lähde</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Malli</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Versio</value></data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
-  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>OEM-ohjainpaketti</value></data>
   <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
   <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: ei vastaavaa mallia tai versiota</value></data>
   <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (+{1} mallit)</value></data>
@@ -100,7 +94,6 @@
 ErrorCode=0x80070005
 Tiedot: Pääsy estetty, kun kuvaa liitetään kohdepolkuun.
 Toimi: Tarkista levyn attribuutit ja yritä käyttöönottoa uudelleen.</value></data>
-  <data name="Common.Refresh" xml:space="preserve"><value>Päivitä</value></data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Käynnistysnäköistiedoston luomista uudelleen suositellaan</value></data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Tämä käynnistysnäköistiedosto käyttää vanhempaa Foundry OSD -määritysmuotoa. Luo se uudelleen varmistaaksesi yhteensopivuuden uusimpien ominaisuuksien kanssa.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Versio: {0}</value></data>
@@ -116,8 +109,6 @@ Toimi: Tarkista levyn attribuutit ja yritä käyttöönottoa uudelleen.</value><
   <data name="Common.No" xml:space="preserve"><value>Ei</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Käytössä</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Ei käytössä</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>Valmis</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Ei valmis</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Verkostoituminen</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Aloitusaika</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Kulunut aika</value></data>
@@ -246,13 +237,8 @@ Jatketaanko käyttöönottoa?</value></data>
   <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>Kirjoitetaan offline-AI-käytäntöjä...</value></data>
   <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>Offline-muokkaus määritetty.</value></data>
   <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>Offline-räätälöinti määritetty (simulaatio).</value></data>
-  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>OOBE mukautus pois käytöstä.</value></data>
   <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>Määritetään OOBE asetuksia...</value></data>
   <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>Kirjoitetaan ensikertalaisia tietosuoja-oletusasetuksia...</value></data>
-  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>OOBE mukautus määritetty.</value></data>
-  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>OOBE asetukset määritetty.</value></data>
-  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>OOBE mukauttaminen simuloitu.</value></data>
-  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>OOBE asetukset määritetty (simulaatio).</value></data>
   <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>Määritetään palautusympäristöä...</value></data>
   <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Valmistellaan Windows palautusympäristöä...</value></data>
   <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>Palautusosio ei ole käytettävissä.</value></data>
@@ -350,10 +336,6 @@ Jatketaanko käyttöönottoa?</value></data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot laitteiston hajautus epäonnistui: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot laitteiston hash-tuonti epäonnistui: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot laitteiston hash-lataus ohitettu: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minuutti</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minuuttia</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} toinen</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} sekuntia</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot profiili lavastettu.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profiili vaiheistettu (simulaatio).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

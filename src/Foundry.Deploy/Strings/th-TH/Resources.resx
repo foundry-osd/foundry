@@ -26,13 +26,10 @@
   <data name="Theme.System" xml:space="preserve"><value>ระบบ</value></data>
   <data name="Theme.Light" xml:space="preserve"><value>เบา</value></data>
   <data name="Theme.Dark" xml:space="preserve"><value>มืด</value></data>
-  <data name="Language.English" xml:space="preserve"><value>อังกฤษ</value></data>
-  <data name="Language.French" xml:space="preserve"><value>ฝรั่งเศส</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>เปิดไฟล์บันทึก</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>ชื่อคอมพิวเตอร์</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 ตัวอักษร A-Z, a-z, 0-9 และขีดกลางเท่านั้น</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>ชื่อคอมพิวเตอร์ต้องมีอักขระที่ถูกต้อง 1 ถึง 15 ตัว (ตัวอักษร ตัวเลข หรือยัติภังค์)</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>ดิสก์ปลายทาง</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>ดิสก์เป้าหมาย</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>เลือกดิสก์เป้าหมาย ดิสก์ที่ไม่มีสิทธิ์ถูกบล็อก</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>ใช้การอัพเดตเฟิร์มแวร์</value></data>
@@ -55,7 +52,6 @@
   <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | พาวเวอร์: {2} | เฟิร์มแวร์: {3}</value></data>
   <data name="Preparation.PowerBattery" xml:space="preserve"><value>แบตเตอรี่</value></data>
   <data name="Preparation.PowerAc" xml:space="preserve"><value>เครื่องปรับอากาศ</value></data>
-  <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>กำลังโหลดดิสก์เป้าหมาย...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>การค้นพบดิสก์เป้าหมายล้มเหลว: {0}</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>เวอร์ชัน</value></data>
 <data name="Catalog.Media" xml:space="preserve"><value>การอัปเดต Windows</value></data>
@@ -64,14 +60,12 @@
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>ช่องทางการอนุญาต</value></data>
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>ฉบับ (เป้าหมาย)</value></data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>สถาปัตยกรรม: {0}</value></data>
-  <data name="Catalog.Loading" xml:space="preserve"><value>กำลังโหลดแคตตาล็อก...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>แคตตาล็อกที่โหลด: {0} รายการระบบปฏิบัติการ, {1} ชุดไดรเวอร์</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>โหลดแคตตาล็อกล้มเหลว: {0}</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>แหล่งที่มาของไดรเวอร์</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>รุ่น</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>เวอร์ชัน</value></data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
-  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>ชุดไดรเวอร์ OEM</value></data>
   <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
   <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: ไม่มีรุ่นหรือเวอร์ชันที่ตรงกัน</value></data>
   <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (+{1} รุ่น)</value></data>
@@ -100,7 +94,6 @@
 รหัสข้อผิดพลาด=0x80070005
 รายละเอียด: การเข้าถึงถูกปฏิเสธขณะติดตั้งรูปภาพไปยังเส้นทางเป้าหมาย
 การดำเนินการ: ตรวจสอบแอตทริบิวต์ของดิสก์และลองปรับใช้อีกครั้ง</value></data>
-  <data name="Common.Refresh" xml:space="preserve"><value>รีเฟรช</value></data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>แนะนำให้สร้างอิมเมจบูตใหม่</value></data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>อิมเมจบูตนี้ใช้รูปแบบการกำหนดค่า Foundry OSD รุ่นเก่า สร้างใหม่เพื่อให้เข้ากันได้กับฟีเจอร์ล่าสุด</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>เวอร์ชัน: {0}</value></data>
@@ -116,8 +109,6 @@
   <data name="Common.No" xml:space="preserve"><value>ไม่</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>เปิดใช้งานแล้ว</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>ปิดการใช้งาน</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>พร้อม</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>ไม่พร้อม</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>เครือข่าย</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>เวลาเริ่มต้น</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>เวลาที่ผ่านไป</value></data>
@@ -246,13 +237,8 @@
   <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>กำลังเขียนนโยบาย AI ออฟไลน์...</value></data>
   <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>กำหนดค่าการปรับแต่งแบบออฟไลน์แล้ว</value></data>
   <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>กำหนดค่าการปรับแต่งออฟไลน์ (การจำลอง)</value></data>
-  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>OOBE ปิดใช้งานการปรับแต่งแล้ว</value></data>
   <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>กำลังกำหนดการตั้งค่า OOBE...</value></data>
   <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>กำลังเขียนค่าเริ่มต้นความเป็นส่วนตัวครั้งแรก...</value></data>
-  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>OOBE กำหนดค่าการปรับแต่งแล้ว</value></data>
-  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>OOBE ตั้งค่าการตั้งค่าแล้ว</value></data>
-  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>OOBE จำลองการปรับแต่ง</value></data>
-  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>OOBE การตั้งค่าที่กำหนด (การจำลอง)</value></data>
   <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>กำลังกำหนดค่าสภาพแวดล้อมการกู้คืน...</value></data>
   <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>กำลังเตรียม Windows สภาพแวดล้อมการกู้คืน...</value></data>
   <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>พาร์ติชันการกู้คืนไม่พร้อมใช้งาน</value></data>
@@ -350,10 +336,6 @@
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot การจับแฮชฮาร์ดแวร์ล้มเหลว: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot การนำเข้าแฮชฮาร์ดแวร์ล้มเหลว: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot การอัพโหลดแฮชฮาร์ดแวร์ถูกข้าม: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} นาที</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} นาที</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} วินาที</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} วินาที</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot โปรไฟล์ถูกจัดฉาก</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot โปรไฟล์เป็นฉาก (จำลอง)</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

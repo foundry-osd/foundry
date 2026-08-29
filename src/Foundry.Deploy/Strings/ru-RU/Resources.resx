@@ -26,13 +26,10 @@
   <data name="Theme.System" xml:space="preserve"><value>Система</value></data>
   <data name="Theme.Light" xml:space="preserve"><value>Свет</value></data>
   <data name="Theme.Dark" xml:space="preserve"><value>Темный</value></data>
-  <data name="Language.English" xml:space="preserve"><value>английский</value></data>
-  <data name="Language.French" xml:space="preserve"><value>французский</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Открыть файл журнала</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Имя компьютера</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 символов. Только A-Z, a-z, 0-9 и дефис.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Имя компьютера должно содержать от 1 до 15 допустимых символов (букв, цифр или дефиса).</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Целевой диск</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Целевой диск</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Выберите целевой диск. Неподходящие диски блокируются.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Применить обновления прошивки</value></data>
@@ -55,7 +52,6 @@
   <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | Сила: {2} | Прошивка: {3}</value></data>
   <data name="Preparation.PowerBattery" xml:space="preserve"><value>Батарея</value></data>
   <data name="Preparation.PowerAc" xml:space="preserve"><value>переменного тока</value></data>
-  <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Загрузка целевых дисков...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Не удалось обнаружить целевой диск: {0}</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Версия</value></data>
 <data name="Catalog.Media" xml:space="preserve"><value>Обновление Windows</value></data>
@@ -64,14 +60,12 @@
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Лицензионный канал</value></data>
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>Издание (Цель)</value></data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>Архитектура: {0}</value></data>
-  <data name="Catalog.Loading" xml:space="preserve"><value>Загрузка каталогов...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Загружены каталоги: записи операционной системы {0}, пакеты драйверов {1}.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Не удалось загрузить каталог: {0}</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Источник драйвера</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Модель</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Версия</value></data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
-  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>OEM-пакет драйверов</value></data>
   <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
   <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: нет подходящей модели или версии</value></data>
   <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (модели +{1})</value></data>
@@ -100,7 +94,6 @@
 Код ошибки=0x80070005
 Подробности: Доступ запрещен при подключении образа к целевому пути.
 Действие: Проверьте атрибуты диска и повторите развертывание.</value></data>
-  <data name="Common.Refresh" xml:space="preserve"><value>Обновить</value></data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Рекомендуется повторно создать загрузочный образ</value></data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Этот загрузочный образ использует более старый формат конфигурации Foundry OSD. Создайте его повторно, чтобы обеспечить совместимость с новейшими функциями.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Версия: {0}</value></data>
@@ -116,8 +109,6 @@
   <data name="Common.No" xml:space="preserve"><value>Нет</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Включено</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Отключено</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>Готово</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Не готов</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>сеть</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Время начала</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Прошедшее время</value></data>
@@ -246,13 +237,8 @@
   <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>Написание автономных политик искусственного интеллекта...</value></data>
   <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>Автономная настройка настроена.</value></data>
   <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>Настроена автономная настройка (симуляция).</value></data>
-  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>OOBE настройка отключена.</value></data>
   <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>Настройка параметров OOBE...</value></data>
   <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>Написание настроек конфиденциальности по умолчанию при первом запуске...</value></data>
-  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>OOBE настройка настроена.</value></data>
-  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>Настройки OOBE настроены.</value></data>
-  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>OOBE смоделирована настройка.</value></data>
-  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>OOBE настроены настройки (симуляция).</value></data>
   <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>Настройка среды восстановления...</value></data>
   <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Подготовка среды восстановления Windows...</value></data>
   <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>Раздел восстановления недоступен.</value></data>
@@ -350,10 +336,6 @@
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot не удалось получить аппаратный хэш: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot не удалось импортировать аппаратный хэш: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot загрузка аппаратного хеша пропущена: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} минута</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} минут</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} секунда</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} секунды</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Профиль Autopilot подготовлен.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Профиль Autopilot поставлен (симуляция).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

@@ -26,13 +26,10 @@
   <data name="Theme.System" xml:space="preserve"><value>Sistem</value></data>
   <data name="Theme.Light" xml:space="preserve"><value>Işık</value></data>
   <data name="Theme.Dark" xml:space="preserve"><value>Karanlık</value></data>
-  <data name="Language.English" xml:space="preserve"><value>İngilizce</value></data>
-  <data name="Language.French" xml:space="preserve"><value>Fransızca</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Günlük dosyasını aç</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Bilgisayar adı</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 karakter. A-Z, a-z, 0-9 ve yalnızca kısa çizgi.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Bilgisayar adı 1 ila 15 arasında geçerli karakter (harf, sayı veya kısa çizgi) içermelidir.</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Hedef disk</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Hedef disk</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Bir hedef disk seçin. Uygun olmayan diskler engellenir.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Ürün yazılımı güncellemelerini uygulayın</value></data>
@@ -55,7 +52,6 @@
   <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | Güç: {2} | Firmware: {3}</value></data>
   <data name="Preparation.PowerBattery" xml:space="preserve"><value>Pil</value></data>
   <data name="Preparation.PowerAc" xml:space="preserve"><value>klima</value></data>
-  <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Hedef diskler yükleniyor...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Hedef disk keşfi başarısız oldu: {0}</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Sürüm</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Windows güncelleştirmesi</value></data>
@@ -64,14 +60,12 @@
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Lisans kanalı</value></data>
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>Sürüm (Hedef)</value></data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>Mimarlık: {0}</value></data>
-  <data name="Catalog.Loading" xml:space="preserve"><value>Kataloglar yükleniyor...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Yüklenen kataloglar: {0} işletim sistemi girişleri, {1} sürücü paketleri.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Katalog yükleme başarısız oldu: {0}</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Sürücü kaynağı</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Modeli</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Sürüm</value></data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
-  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>OEM sürücü paketi</value></data>
   <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
   <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: eşleşen model veya sürüm yok</value></data>
   <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (+{1} modelleri)</value></data>
@@ -100,7 +94,6 @@
 HataKodu=0x80070005
 Ayrıntılar: Görüntü hedef yola eklenirken erişim reddedildi.
 Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</value></data>
-  <data name="Common.Refresh" xml:space="preserve"><value>Yenile</value></data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Önyükleme görüntüsünün yeniden oluşturulması önerilir</value></data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Bu önyükleme görüntüsü daha eski bir Foundry OSD yapılandırma biçimi kullanıyor. En son özelliklerle uyumluluğu sağlamak için yeniden oluşturun.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Sürüm: {0}</value></data>
@@ -116,8 +109,6 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
   <data name="Common.No" xml:space="preserve"><value>Hayır</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Etkin</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Devre dışı</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>Hazır</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Hazır değil</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Ağ oluşturma</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Başlangıç zamanı</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Geçen süre</value></data>
@@ -246,13 +237,8 @@ Dağıtıma devam edilsin mi?</value></data>
   <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>Çevrimdışı yapay zeka politikaları yazılıyor...</value></data>
   <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>Çevrimdışı özelleştirme yapılandırıldı.</value></data>
   <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>Çevrimdışı özelleştirme yapılandırıldı (simülasyon).</value></data>
-  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>OOBE özelleştirme devre dışı bırakıldı.</value></data>
   <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>OOBE ayarları yapılandırılıyor...</value></data>
   <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>İlk çalıştırma gizlilik varsayılanları yazılıyor...</value></data>
-  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>OOBE özelleştirme yapılandırıldı.</value></data>
-  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>OOBE ayarları yapılandırıldı.</value></data>
-  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>OOBE özelleştirme simüle edildi.</value></data>
-  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>OOBE ayarlar yapılandırıldı (simülasyon).</value></data>
   <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>Kurtarma ortamı yapılandırılıyor...</value></data>
   <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Windows Kurtarma Ortamı Hazırlanıyor...</value></data>
   <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>Kurtarma bölümü kullanılamıyor.</value></data>
@@ -350,10 +336,6 @@ Dağıtıma devam edilsin mi?</value></data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot donanım karması yakalama başarısız oldu: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot donanım karmasını içe aktarma başarısız oldu: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot donanım karma yüklemesi atlandı: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} dakika</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} dakika</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} saniye</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} saniye</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot profili sahnelendi.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profili sahnelendi (simülasyon).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

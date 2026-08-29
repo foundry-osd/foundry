@@ -26,13 +26,10 @@
   <data name="Theme.System" xml:space="preserve"><value>Süsteem</value></data>
   <data name="Theme.Light" xml:space="preserve"><value>Valgus</value></data>
   <data name="Theme.Dark" xml:space="preserve"><value>Tume</value></data>
-  <data name="Language.English" xml:space="preserve"><value>inglise keel</value></data>
-  <data name="Language.French" xml:space="preserve"><value>prantsuse keel</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Ava logifail</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Arvuti nimi</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 tähemärki. Ainult A–Z, a–z, 0–9 ja sidekriips.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Arvuti nimi peab sisaldama 1–15 kehtivat tähemärki (tähti, numbreid või sidekriipsu).</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Sihtketas</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Sihtketas</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Valige sihtketas. Sobimatud kettad on blokeeritud.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Rakendage püsivara värskendusi</value></data>
@@ -55,7 +52,6 @@
   <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | Võimsus: {2} | Püsivara: {3}</value></data>
   <data name="Preparation.PowerBattery" xml:space="preserve"><value>Aku</value></data>
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
-  <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Sihtketaste laadimine...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Sihtketta leidmine ebaõnnestus: {0}</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versioon</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Windowsi värskendus</value></data>
@@ -64,14 +60,12 @@
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Litsentsi kanal</value></data>
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>Väljaanne (sihtmärk)</value></data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>Arhitektuur: {0}</value></data>
-  <data name="Catalog.Loading" xml:space="preserve"><value>Kataloogide laadimine...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Laaditud kataloogid: {0} operatsioonisüsteemi kirjed, {1} draiveripaketid.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Kataloogi laadimine ebaõnnestus: {0}</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Draiveri allikas</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Mudel</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Versioon</value></data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
-  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>OEM draiveri pakett</value></data>
   <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
   <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: sobivat mudelit või versiooni pole</value></data>
   <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (+{1} mudelid)</value></data>
@@ -100,7 +94,6 @@
 ErrorCode=0x80070005
 Üksikasjad. Juurdepääs on keelatud pildi paigaldamisel sihtteele.
 Toiming: kontrollige ketta atribuute ja proovige juurutamist uuesti.</value></data>
-  <data name="Common.Refresh" xml:space="preserve"><value>Värskenda</value></data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Soovitatav on alglaadimistõmmis uuesti luua</value></data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>See alglaadimistõmmis kasutab vanemat Foundry OSD konfiguratsioonivormingut. Looge see uuesti, et tagada ühilduvus uusimate funktsioonidega.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Versioon: {0}</value></data>
@@ -116,8 +109,6 @@ Toiming: kontrollige ketta atribuute ja proovige juurutamist uuesti.</value></da
   <data name="Common.No" xml:space="preserve"><value>Ei</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Lubatud</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Keelatud</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>Valmis</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Ei ole valmis</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Võrgustiku loomine</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Algusaeg</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Kulunud aeg</value></data>
@@ -246,13 +237,8 @@ Kas jätkata juurutamisega?</value></data>
   <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>Võrguühenduseta AI eeskirjade kirjutamine...</value></data>
   <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>Võrguühenduseta kohandamine on konfigureeritud.</value></data>
   <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>Võrguühenduseta kohandamine on konfigureeritud (simulatsioon).</value></data>
-  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>OOBE kohandamine keelatud.</value></data>
   <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>OOBE seadete konfigureerimine...</value></data>
   <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>Privaatsuse esmakordsete vaikeseadete kirjutamine...</value></data>
-  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>OOBE kohandamine on konfigureeritud.</value></data>
-  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>OOBE seaded on konfigureeritud.</value></data>
-  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>OOBE kohandamine simuleeritud.</value></data>
-  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>OOBE seaded on konfigureeritud (simulatsioon).</value></data>
   <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>Taastekeskkonna seadistamine...</value></data>
   <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Windows taastekeskkonna ettevalmistamine...</value></data>
   <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>Taastesektsioon pole saadaval.</value></data>
@@ -350,10 +336,6 @@ Kas jätkata juurutamisega?</value></data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot riistvara räsihõive ebaõnnestus: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot riistvararäsi import nurjus: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot riistvararäsi üleslaadimine jäeti vahele: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minut</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minutit</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} teine</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} sekundit</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot profiil on lavastatud.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profiil lavastatud (simulatsioon).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

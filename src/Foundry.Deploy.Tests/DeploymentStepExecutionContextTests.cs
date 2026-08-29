@@ -53,62 +53,34 @@ public sealed class DeploymentStepExecutionContextTests
         Assert.Equal("item", sanitized);
     }
 
-    [Fact]
-    public void ResolveOperatingSystemCacheRoot_WhenUsbRuntimeRootIsResolved_UsesPersistentCacheLayout()
-    {
-        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
-        DeploymentStepExecutionContext context = CreateExecutionContext(
-            workspace.RootPath,
-            resolvedCacheRootPath: Path.Combine(workspace.CacheRootPath, "Runtime"));
-
-        string root = context.ResolveOperatingSystemCacheRoot();
-
-        Assert.Equal(Path.Combine(workspace.CacheRootPath, "Cache", "OperatingSystems"), root);
-    }
-
-    [Fact]
-    public void ResolveDriverPackCacheRoot_WhenUsbRuntimeRootIsResolved_UsesPersistentCacheLayout()
-    {
-        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
-        DeploymentStepExecutionContext context = CreateExecutionContext(
-            workspace.RootPath,
-            resolvedCacheRootPath: Path.Combine(workspace.CacheRootPath, "Runtime"));
-
-        string root = context.ResolveDriverPackCacheRoot();
-
-        Assert.Equal(Path.Combine(workspace.CacheRootPath, "Cache", "DriverPacks"), root);
-    }
-
-    [Fact]
-    public void ResolveOperatingSystemCacheRoot_WhenIsoTargetRootIsResolved_UsesTargetCacheLayout()
+    [Theory]
+    [InlineData(DeploymentMode.Usb, true)]
+    [InlineData(DeploymentMode.Usb, false)]
+    [InlineData(DeploymentMode.Iso, true)]
+    [InlineData(DeploymentMode.Iso, false)]
+    public void ResolveCacheRoot_UsesModeSpecificLayout(
+        DeploymentMode mode,
+        bool isOperatingSystemPayload)
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
         string targetFoundryRoot = Path.Combine(workspace.RootPath, "Windows", "Foundry");
         DeploymentStepExecutionContext context = CreateExecutionContext(
             workspace.RootPath,
             resolvedCacheRootPath: Path.Combine(workspace.CacheRootPath, "Runtime"),
-            mode: DeploymentMode.Iso,
+            mode: mode,
             targetFoundryRoot: targetFoundryRoot);
 
-        string root = context.ResolveOperatingSystemCacheRoot();
+        string root = isOperatingSystemPayload
+            ? context.ResolveOperatingSystemCacheRoot()
+            : context.ResolveDriverPackCacheRoot();
+        string expectedCacheRoot = mode == DeploymentMode.Usb
+            ? workspace.CacheRootPath
+            : targetFoundryRoot;
+        string expectedPayloadDirectory = isOperatingSystemPayload
+            ? "OperatingSystems"
+            : "DriverPacks";
 
-        Assert.Equal(Path.Combine(targetFoundryRoot, "Cache", "OperatingSystems"), root);
-    }
-
-    [Fact]
-    public void ResolveDriverPackCacheRoot_WhenIsoTargetRootIsResolved_UsesTargetCacheLayout()
-    {
-        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
-        string targetFoundryRoot = Path.Combine(workspace.RootPath, "Windows", "Foundry");
-        DeploymentStepExecutionContext context = CreateExecutionContext(
-            workspace.RootPath,
-            resolvedCacheRootPath: Path.Combine(workspace.CacheRootPath, "Runtime"),
-            mode: DeploymentMode.Iso,
-            targetFoundryRoot: targetFoundryRoot);
-
-        string root = context.ResolveDriverPackCacheRoot();
-
-        Assert.Equal(Path.Combine(targetFoundryRoot, "Cache", "DriverPacks"), root);
+        Assert.Equal(Path.Combine(expectedCacheRoot, "Cache", expectedPayloadDirectory), root);
     }
 
     private static DeploymentStepExecutionContext CreateExecutionContext(

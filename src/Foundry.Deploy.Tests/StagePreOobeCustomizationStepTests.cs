@@ -19,7 +19,7 @@ using NetworkProfileRoamingTransportSettings = Foundry.Core.Models.Configuration
 
 namespace Foundry.Deploy.Tests;
 
-public sealed class PreOobeNetworkProfileRoamingStepTests
+public sealed class StagePreOobeCustomizationStepTests
 {
     [Fact]
     public async Task StagePreOobeCustomizationStep_WhenRoamingPayloadExists_StagesImporterAndCleanup()

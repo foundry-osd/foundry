@@ -26,13 +26,10 @@
   <data name="Theme.System" xml:space="preserve"><value>System</value></data>
   <data name="Theme.Light" xml:space="preserve"><value>Lys</value></data>
   <data name="Theme.Dark" xml:space="preserve"><value>Mørkt</value></data>
-  <data name="Language.English" xml:space="preserve"><value>engelsk</value></data>
-  <data name="Language.French" xml:space="preserve"><value>fransk</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Åpne loggfilen</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Datamaskinnavn</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 tegn. A-Z, a-z, 0-9 og bare bindestrek.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Datamaskinnavnet må inneholde 1 til 15 gyldige tegn (bokstaver, tall eller bindestrek).</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Destinasjonsdisk</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Måldisk</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Velg en måldisk. Ikke-kvalifiserte disker er blokkert.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Bruk fastvareoppdateringer</value></data>
@@ -55,7 +52,6 @@
   <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | Strøm: {2} | Fastvare: {3}</value></data>
   <data name="Preparation.PowerBattery" xml:space="preserve"><value>Batteri</value></data>
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
-  <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Laster inn måldisker...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Oppdaging av måldisk mislyktes: {0}</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versjon</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Windows-oppdatering</value></data>
@@ -64,14 +60,12 @@
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Lisenskanal</value></data>
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>Utgave (mål)</value></data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>Arkitektur: {0}</value></data>
-  <data name="Catalog.Loading" xml:space="preserve"><value>Laster kataloger...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Kataloger lastet: {0} operativsystemoppføringer, {1} driverpakker.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Kataloginnlasting mislyktes: {0}</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Driverkilde</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Modell</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Versjon</value></data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
-  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>OEM driverpakke</value></data>
   <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
   <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: ingen matchende modell eller versjon</value></data>
   <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (+{1} modeller)</value></data>
@@ -100,7 +94,6 @@
 ErrorCode=0x80070005
 Detaljer: Tilgang nektet under montering av bildet til målbanen.
 Handling: Bekreft diskattributter og prøv distribusjon på nytt.</value></data>
-  <data name="Common.Refresh" xml:space="preserve"><value>Oppdater</value></data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Regenerering av oppstartsavbildningen anbefales</value></data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Denne oppstartsavbildningen bruker et eldre Foundry OSD-konfigurasjonsformat. Generer den på nytt for å sikre kompatibilitet med de nyeste funksjonene.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Versjon: {0}</value></data>
@@ -116,8 +109,6 @@ Handling: Bekreft diskattributter og prøv distribusjon på nytt.</value></data>
   <data name="Common.No" xml:space="preserve"><value>Nei</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Aktivert</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Deaktivert</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>Klar</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Ikke klar</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Nettverk</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Starttid</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Forløpt tid</value></data>
@@ -246,13 +237,8 @@ Vil du fortsette med distribusjonen?</value></data>
   <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>Skriver offline AI-policyer...</value></data>
   <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>Frakoblet tilpasning konfigurert.</value></data>
   <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>Frakoblet tilpasning konfigurert (simulering).</value></data>
-  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>OOBE tilpasning deaktivert.</value></data>
   <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>Konfigurerer OOBE-innstillinger...</value></data>
   <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>Skriver førstegangsstandarder for personvern...</value></data>
-  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>OOBE tilpasning konfigurert.</value></data>
-  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>OOBE innstillinger konfigurert.</value></data>
-  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>OOBE tilpasning simulert.</value></data>
-  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>OOBE innstillinger konfigurert (simulering).</value></data>
   <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>Konfigurerer gjenopprettingsmiljø...</value></data>
   <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Forbereder Windows gjenopprettingsmiljø...</value></data>
   <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>Gjenopprettingspartisjonen er utilgjengelig.</value></data>
@@ -350,10 +336,6 @@ Vil du fortsette med distribusjonen?</value></data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot maskinvarehash-fangst mislyktes: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot import av maskinvarehash mislyktes: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot maskinvarehash-opplasting hoppet over: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minutt</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minutter</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} sekund</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} sekunder</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot profil iscenesatt.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profil iscenesatt (simulering).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

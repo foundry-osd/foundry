@@ -26,13 +26,10 @@
   <data name="Theme.System" xml:space="preserve"><value>Système</value></data>
   <data name="Theme.Light" xml:space="preserve"><value>Lumière</value></data>
   <data name="Theme.Dark" xml:space="preserve"><value>Sombre</value></data>
-  <data name="Language.English" xml:space="preserve"><value>Anglais</value></data>
-  <data name="Language.French" xml:space="preserve"><value>Français</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Ouvrir le fichier journal</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Nom de l'ordinateur</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1 à 15 caractères. A-Z, a-z, 0-9 et trait d'union uniquement.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Le nom de l'ordinateur doit contenir 1 à 15 caractères valides (lettres, chiffres ou trait d'union).</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Disque de destination</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Disque cible</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Sélectionnez un disque cible. Les disques non éligibles sont bloqués.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Appliquer les mises à jour du micrologiciel</value></data>
@@ -55,7 +52,6 @@
   <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | Puissance: {2} | Micrologiciel: {3}</value></data>
   <data name="Preparation.PowerBattery" xml:space="preserve"><value>Batterie</value></data>
   <data name="Preparation.PowerAc" xml:space="preserve"><value>CA</value></data>
-  <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Chargement des disques cibles...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Échec de la découverte du disque cible: {0}</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Version</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Mise à jour Windows</value></data>
@@ -64,14 +60,12 @@
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Canal de licence</value></data>
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>Édition (cible)</value></data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>Architecture: {0}</value></data>
-  <data name="Catalog.Loading" xml:space="preserve"><value>Chargement des catalogues...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Catalogues chargés: {0} entrées du système d'exploitation, {1} packs de pilotes.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Échec du chargement du catalogue: {0}</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Origine du pilote</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Modèle</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Version</value></data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
-  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>Pack de pilotes OEM</value></data>
   <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
   <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: aucun modèle ou version correspondant</value></data>
   <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (+{1} modèles)</value></data>
@@ -100,7 +94,6 @@
 Code d'erreur = 0x80070005
 Détails: accès refusé lors du montage de l'image sur le chemin cible.
 Action: Vérifiez les attributs du disque et réessayez le déploiement.</value></data>
-  <data name="Common.Refresh" xml:space="preserve"><value>Actualiser</value></data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Régénération de l’image de démarrage recommandée</value></data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Cette image de démarrage utilise un ancien format de configuration Foundry OSD. Régénérez-la pour garantir la compatibilité avec les dernières fonctionnalités.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Version: {0}</value></data>
@@ -116,8 +109,6 @@ Action: Vérifiez les attributs du disque et réessayez le déploiement.</value>
   <data name="Common.No" xml:space="preserve"><value>Non</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Activé</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Désactivé</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>Prêt</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Pas prêt</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Réseautage</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Heure de début</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Temps écoulé</value></data>
@@ -246,13 +237,8 @@ Continuer le déploiement?</value></data>
   <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>Rédaction de politiques d'IA hors ligne...</value></data>
   <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>Personnalisation hors ligne configurée.</value></data>
   <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>Personnalisation hors ligne configurée (simulation).</value></data>
-  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>OOBE personnalisation désactivée.</value></data>
   <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>Configuration des paramètres OOBE...</value></data>
   <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>Écriture des paramètres de confidentialité par défaut de première exécution...</value></data>
-  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>OOBE personnalisation configurée.</value></data>
-  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>OOBE paramètres configurés.</value></data>
-  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>OOBE personnalisation simulée.</value></data>
-  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>OOBE paramètres configurés (simulation).</value></data>
   <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>Configuration de l'environnement de récupération...</value></data>
   <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Préparation de l'environnement de récupération Windows...</value></data>
   <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>La partition de récupération n'est pas disponible.</value></data>
@@ -350,10 +336,6 @@ Continuer le déploiement?</value></data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot Échec de la capture du hachage matériel: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot Échec de l'importation du hachage matériel: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot Téléchargement du hachage matériel ignoré: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minutes</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minutes</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} seconde</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} secondes</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot profil mis en scène.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profil mis en scène (simulation).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

@@ -26,13 +26,10 @@
   <data name="Theme.System" xml:space="preserve"><value>النظام</value></data>
   <data name="Theme.Light" xml:space="preserve"><value>ضوء</value></data>
   <data name="Theme.Dark" xml:space="preserve"><value>الظلام</value></data>
-  <data name="Language.English" xml:space="preserve"><value>الإنجليزية</value></data>
-  <data name="Language.French" xml:space="preserve"><value>الفرنسية</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>فتح ملف السجل</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>اسم الكمبيوتر</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 حرفا. A-Z، وa-z، و0-9، والواصلة فقط.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>يجب أن يحتوي اسم الكمبيوتر على من 1 إلى 15 حرفًا صالحًا (أحرف أو أرقام أو واصلة).</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>القرص الوجهة</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>القرص المستهدف</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>حدد القرص الهدف. يتم حظر الأقراص غير المؤهلة.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>تطبيق تحديثات البرامج الثابتة</value></data>
@@ -55,7 +52,6 @@
   <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | القوة: {2} | البرامج الثابتة: {3}</value></data>
   <data name="Preparation.PowerBattery" xml:space="preserve"><value>البطارية</value></data>
   <data name="Preparation.PowerAc" xml:space="preserve"><value>تكييف</value></data>
-  <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>جارٍ تحميل الأقراص المستهدفة...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>فشل اكتشاف القرص الهدف: {0}</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>الإصدار</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>تحديث Windows</value></data>
@@ -64,14 +60,12 @@
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>قناة الترخيص</value></data>
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>الطبعة (الهدف)</value></data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>الهندسة المعمارية: {0}</value></data>
-  <data name="Catalog.Loading" xml:space="preserve"><value>جارٍ تحميل الكتالوجات...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>الكتالوجات المحملة: {0} إدخالات نظام التشغيل، {1} حزم برامج التشغيل.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>فشل تحميل الكتالوج: {0}</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>مصدر السائق</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>نموذج</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>الإصدار</value></data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
-  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>حزمة برامج تشغيل OEM</value></data>
   <data name="DriverPack.Oem" xml:space="preserve"><value>تصنيع المعدات الأصلية</value></data>
   <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: لا يوجد نموذج أو إصدار مطابق</value></data>
   <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (نماذج +{1})</value></data>
@@ -100,7 +94,6 @@
 رمز الخطأ = 0x80070005
 التفاصيل: تم رفض الوصول أثناء تثبيت الصورة على المسار المستهدف.
 الإجراء: تحقق من سمات القرص وأعد محاولة النشر.</value></data>
-  <data name="Common.Refresh" xml:space="preserve"><value>تحديث</value></data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>يوصى بإعادة إنشاء صورة التمهيد</value></data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>تستخدم صورة التمهيد هذه تنسيق تكوين أقدم لـ Foundry OSD. أعد إنشاءها لضمان التوافق مع أحدث الميزات.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>الإصدار: {0}</value></data>
@@ -116,8 +109,6 @@
   <data name="Common.No" xml:space="preserve"><value>لا</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>ممكّن</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>معطل</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>جاهز</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>غير جاهز</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>الشبكات</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>وقت البدء</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>الوقت المنقضي</value></data>
@@ -246,13 +237,8 @@
   <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>كتابة سياسات الذكاء الاصطناعي دون الاتصال بالإنترنت...</value></data>
   <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>تم تكوين التخصيص دون اتصال.</value></data>
   <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>تم تكوين التخصيص دون اتصال (المحاكاة).</value></data>
-  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>OOBE تم تعطيل التخصيص.</value></data>
   <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>تكوين إعدادات OOBE...</value></data>
   <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>كتابة إعدادات الخصوصية الافتراضية التي يتم تشغيلها لأول مرة...</value></data>
-  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>تم تكوين التخصيص OOBE.</value></data>
-  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>تم تكوين الإعدادات OOBE.</value></data>
-  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>تمت محاكاة التخصيص OOBE.</value></data>
-  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>تم تكوين إعدادات OOBE (محاكاة).</value></data>
   <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>تكوين بيئة الاسترداد...</value></data>
   <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>تحضير Windows بيئة الاسترداد...</value></data>
   <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>قسم الاسترداد غير متوفر.</value></data>
@@ -350,10 +336,6 @@
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot فشل التقاط تجزئة الأجهزة: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot فشل استيراد تجزئة الأجهزة: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot تم تخطي تحميل تجزئة الأجهزة: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} دقيقة</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} دقيقة</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} الثانية</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} ثانية</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot تم تنظيم الملف الشخصي.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot تم تنظيم الملف الشخصي (محاكاة).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

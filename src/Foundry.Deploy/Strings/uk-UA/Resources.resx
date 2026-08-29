@@ -26,13 +26,10 @@
   <data name="Theme.System" xml:space="preserve"><value>система</value></data>
   <data name="Theme.Light" xml:space="preserve"><value>світло</value></data>
   <data name="Theme.Dark" xml:space="preserve"><value>Темний</value></data>
-  <data name="Language.English" xml:space="preserve"><value>англійська</value></data>
-  <data name="Language.French" xml:space="preserve"><value>французька</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Відкрити файл журналу</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Ім'я комп'ютера</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 символів. A–Z, a–z, 0–9 і лише дефіс.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Ім’я комп’ютера має містити від 1 до 15 дійсних символів (літери, цифри або дефіс).</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Диск призначення</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Цільовий диск</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Виберіть цільовий диск. Невідповідні диски блокуються.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Застосуйте оновлення прошивки</value></data>
@@ -55,7 +52,6 @@
   <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | Потужність: {2} | Прошивка: {3}</value></data>
   <data name="Preparation.PowerBattery" xml:space="preserve"><value>Акумулятор</value></data>
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
-  <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Завантаження цільових дисків...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Не вдалося знайти цільовий диск: {0}</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Версія</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Оновлення Windows</value></data>
@@ -64,14 +60,12 @@
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Ліцензійний канал</value></data>
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>Edition (Target)</value></data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>Архітектура: {0}</value></data>
-  <data name="Catalog.Loading" xml:space="preserve"><value>Завантаження каталогів...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Завантажено каталоги: {0} записи операційної системи, {1} пакети драйверів.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Помилка завантаження каталогу: {0}</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Джерело драйвера</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Модель</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Версія</value></data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
-  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>OEM пакет драйверів</value></data>
   <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
   <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: немає відповідної моделі чи версії</value></data>
   <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (+{1} моделі)</value></data>
@@ -100,7 +94,6 @@
 ErrorCode=0x80070005
 Подробиці: доступ заборонено під час монтування образу до цільового шляху.
 Дія: перевірте атрибути диска та повторіть розгортання.</value></data>
-  <data name="Common.Refresh" xml:space="preserve"><value>Оновити</value></data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Рекомендовано повторно створити завантажувальний образ</value></data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Цей завантажувальний образ використовує старіший формат конфігурації Foundry OSD. Створіть його повторно, щоб забезпечити сумісність із найновішими функціями.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Версія: {0}</value></data>
@@ -116,8 +109,6 @@ ErrorCode=0x80070005
   <data name="Common.No" xml:space="preserve"><value>немає</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Увімкнено</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Вимкнено</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>Готовий</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Не готовий</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Мережа</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Час початку</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Час, що минув</value></data>
@@ -246,13 +237,8 @@ ErrorCode=0x80070005
   <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>Написання офлайн-політик AI...</value></data>
   <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>Налаштування офлайн налаштовано.</value></data>
   <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>Налаштування в автономному режимі (симуляція).</value></data>
-  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>OOBE налаштування вимкнено.</value></data>
   <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>Налаштування параметрів OOBE...</value></data>
   <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>Запис параметрів конфіденційності за умовчанням для першого запуску...</value></data>
-  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>OOBE налаштування налаштовано.</value></data>
-  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>Налаштування OOBE налаштовано.</value></data>
-  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>Імітація налаштування OOBE.</value></data>
-  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>Налаштування OOBE налаштовано (симуляція).</value></data>
   <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>Налаштування середовища відновлення...</value></data>
   <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Підготовка середовища відновлення Windows...</value></data>
   <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>Розділ відновлення недоступний.</value></data>
@@ -350,10 +336,6 @@ ErrorCode=0x80070005
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot Помилка апаратного захоплення хешу: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot Не вдалося імпортувати хеш апаратного забезпечення: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot завантаження апаратного хешу пропущено: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} хвилина</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} хвилин</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} секунда</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} секунд</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot профіль поставлений.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Поетапний профіль Autopilot (симуляція).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

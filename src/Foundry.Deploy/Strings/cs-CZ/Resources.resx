@@ -26,13 +26,10 @@
   <data name="Theme.System" xml:space="preserve"><value>Systém</value></data>
   <data name="Theme.Light" xml:space="preserve"><value>Světlo</value></data>
   <data name="Theme.Dark" xml:space="preserve"><value>Tmavý</value></data>
-  <data name="Language.English" xml:space="preserve"><value>anglicky</value></data>
-  <data name="Language.French" xml:space="preserve"><value>francouzsky</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Otevřete soubor protokolu</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Název počítače</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 znaků. Pouze A–Z, a–z, 0–9 a spojovník.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Název počítače musí obsahovat 1 až 15 platných znaků (písmena, číslice nebo spojovník).</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Cílový disk</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Cílový disk</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Vyberte cílový disk. Nezpůsobilé disky jsou blokovány.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Použít aktualizace firmwaru</value></data>
@@ -55,7 +52,6 @@
   <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | Napájení: {2} | Firmware: {3}</value></data>
   <data name="Preparation.PowerBattery" xml:space="preserve"><value>Baterie</value></data>
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
-  <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Načítání cílových disků...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Zjištění cílového disku se nezdařilo: {0}</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Verze</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Aktualizace Windows</value></data>
@@ -64,14 +60,12 @@
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Licenční kanál</value></data>
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>Edice (cíl)</value></data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>Architektura: {0}</value></data>
-  <data name="Catalog.Loading" xml:space="preserve"><value>Načítání katalogů...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Načtené katalogy: {0} položky operačního systému, {1} balíčky ovladačů.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Načtení katalogu se nezdařilo: {0}</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Zdroj ovladače</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Model</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Verze</value></data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
-  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>OEM balíček ovladačů</value></data>
   <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
   <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: žádný odpovídající model nebo verze</value></data>
   <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (modely +{1})</value></data>
@@ -100,7 +94,6 @@
 ErrorCode=0x80070005
 Podrobnosti: Přístup odepřen při připojování obrazu k cílové cestě.
 Akce: Ověřte atributy disku a opakujte nasazení.</value></data>
-  <data name="Common.Refresh" xml:space="preserve"><value>Obnovit</value></data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Doporučuje se znovu vygenerovat spouštěcí bitovou kopii</value></data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Tato spouštěcí bitová kopie používá starší formát konfigurace Foundry OSD. Znovu ji vygenerujte, aby byla zajištěna kompatibilita s nejnovějšími funkcemi.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Verze: {0}</value></data>
@@ -116,8 +109,6 @@ Akce: Ověřte atributy disku a opakujte nasazení.</value></data>
   <data name="Common.No" xml:space="preserve"><value>Ne</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Povoleno</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Zakázáno</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>Připraveno</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Není připraven</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>vytváření sítí</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Čas zahájení</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Uplynulý čas</value></data>
@@ -246,13 +237,8 @@ Pokračovat v nasazování?</value></data>
   <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>Psaní offline zásad AI...</value></data>
   <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>Offline přizpůsobení nakonfigurováno.</value></data>
   <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>Offline přizpůsobení nakonfigurováno (simulace).</value></data>
-  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>Přizpůsobení OOBE zakázáno.</value></data>
   <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>Konfigurace nastavení OOBE...</value></data>
   <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>Zapisování výchozích nastavení ochrany osobních údajů při prvním spuštění...</value></data>
-  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>přizpůsobení OOBE nakonfigurováno.</value></data>
-  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>Nastavení OOBE nakonfigurováno.</value></data>
-  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>OOBE simulace přizpůsobení.</value></data>
-  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>Nastavení OOBE nakonfigurováno (simulace).</value></data>
   <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>Konfigurace prostředí pro obnovení...</value></data>
   <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Příprava Windows Recovery Environment...</value></data>
   <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>Oddíl pro obnovení není k dispozici.</value></data>
@@ -350,10 +336,6 @@ Pokračovat v nasazování?</value></data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot zachycení hardwarového hash se nezdařilo: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Import hardwarového hash Autopilot se nezdařil: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Nahrání hardwarového hash Autopilot bylo přeskočeno: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minuta</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minut</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} sekunda</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} sekund</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Profil Autopilot vytvořen.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profil zinscenovaný (simulace).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

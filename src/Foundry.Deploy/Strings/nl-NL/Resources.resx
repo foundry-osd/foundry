@@ -26,13 +26,10 @@
   <data name="Theme.System" xml:space="preserve"><value>Systeem</value></data>
   <data name="Theme.Light" xml:space="preserve"><value>Licht</value></data>
   <data name="Theme.Dark" xml:space="preserve"><value>Donker</value></data>
-  <data name="Language.English" xml:space="preserve"><value>Engels</value></data>
-  <data name="Language.French" xml:space="preserve"><value>Frans</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Logbestand openen</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Computernaam</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 tekens. Alleen A-Z, a-z, 0-9 en koppelteken.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>De computernaam moet 1 tot 15 geldige tekens bevatten (letters, cijfers of koppelteken).</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Bestemmingsschijf</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Doelschijf</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Selecteer een doelschijf. Niet-geschikte schijven worden geblokkeerd.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Firmware-updates toepassen</value></data>
@@ -55,7 +52,6 @@
   <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | Vermogen: {2} | Firmware: {3}</value></data>
   <data name="Preparation.PowerBattery" xml:space="preserve"><value>Batterij</value></data>
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
-  <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Doelschijven laden...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Detectie van doelschijf mislukt: {0}</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Versie</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Windows-update</value></data>
@@ -64,14 +60,12 @@
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Licentie kanaal</value></data>
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>Editie (Doel)</value></data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>Architectuur: {0}</value></data>
-  <data name="Catalog.Loading" xml:space="preserve"><value>Catalogi laden...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Geladen catalogi: {0} besturingssysteemgegevens, {1} driverpakketten.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Catalogus laden mislukt: {0}</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Bron van stuurprogramma</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Model</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Versie</value></data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
-  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>OEM-stuurprogrammapakket</value></data>
   <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
   <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: geen passend model of versie</value></data>
   <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (+{1} modellen)</value></data>
@@ -100,7 +94,6 @@
 Foutcode=0x80070005
 Details: Toegang geweigerd tijdens het koppelen van de afbeelding aan het doelpad.
 Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value></data>
-  <data name="Common.Refresh" xml:space="preserve"><value>Vernieuwen</value></data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Opnieuw genereren van opstartinstallatiekopie aanbevolen</value></data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Deze opstartinstallatiekopie gebruikt een ouder Foundry OSD-configuratieformaat. Genereer deze opnieuw om compatibiliteit met de nieuwste functies te garanderen.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Versie: {0}</value></data>
@@ -116,8 +109,6 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
   <data name="Common.No" xml:space="preserve"><value>Nee</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Ingeschakeld</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>Uitgeschakeld</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>Klaar</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Niet klaar</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Netwerken</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Begintijd</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Verstreken tijd</value></data>
@@ -246,13 +237,8 @@ Doorgaan met de implementatie?</value></data>
   <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>Offline AI-beleid schrijven...</value></data>
   <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>Offline maatwerk geconfigureerd.</value></data>
   <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>Offline maatwerk geconfigureerd (simulatie).</value></data>
-  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>OOBE aanpassing uitgeschakeld.</value></data>
   <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>OOBE instellingen configureren...</value></data>
   <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>Standaardinstellingen voor privacy bij eerste uitvoering schrijven...</value></data>
-  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>OOBE maatwerk geconfigureerd.</value></data>
-  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>OOBE instellingen geconfigureerd.</value></data>
-  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>OOBE maatwerk gesimuleerd.</value></data>
-  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>OOBE instellingen geconfigureerd (simulatie).</value></data>
   <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>Herstelomgeving configureren...</value></data>
   <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Windows Herstelomgeving voorbereiden...</value></data>
   <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>Herstelpartitie is niet beschikbaar.</value></data>
@@ -350,10 +336,6 @@ Doorgaan met de implementatie?</value></data>
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot hardware-hash-opname mislukt: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot hardware-hash-import mislukt: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot hardware-hash-upload overgeslagen: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} minuut</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} minuten</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} seconde</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} seconden</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot profiel geënsceneerd.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profiel geënsceneerd (simulatie).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

@@ -26,13 +26,10 @@
   <data name="Theme.System" xml:space="preserve"><value>Σύστημα</value></data>
   <data name="Theme.Light" xml:space="preserve"><value>Φως</value></data>
   <data name="Theme.Dark" xml:space="preserve"><value>Σκοτεινό</value></data>
-  <data name="Language.English" xml:space="preserve"><value>Αγγλικά</value></data>
-  <data name="Language.French" xml:space="preserve"><value>Γαλλικά</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Ανοίξτε το αρχείο καταγραφής</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Όνομα υπολογιστή</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 χαρακτήρες. A-Z, a-z, 0-9 και μόνο παύλα.</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Το όνομα υπολογιστή πρέπει να περιέχει 1 έως 15 έγκυρους χαρακτήρες (γράμματα, αριθμούς ή παύλα).</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>Δίσκος προορισμού</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>Δίσκος στόχος</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Επιλέξτε έναν δίσκο προορισμού. Οι μη κατάλληλοι δίσκοι είναι αποκλεισμένοι.</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Εφαρμόστε ενημερώσεις υλικολογισμικού</value></data>
@@ -55,7 +52,6 @@
   <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | Ισχύς: {2} | Υλικολογισμικό: {3}</value></data>
   <data name="Preparation.PowerBattery" xml:space="preserve"><value>Μπαταρία</value></data>
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
-  <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Φόρτωση δίσκων προορισμού...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Ο εντοπισμός δίσκου στόχου απέτυχε: {0}</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Έκδοση</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Ενημέρωση Windows</value></data>
@@ -64,14 +60,12 @@
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Κανάλι άδειας χρήσης</value></data>
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>Έκδοση (Στόχος)</value></data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>Αρχιτεκτονική: {0}</value></data>
-  <data name="Catalog.Loading" xml:space="preserve"><value>Φόρτωση καταλόγων...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Φορτωμένοι κατάλογοι: {0} καταχωρήσεις λειτουργικού συστήματος, {1} πακέτα προγραμμάτων οδήγησης.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Η φόρτωση του καταλόγου απέτυχε: {0}</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Πηγή προγράμματος οδήγησης</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Μοντέλο</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Έκδοση</value></data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
-  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>OEM πακέτο προγραμμάτων οδήγησης</value></data>
   <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
   <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: δεν υπάρχει αντίστοιχο μοντέλο ή έκδοση</value></data>
   <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (+{1} μοντέλα)</value></data>
@@ -100,7 +94,6 @@
 Κωδικός σφάλματος=0x80070005
 Λεπτομέρειες: Δεν επιτρέπεται η πρόσβαση κατά την προσάρτηση της εικόνας στη διαδρομή προορισμού.
 Ενέργεια: Επαληθεύστε τα χαρακτηριστικά του δίσκου και δοκιμάστε ξανά την ανάπτυξη.</value></data>
-  <data name="Common.Refresh" xml:space="preserve"><value>Ανανέωση</value></data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Συνιστάται η εκ νέου δημιουργία του ειδώλου εκκίνησης</value></data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Αυτό το είδωλο εκκίνησης χρησιμοποιεί παλαιότερη μορφή ρύθμισης παραμέτρων Foundry OSD. Δημιουργήστε το ξανά για να διασφαλίσετε τη συμβατότητα με τις πιο πρόσφατες δυνατότητες.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Έκδοση: {0}</value></data>
@@ -116,8 +109,6 @@
   <data name="Common.No" xml:space="preserve"><value>Όχι</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>Ενεργοποιημένο</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>ΑμεΑ</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>Έτοιμοι</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>Δεν είναι έτοιμο</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>Δικτύωση</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>Ώρα έναρξης</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>Χρόνος που πέρασε</value></data>
@@ -246,13 +237,8 @@
   <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>Σύνταξη πολιτικών τεχνητής νοημοσύνης εκτός σύνδεσης...</value></data>
   <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>Διαμορφώθηκε η προσαρμογή εκτός σύνδεσης.</value></data>
   <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>Διαμορφώθηκε η προσαρμογή εκτός σύνδεσης (προσομοίωση).</value></data>
-  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>Η προσαρμογή OOBE απενεργοποιήθηκε.</value></data>
   <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>Διαμόρφωση ρυθμίσεων OOBE...</value></data>
   <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>Σύνταξη προεπιλογών απορρήτου πρώτης εκτέλεσης...</value></data>
-  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>Η προσαρμογή OOBE διαμορφώθηκε.</value></data>
-  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>Οι ρυθμίσεις OOBE διαμορφώθηκαν.</value></data>
-  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>Προσομοίωση προσαρμογής OOBE.</value></data>
-  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>Ρυθμίσεις OOBE διαμορφώθηκαν (προσομοίωση).</value></data>
   <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>Διαμόρφωση περιβάλλοντος ανάκτησης...</value></data>
   <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Προετοιμασία Windows Περιβάλλοντος Ανάκτησης...</value></data>
   <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>Το διαμέρισμα ανάκτησης δεν είναι διαθέσιμο.</value></data>
@@ -350,10 +336,6 @@
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot η κατακερματισμός υλικού απέτυχε: {0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot η εισαγωγή κατακερματισμού υλικού απέτυχε: {0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot η μεταφόρτωση κατακερματισμού υλικού παραβλέφθηκε: {0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0} λεπτό</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0} λεπτά</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0} δευτερόλεπτο</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0} δευτερόλεπτα</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Το προφίλ Autopilot σκηνοθετήθηκε.</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Το προφίλ Autopilot σκηνοθετήθηκε (προσομοίωση).</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">

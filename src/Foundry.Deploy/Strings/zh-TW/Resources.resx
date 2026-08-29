@@ -26,13 +26,10 @@
   <data name="Theme.System" xml:space="preserve"><value>系統</value></data>
   <data name="Theme.Light" xml:space="preserve"><value>光</value></data>
   <data name="Theme.Dark" xml:space="preserve"><value>黑暗</value></data>
-  <data name="Language.English" xml:space="preserve"><value>英語</value></data>
-  <data name="Language.French" xml:space="preserve"><value>法語</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>打開日誌文件</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>電腦名稱</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 個字元。僅 A-Z、a-z、0-9 和連字號。</value></data>
   <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>電腦名稱必須包含 1 到 15 個有效字元（字母、數字或連字號）。</value></data>
-  <data name="Preparation.SectionDestinationDisk" xml:space="preserve"><value>目標磁碟</value></data>
   <data name="Preparation.TargetDisk" xml:space="preserve"><value>目標磁碟</value></data>
   <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>選擇目標磁碟。不符合條件的磁碟將被阻止。</value></data>
   <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>應用程式韌體更新</value></data>
@@ -55,7 +52,6 @@
   <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM：{1} |力量：{2} |韌體：{3}</value></data>
   <data name="Preparation.PowerBattery" xml:space="preserve"><value>電池</value></data>
   <data name="Preparation.PowerAc" xml:space="preserve"><value>交流電</value></data>
-  <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>正在載入目標磁碟...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>目標磁碟發現失敗：{0}</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>版本</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Windows 更新</value></data>
@@ -64,14 +60,12 @@
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>授權管道</value></data>
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>版本（目標）</value></data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>建築：{0}</value></data>
-  <data name="Catalog.Loading" xml:space="preserve"><value>正在載入目錄...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>載入的目錄：{0}作業系統條目、{1}驅動程式套件。</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>目錄載入失敗：{0}</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>驅動程式原始碼</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>型號</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>版本</value></data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
-  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>OEM 驅動程式套件</value></data>
   <data name="DriverPack.Oem" xml:space="preserve"><value>代加工</value></data>
   <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}：沒有相符的型號或版本</value></data>
   <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0}（+{1} 型號）</value></data>
@@ -100,7 +94,6 @@
 錯誤代碼=0x80070005
 詳細資訊：將映像安裝到目標路徑時存取被拒絕。
 操作：驗證磁碟屬性並重試部署。</value></data>
-  <data name="Common.Refresh" xml:space="preserve"><value>重新整理</value></data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>建議重新產生開機映像</value></data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>此開機映像使用較舊的 Foundry OSD 設定格式。請重新產生，以確保與最新功能相容。</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>版本：{0}</value></data>
@@ -116,8 +109,6 @@
   <data name="Common.No" xml:space="preserve"><value>否</value></data>
   <data name="Common.Enabled" xml:space="preserve"><value>啟用</value></data>
   <data name="Common.Disabled" xml:space="preserve"><value>殘障人士</value></data>
-  <data name="Common.Ready" xml:space="preserve"><value>準備好</value></data>
-  <data name="Common.NotReady" xml:space="preserve"><value>還沒準備好</value></data>
   <data name="Progress.Networking" xml:space="preserve"><value>網路</value></data>
   <data name="Progress.StartTime" xml:space="preserve"><value>開始時間</value></data>
   <data name="Progress.ElapsedTime" xml:space="preserve"><value>經過時間</value></data>
@@ -246,13 +237,8 @@
   <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>編寫離線人工智慧策略...</value></data>
   <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>已配置離線自訂。</value></data>
   <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>離線定製配置（模擬）。</value></data>
-  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>OOBE 自訂已停用。</value></data>
   <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>配置OOBE 設定...</value></data>
   <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>編寫首次運行的隱私預設值...</value></data>
-  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>OOBE 自訂已配置。</value></data>
-  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>OOBE 設定已配置。</value></data>
-  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>OOBE 客製化模擬。</value></data>
-  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>OOBE 設定已配置（模擬）。</value></data>
   <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>配置恢復環境...</value></data>
   <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>正在準備Windows恢復環境...</value></data>
   <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>恢復分區不可用。</value></data>
@@ -350,10 +336,6 @@
   <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot硬體哈希捕獲失敗：{0}</value></data>
   <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot硬體哈希導入失敗：{0}</value></data>
   <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot 硬體哈希上傳已跳過：{0}</value></data>
-  <data name="Duration.MinuteFormat" xml:space="preserve"><value>{0}分鐘</value></data>
-  <data name="Duration.MinutesFormat" xml:space="preserve"><value>{0}分鐘</value></data>
-  <data name="Duration.SecondFormat" xml:space="preserve"><value>{0}第二</value></data>
-  <data name="Duration.SecondsFormat" xml:space="preserve"><value>{0}秒</value></data>
   <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot 個人檔案上演。</value></data>
   <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot 設定檔已上演（模擬）。</value></data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
