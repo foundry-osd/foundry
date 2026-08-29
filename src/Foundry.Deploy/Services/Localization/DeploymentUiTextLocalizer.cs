@@ -68,10 +68,8 @@ public static partial class DeploymentUiTextLocalizer
             "Step failed." => LocalizationText.GetString("Status.StepFailed"),
             "Step skipped." => LocalizationText.GetString("Status.StepSkipped"),
             "In progress..." => LocalizationText.GetString("Status.InProgress"),
-            "Loading catalogs..." => LocalizationText.GetString("Catalog.Loading"),
             "Detecting hardware..." => LocalizationText.GetString("Preparation.DetectingHardware"),
             "Hardware detection failed." => LocalizationText.GetString("Preparation.HardwareDetectionFailed"),
-            "Loading target disks..." => LocalizationText.GetString("Preparation.LoadingTargetDisks"),
             "Another operation is already running." => LocalizationText.GetString("Status.AnotherOperationRunning"),
             "Gathering deployment variables..." => LocalizationText.GetString("StepMessage.GatheringDeploymentVariables"),
             "Collecting deployment context..." => LocalizationText.GetString("StepMessage.CollectingDeploymentContext"),
@@ -130,13 +128,8 @@ public static partial class DeploymentUiTextLocalizer
             "Writing offline AI policies..." => LocalizationText.GetString("StepMessage.WritingOfflineAiPolicies"),
             "Offline customization configured." => LocalizationText.GetString("StepResult.OfflineCustomizationConfigured"),
             "Offline customization configured (simulation)." => LocalizationText.GetString("StepResult.OfflineCustomizationConfiguredSimulation"),
-            "OOBE customization disabled." => LocalizationText.GetString("StepResult.OobeCustomizationDisabled"),
             "Configuring OOBE settings..." => LocalizationText.GetString("StepMessage.ConfiguringOobeSettings"),
             "Writing first-run privacy defaults..." => LocalizationText.GetString("StepMessage.WritingFirstRunPrivacyDefaults"),
-            "OOBE customization configured." => LocalizationText.GetString("StepResult.OobeCustomizationConfigured"),
-            "OOBE settings configured." => LocalizationText.GetString("StepResult.OobeSettingsConfigured"),
-            "[DRY-RUN] Simulated OOBE customization." => LocalizationText.GetString("StepResult.OobeCustomizationSimulated"),
-            "OOBE settings configured (simulation)." => LocalizationText.GetString("StepResult.OobeSettingsConfiguredSimulation"),
             "Windows optional feature configuration disabled." => LocalizationText.GetString("StepResult.WindowsOptionalFeatureConfigurationDisabled"),
             "Windows optional feature configuration is invalid." => LocalizationText.GetString("StepResult.WindowsOptionalFeatureConfigurationInvalid"),
             "Configuring Windows optional features..." => LocalizationText.GetString("StepMessage.ConfiguringWindowsOptionalFeatures"),
@@ -162,7 +155,6 @@ public static partial class DeploymentUiTextLocalizer
             "Driver pack downloaded." => LocalizationText.GetString("StepResult.DriverPackDownloaded"),
             "Driver pack downloaded (simulation)." => LocalizationText.GetString("StepResult.DriverPackDownloadedSimulation"),
             "Driver pack resolved from cache." => LocalizationText.GetString("StepResult.DriverPackResolvedFromCache"),
-            "Downloading Driver pack..." => LocalizationText.GetString("StepMessage.DownloadingDriverPack"),
             "Extracting driver pack..." => LocalizationText.GetString("StepMessage.ExtractingDriverPack"),
             "Driver pack was not downloaded." => LocalizationText.GetString("StepResult.DriverPackNotDownloaded"),
             "Driver pack extracted." => LocalizationText.GetString("StepResult.DriverPackExtracted"),
@@ -251,7 +243,6 @@ public static partial class DeploymentUiTextLocalizer
             "Blocked: read-only" => LocalizationText.GetString("Disk.BlockedReadOnly"),
             "Blocked: offline" => LocalizationText.GetString("Disk.BlockedOffline"),
             "Microsoft Update Catalog" => LocalizationText.GetString("DriverPack.MicrosoftUpdateCatalog"),
-            "OEM Driver Pack" => LocalizationText.GetString("DriverPack.OemDriverPack"),
             "Downloading" => LocalizationText.GetString("StepProgress.Downloading"),
             "Extracting" => LocalizationText.GetString("StepProgress.Extracting"),
             "Applying" => LocalizationText.GetString("StepProgress.Applying"),
@@ -514,7 +505,7 @@ public static partial class DeploymentUiTextLocalizer
     [GeneratedRegex(@"^Starting (?<step>.+)\.\.\.$")]
     private static partial Regex StartingStepSubProgressRegex();
 
-    [GeneratedRegex(@"^(?<value>\d+) (?<unit>minutes|minute|seconds|second)$")]
+    [GeneratedRegex(@"^(?<value>\d+) seconds?$")]
     private static partial Regex RemainingDurationRegex();
 
     [GeneratedRegex(@"^Checking Windows Autopilot devices \((?<remaining>.+) remaining\)\.\.\.$")]

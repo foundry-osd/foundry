@@ -26,8 +26,6 @@
   <data name="Theme.System" xml:space="preserve"><value>システム</value></data>
   <data name="Theme.Light" xml:space="preserve"><value>ライト</value></data>
   <data name="Theme.Dark" xml:space="preserve"><value>暗い</value></data>
-  <data name="Language.English" xml:space="preserve"><value>英語</value></data>
-  <data name="Language.French" xml:space="preserve"><value>フランス語</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>ログファイルを開く</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>コンピュータ名</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1 ～ 15 文字。 A ～ Z、a ～ z、0 ～ 9、およびハイフンのみ。</value></data>
@@ -54,7 +52,6 @@
   <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} |パワー: {2} |ファームウェア：{3}</value></data>
   <data name="Preparation.PowerBattery" xml:space="preserve"><value>バッテリー</value></data>
   <data name="Preparation.PowerAc" xml:space="preserve"><value>交流</value></data>
-  <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>ターゲットディスクをロードしています...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>ターゲット ディスクの検出に失敗しました: {0}</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>バージョン</value></data>
   <data name="Catalog.Media" xml:space="preserve"><value>Windows 更新プログラム</value></data>
@@ -63,14 +60,12 @@
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>ライセンスチャネル</value></data>
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>エディション（ターゲット）</value></data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>アーキテクチャ: {0}</value></data>
-  <data name="Catalog.Loading" xml:space="preserve"><value>カタログを読み込んでいます...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>ロードされたカタログ: {0} オペレーティング システム エントリ、{1} ドライバー パック。</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>カタログのロードに失敗しました: {0}</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>ドライバーソース</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>モデル</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>バージョン</value></data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
-  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>OEMドライバーパック</value></data>
   <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
   <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: 一致するモデルまたはバージョンがありません</value></data>
   <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (+{1} モデル)</value></data>
@@ -99,7 +94,6 @@
 エラーコード=0x80070005
 詳細: イメージをターゲット パスにマウント中にアクセスが拒否されました。
 処置: ディスク属性を確認し、デプロイメントを再試行してください。</value></data>
-  <data name="Common.Refresh" xml:space="preserve"><value>リフレッシュ</value></data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>ブート イメージの再生成を推奨</value></data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>このブート イメージは古い Foundry OSD 構成形式を使用しています。最新機能との互換性を確保するため、再生成してください。</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>バージョン: {0}</value></data>
@@ -243,13 +237,8 @@
   <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>オフライン AI ポリシーを作成しています...</value></data>
   <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>オフラインのカスタマイズが構成されました。</value></data>
   <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>オフラインのカスタマイズが構成されました (シミュレーション)。</value></data>
-  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>OOBE カスタマイズが無効になりました。</value></data>
   <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>OOBE 設定を構成しています...</value></data>
   <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>初回実行時のプライバシーのデフォルトを作成しています...</value></data>
-  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>OOBE カスタマイズが設定されました。</value></data>
-  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>OOBE 設定が構成されました。</value></data>
-  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>OOBE カスタマイズをシミュレートしました。</value></data>
-  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>OOBE 設定が構成されました (シミュレーション)。</value></data>
   <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>回復環境を構成しています...</value></data>
   <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Windows 回復環境を準備しています...</value></data>
   <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>回復パーティションが使用できません。</value></data>

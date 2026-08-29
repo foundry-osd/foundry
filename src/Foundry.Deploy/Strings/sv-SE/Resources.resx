@@ -26,8 +26,6 @@
   <data name="Theme.System" xml:space="preserve"><value>System</value></data>
   <data name="Theme.Light" xml:space="preserve"><value>Ljus</value></data>
   <data name="Theme.Dark" xml:space="preserve"><value>Mörkt</value></data>
-  <data name="Language.English" xml:space="preserve"><value>engelska</value></data>
-  <data name="Language.French" xml:space="preserve"><value>franska</value></data>
   <data name="Tools.OpenLogFile" xml:space="preserve"><value>Öppna loggfilen</value></data>
   <data name="Preparation.ComputerName" xml:space="preserve"><value>Datornamn</value></data>
   <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 tecken. A-Z, a-z, 0-9 och endast bindestreck.</value></data>
@@ -54,7 +52,6 @@
   <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | Ström: {2} | Firmware: {3}</value></data>
   <data name="Preparation.PowerBattery" xml:space="preserve"><value>Batteri</value></data>
   <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
-  <data name="Preparation.LoadingTargetDisks" xml:space="preserve"><value>Laddar måldiskar...</value></data>
   <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Måldiskupptäckt misslyckades: {0}</value></data>
   <data name="Catalog.Version" xml:space="preserve"><value>Version</value></data>
 <data name="Catalog.Media" xml:space="preserve"><value>Windows-uppdatering</value></data>
@@ -63,14 +60,12 @@
   <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Licenskanal</value></data>
   <data name="Catalog.EditionTarget" xml:space="preserve"><value>Edition (mål)</value></data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>Arkitektur: {0}</value></data>
-  <data name="Catalog.Loading" xml:space="preserve"><value>Laddar kataloger...</value></data>
   <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Kataloger laddade: {0} operativsystemposter, {1} drivrutinspaket.</value></data>
   <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Katalogladdning misslyckades: {0}</value></data>
   <data name="DriverPack.Source" xml:space="preserve"><value>Drivrutinkälla</value></data>
   <data name="DriverPack.Model" xml:space="preserve"><value>Modell</value></data>
   <data name="DriverPack.Version" xml:space="preserve"><value>Version</value></data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
-  <data name="DriverPack.OemDriverPack" xml:space="preserve"><value>OEM drivrutinspaket</value></data>
   <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
   <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: ingen matchande modell eller version</value></data>
   <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (+{1} modeller)</value></data>
@@ -99,7 +94,6 @@
 ErrorCode=0x80070005
 Detaljer: Åtkomst nekad vid montering av bild till målsökväg.
 Åtgärd: Verifiera diskattribut och försök distribuera igen.</value></data>
-  <data name="Common.Refresh" xml:space="preserve"><value>Uppdatera</value></data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Regenerering av startavbildningen rekommenderas</value></data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Den här startavbildningen använder ett äldre Foundry OSD-konfigurationsformat. Generera den på nytt för att säkerställa kompatibilitet med de senaste funktionerna.</value></data>
   <data name="Common.VersionFormat" xml:space="preserve"><value>Version: {0}</value></data>
@@ -243,13 +237,8 @@ Fortsätt med implementeringen?</value></data>
   <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>Skriver offline AI-policyer...</value></data>
   <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>Offlineanpassning konfigurerad.</value></data>
   <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>Offlineanpassning konfigurerad (simulering).</value></data>
-  <data name="StepResult.OobeCustomizationDisabled" xml:space="preserve"><value>OOBE anpassning avaktiverad.</value></data>
   <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>Konfigurerar OOBE-inställningar...</value></data>
   <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>Skriver sekretessstandarder för första körning...</value></data>
-  <data name="StepResult.OobeCustomizationConfigured" xml:space="preserve"><value>OOBE anpassning konfigurerad.</value></data>
-  <data name="StepResult.OobeSettingsConfigured" xml:space="preserve"><value>OOBE inställningar konfigurerade.</value></data>
-  <data name="StepResult.OobeCustomizationSimulated" xml:space="preserve"><value>OOBE anpassning simulerad.</value></data>
-  <data name="StepResult.OobeSettingsConfiguredSimulation" xml:space="preserve"><value>OOBE inställningar konfigurerade (simulering).</value></data>
   <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>Konfigurerar återställningsmiljö...</value></data>
   <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Förbereder Windows återställningsmiljö...</value></data>
   <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>Återställningspartitionen är inte tillgänglig.</value></data>
