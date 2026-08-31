@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 using Foundry.Localization;
 using Foundry.Core.Services.Application;
+using Foundry.Services.Application;
 using Foundry.Services.Localization;
 using Foundry.Services.Settings;
 using Foundry.Utilities.Diagnostics;
@@ -84,6 +85,7 @@ namespace Foundry.ViewModels
             var warningDialog = new ContentDialog
             {
                 XamlRoot = App.MainWindow.Content.XamlRoot,
+                Style = ContentDialogStyleProvider.DefaultStyle,
                 Title = localizationService.GetString("Diagnostics.ExportRawTitle"),
                 Content = localizationService.GetString("Diagnostics.ExportRawWarning"),
                 PrimaryButtonText = localizationService.GetString("Diagnostics.ExportRawConfirm"),
@@ -141,6 +143,7 @@ namespace Foundry.ViewModels
                 var completedDialog = new ContentDialog
                 {
                     XamlRoot = App.MainWindow.Content.XamlRoot,
+                    Style = ContentDialogStyleProvider.DefaultStyle,
                     Title = localizationService.GetString("Diagnostics.ExportSucceededTitle"),
                     Content = result.ArchivePath,
                     CloseButtonText = localizationService.GetString("Common.Close")
@@ -153,6 +156,7 @@ namespace Foundry.ViewModels
                 var failedDialog = new ContentDialog
                 {
                     XamlRoot = App.MainWindow.Content.XamlRoot,
+                    Style = ContentDialogStyleProvider.DefaultStyle,
                     Title = localizationService.GetString("Diagnostics.ExportFailedTitle"),
                     Content = localizationService.GetString("Diagnostics.ExportFailedMessage"),
                     CloseButtonText = localizationService.GetString("Common.Close")

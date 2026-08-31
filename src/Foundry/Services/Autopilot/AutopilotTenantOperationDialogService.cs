@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Services.Application;
 using Foundry.Services.Localization;
 
 namespace Foundry.Services.Autopilot;
@@ -107,6 +108,7 @@ public sealed class AutopilotTenantOperationDialogService(
         var dialog = new ContentDialog
         {
             XamlRoot = App.MainWindow.Content.XamlRoot,
+            Style = ContentDialogStyleProvider.DefaultStyle,
             Title = title,
             Content = CreateDialogContent(message),
             CloseButtonText = cancelText,

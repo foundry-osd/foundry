@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Services.Application;
+using Foundry.Services.Application;
 using Foundry.Services.Localization;
 using Foundry.Services.Operations;
 using Foundry.Services.Shell;
@@ -267,6 +268,7 @@ namespace Foundry.Views
             ContentDialog dialog = new()
             {
                 XamlRoot = RootGrid.XamlRoot,
+                Style = ContentDialogStyleProvider.DefaultStyle,
                 RequestedTheme = RootGrid.ActualTheme,
                 Title = localizationService.GetString("Shell.OperationRunning"),
                 Content = CreateOperationDialogContent(),
@@ -617,6 +619,7 @@ namespace Foundry.Views
             ContentDialog dialog = new()
             {
                 XamlRoot = RootGrid.XamlRoot,
+                Style = ContentDialogStyleProvider.DefaultStyle,
                 Title = localizationService.GetString(failureTitleResourceKey),
                 PrimaryButtonText = localizationService.GetString("Common.Close"),
                 DefaultButton = ContentDialogButton.Primary,
