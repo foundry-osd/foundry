@@ -133,10 +133,10 @@
     <value>새로고침</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>개발자 진단을 활성화하고 Foundry 로그 폴더를 엽니다.</value>
+    <value>디버그 수준 애플리케이션 로깅을 사용합니다.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>진단</value>
+    <value>개발자 진단</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Foundry OSD을 다시 시작하지 않고 애플리케이션 언어를 변경하세요.</value>

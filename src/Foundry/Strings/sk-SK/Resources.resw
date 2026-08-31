@@ -133,10 +133,10 @@
     <value>Obnoviť</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Povoľte diagnostiku vývojára a otvorte priečinok denníka Foundry.</value>
+    <value>Povoliť zapisovanie aplikácie do denníka na úrovni ladenia.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostika</value>
+    <value>Diagnostika pre vývojárov</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Zmeňte jazyk aplikácie bez reštartovania Foundry OSD.</value>

@@ -133,10 +133,10 @@
     <value>Päivitä</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Ota kehittäjän diagnostiikka käyttöön ja avaa Foundry-lokikansio.</value>
+    <value>Ota sovelluksen virheenkorjaustason lokikirjaus käyttöön.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostiikka</value>
+    <value>Kehittäjän diagnostiikka</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Vaihda sovelluksen kieli käynnistämättä uudelleen Foundry OSD.</value>

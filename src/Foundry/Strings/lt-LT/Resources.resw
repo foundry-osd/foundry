@@ -133,10 +133,10 @@
     <value>Atnaujinti</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Įgalinkite kūrėjo diagnostiką ir atidarykite Foundry žurnalo aplanką.</value>
+    <value>Įjungti programos žurnalų registravimą derinimo lygiu.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostika</value>
+    <value>Kūrėjo diagnostika</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Pakeiskite programos kalbą iš naujo nepaleidę Foundry OSD.</value>

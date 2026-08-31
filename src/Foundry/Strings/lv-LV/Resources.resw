@@ -133,10 +133,10 @@
     <value>Atsvaidzināt</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Iespējojiet izstrādātāja diagnostiku un atveriet Foundry žurnāla mapi.</value>
+    <value>Iespējot lietojumprogrammas atkļūdošanas līmeņa žurnalēšanu.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostika</value>
+    <value>Izstrādātāja diagnostika</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Mainiet lietojumprogrammas valodu, nerestartējot Foundry OSD.</value>

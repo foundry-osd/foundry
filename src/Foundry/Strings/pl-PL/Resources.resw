@@ -133,10 +133,10 @@
     <value>Odśwież</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Włącz diagnostykę programisty i otwórz folder dziennika Foundry.</value>
+    <value>Włącz rejestrowanie zdarzeń aplikacji na poziomie debugowania.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostyka</value>
+    <value>Diagnostyka deweloperska</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Zmień język aplikacji bez ponownego uruchamiania Foundry OSD.</value>

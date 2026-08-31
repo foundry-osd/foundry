@@ -133,10 +133,10 @@
     <value>Refrescar</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Habilite los diagnósticos del desarrollador y abra la carpeta de registro Foundry.</value>
+    <value>Habilitar el registro de la aplicación en el nivel de depuración.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnóstico</value>
+    <value>Diagnósticos para desarrolladores</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Cambie el idioma de la aplicación sin reiniciar Foundry OSD.</value>

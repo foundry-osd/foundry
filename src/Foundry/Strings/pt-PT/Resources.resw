@@ -133,10 +133,10 @@
     <value>Atualizar</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Habilite o diagnóstico do desenvolvedor e abra a pasta de log Foundry.</value>
+    <value>Ativar o registo da aplicação ao nível de depuração.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnóstico</value>
+    <value>Diagnóstico de programador</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Altere o idioma do aplicativo sem reiniciar Foundry OSD.</value>

@@ -133,10 +133,10 @@
     <value>Оновити</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Увімкніть діагностику розробника та відкрийте папку журналу Foundry.</value>
+    <value>Увімкнути журналювання програми на рівні налагодження.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>діагностика</value>
+    <value>Діагностика для розробників</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Змініть мову програми без перезапуску Foundry OSD.</value>

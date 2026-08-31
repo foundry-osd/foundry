@@ -133,10 +133,10 @@
     <value>Obnovit</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Povolte diagnostiku vývojáře a otevřete složku protokolu Foundry.</value>
+    <value>Povolit protokolování aplikace na úrovni ladění.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostika</value>
+    <value>Diagnostika pro vývojáře</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Změňte jazyk aplikace bez restartování Foundry OSD.</value>

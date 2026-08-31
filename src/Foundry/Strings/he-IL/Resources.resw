@@ -133,10 +133,10 @@
     <value>רענן</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>אפשר אבחון מפתחים ופתח את תיקיית היומן Foundry.</value>
+    <value>הפעלת רישום יישום ברמת איתור באגים.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>אבחון</value>
+    <value>אבחון למפתחים</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>שנה את שפת היישום מבלי להפעיל מחדש את Foundry OSD.</value>

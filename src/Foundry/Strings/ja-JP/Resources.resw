@@ -133,10 +133,10 @@
     <value>リフレッシュ</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>開発者診断を有効にして、Foundry ログ フォルダーを開きます。</value>
+    <value>アプリケーションのデバッグレベルのログ記録を有効にします。</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>診断</value>
+    <value>開発者向け診断</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Foundry OSD を再起動せずにアプリケーション言語を変更します。</value>

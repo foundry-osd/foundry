@@ -133,10 +133,10 @@
     <value>Aggiorna</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Abilita la diagnostica dello sviluppatore e apri la cartella del registro Foundry.</value>
+    <value>Abilita la registrazione dell'applicazione a livello di debug.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostica</value>
+    <value>Diagnostica per sviluppatori</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Modificare la lingua dell'applicazione senza riavviare Foundry OSD.</value>

@@ -133,10 +133,10 @@
     <value>Oppdater</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Aktiver utviklerdiagnostikk og åpne loggmappen Foundry.</value>
+    <value>Aktiver programlogging på feilsøkingsnivå.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostikk</value>
+    <value>Utviklerdiagnostikk</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Endre applikasjonsspråket uten å starte Foundry OSD på nytt.</value>

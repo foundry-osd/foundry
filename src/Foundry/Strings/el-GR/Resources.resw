@@ -133,10 +133,10 @@
     <value>Ανανέωση</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Ενεργοποιήστε τα διαγνωστικά για προγραμματιστές και ανοίξτε το φάκελο καταγραφής Foundry.</value>
+    <value>Ενεργοποίηση καταγραφής εφαρμογής σε επίπεδο εντοπισμού σφαλμάτων.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Διαγνωστικά</value>
+    <value>Διαγνωστικά για προγραμματιστές</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Αλλάξτε τη γλώσσα της εφαρμογής χωρίς επανεκκίνηση του Foundry OSD.</value>

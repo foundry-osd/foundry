@@ -133,10 +133,10 @@
     <value>Yenile</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Geliştirici teşhisini etkinleştirin ve Foundry günlük klasörünü açın.</value>
+    <value>Uygulama günlüklerinin hata ayıklama düzeyinde kaydedilmesini etkinleştirin.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Teşhis</value>
+    <value>Geliştirici tanılaması</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Foundry OSD'yi yeniden başlatmadan uygulama dilini değiştirin.</value>

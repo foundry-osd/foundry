@@ -133,10 +133,10 @@
     <value>Aktualisieren</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Aktivieren Sie die Entwicklerdiagnose und öffnen Sie den Protokollordner Foundry.</value>
+    <value>Protokollierung der Anwendung auf Debug-Ebene aktivieren.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnose</value>
+    <value>Entwicklerdiagnose</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Ändern Sie die Anwendungssprache, ohne Foundry OSD neu zu starten.</value>

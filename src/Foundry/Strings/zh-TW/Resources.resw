@@ -133,10 +133,10 @@
     <value>重新整理</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>啟用開發人員診斷並開啟 Foundry 日誌資料夾。</value>
+    <value>啟用偵錯層級的應用程式記錄。</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>診斷</value>
+    <value>開發人員診斷</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>更改應用程式語言而無需重新啟動Foundry OSD。</value>

@@ -43,16 +43,23 @@
                 </ComboBox>
             </wct:SettingsCard>
 
-            <wct:SettingsExpander x:Name="DiagnosticsCard"
+            <wct:SettingsCard x:Name="DeveloperDiagnosticsCard"
                 x:Uid="GeneralSetting_DiagnosticsCard">
-                <wct:SettingsExpander.HeaderIcon>
+                <wct:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xEC7A;" />
-                </wct:SettingsExpander.HeaderIcon>
-                <ToggleSwitch x:Name="DiagnosticsToggle"
+                </wct:SettingsCard.HeaderIcon>
+                <ToggleSwitch
                     behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
                     IsOn="{x:Bind ViewModel.IsDeveloperMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <wct:SettingsExpander.ItemsHeader>
+            </wct:SettingsCard>
+
+            <wct:SettingsCard x:Name="ExportDiagnosticsCard">
+                <wct:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE74E;" />
+                </wct:SettingsCard.HeaderIcon>
+                <StackPanel Spacing="8">
                     <HyperlinkButton
+                        Padding="0"
                         HorizontalAlignment="Stretch"
                         HorizontalContentAlignment="Left"
                         Command="{x:Bind ViewModel.OpenLogFolderCommand}"
@@ -61,20 +68,16 @@
                             Text="{x:Bind ViewModel.LogDirectoryPath}"
                             TextTrimming="CharacterEllipsis" />
                     </HyperlinkButton>
-                </wct:SettingsExpander.ItemsHeader>
-                <wct:SettingsExpander.Items>
-                    <wct:SettingsCard x:Name="ExportDiagnosticsCard">
-                        <StackPanel
-                            Orientation="Horizontal"
-                            Spacing="8">
-                            <Button x:Name="ExportDiagnosticsButton"
-                                Command="{x:Bind ViewModel.ExportDiagnosticsCommand}" />
-                            <Button x:Name="ExportRawDiagnosticsButton"
-                                Command="{x:Bind ViewModel.ExportRawDiagnosticsCommand}" />
-                        </StackPanel>
-                    </wct:SettingsCard>
-                </wct:SettingsExpander.Items>
-            </wct:SettingsExpander>
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Spacing="8">
+                        <Button x:Name="ExportDiagnosticsButton"
+                            Command="{x:Bind ViewModel.ExportDiagnosticsCommand}" />
+                        <Button x:Name="ExportRawDiagnosticsButton"
+                            Command="{x:Bind ViewModel.ExportRawDiagnosticsCommand}" />
+                    </StackPanel>
+                </StackPanel>
+            </wct:SettingsCard>
 
         </StackPanel>
     </ScrollView>

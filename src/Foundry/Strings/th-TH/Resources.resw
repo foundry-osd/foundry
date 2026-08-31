@@ -133,10 +133,10 @@
     <value>รีเฟรช</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>เปิดใช้งานการวินิจฉัยนักพัฒนาซอฟต์แวร์และเปิดโฟลเดอร์บันทึก Foundry</value>
+    <value>เปิดใช้งานการบันทึกของแอปพลิเคชันระดับดีบัก</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>การวินิจฉัย</value>
+    <value>การวินิจฉัยสำหรับนักพัฒนา</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>เปลี่ยนภาษาของแอปพลิเคชันโดยไม่ต้องรีสตาร์ท Foundry OSD</value>

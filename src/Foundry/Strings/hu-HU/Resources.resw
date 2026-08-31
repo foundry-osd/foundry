@@ -133,10 +133,10 @@
     <value>Frissítés</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Engedélyezze a fejlesztői diagnosztikát, és nyissa meg a Foundry naplómappát.</value>
+    <value>Az alkalmazás hibakeresési szintű naplózásának engedélyezése.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnosztika</value>
+    <value>Fejlesztői diagnosztika</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Változtassa meg az alkalmazás nyelvét a Foundry OSD újraindítása nélkül.</value>

@@ -133,10 +133,10 @@
     <value>刷新</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>启用开发人员诊断并打开 Foundry 日志文件夹。</value>
+    <value>启用调试级应用日志记录。</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>诊断</value>
+    <value>开发人员诊断</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>更改应用程序语言而无需重新启动Foundry OSD。</value>

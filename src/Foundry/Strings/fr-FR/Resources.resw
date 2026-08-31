@@ -133,10 +133,10 @@
     <value>Actualiser</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Activer les diagnostics développeur et ouvrir le dossier des journaux Foundry.</value>
+    <value>Activer la journalisation de l’application au niveau débogage.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostics</value>
+    <value>Diagnostics pour les développeurs</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Changer la langue de l'application sans redémarrer Foundry OSD.</value>

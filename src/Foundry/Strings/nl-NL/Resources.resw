@@ -133,10 +133,10 @@
     <value>Vernieuwen</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Schakel ontwikkelaarsdiagnostiek in en open de logboekmap Foundry.</value>
+    <value>Logboekregistratie voor de toepassing op debugniveau inschakelen.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostiek</value>
+    <value>Diagnostiek voor ontwikkelaars</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Wijzig de applicatietaal zonder Foundry OSD opnieuw te starten.</value>

@@ -133,10 +133,10 @@
     <value>Opdater</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Aktiver udviklerdiagnostik, og åbn logmappen Foundry.</value>
+    <value>Aktivér programlogføring på fejlfindingsniveau.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostik</value>
+    <value>Udviklerdiagnosticering</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Skift applikationssproget uden at genstarte Foundry OSD.</value>

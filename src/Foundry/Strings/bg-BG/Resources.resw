@@ -133,10 +133,10 @@
     <value>Опресняване</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Активирайте диагностиката на разработчиците и отворете папката с регистрационни файлове Foundry.</value>
+    <value>Активиране на регистрирането на приложението на ниво „Отстраняване на грешки“.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Диагностика</value>
+    <value>Диагностика за разработчици</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Променете езика на приложението, без да рестартирате Foundry OSD.</value>

@@ -133,10 +133,10 @@
     <value>Uppdatera</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Aktivera utvecklardiagnostik och öppna loggmappen Foundry.</value>
+    <value>Aktivera programloggning på felsökningsnivå.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostik</value>
+    <value>Utvecklardiagnostik</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Ändra applikationsspråk utan att starta om Foundry OSD.</value>

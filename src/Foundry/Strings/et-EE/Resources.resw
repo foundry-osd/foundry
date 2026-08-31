@@ -133,10 +133,10 @@
     <value>Värskenda</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Lubage arendaja diagnostika ja avage Foundry logikaust.</value>
+    <value>Luba rakenduse silumistaseme logimine.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostika</value>
+    <value>Arendaja diagnostika</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Muutke rakenduse keelt ilma Foundry OSD taaskäivitamata.</value>

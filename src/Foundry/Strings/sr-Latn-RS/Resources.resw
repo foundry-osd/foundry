@@ -133,10 +133,10 @@
     <value>Osveži</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Omogućite dijagnostiku programera i otvorite fasciklu dnevnika Foundry.</value>
+    <value>Omogući evidentiranje aplikacije na nivou otklanjanja grešaka.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Dijagnostika</value>
+    <value>Dijagnostika za programere</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Promenite jezik aplikacije bez ponovnog pokretanja Foundry OSD.</value>

@@ -133,10 +133,10 @@
     <value>تحديث</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>قم بتمكين تشخيصات المطورين وافتح مجلد السجل Foundry.</value>
+    <value>تمكين تسجيل التطبيق على مستوى تصحيح الأخطاء.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>التشخيص</value>
+    <value>تشخيصات المطور</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>قم بتغيير لغة التطبيق دون إعادة تشغيل Foundry OSD.</value>
