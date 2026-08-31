@@ -65,6 +65,12 @@ public sealed class DeploymentLogServiceTests
         Assert.Equal("deploy", File.ReadAllText(Path.Combine(targetPath, "FoundryDeploy.log")));
         Assert.Equal("connect", File.ReadAllText(Path.Combine(targetPath, "FoundryConnect.log")));
         Assert.False(File.Exists(Path.Combine(targetPath, "ignored.json")));
+
+        File.WriteAllText(Path.Combine(sourcePath, "FoundryDeploy.log"), "deploy-final");
+        LogPersistenceResult refreshedResult = FoundryDeployLogging.PersistLogSnapshot(sourcePath, targetPath);
+
+        Assert.Equal(2, refreshedResult.CopiedFileCount);
+        Assert.Equal("deploy-final", File.ReadAllText(Path.Combine(targetPath, "FoundryDeploy.log")));
         Directory.Delete(rootPath, recursive: true);
     }
 }

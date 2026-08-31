@@ -313,6 +313,15 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     {
         try
         {
+            LogPersistenceResult persistenceResult = FoundryDeployLogging.PersistCurrentLogs();
+            if (persistenceResult.FailedFileCount > 0)
+            {
+                _logger.LogWarning(
+                    "The durable deployment log snapshot could not be fully refreshed. CopiedFileCount={CopiedFileCount}, FailedFileCount={FailedFileCount}",
+                    persistenceResult.CopiedFileCount,
+                    persistenceResult.FailedFileCount);
+            }
+
             string logFilePath = ResolveEffectiveLogFilePath();
             if (!File.Exists(logFilePath))
             {
@@ -720,7 +729,11 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     {
         if (!string.IsNullOrWhiteSpace(_lastLogsDirectoryPath))
         {
-            return Path.Combine(_lastLogsDirectoryPath, FoundryDeployLogging.LogFileName);
+            string persistedLogFilePath = Path.Combine(_lastLogsDirectoryPath, FoundryDeployLogging.LogFileName);
+            if (File.Exists(persistedLogFilePath))
+            {
+                return persistedLogFilePath;
+            }
         }
 
         return FoundryDeployLogging.CurrentLogFilePath;
