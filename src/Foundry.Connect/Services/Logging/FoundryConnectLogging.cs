@@ -4,7 +4,9 @@
 
 using Foundry.Connect.Services.Runtime;
 using Foundry.Utilities.IO;
+using Foundry.Utilities.Diagnostics;
 using Serilog;
+using Serilog.Events;
 
 namespace Foundry.Connect.Services.Logging;
 
@@ -12,8 +14,7 @@ internal static class FoundryConnectLogging
 {
     public const string LogFileName = "FoundryConnect.log";
 
-    private const string OutputTemplate =
-        "{UtcTimestamp:yyyy-MM-dd HH:mm:ss} UTC | {Level:u3} | {SourceContext} | {Message:lj}{NewLine}{Exception}";
+    private const int RetainedLogFileCount = 5;
 
     public static string ResolveStartupLogFilePath()
     {
@@ -24,12 +25,11 @@ internal static class FoundryConnectLogging
 
     public static ILogger CreateLogger(string logFilePath)
     {
-        return new LoggerConfiguration()
-            .MinimumLevel.Verbose()
-            .Enrich.With(new UtcTimestampEnricher())
-            .Enrich.FromLogContext()
-            .WriteTo.File(logFilePath, outputTemplate: OutputTemplate, shared: true)
-            .WriteTo.Debug(outputTemplate: OutputTemplate)
-            .CreateLogger();
+        return FoundryLogConfiguration.CreateFileLogger(
+            logFilePath,
+            "Foundry.Connect",
+            DiagnosticSessionContext.CurrentSessionId,
+            LogEventLevel.Debug,
+            RetainedLogFileCount);
     }
 }

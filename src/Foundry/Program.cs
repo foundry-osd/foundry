@@ -6,6 +6,7 @@ using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Serilog;
 using System.Runtime.InteropServices;
+using Foundry.Utilities.Diagnostics;
 using Velopack;
 
 namespace Foundry;
@@ -22,20 +23,25 @@ public static class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        Constants.EnsureDataDirectories();
         ConfigureLogger();
         RegisterGlobalExceptionHandlers();
 
         ILogger logger = Log.ForContext(typeof(Program));
-        logger.Information(
-            "Foundry process bootstrap started. Version={Version}, RuntimeIdentifier={RuntimeIdentifier}, ProcessArchitecture={ProcessArchitecture}, ArgumentsCount={ArgumentsCount}",
-            FoundryApplicationInfo.Version,
-            RuntimeInformation.RuntimeIdentifier,
-            RuntimeInformation.ProcessArchitecture.ToString(),
-            args.Length);
 
         try
         {
+            logger.Information(
+                "Foundry process bootstrap started. Version={Version}, RuntimeIdentifier={RuntimeIdentifier}, ProcessArchitecture={ProcessArchitecture}, ArgumentsCount={ArgumentsCount}, LogFilePath={LogFilePath}, SessionId={SessionId}",
+                FoundryApplicationInfo.Version,
+                RuntimeInformation.RuntimeIdentifier,
+                RuntimeInformation.ProcessArchitecture.ToString(),
+                args.Length,
+                LoggerSetup.LogFilePath,
+                DiagnosticSessionContext.CurrentSessionId);
+
+            Constants.EnsureDataDirectories();
+            logger.Debug("Application data directories are ready. RootDirectoryPath={RootDirectoryPath}", Constants.RootDirectoryPath);
+
             logger.Information("Velopack startup flow started.");
             VelopackApp.Build()
                 .OnFirstRun(version => logger.Information("Velopack first run detected. Version={Version}", version))

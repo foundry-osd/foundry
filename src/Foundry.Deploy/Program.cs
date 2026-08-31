@@ -21,6 +21,7 @@ using Foundry.Deploy.Services.Theme;
 using Foundry.Deploy.ViewModels;
 using Foundry.Telemetry;
 using Foundry.Utilities.Runtime;
+using Foundry.Utilities.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -36,15 +37,37 @@ public static class Program
     public static int Main(string[] args)
     {
         string startupLogFilePath = FoundryDeployLogging.ResolveStartupLogFilePath();
-        Log.Logger = FoundryDeployLogging.CreateLogger(startupLogFilePath);
+        try
+        {
+            Log.Logger = FoundryDeployLogging.CreateLogger(startupLogFilePath);
+        }
+        catch (Exception ex)
+        {
+            startupLogFilePath = "<unavailable>";
+            Log.Logger = FoundryLogConfiguration.CreateDebugLogger(
+                "Foundry.Deploy",
+                DiagnosticSessionContext.CurrentSessionId,
+                Serilog.Events.LogEventLevel.Debug);
+            System.Diagnostics.Debug.WriteLine($"Foundry.Deploy file logging initialization failed: {ex.GetType().Name}");
+        }
+
+        Serilog.ILogger programLogger = Log.ForContext(typeof(Program));
         RegisterGlobalExceptionHandlers();
 
         try
         {
-            Log.Information("Starting Foundry.Deploy bootstrap.");
+            programLogger.Information(
+                "Foundry.Deploy bootstrap started. Version={Version}, SessionId={SessionId}, LogFilePath={LogFilePath}",
+                FoundryDeployApplicationInfo.Version,
+                DiagnosticSessionContext.CurrentSessionId,
+                startupLogFilePath);
+            if (startupLogFilePath == "<unavailable>")
+            {
+                programLogger.Error("File logging is unavailable. Diagnostics are limited to debugger output.");
+            }
             if (!RuntimeStartupGuard.CanRun())
             {
-                Log.Error("Foundry.Deploy can only run in WinPE outside a DEBUG debugger session.");
+                programLogger.Error("Foundry.Deploy can only run in WinPE outside a DEBUG debugger session.");
                 return 1;
             }
 
@@ -59,16 +82,16 @@ public static class Program
 
             MainWindow mainWindow = host.Services.GetRequiredService<MainWindow>();
             int exitCode = app.Run(mainWindow);
-            Log.Debug("Flushing Foundry.Deploy telemetry events.");
+            programLogger.Debug("Flushing Foundry.Deploy telemetry events.");
             telemetryService.FlushAsync().GetAwaiter().GetResult();
-            Log.Debug("Foundry.Deploy telemetry flush completed.");
+            programLogger.Debug("Foundry.Deploy telemetry flush completed.");
 
-            Log.Information("Foundry.Deploy exited with code {ExitCode}.", exitCode);
+            programLogger.Information("Foundry.Deploy exited with code {ExitCode}.", exitCode);
             return exitCode;
         }
         catch (Exception ex)
         {
-            Log.Fatal(ex, "Foundry.Deploy failed to start or terminated unexpectedly.");
+            programLogger.Fatal(ex, "Foundry.Deploy failed to start or terminated unexpectedly.");
             return 1;
         }
         finally
@@ -130,26 +153,37 @@ public static class Program
     {
         AppDomain.CurrentDomain.UnhandledException += (_, args) =>
         {
+            Serilog.ILogger logger = Log.ForContext(typeof(Program));
             if (args.ExceptionObject is Exception exception)
             {
-                Log.Fatal(exception, "Unhandled AppDomain exception (IsTerminating={IsTerminating}).", args.IsTerminating);
+                logger.Fatal(exception, "Unhandled AppDomain exception. IsTerminating={IsTerminating}", args.IsTerminating);
+                if (args.IsTerminating)
+                {
+                    Log.CloseAndFlush();
+                }
+
                 return;
             }
 
-            Log.Fatal("Unhandled AppDomain exception object (IsTerminating={IsTerminating}): {ExceptionObject}",
+            logger.Fatal("Unhandled AppDomain exception. IsTerminating={IsTerminating}, ExceptionObject={ExceptionObject}",
                 args.IsTerminating,
                 args.ExceptionObject);
+            if (args.IsTerminating)
+            {
+                Log.CloseAndFlush();
+            }
         };
 
         TaskScheduler.UnobservedTaskException += (_, args) =>
         {
-            Log.Error(args.Exception, "Unobserved task exception.");
+            Log.ForContext(typeof(Program)).Error(args.Exception, "Unobserved task exception.");
             args.SetObserved();
         };
     }
 
     private static void OnDispatcherUnhandledException(object? sender, DispatcherUnhandledExceptionEventArgs args)
     {
-        Log.Fatal(args.Exception, "Unhandled WPF dispatcher exception.");
+        Log.ForContext(typeof(Program)).Fatal(args.Exception, "Unhandled WPF dispatcher exception.");
+        Log.CloseAndFlush();
     }
 }
