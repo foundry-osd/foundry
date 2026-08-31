@@ -26,6 +26,8 @@ using Foundry.Localization;
 using Foundry.Telemetry;
 using Foundry.Utilities.Networking;
 using Foundry.Utilities.Diagnostics;
+using Foundry.Utilities.Runtime;
+using Foundry.Utilities.Storage;
 using Microsoft.Win32;
 using Microsoft.Extensions.Logging;
 using ConnectThemeMode = Foundry.Connect.Services.Theme.ThemeMode;
@@ -37,6 +39,7 @@ namespace Foundry.Connect.ViewModels;
 /// </summary>
 public partial class MainWindowViewModel : LocalizedViewModelBase
 {
+    private const int ShellFolderPickerUnavailableHResult = unchecked((int)0x80040111);
     private const string PendingStatusGlyph = "\uE709";
     private const string ReadyStatusGlyph = "\uE73E";
     private const string EthernetOkGlyph = "\uE839";
@@ -429,23 +432,19 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
     private async Task ExportDiagnosticsAsync(SupportBundlePrivacyMode privacyMode)
     {
-        var picker = new OpenFolderDialog
-        {
-            Title = GetString("Diagnostics.ExportDestinationTitle"),
-            InitialDirectory = ResolveSuggestedExportDirectory()
-        };
-        if (picker.ShowDialog() != true)
-        {
-            return;
-        }
-
-        string? logDirectoryPath = Path.GetDirectoryName(FoundryConnectLogging.CurrentLogFilePath);
-        string[] logFilePaths = string.IsNullOrWhiteSpace(logDirectoryPath) || !Directory.Exists(logDirectoryPath)
-            ? []
-            : Directory.GetFiles(logDirectoryPath, "Foundry*.log", SearchOption.TopDirectoryOnly);
-
         try
         {
+            string? destinationDirectoryPath = SelectExportDestination();
+            if (destinationDirectoryPath is null)
+            {
+                return;
+            }
+
+            string? logDirectoryPath = Path.GetDirectoryName(FoundryConnectLogging.CurrentLogFilePath);
+            string[] logFilePaths = string.IsNullOrWhiteSpace(logDirectoryPath) || !Directory.Exists(logDirectoryPath)
+                ? []
+                : Directory.GetFiles(logDirectoryPath, "Foundry*.log", SearchOption.TopDirectoryOnly);
+
             _logger.LogInformation(
                 "Support bundle export started. PrivacyMode={PrivacyMode}, LogFileCount={LogFileCount}",
                 privacyMode,
@@ -457,7 +456,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                     ApplicationName = "Foundry.Connect",
                     ApplicationVersion = FoundryConnectApplicationInfo.Version,
                     SessionId = DiagnosticSessionContext.CurrentSessionId,
-                    DestinationDirectoryPath = picker.FolderName,
+                    DestinationDirectoryPath = destinationDirectoryPath,
                     LogFilePaths = logFilePaths,
                     PrivacyMode = privacyMode,
                     Summary = new Dictionary<string, string>
@@ -493,21 +492,59 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
     }
 
-    private static string ResolveSuggestedExportDirectory()
+    private string? SelectExportDestination()
+    {
+        if (WinPeRuntimeDetector.IsWinPeRuntime())
+        {
+            _logger.LogInformation("The shell folder picker was skipped because the application is running in WinPE.");
+            return ResolveRequiredExternalExportDirectory();
+        }
+
+        try
+        {
+            string? externalExportDirectory = ResolveExternalExportDirectory();
+            var picker = new OpenFolderDialog
+            {
+                Title = GetString("Diagnostics.ExportDestinationTitle"),
+                InitialDirectory = ResolveSuggestedExportDirectory(externalExportDirectory)
+            };
+            return picker.ShowDialog() == true ? picker.FolderName : null;
+        }
+        catch (COMException ex) when (ex.HResult == ShellFolderPickerUnavailableHResult)
+        {
+            string? fallbackDirectoryPath = ResolveExternalExportDirectory();
+            _logger.LogWarning(
+                ex,
+                "The shell folder picker is unavailable. Falling back to an external volume. HasFallbackDestination={HasFallbackDestination}",
+                fallbackDirectoryPath is not null);
+            return fallbackDirectoryPath
+                   ?? throw new IOException("No ready external volume is available for the diagnostic export.");
+        }
+    }
+
+    private string ResolveRequiredExternalExportDirectory()
+    {
+        return ResolveExternalExportDirectory()
+               ?? throw new IOException("No ready external volume is available for the diagnostic export.");
+    }
+
+    private static string ResolveSuggestedExportDirectory(string? externalExportDirectory)
     {
         try
         {
-            DriveInfo? preferredDrive = DriveInfo.GetDrives()
-                .Where(static drive => drive.IsReady)
-                .OrderByDescending(static drive => string.Equals(drive.VolumeLabel, "Foundry Cache", StringComparison.OrdinalIgnoreCase))
-                .ThenByDescending(static drive => drive.DriveType == DriveType.Removable)
-                .FirstOrDefault();
-            return preferredDrive?.RootDirectory.FullName ?? Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            return externalExportDirectory
+                   ?? Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
         }
         catch
         {
             return Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
         }
+    }
+
+    private string? ResolveExternalExportDirectory()
+    {
+        return SupportBundleDestinationPolicy.SelectExternalDestination(
+            new WindowsVolumeDiscovery().GetVolumes());
     }
 
     [RelayCommand]

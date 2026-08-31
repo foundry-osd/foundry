@@ -15,6 +15,8 @@ using CommunityToolkit.Mvvm.Input;
 using Foundry.Core.Models.Configuration;
 using Foundry.Utilities.Networking;
 using Foundry.Utilities.Diagnostics;
+using Foundry.Utilities.Runtime;
+using Foundry.Utilities.Storage;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Utilities.Processes;
@@ -29,6 +31,7 @@ namespace Foundry.Deploy.ViewModels;
 
 public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
 {
+    private const int ShellFolderPickerUnavailableHResult = unchecked((int)0x80040111);
     private readonly Dispatcher _dispatcher;
     private readonly ILogger _logger;
     private readonly IOperationProgressService _operationProgressService;
@@ -372,18 +375,14 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
 
     private async Task ExportDiagnosticsAsync(SupportBundlePrivacyMode privacyMode)
     {
-        var picker = new OpenFolderDialog
-        {
-            Title = GetString("Diagnostics.ExportDestinationTitle"),
-            InitialDirectory = ResolveSuggestedExportDirectory()
-        };
-        if (picker.ShowDialog() != true)
-        {
-            return;
-        }
-
         try
         {
+            string? destinationDirectoryPath = SelectExportDestination();
+            if (destinationDirectoryPath is null)
+            {
+                return;
+            }
+
             _logger.LogInformation("Support bundle export started. PrivacyMode={PrivacyMode}", privacyMode);
             LogPersistenceResult persistenceResult = FoundryDeployLogging.PersistCurrentLogs();
             if (persistenceResult.FailedFileCount > 0)
@@ -401,7 +400,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
                     ApplicationName = "Foundry.Deploy",
                     ApplicationVersion = FoundryDeployApplicationInfo.Version,
                     SessionId = DiagnosticSessionContext.CurrentSessionId,
-                    DestinationDirectoryPath = picker.FolderName,
+                    DestinationDirectoryPath = destinationDirectoryPath,
                     LogFilePaths = logFilePaths,
                     PrivacyMode = privacyMode,
                     Summary = new Dictionary<string, string>
@@ -433,6 +432,42 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         }
     }
 
+    private string? SelectExportDestination()
+    {
+        if (WinPeRuntimeDetector.IsWinPeRuntime())
+        {
+            _logger.LogInformation("The shell folder picker was skipped because the application is running in WinPE.");
+            return ResolveRequiredExternalExportDirectory();
+        }
+
+        try
+        {
+            string? externalExportDirectory = ResolveExternalExportDirectory();
+            var picker = new OpenFolderDialog
+            {
+                Title = GetString("Diagnostics.ExportDestinationTitle"),
+                InitialDirectory = ResolveSuggestedExportDirectory(externalExportDirectory)
+            };
+            return picker.ShowDialog() == true ? picker.FolderName : null;
+        }
+        catch (COMException ex) when (ex.HResult == ShellFolderPickerUnavailableHResult)
+        {
+            string? fallbackDirectoryPath = ResolveExternalExportDirectory();
+            _logger.LogWarning(
+                ex,
+                "The shell folder picker is unavailable. Falling back to an external volume. HasFallbackDestination={HasFallbackDestination}",
+                fallbackDirectoryPath is not null);
+            return fallbackDirectoryPath
+                   ?? throw new IOException("No ready external volume is available for the diagnostic export.");
+        }
+    }
+
+    private string ResolveRequiredExternalExportDirectory()
+    {
+        return ResolveExternalExportDirectory()
+               ?? throw new IOException("No ready external volume is available for the diagnostic export.");
+    }
+
     private string[] EnumerateSupportLogFiles()
     {
         string? activeDirectoryPath = Path.GetDirectoryName(FoundryDeployLogging.CurrentLogFilePath);
@@ -443,21 +478,23 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
             .ToArray();
     }
 
-    private static string ResolveSuggestedExportDirectory()
+    private static string ResolveSuggestedExportDirectory(string? externalExportDirectory)
     {
         try
         {
-            DriveInfo? preferredDrive = DriveInfo.GetDrives()
-                .Where(static drive => drive.IsReady)
-                .OrderByDescending(static drive => string.Equals(drive.VolumeLabel, "Foundry Cache", StringComparison.OrdinalIgnoreCase))
-                .ThenByDescending(static drive => drive.DriveType == DriveType.Removable)
-                .FirstOrDefault();
-            return preferredDrive?.RootDirectory.FullName ?? Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            return externalExportDirectory
+                   ?? Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
         }
         catch
         {
             return Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
         }
+    }
+
+    private string? ResolveExternalExportDirectory()
+    {
+        return SupportBundleDestinationPolicy.SelectExternalDestination(
+            new WindowsVolumeDiscovery().GetVolumes());
     }
 
     [RelayCommand(CanExecute = nameof(CanRebootNow))]
