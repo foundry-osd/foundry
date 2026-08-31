@@ -444,40 +444,55 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             ? []
             : Directory.GetFiles(logDirectoryPath, "Foundry*.log", SearchOption.TopDirectoryOnly);
 
-        _logger.LogInformation(
-            "Support bundle export started. PrivacyMode={PrivacyMode}, LogFileCount={LogFileCount}",
-            privacyMode,
-            logFilePaths.Length);
-        await Task.Delay(TimeSpan.FromSeconds(1), _disposeCts.Token);
+        try
+        {
+            _logger.LogInformation(
+                "Support bundle export started. PrivacyMode={PrivacyMode}, LogFileCount={LogFileCount}",
+                privacyMode,
+                logFilePaths.Length);
 
-        SupportBundleResult result = await new SupportBundleExporter().ExportAsync(
-            new SupportBundleRequest
-            {
-                ApplicationName = "Foundry.Connect",
-                ApplicationVersion = FoundryConnectApplicationInfo.Version,
-                SessionId = DiagnosticSessionContext.CurrentSessionId,
-                DestinationDirectoryPath = picker.FolderName,
-                LogFilePaths = logFilePaths,
-                PrivacyMode = privacyMode,
-                Summary = new Dictionary<string, string>
+            SupportBundleResult result = await new SupportBundleExporter().ExportAsync(
+                new SupportBundleRequest
                 {
-                    ["Architecture"] = RuntimeInformation.ProcessArchitecture.ToString(),
-                    ["DeploymentMode"] = Environment.GetEnvironmentVariable("FOUNDRY_DEPLOYMENT_MODE") ?? "Unknown",
-                    ["OperatingSystem"] = Environment.OSVersion.VersionString
-                }
-            },
-            _disposeCts.Token);
+                    ApplicationName = "Foundry.Connect",
+                    ApplicationVersion = FoundryConnectApplicationInfo.Version,
+                    SessionId = DiagnosticSessionContext.CurrentSessionId,
+                    DestinationDirectoryPath = picker.FolderName,
+                    LogFilePaths = logFilePaths,
+                    PrivacyMode = privacyMode,
+                    Summary = new Dictionary<string, string>
+                    {
+                        ["Architecture"] = RuntimeInformation.ProcessArchitecture.ToString(),
+                        ["DeploymentMode"] = Environment.GetEnvironmentVariable("FOUNDRY_DEPLOYMENT_MODE") ?? "Unknown",
+                        ["OperatingSystem"] = Environment.OSVersion.VersionString
+                    }
+                },
+                _disposeCts.Token);
 
-        _logger.LogInformation(
-            "Support bundle export completed. PrivacyMode={PrivacyMode}, IncludedFileCount={IncludedFileCount}, OmittedFileCount={OmittedFileCount}",
-            privacyMode,
-            result.IncludedFiles.Count,
-            result.OmittedFiles.Count);
-        MessageBox.Show(
-            $"Diagnostics were exported to:\n{result.ArchivePath}",
-            "Foundry diagnostics",
-            MessageBoxButton.OK,
-            MessageBoxImage.Information);
+            _logger.LogInformation(
+                "Support bundle export completed. PrivacyMode={PrivacyMode}, IncludedFileCount={IncludedFileCount}, OmittedFileCount={OmittedFileCount}",
+                privacyMode,
+                result.IncludedFiles.Count,
+                result.OmittedFiles.Count);
+            MessageBox.Show(
+                $"Diagnostics were exported to:\n{result.ArchivePath}",
+                "Foundry diagnostics",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
+        }
+        catch (OperationCanceledException) when (_disposeCts.IsCancellationRequested)
+        {
+            _logger.LogInformation("Support bundle export canceled because the application is shutting down.");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Support bundle export failed. PrivacyMode={PrivacyMode}", privacyMode);
+            MessageBox.Show(
+                "Diagnostics could not be exported. Check the log for details.",
+                "Foundry diagnostics",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+        }
     }
 
     private static string ResolveSuggestedExportDirectory()

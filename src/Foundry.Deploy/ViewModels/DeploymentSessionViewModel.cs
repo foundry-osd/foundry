@@ -382,39 +382,57 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
             return;
         }
 
-        _logger.LogInformation("Support bundle export started. PrivacyMode={PrivacyMode}", privacyMode);
-        await Task.Delay(TimeSpan.FromSeconds(1));
-        FoundryDeployLogging.PersistCurrentLogs();
-
-        string[] logFilePaths = EnumerateSupportLogFiles();
-        SupportBundleResult result = await new SupportBundleExporter().ExportAsync(
-            new SupportBundleRequest
+        try
+        {
+            _logger.LogInformation("Support bundle export started. PrivacyMode={PrivacyMode}", privacyMode);
+            LogPersistenceResult persistenceResult = FoundryDeployLogging.PersistCurrentLogs();
+            if (persistenceResult.FailedFileCount > 0)
             {
-                ApplicationName = "Foundry.Deploy",
-                ApplicationVersion = FoundryDeployApplicationInfo.Version,
-                SessionId = DiagnosticSessionContext.CurrentSessionId,
-                DestinationDirectoryPath = picker.FolderName,
-                LogFilePaths = logFilePaths,
-                PrivacyMode = privacyMode,
-                Summary = new Dictionary<string, string>
-                {
-                    ["Architecture"] = RuntimeInformation.ProcessArchitecture.ToString(),
-                    ["DeploymentMode"] = Environment.GetEnvironmentVariable("FOUNDRY_DEPLOYMENT_MODE") ?? "Unknown",
-                    ["OperatingSystem"] = Environment.OSVersion.VersionString,
-                    ["Page"] = CurrentPage.ToString()
-                }
-            });
+                _logger.LogWarning(
+                    "The durable deployment log snapshot could not be fully refreshed before export. CopiedFileCount={CopiedFileCount}, FailedFileCount={FailedFileCount}",
+                    persistenceResult.CopiedFileCount,
+                    persistenceResult.FailedFileCount);
+            }
 
-        _logger.LogInformation(
-            "Support bundle export completed. PrivacyMode={PrivacyMode}, IncludedFileCount={IncludedFileCount}, OmittedFileCount={OmittedFileCount}",
-            privacyMode,
-            result.IncludedFiles.Count,
-            result.OmittedFiles.Count);
-        MessageBox.Show(
-            $"Diagnostics were exported to:\n{result.ArchivePath}",
-            "Foundry diagnostics",
-            MessageBoxButton.OK,
-            MessageBoxImage.Information);
+            string[] logFilePaths = EnumerateSupportLogFiles();
+            SupportBundleResult result = await new SupportBundleExporter().ExportAsync(
+                new SupportBundleRequest
+                {
+                    ApplicationName = "Foundry.Deploy",
+                    ApplicationVersion = FoundryDeployApplicationInfo.Version,
+                    SessionId = DiagnosticSessionContext.CurrentSessionId,
+                    DestinationDirectoryPath = picker.FolderName,
+                    LogFilePaths = logFilePaths,
+                    PrivacyMode = privacyMode,
+                    Summary = new Dictionary<string, string>
+                    {
+                        ["Architecture"] = RuntimeInformation.ProcessArchitecture.ToString(),
+                        ["DeploymentMode"] = Environment.GetEnvironmentVariable("FOUNDRY_DEPLOYMENT_MODE") ?? "Unknown",
+                        ["OperatingSystem"] = Environment.OSVersion.VersionString,
+                        ["Page"] = CurrentPage.ToString()
+                    }
+                });
+
+            _logger.LogInformation(
+                "Support bundle export completed. PrivacyMode={PrivacyMode}, IncludedFileCount={IncludedFileCount}, OmittedFileCount={OmittedFileCount}",
+                privacyMode,
+                result.IncludedFiles.Count,
+                result.OmittedFiles.Count);
+            MessageBox.Show(
+                $"Diagnostics were exported to:\n{result.ArchivePath}",
+                "Foundry diagnostics",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Support bundle export failed. PrivacyMode={PrivacyMode}", privacyMode);
+            MessageBox.Show(
+                "Diagnostics could not be exported. Check the log for details.",
+                "Foundry diagnostics",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+        }
     }
 
     private string[] EnumerateSupportLogFiles()

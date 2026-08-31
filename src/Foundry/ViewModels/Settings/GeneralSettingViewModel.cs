@@ -107,44 +107,58 @@ namespace Foundry.ViewModels
                 return;
             }
 
-            string[] logFilePaths = Directory.Exists(LogDirectoryPath)
-                ? Directory.GetFiles(LogDirectoryPath, "Foundry*.log", SearchOption.TopDirectoryOnly)
-                : [];
-            Log.ForContext<GeneralSettingViewModel>().Information(
-                "Support bundle export started. PrivacyMode={PrivacyMode}, LogFileCount={LogFileCount}",
-                privacyMode,
-                logFilePaths.Length);
-            await Task.Delay(TimeSpan.FromSeconds(1));
-
-            SupportBundleResult result = await new SupportBundleExporter().ExportAsync(
-                new SupportBundleRequest
-                {
-                    ApplicationName = "Foundry.OSD",
-                    ApplicationVersion = FoundryApplicationInfo.Version,
-                    SessionId = DiagnosticSessionContext.CurrentSessionId,
-                    DestinationDirectoryPath = destinationDirectoryPath,
-                    LogFilePaths = logFilePaths,
-                    PrivacyMode = privacyMode,
-                    Summary = new Dictionary<string, string>
-                    {
-                        ["Architecture"] = RuntimeInformation.ProcessArchitecture.ToString(),
-                        ["OperatingSystem"] = Environment.OSVersion.VersionString
-                    }
-                });
-
-            Log.ForContext<GeneralSettingViewModel>().Information(
-                "Support bundle export completed. PrivacyMode={PrivacyMode}, IncludedFileCount={IncludedFileCount}, OmittedFileCount={OmittedFileCount}",
-                privacyMode,
-                result.IncludedFiles.Count,
-                result.OmittedFiles.Count);
-            var completedDialog = new ContentDialog
+            try
             {
-                XamlRoot = App.MainWindow.Content.XamlRoot,
-                Title = "Diagnostics exported",
-                Content = result.ArchivePath,
-                CloseButtonText = "Close"
-            };
-            await completedDialog.ShowAsync();
+                string[] logFilePaths = Directory.Exists(LogDirectoryPath)
+                    ? Directory.GetFiles(LogDirectoryPath, "Foundry*.log", SearchOption.TopDirectoryOnly)
+                    : [];
+                Log.ForContext<GeneralSettingViewModel>().Information(
+                    "Support bundle export started. PrivacyMode={PrivacyMode}, LogFileCount={LogFileCount}",
+                    privacyMode,
+                    logFilePaths.Length);
+
+                SupportBundleResult result = await new SupportBundleExporter().ExportAsync(
+                    new SupportBundleRequest
+                    {
+                        ApplicationName = "Foundry.OSD",
+                        ApplicationVersion = FoundryApplicationInfo.Version,
+                        SessionId = DiagnosticSessionContext.CurrentSessionId,
+                        DestinationDirectoryPath = destinationDirectoryPath,
+                        LogFilePaths = logFilePaths,
+                        PrivacyMode = privacyMode,
+                        Summary = new Dictionary<string, string>
+                        {
+                            ["Architecture"] = RuntimeInformation.ProcessArchitecture.ToString(),
+                            ["OperatingSystem"] = Environment.OSVersion.VersionString
+                        }
+                    });
+
+                Log.ForContext<GeneralSettingViewModel>().Information(
+                    "Support bundle export completed. PrivacyMode={PrivacyMode}, IncludedFileCount={IncludedFileCount}, OmittedFileCount={OmittedFileCount}",
+                    privacyMode,
+                    result.IncludedFiles.Count,
+                    result.OmittedFiles.Count);
+                var completedDialog = new ContentDialog
+                {
+                    XamlRoot = App.MainWindow.Content.XamlRoot,
+                    Title = "Diagnostics exported",
+                    Content = result.ArchivePath,
+                    CloseButtonText = "Close"
+                };
+                await completedDialog.ShowAsync();
+            }
+            catch (Exception ex)
+            {
+                Log.ForContext<GeneralSettingViewModel>().Error(ex, "Support bundle export failed. PrivacyMode={PrivacyMode}", privacyMode);
+                var failedDialog = new ContentDialog
+                {
+                    XamlRoot = App.MainWindow.Content.XamlRoot,
+                    Title = "Diagnostics export failed",
+                    Content = "Diagnostics could not be exported. Check the log for details.",
+                    CloseButtonText = "Close"
+                };
+                await failedDialog.ShowAsync();
+            }
         }
 
         public void RefreshSupportedLanguages()
