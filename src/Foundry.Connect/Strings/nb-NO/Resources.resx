@@ -422,4 +422,46 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Tradisjonell kinesisk (Taiwan)</value>
   </data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>Eksporter diagnostikk...</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>Eksporter rådiagnostikk...</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Eksporter diagnostikk</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Opprett et renset støttearkiv uten å endre de opprinnelige loggene.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Eksporter...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Avansert: eksporter rålogger...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Eksportere rådiagnostikk?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Rålogger kan inneholde legitimasjon, identifikatorer, stier, nettverksnavn og andre sensitive data. Eksporter dem bare når det uttrykkelig er bedt om det av en betrodd støttekontakt.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Eksporter rålogger</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Velg hvor Foundry-diagnostikk skal eksporteres</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnostikk eksportert</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>Diagnostikken ble eksportert til:&#xA;{0}</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Eksport av diagnostikk mislyktes</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Diagnostikken kunne ikke eksporteres. Se loggen for detaljer.</value>
+  </data>
 </root>

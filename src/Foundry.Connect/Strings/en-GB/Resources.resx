@@ -422,4 +422,46 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Chinese Traditional (Taiwan)</value>
   </data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>Export diagnostics...</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>Export raw diagnostics...</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Export diagnostics</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Create a sanitised support archive without modifying the original logs.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Export...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Advanced: export raw logs...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Export raw diagnostics?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Raw logs may contain credentials, identifiers, paths, network names, and other sensitive data. Export them only when explicitly requested by a trusted support contact.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Export raw logs</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Choose where to export Foundry diagnostics</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnostics exported</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>Diagnostics were exported to:&#xA;{0}</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Diagnostics export failed</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Diagnostics could not be exported. Check the log for details.</value>
+  </data>
 </root>

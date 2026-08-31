@@ -63,18 +63,14 @@
                     </HyperlinkButton>
                 </wct:SettingsExpander.ItemsHeader>
                 <wct:SettingsExpander.Items>
-                    <wct:SettingsCard
-                        Description="Create a sanitized support archive without modifying the original logs."
-                        Header="Export diagnostics">
+                    <wct:SettingsCard x:Name="ExportDiagnosticsCard">
                         <StackPanel
                             Orientation="Horizontal"
                             Spacing="8">
-                            <Button
-                                Command="{x:Bind ViewModel.ExportDiagnosticsCommand}"
-                                Content="Export..." />
-                            <Button
-                                Command="{x:Bind ViewModel.ExportRawDiagnosticsCommand}"
-                                Content="Advanced: export raw logs..." />
+                            <Button x:Name="ExportDiagnosticsButton"
+                                Command="{x:Bind ViewModel.ExportDiagnosticsCommand}" />
+                            <Button x:Name="ExportRawDiagnosticsButton"
+                                Command="{x:Bind ViewModel.ExportRawDiagnosticsCommand}" />
                         </StackPanel>
                     </wct:SettingsCard>
                 </wct:SettingsExpander.Items>

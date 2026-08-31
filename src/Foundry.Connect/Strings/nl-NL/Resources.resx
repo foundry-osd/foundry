@@ -422,4 +422,46 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Traditioneel Chinees (Taiwan)</value>
   </data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>Diagnostiek exporteren...</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>Ruwe diagnostiek exporteren...</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Diagnostiek exporteren</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Maak een opgeschoond ondersteuningsarchief zonder de oorspronkelijke logboeken te wijzigen.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Exporteren...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Geavanceerd: ruwe logboeken exporteren...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Ruwe diagnostiek exporteren?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Ruwe logboeken kunnen referenties, id's, paden, netwerknamen en andere gevoelige gegevens bevatten. Exporteer ze alleen wanneer hier expliciet om wordt gevraagd door een vertrouwd ondersteuningscontact.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Ruwe logboeken exporteren</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Kies waar de Foundry-diagnostiek moet worden geëxporteerd</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnostiek geëxporteerd</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>Diagnostiek is geëxporteerd naar:&#xA;{0}</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Exporteren van diagnostiek mislukt</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Diagnostiek kon niet worden geëxporteerd. Controleer het logboek voor details.</value>
+  </data>
 </root>

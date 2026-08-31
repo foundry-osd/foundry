@@ -588,4 +588,46 @@
   <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>Изключено</value></data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>Контролирано от потребителя</value></data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>Принудително изключване</value></data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>Експортиране на диагностика...</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>Експортиране на необработена диагностика...</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Експортиране на диагностика</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Създайте саниран архив за поддръжка, без да променяте оригиналните регистрационни файлове.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Експортиране...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Разширено: експортиране на необработени регистрационни файлове...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Експортиране на необработена диагностика?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Необработените регистрационни файлове може да съдържат идентификационни данни, идентификатори, пътища, имена на мрежи и други чувствителни данни. Експортирайте ги само когато това е изрично поискано от доверен контакт за поддръжка.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Експортиране на необработени регистрационни файлове</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Изберете къде да експортирате диагностиката на Foundry</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Диагностиката е експортирана</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>Диагностиката беше експортирана в:&#xA;{0}</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Неуспешно експортиране на диагностика</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Диагностиката не можа да бъде експортирана. Проверете регистрационния файл за подробности.</value>
+  </data>
 </root>

@@ -2758,4 +2758,46 @@
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry n’a pas pu ouvrir le formulaire de signalement de bug. Copiez ce lien et ouvrez-le dans votre navigateur.</value>
   </data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>Exporter les diagnostics...</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>Exporter les diagnostics bruts...</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Exporter les diagnostics</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Créez une archive de support assainie sans modifier les journaux d’origine.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Exporter...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Avancé : exporter les journaux bruts...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Exporter les diagnostics bruts ?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Les journaux bruts peuvent contenir des identifiants, des informations d’authentification, des chemins, des noms de réseau et d’autres données sensibles. Exportez-les uniquement lorsqu’un contact de support de confiance le demande explicitement.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Exporter les journaux bruts</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Choisissez où exporter les diagnostics Foundry</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnostics exportés</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>Les diagnostics ont été exportés vers :&#xA;{0}</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Échec de l’exportation des diagnostics</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Les diagnostics n’ont pas pu être exportés. Consultez le journal pour plus de détails.</value>
+  </data>
 </root>

@@ -422,4 +422,46 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>tradičná čínština (Taiwan)</value>
   </data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>Exportovať diagnostiku...</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>Exportovať nespracovanú diagnostiku...</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Exportovať diagnostiku</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Vytvoriť sanitizovaný archív podpory bez úpravy pôvodných denníkov.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Exportovať...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Rozšírené: exportovať nespracované denníky...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Exportovať nespracovanú diagnostiku?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Nespracované denníky môžu obsahovať poverenia, identifikátory, cesty, názvy sietí a ďalšie citlivé údaje. Exportujte ich iba vtedy, keď ich výslovne vyžiada dôveryhodný kontakt podpory.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Exportovať nespracované denníky</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Vyberte, kam exportovať diagnostiku Foundry</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnostika bola exportovaná</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>Diagnostika bola exportovaná do:&#xA;{0}</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Export diagnostiky zlyhal</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Diagnostiku sa nepodarilo exportovať. Podrobnosti nájdete v denníku.</value>
+  </data>
 </root>

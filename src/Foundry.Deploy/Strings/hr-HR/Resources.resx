@@ -588,4 +588,46 @@ Nastaviti s implementacijom?</value></data>
   <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>Isključeno</value></data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>Korisnički upravljano</value></data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>Prisilno isključeno</value></data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>Izvezi dijagnostiku...</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>Izvezi neobrađenu dijagnostiku...</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Izvezi dijagnostiku</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Stvorite pročišćenu arhivu podrške bez mijenjanja izvornih zapisnika.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Izvezi...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Napredno: izvezi neobrađene zapisnike...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Izvesti neobrađenu dijagnostiku?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Neobrađeni zapisnici mogu sadržavati vjerodajnice, identifikatore, putanje, nazive mreža i druge osjetljive podatke. Izvezite ih samo kada to izričito zatraži pouzdani kontakt za podršku.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Izvezi neobrađene zapisnike</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Odaberite gdje izvesti dijagnostiku za Foundry</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Dijagnostika je izvezena</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>Dijagnostika je izvezena u:&#xA;{0}</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Izvoz dijagnostike nije uspio</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Dijagnostiku nije bilo moguće izvesti. Provjerite zapisnik za detalje.</value>
+  </data>
 </root>

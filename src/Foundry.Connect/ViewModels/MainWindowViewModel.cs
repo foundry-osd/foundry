@@ -21,6 +21,7 @@ using Foundry.Connect.Services.Localization;
 using Foundry.Connect.Services.Logging;
 using Foundry.Connect.Services.Network;
 using Foundry.Connect.Services.Theme;
+using Foundry.Connect.Views;
 using Foundry.Localization;
 using Foundry.Telemetry;
 using Foundry.Utilities.Networking;
@@ -413,13 +414,12 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     [RelayCommand]
     private async Task ExportRawDiagnosticsAsync()
     {
-        MessageBoxResult confirmation = MessageBox.Show(
-            "Raw logs may contain credentials, identifiers, network names, and other sensitive data. Export them only when explicitly requested by a trusted support contact.",
-            "Export raw diagnostics",
-            MessageBoxButton.YesNo,
-            MessageBoxImage.Warning,
-            MessageBoxResult.No);
-        if (confirmation != MessageBoxResult.Yes)
+        var confirmationDialog = new LocalizedMessageDialog(
+            GetString("Diagnostics.ExportRawTitle"),
+            GetString("Diagnostics.ExportRawWarning"),
+            GetString("Diagnostics.ExportRawConfirm"),
+            GetString("Common.Cancel"));
+        if (confirmationDialog.ShowDialog() != true)
         {
             return;
         }
@@ -431,7 +431,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     {
         var picker = new OpenFolderDialog
         {
-            Title = "Choose where to export Foundry diagnostics",
+            Title = GetString("Diagnostics.ExportDestinationTitle"),
             InitialDirectory = ResolveSuggestedExportDirectory()
         };
         if (picker.ShowDialog() != true)
@@ -474,11 +474,10 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 privacyMode,
                 result.IncludedFiles.Count,
                 result.OmittedFiles.Count);
-            MessageBox.Show(
-                $"Diagnostics were exported to:\n{result.ArchivePath}",
-                "Foundry diagnostics",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
+            _ = new LocalizedMessageDialog(
+                GetString("Diagnostics.ExportSucceededTitle"),
+                Format("Diagnostics.ExportSucceededMessageFormat", result.ArchivePath),
+                GetString("Common.Close")).ShowDialog();
         }
         catch (OperationCanceledException) when (_disposeCts.IsCancellationRequested)
         {
@@ -487,11 +486,10 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Support bundle export failed. PrivacyMode={PrivacyMode}", privacyMode);
-            MessageBox.Show(
-                "Diagnostics could not be exported. Check the log for details.",
-                "Foundry diagnostics",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
+            _ = new LocalizedMessageDialog(
+                GetString("Diagnostics.ExportFailedTitle"),
+                GetString("Diagnostics.ExportFailedMessage"),
+                GetString("Common.Close")).ShowDialog();
         }
     }
 

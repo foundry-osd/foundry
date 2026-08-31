@@ -113,6 +113,10 @@ public sealed partial class GeneralSettingPage : Page
         LanguageCard.Description = localizationService.GetString("GeneralSetting_LanguageCard.Description");
         DiagnosticsCard.Header = localizationService.GetString("GeneralSetting_DiagnosticsCard.Header");
         DiagnosticsCard.Description = localizationService.GetString("GeneralSetting_DiagnosticsCard.Description");
+        ExportDiagnosticsCard.Header = localizationService.GetString("Diagnostics.ExportCardHeader");
+        ExportDiagnosticsCard.Description = localizationService.GetString("Diagnostics.ExportCardDescription");
+        ExportDiagnosticsButton.Content = localizationService.GetString("Diagnostics.ExportButton");
+        ExportRawDiagnosticsButton.Content = localizationService.GetString("Diagnostics.ExportRawButton");
 
         bool wasInitializingLanguageSelection = isInitializingLanguageSelection;
         isInitializingLanguageSelection = true;

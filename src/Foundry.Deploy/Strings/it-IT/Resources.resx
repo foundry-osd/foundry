@@ -588,4 +588,46 @@ Continuare con la distribuzione?</value></data>
   <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>Off</value></data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>Controllato dall&apos;utente</value></data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>Forzato off</value></data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>Esporta diagnostica...</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>Esporta diagnostica non elaborata...</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Esporta diagnostica</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Crea un archivio di supporto sanificato senza modificare i log originali.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Esporta...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Avanzate: esporta log non elaborati...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Esportare la diagnostica non elaborata?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>I log non elaborati possono contenere credenziali, identificatori, percorsi, nomi di rete e altri dati sensibili. Esportali solo quando vengono richiesti esplicitamente da un contatto di supporto attendibile.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Esporta log non elaborati</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Scegli dove esportare la diagnostica di Foundry</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnostica esportata</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>La diagnostica è stata esportata in:&#xA;{0}</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Esportazione della diagnostica non riuscita</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Non è stato possibile esportare la diagnostica. Controlla il log per i dettagli.</value>
+  </data>
 </root>

@@ -2758,4 +2758,46 @@
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry 無法開啟錯誤回報表單。請複製此連結並在瀏覽器中開啟。</value>
   </data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>匯出診斷資訊...</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>匯出原始診斷資訊...</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>匯出診斷資訊</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>建立已淨化的支援封存檔，而不修改原始記錄。</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>匯出...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>進階：匯出原始記錄...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>要匯出原始診斷資訊嗎？</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>原始記錄可能包含認證資料、識別碼、路徑、網路名稱及其他敏感資料。只有在可信任的支援聯絡人明確要求時才匯出。</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>匯出原始記錄</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>選擇要將 Foundry 診斷資訊匯出到何處</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>診斷資訊已匯出</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>診斷資訊已匯出到：&#xA;{0}</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>匯出診斷資訊失敗</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>無法匯出診斷資訊。請檢查記錄以取得詳細資料。</value>
+  </data>
 </root>

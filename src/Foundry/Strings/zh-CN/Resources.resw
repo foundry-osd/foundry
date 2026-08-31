@@ -2758,4 +2758,46 @@
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry 无法打开错误报告表单。请复制此链接并在浏览器中打开。</value>
   </data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>导出诊断信息...</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>导出原始诊断信息...</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>导出诊断信息</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>创建经过净化的支持归档，而不修改原始日志。</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>导出...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>高级：导出原始日志...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>要导出原始诊断信息吗？</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>原始日志可能包含凭据、标识符、路径、网络名称以及其他敏感数据。仅在可信的支持联系人明确要求时才导出。</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>导出原始日志</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>选择导出 Foundry 诊断信息的位置</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>诊断信息已导出</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>诊断信息已导出到：&#xA;{0}</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>导出诊断信息失败</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>无法导出诊断信息。请检查日志以获取详细信息。</value>
+  </data>
 </root>

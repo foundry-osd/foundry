@@ -588,4 +588,46 @@ Kas jätkata juurutamisega?</value></data>
   <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>Väljas</value></data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>Kasutaja kontrolli all</value></data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>Sunnitud välja lülitatud</value></data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>Ekspordi diagnostika...</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>Ekspordi töötlemata diagnostika...</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Ekspordi diagnostika</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Loo puhastatud tugiarhiiv ilma algseid logisid muutmata.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Ekspordi...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Täpsemalt: ekspordi töötlemata logid...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Kas eksportida töötlemata diagnostika?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Töötlemata logid võivad sisaldada mandaate, identifikaatoreid, teid, võrgunimesid ja muid tundlikke andmeid. Ekspordi need ainult siis, kui usaldusväärne tugikontakt seda sõnaselgelt taotleb.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Ekspordi töötlemata logid</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Valige, kuhu Foundry diagnostika eksportida</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnostika eksporditud</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>Diagnostika eksporditi asukohta:&#xA;{0}</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Diagnostika eksport ebaõnnestus</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Diagnostikat ei saanud eksportida. Vaadake üksikasju logist.</value>
+  </data>
 </root>

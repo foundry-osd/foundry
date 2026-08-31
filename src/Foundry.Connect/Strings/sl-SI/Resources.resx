@@ -422,4 +422,46 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>tradicionalna kitajščina (Tajvan)</value>
   </data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>Izvozi diagnostiko...</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>Izvozi neobdelano diagnostiko...</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Izvozi diagnostiko</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Ustvari očiščen arhiv za podporo brez spreminjanja izvirnih dnevnikov.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Izvozi...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Napredno: izvozi neobdelane dnevnike...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Ali želite izvoziti neobdelano diagnostiko?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Neobdelani dnevniki lahko vsebujejo poverilnice, identifikatorje, poti, imena omrežij in druge občutljive podatke. Izvozite jih samo, ko to izrecno zahteva zaupanja vreden stik za podporo.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Izvozi neobdelane dnevnike</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Izberite, kam želite izvoziti diagnostiko Foundry</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnostika izvožena</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>Diagnostika je bila izvožena v:&#xA;{0}</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Izvoz diagnostike ni uspel</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Diagnostike ni bilo mogoče izvoziti. Za podrobnosti preverite dnevnik.</value>
+  </data>
 </root>

@@ -422,4 +422,46 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>hagyományos kínai (Tajvan)</value>
   </data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>Diagnosztika exportálása...</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>Nyers diagnosztika exportálása...</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Diagnosztika exportálása</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Hozzon létre megtisztított támogatási archívumot az eredeti naplók módosítása nélkül.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Exportálás...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Speciális: nyers naplók exportálása...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Exportálja a nyers diagnosztikát?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>A nyers naplók hitelesítő adatokat, azonosítókat, elérési utakat, hálózatneveket és egyéb érzékeny adatokat tartalmazhatnak. Csak akkor exportálja őket, ha ezt egy megbízható támogatási kapcsolattartó kifejezetten kéri.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Nyers naplók exportálása</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Válassza ki, hová exportálja a Foundry diagnosztikát</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnosztika exportálva</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>A diagnosztika exportálva ide:&#xA;{0}</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>A diagnosztika exportálása nem sikerült</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>A diagnosztikát nem sikerült exportálni. Részletekért ellenőrizze a naplót.</value>
+  </data>
 </root>

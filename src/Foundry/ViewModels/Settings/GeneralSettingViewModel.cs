@@ -84,10 +84,10 @@ namespace Foundry.ViewModels
             var warningDialog = new ContentDialog
             {
                 XamlRoot = App.MainWindow.Content.XamlRoot,
-                Title = "Export raw diagnostics?",
-                Content = "Raw logs may contain credentials, identifiers, paths, network names, and other sensitive data. Export them only when explicitly requested by a trusted support contact.",
-                PrimaryButtonText = "Export raw logs",
-                CloseButtonText = "Cancel",
+                Title = localizationService.GetString("Diagnostics.ExportRawTitle"),
+                Content = localizationService.GetString("Diagnostics.ExportRawWarning"),
+                PrimaryButtonText = localizationService.GetString("Diagnostics.ExportRawConfirm"),
+                CloseButtonText = localizationService.GetString("Common.Cancel"),
                 DefaultButton = ContentDialogButton.Close
             };
             if (await warningDialog.ShowAsync() != ContentDialogResult.Primary)
@@ -101,7 +101,7 @@ namespace Foundry.ViewModels
         private async Task ExportDiagnosticsAsync(SupportBundlePrivacyMode privacyMode)
         {
             string? destinationDirectoryPath = await filePickerService.PickFolderAsync(
-                new FolderPickerRequest("Choose where to export Foundry diagnostics"));
+                new FolderPickerRequest(localizationService.GetString("Diagnostics.ExportDestinationTitle")));
             if (string.IsNullOrWhiteSpace(destinationDirectoryPath))
             {
                 return;
@@ -141,9 +141,9 @@ namespace Foundry.ViewModels
                 var completedDialog = new ContentDialog
                 {
                     XamlRoot = App.MainWindow.Content.XamlRoot,
-                    Title = "Diagnostics exported",
+                    Title = localizationService.GetString("Diagnostics.ExportSucceededTitle"),
                     Content = result.ArchivePath,
-                    CloseButtonText = "Close"
+                    CloseButtonText = localizationService.GetString("Common.Close")
                 };
                 await completedDialog.ShowAsync();
             }
@@ -153,9 +153,9 @@ namespace Foundry.ViewModels
                 var failedDialog = new ContentDialog
                 {
                     XamlRoot = App.MainWindow.Content.XamlRoot,
-                    Title = "Diagnostics export failed",
-                    Content = "Diagnostics could not be exported. Check the log for details.",
-                    CloseButtonText = "Close"
+                    Title = localizationService.GetString("Diagnostics.ExportFailedTitle"),
+                    Content = localizationService.GetString("Diagnostics.ExportFailedMessage"),
+                    CloseButtonText = localizationService.GetString("Common.Close")
                 };
                 await failedDialog.ShowAsync();
             }

@@ -588,4 +588,46 @@
   <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>オフ</value></data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>ユーザー制御</value></data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>強制オフ</value></data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>診断をエクスポート...</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>生の診断をエクスポート...</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>診断をエクスポート</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>元のログを変更せずに、サニタイズ済みのサポート アーカイブを作成します。</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>エクスポート...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>詳細設定: 生ログをエクスポート...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>生の診断をエクスポートしますか?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>生ログには、資格情報、識別子、パス、ネットワーク名、その他の機密データが含まれている場合があります。信頼できるサポート担当者から明示的に依頼された場合にのみエクスポートしてください。</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>生ログをエクスポート</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Foundry の診断をエクスポートする場所を選択してください</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>診断をエクスポートしました</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>診断は次の場所にエクスポートされました:&#xA;{0}</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>診断のエクスポートに失敗しました</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>診断をエクスポートできませんでした。詳細はログを確認してください。</value>
+  </data>
 </root>

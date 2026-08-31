@@ -2758,4 +2758,46 @@
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry kunne ikke åbne formularen til fejlrapportering. Kopiér dette link, og åbn det i din browser.</value>
   </data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>Eksporter diagnostik...</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>Eksporter rå diagnostik...</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Eksporter diagnostik</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Opret et renset supportarkiv uden at ændre de oprindelige logfiler.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Eksporter...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Avanceret: eksporter rå logfiler...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Eksporter rå diagnostik?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Rå logfiler kan indeholde legitimationsoplysninger, identifikatorer, stier, netværksnavne og andre følsomme data. Eksporter dem kun, når det udtrykkeligt anmodes om af en betroet supportkontakt.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Eksporter rå logfiler</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Vælg, hvor Foundry-diagnostik skal eksporteres</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnostik eksporteret</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>Diagnostik blev eksporteret til:&#xA;{0}</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Eksport af diagnostik mislykkedes</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Diagnostik kunne ikke eksporteres. Se logfilen for detaljer.</value>
+  </data>
 </root>

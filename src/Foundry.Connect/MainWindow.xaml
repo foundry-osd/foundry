@@ -76,10 +76,10 @@
                     <Separator />
                     <MenuItem
                         Command="{Binding ExportDiagnosticsCommand}"
-                        Header="Export diagnostics..." />
+                        Header="{Binding Strings[Diagnostics.ExportMenu]}" />
                     <MenuItem
                         Command="{Binding ExportRawDiagnosticsCommand}"
-                        Header="Export raw diagnostics..." />
+                        Header="{Binding Strings[Diagnostics.ExportRawMenu]}" />
                 </MenuItem>
                 <MenuItem
                     Header="{Binding Strings[Menu.Debug]}"
