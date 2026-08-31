@@ -594,18 +594,6 @@
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>Εξαγωγή ακατέργαστων διαγνωστικών...</value>
   </data>
-  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
-    <value>Εξαγωγή διαγνωστικών</value>
-  </data>
-  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
-    <value>Δημιουργήστε ένα καθαρισμένο αρχείο υποστήριξης χωρίς να τροποποιήσετε τα αρχικά αρχεία καταγραφής.</value>
-  </data>
-  <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Εξαγωγή...</value>
-  </data>
-  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Για προχωρημένους: εξαγωγή ακατέργαστων αρχείων καταγραφής...</value>
-  </data>
   <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
     <value>Εξαγωγή ακατέργαστων διαγνωστικών;</value>
   </data>

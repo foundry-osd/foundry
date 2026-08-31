@@ -2758,12 +2758,6 @@
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry не вдалося відкрити форму повідомлення про помилку. Скопіюйте це посилання та відкрийте його в браузері.</value>
   </data>
-  <data name="Diagnostics.ExportMenu" xml:space="preserve">
-    <value>Експортувати діагностику...</value>
-  </data>
-  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
-    <value>Експортувати необроблену діагностику...</value>
-  </data>
   <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
     <value>Експортувати діагностику</value>
   </data>
@@ -2790,9 +2784,6 @@
   </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Діагностику експортовано</value>
-  </data>
-  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
-    <value>Діагностику експортовано до:&#xA;{0}</value>
   </data>
   <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
     <value>Не вдалося експортувати діагностику</value>

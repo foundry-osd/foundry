@@ -2758,12 +2758,6 @@
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Aplikaci Foundry se nepodařilo otevřít formulář pro hlášení chyby. Zkopírujte tento odkaz a otevřete jej ve svém prohlížeči.</value>
   </data>
-  <data name="Diagnostics.ExportMenu" xml:space="preserve">
-    <value>Exportovat diagnostiku...</value>
-  </data>
-  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
-    <value>Exportovat nezpracovanou diagnostiku...</value>
-  </data>
   <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
     <value>Exportovat diagnostiku</value>
   </data>
@@ -2790,9 +2784,6 @@
   </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnostika exportována</value>
-  </data>
-  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
-    <value>Diagnostika byla exportována do:&#xA;{0}</value>
   </data>
   <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
     <value>Export diagnostiky se nezdařil</value>

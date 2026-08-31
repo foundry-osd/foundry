@@ -428,18 +428,6 @@
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>Eksportuoti neapdorotą diagnostiką...</value>
   </data>
-  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
-    <value>Eksportuoti diagnostiką</value>
-  </data>
-  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
-    <value>Sukurkite išvalytą palaikymo archyvą nekeisdami originalių žurnalų.</value>
-  </data>
-  <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Eksportuoti...</value>
-  </data>
-  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Išsamiau: eksportuoti neapdorotus žurnalus...</value>
-  </data>
   <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
     <value>Eksportuoti neapdorotą diagnostiką?</value>
   </data>

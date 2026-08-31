@@ -428,18 +428,6 @@
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>Eksportēt neapstrādātu diagnostiku...</value>
   </data>
-  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
-    <value>Eksportēt diagnostiku</value>
-  </data>
-  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
-    <value>Izveidojiet sanitizētu atbalsta arhīvu, nemainot sākotnējos žurnālus.</value>
-  </data>
-  <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Eksportēt...</value>
-  </data>
-  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Papildu: eksportēt neapstrādātus žurnālus...</value>
-  </data>
   <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
     <value>Eksportēt neapstrādātu diagnostiku?</value>
   </data>

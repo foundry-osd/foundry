@@ -2758,12 +2758,6 @@
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry nu a putut deschide formularul de raportare a erorii. Copiați acest link și deschideți-l în browser.</value>
   </data>
-  <data name="Diagnostics.ExportMenu" xml:space="preserve">
-    <value>Exportă diagnosticele...</value>
-  </data>
-  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
-    <value>Exportă diagnosticele brute...</value>
-  </data>
   <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
     <value>Exportă diagnosticele</value>
   </data>
@@ -2790,9 +2784,6 @@
   </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnostice exportate</value>
-  </data>
-  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
-    <value>Diagnosticele au fost exportate în:&#xA;{0}</value>
   </data>
   <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
     <value>Exportul diagnosticelor a eșuat</value>

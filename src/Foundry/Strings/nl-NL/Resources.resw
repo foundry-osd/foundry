@@ -2758,12 +2758,6 @@
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry kon het formulier voor de bugmelding niet openen. Kopieer deze link en open deze in uw browser.</value>
   </data>
-  <data name="Diagnostics.ExportMenu" xml:space="preserve">
-    <value>Diagnostiek exporteren...</value>
-  </data>
-  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
-    <value>Ruwe diagnostiek exporteren...</value>
-  </data>
   <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
     <value>Diagnostiek exporteren</value>
   </data>
@@ -2790,9 +2784,6 @@
   </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>Diagnostiek geëxporteerd</value>
-  </data>
-  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
-    <value>Diagnostiek is geëxporteerd naar:&#xA;{0}</value>
   </data>
   <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
     <value>Exporteren van diagnostiek mislukt</value>

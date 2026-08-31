@@ -594,18 +594,6 @@ Continuați cu implementarea?</value></data>
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>Exportă diagnosticele brute...</value>
   </data>
-  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
-    <value>Exportă diagnosticele</value>
-  </data>
-  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
-    <value>Creează o arhivă de asistență sanitizată fără a modifica jurnalele originale.</value>
-  </data>
-  <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Exportă...</value>
-  </data>
-  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Avansat: exportă jurnalele brute...</value>
-  </data>
   <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
     <value>Exportați diagnosticele brute?</value>
   </data>

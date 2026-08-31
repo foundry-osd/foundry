@@ -428,18 +428,6 @@
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>Експортиране на необработена диагностика...</value>
   </data>
-  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
-    <value>Експортиране на диагностика</value>
-  </data>
-  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
-    <value>Създайте саниран архив за поддръжка, без да променяте оригиналните регистрационни файлове.</value>
-  </data>
-  <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Експортиране...</value>
-  </data>
-  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Разширено: експортиране на необработени регистрационни файлове...</value>
-  </data>
   <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
     <value>Експортиране на необработена диагностика?</value>
   </data>

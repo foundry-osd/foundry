@@ -2758,12 +2758,6 @@
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry ไม่สามารถเปิดแบบฟอร์มรายงานข้อบกพร่องได้ คัดลอกลิงก์นี้แล้วเปิดในเบราว์เซอร์ของคุณ</value>
   </data>
-  <data name="Diagnostics.ExportMenu" xml:space="preserve">
-    <value>ส่งออกข้อมูลการวินิจฉัย...</value>
-  </data>
-  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
-    <value>ส่งออกข้อมูลการวินิจฉัยดิบ...</value>
-  </data>
   <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
     <value>ส่งออกข้อมูลการวินิจฉัย</value>
   </data>
@@ -2790,9 +2784,6 @@
   </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>ส่งออกข้อมูลการวินิจฉัยแล้ว</value>
-  </data>
-  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
-    <value>ส่งออกข้อมูลการวินิจฉัยไปยัง:&#xA;{0}</value>
   </data>
   <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
     <value>การส่งออกข้อมูลการวินิจฉัยล้มเหลว</value>

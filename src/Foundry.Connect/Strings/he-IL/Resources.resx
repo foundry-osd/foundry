@@ -428,18 +428,6 @@
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>ייצוא אבחון גולמי...</value>
   </data>
-  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
-    <value>ייצוא אבחון</value>
-  </data>
-  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
-    <value>צור ארכיון תמיכה מחוטא בלי לשנות את היומנים המקוריים.</value>
-  </data>
-  <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>ייצוא...</value>
-  </data>
-  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>מתקדם: ייצוא יומנים גולמיים...</value>
-  </data>
   <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
     <value>לייצא אבחון גולמי?</value>
   </data>

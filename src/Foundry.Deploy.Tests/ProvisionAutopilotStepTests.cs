@@ -404,14 +404,14 @@ public sealed class ProvisionAutopilotStepTests
                 RootPath = rootPath,
                 LogsDirectoryPath = logsDirectory,
                 StateDirectoryPath = stateDirectory,
-                LogFilePath = Path.Combine(logsDirectory, "FoundryDeploy.log"),
                 StateFilePath = Path.Combine(stateDirectory, "deployment-state.json")
             };
         }
 
         public Task AppendAsync(DeploymentLogSession session, DeploymentLogLevel level, string message, CancellationToken cancellationToken = default)
         {
-            return File.AppendAllTextAsync(session.LogFilePath, $"{level}: {message}{Environment.NewLine}", cancellationToken);
+            string logFilePath = Path.Combine(session.LogsDirectoryPath, FoundryDeployLogging.LogFileName);
+            return File.AppendAllTextAsync(logFilePath, $"{level}: {message}{Environment.NewLine}", cancellationToken);
         }
 
         public Task SaveStateAsync<TState>(DeploymentLogSession session, TState state, CancellationToken cancellationToken = default)
@@ -419,9 +419,6 @@ public sealed class ProvisionAutopilotStepTests
             return File.WriteAllTextAsync(session.StateFilePath, "{}", cancellationToken);
         }
 
-        public void Release(DeploymentLogSession session)
-        {
-        }
     }
 
     private sealed class FakeOperationProgressService : IOperationProgressService

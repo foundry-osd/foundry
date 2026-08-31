@@ -594,18 +594,6 @@
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>تصدير التشخيصات الخام...</value>
   </data>
-  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
-    <value>تصدير التشخيصات</value>
-  </data>
-  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
-    <value>أنشئ أرشيف دعم منقحًا دون تعديل السجلات الأصلية.</value>
-  </data>
-  <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>تصدير...</value>
-  </data>
-  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>متقدم: تصدير السجلات الخام...</value>
-  </data>
   <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
     <value>تصدير التشخيصات الخام؟</value>
   </data>

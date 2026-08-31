@@ -27,7 +27,6 @@ public sealed class DeploymentLogService : IDeploymentLogService
         Directory.CreateDirectory(logsDirectory);
         Directory.CreateDirectory(stateDirectory);
 
-        string logFilePath = Path.Combine(logsDirectory, FoundryDeployLogging.LogFileName);
         string stateFilePath = Path.Combine(stateDirectory, "deployment-state.json");
 
         Logger.Information(
@@ -40,7 +39,6 @@ public sealed class DeploymentLogService : IDeploymentLogService
             RootPath = normalizedRoot,
             LogsDirectoryPath = logsDirectory,
             StateDirectoryPath = stateDirectory,
-            LogFilePath = logFilePath,
             StateFilePath = stateFilePath
         };
     }
@@ -81,11 +79,6 @@ public sealed class DeploymentLogService : IDeploymentLogService
         });
 
         await File.WriteAllTextAsync(session.StateFilePath, json, cancellationToken).ConfigureAwait(false);
-    }
-
-    public void Release(DeploymentLogSession session)
-    {
-        ArgumentNullException.ThrowIfNull(session);
     }
 
     private static LogEventLevel MapLevel(DeploymentLogLevel level)

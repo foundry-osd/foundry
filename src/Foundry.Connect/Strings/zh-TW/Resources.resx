@@ -428,18 +428,6 @@
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>匯出原始診斷資訊...</value>
   </data>
-  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
-    <value>匯出診斷資訊</value>
-  </data>
-  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
-    <value>建立已淨化的支援封存檔，而不修改原始記錄。</value>
-  </data>
-  <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>匯出...</value>
-  </data>
-  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>進階：匯出原始記錄...</value>
-  </data>
   <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
     <value>要匯出原始診斷資訊嗎？</value>
   </data>

@@ -594,18 +594,6 @@
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>导出原始诊断信息...</value>
   </data>
-  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
-    <value>导出诊断信息</value>
-  </data>
-  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
-    <value>创建经过净化的支持归档，而不修改原始日志。</value>
-  </data>
-  <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>导出...</value>
-  </data>
-  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>高级：导出原始日志...</value>
-  </data>
   <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
     <value>要导出原始诊断信息吗？</value>
   </data>

@@ -2758,12 +2758,6 @@
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry はバグ報告フォームを開けませんでした。このリンクをコピーしてブラウザーで開いてください。</value>
   </data>
-  <data name="Diagnostics.ExportMenu" xml:space="preserve">
-    <value>診断をエクスポート...</value>
-  </data>
-  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
-    <value>生の診断をエクスポート...</value>
-  </data>
   <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
     <value>診断をエクスポート</value>
   </data>
@@ -2790,9 +2784,6 @@
   </data>
   <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
     <value>診断をエクスポートしました</value>
-  </data>
-  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
-    <value>診断は次の場所にエクスポートされました:&#xA;{0}</value>
   </data>
   <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
     <value>診断のエクスポートに失敗しました</value>

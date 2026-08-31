@@ -594,18 +594,6 @@ Fortsätt med implementeringen?</value></data>
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>Exportera rå diagnostik...</value>
   </data>
-  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
-    <value>Exportera diagnostik</value>
-  </data>
-  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
-    <value>Skapa ett rensat supportarkiv utan att ändra de ursprungliga loggarna.</value>
-  </data>
-  <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Exportera...</value>
-  </data>
-  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Avancerat: exportera råa loggar...</value>
-  </data>
   <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
     <value>Exportera rå diagnostik?</value>
   </data>

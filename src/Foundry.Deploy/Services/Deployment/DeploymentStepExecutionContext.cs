@@ -233,7 +233,7 @@ public sealed class DeploymentStepExecutionContext
     /// <param name="targetFoundryRoot">Foundry root on the applied Windows partition.</param>
     /// <param name="cancellationToken">Token that cancels the transfer log write.</param>
     /// <returns>A task that completes after the log session is rebound.</returns>
-    public async Task RebindLogSessionToTargetAsync(
+    public Task RebindLogSessionToTargetAsync(
         string targetFoundryRoot,
         CancellationToken cancellationToken = default)
     {
@@ -250,7 +250,7 @@ public sealed class DeploymentStepExecutionContext
                 "Deployment log persistence destination is unavailable. SourceRootPath={SourceRootPath}, TargetRootPath={TargetRootPath}",
                 previousSession.RootPath,
                 targetFoundryRoot);
-            return;
+            return Task.CompletedTask;
         }
 
         LogSession = rebound;
@@ -283,8 +283,7 @@ public sealed class DeploymentStepExecutionContext
                 rebound.StateDirectoryPath);
         }
 
-        _deploymentLogService.Release(previousSession);
-        await Task.CompletedTask.ConfigureAwait(false);
+        return Task.CompletedTask;
     }
 
     /// <summary>

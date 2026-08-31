@@ -594,18 +594,6 @@
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>Экспорт необработанной диагностики...</value>
   </data>
-  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
-    <value>Экспорт диагностики</value>
-  </data>
-  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
-    <value>Создать очищенный архив поддержки без изменения исходных журналов.</value>
-  </data>
-  <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Экспорт...</value>
-  </data>
-  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Дополнительно: экспорт необработанных журналов...</value>
-  </data>
   <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
     <value>Экспортировать необработанную диагностику?</value>
   </data>

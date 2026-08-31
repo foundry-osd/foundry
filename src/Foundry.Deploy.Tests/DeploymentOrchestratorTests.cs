@@ -333,7 +333,6 @@ public sealed class DeploymentOrchestratorTests
                 RootPath = rootPath,
                 LogsDirectoryPath = logsDirectory,
                 StateDirectoryPath = stateDirectory,
-                LogFilePath = Path.Combine(logsDirectory, "FoundryDeploy.log"),
                 StateFilePath = Path.Combine(stateDirectory, "deployment-state.json")
             };
         }
@@ -345,7 +344,8 @@ public sealed class DeploymentOrchestratorTests
             CancellationToken cancellationToken = default)
         {
             Directory.CreateDirectory(session.LogsDirectoryPath);
-            await File.AppendAllTextAsync(session.LogFilePath, $"{level}: {message}{Environment.NewLine}", cancellationToken);
+            string logFilePath = Path.Combine(session.LogsDirectoryPath, FoundryDeployLogging.LogFileName);
+            await File.AppendAllTextAsync(logFilePath, $"{level}: {message}{Environment.NewLine}", cancellationToken);
         }
 
         public async Task SaveStateAsync<TState>(
@@ -357,9 +357,6 @@ public sealed class DeploymentOrchestratorTests
             await File.WriteAllTextAsync(session.StateFilePath, "{}", cancellationToken);
         }
 
-        public void Release(DeploymentLogSession session)
-        {
-        }
     }
 
     private sealed class FakeOperationProgressService : IOperationProgressService

@@ -594,18 +594,6 @@ Jatketaanko käyttöönottoa?</value></data>
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>Vie raakadiagnostiikka...</value>
   </data>
-  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
-    <value>Vie diagnostiikka</value>
-  </data>
-  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
-    <value>Luo puhdistettu tukipaketti muuttamatta alkuperäisiä lokeja.</value>
-  </data>
-  <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Vie...</value>
-  </data>
-  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Lisäasetukset: vie raakalokit...</value>
-  </data>
   <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
     <value>Viedäänkö raakadiagnostiikka?</value>
   </data>

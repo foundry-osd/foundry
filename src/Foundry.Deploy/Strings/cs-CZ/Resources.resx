@@ -594,18 +594,6 @@ Pokračovat v nasazování?</value></data>
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>Exportovat nezpracovanou diagnostiku...</value>
   </data>
-  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
-    <value>Exportovat diagnostiku</value>
-  </data>
-  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
-    <value>Vytvořte očištěný archiv podpory bez úpravy původních protokolů.</value>
-  </data>
-  <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Exportovat...</value>
-  </data>
-  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Upřesnit: exportovat nezpracované protokoly...</value>
-  </data>
   <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
     <value>Exportovat nezpracovanou diagnostiku?</value>
   </data>

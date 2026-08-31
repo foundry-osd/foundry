@@ -428,18 +428,6 @@
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>ส่งออกข้อมูลการวินิจฉัยดิบ...</value>
   </data>
-  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
-    <value>ส่งออกข้อมูลการวินิจฉัย</value>
-  </data>
-  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
-    <value>สร้างไฟล์เก็บถาวรสำหรับการสนับสนุนที่ผ่านการล้างข้อมูลแล้ว โดยไม่แก้ไขบันทึกต้นฉบับ</value>
-  </data>
-  <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>ส่งออก...</value>
-  </data>
-  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>ขั้นสูง: ส่งออกบันทึกดิบ...</value>
-  </data>
   <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
     <value>ส่งออกข้อมูลการวินิจฉัยดิบหรือไม่?</value>
   </data>

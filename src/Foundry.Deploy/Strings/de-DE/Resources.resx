@@ -594,18 +594,6 @@ Mit der Bereitstellung fortfahren?</value></data>
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>Rohdiagnose exportieren...</value>
   </data>
-  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
-    <value>Diagnose exportieren</value>
-  </data>
-  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
-    <value>Erstellen Sie ein bereinigtes Supportarchiv, ohne die ursprünglichen Protokolle zu ändern.</value>
-  </data>
-  <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Exportieren...</value>
-  </data>
-  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Erweitert: Rohprotokolle exportieren...</value>
-  </data>
   <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
     <value>Rohdiagnose exportieren?</value>
   </data>

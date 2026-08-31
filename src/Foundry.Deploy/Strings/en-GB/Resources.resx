@@ -594,18 +594,6 @@ Continue with deployment?</value></data>
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>Export raw diagnostics...</value>
   </data>
-  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
-    <value>Export diagnostics</value>
-  </data>
-  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
-    <value>Create a sanitised support archive without modifying the original logs.</value>
-  </data>
-  <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Export...</value>
-  </data>
-  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Advanced: export raw logs...</value>
-  </data>
   <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
     <value>Export raw diagnostics?</value>
   </data>

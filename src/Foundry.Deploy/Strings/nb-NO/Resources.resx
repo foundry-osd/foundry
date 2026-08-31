@@ -594,18 +594,6 @@ Vil du fortsette med distribusjonen?</value></data>
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>Eksporter rådiagnostikk...</value>
   </data>
-  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
-    <value>Eksporter diagnostikk</value>
-  </data>
-  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
-    <value>Opprett et renset støttearkiv uten å endre de opprinnelige loggene.</value>
-  </data>
-  <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Eksporter...</value>
-  </data>
-  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Avansert: eksporter rålogger...</value>
-  </data>
   <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
     <value>Eksportere rådiagnostikk?</value>
   </data>

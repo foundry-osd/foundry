@@ -594,18 +594,6 @@ Pokračovať v nasadzovaní?</value></data>
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>Exportovať nespracovanú diagnostiku...</value>
   </data>
-  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
-    <value>Exportovať diagnostiku</value>
-  </data>
-  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
-    <value>Vytvoriť sanitizovaný archív podpory bez úpravy pôvodných denníkov.</value>
-  </data>
-  <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>Exportovať...</value>
-  </data>
-  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>Rozšírené: exportovať nespracované denníky...</value>
-  </data>
   <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
     <value>Exportovať nespracovanú diagnostiku?</value>
   </data>

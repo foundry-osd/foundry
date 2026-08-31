@@ -428,18 +428,6 @@
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>生の診断をエクスポート...</value>
   </data>
-  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
-    <value>診断をエクスポート</value>
-  </data>
-  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
-    <value>元のログを変更せずに、サニタイズ済みのサポート アーカイブを作成します。</value>
-  </data>
-  <data name="Diagnostics.ExportButton" xml:space="preserve">
-    <value>エクスポート...</value>
-  </data>
-  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
-    <value>詳細設定: 生ログをエクスポート...</value>
-  </data>
   <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
     <value>生の診断をエクスポートしますか?</value>
   </data>

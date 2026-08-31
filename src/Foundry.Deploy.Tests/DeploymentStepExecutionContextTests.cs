@@ -174,7 +174,6 @@ public sealed class DeploymentStepExecutionContextTests
                 RootPath = rootPath,
                 LogsDirectoryPath = Path.Combine(rootPath, "Logs"),
                 StateDirectoryPath = Path.Combine(rootPath, "State"),
-                LogFilePath = Path.Combine(rootPath, "Logs", "FoundryDeploy.log"),
                 StateFilePath = Path.Combine(rootPath, "State", "deployment-state.json")
             };
         }
@@ -196,9 +195,6 @@ public sealed class DeploymentStepExecutionContextTests
             return Task.CompletedTask;
         }
 
-        public void Release(DeploymentLogSession session)
-        {
-        }
     }
 
     private sealed class ThrowingRebindLogService(string initialRootPath) : IDeploymentLogService
@@ -215,7 +211,6 @@ public sealed class DeploymentStepExecutionContextTests
                 RootPath = rootPath,
                 LogsDirectoryPath = Path.Combine(rootPath, "Logs"),
                 StateDirectoryPath = Path.Combine(rootPath, "State"),
-                LogFilePath = Path.Combine(rootPath, "Logs", "FoundryDeploy.log"),
                 StateFilePath = Path.Combine(rootPath, "State", "deployment-state.json")
             };
         }
@@ -231,9 +226,6 @@ public sealed class DeploymentStepExecutionContextTests
             TState state,
             CancellationToken cancellationToken = default) => Task.CompletedTask;
 
-        public void Release(DeploymentLogSession session)
-        {
-        }
     }
 
     private sealed class FakeOperationProgressService : IOperationProgressService
