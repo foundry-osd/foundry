@@ -53,6 +53,14 @@ public static class LogValueSanitizer
             return "<invalid-uri>";
         }
 
-        return uri.GetLeftPart(UriPartial.Path);
+        var sanitized = new UriBuilder(uri)
+        {
+            UserName = string.Empty,
+            Password = string.Empty,
+            Query = string.Empty,
+            Fragment = string.Empty
+        };
+
+        return sanitized.Uri.GetLeftPart(UriPartial.Path);
     }
 }

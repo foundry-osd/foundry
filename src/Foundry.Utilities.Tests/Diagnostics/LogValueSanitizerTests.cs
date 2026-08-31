@@ -24,4 +24,15 @@ public sealed class LogValueSanitizerTests
 
         Assert.Equal("https://example.test/probe/status", result);
     }
+
+    [Fact]
+    public void SanitizeUri_RemovesUserInformation()
+    {
+        string result = LogValueSanitizer.SanitizeUri(
+            new Uri("https://user:password@example.test:8443/probe/status?token=secret"));
+
+        Assert.Equal("https://example.test:8443/probe/status", result);
+        Assert.DoesNotContain("user", result, StringComparison.Ordinal);
+        Assert.DoesNotContain("password", result, StringComparison.Ordinal);
+    }
 }
