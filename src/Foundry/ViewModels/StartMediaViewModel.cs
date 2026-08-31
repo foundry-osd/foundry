@@ -54,6 +54,12 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private IReadOnlyList<string> availableWinPeLanguages = [];
     private UsbCandidateDiscoveryState usbCandidateDiscoveryState = UsbCandidateDiscoveryState.NotLoaded;
     private bool isLoadingConfiguration = true;
+    private string? lastCustomizationLogStatus;
+    private int lastCustomizationLogBucket = -1;
+    private string? lastDownloadLogStatus;
+    private int lastDownloadLogBucket = -1;
+    private string? lastFinalMediaLogStatus;
+    private int lastFinalMediaLogBucket = -1;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="StartMediaViewModel"/> class.
@@ -383,6 +389,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(options);
         if (!evaluation.CanCreateIso)
         {
+            logger.Information(
+                "ISO media creation was blocked by preflight validation. BlockingReasons={BlockingReasons}",
+                string.Join(",", evaluation.IsoBlockingReasons));
             await ShowBlockedDialogAsync("StartMedia.CreateIso.BlockedTitle", evaluation.IsoBlockingReasons);
             return;
         }
@@ -399,6 +408,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(options);
         if (!evaluation.CanCreateUsb || options.SelectedUsbDisk is null)
         {
+            logger.Information(
+                "USB media creation was blocked by preflight validation. HasSelectedUsbTarget={HasSelectedUsbTarget}, BlockingReasons={BlockingReasons}",
+                options.SelectedUsbDisk is not null,
+                string.Join(",", evaluation.UsbBlockingReasons));
             await ShowBlockedDialogAsync("StartMedia.CreateUsb.BlockedTitle", evaluation.UsbBlockingReasons);
             return;
         }
@@ -440,6 +453,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
 
         IsMediaOperationRunning = true;
+        ResetProgressLogSampling();
         RefreshEvaluation();
         // Final media operations can format disks or overwrite ISO output, so the shell remains locked until completion.
         shellNavigationGuardService.SetState(ShellNavigationState.OperationRunning);
@@ -497,7 +511,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             terminalStatus = successMessage ?? localizationService.GetString("StartMedia.Operation.Completed");
             operationProgressService.Complete(terminalStatus);
             success = true;
-            logger.Information("Final media creation completed. Target={Target}", target);
+            logger.Information(
+                "Final media creation completed. Target={Target}, DurationMs={DurationMs}",
+                target,
+                stopwatch.ElapsedMilliseconds);
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
         {
@@ -508,9 +525,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             operationProgressService.Report(100, terminalStatus);
             logger.Error(
                 ex,
-                "Final media creation failed. Target={Target}, FailedStepName={FailedStepName}",
+                "Final media creation failed. Target={Target}, FailedStepName={FailedStepName}, DurationMs={DurationMs}, ErrorCode={ErrorCode}, Stage={Stage}, ExitCode={ExitCode}",
                 target,
-                telemetryProgressTracker.CurrentStepName);
+                telemetryProgressTracker.CurrentStepName,
+                stopwatch.ElapsedMilliseconds,
+                (ex as WinPeOperationException)?.Diagnostic?.Code,
+                (ex as WinPeOperationException)?.Diagnostic?.Stage,
+                (ex as WinPeOperationException)?.Diagnostic?.ExitCode);
         }
         finally
         {
@@ -969,13 +990,18 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             ? localizationService.GetString("StartMedia.Operation.PreparingWorkspace")
             : LocalizeCustomizationStatus(progress.Status);
 
-        logger.Debug(
-            "WinPE image customization progress changed. CoreStatus={CoreStatus}, Percent={Percent}, NormalizedProgress={NormalizedProgress}, DetailStatus={DetailStatus}, DetailPercent={DetailPercent}",
-            progress.Status,
-            progress.Percent,
-            normalizedProgress,
-            progress.DetailStatus,
-            progress.DetailPercent);
+        int sampledPercent = progress.DetailPercent ?? progress.Percent;
+        string sampledStatus = $"{progress.Status}|{progress.DetailStatus}";
+        if (ShouldLogProgress(ref lastCustomizationLogStatus, ref lastCustomizationLogBucket, sampledStatus, sampledPercent))
+        {
+            logger.Debug(
+                "WinPE image customization progress changed. CoreStatus={CoreStatus}, Percent={Percent}, NormalizedProgress={NormalizedProgress}, DetailStatus={DetailStatus}, DetailPercent={DetailPercent}",
+                progress.Status,
+                progress.Percent,
+                normalizedProgress,
+                progress.DetailStatus,
+                progress.DetailPercent);
+        }
 
         if (progress.DetailPercent.HasValue || !string.IsNullOrWhiteSpace(progress.DetailStatus))
         {
@@ -996,10 +1022,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             ? localizationService.GetString("StartMedia.Operation.Downloading")
             : LocalizeDownloadStatus(progress.Status);
 
-        logger.Debug(
-            "Final media download progress changed. DownloadStatus={DownloadStatus}, DownloadPercent={DownloadPercent}",
-            progress.Status,
-            progress.Percent);
+        if (ShouldLogProgress(ref lastDownloadLogStatus, ref lastDownloadLogBucket, progress.Status, progress.Percent))
+        {
+            logger.Debug(
+                "Final media download progress changed. DownloadStatus={DownloadStatus}, DownloadPercent={DownloadPercent}",
+                progress.Status,
+                progress.Percent);
+        }
         operationProgressService.Report(
             operationProgressService.State.Progress,
             operationProgressService.State.Status,
@@ -1014,13 +1043,39 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             ? localizationService.GetString("StartMedia.Operation.CreatingIso")
             : LocalizeFinalMediaStatus(progress.Status);
 
-        logger.Debug(
-            "Final media output progress changed. CoreStatus={CoreStatus}, Percent={Percent}, NormalizedProgress={NormalizedProgress}, LogDetail={LogDetail}",
-            progress.Status,
-            progress.Percent,
-            normalizedProgress,
-            progress.LogDetail);
+        if (ShouldLogProgress(ref lastFinalMediaLogStatus, ref lastFinalMediaLogBucket, progress.Status, progress.Percent))
+        {
+            logger.Debug(
+                "Final media output progress changed. CoreStatus={CoreStatus}, Percent={Percent}, NormalizedProgress={NormalizedProgress}, HasLogDetail={HasLogDetail}",
+                progress.Status,
+                progress.Percent,
+                normalizedProgress,
+                !string.IsNullOrWhiteSpace(progress.LogDetail));
+        }
         operationProgressService.Report(normalizedProgress, status);
+    }
+
+    private void ResetProgressLogSampling()
+    {
+        lastCustomizationLogStatus = null;
+        lastCustomizationLogBucket = -1;
+        lastDownloadLogStatus = null;
+        lastDownloadLogBucket = -1;
+        lastFinalMediaLogStatus = null;
+        lastFinalMediaLogBucket = -1;
+    }
+
+    private static bool ShouldLogProgress(ref string? previousStatus, ref int previousBucket, string? status, int? percent)
+    {
+        int bucket = percent.HasValue ? Math.Clamp(percent.Value, 0, 100) / 10 : -2;
+        bool shouldLog = !string.Equals(previousStatus, status, StringComparison.Ordinal) || previousBucket != bucket;
+        if (shouldLog)
+        {
+            previousStatus = status;
+            previousBucket = bucket;
+        }
+
+        return shouldLog;
     }
 
     private string LocalizeCustomizationStatus(string status)
@@ -1936,7 +1991,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IReadOnlyList<MediaPreflightBlockingReason> reasons = GetGlobalBlockingReasons(evaluation);
 
         logger.Information(
-            "Media preflight summary refreshed. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, BootImageSource={BootImageSource}, IsoOutputPath={IsoOutputPath}, UsbTargetSelected={UsbTargetSelected}, DiskNumber={DiskNumber}, DiskName={DiskName}, NetworkReady={NetworkReady}, DeployReady={DeployReady}, ConnectReady={ConnectReady}, SecretsReady={SecretsReady}, AutopilotEnabled={AutopilotEnabled}, AutopilotReady={AutopilotReady}, AutopilotProfile={AutopilotProfile}, AutopilotFolder={AutopilotFolder}, SummaryReady={SummaryReady}, BlockingReasons={BlockingReasons}",
+            "Media preflight summary refreshed. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, BootImageSource={BootImageSource}, IsoOutputPath={IsoOutputPath}, UsbTargetSelected={UsbTargetSelected}, DiskNumber={DiskNumber}, DiskName={DiskName}, NetworkReady={NetworkReady}, DeployReady={DeployReady}, ConnectReady={ConnectReady}, SecretsReady={SecretsReady}, AutopilotEnabled={AutopilotEnabled}, AutopilotReady={AutopilotReady}, HasAutopilotProfile={HasAutopilotProfile}, HasAutopilotFolder={HasAutopilotFolder}, SummaryReady={SummaryReady}, BlockingReasons={BlockingReasons}",
             options.Architecture,
             NormalizeCultureName(options.WinPeLanguage),
             options.BootImageSource,
@@ -1950,8 +2005,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             options.AreRequiredSecretsReady,
             options.IsAutopilotEnabled,
             options.IsAutopilotConfigurationReady,
-            options.AutopilotProfileDisplayName,
-            options.AutopilotProfileFolderName,
+            !string.IsNullOrWhiteSpace(options.AutopilotProfileDisplayName),
+            !string.IsNullOrWhiteSpace(options.AutopilotProfileFolderName),
             evaluation.CanGenerateIsoSummary || evaluation.CanGenerateUsbSummary,
             string.Join(",", reasons));
     }
@@ -2277,7 +2332,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             return;
         }
 
-        throw new InvalidOperationException(FormatWinPeError(result.Error));
+        throw new WinPeOperationException(result.Error);
+    }
+
+    private sealed class WinPeOperationException(WinPeDiagnostic? diagnostic)
+        : InvalidOperationException(FormatWinPeError(diagnostic))
+    {
+        public WinPeDiagnostic? Diagnostic { get; } = diagnostic;
     }
 
     private static string FormatWinPeError(WinPeDiagnostic? diagnostic)

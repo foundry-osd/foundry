@@ -167,9 +167,8 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
             AdkInstallationStatus status = await operation(CancellationToken.None);
             ApplyShellState(status);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            logger.Warning("ADK page operation failed. ErrorMessage={ErrorMessage}", ex.Message);
             shellNavigationGuardService.SetState(ShellNavigationState.AdkBlocked);
         }
     }

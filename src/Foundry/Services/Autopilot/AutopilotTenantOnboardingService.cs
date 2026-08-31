@@ -63,12 +63,12 @@ public sealed class AutopilotTenantOnboardingService(
             if (application is null)
             {
                 application = await CreateApplicationAsync(accessToken, requiredRole, cancellationToken).ConfigureAwait(false);
-                logger.Information("Created managed Autopilot app registration. ApplicationObjectId={ApplicationObjectId}", application.ObjectId);
+                logger.Information("Created managed Autopilot app registration. RegistrationAction={RegistrationAction}", "Created");
             }
             else if (string.IsNullOrWhiteSpace(currentSettings.Tenant.ApplicationObjectId) &&
                      string.Equals(application.DisplayName, AutopilotHardwareHashUploadSettings.ManagedAppRegistrationDisplayName, StringComparison.OrdinalIgnoreCase))
             {
-                logger.Information("Adopted existing managed Autopilot app registration. ApplicationObjectId={ApplicationObjectId}", application.ObjectId);
+                logger.Information("Adopted existing managed Autopilot app registration. RegistrationAction={RegistrationAction}", "Adopted");
             }
 
             application = await EnsureRequiredApplicationPermissionAsync(
