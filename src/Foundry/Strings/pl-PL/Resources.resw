@@ -133,10 +133,10 @@
     <value>Odśwież</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Włącz diagnostykę programisty i otwórz folder dziennika Foundry.</value>
+    <value>Włącz rejestrowanie zdarzeń aplikacji na poziomie debugowania.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostyka</value>
+    <value>Diagnostyka deweloperska</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Zmień język aplikacji bez ponownego uruchamiania Foundry OSD.</value>
@@ -2757,5 +2757,38 @@
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry nie mógł otworzyć formularza zgłoszenia błędu. Skopiuj ten link i otwórz go w przeglądarce.</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Eksportuj diagnostykę</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Utwórz oczyszczone archiwum pomocy technicznej bez modyfikowania oryginalnych dzienników.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Eksportuj...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Zaawansowane: eksportuj surowe dzienniki...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Eksportować surową diagnostykę?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Surowe dzienniki mogą zawierać poświadczenia, identyfikatory, ścieżki, nazwy sieci i inne poufne dane. Eksportuj je tylko wtedy, gdy wyraźnie poprosi o to zaufany kontakt pomocy technicznej.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Eksportuj surowe dzienniki</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Wybierz, gdzie wyeksportować diagnostykę Foundry</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Wyeksportowano diagnostykę</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Eksport diagnostyki nie powiódł się</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Nie można było wyeksportować diagnostyki. Sprawdź dziennik, aby uzyskać szczegóły.</value>
   </data>
 </root>

@@ -133,10 +133,10 @@
     <value>Värskenda</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Lubage arendaja diagnostika ja avage Foundry logikaust.</value>
+    <value>Luba rakenduse silumistaseme logimine.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostika</value>
+    <value>Arendaja diagnostika</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Muutke rakenduse keelt ilma Foundry OSD taaskäivitamata.</value>
@@ -2757,5 +2757,38 @@
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry ei saanud veateate vormi avada. Kopeerige see link ja avage see oma brauseris.</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Ekspordi diagnostika</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Loo puhastatud tugiarhiiv ilma algseid logisid muutmata.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Ekspordi...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Täpsemalt: ekspordi töötlemata logid...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Kas eksportida töötlemata diagnostika?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Töötlemata logid võivad sisaldada mandaate, identifikaatoreid, teid, võrgunimesid ja muid tundlikke andmeid. Ekspordi need ainult siis, kui usaldusväärne tugikontakt seda sõnaselgelt taotleb.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Ekspordi töötlemata logid</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Valige, kuhu Foundry diagnostika eksportida</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnostika eksporditud</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Diagnostika eksport ebaõnnestus</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Diagnostikat ei saanud eksportida. Vaadake üksikasju logist.</value>
   </data>
 </root>

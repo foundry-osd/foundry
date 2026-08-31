@@ -164,6 +164,7 @@ namespace Foundry
             GetService<ITelemetryService>().FlushAsync().GetAwaiter().GetResult();
             AppLogger.Debug("Foundry telemetry flush completed.");
             Host.Dispose();
+            AppLogger.Information("Foundry WinUI shutdown completed.");
             Log.CloseAndFlush();
         }
 

@@ -133,10 +133,10 @@
     <value>Yenile</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Geliştirici teşhisini etkinleştirin ve Foundry günlük klasörünü açın.</value>
+    <value>Uygulama günlüklerinin hata ayıklama düzeyinde kaydedilmesini etkinleştirin.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Teşhis</value>
+    <value>Geliştirici tanılaması</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Foundry OSD'yi yeniden başlatmadan uygulama dilini değiştirin.</value>
@@ -2757,5 +2757,38 @@
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry hata bildirim formunu açamadı. Bu bağlantıyı kopyalayıp tarayıcınızda açın.</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Tanılamayı dışa aktar</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Özgün günlükleri değiştirmeden temizlenmiş bir destek arşivi oluştur.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Dışa aktar...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Gelişmiş: ham günlükleri dışa aktar...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Ham tanılama dışa aktarılsın mı?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Ham günlükler kimlik bilgileri, tanımlayıcılar, yollar, ağ adları ve diğer hassas verileri içerebilir. Bunları yalnızca güvenilir bir destek yetkilisi açıkça istediğinde dışa aktarın.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Ham günlükleri dışa aktar</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Foundry tanılamasının nereye dışa aktarılacağını seçin</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Tanılama dışa aktarıldı</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Tanılama dışa aktarılamadı</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Tanılama dışa aktarılamadı. Ayrıntılar için günlüğü denetleyin.</value>
   </data>
 </root>

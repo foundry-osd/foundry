@@ -422,4 +422,34 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Chineză tradițională (Taiwan)</value>
   </data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>Exportă diagnosticele...</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>Exportă diagnosticele brute...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Exportați diagnosticele brute?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Jurnalele brute pot conține acreditări, identificatori, căi, nume de rețea și alte date sensibile. Exportați-le numai când sunt solicitate explicit de un contact de suport de încredere.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Exportă jurnalele brute</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Alegeți unde să exportați diagnosticele Foundry</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnostice exportate</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>Diagnosticele au fost exportate în:&#xA;{0}</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Exportul diagnosticelor a eșuat</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Diagnosticele nu au putut fi exportate. Verificați jurnalul pentru detalii.</value>
+  </data>
 </root>

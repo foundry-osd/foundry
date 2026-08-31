@@ -292,7 +292,7 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
             uploadResult).ConfigureAwait(false);
         await context.AppendLogAsync(
             uploadResult.IsCompleted ? DeploymentLogLevel.Info : DeploymentLogLevel.Warning,
-            $"Autopilot hardware hash upload state '{uploadResult.State}'. DiagnosticsPath='{context.RuntimeState.AutopilotHardwareHashDiagnosticsPath}', GroupTag='{FormatGroupTagForLog(context.RuntimeState.AutopilotHardwareHashGroupTag)}'.",
+            $"Autopilot hardware hash upload state '{uploadResult.State}'. DiagnosticsPath='{context.RuntimeState.AutopilotHardwareHashDiagnosticsPath}', GroupTagConfigured={!string.IsNullOrWhiteSpace(context.RuntimeState.AutopilotHardwareHashGroupTag)}.",
             cancellationToken).ConfigureAwait(false);
 
         return uploadResult.IsCompleted
@@ -494,10 +494,4 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
         };
     }
 
-    private static string FormatGroupTagForLog(string? groupTag)
-    {
-        return string.IsNullOrWhiteSpace(groupTag)
-            ? "None"
-            : groupTag;
-    }
 }

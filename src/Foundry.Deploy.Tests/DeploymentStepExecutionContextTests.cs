@@ -83,11 +83,30 @@ public sealed class DeploymentStepExecutionContextTests
         Assert.Equal(Path.Combine(expectedCacheRoot, "Cache", expectedPayloadDirectory), root);
     }
 
+    [Fact]
+    public async Task RebindLogSessionToTargetAsync_WhenTargetCannotBeInitialized_KeepsCurrentSession()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var logService = new ThrowingRebindLogService(workspace.RootPath);
+        DeploymentStepExecutionContext context = CreateExecutionContext(
+            workspace.RootPath,
+            Path.Combine(workspace.CacheRootPath, "Runtime"),
+            logService: logService);
+        DeploymentLogSession originalSession = context.LogSession;
+
+        await context.RebindLogSessionToTargetAsync(
+            Path.Combine(workspace.RootPath, "unavailable-target"),
+            TestContext.Current.CancellationToken);
+
+        Assert.Same(originalSession, context.LogSession);
+    }
+
     private static DeploymentStepExecutionContext CreateExecutionContext(
         string workspaceRoot,
         string resolvedCacheRootPath,
         DeploymentMode mode = DeploymentMode.Usb,
-        string? targetFoundryRoot = null)
+        string? targetFoundryRoot = null,
+        IDeploymentLogService? logService = null)
     {
         var request = new DeploymentContext
         {
@@ -117,7 +136,7 @@ public sealed class DeploymentStepExecutionContextTests
             runtimeState,
             [],
             new FakeOperationProgressService(),
-            new FakeDeploymentLogService(),
+            logService ?? new FakeDeploymentLogService(),
             new FakeTargetDiskService(),
             _ => { });
     }
@@ -155,7 +174,6 @@ public sealed class DeploymentStepExecutionContextTests
                 RootPath = rootPath,
                 LogsDirectoryPath = Path.Combine(rootPath, "Logs"),
                 StateDirectoryPath = Path.Combine(rootPath, "State"),
-                LogFilePath = Path.Combine(rootPath, "Logs", "FoundryDeploy.log"),
                 StateFilePath = Path.Combine(rootPath, "State", "deployment-state.json")
             };
         }
@@ -177,9 +195,37 @@ public sealed class DeploymentStepExecutionContextTests
             return Task.CompletedTask;
         }
 
-        public void Release(DeploymentLogSession session)
+    }
+
+    private sealed class ThrowingRebindLogService(string initialRootPath) : IDeploymentLogService
+    {
+        public DeploymentLogSession Initialize(string rootPath)
         {
+            if (!rootPath.Equals(initialRootPath, StringComparison.OrdinalIgnoreCase))
+            {
+                throw new IOException("Simulated log destination failure.");
+            }
+
+            return new DeploymentLogSession
+            {
+                RootPath = rootPath,
+                LogsDirectoryPath = Path.Combine(rootPath, "Logs"),
+                StateDirectoryPath = Path.Combine(rootPath, "State"),
+                StateFilePath = Path.Combine(rootPath, "State", "deployment-state.json")
+            };
         }
+
+        public Task AppendAsync(
+            DeploymentLogSession session,
+            DeploymentLogLevel level,
+            string message,
+            CancellationToken cancellationToken = default) => Task.CompletedTask;
+
+        public Task SaveStateAsync<TState>(
+            DeploymentLogSession session,
+            TState state,
+            CancellationToken cancellationToken = default) => Task.CompletedTask;
+
     }
 
     private sealed class FakeOperationProgressService : IOperationProgressService

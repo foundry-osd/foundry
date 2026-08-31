@@ -133,10 +133,10 @@
     <value>רענן</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>אפשר אבחון מפתחים ופתח את תיקיית היומן Foundry.</value>
+    <value>הפעלת רישום יישום ברמת איתור באגים.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>אבחון</value>
+    <value>אבחון למפתחים</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>שנה את שפת היישום מבלי להפעיל מחדש את Foundry OSD.</value>
@@ -2757,5 +2757,38 @@
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry לא הצליח לפתוח את טופס הדיווח על הבאג. העתק את הקישור הזה ופתח אותו בדפדפן שלך.</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>ייצוא אבחון</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>צור ארכיון תמיכה מחוטא בלי לשנות את היומנים המקוריים.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>ייצוא...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>מתקדם: ייצוא יומנים גולמיים...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>לייצא אבחון גולמי?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>יומנים גולמיים עשויים להכיל אישורי גישה, מזהים, נתיבים, שמות רשת ונתונים רגישים אחרים. ייצא אותם רק כאשר איש תמיכה מהימן מבקש זאת במפורש.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>ייצוא יומנים גולמיים</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>בחר היכן לייצא את אבחון Foundry</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>האבחון יוצא</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>ייצוא האבחון נכשל</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>לא ניתן היה לייצא את האבחון. בדוק את היומן לפרטים.</value>
   </data>
 </root>

@@ -588,4 +588,34 @@ Jatketaanko käyttöönottoa?</value></data>
   <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>Pois päältä</value></data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>Käyttäjän hallitsema</value></data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>Pakotettu pois päältä</value></data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>Vie diagnostiikka...</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>Vie raakadiagnostiikka...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Viedäänkö raakadiagnostiikka?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Raakalokit voivat sisältää tunnistetietoja, tunnisteita, polkuja, verkkojen nimiä ja muita arkaluonteisia tietoja. Vie ne vain, kun luotettu tukihenkilö pyytää sitä nimenomaisesti.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Vie raakalokit</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Valitse, mihin Foundryn diagnostiikka viedään</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnostiikka viety</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>Diagnostiikka vietiin kohteeseen:&#xA;{0}</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Diagnostiikan vienti epäonnistui</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Diagnostiikkaa ei voitu viedä. Tarkista lokista lisätiedot.</value>
+  </data>
 </root>

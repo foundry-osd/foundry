@@ -133,10 +133,10 @@
     <value>Atsvaidzināt</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Iespējojiet izstrādātāja diagnostiku un atveriet Foundry žurnāla mapi.</value>
+    <value>Iespējot lietojumprogrammas atkļūdošanas līmeņa žurnalēšanu.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostika</value>
+    <value>Izstrādātāja diagnostika</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Mainiet lietojumprogrammas valodu, nerestartējot Foundry OSD.</value>
@@ -2757,5 +2757,38 @@
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry neizdevās atvērt kļūdas ziņojuma veidlapu. Nokopējiet šo saiti un atveriet to pārlūkprogrammā.</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Eksportēt diagnostiku</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Izveidojiet sanitizētu atbalsta arhīvu, nemainot sākotnējos žurnālus.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Eksportēt...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Papildu: eksportēt neapstrādātus žurnālus...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Eksportēt neapstrādātu diagnostiku?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Neapstrādātajos žurnālos var būt akreditācijas dati, identifikatori, ceļi, tīklu nosaukumi un citi sensitīvi dati. Eksportējiet tos tikai tad, ja to skaidri pieprasa uzticams atbalsta kontakts.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Eksportēt neapstrādātus žurnālus</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Izvēlieties, kur eksportēt Foundry diagnostiku</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnostika eksportēta</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Diagnostikas eksportēšana neizdevās</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Diagnostiku neizdevās eksportēt. Plašāku informāciju skatiet žurnālā.</value>
   </data>
 </root>

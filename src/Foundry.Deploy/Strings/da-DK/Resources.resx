@@ -588,4 +588,34 @@ Vil du fortsætte med implementeringen?</value></data>
   <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>Fra</value></data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>Brugerstyret</value></data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>Tvunget fra</value></data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>Eksporter diagnostik...</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>Eksporter rå diagnostik...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Eksporter rå diagnostik?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Rå logfiler kan indeholde legitimationsoplysninger, identifikatorer, stier, netværksnavne og andre følsomme data. Eksporter dem kun, når det udtrykkeligt anmodes om af en betroet supportkontakt.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Eksporter rå logfiler</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Vælg, hvor Foundry-diagnostik skal eksporteres</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnostik eksporteret</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>Diagnostik blev eksporteret til:&#xA;{0}</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Eksport af diagnostik mislykkedes</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Diagnostik kunne ikke eksporteres. Se logfilen for detaljer.</value>
+  </data>
 </root>

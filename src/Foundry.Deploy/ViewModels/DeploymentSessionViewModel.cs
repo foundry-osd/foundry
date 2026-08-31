@@ -7,23 +7,31 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Net.NetworkInformation;
+using System.Runtime.InteropServices;
+using System.Windows;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Foundry.Core.Models.Configuration;
 using Foundry.Utilities.Networking;
+using Foundry.Utilities.Diagnostics;
+using Foundry.Utilities.Runtime;
+using Foundry.Utilities.Storage;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Utilities.Processes;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.System;
+using Foundry.Deploy.Views;
 using Microsoft.Extensions.Logging;
+using Microsoft.Win32;
 
 namespace Foundry.Deploy.ViewModels;
 
 public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
 {
+    private const int ShellFolderPickerUnavailableHResult = unchecked((int)0x80040111);
     private readonly Dispatcher _dispatcher;
     private readonly ILogger _logger;
     private readonly IOperationProgressService _operationProgressService;
@@ -313,7 +321,22 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     {
         try
         {
+            LogPersistenceResult persistenceResult = FoundryDeployLogging.PersistCurrentLogs();
+            if (persistenceResult.FailedFileCount > 0)
+            {
+                _logger.LogWarning(
+                    "The durable deployment log snapshot could not be fully refreshed. CopiedFileCount={CopiedFileCount}, FailedFileCount={FailedFileCount}",
+                    persistenceResult.CopiedFileCount,
+                    persistenceResult.FailedFileCount);
+            }
+
             string logFilePath = ResolveEffectiveLogFilePath();
+            if (!File.Exists(logFilePath))
+            {
+                _logger.LogWarning("The deployment log file is unavailable. LogFilePath={LogFilePath}", logFilePath);
+                return;
+            }
+
             ProcessStartInfo startInfo = new("notepad.exe")
             {
                 UseShellExecute = false
@@ -326,6 +349,152 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         {
             _logger.LogError(ex, "Failed to open log file.");
         }
+    }
+
+    [RelayCommand]
+    private Task ExportDiagnosticsAsync()
+    {
+        return ExportDiagnosticsAsync(SupportBundlePrivacyMode.Sanitized);
+    }
+
+    [RelayCommand]
+    private async Task ExportRawDiagnosticsAsync()
+    {
+        var confirmationDialog = new LocalizedMessageDialog(
+            GetString("Diagnostics.ExportRawTitle"),
+            GetString("Diagnostics.ExportRawWarning"),
+            GetString("Diagnostics.ExportRawConfirm"),
+            GetString("Common.Cancel"));
+        if (confirmationDialog.ShowDialog() != true)
+        {
+            return;
+        }
+
+        await ExportDiagnosticsAsync(SupportBundlePrivacyMode.Raw);
+    }
+
+    private async Task ExportDiagnosticsAsync(SupportBundlePrivacyMode privacyMode)
+    {
+        try
+        {
+            string? destinationDirectoryPath = SelectExportDestination();
+            if (destinationDirectoryPath is null)
+            {
+                return;
+            }
+
+            _logger.LogInformation("Support bundle export started. PrivacyMode={PrivacyMode}", privacyMode);
+            LogPersistenceResult persistenceResult = FoundryDeployLogging.PersistCurrentLogs();
+            if (persistenceResult.FailedFileCount > 0)
+            {
+                _logger.LogWarning(
+                    "The durable deployment log snapshot could not be fully refreshed before export. CopiedFileCount={CopiedFileCount}, FailedFileCount={FailedFileCount}",
+                    persistenceResult.CopiedFileCount,
+                    persistenceResult.FailedFileCount);
+            }
+
+            string[] logFilePaths = EnumerateSupportLogFiles();
+            SupportBundleResult result = await new SupportBundleExporter().ExportAsync(
+                new SupportBundleRequest
+                {
+                    ApplicationName = "Foundry.Deploy",
+                    ApplicationVersion = FoundryDeployApplicationInfo.Version,
+                    SessionId = DiagnosticSessionContext.CurrentSessionId,
+                    DestinationDirectoryPath = destinationDirectoryPath,
+                    LogFilePaths = logFilePaths,
+                    PrivacyMode = privacyMode,
+                    Summary = new Dictionary<string, string>
+                    {
+                        ["Architecture"] = RuntimeInformation.ProcessArchitecture.ToString(),
+                        ["DeploymentMode"] = Environment.GetEnvironmentVariable("FOUNDRY_DEPLOYMENT_MODE") ?? "Unknown",
+                        ["OperatingSystem"] = Environment.OSVersion.VersionString,
+                        ["Page"] = CurrentPage.ToString()
+                    }
+                });
+
+            _logger.LogInformation(
+                "Support bundle export completed. PrivacyMode={PrivacyMode}, IncludedFileCount={IncludedFileCount}, OmittedFileCount={OmittedFileCount}",
+                privacyMode,
+                result.IncludedFiles.Count,
+                result.OmittedFiles.Count);
+            _ = new LocalizedMessageDialog(
+                GetString("Diagnostics.ExportSucceededTitle"),
+                Format("Diagnostics.ExportSucceededMessageFormat", result.ArchivePath),
+                GetString("Common.Close")).ShowDialog();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Support bundle export failed. PrivacyMode={PrivacyMode}", privacyMode);
+            _ = new LocalizedMessageDialog(
+                GetString("Diagnostics.ExportFailedTitle"),
+                GetString("Diagnostics.ExportFailedMessage"),
+                GetString("Common.Close")).ShowDialog();
+        }
+    }
+
+    private string? SelectExportDestination()
+    {
+        if (WinPeRuntimeDetector.IsWinPeRuntime())
+        {
+            _logger.LogInformation("The shell folder picker was skipped because the application is running in WinPE.");
+            return ResolveRequiredExternalExportDirectory();
+        }
+
+        try
+        {
+            string? externalExportDirectory = ResolveExternalExportDirectory();
+            var picker = new OpenFolderDialog
+            {
+                Title = GetString("Diagnostics.ExportDestinationTitle"),
+                InitialDirectory = ResolveSuggestedExportDirectory(externalExportDirectory)
+            };
+            return picker.ShowDialog() == true ? picker.FolderName : null;
+        }
+        catch (COMException ex) when (ex.HResult == ShellFolderPickerUnavailableHResult)
+        {
+            string? fallbackDirectoryPath = ResolveExternalExportDirectory();
+            _logger.LogWarning(
+                ex,
+                "The shell folder picker is unavailable. Falling back to an external volume. HasFallbackDestination={HasFallbackDestination}",
+                fallbackDirectoryPath is not null);
+            return fallbackDirectoryPath
+                   ?? throw new IOException("No ready external volume is available for the diagnostic export.");
+        }
+    }
+
+    private string ResolveRequiredExternalExportDirectory()
+    {
+        return ResolveExternalExportDirectory()
+               ?? throw new IOException("No ready external volume is available for the diagnostic export.");
+    }
+
+    private string[] EnumerateSupportLogFiles()
+    {
+        string? activeDirectoryPath = Path.GetDirectoryName(FoundryDeployLogging.CurrentLogFilePath);
+        return new[] { activeDirectoryPath, _lastLogsDirectoryPath }
+            .Where(static path => !string.IsNullOrWhiteSpace(path) && Directory.Exists(path))
+            .SelectMany(static path => Directory.GetFiles(path!, "Foundry*.log", SearchOption.TopDirectoryOnly))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+    }
+
+    private static string ResolveSuggestedExportDirectory(string? externalExportDirectory)
+    {
+        try
+        {
+            return externalExportDirectory
+                   ?? Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+        }
+        catch
+        {
+            return Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+        }
+    }
+
+    private string? ResolveExternalExportDirectory()
+    {
+        return SupportBundleDestinationPolicy.SelectExternalDestination(
+            new WindowsVolumeDiscovery().GetVolumes());
     }
 
     [RelayCommand(CanExecute = nameof(CanRebootNow))]
@@ -714,10 +883,14 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     {
         if (!string.IsNullOrWhiteSpace(_lastLogsDirectoryPath))
         {
-            return Path.Combine(_lastLogsDirectoryPath, FoundryDeployLogging.LogFileName);
+            string persistedLogFilePath = Path.Combine(_lastLogsDirectoryPath, FoundryDeployLogging.LogFileName);
+            if (File.Exists(persistedLogFilePath))
+            {
+                return persistedLogFilePath;
+            }
         }
 
-        return FoundryDeployLogging.ResolveStartupLogFilePath();
+        return FoundryDeployLogging.CurrentLogFilePath;
     }
 
     private void RunOnUi(Action action)

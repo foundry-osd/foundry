@@ -422,4 +422,34 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>Китайська традиційна (Тайвань)</value>
   </data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>Експортувати діагностику...</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>Експортувати необроблену діагностику...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Експортувати необроблену діагностику?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Необроблені журнали можуть містити облікові дані, ідентифікатори, шляхи, назви мереж та інші чутливі дані. Експортуйте їх лише за явним запитом від довіреної контактної особи служби підтримки.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Експортувати необроблені журнали</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Виберіть, куди експортувати діагностику Foundry</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Діагностику експортовано</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>Діагностику експортовано до:&#xA;{0}</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Не вдалося експортувати діагностику</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Не вдалося експортувати діагностику. Перевірте журнал для отримання подробиць.</value>
+  </data>
 </root>

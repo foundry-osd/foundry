@@ -133,10 +133,10 @@
     <value>Obnoviť</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Povoľte diagnostiku vývojára a otvorte priečinok denníka Foundry.</value>
+    <value>Povoliť zapisovanie aplikácie do denníka na úrovni ladenia.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostika</value>
+    <value>Diagnostika pre vývojárov</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Zmeňte jazyk aplikácie bez reštartovania Foundry OSD.</value>
@@ -2757,5 +2757,38 @@
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Aplikácii Foundry sa nepodarilo otvoriť formulár na hlásenie chyby. Skopírujte tento odkaz a otvorte ho vo svojom prehliadači.</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Exportovať diagnostiku</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Vytvoriť sanitizovaný archív podpory bez úpravy pôvodných denníkov.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Exportovať...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Rozšírené: exportovať nespracované denníky...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Exportovať nespracovanú diagnostiku?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Nespracované denníky môžu obsahovať poverenia, identifikátory, cesty, názvy sietí a ďalšie citlivé údaje. Exportujte ich iba vtedy, keď ich výslovne vyžiada dôveryhodný kontakt podpory.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Exportovať nespracované denníky</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Vyberte, kam exportovať diagnostiku Foundry</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnostika bola exportovaná</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Export diagnostiky zlyhal</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Diagnostiku sa nepodarilo exportovať. Podrobnosti nájdete v denníku.</value>
   </data>
 </root>

@@ -287,14 +287,12 @@ public sealed class ConfigureWindowsOptionalFeaturesStepTests
                 RootPath = rootPath,
                 LogsDirectoryPath = logsDirectory,
                 StateDirectoryPath = stateDirectory,
-                LogFilePath = Path.Combine(logsDirectory, "deploy.log"),
                 StateFilePath = Path.Combine(stateDirectory, "state.json")
             };
         }
 
         public Task AppendAsync(DeploymentLogSession session, DeploymentLogLevel level, string message, CancellationToken cancellationToken = default) => Task.CompletedTask;
         public Task SaveStateAsync<TState>(DeploymentLogSession session, TState state, CancellationToken cancellationToken = default) => Task.CompletedTask;
-        public void Release(DeploymentLogSession session) { }
     }
 
     private sealed class FakeOperationProgressService : IOperationProgressService

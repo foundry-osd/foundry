@@ -8,6 +8,7 @@ using Foundry.Connect.Models.Network;
 using Foundry.Connect.Services.Localization;
 using Foundry.Connect.Services.Network;
 using Foundry.Utilities.Networking;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Foundry.Connect.Tests;
@@ -73,6 +74,34 @@ public sealed class NetworkStatusServiceTests
             () => service.GetSnapshotAsync(TestContext.Current.CancellationToken));
     }
 
+    [Fact]
+    public async Task GetSnapshotAsync_WhenProbeFails_LogsSanitizedEndpoint()
+    {
+        var logger = new RecordingLogger<NetworkStatusService>();
+        var configuration = new FoundryConnectConfiguration
+        {
+            InternetProbe = new InternetProbeOptions
+            {
+                ProbeUris = ["http://user:password@127.0.0.1:1/status?token=secret#fragment"],
+                TimeoutSeconds = 1
+            }
+        };
+        var service = new NetworkStatusService(
+            configuration,
+            new LocalizationService(),
+            logger,
+            new StubNetworkAdapterSnapshotProvider([]));
+
+        _ = await service.GetSnapshotAsync(TestContext.Current.CancellationToken);
+
+        string message = Assert.Single(logger.Messages);
+        Assert.Contains("http://127.0.0.1:1/status", message, StringComparison.Ordinal);
+        Assert.DoesNotContain("user", message, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("password", message, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("secret", message, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("fragment", message, StringComparison.OrdinalIgnoreCase);
+    }
+
     private static NetworkStatusService CreateService(INetworkAdapterSnapshotProvider provider)
     {
         var configuration = new FoundryConnectConfiguration
@@ -122,5 +151,25 @@ public sealed class NetworkStatusServiceTests
         }
 
         public IReadOnlyList<NetworkAdapterSnapshot> GetAdapters() => _getAdapters();
+    }
+
+    private sealed class RecordingLogger<T> : ILogger<T>
+    {
+        public List<string> Messages { get; } = [];
+
+        public IDisposable? BeginScope<TState>(TState state)
+            where TState : notnull => null;
+
+        public bool IsEnabled(LogLevel logLevel) => true;
+
+        public void Log<TState>(
+            LogLevel logLevel,
+            EventId eventId,
+            TState state,
+            Exception? exception,
+            Func<TState, Exception?, string> formatter)
+        {
+            Messages.Add(formatter(state, exception));
+        }
     }
 }

@@ -133,10 +133,10 @@
     <value>Frissítés</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Engedélyezze a fejlesztői diagnosztikát, és nyissa meg a Foundry naplómappát.</value>
+    <value>Az alkalmazás hibakeresési szintű naplózásának engedélyezése.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnosztika</value>
+    <value>Fejlesztői diagnosztika</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Változtassa meg az alkalmazás nyelvét a Foundry OSD újraindítása nélkül.</value>
@@ -2757,5 +2757,38 @@
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>A Foundry nem tudta megnyitni a hibabejelentő űrlapot. Másolja ezt a hivatkozást, és nyissa meg a böngészőjében.</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Diagnosztika exportálása</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Hozzon létre megtisztított támogatási archívumot az eredeti naplók módosítása nélkül.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Exportálás...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Speciális: nyers naplók exportálása...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Exportálja a nyers diagnosztikát?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>A nyers naplók hitelesítő adatokat, azonosítókat, elérési utakat, hálózatneveket és egyéb érzékeny adatokat tartalmazhatnak. Csak akkor exportálja őket, ha ezt egy megbízható támogatási kapcsolattartó kifejezetten kéri.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Nyers naplók exportálása</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Válassza ki, hová exportálja a Foundry diagnosztikát</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnosztika exportálva</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>A diagnosztika exportálása nem sikerült</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>A diagnosztikát nem sikerült exportálni. Részletekért ellenőrizze a naplót.</value>
   </data>
 </root>

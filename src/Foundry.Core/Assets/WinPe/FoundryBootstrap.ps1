@@ -9,6 +9,13 @@ $WinPeRoot = 'X:\Foundry'
 $LogPath = Join-Path $WinPeRoot 'Logs\FoundryBootstrap.log'
 $ConsoleLogLevel = 'Info'
 $FileLogLevel = 'Debug'
+$MaximumLogFileSizeBytes = 10MB
+$RetainedLogFileCount = 5
+$DiagnosticSessionId = [string]$env:FOUNDRY_DIAGNOSTIC_SESSION_ID
+if ([string]::IsNullOrWhiteSpace($DiagnosticSessionId) -or $DiagnosticSessionId -notmatch '^[A-Za-z0-9_-]{1,32}$') {
+    $DiagnosticSessionId = [Guid]::NewGuid().ToString('N').Substring(0, 8).ToUpperInvariant()
+}
+$env:FOUNDRY_DIAGNOSTIC_SESSION_ID = $DiagnosticSessionId
 $Owner = 'foundry-osd'
 $Repository = 'foundry'
 $ReleaseApiBaseUrl = "https://api.github.com/repos/$Owner/$Repository/releases"
@@ -30,7 +37,7 @@ $script:ConsoleLastWasBlank = $true
 function Get-LogLevelRank {
     param(
         [Parameter(Mandatory = $true)]
-        [ValidateSet('Debug', 'Info', 'Warning', 'Error')]
+        [ValidateSet('Debug', 'Info', 'Warning', 'Error', 'Fatal')]
         [string]$LogLevel
     )
 
@@ -39,6 +46,7 @@ function Get-LogLevelRank {
         'Info' { return 1 }
         'Warning' { return 2 }
         'Error' { return 3 }
+        'Fatal' { return 4 }
         default { throw "Unsupported log level '$LogLevel'." }
     }
 }
@@ -46,10 +54,10 @@ function Get-LogLevelRank {
 function Test-LogLevelEnabled {
     param(
         [Parameter(Mandatory = $true)]
-        [ValidateSet('Debug', 'Info', 'Warning', 'Error')]
+        [ValidateSet('Debug', 'Info', 'Warning', 'Error', 'Fatal')]
         [string]$MessageLevel,
         [Parameter(Mandatory = $true)]
-        [ValidateSet('Debug', 'Info', 'Warning', 'Error')]
+        [ValidateSet('Debug', 'Info', 'Warning', 'Error', 'Fatal')]
         [string]$MinimumLevel
     )
 
@@ -59,7 +67,7 @@ function Test-LogLevelEnabled {
 function Get-ConsoleLevelLabel {
     param(
         [Parameter(Mandatory = $true)]
-        [ValidateSet('Debug', 'Info', 'Warning', 'Error')]
+        [ValidateSet('Debug', 'Info', 'Warning', 'Error', 'Fatal')]
         [string]$Level
     )
 
@@ -68,6 +76,7 @@ function Get-ConsoleLevelLabel {
         'Info' { return 'INFO' }
         'Warning' { return 'WARN' }
         'Error' { return 'ERROR' }
+        'Fatal' { return 'FATAL' }
         default { return $Level.ToUpperInvariant() }
     }
 }
@@ -75,7 +84,7 @@ function Get-ConsoleLevelLabel {
 function Get-ConsoleLevelColor {
     param(
         [Parameter(Mandatory = $true)]
-        [ValidateSet('Debug', 'Info', 'Warning', 'Error')]
+        [ValidateSet('Debug', 'Info', 'Warning', 'Error', 'Fatal')]
         [string]$Level
     )
 
@@ -84,6 +93,7 @@ function Get-ConsoleLevelColor {
         'Info' { return 'Gray' }
         'Warning' { return 'Yellow' }
         'Error' { return 'Red' }
+        'Fatal' { return 'Red' }
         default { return 'Gray' }
     }
 }
@@ -106,7 +116,7 @@ function Write-ConsoleLine {
     param(
         [Parameter(Mandatory = $true)]
         [string]$Message,
-        [ValidateSet('Debug', 'Info', 'Warning', 'Error')]
+        [ValidateSet('Debug', 'Info', 'Warning', 'Error', 'Fatal')]
         [string]$Level = 'Info'
     )
 
@@ -167,20 +177,67 @@ function Write-ConsoleBanner {
     }
 }
 
+function Format-LogUri {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Value
+    )
+
+    try {
+        $uri = [System.Uri]$Value
+        if (-not $uri.IsAbsoluteUri) {
+            return '<invalid-uri>'
+        }
+
+        $authority = "{0}://{1}" -f $uri.Scheme, $uri.DnsSafeHost
+        if (-not $uri.IsDefaultPort) {
+            $authority = "$authority`:$($uri.Port)"
+        }
+
+        return $authority
+    }
+    catch {
+        return '<invalid-uri>'
+    }
+}
+
+function Protect-LogMessage {
+    param(
+        [AllowEmptyString()]
+        [string]$Message
+    )
+
+    $protected = $Message -replace '[\r\n\t]+', ' '
+    $protected = [Regex]::Replace($protected, '(?i)(https?://)([^/\s@]+@)', '$1')
+    $protected = [Regex]::Replace($protected, '(?i)(https?://[^\s?#]+)[?#][^\s]*', '$1')
+    $protected = [Regex]::Replace($protected, '(?i)(password|token|secret|authorization)=([^\s,;]+)', '$1=<redacted>')
+    return $protected
+}
+
 function Write-Log {
     param(
         [Parameter(Mandatory = $true)]
         [string]$Message,
-        [ValidateSet('Debug', 'Info', 'Warning', 'Error')]
+        [ValidateSet('Debug', 'Info', 'Warning', 'Error', 'Fatal')]
         [string]$Level = 'Info',
-        [string]$ConsoleMessage
+        [string]$ConsoleMessage,
+        [string]$Component = 'Bootstrap'
     )
 
     $timestamp = [DateTime]::UtcNow.ToString(
-        'yyyy-MM-dd HH:mm:ss',
+        "yyyy-MM-ddTHH:mm:ss.fff'Z'",
         [System.Globalization.CultureInfo]::InvariantCulture
     )
-    $entry = "[$timestamp UTC] [$Level] $Message"
+    $levelLabel = switch ($Level) {
+        'Debug' { 'DBG' }
+        'Info' { 'INF' }
+        'Warning' { 'WRN' }
+        'Error' { 'ERR' }
+        'Fatal' { 'FTL' }
+    }
+    $safeMessage = Protect-LogMessage -Message $Message
+    $safeComponent = $Component -replace '[\r\n\t\[\]]+', '-'
+    $entry = "$timestamp [$levelLabel] [Foundry.Bootstrap] [Session:$DiagnosticSessionId] [$safeComponent] $safeMessage"
 
     if (Test-LogLevelEnabled -MessageLevel $Level -MinimumLevel $FileLogLevel) {
         try {
@@ -189,6 +246,7 @@ function Write-Log {
                 New-Item -Path $directory -ItemType Directory -Force | Out-Null
             }
 
+            Invoke-LogRotation
             $entry | Out-File -FilePath $LogPath -Encoding utf8 -Append
         }
         catch {
@@ -208,6 +266,35 @@ function Write-Log {
             -Message $displayMessage `
             -Level $Level
     }
+}
+
+function Invoke-LogRotation {
+    if (-not (Test-Path -Path $LogPath -PathType Leaf)) {
+        return
+    }
+
+    $logFile = Get-Item -Path $LogPath -Force
+    if ($logFile.Length -lt $MaximumLogFileSizeBytes) {
+        return
+    }
+
+    $directory = $logFile.DirectoryName
+    $stem = [System.IO.Path]::GetFileNameWithoutExtension($logFile.Name)
+    $extension = $logFile.Extension
+    $oldestArchivePath = Join-Path $directory "$stem.$($RetainedLogFileCount - 1)$extension"
+    if (Test-Path -Path $oldestArchivePath -PathType Leaf) {
+        Remove-Item -Path $oldestArchivePath -Force
+    }
+
+    for ($index = $RetainedLogFileCount - 2; $index -ge 1; $index--) {
+        $archivePath = Join-Path $directory "$stem.$index$extension"
+        if (Test-Path -Path $archivePath -PathType Leaf) {
+            $nextArchivePath = Join-Path $directory "$stem.$($index + 1)$extension"
+            Move-Item -Path $archivePath -Destination $nextArchivePath -Force
+        }
+    }
+
+    Move-Item -Path $LogPath -Destination (Join-Path $directory "$stem.1$extension") -Force
 }
 
 function Format-FileSize {
@@ -372,6 +459,76 @@ function Get-UsbCacheRuntimeRoot {
     }
 
     return $null
+}
+
+function Copy-BootstrapLogsToCache {
+    $targetDirectory = $null
+    try {
+        $usbRuntimeRoot = Get-UsbCacheRuntimeRoot
+        if ([string]::IsNullOrWhiteSpace($usbRuntimeRoot)) {
+            Write-Log 'Skipping bootstrap log persistence because no Foundry Cache volume is available.' -Level Debug -Component 'LogPersistence'
+            return
+        }
+
+        $sourceDirectory = Split-Path -Path $LogPath -Parent
+        if (-not (Test-Path -Path $sourceDirectory -PathType Container)) {
+            return
+        }
+
+        $cacheRoot = Split-Path -Path $usbRuntimeRoot -Parent
+        $targetDirectory = Join-Path $cacheRoot (Join-Path 'Logs' $DiagnosticSessionId)
+        Ensure-Directory -Path $targetDirectory
+        Write-Log "Persisting WinPE session logs to '$targetDirectory'." -Level Debug -Component 'LogPersistence'
+
+        foreach ($sourceFile in Get-ChildItem -Path $sourceDirectory -Filter 'Foundry*.log' -File -ErrorAction Stop) {
+            $destinationPath = Join-Path $targetDirectory $sourceFile.Name
+            $temporaryPath = "$destinationPath.$([Guid]::NewGuid().ToString('N')).tmp"
+            $sourceStream = $null
+            $destinationStream = $null
+            try {
+                $sourceStream = New-Object System.IO.FileStream(
+                    $sourceFile.FullName,
+                    [System.IO.FileMode]::Open,
+                    [System.IO.FileAccess]::Read,
+                    ([System.IO.FileShare]::ReadWrite -bor [System.IO.FileShare]::Delete)
+                )
+                $destinationStream = New-Object System.IO.FileStream(
+                    $temporaryPath,
+                    [System.IO.FileMode]::CreateNew,
+                    [System.IO.FileAccess]::Write,
+                    [System.IO.FileShare]::None
+                )
+                $sourceStream.CopyTo($destinationStream)
+            }
+            finally {
+                if ($null -ne $destinationStream) {
+                    $destinationStream.Dispose()
+                }
+                if ($null -ne $sourceStream) {
+                    $sourceStream.Dispose()
+                }
+            }
+
+            if (Test-Path -Path $destinationPath -PathType Leaf) {
+                Remove-Item -Path $destinationPath -Force
+            }
+            Move-Item -Path $temporaryPath -Destination $destinationPath -Force
+        }
+    }
+    catch {
+        try {
+            Write-Log "Failed to persist WinPE session logs: $($_.Exception.Message)" -Level Warning -Component 'LogPersistence' -ConsoleMessage 'Log persistence to the cache volume failed.'
+        }
+        catch {
+            # Log persistence must never replace the bootstrap outcome.
+        }
+    }
+    finally {
+        if (-not [string]::IsNullOrWhiteSpace($targetDirectory)) {
+            Get-ChildItem -Path $targetDirectory -Filter '*.tmp' -File -ErrorAction SilentlyContinue |
+                Remove-Item -Force -ErrorAction SilentlyContinue
+        }
+    }
 }
 
 function Ensure-Directory {
@@ -552,15 +709,16 @@ function Save-WebFile {
         $UseWebClient = $true
     }
 
+    $safeSourceUrl = Format-LogUri -Value $SourceUrl
     if ($UseWebClient -eq $true) {
         $transportReason = if ($null -ne $proxyAddress) {
-            "proxy '$proxyAddress' is configured"
+            "a proxy for '$(Format-LogUri -Value ([string]$proxyAddress))' is configured"
         }
         else {
             'curl.exe is unavailable'
         }
 
-        Write-Log "Downloading '$SourceUrl' to '$DestinationFullName' with System.Net.WebClient because $transportReason." -Level Debug
+        Write-Log "Downloading from '$safeSourceUrl' to '$DestinationFullName' with System.Net.WebClient because $transportReason." -Level Debug
         [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls1
         $WebClient = New-Object System.Net.WebClient
         $WebClient.DownloadFile($SourceUrl, $DestinationFullName)
@@ -572,7 +730,7 @@ function Save-WebFile {
 
         # A HEAD request gives us header-only metadata for logging and download resume decisions.
         try {
-            Write-Log "Requesting remote headers for '$SourceUrl'." -Level Debug
+            Write-Log "Requesting remote headers from '$safeSourceUrl'." -Level Debug
             $remote = Invoke-WebRequest -UseBasicParsing -Method Head -Uri $SourceUrl -ErrorAction Stop
             $contentLengthHeader = [string]($remote.Headers.'Content-Length' | Select-Object -First 1)
             $acceptRangesHeader = [string]($remote.Headers.'Accept-Ranges' | Select-Object -First 1)
@@ -582,13 +740,13 @@ function Save-WebFile {
             }
 
             $remoteAcceptsRanges = [string]::Equals($acceptRangesHeader, 'bytes', [System.StringComparison]::OrdinalIgnoreCase)
-            Write-Log "HEAD probe for '$SourceUrl' returned Content-Length='$contentLengthHeader' and Accept-Ranges='$acceptRangesHeader'." -Level Debug
+            Write-Log "HEAD probe for '$safeSourceUrl' returned Content-Length='$contentLengthHeader' and Accept-Ranges='$acceptRangesHeader'." -Level Debug
         }
         catch {
-            Write-Log "HEAD probe for '$SourceUrl' failed: $($_.Exception.Message). Continuing with a direct curl.exe download." -Level Warning -ConsoleMessage 'Header probe failed. Continuing with a direct download.'
+            Write-Log "HEAD probe for '$safeSourceUrl' failed: $($_.Exception.Message). Continuing with a direct curl.exe download." -Level Warning -ConsoleMessage 'Header probe failed. Continuing with a direct download.'
         }
 
-        Write-Log "Downloading '$SourceUrl' to '$DestinationFullName' with curl.exe." -Level Debug
+        Write-Log "Downloading from '$safeSourceUrl' to '$DestinationFullName' with curl.exe." -Level Debug
         & curl.exe --fail --location --progress-bar --show-error --output $DestinationFullName --url $SourceUrl
         if ($LASTEXITCODE -ne 0) {
             throw "curl.exe failed with exit code $LASTEXITCODE."
@@ -681,7 +839,7 @@ function Sync-WinPeInternetDateTime {
     # Use HTTP time probes so clock recovery is still possible when TLS would fail due to skew.
     foreach ($probeUrl in $probeUrls) {
         try {
-            Write-Log "Requesting internet time from '$probeUrl'." -Level Debug
+            Write-Log "Requesting internet time from '$(Format-LogUri -Value $probeUrl)'." -Level Debug
             $response = Invoke-WebRequest -UseBasicParsing -Method Head -Uri $probeUrl -ErrorAction Stop
             $dateHeader = [string]($response.Headers['Date'] | Select-Object -First 1)
 
@@ -690,10 +848,10 @@ function Sync-WinPeInternetDateTime {
                 break
             }
 
-            Write-Log "The time probe '$probeUrl' did not return an HTTP Date header." -Level Debug
+            Write-Log "The time probe '$(Format-LogUri -Value $probeUrl)' did not return an HTTP Date header." -Level Debug
         }
         catch {
-            Write-Log "The time probe '$probeUrl' failed: $($_.Exception.Message)." -Level Debug
+            Write-Log "The time probe '$(Format-LogUri -Value $probeUrl)' failed: $($_.Exception.Message)." -Level Debug
         }
     }
 
@@ -1665,7 +1823,7 @@ function Resolve-ApplicationExecutable {
         $release = $null
 
         try {
-            Write-Log "Resolving $ApplicationName release metadata from $releaseApiUrl." -Level Debug
+            Write-Log "Resolving $ApplicationName release metadata from '$(Format-LogUri -Value $releaseApiUrl)'." -Level Debug
             $release = Invoke-WithRetry -Action { Invoke-RestMethod -Uri $releaseApiUrl -Headers $Headers -Method Get }
         }
         catch {
@@ -1783,8 +1941,9 @@ function Start-DeployExecutable {
         [System.IO.FileInfo]$Executable
     )
 
-    Write-Log "Launching '$($Executable.FullName)'." -ConsoleMessage 'Foundry.Deploy: launching...'
-    Start-Process -FilePath $Executable.FullName -WorkingDirectory $Executable.DirectoryName | Out-Null
+    Write-Log "Launching '$($Executable.FullName)'." -Component 'Process' -ConsoleMessage 'Foundry.Deploy: launching...'
+    $process = Start-Process -FilePath $Executable.FullName -WorkingDirectory $Executable.DirectoryName -PassThru
+    Write-Log "Foundry.Deploy handoff completed. ProcessId=$($process.Id)." -Component 'Process'
 }
 
 function Invoke-ConnectExecutable {
@@ -1810,6 +1969,7 @@ function Invoke-ConnectExecutable {
         -Wait `
         -PassThru
 
+    Write-Log "Foundry.Connect exited. ProcessId=$($process.Id), ExitCode=$($process.ExitCode)." -Component 'Process'
     return $process.ExitCode
 }
 
@@ -1840,7 +2000,7 @@ function Resolve-SingleExecutable {
 try {
     Ensure-Directory -Path $WinPeRoot
     Write-ConsoleBanner -Title 'Foundry Bootstrap'
-    Write-Log 'Foundry bootstrap started.' -Level Debug
+    Write-Log "Foundry bootstrap started. SessionId=$DiagnosticSessionId, LogFilePath='$LogPath'." -Component 'Lifecycle'
 
     Write-ConsoleSection -Title 'Runtime'
 
@@ -1849,10 +2009,13 @@ try {
     if (-not [string]::IsNullOrWhiteSpace($usbRuntimeRoot)) {
         $bootstrapRoot = $usbRuntimeRoot
         $deploymentMode = 'Usb'
+        $cacheRoot = Split-Path -Path $usbRuntimeRoot -Parent
+        $env:FOUNDRY_DIAGNOSTIC_PERSISTENCE_DIRECTORY = Join-Path $cacheRoot (Join-Path 'Logs' $DiagnosticSessionId)
     }
     else {
         $bootstrapRoot = Join-Path $WinPeRoot 'Runtime'
         $deploymentMode = 'Iso'
+        Remove-Item Env:\FOUNDRY_DIAGNOSTIC_PERSISTENCE_DIRECTORY -ErrorAction SilentlyContinue
     }
 
     Ensure-Directory -Path $bootstrapRoot
@@ -1933,8 +2096,10 @@ try {
     Write-Log 'Foundry.Connect completed successfully.' -ConsoleMessage 'Foundry.Connect: completed successfully.'
 
     Write-ConsoleSection -Title 'System preparation'
+    Write-Log "System preparation started. UtcNow='$([DateTime]::UtcNow.ToString('o', [System.Globalization.CultureInfo]::InvariantCulture))', TimeZone='$(Get-CurrentWinPeTimeZoneId)'." -Component 'SystemTime'
     Sync-WinPeInternetDateTime -ThresholdMinutes 5
     Set-WinPeTimeZone -FallbackTimeZoneId $DefaultWinPeTimeZoneId
+    Write-Log "System preparation finished. UtcNow='$([DateTime]::UtcNow.ToString('o', [System.Globalization.CultureInfo]::InvariantCulture))', TimeZone='$(Get-CurrentWinPeTimeZoneId)'." -Component 'SystemTime'
 
     Write-ConsoleSection -Title 'Runtime cache'
 
@@ -1983,7 +2148,14 @@ try {
     Write-Log 'Foundry bootstrap completed successfully.' -ConsoleMessage 'Foundry bootstrap completed successfully.'
 }
 catch {
-    Write-Log "Foundry bootstrap failed: $($_.Exception.Message)" -Level Error -ConsoleMessage 'Foundry bootstrap failed.'
+    Write-Log "Foundry bootstrap failed: $($_.Exception.Message)" -Level Fatal -Component 'Lifecycle' -ConsoleMessage 'Foundry bootstrap failed.'
+    $script:BootstrapExitCode = 1
+}
+finally {
+    Copy-BootstrapLogsToCache
+}
+
+if ($script:BootstrapExitCode -eq 1) {
     exit 1
 }
 #endregion

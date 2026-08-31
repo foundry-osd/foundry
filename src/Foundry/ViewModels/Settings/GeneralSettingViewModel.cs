@@ -3,10 +3,15 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.ObjectModel;
+using System.Runtime.InteropServices;
 using Foundry.Localization;
 using Foundry.Core.Services.Application;
+using Foundry.Services.Application;
 using Foundry.Services.Localization;
 using Foundry.Services.Settings;
+using Foundry.Utilities.Diagnostics;
+using Microsoft.UI.Xaml.Controls;
+using Serilog;
 
 namespace Foundry.ViewModels
 {
@@ -15,22 +20,27 @@ namespace Foundry.ViewModels
         private readonly IAppSettingsService appSettingsService;
         private readonly IExternalProcessLauncher externalProcessLauncher;
         private readonly IApplicationLocalizationService localizationService;
+        private readonly IFilePickerService filePickerService;
 
         public GeneralSettingViewModel(
             IAppSettingsService appSettingsService,
             IExternalProcessLauncher externalProcessLauncher,
-            IApplicationLocalizationService localizationService)
+            IApplicationLocalizationService localizationService,
+            IFilePickerService filePickerService)
         {
             this.appSettingsService = appSettingsService;
             this.externalProcessLauncher = externalProcessLauncher;
             this.localizationService = localizationService;
+            this.filePickerService = filePickerService;
             IsDeveloperMode = appSettingsService.Current.Diagnostics.DeveloperMode;
             RefreshSupportedLanguages();
         }
 
         public ObservableCollection<SupportedCultureOption> SupportedLanguages { get; } = [];
 
-        public string LogDirectoryPath => Constants.LogDirectoryPath;
+        public string LogDirectoryPath => LoggerSetup.LogFilePath == "<unavailable>"
+            ? LoggerSetup.LogFilePath
+            : Path.GetDirectoryName(LoggerSetup.LogFilePath) ?? Constants.LogDirectoryPath;
 
         [ObservableProperty]
         public partial bool IsDeveloperMode { get; set; }
@@ -58,7 +68,101 @@ namespace Foundry.ViewModels
         [RelayCommand]
         private Task OpenLogFolderAsync()
         {
-            return externalProcessLauncher.OpenFolderAsync(Constants.LogDirectoryPath);
+            return Directory.Exists(LogDirectoryPath)
+                ? externalProcessLauncher.OpenFolderAsync(LogDirectoryPath)
+                : Task.CompletedTask;
+        }
+
+        [RelayCommand]
+        private Task ExportDiagnosticsAsync()
+        {
+            return ExportDiagnosticsAsync(SupportBundlePrivacyMode.Sanitized);
+        }
+
+        [RelayCommand]
+        private async Task ExportRawDiagnosticsAsync()
+        {
+            var warningDialog = new ContentDialog
+            {
+                XamlRoot = App.MainWindow.Content.XamlRoot,
+                Style = ContentDialogStyleProvider.DefaultStyle,
+                Title = localizationService.GetString("Diagnostics.ExportRawTitle"),
+                Content = localizationService.GetString("Diagnostics.ExportRawWarning"),
+                PrimaryButtonText = localizationService.GetString("Diagnostics.ExportRawConfirm"),
+                CloseButtonText = localizationService.GetString("Common.Cancel"),
+                DefaultButton = ContentDialogButton.Close
+            };
+            if (await warningDialog.ShowAsync() != ContentDialogResult.Primary)
+            {
+                return;
+            }
+
+            await ExportDiagnosticsAsync(SupportBundlePrivacyMode.Raw);
+        }
+
+        private async Task ExportDiagnosticsAsync(SupportBundlePrivacyMode privacyMode)
+        {
+            string? destinationDirectoryPath = await filePickerService.PickFolderAsync(
+                new FolderPickerRequest(localizationService.GetString("Diagnostics.ExportDestinationTitle")));
+            if (string.IsNullOrWhiteSpace(destinationDirectoryPath))
+            {
+                return;
+            }
+
+            try
+            {
+                string[] logFilePaths = Directory.Exists(LogDirectoryPath)
+                    ? Directory.GetFiles(LogDirectoryPath, "Foundry*.log", SearchOption.TopDirectoryOnly)
+                    : [];
+                Log.ForContext<GeneralSettingViewModel>().Information(
+                    "Support bundle export started. PrivacyMode={PrivacyMode}, LogFileCount={LogFileCount}",
+                    privacyMode,
+                    logFilePaths.Length);
+
+                SupportBundleResult result = await new SupportBundleExporter().ExportAsync(
+                    new SupportBundleRequest
+                    {
+                        ApplicationName = "Foundry.OSD",
+                        ApplicationVersion = FoundryApplicationInfo.Version,
+                        SessionId = DiagnosticSessionContext.CurrentSessionId,
+                        DestinationDirectoryPath = destinationDirectoryPath,
+                        LogFilePaths = logFilePaths,
+                        PrivacyMode = privacyMode,
+                        Summary = new Dictionary<string, string>
+                        {
+                            ["Architecture"] = RuntimeInformation.ProcessArchitecture.ToString(),
+                            ["OperatingSystem"] = Environment.OSVersion.VersionString
+                        }
+                    });
+
+                Log.ForContext<GeneralSettingViewModel>().Information(
+                    "Support bundle export completed. PrivacyMode={PrivacyMode}, IncludedFileCount={IncludedFileCount}, OmittedFileCount={OmittedFileCount}",
+                    privacyMode,
+                    result.IncludedFiles.Count,
+                    result.OmittedFiles.Count);
+                var completedDialog = new ContentDialog
+                {
+                    XamlRoot = App.MainWindow.Content.XamlRoot,
+                    Style = ContentDialogStyleProvider.DefaultStyle,
+                    Title = localizationService.GetString("Diagnostics.ExportSucceededTitle"),
+                    Content = result.ArchivePath,
+                    CloseButtonText = localizationService.GetString("Common.Close")
+                };
+                await completedDialog.ShowAsync();
+            }
+            catch (Exception ex)
+            {
+                Log.ForContext<GeneralSettingViewModel>().Error(ex, "Support bundle export failed. PrivacyMode={PrivacyMode}", privacyMode);
+                var failedDialog = new ContentDialog
+                {
+                    XamlRoot = App.MainWindow.Content.XamlRoot,
+                    Style = ContentDialogStyleProvider.DefaultStyle,
+                    Title = localizationService.GetString("Diagnostics.ExportFailedTitle"),
+                    Content = localizationService.GetString("Diagnostics.ExportFailedMessage"),
+                    CloseButtonText = localizationService.GetString("Common.Close")
+                };
+                await failedDialog.ShowAsync();
+            }
         }
 
         public void RefreshSupportedLanguages()

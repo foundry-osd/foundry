@@ -588,4 +588,34 @@ Dağıtıma devam edilsin mi?</value></data>
   <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>Kapalı</value></data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>Kullanıcı denetimli</value></data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>Zorla kapalı</value></data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>Tanılamayı dışa aktar...</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>Ham tanılamayı dışa aktar...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Ham tanılama dışa aktarılsın mı?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Ham günlükler kimlik bilgileri, tanımlayıcılar, yollar, ağ adları ve diğer hassas verileri içerebilir. Bunları yalnızca güvenilir bir destek yetkilisi açıkça istediğinde dışa aktarın.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Ham günlükleri dışa aktar</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Foundry tanılamasının nereye dışa aktarılacağını seçin</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Tanılama dışa aktarıldı</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>Tanılama şu konuma dışa aktarıldı:&#xA;{0}</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Tanılama dışa aktarılamadı</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Tanılama dışa aktarılamadı. Ayrıntılar için günlüğü denetleyin.</value>
+  </data>
 </root>

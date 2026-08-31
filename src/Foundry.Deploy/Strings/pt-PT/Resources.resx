@@ -588,4 +588,34 @@ Continuar com a implantação?</value></data>
   <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>Desligado</value></data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>Controlado pelo usuário</value></data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>Forçado</value></data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>Exportar diagnósticos...</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>Exportar diagnósticos em bruto...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Exportar diagnósticos em bruto?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Os registos em bruto podem conter credenciais, identificadores, caminhos, nomes de rede e outros dados sensíveis. Exporte-os apenas quando forem explicitamente solicitados por um contacto de suporte de confiança.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Exportar registos em bruto</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Escolha onde exportar os diagnósticos do Foundry</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnósticos exportados</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>Os diagnósticos foram exportados para:&#xA;{0}</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Falha na exportação dos diagnósticos</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Não foi possível exportar os diagnósticos. Consulte o registo para obter detalhes.</value>
+  </data>
 </root>

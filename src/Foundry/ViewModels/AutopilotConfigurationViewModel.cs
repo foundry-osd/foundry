@@ -480,9 +480,11 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         {
             AutopilotProfileSettings profile = await autopilotProfileImportService.ImportFromJsonFileAsync(filePath);
             MergeProfiles((AutopilotProfileSettings[])[profile]);
+            logger.Information("Autopilot profile import completed. ImportedProfileCount={ImportedProfileCount}", 1);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or JsonException or InvalidOperationException or ArgumentException)
         {
+            logger.Error(ex, "Autopilot profile import failed.");
             await dialogService.ShowMessageAsync(new DialogRequest(
                 localizationService.GetString("Autopilot.ImportFailedTitle"),
                 localizationService.FormatString("Autopilot.ImportFailedMessage", ex.Message)));
@@ -593,6 +595,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         }
 
         SaveState();
+        logger.Information("Autopilot profile removal completed. RemovedProfileCount={RemovedProfileCount}", profilesToRemove.Length);
     }
 
     [RelayCommand(CanExecute = nameof(CanConnectTenant))]
@@ -628,10 +631,10 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             RefreshHardwareHashUploadState();
             SaveState();
             logger.Information(
-                "Autopilot hardware hash tenant onboarding updated. Status={Status}, TenantId={TenantId}, ApplicationObjectId={ApplicationObjectId}",
+                "Autopilot hardware hash tenant onboarding updated. Status={Status}, TenantConfigured={TenantConfigured}, ApplicationConfigured={ApplicationConfigured}",
                 result.Status,
-                result.Settings.Tenant.TenantId,
-                result.Settings.Tenant.ApplicationObjectId);
+                !string.IsNullOrWhiteSpace(result.Settings.Tenant.TenantId),
+                !string.IsNullOrWhiteSpace(result.Settings.Tenant.ApplicationObjectId));
             if (ShouldShowTenantOnboardingResultDialog(result.Status))
             {
                 await dialogService.ShowMessageAsync(new DialogRequest(
@@ -682,11 +685,16 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             RefreshHardwareHashUploadState();
             SaveState();
 
+            logger.Information(
+                "Autopilot hardware hash certificate creation completed. ValidityMonths={ValidityMonths}, CertificateCount={CertificateCount}",
+                SelectedCertificateValidityOption.Months,
+                result.Certificates.Count);
+
             await certificateDialogService.ShowCreatedAsync(outputPath, result.GeneratedPassword);
         }
         catch (Exception ex) when (ex is AuthenticationFailedException or HttpRequestException or InvalidOperationException or IOException or UnauthorizedAccessException)
         {
-            logger.Error("Autopilot hardware hash certificate creation failed. ErrorType={ErrorType}", ex.GetType().Name);
+            logger.Error(ex, "Autopilot hardware hash certificate creation failed. ErrorType={ErrorType}", ex.GetType().Name);
             await dialogService.ShowMessageAsync(new DialogRequest(
                 localizationService.GetString("Autopilot.HardwareHashCertificateCreateFailedTitle"),
                 localizationService.FormatString("Autopilot.HardwareHashCertificateCreateFailedMessageFormat", ex.Message)));
@@ -742,6 +750,10 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             ClearBootMediaCertificateIfActiveCertificateChanged();
             RefreshHardwareHashUploadState();
             SaveState();
+            logger.Information(
+                "Autopilot hardware hash certificate retirement completed. RemovedCertificateCount={RemovedCertificateCount}, RemainingCertificateCount={RemainingCertificateCount}",
+                certificatesToRemove.Length,
+                result.Certificates.Count);
         }
         catch (Exception ex) when (ex is AuthenticationFailedException or HttpRequestException or InvalidOperationException or JsonException)
         {
@@ -784,6 +796,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         SetBootMediaCertificateInput(filePath, hardwareHashUploadSettings.BootMediaCertificate.PfxPassword);
         RefreshHardwareHashUploadState();
         SaveState();
+        logger.Information("Autopilot boot media certificate selection updated. CertificateSelected={CertificateSelected}", true);
     }
 
     /// <summary>

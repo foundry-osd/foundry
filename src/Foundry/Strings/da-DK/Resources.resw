@@ -133,10 +133,10 @@
     <value>Opdater</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Aktiver udviklerdiagnostik, og åbn logmappen Foundry.</value>
+    <value>Aktivér programlogføring på fejlfindingsniveau.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostik</value>
+    <value>Udviklerdiagnosticering</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Skift applikationssproget uden at genstarte Foundry OSD.</value>
@@ -2757,5 +2757,38 @@
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry kunne ikke åbne formularen til fejlrapportering. Kopiér dette link, og åbn det i din browser.</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Eksporter diagnostik</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Opret et renset supportarkiv uden at ændre de oprindelige logfiler.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Eksporter...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Avanceret: eksporter rå logfiler...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Eksporter rå diagnostik?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Rå logfiler kan indeholde legitimationsoplysninger, identifikatorer, stier, netværksnavne og andre følsomme data. Eksporter dem kun, når det udtrykkeligt anmodes om af en betroet supportkontakt.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Eksporter rå logfiler</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Vælg, hvor Foundry-diagnostik skal eksporteres</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnostik eksporteret</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Eksport af diagnostik mislykkedes</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Diagnostik kunne ikke eksporteres. Se logfilen for detaljer.</value>
   </data>
 </root>

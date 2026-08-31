@@ -133,10 +133,10 @@
     <value>Опресняване</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Активирайте диагностиката на разработчиците и отворете папката с регистрационни файлове Foundry.</value>
+    <value>Активиране на регистрирането на приложението на ниво „Отстраняване на грешки“.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Диагностика</value>
+    <value>Диагностика за разработчици</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Променете езика на приложението, без да рестартирате Foundry OSD.</value>
@@ -2757,5 +2757,38 @@
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry не можа да отвори формуляра за докладване на грешка. Копирайте тази връзка и я отворете в браузъра си.</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Експортиране на диагностика</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Създайте саниран архив за поддръжка, без да променяте оригиналните регистрационни файлове.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Експортиране...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Разширено: експортиране на необработени регистрационни файлове...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Експортиране на необработена диагностика?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Необработените регистрационни файлове може да съдържат идентификационни данни, идентификатори, пътища, имена на мрежи и други чувствителни данни. Експортирайте ги само когато това е изрично поискано от доверен контакт за поддръжка.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Експортиране на необработени регистрационни файлове</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Изберете къде да експортирате диагностиката на Foundry</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Диагностиката е експортирана</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Неуспешно експортиране на диагностика</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Диагностиката не можа да бъде експортирана. Проверете регистрационния файл за подробности.</value>
   </data>
 </root>

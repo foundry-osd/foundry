@@ -37,7 +37,7 @@ public sealed class ConfigureTargetComputerNameStep : DeploymentStepBase
 
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
-            $"Target computer name configured: {context.RuntimeState.TargetComputerName}.",
+            "Target computer name configured.",
             cancellationToken).ConfigureAwait(false);
 
         return DeploymentStepResult.Succeeded("Target computer name configured.");
@@ -62,7 +62,7 @@ public sealed class ConfigureTargetComputerNameStep : DeploymentStepBase
 
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
-            $"[DRY-RUN] Simulated target computer name configuration: {context.RuntimeState.TargetComputerName}.",
+            "[DRY-RUN] Simulated target computer name configuration.",
             cancellationToken).ConfigureAwait(false);
         await Task.Delay(120, cancellationToken).ConfigureAwait(false);
 

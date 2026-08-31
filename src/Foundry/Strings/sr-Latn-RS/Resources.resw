@@ -133,10 +133,10 @@
     <value>Osveži</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Omogućite dijagnostiku programera i otvorite fasciklu dnevnika Foundry.</value>
+    <value>Omogući evidentiranje aplikacije na nivou otklanjanja grešaka.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Dijagnostika</value>
+    <value>Dijagnostika za programere</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Promenite jezik aplikacije bez ponovnog pokretanja Foundry OSD.</value>
@@ -2757,5 +2757,38 @@
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry nije mogao da otvori obrazac za prijavu greške. Kopirajte ovu vezu i otvorite je u pretraživaču.</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Izvezi dijagnostiku</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Napravi saniranu arhivu za podršku bez izmene originalnih dnevnika.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Izvezi...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Napredno: izvezi neobrađene dnevnike...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Izvesti neobrađenu dijagnostiku?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Neobrađeni dnevnici mogu da sadrže akreditive, identifikatore, putanje, nazive mreža i druge osetljive podatke. Izvozite ih samo kada to izričito zatraži pouzdan kontakt za podršku.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Izvezi neobrađene dnevnike</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Izaberite gde da izvezete Foundry dijagnostiku</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Dijagnostika je izvezena</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Izvoz dijagnostike nije uspeo</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Dijagnostiku nije bilo moguće izvesti. Proverite dnevnik za detalje.</value>
   </data>
 </root>

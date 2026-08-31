@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Services.Application;
 using Foundry.Services.Localization;
 using Windows.ApplicationModel.DataTransfer;
 
@@ -18,6 +19,7 @@ public sealed class AutopilotCertificateDialogService(
         var dialog = new ContentDialog
         {
             XamlRoot = App.MainWindow.Content.XamlRoot,
+            Style = ContentDialogStyleProvider.DefaultStyle,
             Title = localizationService.GetString("Autopilot.HardwareHashCertificateCreatedTitle"),
             Content = CreateContent(pfxOutputPath, password),
             CloseButtonText = localizationService.GetString("Common.Close"),

@@ -422,4 +422,34 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>tradicinė kinų kalba (Taivanas)</value>
   </data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>Eksportuoti diagnostiką...</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>Eksportuoti neapdorotą diagnostiką...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Eksportuoti neapdorotą diagnostiką?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Neapdorotuose žurnaluose gali būti prisijungimo duomenų, identifikatorių, kelių, tinklų pavadinimų ir kitų jautrių duomenų. Eksportuokite juos tik tada, kai to aiškiai paprašo patikimas palaikymo kontaktas.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Eksportuoti neapdorotus žurnalus</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Pasirinkite, kur eksportuoti Foundry diagnostiką</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnostika eksportuota</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>Diagnostika eksportuota į:&#xA;{0}</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Nepavyko eksportuoti diagnostikos</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Nepavyko eksportuoti diagnostikos. Išsamesnės informacijos ieškokite žurnale.</value>
+  </data>
 </root>
