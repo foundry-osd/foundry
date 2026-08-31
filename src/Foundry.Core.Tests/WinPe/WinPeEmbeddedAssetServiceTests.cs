@@ -21,6 +21,33 @@ public sealed class WinPeEmbeddedAssetServiceTests
     }
 
     [Fact]
+    public void GetBootstrapScriptContent_UsesCorrelatedBoundedStructuredLogging()
+    {
+        var service = new WinPeEmbeddedAssetService();
+
+        string content = service.GetBootstrapScriptContent();
+
+        Assert.Contains("FOUNDRY_DIAGNOSTIC_SESSION_ID", content, StringComparison.Ordinal);
+        Assert.Contains("[Foundry.Bootstrap] [Session:", content, StringComparison.Ordinal);
+        Assert.Contains("$MaximumLogFileSizeBytes", content, StringComparison.Ordinal);
+        Assert.Contains("$RetainedLogFileCount", content, StringComparison.Ordinal);
+        Assert.Contains("function Invoke-LogRotation", content, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void GetBootstrapScriptContent_PersistsLogsWithoutInteractiveFailurePrompt()
+    {
+        var service = new WinPeEmbeddedAssetService();
+
+        string content = service.GetBootstrapScriptContent();
+
+        Assert.Contains("function Copy-BootstrapLogsToCache", content, StringComparison.Ordinal);
+        Assert.Contains("finally {", content, StringComparison.Ordinal);
+        Assert.Contains("Copy-BootstrapLogsToCache", content, StringComparison.Ordinal);
+        Assert.DoesNotContain("Press E", content, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
     public void GetUsbProvisioningScriptTemplateContent_ReturnsProvisioningScriptTemplate()
     {
         var service = new WinPeEmbeddedAssetService();
