@@ -48,7 +48,7 @@ public sealed class WritableFilePathResolverTests
     }
 
     [Fact]
-    public void Resolve_WhenAllCandidatesFail_ReturnsFileName()
+    public void Resolve_WhenAllCandidatesFail_ReturnsAbsoluteFallbackPath()
     {
         using var tempDirectory = new TemporaryDirectory();
         string firstFile = Path.Combine(tempDirectory.Path, "first-file");
@@ -58,7 +58,8 @@ public sealed class WritableFilePathResolverTests
 
         string result = WritableFilePathResolver.Resolve([firstFile, secondFile], "foundry.log");
 
-        Assert.Equal("foundry.log", result);
+        Assert.Equal(Path.GetFullPath("foundry.log"), result);
+        Assert.True(Path.IsPathFullyQualified(result));
     }
 
     [Fact]

@@ -10,7 +10,7 @@ namespace Foundry.Utilities.IO;
 public static class WritableFilePathResolver
 {
     /// <summary>
-    /// Returns a path under the first writable directory, or the file name when every candidate fails.
+    /// Returns an absolute path under the first writable directory, or an absolute current-directory fallback.
     /// </summary>
     public static string Resolve(IEnumerable<string> candidateDirectories, string fileName)
     {
@@ -36,7 +36,7 @@ public static class WritableFilePathResolver
                 {
                 }
 
-                return candidatePath;
+                return Path.GetFullPath(candidatePath);
             }
             catch
             {
@@ -44,6 +44,6 @@ public static class WritableFilePathResolver
             }
         }
 
-        return fileName;
+        return Path.GetFullPath(fileName);
     }
 }
