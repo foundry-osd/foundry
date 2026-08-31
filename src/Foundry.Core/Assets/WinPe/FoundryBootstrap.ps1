@@ -2009,10 +2009,13 @@ try {
     if (-not [string]::IsNullOrWhiteSpace($usbRuntimeRoot)) {
         $bootstrapRoot = $usbRuntimeRoot
         $deploymentMode = 'Usb'
+        $cacheRoot = Split-Path -Path $usbRuntimeRoot -Parent
+        $env:FOUNDRY_DIAGNOSTIC_PERSISTENCE_DIRECTORY = Join-Path $cacheRoot (Join-Path 'Logs' $DiagnosticSessionId)
     }
     else {
         $bootstrapRoot = Join-Path $WinPeRoot 'Runtime'
         $deploymentMode = 'Iso'
+        Remove-Item Env:\FOUNDRY_DIAGNOSTIC_PERSISTENCE_DIRECTORY -ErrorAction SilentlyContinue
     }
 
     Ensure-Directory -Path $bootstrapRoot

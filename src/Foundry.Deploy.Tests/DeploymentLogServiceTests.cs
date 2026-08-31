@@ -73,6 +73,39 @@ public sealed class DeploymentLogServiceTests
         Assert.Equal("deploy-final", File.ReadAllText(Path.Combine(targetPath, "FoundryDeploy.log")));
         Directory.Delete(rootPath, recursive: true);
     }
+
+    [Fact]
+    public void PersistCurrentLogs_WhenBootstrapProvidesCacheDirectory_RefreshesCacheSnapshot()
+    {
+        const string persistenceEnvironmentVariable = "FOUNDRY_DIAGNOSTIC_PERSISTENCE_DIRECTORY";
+        string rootPath = Path.Combine(Path.GetTempPath(), $"foundry-deploy-cache-persist-{Guid.NewGuid():N}");
+        string sourcePath = Path.Combine(rootPath, "source", FoundryDeployLogging.LogFileName);
+        string targetDirectoryPath = Path.Combine(rootPath, "cache", "Logs", "SESSION01");
+        string? previousValue = Environment.GetEnvironmentVariable(persistenceEnvironmentVariable);
+        Directory.CreateDirectory(Path.GetDirectoryName(sourcePath)!);
+        Environment.SetEnvironmentVariable(persistenceEnvironmentVariable, targetDirectoryPath);
+
+        try
+        {
+            Log.Logger = FoundryDeployLogging.CreateLogger(sourcePath);
+            Log.Information("Final deployment outcome.");
+            Log.CloseAndFlush();
+
+            LogPersistenceResult result = FoundryDeployLogging.PersistCurrentLogs();
+
+            Assert.True(result.CopiedFileCount >= 1);
+            Assert.Contains(
+                "Final deployment outcome.",
+                File.ReadAllText(Path.Combine(targetDirectoryPath, FoundryDeployLogging.LogFileName)),
+                StringComparison.Ordinal);
+        }
+        finally
+        {
+            Log.CloseAndFlush();
+            Environment.SetEnvironmentVariable(persistenceEnvironmentVariable, previousValue);
+            Directory.Delete(rootPath, recursive: true);
+        }
+    }
 }
 
 [CollectionDefinition(nameof(SerilogCollection), DisableParallelization = true)]

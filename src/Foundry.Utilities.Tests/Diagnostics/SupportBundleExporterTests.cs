@@ -68,7 +68,28 @@ public sealed class SupportBundleExporterTests
     }
 
     [Fact]
-    public async Task ExportAsync_WhenSourceIsMissing_RecordsOmissionWithoutFailingExport()
+    public async Task ExportAsync_SanitizedModeWhenSourceIsMissing_DoesNotPublishArchive()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string missingPath = Path.Combine(tempDirectory.Path, "missing.log");
+        string destinationPath = Path.Combine(tempDirectory.Path, "export");
+        var exporter = new SupportBundleExporter();
+
+        await Assert.ThrowsAsync<FileNotFoundException>(() => exporter.ExportAsync(new SupportBundleRequest
+        {
+            ApplicationName = "Foundry",
+            ApplicationVersion = "1.0.0",
+            SessionId = "ABC12345",
+            DestinationDirectoryPath = destinationPath,
+            LogFilePaths = [missingPath]
+        }, TestContext.Current.CancellationToken));
+
+        Assert.Empty(Directory.EnumerateFiles(destinationPath, "*.zip", SearchOption.TopDirectoryOnly));
+        Assert.Empty(Directory.EnumerateFiles(destinationPath, "*.tmp", SearchOption.TopDirectoryOnly));
+    }
+
+    [Fact]
+    public async Task ExportAsync_RawModeWhenSourceIsMissing_RecordsOmission()
     {
         using var tempDirectory = new TemporaryDirectory();
         string missingPath = Path.Combine(tempDirectory.Path, "missing.log");
@@ -80,7 +101,8 @@ public sealed class SupportBundleExporterTests
             ApplicationVersion = "1.0.0",
             SessionId = "ABC12345",
             DestinationDirectoryPath = Path.Combine(tempDirectory.Path, "export"),
-            LogFilePaths = [missingPath]
+            LogFilePaths = [missingPath],
+            PrivacyMode = SupportBundlePrivacyMode.Raw
         }, TestContext.Current.CancellationToken);
 
         using ZipArchive archive = ZipFile.OpenRead(result.ArchivePath);
@@ -88,6 +110,43 @@ public sealed class SupportBundleExporterTests
         using JsonDocument manifest = JsonDocument.Parse(manifestJson);
         Assert.Empty(manifest.RootElement.GetProperty("includedFiles").EnumerateArray());
         Assert.Single(manifest.RootElement.GetProperty("omittedFiles").EnumerateArray());
+    }
+
+    [Fact]
+    public async Task ExportAsync_SanitizedModeRedactsDeviceIdentifiersAndArchiveEntryNames()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string sourcePath = Path.Combine(
+            tempDirectory.Path,
+            "Foundry-alice@example.test-11111111-1111-1111-8111-111111111111.log");
+        await File.WriteAllTextAsync(
+            sourcePath,
+            "TargetComputerName=LAB01 GroupTag='Finance-US' Ssid=ContosoWiFi MacAddress=AA-BB-CC-DD-EE-FF IpAddress=192.0.2.10 Target computer name configured: LAB01.",
+            TestContext.Current.CancellationToken);
+        var exporter = new SupportBundleExporter();
+
+        SupportBundleResult result = await exporter.ExportAsync(new SupportBundleRequest
+        {
+            ApplicationName = "Foundry.Deploy",
+            ApplicationVersion = "1.0.0",
+            SessionId = "ABC12345",
+            DestinationDirectoryPath = Path.Combine(tempDirectory.Path, "export"),
+            LogFilePaths = [sourcePath]
+        }, TestContext.Current.CancellationToken);
+
+        using ZipArchive archive = ZipFile.OpenRead(result.ArchivePath);
+        ZipArchiveEntry logEntry = Assert.Single(archive.Entries, static entry => entry.FullName.StartsWith("logs/", StringComparison.Ordinal));
+        string log = await ReadEntryAsync(archive, logEntry.FullName);
+        string manifest = await ReadEntryAsync(archive, "manifest.json");
+        Assert.DoesNotContain("LAB01", log, StringComparison.Ordinal);
+        Assert.DoesNotContain("Finance-US", log, StringComparison.Ordinal);
+        Assert.DoesNotContain("ContosoWiFi", log, StringComparison.Ordinal);
+        Assert.DoesNotContain("AA-BB-CC-DD-EE-FF", log, StringComparison.Ordinal);
+        Assert.DoesNotContain("192.0.2.10", log, StringComparison.Ordinal);
+        Assert.DoesNotContain("alice@example.test", logEntry.FullName, StringComparison.Ordinal);
+        Assert.DoesNotContain("11111111-1111-1111-8111-111111111111", logEntry.FullName, StringComparison.Ordinal);
+        Assert.DoesNotContain("alice@example.test", manifest, StringComparison.Ordinal);
+        Assert.DoesNotContain("11111111-1111-1111-8111-111111111111", manifest, StringComparison.Ordinal);
     }
 
     [Fact]

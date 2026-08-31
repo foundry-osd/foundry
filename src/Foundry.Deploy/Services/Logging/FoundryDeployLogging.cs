@@ -57,10 +57,33 @@ internal static class FoundryDeployLogging
     public static LogPersistenceResult PersistCurrentLogs()
     {
         string? sourceDirectoryPath = _startupLogDirectoryPath;
-        string? targetDirectoryPath = _persistenceDirectoryPath;
-        return string.IsNullOrWhiteSpace(sourceDirectoryPath) || string.IsNullOrWhiteSpace(targetDirectoryPath)
-            ? new LogPersistenceResult(0, 0)
-            : PersistLogSnapshot(sourceDirectoryPath, targetDirectoryPath);
+        if (string.IsNullOrWhiteSpace(sourceDirectoryPath))
+        {
+            return new LogPersistenceResult(0, 0);
+        }
+
+        string[] targetDirectoryPaths =
+        [
+            .. new[]
+            {
+                _persistenceDirectoryPath,
+                Environment.GetEnvironmentVariable(DiagnosticSessionContext.PersistenceDirectoryEnvironmentVariableName)
+            }
+            .Where(static path => !string.IsNullOrWhiteSpace(path))
+            .Select(static path => Path.GetFullPath(path!))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+        ];
+
+        int copiedFileCount = 0;
+        int failedFileCount = 0;
+        foreach (string targetDirectoryPath in targetDirectoryPaths)
+        {
+            LogPersistenceResult result = PersistLogSnapshot(sourceDirectoryPath, targetDirectoryPath);
+            copiedFileCount += result.CopiedFileCount;
+            failedFileCount += result.FailedFileCount;
+        }
+
+        return new LogPersistenceResult(copiedFileCount, failedFileCount);
     }
 
     internal static LogPersistenceResult PersistLogSnapshot(

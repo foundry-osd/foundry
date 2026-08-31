@@ -45,7 +45,7 @@ public static class Program
                 "Foundry.Connect",
                 DiagnosticSessionContext.CurrentSessionId,
                 Serilog.Events.LogEventLevel.Debug);
-            System.Diagnostics.Debug.WriteLine($"Foundry.Connect file logging initialization failed: {ex.GetType().Name}");
+            Log.ForContext(typeof(Program)).Error(ex, "File logging initialization failed. Falling back to debugger output.");
         }
 
         Serilog.ILogger programLogger = Log.ForContext(typeof(Program));

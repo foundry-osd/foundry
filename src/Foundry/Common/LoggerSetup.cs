@@ -31,6 +31,7 @@ namespace Foundry.Common
         /// </summary>
         public static void ConfigureLogger()
         {
+            Exception? initializationException = null;
             LogFilePath = WritableFilePathResolver.Resolve(
                 (string[])
                 [
@@ -53,19 +54,19 @@ namespace Foundry.Common
             }
             catch (Exception ex)
             {
+                initializationException = ex;
                 LogFilePath = "<unavailable>";
                 Logger = FoundryLogConfiguration.CreateDebugLogger(
                     "Foundry.OSD",
                     DiagnosticSessionContext.CurrentSessionId,
                     LogEventLevel.Information,
                     MinimumLevelSwitch);
-                System.Diagnostics.Debug.WriteLine($"Foundry file logging initialization failed: {ex.GetType().Name}");
             }
 
             Log.Logger = Logger;
-            if (LogFilePath == "<unavailable>")
+            if (initializationException is not null)
             {
-                SetupLogger.Error("File logging is unavailable. Diagnostics are limited to debugger output.");
+                SetupLogger.Error(initializationException, "File logging initialization failed. Falling back to debugger output.");
             }
         }
 

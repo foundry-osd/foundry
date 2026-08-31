@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Windows;
 using System.Windows.Threading;
 using Foundry.Deploy.Services.ApplicationShell;
 using Foundry.Deploy.Services.Cache;
@@ -48,7 +49,7 @@ public static class Program
                 "Foundry.Deploy",
                 DiagnosticSessionContext.CurrentSessionId,
                 Serilog.Events.LogEventLevel.Debug);
-            System.Diagnostics.Debug.WriteLine($"Foundry.Deploy file logging initialization failed: {ex.GetType().Name}");
+            Log.ForContext(typeof(Program)).Error(ex, "File logging initialization failed. Falling back to debugger output.");
         }
 
         Serilog.ILogger programLogger = Log.ForContext(typeof(Program));
@@ -185,6 +186,7 @@ public static class Program
     private static void OnDispatcherUnhandledException(object? sender, DispatcherUnhandledExceptionEventArgs args)
     {
         Log.ForContext(typeof(Program)).Fatal(args.Exception, "Unhandled WPF dispatcher exception.");
-        Log.CloseAndFlush();
+        args.Handled = true;
+        Application.Current?.Shutdown(1);
     }
 }

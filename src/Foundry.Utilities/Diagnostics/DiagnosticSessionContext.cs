@@ -13,6 +13,8 @@ public static class DiagnosticSessionContext
 {
     public const string EnvironmentVariableName = "FOUNDRY_DIAGNOSTIC_SESSION_ID";
 
+    public const string PersistenceDirectoryEnvironmentVariableName = "FOUNDRY_DIAGNOSTIC_PERSISTENCE_DIRECTORY";
+
     private const int MaximumSessionIdLength = 32;
 
     /// <summary>

@@ -90,11 +90,11 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
     {
         Stopwatch stopwatch = Stopwatch.StartNew();
         _logger.LogInformation(
-            "Starting deployment orchestration. Mode={Mode}, IsDryRun={IsDryRun}, TargetDiskNumber={TargetDiskNumber}, TargetComputerName={TargetComputerName}, DriverPackSelectionKind={DriverPackSelectionKind}, ApplyFirmwareUpdates={ApplyFirmwareUpdates}",
+            "Starting deployment orchestration. Mode={Mode}, IsDryRun={IsDryRun}, TargetDiskNumber={TargetDiskNumber}, HasTargetComputerName={HasTargetComputerName}, DriverPackSelectionKind={DriverPackSelectionKind}, ApplyFirmwareUpdates={ApplyFirmwareUpdates}",
             context.Mode,
             context.IsDryRun,
             context.TargetDiskNumber,
-            context.TargetComputerName,
+            !string.IsNullOrWhiteSpace(context.TargetComputerName),
             context.DriverPackSelectionKind,
             context.ApplyFirmwareUpdates);
 

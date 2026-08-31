@@ -30,7 +30,7 @@ public sealed class AutopilotProfileImportService : IAutopilotProfileImportServi
     {
         if (string.IsNullOrWhiteSpace(jsonContent))
         {
-            throw new InvalidOperationException($"The Autopilot JSON file '{sourcePath}' is empty.");
+            throw new InvalidOperationException("The selected Autopilot JSON file is empty.");
         }
 
         JsonDocument document = JsonDocument.Parse(jsonContent);
@@ -38,8 +38,7 @@ public sealed class AutopilotProfileImportService : IAutopilotProfileImportServi
         string roundTrip = Encoding.ASCII.GetString(Encoding.ASCII.GetBytes(jsonContent));
         if (!string.Equals(roundTrip, jsonContent, StringComparison.Ordinal))
         {
-            throw new InvalidOperationException(
-                $"The Autopilot JSON file '{sourcePath}' contains non-ASCII characters.");
+            throw new InvalidOperationException("The selected Autopilot JSON file contains non-ASCII characters.");
         }
 
         return document;

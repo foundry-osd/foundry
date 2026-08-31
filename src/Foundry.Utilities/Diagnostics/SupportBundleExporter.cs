@@ -71,12 +71,20 @@ public sealed partial class SupportBundleExporter(TimeProvider? timeProvider = n
                             content = SanitizeContent(content);
                         }
 
-                        string entryName = ResolveEntryName(usedEntryNames, sourceName);
+                        string publishedSourceName = request.PrivacyMode == SupportBundlePrivacyMode.Sanitized
+                            ? SanitizeContent(sourceName)
+                            : sourceName;
+                        string entryName = ResolveEntryName(usedEntryNames, publishedSourceName);
                         await WriteTextEntryAsync(archive, $"logs/{entryName}", content, cancellationToken).ConfigureAwait(false);
-                        includedFiles.Add(new SupportBundleIncludedFile(sourceIndex, sourceName, entryName));
+                        includedFiles.Add(new SupportBundleIncludedFile(sourceIndex, publishedSourceName, entryName));
                     }
                     catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or NotSupportedException)
                     {
+                        if (request.PrivacyMode == SupportBundlePrivacyMode.Sanitized)
+                        {
+                            throw;
+                        }
+
                         omittedFiles.Add(new SupportBundleOmission(sourceIndex, sourceName, ex.GetType().Name));
                     }
                 }
@@ -215,6 +223,7 @@ public sealed partial class SupportBundleExporter(TimeProvider? timeProvider = n
     {
         string sanitized = UriPattern().Replace(content, static match => SanitizeUriText(match.Value));
         sanitized = SensitivePropertyPattern().Replace(sanitized, "$1=<redacted>");
+        sanitized = TargetComputerNameMessagePattern().Replace(sanitized, "$1<redacted>");
         sanitized = WindowsUserPathPattern().Replace(sanitized, "$1<redacted>");
         sanitized = EmailAddressPattern().Replace(sanitized, "<redacted:email>");
         return GuidPattern().Replace(sanitized, "<redacted:id>");
@@ -232,8 +241,11 @@ public sealed partial class SupportBundleExporter(TimeProvider? timeProvider = n
     [GeneratedRegex("https?://[^\\s\\\"'<>]+", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
     private static partial Regex UriPattern();
 
-    [GeneratedRegex("\\b(Token|Password|Passphrase|Secret|PrivateKey|MediaSecretKey|TenantId|Application(?:Object)?Id|DeviceId|Serial(?:Number)?|HardwareHash|ComputerName)\\s*[=:]\\s*(?:\\\"[^\\\"]*\\\"|'[^']*'|[^\\s,;|}]+)", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
+    [GeneratedRegex("\\b(Token|Password|Passphrase|Secret|PrivateKey|MediaSecretKey|TenantId|Application(?:Object)?Id|DeviceId|Serial(?:Number)?|HardwareHash|(?:Target)?ComputerName|GroupTag|Ssid|MacAddress|IpAddress)\\s*[=:]\\s*(?:\\\"[^\\\"]*\\\"|'[^']*'|[^\\s,;|}]+)", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
     private static partial Regex SensitivePropertyPattern();
+
+    [GeneratedRegex("\\b(Target computer name (?:configured|resolved|selected)\\s*:\\s*)[^\\s.,;|}]+", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
+    private static partial Regex TargetComputerNameMessagePattern();
 
     [GeneratedRegex("\\b([A-Za-z]:\\\\Users\\\\)[^\\\\\\s]+", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
     private static partial Regex WindowsUserPathPattern();

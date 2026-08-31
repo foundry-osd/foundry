@@ -796,7 +796,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         SetBootMediaCertificateInput(filePath, hardwareHashUploadSettings.BootMediaCertificate.PfxPassword);
         RefreshHardwareHashUploadState();
         SaveState();
-        logger.Information("Autopilot tenant session disconnected.");
+        logger.Information("Autopilot boot media certificate selection updated. CertificateSelected={CertificateSelected}", true);
     }
 
     /// <summary>
