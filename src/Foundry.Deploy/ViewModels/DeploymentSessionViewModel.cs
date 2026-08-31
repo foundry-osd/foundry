@@ -7,11 +7,14 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Net.NetworkInformation;
+using System.Runtime.InteropServices;
+using System.Windows;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Foundry.Core.Models.Configuration;
 using Foundry.Utilities.Networking;
+using Foundry.Utilities.Diagnostics;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Utilities.Processes;
@@ -19,6 +22,7 @@ using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.System;
 using Microsoft.Extensions.Logging;
+using Microsoft.Win32;
 
 namespace Foundry.Deploy.ViewModels;
 
@@ -340,6 +344,103 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to open log file.");
+        }
+    }
+
+    [RelayCommand]
+    private Task ExportDiagnosticsAsync()
+    {
+        return ExportDiagnosticsAsync(SupportBundlePrivacyMode.Sanitized);
+    }
+
+    [RelayCommand]
+    private async Task ExportRawDiagnosticsAsync()
+    {
+        MessageBoxResult confirmation = MessageBox.Show(
+            "Raw logs may contain credentials, identifiers, network names, and other sensitive data. Export them only when explicitly requested by a trusted support contact.",
+            "Export raw diagnostics",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Warning,
+            MessageBoxResult.No);
+        if (confirmation != MessageBoxResult.Yes)
+        {
+            return;
+        }
+
+        await ExportDiagnosticsAsync(SupportBundlePrivacyMode.Raw);
+    }
+
+    private async Task ExportDiagnosticsAsync(SupportBundlePrivacyMode privacyMode)
+    {
+        var picker = new OpenFolderDialog
+        {
+            Title = "Choose where to export Foundry diagnostics",
+            InitialDirectory = ResolveSuggestedExportDirectory()
+        };
+        if (picker.ShowDialog() != true)
+        {
+            return;
+        }
+
+        _logger.LogInformation("Support bundle export started. PrivacyMode={PrivacyMode}", privacyMode);
+        await Task.Delay(TimeSpan.FromSeconds(1));
+        FoundryDeployLogging.PersistCurrentLogs();
+
+        string[] logFilePaths = EnumerateSupportLogFiles();
+        SupportBundleResult result = await new SupportBundleExporter().ExportAsync(
+            new SupportBundleRequest
+            {
+                ApplicationName = "Foundry.Deploy",
+                ApplicationVersion = FoundryDeployApplicationInfo.Version,
+                SessionId = DiagnosticSessionContext.CurrentSessionId,
+                DestinationDirectoryPath = picker.FolderName,
+                LogFilePaths = logFilePaths,
+                PrivacyMode = privacyMode,
+                Summary = new Dictionary<string, string>
+                {
+                    ["Architecture"] = RuntimeInformation.ProcessArchitecture.ToString(),
+                    ["DeploymentMode"] = Environment.GetEnvironmentVariable("FOUNDRY_DEPLOYMENT_MODE") ?? "Unknown",
+                    ["OperatingSystem"] = Environment.OSVersion.VersionString,
+                    ["Page"] = CurrentPage.ToString()
+                }
+            });
+
+        _logger.LogInformation(
+            "Support bundle export completed. PrivacyMode={PrivacyMode}, IncludedFileCount={IncludedFileCount}, OmittedFileCount={OmittedFileCount}",
+            privacyMode,
+            result.IncludedFiles.Count,
+            result.OmittedFiles.Count);
+        MessageBox.Show(
+            $"Diagnostics were exported to:\n{result.ArchivePath}",
+            "Foundry diagnostics",
+            MessageBoxButton.OK,
+            MessageBoxImage.Information);
+    }
+
+    private string[] EnumerateSupportLogFiles()
+    {
+        string? activeDirectoryPath = Path.GetDirectoryName(FoundryDeployLogging.CurrentLogFilePath);
+        return new[] { activeDirectoryPath, _lastLogsDirectoryPath }
+            .Where(static path => !string.IsNullOrWhiteSpace(path) && Directory.Exists(path))
+            .SelectMany(static path => Directory.GetFiles(path!, "Foundry*.log", SearchOption.TopDirectoryOnly))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+    }
+
+    private static string ResolveSuggestedExportDirectory()
+    {
+        try
+        {
+            DriveInfo? preferredDrive = DriveInfo.GetDrives()
+                .Where(static drive => drive.IsReady)
+                .OrderByDescending(static drive => string.Equals(drive.VolumeLabel, "Foundry Cache", StringComparison.OrdinalIgnoreCase))
+                .ThenByDescending(static drive => drive.DriveType == DriveType.Removable)
+                .FirstOrDefault();
+            return preferredDrive?.RootDirectory.FullName ?? Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+        }
+        catch
+        {
+            return Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
         }
     }
 

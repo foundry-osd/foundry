@@ -19,7 +19,7 @@ public sealed class SupportBundleExporterTests
         string destinationPath = Path.Combine(tempDirectory.Path, "export");
         await File.WriteAllTextAsync(
             sourcePath,
-            "ProbeUri=https://example.test/status?token=abc#fragment TenantId=11111111-1111-1111-1111-111111111111 Password=hunter2 UserPath=C:\\Users\\alice\\file.txt",
+            "ProbeUri=https://alice:hunter2@example.test/status?token=abc#fragment TenantId=11111111-1111-1111-1111-111111111111 Password=hunter2 UserPath=C:\\Users\\alice\\file.txt",
             TestContext.Current.CancellationToken);
         var exporter = new SupportBundleExporter(new FixedTimeProvider(new DateTimeOffset(2026, 8, 31, 12, 22, 33, TimeSpan.Zero)));
 
@@ -36,6 +36,7 @@ public sealed class SupportBundleExporterTests
         using ZipArchive archive = ZipFile.OpenRead(result.ArchivePath);
         string log = await ReadEntryAsync(archive, "logs/Foundry.log");
         Assert.DoesNotContain("token=abc", log, StringComparison.Ordinal);
+        Assert.DoesNotContain("alice:hunter2", log, StringComparison.Ordinal);
         Assert.DoesNotContain("11111111-1111-1111-1111-111111111111", log, StringComparison.Ordinal);
         Assert.DoesNotContain("hunter2", log, StringComparison.Ordinal);
         Assert.DoesNotContain("alice", log, StringComparison.Ordinal);

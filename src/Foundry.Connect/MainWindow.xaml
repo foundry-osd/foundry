@@ -73,6 +73,13 @@
                     <MenuItem
                         Command="{Binding RefreshStatusCommand}"
                         Header="{Binding Strings[Tools.RefreshStatus]}" />
+                    <Separator />
+                    <MenuItem
+                        Command="{Binding ExportDiagnosticsCommand}"
+                        Header="Export diagnostics..." />
+                    <MenuItem
+                        Command="{Binding ExportRawDiagnosticsCommand}"
+                        Header="Export raw diagnostics..." />
                 </MenuItem>
                 <MenuItem
                     Header="{Binding Strings[Menu.Debug]}"

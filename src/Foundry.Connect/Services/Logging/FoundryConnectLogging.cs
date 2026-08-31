@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.IO;
 using Foundry.Connect.Services.Runtime;
 using Foundry.Utilities.IO;
 using Foundry.Utilities.Diagnostics;
@@ -16,6 +17,8 @@ internal static class FoundryConnectLogging
 
     private const int RetainedLogFileCount = 5;
 
+    public static string CurrentLogFilePath { get; private set; } = "<unavailable>";
+
     public static string ResolveStartupLogFilePath()
     {
         return WritableFilePathResolver.Resolve(
@@ -25,11 +28,15 @@ internal static class FoundryConnectLogging
 
     public static ILogger CreateLogger(string logFilePath)
     {
-        return FoundryLogConfiguration.CreateFileLogger(
+        string normalizedLogFilePath = Path.GetFullPath(logFilePath);
+        ILogger logger = FoundryLogConfiguration.CreateFileLogger(
             logFilePath,
             "Foundry.Connect",
             DiagnosticSessionContext.CurrentSessionId,
             LogEventLevel.Debug,
             RetainedLogFileCount);
+
+        CurrentLogFilePath = normalizedLogFilePath;
+        return logger;
     }
 }

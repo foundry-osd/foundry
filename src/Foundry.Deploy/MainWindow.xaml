@@ -76,6 +76,13 @@
                     <MenuItem
                         Command="{Binding Session.OpenLogFileCommand}"
                         Header="{Binding Strings[Tools.OpenLogFile]}" />
+                    <Separator />
+                    <MenuItem
+                        Command="{Binding Session.ExportDiagnosticsCommand}"
+                        Header="Export diagnostics..." />
+                    <MenuItem
+                        Command="{Binding Session.ExportRawDiagnosticsCommand}"
+                        Header="Export raw diagnostics..." />
                 </MenuItem>
                 <MenuItem
                     Header="{Binding Strings[Menu.Debug]}"

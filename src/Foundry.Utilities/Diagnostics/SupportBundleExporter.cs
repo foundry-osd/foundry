@@ -225,7 +225,7 @@ public sealed partial class SupportBundleExporter(TimeProvider? timeProvider = n
         string trimmed = value.TrimEnd('.', ',', ';', ')', ']', '}');
         string suffix = value[trimmed.Length..];
         return Uri.TryCreate(trimmed, UriKind.Absolute, out Uri? uri)
-            ? uri.GetLeftPart(UriPartial.Path) + suffix
+            ? LogValueSanitizer.SanitizeUri(uri) + suffix
             : "<redacted:uri>" + suffix;
     }
 
