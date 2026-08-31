@@ -60,4 +60,17 @@ public sealed class WritableFilePathResolverTests
 
         Assert.Equal("foundry.log", result);
     }
+
+    [Fact]
+    public void Resolve_WhenTargetFileCannotBeOpened_UsesNextCandidate()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string first = Path.Combine(tempDirectory.Path, "first");
+        string second = Path.Combine(tempDirectory.Path, "second");
+        Directory.CreateDirectory(Path.Combine(first, "foundry.log"));
+
+        string result = WritableFilePathResolver.Resolve([first, second], "foundry.log");
+
+        Assert.Equal(Path.Combine(second, "foundry.log"), result);
+    }
 }
