@@ -588,4 +588,34 @@
   <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>إيقاف</value></data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>يتم التحكم فيه بواسطة المستخدم</value></data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>إجباري</value></data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>تصدير التشخيصات...</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>تصدير التشخيصات الخام...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>تصدير التشخيصات الخام؟</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>قد تحتوي السجلات الخام على بيانات اعتماد ومعرفات ومسارات وأسماء شبكات وبيانات حساسة أخرى. قم بتصديرها فقط عند طلب ذلك صراحةً من جهة دعم موثوقة.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>تصدير السجلات الخام</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>اختر مكان تصدير تشخيصات Foundry</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>تم تصدير التشخيصات</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>تم تصدير التشخيصات إلى:&#xA;{0}</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>فشل تصدير التشخيصات</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>تعذر تصدير التشخيصات. تحقق من السجل للحصول على التفاصيل.</value>
+  </data>
 </root>

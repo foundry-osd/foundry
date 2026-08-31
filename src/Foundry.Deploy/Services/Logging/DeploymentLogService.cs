@@ -2,17 +2,17 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Collections.Concurrent;
 using System.IO;
 using System.Text.Json;
+using Foundry.Utilities.Diagnostics;
 using Serilog;
 using Serilog.Events;
 
 namespace Foundry.Deploy.Services.Logging;
 
-public sealed class DeploymentLogService : IDeploymentLogService, IDisposable
+public sealed class DeploymentLogService : IDeploymentLogService
 {
-    private readonly ConcurrentDictionary<string, ILogger> _sessionLoggers = new(StringComparer.OrdinalIgnoreCase);
+    private static ILogger Logger => Log.ForContext<DeploymentLogService>();
 
     public DeploymentLogSession Initialize(string rootPath)
     {
@@ -27,18 +27,18 @@ public sealed class DeploymentLogService : IDeploymentLogService, IDisposable
         Directory.CreateDirectory(logsDirectory);
         Directory.CreateDirectory(stateDirectory);
 
-        string logFilePath = Path.Combine(logsDirectory, FoundryDeployLogging.LogFileName);
         string stateFilePath = Path.Combine(stateDirectory, "deployment-state.json");
 
-        GetOrCreateSessionLogger(logFilePath)
-            .Write(LogEventLevel.Information, "Log session initialized at {RootPath}.", normalizedRoot);
+        Logger.Information(
+            "Deployment log session initialized. RootPath={RootPath}, LogsDirectoryPath={LogsDirectoryPath}",
+            normalizedRoot,
+            logsDirectory);
 
         return new DeploymentLogSession
         {
             RootPath = normalizedRoot,
             LogsDirectoryPath = logsDirectory,
             StateDirectoryPath = stateDirectory,
-            LogFilePath = logFilePath,
             StateFilePath = stateFilePath
         };
     }
@@ -49,11 +49,21 @@ public sealed class DeploymentLogService : IDeploymentLogService, IDisposable
         string message,
         CancellationToken cancellationToken = default)
     {
-        cancellationToken.ThrowIfCancellationRequested();
         LogEventLevel serilogLevel = MapLevel(level);
-
-        GetOrCreateSessionLogger(session.LogFilePath)
-            .Write(serilogLevel, "{LogMessage}", message);
+        try
+        {
+            Logger
+                .ForContext("DeploymentRootPath", session.RootPath)
+                .Write(
+                    serilogLevel,
+                    "{DeploymentMessage}",
+                    LogValueSanitizer.NormalizePropertyValue(message));
+        }
+        catch (Exception ex)
+        {
+            global::System.Diagnostics.Debug.WriteLine(
+                $"Foundry.Deploy session log write failed: {ex.GetType().Name}");
+        }
 
         return Task.CompletedTask;
     }
@@ -69,31 +79,6 @@ public sealed class DeploymentLogService : IDeploymentLogService, IDisposable
         });
 
         await File.WriteAllTextAsync(session.StateFilePath, json, cancellationToken).ConfigureAwait(false);
-    }
-
-    public void Release(DeploymentLogSession session)
-    {
-        ArgumentNullException.ThrowIfNull(session);
-
-        if (_sessionLoggers.TryRemove(session.LogFilePath, out ILogger? logger))
-        {
-            (logger as IDisposable)?.Dispose();
-        }
-    }
-
-    public void Dispose()
-    {
-        foreach (ILogger logger in _sessionLoggers.Values)
-        {
-            (logger as IDisposable)?.Dispose();
-        }
-
-        _sessionLoggers.Clear();
-    }
-
-    private ILogger GetOrCreateSessionLogger(string logFilePath)
-    {
-        return _sessionLoggers.GetOrAdd(logFilePath, static path => FoundryDeployLogging.CreateLogger(path));
     }
 
     private static LogEventLevel MapLevel(DeploymentLogLevel level)

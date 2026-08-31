@@ -133,10 +133,10 @@
     <value>Оновити</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Увімкніть діагностику розробника та відкрийте папку журналу Foundry.</value>
+    <value>Увімкнути журналювання програми на рівні налагодження.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>діагностика</value>
+    <value>Діагностика для розробників</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Змініть мову програми без перезапуску Foundry OSD.</value>
@@ -2757,5 +2757,38 @@
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry не вдалося відкрити форму повідомлення про помилку. Скопіюйте це посилання та відкрийте його в браузері.</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Експортувати діагностику</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Створити очищений архів підтримки без змін в оригінальних журналах.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Експортувати...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Додатково: експортувати необроблені журнали...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Експортувати необроблену діагностику?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Необроблені журнали можуть містити облікові дані, ідентифікатори, шляхи, назви мереж та інші чутливі дані. Експортуйте їх лише за явним запитом від довіреної контактної особи служби підтримки.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Експортувати необроблені журнали</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Виберіть, куди експортувати діагностику Foundry</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Діагностику експортовано</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Не вдалося експортувати діагностику</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Не вдалося експортувати діагностику. Перевірте журнал для отримання подробиць.</value>
   </data>
 </root>

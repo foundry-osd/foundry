@@ -5,6 +5,8 @@
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
+using Foundry.Utilities.Diagnostics;
+using Foundry.Utilities.IO;
 
 namespace Foundry.Common
 {
@@ -15,11 +17,13 @@ namespace Foundry.Common
     {
         private static readonly LoggingLevelSwitch MinimumLevelSwitch = new(LogEventLevel.Information);
         private static bool globalExceptionHandlersRegistered;
+        private const int RetainedLogFileCount = 10;
 
         /// <summary>
         /// Gets the active Serilog logger instance.
         /// </summary>
         public static ILogger Logger { get; private set; } = Serilog.Core.Logger.None;
+        public static string LogFilePath { get; private set; } = Constants.LogFilePath;
         private static ILogger SetupLogger => Log.ForContext("SourceContext", typeof(LoggerSetup).FullName);
 
         /// <summary>
@@ -27,20 +31,43 @@ namespace Foundry.Common
         /// </summary>
         public static void ConfigureLogger()
         {
-            Directory.CreateDirectory(Constants.LogDirectoryPath);
+            Exception? initializationException = null;
+            LogFilePath = WritableFilePathResolver.Resolve(
+                (string[])
+                [
+                    Constants.LogDirectoryPath,
+                    Path.Combine(Constants.UserRootDirectoryPath, "Logs"),
+                    Path.Combine(Path.GetTempPath(), Constants.ApplicationName, "Logs"),
+                    AppContext.BaseDirectory
+                ],
+                Path.GetFileName(Constants.LogFilePath));
 
-            Logger = new LoggerConfiguration()
-                .MinimumLevel.ControlledBy(MinimumLevelSwitch)
-                .Enrich.FromLogContext()
-                .Enrich.With<LogComponentEnricher>()
-                .WriteTo.File(
-                    Constants.LogFilePath,
-                    outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] [{Component}] {Message:lj}{NewLine}{Exception}",
-                    shared: true)
-                .WriteTo.Debug()
-                .CreateLogger();
+            try
+            {
+                Logger = FoundryLogConfiguration.CreateFileLogger(
+                    LogFilePath,
+                    "Foundry.OSD",
+                    DiagnosticSessionContext.CurrentSessionId,
+                    LogEventLevel.Information,
+                    RetainedLogFileCount,
+                    MinimumLevelSwitch);
+            }
+            catch (Exception ex)
+            {
+                initializationException = ex;
+                LogFilePath = "<unavailable>";
+                Logger = FoundryLogConfiguration.CreateDebugLogger(
+                    "Foundry.OSD",
+                    DiagnosticSessionContext.CurrentSessionId,
+                    LogEventLevel.Information,
+                    MinimumLevelSwitch);
+            }
 
             Log.Logger = Logger;
+            if (initializationException is not null)
+            {
+                SetupLogger.Error(initializationException, "File logging initialization failed. Falling back to debugger output.");
+            }
         }
 
         /// <summary>
@@ -79,10 +106,19 @@ namespace Foundry.Common
             if (e.ExceptionObject is Exception ex)
             {
                 SetupLogger.Fatal(ex, "Unhandled AppDomain exception. IsTerminating={IsTerminating}", e.IsTerminating);
+                if (e.IsTerminating)
+                {
+                    Log.CloseAndFlush();
+                }
+
                 return;
             }
 
             SetupLogger.Fatal("Unhandled AppDomain exception. IsTerminating={IsTerminating}, ExceptionObject={ExceptionObject}", e.IsTerminating, e.ExceptionObject);
+            if (e.IsTerminating)
+            {
+                Log.CloseAndFlush();
+            }
         }
 
         private static void OnUnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
@@ -91,21 +127,5 @@ namespace Foundry.Common
             e.SetObserved();
         }
 
-        private sealed class LogComponentEnricher : ILogEventEnricher
-        {
-            /// <inheritdoc />
-            public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
-            {
-                string component = Constants.ApplicationName;
-                if (logEvent.Properties.TryGetValue("SourceContext", out LogEventPropertyValue? sourceContextValue) &&
-                    sourceContextValue is ScalarValue { Value: string sourceContext } &&
-                    !string.IsNullOrWhiteSpace(sourceContext))
-                {
-                    component = sourceContext[(sourceContext.LastIndexOf('.') + 1)..];
-                }
-
-                logEvent.AddPropertyIfAbsent(propertyFactory.CreateProperty("Component", component));
-            }
-        }
     }
 }

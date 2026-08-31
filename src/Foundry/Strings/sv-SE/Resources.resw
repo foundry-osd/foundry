@@ -133,10 +133,10 @@
     <value>Uppdatera</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Aktivera utvecklardiagnostik och öppna loggmappen Foundry.</value>
+    <value>Aktivera programloggning på felsökningsnivå.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostik</value>
+    <value>Utvecklardiagnostik</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Ändra applikationsspråk utan att starta om Foundry OSD.</value>
@@ -2757,5 +2757,38 @@
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry kunde inte öppna formuläret för felrapportering. Kopiera den här länken och öppna den i webbläsaren.</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Exportera diagnostik</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Skapa ett rensat supportarkiv utan att ändra de ursprungliga loggarna.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Exportera...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Avancerat: exportera råa loggar...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Exportera rå diagnostik?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Råa loggar kan innehålla autentiseringsuppgifter, identifierare, sökvägar, nätverksnamn och andra känsliga data. Exportera dem endast när det uttryckligen begärs av en betrodd supportkontakt.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Exportera råa loggar</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Välj var Foundry-diagnostik ska exporteras</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnostik exporterad</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Export av diagnostik misslyckades</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Det gick inte att exportera diagnostik. Kontrollera loggen för mer information.</value>
   </data>
 </root>

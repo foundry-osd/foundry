@@ -240,7 +240,6 @@ public sealed class DeploymentPayloadCacheFallbackTests
                 RootPath = rootPath,
                 LogsDirectoryPath = Path.Combine(rootPath, "Logs"),
                 StateDirectoryPath = Path.Combine(rootPath, "State"),
-                LogFilePath = Path.Combine(rootPath, "Logs", "FoundryDeploy.log"),
                 StateFilePath = Path.Combine(rootPath, "State", "deployment-state.json")
             };
         }
@@ -262,9 +261,6 @@ public sealed class DeploymentPayloadCacheFallbackTests
             return Task.CompletedTask;
         }
 
-        public void Release(DeploymentLogSession session)
-        {
-        }
     }
 
     private sealed class FakeOperationProgressService : IOperationProgressService

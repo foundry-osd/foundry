@@ -63,12 +63,12 @@ public sealed class AutopilotTenantOnboardingService(
             if (application is null)
             {
                 application = await CreateApplicationAsync(accessToken, requiredRole, cancellationToken).ConfigureAwait(false);
-                logger.Information("Created managed Autopilot app registration. ApplicationObjectId={ApplicationObjectId}", application.ObjectId);
+                logger.Information("Created managed Autopilot app registration. RegistrationAction={RegistrationAction}", "Created");
             }
             else if (string.IsNullOrWhiteSpace(currentSettings.Tenant.ApplicationObjectId) &&
                      string.Equals(application.DisplayName, AutopilotHardwareHashUploadSettings.ManagedAppRegistrationDisplayName, StringComparison.OrdinalIgnoreCase))
             {
-                logger.Information("Adopted existing managed Autopilot app registration. ApplicationObjectId={ApplicationObjectId}", application.ObjectId);
+                logger.Information("Adopted existing managed Autopilot app registration. RegistrationAction={RegistrationAction}", "Adopted");
             }
 
             application = await EnsureRequiredApplicationPermissionAsync(
@@ -804,10 +804,10 @@ public sealed class AutopilotTenantOnboardingService(
         HttpResponseMessage response = await GraphHttpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
         if (!response.IsSuccessStatusCode)
         {
-            string? graphError = await TryReadGraphErrorAsync(response, cancellationToken).ConfigureAwait(false);
-            string message = string.IsNullOrWhiteSpace(graphError)
-                ? $"Microsoft Graph request failed for '{method} {requestPath}' with status code {(int)response.StatusCode}."
-                : $"Microsoft Graph request failed for '{method} {requestPath}' with status code {(int)response.StatusCode}: {graphError}.";
+            string? graphErrorCode = await TryReadGraphErrorCodeAsync(response, cancellationToken).ConfigureAwait(false);
+            string message = string.IsNullOrWhiteSpace(graphErrorCode)
+                ? $"Microsoft Graph {method} request failed with status code {(int)response.StatusCode}."
+                : $"Microsoft Graph {method} request failed with status code {(int)response.StatusCode}. ErrorCode={graphErrorCode}.";
             throw new HttpRequestException(message, null, response.StatusCode);
         }
 
@@ -972,7 +972,7 @@ public sealed class AutopilotTenantOnboardingService(
         return value.UtcDateTime.ToString("yyyy-MM-dd'T'HH:mm:ss'Z'", CultureInfo.InvariantCulture);
     }
 
-    private static async Task<string?> TryReadGraphErrorAsync(HttpResponseMessage response, CancellationToken cancellationToken)
+    private static async Task<string?> TryReadGraphErrorCodeAsync(HttpResponseMessage response, CancellationToken cancellationToken)
     {
         string responseBody = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
         if (string.IsNullOrWhiteSpace(responseBody))
@@ -985,25 +985,14 @@ public sealed class AutopilotTenantOnboardingService(
             using JsonDocument document = JsonDocument.Parse(responseBody);
             if (document.RootElement.TryGetProperty("error", out JsonElement error))
             {
-                string? code = error.TryGetProperty("code", out JsonElement codeElement)
+                return error.TryGetProperty("code", out JsonElement codeElement)
                     ? codeElement.GetString()
                     : null;
-                string? message = error.TryGetProperty("message", out JsonElement messageElement)
-                    ? messageElement.GetString()
-                    : null;
-
-                return string.Join(
-                    ": ",
-                    new[] { code, message }
-                        .Where(value => !string.IsNullOrWhiteSpace(value))
-                        .Select(value => value!.Trim()));
             }
         }
         catch (JsonException)
         {
-            return responseBody.Length <= 500
-                ? responseBody
-                : responseBody[..500];
+            return null;
         }
 
         return null;

@@ -133,10 +133,10 @@
     <value>Atnaujinti</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Įgalinkite kūrėjo diagnostiką ir atidarykite Foundry žurnalo aplanką.</value>
+    <value>Įjungti programos žurnalų registravimą derinimo lygiu.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostika</value>
+    <value>Kūrėjo diagnostika</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Pakeiskite programos kalbą iš naujo nepaleidę Foundry OSD.</value>
@@ -2757,5 +2757,38 @@
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>„Foundry“ nepavyko atidaryti klaidos pranešimo formos. Nukopijuokite šią nuorodą ir atidarykite ją naršyklėje.</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Eksportuoti diagnostiką</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Sukurkite išvalytą palaikymo archyvą nekeisdami originalių žurnalų.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Eksportuoti...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Išsamiau: eksportuoti neapdorotus žurnalus...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Eksportuoti neapdorotą diagnostiką?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Neapdorotuose žurnaluose gali būti prisijungimo duomenų, identifikatorių, kelių, tinklų pavadinimų ir kitų jautrių duomenų. Eksportuokite juos tik tada, kai to aiškiai paprašo patikimas palaikymo kontaktas.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Eksportuoti neapdorotus žurnalus</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Pasirinkite, kur eksportuoti Foundry diagnostiką</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnostika eksportuota</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Nepavyko eksportuoti diagnostikos</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Nepavyko eksportuoti diagnostikos. Išsamesnės informacijos ieškokite žurnale.</value>
   </data>
 </root>

@@ -133,10 +133,10 @@
     <value>Ανανέωση</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Ενεργοποιήστε τα διαγνωστικά για προγραμματιστές και ανοίξτε το φάκελο καταγραφής Foundry.</value>
+    <value>Ενεργοποίηση καταγραφής εφαρμογής σε επίπεδο εντοπισμού σφαλμάτων.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Διαγνωστικά</value>
+    <value>Διαγνωστικά για προγραμματιστές</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Αλλάξτε τη γλώσσα της εφαρμογής χωρίς επανεκκίνηση του Foundry OSD.</value>
@@ -2757,5 +2757,38 @@
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Το Foundry δεν μπόρεσε να ανοίξει τη φόρμα αναφοράς σφάλματος. Αντιγράψτε αυτόν τον σύνδεσμο και ανοίξτε τον στο πρόγραμμα περιήγησής σας.</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Εξαγωγή διαγνωστικών</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Δημιουργήστε ένα καθαρισμένο αρχείο υποστήριξης χωρίς να τροποποιήσετε τα αρχικά αρχεία καταγραφής.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Εξαγωγή...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Για προχωρημένους: εξαγωγή ακατέργαστων αρχείων καταγραφής...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Εξαγωγή ακατέργαστων διαγνωστικών;</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Τα ακατέργαστα αρχεία καταγραφής μπορεί να περιέχουν διαπιστευτήρια, αναγνωριστικά, διαδρομές, ονόματα δικτύων και άλλα ευαίσθητα δεδομένα. Εξαγάγετέ τα μόνο όταν ζητηθούν ρητά από έμπιστο εκπρόσωπο υποστήριξης.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Εξαγωγή ακατέργαστων αρχείων καταγραφής</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Επιλέξτε πού θα εξαχθούν τα διαγνωστικά του Foundry</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Τα διαγνωστικά εξήχθησαν</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Η εξαγωγή διαγνωστικών απέτυχε</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η εξαγωγή των διαγνωστικών. Ελέγξτε το αρχείο καταγραφής για λεπτομέρειες.</value>
   </data>
 </root>

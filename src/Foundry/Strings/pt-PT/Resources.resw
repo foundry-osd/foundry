@@ -133,10 +133,10 @@
     <value>Atualizar</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Habilite o diagnóstico do desenvolvedor e abra a pasta de log Foundry.</value>
+    <value>Ativar o registo da aplicação ao nível de depuração.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnóstico</value>
+    <value>Diagnóstico de programador</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Altere o idioma do aplicativo sem reiniciar Foundry OSD.</value>
@@ -2757,5 +2757,38 @@
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>O Foundry não conseguiu abrir o formulário de comunicação de erros. Copie esta ligação e abra-a no seu browser.</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Exportar diagnósticos</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Criar um arquivo de suporte anonimizado sem modificar os registos originais.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Exportar...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Avançado: exportar registos em bruto...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Exportar diagnósticos em bruto?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Os registos em bruto podem conter credenciais, identificadores, caminhos, nomes de rede e outros dados sensíveis. Exporte-os apenas quando forem explicitamente solicitados por um contacto de suporte de confiança.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Exportar registos em bruto</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Escolha onde exportar os diagnósticos do Foundry</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnósticos exportados</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Falha na exportação dos diagnósticos</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Não foi possível exportar os diagnósticos. Consulte o registo para obter detalhes.</value>
   </data>
 </root>

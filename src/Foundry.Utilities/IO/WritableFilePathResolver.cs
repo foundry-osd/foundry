@@ -5,12 +5,12 @@
 namespace Foundry.Utilities.IO;
 
 /// <summary>
-/// Resolves a file path under the first candidate directory that can be created.
+/// Resolves a file path under the first candidate directory where the target file can be opened for writing.
 /// </summary>
 public static class WritableFilePathResolver
 {
     /// <summary>
-    /// Returns a path under the first creatable directory, or the file name when every candidate fails.
+    /// Returns an absolute path under the first writable directory, or an absolute current-directory fallback.
     /// </summary>
     public static string Resolve(IEnumerable<string> candidateDirectories, string fileName)
     {
@@ -27,7 +27,16 @@ public static class WritableFilePathResolver
             try
             {
                 Directory.CreateDirectory(candidateDirectory);
-                return Path.Combine(candidateDirectory, fileName);
+                string candidatePath = Path.Combine(candidateDirectory, fileName);
+                using (new FileStream(
+                    candidatePath,
+                    FileMode.OpenOrCreate,
+                    FileAccess.Write,
+                    FileShare.ReadWrite | FileShare.Delete))
+                {
+                }
+
+                return Path.GetFullPath(candidatePath);
             }
             catch
             {
@@ -35,6 +44,6 @@ public static class WritableFilePathResolver
             }
         }
 
-        return fileName;
+        return Path.GetFullPath(fileName);
     }
 }

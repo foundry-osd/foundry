@@ -97,9 +97,12 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
                     }
                 }
             }
-            catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
+            catch (ArgumentException)
             {
-                logger.Warning(ex, "Foundry configuration is not ready.");
+                return false;
+            }
+            catch (InvalidOperationException)
+            {
                 return false;
             }
         }
@@ -228,6 +231,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     {
         if (!File.Exists(Constants.FoundryConfigurationStatePath))
         {
+            logger.Information("Foundry configuration state initialized from defaults.");
             return FoundryConfigurationMigration.ApplyLegacyGeneralSettings(
                 CreateDefaultDocument(),
                 appSettingsService.MigratedGeneralSettings);
@@ -236,7 +240,9 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         try
         {
             string json = File.ReadAllText(Constants.FoundryConfigurationStatePath);
-            return foundryConfigurationService.Deserialize(json);
+            FoundryConfigurationDocument document = foundryConfigurationService.Deserialize(json);
+            logger.Information("Foundry configuration state loaded from disk.");
+            return document;
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or System.Text.Json.JsonException or ArgumentException)
         {
@@ -290,10 +296,18 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
 
     private void Save()
     {
-        Directory.CreateDirectory(Constants.ConfigurationWorkspaceDirectoryPath);
-        FoundryConfigurationDocument document = SanitizeForPersistence(Current);
-        string json = foundryConfigurationService.Serialize(document);
-        File.WriteAllText(Constants.FoundryConfigurationStatePath, json);
+        try
+        {
+            Directory.CreateDirectory(Constants.ConfigurationWorkspaceDirectoryPath);
+            FoundryConfigurationDocument document = SanitizeForPersistence(Current);
+            string json = foundryConfigurationService.Serialize(document);
+            File.WriteAllText(Constants.FoundryConfigurationStatePath, json);
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            logger.Error(ex, "Failed to persist Foundry configuration state. StatePath={StatePath}", Constants.FoundryConfigurationStatePath);
+            throw;
+        }
     }
 
     private static FoundryConfigurationDocument SanitizeForPersistence(FoundryConfigurationDocument document)

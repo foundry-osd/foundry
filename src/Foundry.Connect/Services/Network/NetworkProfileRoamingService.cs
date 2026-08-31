@@ -86,7 +86,10 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
 
         if (string.IsNullOrWhiteSpace(request.ProfilePath) || !File.Exists(request.ProfilePath))
         {
-            _logger.LogDebug("Network profile roaming skipped because the source profile path was missing.");
+            _logger.LogWarning(
+                "Network profile roaming skipped because the source profile is unavailable. ProfileKind={ProfileKind}, Source={Source}",
+                isWifiProfile ? "Wifi" : "WiredDot1x",
+                request.Source);
             return;
         }
 
@@ -123,6 +126,13 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
         };
 
         await WriteManifestAsync(manifest, cancellationToken).ConfigureAwait(false);
+        _logger.LogInformation(
+            "Network profile roaming capture completed. ProfileKind={ProfileKind}, Source={Source}, ConnectivityExpectation={ConnectivityExpectation}, CertificateCount={CertificateCount}, PrivateKeyRoamingEnabled={PrivateKeyRoamingEnabled}",
+            isWifiProfile ? "Wifi" : "WiredDot1x",
+            request.Source,
+            request.ConnectivityExpectation,
+            manifest.Certificates.Count,
+            transportSettings.IncludePrivateKeyMaterial);
     }
 
     private bool PrepareArtifactRoot()
@@ -285,7 +295,10 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
         }
         catch (Exception ex)
         {
-            _logger.LogDebug(ex, "Failed to delete stale network profile roaming certificate artifacts at {Path}.", path);
+            _logger.LogWarning(
+                ex,
+                "Failed to delete stale network profile roaming artifacts. ArtifactName={ArtifactName}",
+                Path.GetFileName(path));
         }
     }
 

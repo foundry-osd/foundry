@@ -133,10 +133,10 @@
     <value>リフレッシュ</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>開発者診断を有効にして、Foundry ログ フォルダーを開きます。</value>
+    <value>アプリケーションのデバッグレベルのログ記録を有効にします。</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>診断</value>
+    <value>開発者向け診断</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Foundry OSD を再起動せずにアプリケーション言語を変更します。</value>
@@ -2757,5 +2757,38 @@
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry はバグ報告フォームを開けませんでした。このリンクをコピーしてブラウザーで開いてください。</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>診断をエクスポート</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>元のログを変更せずに、サニタイズ済みのサポート アーカイブを作成します。</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>エクスポート...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>詳細設定: 生ログをエクスポート...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>生の診断をエクスポートしますか?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>生ログには、資格情報、識別子、パス、ネットワーク名、その他の機密データが含まれている場合があります。信頼できるサポート担当者から明示的に依頼された場合にのみエクスポートしてください。</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>生ログをエクスポート</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Foundry の診断をエクスポートする場所を選択してください</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>診断をエクスポートしました</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>診断のエクスポートに失敗しました</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>診断をエクスポートできませんでした。詳細はログを確認してください。</value>
   </data>
 </root>

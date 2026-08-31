@@ -1,0 +1,41 @@
+﻿<Window x:Class="Foundry.Connect.Views.LocalizedMessageDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="{Binding DialogTitle, RelativeSource={RelativeSource Self}}"
+    Width="520"
+    Icon="/Assets/Icons/app.ico"
+    ResizeMode="NoResize"
+    ShowInTaskbar="False"
+    SizeToContent="Height"
+    WindowStartupLocation="CenterOwner">
+    <Grid Margin="32">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock
+            MaxWidth="456"
+            Text="{Binding Message, RelativeSource={RelativeSource AncestorType=Window}}"
+            TextWrapping="Wrap" />
+
+        <StackPanel
+            Grid.Row="1"
+            Margin="0,24,0,0"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal">
+            <Button
+                MinWidth="96"
+                Content="{Binding CancelButtonText, RelativeSource={RelativeSource AncestorType=Window}}"
+                IsCancel="True"
+                Visibility="{Binding CancelButtonVisibility, RelativeSource={RelativeSource AncestorType=Window}}" />
+            <Button
+                MinWidth="96"
+                Margin="8,0,0,0"
+                Click="PrimaryButton_OnClick"
+                Content="{Binding PrimaryButtonText, RelativeSource={RelativeSource AncestorType=Window}}"
+                IsDefault="True"
+                Style="{DynamicResource AccentButtonStyle}" />
+        </StackPanel>
+    </Grid>
+</Window>

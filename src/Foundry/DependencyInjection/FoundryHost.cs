@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace Foundry.DependencyInjection;
 
@@ -18,6 +20,8 @@ public static class FoundryHost
     public static IHost Create()
     {
         HostApplicationBuilder builder = Host.CreateApplicationBuilder();
+        builder.Logging.ClearProviders();
+        builder.Logging.AddSerilog(dispose: false);
         builder.Services.AddFoundryApplicationServices();
         return builder.Build();
     }

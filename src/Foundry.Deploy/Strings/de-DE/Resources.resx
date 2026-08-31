@@ -588,4 +588,34 @@ Mit der Bereitstellung fortfahren?</value></data>
   <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>Aus</value></data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>Benutzergesteuert</value></data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>Ausgeschaltet</value></data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>Diagnose exportieren...</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>Rohdiagnose exportieren...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Rohdiagnose exportieren?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Rohprotokolle können Anmeldeinformationen, Bezeichner, Pfade, Netzwerknamen und andere vertrauliche Daten enthalten. Exportieren Sie sie nur, wenn dies ausdrücklich von einem vertrauenswürdigen Supportkontakt angefordert wird.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Rohprotokolle exportieren</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Wählen Sie aus, wohin die Foundry-Diagnose exportiert werden soll</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnose exportiert</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>Die Diagnose wurde exportiert nach:&#xA;{0}</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Export der Diagnose fehlgeschlagen</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Die Diagnose konnte nicht exportiert werden. Weitere Details finden Sie im Protokoll.</value>
+  </data>
 </root>

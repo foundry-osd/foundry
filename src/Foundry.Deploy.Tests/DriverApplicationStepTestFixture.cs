@@ -147,7 +147,6 @@ internal sealed class DriverApplicationLogService : IDeploymentLogService
             RootPath = rootPath,
             LogsDirectoryPath = logsDirectory,
             StateDirectoryPath = stateDirectory,
-            LogFilePath = Path.Combine(logsDirectory, "FoundryDeploy.log"),
             StateFilePath = Path.Combine(stateDirectory, "deployment-state.json")
         };
     }
@@ -156,9 +155,6 @@ internal sealed class DriverApplicationLogService : IDeploymentLogService
 
     public Task SaveStateAsync<TState>(DeploymentLogSession session, TState state, CancellationToken cancellationToken = default) => Task.CompletedTask;
 
-    public void Release(DeploymentLogSession session)
-    {
-    }
 }
 
 internal sealed class DriverApplicationOperationProgressService : IOperationProgressService

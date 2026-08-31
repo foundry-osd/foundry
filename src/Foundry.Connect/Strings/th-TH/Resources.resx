@@ -422,4 +422,34 @@
   <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
     <value>จีนดั้งเดิม (ไต้หวัน)</value>
   </data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>ส่งออกข้อมูลการวินิจฉัย...</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>ส่งออกข้อมูลการวินิจฉัยดิบ...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>ส่งออกข้อมูลการวินิจฉัยดิบหรือไม่?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>บันทึกดิบอาจมีข้อมูลรับรอง ตัวระบุ เส้นทาง ชื่อเครือข่าย และข้อมูลที่ละเอียดอ่อนอื่นๆ ส่งออกเฉพาะเมื่อมีการร้องขออย่างชัดเจนจากผู้ติดต่อฝ่ายสนับสนุนที่เชื่อถือได้เท่านั้น</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>ส่งออกบันทึกดิบ</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>เลือกตำแหน่งที่จะส่งออกข้อมูลการวินิจฉัยของ Foundry</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>ส่งออกข้อมูลการวินิจฉัยแล้ว</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>ส่งออกข้อมูลการวินิจฉัยไปยัง:&#xA;{0}</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>การส่งออกข้อมูลการวินิจฉัยล้มเหลว</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>ไม่สามารถส่งออกข้อมูลการวินิจฉัยได้ โปรดตรวจสอบบันทึกเพื่อดูรายละเอียด</value>
+  </data>
 </root>

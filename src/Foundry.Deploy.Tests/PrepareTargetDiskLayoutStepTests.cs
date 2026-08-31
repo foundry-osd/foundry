@@ -240,7 +240,6 @@ public sealed class PrepareTargetDiskLayoutStepTests
                 RootPath = rootPath,
                 LogsDirectoryPath = logsDirectory,
                 StateDirectoryPath = stateDirectory,
-                LogFilePath = Path.Combine(logsDirectory, "FoundryDeploy.log"),
                 StateFilePath = Path.Combine(stateDirectory, "deployment-state.json")
             };
         }
@@ -262,9 +261,6 @@ public sealed class PrepareTargetDiskLayoutStepTests
             return Task.CompletedTask;
         }
 
-        public void Release(DeploymentLogSession session)
-        {
-        }
     }
 
     private sealed class FakeOperationProgressService : IOperationProgressService

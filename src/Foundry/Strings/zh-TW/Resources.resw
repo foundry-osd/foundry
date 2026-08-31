@@ -133,10 +133,10 @@
     <value>重新整理</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>啟用開發人員診斷並開啟 Foundry 日誌資料夾。</value>
+    <value>啟用偵錯層級的應用程式記錄。</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>診斷</value>
+    <value>開發人員診斷</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>更改應用程式語言而無需重新啟動Foundry OSD。</value>
@@ -2757,5 +2757,38 @@
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry 無法開啟錯誤回報表單。請複製此連結並在瀏覽器中開啟。</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>匯出診斷資訊</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>建立已淨化的支援封存檔，而不修改原始記錄。</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>匯出...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>進階：匯出原始記錄...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>要匯出原始診斷資訊嗎？</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>原始記錄可能包含認證資料、識別碼、路徑、網路名稱及其他敏感資料。只有在可信任的支援聯絡人明確要求時才匯出。</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>匯出原始記錄</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>選擇要將 Foundry 診斷資訊匯出到何處</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>診斷資訊已匯出</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>匯出診斷資訊失敗</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>無法匯出診斷資訊。請檢查記錄以取得詳細資料。</value>
   </data>
 </root>

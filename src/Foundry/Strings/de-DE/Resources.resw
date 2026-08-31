@@ -133,10 +133,10 @@
     <value>Aktualisieren</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Aktivieren Sie die Entwicklerdiagnose und öffnen Sie den Protokollordner Foundry.</value>
+    <value>Protokollierung der Anwendung auf Debug-Ebene aktivieren.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnose</value>
+    <value>Entwicklerdiagnose</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Ändern Sie die Anwendungssprache, ohne Foundry OSD neu zu starten.</value>
@@ -2757,5 +2757,38 @@
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry konnte das Formular zum Melden des Fehlers nicht öffnen. Kopieren Sie diesen Link und öffnen Sie ihn in Ihrem Browser.</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Diagnose exportieren</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Erstellen Sie ein bereinigtes Supportarchiv, ohne die ursprünglichen Protokolle zu ändern.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Exportieren...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Erweitert: Rohprotokolle exportieren...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Rohdiagnose exportieren?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Rohprotokolle können Anmeldeinformationen, Bezeichner, Pfade, Netzwerknamen und andere vertrauliche Daten enthalten. Exportieren Sie sie nur, wenn dies ausdrücklich von einem vertrauenswürdigen Supportkontakt angefordert wird.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Rohprotokolle exportieren</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Wählen Sie aus, wohin die Foundry-Diagnose exportiert werden soll</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnose exportiert</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Export der Diagnose fehlgeschlagen</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Die Diagnose konnte nicht exportiert werden. Weitere Details finden Sie im Protokoll.</value>
   </data>
 </root>

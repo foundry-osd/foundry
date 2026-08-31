@@ -81,16 +81,28 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
     public async Task<string> ApplyProvisionedSettingsAsync(CancellationToken cancellationToken)
     {
         List<string> messages = [];
+        int requestedActionCount = 0;
+        _logger.LogInformation(
+            "Provisioned network bootstrap started. WiredDot1xEnabled={WiredDot1xEnabled}, WifiEnabled={WifiEnabled}, WifiProvisioned={WifiProvisioned}",
+            _configuration.Dot1x.IsEnabled,
+            _configuration.Wifi.IsEnabled,
+            _configuration.Capabilities.WifiProvisioned);
 
         if (_configuration.Dot1x.IsEnabled)
         {
+            requestedActionCount++;
             messages.Add(await ApplyWiredDot1xProfileAsync(cancellationToken).ConfigureAwait(false));
         }
 
         if (_configuration.Capabilities.WifiProvisioned && _configuration.Wifi.IsEnabled)
         {
+            requestedActionCount++;
             messages.Add(await EnsureWifiProfileAsync(cancellationToken).ConfigureAwait(false));
         }
+
+        _logger.LogInformation(
+            "Provisioned network bootstrap finished. RequestedActionCount={RequestedActionCount}",
+            requestedActionCount);
 
         return messages.Count == 0
             ? "No provisioned network bootstrap actions were requested."
@@ -124,10 +136,10 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         if (result.ExitCode != 0)
         {
             _logger.LogWarning(
-                "Wi-Fi connection request failed. ExitCode={ExitCode}, StdOut={StdOut}, StdErr={StdErr}",
+                "Provisioned Wi-Fi connection request failed. ExitCode={ExitCode}, StdOutLength={StdOutLength}, StdErrLength={StdErrLength}",
                 result.ExitCode,
-                result.StandardOutput,
-                result.StandardError);
+                result.StandardOutput.Length,
+                result.StandardError.Length);
             return $"{ensureMessage} Wi-Fi connection request failed: {CollapseError(result)}";
         }
 
@@ -181,8 +193,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             if (addProfileResult.ExitCode != 0)
             {
                 _logger.LogWarning(
-                    "Failed to import discovered Wi-Fi profile. Ssid={Ssid}, ExitCode={ExitCode}",
-                    trimmedSsid,
+                    "Failed to import discovered Wi-Fi profile. ExitCode={ExitCode}",
                     addProfileResult.ExitCode);
                 return $"Wi-Fi profile import failed for '{trimmedSsid}': {CollapseError(addProfileResult)}";
             }
@@ -286,10 +297,10 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         if (addProfileResult.ExitCode != 0)
         {
             _logger.LogWarning(
-                "Failed to add wired 802.1X profile. ExitCode={ExitCode}, StdOut={StdOut}, StdErr={StdErr}",
+                "Failed to add wired 802.1X profile. ExitCode={ExitCode}, StdOutLength={StdOutLength}, StdErrLength={StdErrLength}",
                 addProfileResult.ExitCode,
-                addProfileResult.StandardOutput,
-                addProfileResult.StandardError);
+                addProfileResult.StandardOutput.Length,
+                addProfileResult.StandardError.Length);
             messages.Add($"Wired 802.1X profile import failed: {CollapseError(addProfileResult)}");
             return string.Join(" ", messages);
         }
@@ -589,7 +600,10 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         }
         catch (Exception ex)
         {
-            _logger.LogWarning(ex, "Failed to import certificate from {CertificatePath}.", certificatePath);
+            _logger.LogWarning(
+                ex,
+                "Failed to import certificate. CertificateFileName={CertificateFileName}",
+                Path.GetFileName(certificatePath));
             return $"Certificate import failed for '{Path.GetFileName(certificatePath)}': {ex.Message}";
         }
     }

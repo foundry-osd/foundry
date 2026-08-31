@@ -21,7 +21,7 @@ public sealed class WinUiDialogService : IDialogService
             Title = request.Title,
             Content = CreateMessageContent(request.Message),
             CloseButtonText = request.CloseButtonText,
-            Style = GetDefaultContentDialogStyle(),
+            Style = ContentDialogStyleProvider.DefaultStyle,
             XamlRoot = GetXamlRoot()
         };
 
@@ -39,7 +39,7 @@ public sealed class WinUiDialogService : IDialogService
             Content = CreateMessageContent(request.Message),
             PrimaryButtonText = request.PrimaryButtonText,
             CloseButtonText = request.CancelButtonText,
-            Style = GetDefaultContentDialogStyle(),
+            Style = ContentDialogStyleProvider.DefaultStyle,
             XamlRoot = GetXamlRoot()
         };
 
@@ -68,10 +68,5 @@ public sealed class WinUiDialogService : IDialogService
     private static XamlRoot GetXamlRoot()
     {
         return App.MainWindow.Content.XamlRoot;
-    }
-
-    private static Style GetDefaultContentDialogStyle()
-    {
-        return (Style)Microsoft.UI.Xaml.Application.Current.Resources["DefaultContentDialogStyle"];
     }
 }

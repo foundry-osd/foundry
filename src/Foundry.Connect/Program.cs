@@ -10,6 +10,7 @@ using Foundry.Connect.Services.Configuration;
 using Foundry.Connect.Services.Logging;
 using Foundry.Connect.Services.Runtime;
 using Foundry.Telemetry;
+using Foundry.Utilities.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -33,50 +34,83 @@ public static class Program
     public static int Main(string[] args)
     {
         string startupLogFilePath = FoundryConnectLogging.ResolveStartupLogFilePath();
-        Log.Logger = FoundryConnectLogging.CreateLogger(startupLogFilePath);
+        try
+        {
+            Log.Logger = FoundryConnectLogging.CreateLogger(startupLogFilePath);
+        }
+        catch (Exception ex)
+        {
+            startupLogFilePath = "<unavailable>";
+            Log.Logger = FoundryLogConfiguration.CreateDebugLogger(
+                "Foundry.Connect",
+                DiagnosticSessionContext.CurrentSessionId,
+                Serilog.Events.LogEventLevel.Debug);
+            Log.ForContext(typeof(Program)).Error(ex, "File logging initialization failed. Falling back to debugger output.");
+        }
+
+        Serilog.ILogger programLogger = Log.ForContext(typeof(Program));
         RegisterGlobalExceptionHandlers();
 
         try
         {
-            Log.Information("Starting Foundry.Connect bootstrap.");
+            programLogger.Information(
+                "Foundry.Connect bootstrap started. Version={Version}, SessionId={SessionId}, LogFilePath={LogFilePath}",
+                FoundryConnectApplicationInfo.Version,
+                DiagnosticSessionContext.CurrentSessionId,
+                startupLogFilePath);
+            if (startupLogFilePath == "<unavailable>")
+            {
+                programLogger.Error("File logging is unavailable. Diagnostics are limited to debugger output.");
+            }
             if (!RuntimeStartupGuard.CanRun())
             {
-                Log.Error("Foundry.Connect can only run in WinPE outside a DEBUG debugger session.");
+                programLogger.Error("Foundry.Connect can only run in WinPE outside a DEBUG debugger session.");
                 return (int)FoundryConnectExitCode.StartupFailure;
             }
 
             ConfigureRuntimeCompatibility();
-            Log.Information("Runtime compatibility configuration completed.");
+            programLogger.Information("Runtime compatibility configuration completed.");
 
             using IHost host = BuildHost(args);
-            Log.Information("Host built successfully.");
+            programLogger.Information("Host built successfully.");
             ITelemetryService telemetryService = host.Services.GetRequiredService<ITelemetryService>();
 
             App app = host.Services.GetRequiredService<App>();
-            Log.Information("Resolved App instance.");
+            programLogger.Debug("Resolved App instance.");
             app.DispatcherUnhandledException += OnDispatcherUnhandledException;
             app.InitializeComponent();
-            Log.Information("App.InitializeComponent completed.");
+            programLogger.Debug("App.InitializeComponent completed.");
 
             MainWindow mainWindow = host.Services.GetRequiredService<MainWindow>();
-            Log.Information("Resolved MainWindow instance.");
-            Log.Information("Entering WPF run loop.");
+            programLogger.Debug("Resolved MainWindow instance.");
+            programLogger.Information("Entering WPF run loop.");
             int exitCode = app.Run(mainWindow);
-            Log.Debug("Flushing Foundry.Connect telemetry events.");
+            programLogger.Debug("Flushing Foundry.Connect telemetry events.");
             telemetryService.FlushAsync().GetAwaiter().GetResult();
-            Log.Debug("Foundry.Connect telemetry flush completed.");
+            programLogger.Debug("Foundry.Connect telemetry flush completed.");
 
-            Log.Information("Foundry.Connect exited with code {ExitCode}.", exitCode);
+            programLogger.Information(
+                "Foundry.Connect exited. Outcome={Outcome}, ExitCode={ExitCode}",
+                exitCode == (int)FoundryConnectExitCode.Success ? "Succeeded" : "Stopped",
+                exitCode);
             return exitCode;
         }
         catch (FoundryConnectConfigurationException ex)
         {
-            Log.Fatal(ex, "Foundry.Connect configuration could not be loaded.");
+            programLogger.Fatal(
+                ex,
+                "Foundry.Connect configuration could not be loaded. Outcome={Outcome}, ExitCode={ExitCode}",
+                "ConfigurationFailure",
+                (int)FoundryConnectExitCode.ConfigurationFailure);
             return (int)FoundryConnectExitCode.ConfigurationFailure;
         }
         catch (Exception ex)
         {
-            Log.Fatal(ex, "Foundry.Connect failed to start or terminated unexpectedly.");
+            programLogger.Fatal(
+                ex,
+                "Foundry.Connect failed to start or terminated unexpectedly. Outcome={Outcome}, ExitCode={ExitCode}",
+                "StartupFailure",
+                (int)FoundryConnectExitCode.StartupFailure);
             return (int)FoundryConnectExitCode.StartupFailure;
         }
         finally
@@ -138,27 +172,37 @@ public static class Program
     {
         AppDomain.CurrentDomain.UnhandledException += (_, args) =>
         {
+            Serilog.ILogger logger = Log.ForContext(typeof(Program));
             if (args.ExceptionObject is Exception exception)
             {
-                Log.Fatal(exception, "Unhandled AppDomain exception (IsTerminating={IsTerminating}).", args.IsTerminating);
+                logger.Fatal(exception, "Unhandled AppDomain exception. IsTerminating={IsTerminating}", args.IsTerminating);
+                if (args.IsTerminating)
+                {
+                    Log.CloseAndFlush();
+                }
+
                 return;
             }
 
-            Log.Fatal("Unhandled AppDomain exception object (IsTerminating={IsTerminating}): {ExceptionObject}",
+            logger.Fatal("Unhandled AppDomain exception. IsTerminating={IsTerminating}, ExceptionObject={ExceptionObject}",
                 args.IsTerminating,
                 args.ExceptionObject);
+            if (args.IsTerminating)
+            {
+                Log.CloseAndFlush();
+            }
         };
 
         TaskScheduler.UnobservedTaskException += (_, args) =>
         {
-            Log.Error(args.Exception, "Unobserved task exception.");
+            Log.ForContext(typeof(Program)).Error(args.Exception, "Unobserved task exception.");
             args.SetObserved();
         };
     }
 
     private static void OnDispatcherUnhandledException(object? sender, DispatcherUnhandledExceptionEventArgs args)
     {
-        Log.Fatal(args.Exception, "Unhandled WPF dispatcher exception.");
+        Log.ForContext(typeof(Program)).Fatal(args.Exception, "Unhandled WPF dispatcher exception.");
         args.Handled = true;
 
         Application? app = Application.Current;

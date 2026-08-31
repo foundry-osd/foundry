@@ -588,4 +588,34 @@ Vai turpināt izvietošanu?</value></data>
   <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>Izslēgts</value></data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>Lietotāja kontrolēts</value></data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>Piespiedu izslēgšana</value></data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>Eksportēt diagnostiku...</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>Eksportēt neapstrādātu diagnostiku...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Eksportēt neapstrādātu diagnostiku?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Neapstrādātajos žurnālos var būt akreditācijas dati, identifikatori, ceļi, tīklu nosaukumi un citi sensitīvi dati. Eksportējiet tos tikai tad, ja to skaidri pieprasa uzticams atbalsta kontakts.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Eksportēt neapstrādātus žurnālus</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Izvēlieties, kur eksportēt Foundry diagnostiku</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnostika eksportēta</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>Diagnostika tika eksportēta uz:&#xA;{0}</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Diagnostikas eksportēšana neizdevās</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Diagnostiku neizdevās eksportēt. Plašāku informāciju skatiet žurnālā.</value>
+  </data>
 </root>

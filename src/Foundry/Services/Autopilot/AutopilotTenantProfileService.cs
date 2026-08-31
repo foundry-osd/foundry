@@ -115,9 +115,9 @@ public sealed class AutopilotTenantProfileService(ILogger logger) : IAutopilotTe
         string accessToken = await AcquireAccessTokenAsync(credential, cancellationToken).ConfigureAwait(false);
         OrganizationInfo organization = await GetOrganizationAsync(accessToken, cancellationToken).ConfigureAwait(false);
         logger.Information(
-            "Authenticated to Microsoft Graph for Autopilot profile download. TenantId={TenantId}, TenantDomain={TenantDomain}",
-            organization.Id,
-            organization.DefaultDomain);
+            "Authenticated to Microsoft Graph for Autopilot profile download. TenantResolved={TenantResolved}, DomainResolved={DomainResolved}",
+            !string.IsNullOrWhiteSpace(organization.Id),
+            !string.IsNullOrWhiteSpace(organization.DefaultDomain));
 
         IReadOnlyList<AutopilotDeploymentProfile> profiles = await GetAutopilotProfilesAsync(accessToken, cancellationToken)
             .ConfigureAwait(false);

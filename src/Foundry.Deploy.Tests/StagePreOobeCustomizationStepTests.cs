@@ -226,7 +226,6 @@ public sealed class StagePreOobeCustomizationStepTests
                 RootPath = rootPath,
                 LogsDirectoryPath = logsDirectory,
                 StateDirectoryPath = stateDirectory,
-                LogFilePath = Path.Combine(logsDirectory, "FoundryDeploy.log"),
                 StateFilePath = Path.Combine(stateDirectory, "deployment-state.json")
             };
         }
@@ -241,9 +240,6 @@ public sealed class StagePreOobeCustomizationStepTests
             return Task.CompletedTask;
         }
 
-        public void Release(DeploymentLogSession session)
-        {
-        }
     }
 
     private sealed class FakeOperationProgressService : IOperationProgressService

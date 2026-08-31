@@ -133,10 +133,10 @@
     <value>Päivitä</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Ota kehittäjän diagnostiikka käyttöön ja avaa Foundry-lokikansio.</value>
+    <value>Ota sovelluksen virheenkorjaustason lokikirjaus käyttöön.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostiikka</value>
+    <value>Kehittäjän diagnostiikka</value>
   </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Vaihda sovelluksen kieli käynnistämättä uudelleen Foundry OSD.</value>
@@ -2757,5 +2757,38 @@
   </data>
   <data name="BugReport.ExternalLaunchFailed.Message" xml:space="preserve">
     <value>Foundry ei voinut avata virheraporttilomaketta. Kopioi tämä linkki ja avaa se selaimessasi.</value>
+  </data>
+  <data name="Diagnostics.ExportCardHeader" xml:space="preserve">
+    <value>Vie diagnostiikka</value>
+  </data>
+  <data name="Diagnostics.ExportCardDescription" xml:space="preserve">
+    <value>Luo puhdistettu tukipaketti muuttamatta alkuperäisiä lokeja.</value>
+  </data>
+  <data name="Diagnostics.ExportButton" xml:space="preserve">
+    <value>Vie...</value>
+  </data>
+  <data name="Diagnostics.ExportRawButton" xml:space="preserve">
+    <value>Lisäasetukset: vie raakalokit...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Viedäänkö raakadiagnostiikka?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Raakalokit voivat sisältää tunnistetietoja, tunnisteita, polkuja, verkkojen nimiä ja muita arkaluonteisia tietoja. Vie ne vain, kun luotettu tukihenkilö pyytää sitä nimenomaisesti.</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Vie raakalokit</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Valitse, mihin Foundryn diagnostiikka viedään</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnostiikka viety</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Diagnostiikan vienti epäonnistui</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Diagnostiikkaa ei voitu viedä. Tarkista lokista lisätiedot.</value>
   </data>
 </root>
