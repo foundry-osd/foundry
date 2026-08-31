@@ -147,7 +147,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         OperatingSystemCatalog = _wizardContext.OperatingSystemCatalog;
         DriverPackSelection = _wizardContext.DriverPackSelection;
         _wizardNavigationState = new DeploymentWizardNavigationState(
-            DeploymentWizardStepDefinition.CreateSequence(Preparation.IsAutopilotEnabled));
+            DeploymentWizardStepDefinition.CreateSequence(HasAutopilotConfigurationStep()));
         RefreshWizardSteps();
         RefreshSummaryCategories();
         Session = new DeploymentSessionViewModel(
@@ -515,7 +515,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private void RefreshWizardSteps()
     {
         IReadOnlyList<DeploymentWizardStepDefinition> definitions =
-            DeploymentWizardStepDefinition.CreateSequence(Preparation.IsAutopilotEnabled);
+            DeploymentWizardStepDefinition.CreateSequence(HasAutopilotConfigurationStep());
         bool sequenceChanged = WizardSteps.Count != definitions.Count ||
                                WizardSteps.Select(step => step.Id).Where((id, index) => id != definitions[index].Id).Any();
         if (sequenceChanged)
@@ -596,7 +596,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             AutopilotSummary = Preparation.AutopilotModeText,
             AutopilotRows = BuildAutopilotSummaryRows(),
             IsAutopilotConfigured = Preparation.IsAutopilotEnabled,
-            HasAutopilotStep = Preparation.IsAutopilotEnabled,
+            HasAutopilotStep = HasAutopilotConfigurationStep(),
             WindowsCustomizationSummary = hasCustomization
                 ? GetString("Summary.Status.Configured")
                 : GetString("Summary.Status.NoChanges"),
@@ -670,6 +670,12 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             new(GetString("DriverPack.Model"), DriverPackSelection.SelectedDriverPackModel),
             new(GetString("DriverPack.Version"), DriverPackSelection.SelectedDriverPackVersion)
         ];
+    }
+
+    private bool HasAutopilotConfigurationStep()
+    {
+        return Preparation.IsAutopilotEnabled &&
+               Preparation.AutopilotProvisioningMode != AutopilotProvisioningMode.InteractiveHardwareHashUpload;
     }
 
     private IReadOnlyList<DeploymentSummaryRowViewModel> BuildAutopilotSummaryRows()
