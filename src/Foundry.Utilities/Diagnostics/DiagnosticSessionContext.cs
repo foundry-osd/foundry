@@ -37,9 +37,17 @@ public static class DiagnosticSessionContext
         {
             if (char.IsLetterOrDigit(character) || character is '-' or '_')
             {
-                if (separatorPending && builder.Length > 0 && builder[^1] != '-')
+                if (separatorPending &&
+                    builder.Length > 0 &&
+                    builder[^1] != '-' &&
+                    builder.Length < MaximumSessionIdLength)
                 {
                     builder.Append('-');
+                }
+
+                if (builder.Length >= MaximumSessionIdLength)
+                {
+                    break;
                 }
 
                 builder.Append(character);
@@ -50,10 +58,6 @@ public static class DiagnosticSessionContext
                 separatorPending = true;
             }
 
-            if (builder.Length >= MaximumSessionIdLength)
-            {
-                break;
-            }
         }
 
         string normalized = builder.ToString().TrimEnd('-');

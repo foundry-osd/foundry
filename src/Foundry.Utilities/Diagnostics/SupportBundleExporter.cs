@@ -42,7 +42,7 @@ public sealed partial class SupportBundleExporter(TimeProvider? timeProvider = n
         string archiveName = $"FoundrySupport-{safeApplicationName}-{exportedAtUtc:yyyyMMddTHHmmssZ}.zip";
         string archivePath = ResolveAvailablePath(request.DestinationDirectoryPath, archiveName);
         string temporaryPath = archivePath + $".{Guid.NewGuid():N}.tmp";
-        var includedFiles = new List<string>();
+        var includedFiles = new List<SupportBundleIncludedFile>();
         var omittedFiles = new List<SupportBundleOmission>();
 
         try
@@ -57,8 +57,10 @@ public sealed partial class SupportBundleExporter(TimeProvider? timeProvider = n
             using (var archive = new ZipArchive(archiveStream, ZipArchiveMode.Create, leaveOpen: false))
             {
                 var usedEntryNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-                foreach (string sourcePath in request.LogFilePaths.Distinct(StringComparer.OrdinalIgnoreCase))
+                int sourceIndex = 0;
+                foreach (string sourcePath in request.LogFilePaths)
                 {
+                    sourceIndex++;
                     cancellationToken.ThrowIfCancellationRequested();
                     string sourceName = Path.GetFileName(sourcePath);
                     try
@@ -71,20 +73,18 @@ public sealed partial class SupportBundleExporter(TimeProvider? timeProvider = n
 
                         string entryName = ResolveEntryName(usedEntryNames, sourceName);
                         await WriteTextEntryAsync(archive, $"logs/{entryName}", content, cancellationToken).ConfigureAwait(false);
-                        includedFiles.Add(sourceName);
+                        includedFiles.Add(new SupportBundleIncludedFile(sourceIndex, sourceName, entryName));
                     }
                     catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or NotSupportedException)
                     {
-                        omittedFiles.Add(new SupportBundleOmission(sourceName, ex.GetType().Name));
+                        omittedFiles.Add(new SupportBundleOmission(sourceIndex, sourceName, ex.GetType().Name));
                     }
                 }
 
-                IReadOnlyDictionary<string, string> summary = request.PrivacyMode == SupportBundlePrivacyMode.Sanitized
-                    ? request.Summary.ToDictionary(
-                        static item => LogValueSanitizer.NormalizePropertyValue(item.Key),
-                        static item => SanitizeContent(LogValueSanitizer.NormalizePropertyValue(item.Value)),
-                        StringComparer.OrdinalIgnoreCase)
-                    : request.Summary;
+                IReadOnlyDictionary<string, string> summary = request.Summary.ToDictionary(
+                    static item => SanitizeContent(LogValueSanitizer.NormalizePropertyValue(item.Key)),
+                    static item => SanitizeContent(LogValueSanitizer.NormalizePropertyValue(item.Value)),
+                    StringComparer.OrdinalIgnoreCase);
 
                 await WriteJsonEntryAsync(archive, "summary.json", summary, cancellationToken).ConfigureAwait(false);
                 var manifest = new SupportBundleManifest(
@@ -104,7 +104,7 @@ public sealed partial class SupportBundleExporter(TimeProvider? timeProvider = n
             File.Move(temporaryPath, archivePath);
             return new SupportBundleResult(
                 archivePath,
-                includedFiles.AsReadOnly(),
+                includedFiles.Select(static file => file.ArchiveEntryName).ToArray(),
                 omittedFiles.Select(static omission => omission.FileName).ToArray());
         }
         finally
@@ -251,8 +251,10 @@ public sealed partial class SupportBundleExporter(TimeProvider? timeProvider = n
         DateTimeOffset ExportedAtUtc,
         string PrivacyMode,
         string PrivacyNotice,
-        IReadOnlyList<string> IncludedFiles,
+        IReadOnlyList<SupportBundleIncludedFile> IncludedFiles,
         IReadOnlyList<SupportBundleOmission> OmittedFiles);
 
-    private sealed record SupportBundleOmission(string FileName, string Reason);
+    private sealed record SupportBundleIncludedFile(int SourceIndex, string SourceFileName, string ArchiveEntryName);
+
+    private sealed record SupportBundleOmission(int SourceIndex, string FileName, string Reason);
 }

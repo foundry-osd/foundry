@@ -23,4 +23,15 @@ public sealed class DiagnosticSessionContextTests
 
         Assert.Matches("^[A-F0-9]{8}$", result);
     }
+
+    [Fact]
+    public void ResolveSessionId_NeverExceedsMaximumLengthWhenSeparatorIsInserted()
+    {
+        string inheritedValue = new string('A', 31) + " B";
+
+        string result = DiagnosticSessionContext.ResolveSessionId(inheritedValue);
+
+        Assert.InRange(result.Length, 1, 32);
+        Assert.DoesNotContain(' ', result);
+    }
 }

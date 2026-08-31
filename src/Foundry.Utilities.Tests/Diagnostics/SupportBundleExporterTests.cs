@@ -89,6 +89,65 @@ public sealed class SupportBundleExporterTests
         Assert.Single(manifest.RootElement.GetProperty("omittedFiles").EnumerateArray());
     }
 
+    [Fact]
+    public async Task ExportAsync_RawModeStillSanitizesSummaryMetadata()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        var exporter = new SupportBundleExporter();
+
+        SupportBundleResult result = await exporter.ExportAsync(new SupportBundleRequest
+        {
+            ApplicationName = "Foundry",
+            ApplicationVersion = "1.0.0",
+            SessionId = "ABC12345",
+            DestinationDirectoryPath = Path.Combine(tempDirectory.Path, "export"),
+            LogFilePaths = [],
+            PrivacyMode = SupportBundlePrivacyMode.Raw,
+            Summary = new Dictionary<string, string>
+            {
+                ["Password=key-secret"] = "TenantId=11111111-1111-1111-8111-111111111111"
+            }
+        }, TestContext.Current.CancellationToken);
+
+        using ZipArchive archive = ZipFile.OpenRead(result.ArchivePath);
+        string summary = await ReadEntryAsync(archive, "summary.json");
+        Assert.DoesNotContain("key-secret", summary, StringComparison.Ordinal);
+        Assert.DoesNotContain("11111111-1111-1111-8111-111111111111", summary, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task ExportAsync_ManifestMapsDuplicateSourceNamesToUniqueArchiveEntries()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string firstDirectory = Path.Combine(tempDirectory.Path, "first");
+        string secondDirectory = Path.Combine(tempDirectory.Path, "second");
+        Directory.CreateDirectory(firstDirectory);
+        Directory.CreateDirectory(secondDirectory);
+        string firstPath = Path.Combine(firstDirectory, "Foundry.log");
+        string secondPath = Path.Combine(secondDirectory, "Foundry.log");
+        await File.WriteAllTextAsync(firstPath, "first", TestContext.Current.CancellationToken);
+        await File.WriteAllTextAsync(secondPath, "second", TestContext.Current.CancellationToken);
+        var exporter = new SupportBundleExporter();
+
+        SupportBundleResult result = await exporter.ExportAsync(new SupportBundleRequest
+        {
+            ApplicationName = "Foundry",
+            ApplicationVersion = "1.0.0",
+            SessionId = "ABC12345",
+            DestinationDirectoryPath = Path.Combine(tempDirectory.Path, "export"),
+            LogFilePaths = [firstPath, secondPath]
+        }, TestContext.Current.CancellationToken);
+
+        using ZipArchive archive = ZipFile.OpenRead(result.ArchivePath);
+        string manifestJson = await ReadEntryAsync(archive, "manifest.json");
+        using JsonDocument manifest = JsonDocument.Parse(manifestJson);
+        JsonElement[] includedFiles = manifest.RootElement.GetProperty("includedFiles").EnumerateArray().ToArray();
+        Assert.Equal(2, includedFiles.Length);
+        Assert.All(includedFiles, item => Assert.Equal("Foundry.log", item.GetProperty("sourceFileName").GetString()));
+        Assert.Equal("Foundry.log", includedFiles[0].GetProperty("archiveEntryName").GetString());
+        Assert.Equal("Foundry-2.log", includedFiles[1].GetProperty("archiveEntryName").GetString());
+    }
+
     private static async Task<string> ReadEntryAsync(ZipArchive archive, string path)
     {
         ZipArchiveEntry entry = Assert.Single(archive.Entries, entry => entry.FullName == path);

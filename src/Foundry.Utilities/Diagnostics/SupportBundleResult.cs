@@ -5,7 +5,7 @@
 namespace Foundry.Utilities.Diagnostics;
 
 /// <summary>
-/// Reports the published archive path and source-file inclusion outcome.
+/// Reports the published archive path, included archive entry names, and omitted source file names.
 /// </summary>
 public sealed record SupportBundleResult(
     string ArchivePath,
