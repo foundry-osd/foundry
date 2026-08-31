@@ -10,6 +10,7 @@ using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Utilities.Progress;
+using Serilog;
 
 namespace Foundry.Deploy.Services.Deployment;
 
@@ -237,23 +238,53 @@ public sealed class DeploymentStepExecutionContext
         CancellationToken cancellationToken = default)
     {
         DeploymentLogSession previousSession = LogSession;
-        DeploymentLogSession rebound = _deploymentLogService.Initialize(targetFoundryRoot);
-        CopyDirectoryContents(previousSession.LogsDirectoryPath, rebound.LogsDirectoryPath);
-        CopyDirectoryContents(previousSession.StateDirectoryPath, rebound.StateDirectoryPath);
-
-        await _deploymentLogService
-            .AppendAsync(
-                rebound,
-                DeploymentLogLevel.Info,
-                $"Log session transferred from '{previousSession.RootPath}' to '{targetFoundryRoot}'.",
-                cancellationToken)
-            .ConfigureAwait(false);
+        DeploymentLogSession rebound;
+        try
+        {
+            rebound = _deploymentLogService.Initialize(targetFoundryRoot);
+        }
+        catch (Exception ex)
+        {
+            Log.ForContext<DeploymentStepExecutionContext>().Warning(
+                ex,
+                "Deployment log persistence destination is unavailable. SourceRootPath={SourceRootPath}, TargetRootPath={TargetRootPath}",
+                previousSession.RootPath,
+                targetFoundryRoot);
+            return;
+        }
 
         LogSession = rebound;
-        if (!previousSession.LogFilePath.Equals(rebound.LogFilePath, StringComparison.OrdinalIgnoreCase))
+        FoundryDeployLogging.RegisterPersistenceDirectory(rebound.LogsDirectoryPath);
+        Log.ForContext<DeploymentStepExecutionContext>().Information(
+            "Deployment log persistence destination changed. SourceRootPath={SourceRootPath}, TargetRootPath={TargetRootPath}",
+            previousSession.RootPath,
+            targetFoundryRoot);
+
+        LogPersistenceResult persistenceResult = FoundryDeployLogging.PersistCurrentLogs();
+        if (persistenceResult.FailedFileCount > 0)
         {
-            _deploymentLogService.Release(previousSession);
+            Log.ForContext<DeploymentStepExecutionContext>().Warning(
+                "One or more deployment log files could not be persisted. CopiedFileCount={CopiedFileCount}, FailedFileCount={FailedFileCount}, TargetLogsDirectoryPath={TargetLogsDirectoryPath}",
+                persistenceResult.CopiedFileCount,
+                persistenceResult.FailedFileCount,
+                rebound.LogsDirectoryPath);
         }
+
+        try
+        {
+            CopyDirectoryContents(previousSession.StateDirectoryPath, rebound.StateDirectoryPath);
+        }
+        catch (Exception ex)
+        {
+            Log.ForContext<DeploymentStepExecutionContext>().Warning(
+                ex,
+                "Deployment state could not be copied to the new diagnostic destination. SourceStateDirectoryPath={SourceStateDirectoryPath}, TargetStateDirectoryPath={TargetStateDirectoryPath}",
+                previousSession.StateDirectoryPath,
+                rebound.StateDirectoryPath);
+        }
+
+        _deploymentLogService.Release(previousSession);
+        await Task.CompletedTask.ConfigureAwait(false);
     }
 
     /// <summary>

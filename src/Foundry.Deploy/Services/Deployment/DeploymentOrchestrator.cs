@@ -185,8 +185,6 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     $"Starting {step.Name}.",
                     stepSubProgressIndeterminate: true,
                     stepSubProgressLabel: $"Starting {step.Name}...");
-                await executionContext.AppendLogAsync(DeploymentLogLevel.Info, $"[STEP] {step.Name}", cancellationToken).ConfigureAwait(false);
-
                 DeploymentStepResult result = await step.ExecuteAsync(executionContext, cancellationToken).ConfigureAwait(false);
 
                 _operationProgressService.Report(CalculateOverallProgressPercent(i + 1), result.Message);
@@ -241,9 +239,6 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             if (executionContext is not null)
             {
                 await TryRebindLogsToFinalTargetAsync(executionContext, CancellationToken.None).ConfigureAwait(false);
-                await executionContext
-                    .AppendLogAsync(DeploymentLogLevel.Warning, "[WARN] Deployment cancelled by user.", CancellationToken.None)
-                    .ConfigureAwait(false);
             }
             await TrackDeploymentCompletedAsync(
                 context,
@@ -272,9 +267,6 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             if (executionContext is not null)
             {
                 await TryRebindLogsToFinalTargetAsync(executionContext, CancellationToken.None).ConfigureAwait(false);
-                await executionContext
-                    .AppendLogAsync(DeploymentLogLevel.Error, $"[ERROR] {ex}", CancellationToken.None)
-                    .ConfigureAwait(false);
             }
             await TrackDeploymentCompletedAsync(
                 context,

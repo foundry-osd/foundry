@@ -97,6 +97,7 @@ public static class Program
         finally
         {
             Log.CloseAndFlush();
+            FoundryDeployLogging.PersistCurrentLogs();
         }
     }
 

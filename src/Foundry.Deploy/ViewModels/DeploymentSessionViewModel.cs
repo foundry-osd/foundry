@@ -314,6 +314,12 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         try
         {
             string logFilePath = ResolveEffectiveLogFilePath();
+            if (!File.Exists(logFilePath))
+            {
+                _logger.LogWarning("The deployment log file is unavailable. LogFilePath={LogFilePath}", logFilePath);
+                return;
+            }
+
             ProcessStartInfo startInfo = new("notepad.exe")
             {
                 UseShellExecute = false
@@ -717,7 +723,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
             return Path.Combine(_lastLogsDirectoryPath, FoundryDeployLogging.LogFileName);
         }
 
-        return FoundryDeployLogging.ResolveStartupLogFilePath();
+        return FoundryDeployLogging.CurrentLogFilePath;
     }
 
     private void RunOnUi(Action action)
