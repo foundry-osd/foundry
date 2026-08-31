@@ -30,7 +30,9 @@ namespace Foundry.ViewModels
 
         public ObservableCollection<SupportedCultureOption> SupportedLanguages { get; } = [];
 
-        public string LogDirectoryPath => Constants.LogDirectoryPath;
+        public string LogDirectoryPath => LoggerSetup.LogFilePath == "<unavailable>"
+            ? LoggerSetup.LogFilePath
+            : Path.GetDirectoryName(LoggerSetup.LogFilePath) ?? Constants.LogDirectoryPath;
 
         [ObservableProperty]
         public partial bool IsDeveloperMode { get; set; }
@@ -58,7 +60,9 @@ namespace Foundry.ViewModels
         [RelayCommand]
         private Task OpenLogFolderAsync()
         {
-            return externalProcessLauncher.OpenFolderAsync(Constants.LogDirectoryPath);
+            return Directory.Exists(LogDirectoryPath)
+                ? externalProcessLauncher.OpenFolderAsync(LogDirectoryPath)
+                : Task.CompletedTask;
         }
 
         public void RefreshSupportedLanguages()
