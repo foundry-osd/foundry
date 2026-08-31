@@ -94,7 +94,11 @@ Unit testing rules:
 - Keep reusable business logic in `Foundry.Core` when it requires unit testing.
 
 Logging rules:
-- Use the existing logging system when one is already in place
+- Use `FoundryLogConfiguration` for application file sinks so Foundry.OSD, Foundry.Connect, and Foundry.Deploy share the same structured text contract
+- Emit UTC timestamps with milliseconds and the Application, Session, and Component context on every application log event
+- Keep one stable active log filename with 10 MB size-based rolling and bounded retention
+- Use Information as the Foundry.OSD default level, with Debug enabled by developer mode
+- Use Debug as the default file level for WinPE Bootstrap, Foundry.Connect, and Foundry.Deploy; keep verbose console output opt-in
 - Write logs only when they add operational or diagnostic value
 - Use the log levels already defined by the project
 - Use Debug only for developer diagnostics
@@ -102,10 +106,16 @@ Logging rules:
 - Use Warning for recoverable abnormal states
 - Use Error for failed operations that need attention
 - Avoid Fatal unless the process cannot continue
+- Record one start and one terminal outcome for important user, provisioning, media, and deployment operations
 - Keep log messages logical, coherent, and not superfluous
 - Do not log noisy UI interactions or obvious control flow
+- Sample high-frequency numeric progress instead of logging every callback
 - Do not log secrets, tokens, passwords, full query strings, or sensitive user data
 - Prefer structured properties when the existing logger supports them
+- Correlate Bootstrap, Connect, and Deploy with `FOUNDRY_DIAGNOSTIC_SESSION_ID`
+- Persist WinPE logs best-effort without allowing persistence failures to replace the primary application outcome
+- Export sanitized support bundles by default without modifying source logs; raw export must require an explicit sensitive-data warning
+- Fail closed when a source cannot be sanitized, and publish support archives atomically only after manifest and summary generation succeeds
 - Add logging only from the main agent, not from subagents
 
 Documentation rules:
