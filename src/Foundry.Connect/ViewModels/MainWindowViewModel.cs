@@ -347,7 +347,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         _logger.LogInformation("Applying provisioned network settings.");
         await ApplyProvisionedSettingsAsync(_disposeCts.Token).ConfigureAwait(false);
-        _logger.LogInformation("Provisioned network settings step completed.");
+        _logger.LogInformation("Provisioned network settings step finished.");
 
         _logger.LogInformation("Refreshing initial network snapshot.");
         await RefreshCoreAsync(_disposeCts.Token).ConfigureAwait(false);

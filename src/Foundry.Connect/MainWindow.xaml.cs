@@ -36,7 +36,7 @@ public partial class MainWindow : Window
         try
         {
             await _viewModel.InitializeAsync();
-            _logger.LogInformation("MainWindow asynchronous initialization completed successfully.");
+            _logger.LogInformation("MainWindow asynchronous initialization finished.");
         }
         catch (Exception ex)
         {

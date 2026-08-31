@@ -10,6 +10,7 @@ using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Services.Localization;
 using Foundry.Connect.Models.Network;
 using Foundry.Utilities.Networking;
+using Foundry.Utilities.Diagnostics;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Connect.Services.Network;
@@ -97,6 +98,9 @@ public sealed class NetworkStatusService : INetworkStatusService
     {
         foreach (string probeUri in _configuration.InternetProbe.ProbeUris)
         {
+            string safeProbeUri = Uri.TryCreate(probeUri, UriKind.Absolute, out Uri? parsedProbeUri)
+                ? LogValueSanitizer.SanitizeUri(parsedProbeUri)
+                : "<invalid-uri>";
             using CancellationTokenSource timeoutSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
             timeoutSource.CancelAfter(TimeSpan.FromSeconds(_configuration.InternetProbe.TimeoutSeconds));
 
@@ -114,11 +118,14 @@ public sealed class NetworkStatusService : INetworkStatusService
             }
             catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
             {
-                _logger.LogDebug("Internet probe timed out for {ProbeUri}.", probeUri);
+                _logger.LogDebug("Internet probe timed out. ProbeUri={ProbeUri}", safeProbeUri);
             }
             catch (Exception ex)
             {
-                _logger.LogDebug(ex, "Internet probe failed for {ProbeUri}.", probeUri);
+                _logger.LogDebug(
+                    "Internet probe failed. ProbeUri={ProbeUri}, FailureType={FailureType}",
+                    safeProbeUri,
+                    ex.GetType().Name);
             }
         }
 

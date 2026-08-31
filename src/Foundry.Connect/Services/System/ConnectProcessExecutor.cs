@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.IO;
 using Foundry.Utilities.Processes;
 using Microsoft.Extensions.Logging;
 
@@ -31,7 +32,11 @@ internal sealed class ConnectProcessExecutor(ILogger logger)
         }
         catch (Exception ex)
         {
-            logger.LogDebug(ex, "Process execution failed for {FileName} {Arguments}.", fileName, arguments);
+            logger.LogDebug(
+                ex,
+                "Process execution failed. FileName={FileName}, FailureType={FailureType}",
+                Path.GetFileName(fileName),
+                ex.GetType().Name);
             return new ProcessExecutionResult
             {
                 ExitCode = -1,

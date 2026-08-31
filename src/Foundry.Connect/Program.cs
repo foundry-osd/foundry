@@ -89,17 +89,28 @@ public static class Program
             telemetryService.FlushAsync().GetAwaiter().GetResult();
             programLogger.Debug("Foundry.Connect telemetry flush completed.");
 
-            programLogger.Information("Foundry.Connect exited with code {ExitCode}.", exitCode);
+            programLogger.Information(
+                "Foundry.Connect exited. Outcome={Outcome}, ExitCode={ExitCode}",
+                exitCode == (int)FoundryConnectExitCode.Success ? "Succeeded" : "Stopped",
+                exitCode);
             return exitCode;
         }
         catch (FoundryConnectConfigurationException ex)
         {
-            programLogger.Fatal(ex, "Foundry.Connect configuration could not be loaded.");
+            programLogger.Fatal(
+                ex,
+                "Foundry.Connect configuration could not be loaded. Outcome={Outcome}, ExitCode={ExitCode}",
+                "ConfigurationFailure",
+                (int)FoundryConnectExitCode.ConfigurationFailure);
             return (int)FoundryConnectExitCode.ConfigurationFailure;
         }
         catch (Exception ex)
         {
-            programLogger.Fatal(ex, "Foundry.Connect failed to start or terminated unexpectedly.");
+            programLogger.Fatal(
+                ex,
+                "Foundry.Connect failed to start or terminated unexpectedly. Outcome={Outcome}, ExitCode={ExitCode}",
+                "StartupFailure",
+                (int)FoundryConnectExitCode.StartupFailure);
             return (int)FoundryConnectExitCode.StartupFailure;
         }
         finally
