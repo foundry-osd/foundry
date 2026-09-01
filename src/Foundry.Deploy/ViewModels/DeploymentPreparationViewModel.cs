@@ -225,7 +225,9 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     public void ApplyMachineNamingConfiguration(DeployMachineNamingSettings settings)
     {
         _machineNamingConfiguration = settings ?? new DeployMachineNamingSettings();
-        _lockedComputerNamePrefix = MachineNamingRules.NormalizePrefix(_machineNamingConfiguration.Prefix);
+        _lockedComputerNamePrefix = _machineNamingConfiguration.IsEnabled
+            ? MachineNamingRules.NormalizePrefix(_machineNamingConfiguration.Prefix)
+            : string.Empty;
         IsTargetComputerNameReadOnly = _machineNamingConfiguration.IsEnabled &&
                                        _machineNamingConfiguration.AutoGenerateName &&
                                        !_machineNamingConfiguration.AllowManualSuffixEdit;

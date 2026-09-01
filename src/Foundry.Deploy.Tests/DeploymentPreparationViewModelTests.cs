@@ -47,6 +47,22 @@ public sealed class DeploymentPreparationViewModelTests
     }
 
     [Fact]
+    public void ApplyMachineNamingConfiguration_WhenDisabled_IgnoresStalePrefix()
+    {
+        using DeploymentPreparationViewModel viewModel = CreateViewModel();
+
+        viewModel.ApplyMachineNamingConfiguration(new DeployMachineNamingSettings
+        {
+            IsEnabled = false,
+            Prefix = "STALE-"
+        });
+        viewModel.ApplyOfflineComputerName("CURRENT-PC");
+
+        Assert.False(viewModel.HasTargetComputerNamePrefix);
+        Assert.Equal("CURRENT-PC", viewModel.TargetComputerName);
+    }
+
+    [Fact]
     public void ApplyMachineNamingConfiguration_WhenGenerationAndManualEditAreDisabled_KeepsSuffixEditable()
     {
         using DeploymentPreparationViewModel viewModel = CreateViewModel();
