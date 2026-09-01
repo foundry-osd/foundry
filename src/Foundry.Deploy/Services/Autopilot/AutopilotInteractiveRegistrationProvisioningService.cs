@@ -85,6 +85,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
             LauncherPath = launcherPath,
             OobeLauncherPath = oobeLauncherPath,
             OobeWaiterPath = oobeWaiterPath,
+            ForegroundWrapperPath = foregroundWrapperPath,
             ServiceUiPath = serviceUiPath,
             OobeCommandPath = oobeCommandPath,
             ConfigPath = configPath,

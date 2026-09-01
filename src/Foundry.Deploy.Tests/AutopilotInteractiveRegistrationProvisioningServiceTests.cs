@@ -25,6 +25,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Equal(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistration.cmd"), result.LauncherPath);
         Assert.Equal(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistrationOobe.cmd"), result.OobeLauncherPath);
         Assert.Equal(Path.Combine(registrationRoot, "Wait-FoundryAutopilotRegistrationOobe.ps1"), result.OobeWaiterPath);
+        Assert.Equal(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistrationForeground.ps1"), result.ForegroundWrapperPath);
         Assert.Equal(Path.Combine(registrationRoot, "ServiceUI.exe"), result.ServiceUiPath);
         Assert.Equal(Path.Combine(windowsRoot, "Windows", "Setup", "Scripts", "OOBE.cmd"), result.OobeCommandPath);
         Assert.Equal(Path.Combine(registrationRoot, "config.json"), result.ConfigPath);
@@ -33,7 +34,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.True(File.Exists(result.LauncherPath));
         Assert.True(File.Exists(result.OobeLauncherPath));
         Assert.True(File.Exists(result.OobeWaiterPath));
-        Assert.True(File.Exists(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistrationForeground.ps1")));
+        Assert.True(File.Exists(result.ForegroundWrapperPath));
         Assert.True(File.Exists(result.ServiceUiPath));
         Assert.True(File.Exists(result.OobeCommandPath));
         Assert.True(File.Exists(result.ConfigPath));
@@ -128,8 +129,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("Hidden", oobeWaiter);
         Assert.Contains("Start-FoundryAutopilotRegistration.ps1", oobeWaiter);
 
-        string foregroundWrapper = File.ReadAllText(
-            Path.Combine(result.RegistrationRootPath, "Start-FoundryAutopilotRegistrationForeground.ps1"));
+        string foregroundWrapper = File.ReadAllText(result.ForegroundWrapperPath);
         Assert.Contains("GetForegroundWindow", foregroundWrapper);
         Assert.Contains("SetForegroundWindow", foregroundWrapper);
         Assert.Contains("Invoke-FoundryActivateOobeWindow", foregroundWrapper);
