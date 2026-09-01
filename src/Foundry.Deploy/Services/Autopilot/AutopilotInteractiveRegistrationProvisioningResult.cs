@@ -19,8 +19,6 @@ public sealed record AutopilotInteractiveRegistrationProvisioningResult
 
     public required string OobeWaiterPath { get; init; }
 
-    public required string ForegroundWrapperPath { get; init; }
-
     public required string ServiceUiPath { get; init; }
 
     public required string OobeCommandPath { get; init; }

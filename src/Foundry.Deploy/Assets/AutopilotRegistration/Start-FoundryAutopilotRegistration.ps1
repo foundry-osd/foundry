@@ -583,6 +583,7 @@ function Start-FoundryAutopilotRegistrationUi {
         Width="420"
         Height="560"
         ResizeMode="NoResize"
+        Topmost="True"
         WindowStartupLocation="CenterScreen"
         UseLayoutRounding="True"
         SnapsToDevicePixels="True">

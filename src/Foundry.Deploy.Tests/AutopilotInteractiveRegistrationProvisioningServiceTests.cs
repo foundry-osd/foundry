@@ -25,7 +25,6 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Equal(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistration.cmd"), result.LauncherPath);
         Assert.Equal(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistrationOobe.cmd"), result.OobeLauncherPath);
         Assert.Equal(Path.Combine(registrationRoot, "Wait-FoundryAutopilotRegistrationOobe.ps1"), result.OobeWaiterPath);
-        Assert.Equal(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistrationForeground.ps1"), result.ForegroundWrapperPath);
         Assert.Equal(Path.Combine(registrationRoot, "ServiceUI.exe"), result.ServiceUiPath);
         Assert.Equal(Path.Combine(windowsRoot, "Windows", "Setup", "Scripts", "OOBE.cmd"), result.OobeCommandPath);
         Assert.Equal(Path.Combine(registrationRoot, "config.json"), result.ConfigPath);
@@ -34,7 +33,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.True(File.Exists(result.LauncherPath));
         Assert.True(File.Exists(result.OobeLauncherPath));
         Assert.True(File.Exists(result.OobeWaiterPath));
-        Assert.True(File.Exists(result.ForegroundWrapperPath));
+        Assert.False(File.Exists(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistrationForeground.ps1")));
         Assert.True(File.Exists(result.ServiceUiPath));
         Assert.True(File.Exists(result.OobeCommandPath));
         Assert.True(File.Exists(result.ConfigPath));
@@ -105,8 +104,8 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("Get-FoundryActiveConsoleSessionId", oobeWaiter);
         Assert.Contains("[uint32]::MaxValue", oobeWaiter);
         Assert.Contains("-session:$activeSessionId", oobeWaiter);
-        Assert.Contains("Start-FoundryAutopilotRegistrationForeground.ps1", oobeWaiter);
-        Assert.Contains("-RegistrationScriptPath", oobeWaiter);
+        Assert.DoesNotContain("Start-FoundryAutopilotRegistrationForeground.ps1", oobeWaiter);
+        Assert.DoesNotContain("-RegistrationScriptPath", oobeWaiter);
         Assert.Contains("Launching assistant through ServiceUI in active console session", oobeWaiter);
         Assert.Contains("active console session:", oobeWaiter);
         Assert.Contains("Timed out while waiting for active console session.", oobeWaiter);
@@ -128,18 +127,6 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("-WindowStyle", oobeWaiter);
         Assert.Contains("Hidden", oobeWaiter);
         Assert.Contains("Start-FoundryAutopilotRegistration.ps1", oobeWaiter);
-
-        string foregroundWrapper = File.ReadAllText(result.ForegroundWrapperPath);
-        Assert.Contains("SendInput", foregroundWrapper);
-        Assert.Contains("Invoke-FoundryShiftF10", foregroundWrapper);
-        Assert.Contains("private struct MOUSEINPUT", foregroundWrapper);
-        Assert.Contains("private struct HARDWAREINPUT", foregroundWrapper);
-        Assert.Contains("Wait-FoundryOobeCommandPrompt", foregroundWrapper);
-        Assert.Contains("Close-FoundryOobeCommandPrompt", foregroundWrapper);
-        Assert.Contains("[int[]]$existingCommandPromptIds = @(Get-FoundryCommandPromptIds", foregroundWrapper);
-        Assert.Contains("ExistingCommandPromptIds = @()", foregroundWrapper);
-        Assert.Contains("& $RegistrationScriptPath -ConfigPath $ConfigPath", foregroundWrapper);
-        Assert.Contains("foreground.log", foregroundWrapper);
 
         string oobeCommand = File.ReadAllText(result.OobeCommandPath);
         Assert.Contains("REM >>> FOUNDRY AUTOPILOT REGISTRATION BEGIN", oobeCommand);
@@ -276,6 +263,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("Width=\"420\"", script);
         Assert.Contains("Height=\"560\"", script);
         Assert.Contains("ResizeMode=\"NoResize\"", script);
+        Assert.Contains("Topmost=\"True\"", script);
         Assert.Contains("FontSize=\"16\"", script);
         Assert.Contains("FontSize=\"32\"", script);
         Assert.Contains("MinWidth=\"140\"", script);
