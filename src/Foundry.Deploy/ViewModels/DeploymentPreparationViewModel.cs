@@ -61,6 +61,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasTargetComputerNameValidationError))]
+    [NotifyPropertyChangedFor(nameof(IsTargetComputerNameValid))]
     private string targetComputerNameValidationMessage = string.Empty;
 
     [ObservableProperty]
@@ -175,6 +176,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         : ResolveEffectiveHardwareHashGroupTag()!;
 
     public bool HasTargetComputerNameValidationError => !string.IsNullOrWhiteSpace(TargetComputerNameValidationMessage);
+    public bool IsTargetComputerNameValid => !HasTargetComputerNameValidationError && ComputerNameRules.IsValid(TargetComputerName);
     public bool HasTargetComputerNamePrefix => !string.IsNullOrWhiteSpace(_lockedComputerNamePrefix);
     public string TargetComputerNamePrefix => _lockedComputerNamePrefix;
     public int TargetComputerNameInputMaxLength => _machineNamingConfiguration.IsEnabled

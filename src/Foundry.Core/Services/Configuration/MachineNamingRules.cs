@@ -31,4 +31,18 @@ public static class MachineNamingRules
             ? normalized[..MaxPrefixLength]
             : normalized;
     }
+
+    /// <summary>
+    /// Determines whether a computer name contains a non-empty suffix after the configured prefix.
+    /// </summary>
+    /// <param name="computerName">Computer name to inspect.</param>
+    /// <param name="prefix">Required computer-name prefix.</param>
+    /// <returns><see langword="true" /> when the prefix matches and a suffix remains.</returns>
+    public static bool HasSuffix(string? computerName, string? prefix)
+    {
+        string normalizedComputerName = ComputerNameRules.Normalize(computerName);
+        string normalizedPrefix = NormalizePrefix(prefix);
+        return normalizedComputerName.Length > normalizedPrefix.Length &&
+               normalizedComputerName.StartsWith(normalizedPrefix, StringComparison.OrdinalIgnoreCase);
+    }
 }

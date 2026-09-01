@@ -76,6 +76,7 @@ public sealed class DeploymentPreparationViewModelTests
         });
 
         Assert.True(viewModel.HasTargetComputerNameValidationError);
+        Assert.False(viewModel.IsTargetComputerNameValid);
     }
 
     [Fact]

@@ -13,6 +13,23 @@ namespace Foundry.Deploy.Tests;
 public sealed class DeploymentLaunchPreparationServiceTests
 {
     [Fact]
+    public void Prepare_WhenRequiredPrefixHasNoSuffix_ReturnsFailure()
+    {
+        var shell = new FakeApplicationShellService();
+        var service = new DeploymentLaunchPreparationService(shell);
+
+        DeploymentLaunchPreparationResult result = service.Prepare(
+            CreateRequest(
+                selectedTargetDisk: CreateDisk(),
+                targetComputerName: "LAB-",
+                requiredComputerNamePrefix: "LAB-"));
+
+        Assert.False(result.IsReadyToStart);
+        Assert.Null(result.Context);
+        Assert.Equal(0, shell.ConfirmationCallCount);
+    }
+
+    [Fact]
     public void Prepare_WhenDryRunAndTargetDiskMissing_UsesDebugVirtualDisk()
     {
         var shell = new FakeApplicationShellService();
@@ -271,6 +288,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
     private static DeploymentLaunchRequest CreateRequest(
         TargetDiskInfo? selectedTargetDisk,
         string targetComputerName = "LAB-01",
+        string? requiredComputerNamePrefix = null,
         string? defaultTimeZoneId = null,
         DriverPackSelectionKind driverPackSelectionKind = DriverPackSelectionKind.None,
         DriverPackCatalogItem? selectedDriverPack = null,
@@ -290,6 +308,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
             Mode = DeploymentMode.Usb,
             CacheRootPath = @"X:\Foundry\Runtime",
             TargetComputerName = targetComputerName,
+            RequiredComputerNamePrefix = requiredComputerNamePrefix,
             DefaultTimeZoneId = defaultTimeZoneId,
             SelectedTargetDisk = selectedTargetDisk,
             SelectedOperatingSystem = new OperatingSystemCatalogItem
