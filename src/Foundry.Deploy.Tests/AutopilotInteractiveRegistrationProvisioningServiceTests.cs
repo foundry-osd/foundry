@@ -33,7 +33,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.True(File.Exists(result.LauncherPath));
         Assert.True(File.Exists(result.OobeLauncherPath));
         Assert.True(File.Exists(result.OobeWaiterPath));
-        Assert.False(File.Exists(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistrationForeground.ps1")));
+        Assert.True(File.Exists(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistrationForeground.ps1")));
         Assert.True(File.Exists(result.ServiceUiPath));
         Assert.True(File.Exists(result.OobeCommandPath));
         Assert.True(File.Exists(result.ConfigPath));
@@ -104,8 +104,8 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("Get-FoundryActiveConsoleSessionId", oobeWaiter);
         Assert.Contains("[uint32]::MaxValue", oobeWaiter);
         Assert.Contains("-session:$activeSessionId", oobeWaiter);
-        Assert.DoesNotContain("Start-FoundryAutopilotRegistrationForeground.ps1", oobeWaiter);
-        Assert.DoesNotContain("-RegistrationScriptPath", oobeWaiter);
+        Assert.Contains("Start-FoundryAutopilotRegistrationForeground.ps1", oobeWaiter);
+        Assert.Contains("-RegistrationScriptPath", oobeWaiter);
         Assert.Contains("Launching assistant through ServiceUI in active console session", oobeWaiter);
         Assert.Contains("active console session:", oobeWaiter);
         Assert.Contains("Timed out while waiting for active console session.", oobeWaiter);
@@ -127,6 +127,16 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("-WindowStyle", oobeWaiter);
         Assert.Contains("Hidden", oobeWaiter);
         Assert.Contains("Start-FoundryAutopilotRegistration.ps1", oobeWaiter);
+
+        string foregroundWrapper = File.ReadAllText(
+            Path.Combine(result.RegistrationRootPath, "Start-FoundryAutopilotRegistrationForeground.ps1"));
+        Assert.Contains("GetForegroundWindow", foregroundWrapper);
+        Assert.Contains("SetForegroundWindow", foregroundWrapper);
+        Assert.Contains("Invoke-FoundryActivateOobeWindow", foregroundWrapper);
+        Assert.Contains("SendShiftF10", foregroundWrapper);
+        Assert.Contains("Wait-FoundryOobeCommandPrompt", foregroundWrapper);
+        Assert.Contains("Close-FoundryOobeCommandPrompt", foregroundWrapper);
+        Assert.Contains("& $RegistrationScriptPath -ConfigPath $ConfigPath", foregroundWrapper);
 
         string oobeCommand = File.ReadAllText(result.OobeCommandPath);
         Assert.Contains("REM >>> FOUNDRY AUTOPILOT REGISTRATION BEGIN", oobeCommand);
@@ -236,6 +246,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("Show-UploadStep", script);
         Assert.Contains("Start-AuthenticationFlow", script);
         Assert.Contains("Add_ContentRendered", script);
+        Assert.Contains("[void]$window.Activate()", script);
         Assert.Contains("AuthenticationProgressBar", script);
         Assert.Contains("AuthenticationStatusTextBlock", script);
         Assert.Contains("Code expires in {0} seconds.", script);

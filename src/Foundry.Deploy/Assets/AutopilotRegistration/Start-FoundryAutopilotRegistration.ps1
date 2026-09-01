@@ -1092,6 +1092,9 @@ function Start-FoundryAutopilotRegistrationUi {
     })
 
     $window.Add_ContentRendered({
+        $window.Topmost = $true
+        [void]$window.Activate()
+
         if ($script:AuthenticationStarted) {
             return
         }
