@@ -196,7 +196,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
                 "$powershellPath = Join-Path $env:SystemRoot 'System32\\WindowsPowerShell\\v1.0\\powershell.exe'",
                 "$waitLogPath = Join-Path $logRoot 'oobe-waiter.log'",
                 "$sessionDiagLogPath = Join-Path $logRoot 'oobe-sessiondiag.log'",
-                "$diagnosticProcessNames = @('CloudExperienceHost', 'CloudExperienceHostBroker', 'UserOOBEBroker', 'oobenetworkconnectionflow', 'ApplicationFrameHost', 'ShellExperienceHost', 'RuntimeBroker', 'powershell', 'pwsh', 'cmd')",
+                "$diagnosticProcessNames = @('CloudExperienceHost', 'CloudExperienceHostBroker', 'UserOOBEBroker', 'oobenetworkconnectionflow', 'ApplicationFrameHost', 'ShellExperienceHost', 'RuntimeBroker', 'powershell', 'pwsh')",
                 "$timeout = [DateTimeOffset]::UtcNow.AddMinutes(20)",
                 "$stableSeconds = 5",
                 "New-Item -Path $logRoot -ItemType Directory -Force | Out-Null",
