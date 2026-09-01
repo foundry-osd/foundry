@@ -52,14 +52,17 @@ public sealed class ArtifactDownloadServiceTests
     }
 
     [Fact]
-    public async Task DownloadAsync_WhenManifestMatches_UsesFastCacheHitWithoutRehashing()
+    public async Task DownloadAsync_WhenManifestMatchesButContentIsCorrupted_RedownloadsArtifact()
     {
         using TempDirectory temp = TempDirectory.Create();
         string destinationPath = Path.Combine(temp.Path, "install.esd");
-        byte[] content = Encoding.UTF8.GetBytes("tampered-content");
-        await File.WriteAllBytesAsync(destinationPath, content, TestContext.Current.CancellationToken);
+        byte[] corruptedContent = Encoding.UTF8.GetBytes("tampered-content");
+        byte[] downloadedContent = Encoding.UTF8.GetBytes("expected-content");
+        Assert.Equal(corruptedContent.Length, downloadedContent.Length);
+        await File.WriteAllBytesAsync(destinationPath, corruptedContent, TestContext.Current.CancellationToken);
         DateTimeOffset lastWriteTime = DateTimeOffset.UtcNow.AddMinutes(-3);
         File.SetLastWriteTimeUtc(destinationPath, lastWriteTime.UtcDateTime);
+        string expectedHash = ComputeSha256(downloadedContent);
 
         await WriteManifestAsync(
             destinationPath,
@@ -68,14 +71,14 @@ public sealed class ArtifactDownloadServiceTests
                 ArtifactKind = "OperatingSystemImage",
                 SourceUrl = "https://example.test/install.esd",
                 HashAlgorithm = "SHA256",
-                ExpectedHash = new string('A', 64),
-                ExpectedSizeBytes = content.Length,
-                FileSizeBytes = content.Length,
+                ExpectedHash = expectedHash,
+                ExpectedSizeBytes = corruptedContent.Length,
+                FileSizeBytes = corruptedContent.Length,
                 FileLastWriteTimeUtc = lastWriteTime,
                 ValidatedAtUtc = DateTimeOffset.UtcNow.AddMinutes(-2)
             });
 
-        var handler = new ThrowingHttpMessageHandler();
+        var handler = new StaticHttpMessageHandler(downloadedContent);
         var service = new ArtifactDownloadService(
             NullLogger<ArtifactDownloadService>.Instance,
             new HttpClient(handler));
@@ -83,14 +86,74 @@ public sealed class ArtifactDownloadServiceTests
         ArtifactDownloadResult result = await service.DownloadAsync(
             "https://example.test/install.esd",
             destinationPath,
-            new string('A', 64),
-            expectedSizeBytes: content.Length,
+            expectedHash,
+            expectedSizeBytes: downloadedContent.Length,
             artifactKind: "OperatingSystemImage",
             cancellationToken: TestContext.Current.CancellationToken);
 
-        Assert.False(result.Downloaded);
-        Assert.Equal("cache-hit", result.Method);
-        Assert.Equal(0, handler.RequestCount);
+        Assert.True(result.Downloaded);
+        Assert.Equal("httpclient", result.Method);
+        Assert.Equal(1, handler.RequestCount);
+        Assert.Equal(downloadedContent, await File.ReadAllBytesAsync(destinationPath, TestContext.Current.CancellationToken));
+    }
+
+    [Fact]
+    public async Task DownloadAsync_WhenDownloadFails_DoesNotReplaceExistingArtifact()
+    {
+        using TempDirectory temp = TempDirectory.Create();
+        string destinationPath = Path.Combine(temp.Path, "install.esd");
+        byte[] existingContent = Encoding.UTF8.GetBytes("existing cached artifact");
+        await File.WriteAllBytesAsync(destinationPath, existingContent, TestContext.Current.CancellationToken);
+
+        var service = new ArtifactDownloadService(
+            NullLogger<ArtifactDownloadService>.Instance,
+            new HttpClient(new FailingDownloadHttpMessageHandler()));
+
+        await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            service.DownloadAsync(
+                "https://example.test/install.esd",
+                destinationPath,
+                new string('A', 64),
+                expectedSizeBytes: existingContent.Length + 1,
+                artifactKind: "OperatingSystemImage",
+                cancellationToken: TestContext.Current.CancellationToken));
+
+        Assert.Equal(existingContent, await File.ReadAllBytesAsync(destinationPath, TestContext.Current.CancellationToken));
+        Assert.Empty(Directory.GetFiles(temp.Path, "*.partial"));
+    }
+
+    [Fact]
+    public async Task DownloadAsync_WhenConcurrentDownloadsTargetSameArtifact_BothComplete()
+    {
+        using TempDirectory temp = TempDirectory.Create();
+        string destinationPath = Path.Combine(temp.Path, "install.esd");
+        byte[] downloadedContent = Encoding.UTF8.GetBytes("shared artifact content");
+        string expectedHash = ComputeSha256(downloadedContent);
+        var handler = new ConcurrentHttpMessageHandler(downloadedContent, expectedRequests: 2);
+        var service = new ArtifactDownloadService(
+            NullLogger<ArtifactDownloadService>.Instance,
+            new HttpClient(handler));
+
+        Task<ArtifactDownloadResult> firstDownload = service.DownloadAsync(
+            "https://example.test/install.esd",
+            destinationPath,
+            expectedHash,
+            expectedSizeBytes: downloadedContent.Length,
+            artifactKind: "OperatingSystemImage",
+            cancellationToken: TestContext.Current.CancellationToken);
+        Task<ArtifactDownloadResult> secondDownload = service.DownloadAsync(
+            "https://example.test/install.esd",
+            destinationPath,
+            expectedHash,
+            expectedSizeBytes: downloadedContent.Length,
+            artifactKind: "OperatingSystemImage",
+            cancellationToken: TestContext.Current.CancellationToken);
+
+        ArtifactDownloadResult[] results = await Task.WhenAll(firstDownload, secondDownload);
+
+        Assert.All(results, result => Assert.True(result.Downloaded));
+        Assert.Equal(downloadedContent, await File.ReadAllBytesAsync(destinationPath, TestContext.Current.CancellationToken));
+        Assert.Empty(Directory.GetFiles(temp.Path, "*.partial"));
     }
 
     [Fact]
@@ -122,7 +185,7 @@ public sealed class ArtifactDownloadServiceTests
     }
 
     [Fact]
-    public async Task DownloadAsync_WhenDownloadedHashMatches_WritesManifestWithoutSecondFileHashPass()
+    public async Task DownloadAsync_WhenStoredHashMatches_PublishesArtifactAndManifest()
     {
         using TempDirectory temp = TempDirectory.Create();
         string destinationPath = Path.Combine(temp.Path, "firmware.cab");
@@ -195,15 +258,81 @@ public sealed class ArtifactDownloadServiceTests
         }
     }
 
-    private sealed class ThrowingHttpMessageHandler : HttpMessageHandler
+    private sealed class FailingDownloadHttpMessageHandler : HttpMessageHandler
     {
-        public int RequestCount { get; private set; }
-
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            RequestCount++;
-            throw new InvalidOperationException("HTTP should not be used for a manifest-backed cache hit.");
+            return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StreamContent(new FailingReadStream())
+            });
         }
+    }
+
+    private sealed class ConcurrentHttpMessageHandler(byte[] content, int expectedRequests) : HttpMessageHandler
+    {
+        private readonly TaskCompletionSource _allRequestsStarted = new(TaskCreationOptions.RunContinuationsAsynchronously);
+        private int _requestCount;
+
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            if (Interlocked.Increment(ref _requestCount) == expectedRequests)
+            {
+                _allRequestsStarted.SetResult();
+            }
+
+            await _allRequestsStarted.Task.WaitAsync(cancellationToken);
+            return new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new ByteArrayContent(content)
+            };
+        }
+    }
+
+    private sealed class FailingReadStream : Stream
+    {
+        private bool _firstRead = true;
+
+        public override bool CanRead => true;
+        public override bool CanSeek => false;
+        public override bool CanWrite => false;
+        public override long Length => throw new NotSupportedException();
+
+        public override long Position
+        {
+            get => throw new NotSupportedException();
+            set => throw new NotSupportedException();
+        }
+
+        public override void Flush()
+        {
+        }
+
+        public override int Read(byte[] buffer, int offset, int count)
+        {
+            return Read(buffer.AsSpan(offset, count));
+        }
+
+        public override int Read(Span<byte> buffer)
+        {
+            if (!_firstRead)
+            {
+                throw new InvalidOperationException("Simulated interrupted download.");
+            }
+
+            _firstRead = false;
+            buffer[0] = 0x42;
+            return 1;
+        }
+
+        public override ValueTask<int> ReadAsync(Memory<byte> buffer, CancellationToken cancellationToken = default)
+        {
+            return ValueTask.FromResult(Read(buffer.Span));
+        }
+
+        public override long Seek(long offset, SeekOrigin origin) => throw new NotSupportedException();
+        public override void SetLength(long value) => throw new NotSupportedException();
+        public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
     }
 
     private sealed class TempDirectory : IDisposable

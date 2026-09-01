@@ -17,8 +17,10 @@ internal static class ArtifactCacheManifestService
         WriteIndented = true
     };
 
-    public static bool TryValidate(
+    public static bool TryValidateMetadata(
         string artifactPath,
+        string sourceUrl,
+        string? artifactKind,
         string expectedHash,
         string hashAlgorithm,
         long? expectedSizeBytes,
@@ -45,6 +47,8 @@ internal static class ArtifactCacheManifestService
 
         if (manifest is null ||
             manifest.Version != CurrentVersion ||
+            !string.Equals(manifest.SourceUrl, sourceUrl, StringComparison.Ordinal) ||
+            !string.Equals(manifest.ArtifactKind, artifactKind, StringComparison.Ordinal) ||
             !string.Equals(manifest.HashAlgorithm, hashAlgorithm, StringComparison.OrdinalIgnoreCase) ||
             !string.Equals(manifest.ExpectedHash, expectedHash, StringComparison.OrdinalIgnoreCase))
         {
@@ -89,10 +93,25 @@ internal static class ArtifactCacheManifestService
             ValidatedAtUtc = DateTimeOffset.UtcNow
         };
 
-        await using FileStream stream = File.Create(GetManifestPath(artifactPath));
-        await JsonSerializer
-            .SerializeAsync(stream, manifest, SerializerOptions, cancellationToken)
-            .ConfigureAwait(false);
+        string manifestPath = GetManifestPath(artifactPath);
+        string temporaryPath = $"{manifestPath}.{Guid.NewGuid():N}.partial";
+        try
+        {
+            await using (FileStream stream = File.Create(temporaryPath))
+            {
+                await JsonSerializer
+                    .SerializeAsync(stream, manifest, SerializerOptions, cancellationToken)
+                    .ConfigureAwait(false);
+                await stream.FlushAsync(cancellationToken).ConfigureAwait(false);
+                stream.Flush(flushToDisk: true);
+            }
+
+            File.Move(temporaryPath, manifestPath, overwrite: true);
+        }
+        finally
+        {
+            File.Delete(temporaryPath);
+        }
     }
 
     public static string GetManifestPath(string artifactPath)

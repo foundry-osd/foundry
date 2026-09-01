@@ -100,37 +100,59 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
                 };
             }
 
+            string temporaryPath = $"{destinationPath}.{Guid.NewGuid():N}.partial";
             DownloadedArtifact downloadedArtifact = new(null);
-            await HttpRetryPolicy
-                .ExecuteAsync(
-                    async ct =>
-                    {
-                        downloadedArtifact = await DownloadWithHttpClientAsync(
-                                effectiveSourceUrl,
-                                destinationPath,
-                                hashAlgorithm,
-                                progress,
-                                ct)
-                            .ConfigureAwait(false);
-                    },
-                    _logger,
-                    "Artifact download",
-                    cancellationToken)
-                .ConfigureAwait(false);
-            await EnsureDownloadedHashAsync(destinationPath, normalizedExpectedHash, hashAlgorithm, downloadedArtifact, cancellationToken).ConfigureAwait(false);
-
-            if (normalizedExpectedHash is not null && hashAlgorithm is not null)
+            try
             {
-                await ArtifactCacheManifestService
-                    .WriteAsync(
-                        destinationPath,
-                        sourceUrl,
-                        artifactKind,
-                        normalizedExpectedHash,
-                        hashAlgorithm.Value.Name ?? string.Empty,
-                        expectedSizeBytes,
+                await HttpRetryPolicy
+                    .ExecuteAsync(
+                        async ct =>
+                        {
+                            downloadedArtifact = await DownloadWithHttpClientAsync(
+                                    effectiveSourceUrl,
+                                    temporaryPath,
+                                    hashAlgorithm,
+                                    progress,
+                                    ct)
+                                .ConfigureAwait(false);
+                        },
+                        _logger,
+                        "Artifact download",
                         cancellationToken)
                     .ConfigureAwait(false);
+
+                EnsureExpectedSize(temporaryPath, expectedSizeBytes);
+                await EnsureDownloadedHashAsync(
+                    temporaryPath,
+                    normalizedExpectedHash,
+                    hashAlgorithm,
+                    downloadedArtifact,
+                    cancellationToken).ConfigureAwait(false);
+                await EnsureStoredHashAsync(
+                    temporaryPath,
+                    normalizedExpectedHash,
+                    hashAlgorithm,
+                    cancellationToken).ConfigureAwait(false);
+
+                File.Move(temporaryPath, destinationPath, overwrite: true);
+
+                if (normalizedExpectedHash is not null && hashAlgorithm is not null)
+                {
+                    await ArtifactCacheManifestService
+                        .WriteAsync(
+                            destinationPath,
+                            sourceUrl,
+                            artifactKind,
+                            normalizedExpectedHash,
+                            hashAlgorithm.Value.Name ?? string.Empty,
+                            expectedSizeBytes,
+                            cancellationToken)
+                        .ConfigureAwait(false);
+                }
+            }
+            finally
+            {
+                TryDeleteFile(temporaryPath);
             }
 
             _logger.LogInformation("Artifact downloaded via HttpClient. DestinationPath={DestinationPath}", destinationPath);
@@ -182,35 +204,50 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
             return true;
         }
 
-        if (ArtifactCacheManifestService.TryValidate(
-                destinationPath,
-                normalizedExpectedHash,
-                hashAlgorithm.Value.Name ?? string.Empty,
-                expectedSizeBytes,
-                _logger,
-                out _))
-        {
-            progress?.Report(new DownloadProgress(artifact.Length, artifact.Length));
-            return true;
-        }
-
-        string actualHash = await ComputeHashAsync(destinationPath, hashAlgorithm.Value, cancellationToken).ConfigureAwait(false);
-        if (!string.Equals(normalizedExpectedHash, actualHash, StringComparison.OrdinalIgnoreCase))
-        {
-            return false;
-        }
-
-        await ArtifactCacheManifestService
-            .WriteAsync(
+        bool hasCompatibleManifest = ArtifactCacheManifestService.TryValidateMetadata(
                 destinationPath,
                 sourceUrl,
                 artifactKind,
                 normalizedExpectedHash,
                 hashAlgorithm.Value.Name ?? string.Empty,
                 expectedSizeBytes,
-                cancellationToken)
-            .ConfigureAwait(false);
+                _logger,
+                out _);
 
+        _logger.LogDebug(
+            "Validating cached artifact content. DestinationPath={DestinationPath}, HashAlgorithm={HashAlgorithm}",
+            destinationPath,
+            hashAlgorithm.Value.Name);
+        string actualHash = await ComputeHashAsync(destinationPath, hashAlgorithm.Value, cancellationToken).ConfigureAwait(false);
+        if (!string.Equals(normalizedExpectedHash, actualHash, StringComparison.OrdinalIgnoreCase))
+        {
+            _logger.LogWarning(
+                "Cached artifact hash mismatch. DestinationPath={DestinationPath}, HashAlgorithm={HashAlgorithm}, ExpectedHash={ExpectedHash}, ActualHash={ActualHash}",
+                destinationPath,
+                hashAlgorithm.Value.Name,
+                normalizedExpectedHash,
+                actualHash);
+            return false;
+        }
+
+        if (!hasCompatibleManifest)
+        {
+            await ArtifactCacheManifestService
+                .WriteAsync(
+                    destinationPath,
+                    sourceUrl,
+                    artifactKind,
+                    normalizedExpectedHash,
+                    hashAlgorithm.Value.Name ?? string.Empty,
+                    expectedSizeBytes,
+                    cancellationToken)
+                .ConfigureAwait(false);
+        }
+
+        _logger.LogInformation(
+            "Cached artifact hash validation succeeded. DestinationPath={DestinationPath}, HashAlgorithm={HashAlgorithm}",
+            destinationPath,
+            hashAlgorithm.Value.Name);
         progress?.Report(new DownloadProgress(artifact.Length, artifact.Length));
         return true;
     }
@@ -260,6 +297,8 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
             }
         }
 
+        await destinationStream.FlushAsync(cancellationToken).ConfigureAwait(false);
+        destinationStream.Flush(flushToDisk: true);
         progress?.Report(new DownloadProgress(bytesDownloaded, totalBytes));
         string? actualHash = incrementalHash is null
             ? null
@@ -284,6 +323,49 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         {
             throw new InvalidOperationException(
                 $"Hash verification failed for '{filePath}' ({hashAlgorithm.Value.Name}). Expected '{normalizedExpectedHash}', actual '{actual}'.");
+        }
+    }
+
+    private async Task EnsureStoredHashAsync(
+        string filePath,
+        string? normalizedExpectedHash,
+        HashAlgorithmName? hashAlgorithm,
+        CancellationToken cancellationToken)
+    {
+        if (normalizedExpectedHash is null || hashAlgorithm is null)
+        {
+            return;
+        }
+
+        _logger.LogDebug(
+            "Validating stored artifact content. FilePath={FilePath}, HashAlgorithm={HashAlgorithm}",
+            filePath,
+            hashAlgorithm.Value.Name);
+        string actualHash = await ComputeHashAsync(filePath, hashAlgorithm.Value, cancellationToken).ConfigureAwait(false);
+        if (!string.Equals(normalizedExpectedHash, actualHash, StringComparison.OrdinalIgnoreCase))
+        {
+            throw new InvalidOperationException(
+                $"Stored artifact hash verification failed for '{filePath}' ({hashAlgorithm.Value.Name}). Expected '{normalizedExpectedHash}', actual '{actualHash}'.");
+        }
+
+        _logger.LogInformation(
+            "Stored artifact hash validation succeeded. FilePath={FilePath}, HashAlgorithm={HashAlgorithm}",
+            filePath,
+            hashAlgorithm.Value.Name);
+    }
+
+    private static void EnsureExpectedSize(string filePath, long? expectedSizeBytes)
+    {
+        if (expectedSizeBytes is not > 0)
+        {
+            return;
+        }
+
+        long actualSizeBytes = new FileInfo(filePath).Length;
+        if (actualSizeBytes != expectedSizeBytes.Value)
+        {
+            throw new InvalidDataException(
+                $"Artifact size verification failed for '{filePath}'. Expected '{expectedSizeBytes.Value}', actual '{actualSizeBytes}'.");
         }
     }
 
@@ -328,6 +410,20 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         return Uri.TryCreate(sourceUrl, UriKind.Absolute, out Uri? uri)
             ? uri.Host
             : "invalid-url";
+    }
+
+    private static void TryDeleteFile(string filePath)
+    {
+        try
+        {
+            File.Delete(filePath);
+        }
+        catch (IOException)
+        {
+        }
+        catch (UnauthorizedAccessException)
+        {
+        }
     }
 
     private sealed record DownloadedArtifact(string? Hash);
