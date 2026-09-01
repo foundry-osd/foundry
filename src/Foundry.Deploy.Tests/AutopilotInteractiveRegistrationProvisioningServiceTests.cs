@@ -130,16 +130,13 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("Start-FoundryAutopilotRegistration.ps1", oobeWaiter);
 
         string foregroundWrapper = File.ReadAllText(result.ForegroundWrapperPath);
-        Assert.Contains("SendInput", foregroundWrapper);
-        Assert.Contains("Invoke-FoundryShiftF10", foregroundWrapper);
-        Assert.Contains("private struct MOUSEINPUT", foregroundWrapper);
-        Assert.Contains("private struct HARDWAREINPUT", foregroundWrapper);
+        Assert.Contains("GetForegroundWindow", foregroundWrapper);
+        Assert.Contains("SetForegroundWindow", foregroundWrapper);
+        Assert.Contains("Invoke-FoundryActivateOobeWindow", foregroundWrapper);
+        Assert.Contains("SendShiftF10", foregroundWrapper);
         Assert.Contains("Wait-FoundryOobeCommandPrompt", foregroundWrapper);
         Assert.Contains("Close-FoundryOobeCommandPrompt", foregroundWrapper);
-        Assert.Contains("[int[]]$existingCommandPromptIds = @(Get-FoundryCommandPromptIds", foregroundWrapper);
-        Assert.Contains("ExistingCommandPromptIds = @()", foregroundWrapper);
         Assert.Contains("& $RegistrationScriptPath -ConfigPath $ConfigPath", foregroundWrapper);
-        Assert.Contains("foreground.log", foregroundWrapper);
 
         string oobeCommand = File.ReadAllText(result.OobeCommandPath);
         Assert.Contains("REM >>> FOUNDRY AUTOPILOT REGISTRATION BEGIN", oobeCommand);
@@ -249,6 +246,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("Show-UploadStep", script);
         Assert.Contains("Start-AuthenticationFlow", script);
         Assert.Contains("Add_ContentRendered", script);
+        Assert.Contains("[void]$window.Activate()", script);
         Assert.Contains("AuthenticationProgressBar", script);
         Assert.Contains("AuthenticationStatusTextBlock", script);
         Assert.Contains("Code expires in {0} seconds.", script);
@@ -276,6 +274,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("Width=\"420\"", script);
         Assert.Contains("Height=\"560\"", script);
         Assert.Contains("ResizeMode=\"NoResize\"", script);
+        Assert.Contains("Topmost=\"True\"", script);
         Assert.Contains("FontSize=\"16\"", script);
         Assert.Contains("FontSize=\"32\"", script);
         Assert.Contains("MinWidth=\"140\"", script);
