@@ -541,7 +541,7 @@
     <value>Consentire all'operatore di distribuzione di modificare il suffisso dopo il prefisso.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>Il prefisso deve contenere da 1 a 15 caratteri da A-Z, a-z, 0-9 o -.</value>
+    <value>Il prefisso deve contenere da 1 a 9 caratteri da A-Z, a-z, 0-9 o -.</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Salta i termini della licenza</value>

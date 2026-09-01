@@ -541,7 +541,7 @@
     <value>Dopustite operateru postavljanja da uredi sufiks iza prefiksa.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>Prefiks mora sadržavati 1 do 15 znakova od A-Z, a-z, 0-9 ili -.</value>
+    <value>Prefiks mora sadržavati 1 do 9 znakova od A-Z, a-z, 0-9 ili -.</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Preskoči uvjete licence</value>

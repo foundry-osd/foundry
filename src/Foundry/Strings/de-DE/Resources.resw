@@ -541,7 +541,7 @@
     <value>Erlauben Sie dem Bereitstellungsbetreiber, das Suffix nach dem Präfix zu bearbeiten.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>Das Präfix muss 1 bis 15 Zeichen von A-Z, a-z, 0-9 oder - enthalten.</value>
+    <value>Das Präfix muss 1 bis 9 Zeichen von A-Z, a-z, 0-9 oder - enthalten.</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Lizenzbedingungen überspringen</value>

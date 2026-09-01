@@ -541,7 +541,7 @@
     <value>Επιτρέψτε στον χειριστή ανάπτυξης να επεξεργαστεί το επίθημα μετά το πρόθεμα.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>Το πρόθεμα πρέπει να χρησιμοποιεί 1 έως 15 χαρακτήρες από A-Z, a-z, 0-9 ή -.</value>
+    <value>Το πρόθεμα πρέπει να χρησιμοποιεί 1 έως 9 χαρακτήρες από A-Z, a-z, 0-9 ή -.</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Παράβλεψη όρων άδειας</value>

@@ -402,7 +402,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
 
     private static CustomizationSettings SanitizeCustomizationForPersistence(CustomizationSettings settings)
     {
-        string normalizedPrefix = ComputerNameRules.Normalize(settings.MachineNaming.Prefix?.Trim());
+        string normalizedPrefix = MachineNamingRules.NormalizePrefix(settings.MachineNaming.Prefix?.Trim());
         string? prefix = string.IsNullOrWhiteSpace(normalizedPrefix)
             ? null
             : normalizedPrefix;
@@ -415,7 +415,9 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
                 IsEnabled = settings.MachineNaming.IsEnabled,
                 Prefix = settings.MachineNaming.IsEnabled ? prefix : null,
                 AutoGenerateName = settings.MachineNaming.IsEnabled && settings.MachineNaming.AutoGenerateName,
-                AllowManualSuffixEdit = !settings.MachineNaming.IsEnabled || settings.MachineNaming.AllowManualSuffixEdit
+                AllowManualSuffixEdit = !settings.MachineNaming.IsEnabled ||
+                                        !settings.MachineNaming.AutoGenerateName ||
+                                        settings.MachineNaming.AllowManualSuffixEdit
             },
             Oobe = SanitizeOobeForPersistence(settings.Oobe),
             AppxRemoval = SanitizeAppxRemovalForPersistence(settings.AppxRemoval),

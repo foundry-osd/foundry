@@ -541,7 +541,7 @@
     <value>允许部署操作员编辑前缀后的后缀。</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>前缀必须使用 A-Z、a-z、0-9 或 - 中的 1 到 15 个字符。</value>
+    <value>前缀必须使用 A-Z、a-z、0-9 或 - 中的 1 到 9 个字符。</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>跳过许可条款</value>

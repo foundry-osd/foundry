@@ -541,7 +541,7 @@
     <value>อนุญาตให้ผู้ดำเนินการปรับใช้แก้ไขส่วนต่อท้ายหลังคำนำหน้า</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>คำนำหน้าต้องใช้อักขระ 1 ถึง 15 ตัวตั้งแต่ A-Z, a-z, 0-9 หรือ -</value>
+    <value>คำนำหน้าต้องใช้อักขระ 1 ถึง 9 ตัวตั้งแต่ A-Z, a-z, 0-9 หรือ -</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>ข้ามเงื่อนไขใบอนุญาต</value>

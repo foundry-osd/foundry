@@ -309,6 +309,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 Mode = _deploymentRuntimeContext.Mode,
                 CacheRootPath = Preparation.CacheRootPath,
                 TargetComputerName = Preparation.TargetComputerName,
+                RequiredComputerNamePrefix = Preparation.HasTargetComputerNamePrefix
+                    ? Preparation.TargetComputerNamePrefix
+                    : null,
                 DefaultTimeZoneId = _wizardContext.DefaultTimeZoneId,
                 SelectedTargetDisk = Preparation.SelectedTargetDisk,
                 SelectedOperatingSystem = OperatingSystemCatalog.SelectedOperatingSystem,
@@ -487,7 +490,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             IsCatalogLoading = IsCatalogLoading,
             IsTargetDiskLoading = Preparation.IsTargetDiskLoading,
             IsDebugSafeMode = IsDebugSafeMode,
-            IsTargetComputerNameValid = ComputerNameRules.IsValid(Preparation.TargetComputerName),
+            IsTargetComputerNameValid = Preparation.IsTargetComputerNameValid,
             HasSelectedOperatingSystem = OperatingSystemCatalog.SelectedOperatingSystem is not null,
             HasTargetDiskSelection = Preparation.SelectedTargetDisk is not null,
             IsSelectedTargetDiskSelectable = Preparation.SelectedTargetDisk?.IsSelectable ?? false,
@@ -573,7 +576,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         var source = new DeploymentSummarySource
         {
             TargetSummary = Preparation.TargetComputerName,
-            IsTargetConfigured = ComputerNameRules.IsValid(Preparation.TargetComputerName) &&
+            IsTargetConfigured = Preparation.IsTargetComputerNameValid &&
                                  (IsDebugSafeMode || Preparation.SelectedTargetDisk?.IsSelectable == true),
             HasTargetWarning = Preparation.SelectedTargetDisk is { IsSelectable: false },
             TargetRows = BuildTargetSummaryRows(),

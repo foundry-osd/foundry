@@ -541,7 +541,7 @@
     <value>Sta de implementatieoperator toe het achtervoegsel na het voorvoegsel te bewerken.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>Het voorvoegsel moet 1 tot 15 tekens bevatten, van A-Z, a-z, 0-9 of -.</value>
+    <value>Het voorvoegsel moet 1 tot 9 tekens bevatten, van A-Z, a-z, 0-9 of -.</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Licentievoorwaarden overslaan</value>

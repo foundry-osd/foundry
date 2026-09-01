@@ -64,7 +64,7 @@
                     <wct:SettingsCard
                         Description="{x:Bind ViewModel.MachineNamingAllowManualSuffixEditDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.MachineNamingAllowManualSuffixEditText, Mode=OneWay}"
-                        IsEnabled="{x:Bind ViewModel.IsMachineNamingOptionsEnabled, Mode=OneWay}">
+                        IsEnabled="{x:Bind ViewModel.IsManualSuffixEditOptionEnabled, Mode=OneWay}">
                         <ToggleSwitch
                             behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
                             IsOn="{x:Bind ViewModel.AllowManualSuffixEdit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />

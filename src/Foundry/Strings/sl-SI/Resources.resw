@@ -541,7 +541,7 @@
     <value>Dovolite operaterju razmestitve, da uredi pripono za predpono.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>Predpona mora vsebovati od 1 do 15 znakov od A-Z, a-z, 0-9 ali -.</value>
+    <value>Predpona mora vsebovati od 1 do 9 znakov od A-Z, a-z, 0-9 ali -.</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Preskoči licenčne pogoje</value>

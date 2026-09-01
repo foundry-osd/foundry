@@ -541,7 +541,7 @@
     <value>Zezwól operatorowi wdrażania na edycję sufiksu po przedrostku.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>Prefiks musi zawierać od 1 do 15 znaków od A-Z, a-z, 0-9 lub -.</value>
+    <value>Prefiks musi zawierać od 1 do 9 znaków od A-Z, a-z, 0-9 lub -.</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Pomiń warunki licencji</value>

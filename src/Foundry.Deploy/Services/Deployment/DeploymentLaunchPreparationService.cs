@@ -7,6 +7,7 @@ using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.ApplicationShell;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Validation;
+using MachineNamingRules = Foundry.Core.Services.Configuration.MachineNamingRules;
 
 namespace Foundry.Deploy.Services.Deployment;
 
@@ -37,7 +38,9 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
         }
 
         string normalizedComputerName = ComputerNameRules.Normalize(request.TargetComputerName);
-        if (!ComputerNameRules.IsValid(normalizedComputerName))
+        bool hasRequiredSuffix = request.RequiredComputerNamePrefix is null ||
+                                 MachineNamingRules.HasSuffix(normalizedComputerName, request.RequiredComputerNamePrefix);
+        if (!hasRequiredSuffix || !ComputerNameRules.IsValid(normalizedComputerName))
         {
             return DeploymentLaunchPreparationResult.Failure(normalizedComputerName);
         }

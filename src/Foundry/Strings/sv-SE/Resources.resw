@@ -541,7 +541,7 @@
     <value>Tillåt distributionsoperatören att redigera suffixet efter prefixet.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>Prefix måste innehålla 1 till 15 tecken från A-Z, a-z, 0-9 eller -.</value>
+    <value>Prefix måste innehålla 1 till 9 tecken från A-Z, a-z, 0-9 eller -.</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Hoppa över licensvillkor</value>

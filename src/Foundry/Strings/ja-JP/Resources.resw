@@ -541,7 +541,7 @@
     <value>デプロイメント オペレータがプレフィックスの後のサフィックスを編集できるようにします。</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>プレフィックスには、A ～ Z、a ～ z、0 ～ 9、または - の 1 ～ 15 文字を使用する必要があります。</value>
+    <value>プレフィックスには、A ～ Z、a ～ z、0 ～ 9、または - の 1 ～ 9 文字を使用する必要があります。</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>ライセンス条項をスキップする</value>

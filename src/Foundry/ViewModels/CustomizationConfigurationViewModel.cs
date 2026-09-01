@@ -90,14 +90,19 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
     }
 
     /// <summary>
-    /// Gets the maximum computer-name prefix length accepted by Windows naming rules.
+    /// Gets the maximum computer-name prefix length that preserves the generated suffix budget.
     /// </summary>
-    public int MachineNamePrefixMaxLength => ComputerNameRules.MaxLength;
+    public int MachineNamePrefixMaxLength => MachineNamingRules.MaxPrefixLength;
 
     /// <summary>
     /// Gets whether machine naming controls should be enabled.
     /// </summary>
     public bool IsMachineNamingOptionsEnabled => IsMachineNamingEnabled;
+
+    /// <summary>
+    /// Gets whether manual suffix editing can be disabled.
+    /// </summary>
+    public bool IsManualSuffixEditOptionEnabled => IsMachineNamingEnabled && MachineNameAutoGenerate;
 
     /// <summary>
     /// Gets whether the current machine-name prefix has a validation error.
@@ -143,6 +148,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsMachineNamingOptionsEnabled))]
+    [NotifyPropertyChangedFor(nameof(IsManualSuffixEditOptionEnabled))]
     [NotifyPropertyChangedFor(nameof(MachineNamePrefixValidationMessage))]
     [NotifyPropertyChangedFor(nameof(HasMachineNamePrefixValidationError))]
     [NotifyPropertyChangedFor(nameof(MachineNamePrefixValidationVisibility))]
@@ -155,6 +161,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
     public partial string MachineNamePrefix { get; set; } = string.Empty;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsManualSuffixEditOptionEnabled))]
     public partial bool MachineNameAutoGenerate { get; set; }
 
     [ObservableProperty]
@@ -172,7 +179,8 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
                 return string.Empty;
             }
 
-            return ComputerNameRules.IsValid(MachineNamePrefix.Trim())
+            string prefix = MachineNamePrefix.Trim();
+            return ComputerNameRules.IsValid(prefix) && prefix.Length <= MachineNamingRules.MaxPrefixLength
                 ? string.Empty
                 : localizationService.GetString("Customization.MachineNamingPrefixValidation");
         }
@@ -223,11 +231,23 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
 
     partial void OnMachineNameAutoGenerateChanged(bool value)
     {
+        if (!value && !AllowManualSuffixEdit)
+        {
+            AllowManualSuffixEdit = true;
+            return;
+        }
+
         SaveState();
     }
 
     partial void OnAllowManualSuffixEditChanged(bool value)
     {
+        if (!value && !MachineNameAutoGenerate)
+        {
+            AllowManualSuffixEdit = true;
+            return;
+        }
+
         SaveState();
     }
 
@@ -238,9 +258,10 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
         {
             ApplyOperatingSystemSelectionState(operatingSystemSelection);
             IsMachineNamingEnabled = settings.MachineNaming.IsEnabled;
-            MachineNamePrefix = settings.MachineNaming.Prefix ?? string.Empty;
+            MachineNamePrefix = NormalizePrefix(settings.MachineNaming.Prefix);
             MachineNameAutoGenerate = settings.MachineNaming.AutoGenerateName;
-            AllowManualSuffixEdit = settings.MachineNaming.AllowManualSuffixEdit;
+            AllowManualSuffixEdit = !settings.MachineNaming.AutoGenerateName ||
+                                    settings.MachineNaming.AllowManualSuffixEdit;
             ApplyOobeState(settings.Oobe);
             ApplyAiComponentRemovalState(settings.AiComponentRemoval);
             ApplyWindowsOptionalFeatureState(settings.WindowsOptionalFeatures);
@@ -340,7 +361,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
 
     private static string NormalizePrefix(string? value)
     {
-        return ComputerNameRules.Normalize(value?.Trim());
+        return MachineNamingRules.NormalizePrefix(value?.Trim());
     }
 
     private MachineNamingSettings BuildMachineNamingSettings()
@@ -355,7 +376,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
             IsEnabled = IsMachineNamingEnabled,
             Prefix = IsMachineNamingEnabled ? prefix : null,
             AutoGenerateName = IsMachineNamingEnabled && MachineNameAutoGenerate,
-            AllowManualSuffixEdit = !IsMachineNamingEnabled || AllowManualSuffixEdit
+            AllowManualSuffixEdit = !IsMachineNamingEnabled || !MachineNameAutoGenerate || AllowManualSuffixEdit
         };
     }
 }

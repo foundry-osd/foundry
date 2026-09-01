@@ -541,7 +541,7 @@
     <value>אפשר למפעיל הפריסה לערוך את הסיומת אחרי הקידומת.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>הקידומת חייבת להשתמש ב-1 עד 15 תווים מ-A-Z, a-z, 0-9 או -.</value>
+    <value>הקידומת חייבת להשתמש ב-1 עד 9 תווים מ-A-Z, a-z, 0-9 או -.</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>דלג על תנאי הרישיון</value>

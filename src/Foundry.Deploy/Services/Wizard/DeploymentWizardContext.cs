@@ -54,7 +54,6 @@ public sealed class DeploymentWizardContext : IDisposable
         {
             ApplyDeployConfiguration(
                 startupSnapshot.DeployConfigurationDocument,
-                startupSnapshot.EffectiveComputerName,
                 startupSnapshot.AutopilotProfiles);
         }
         else
@@ -104,7 +103,6 @@ public sealed class DeploymentWizardContext : IDisposable
 
     private void ApplyDeployConfiguration(
         FoundryDeployConfigurationDocument document,
-        string seedComputerName,
         IReadOnlyList<AutopilotProfileCatalogItem> autopilotProfiles)
     {
         Completion = document.Completion ?? new DeployCompletionSettings();
@@ -113,10 +111,7 @@ public sealed class DeploymentWizardContext : IDisposable
             ? null
             : document.Localization.DefaultTimeZoneId.Trim();
         Preparation.ApplyMachineNamingConfiguration(
-            document.Customization.MachineNaming ?? new DeployMachineNamingSettings(),
-            string.IsNullOrWhiteSpace(Preparation.TargetComputerName)
-                ? seedComputerName
-                : Preparation.TargetComputerName);
+            document.Customization.MachineNaming ?? new DeployMachineNamingSettings());
         Network = document.Network ?? new CoreDeployNetworkSettings();
         Oobe = document.Customization.Oobe ?? new DeployOobeSettings();
         AppxRemoval = document.Customization.AppxRemoval ?? new DeployAppxRemovalSettings();
