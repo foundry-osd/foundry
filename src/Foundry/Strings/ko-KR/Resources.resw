@@ -541,7 +541,7 @@
     <value>배포 운영자가 접두사 뒤의 접미사를 편집할 수 있도록 허용합니다.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>접두사는 A-Z, a-z, 0-9 또는 -의 1~15자 문자를 사용해야 합니다.</value>
+    <value>접두사는 A-Z, a-z, 0-9 또는 -의 1~9자 문자를 사용해야 합니다.</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>라이선스 조건 건너뛰기</value>

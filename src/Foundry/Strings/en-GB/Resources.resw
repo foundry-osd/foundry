@@ -541,7 +541,7 @@
     <value>Allow the deployment operator to edit the suffix after the prefix.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>Prefix must use 1 to 15 characters from A-Z, a-z, 0-9, or -.</value>
+    <value>Prefix must use 1 to 9 characters from A-Z, a-z, 0-9, or -.</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Skip license terms</value>

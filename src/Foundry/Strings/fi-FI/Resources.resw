@@ -541,7 +541,7 @@
     <value>Salli käyttöönotto-operaattorin muokata etuliitteen jälkeistä päätettä.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>Etuliitteessä on oltava 1–15 merkkiä A–Z, a–z, 0–9 tai -.</value>
+    <value>Etuliitteessä on oltava 1–9 merkkiä A–Z, a–z, 0–9 tai -.</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Ohita lisenssiehdot</value>

@@ -78,6 +78,29 @@ public sealed class DeployConfigurationGeneratorTests
     }
 
     [Fact]
+    public void Generate_WhenSuffixIsNotGenerated_KeepsManualSuffixEditable()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                MachineNaming = new MachineNamingSettings
+                {
+                    IsEnabled = true,
+                    Prefix = "LAB-",
+                    AutoGenerateName = false,
+                    AllowManualSuffixEdit = false
+                }
+            }
+        };
+
+        FoundryDeployConfigurationDocument result = generator.Generate(document);
+
+        Assert.True(result.Customization.MachineNaming.AllowManualSuffixEdit);
+    }
+
+    [Fact]
     public void Generate_WhenNetworkProfileRoamingIsDisabled_DisablesDeployRoaming()
     {
         var generator = new DeployConfigurationGenerator();

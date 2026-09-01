@@ -12,7 +12,7 @@ using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Validation;
-using Microsoft.Extensions.Logging;
+using MachineNamingRules = Foundry.Core.Services.Configuration.MachineNamingRules;
 
 namespace Foundry.Deploy.ViewModels;
 
@@ -29,30 +29,21 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     private const string DebugAutopilotProfileDisplayName = "Debug Autopilot Profile";
     private const string DebugAutopilotGroupTag = "Debug";
 
-    private readonly IHardwareProfileService _hardwareProfileService;
-    private readonly IOfflineWindowsComputerNameService _offlineWindowsComputerNameService;
-    private readonly ILogger _logger;
     private readonly bool _isDebugSafeMode;
     private HardwareProfile? _detectedHardware;
     private DeployMachineNamingSettings _machineNamingConfiguration = new();
     private string _lockedComputerNamePrefix = string.Empty;
     private string _detectedHardwareSummaryRaw = "Detecting hardware...";
-    private bool _isApplyingManagedComputerName;
+    private bool _isApplyingComputerName;
     private bool _isUpdatingFirmwareOptionSelection;
     private bool _hasUserSelectedFirmwareOption;
     private bool _firmwareUpdatesPreference = true;
 
     public DeploymentPreparationViewModel(
-        IHardwareProfileService hardwareProfileService,
-        IOfflineWindowsComputerNameService offlineWindowsComputerNameService,
         ILocalizationService localizationService,
-        ILogger logger,
         bool isDebugSafeMode)
         : base(localizationService)
     {
-        _hardwareProfileService = hardwareProfileService;
-        _offlineWindowsComputerNameService = offlineWindowsComputerNameService;
-        _logger = logger;
         _isDebugSafeMode = isDebugSafeMode;
         LocalizationService.LanguageChanged += OnLocalizationLanguageChanged;
     }
@@ -63,9 +54,13 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     private string targetComputerName = string.Empty;
 
     [ObservableProperty]
+    private string targetComputerNameInput = string.Empty;
+
+    [ObservableProperty]
     private bool isTargetComputerNameReadOnly;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(HasTargetComputerNameValidationError))]
     private string targetComputerNameValidationMessage = string.Empty;
 
     [ObservableProperty]
@@ -180,6 +175,11 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         : ResolveEffectiveHardwareHashGroupTag()!;
 
     public bool HasTargetComputerNameValidationError => !string.IsNullOrWhiteSpace(TargetComputerNameValidationMessage);
+    public bool HasTargetComputerNamePrefix => !string.IsNullOrWhiteSpace(_lockedComputerNamePrefix);
+    public string TargetComputerNamePrefix => _lockedComputerNamePrefix;
+    public int TargetComputerNameInputMaxLength => _machineNamingConfiguration.IsEnabled
+        ? ComputerNameRules.MaxLength - _lockedComputerNamePrefix.Length
+        : ComputerNameRules.MaxLength;
 
     public HardwareProfile? DetectedHardware => _detectedHardware;
     public string HardwareManufacturerText => GetHardwareValue(_detectedHardware?.Manufacturer);
@@ -220,52 +220,23 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         };
     }
 
-    public async Task LoadHardwareProfileAsync()
-    {
-        try
-        {
-            HardwareProfile profile = await _hardwareProfileService.GetCurrentAsync();
-            SetDetectedHardware(profile);
-            _logger.LogInformation("Hardware profile loaded in preparation view model. DisplayLabel={DisplayLabel}", profile.DisplayLabel);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Hardware profile loading failed in preparation view model.");
-            SetHardwareDetectionFailure($"Hardware detection failed: {ex.Message}");
-        }
-    }
-
-    public async Task LoadOfflineComputerNameAsync(string fallbackName)
-    {
-        string? resolvedName = null;
-        try
-        {
-            resolvedName = await _offlineWindowsComputerNameService.TryGetOfflineComputerNameAsync();
-        }
-        catch (Exception ex)
-        {
-            _logger.LogWarning(ex, "Failed to load offline Windows computer name.");
-        }
-
-        string effectiveName = !string.IsNullOrWhiteSpace(resolvedName)
-            ? resolvedName
-            : fallbackName;
-        ApplyOfflineComputerName(effectiveName);
-    }
-
-    public void ApplyMachineNamingConfiguration(DeployMachineNamingSettings settings, string seed)
+    public void ApplyMachineNamingConfiguration(DeployMachineNamingSettings settings)
     {
         _machineNamingConfiguration = settings ?? new DeployMachineNamingSettings();
-        _lockedComputerNamePrefix = ComputerNameRules.Normalize(_machineNamingConfiguration.Prefix);
-        IsTargetComputerNameReadOnly = _machineNamingConfiguration.IsEnabled && !_machineNamingConfiguration.AllowManualSuffixEdit;
+        _lockedComputerNamePrefix = MachineNamingRules.NormalizePrefix(_machineNamingConfiguration.Prefix);
+        IsTargetComputerNameReadOnly = _machineNamingConfiguration.IsEnabled &&
+                                       _machineNamingConfiguration.AutoGenerateName &&
+                                       !_machineNamingConfiguration.AllowManualSuffixEdit;
 
         if (_machineNamingConfiguration.IsEnabled)
         {
-            string effectiveSeed = string.IsNullOrWhiteSpace(TargetComputerName)
-                ? seed
-                : TargetComputerName;
-            ApplyManagedComputerNameValue(BuildConfiguredComputerName(effectiveSeed));
+            string suffix = _machineNamingConfiguration.AutoGenerateName
+                ? ComputerNameSuffixGenerator.Generate()
+                : string.Empty;
+            ApplyComputerNameInput(suffix);
         }
+
+        RaiseMachineNamingPropertiesChanged();
 
         RaiseStateChanged();
     }
@@ -342,8 +313,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
             return;
         }
 
-        string configuredName = BuildConfiguredComputerName(effectiveName);
-        ApplyManagedComputerNameValue(configuredName);
+        ApplyComputerNameInput(effectiveName);
         RaiseStateChanged();
     }
 
@@ -383,28 +353,26 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
 
     partial void OnTargetComputerNameChanged(string value)
     {
-        if (_isApplyingManagedComputerName)
+        if (_isApplyingComputerName)
         {
             RaiseStateChanged();
             return;
         }
 
-        TargetComputerNameValidationMessage = ResolveComputerNameValidationMessage(value);
-        if (string.IsNullOrWhiteSpace(value))
+        string input = _machineNamingConfiguration.IsEnabled
+            ? ExtractComputerNameSuffix(value, _lockedComputerNamePrefix)
+            : value;
+        ApplyComputerNameInput(input);
+    }
+
+    partial void OnTargetComputerNameInputChanged(string value)
+    {
+        if (_isApplyingComputerName)
         {
-            RaiseStateChanged();
             return;
         }
 
-        string normalized = NormalizeManagedComputerNameValue(value);
-        if (!normalized.Equals(value, StringComparison.Ordinal))
-        {
-            ApplyManagedComputerNameValue(normalized);
-            return;
-        }
-
-        TargetComputerNameValidationMessage = ResolveComputerNameValidationMessage(normalized);
-        RaiseStateChanged();
+        ApplyComputerNameInput(value);
     }
 
     partial void OnApplyFirmwareUpdatesChanged(bool value)
@@ -539,68 +507,29 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         RaiseStateChanged();
     }
 
-    private string NormalizeManagedComputerNameValue(string? value)
+    private void ApplyComputerNameInput(string? value)
     {
-        string normalized = ComputerNameRules.Normalize(value);
-        if (!_machineNamingConfiguration.IsEnabled)
+        string normalizedInput = ComputerNameRules.Normalize(value);
+        int maxInputLength = TargetComputerNameInputMaxLength;
+        if (normalizedInput.Length > maxInputLength)
         {
-            return normalized;
+            normalizedInput = normalizedInput[..maxInputLength];
         }
 
-        if (string.IsNullOrWhiteSpace(_lockedComputerNamePrefix))
-        {
-            return normalized;
-        }
+        string computerName = _machineNamingConfiguration.IsEnabled
+            ? CombineComputerName(_lockedComputerNamePrefix, normalizedInput)
+            : normalizedInput;
 
-        if (!_machineNamingConfiguration.AllowManualSuffixEdit)
-        {
-            return BuildConfiguredComputerName(normalized);
-        }
-
-        string suffix = normalized.StartsWith(_lockedComputerNamePrefix, StringComparison.OrdinalIgnoreCase)
-            ? normalized[_lockedComputerNamePrefix.Length..]
-            : normalized;
-
-        return CombineComputerName(_lockedComputerNamePrefix, suffix);
-    }
-
-    private string BuildConfiguredComputerName(string seed)
-    {
-        string normalizedSeed = ComputerNameRules.Normalize(seed);
-        if (!_machineNamingConfiguration.IsEnabled)
-        {
-            return normalizedSeed;
-        }
-
-        if (string.IsNullOrWhiteSpace(_lockedComputerNamePrefix))
-        {
-            return _machineNamingConfiguration.AutoGenerateName
-                ? NormalizeAutoGeneratedComputerNameSuffix(normalizedSeed)
-                : normalizedSeed;
-        }
-
-        if (_machineNamingConfiguration.AutoGenerateName)
-        {
-            string generatedSuffix = NormalizeAutoGeneratedComputerNameSuffix(
-                ExtractComputerNameSuffix(normalizedSeed, _lockedComputerNamePrefix));
-            return CombineComputerName(_lockedComputerNamePrefix, generatedSuffix);
-        }
-
-        string existingSuffix = ExtractComputerNameSuffix(TargetComputerName, _lockedComputerNamePrefix);
-        return CombineComputerName(_lockedComputerNamePrefix, existingSuffix);
-    }
-
-    private void ApplyManagedComputerNameValue(string value)
-    {
-        _isApplyingManagedComputerName = true;
+        _isApplyingComputerName = true;
         try
         {
-            TargetComputerName = value;
-            TargetComputerNameValidationMessage = ResolveComputerNameValidationMessage(value);
+            TargetComputerNameInput = normalizedInput;
+            TargetComputerName = computerName;
+            TargetComputerNameValidationMessage = ResolveComputerNameValidationMessage(computerName);
         }
         finally
         {
-            _isApplyingManagedComputerName = false;
+            _isApplyingComputerName = false;
         }
 
         RaiseStateChanged();
@@ -627,7 +556,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
 
     private static string CombineComputerName(string prefix, string suffix)
     {
-        string normalizedPrefix = ComputerNameRules.Normalize(prefix);
+        string normalizedPrefix = MachineNamingRules.NormalizePrefix(prefix);
         string normalizedSuffix = ComputerNameRules.Normalize(suffix);
 
         if (string.IsNullOrWhiteSpace(normalizedPrefix))
@@ -646,7 +575,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
 
     private static string ExtractComputerNameSuffix(string? computerName, string prefix)
     {
-        string normalizedPrefix = ComputerNameRules.Normalize(prefix);
+        string normalizedPrefix = MachineNamingRules.NormalizePrefix(prefix);
         if (string.IsNullOrWhiteSpace(normalizedPrefix))
         {
             return ComputerNameRules.Normalize(computerName);
@@ -659,14 +588,6 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         }
 
         return normalizedComputerName;
-    }
-
-    private static string NormalizeAutoGeneratedComputerNameSuffix(string? value)
-    {
-        string normalized = ComputerNameRules.Normalize(value);
-        return string.IsNullOrWhiteSpace(normalized)
-            ? ComputerNameRules.FallbackName
-            : normalized;
     }
 
     private AutopilotProfileCatalogItem? ResolveDefaultAutopilotProfile(string? defaultProfileFolderName)
@@ -753,6 +674,13 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         OnPropertyChanged(nameof(HardwareFirmwareText));
     }
 
+    private void RaiseMachineNamingPropertiesChanged()
+    {
+        OnPropertyChanged(nameof(HasTargetComputerNamePrefix));
+        OnPropertyChanged(nameof(TargetComputerNamePrefix));
+        OnPropertyChanged(nameof(TargetComputerNameInputMaxLength));
+    }
+
     private string GetHardwareValue(string? value)
     {
         return string.IsNullOrWhiteSpace(value) ? GetString("Common.Unavailable") : value;
@@ -760,7 +688,9 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
 
     private string ResolveComputerNameValidationMessage(string? value)
     {
-        return ComputerNameRules.IsValid(value)
+        bool hasRequiredSuffix = !_machineNamingConfiguration.IsEnabled ||
+                                 !string.IsNullOrWhiteSpace(TargetComputerNameInput);
+        return hasRequiredSuffix && ComputerNameRules.IsValid(value)
             ? string.Empty
             : GetString("Preparation.ComputerNameValidationMessage");
     }

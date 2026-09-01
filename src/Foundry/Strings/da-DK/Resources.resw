@@ -541,7 +541,7 @@
     <value>Tillad implementeringsoperatøren at redigere suffikset efter præfikset.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>Præfikset skal bruge 1 til 15 tegn fra A-Z, a-z, 0-9 eller -.</value>
+    <value>Præfikset skal bruge 1 til 9 tegn fra A-Z, a-z, 0-9 eller -.</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Spring over licensvilkår</value>

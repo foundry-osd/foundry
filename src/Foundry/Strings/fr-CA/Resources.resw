@@ -541,7 +541,7 @@
     <value>Autorisez l'opérateur de déploiement à modifier le suffixe après le préfixe.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>Le préfixe doit utiliser 1 à 15 caractères de A à Z, a à z, 0 à 9 ou -.</value>
+    <value>Le préfixe doit utiliser 1 à 9 caractères de A à Z, a à z, 0 à 9 ou -.</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Ignorer les conditions de licence</value>

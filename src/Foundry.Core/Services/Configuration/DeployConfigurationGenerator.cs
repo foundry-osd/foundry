@@ -88,6 +88,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                     AutoGenerateName = document.Customization.MachineNaming.IsEnabled &&
                                        document.Customization.MachineNaming.AutoGenerateName,
                     AllowManualSuffixEdit = !document.Customization.MachineNaming.IsEnabled ||
+                                            !document.Customization.MachineNaming.AutoGenerateName ||
                                             document.Customization.MachineNaming.AllowManualSuffixEdit
                 },
                 Oobe = MapOobeSettings(document.Customization.Oobe),

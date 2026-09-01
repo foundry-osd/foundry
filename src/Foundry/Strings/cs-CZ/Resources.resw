@@ -541,7 +541,7 @@
     <value>Umožněte operátorovi nasazení upravit příponu za předponou.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>Předpona musí obsahovat 1 až 15 znaků od A-Z, a-z, 0-9 nebo -.</value>
+    <value>Předpona musí obsahovat 1 až 9 znaků od A-Z, a-z, 0-9 nebo -.</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Přeskočit licenční podmínky</value>

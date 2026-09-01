@@ -4,17 +4,113 @@
 
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
-using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.Runtime;
-using Foundry.Deploy.Services.System;
 using Foundry.Deploy.ViewModels;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Foundry.Deploy.Tests;
 
 public sealed class DeploymentPreparationViewModelTests
 {
+    [Fact]
+    public void ApplyMachineNamingConfiguration_WhenAutoGenerateIsEnabled_CreatesSixCharacterSuffix()
+    {
+        using DeploymentPreparationViewModel viewModel = CreateViewModel();
+
+        viewModel.ApplyMachineNamingConfiguration(
+            new DeployMachineNamingSettings
+            {
+                IsEnabled = true,
+                Prefix = "LAB-",
+                AutoGenerateName = true,
+                AllowManualSuffixEdit = false
+            });
+
+        Assert.Matches("^LAB-[A-Z0-9]{6}$", viewModel.TargetComputerName);
+    }
+
+    [Fact]
+    public void ApplyOfflineComputerName_WhenMachineNamingIsEnabled_PreservesConfiguredName()
+    {
+        using DeploymentPreparationViewModel viewModel = CreateViewModel();
+        viewModel.ApplyMachineNamingConfiguration(new DeployMachineNamingSettings
+        {
+            IsEnabled = true,
+            Prefix = "LAB-",
+            AutoGenerateName = true
+        });
+        string generatedName = viewModel.TargetComputerName;
+
+        viewModel.ApplyOfflineComputerName("OLD-PC-01");
+
+        Assert.Equal(generatedName, viewModel.TargetComputerName);
+    }
+
+    [Fact]
+    public void ApplyMachineNamingConfiguration_WhenGenerationAndManualEditAreDisabled_KeepsSuffixEditable()
+    {
+        using DeploymentPreparationViewModel viewModel = CreateViewModel();
+
+        viewModel.ApplyMachineNamingConfiguration(
+            new DeployMachineNamingSettings
+            {
+                IsEnabled = true,
+                Prefix = "LAB-",
+                AutoGenerateName = false,
+                AllowManualSuffixEdit = false
+            });
+
+        Assert.False(viewModel.IsTargetComputerNameReadOnly);
+    }
+
+    [Fact]
+    public void ApplyMachineNamingConfiguration_WhenManualSuffixIsRequired_ReportsValidationError()
+    {
+        using DeploymentPreparationViewModel viewModel = CreateViewModel();
+
+        viewModel.ApplyMachineNamingConfiguration(new DeployMachineNamingSettings
+        {
+            IsEnabled = true,
+            Prefix = "LAB-",
+            AutoGenerateName = false
+        });
+
+        Assert.True(viewModel.HasTargetComputerNameValidationError);
+    }
+
+    [Fact]
+    public void TargetComputerNameInput_WhenPrefixIsManaged_ComposesFullComputerName()
+    {
+        using DeploymentPreparationViewModel viewModel = CreateViewModel();
+        viewModel.ApplyMachineNamingConfiguration(new DeployMachineNamingSettings
+        {
+            IsEnabled = true,
+            Prefix = "LAB-",
+            AutoGenerateName = false
+        });
+
+        viewModel.TargetComputerNameInput = "123";
+
+        Assert.Equal("LAB-123", viewModel.TargetComputerName);
+        Assert.False(viewModel.HasTargetComputerNameValidationError);
+    }
+
+    [Fact]
+    public void ApplyMachineNamingConfiguration_WhenPrefixExceedsSuffixBudget_ReservesSixCharacters()
+    {
+        using DeploymentPreparationViewModel viewModel = CreateViewModel();
+
+        viewModel.ApplyMachineNamingConfiguration(
+            new DeployMachineNamingSettings
+            {
+                IsEnabled = true,
+                Prefix = "abcdefghijklmno",
+                AutoGenerateName = true
+            });
+
+        Assert.Matches("^abcdefghi[A-Z0-9]{6}$", viewModel.TargetComputerName);
+    }
+
     [Fact]
     public void SetDetectedHardware_ExposesLocalizedInventoryValues()
     {
@@ -423,10 +519,7 @@ public sealed class DeploymentPreparationViewModelTests
     private static DeploymentPreparationViewModel CreateViewModel()
     {
         return new DeploymentPreparationViewModel(
-            new FakeHardwareProfileService(),
-            new FakeOfflineWindowsComputerNameService(),
             new LocalizationService(),
-            NullLogger.Instance,
             isDebugSafeMode: false);
     }
 
@@ -459,19 +552,4 @@ public sealed class DeploymentPreparationViewModelTests
         };
     }
 
-    private sealed class FakeHardwareProfileService : IHardwareProfileService
-    {
-        public Task<HardwareProfile> GetCurrentAsync(CancellationToken cancellationToken = default)
-        {
-            return Task.FromResult(new HardwareProfile());
-        }
-    }
-
-    private sealed class FakeOfflineWindowsComputerNameService : IOfflineWindowsComputerNameService
-    {
-        public Task<string?> TryGetOfflineComputerNameAsync(CancellationToken cancellationToken = default)
-        {
-            return Task.FromResult<string?>(null);
-        }
-    }
 }

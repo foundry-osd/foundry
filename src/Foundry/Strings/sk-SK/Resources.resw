@@ -541,7 +541,7 @@
     <value>Umožnite operátorovi nasadenia upraviť príponu za predponou.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>Prefix musí obsahovať 1 až 15 znakov od A-Z, a-z, 0-9 alebo -.</value>
+    <value>Prefix musí obsahovať 1 až 9 znakov od A-Z, a-z, 0-9 alebo -.</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Preskočiť licenčné podmienky</value>

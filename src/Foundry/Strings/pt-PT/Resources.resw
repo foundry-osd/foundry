@@ -541,7 +541,7 @@
     <value>Permita que o operador de implantação edite o sufixo após o prefixo.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>O prefixo deve usar de 1 a 15 caracteres de A-Z, a-z, 0-9 ou -.</value>
+    <value>O prefixo deve usar de 1 a 9 caracteres de A-Z, a-z, 0-9 ou -.</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Ignorar os termos da licença</value>

@@ -541,7 +541,7 @@
     <value>Ļaujiet izvietošanas operatoram rediģēt sufiksu aiz prefiksa.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>Prefiksā ir jāizmanto 1–15 rakstzīmes no A–Z, a–z, 0–9 vai -.</value>
+    <value>Prefiksā ir jāizmanto 1–9 rakstzīmes no A–Z, a–z, 0–9 vai -.</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Izlaist licences noteikumus</value>

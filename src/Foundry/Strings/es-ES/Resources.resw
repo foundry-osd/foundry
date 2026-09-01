@@ -541,7 +541,7 @@
     <value>Permita que el operador de implementación edite el sufijo después del prefijo.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>El prefijo debe utilizar de 1 a 15 caracteres de A-Z, a-z, 0-9 o -.</value>
+    <value>El prefijo debe utilizar de 1 a 9 caracteres de A-Z, a-z, 0-9 o -.</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Saltar términos de licencia</value>

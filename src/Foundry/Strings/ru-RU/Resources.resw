@@ -541,7 +541,7 @@
     <value>Разрешите оператору развертывания редактировать суффикс после префикса.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>Префикс должен содержать от 1 до 15 символов от A до Z, a–z, 0–9 или -.</value>
+    <value>Префикс должен содержать от 1 до 9 символов от A до Z, a–z, 0–9 или -.</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Пропустить условия лицензии</value>

@@ -20,12 +20,12 @@ public sealed record MachineNamingSettings
     public string? Prefix { get; init; }
 
     /// <summary>
-    /// Gets whether deployment should generate a suffix automatically.
+    /// Gets whether deployment should generate a six-character uppercase alphanumeric suffix.
     /// </summary>
     public bool AutoGenerateName { get; init; }
 
     /// <summary>
-    /// Gets whether users may edit the generated suffix before deployment.
+    /// Gets whether users may edit an automatically generated suffix before deployment.
     /// </summary>
     public bool AllowManualSuffixEdit { get; init; } = true;
 }

@@ -541,7 +541,7 @@
     <value>Dağıtım operatörünün önekten sonraki son eki düzenlemesine izin verin.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>Ön ekte A-Z, a-z, 0-9 veya - arasında 1 ila 15 karakter kullanılmalıdır.</value>
+    <value>Ön ekte A-Z, a-z, 0-9 veya - arasında 1 ila 9 karakter kullanılmalıdır.</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Lisans koşullarını atla</value>

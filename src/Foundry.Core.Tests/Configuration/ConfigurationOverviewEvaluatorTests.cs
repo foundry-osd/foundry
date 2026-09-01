@@ -145,6 +145,26 @@ public sealed class ConfigurationOverviewEvaluatorTests
     }
 
     [Fact]
+    public void Evaluate_MachineNamePrefixExceedsSuffixBudget_NeedsAttention()
+    {
+        var configuration = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                MachineNaming = new MachineNamingSettings
+                {
+                    IsEnabled = true,
+                    Prefix = "ABCDEFGHIJ"
+                }
+            }
+        };
+
+        ConfigurationOverviewEvaluation evaluation = ConfigurationOverviewEvaluator.Evaluate(CreateContext(configuration));
+
+        Assert.Equal(ConfigurationOverviewState.NeedsAttention, evaluation[ConfigurationOverviewItem.MachineNaming]);
+    }
+
+    [Fact]
     public void Count_InvalidEthernetConfiguration_CountsOneActionableItem()
     {
         var configuration = new FoundryConfigurationDocument

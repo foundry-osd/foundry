@@ -541,7 +541,7 @@
     <value>Дозвольте оператору розгортання редагувати суфікс після префікса.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>Префікс має містити від 1 до 15 символів A-Z, a-z, 0-9 або -.</value>
+    <value>Префікс має містити від 1 до 9 символів A-Z, a-z, 0-9 або -.</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Пропустити умови ліцензії</value>

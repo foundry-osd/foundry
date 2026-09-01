@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Deploy.Services.DriverPacks;
-using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.ViewModels;
 using Microsoft.Extensions.Logging;
@@ -12,21 +11,15 @@ namespace Foundry.Deploy.Services.Wizard;
 
 public sealed class DeploymentWizardContextFactory : IDeploymentWizardContextFactory
 {
-    private readonly IHardwareProfileService _hardwareProfileService;
-    private readonly IOfflineWindowsComputerNameService _offlineWindowsComputerNameService;
     private readonly IDriverPackSelectionService _driverPackSelectionService;
     private readonly ILocalizationService _localizationService;
     private readonly ILoggerFactory _loggerFactory;
 
     public DeploymentWizardContextFactory(
-        IHardwareProfileService hardwareProfileService,
-        IOfflineWindowsComputerNameService offlineWindowsComputerNameService,
         IDriverPackSelectionService driverPackSelectionService,
         ILocalizationService localizationService,
         ILoggerFactory loggerFactory)
     {
-        _hardwareProfileService = hardwareProfileService;
-        _offlineWindowsComputerNameService = offlineWindowsComputerNameService;
         _driverPackSelectionService = driverPackSelectionService;
         _localizationService = localizationService;
         _loggerFactory = loggerFactory;
@@ -35,10 +28,7 @@ public sealed class DeploymentWizardContextFactory : IDeploymentWizardContextFac
     public DeploymentWizardContext Create(bool isDebugSafeMode)
     {
         DeploymentPreparationViewModel preparation = new(
-            _hardwareProfileService,
-            _offlineWindowsComputerNameService,
             _localizationService,
-            _loggerFactory.CreateLogger<DeploymentPreparationViewModel>(),
             isDebugSafeMode);
         OperatingSystemCatalogViewModel operatingSystemCatalog = new(
             _loggerFactory.CreateLogger<OperatingSystemCatalogViewModel>(),

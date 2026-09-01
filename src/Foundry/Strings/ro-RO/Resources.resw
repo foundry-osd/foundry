@@ -541,7 +541,7 @@
     <value>Permiteți operatorului de implementare să editeze sufixul după prefix.</value>
   </data>
   <data name="Customization.MachineNamingPrefixValidation" xml:space="preserve">
-    <value>Prefixul trebuie să utilizeze 1 până la 15 caractere de la A-Z, a-z, 0-9 sau -.</value>
+    <value>Prefixul trebuie să utilizeze 1 până la 9 caractere de la A-Z, a-z, 0-9 sau -.</value>
   </data>
   <data name="Customization.OobeSkipLicenseTermsLabel" xml:space="preserve">
     <value>Omiteți termenii licenței</value>
