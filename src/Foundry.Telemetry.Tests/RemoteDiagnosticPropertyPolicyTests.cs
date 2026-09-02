@@ -103,6 +103,36 @@ public sealed class RemoteDiagnosticPropertyPolicyTests
         Assert.DoesNotContain("secret.wim", result.Exception!.Message, StringComparison.OrdinalIgnoreCase);
     }
 
+    [Fact]
+    public void CreateSanitizedRecord_MapsExistingOperationPropertyNames()
+    {
+        LogEvent source = CreateLogEvent(
+            LogEventLevel.Error,
+            "Operation failed",
+            exception: null,
+            ("Mode", "interactive"),
+            ("ErrorCode", "network_timeout"),
+            ("FailedStepName", "download_image"),
+            ("UsbOperation", "create"),
+            ("Success", false),
+            ("Cancelled", false),
+            ("IsDryRun", true),
+            ("CompletedStepCount", 3),
+            ("Target", "C:\\Users\\alice\\secret.iso"));
+
+        RemoteDiagnosticRecord result = RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(source, CreateContext());
+
+        Assert.Equal("interactive", result.Attributes["deployment.mode"]);
+        Assert.Equal("network_timeout", result.Attributes["failure.code"]);
+        Assert.Equal("download_image", result.Attributes["workflow.step"]);
+        Assert.Equal("create", result.Attributes["boot_media.usb_operation"]);
+        Assert.Equal(false, result.Attributes["operation.success"]);
+        Assert.Equal(false, result.Attributes["operation.cancelled"]);
+        Assert.Equal(true, result.Attributes["deployment.dry_run"]);
+        Assert.Equal(3, result.Attributes["workflow.completed_step_count"]);
+        Assert.DoesNotContain("Target", result.Attributes.Keys, StringComparer.OrdinalIgnoreCase);
+    }
+
     private static RemoteDiagnosticsContext CreateContext() => new(
         App: "foundry.deploy",
         AppVersion: "1.2.3",

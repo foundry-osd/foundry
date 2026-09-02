@@ -23,7 +23,7 @@ public sealed record RemoteDiagnosticsOptions(
     public bool CanSend =>
         IsEnabled &&
         Uri.TryCreate(HostUrl, UriKind.Absolute, out Uri? hostUri) &&
-        (hostUri.Scheme == Uri.UriSchemeHttps || hostUri.Scheme == Uri.UriSchemeHttp) &&
+        hostUri.Scheme == Uri.UriSchemeHttps &&
         !string.IsNullOrWhiteSpace(ProjectToken) &&
         !string.IsNullOrWhiteSpace(InstallId);
 }

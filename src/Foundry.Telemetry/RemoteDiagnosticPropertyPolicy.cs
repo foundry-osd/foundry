@@ -36,12 +36,20 @@ public static partial class RemoteDiagnosticPropertyPolicy
             ["Retryable"] = "retryable",
             ["FailureKind"] = "failure.kind",
             ["FailureCode"] = "failure.code",
+            ["ErrorCode"] = "failure.code",
             ["FailureReason"] = "failure.reason",
             ["ToolName"] = "tool.name",
             ["ExitCode"] = "process.exit_code",
             ["NetworkOperation"] = "network.operation",
             ["BootMediaTarget"] = "boot_media.target",
-            ["DeploymentMode"] = "deployment.mode"
+            ["UsbOperation"] = "boot_media.usb_operation",
+            ["DeploymentMode"] = "deployment.mode",
+            ["Mode"] = "deployment.mode",
+            ["FailedStepName"] = "workflow.step",
+            ["Success"] = "operation.success",
+            ["Cancelled"] = "operation.cancelled",
+            ["IsDryRun"] = "deployment.dry_run",
+            ["CompletedStepCount"] = "workflow.completed_step_count"
         };
 
     /// <summary>

@@ -23,6 +23,7 @@ public sealed class TelemetrySettingsTests
     [InlineData(false, "https://eu.i.posthog.com", "token", "install", false)]
     [InlineData(true, "", "token", "install", false)]
     [InlineData(true, "not-a-uri", "token", "install", false)]
+    [InlineData(true, "http://eu.i.posthog.com", "token", "install", false)]
     [InlineData(true, "https://eu.i.posthog.com", "", "install", false)]
     [InlineData(true, "https://eu.i.posthog.com", "token", "", false)]
     [InlineData(true, "https://eu.i.posthog.com", "token", "install", true)]
