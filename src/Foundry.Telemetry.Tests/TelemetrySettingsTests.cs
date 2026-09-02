@@ -14,8 +14,28 @@ public sealed class TelemetrySettingsTests
         var settings = new TelemetrySettings();
 
         Assert.True(settings.IsEnabled);
+        Assert.False(settings.IsRemoteDiagnosticsEnabled);
         Assert.Equal(TelemetryDefaults.PostHogEuHost, settings.HostUrl);
         Assert.Equal(TelemetryDefaults.ProjectToken, settings.ProjectToken);
+    }
+
+    [Theory]
+    [InlineData(false, "https://eu.i.posthog.com", "token", "install", false)]
+    [InlineData(true, "", "token", "install", false)]
+    [InlineData(true, "not-a-uri", "token", "install", false)]
+    [InlineData(true, "https://eu.i.posthog.com", "", "install", false)]
+    [InlineData(true, "https://eu.i.posthog.com", "token", "", false)]
+    [InlineData(true, "https://eu.i.posthog.com", "token", "install", true)]
+    public void RemoteDiagnosticsOptions_CanSendRequiresCompleteConfiguration(
+        bool isEnabled,
+        string hostUrl,
+        string projectToken,
+        string installId,
+        bool expected)
+    {
+        var options = new RemoteDiagnosticsOptions(isEnabled, hostUrl, projectToken, installId);
+
+        Assert.Equal(expected, options.CanSend);
     }
 
     [Fact]
