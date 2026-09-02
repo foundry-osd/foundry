@@ -84,6 +84,23 @@ public sealed class PostHogExceptionTrackerTests
         Assert.Empty(client.Events);
     }
 
+    [Fact]
+    public void Track_WhenWarningHasException_DoesNotCreateErrorTrackingIssue()
+    {
+        var client = new RecordingPostHogEventClient();
+        var tracker = new PostHogExceptionTracker(client, "install-1");
+        var record = new RemoteDiagnosticRecord(
+            DateTimeOffset.UtcNow,
+            LogEventLevel.Warning,
+            "Handled fallback",
+            new Dictionary<string, object>(),
+            new RemoteDiagnosticException("System.IOException", "Handled fallback", null, []));
+
+        tracker.Track(record);
+
+        Assert.Empty(client.Events);
+    }
+
     private sealed class RecordingPostHogEventClient : IPostHogEventClient
     {
         public List<CapturedPostHogEvent> Events { get; } = [];

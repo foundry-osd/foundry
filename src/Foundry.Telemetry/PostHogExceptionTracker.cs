@@ -42,7 +42,7 @@ internal sealed partial class PostHogExceptionTracker(
 {
     public void Track(RemoteDiagnosticRecord record)
     {
-        if (record.Exception is null)
+        if (record.Exception is null || record.Level < Serilog.Events.LogEventLevel.Error)
         {
             return;
         }
@@ -70,7 +70,10 @@ internal sealed partial class PostHogExceptionTracker(
             properties["$exception_fingerprint"] = $"{serviceName}:{failureCode}";
         }
 
-        client.Capture(distinctId, "$exception", properties, record.Timestamp);
+        if (!client.Capture(distinctId, "$exception", properties, record.Timestamp))
+        {
+            System.Diagnostics.Debug.WriteLine("PostHog Error Tracking event was dropped by the SDK queue.");
+        }
     }
 
     private static List<Dictionary<string, object>> CreateExceptionList(RemoteDiagnosticException exception)

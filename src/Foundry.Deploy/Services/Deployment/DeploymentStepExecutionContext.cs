@@ -39,6 +39,8 @@ public sealed class DeploymentStepExecutionContext
     private readonly IDeploymentLogService _deploymentLogService;
     private readonly ITargetDiskService _targetDiskService;
     private readonly Action<DeploymentStepProgress> _emitStepProgress;
+    private readonly object _runtimeStatePersistenceLock = new();
+    private Task _pendingRuntimeStatePersistence = Task.CompletedTask;
 
     /// <summary>
     /// Initializes a deployment step execution context and creates the initial log session.
@@ -141,7 +143,7 @@ public sealed class DeploymentStepExecutionContext
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(operationName);
         RuntimeState.CurrentOperation = operationName;
-        TrySaveRuntimeState();
+        QueueRuntimeStatePersistence();
     }
 
     /// <summary>
@@ -235,34 +237,48 @@ public sealed class DeploymentStepExecutionContext
     /// <returns>A task that completes after the best-effort persistence attempt.</returns>
     public async Task TrySaveRuntimeStateAsync(CancellationToken cancellationToken = default)
     {
+        Task persistence;
+        lock (_runtimeStatePersistenceLock)
+        {
+            persistence = PersistRuntimeStateAfterAsync(_pendingRuntimeStatePersistence, cancellationToken);
+            _pendingRuntimeStatePersistence = persistence;
+        }
+
+        await persistence.ConfigureAwait(false);
+    }
+
+    private void QueueRuntimeStatePersistence()
+    {
+        lock (_runtimeStatePersistenceLock)
+        {
+            _pendingRuntimeStatePersistence = PersistRuntimeStateAfterAsync(
+                _pendingRuntimeStatePersistence,
+                CancellationToken.None);
+        }
+    }
+
+    private async Task PersistRuntimeStateAfterAsync(
+        Task previousPersistence,
+        CancellationToken cancellationToken)
+    {
+        await previousPersistence.ConfigureAwait(false);
         try
         {
             await SaveRuntimeStateAsync(cancellationToken).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
-            Log.ForContext<DeploymentStepExecutionContext>().Warning(
-                ex,
-                "Deployment runtime state could not be persisted. CurrentStep={CurrentStep}, CurrentOperation={CurrentOperation}",
-                RuntimeState.CurrentStep,
-                RuntimeState.CurrentOperation);
+            LogRuntimeStatePersistenceFailure(ex);
         }
     }
 
-    private void TrySaveRuntimeState()
+    private void LogRuntimeStatePersistenceFailure(Exception exception)
     {
-        try
-        {
-            SaveRuntimeStateAsync(CancellationToken.None).GetAwaiter().GetResult();
-        }
-        catch (Exception ex)
-        {
-            Log.ForContext<DeploymentStepExecutionContext>().Warning(
-                ex,
-                "Deployment runtime state could not be persisted. CurrentStep={CurrentStep}, CurrentOperation={CurrentOperation}",
-                RuntimeState.CurrentStep,
-                RuntimeState.CurrentOperation);
-        }
+        Log.ForContext<DeploymentStepExecutionContext>().Warning(
+            exception,
+            "Deployment runtime state could not be persisted. CurrentStep={CurrentStep}, CurrentOperation={CurrentOperation}",
+            RuntimeState.CurrentStep,
+            RuntimeState.CurrentOperation);
     }
 
     /// <summary>

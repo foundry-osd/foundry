@@ -107,6 +107,26 @@ public sealed class RemoteDiagnosticPropertyPolicyTests
     }
 
     [Fact]
+    public void CreateSanitizedRecord_DoesNotExportFreeFormExceptionMessages()
+    {
+        LogEvent source = CreateLogEvent(
+            LogEventLevel.Error,
+            "Deployment operation failed",
+            new InvalidOperationException(
+                "unlabeled-device-serial-ABC123",
+                new IOException("arbitrary process stdout and response body")));
+
+        RemoteDiagnosticRecord result = RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(source, CreateContext());
+
+        Assert.NotNull(result.Exception);
+        Assert.Equal("Deployment operation failed", result.Exception.Message);
+        RemoteDiagnosticException inner = Assert.Single(result.Exception.InnerExceptions);
+        Assert.Equal("System.IO.IOException", inner.Message);
+        Assert.DoesNotContain("ABC123", System.Text.Json.JsonSerializer.Serialize(result.Exception), StringComparison.Ordinal);
+        Assert.DoesNotContain("process stdout", System.Text.Json.JsonSerializer.Serialize(result.Exception), StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void CreateSanitizedRecord_MapsExistingOperationPropertyNames()
     {
         LogEvent source = CreateLogEvent(

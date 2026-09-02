@@ -85,7 +85,7 @@ public static partial class RemoteDiagnosticPropertyPolicy
         }
 
         string body = SanitizeRemoteText(logEvent.MessageTemplate.Text, MaximumMessageLength);
-        RemoteDiagnosticException? exception = CreateException(logEvent.Exception, depth: 0);
+        RemoteDiagnosticException? exception = CreateException(logEvent.Exception, body, depth: 0);
         return new RemoteDiagnosticRecord(logEvent.Timestamp, logEvent.Level, body, attributes, exception);
     }
 
@@ -127,7 +127,7 @@ public static partial class RemoteDiagnosticPropertyPolicy
         }
     }
 
-    private static RemoteDiagnosticException? CreateException(Exception? exception, int depth)
+    private static RemoteDiagnosticException? CreateException(Exception? exception, string safeRootMessage, int depth)
     {
         if (exception is null || depth >= MaximumExceptionDepth)
         {
@@ -139,10 +139,10 @@ public static partial class RemoteDiagnosticPropertyPolicy
             : SanitizeStackTrace(exception.StackTrace);
         return new RemoteDiagnosticException(
             exception.GetType().FullName ?? exception.GetType().Name,
-            SanitizeRemoteText(exception.Message, MaximumMessageLength),
+            depth == 0 ? safeRootMessage : exception.GetType().FullName ?? exception.GetType().Name,
             stackTrace,
             GetInnerExceptions(exception)
-                .Select(innerException => CreateException(innerException, depth + 1))
+                .Select(innerException => CreateException(innerException, safeRootMessage, depth + 1))
                 .OfType<RemoteDiagnosticException>()
                 .ToArray());
     }
