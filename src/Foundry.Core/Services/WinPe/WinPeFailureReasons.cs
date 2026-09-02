@@ -16,6 +16,8 @@ public static class WinPeFailureReasons
     public const string AccessDenied = "access_denied";
     public const string DiskValidation = "disk_validation";
     public const string IsoCreation = "iso_creation";
+    public const string ArtifactMissing = "artifact_missing";
+    public const string IoError = "io_error";
     public const string Cancelled = "cancelled";
     public const string Unexpected = "unexpected";
 }

@@ -143,6 +143,51 @@ public sealed class WinPeIsoMediaServiceTests
         Assert.Equal(WinPeFailureReasons.ProcessStartFailed, result.Error.FailureReason);
     }
 
+    [Fact]
+    public async Task CreateAsync_WhenProcessSucceedsWithoutArtifact_ReportsArtifactMissing()
+    {
+        using TempPreparedWorkspace temp = TempPreparedWorkspace.Create(useBootEx: false);
+        var service = new WinPeIsoMediaService(new FakeIsoRunner(new WinPeProcessExecution()));
+
+        WinPeResult result = await service.CreateAsync(
+            new WinPeIsoMediaOptions
+            {
+                PreparedWorkspace = temp.PreparedWorkspace,
+                OutputIsoPath = Path.Combine(temp.RootPath, "out", "foundry.iso"),
+                IsoTempDirectoryPath = Path.Combine(temp.RootPath, "iso-temp")
+            },
+            TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeFailureReasons.ArtifactMissing, result.Error?.FailureReason);
+        Assert.Null(result.Error?.ExitCode);
+    }
+
+    [Fact]
+    public async Task CreateAsync_WhenFinalCopyFails_ReportsFileSystemFinalizationFailure()
+    {
+        using TempPreparedWorkspace temp = TempPreparedWorkspace.Create(useBootEx: false);
+        string outputIsoPath = Path.Combine(temp.RootPath, "réseau", "blocked.iso");
+        Directory.CreateDirectory(outputIsoPath);
+        var service = new WinPeIsoMediaService(new FakeIsoRunner());
+
+        WinPeResult result = await service.CreateAsync(
+            new WinPeIsoMediaOptions
+            {
+                PreparedWorkspace = temp.PreparedWorkspace,
+                OutputIsoPath = outputIsoPath,
+                IsoTempDirectoryPath = Path.Combine(temp.RootPath, "iso-temp")
+            },
+            TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal("Finalize ISO output", result.Error?.Stage);
+        Assert.Equal(WinPeFailureKinds.FileSystem, result.Error?.FailureKind);
+        Assert.True(result.Error?.FailureReason is WinPeFailureReasons.IoError or WinPeFailureReasons.AccessDenied);
+        Assert.Null(result.Error?.ToolName);
+        Assert.NotNull(result.Error?.Exception);
+    }
+
     private sealed class TempPreparedWorkspace : IDisposable
     {
         private TempPreparedWorkspace(string rootPath, WinPeWorkspacePreparationResult preparedWorkspace)
