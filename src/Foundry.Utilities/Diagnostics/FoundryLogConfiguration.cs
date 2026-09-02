@@ -27,7 +27,8 @@ public static class FoundryLogConfiguration
         string sessionId,
         LogEventLevel minimumLevel,
         int retainedFileCountLimit,
-        LoggingLevelSwitch? levelSwitch = null)
+        LoggingLevelSwitch? levelSwitch = null,
+        ILogEventSink? additionalSink = null)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(logFilePath);
         ArgumentException.ThrowIfNullOrWhiteSpace(applicationName);
@@ -38,6 +39,7 @@ public static class FoundryLogConfiguration
         ConfigureMinimumLevel(configuration, minimumLevel, levelSwitch);
 
         ConfigureEnrichment(configuration, applicationName, sessionId);
+        ConfigureAdditionalSink(configuration, additionalSink);
         return configuration
             .WriteTo.File(
                 logFilePath,
@@ -58,7 +60,8 @@ public static class FoundryLogConfiguration
         string applicationName,
         string sessionId,
         LogEventLevel minimumLevel,
-        LoggingLevelSwitch? levelSwitch = null)
+        LoggingLevelSwitch? levelSwitch = null,
+        ILogEventSink? additionalSink = null)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(applicationName);
         ArgumentException.ThrowIfNullOrWhiteSpace(sessionId);
@@ -66,6 +69,7 @@ public static class FoundryLogConfiguration
         var configuration = new LoggerConfiguration();
         ConfigureMinimumLevel(configuration, minimumLevel, levelSwitch);
         ConfigureEnrichment(configuration, applicationName, sessionId);
+        ConfigureAdditionalSink(configuration, additionalSink);
         return configuration
             .WriteTo.Debug(outputTemplate: OutputTemplate)
             .CreateLogger();
@@ -97,5 +101,13 @@ public static class FoundryLogConfiguration
             .Enrich.WithProperty("SessionId", DiagnosticSessionContext.ResolveSessionId(sessionId))
             .Enrich.With<UtcTimestampEnricher>()
             .Enrich.With<SourceComponentEnricher>();
+    }
+
+    private static void ConfigureAdditionalSink(LoggerConfiguration configuration, ILogEventSink? additionalSink)
+    {
+        if (additionalSink is not null)
+        {
+            configuration.WriteTo.Sink(additionalSink);
+        }
     }
 }
