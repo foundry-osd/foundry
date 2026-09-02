@@ -54,7 +54,7 @@ public static class RemoteDiagnosticsLifecycle
         finally
         {
             RemoteDiagnosticsSink.Clear();
-            await service.DisposeAsync().ConfigureAwait(false);
+            await service.DisposeAsync().AsTask().WaitAsync(cancellationToken).ConfigureAwait(false);
         }
     }
 }

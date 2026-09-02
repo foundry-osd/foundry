@@ -161,6 +161,21 @@ public sealed class PostHogTelemetryServiceTests
     }
 
     [Fact]
+    public async Task RemoteDiagnosticsLifecycle_ShutdownAsync_WhenDisposeBlocks_HonorsCancellationBudget()
+    {
+        RemoteDiagnosticsSink.Clear();
+        var service = new BlockingDisposeRemoteDiagnosticsService();
+        using var cancellation = new CancellationTokenSource(TimeSpan.FromMilliseconds(50));
+
+        Task shutdown = RemoteDiagnosticsLifecycle.ShutdownAsync(service, cancellation.Token);
+        Task completed = await Task.WhenAny(shutdown, Task.Delay(TimeSpan.FromSeconds(1), TestContext.Current.CancellationToken));
+
+        Assert.Same(shutdown, completed);
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => shutdown);
+        Assert.Equal(1, service.DisposeCallCount);
+    }
+
+    [Fact]
     public async Task TrackAsync_WhenHttpCaptureFails_DoesNotThrow()
     {
         using var httpClient = new HttpClient(new RecordingHttpMessageHandler { ThrowOnSend = true });
@@ -384,7 +399,7 @@ public sealed class PostHogTelemetryServiceTests
 
         public virtual Task FlushAsync(CancellationToken cancellationToken) => Task.CompletedTask;
 
-        public ValueTask DisposeAsync()
+        public virtual ValueTask DisposeAsync()
         {
             DisposeCallCount++;
             return ValueTask.CompletedTask;
@@ -395,5 +410,14 @@ public sealed class PostHogTelemetryServiceTests
     {
         public override Task FlushAsync(CancellationToken cancellationToken) =>
             Task.Delay(Timeout.InfiniteTimeSpan, cancellationToken);
+    }
+
+    private sealed class BlockingDisposeRemoteDiagnosticsService : RecordingRemoteDiagnosticsService
+    {
+        public override ValueTask DisposeAsync()
+        {
+            _ = base.DisposeAsync();
+            return new ValueTask(Task.Delay(Timeout.InfiniteTimeSpan));
+        }
     }
 }
