@@ -9,6 +9,27 @@ namespace Foundry.Telemetry.Tests;
 public sealed class TelemetryEventPropertyPolicyTests
 {
     [Fact]
+    public void Sanitize_ForDailyActive_AllowsOnlyNonSensitiveProxyConfiguration()
+    {
+        Dictionary<string, object?> input = new()
+        {
+            ["proxy_method"] = "manual",
+            ["proxy_authentication_mode"] = "explicit",
+            ["proxy_address"] = "proxy.contoso.com",
+            ["proxy_username"] = "admin"
+        };
+
+        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(
+            TelemetryEvents.AppDailyActive,
+            input);
+
+        Assert.Equal("manual", result["proxy_method"]);
+        Assert.Equal("explicit", result["proxy_authentication_mode"]);
+        Assert.False(result.ContainsKey("proxy_address"));
+        Assert.False(result.ContainsKey("proxy_username"));
+    }
+
+    [Fact]
     public void Sanitize_ForBootMediaFinished_DropsPropertiesOutsideEventAllowlist()
     {
         Dictionary<string, object?> input = new()

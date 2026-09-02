@@ -31,6 +31,14 @@
                     behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
                     IsOn="{x:Bind ViewModel.IsTelemetryEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wct:SettingsCard>
+            <wct:SettingsCard x:Name="ProxySettingsCard"
+                x:Uid="SettingsPage_ProxyCard"
+                Click="ProxySettingsCard_Click"
+                IsClickEnabled="True">
+                <wct:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE774;" />
+                </wct:SettingsCard.HeaderIcon>
+            </wct:SettingsCard>
             <wct:SettingsCard x:Name="ThemeSettingsCard"
                 x:Uid="SettingsPage_ThemeCard"
                 Click="ThemeSettingsCard_Click"

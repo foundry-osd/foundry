@@ -64,6 +64,11 @@ namespace Foundry.Views
             App.Current.NavigationService.NavigateTo(typeof(ThemeSettingPage));
         }
 
+        private void ProxySettingsCard_Click(object sender, RoutedEventArgs e)
+        {
+            App.Current.NavigationService.NavigateTo(typeof(ProxySettingPage));
+        }
+
         private void UpdateSettingsCard_Click(object sender, RoutedEventArgs e)
         {
             App.Current.NavigationService.NavigateTo(typeof(AppUpdateSettingPage));
@@ -97,6 +102,7 @@ namespace Foundry.Views
         {
             GeneralSettingsCard.IsEnabled = true;
             ThemeSettingsCard.IsEnabled = true;
+            ProxySettingsCard.IsEnabled = true;
             UpdateSettingsCard.IsEnabled = true;
         }
     }

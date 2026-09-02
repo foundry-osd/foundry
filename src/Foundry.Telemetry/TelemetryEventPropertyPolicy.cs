@@ -46,7 +46,11 @@ public static class TelemetryEventPropertyPolicy
     private static readonly IReadOnlyDictionary<string, HashSet<string>> AllowedPropertiesByEvent =
         new Dictionary<string, HashSet<string>>(StringComparer.Ordinal)
         {
-            [TelemetryEvents.AppDailyActive] = new(StringComparer.Ordinal),
+            [TelemetryEvents.AppDailyActive] = new(StringComparer.Ordinal)
+            {
+                "proxy_method",
+                "proxy_authentication_mode"
+            },
             [TelemetryEvents.OsdBootMediaFinished] = new(StringComparer.Ordinal)
             {
                 "boot_media_target",

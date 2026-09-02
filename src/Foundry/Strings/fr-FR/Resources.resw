@@ -2791,4 +2791,115 @@
   <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
     <value>Les diagnostics n’ont pas pu être exportés. Consultez le journal pour plus de détails.</value>
   </data>
+  <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
+    <value>Proxy</value>
+  </data>
+  <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
+    <value>Configurez la manière dont Foundry OSD se connecte aux services en ligne.</value>
+  </data>
+  <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
+    <value>Foundry OSD uniquement</value>
+  </data>
+  <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
+    <value>Ces paramètres s’appliquent uniquement à cette application. Ils ne sont pas ajoutés au média de déploiement et n’affectent ni Foundry Connect ni Foundry Deploy.</value>
+  </data>
+  <data name="Proxy_MethodCard.Header" xml:space="preserve">
+    <value>Méthode de proxy</value>
+  </data>
+  <data name="Proxy_MethodCard.Description" xml:space="preserve">
+    <value>Choisissez comment Foundry OSD se connecte à Internet.</value>
+  </data>
+  <data name="Proxy_MethodSystem.Content" xml:space="preserve">
+    <value>Utiliser les paramètres Windows (recommandé)</value>
+  </data>
+  <data name="Proxy_MethodManual.Content" xml:space="preserve">
+    <value>Proxy manuel</value>
+  </data>
+  <data name="Proxy_MethodDirect.Content" xml:space="preserve">
+    <value>Aucun proxy (connexion directe)</value>
+  </data>
+  <data name="Proxy_EndpointCard.Header" xml:space="preserve">
+    <value>Serveur proxy</value>
+  </data>
+  <data name="Proxy_EndpointCard.Description" xml:space="preserve">
+    <value>Saisissez l’adresse et le port du proxy.</value>
+  </data>
+  <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
+    <value>proxy.contoso.com</value>
+  </data>
+  <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
+    <value>Contourner les adresses locales</value>
+  </data>
+  <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
+    <value>Se connecter directement aux noms d’hôte ne contenant pas de point.</value>
+  </data>
+  <data name="Proxy_BypassListCard.Header" xml:space="preserve">
+    <value>Liste d’exclusion</value>
+  </data>
+  <data name="Proxy_BypassListCard.Description" xml:space="preserve">
+    <value>Noms d’hôte ou motifs génériques facultatifs, séparés par des points-virgules.</value>
+  </data>
+  <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
+    <value>*.contoso.com;downloads.example.net</value>
+  </data>
+  <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
+    <value>Authentification</value>
+  </data>
+  <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
+    <value>Choisissez comment le proxy authentifie Foundry OSD.</value>
+  </data>
+  <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
+    <value>Utiliser les identifiants Windows actuels</value>
+  </data>
+  <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
+    <value>Aucune authentification</value>
+  </data>
+  <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
+    <value>Nom d’utilisateur et mot de passe</value>
+  </data>
+  <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
+    <value>Identifiants du proxy</value>
+  </data>
+  <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
+    <value>Les identifiants sont stockés de manière sécurisée dans le Gestionnaire d’identification Windows.</value>
+  </data>
+  <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
+    <value>Nom d’utilisateur</value>
+  </data>
+  <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
+    <value>Domaine (facultatif)</value>
+  </data>
+  <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
+    <value>Mot de passe</value>
+  </data>
+  <data name="Proxy_ApplyButton.Content" xml:space="preserve">
+    <value>Appliquer</value>
+  </data>
+  <data name="Proxy_TestButton.Content" xml:space="preserve">
+    <value>Tester la connexion</value>
+  </data>
+  <data name="Proxy.Status.SavedTitle" xml:space="preserve">
+    <value>Paramètres du proxy appliqués</value>
+  </data>
+  <data name="Proxy.Status.SavedMessage" xml:space="preserve">
+    <value>Les nouvelles connexions de Foundry OSD utilisent désormais ces paramètres.</value>
+  </data>
+  <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
+    <value>Vérifiez les paramètres du proxy</value>
+  </data>
+  <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
+    <value>Connexion réussie</value>
+  </data>
+  <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
+    <value>Foundry OSD a joint les services GitHub et Microsoft avec les paramètres sélectionnés.</value>
+  </data>
+  <data name="Proxy.Status.FailedTitle" xml:space="preserve">
+    <value>Échec de la connexion</value>
+  </data>
+  <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
+    <value>Saisissez un nom d’utilisateur et un mot de passe pour l’authentification explicite du proxy.</value>
+  </data>
 </root>

@@ -13,6 +13,7 @@ using Foundry.Services.Autopilot;
 using Foundry.Services.Configuration;
 using Foundry.Services.GitHub;
 using Foundry.Services.Localization;
+using Foundry.Services.Networking;
 using Foundry.Services.Operations;
 using Foundry.Services.Settings;
 using Foundry.Services.Shell;
@@ -44,6 +45,8 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<MainWindow>();
 
         services.AddSingleton<IAppSettingsService, JsonAppSettingsService>();
+        services.AddSingleton<IProxyCredentialStore, ProxyCredentialStore>();
+        services.AddSingleton<IApplicationProxyService, ApplicationProxyService>();
         services.AddSingleton(sp =>
         {
             FoundryAppSettings settings = sp.GetRequiredService<IAppSettingsService>().Current;
@@ -141,6 +144,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<GeneralSettingViewModel>();
         services.AddTransient<AdkPageViewModel>();
         services.AddTransient<AppUpdateSettingViewModel>();
+        services.AddTransient<ProxySettingViewModel>();
         services.AddTransient<AboutUsSettingViewModel>();
 
         return services;
