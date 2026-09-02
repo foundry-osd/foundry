@@ -67,6 +67,25 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
     }
 
     [Fact]
+    public async Task Disable_DropsBufferedRecordsButAllowsInFlightExportToFinish()
+    {
+        var exporter = new BlockingExporter();
+        await using var service = CreateService(exporter);
+        service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "in-flight"));
+        Assert.True(exporter.Started.Wait(TimeSpan.FromSeconds(2), TestContext.Current.CancellationToken));
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "buffered"));
+
+        service.Disable();
+        exporter.Release.Set();
+        service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "after-reenable"));
+        await service.FlushAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal(["in-flight", "after-reenable"], exporter.Records.Select(static record => record.Body).ToArray());
+    }
+
+    [Fact]
     public async Task Emit_WhenExporterFails_DoesNotThrowAndContinuesDraining()
     {
         var exporter = new RecordingExporter { ThrowOnExport = true };

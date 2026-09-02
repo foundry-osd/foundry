@@ -867,7 +867,8 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         return WinPeResult.Failure(execution.ToFailureDiagnostic(
             WinPeErrorCodes.UsbProvisioningFailed,
             "Failed to format the USB BOOT partition.",
-            toolName: "PowerShell") with { Details = diagnostic });
+            toolName: "PowerShell") with
+        { Details = diagnostic });
     }
 
     private static WinPeResult<WinPeUsbProvisionResult> ParseUsbProvisionResult(WinPeProcessExecution execution)

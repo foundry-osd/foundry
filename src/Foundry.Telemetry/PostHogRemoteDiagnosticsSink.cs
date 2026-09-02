@@ -29,13 +29,14 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
     private readonly TimeProvider _timeProvider;
     private readonly ConditionalWeakTable<Exception, ExceptionDedupeState> _seenExceptions = new();
     private readonly Dictionary<string, FingerprintWindowState> _fingerprints = new(StringComparer.Ordinal);
-    private Channel<RemoteDiagnosticRecord>? _channel;
+    private Channel<QueuedRemoteDiagnosticRecord>? _channel;
     private IRemoteDiagnosticsExporter? _exporter;
     private RemoteDiagnosticsContext? _context;
     private Task _worker = Task.CompletedTask;
     private int _accepting;
     private int _stopping;
     private int _disposed;
+    private int _consentGeneration;
     private long _droppedRecordCount;
 
     /// <summary>
@@ -88,7 +89,7 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
             {
                 _exporter = _exporterFactory(options, context);
                 _context = context;
-                _channel = Channel.CreateBounded<RemoteDiagnosticRecord>(new BoundedChannelOptions(_queueCapacity)
+                _channel = Channel.CreateBounded<QueuedRemoteDiagnosticRecord>(new BoundedChannelOptions(_queueCapacity)
                 {
                     FullMode = BoundedChannelFullMode.Wait,
                     SingleReader = true,
@@ -117,6 +118,7 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
         lock (_gate)
         {
             Volatile.Write(ref _accepting, 0);
+            Interlocked.Increment(ref _consentGeneration);
         }
     }
 
@@ -133,7 +135,7 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
         {
             lock (_gate)
             {
-                Channel<RemoteDiagnosticRecord>? channel = _channel;
+                Channel<QueuedRemoteDiagnosticRecord>? channel = _channel;
                 RemoteDiagnosticsContext? context = _context;
                 if (Volatile.Read(ref _accepting) == 0 || channel is null || context is null)
                 {
@@ -152,7 +154,10 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
                 }
 
                 RemoteDiagnosticRecord record = RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(logEvent, context);
-                if (!channel.Writer.TryWrite(record))
+                var queuedRecord = new QueuedRemoteDiagnosticRecord(
+                    Volatile.Read(ref _consentGeneration),
+                    record);
+                if (!channel.Writer.TryWrite(queuedRecord))
                 {
                     Interlocked.Increment(ref _droppedRecordCount);
                 }
@@ -169,7 +174,10 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
     /// <inheritdoc />
     public async Task FlushAsync(CancellationToken cancellationToken)
     {
-        Disable();
+        lock (_gate)
+        {
+            Volatile.Write(ref _accepting, 0);
+        }
         if (Interlocked.Exchange(ref _stopping, 1) == 0)
         {
             _channel?.Writer.TryComplete();
@@ -286,15 +294,21 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
         }
     }
 
-    private static async Task ProcessQueueAsync(
-        ChannelReader<RemoteDiagnosticRecord> reader,
+    private async Task ProcessQueueAsync(
+        ChannelReader<QueuedRemoteDiagnosticRecord> reader,
         IRemoteDiagnosticsExporter exporter)
     {
-        await foreach (RemoteDiagnosticRecord record in reader.ReadAllAsync().ConfigureAwait(false))
+        await foreach (QueuedRemoteDiagnosticRecord queuedRecord in reader.ReadAllAsync().ConfigureAwait(false))
         {
+            if (queuedRecord.ConsentGeneration != Volatile.Read(ref _consentGeneration))
+            {
+                Interlocked.Increment(ref _droppedRecordCount);
+                continue;
+            }
+
             try
             {
-                await exporter.ExportAsync(record, CancellationToken.None).ConfigureAwait(false);
+                await exporter.ExportAsync(queuedRecord.Record, CancellationToken.None).ConfigureAwait(false);
             }
 #pragma warning disable CA1031 // A failed export must not stop later records from draining.
             catch (Exception ex)
@@ -306,6 +320,10 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
     }
 
     private sealed record FingerprintWindowState(DateTimeOffset StartedAt, int Count);
+
+    private sealed record QueuedRemoteDiagnosticRecord(
+        int ConsentGeneration,
+        RemoteDiagnosticRecord Record);
 
     private sealed class ExceptionDedupeState
     {

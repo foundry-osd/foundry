@@ -17,7 +17,7 @@ public interface IRemoteDiagnosticsService : IAsyncDisposable
     void Configure(RemoteDiagnosticsOptions options, RemoteDiagnosticsContext context);
 
     /// <summary>
-    /// Stops accepting new diagnostic records without flushing previously accepted records.
+    /// Revokes consent, stops accepting new records, and discards records that have not started export.
     /// </summary>
     void Disable();
 
