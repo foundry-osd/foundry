@@ -123,7 +123,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("Before assistant launch", oobeWaiter);
         Assert.Contains("After assistant launch", oobeWaiter);
         Assert.Contains("OOBE waiter failed.", oobeWaiter);
-        Assert.Contains("Start-Sleep -Seconds $stableSeconds", oobeWaiter);
+        Assert.DoesNotContain("$stableSeconds", oobeWaiter);
         Assert.Contains("-STA", oobeWaiter);
         Assert.Contains("-WindowStyle", oobeWaiter);
         Assert.Contains("Hidden", oobeWaiter);
@@ -134,7 +134,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("SetForegroundWindow", foregroundWrapper);
         Assert.Contains("Invoke-FoundryActivateOobeWindow", foregroundWrapper);
         Assert.Contains("SendShiftF10", foregroundWrapper);
-        Assert.Contains("Wait-FoundryOobeCommandPrompt", foregroundWrapper);
+        Assert.Contains("Wait-FoundryOobeForegroundAccess", foregroundWrapper);
         Assert.Contains("Close-FoundryOobeCommandPrompt", foregroundWrapper);
         Assert.Contains("& $RegistrationScriptPath -ConfigPath $ConfigPath", foregroundWrapper);
 
@@ -144,6 +144,31 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
             "call \"%SystemRoot%\\Temp\\Foundry\\AutopilotRegistration\\Start-FoundryAutopilotRegistrationOobe.cmd\"",
             oobeCommand);
         Assert.Contains("REM <<< FOUNDRY AUTOPILOT REGISTRATION END", oobeCommand);
+    }
+
+    [Fact]
+    public void Provision_WritesConditionDrivenOobeForegroundUnlock()
+    {
+        string windowsRoot = CreateWindowsRoot();
+        var service = CreateService();
+
+        AutopilotInteractiveRegistrationProvisioningResult result = service.Provision(windowsRoot);
+
+        string foregroundWrapper = File.ReadAllText(result.ForegroundWrapperPath);
+        Assert.Contains("$foregroundDeadline = [DateTimeOffset]::UtcNow.AddMinutes(2)", foregroundWrapper);
+        Assert.Contains("while ([DateTimeOffset]::UtcNow -lt $foregroundDeadline)", foregroundWrapper);
+        Assert.Contains("$_.MainWindowHandle -ne 0", foregroundWrapper);
+        Assert.Contains("Timed out while waiting for OOBE foreground access.", foregroundWrapper);
+
+        int timeoutGuardIndex = foregroundWrapper.IndexOf(
+            "if (-not $commandPrompt)",
+            StringComparison.Ordinal);
+        int assistantLaunchIndex = foregroundWrapper.IndexOf(
+            "& $RegistrationScriptPath -ConfigPath $ConfigPath",
+            StringComparison.Ordinal);
+
+        Assert.True(timeoutGuardIndex >= 0);
+        Assert.True(assistantLaunchIndex > timeoutGuardIndex);
     }
 
     [Fact]
