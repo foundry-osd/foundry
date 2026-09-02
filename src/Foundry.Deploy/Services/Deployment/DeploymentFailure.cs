@@ -15,4 +15,15 @@ public sealed record DeploymentFailure(
     string OperationName,
     string Kind,
     string Reason,
-    string? Code = null);
+    string? Code = null)
+{
+    /// <summary>
+    /// Creates an explicitly classified validation failure for a deployment guard condition.
+    /// </summary>
+    /// <param name="operationName">Logical deployment operation that failed.</param>
+    /// <param name="reason">Stable validation reason.</param>
+    /// <param name="code">Stable application code.</param>
+    /// <returns>The classified deployment failure.</returns>
+    public static DeploymentFailure Guard(string operationName, string reason, string code) =>
+        new(operationName, DeploymentFailureKinds.Validation, reason, code);
+}

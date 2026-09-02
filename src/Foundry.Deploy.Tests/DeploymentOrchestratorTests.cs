@@ -9,7 +9,9 @@ using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Telemetry;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using System.Text.Json;
 
 namespace Foundry.Deploy.Tests;
 
@@ -201,6 +203,105 @@ public sealed class DeploymentOrchestratorTests
         Assert.False(telemetryEvent.Properties.ContainsKey("autopilot_enabled"));
     }
 
+    [Fact]
+    public async Task RunAsync_WhenStepFails_PersistsCurrentOperationAndTerminalFailure()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var logService = new FakeDeploymentLogService();
+        var telemetryService = new RecordingTelemetryService();
+        var logger = new RecordingLogger<DeploymentOrchestrator>();
+        var orchestrator = new DeploymentOrchestrator(
+            new FakeOperationProgressService(),
+            logService,
+            new FakeTargetDiskService(),
+            DeploymentStepNames.ExecutionOrder.Select(name => (IDeploymentStep)(name == DeploymentStepNames.ValidateTargetConfiguration
+                ? new OperationFailingStep(name)
+                : new SucceedingStep(name))),
+            telemetryService,
+            logger);
+
+        DeploymentResult result = await orchestrator.RunAsync(new DeploymentContext
+        {
+            Mode = DeploymentMode.Iso,
+            IsDryRun = true,
+            CacheRootPath = workspace.RootPath,
+            TargetDiskNumber = 1,
+            TargetComputerName = "LAB01",
+            DriverPackSelectionKind = DriverPackSelectionKind.None,
+            OperatingSystem = new OperatingSystemCatalogItem()
+        }, TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Contains(
+            logService.SavedStates,
+            state => state.CurrentOperation == DeploymentOperationNames.ValidateTargetDisk && state.LastFailureCode is null);
+        DeploymentStateSnapshot terminal = logService.SavedStates.Last(state => state.LastFailureCode == "missing_target_partition");
+        Assert.Equal(DeploymentOperationNames.ValidateTargetDisk, terminal.CurrentOperation);
+        Assert.Equal(DeploymentStepNames.ValidateTargetConfiguration, terminal.LastFailureStep);
+        Assert.Equal(DeploymentFailureKinds.Validation, terminal.LastFailureKind);
+        Assert.Equal(DeploymentFailureReasons.MissingResource, terminal.LastFailureReason);
+
+        TelemetryEvent telemetryEvent = Assert.Single(telemetryService.Events);
+        string operationId = Assert.IsType<string>(telemetryEvent.Properties["operation_id"]);
+        Assert.False(string.IsNullOrWhiteSpace(operationId));
+        LogEntry terminalLog = Assert.Single(logger.Entries, entry => entry.Properties.ContainsKey("Outcome"));
+        Assert.Equal(operationId, terminalLog.Properties["OperationId"]);
+        Assert.Equal("failed", terminalLog.Properties["Outcome"]);
+        Assert.Equal("missing_target_partition", terminalLog.Properties["FailureCode"]);
+        Assert.Equal(true, terminalLog.Properties["RemoteDiagnostic"]);
+    }
+
+    [Fact]
+    public async Task RunAsync_WhenStatePersistenceFails_PreservesDeploymentFailure()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var logService = new FakeDeploymentLogService { ThrowOnSave = true };
+        var telemetryService = new RecordingTelemetryService();
+        var orchestrator = new DeploymentOrchestrator(
+            new FakeOperationProgressService(),
+            logService,
+            new FakeTargetDiskService(),
+            DeploymentStepNames.ExecutionOrder.Select(name => (IDeploymentStep)(name == DeploymentStepNames.ValidateTargetConfiguration
+                ? new OperationFailingStep(name)
+                : new SucceedingStep(name))),
+            telemetryService,
+            NullLogger<DeploymentOrchestrator>.Instance);
+
+        DeploymentResult result = await orchestrator.RunAsync(new DeploymentContext
+        {
+            Mode = DeploymentMode.Iso,
+            IsDryRun = true,
+            CacheRootPath = workspace.RootPath,
+            TargetDiskNumber = 1,
+            TargetComputerName = "LAB01",
+            DriverPackSelectionKind = DriverPackSelectionKind.None,
+            OperatingSystem = new OperatingSystemCatalogItem()
+        }, TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal("Target Windows partition is unavailable.", result.Message);
+        TelemetryEvent telemetryEvent = Assert.Single(telemetryService.Events);
+        Assert.Equal("missing_target_partition", telemetryEvent.Properties["deploy_session_failure_code"]);
+    }
+
+    [Fact]
+    public void DeploymentRuntimeState_SerializesOperationAndFailureContext()
+    {
+        var state = new DeploymentRuntimeState
+        {
+            CurrentOperation = "os_image.apply",
+            LastFailureStep = "Apply image",
+            LastFailureKind = DeploymentFailureKinds.Process,
+            LastFailureReason = DeploymentFailureReasons.NonZeroExit,
+            LastFailureCode = "5"
+        };
+
+        string json = JsonSerializer.Serialize(state);
+
+        Assert.Contains("CurrentOperation", json, StringComparison.Ordinal);
+        Assert.Contains("LastFailureCode", json, StringComparison.Ordinal);
+    }
+
     [Theory]
     [InlineData(false, 42, "manual", null)]
     [InlineData(true, 0, "immediate", null)]
@@ -308,6 +409,24 @@ public sealed class DeploymentOrchestratorTests
         }
     }
 
+    private sealed class OperationFailingStep(string name) : IDeploymentStep
+    {
+        public string Name { get; } = name;
+
+        public Task<DeploymentStepResult> ExecuteAsync(
+            DeploymentStepExecutionContext context,
+            CancellationToken cancellationToken)
+        {
+            context.SetCurrentOperation(DeploymentOperationNames.ValidateTargetDisk);
+            return Task.FromResult(DeploymentStepResult.Failed(
+                "Target Windows partition is unavailable.",
+                DeploymentFailure.Guard(
+                    DeploymentOperationNames.ValidateTargetDisk,
+                    DeploymentFailureReasons.MissingResource,
+                    "missing_target_partition")));
+        }
+    }
+
     private sealed class SucceedingStep(string name) : IDeploymentStep
     {
         public string Name { get; } = name;
@@ -322,6 +441,10 @@ public sealed class DeploymentOrchestratorTests
 
     private sealed class FakeDeploymentLogService : IDeploymentLogService
     {
+        public List<DeploymentStateSnapshot> SavedStates { get; } = [];
+
+        public bool ThrowOnSave { get; init; }
+
         public DeploymentLogSession Initialize(string rootPath)
         {
             string logsDirectory = Path.Combine(rootPath, "Logs");
@@ -353,10 +476,57 @@ public sealed class DeploymentOrchestratorTests
             TState state,
             CancellationToken cancellationToken = default)
         {
+            if (ThrowOnSave)
+            {
+                throw new IOException("Synthetic state persistence failure.");
+            }
+
+            if (state is DeploymentRuntimeState runtimeState)
+            {
+                SavedStates.Add(new DeploymentStateSnapshot(
+                    runtimeState.CurrentOperation,
+                    runtimeState.LastFailureStep,
+                    runtimeState.LastFailureKind,
+                    runtimeState.LastFailureReason,
+                    runtimeState.LastFailureCode));
+            }
+
             Directory.CreateDirectory(session.StateDirectoryPath);
             await File.WriteAllTextAsync(session.StateFilePath, "{}", cancellationToken);
         }
 
+    }
+
+    private sealed record DeploymentStateSnapshot(
+        string CurrentOperation,
+        string? LastFailureStep,
+        string? LastFailureKind,
+        string? LastFailureReason,
+        string? LastFailureCode);
+
+    private sealed record LogEntry(LogLevel Level, IReadOnlyDictionary<string, object?> Properties);
+
+    private sealed class RecordingLogger<T> : ILogger<T>
+    {
+        public List<LogEntry> Entries { get; } = [];
+
+        public IDisposable? BeginScope<TState>(TState state) where TState : notnull => null;
+
+        public bool IsEnabled(LogLevel logLevel) => true;
+
+        public void Log<TState>(
+            LogLevel logLevel,
+            EventId eventId,
+            TState state,
+            Exception? exception,
+            Func<TState, Exception?, string> formatter)
+        {
+            var properties = state as IEnumerable<KeyValuePair<string, object?>>;
+            Entries.Add(new LogEntry(
+                logLevel,
+                properties?.ToDictionary(pair => pair.Key, pair => pair.Value, StringComparer.Ordinal)
+                    ?? new Dictionary<string, object?>()));
+        }
     }
 
     private sealed class FakeOperationProgressService : IOperationProgressService

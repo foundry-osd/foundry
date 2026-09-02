@@ -227,6 +227,7 @@ public sealed class TelemetryEventPropertyPolicyTests
     {
         Dictionary<string, object?> input = new()
         {
+            ["operation_id"] = "deploy-operation-1",
             ["boot_media_target"] = "iso",
             ["deploy_runtime_payload_source"] = "release",
             ["deploy_session_success"] = false,
@@ -275,6 +276,7 @@ public sealed class TelemetryEventPropertyPolicyTests
 
         Assert.False(result.ContainsKey("boot_media_target"));
         Assert.False(result.ContainsKey("deploy_runtime_payload_source"));
+        Assert.Equal("deploy-operation-1", result["operation_id"]);
         Assert.Equal(false, result["deploy_session_success"]);
         Assert.Equal("ApplyOperatingSystemImage", result["deploy_session_failed_step_name"]);
         Assert.Equal("boot.configure", result["deploy_session_failed_operation_name"]);

@@ -141,6 +141,7 @@ public sealed class DeploymentStepExecutionContext
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(operationName);
         RuntimeState.CurrentOperation = operationName;
+        TrySaveRuntimeState();
     }
 
     /// <summary>
@@ -225,6 +226,43 @@ public sealed class DeploymentStepExecutionContext
     public Task SaveRuntimeStateAsync(CancellationToken cancellationToken = default)
     {
         return _deploymentLogService.SaveStateAsync(LogSession, RuntimeState, cancellationToken);
+    }
+
+    /// <summary>
+    /// Attempts to persist runtime state without replacing the primary deployment outcome on failure.
+    /// </summary>
+    /// <param name="cancellationToken">Token that cancels the write.</param>
+    /// <returns>A task that completes after the best-effort persistence attempt.</returns>
+    public async Task TrySaveRuntimeStateAsync(CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            await SaveRuntimeStateAsync(cancellationToken).ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            Log.ForContext<DeploymentStepExecutionContext>().Warning(
+                ex,
+                "Deployment runtime state could not be persisted. CurrentStep={CurrentStep}, CurrentOperation={CurrentOperation}",
+                RuntimeState.CurrentStep,
+                RuntimeState.CurrentOperation);
+        }
+    }
+
+    private void TrySaveRuntimeState()
+    {
+        try
+        {
+            SaveRuntimeStateAsync(CancellationToken.None).GetAwaiter().GetResult();
+        }
+        catch (Exception ex)
+        {
+            Log.ForContext<DeploymentStepExecutionContext>().Warning(
+                ex,
+                "Deployment runtime state could not be persisted. CurrentStep={CurrentStep}, CurrentOperation={CurrentOperation}",
+                RuntimeState.CurrentStep,
+                RuntimeState.CurrentOperation);
+        }
     }
 
     /// <summary>

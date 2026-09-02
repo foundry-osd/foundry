@@ -157,6 +157,7 @@ public static class TelemetryEventPropertyPolicy
             },
             [TelemetryEvents.DeploySessionFinished] = new(StringComparer.Ordinal)
             {
+                "operation_id",
                 "deploy_session_success",
                 "deploy_session_cancelled",
                 "deploy_session_duration_seconds",
