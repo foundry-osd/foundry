@@ -7,7 +7,21 @@ using System.Runtime.InteropServices;
 
 namespace Foundry.Services.Networking;
 
-public sealed record ProxyCredential(string Username, string Domain, string Password);
+public sealed class ProxyCredential
+{
+    public ProxyCredential(string username, string domain, string password)
+    {
+        Username = username;
+        Domain = domain;
+        Password = password;
+    }
+
+    public string Username { get; }
+
+    public string Domain { get; }
+
+    public string Password { get; }
+}
 
 public interface IProxyCredentialStore
 {
