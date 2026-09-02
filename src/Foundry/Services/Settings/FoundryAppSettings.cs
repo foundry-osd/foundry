@@ -42,6 +42,43 @@ public sealed class FoundryAppSettings
     /// Gets or sets anonymous telemetry preferences and identity.
     /// </summary>
     public TelemetryAppSettings Telemetry { get; set; } = new();
+
+    /// <summary>
+    /// Gets or sets network proxy preferences used only by the Foundry OSD desktop application.
+    /// </summary>
+    public ProxyAppSettings Proxy { get; set; } = new();
+}
+
+public enum ProxyMethod
+{
+    System,
+    Manual,
+    Direct
+}
+
+public enum ProxyAuthenticationMode
+{
+    Automatic,
+    None,
+    Explicit
+}
+
+/// <summary>
+/// Stores non-secret proxy preferences for the Foundry OSD desktop application.
+/// </summary>
+public sealed class ProxyAppSettings
+{
+    public ProxyMethod Method { get; set; } = ProxyMethod.System;
+
+    public ProxyAuthenticationMode AuthenticationMode { get; set; } = ProxyAuthenticationMode.Automatic;
+
+    public string Address { get; set; } = string.Empty;
+
+    public int Port { get; set; } = 8080;
+
+    public bool BypassLocalAddresses { get; set; } = true;
+
+    public string BypassList { get; set; } = string.Empty;
 }
 
 /// <summary>

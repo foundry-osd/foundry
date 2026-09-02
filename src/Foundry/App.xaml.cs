@@ -6,6 +6,7 @@ using Foundry.DependencyInjection;
 using Foundry.Services.Configuration;
 using Foundry.Services.Appearance;
 using Foundry.Services.Localization;
+using Foundry.Services.Networking;
 using Foundry.Services.Settings;
 using Foundry.Services.Shell;
 using Foundry.Services.Startup;
@@ -76,6 +77,7 @@ namespace Foundry
         public App()
         {
             Host = FoundryHost.Create();
+            _ = Host.Services.GetRequiredService<IApplicationProxyService>();
             SetDeveloperModeEnabled(Host.Services.GetRequiredService<IAppSettingsService>().Current.Diagnostics.DeveloperMode);
             _ = Host.Services.GetRequiredService<IFoundryConfigurationStateService>();
             Host.Services.GetRequiredService<IApplicationLocalizationService>().InitializeAsync().GetAwaiter().GetResult();
@@ -135,7 +137,14 @@ namespace Foundry
             }
 
             AppLogger.Debug("Tracking Foundry daily-active telemetry event.");
-            await GetService<ITelemetryService>().TrackAsync(TelemetryEvents.AppDailyActive, new Dictionary<string, object?>());
+            ProxyAppSettings proxy = settingsService.Current.Proxy;
+            await GetService<ITelemetryService>().TrackAsync(TelemetryEvents.AppDailyActive, new Dictionary<string, object?>
+            {
+                ["proxy_method"] = proxy.Method.ToString().ToLowerInvariant(),
+                ["proxy_authentication_mode"] = proxy.Method == ProxyMethod.Manual
+                    ? proxy.AuthenticationMode.ToString().ToLowerInvariant()
+                    : "not_applicable"
+            });
             settingsService.Current.Telemetry.LastDailyActiveDate = TelemetryDailyActivityGate.FormatDate(today);
             settingsService.Save();
             AppLogger.Debug("Foundry daily-active telemetry event queued.");

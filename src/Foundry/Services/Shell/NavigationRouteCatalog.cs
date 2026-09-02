@@ -52,6 +52,7 @@ public static class NavigationRouteCatalog
         .. PrimaryRoutes,
         CreateSettings<SettingsPage>("SettingsPage.PageTitle", null),
         CreateSettings<GeneralSettingPage>("SettingsPage_GeneralCard.Header", typeof(SettingsPage)),
+        CreateSettings<ProxySettingPage>("SettingsPage_ProxyCard.Header", typeof(SettingsPage)),
         CreateSettings<ThemeSettingPage>("SettingsPage_ThemeCard.Header", typeof(SettingsPage)),
         CreateSettings<AppUpdateSettingPage>("SettingsPage_UpdateCard.Header", typeof(SettingsPage))
     ];
