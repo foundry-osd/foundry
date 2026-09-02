@@ -44,7 +44,8 @@ internal sealed class ApplicationProxyService : IApplicationProxyService
         this.appSettingsService = appSettingsService;
         this.credentialStore = credentialStore;
         this.logger = logger.ForContext<ApplicationProxyService>();
-        systemProxy = WebRequest.GetSystemWebProxy();
+        systemProxy = HttpClient.DefaultProxy;
+        systemProxy.Credentials ??= CredentialCache.DefaultNetworkCredentials;
         proxy = new MutableApplicationProxy(systemProxy);
         HttpClient.DefaultProxy = proxy;
         ProxyCredential? credential = null;
@@ -59,7 +60,8 @@ internal sealed class ApplicationProxyService : IApplicationProxyService
 
         try
         {
-            proxy.Update(CreateProxy(appSettingsService.Current.Proxy, credential));
+            ProxyAppSettings persistedSettings = appSettingsService.Current.Proxy ??= new ProxyAppSettings();
+            proxy.Update(CreateProxy(persistedSettings, credential));
         }
         catch (ArgumentException ex)
         {
@@ -125,12 +127,21 @@ internal sealed class ApplicationProxyService : IApplicationProxyService
             {
                 throw new HttpRequestException("The proxy rejected the configured authentication.");
             }
-
         }
     }
 
     private IWebProxy CreateProxy(ProxyAppSettings settings, ProxyCredential? credential)
     {
+        if (!Enum.IsDefined(settings.Method))
+        {
+            throw new ArgumentException("Select a valid proxy method.", nameof(settings));
+        }
+
+        if (!Enum.IsDefined(settings.AuthenticationMode))
+        {
+            throw new ArgumentException("Select a valid proxy authentication method.", nameof(settings));
+        }
+
         return settings.Method switch
         {
             ProxyMethod.System => systemProxy,
@@ -172,9 +183,9 @@ internal sealed class ApplicationProxyService : IApplicationProxyService
     {
         destination.Method = source.Method;
         destination.AuthenticationMode = source.AuthenticationMode;
-        destination.Address = source.Address.Trim();
+        destination.Address = source.Address?.Trim() ?? string.Empty;
         destination.Port = source.Port;
         destination.BypassLocalAddresses = source.BypassLocalAddresses;
-        destination.BypassList = source.BypassList.Trim();
+        destination.BypassList = source.BypassList?.Trim() ?? string.Empty;
     }
 }

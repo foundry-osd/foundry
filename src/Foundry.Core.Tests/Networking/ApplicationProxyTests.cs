@@ -30,6 +30,12 @@ public sealed class ApplicationProxyTests
     [Fact]
     public void CreateManual_RejectsInvalidConfiguration()
     {
+        Assert.Throws<ArgumentNullException>(() => ApplicationProxyFactory.CreateManual(
+            null!,
+            8080,
+            bypassLocal: false,
+            string.Empty,
+            credentials: null));
         Assert.Throws<ArgumentException>(() => ApplicationProxyFactory.CreateManual(
             "not a host/path",
             8080,

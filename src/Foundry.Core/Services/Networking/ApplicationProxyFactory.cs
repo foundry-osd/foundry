@@ -35,6 +35,7 @@ public static class ApplicationProxyFactory
 
     private static Uri CreateEndpoint(string address, int port)
     {
+        ArgumentNullException.ThrowIfNull(address);
         string normalized = address.Trim();
         if (!normalized.Contains("://", StringComparison.Ordinal))
         {
