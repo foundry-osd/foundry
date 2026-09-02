@@ -23,6 +23,7 @@
                         <FontIcon Glyph="&#xE774;" />
                     </wct:SettingsCard.HeaderIcon>
                     <ComboBox x:Name="MethodComboBox"
+                        Width="{ThemeResource FoundryWideInputMinWidth}"
                         SelectionChanged="MethodComboBox_SelectionChanged">
                         <ComboBoxItem
                             x:Uid="Proxy_MethodSystem"
@@ -72,6 +73,7 @@
                     </wct:SettingsCard>
                     <wct:SettingsCard x:Uid="Proxy_AuthenticationCard">
                         <ComboBox x:Name="AuthenticationComboBox"
+                            Width="{ThemeResource FoundryWideInputMinWidth}"
                             SelectionChanged="AuthenticationComboBox_SelectionChanged">
                             <ComboBoxItem
                                 x:Uid="Proxy_AuthenticationAutomatic"
