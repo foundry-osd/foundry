@@ -27,7 +27,7 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
     private readonly Func<RemoteDiagnosticsOptions, RemoteDiagnosticsContext, IRemoteDiagnosticsExporter> _exporterFactory;
     private readonly int _queueCapacity;
     private readonly TimeProvider _timeProvider;
-    private readonly ConditionalWeakTable<Exception, ExceptionDedupeState> _seenExceptions = new();
+    private ConditionalWeakTable<Exception, ExceptionDedupeState> _seenExceptions = new();
     private readonly Dictionary<string, FingerprintWindowState> _fingerprints = new(StringComparer.Ordinal);
     private Channel<QueuedRemoteDiagnosticRecord>? _channel;
     private IRemoteDiagnosticsExporter? _exporter;
@@ -119,6 +119,8 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
         {
             Volatile.Write(ref _accepting, 0);
             Interlocked.Increment(ref _consentGeneration);
+            _fingerprints.Clear();
+            _seenExceptions = new ConditionalWeakTable<Exception, ExceptionDedupeState>();
         }
     }
 

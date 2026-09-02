@@ -86,6 +86,35 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
     }
 
     [Fact]
+    public async Task Disable_ReenableResetsRateLimitAndExceptionDedupeState()
+    {
+        var exporter = new RecordingExporter();
+        await using var service = CreateService(exporter);
+        service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
+        var firstException = new InvalidOperationException("failed");
+
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "same failure", firstException));
+        for (int index = 1; index < 5; index++)
+        {
+            service.Emit(RemoteDiagnosticsTestData.LogEvent(
+                LogEventLevel.Error,
+                "same failure",
+                new InvalidOperationException("failed")));
+        }
+
+        Assert.True(SpinWait.SpinUntil(
+            () => exporter.Records.Count == 5,
+            TimeSpan.FromSeconds(2)));
+
+        service.Disable();
+        service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "same failure", firstException));
+        await service.FlushAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal(6, exporter.Records.Count);
+    }
+
+    [Fact]
     public async Task Emit_WhenExporterFails_DoesNotThrowAndContinuesDraining()
     {
         var exporter = new RecordingExporter { ThrowOnExport = true };
