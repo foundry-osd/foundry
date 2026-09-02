@@ -69,6 +69,31 @@ public sealed class FoundryLogConfigurationTests
         Assert.Contains("Diagnostic operation completed. ItemCount=42", output, StringComparison.Ordinal);
     }
 
+    [Fact]
+    public void CreateDebugLogger_ForwardsEventsToAdditionalSink()
+    {
+        var sink = new CollectingSink();
+
+        ILogger logger = FoundryLogConfiguration.CreateDebugLogger(
+            "Foundry.Test",
+            "SESSION01",
+            LogEventLevel.Debug,
+            additionalSink: sink);
+
+        try
+        {
+            logger.Error("Bootstrap failed. OperationId={OperationId}", "operation-1");
+        }
+        finally
+        {
+            (logger as IDisposable)?.Dispose();
+        }
+
+        LogEvent logEvent = Assert.Single(sink.Events);
+        Assert.Equal("Foundry.Test", logEvent.Properties["Application"].ToString().Trim('"'));
+        Assert.Equal("SESSION01", logEvent.Properties["SessionId"].ToString().Trim('"'));
+    }
+
     private sealed class CollectingSink : ILogEventSink
     {
         public List<LogEvent> Events { get; } = [];

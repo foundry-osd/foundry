@@ -17,7 +17,7 @@ namespace Foundry.Telemetry;
 /// <summary>
 /// Sanitizes and queues eligible log events for best-effort PostHog delivery.
 /// </summary>
-public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService
+public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, IDisposable
 {
     private const int DefaultQueueCapacity = 256;
     private const int MaximumFingerprintEntries = 512;
@@ -33,6 +33,7 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService
     private IRemoteDiagnosticsExporter? _exporter;
     private RemoteDiagnosticsContext? _context;
     private Task _worker = Task.CompletedTask;
+    private int _accepting;
     private int _stopping;
     private int _disposed;
     private long _droppedRecordCount;
@@ -66,13 +67,20 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService
         ArgumentNullException.ThrowIfNull(context);
         if (!options.CanSend || Volatile.Read(ref _stopping) != 0)
         {
+            Disable();
             return;
         }
 
         lock (_gate)
         {
-            if (_exporter is not null || Volatile.Read(ref _stopping) != 0)
+            if (Volatile.Read(ref _stopping) != 0)
             {
+                return;
+            }
+
+            if (_exporter is not null)
+            {
+                Volatile.Write(ref _accepting, 1);
                 return;
             }
 
@@ -88,6 +96,7 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService
                     AllowSynchronousContinuations = false
                 });
                 _worker = ProcessQueueAsync(_channel.Reader, _exporter);
+                Volatile.Write(ref _accepting, 1);
             }
 #pragma warning disable CA1031 // Diagnostics transport must never affect application startup.
             catch (Exception ex)
@@ -97,7 +106,17 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService
                 _exporter = null;
                 _context = null;
                 _channel = null;
+                Volatile.Write(ref _accepting, 0);
             }
+        }
+    }
+
+    /// <inheritdoc />
+    public void Disable()
+    {
+        lock (_gate)
+        {
+            Volatile.Write(ref _accepting, 0);
         }
     }
 
@@ -105,30 +124,38 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService
     public void Emit(LogEvent logEvent)
     {
         ArgumentNullException.ThrowIfNull(logEvent);
-        Channel<RemoteDiagnosticRecord>? channel = _channel;
-        RemoteDiagnosticsContext? context = _context;
-        if (channel is null || context is null || Volatile.Read(ref _stopping) != 0 || !ShouldExport(logEvent))
+        if (Volatile.Read(ref _stopping) != 0 || !ShouldExport(logEvent))
         {
             return;
         }
 
         try
         {
-            if (logEvent.Exception is not null && !TryAcquireException(logEvent.Exception, GetScalarText(logEvent, "OperationId")))
+            lock (_gate)
             {
-                return;
-            }
+                Channel<RemoteDiagnosticRecord>? channel = _channel;
+                RemoteDiagnosticsContext? context = _context;
+                if (Volatile.Read(ref _accepting) == 0 || channel is null || context is null)
+                {
+                    return;
+                }
 
-            if (!TryAcquireFingerprint(logEvent))
-            {
-                Interlocked.Increment(ref _droppedRecordCount);
-                return;
-            }
+                if (logEvent.Exception is not null && !TryAcquireException(logEvent.Exception, GetScalarText(logEvent, "OperationId")))
+                {
+                    return;
+                }
 
-            RemoteDiagnosticRecord record = RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(logEvent, context);
-            if (!channel.Writer.TryWrite(record))
-            {
-                Interlocked.Increment(ref _droppedRecordCount);
+                if (!TryAcquireFingerprint(logEvent))
+                {
+                    Interlocked.Increment(ref _droppedRecordCount);
+                    return;
+                }
+
+                RemoteDiagnosticRecord record = RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(logEvent, context);
+                if (!channel.Writer.TryWrite(record))
+                {
+                    Interlocked.Increment(ref _droppedRecordCount);
+                }
             }
         }
 #pragma warning disable CA1031 // Logging must be fail-safe for every application call site.
@@ -142,6 +169,7 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService
     /// <inheritdoc />
     public async Task FlushAsync(CancellationToken cancellationToken)
     {
+        Disable();
         if (Interlocked.Exchange(ref _stopping, 1) == 0)
         {
             _channel?.Writer.TryComplete();
@@ -185,6 +213,11 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService
             }
         }
     }
+
+    /// <summary>
+    /// Releases transport resources for synchronous host disposal.
+    /// </summary>
+    public void Dispose() => DisposeAsync().AsTask().GetAwaiter().GetResult();
 
     private static bool ShouldExport(LogEvent logEvent)
     {

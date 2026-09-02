@@ -60,6 +60,10 @@ public sealed class RemoteDiagnosticsSinkTests : IDisposable
         {
         }
 
+        public void Disable()
+        {
+        }
+
         public void Emit(LogEvent logEvent) => Events.Add(logEvent);
 
         public Task FlushAsync(CancellationToken cancellationToken) => Task.CompletedTask;
@@ -70,6 +74,10 @@ public sealed class RemoteDiagnosticsSinkTests : IDisposable
     private sealed class ThrowingRemoteDiagnosticsService : IRemoteDiagnosticsService
     {
         public void Configure(RemoteDiagnosticsOptions options, RemoteDiagnosticsContext context)
+        {
+        }
+
+        public void Disable()
         {
         }
 

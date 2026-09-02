@@ -5,11 +5,161 @@
 using System.Net;
 using System.Text.Json;
 using Foundry.Telemetry;
+using Foundry.Utilities.Diagnostics;
+using Serilog.Events;
 
 namespace Foundry.Telemetry.Tests;
 
+[Collection(RemoteDiagnosticsSinkCollection.Name)]
 public sealed class PostHogTelemetryServiceTests
 {
+    [Fact]
+    public void TelemetryContextFactory_Create_UsesCurrentDiagnosticSessionId()
+    {
+        TelemetryContext telemetryContext = TelemetryContextFactory.Create(
+            TelemetryApps.FoundryOsd,
+            "1.2.3",
+            "debug",
+            TelemetryRuntimeModes.Desktop,
+            TelemetryRuntimePayloadSources.None,
+            TelemetryBootMediaTargets.Usb,
+            "x64",
+            "en-US");
+
+        Assert.Equal(DiagnosticSessionContext.CurrentSessionId, telemetryContext.SessionId);
+
+        RemoteDiagnosticsContext remoteContext = TelemetryContextFactory.CreateRemoteDiagnosticsContext(telemetryContext);
+        Assert.Equal(telemetryContext.SessionId, remoteContext.SessionId);
+        Assert.Equal($"{TelemetryApps.FoundryOsd}@1.2.3", remoteContext.Release);
+    }
+
+    [Fact]
+    public void RemoteDiagnosticsLifecycle_Initialize_WhenConsentIsDisabled_DoesNotRegisterService()
+    {
+        RemoteDiagnosticsSink.Clear();
+        var service = new RecordingRemoteDiagnosticsService();
+        TelemetryContext telemetryContext = TelemetryContextFactory.Create(
+            TelemetryApps.FoundryOsd,
+            "1.2.3",
+            "debug",
+            TelemetryRuntimeModes.Desktop,
+            TelemetryRuntimePayloadSources.None,
+            TelemetryBootMediaTargets.Usb,
+            "x64",
+            "en-US");
+
+        try
+        {
+            RemoteDiagnosticsLifecycle.Initialize(
+                service,
+                new TelemetrySettings
+                {
+                    IsEnabled = true,
+                    IsRemoteDiagnosticsEnabled = false,
+                    InstallId = "install-id",
+                    HostUrl = TelemetryDefaults.PostHogEuHost,
+                    ProjectToken = "project-token"
+                },
+                telemetryContext);
+
+            RemoteDiagnosticsSink.Instance.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "Failed"));
+
+            Assert.Equal(0, service.ConfigureCallCount);
+            Assert.Equal(1, service.DisableCallCount);
+            Assert.Equal(0, service.EmitCallCount);
+        }
+        finally
+        {
+            RemoteDiagnosticsSink.Clear();
+        }
+    }
+
+    [Fact]
+    public void RemoteDiagnosticsLifecycle_Initialize_WhenConsentChanges_UpdatesLiveRegistration()
+    {
+        RemoteDiagnosticsSink.Clear();
+        var service = new RecordingRemoteDiagnosticsService();
+        TelemetryContext telemetryContext = TelemetryContextFactory.Create(
+            TelemetryApps.FoundryOsd,
+            "1.2.3",
+            "debug",
+            TelemetryRuntimeModes.Desktop,
+            TelemetryRuntimePayloadSources.None,
+            TelemetryBootMediaTargets.Usb,
+            "x64",
+            "en-US");
+        var settings = new TelemetrySettings
+        {
+            IsRemoteDiagnosticsEnabled = true,
+            InstallId = "install-id",
+            HostUrl = TelemetryDefaults.PostHogEuHost,
+            ProjectToken = "project-token"
+        };
+
+        try
+        {
+            RemoteDiagnosticsLifecycle.Initialize(service, settings, telemetryContext);
+            RemoteDiagnosticsSink.Instance.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "Enabled"));
+
+            RemoteDiagnosticsLifecycle.Initialize(
+                service,
+                settings with { IsRemoteDiagnosticsEnabled = false },
+                telemetryContext);
+            RemoteDiagnosticsSink.Instance.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "Disabled"));
+
+            RemoteDiagnosticsLifecycle.Initialize(service, settings, telemetryContext);
+            RemoteDiagnosticsSink.Instance.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "Re-enabled"));
+
+            Assert.Equal(2, service.ConfigureCallCount);
+            Assert.Equal(1, service.DisableCallCount);
+            Assert.Equal(2, service.EmitCallCount);
+        }
+        finally
+        {
+            RemoteDiagnosticsSink.Clear();
+        }
+    }
+
+    [Fact]
+    public async Task RemoteDiagnosticsLifecycle_ShutdownAsync_WhenFlushIsCancelled_ClearsSinkAndDisposesService()
+    {
+        RemoteDiagnosticsSink.Clear();
+        var service = new BlockingRemoteDiagnosticsService();
+        TelemetryContext telemetryContext = TelemetryContextFactory.Create(
+            TelemetryApps.FoundryOsd,
+            "1.2.3",
+            "debug",
+            TelemetryRuntimeModes.Desktop,
+            TelemetryRuntimePayloadSources.None,
+            TelemetryBootMediaTargets.Usb,
+            "x64",
+            "en-US");
+
+        RemoteDiagnosticsLifecycle.Initialize(
+            service,
+            new TelemetrySettings
+            {
+                IsEnabled = true,
+                IsRemoteDiagnosticsEnabled = true,
+                InstallId = "install-id",
+                HostUrl = TelemetryDefaults.PostHogEuHost,
+                ProjectToken = "project-token"
+            },
+            telemetryContext);
+
+        using var cancellation = new CancellationTokenSource();
+        cancellation.Cancel();
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(
+            () => RemoteDiagnosticsLifecycle.ShutdownAsync(service, cancellation.Token));
+
+        RemoteDiagnosticsSink.Instance.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "Failed"));
+
+        Assert.Equal(1, service.ConfigureCallCount);
+        Assert.Equal(1, service.DisposeCallCount);
+        Assert.Equal(0, service.EmitCallCount);
+    }
+
     [Fact]
     public async Task TrackAsync_WhenHttpCaptureFails_DoesNotThrow()
     {
@@ -205,5 +355,45 @@ public sealed class PostHogTelemetryServiceTests
             using JsonDocument document = JsonDocument.Parse(Body);
             return document.RootElement.Clone();
         }
+    }
+
+    private class RecordingRemoteDiagnosticsService : IRemoteDiagnosticsService
+    {
+        public int ConfigureCallCount { get; private set; }
+
+        public int EmitCallCount { get; private set; }
+
+        public int DisposeCallCount { get; private set; }
+
+        public int DisableCallCount { get; private set; }
+
+        public void Configure(RemoteDiagnosticsOptions options, RemoteDiagnosticsContext context)
+        {
+            ConfigureCallCount++;
+        }
+
+        public void Emit(LogEvent logEvent)
+        {
+            EmitCallCount++;
+        }
+
+        public void Disable()
+        {
+            DisableCallCount++;
+        }
+
+        public virtual Task FlushAsync(CancellationToken cancellationToken) => Task.CompletedTask;
+
+        public ValueTask DisposeAsync()
+        {
+            DisposeCallCount++;
+            return ValueTask.CompletedTask;
+        }
+    }
+
+    private sealed class BlockingRemoteDiagnosticsService : RecordingRemoteDiagnosticsService
+    {
+        public override Task FlushAsync(CancellationToken cancellationToken) =>
+            Task.Delay(Timeout.InfiniteTimeSpan, cancellationToken);
     }
 }

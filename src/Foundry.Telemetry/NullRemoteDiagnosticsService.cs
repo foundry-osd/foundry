@@ -9,7 +9,7 @@ namespace Foundry.Telemetry;
 /// <summary>
 /// Implements disabled remote diagnostics without allocating transport resources.
 /// </summary>
-public sealed class NullRemoteDiagnosticsService : IRemoteDiagnosticsService
+public sealed class NullRemoteDiagnosticsService : IRemoteDiagnosticsService, IDisposable
 {
     /// <summary>
     /// Gets the shared disabled service.
@@ -26,6 +26,11 @@ public sealed class NullRemoteDiagnosticsService : IRemoteDiagnosticsService
     }
 
     /// <inheritdoc />
+    public void Disable()
+    {
+    }
+
+    /// <inheritdoc />
     public void Emit(LogEvent logEvent)
     {
     }
@@ -35,4 +40,9 @@ public sealed class NullRemoteDiagnosticsService : IRemoteDiagnosticsService
 
     /// <inheritdoc />
     public ValueTask DisposeAsync() => ValueTask.CompletedTask;
+
+    /// <inheritdoc />
+    public void Dispose()
+    {
+    }
 }

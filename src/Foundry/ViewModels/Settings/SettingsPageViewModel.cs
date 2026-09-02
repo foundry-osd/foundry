@@ -12,13 +12,19 @@ public sealed partial class SettingsPageViewModel : ObservableObject
 {
     private readonly IAppSettingsService appSettingsService;
     private readonly IFoundryConfigurationStateService foundryConfigurationStateService;
+    private readonly IRemoteDiagnosticsService remoteDiagnosticsService;
+    private readonly TelemetryContext telemetryContext;
 
     public SettingsPageViewModel(
         IAppSettingsService appSettingsService,
-        IFoundryConfigurationStateService foundryConfigurationStateService)
+        IFoundryConfigurationStateService foundryConfigurationStateService,
+        IRemoteDiagnosticsService remoteDiagnosticsService,
+        TelemetryContext telemetryContext)
     {
         this.appSettingsService = appSettingsService;
         this.foundryConfigurationStateService = foundryConfigurationStateService;
+        this.remoteDiagnosticsService = remoteDiagnosticsService;
+        this.telemetryContext = telemetryContext;
         IsTelemetryEnabled = appSettingsService.Current.Telemetry.IsEnabled;
         IsRemoteDiagnosticsEnabled = appSettingsService.Current.Telemetry.IsRemoteDiagnosticsEnabled;
     }
@@ -40,7 +46,9 @@ public sealed partial class SettingsPageViewModel : ObservableObject
     {
         appSettingsService.Current.Telemetry.IsRemoteDiagnosticsEnabled = value;
         appSettingsService.Save();
-        foundryConfigurationStateService.UpdateTelemetry(CreateTelemetrySettings());
+        TelemetrySettings settings = CreateTelemetrySettings();
+        foundryConfigurationStateService.UpdateTelemetry(settings);
+        RemoteDiagnosticsLifecycle.Initialize(remoteDiagnosticsService, settings, telemetryContext);
     }
 
     private TelemetrySettings CreateTelemetrySettings()

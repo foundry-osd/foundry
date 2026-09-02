@@ -17,6 +17,11 @@ public interface IRemoteDiagnosticsService : IAsyncDisposable
     void Configure(RemoteDiagnosticsOptions options, RemoteDiagnosticsContext context);
 
     /// <summary>
+    /// Stops accepting new diagnostic records without flushing previously accepted records.
+    /// </summary>
+    void Disable();
+
+    /// <summary>
     /// Attempts to accept a log event without blocking the caller.
     /// </summary>
     void Emit(LogEvent logEvent);

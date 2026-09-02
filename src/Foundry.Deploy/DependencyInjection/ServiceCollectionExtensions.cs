@@ -65,8 +65,10 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentPasswordDialogService, DeploymentPasswordDialogService>();
         services.AddSingleton<IDeploymentAccessRetryDelay, DeploymentAccessRetryDelay>();
         services.AddSingleton<IDeploymentAccessGate, DeploymentAccessGate>();
+        services.AddSingleton(LoadTelemetrySettings);
         services.AddSingleton(CreateTelemetryOptions);
         services.AddSingleton(CreateTelemetryContext);
+        services.AddSingleton<IRemoteDiagnosticsService>(_ => new PostHogRemoteDiagnosticsSink());
         services.AddSingleton<ITelemetryService>(sp =>
         {
             TelemetryOptions options = sp.GetRequiredService<TelemetryOptions>();
@@ -166,7 +168,7 @@ public static class ServiceCollectionExtensions
 
     private static TelemetryOptions CreateTelemetryOptions(IServiceProvider serviceProvider)
     {
-        TelemetrySettings settings = LoadTelemetrySettings(serviceProvider);
+        TelemetrySettings settings = serviceProvider.GetRequiredService<TelemetrySettings>();
         return new TelemetryOptions(
             settings.IsEnabled,
             string.IsNullOrWhiteSpace(settings.HostUrl) ? TelemetryDefaults.PostHogEuHost : settings.HostUrl,
@@ -176,9 +178,9 @@ public static class ServiceCollectionExtensions
 
     private static TelemetryContext CreateTelemetryContext(IServiceProvider serviceProvider)
     {
-        TelemetrySettings settings = LoadTelemetrySettings(serviceProvider);
+        TelemetrySettings settings = serviceProvider.GetRequiredService<TelemetrySettings>();
         string runtime = WinPeRuntimeDetector.IsWinPeRuntime() ? TelemetryRuntimeModes.WinPe : TelemetryRuntimeModes.Desktop;
-        return new TelemetryContext(
+        return TelemetryContextFactory.Create(
             TelemetryApps.FoundryDeploy,
             FoundryDeployApplicationInfo.Version,
             TelemetryBuildConfiguration.Current,
@@ -190,8 +192,7 @@ public static class ServiceCollectionExtensions
                 runtime,
                 Environment.GetEnvironmentVariable(DeploymentModeEnvironmentVariable)),
             RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant(),
-            CultureInfo.CurrentUICulture.Name,
-            Guid.NewGuid().ToString("D"));
+            CultureInfo.CurrentUICulture.Name);
     }
 
     private static TelemetrySettings LoadTelemetrySettings(IServiceProvider serviceProvider)

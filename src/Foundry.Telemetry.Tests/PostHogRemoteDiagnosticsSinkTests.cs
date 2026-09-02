@@ -50,6 +50,23 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
     }
 
     [Fact]
+    public async Task Disable_StopsAcceptanceAndConfigureCanReenableExistingTransport()
+    {
+        var exporter = new RecordingExporter();
+        await using var service = CreateService(exporter);
+        service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
+
+        service.Disable();
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "disabled"));
+        service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "re-enabled"));
+        await service.FlushAsync(TestContext.Current.CancellationToken);
+
+        RemoteDiagnosticRecord record = Assert.Single(exporter.Records);
+        Assert.Equal("re-enabled", record.Body);
+    }
+
+    [Fact]
     public async Task Emit_WhenExporterFails_DoesNotThrowAndContinuesDraining()
     {
         var exporter = new RecordingExporter { ThrowOnExport = true };
