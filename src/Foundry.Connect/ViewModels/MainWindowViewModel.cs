@@ -680,7 +680,15 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to refresh network status.");
+            NetworkFailureClassification failure = NetworkTelemetryClassifier.ClassifyFailure(ex);
+            _logger.LogError(
+                ex,
+                "Network operation failed. NetworkOperation={NetworkOperation}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, RemoteDiagnostic={RemoteDiagnostic}",
+                "network.refresh",
+                failure.Kind,
+                failure.Reason,
+                failure.Code,
+                true);
             await RunOnUiAsync(() =>
             {
                 IsPrimaryStatusSuccessful = false;
@@ -1278,7 +1286,15 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Provisioned network action failed.");
+            NetworkFailureClassification failure = NetworkTelemetryClassifier.ClassifyFailure(ex);
+            _logger.LogError(
+                ex,
+                "Network operation failed. NetworkOperation={NetworkOperation}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, RemoteDiagnostic={RemoteDiagnostic}",
+                "wifi.provisioned_action",
+                failure.Kind,
+                failure.Reason,
+                failure.Code,
+                true);
             await RunOnUiAsync(() => ProvisionedWifiActionFeedbackText = GetString("Wifi.ActionTryAgain")).ConfigureAwait(false);
         }
         finally
@@ -1336,7 +1352,15 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Selected Wi-Fi action failed.");
+            NetworkFailureClassification failure = NetworkTelemetryClassifier.ClassifyFailure(ex);
+            _logger.LogError(
+                ex,
+                "Network operation failed. NetworkOperation={NetworkOperation}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, RemoteDiagnostic={RemoteDiagnostic}",
+                "wifi.selected_action",
+                failure.Kind,
+                failure.Reason,
+                failure.Code,
+                true);
             await RunOnUiAsync(() => SelectedWifiActionFeedbackText = GetString("Wifi.ActionTryAgain")).ConfigureAwait(false);
         }
         finally

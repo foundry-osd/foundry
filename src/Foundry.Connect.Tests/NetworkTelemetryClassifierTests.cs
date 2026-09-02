@@ -2,6 +2,9 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Net;
+using System.Net.Sockets;
+using System.Security.Authentication;
 using Foundry.Connect.Models;
 using Foundry.Connect.Models.Network;
 using Foundry.Connect.Services.Network;
@@ -10,6 +13,33 @@ namespace Foundry.Connect.Tests;
 
 public sealed class NetworkTelemetryClassifierTests
 {
+    [Theory]
+    [MemberData(nameof(NetworkFailures))]
+    public void ClassifyFailure_ReturnsSafeStableFields(
+        Exception exception,
+        bool cancellationRequested,
+        string expectedReason,
+        string? expectedCode)
+    {
+        NetworkFailureClassification result = NetworkTelemetryClassifier.ClassifyFailure(exception, cancellationRequested);
+
+        Assert.Equal("network", result.Kind);
+        Assert.Equal(expectedReason, result.Reason);
+        Assert.Equal(expectedCode, result.Code);
+        Assert.DoesNotContain("secret", result.Code ?? string.Empty, StringComparison.OrdinalIgnoreCase);
+    }
+
+    public static TheoryData<Exception, bool, string, string?> NetworkFailures => new()
+    {
+        { new TaskCanceledException("https://secret.invalid/path?token=value"), false, "timeout", null },
+        { new OperationCanceledException("secret"), true, "cancelled", null },
+        { new HttpRequestException("secret", null, HttpStatusCode.BadGateway), false, "http_status", "502" },
+        { new HttpRequestException("secret", null, HttpStatusCode.ProxyAuthenticationRequired), false, "proxy", "407" },
+        { new HttpRequestException("secret", new SocketException((int)SocketError.HostNotFound)), false, "dns", SocketError.HostNotFound.ToString() },
+        { new HttpRequestException("secret", new AuthenticationException("certificate secret")), false, "tls", null },
+        { new HttpRequestException("https://secret.invalid"), false, "transport", null }
+    };
+
     [Theory]
     [InlineData("Open", "open")]
     [InlineData("OWE", "owe")]
