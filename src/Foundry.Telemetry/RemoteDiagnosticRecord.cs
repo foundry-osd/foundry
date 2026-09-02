@@ -23,4 +23,4 @@ public sealed record RemoteDiagnosticException(
     string Type,
     string Message,
     string? StackTrace,
-    RemoteDiagnosticException? InnerException);
+    IReadOnlyList<RemoteDiagnosticException> InnerExceptions);

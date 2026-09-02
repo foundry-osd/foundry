@@ -140,11 +140,23 @@ public static partial class RemoteDiagnosticPropertyPolicy
             exception.GetType().FullName ?? exception.GetType().Name,
             SanitizeRemoteText(exception.Message, MaximumMessageLength),
             stackTrace,
-            CreateException(exception.InnerException, depth + 1));
+            GetInnerExceptions(exception)
+                .Select(innerException => CreateException(innerException, depth + 1))
+                .OfType<RemoteDiagnosticException>()
+                .ToArray());
     }
+
+    private static IEnumerable<Exception> GetInnerExceptions(Exception exception) =>
+        exception is AggregateException aggregateException
+            ? aggregateException.InnerExceptions
+            : exception.InnerException is { } innerException
+                ? [innerException]
+                : [];
 
     private static string SanitizeAttribute(string? value) =>
         SanitizeRemoteText(value, MaximumAttributeLength);
+
+    internal static string SanitizeResourceValue(string? value) => SanitizeAttribute(value);
 
     private static string SanitizeStackTrace(string stackTrace)
     {

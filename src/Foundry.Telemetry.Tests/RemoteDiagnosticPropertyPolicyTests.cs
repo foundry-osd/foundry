@@ -133,6 +133,23 @@ public sealed class RemoteDiagnosticPropertyPolicyTests
         Assert.DoesNotContain("Target", result.Attributes.Keys, StringComparer.OrdinalIgnoreCase);
     }
 
+    [Fact]
+    public void CreateSanitizedRecord_PreservesAggregateExceptionBranches()
+    {
+        var exception = new AggregateException(
+            "multiple failures",
+            new IOException("first"),
+            new InvalidOperationException("second"));
+        LogEvent source = CreateLogEvent(LogEventLevel.Error, "Operation failed", exception);
+
+        RemoteDiagnosticRecord result = RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(source, CreateContext());
+
+        Assert.NotNull(result.Exception);
+        Assert.Equal(2, result.Exception.InnerExceptions.Count);
+        Assert.Equal("System.IO.IOException", result.Exception.InnerExceptions[0].Type);
+        Assert.Equal("System.InvalidOperationException", result.Exception.InnerExceptions[1].Type);
+    }
+
     private static RemoteDiagnosticsContext CreateContext() => new(
         App: "foundry.deploy",
         AppVersion: "1.2.3",
