@@ -21,9 +21,25 @@ public static partial class DiagnosticContentSanitizer
     /// <returns>Redacted, single-line diagnostic text.</returns>
     public static string Sanitize(string? value, int maximumLength = 2048)
     {
+        return SanitizeCore(LogValueSanitizer.NormalizePropertyValue(value), maximumLength);
+    }
+
+    /// <summary>
+    /// Redacts diagnostic text while preserving its existing line and stack-trace layout.
+    /// </summary>
+    /// <param name="value">Potentially sensitive multiline diagnostic text.</param>
+    /// <param name="maximumLength">Maximum length of the returned value.</param>
+    /// <returns>Redacted diagnostic text with its line boundaries preserved.</returns>
+    public static string SanitizeMultiline(string? value, int maximumLength = 65536)
+    {
+        return SanitizeCore(value ?? string.Empty, maximumLength);
+    }
+
+    private static string SanitizeCore(string value, int maximumLength)
+    {
         ArgumentOutOfRangeException.ThrowIfLessThan(maximumLength, TruncationMarker.Length);
 
-        string sanitized = LogValueSanitizer.NormalizePropertyValue(value);
+        string sanitized = value;
         sanitized = UriPattern().Replace(sanitized, static match => SanitizeUriText(match.Value));
         sanitized = BearerTokenPattern().Replace(sanitized, "Bearer <redacted>");
         sanitized = SensitivePropertyPattern().Replace(sanitized, "$1=<redacted>");

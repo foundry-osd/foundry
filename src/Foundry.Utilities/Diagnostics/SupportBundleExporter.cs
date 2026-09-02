@@ -67,7 +67,7 @@ public sealed partial class SupportBundleExporter(TimeProvider? timeProvider = n
                         string content = await ReadSharedTextAsync(sourcePath, cancellationToken).ConfigureAwait(false);
                         if (request.PrivacyMode == SupportBundlePrivacyMode.Sanitized)
                         {
-                            content = DiagnosticContentSanitizer.Sanitize(content, int.MaxValue);
+                            content = DiagnosticContentSanitizer.SanitizeMultiline(content, int.MaxValue);
                         }
 
                         string publishedSourceName = request.PrivacyMode == SupportBundlePrivacyMode.Sanitized
