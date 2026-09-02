@@ -38,7 +38,9 @@ public static class BootMediaTelemetryPropertyBuilder
         string? failedStepName,
         TimeSpan duration,
         string connectRuntimePayloadSource,
-        string deployRuntimePayloadSource)
+        string deployRuntimePayloadSource,
+        WinPeDiagnostic? diagnostic = null,
+        string? operationId = null)
     {
         ArgumentNullException.ThrowIfNull(options);
         ArgumentNullException.ThrowIfNull(document);
@@ -56,6 +58,12 @@ public static class BootMediaTelemetryPropertyBuilder
             ["boot_media_creation_success"] = success,
             ["boot_media_creation_duration_seconds"] = Math.Round(duration.TotalSeconds, 2),
             ["boot_media_creation_failed_step_name"] = failedStepName,
+            ["boot_media_failure_kind"] = diagnostic?.FailureKind,
+            ["boot_media_failure_reason"] = diagnostic?.FailureReason,
+            ["boot_media_failure_code"] = diagnostic?.Code,
+            ["boot_media_failure_tool"] = diagnostic?.ToolName,
+            ["boot_media_failure_exit_code"] = diagnostic?.ExitCode,
+            ["operation_id"] = operationId,
             ["boot_media_architecture"] = options.Architecture.ToString().ToLowerInvariant(),
             ["boot_media_winpe_language"] = NormalizeCultureName(options.WinPeLanguage).ToLowerInvariant(),
             ["boot_media_boot_image_source"] = options.BootImageSource.ToString().ToLowerInvariant(),

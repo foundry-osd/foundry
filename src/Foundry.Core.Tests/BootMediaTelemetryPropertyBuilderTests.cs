@@ -14,6 +14,36 @@ namespace Foundry.Core.Tests;
 public sealed class BootMediaTelemetryPropertyBuilderTests
 {
     [Fact]
+    public void Build_WhenCreationFails_IncludesStableFailureTaxonomy()
+    {
+        var diagnostic = new WinPeDiagnostic(
+            WinPeErrorCodes.IsoCreateFailed,
+            "ISO creation failed.",
+            failureKind: WinPeFailureKinds.Process,
+            failureReason: WinPeFailureReasons.NonZeroExit,
+            toolName: "MakeWinPEMedia",
+            exitCode: 5);
+
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
+            new MediaPreflightOptions(),
+            new FoundryConfigurationDocument(),
+            success: false,
+            failedStepName: "Create ISO media",
+            duration: TimeSpan.FromSeconds(3),
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            diagnostic);
+
+        Assert.Equal(WinPeFailureKinds.Process, result["boot_media_failure_kind"]);
+        Assert.Equal(WinPeFailureReasons.NonZeroExit, result["boot_media_failure_reason"]);
+        Assert.Equal(WinPeErrorCodes.IsoCreateFailed, result["boot_media_failure_code"]);
+        Assert.Equal("MakeWinPEMedia", result["boot_media_failure_tool"]);
+        Assert.Equal(5, result["boot_media_failure_exit_code"]);
+    }
+
+    [Fact]
     public void Build_CreatesFinalBootMediaPropertiesWithoutSensitiveReadinessFlags()
     {
         var options = new MediaPreflightOptions

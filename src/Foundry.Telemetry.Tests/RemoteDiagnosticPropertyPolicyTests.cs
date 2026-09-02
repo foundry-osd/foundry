@@ -46,6 +46,7 @@ public sealed class RemoteDiagnosticPropertyPolicyTests
             ("Outcome", "failed"),
             ("FailureKind", "network"),
             ("FailureReason", "timeout"),
+            ("ErrorSummary", @"token=plain-text C:\Users\operator\file.txt"),
             ("Retryable", true),
             ("Unsupported", new[] { "one", "two" }));
 
@@ -64,6 +65,8 @@ public sealed class RemoteDiagnosticPropertyPolicyTests
         Assert.Equal("failed", result.Attributes["operation.outcome"]);
         Assert.Equal("network", result.Attributes["failure.kind"]);
         Assert.Equal("timeout", result.Attributes["failure.reason"]);
+        Assert.DoesNotContain("plain-text", result.Attributes["failure.summary"].ToString());
+        Assert.DoesNotContain(@"C:\Users\operator", result.Attributes["failure.summary"].ToString());
         Assert.Equal(true, result.Attributes["retryable"]);
         Assert.DoesNotContain("Unsupported", result.Attributes.Keys, StringComparer.OrdinalIgnoreCase);
     }

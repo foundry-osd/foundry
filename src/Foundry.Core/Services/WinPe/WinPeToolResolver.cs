@@ -36,7 +36,8 @@ public sealed class WinPeToolResolver
             return WinPeResult<WinPeToolPaths>.Failure(
                 WinPeErrorCodes.ToolNotFound,
                 "Could not locate Windows ADK KitsRoot10.",
-                "Install ADK + WinPE add-on or provide an explicit ADK root path.");
+                "Install ADK + WinPE add-on or provide an explicit ADK root path.",
+                toolName: "Windows ADK");
         }
 
         string[] winPeRootCandidates =
@@ -53,7 +54,8 @@ public sealed class WinPeToolResolver
             return WinPeResult<WinPeToolPaths>.Failure(
                 WinPeErrorCodes.ToolNotFound,
                 "Required WinPE ADK tools were not found.",
-                $"Expected copype.cmd and MakeWinPEMedia.cmd under '{kitsRoot}'.");
+                $"Expected copype.cmd and MakeWinPEMedia.cmd under '{kitsRoot}'.",
+                toolName: "copype/MakeWinPEMedia");
         }
 
         string windowsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
@@ -65,7 +67,8 @@ public sealed class WinPeToolResolver
             return WinPeResult<WinPeToolPaths>.Failure(
                 WinPeErrorCodes.ToolNotFound,
                 "DISM executable was not found.",
-                $"Expected path: '{dismPath}'.");
+                $"Expected path: '{dismPath}'.",
+                toolName: "dism");
         }
 
         if (!File.Exists(cmdPath))
@@ -73,7 +76,8 @@ public sealed class WinPeToolResolver
             return WinPeResult<WinPeToolPaths>.Failure(
                 WinPeErrorCodes.ToolNotFound,
                 "cmd.exe was not found.",
-                $"Expected path: '{cmdPath}'.");
+                $"Expected path: '{cmdPath}'.",
+                toolName: "cmd");
         }
 
         return WinPeResult<WinPeToolPaths>.Success(new WinPeToolPaths

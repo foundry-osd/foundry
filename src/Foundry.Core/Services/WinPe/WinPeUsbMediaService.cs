@@ -864,10 +864,10 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         string diagnostic = $"{execution.ToDiagnosticText()}{Environment.NewLine}" +
                             "PowerShellBootPartitionUpdateScript:" + Environment.NewLine +
                             script;
-        return WinPeResult.Failure(
+        return WinPeResult.Failure(execution.ToFailureDiagnostic(
             WinPeErrorCodes.UsbProvisioningFailed,
             "Failed to format the USB BOOT partition.",
-            diagnostic);
+            toolName: "PowerShell") with { Details = diagnostic });
     }
 
     private static WinPeResult<WinPeUsbProvisionResult> ParseUsbProvisionResult(WinPeProcessExecution execution)
@@ -947,10 +947,10 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             return WinPeResult.Success();
         }
 
-        return WinPeResult.Failure(
+        return WinPeResult.Failure(execution.ToFailureDiagnostic(
             WinPeErrorCodes.UsbCopyFailed,
             "Failed to copy WinPE media files to USB BOOT partition.",
-            execution.ToDiagnosticText());
+            toolName: "robocopy"));
     }
 
     private static void ReportProgress(IProgress<WinPeMediaProgress>? progress, int percent, string status)
@@ -1072,10 +1072,10 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
 
         if (!execution.IsSuccess)
         {
-            return WinPeResult<string>.Failure(
+            return WinPeResult<string>.Failure(execution.ToFailureDiagnostic(
                 WinPeErrorCodes.UsbQueryFailed,
                 "A required PowerShell USB query command failed.",
-                execution.ToDiagnosticText());
+                toolName: "PowerShell"));
         }
 
         string output = execution.StandardOutput.Trim();

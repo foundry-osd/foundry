@@ -95,6 +95,54 @@ public sealed class WinPeIsoMediaServiceTests
         }
     }
 
+    [Fact]
+    public async Task CreateAsync_WhenProcessFails_ReturnsStructuredProcessDiagnostic()
+    {
+        using TempPreparedWorkspace temp = TempPreparedWorkspace.Create(useBootEx: false);
+        var runner = new FakeIsoRunner(new WinPeProcessExecution
+        {
+            ExitCode = 5,
+            StandardError = "MakeWinPEMedia failed"
+        });
+        var service = new WinPeIsoMediaService(runner);
+
+        WinPeResult result = await service.CreateAsync(
+            new WinPeIsoMediaOptions
+            {
+                PreparedWorkspace = temp.PreparedWorkspace,
+                OutputIsoPath = Path.Combine(temp.RootPath, "out", "foundry.iso"),
+                IsoTempDirectoryPath = Path.Combine(temp.RootPath, "iso-temp")
+            },
+            TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeFailureKinds.Process, result.Error!.FailureKind);
+        Assert.Equal(WinPeFailureReasons.NonZeroExit, result.Error.FailureReason);
+        Assert.Equal("MakeWinPEMedia", result.Error.ToolName);
+        Assert.Equal(5, result.Error.ExitCode);
+    }
+
+    [Fact]
+    public async Task CreateAsync_WhenProcessStartThrows_PreservesException()
+    {
+        using TempPreparedWorkspace temp = TempPreparedWorkspace.Create(useBootEx: false);
+        var exception = new InvalidOperationException("Could not start process.");
+        var service = new WinPeIsoMediaService(new FakeIsoRunner(exception));
+
+        WinPeResult result = await service.CreateAsync(
+            new WinPeIsoMediaOptions
+            {
+                PreparedWorkspace = temp.PreparedWorkspace,
+                OutputIsoPath = Path.Combine(temp.RootPath, "out", "foundry.iso"),
+                IsoTempDirectoryPath = Path.Combine(temp.RootPath, "iso-temp")
+            },
+            TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Same(exception, result.Error!.Exception);
+        Assert.Equal(WinPeFailureReasons.ProcessStartFailed, result.Error.FailureReason);
+    }
+
     private sealed class TempPreparedWorkspace : IDisposable
     {
         private TempPreparedWorkspace(string rootPath, WinPeWorkspacePreparationResult preparedWorkspace)
@@ -151,6 +199,23 @@ public sealed class WinPeIsoMediaServiceTests
 
     private sealed class FakeIsoRunner : IWinPeProcessRunner
     {
+        private readonly WinPeProcessExecution? result;
+        private readonly Exception? exception;
+
+        public FakeIsoRunner()
+        {
+        }
+
+        public FakeIsoRunner(WinPeProcessExecution result)
+        {
+            this.result = result;
+        }
+
+        public FakeIsoRunner(Exception exception)
+        {
+            this.exception = exception;
+        }
+
         public List<WinPeProcessExecution> Executions { get; } = [];
 
         public Task<WinPeProcessExecution> RunAsync(
@@ -169,6 +234,21 @@ public sealed class WinPeIsoMediaServiceTests
             string workingDirectory,
             CancellationToken cancellationToken)
         {
+            if (exception is not null)
+            {
+                throw exception;
+            }
+
+            if (result is not null)
+            {
+                return Task.FromResult(result with
+                {
+                    FileName = scriptPath,
+                    Arguments = scriptArguments,
+                    WorkingDirectory = workingDirectory
+                });
+            }
+
             string outputIsoPath = ExtractLastIsoArgument(scriptArguments);
             Directory.CreateDirectory(Path.GetDirectoryName(outputIsoPath)!);
             File.WriteAllText(outputIsoPath, "iso");

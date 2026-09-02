@@ -60,7 +60,16 @@ public sealed class WinPeDriverCatalogService : IWinPeDriverCatalogService
             return WinPeResult<IReadOnlyList<WinPeDriverCatalogEntry>>.Failure(
                 WinPeErrorCodes.DriverCatalogFetchFailed,
                 "Failed to retrieve the WinPE driver catalog.",
-                $"Catalog URI/path: '{options.CatalogUri}'. Error: {ex.Message}");
+                $"Catalog URI/path: '{options.CatalogUri}'.{Environment.NewLine}{ex}",
+                failureKind: ex is UnauthorizedAccessException ? WinPeFailureKinds.FileSystem : WinPeFailureKinds.Network,
+                failureReason: ex switch
+                {
+                    UnauthorizedAccessException => WinPeFailureReasons.AccessDenied,
+                    HttpRequestException { StatusCode: not null } => WinPeFailureReasons.HttpStatus,
+                    _ => WinPeFailureReasons.Transport
+                },
+                errorSummary: ex.Message,
+                exception: ex);
         }
 
         try

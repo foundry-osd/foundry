@@ -70,7 +70,30 @@ public sealed class WinPeBuildServiceTests
         Assert.True(Directory.Exists(Path.Combine(result.Value.WorkingDirectoryPath, "temp")));
     }
 
-    private sealed class FakeBuildRunner : IWinPeProcessRunner
+    [Fact]
+    public async Task BuildAsync_WhenCopypeFails_ReturnsStructuredProcessDiagnostic()
+    {
+        using TempWinPeBuildWorkspace workspace = TempWinPeBuildWorkspace.Create();
+        var service = new WinPeBuildService(
+            new WinPeToolResolver(() => workspace.KitsRootPath),
+            new FakeBuildRunner(exitCode: 9));
+
+        WinPeResult<WinPeBuildArtifact> result = await service.BuildAsync(
+            new WinPeBuildOptions
+            {
+                OutputDirectoryPath = workspace.OutputDirectoryPath,
+                Architecture = WinPeArchitecture.X64
+            },
+            TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeFailureKinds.Process, result.Error?.FailureKind);
+        Assert.Equal(WinPeFailureReasons.NonZeroExit, result.Error?.FailureReason);
+        Assert.Equal("copype", result.Error?.ToolName);
+        Assert.Equal(9, result.Error?.ExitCode);
+    }
+
+    private sealed class FakeBuildRunner(int exitCode = 0) : IWinPeProcessRunner
     {
         public Task<WinPeProcessExecution> RunAsync(
             string fileName,
@@ -94,17 +117,21 @@ public sealed class WinPeBuildServiceTests
             string workingDirectory,
             CancellationToken cancellationToken)
         {
-            string workingRoot = scriptArguments.Split(' ', StringSplitOptions.RemoveEmptyEntries).Last().Trim('"');
-            string bootWimPath = Path.Combine(workingRoot, "media", "sources", "boot.wim");
-            Directory.CreateDirectory(Path.GetDirectoryName(bootWimPath)!);
-            File.WriteAllText(bootWimPath, "boot");
+            if (exitCode == 0)
+            {
+                string workingRoot = scriptArguments.Split(' ', StringSplitOptions.RemoveEmptyEntries).Last().Trim('"');
+                string bootWimPath = Path.Combine(workingRoot, "media", "sources", "boot.wim");
+                Directory.CreateDirectory(Path.GetDirectoryName(bootWimPath)!);
+                File.WriteAllText(bootWimPath, "boot");
+            }
 
             return Task.FromResult(new WinPeProcessExecution
             {
-                ExitCode = 0,
+                ExitCode = exitCode,
                 FileName = scriptPath,
                 Arguments = scriptArguments,
-                WorkingDirectory = workingDirectory
+                WorkingDirectory = workingDirectory,
+                StandardError = exitCode == 0 ? string.Empty : "copype failed"
             });
         }
 

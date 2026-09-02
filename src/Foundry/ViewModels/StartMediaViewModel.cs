@@ -23,6 +23,7 @@ using Foundry.Services.Settings;
 using Foundry.Services.Shell;
 using Foundry.Telemetry;
 using Serilog;
+using Serilog.Context;
 
 namespace Foundry.ViewModels;
 
@@ -462,7 +463,24 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         Stopwatch stopwatch = Stopwatch.StartNew();
         bool success = false;
         var telemetryProgressTracker = new MediaCreationTelemetryProgressTracker();
+        string operationId = Guid.NewGuid().ToString("N", CultureInfo.InvariantCulture);
+        string bootMediaTarget = target == FinalMediaTarget.Iso
+            ? TelemetryBootMediaTargets.Iso
+            : TelemetryBootMediaTargets.Usb;
+        string usbOperation = target switch
+        {
+            FinalMediaTarget.Usb => TelemetryBootMediaUsbOperations.Create,
+            FinalMediaTarget.UsbUpdate => TelemetryBootMediaUsbOperations.Update,
+            _ => TelemetryBootMediaUsbOperations.None
+        };
+        WinPeDiagnostic? failureDiagnostic = null;
         DeploymentMediaProtectionMaterial? deploymentProtectionMaterial = null;
+
+        using IDisposable operationIdScope = LogContext.PushProperty("OperationId", operationId);
+        using IDisposable workflowScope = LogContext.PushProperty("Workflow", "boot_media_creation");
+        using IDisposable targetScope = LogContext.PushProperty("BootMediaTarget", bootMediaTarget);
+        using IDisposable usbOperationScope = LogContext.PushProperty("UsbOperation", usbOperation);
+        using IDisposable stageScope = LogContext.Push(telemetryProgressTracker);
 
         try
         {
@@ -518,6 +536,19 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
         {
+            failureDiagnostic = (ex as WinPeOperationException)?.Diagnostic ?? new WinPeDiagnostic(
+                WinPeErrorCodes.InternalError,
+                "Unexpected boot media creation failure.",
+                ex.ToString(),
+                telemetryProgressTracker.CurrentStepName,
+                failureKind: WinPeFailureKinds.Internal,
+                failureReason: WinPeFailureReasons.Unexpected,
+                errorSummary: ex.Message,
+                exception: ex);
+            string failedStepName = string.IsNullOrWhiteSpace(failureDiagnostic.Stage)
+                ? telemetryProgressTracker.CurrentStepName
+                : failureDiagnostic.Stage;
+            telemetryProgressTracker.SetCurrentStep(failedStepName);
             string failedStatus = localizationService.GetString("StartMedia.Operation.Failed");
             terminalStatus = string.IsNullOrWhiteSpace(ex.Message)
                 ? failedStatus
@@ -525,13 +556,40 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             operationProgressService.Report(100, terminalStatus);
             logger.Error(
                 ex,
-                "Final media creation failed. Target={Target}, FailedStepName={FailedStepName}, DurationMs={DurationMs}, ErrorCode={ErrorCode}, Stage={Stage}, ExitCode={ExitCode}",
-                target,
+                "Final boot media operation failed. FailedStepName={FailedStepName}, DurationMs={DurationMs}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, ToolName={ToolName}, ExitCode={ExitCode}, RetryCount={RetryCount}, ErrorSummary={ErrorSummary}, RemoteDiagnostic={RemoteDiagnostic}",
+                failedStepName,
+                stopwatch.ElapsedMilliseconds,
+                failureDiagnostic.FailureKind,
+                failureDiagnostic.FailureReason,
+                failureDiagnostic.Code,
+                failureDiagnostic.ToolName,
+                failureDiagnostic.ExitCode,
+                failureDiagnostic.RetryCount,
+                failureDiagnostic.ErrorSummary ?? failureDiagnostic.Message,
+                true);
+        }
+        catch (OperationCanceledException ex)
+        {
+            failureDiagnostic = new WinPeDiagnostic(
+                WinPeErrorCodes.InternalError,
+                "Boot media creation was cancelled.",
+                ex.ToString(),
+                telemetryProgressTracker.CurrentStepName,
+                failureKind: WinPeFailureKinds.Cancellation,
+                failureReason: WinPeFailureReasons.Cancelled,
+                errorSummary: ex.Message,
+                exception: ex);
+            logger.Warning(
+                ex,
+                "Final boot media operation cancelled. FailedStepName={FailedStepName}, DurationMs={DurationMs}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, RetryCount={RetryCount}, RemoteDiagnostic={RemoteDiagnostic}",
                 telemetryProgressTracker.CurrentStepName,
                 stopwatch.ElapsedMilliseconds,
-                (ex as WinPeOperationException)?.Diagnostic?.Code,
-                (ex as WinPeOperationException)?.Diagnostic?.Stage,
-                (ex as WinPeOperationException)?.Diagnostic?.ExitCode);
+                failureDiagnostic.FailureKind,
+                failureDiagnostic.FailureReason,
+                failureDiagnostic.Code,
+                failureDiagnostic.RetryCount,
+                true);
+            throw;
         }
         finally
         {
@@ -542,6 +600,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 success,
                 success ? null : telemetryProgressTracker.CurrentStepName,
                 stopwatch.Elapsed,
+                operationId,
+                failureDiagnostic,
                 CancellationToken.None);
             shellNavigationGuardService.SetState(adkService.CurrentStatus.CanCreateMedia
                 ? ShellNavigationState.Ready
@@ -1515,6 +1575,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         bool success,
         string? failedStepName,
         TimeSpan duration,
+        string operationId,
+        WinPeDiagnostic? diagnostic,
         CancellationToken cancellationToken)
     {
         WinPeRuntimePayloadProvisioningOptions runtimePayloadProvisioning = AddReleaseConnectProvisioning(CreateRuntimePayloadProvisioningOptions(
@@ -1541,7 +1603,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             failedStepName,
             duration,
             ResolveRuntimePayloadSource(runtimePayloadProvisioning.Connect),
-            ResolveRuntimePayloadSource(runtimePayloadProvisioning.Deploy));
+            ResolveRuntimePayloadSource(runtimePayloadProvisioning.Deploy),
+            diagnostic,
+            operationId);
 
         logger.Debug(
             "Tracking media telemetry event. Target={Target}, UsbOperation={UsbOperation}, Success={Success}, FailedStepName={FailedStepName}, DurationSeconds={DurationSeconds}, Architecture={Architecture}, BootImageSource={BootImageSource}, SignatureMode={SignatureMode}, ConnectRuntimePayloadSource={ConnectRuntimePayloadSource}, DeployRuntimePayloadSource={DeployRuntimePayloadSource}.",
@@ -2337,7 +2401,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     }
 
     private sealed class WinPeOperationException(WinPeDiagnostic? diagnostic)
-        : InvalidOperationException(FormatWinPeError(diagnostic))
+        : InvalidOperationException(FormatWinPeError(diagnostic), diagnostic?.Exception)
     {
         public WinPeDiagnostic? Diagnostic { get; } = diagnostic;
     }

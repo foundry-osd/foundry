@@ -40,6 +40,12 @@ public sealed class TelemetryEventPropertyPolicyTests
             ["boot_media_creation_duration_seconds"] = 12.5,
             ["boot_media_architecture"] = "x64",
             ["boot_media_creation_failed_step_name"] = "Prepare WinPE workspace",
+            ["boot_media_failure_kind"] = "process",
+            ["boot_media_failure_reason"] = "nonzero_exit",
+            ["boot_media_failure_code"] = "WINPE_BUILD_FAILED",
+            ["boot_media_failure_tool"] = "copype",
+            ["boot_media_failure_exit_code"] = 5,
+            ["operation_id"] = "operation-1",
             ["boot_media_winpe_language"] = "en-us",
             ["boot_media_boot_image_source"] = "winpe_adk",
             ["boot_media_signature_mode"] = "signed",
@@ -129,6 +135,12 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.Equal(12.5, result["boot_media_creation_duration_seconds"]);
         Assert.Equal("x64", result["boot_media_architecture"]);
         Assert.Equal("Prepare WinPE workspace", result["boot_media_creation_failed_step_name"]);
+        Assert.Equal("process", result["boot_media_failure_kind"]);
+        Assert.Equal("nonzero_exit", result["boot_media_failure_reason"]);
+        Assert.Equal("WINPE_BUILD_FAILED", result["boot_media_failure_code"]);
+        Assert.Equal("copype", result["boot_media_failure_tool"]);
+        Assert.Equal(5, result["boot_media_failure_exit_code"]);
+        Assert.Equal("operation-1", result["operation_id"]);
         Assert.Equal("en-us", result["boot_media_winpe_language"]);
         Assert.Equal("winpe_adk", result["boot_media_boot_image_source"]);
         Assert.Equal("signed", result["boot_media_signature_mode"]);

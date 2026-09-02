@@ -66,10 +66,11 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
 
             if (!execution.IsSuccess || !File.Exists(preparedOutputPath))
             {
-                return WinPeResult.Failure(
+                return WinPeResult.Failure(execution.ToFailureDiagnostic(
                     WinPeErrorCodes.IsoCreateFailed,
                     "Failed to create WinPE ISO media.",
-                    execution.ToDiagnosticText());
+                    "Create ISO media",
+                    "MakeWinPEMedia"));
             }
 
             ReportProgress(options.Progress, 90, "Finalizing ISO output.");
@@ -82,7 +83,14 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
             return WinPeResult.Failure(
                 WinPeErrorCodes.IsoCreateFailed,
                 "Unexpected failure while creating WinPE ISO media.",
-                ex.Message);
+                ex.ToString(),
+                stage: "Create ISO media",
+                failureReason: ex is UnauthorizedAccessException
+                    ? WinPeFailureReasons.AccessDenied
+                    : WinPeFailureReasons.ProcessStartFailed,
+                toolName: "MakeWinPEMedia",
+                errorSummary: ex.Message,
+                exception: ex);
         }
         finally
         {
