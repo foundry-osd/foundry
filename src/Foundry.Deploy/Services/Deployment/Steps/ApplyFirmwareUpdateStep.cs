@@ -34,7 +34,12 @@ public sealed class ApplyFirmwareUpdateStep : DeploymentStepBase
 
         if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot))
         {
-            return DeploymentStepResult.Failed("Target Windows partition is unavailable.");
+            return DeploymentStepResult.Failed(
+                "Target Windows partition is unavailable.",
+                DeploymentFailure.Guard(
+                    DeploymentOperationNames.ApplyFirmware,
+                    DeploymentFailureReasons.MissingResource,
+                    "missing_target_partition"));
         }
 
         string targetFoundryRoot = context.EnsureTargetFoundryRoot();

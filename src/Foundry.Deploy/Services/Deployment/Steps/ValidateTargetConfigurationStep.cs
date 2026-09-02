@@ -43,12 +43,22 @@ public sealed class ValidateTargetConfigurationStep : DeploymentStepBase
 
         if (string.IsNullOrWhiteSpace(context.Request.OperatingSystem.Url))
         {
-            return DeploymentStepResult.Failed("Operating system URL is missing.");
+            return DeploymentStepResult.Failed(
+                "Operating system URL is missing.",
+                DeploymentFailure.Guard(
+                    DeploymentOperationNames.ValidateTarget,
+                    DeploymentFailureReasons.InvalidInput,
+                    "missing_operating_system_url"));
         }
 
         if (context.Request.TargetDiskNumber < 0)
         {
-            return DeploymentStepResult.Failed("Target disk number is required.");
+            return DeploymentStepResult.Failed(
+                "Target disk number is required.",
+                DeploymentFailure.Guard(
+                    DeploymentOperationNames.ValidateTargetDisk,
+                    DeploymentFailureReasons.InvalidInput,
+                    "missing_target_disk_number"));
         }
 
         context.EmitCurrentStepIndeterminate(

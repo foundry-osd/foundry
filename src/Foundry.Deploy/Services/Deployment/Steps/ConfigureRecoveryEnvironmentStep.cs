@@ -24,7 +24,7 @@ public sealed class ConfigureRecoveryEnvironmentStep : DeploymentStepBase
             string.IsNullOrWhiteSpace(context.RuntimeState.TargetRecoveryPartitionRoot) ||
             !context.RuntimeState.TargetRecoveryPartitionLetter.HasValue)
         {
-            return DeploymentStepResult.Failed("Recovery partition is unavailable.");
+            return CreateMissingRecoveryPartitionFailure();
         }
 
         string targetFoundryRoot = context.EnsureTargetFoundryRoot();
@@ -53,7 +53,7 @@ public sealed class ConfigureRecoveryEnvironmentStep : DeploymentStepBase
     {
         if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetRecoveryPartitionRoot))
         {
-            return DeploymentStepResult.Failed("Recovery partition is unavailable.");
+            return CreateMissingRecoveryPartitionFailure();
         }
 
         context.EmitCurrentStepIndeterminate("Configuring recovery environment...", "Preparing Windows Recovery Environment...", DeploymentOperationNames.ConfigureRecovery);
@@ -66,4 +66,12 @@ public sealed class ConfigureRecoveryEnvironmentStep : DeploymentStepBase
 
         return DeploymentStepResult.Succeeded("Recovery environment configured (simulation).");
     }
+
+    private static DeploymentStepResult CreateMissingRecoveryPartitionFailure() =>
+        DeploymentStepResult.Failed(
+            "Recovery partition is unavailable.",
+            DeploymentFailure.Guard(
+                DeploymentOperationNames.ConfigureRecovery,
+                DeploymentFailureReasons.MissingResource,
+                "missing_recovery_partition"));
 }
