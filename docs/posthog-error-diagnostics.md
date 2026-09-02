@@ -1,6 +1,6 @@
 # Remote error diagnostics
 
-Foundry can send sanitized operational logs and exception details to PostHog when **Send error diagnostics** is enabled in Settings. This consent is separate from anonymous product telemetry and is disabled by default. Generated Foundry Connect and Foundry Deploy configurations carry the same choice.
+Foundry can send sanitized operational logs and exception details to PostHog when **Enable remote diagnostics** is enabled in Settings. This preference is separate from anonymous product telemetry and is enabled by default. Generated Foundry Connect and Foundry Deploy configurations carry the same choice.
 
 ## Data boundary
 

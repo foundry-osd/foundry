@@ -90,4 +90,4 @@ Code contributions are welcome. Read the [contributing guide](CONTRIBUTING.md) b
 
 ---
 
-Foundry is available under the [MIT License](LICENSE). Anonymous usage telemetry is enabled by default and can be disabled in Settings. Optional remote error diagnostics are controlled by a separate, default-off setting. See [Telemetry and privacy](https://docs.foundryosd.com/reference/telemetry-and-privacy), [remote error diagnostics](docs/posthog-error-diagnostics.md), [Third-Party Notices](THIRD_PARTY_NOTICES.md), and the [Code of Conduct](CODE_OF_CONDUCT.md).
+Foundry is available under the [MIT License](LICENSE). Anonymous usage telemetry and remote error diagnostics are enabled by default and can be disabled independently in Settings. See [Telemetry and privacy](https://docs.foundryosd.com/reference/telemetry-and-privacy), [remote error diagnostics](docs/posthog-error-diagnostics.md), [Third-Party Notices](THIRD_PARTY_NOTICES.md), and the [Code of Conduct](CODE_OF_CONDUCT.md).

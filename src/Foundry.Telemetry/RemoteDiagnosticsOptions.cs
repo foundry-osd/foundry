@@ -7,7 +7,7 @@ namespace Foundry.Telemetry;
 /// <summary>
 /// Describes runtime configuration for privacy-filtered remote diagnostics.
 /// </summary>
-/// <param name="IsEnabled">Whether the user explicitly enabled remote diagnostics.</param>
+/// <param name="IsEnabled">Whether remote diagnostics are enabled.</param>
 /// <param name="HostUrl">PostHog ingestion host.</param>
 /// <param name="ProjectToken">Public PostHog project token.</param>
 /// <param name="InstallId">Anonymous installation identifier.</param>
@@ -18,7 +18,7 @@ public sealed record RemoteDiagnosticsOptions(
     string InstallId)
 {
     /// <summary>
-    /// Gets whether the exporter has complete configuration and user consent.
+    /// Gets whether the exporter has complete configuration and diagnostics are enabled.
     /// </summary>
     public bool CanSend =>
         IsEnabled &&

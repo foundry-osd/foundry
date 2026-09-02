@@ -231,7 +231,7 @@ public sealed class TelemetryAppSettings
     /// <summary>
     /// Gets or sets a value indicating whether sanitized remote diagnostics are enabled.
     /// </summary>
-    public bool IsRemoteDiagnosticsEnabled { get; set; }
+    public bool IsRemoteDiagnosticsEnabled { get; set; } = true;
 
     /// <summary>
     /// Gets or sets the random anonymous installation identifier used for telemetry.

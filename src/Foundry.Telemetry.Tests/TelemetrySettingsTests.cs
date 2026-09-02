@@ -14,7 +14,7 @@ public sealed class TelemetrySettingsTests
         var settings = new TelemetrySettings();
 
         Assert.True(settings.IsEnabled);
-        Assert.False(settings.IsRemoteDiagnosticsEnabled);
+        Assert.True(settings.IsRemoteDiagnosticsEnabled);
         Assert.Equal(TelemetryDefaults.PostHogEuHost, settings.HostUrl);
         Assert.Equal(TelemetryDefaults.ProjectToken, settings.ProjectToken);
     }

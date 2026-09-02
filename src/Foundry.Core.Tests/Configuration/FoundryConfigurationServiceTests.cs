@@ -164,7 +164,7 @@ public sealed class FoundryConfigurationServiceTests
     }
 
     [Fact]
-    public void Deserialize_WhenRemoteDiagnosticsConsentIsMissing_DefaultsToDisabled()
+    public void Deserialize_WhenRemoteDiagnosticsConsentIsMissing_DefaultsToEnabled()
     {
         var service = new FoundryConfigurationService();
 
@@ -177,7 +177,7 @@ public sealed class FoundryConfigurationServiceTests
             }
             """);
 
-        Assert.False(loaded.Telemetry.IsRemoteDiagnosticsEnabled);
+        Assert.True(loaded.Telemetry.IsRemoteDiagnosticsEnabled);
     }
 
     [Fact]

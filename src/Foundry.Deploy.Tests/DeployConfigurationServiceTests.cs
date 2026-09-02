@@ -12,7 +12,7 @@ namespace Foundry.Deploy.Tests;
 public sealed class DeployConfigurationServiceTests
 {
     [Fact]
-    public void LoadOptional_WhenRemoteDiagnosticsConsentIsMissing_DefaultsToDisabled()
+    public void LoadOptional_WhenRemoteDiagnosticsConsentIsMissing_DefaultsToEnabled()
     {
         using var tempDirectory = new TemporaryDirectory();
         string configurationPath = CreateJsonFile(
@@ -26,7 +26,7 @@ public sealed class DeployConfigurationServiceTests
         DeployConfigurationLoadResult result = service.LoadOptional();
 
         Assert.NotNull(result.Document);
-        Assert.False(result.Document.Telemetry.IsRemoteDiagnosticsEnabled);
+        Assert.True(result.Document.Telemetry.IsRemoteDiagnosticsEnabled);
     }
 
     [Fact]

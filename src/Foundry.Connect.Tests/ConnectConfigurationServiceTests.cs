@@ -156,7 +156,7 @@ public sealed class ConnectConfigurationServiceTests
     }
 
     [Fact]
-    public void Load_WhenRemoteDiagnosticsConsentIsMissing_DefaultsToDisabled()
+    public void Load_WhenRemoteDiagnosticsConsentIsMissing_DefaultsToEnabled()
     {
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
         using var tempDirectory = new TemporaryDirectory();
@@ -168,7 +168,7 @@ public sealed class ConnectConfigurationServiceTests
 
         FoundryConnectConfiguration configuration = service.Load();
 
-        Assert.False(configuration.Telemetry.IsRemoteDiagnosticsEnabled);
+        Assert.True(configuration.Telemetry.IsRemoteDiagnosticsEnabled);
     }
 
     [Fact]
