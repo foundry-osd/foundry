@@ -2040,6 +2040,12 @@
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Στρατηγός</value>
   </data>
+  <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
+    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded.</value>
+  </data>
+  <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
+    <value>Enable remote diagnostics</value>
+  </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
     <value>Στείλτε ανώνυμη τηλεμετρία χρήσης για να βοηθήσετε στη βελτίωση του Foundry. Τα μυστικά και τα άμεσα αναγνωριστικά συσκευής, συμπεριλαμβανομένων των σειριακών αριθμών και των κατακερματισμών υλικού, εξαιρούνται. Η τηλεμετρία χρησιμοποιεί ένα ανώνυμο αναγνωριστικό εγκατάστασης και μπορεί να περιλαμβάνει τον κατασκευαστή και το μοντέλο της συσκευής.</value>
   </data>

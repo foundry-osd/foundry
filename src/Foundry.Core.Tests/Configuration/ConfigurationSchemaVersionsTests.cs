@@ -28,8 +28,15 @@ public sealed class ConfigurationSchemaVersionsTests
     [Fact]
     public void CurrentSchemaVersions_MatchNextPublishedContractVersions()
     {
-        Assert.Equal(13, ConfigurationSchemaVersions.FoundryCurrent);
-        Assert.Equal(11, ConfigurationSchemaVersions.DeployCurrent);
-        Assert.Equal(3, ConfigurationSchemaVersions.ConnectCurrent);
+        Assert.Equal(14, ConfigurationSchemaVersions.FoundryCurrent);
+        Assert.Equal(12, ConfigurationSchemaVersions.DeployCurrent);
+        Assert.Equal(4, ConfigurationSchemaVersions.ConnectCurrent);
+    }
+
+    [Fact]
+    public void PreviousPublishedMediaSchemas_RecommendBootMediaUpdate()
+    {
+        Assert.True(ConfigurationSchemaVersions.IsBootMediaUpdateRecommended(3, ConfigurationSchemaVersions.ConnectCurrent));
+        Assert.True(ConfigurationSchemaVersions.IsBootMediaUpdateRecommended(11, ConfigurationSchemaVersions.DeployCurrent));
     }
 }

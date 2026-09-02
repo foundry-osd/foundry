@@ -1501,6 +1501,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         return new TelemetrySettings
         {
             IsEnabled = appSettingsService.Current.Telemetry.IsEnabled,
+            IsRemoteDiagnosticsEnabled = appSettingsService.Current.Telemetry.IsRemoteDiagnosticsEnabled,
             InstallId = appSettingsService.Current.Telemetry.InstallId,
             HostUrl = TelemetryDefaults.PostHogEuHost,
             ProjectToken = TelemetryDefaults.ProjectToken,

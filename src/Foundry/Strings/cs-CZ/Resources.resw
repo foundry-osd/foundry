@@ -2040,6 +2040,12 @@
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Generál</value>
   </data>
+  <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
+    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded.</value>
+  </data>
+  <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
+    <value>Enable remote diagnostics</value>
+  </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
     <value>Odesílejte anonymní telemetrii používání, která pomůže zlepšit Foundry. Tajné údaje a přímé identifikátory zařízení, včetně sériových čísel a hardwarových hashů, jsou vyloučeny. Telemetrie používá anonymní identifikátor instalace a může zahrnovat výrobce a model zařízení.</value>
   </data>

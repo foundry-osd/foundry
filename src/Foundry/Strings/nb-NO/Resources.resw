@@ -2040,6 +2040,12 @@
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Generelt</value>
   </data>
+  <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
+    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded.</value>
+  </data>
+  <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
+    <value>Enable remote diagnostics</value>
+  </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
     <value>Send anonym brukstelemetri for å forbedre Foundry. Hemmeligheter og direkte enhetsidentifikatorer, inkludert serienumre og maskinvarehasher, utelates. Telemetrien bruker en anonym installasjons-ID og kan inneholde enhetsprodusent og modell.</value>
   </data>

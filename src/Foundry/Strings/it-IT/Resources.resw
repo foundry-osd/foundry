@@ -2040,6 +2040,12 @@
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Generale</value>
   </data>
+  <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
+    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded.</value>
+  </data>
+  <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
+    <value>Enable remote diagnostics</value>
+  </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
     <value>Invia dati anonimi di telemetria sull’utilizzo per contribuire a migliorare Foundry. I segreti e gli identificatori diretti del dispositivo, inclusi i numeri di serie e gli hash hardware, sono esclusi. La telemetria utilizza un identificatore di installazione anonimo e può includere il produttore e il modello del dispositivo.</value>
   </data>

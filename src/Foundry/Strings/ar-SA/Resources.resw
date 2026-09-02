@@ -2040,6 +2040,12 @@
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>عام</value>
   </data>
+  <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
+    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded.</value>
+  </data>
+  <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
+    <value>Enable remote diagnostics</value>
+  </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
     <value>أرسل بيانات قياس استخدام مجهولة للمساعدة في تحسين Foundry. تُستبعد الأسرار ومعرّفات الأجهزة المباشرة، بما في ذلك الأرقام التسلسلية وبصمات الأجهزة. تستخدم بيانات القياس معرّف تثبيت مجهولًا وقد تتضمن الشركة المصنّعة للجهاز وطرازه.</value>
   </data>
