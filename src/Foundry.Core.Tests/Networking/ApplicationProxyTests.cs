@@ -59,6 +59,14 @@ public sealed class ApplicationProxyTests
         Assert.Equal(updated.Endpoint, existingReference.GetProxy(new Uri("https://github.com")));
     }
 
+    [Fact]
+    public void MutableProxy_RejectsSelfReference()
+    {
+        var proxy = new MutableApplicationProxy(new StubProxy(new Uri("http://system-proxy:8080")));
+
+        Assert.Throws<ArgumentException>(() => proxy.Update(proxy));
+    }
+
     private sealed class StubProxy(Uri endpoint) : IWebProxy
     {
         public Uri Endpoint { get; } = endpoint;

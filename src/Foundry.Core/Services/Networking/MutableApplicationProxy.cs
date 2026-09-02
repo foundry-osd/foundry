@@ -32,6 +32,11 @@ public sealed class MutableApplicationProxy : IWebProxy
     public void Update(IWebProxy proxy)
     {
         ArgumentNullException.ThrowIfNull(proxy);
+        if (ReferenceEquals(this, proxy))
+        {
+            throw new ArgumentException("A mutable proxy cannot reference itself.", nameof(proxy));
+        }
+
         Volatile.Write(ref current, proxy);
     }
 }

@@ -32,6 +32,7 @@ internal sealed class ApplicationProxyService : IApplicationProxyService
 
     private readonly IAppSettingsService appSettingsService;
     private readonly IProxyCredentialStore credentialStore;
+    private readonly IWebProxy systemProxy;
     private readonly MutableApplicationProxy proxy;
     private readonly ILogger logger;
 
@@ -43,7 +44,8 @@ internal sealed class ApplicationProxyService : IApplicationProxyService
         this.appSettingsService = appSettingsService;
         this.credentialStore = credentialStore;
         this.logger = logger.ForContext<ApplicationProxyService>();
-        proxy = new MutableApplicationProxy(CreateSystemProxy());
+        systemProxy = WebRequest.GetSystemWebProxy();
+        proxy = new MutableApplicationProxy(systemProxy);
         HttpClient.DefaultProxy = proxy;
         ProxyCredential? credential = null;
         try
@@ -131,7 +133,7 @@ internal sealed class ApplicationProxyService : IApplicationProxyService
     {
         return settings.Method switch
         {
-            ProxyMethod.System => CreateSystemProxy(),
+            ProxyMethod.System => systemProxy,
             ProxyMethod.Direct => ApplicationProxyFactory.CreateDirect(),
             ProxyMethod.Manual => ApplicationProxyFactory.CreateManual(
                 settings.Address,
@@ -139,13 +141,8 @@ internal sealed class ApplicationProxyService : IApplicationProxyService
                 settings.BypassLocalAddresses,
                 settings.BypassList,
                 CreateCredentials(settings.AuthenticationMode, credential)),
-            _ => CreateSystemProxy()
+            _ => systemProxy
         };
-    }
-
-    private static IWebProxy CreateSystemProxy()
-    {
-        return WebRequest.GetSystemWebProxy();
     }
 
     private void DeleteStoredCredential()
