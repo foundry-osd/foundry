@@ -123,6 +123,26 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
     }
 
     [Fact]
+    public async Task Emit_RateLimitsRepeatedFingerprintAcrossOperations()
+    {
+        var exporter = new RecordingExporter();
+        await using var service = CreateService(exporter);
+        service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
+
+        for (int index = 0; index < 8; index++)
+        {
+            service.Emit(RemoteDiagnosticsTestData.LogEvent(
+                LogEventLevel.Warning,
+                "same warning",
+                properties: ("OperationId", $"operation-{index}")));
+        }
+
+        await service.FlushAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal(5, exporter.Records.Count);
+    }
+
+    [Fact]
     public async Task Emit_WhenQueueIsFull_DropsWithoutBlocking()
     {
         var exporter = new BlockingExporter();

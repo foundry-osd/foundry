@@ -208,14 +208,13 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService
     private bool TryAcquireFingerprint(LogEvent logEvent)
     {
         string exceptionType = logEvent.Exception?.GetType().FullName ?? string.Empty;
-        string operation = GetScalarText(logEvent, "OperationId");
         string failureCode = GetScalarText(logEvent, "FailureCode");
         if (string.IsNullOrEmpty(failureCode))
         {
             failureCode = GetScalarText(logEvent, "ErrorCode");
         }
 
-        string fingerprint = string.Join('|', logEvent.Level, logEvent.MessageTemplate.Text, exceptionType, operation, failureCode);
+        string fingerprint = string.Join('|', logEvent.Level, logEvent.MessageTemplate.Text, exceptionType, failureCode);
         DateTimeOffset now = _timeProvider.GetUtcNow();
         lock (_gate)
         {

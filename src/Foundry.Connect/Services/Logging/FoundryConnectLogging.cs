@@ -4,6 +4,7 @@
 
 using System.IO;
 using Foundry.Connect.Services.Runtime;
+using Foundry.Telemetry;
 using Foundry.Utilities.IO;
 using Foundry.Utilities.Diagnostics;
 using Serilog;
@@ -34,7 +35,8 @@ internal static class FoundryConnectLogging
             "Foundry.Connect",
             DiagnosticSessionContext.CurrentSessionId,
             LogEventLevel.Debug,
-            RetainedLogFileCount);
+            RetainedLogFileCount,
+            additionalSink: RemoteDiagnosticsSink.Instance);
 
         CurrentLogFilePath = normalizedLogFilePath;
         return logger;
