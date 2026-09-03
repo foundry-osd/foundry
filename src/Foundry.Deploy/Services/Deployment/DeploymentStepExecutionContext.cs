@@ -352,13 +352,22 @@ public sealed class DeploymentStepExecutionContext
         TargetDiskInfo? selectedDisk = disks.FirstOrDefault(disk => disk.DiskNumber == Request.TargetDiskNumber);
         if (selectedDisk is null)
         {
-            return (null, DeploymentStepResult.Failed($"Target disk {Request.TargetDiskNumber} is no longer present."));
+            return (null, DeploymentStepResult.Failed(
+                $"Target disk {Request.TargetDiskNumber} is no longer present.",
+                DeploymentFailure.Guard(
+                    DeploymentOperationNames.ValidateTargetDisk,
+                    DeploymentFailureReasons.MissingResource,
+                    "target_disk_not_found")));
         }
 
         if (!selectedDisk.IsSelectable)
         {
             return (null, DeploymentStepResult.Failed(
-                $"Target disk {Request.TargetDiskNumber} is blocked: {selectedDisk.SelectionWarning}"));
+                $"Target disk {Request.TargetDiskNumber} is blocked: {selectedDisk.SelectionWarning}",
+                DeploymentFailure.Guard(
+                    DeploymentOperationNames.ValidateTargetDisk,
+                    DeploymentFailureReasons.InvalidState,
+                    "target_disk_not_selectable")));
         }
 
         await AppendLogAsync(DeploymentLogLevel.Info, $"Target disk revalidated: {selectedDisk.DisplayLabel}", cancellationToken).ConfigureAwait(false);

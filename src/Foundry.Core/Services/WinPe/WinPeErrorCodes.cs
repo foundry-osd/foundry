@@ -8,6 +8,7 @@ public static class WinPeErrorCodes
 {
     public const string ValidationFailed = "WINPE_VALIDATION_FAILED";
     public const string OperationBusy = "WINPE_OPERATION_BUSY";
+    public const string OperationCancelled = "WINPE_OPERATION_CANCELLED";
     public const string ToolNotFound = "WINPE_TOOL_NOT_FOUND";
     public const string BuildFailed = "WINPE_BUILD_FAILED";
     public const string WimMountFailed = "WINPE_WIM_MOUNT_FAILED";

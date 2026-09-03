@@ -571,7 +571,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         catch (OperationCanceledException ex)
         {
             failureDiagnostic = new WinPeDiagnostic(
-                WinPeErrorCodes.InternalError,
+                WinPeErrorCodes.OperationCancelled,
                 "Boot media creation was cancelled.",
                 ex.ToString(),
                 telemetryProgressTracker.CurrentStepName,

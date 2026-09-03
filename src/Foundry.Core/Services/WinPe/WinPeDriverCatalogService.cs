@@ -55,7 +55,9 @@ public sealed class WinPeDriverCatalogService : IWinPeDriverCatalogService
                 xmlContent = await File.ReadAllTextAsync(options.CatalogUri, cancellationToken).ConfigureAwait(false);
             }
         }
-        catch (Exception ex) when (ex is HttpRequestException or IOException or UnauthorizedAccessException)
+        catch (Exception ex) when (
+            ex is HttpRequestException or IOException or UnauthorizedAccessException ||
+            ex is TaskCanceledException && !cancellationToken.IsCancellationRequested)
         {
             return WinPeResult<IReadOnlyList<WinPeDriverCatalogEntry>>.Failure(
                 WinPeErrorCodes.DriverCatalogFetchFailed,
@@ -65,6 +67,7 @@ public sealed class WinPeDriverCatalogService : IWinPeDriverCatalogService
                 failureReason: ex switch
                 {
                     UnauthorizedAccessException => WinPeFailureReasons.AccessDenied,
+                    TaskCanceledException => WinPeFailureReasons.Timeout,
                     HttpRequestException { StatusCode: not null } => WinPeFailureReasons.HttpStatus,
                     _ => WinPeFailureReasons.Transport
                 },

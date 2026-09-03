@@ -101,12 +101,55 @@ public sealed class DeploymentStepExecutionContextTests
         Assert.Same(originalSession, context.LogSession);
     }
 
+    [Fact]
+    public async Task TryGetValidatedTargetDiskAsync_WhenDiskIsMissing_ReturnsStructuredFailure()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        DeploymentStepExecutionContext context = CreateExecutionContext(
+            workspace.RootPath,
+            Path.Combine(workspace.CacheRootPath, "Runtime"),
+            targetDiskService: new FakeTargetDiskService([]));
+
+        (_, DeploymentStepResult? result) = await context.TryGetValidatedTargetDiskAsync(TestContext.Current.CancellationToken);
+
+        Assert.NotNull(result?.Failure);
+        Assert.Equal(DeploymentOperationNames.ValidateTargetDisk, result.Failure.OperationName);
+        Assert.Equal(DeploymentFailureKinds.Validation, result.Failure.Kind);
+        Assert.Equal(DeploymentFailureReasons.MissingResource, result.Failure.Reason);
+        Assert.Equal("target_disk_not_found", result.Failure.Code);
+    }
+
+    [Fact]
+    public async Task TryGetValidatedTargetDiskAsync_WhenDiskIsBlocked_ReturnsStructuredFailure()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var disk = new TargetDiskInfo
+        {
+            DiskNumber = 1,
+            IsSelectable = false,
+            SelectionWarning = "System disk"
+        };
+        DeploymentStepExecutionContext context = CreateExecutionContext(
+            workspace.RootPath,
+            Path.Combine(workspace.CacheRootPath, "Runtime"),
+            targetDiskService: new FakeTargetDiskService([disk]));
+
+        (_, DeploymentStepResult? result) = await context.TryGetValidatedTargetDiskAsync(TestContext.Current.CancellationToken);
+
+        Assert.NotNull(result?.Failure);
+        Assert.Equal(DeploymentOperationNames.ValidateTargetDisk, result.Failure.OperationName);
+        Assert.Equal(DeploymentFailureKinds.Validation, result.Failure.Kind);
+        Assert.Equal(DeploymentFailureReasons.InvalidState, result.Failure.Reason);
+        Assert.Equal("target_disk_not_selectable", result.Failure.Code);
+    }
+
     private static DeploymentStepExecutionContext CreateExecutionContext(
         string workspaceRoot,
         string resolvedCacheRootPath,
         DeploymentMode mode = DeploymentMode.Usb,
         string? targetFoundryRoot = null,
-        IDeploymentLogService? logService = null)
+        IDeploymentLogService? logService = null,
+        ITargetDiskService? targetDiskService = null)
     {
         var request = new DeploymentContext
         {
@@ -137,7 +180,7 @@ public sealed class DeploymentStepExecutionContextTests
             [],
             new FakeOperationProgressService(),
             logService ?? new FakeDeploymentLogService(),
-            new FakeTargetDiskService(),
+            targetDiskService ?? new FakeTargetDiskService([]),
             _ => { });
     }
 
@@ -243,11 +286,11 @@ public sealed class DeploymentStepExecutionContextTests
         public void ResetToIdle() => ProgressChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    private sealed class FakeTargetDiskService : ITargetDiskService
+    private sealed class FakeTargetDiskService(IReadOnlyList<TargetDiskInfo> disks) : ITargetDiskService
     {
         public Task<IReadOnlyList<TargetDiskInfo>> GetDisksAsync(CancellationToken cancellationToken = default)
         {
-            return Task.FromResult<IReadOnlyList<TargetDiskInfo>>([]);
+            return Task.FromResult(disks);
         }
 
         public Task<int?> GetDiskNumberForPathAsync(string path, CancellationToken cancellationToken = default)

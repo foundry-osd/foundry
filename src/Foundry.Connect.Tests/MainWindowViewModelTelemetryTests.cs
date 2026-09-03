@@ -13,6 +13,7 @@ using Foundry.Connect.Services.Network;
 using Foundry.Connect.Services.Theme;
 using Foundry.Connect.ViewModels;
 using Foundry.Telemetry;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Foundry.Connect.Tests;
@@ -82,10 +83,34 @@ public sealed class MainWindowViewModelTelemetryTests
         Assert.Single(telemetry.Events);
     }
 
+    [Fact]
+    public async Task InitializeAsync_WhenProvisionedSettingsFail_LogsStructuredNetworkFailure()
+    {
+        var telemetry = new RecordingTelemetryService();
+        var logger = new RecordingLogger<MainWindowViewModel>();
+        MainWindowViewModel viewModel = CreateViewModel(
+            telemetry,
+            new QueueNetworkStatusService(CreateReadySnapshot()),
+            networkBootstrapService: new ThrowingNetworkBootstrapService(),
+            logger: logger);
+
+        await viewModel.InitializeAsync();
+        viewModel.Dispose();
+
+        LogEntry entry = Assert.Single(logger.Entries, item => item.Level == LogLevel.Error);
+        Assert.Equal("network.apply_provisioned_settings", entry.Properties["NetworkOperation"]);
+        Assert.Equal("network", entry.Properties["FailureKind"]);
+        Assert.Equal("http_status", entry.Properties["FailureReason"]);
+        Assert.Equal("502", entry.Properties["FailureCode"]);
+        Assert.Equal(true, entry.Properties["RemoteDiagnostic"]);
+    }
+
     private static MainWindowViewModel CreateViewModel(
         RecordingTelemetryService telemetryService,
         INetworkStatusService networkStatusService,
-        RecordingApplicationLifetimeService? lifetimeService = null)
+        RecordingApplicationLifetimeService? lifetimeService = null,
+        INetworkBootstrapService? networkBootstrapService = null,
+        ILogger<MainWindowViewModel>? logger = null)
     {
         lifetimeService ??= new RecordingApplicationLifetimeService(telemetryService);
         var configuration = new FoundryConnectConfiguration
@@ -107,10 +132,10 @@ public sealed class MainWindowViewModelTelemetryTests
             lifetimeService,
             new FakeConnectConfigurationService(configuration),
             configuration,
-            new FakeNetworkBootstrapService(),
+            networkBootstrapService ?? new FakeNetworkBootstrapService(),
             networkStatusService,
             telemetryService,
-            NullLogger<MainWindowViewModel>.Instance);
+            logger ?? NullLogger<MainWindowViewModel>.Instance);
     }
 
     private static NetworkStatusSnapshot CreateReadySnapshot()
@@ -252,4 +277,45 @@ public sealed class MainWindowViewModelTelemetryTests
             return Task.FromResult(string.Empty);
         }
     }
+
+    private sealed class ThrowingNetworkBootstrapService : INetworkBootstrapService
+    {
+        public Task<string> ApplyProvisionedSettingsAsync(CancellationToken cancellationToken) =>
+            Task.FromException<string>(new HttpRequestException("Simulated failure.", null, System.Net.HttpStatusCode.BadGateway));
+
+        public Task<string> ConnectConfiguredWifiAsync(CancellationToken cancellationToken) => Task.FromResult(string.Empty);
+
+        public Task<string> ConnectWifiNetworkAsync(
+            string ssid,
+            string? ssidHex,
+            string authentication,
+            string? passphrase,
+            CancellationToken cancellationToken) => Task.FromResult(string.Empty);
+
+        public Task<string> DisconnectWifiAsync(CancellationToken cancellationToken) => Task.FromResult(string.Empty);
+    }
+
+    private sealed class RecordingLogger<T> : ILogger<T>
+    {
+        public List<LogEntry> Entries { get; } = [];
+
+        public IDisposable? BeginScope<TState>(TState state) where TState : notnull => null;
+
+        public bool IsEnabled(LogLevel logLevel) => true;
+
+        public void Log<TState>(
+            LogLevel logLevel,
+            EventId eventId,
+            TState state,
+            Exception? exception,
+            Func<TState, Exception?, string> formatter)
+        {
+            var properties = state is IEnumerable<KeyValuePair<string, object?>> values
+                ? values.ToDictionary(item => item.Key, item => item.Value, StringComparer.Ordinal)
+                : new Dictionary<string, object?>(StringComparer.Ordinal);
+            Entries.Add(new LogEntry(logLevel, properties));
+        }
+    }
+
+    private sealed record LogEntry(LogLevel Level, IReadOnlyDictionary<string, object?> Properties);
 }

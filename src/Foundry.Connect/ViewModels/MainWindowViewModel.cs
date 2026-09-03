@@ -1230,7 +1230,15 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Provisioned settings initialization failed.");
+            NetworkFailureClassification failure = NetworkTelemetryClassifier.ClassifyFailure(ex);
+            _logger.LogError(
+                ex,
+                "Network operation failed. NetworkOperation={NetworkOperation}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, RemoteDiagnostic={RemoteDiagnostic}",
+                "network.apply_provisioned_settings",
+                failure.Kind,
+                failure.Reason,
+                failure.Code,
+                true);
             await RunOnUiAsync(() => ProvisionedWifiActionFeedbackText = GetString("Wifi.ActionApplyProvisionedFailed")).ConfigureAwait(false);
         }
     }

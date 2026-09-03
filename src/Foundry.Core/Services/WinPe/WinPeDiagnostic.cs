@@ -86,6 +86,7 @@ public sealed record WinPeDiagnostic
         return code switch
         {
             WinPeErrorCodes.ValidationFailed => (WinPeFailureKinds.Validation, WinPeFailureReasons.InvalidInput),
+            WinPeErrorCodes.OperationCancelled => (WinPeFailureKinds.Cancellation, WinPeFailureReasons.Cancelled),
             WinPeErrorCodes.ToolNotFound => (WinPeFailureKinds.Tooling, WinPeFailureReasons.ToolNotFound),
             WinPeErrorCodes.UsbUnsafeTarget or WinPeErrorCodes.UsbIdentityMismatch or WinPeErrorCodes.UsbVerificationFailed =>
                 (WinPeFailureKinds.Validation, WinPeFailureReasons.DiskValidation),
