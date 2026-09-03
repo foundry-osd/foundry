@@ -63,8 +63,7 @@
                                         <wct:SettingsExpander.HeaderIcon>
                                             <FontIcon Glyph="&#xE13D;" />
                                         </wct:SettingsExpander.HeaderIcon>
-                                        <ToggleSwitch
-                                            x:Name="AdministratorAccountToggle"
+                                        <ToggleSwitch x:Name="AdministratorAccountToggle"
                                             behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
                                             IsOn="{x:Bind ViewModel.EnableAdministratorAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                             Toggled="AdministratorAccountToggle_Toggled" />
@@ -107,9 +106,9 @@
                                     </wct:SettingsCard>
 
                                     <wct:SettingsCard
+                                        HorizontalContentAlignment="Stretch"
                                         Header="{x:Bind ViewModel.OobeAdditionalAccountsLabel, Mode=OneWay}"
-                                        IsEnabled="{x:Bind ViewModel.AreOobeAccountControlsAvailable, Mode=OneWay}"
-                                        HorizontalContentAlignment="Stretch">
+                                        IsEnabled="{x:Bind ViewModel.AreOobeAccountControlsAvailable, Mode=OneWay}">
                                         <wct:SettingsCard.HeaderIcon>
                                             <FontIcon Glyph="&#xE716;" />
                                         </wct:SettingsCard.HeaderIcon>
