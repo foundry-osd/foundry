@@ -106,6 +106,25 @@ public sealed class RemoteDiagnosticPropertyPolicyTests
     }
 
     [Fact]
+    public void CreateSanitizedRecord_RedactsNonHttpUrisAndCommonAuthLabels()
+    {
+        LogEvent source = CreateLogEvent(
+            LogEventLevel.Error,
+            "Failed to open file://server/share/boot.wim from ms-appx:///Assets/Secrets.json using AccessToken=secret RefreshToken=refresh ClientSecret=client-value",
+            new InvalidOperationException("custom+tool://tenant/resource AccessToken=secret RefreshToken=refresh ClientSecret=client-value"));
+
+        RemoteDiagnosticRecord result = RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(source, CreateContext());
+
+        Assert.Contains("<redacted:uri>", result.Body, StringComparison.Ordinal);
+        Assert.DoesNotContain("file://", result.Body, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("ms-appx://", result.Body, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("custom+tool://", result.Exception!.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("AccessToken=secret", result.Body, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("RefreshToken=refresh", result.Body, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("client-value", result.Exception.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
     public void CreateSanitizedRecord_RendersApprovedPropertiesAndRedactsRejectedValues()
     {
         LogEvent source = CreateLogEvent(

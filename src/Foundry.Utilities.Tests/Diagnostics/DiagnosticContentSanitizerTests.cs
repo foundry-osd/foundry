@@ -36,6 +36,24 @@ public sealed class DiagnosticContentSanitizerTests
     }
 
     [Fact]
+    public void Sanitize_RedactsAdditionalUriSchemesAndCredentialLabels()
+    {
+        string actual = DiagnosticContentSanitizer.Sanitize(
+            "file://server/share/boot.wim ms-appx:///Assets/Secrets.json custom+tool://tenant/resource AccessToken=secret RefreshToken=\"refresh\" ClientSecret: client-value");
+
+        Assert.DoesNotContain("file://", actual, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("ms-appx://", actual, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("custom+tool://", actual, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("AccessToken=secret", actual, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("RefreshToken=\"refresh\"", actual, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("client-value", actual, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("<redacted:uri>", actual, StringComparison.Ordinal);
+        Assert.Contains("AccessToken=<redacted>", actual, StringComparison.Ordinal);
+        Assert.Contains("RefreshToken=<redacted>", actual, StringComparison.Ordinal);
+        Assert.Contains("ClientSecret=<redacted>", actual, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void Sanitize_TruncatesLongValuesDeterministically()
     {
         string actual = DiagnosticContentSanitizer.Sanitize(new string('a', 50), maximumLength: 20);

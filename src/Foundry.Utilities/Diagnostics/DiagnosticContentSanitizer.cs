@@ -60,18 +60,24 @@ public static partial class DiagnosticContentSanitizer
     {
         string trimmed = value.TrimEnd('.', ',', ';', ')', ']', '}');
         string suffix = value[trimmed.Length..];
-        return Uri.TryCreate(trimmed, UriKind.Absolute, out Uri? uri)
+        if (!Uri.TryCreate(trimmed, UriKind.Absolute, out Uri? uri))
+        {
+            return "<redacted:uri>" + suffix;
+        }
+
+        return uri.Scheme.Equals(Uri.UriSchemeHttp, StringComparison.OrdinalIgnoreCase) ||
+               uri.Scheme.Equals(Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase)
             ? LogValueSanitizer.SanitizeUri(uri) + suffix
             : "<redacted:uri>" + suffix;
     }
 
-    [GeneratedRegex("https?://[^\\s\\\"'<>]+", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
+    [GeneratedRegex("\\b[A-Za-z][A-Za-z0-9+.-]*://[^\\s\\\"'<>]+", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
     private static partial Regex UriPattern();
 
     [GeneratedRegex("\\bBearer\\s+[^\\s,;|}]+", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
     private static partial Regex BearerTokenPattern();
 
-    [GeneratedRegex("\\b(Authorization|ApiKey|Token|Password|Passphrase|Secret|PrivateKey|MediaSecretKey|TenantId|Application(?:Object)?Id|DeviceId|Serial(?:Number)?|HardwareHash|(?:Target)?ComputerName|GroupTag|Ssid|MacAddress|IpAddress)\\s*[=:]\\s*(?:\\\"[^\\\"]*\\\"|'[^']*'|[^\\s,;|}]+)", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
+    [GeneratedRegex("\\b(Authorization|ApiKey|AccessToken|RefreshToken|Token|Password|Passphrase|Secret|ClientSecret|PrivateKey|MediaSecretKey|TenantId|Application(?:Object)?Id|DeviceId|Serial(?:Number)?|HardwareHash|(?:Target)?ComputerName|GroupTag|Ssid|MacAddress|IpAddress)\\s*[=:]\\s*(?:\\\"[^\\\"]*\\\"|'[^']*'|[^\\s,;|}]+)", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
     private static partial Regex SensitivePropertyPattern();
 
     [GeneratedRegex("\\b(Target computer name (?:configured|resolved|selected)\\s*:\\s*)[^\\s.,;|}]+", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]

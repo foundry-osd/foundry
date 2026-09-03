@@ -265,16 +265,20 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 LogsDirectoryPath = ResolveLogsDirectory(executionContext)
             };
         }
-        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        catch (OperationCanceledException ex) when (cancellationToken.IsCancellationRequested)
         {
             _operationProgressService.Fail("Deployment cancelled.");
+            string failedStepName = ResolveFailedStepName(runtimeState);
+            DeploymentFailure cancellationFailure = DeploymentFailureClassifier.Classify(
+                ex,
+                runtimeState.CurrentOperation);
+            ApplyTerminalFailure(runtimeState, failedStepName, cancellationFailure);
             if (executionContext is not null)
             {
                 await executionContext.TrySaveRuntimeStateAsync(CancellationToken.None).ConfigureAwait(false);
                 await TryRebindLogsToFinalTargetAsync(executionContext, CancellationToken.None).ConfigureAwait(false);
                 await executionContext.TrySaveRuntimeStateAsync(CancellationToken.None).ConfigureAwait(false);
             }
-            string failedStepName = ResolveFailedStepName(runtimeState);
             LogTerminalOutcome(
                 LogLevel.Warning,
                 exception: null,
@@ -310,10 +314,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 ex,
                 runtimeState.CurrentOperation);
             string failedStepName = ResolveFailedStepName(runtimeState);
-            runtimeState.LastFailureStep = failedStepName;
-            runtimeState.LastFailureKind = failure.Kind;
-            runtimeState.LastFailureReason = failure.Reason;
-            runtimeState.LastFailureCode = failure.Code;
+            ApplyTerminalFailure(runtimeState, failedStepName, failure);
             _operationProgressService.Fail("Deployment failed.");
             if (executionContext is not null)
             {
@@ -568,5 +569,16 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         }
 
         return executionContext?.ResolveWorkspaceLogsPath() ?? string.Empty;
+    }
+
+    private static void ApplyTerminalFailure(
+        DeploymentRuntimeState runtimeState,
+        string failedStepName,
+        DeploymentFailure failure)
+    {
+        runtimeState.LastFailureStep = failedStepName;
+        runtimeState.LastFailureKind = failure.Kind;
+        runtimeState.LastFailureReason = failure.Reason;
+        runtimeState.LastFailureCode = failure.Code;
     }
 }

@@ -193,7 +193,7 @@ public static partial class RemoteDiagnosticPropertyPolicy
         return DiagnosticContentSanitizer.Sanitize(withoutPaths, maximumLength);
     }
 
-    [GeneratedRegex("https?://[^\\s\\\"'<>]+", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
+    [GeneratedRegex("\\b[A-Za-z][A-Za-z0-9+.-]*://[^\\s\\\"'<>]+", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
     private static partial Regex UriPattern();
 
     [GeneratedRegex("(?<![A-Za-z0-9])(?:[A-Za-z]:\\\\|\\\\\\\\)[^\\r\\n\\\"<>|]+", RegexOptions.CultureInvariant)]

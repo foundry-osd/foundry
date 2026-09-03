@@ -122,7 +122,7 @@ public sealed class DeploymentOrchestratorTests
             TargetComputerName = "LAB01",
             OperatingSystem = new OperatingSystemCatalogItem(),
             DriverPackSelectionKind = DriverPackSelectionKind.None
-        });
+        }, TestContext.Current.CancellationToken);
 
         string expectedFinalLogsPath = Path.Combine(targetWindowsRoot, "Windows", "Temp", "Foundry", "Logs");
         Assert.False(result.IsSuccess);
@@ -175,7 +175,7 @@ public sealed class DeploymentOrchestratorTests
             {
                 DefaultGroupTag = "Sales"
             }
-        });
+        }, TestContext.Current.CancellationToken);
 
         TelemetryEvent telemetryEvent = Assert.Single(telemetryService.Events);
         Assert.Equal(TelemetryEvents.DeploySessionFinished, telemetryEvent.Name);
@@ -354,6 +354,12 @@ public sealed class DeploymentOrchestratorTests
 
         Assert.False(result.IsSuccess);
         Assert.Contains(logService.SavedStates, state => state.CurrentOperation == "os_image.download");
+        DeploymentStateSnapshot terminal = logService.SavedStates.Last();
+        Assert.Equal("os_image.download", terminal.CurrentOperation);
+        Assert.Equal(DeploymentStepNames.DownloadOperatingSystemImage, terminal.LastFailureStep);
+        Assert.Equal(DeploymentFailureKinds.Timeout, terminal.LastFailureKind);
+        Assert.Equal(DeploymentFailureReasons.DeadlineExceeded, terminal.LastFailureReason);
+        Assert.Null(terminal.LastFailureCode);
         TelemetryEvent telemetryEvent = Assert.Single(telemetryService.Events);
         Assert.True((bool)telemetryEvent.Properties["deploy_session_cancelled"]!);
         Assert.False((bool)telemetryEvent.Properties["deploy_session_success"]!);
@@ -364,9 +370,12 @@ public sealed class DeploymentOrchestratorTests
     }
 
     [Theory]
-    [InlineData(1)]
-    [InlineData(3)]
-    public async Task RunAsync_WhenCancellationOccursDuringRuntimeStatePersistence_RecoversFinalPersistence(int cancelledSaveCallNumber)
+    [InlineData(1, DeploymentStepNames.GatherDeploymentVariables, DeploymentOperationNames.GatherVariables)]
+    [InlineData(3, DeploymentStepNames.GatherDeploymentVariables, DeploymentOperationNames.DownloadOperatingSystemImage)]
+    public async Task RunAsync_WhenCancellationOccursDuringRuntimeStatePersistence_RecoversFinalPersistence(
+        int cancelledSaveCallNumber,
+        string expectedFailureStep,
+        string expectedCurrentOperation)
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
         using var cancellation = new CancellationTokenSource();
@@ -400,6 +409,12 @@ public sealed class DeploymentOrchestratorTests
         Assert.Equal("cancelled", terminalLog.Properties["Outcome"]);
         Assert.Equal(true, terminalLog.Properties["Cancelled"]);
         Assert.True(logService.SuccessfulBestEffortSaveCount >= 2);
+        DeploymentStateSnapshot terminal = logService.SavedStates.Last();
+        Assert.Equal(expectedCurrentOperation, terminal.CurrentOperation);
+        Assert.Equal(expectedFailureStep, terminal.LastFailureStep);
+        Assert.Equal(DeploymentFailureKinds.Timeout, terminal.LastFailureKind);
+        Assert.Equal(DeploymentFailureReasons.DeadlineExceeded, terminal.LastFailureReason);
+        Assert.Null(terminal.LastFailureCode);
         Assert.Equal(
             [logService.SaveCallCount - 1, logService.SaveCallCount],
             logService.BestEffortSaveCallNumbers.Skip(Math.Max(0, logService.BestEffortSaveCallNumbers.Count - 2)).ToArray());
@@ -439,7 +454,7 @@ public sealed class DeploymentOrchestratorTests
                 AutomaticRebootEnabled = automaticRebootEnabled,
                 AutomaticRebootDelaySeconds = delaySeconds
             }
-        });
+        }, TestContext.Current.CancellationToken);
 
         TelemetryEvent telemetryEvent = Assert.Single(telemetryService.Events);
 
@@ -650,6 +665,8 @@ public sealed class DeploymentOrchestratorTests
 
         public List<int> BestEffortSaveCallNumbers { get; } = [];
 
+        public List<DeploymentStateSnapshot> SavedStates { get; } = [];
+
         public DeploymentLogSession Initialize(string rootPath)
         {
             string logsDirectory = Path.Combine(rootPath, "Logs");
@@ -688,6 +705,16 @@ public sealed class DeploymentOrchestratorTests
             {
                 SuccessfulBestEffortSaveCount++;
                 BestEffortSaveCallNumbers.Add(SaveCallCount);
+            }
+
+            if (state is DeploymentRuntimeState runtimeState)
+            {
+                SavedStates.Add(new DeploymentStateSnapshot(
+                    runtimeState.CurrentOperation,
+                    runtimeState.LastFailureStep,
+                    runtimeState.LastFailureKind,
+                    runtimeState.LastFailureReason,
+                    runtimeState.LastFailureCode));
             }
 
             Directory.CreateDirectory(session.StateDirectoryPath);
