@@ -82,51 +82,141 @@
                         Header="{x:Bind ViewModel.MachineNamingComponentsLabel, Mode=OneWay}"
                         Visibility="{x:Bind ViewModel.ComposedMachineNamingVisibility, Mode=OneWay}">
                         <StackPanel
-                            MaxWidth="{ThemeResource FoundrySettingsControlMaxWidth}"
+                            MaxWidth="{ThemeResource FoundryContentMaxWidth}"
                             HorizontalAlignment="Stretch"
-                            Spacing="{ThemeResource FoundrySpace12}">
-                            <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="{ThemeResource FoundrySettingsActionMinWidth}" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <ComboBox
-                                    HorizontalAlignment="Stretch"
-                                    AutomationProperties.Name="{x:Bind ViewModel.MachineNamingAddComponentText, Mode=OneWay}"
-                                    ItemsSource="{x:Bind ViewModel.AvailableMachineNameComponentTypes, Mode=OneWay}"
-                                    SelectedItem="{x:Bind ViewModel.SelectedAvailableMachineNameComponent, Mode=TwoWay}">
-                                    <ComboBox.ItemTemplate>
-                                        <DataTemplate x:DataType="viewModels:MachineNameComponentChoice">
+                            Spacing="{ThemeResource FoundrySpace16}">
+                            <Border
+                                Padding="{ThemeResource FoundryDefaultContentPadding}"
+                                Background="{ThemeResource FoundrySurfaceBrush}"
+                                BorderBrush="{ThemeResource FoundrySurfaceBorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="{ThemeResource FoundryCardCornerRadius}">
+                                <Grid
+                                    ColumnSpacing="{ThemeResource FoundrySpace16}"
+                                    RowSpacing="{ThemeResource FoundrySpace12}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <ComboBox
+                                        MinWidth="{ThemeResource FoundrySettingsActionMinWidth}"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Center"
+                                        AutomationProperties.Name="{x:Bind ViewModel.MachineNamingAddComponentText, Mode=OneWay}"
+                                        ItemsSource="{x:Bind ViewModel.AvailableMachineNameComponentTypes, Mode=OneWay}"
+                                        SelectedItem="{x:Bind ViewModel.SelectedAvailableMachineNameComponent, Mode=TwoWay}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate x:DataType="viewModels:MachineNameComponentChoice">
+                                                <TextBlock
+                                                    Text="{x:Bind DisplayName, Mode=OneTime}"
+                                                    TextWrapping="Wrap" />
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                    <Button
+                                        Grid.Column="1"
+                                        MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                                        VerticalAlignment="Center"
+                                        Click="AddComponentButton_Click"
+                                        Content="{x:Bind ViewModel.MachineNamingAddComponentText, Mode=OneWay}"
+                                        IsEnabled="{x:Bind ViewModel.CanAddMachineNameComponent, Mode=OneWay}"
+                                        Style="{StaticResource AccentButtonStyle}" />
+                                    <TextBlock
+                                        Grid.Column="2"
+                                        MaxWidth="{ThemeResource FoundrySettingsActionMinWidth}"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                        Text="{x:Bind ViewModel.MachineNamingBudgetText, Mode=OneWay}"
+                                        TextAlignment="Right"
+                                        TextWrapping="WrapWholeWords" />
+
+                                    <Grid
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="3"
+                                        ColumnSpacing="{ThemeResource FoundrySpace16}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel
+                                            Width="{ThemeResource FoundryCompactInputMinWidth}"
+                                            Spacing="{ThemeResource FoundrySpace4}">
                                             <TextBlock
-                                                Text="{x:Bind DisplayName, Mode=OneTime}"
-                                                TextWrapping="Wrap" />
-                                        </DataTemplate>
-                                    </ComboBox.ItemTemplate>
-                                </ComboBox>
-                                <Button
-                                    Grid.Column="1"
-                                    MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
-                                    Click="AddComponentButton_Click"
-                                    Content="{x:Bind ViewModel.MachineNamingAddComponentText, Mode=OneWay}"
-                                    IsEnabled="{x:Bind ViewModel.CanAddMachineNameComponent, Mode=OneWay}"
-                                    Style="{StaticResource AccentButtonStyle}" />
-                                <TextBlock
-                                    Grid.Column="2"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                    Style="{ThemeResource FoundryCaptionTextBlockStyle}"
-                                    Text="{x:Bind ViewModel.MachineNamingBudgetText, Mode=OneWay}"
-                                    TextWrapping="WrapWholeWords" />
-                            </Grid>
+                                                Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                                Text="{x:Bind ViewModel.MachineNamingSeparatorLabel, Mode=OneWay}" />
+                                            <ComboBox
+                                                HorizontalAlignment="Stretch"
+                                                ItemsSource="{x:Bind ViewModel.MachineNameSeparatorChoices, Mode=OneWay}"
+                                                SelectedItem="{x:Bind ViewModel.SelectedMachineNameSeparator, Mode=TwoWay}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate x:DataType="viewModels:MachineNameSeparatorChoice">
+                                                        <TextBlock
+                                                            Text="{x:Bind DisplayName, Mode=OneTime}"
+                                                            TextWrapping="Wrap" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            Width="{ThemeResource FoundryCompactInputMinWidth}"
+                                            Spacing="{ThemeResource FoundrySpace4}">
+                                            <TextBlock
+                                                Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                                Text="{x:Bind ViewModel.MachineNamingCasingLabel, Mode=OneWay}" />
+                                            <ComboBox
+                                                HorizontalAlignment="Stretch"
+                                                ItemsSource="{x:Bind ViewModel.MachineNameCasingChoices, Mode=OneWay}"
+                                                SelectedItem="{x:Bind ViewModel.SelectedMachineNameCasing, Mode=TwoWay}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate x:DataType="viewModels:MachineNameCasingChoice">
+                                                        <TextBlock
+                                                            Text="{x:Bind DisplayName, Mode=OneTime}"
+                                                            TextWrapping="Wrap" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel
+                                            Grid.Column="2"
+                                            HorizontalAlignment="Stretch"
+                                            Spacing="{ThemeResource FoundrySpace4}">
+                                            <TextBlock
+                                                Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                                Text="{x:Bind ViewModel.MachineNamingPreviewLabel, Mode=OneWay}" />
+                                            <TextBlock
+                                                HorizontalAlignment="Right"
+                                                Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                                Text="{x:Bind ViewModel.MachineNamingPreview, Mode=OneWay}"
+                                                TextAlignment="Right"
+                                                TextWrapping="WrapWholeWords" />
+                                            <TextBlock
+                                                HorizontalAlignment="Right"
+                                                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                                                Text="{x:Bind ViewModel.MachineNamingValidationMessage, Mode=OneWay}"
+                                                TextAlignment="Right"
+                                                TextWrapping="WrapWholeWords"
+                                                Visibility="{x:Bind ViewModel.MachineNamingValidationVisibility, Mode=OneWay}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+                            </Border>
 
                             <ItemsControl
                                 HorizontalContentAlignment="Stretch"
                                 ItemsSource="{x:Bind ViewModel.MachineNameComponents, Mode=OneWay}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}" />
+                                        <StackPanel Spacing="{ThemeResource FoundrySpace12}" />
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemContainerStyle>
@@ -139,15 +229,15 @@
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate x:DataType="viewModels:MachineNameComponentRowViewModel">
                                         <Border
-                                            Padding="{ThemeResource FoundryDefaultContentPadding}"
+                                            Padding="16,12"
                                             HorizontalAlignment="Stretch"
                                             Background="{ThemeResource FoundrySurfaceBrush}"
                                             BorderBrush="{ThemeResource FoundrySurfaceBorderBrush}"
                                             BorderThickness="1"
                                             CornerRadius="{ThemeResource FoundryCardCornerRadius}">
                                             <Grid
-                                                MinHeight="40"
-                                                ColumnSpacing="{ThemeResource FoundrySpace12}"
+                                                MinHeight="48"
+                                                ColumnSpacing="{ThemeResource FoundrySpace16}"
                                                 RowSpacing="{ThemeResource FoundrySpace8}">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="{ThemeResource FoundryCompactInputMinWidth}" />
@@ -251,47 +341,6 @@
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
 
-                            <Grid ColumnSpacing="{ThemeResource FoundrySpace12}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="{ThemeResource FoundrySettingsActionMinWidth}" />
-                                    <ColumnDefinition Width="{ThemeResource FoundrySettingsActionMinWidth}" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                                    <TextBlock
-                                        Style="{ThemeResource BodyStrongTextBlockStyle}"
-                                        Text="{x:Bind ViewModel.MachineNamingSeparatorLabel, Mode=OneWay}" />
-                                    <ComboBox
-                                        ItemsSource="{x:Bind ViewModel.MachineNameSeparatorChoices, Mode=OneWay}"
-                                        SelectedItem="{x:Bind ViewModel.SelectedMachineNameSeparator, Mode=TwoWay}">
-                                        <ComboBox.ItemTemplate>
-                                            <DataTemplate x:DataType="viewModels:MachineNameSeparatorChoice">
-                                                <TextBlock
-                                                    Text="{x:Bind DisplayName, Mode=OneTime}"
-                                                    TextWrapping="Wrap" />
-                                            </DataTemplate>
-                                        </ComboBox.ItemTemplate>
-                                    </ComboBox>
-                                </StackPanel>
-                                <StackPanel
-                                    Grid.Column="1"
-                                    Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                                    <TextBlock
-                                        Style="{ThemeResource BodyStrongTextBlockStyle}"
-                                        Text="{x:Bind ViewModel.MachineNamingCasingLabel, Mode=OneWay}" />
-                                    <ComboBox
-                                        ItemsSource="{x:Bind ViewModel.MachineNameCasingChoices, Mode=OneWay}"
-                                        SelectedItem="{x:Bind ViewModel.SelectedMachineNameCasing, Mode=TwoWay}">
-                                        <ComboBox.ItemTemplate>
-                                            <DataTemplate x:DataType="viewModels:MachineNameCasingChoice">
-                                                <TextBlock
-                                                    Text="{x:Bind DisplayName, Mode=OneTime}"
-                                                    TextWrapping="Wrap" />
-                                            </DataTemplate>
-                                        </ComboBox.ItemTemplate>
-                                    </ComboBox>
-                                </StackPanel>
-                            </Grid>
                         </StackPanel>
                     </wct:SettingsCard>
 
@@ -304,22 +353,6 @@
                             IsOn="{x:Bind ViewModel.AllowMachineNameEditingDuringDeployment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </wct:SettingsCard>
 
-                    <wct:SettingsCard
-                        HorizontalContentAlignment="Stretch"
-                        Header="{x:Bind ViewModel.MachineNamingPreviewLabel, Mode=OneWay}">
-                        <StackPanel
-                            HorizontalAlignment="Right"
-                            Spacing="{ThemeResource FoundrySpace4}">
-                            <TextBlock
-                                Style="{ThemeResource BodyStrongTextBlockStyle}"
-                                Text="{x:Bind ViewModel.MachineNamingPreview, Mode=OneWay}" />
-                            <TextBlock
-                                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
-                                Text="{x:Bind ViewModel.MachineNamingValidationMessage, Mode=OneWay}"
-                                TextWrapping="WrapWholeWords"
-                                Visibility="{x:Bind ViewModel.MachineNamingValidationVisibility, Mode=OneWay}" />
-                        </StackPanel>
-                    </wct:SettingsCard>
                 </StackPanel>
             </ContentControl>
         </StackPanel>
