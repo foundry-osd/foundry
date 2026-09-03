@@ -122,7 +122,7 @@ internal sealed class RecordingDriverApplicationService : IWindowsDeploymentServ
 
     public Task ConfigureOfflineComputerNameAsync(string windowsPartitionRoot, string computerName, string processorArchitecture, string? defaultTimeZoneId = null, CancellationToken cancellationToken = default) => throw new NotSupportedException();
 
-    public Task ConfigureOfflineOobeAsync(string windowsPartitionRoot, DeployOobeSettings settings, string processorArchitecture, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
+    public Task ConfigureOfflineOobeAsync(string windowsPartitionRoot, DeployOobeSettings settings, string processorArchitecture, string workingDirectory, string workspaceRootPath, CancellationToken cancellationToken = default) => throw new NotSupportedException();
 
     public Task ConfigureOfflineAiComponentRemovalAsync(string windowsPartitionRoot, DeployAiComponentRemovalSettings settings, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
 

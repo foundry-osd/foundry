@@ -2943,7 +2943,7 @@
     <value>OOBE sırasında hesap oluşturmayı atla</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>Kullanıcıdan hesap oluşturmasını istemeden oturum açma ekranına geçin.</value>
+    <value>OOBE sırasında hesap oluşturmayı atlamak için en az bir ek yerel hesap ekleyin.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
     <value>Ek yerel hesaplar hesap oluşturma aşamasını atladığı için otomatik etkinleştirilir.</value>

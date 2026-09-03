@@ -2943,7 +2943,7 @@
     <value>略過 OOBE 期間的帳戶建立</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>直接前往登入畫面，不要求使用者建立帳戶。</value>
+    <value>至少新增一個其他本機帳戶，以略過 OOBE 期間的帳戶建立。</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
     <value>已自動啟用，因為其他本機帳戶會略過帳戶建立階段。</value>

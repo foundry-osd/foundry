@@ -2943,7 +2943,7 @@
     <value>דלג על יצירת חשבון במהלך OOBE</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>המשך למסך הכניסה בלי לבקש מהמשתמש ליצור חשבון.</value>
+    <value>הוסף לפחות חשבון מקומי נוסף אחד כדי לדלג על יצירת חשבון במהלך OOBE.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
     <value>מופעל אוטומטית מכיוון שחשבונות מקומיים נוספים מדלגים על שלב יצירת החשבון.</value>

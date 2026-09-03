@@ -2943,7 +2943,7 @@
     <value>Skip account creation during OOBE</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>Continue to sign-in without asking the user to create an account.</value>
+    <value>Add at least one additional local account to skip account creation during OOBE.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
     <value>Enabled automatically because additional local accounts skip the account-creation stage.</value>

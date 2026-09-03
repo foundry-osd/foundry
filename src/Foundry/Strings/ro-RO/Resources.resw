@@ -2943,7 +2943,7 @@
     <value>Omite crearea contului în timpul OOBE</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>Continuați la ecranul de conectare fără a solicita crearea unui cont.</value>
+    <value>Adăugați cel puțin un cont local suplimentar pentru a omite crearea contului în timpul OOBE.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
     <value>Activat automat deoarece conturile locale suplimentare omit etapa de creare a contului.</value>

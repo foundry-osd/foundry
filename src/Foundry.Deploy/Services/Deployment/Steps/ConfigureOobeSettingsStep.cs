@@ -55,6 +55,7 @@ public sealed class ConfigureOobeSettingsStep : DeploymentStepBase
                     context.RuntimeState.Oobe,
                     context.Request.OperatingSystem.Architecture,
                     workingDirectory,
+                    context.RuntimeState.WorkspaceRoot,
                     cancellationToken)
                 .ConfigureAwait(false);
         }

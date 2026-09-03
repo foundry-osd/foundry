@@ -2943,7 +2943,7 @@
     <value>Jäta konto loomine OOBE ajal vahele</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>Jätka sisselogimiskuvale, palumata kasutajal kontot luua.</value>
+    <value>OOBE ajal konto loomise vahelejätmiseks lisa vähemalt üks täiendav kohalik konto.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
     <value>Lubatakse automaatselt, sest täiendavad kohalikud kontod jätavad konto loomise etapi vahele.</value>

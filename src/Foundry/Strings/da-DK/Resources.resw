@@ -2943,7 +2943,7 @@
     <value>Spring kontooprettelse over under OOBE</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>Fortsæt til logonskærmen uden at bede brugeren om at oprette en konto.</value>
+    <value>Tilføj mindst én ekstra lokal konto for at springe kontooprettelsen over under OOBE.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
     <value>Aktiveres automatisk, fordi ekstra lokale konti springer kontooprettelsen over.</value>

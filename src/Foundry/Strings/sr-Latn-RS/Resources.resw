@@ -2943,7 +2943,7 @@
     <value>Preskoči kreiranje naloga tokom OOBE-a</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>Nastavi na ekran za prijavljivanje bez zahteva za kreiranje naloga.</value>
+    <value>Dodajte najmanje jedan dodatni lokalni nalog da biste preskočili kreiranje naloga tokom OOBE-a.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
     <value>Automatski omogućeno jer dodatni lokalni nalozi preskaču kreiranje naloga.</value>

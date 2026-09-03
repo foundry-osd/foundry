@@ -2943,7 +2943,7 @@
     <value>OOBE 중 계정 생성 건너뛰기</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>사용자에게 계정 생성을 요청하지 않고 로그인 화면으로 이동합니다.</value>
+    <value>OOBE 중 계정 생성을 건너뛰려면 추가 로컬 계정을 하나 이상 추가하세요.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
     <value>추가 로컬 계정이 계정 생성 단계를 건너뛰므로 자동으로 활성화됩니다.</value>

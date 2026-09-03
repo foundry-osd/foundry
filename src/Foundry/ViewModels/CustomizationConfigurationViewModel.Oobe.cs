@@ -29,19 +29,9 @@ public sealed partial class CustomizationConfigurationViewModel
 
     public bool HasAdditionalOobeAccounts => OobeAdditionalAccounts.Count > 0;
 
-    public bool EffectiveSkipUserAccountCreation
-    {
-        get => HasAdditionalOobeAccounts || SkipUserAccountCreation;
-        set
-        {
-            if (!HasAdditionalOobeAccounts && SkipUserAccountCreation != value)
-            {
-                SkipUserAccountCreation = value;
-            }
-        }
-    }
+    public bool EffectiveSkipUserAccountCreation => HasAdditionalOobeAccounts;
 
-    public bool IsSkipUserAccountCreationToggleEnabled => AreOobeAccountControlsAvailable && !HasAdditionalOobeAccounts;
+    public bool IsSkipUserAccountCreationToggleEnabled => false;
 
     public string OobeSkipUserAccountCreationEffectiveDescription => HasAdditionalOobeAccounts
         ? OobeSkipUserAccountCreationLockedDescription
@@ -179,9 +169,6 @@ public sealed partial class CustomizationConfigurationViewModel
     public partial bool EnableAdministratorAccount { get; set; }
 
     [ObservableProperty]
-    public partial bool SkipUserAccountCreation { get; set; }
-
-    [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(OobeAccountsBlockedVisibility))]
     [NotifyPropertyChangedFor(nameof(AreOobeAccountControlsAvailable))]
     [NotifyPropertyChangedFor(nameof(IsSkipUserAccountCreationToggleEnabled))]
@@ -239,12 +226,6 @@ public sealed partial class CustomizationConfigurationViewModel
     partial void OnEnableAdministratorAccountChanged(bool value)
     {
         RefreshOobeAccountValidation();
-        SaveState();
-    }
-
-    partial void OnSkipUserAccountCreationChanged(bool value)
-    {
-        OnPropertyChanged(nameof(EffectiveSkipUserAccountCreation));
         SaveState();
     }
 
@@ -377,7 +358,6 @@ public sealed partial class CustomizationConfigurationViewModel
     {
         IsOobeEnabled = settings.IsEnabled;
         EnableAdministratorAccount = settings.EnableAdministratorAccount;
-        SkipUserAccountCreation = settings.SkipUserAccountCreation;
         SkipLicenseTerms = settings.SkipLicenseTerms;
         IsOobeAccountConfigurationBlockedByAutopilot = configurationStateService.IsAutopilotEnabled;
         SelectedOobeDiagnosticData = SelectOption(OobeDiagnosticDataOptions, settings.DiagnosticDataLevel);
@@ -405,7 +385,7 @@ public sealed partial class CustomizationConfigurationViewModel
             {
                 IsEnabled = true,
                 EnableAdministratorAccount = EnableAdministratorAccount,
-                SkipUserAccountCreation = HasAdditionalOobeAccounts || SkipUserAccountCreation,
+                SkipUserAccountCreation = HasAdditionalOobeAccounts,
                 SkipLicenseTerms = SkipLicenseTerms,
                 DiagnosticDataLevel = SelectedOobeDiagnosticData?.Value ?? OobeDiagnosticDataLevel.Required,
                 HidePrivacySetup = HidePrivacySetup,

@@ -240,7 +240,6 @@ public static class ConfigurationOverviewEvaluator
         }
 
         return !oobe.EnableAdministratorAccount &&
-               !oobe.SkipUserAccountCreation &&
                oobe.AdditionalAccounts.Count == 0;
     }
 

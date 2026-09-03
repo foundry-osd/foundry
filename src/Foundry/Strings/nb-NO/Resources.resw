@@ -2943,7 +2943,7 @@
     <value>Hopp over kontooppretting under OOBE</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>Fortsett til påloggingsskjermen uten å be brukeren opprette en konto.</value>
+    <value>Legg til minst én ekstra lokal konto for å hoppe over kontoopprettelse under OOBE.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
     <value>Aktiveres automatisk fordi flere lokale kontoer hopper over kontoopprettingen.</value>

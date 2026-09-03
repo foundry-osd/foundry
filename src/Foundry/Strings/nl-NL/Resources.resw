@@ -2943,7 +2943,7 @@
     <value>Account maken tijdens OOBE overslaan</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>Ga door naar het aanmeldscherm zonder de gebruiker een account te laten maken.</value>
+    <value>Voeg ten minste één extra lokaal account toe om het maken van een account tijdens OOBE over te slaan.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
     <value>Automatisch ingeschakeld omdat extra lokale accounts de accountfase overslaan.</value>

@@ -2943,7 +2943,7 @@
     <value>Praleisti paskyros kūrimą per OOBE</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>Tęsti į prisijungimo ekraną neprašant naudotojo sukurti paskyros.</value>
+    <value>Pridėkite bent vieną papildomą vietinę paskyrą, kad OOBE metu būtų praleistas paskyros kūrimas.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
     <value>Įjungiama automatiškai, nes papildomos vietinės paskyros praleidžia paskyros kūrimo etapą.</value>

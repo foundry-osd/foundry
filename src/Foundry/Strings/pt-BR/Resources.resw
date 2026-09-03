@@ -2943,7 +2943,7 @@
     <value>Ignorar criação de conta durante a OOBE</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>Continuar para a entrada sem pedir que o usuário crie uma conta.</value>
+    <value>Adicione pelo menos uma conta local adicional para ignorar a criação de conta durante a OOBE.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
     <value>Habilitado automaticamente porque contas locais adicionais ignoram a etapa de criação de conta.</value>

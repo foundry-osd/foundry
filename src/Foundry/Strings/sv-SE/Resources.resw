@@ -2943,7 +2943,7 @@
     <value>Hoppa över kontoskapande under OOBE</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>Fortsätt till inloggningen utan att be användaren skapa ett konto.</value>
+    <value>Lägg till minst ett extra lokalt konto för att hoppa över kontoskapandet under OOBE.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
     <value>Aktiveras automatiskt eftersom ytterligare lokala konton hoppar över kontoskapandet.</value>

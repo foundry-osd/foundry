@@ -2943,7 +2943,7 @@
     <value>Пропускане на създаването на акаунт по време на OOBE</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>Продължете към екрана за влизане, без да изисквате създаване на акаунт.</value>
+    <value>Добавете поне един допълнителен локален акаунт, за да пропуснете създаването на акаунт по време на OOBE.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
     <value>Активира се автоматично, защото допълнителните локални акаунти пропускат създаването на акаунт.</value>

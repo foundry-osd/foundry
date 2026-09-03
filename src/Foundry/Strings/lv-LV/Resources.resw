@@ -2943,7 +2943,7 @@
     <value>Izlaist konta izveidi OOBE laikā</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>Turpināt uz pierakstīšanās ekrānu, nelūdzot lietotājam izveidot kontu.</value>
+    <value>Pievienojiet vismaz vienu papildu lokālo kontu, lai OOBE laikā izlaistu konta izveidi.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
     <value>Iespējots automātiski, jo papildu lokālie konti izlaiž konta izveides posmu.</value>

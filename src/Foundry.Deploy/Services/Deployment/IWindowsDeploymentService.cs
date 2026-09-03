@@ -92,6 +92,7 @@ public interface IWindowsDeploymentService
     /// <param name="settings">The OOBE customization settings generated from the Foundry configuration.</param>
     /// <param name="processorArchitecture">Processor architecture used by unattend components.</param>
     /// <param name="workingDirectory">Directory used for temporary command output.</param>
+    /// <param name="workspaceRootPath">Deployment workspace root containing encrypted secret material.</param>
     /// <param name="cancellationToken">Token that cancels OOBE configuration.</param>
     /// <returns>A task that completes after OOBE settings are written.</returns>
     Task ConfigureOfflineOobeAsync(
@@ -99,6 +100,7 @@ public interface IWindowsDeploymentService
         DeployOobeSettings settings,
         string processorArchitecture,
         string workingDirectory,
+        string workspaceRootPath,
         CancellationToken cancellationToken = default);
 
     /// <summary>

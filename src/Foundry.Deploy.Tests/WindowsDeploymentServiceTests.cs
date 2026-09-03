@@ -2,9 +2,14 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Security.Cryptography;
+using System.Text;
 using System.Xml.Linq;
+using Foundry.Core.Models.Configuration;
 using Foundry.Deploy.Models.Configuration;
+using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Deployment;
+using Foundry.Deploy.Services.Security;
 using Foundry.Deploy.Services.System;
 using Foundry.Utilities.Processes;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -784,7 +789,9 @@ public sealed class WindowsDeploymentServiceTests
                 LocationAccess = DeployOobeLocationAccessMode.ForceOff
             },
             "amd64",
-            workingDirectory);
+            workingDirectory,
+            workspace.RootPath,
+            TestContext.Current.CancellationToken);
 
         string unattendPath = Path.Combine(windowsRoot, "Windows", "Panther", "unattend.xml");
         XDocument document = XDocument.Load(unattendPath);
@@ -815,12 +822,227 @@ public sealed class WindowsDeploymentServiceTests
             windowsRoot,
             new DeployOobeSettings(),
             "amd64",
-            workingDirectory);
+            workingDirectory,
+            workspace.RootPath,
+            TestContext.Current.CancellationToken);
 
         string unattendPath = Path.Combine(windowsRoot, "Windows", "Panther", "unattend.xml");
 
         Assert.False(File.Exists(unattendPath));
         Assert.Empty(processRunner.Calls);
+    }
+
+    [Fact]
+    public async Task ConfigureOfflineOobeAsync_WhenAdministratorEnabled_WritesBlankPasswordAndActivationWithoutAutoLogon()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string windowsRoot = CreateWindowsRoot(workspace);
+        var service = new WindowsDeploymentService(new NoOpProcessRunner(), NullLogger<WindowsDeploymentService>.Instance);
+
+        await service.ConfigureOfflineOobeAsync(
+            windowsRoot,
+            new DeployOobeSettings
+            {
+                IsEnabled = true,
+                EnableAdministratorAccount = true,
+                AdministratorPasswordIsBlank = true,
+                SkipUserAccountCreation = true
+            },
+            "amd64",
+            Path.Combine(workspace.RootPath, "Work"),
+            workspace.RootPath,
+            TestContext.Current.CancellationToken);
+
+        XDocument document = XDocument.Load(Path.Combine(windowsRoot, "Windows", "Panther", "unattend.xml"));
+        XNamespace ns = "urn:schemas-microsoft-com:unattend";
+        XElement password = document.Descendants(ns + "AdministratorPassword").Single();
+
+        Assert.Equal(string.Empty, password.Element(ns + "Value")?.Value);
+        Assert.Equal("true", password.Element(ns + "PlainText")?.Value);
+        XElement activationCommand = document.Descendants(ns + "RunSynchronousCommand").Single();
+        Assert.Contains("Get-CimInstance Win32_UserAccount", activationCommand.Value, StringComparison.Ordinal);
+        Assert.Contains("*-500", activationCommand.Value, StringComparison.Ordinal);
+        Assert.Equal("Microsoft-Windows-Deployment", activationCommand.Ancestors(ns + "component").Single().Attribute("name")?.Value);
+        Assert.Empty(document.Descendants(ns + "AutoLogon"));
+        Assert.Equal("false", document.Descendants(ns + "HideOnlineAccountScreens").Single().Value);
+    }
+
+    [Fact]
+    public async Task ConfigureOfflineOobeAsync_WhenAdministratorPasswordIsEncrypted_HidesPlaintextInUnattend()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string windowsRoot = CreateWindowsRoot(workspace);
+        byte[] key = RandomNumberGenerator.GetBytes(DeployMediaSecretEnvelopeProtector.KeySizeBytes);
+        const string plaintext = "Admin-Password-DoNotLeak";
+        var keyProvider = new StaticDeploymentSecretKeyProvider(key);
+        var service = new WindowsDeploymentService(
+            new NoOpProcessRunner(),
+            NullLogger<WindowsDeploymentService>.Instance,
+            keyProvider);
+
+        await service.ConfigureOfflineOobeAsync(
+            windowsRoot,
+            new DeployOobeSettings
+            {
+                IsEnabled = true,
+                EnableAdministratorAccount = true,
+                AdministratorPasswordSecret = EncryptSecret(plaintext, key)
+            },
+            "amd64",
+            Path.Combine(workspace.RootPath, "Work"),
+            workspace.RootPath,
+            TestContext.Current.CancellationToken);
+
+        string xml = File.ReadAllText(Path.Combine(windowsRoot, "Windows", "Panther", "unattend.xml"));
+        XDocument document = XDocument.Parse(xml);
+        XNamespace ns = "urn:schemas-microsoft-com:unattend";
+
+        Assert.DoesNotContain(plaintext, xml, StringComparison.Ordinal);
+        Assert.Equal("false", document.Descendants(ns + "AdministratorPassword").Single().Element(ns + "PlainText")?.Value);
+        Assert.Equal(workspace.RootPath, keyProvider.LastWorkspaceRootPath);
+    }
+
+    [Fact]
+    public async Task ConfigureOfflineOobeAsync_WhenAdditionalAccountsConfigured_WritesAccountTypesAndPasswords()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string windowsRoot = CreateWindowsRoot(workspace);
+        byte[] key = RandomNumberGenerator.GetBytes(DeployMediaSecretEnvelopeProtector.KeySizeBytes);
+        const string plaintext = "Standard-Password-DoNotLeak";
+        var service = new WindowsDeploymentService(
+            new NoOpProcessRunner(),
+            NullLogger<WindowsDeploymentService>.Instance,
+            new StaticDeploymentSecretKeyProvider(key));
+
+        await service.ConfigureOfflineOobeAsync(
+            windowsRoot,
+            new DeployOobeSettings
+            {
+                IsEnabled = true,
+                AdditionalAccounts =
+                [
+                    new DeployOobeAdditionalAccountSettings
+                    {
+                        Id = "standard",
+                        UserName = "LocalUser",
+                        Type = OobeAccountType.Standard,
+                        PasswordSecret = EncryptSecret(plaintext, key)
+                    },
+                    new DeployOobeAdditionalAccountSettings
+                    {
+                        Id = "admin",
+                        UserName = "LocalAdmin",
+                        Type = OobeAccountType.Administrator,
+                        PasswordIsBlank = true
+                    }
+                ]
+            },
+            "amd64",
+            Path.Combine(workspace.RootPath, "Work"),
+            workspace.RootPath,
+            TestContext.Current.CancellationToken);
+
+        string xml = File.ReadAllText(Path.Combine(windowsRoot, "Windows", "Panther", "unattend.xml"));
+        XDocument document = XDocument.Parse(xml);
+        XNamespace ns = "urn:schemas-microsoft-com:unattend";
+        XElement[] accounts = document.Descendants(ns + "LocalAccount").ToArray();
+
+        Assert.Equal(["LocalUser", "LocalAdmin"], accounts.Select(account => account.Element(ns + "Name")?.Value));
+        Assert.Equal(["Users", "Administrators"], accounts.Select(account => account.Element(ns + "Group")?.Value));
+        Assert.Equal("false", accounts[0].Descendants(ns + "PlainText").Single().Value);
+        Assert.Equal("true", accounts[1].Descendants(ns + "PlainText").Single().Value);
+        Assert.DoesNotContain(plaintext, xml, StringComparison.Ordinal);
+        Assert.Equal("true", document.Descendants(ns + "HideOnlineAccountScreens").Single().Value);
+    }
+
+    [Fact]
+    public async Task ConfigureOfflineOobeAsync_PreservesExistingAccountsAndSpecializeCommands()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string windowsRoot = CreateWindowsRoot(workspace);
+        string unattendPath = Path.Combine(windowsRoot, "Windows", "Panther", "unattend.xml");
+        Directory.CreateDirectory(Path.GetDirectoryName(unattendPath)!);
+        XNamespace ns = "urn:schemas-microsoft-com:unattend";
+        new XDocument(
+            new XElement(ns + "unattend",
+                new XElement(ns + "settings",
+                    new XAttribute("pass", "specialize"),
+                    new XElement(ns + "component",
+                        new XAttribute("name", "Microsoft-Windows-Deployment"),
+                        new XElement(ns + "RunSynchronous",
+                            new XElement(ns + "RunSynchronousCommand",
+                                new XElement(ns + "Order", "4"),
+                                new XElement(ns + "Description", "Keep me"),
+                                new XElement(ns + "Path", "cmd.exe /c exit 0"))))),
+                new XElement(ns + "settings",
+                    new XAttribute("pass", "oobeSystem"),
+                    new XElement(ns + "component",
+                        new XAttribute("name", "Microsoft-Windows-Shell-Setup"),
+                        new XElement(ns + "UserAccounts",
+                            new XElement(ns + "LocalAccounts",
+                                new XElement(ns + "LocalAccount",
+                                    new XElement(ns + "Name", "ExistingUser"))))))))
+            .Save(unattendPath);
+        var service = new WindowsDeploymentService(new NoOpProcessRunner(), NullLogger<WindowsDeploymentService>.Instance);
+
+        await service.ConfigureOfflineOobeAsync(
+            windowsRoot,
+            new DeployOobeSettings
+            {
+                IsEnabled = true,
+                EnableAdministratorAccount = true,
+                AdministratorPasswordIsBlank = true,
+                AdditionalAccounts =
+                [
+                    new DeployOobeAdditionalAccountSettings
+                    {
+                        Id = "new-account",
+                        UserName = "NewUser",
+                        Type = OobeAccountType.Standard,
+                        PasswordIsBlank = true
+                    }
+                ]
+            },
+            "amd64",
+            Path.Combine(workspace.RootPath, "Work"),
+            workspace.RootPath,
+            TestContext.Current.CancellationToken);
+
+        XDocument document = XDocument.Load(unattendPath);
+        Assert.Equal(
+            ["ExistingUser", "NewUser"],
+            document.Descendants(ns + "LocalAccount").Select(account => account.Element(ns + "Name")?.Value));
+        Assert.Equal(
+            ["Keep me", "Enable built-in Administrator account"],
+            document.Descendants(ns + "RunSynchronousCommand").Select(command => command.Element(ns + "Description")?.Value));
+        Assert.Equal(
+            ["4", "5"],
+            document.Descendants(ns + "RunSynchronousCommand").Select(command => command.Element(ns + "Order")?.Value));
+    }
+
+    [Fact]
+    public async Task ConfigureOfflineOobeAsync_WhenEncryptedPasswordHasNoKeyProvider_ThrowsWithoutLeakingPassword()
+    {
+        using var workspace = new TemporaryWorkspace();
+        byte[] key = RandomNumberGenerator.GetBytes(DeployMediaSecretEnvelopeProtector.KeySizeBytes);
+        const string plaintext = "Missing-Key-Password-DoNotLeak";
+        var service = new WindowsDeploymentService(new NoOpProcessRunner(), NullLogger<WindowsDeploymentService>.Instance);
+
+        InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(
+            () => service.ConfigureOfflineOobeAsync(
+                CreateWindowsRoot(workspace),
+                new DeployOobeSettings
+                {
+                    IsEnabled = true,
+                    EnableAdministratorAccount = true,
+                    AdministratorPasswordSecret = EncryptSecret(plaintext, key)
+                },
+                "amd64",
+                Path.Combine(workspace.RootPath, "Work"),
+                workspace.RootPath,
+                TestContext.Current.CancellationToken));
+
+        Assert.DoesNotContain(plaintext, exception.ToString(), StringComparison.Ordinal);
     }
 
     [Fact]
@@ -896,6 +1118,44 @@ public sealed class WindowsDeploymentServiceTests
     {
         string value = arguments[(arguments.LastIndexOf("/Index:", StringComparison.OrdinalIgnoreCase) + 7)..];
         return int.Parse(value);
+    }
+
+    private static Foundry.Deploy.Models.Configuration.SecretEnvelope EncryptSecret(string plaintext, byte[] key)
+    {
+        byte[] payload = Encoding.UTF8.GetBytes(plaintext);
+        byte[] nonce = RandomNumberGenerator.GetBytes(12);
+        byte[] tag = new byte[16];
+        byte[] ciphertext = new byte[payload.Length];
+        using var aes = new AesGcm(key, 16);
+        aes.Encrypt(nonce, payload, ciphertext, tag);
+        CryptographicOperations.ZeroMemory(payload);
+
+        return new Foundry.Deploy.Models.Configuration.SecretEnvelope
+        {
+            Kind = DeployMediaSecretEnvelopeProtector.Kind,
+            Algorithm = DeployMediaSecretEnvelopeProtector.Algorithm,
+            KeyId = DeployMediaSecretEnvelopeProtector.DeploymentKeyId,
+            Nonce = Base64UrlEncode(nonce),
+            Tag = Base64UrlEncode(tag),
+            Ciphertext = Base64UrlEncode(ciphertext)
+        };
+    }
+
+    private static string Base64UrlEncode(byte[] value) =>
+        Convert.ToBase64String(value)
+            .TrimEnd('=')
+            .Replace('+', '-')
+            .Replace('/', '_');
+
+    private sealed class StaticDeploymentSecretKeyProvider(byte[] key) : IDeploymentSecretKeyProvider
+    {
+        public string? LastWorkspaceRootPath { get; private set; }
+
+        public Task<byte[]> ReadAsync(string workspaceRootPath, CancellationToken cancellationToken = default)
+        {
+            LastWorkspaceRootPath = workspaceRootPath;
+            return Task.FromResult(key.ToArray());
+        }
     }
 
     private sealed class TemporaryWorkspace : IDisposable

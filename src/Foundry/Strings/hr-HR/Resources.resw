@@ -2943,7 +2943,7 @@
     <value>Preskoči stvaranje računa tijekom OOBE-a</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>Nastavi na zaslon za prijavu bez traženja stvaranja računa.</value>
+    <value>Dodajte barem jedan dodatni lokalni račun kako biste preskočili stvaranje računa tijekom OOBE-a.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
     <value>Automatski omogućeno jer dodatni lokalni računi preskaču stvaranje računa.</value>

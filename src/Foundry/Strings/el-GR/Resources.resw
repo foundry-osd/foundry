@@ -2943,7 +2943,7 @@
     <value>Παράλειψη δημιουργίας λογαριασμού κατά το OOBE</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>Συνέχεια στην οθόνη εισόδου χωρίς αίτημα δημιουργίας λογαριασμού.</value>
+    <value>Προσθέστε τουλάχιστον έναν επιπλέον τοπικό λογαριασμό για να παραλείψετε τη δημιουργία λογαριασμού κατά το OOBE.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
     <value>Ενεργοποιείται αυτόματα επειδή οι πρόσθετοι τοπικοί λογαριασμοί παραλείπουν τη δημιουργία λογαριασμού.</value>

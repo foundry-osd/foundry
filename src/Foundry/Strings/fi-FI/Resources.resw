@@ -2943,7 +2943,7 @@
     <value>Ohita tilin luonti OOBE-vaiheessa</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>Jatka kirjautumisnäyttöön pyytämättä käyttäjää luomaan tiliä.</value>
+    <value>Lisää vähintään yksi paikallinen lisätili, jotta tilin luominen ohitetaan OOBE-vaiheessa.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
     <value>Käytössä automaattisesti, koska lisätyt paikalliset tilit ohittavat tilinluontivaiheen.</value>

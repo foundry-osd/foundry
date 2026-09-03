@@ -2943,7 +2943,7 @@
     <value>Пропустити створення облікового запису під час OOBE</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>Перейти до екрана входу без запиту на створення облікового запису.</value>
+    <value>Додайте принаймні один додатковий локальний обліковий запис, щоб пропустити створення облікового запису під час OOBE.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
     <value>Увімкнено автоматично, оскільки додаткові локальні облікові записи пропускають етап створення облікового запису.</value>

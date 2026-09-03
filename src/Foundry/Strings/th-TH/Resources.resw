@@ -2943,7 +2943,7 @@
     <value>ข้ามการสร้างบัญชีระหว่าง OOBE</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>ไปยังหน้าจอลงชื่อเข้าใช้โดยไม่ขอให้ผู้ใช้สร้างบัญชี</value>
+    <value>เพิ่มบัญชีภายในเครื่องเพิ่มเติมอย่างน้อยหนึ่งบัญชีเพื่อข้ามการสร้างบัญชีระหว่าง OOBE</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
     <value>เปิดโดยอัตโนมัติ เนื่องจากบัญชีภายในเครื่องเพิ่มเติมจะข้ามขั้นตอนการสร้างบัญชี</value>

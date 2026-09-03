@@ -2943,7 +2943,7 @@
     <value>Пропустить создание учетной записи во время OOBE</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>Перейти к экрану входа без запроса на создание учетной записи.</value>
+    <value>Добавьте хотя бы одну дополнительную локальную учетную запись, чтобы пропустить создание учетной записи во время OOBE.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
     <value>Включено автоматически, так как дополнительные локальные учетные записи пропускают этап создания учетной записи.</value>

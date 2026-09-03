@@ -2943,7 +2943,7 @@
     <value>Fióklétrehozás kihagyása az OOBE során</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>Folytatás a bejelentkezési képernyőre fiók létrehozása nélkül.</value>
+    <value>Adjon hozzá legalább egy további helyi fiókot a fióklétrehozás kihagyásához az OOBE során.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
     <value>Automatikusan engedélyezve, mert a további helyi fiókok kihagyják a fióklétrehozást.</value>

@@ -234,7 +234,6 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         }
 
         if (!oobe.EnableAdministratorAccount &&
-            !oobe.SkipUserAccountCreation &&
             oobe.AdditionalAccounts.Count == 0)
         {
             return;
@@ -324,7 +323,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         {
             IsEnabled = true,
             EnableAdministratorAccount = settings.EnableAdministratorAccount,
-            SkipUserAccountCreation = settings.SkipUserAccountCreation,
+            SkipUserAccountCreation = settings.AdditionalAccounts.Count > 0,
             SkipLicenseTerms = settings.SkipLicenseTerms,
             DiagnosticDataLevel = MapDiagnosticDataLevel(settings.DiagnosticDataLevel),
             HidePrivacySetup = settings.HidePrivacySetup,

@@ -2943,7 +2943,7 @@
     <value>Přeskočit vytvoření účtu během OOBE</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>Pokračovat na přihlašovací obrazovku bez výzvy k vytvoření účtu.</value>
+    <value>Chcete-li přeskočit vytvoření účtu během OOBE, přidejte alespoň jeden další místní účet.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
     <value>Zapnuto automaticky, protože další místní účty přeskočí fázi vytváření účtu.</value>

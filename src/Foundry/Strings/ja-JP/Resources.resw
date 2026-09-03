@@ -2943,7 +2943,7 @@
     <value>OOBE 中のアカウント作成をスキップ</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>ユーザーにアカウント作成を求めず、サインイン画面に進みます。</value>
+    <value>OOBE 中のアカウント作成をスキップするには、追加のローカル アカウントを少なくとも 1 つ追加してください。</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
     <value>追加のローカル アカウントによってアカウント作成手順が省略されるため、自動的に有効になります。</value>

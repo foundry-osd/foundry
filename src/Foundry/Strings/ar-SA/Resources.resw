@@ -2943,7 +2943,7 @@
     <value>تخطي إنشاء الحساب أثناء OOBE</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>تابع إلى شاشة تسجيل الدخول دون مطالبة المستخدم بإنشاء حساب.</value>
+    <value>أضف حسابًا محليًا إضافيًا واحدًا على الأقل لتخطي إنشاء الحساب أثناء تجربة الإعداد الأولي.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
     <value>يتم تمكينه تلقائيًا لأن الحسابات المحلية الإضافية تتخطى مرحلة إنشاء الحساب.</value>

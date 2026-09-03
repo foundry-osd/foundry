@@ -2943,7 +2943,7 @@
     <value>Kontoerstellung während der OOBE überspringen</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
-    <value>Ohne Aufforderung zur Kontoerstellung mit der Anmeldung fortfahren.</value>
+    <value>Fügen Sie mindestens ein zusätzliches lokales Konto hinzu, um die Kontoerstellung während OOBE zu überspringen.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
     <value>Automatisch aktiviert, da zusätzliche lokale Konten die Kontoerstellung überspringen.</value>
