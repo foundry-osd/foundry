@@ -87,6 +87,8 @@ public sealed class FoundryConfigurationServiceTests
                 Oobe = new OobeSettings
                 {
                     IsEnabled = true,
+                    EnableAdministratorAccount = true,
+                    SkipUserAccountCreation = true,
                     SkipLicenseTerms = true,
                     DiagnosticDataLevel = OobeDiagnosticDataLevel.Off,
                     HidePrivacySetup = true,
@@ -94,7 +96,16 @@ public sealed class FoundryConfigurationServiceTests
                     AllowAdvertisingId = false,
                     AllowOnlineSpeechRecognition = false,
                     AllowInkingAndTypingDiagnostics = false,
-                    LocationAccess = OobeLocationAccessMode.ForceOff
+                    LocationAccess = OobeLocationAccessMode.ForceOff,
+                    AdditionalAccounts =
+                    [
+                        new OobeAdditionalAccountSettings
+                        {
+                            Id = "account-1",
+                            UserName = "Technician",
+                            Type = OobeAccountType.Administrator
+                        }
+                    ]
                 },
                 AppxRemoval = new AppxRemovalSettings
                 {
@@ -164,6 +175,8 @@ public sealed class FoundryConfigurationServiceTests
         Assert.Equal(MachineNameCasing.Uppercase, loaded.Customization.MachineNaming.Casing);
         Assert.False(loaded.Customization.MachineNaming.AllowEditingDuringDeployment);
         Assert.True(loaded.Customization.Oobe.IsEnabled);
+        Assert.True(loaded.Customization.Oobe.EnableAdministratorAccount);
+        Assert.True(loaded.Customization.Oobe.SkipUserAccountCreation);
         Assert.True(loaded.Customization.Oobe.SkipLicenseTerms);
         Assert.Equal(OobeDiagnosticDataLevel.Off, loaded.Customization.Oobe.DiagnosticDataLevel);
         Assert.True(loaded.Customization.Oobe.HidePrivacySetup);
@@ -172,6 +185,16 @@ public sealed class FoundryConfigurationServiceTests
         Assert.False(loaded.Customization.Oobe.AllowOnlineSpeechRecognition);
         Assert.False(loaded.Customization.Oobe.AllowInkingAndTypingDiagnostics);
         Assert.Equal(OobeLocationAccessMode.ForceOff, loaded.Customization.Oobe.LocationAccess);
+        Assert.Collection(
+            loaded.Customization.Oobe.AdditionalAccounts,
+            account =>
+            {
+                Assert.Equal("account-1", account.Id);
+                Assert.Equal("Technician", account.UserName);
+                Assert.Equal(OobeAccountType.Administrator, account.Type);
+            });
+        Assert.DoesNotContain("password", json, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("confirmation", json, StringComparison.OrdinalIgnoreCase);
         Assert.True(loaded.Customization.AppxRemoval.IsEnabled);
         Assert.Equal(["Microsoft.BingWeather", "Microsoft.GamingApp"], loaded.Customization.AppxRemoval.PackageNames);
         Assert.True(loaded.Customization.WindowsOptionalFeatures.IsEnabled);

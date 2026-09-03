@@ -15,6 +15,16 @@ public sealed record OobeSettings
     public bool IsEnabled { get; init; }
 
     /// <summary>
+    /// Gets whether the built-in Windows Administrator account should be enabled during OOBE.
+    /// </summary>
+    public bool EnableAdministratorAccount { get; init; }
+
+    /// <summary>
+    /// Gets whether OOBE should skip prompting for an end-user account to be created manually.
+    /// </summary>
+    public bool SkipUserAccountCreation { get; init; }
+
+    /// <summary>
     /// Gets whether the Microsoft Software License Terms page should be skipped during OOBE.
     /// </summary>
     public bool SkipLicenseTerms { get; init; } = true;
@@ -53,4 +63,9 @@ public sealed record OobeSettings
     /// Gets how Windows location access should be configured before first sign-in.
     /// </summary>
     public OobeLocationAccessMode LocationAccess { get; init; } = OobeLocationAccessMode.UserControlled;
+
+    /// <summary>
+    /// Gets the additional local accounts that Foundry should provision during OOBE.
+    /// </summary>
+    public IReadOnlyList<OobeAdditionalAccountSettings> AdditionalAccounts { get; init; } = [];
 }

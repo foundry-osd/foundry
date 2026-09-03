@@ -76,6 +76,11 @@ public sealed record ConfigurationOverviewContext
     public bool IsDeploymentProtectionSecretReady { get; init; }
 
     /// <summary>
+    /// Gets a value indicating whether OOBE local account secrets are valid for the current persisted configuration.
+    /// </summary>
+    public bool IsOobeAccountConfigurationReady { get; init; } = true;
+
+    /// <summary>
     /// Gets a value indicating whether the active Autopilot provisioning mode is valid.
     /// </summary>
     public bool IsAutopilotConfigurationReady { get; init; }
@@ -155,7 +160,7 @@ public static class ConfigurationOverviewEvaluator
             [ConfigurationOverviewItem.OperatingSystemSelection] = EvaluateOptionalFeature(
                 configuration.OperatingSystemSelection.IsEnabled),
             [ConfigurationOverviewItem.MachineNaming] = EvaluateMachineNaming(customization.MachineNaming),
-            [ConfigurationOverviewItem.Oobe] = EvaluateOptionalFeature(customization.Oobe.IsEnabled),
+            [ConfigurationOverviewItem.Oobe] = EvaluateOobe(customization.Oobe, context.IsOobeAccountConfigurationReady),
             [ConfigurationOverviewItem.OptionalFeatures] = EvaluateOptionalFeature(
                 customization.WindowsOptionalFeatures.IsEnabled &&
                 (customization.WindowsOptionalFeatures.EnabledFeatureIds.Count > 0 ||
@@ -209,6 +214,13 @@ public static class ConfigurationOverviewEvaluator
         !settings.IsEnabled
             ? ConfigurationOverviewState.Disabled
             : MachineNamingValidator.Validate(settings).IsValid
+                ? ConfigurationOverviewState.Configured
+                : ConfigurationOverviewState.NeedsAttention;
+
+    private static ConfigurationOverviewState EvaluateOobe(OobeSettings settings, bool isSecretStateReady) =>
+        !settings.IsEnabled
+            ? ConfigurationOverviewState.Disabled
+            : OobeAccountConfigurationValidator.Validate(settings).IsValid && isSecretStateReady
                 ? ConfigurationOverviewState.Configured
                 : ConfigurationOverviewState.NeedsAttention;
 

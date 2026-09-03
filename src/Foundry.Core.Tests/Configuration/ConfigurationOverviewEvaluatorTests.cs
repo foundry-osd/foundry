@@ -181,6 +181,58 @@ public sealed class ConfigurationOverviewEvaluatorTests
     }
 
     [Fact]
+    public void Evaluate_InvalidOobeAdditionalAccount_NeedsAttention()
+    {
+        var configuration = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                Oobe = new OobeSettings
+                {
+                    IsEnabled = true,
+                    AdditionalAccounts =
+                    [
+                        new OobeAdditionalAccountSettings
+                        {
+                            Id = "account-1",
+                            UserName = "Tech/User",
+                            Type = OobeAccountType.Standard
+                        }
+                    ]
+                }
+            }
+        };
+
+        ConfigurationOverviewEvaluation evaluation = ConfigurationOverviewEvaluator.Evaluate(CreateContext(configuration));
+
+        Assert.Equal(ConfigurationOverviewState.NeedsAttention, evaluation[ConfigurationOverviewItem.Oobe]);
+    }
+
+    [Fact]
+    public void Evaluate_OobeSecretMismatch_NeedsAttention()
+    {
+        var configuration = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                Oobe = new OobeSettings
+                {
+                    IsEnabled = true,
+                    EnableAdministratorAccount = true
+                }
+            }
+        };
+
+        ConfigurationOverviewEvaluation evaluation = ConfigurationOverviewEvaluator.Evaluate(
+            CreateContext(configuration) with
+            {
+                IsOobeAccountConfigurationReady = false
+            });
+
+        Assert.Equal(ConfigurationOverviewState.NeedsAttention, evaluation[ConfigurationOverviewItem.Oobe]);
+    }
+
+    [Fact]
     public void Count_InvalidEthernetConfiguration_CountsOneActionableItem()
     {
         var configuration = new FoundryConfigurationDocument
@@ -244,6 +296,7 @@ public sealed class ConfigurationOverviewEvaluatorTests
             IsWinPeLanguageReady = true,
             IsCustomDriverConfigurationReady = true,
             IsDeploymentProtectionSecretReady = true,
+            IsOobeAccountConfigurationReady = true,
             IsAutopilotConfigurationReady = true
         };
     }

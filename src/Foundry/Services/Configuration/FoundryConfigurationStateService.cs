@@ -18,8 +18,8 @@ namespace Foundry.Services.Configuration;
 /// Maintains the user-facing Foundry configuration state and generates deploy/connect payloads from it.
 /// </summary>
 /// <remarks>
-/// Secrets that should not be persisted are kept in <see cref="INetworkSecretStateService"/> and are only merged
-/// when a provisioning bundle is generated.
+/// Secrets that should not be persisted are kept in <see cref="INetworkSecretStateService"/> and
+/// <see cref="IOobeAccountSecretStateService"/> and are only merged when a provisioning bundle is generated.
 /// </remarks>
 internal sealed class FoundryConfigurationStateService : IFoundryConfigurationStateService
 {
@@ -28,6 +28,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     private readonly IConnectConfigurationGenerator connectConfigurationGenerator;
     private readonly INetworkSecretStateService networkSecretStateService;
     private readonly IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService;
+    private readonly IOobeAccountSecretStateService oobeAccountSecretStateService;
     private readonly IAutopilotHardwareHashSessionState autopilotHardwareHashSessionState;
     private readonly AppSettingsService appSettingsService;
     private readonly ILogger logger;
@@ -38,6 +39,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         IConnectConfigurationGenerator connectConfigurationGenerator,
         INetworkSecretStateService networkSecretStateService,
         IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService,
+        IOobeAccountSecretStateService oobeAccountSecretStateService,
         IAutopilotHardwareHashSessionState autopilotHardwareHashSessionState,
         AppSettingsService appSettingsService,
         ILogger logger)
@@ -47,6 +49,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         this.connectConfigurationGenerator = connectConfigurationGenerator;
         this.networkSecretStateService = networkSecretStateService;
         this.deploymentProtectionSecretStateService = deploymentProtectionSecretStateService;
+        this.oobeAccountSecretStateService = oobeAccountSecretStateService;
         this.autopilotHardwareHashSessionState = autopilotHardwareHashSessionState;
         this.appSettingsService = appSettingsService;
         this.logger = logger.ForContext<FoundryConfigurationStateService>();
@@ -73,6 +76,11 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         {
             if (Current.General.DeploymentProtection.IsEnabled &&
                 !deploymentProtectionSecretStateService.IsValid)
+            {
+                return false;
+            }
+
+            if (!oobeAccountSecretStateService.Validate(Current.Customization.Oobe).IsValid)
             {
                 return false;
             }
@@ -180,6 +188,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     public void UpdateCustomization(CustomizationSettings settings)
     {
         ArgumentNullException.ThrowIfNull(settings);
+        oobeAccountSecretStateService.Update(settings.Oobe);
         Current = Current with { Customization = SanitizeCustomizationForPersistence(settings) };
         Save();
         StateChanged?.Invoke(this, EventArgs.Empty);

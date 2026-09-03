@@ -278,6 +278,34 @@ public sealed class DeployConfigurationGeneratorTests
     }
 
     [Fact]
+    public void Generate_WhenOobeAdditionalAccountNameIsInvalid_ThrowsInvalidOperationException()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                Oobe = new OobeSettings
+                {
+                    IsEnabled = true,
+                    AdditionalAccounts =
+                    [
+                        new OobeAdditionalAccountSettings
+                        {
+                            Id = "account-1",
+                            UserName = "Tech/User",
+                            Type = OobeAccountType.Standard
+                        }
+                    ]
+                }
+            }
+        };
+
+        InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => generator.Generate(document));
+        Assert.Contains("OOBE", exception.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
     public void Generate_WhenAppxRemovalIsEnabled_PropagatesDistinctPackageNames()
     {
         var generator = new DeployConfigurationGenerator();
