@@ -6,14 +6,17 @@ using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.Runtime;
+using Foundry.Deploy.Services.System;
 using Foundry.Deploy.ViewModels;
+using MachineNameComponentType = Foundry.Core.Models.Configuration.MachineNameComponentType;
+using MachineNamingMode = Foundry.Core.Models.Configuration.MachineNamingMode;
 
 namespace Foundry.Deploy.Tests;
 
 public sealed class DeploymentPreparationViewModelTests
 {
     [Fact]
-    public void ApplyMachineNamingConfiguration_WhenAutoGenerateIsEnabled_CreatesSixCharacterSuffix()
+    public void ApplyMachineNamingConfiguration_WhenComposedNameIsLocked_MakesFullNameReadOnly()
     {
         using DeploymentPreparationViewModel viewModel = CreateViewModel();
 
@@ -21,12 +24,13 @@ public sealed class DeploymentPreparationViewModelTests
             new DeployMachineNamingSettings
             {
                 IsEnabled = true,
-                Prefix = "LAB-",
-                AutoGenerateName = true,
-                AllowManualSuffixEdit = false
+                Mode = Foundry.Core.Models.Configuration.MachineNamingMode.Composed,
+                AllowEditingDuringDeployment = false
             });
+        viewModel.ApplyOfflineComputerName("LAB-123456");
 
-        Assert.Matches("^LAB-[A-Z0-9]{6}$", viewModel.TargetComputerName);
+        Assert.Equal("LAB-123456", viewModel.TargetComputerName);
+        Assert.True(viewModel.IsTargetComputerNameReadOnly);
     }
 
     [Fact]
@@ -36,14 +40,12 @@ public sealed class DeploymentPreparationViewModelTests
         viewModel.ApplyMachineNamingConfiguration(new DeployMachineNamingSettings
         {
             IsEnabled = true,
-            Prefix = "LAB-",
-            AutoGenerateName = true
+            Mode = Foundry.Core.Models.Configuration.MachineNamingMode.Composed
         });
-        string generatedName = viewModel.TargetComputerName;
-
+        viewModel.ApplyOfflineComputerName("LAB-123456");
         viewModel.ApplyOfflineComputerName("OLD-PC-01");
 
-        Assert.Equal(generatedName, viewModel.TargetComputerName);
+        Assert.Equal("LAB-123456", viewModel.TargetComputerName);
     }
 
     [Fact]
@@ -53,17 +55,15 @@ public sealed class DeploymentPreparationViewModelTests
 
         viewModel.ApplyMachineNamingConfiguration(new DeployMachineNamingSettings
         {
-            IsEnabled = false,
-            Prefix = "STALE-"
+            IsEnabled = false
         });
         viewModel.ApplyOfflineComputerName("CURRENT-PC");
 
-        Assert.False(viewModel.HasTargetComputerNamePrefix);
         Assert.Equal("CURRENT-PC", viewModel.TargetComputerName);
     }
 
     [Fact]
-    public void ApplyMachineNamingConfiguration_WhenGenerationAndManualEditAreDisabled_KeepsSuffixEditable()
+    public void TargetComputerName_WhenComposedNameIsEditable_EditsTheFullName()
     {
         using DeploymentPreparationViewModel viewModel = CreateViewModel();
 
@@ -71,61 +71,60 @@ public sealed class DeploymentPreparationViewModelTests
             new DeployMachineNamingSettings
             {
                 IsEnabled = true,
-                Prefix = "LAB-",
-                AutoGenerateName = false,
-                AllowManualSuffixEdit = false
+                Mode = Foundry.Core.Models.Configuration.MachineNamingMode.Composed,
+                AllowEditingDuringDeployment = true
             });
+        viewModel.ApplyOfflineComputerName("LAB-123456");
+        viewModel.TargetComputerName = "NEW-DEVICE";
 
         Assert.False(viewModel.IsTargetComputerNameReadOnly);
-    }
-
-    [Fact]
-    public void ApplyMachineNamingConfiguration_WhenManualSuffixIsRequired_ReportsValidationError()
-    {
-        using DeploymentPreparationViewModel viewModel = CreateViewModel();
-
-        viewModel.ApplyMachineNamingConfiguration(new DeployMachineNamingSettings
-        {
-            IsEnabled = true,
-            Prefix = "LAB-",
-            AutoGenerateName = false
-        });
-
-        Assert.True(viewModel.HasTargetComputerNameValidationError);
-        Assert.False(viewModel.IsTargetComputerNameValid);
-    }
-
-    [Fact]
-    public void TargetComputerNameInput_WhenPrefixIsManaged_ComposesFullComputerName()
-    {
-        using DeploymentPreparationViewModel viewModel = CreateViewModel();
-        viewModel.ApplyMachineNamingConfiguration(new DeployMachineNamingSettings
-        {
-            IsEnabled = true,
-            Prefix = "LAB-",
-            AutoGenerateName = false
-        });
-
-        viewModel.TargetComputerNameInput = "123";
-
-        Assert.Equal("LAB-123", viewModel.TargetComputerName);
+        Assert.Equal("NEW-DEVICE", viewModel.TargetComputerName);
         Assert.False(viewModel.HasTargetComputerNameValidationError);
     }
 
     [Fact]
-    public void ApplyMachineNamingConfiguration_WhenPrefixExceedsSuffixBudget_ReservesSixCharacters()
+    public void ApplyMachineNamePreparation_WhenHardwareValueIsUnavailable_ShowsComponentReason()
     {
         using DeploymentPreparationViewModel viewModel = CreateViewModel();
+        viewModel.ApplyMachineNamingConfiguration(new DeployMachineNamingSettings
+        {
+            IsEnabled = true,
+            Mode = MachineNamingMode.Composed,
+            AllowEditingDuringDeployment = false
+        });
 
-        viewModel.ApplyMachineNamingConfiguration(
-            new DeployMachineNamingSettings
-            {
-                IsEnabled = true,
-                Prefix = "abcdefghijklmno",
-                AutoGenerateName = true
-            });
+        viewModel.ApplyMachineNamePreparation(new MachineNamePreparationResult
+        {
+            FailureKind = Foundry.Core.Services.Configuration.MachineNameCompositionFailureKind.MissingHardwareValue,
+            ComponentType = MachineNameComponentType.SerialNumber
+        });
 
-        Assert.Matches("^abcdefghi[A-Z0-9]{6}$", viewModel.TargetComputerName);
+        Assert.True(viewModel.IsTargetComputerNameReadOnly);
+        Assert.Equal(
+            $"{viewModel.Strings["TargetDevice.SerialNumber"]}: {viewModel.Strings["Common.Unavailable"]}",
+            viewModel.TargetComputerNameValidationMessage);
+    }
+
+    [Fact]
+    public void TargetComputerName_WhenPreparationFailedAndEditingIsAllowed_AcceptsValidOverride()
+    {
+        using DeploymentPreparationViewModel viewModel = CreateViewModel();
+        viewModel.ApplyMachineNamingConfiguration(new DeployMachineNamingSettings
+        {
+            IsEnabled = true,
+            Mode = MachineNamingMode.Composed,
+            AllowEditingDuringDeployment = true
+        });
+        viewModel.ApplyMachineNamePreparation(new MachineNamePreparationResult
+        {
+            FailureKind = Foundry.Core.Services.Configuration.MachineNameCompositionFailureKind.PlaceholderHardwareValue,
+            ComponentType = MachineNameComponentType.AssetTag
+        });
+
+        viewModel.TargetComputerName = "MANUAL-01";
+
+        Assert.False(viewModel.HasTargetComputerNameValidationError);
+        Assert.True(viewModel.IsTargetComputerNameValid);
     }
 
     [Fact]

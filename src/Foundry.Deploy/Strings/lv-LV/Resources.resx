@@ -591,6 +591,8 @@ Vai turpināt izvietošanu?</value></data>
   <data name="Diagnostics.ExportMenu" xml:space="preserve">
     <value>Eksportēt diagnostiku...</value>
   </data>
+  <data name="TargetDevice.AssetTag" xml:space="preserve"><value>Inventāra tags</value></data>
+  <data name="TargetDevice.SystemUuid" xml:space="preserve"><value>Sistēmas UUID</value></data>
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>Eksportēt neapstrādātu diagnostiku...</value>
   </data>

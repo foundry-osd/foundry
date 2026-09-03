@@ -591,6 +591,8 @@ Dağıtıma devam edilsin mi?</value></data>
   <data name="Diagnostics.ExportMenu" xml:space="preserve">
     <value>Tanılamayı dışa aktar...</value>
   </data>
+  <data name="TargetDevice.AssetTag" xml:space="preserve"><value>Varlık etiketi</value></data>
+  <data name="TargetDevice.SystemUuid" xml:space="preserve"><value>Sistem UUID&apos;si</value></data>
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>Ham tanılamayı dışa aktar...</value>
   </data>

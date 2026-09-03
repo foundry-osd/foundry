@@ -4,7 +4,7 @@
 
 using System.IO;
 using Foundry.Deploy.Services.System;
-using Foundry.Deploy.Validation;
+using ComputerNameRules = Foundry.Core.Services.Configuration.ComputerNameRules;
 using Foundry.Utilities.Processes;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;

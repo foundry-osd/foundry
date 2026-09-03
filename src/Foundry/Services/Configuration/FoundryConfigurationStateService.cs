@@ -402,29 +402,40 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
 
     private static CustomizationSettings SanitizeCustomizationForPersistence(CustomizationSettings settings)
     {
-        string normalizedPrefix = MachineNamingRules.NormalizePrefix(settings.MachineNaming.Prefix?.Trim());
-        string? prefix = string.IsNullOrWhiteSpace(normalizedPrefix)
-            ? null
-            : normalizedPrefix;
+        MachineNamingSettings machineNaming = SanitizeMachineNaming(settings.MachineNaming);
 
         return settings with
         {
-            // Disabled machine naming must not leak a stale prefix into generated deployment JSON.
-            MachineNaming = new MachineNamingSettings
-            {
-                IsEnabled = settings.MachineNaming.IsEnabled,
-                Prefix = settings.MachineNaming.IsEnabled ? prefix : null,
-                AutoGenerateName = settings.MachineNaming.IsEnabled && settings.MachineNaming.AutoGenerateName,
-                AllowManualSuffixEdit = !settings.MachineNaming.IsEnabled ||
-                                        !settings.MachineNaming.AutoGenerateName ||
-                                        settings.MachineNaming.AllowManualSuffixEdit
-            },
+            MachineNaming = machineNaming,
             Oobe = SanitizeOobeForPersistence(settings.Oobe),
             AppxRemoval = SanitizeAppxRemovalForPersistence(settings.AppxRemoval),
             WindowsOptionalFeatures = WindowsOptionalFeatureSettingsNormalizer.Normalize(settings.WindowsOptionalFeatures),
             AiComponentRemoval = SanitizeAiComponentRemovalForPersistence(
                 settings.AiComponentRemoval,
                 settings.AppxRemoval)
+        };
+    }
+
+    private static MachineNamingSettings SanitizeMachineNaming(MachineNamingSettings settings)
+    {
+        if (!settings.IsEnabled)
+        {
+            return new MachineNamingSettings();
+        }
+
+        return settings with
+        {
+            ManualInitialValue = settings.Mode == MachineNamingMode.Manual
+                ? NormalizeOptional(ComputerNameRules.Normalize(settings.ManualInitialValue))
+                : null,
+            Components = settings.Mode == MachineNamingMode.Composed
+                ? settings.Components.Select(component => component with
+                {
+                    StaticText = component.Type == MachineNameComponentType.StaticText
+                        ? ComputerNameRules.Sanitize(component.StaticText)
+                        : null
+                }).ToArray()
+                : []
         };
     }
 

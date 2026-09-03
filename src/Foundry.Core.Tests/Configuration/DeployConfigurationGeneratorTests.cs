@@ -52,7 +52,7 @@ public sealed class DeployConfigurationGeneratorTests
     }
 
     [Fact]
-    public void Generate_WhenMachineNamingIsDisabled_ClearsPrefixAndKeepsManualSuffixEditable()
+    public void Generate_WhenMachineNamingIsDisabled_EmitsDisabledDefaults()
     {
         var generator = new DeployConfigurationGenerator();
         var document = new FoundryConfigurationDocument
@@ -62,9 +62,11 @@ public sealed class DeployConfigurationGeneratorTests
                 MachineNaming = new MachineNamingSettings
                 {
                     IsEnabled = false,
-                    Prefix = "FD-",
-                    AutoGenerateName = true,
-                    AllowManualSuffixEdit = false
+                    Mode = MachineNamingMode.Composed,
+                    Components = [new MachineNameComponentSettings { Type = MachineNameComponentType.StaticText, StaticText = "FD" }],
+                    Separator = MachineNameSeparator.Hyphen,
+                    Casing = MachineNameCasing.Uppercase,
+                    AllowEditingDuringDeployment = false
                 }
             }
         };
@@ -72,13 +74,13 @@ public sealed class DeployConfigurationGeneratorTests
         var result = generator.Generate(document);
 
         Assert.False(result.Customization.MachineNaming.IsEnabled);
-        Assert.Null(result.Customization.MachineNaming.Prefix);
-        Assert.False(result.Customization.MachineNaming.AutoGenerateName);
-        Assert.True(result.Customization.MachineNaming.AllowManualSuffixEdit);
+        Assert.Equal(MachineNamingMode.Manual, result.Customization.MachineNaming.Mode);
+        Assert.Empty(result.Customization.MachineNaming.Components);
+        Assert.Null(result.Customization.MachineNaming.ManualInitialValue);
     }
 
     [Fact]
-    public void Generate_WhenSuffixIsNotGenerated_KeepsManualSuffixEditable()
+    public void Generate_WhenNamingIsComposed_MapsOrderedComponentsAndFormatting()
     {
         var generator = new DeployConfigurationGenerator();
         var document = new FoundryConfigurationDocument
@@ -88,16 +90,77 @@ public sealed class DeployConfigurationGeneratorTests
                 MachineNaming = new MachineNamingSettings
                 {
                     IsEnabled = true,
-                    Prefix = "LAB-",
-                    AutoGenerateName = false,
-                    AllowManualSuffixEdit = false
+                    Mode = MachineNamingMode.Composed,
+                    Components =
+                    [
+                        new MachineNameComponentSettings { Type = MachineNameComponentType.StaticText, StaticText = "LAB" },
+                        new MachineNameComponentSettings
+                        {
+                            Type = MachineNameComponentType.SerialNumber,
+                            MaximumLength = 11,
+                            Truncation = MachineNameTruncation.KeepRight
+                        }
+                    ],
+                    Separator = MachineNameSeparator.Hyphen,
+                    Casing = MachineNameCasing.Uppercase,
+                    AllowEditingDuringDeployment = false
                 }
             }
         };
 
         FoundryDeployConfigurationDocument result = generator.Generate(document);
 
-        Assert.True(result.Customization.MachineNaming.AllowManualSuffixEdit);
+        DeployMachineNamingSettings naming = result.Customization.MachineNaming;
+        Assert.Equal(MachineNamingMode.Composed, naming.Mode);
+        Assert.Equal(MachineNameSeparator.Hyphen, naming.Separator);
+        Assert.Equal(MachineNameCasing.Uppercase, naming.Casing);
+        Assert.False(naming.AllowEditingDuringDeployment);
+        Assert.Collection(
+            naming.Components,
+            component =>
+            {
+                Assert.Equal(MachineNameComponentType.StaticText, component.Type);
+                Assert.Equal("LAB", component.StaticText);
+            },
+            component =>
+            {
+                Assert.Equal(MachineNameComponentType.SerialNumber, component.Type);
+                Assert.Equal(11, component.MaximumLength);
+                Assert.Equal(MachineNameTruncation.KeepRight, component.Truncation);
+            });
+    }
+
+    [Fact]
+    public void Generate_WhenMachineNamingIsInvalid_Throws()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                MachineNaming = new MachineNamingSettings
+                {
+                    IsEnabled = true,
+                    Mode = MachineNamingMode.Composed,
+                    Components =
+                    [
+                        new MachineNameComponentSettings
+                        {
+                            Type = MachineNameComponentType.StaticText,
+                            StaticText = "TOO-LONG-PREFIX"
+                        },
+                        new MachineNameComponentSettings
+                        {
+                            Type = MachineNameComponentType.Random,
+                            MaximumLength = 6
+                        }
+                    ],
+                    Separator = MachineNameSeparator.Hyphen
+                }
+            }
+        };
+
+        Assert.Throws<InvalidOperationException>(() => generator.Generate(document));
     }
 
     [Fact]

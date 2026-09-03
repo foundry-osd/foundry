@@ -25,7 +25,7 @@ using Foundry.Utilities.Networking;
 using Foundry.Deploy.Services.Theme;
 using Foundry.Deploy.Services.Wizard;
 using Foundry.Localization;
-using Foundry.Deploy.Validation;
+using ComputerNameRules = Foundry.Core.Services.Configuration.ComputerNameRules;
 using Microsoft.Extensions.Logging;
 using DeployThemeMode = Foundry.Deploy.Services.Theme.ThemeMode;
 
@@ -309,9 +309,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 Mode = _deploymentRuntimeContext.Mode,
                 CacheRootPath = Preparation.CacheRootPath,
                 TargetComputerName = Preparation.TargetComputerName,
-                RequiredComputerNamePrefix = Preparation.HasTargetComputerNamePrefix
-                    ? Preparation.TargetComputerNamePrefix
-                    : null,
                 DefaultTimeZoneId = _wizardContext.DefaultTimeZoneId,
                 SelectedTargetDisk = Preparation.SelectedTargetDisk,
                 SelectedOperatingSystem = OperatingSystemCatalog.SelectedOperatingSystem,

@@ -14,12 +14,25 @@ public static class ComputerNameRules
 
     public static string Normalize(string? value)
     {
+        string sanitized = Sanitize(value);
+        return sanitized.Length > MaxLength
+            ? sanitized[..MaxLength]
+            : sanitized;
+    }
+
+    /// <summary>
+    /// Removes unsupported computer-name characters without applying the Windows length limit.
+    /// </summary>
+    /// <param name="value">Value to sanitize.</param>
+    /// <returns>The value containing only supported computer-name characters.</returns>
+    public static string Sanitize(string? value)
+    {
         if (string.IsNullOrWhiteSpace(value))
         {
             return string.Empty;
         }
 
-        var builder = new StringBuilder(MaxLength);
+        var builder = new StringBuilder(value.Length);
         foreach (char character in value)
         {
             if (!IsAllowedCharacter(character))
@@ -28,10 +41,6 @@ public static class ComputerNameRules
             }
 
             builder.Append(character);
-            if (builder.Length >= MaxLength)
-            {
-                break;
-            }
         }
 
         return builder.ToString();

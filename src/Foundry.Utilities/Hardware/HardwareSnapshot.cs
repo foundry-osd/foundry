@@ -17,4 +17,9 @@ public sealed record HardwareSnapshot(
     bool IsOnBattery,
     bool IsTpmPresent,
     string SystemFirmwareHardwareId,
-    IReadOnlyList<PnpDeviceSnapshot> PnpDevices);
+    IReadOnlyList<PnpDeviceSnapshot> PnpDevices)
+{
+    public string AssetTag { get; init; } = string.Empty;
+
+    public string SystemUuid { get; init; } = string.Empty;
+}

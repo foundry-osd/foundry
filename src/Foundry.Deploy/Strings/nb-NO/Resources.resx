@@ -591,6 +591,8 @@ Vil du fortsette med distribusjonen?</value></data>
   <data name="Diagnostics.ExportMenu" xml:space="preserve">
     <value>Eksporter diagnostikk...</value>
   </data>
+  <data name="TargetDevice.AssetTag" xml:space="preserve"><value>Ressursmerke</value></data>
+  <data name="TargetDevice.SystemUuid" xml:space="preserve"><value>System-UUID</value></data>
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>Eksporter rådiagnostikk...</value>
   </data>

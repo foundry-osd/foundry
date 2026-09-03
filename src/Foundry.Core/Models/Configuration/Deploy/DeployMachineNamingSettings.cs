@@ -7,7 +7,16 @@ namespace Foundry.Core.Models.Configuration.Deploy;
 public sealed record DeployMachineNamingSettings
 {
     public bool IsEnabled { get; init; }
-    public string? Prefix { get; init; }
-    public bool AutoGenerateName { get; init; }
-    public bool AllowManualSuffixEdit { get; init; } = true;
+
+    public MachineNamingMode Mode { get; init; } = MachineNamingMode.Manual;
+
+    public string? ManualInitialValue { get; init; }
+
+    public IReadOnlyList<DeployMachineNameComponentSettings> Components { get; init; } = [];
+
+    public MachineNameSeparator Separator { get; init; }
+
+    public MachineNameCasing Casing { get; init; }
+
+    public bool AllowEditingDuringDeployment { get; init; } = true;
 }

@@ -106,6 +106,51 @@ public sealed class DeployConfigurationServiceTests
     }
 
     [Fact]
+    public void LoadOptional_WhenLegacyMachineNamingUsesGeneratedSuffix_MigratesToComposition()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string configurationPath = CreateJsonFile(
+            tempDirectory.Path,
+            "foundry.deploy.config.json",
+            """
+            {
+              "schemaVersion": 11,
+              "customization": {
+                "machineNaming": {
+                  "isEnabled": true,
+                  "prefix": "LAB-",
+                  "autoGenerateName": true,
+                  "allowManualSuffixEdit": false
+                }
+              }
+            }
+            """);
+
+        var service = new DeployConfigurationService(
+            NullLogger<DeployConfigurationService>.Instance,
+            configurationPath);
+
+        DeployConfigurationLoadResult result = service.LoadOptional();
+
+        DeployMachineNamingSettings naming = Assert.IsType<FoundryDeployConfigurationDocument>(result.Document)
+            .Customization.MachineNaming;
+        Assert.Equal(Foundry.Core.Models.Configuration.MachineNamingMode.Composed, naming.Mode);
+        Assert.False(naming.AllowEditingDuringDeployment);
+        Assert.Collection(
+            naming.Components,
+            component =>
+            {
+                Assert.Equal(Foundry.Core.Models.Configuration.MachineNameComponentType.StaticText, component.Type);
+                Assert.Equal("LAB-", component.StaticText);
+            },
+            component =>
+            {
+                Assert.Equal(Foundry.Core.Models.Configuration.MachineNameComponentType.Random, component.Type);
+                Assert.Equal(6, component.MaximumLength);
+            });
+    }
+
+    [Fact]
     public void LoadOptional_WhenLegacyConfigurationContainsNetworkProfileRoaming_MigratesBothTransports()
     {
         using var tempDirectory = new TemporaryDirectory();

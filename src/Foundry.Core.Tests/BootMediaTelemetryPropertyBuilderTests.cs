@@ -71,9 +71,20 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
                 MachineNaming = new MachineNamingSettings
                 {
                     IsEnabled = true,
-                    AutoGenerateName = true,
-                    AllowManualSuffixEdit = true,
-                    Prefix = "LAB"
+                    Mode = MachineNamingMode.Composed,
+                    Components =
+                    [
+                        new MachineNameComponentSettings { Type = MachineNameComponentType.StaticText, StaticText = "LAB" },
+                        new MachineNameComponentSettings
+                        {
+                            Type = MachineNameComponentType.SerialNumber,
+                            MaximumLength = 8,
+                            Truncation = MachineNameTruncation.KeepRight
+                        }
+                    ],
+                    Separator = MachineNameSeparator.Hyphen,
+                    Casing = MachineNameCasing.Uppercase,
+                    AllowEditingDuringDeployment = true
                 },
                 Oobe = new OobeSettings
                 {
@@ -181,7 +192,14 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.Equal("hardware_hash_upload", result["autopilot_provisioning_mode"]);
         Assert.True((bool)result["deployment_protection_enabled"]!);
         Assert.True((bool)result["customization_any_enabled"]!);
-        Assert.Equal("auto_generated_editable", result["customization_machine_naming_mode"]);
+        Assert.Equal("composed", result["customization_machine_naming_mode"]);
+        Assert.Equal(2, result["customization_machine_naming_component_count"]);
+        Assert.Equal("static_text,serial_number", result["customization_machine_naming_component_types"]);
+        Assert.Equal("hyphen", result["customization_machine_naming_separator"]);
+        Assert.Equal("uppercase", result["customization_machine_naming_casing"]);
+        Assert.Equal("keep_right", result["customization_machine_naming_truncation_directions"]);
+        Assert.True((bool)result["customization_machine_naming_editing_enabled"]!);
+        Assert.False(result.ContainsKey("customization_machine_naming_prefix_configured"));
         Assert.True((bool)result["customization_appx_removal_enabled"]!);
         Assert.Equal(8, result["customization_appx_removal_package_count"]);
         Assert.Equal("gaming_xbox", result["customization_appx_removal_profile"]);

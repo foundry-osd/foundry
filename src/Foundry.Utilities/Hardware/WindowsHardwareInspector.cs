@@ -33,6 +33,7 @@ public sealed class WindowsHardwareInspector : IHardwareInspector
         $computer = Get-CimInstance -ClassName Win32_ComputerSystem
         $product = Get-CimInstance -ClassName Win32_ComputerSystemProduct
         $bios = Get-CimInstance -ClassName Win32_BIOS
+        $enclosure = Get-CimInstance -ClassName Win32_SystemEnclosure
         $tpm = Get-CimInstance -Namespace 'ROOT\cimv2\Security\MicrosoftTpm' -ClassName Win32_Tpm -ErrorAction SilentlyContinue
         $battery = Get-CimInstance -ClassName Win32_Battery -ErrorAction SilentlyContinue
         $pnpDevices = @(Get-CimInstance -ClassName Win32_PnpEntity -Property Name,DeviceID,HardwareID,ClassGuid,Manufacturer,PNPClass -ErrorAction SilentlyContinue | ForEach-Object {
@@ -58,6 +59,8 @@ public sealed class WindowsHardwareInspector : IHardwareInspector
             Model = [string]$computer.Model
             Product = [string]$product.Version
             SerialNumber = [string]$bios.SerialNumber
+            AssetTag = [string]$enclosure.SMBIOSAssetTag
+            SystemUuid = [string]$product.UUID
             Architecture = [string]$env:PROCESSOR_ARCHITECTURE
             IsOnBattery = [bool]$isOnBattery
             IsTpmPresent = [bool]($null -ne $tpm)
@@ -135,7 +138,11 @@ public sealed class WindowsHardwareInspector : IHardwareInspector
             ReadBool(root, "IsOnBattery"),
             ReadBool(root, "IsTpmPresent"),
             ReadString(root, "SystemFirmwareHardwareId"),
-            ReadPnpDevices(root));
+            ReadPnpDevices(root))
+        {
+            AssetTag = ReadString(root, "AssetTag"),
+            SystemUuid = ReadString(root, "SystemUuid")
+        };
     }
 
     private static IReadOnlyList<PnpDeviceSnapshot> ReadPnpDevices(JsonElement root)

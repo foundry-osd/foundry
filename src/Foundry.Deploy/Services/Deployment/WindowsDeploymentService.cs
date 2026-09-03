@@ -9,7 +9,7 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Services.Deployment.Unattend;
-using Foundry.Deploy.Validation;
+using ComputerNameRules = Foundry.Core.Services.Configuration.ComputerNameRules;
 using Foundry.Utilities.Processes;
 using Microsoft.Extensions.Logging;
 

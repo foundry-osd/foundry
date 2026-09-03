@@ -591,6 +591,8 @@
   <data name="Diagnostics.ExportMenu" xml:space="preserve">
     <value>Εξαγωγή διαγνωστικών...</value>
   </data>
+  <data name="TargetDevice.AssetTag" xml:space="preserve"><value>Ετικέτα περιουσιακού στοιχείου</value></data>
+  <data name="TargetDevice.SystemUuid" xml:space="preserve"><value>UUID συστήματος</value></data>
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>Εξαγωγή ακατέργαστων διαγνωστικών...</value>
   </data>
