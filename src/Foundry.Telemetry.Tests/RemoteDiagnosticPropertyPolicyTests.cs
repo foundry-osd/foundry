@@ -192,6 +192,28 @@ public sealed class RemoteDiagnosticPropertyPolicyTests
         Assert.Equal("System.InvalidOperationException", result.Exception.InnerExceptions[1].Type);
     }
 
+    [Fact]
+    public void CreateSanitizedRecord_RendersCanonicalRuntimePersistencePropertiesWithoutRedaction()
+    {
+        LogEvent source = CreateLogEvent(
+            LogEventLevel.Warning,
+            "Persistence failed for {Workflow}/{Stage}/{StepName}/{OperationId}",
+            exception: null,
+            ("Workflow", "deployment"),
+            ("Stage", "runtime_state_persistence"),
+            ("StepName", "download_image"),
+            ("OperationId", "operation-1"),
+            ("CurrentStep", "download_image"),
+            ("CurrentOperation", "os_image.download"));
+
+        RemoteDiagnosticRecord result = RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(source, CreateContext());
+
+        Assert.Equal(
+            "Persistence failed for \"deployment\"/\"runtime_state_persistence\"/\"download_image\"/\"operation-1\"",
+            result.Body);
+        Assert.DoesNotContain("<redacted>", result.Body, StringComparison.Ordinal);
+    }
+
     private static RemoteDiagnosticsContext CreateContext() => new(
         App: "foundry.deploy",
         AppVersion: "1.2.3",

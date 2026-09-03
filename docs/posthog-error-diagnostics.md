@@ -24,4 +24,4 @@ Recommended operational views:
 - Review rate-limit and queue-drop signals alongside ingestion volume before treating event counts as exact failure counts.
 - Add drop or suppression rules only after confirming that a fingerprint is expected and non-actionable; preserve new failure categories.
 
-Never store PostHog project credentials in documentation or generated deployment media. Configure credentials through the existing build and runtime configuration path.
+Never store PostHog private credentials or administrative secrets in documentation or generated deployment media. The generated media may carry the public PostHog ingestion project token required for client-side event delivery, but any secret or management credential must stay in the existing build and runtime configuration path.

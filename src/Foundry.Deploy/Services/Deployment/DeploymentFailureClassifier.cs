@@ -40,6 +40,10 @@ public static class DeploymentFailureClassifier
                 DeploymentFailureKinds.Process,
                 DeploymentFailureReasons.NonZeroExit,
                 processException.ExitCode.ToString(CultureInfo.InvariantCulture)),
+            OperationCanceledException => new(
+                operationName,
+                DeploymentFailureKinds.Timeout,
+                DeploymentFailureReasons.DeadlineExceeded),
             UtilityProcessStartException processStartException => new(
                 operationName,
                 DeploymentFailureKinds.Process,

@@ -62,6 +62,82 @@ internal static class NetworkTelemetryClassifier
     }
 
     /// <summary>
+    /// Classifies a handled network status returned as user-facing text into stable telemetry fields.
+    /// </summary>
+    /// <param name="status">Handled status returned by the network workflow.</param>
+    /// <returns>Stable failure fields, or <see langword="null"/> when the status is not a failure.</returns>
+    public static NetworkFailureClassification? TryClassifyHandledFailure(string? status)
+    {
+        if (string.IsNullOrWhiteSpace(status))
+        {
+            return null;
+        }
+
+        string normalized = status.Trim();
+        if (normalized.StartsWith("Wi-Fi connected to ", StringComparison.Ordinal) ||
+            normalized.StartsWith("Wi-Fi disconnected from ", StringComparison.Ordinal) ||
+            normalized.StartsWith("Wi-Fi is already disconnected.", StringComparison.Ordinal))
+        {
+            return null;
+        }
+
+        if (normalized.Contains("No wireless adapter", StringComparison.OrdinalIgnoreCase))
+        {
+            return new NetworkFailureClassification("network", "missing_adapter", "no_wireless_adapter");
+        }
+
+        if (normalized.Contains("No Wi-Fi profile", StringComparison.OrdinalIgnoreCase) ||
+            normalized.Contains("not provisioned for this image", StringComparison.OrdinalIgnoreCase))
+        {
+            return new NetworkFailureClassification("network", "profile_unavailable", "wifi_profile_unavailable");
+        }
+
+        if (normalized.Contains("Certificate import failed", StringComparison.OrdinalIgnoreCase))
+        {
+            return new NetworkFailureClassification("network", "certificate_import_failed", "wifi_certificate_import_failed");
+        }
+
+        if (normalized.Contains("Wi-Fi profile import failed", StringComparison.OrdinalIgnoreCase))
+        {
+            return new NetworkFailureClassification("network", "profile_import_failed", "wifi_profile_import_failed");
+        }
+
+        if (normalized.Contains("Wi-Fi connection request failed", StringComparison.OrdinalIgnoreCase))
+        {
+            return new NetworkFailureClassification("network", "connect_request_failed", "wifi_connect_request_failed");
+        }
+
+        if (normalized.Contains("Wi-Fi disconnect request failed", StringComparison.OrdinalIgnoreCase))
+        {
+            return new NetworkFailureClassification("network", "disconnect_request_failed", "wifi_disconnect_request_failed");
+        }
+
+        if (normalized.Contains("did not reach the connected state", StringComparison.OrdinalIgnoreCase) ||
+            normalized.Contains("never transitioned into an active connection attempt", StringComparison.OrdinalIgnoreCase))
+        {
+            return new NetworkFailureClassification("network", "timeout", "wifi_connect_timeout");
+        }
+
+        if (normalized.Contains("remained connected after", StringComparison.OrdinalIgnoreCase) ||
+            normalized.Contains("did not transition away from the connected state", StringComparison.OrdinalIgnoreCase))
+        {
+            return new NetworkFailureClassification("network", "timeout", "wifi_disconnect_timeout");
+        }
+
+        if (normalized.Contains("not supported in this build", StringComparison.OrdinalIgnoreCase))
+        {
+            return new NetworkFailureClassification("network", "unsupported", "wifi_runtime_not_supported");
+        }
+
+        if (normalized.Contains("failed", StringComparison.OrdinalIgnoreCase))
+        {
+            return new NetworkFailureClassification("network", "handled_failure", "network_handled_failure");
+        }
+
+        return null;
+    }
+
+    /// <summary>
     /// Classifies the active connection type without exposing adapter or network identifiers.
     /// </summary>
     /// <param name="snapshot">Current network status snapshot.</param>

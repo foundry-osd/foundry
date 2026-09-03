@@ -116,6 +116,7 @@ public sealed class DeploymentFailureClassifierTests
     [Theory]
     [InlineData(typeof(FileNotFoundException), "io", "not_found")]
     [InlineData(typeof(UnauthorizedAccessException), "io", "access_denied")]
+    [InlineData(typeof(TaskCanceledException), "timeout", "deadline_exceeded")]
     [InlineData(typeof(TimeoutException), "timeout", "deadline_exceeded")]
     [InlineData(typeof(CryptographicException), "cryptography", "cryptographic_error")]
     [InlineData(typeof(InvalidDataException), "validation", "invalid_payload")]

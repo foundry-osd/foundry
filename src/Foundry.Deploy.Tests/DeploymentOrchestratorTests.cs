@@ -284,6 +284,85 @@ public sealed class DeploymentOrchestratorTests
         Assert.Equal("missing_target_partition", telemetryEvent.Properties["deploy_session_failure_code"]);
     }
 
+    [Fact]
+    public async Task RunAsync_WhenStepThrowsTaskCanceledWithoutCallerCancellation_TracksFailedTimeout()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var telemetryService = new RecordingTelemetryService();
+        var logger = new RecordingLogger<DeploymentOrchestrator>();
+        var orchestrator = new DeploymentOrchestrator(
+            new FakeOperationProgressService(),
+            new FakeDeploymentLogService(),
+            new FakeTargetDiskService(),
+            DeploymentStepNames.ExecutionOrder.Select(name => (IDeploymentStep)(name == DeploymentStepNames.DownloadOperatingSystemImage
+                ? new TimeoutFailingStep(name)
+                : new SucceedingStep(name))),
+            telemetryService,
+            logger);
+
+        DeploymentResult result = await orchestrator.RunAsync(new DeploymentContext
+        {
+            Mode = DeploymentMode.Iso,
+            IsDryRun = false,
+            CacheRootPath = workspace.RootPath,
+            TargetDiskNumber = 1,
+            TargetComputerName = "LAB01",
+            DriverPackSelectionKind = DriverPackSelectionKind.None,
+            OperatingSystem = new OperatingSystemCatalogItem()
+        }, TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        TelemetryEvent telemetryEvent = Assert.Single(telemetryService.Events);
+        Assert.False((bool)telemetryEvent.Properties["deploy_session_cancelled"]!);
+        Assert.Equal("timeout", telemetryEvent.Properties["deploy_session_failure_kind"]);
+        Assert.Equal("deadline_exceeded", telemetryEvent.Properties["deploy_session_failure_reason"]);
+        Assert.Equal("os_image.download", telemetryEvent.Properties["deploy_session_failed_operation_name"]);
+        LogEntry terminalLog = Assert.Single(logger.Entries, entry => entry.Properties.ContainsKey("Outcome"));
+        Assert.Equal("failed", terminalLog.Properties["Outcome"]);
+        Assert.Equal(false, terminalLog.Properties["Cancelled"]);
+        Assert.Equal("timeout", terminalLog.Properties["FailureKind"]);
+    }
+
+    [Fact]
+    public async Task RunAsync_WhenCallerCancellationIsRequested_TracksCancelledOutcomeAndPersistsFinalState()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var logService = new FakeDeploymentLogService();
+        var telemetryService = new RecordingTelemetryService();
+        var logger = new RecordingLogger<DeploymentOrchestrator>();
+        using var cancellation = new CancellationTokenSource();
+        var orchestrator = new DeploymentOrchestrator(
+            new FakeOperationProgressService(),
+            logService,
+            new FakeTargetDiskService(),
+            DeploymentStepNames.ExecutionOrder.Select(name => (IDeploymentStep)(name == DeploymentStepNames.DownloadOperatingSystemImage
+                ? new CallerCancellingStep(name, cancellation)
+                : new SucceedingStep(name))),
+            telemetryService,
+            logger);
+
+        DeploymentResult result = await orchestrator.RunAsync(new DeploymentContext
+        {
+            Mode = DeploymentMode.Iso,
+            IsDryRun = false,
+            CacheRootPath = workspace.RootPath,
+            TargetDiskNumber = 1,
+            TargetComputerName = "LAB01",
+            DriverPackSelectionKind = DriverPackSelectionKind.None,
+            OperatingSystem = new OperatingSystemCatalogItem()
+        }, cancellation.Token);
+
+        Assert.False(result.IsSuccess);
+        Assert.Contains(logService.SavedStates, state => state.CurrentOperation == "os_image.download");
+        TelemetryEvent telemetryEvent = Assert.Single(telemetryService.Events);
+        Assert.True((bool)telemetryEvent.Properties["deploy_session_cancelled"]!);
+        Assert.False((bool)telemetryEvent.Properties["deploy_session_success"]!);
+        Assert.False(telemetryEvent.Properties.ContainsKey("deploy_session_failure_kind"));
+        LogEntry terminalLog = Assert.Single(logger.Entries, entry => entry.Properties.ContainsKey("Outcome"));
+        Assert.Equal("cancelled", terminalLog.Properties["Outcome"]);
+        Assert.Equal(true, terminalLog.Properties["Cancelled"]);
+    }
+
     [Theory]
     [InlineData(false, 42, "manual", null)]
     [InlineData(true, 0, "immediate", null)]
@@ -406,6 +485,33 @@ public sealed class DeploymentOrchestratorTests
                     DeploymentOperationNames.ValidateTargetDisk,
                     DeploymentFailureReasons.MissingResource,
                     "missing_target_partition")));
+        }
+    }
+
+    private sealed class TimeoutFailingStep(string name) : IDeploymentStep
+    {
+        public string Name { get; } = name;
+
+        public Task<DeploymentStepResult> ExecuteAsync(
+            DeploymentStepExecutionContext context,
+            CancellationToken cancellationToken)
+        {
+            context.SetCurrentOperation("os_image.download");
+            return Task.FromException<DeploymentStepResult>(new TaskCanceledException("Simulated HTTP timeout."));
+        }
+    }
+
+    private sealed class CallerCancellingStep(string name, CancellationTokenSource cancellation) : IDeploymentStep
+    {
+        public string Name { get; } = name;
+
+        public Task<DeploymentStepResult> ExecuteAsync(
+            DeploymentStepExecutionContext context,
+            CancellationToken cancellationToken)
+        {
+            context.SetCurrentOperation("os_image.download");
+            cancellation.Cancel();
+            return Task.FromCanceled<DeploymentStepResult>(cancellationToken);
         }
     }
 

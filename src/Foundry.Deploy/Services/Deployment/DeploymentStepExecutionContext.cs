@@ -266,6 +266,10 @@ public sealed class DeploymentStepExecutionContext
         {
             await SaveRuntimeStateAsync(cancellationToken).ConfigureAwait(false);
         }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            throw;
+        }
         catch (Exception ex)
         {
             LogRuntimeStatePersistenceFailure(ex);
@@ -276,9 +280,11 @@ public sealed class DeploymentStepExecutionContext
     {
         Log.ForContext<DeploymentStepExecutionContext>().Warning(
             exception,
-            "Deployment runtime state could not be persisted. CurrentStep={CurrentStep}, CurrentOperation={CurrentOperation}",
+            "Deployment runtime state could not be persisted. Workflow={Workflow}, Stage={Stage}, StepName={StepName}, OperationId={OperationId}",
+            "deployment",
+            "runtime_state_persistence",
             RuntimeState.CurrentStep,
-            RuntimeState.CurrentOperation);
+            RuntimeState.OperationId);
     }
 
     /// <summary>

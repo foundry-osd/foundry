@@ -8,9 +8,13 @@ using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
+using Serilog;
+using Serilog.Core;
+using Serilog.Events;
 
 namespace Foundry.Deploy.Tests;
 
+[Collection(nameof(SerilogCollection))]
 public sealed class DeploymentStepExecutionContextTests
 {
     [Fact]
@@ -143,13 +147,64 @@ public sealed class DeploymentStepExecutionContextTests
         Assert.Equal("target_disk_not_selectable", result.Failure.Code);
     }
 
+    [Fact]
+    public async Task TrySaveRuntimeStateAsync_WhenCallerCancellationIsRequested_RethrowsCancellation()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        DeploymentStepExecutionContext context = CreateExecutionContext(
+            workspace.RootPath,
+            Path.Combine(workspace.CacheRootPath, "Runtime"),
+            logService: new CancellationAwareDeploymentLogService());
+        using var cancellation = new CancellationTokenSource();
+        cancellation.Cancel();
+
+        await Assert.ThrowsAsync<OperationCanceledException>(() => context.TrySaveRuntimeStateAsync(cancellation.Token));
+    }
+
+    [Fact]
+    public async Task TrySaveRuntimeStateAsync_WhenPersistenceFails_LogsCanonicalRemoteDiagnosticFields()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var sink = new RecordingSerilogSink();
+        Serilog.ILogger originalLogger = Log.Logger;
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Verbose()
+            .WriteTo.Sink(sink)
+            .CreateLogger();
+
+        try
+        {
+            DeploymentStepExecutionContext context = CreateExecutionContext(
+                workspace.RootPath,
+                Path.Combine(workspace.CacheRootPath, "Runtime"),
+                logService: new ThrowingSaveDeploymentLogService(),
+                operationId: "operation-1");
+            context.SetCurrentStep(new SucceedingDeploymentStep("download_image"), 1);
+
+            await context.TrySaveRuntimeStateAsync(TestContext.Current.CancellationToken);
+
+            LogEvent warning = Assert.Single(sink.Events, item => item.Level == LogEventLevel.Warning);
+            Assert.Equal("deployment", Assert.IsType<ScalarValue>(warning.Properties["Workflow"]).Value);
+            Assert.Equal("runtime_state_persistence", Assert.IsType<ScalarValue>(warning.Properties["Stage"]).Value);
+            Assert.Equal("download_image", Assert.IsType<ScalarValue>(warning.Properties["StepName"]).Value);
+            Assert.Equal("operation-1", Assert.IsType<ScalarValue>(warning.Properties["OperationId"]).Value);
+            Assert.False(warning.Properties.ContainsKey("CurrentStep"));
+            Assert.False(warning.Properties.ContainsKey("CurrentOperation"));
+        }
+        finally
+        {
+            Log.Logger = originalLogger;
+        }
+    }
+
     private static DeploymentStepExecutionContext CreateExecutionContext(
         string workspaceRoot,
         string resolvedCacheRootPath,
         DeploymentMode mode = DeploymentMode.Usb,
         string? targetFoundryRoot = null,
         IDeploymentLogService? logService = null,
-        ITargetDiskService? targetDiskService = null)
+        ITargetDiskService? targetDiskService = null,
+        string? operationId = null)
     {
         var request = new DeploymentContext
         {
@@ -164,6 +219,7 @@ public sealed class DeploymentStepExecutionContextTests
 
         var runtimeState = new DeploymentRuntimeState
         {
+            OperationId = operationId ?? string.Empty,
             WorkspaceRoot = workspaceRoot,
             Mode = mode,
             TargetFoundryRoot = targetFoundryRoot,
@@ -269,6 +325,81 @@ public sealed class DeploymentStepExecutionContextTests
             TState state,
             CancellationToken cancellationToken = default) => Task.CompletedTask;
 
+    }
+
+    private sealed class CancellationAwareDeploymentLogService : IDeploymentLogService
+    {
+        public DeploymentLogSession Initialize(string rootPath)
+        {
+            return new DeploymentLogSession
+            {
+                RootPath = rootPath,
+                LogsDirectoryPath = Path.Combine(rootPath, "Logs"),
+                StateDirectoryPath = Path.Combine(rootPath, "State"),
+                StateFilePath = Path.Combine(rootPath, "State", "deployment-state.json")
+            };
+        }
+
+        public Task AppendAsync(
+            DeploymentLogSession session,
+            DeploymentLogLevel level,
+            string message,
+            CancellationToken cancellationToken = default) => Task.CompletedTask;
+
+        public Task SaveStateAsync<TState>(
+            DeploymentLogSession session,
+            TState state,
+            CancellationToken cancellationToken = default)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            return Task.CompletedTask;
+        }
+    }
+
+    private sealed class ThrowingSaveDeploymentLogService : IDeploymentLogService
+    {
+        public DeploymentLogSession Initialize(string rootPath)
+        {
+            return new DeploymentLogSession
+            {
+                RootPath = rootPath,
+                LogsDirectoryPath = Path.Combine(rootPath, "Logs"),
+                StateDirectoryPath = Path.Combine(rootPath, "State"),
+                StateFilePath = Path.Combine(rootPath, "State", "deployment-state.json")
+            };
+        }
+
+        public Task AppendAsync(
+            DeploymentLogSession session,
+            DeploymentLogLevel level,
+            string message,
+            CancellationToken cancellationToken = default) => Task.CompletedTask;
+
+        public Task SaveStateAsync<TState>(
+            DeploymentLogSession session,
+            TState state,
+            CancellationToken cancellationToken = default) =>
+            Task.FromException(new IOException("Simulated persistence failure."));
+    }
+
+    private sealed class RecordingSerilogSink : ILogEventSink
+    {
+        public List<LogEvent> Events { get; } = [];
+
+        public void Emit(LogEvent logEvent)
+        {
+            Events.Add(logEvent);
+        }
+    }
+
+    private sealed class SucceedingDeploymentStep(string name) : IDeploymentStep
+    {
+        public string Name { get; } = name;
+
+        public Task<DeploymentStepResult> ExecuteAsync(
+            DeploymentStepExecutionContext context,
+            CancellationToken cancellationToken) =>
+            Task.FromResult(DeploymentStepResult.Succeeded("ok"));
     }
 
     private sealed class FakeOperationProgressService : IOperationProgressService
