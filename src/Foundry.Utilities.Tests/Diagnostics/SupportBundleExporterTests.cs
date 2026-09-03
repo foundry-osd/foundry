@@ -45,6 +45,29 @@ public sealed class SupportBundleExporterTests
     }
 
     [Fact]
+    public async Task ExportAsync_SanitizedModePreservesLogLineBoundaries()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string sourcePath = Path.Combine(tempDirectory.Path, "Foundry.log");
+        const string sourceContent = "First line Password=secret\r\nSecond line\r\n   at C:\\Users\\alice\\source.cs:line 42";
+        await File.WriteAllTextAsync(sourcePath, sourceContent, TestContext.Current.CancellationToken);
+        var exporter = new SupportBundleExporter();
+
+        SupportBundleResult result = await exporter.ExportAsync(new SupportBundleRequest
+        {
+            ApplicationName = "Foundry",
+            ApplicationVersion = "1.0.0",
+            SessionId = "ABC12345",
+            DestinationDirectoryPath = Path.Combine(tempDirectory.Path, "export"),
+            LogFilePaths = [sourcePath]
+        }, TestContext.Current.CancellationToken);
+
+        using ZipArchive archive = ZipFile.OpenRead(result.ArchivePath);
+        string log = await ReadEntryAsync(archive, "logs/Foundry.log");
+        Assert.Equal("First line Password=<redacted>\r\nSecond line\r\n   at C:\\Users\\<redacted>\\source.cs:line 42", log);
+    }
+
+    [Fact]
     public async Task ExportAsync_RawModePreservesOriginalLogContent()
     {
         using var tempDirectory = new TemporaryDirectory();

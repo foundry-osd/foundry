@@ -28,6 +28,35 @@ public sealed class DeploymentFailureClassifierTests
     }
 
     [Fact]
+    public void DeploymentOperationException_PreservesInnerException()
+    {
+        var inner = new IOException("Disk failed.");
+        var failure = new DeploymentFailure(
+            "disk.prepare",
+            DeploymentFailureKinds.Io,
+            DeploymentFailureReasons.UnexpectedException);
+
+        var exception = new DeploymentOperationException(failure, "Preparation failed.", inner);
+
+        Assert.Same(inner, exception.InnerException);
+        Assert.Equal(failure, DeploymentFailureClassifier.Classify(exception, "fallback"));
+    }
+
+    [Theory]
+    [InlineData(DeploymentFailureReasons.MissingResource, "missing_target_partition")]
+    [InlineData(DeploymentFailureReasons.InvalidInput, "unsupported_driver_mode")]
+    [InlineData(DeploymentFailureReasons.NotFound, "autopilot_profile_file_not_found")]
+    public void Guard_UsesExplicitStableReasonAndCode(string reason, string code)
+    {
+        DeploymentFailure failure = DeploymentFailure.Guard("deployment.step", reason, code);
+
+        Assert.Equal("deployment.step", failure.OperationName);
+        Assert.Equal(DeploymentFailureKinds.Validation, failure.Kind);
+        Assert.Equal(reason, failure.Reason);
+        Assert.Equal(code, failure.Code);
+    }
+
+    [Fact]
     public void Classify_UsesHttpStatusWithoutIncludingExceptionMessage()
     {
         DeploymentFailure failure = DeploymentFailureClassifier.Classify(
@@ -87,6 +116,7 @@ public sealed class DeploymentFailureClassifierTests
     [Theory]
     [InlineData(typeof(FileNotFoundException), "io", "not_found")]
     [InlineData(typeof(UnauthorizedAccessException), "io", "access_denied")]
+    [InlineData(typeof(TaskCanceledException), "timeout", "deadline_exceeded")]
     [InlineData(typeof(TimeoutException), "timeout", "deadline_exceeded")]
     [InlineData(typeof(CryptographicException), "cryptography", "cryptographic_error")]
     [InlineData(typeof(InvalidDataException), "validation", "invalid_payload")]

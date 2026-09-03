@@ -22,7 +22,7 @@ public sealed class ConfigureTargetComputerNameStep : DeploymentStepBase
     {
         if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot))
         {
-            return DeploymentStepResult.Failed("Target Windows partition is unavailable.");
+            return CreateMissingTargetPartitionFailure();
         }
 
         context.EmitCurrentStepIndeterminate("Configuring target computer name...", "Writing offline computer name...", DeploymentOperationNames.ConfigureComputerName);
@@ -47,7 +47,7 @@ public sealed class ConfigureTargetComputerNameStep : DeploymentStepBase
     {
         if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot))
         {
-            return DeploymentStepResult.Failed("Target Windows partition is unavailable.");
+            return CreateMissingTargetPartitionFailure();
         }
 
         context.EmitCurrentStepIndeterminate("Configuring target computer name...", "Writing offline computer name...", DeploymentOperationNames.ConfigureComputerName);
@@ -68,4 +68,12 @@ public sealed class ConfigureTargetComputerNameStep : DeploymentStepBase
 
         return DeploymentStepResult.Succeeded("Target computer name configured (simulation).");
     }
+
+    private static DeploymentStepResult CreateMissingTargetPartitionFailure() =>
+        DeploymentStepResult.Failed(
+            "Target Windows partition is unavailable.",
+            DeploymentFailure.Guard(
+                DeploymentOperationNames.ConfigureComputerName,
+                DeploymentFailureReasons.MissingResource,
+                "missing_target_partition"));
 }

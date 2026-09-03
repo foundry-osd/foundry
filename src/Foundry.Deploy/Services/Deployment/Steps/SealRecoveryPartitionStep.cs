@@ -23,7 +23,7 @@ public sealed class SealRecoveryPartitionStep : DeploymentStepBase
         if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetRecoveryPartitionRoot) ||
             !context.RuntimeState.TargetRecoveryPartitionLetter.HasValue)
         {
-            return DeploymentStepResult.Failed("Recovery partition is unavailable.");
+            return CreateMissingRecoveryPartitionFailure();
         }
 
         string targetFoundryRoot = context.EnsureTargetFoundryRoot();
@@ -51,7 +51,7 @@ public sealed class SealRecoveryPartitionStep : DeploymentStepBase
     {
         if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetRecoveryPartitionRoot))
         {
-            return DeploymentStepResult.Failed("Recovery partition is unavailable.");
+            return CreateMissingRecoveryPartitionFailure();
         }
 
         context.EmitCurrentStepIndeterminate("Sealing recovery partition...", "Removing recovery drive letter...", DeploymentOperationNames.SealRecovery);
@@ -63,4 +63,12 @@ public sealed class SealRecoveryPartitionStep : DeploymentStepBase
 
         return DeploymentStepResult.Succeeded("Recovery partition sealed (simulation).");
     }
+
+    private static DeploymentStepResult CreateMissingRecoveryPartitionFailure() =>
+        DeploymentStepResult.Failed(
+            "Recovery partition is unavailable.",
+            DeploymentFailure.Guard(
+                DeploymentOperationNames.SealRecovery,
+                DeploymentFailureReasons.MissingResource,
+                "missing_recovery_partition"));
 }

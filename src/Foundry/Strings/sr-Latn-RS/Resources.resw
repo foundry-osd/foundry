@@ -2055,6 +2055,12 @@
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>general</value>
   </data>
+  <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
+    <value>Šaljite prečišćene evidencije i detalje o izuzecima radi lakšeg dijagnostikovanja grešaka. Tajni podaci i direktni identifikatori su isključeni.</value>
+  </data>
+  <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
+    <value>Omogući udaljenu dijagnostiku</value>
+  </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
     <value>Pošaljite anonimnu telemetriju korišćenja da biste poboljšali Foundry. Tajne i direktni identifikatori uređaja, uključujući serijske brojeve i heševe hardvera, isključeni su. Telemetrija koristi anonimni identifikator instalacije i može da obuhvati proizvođača i model uređaja.</value>
   </data>

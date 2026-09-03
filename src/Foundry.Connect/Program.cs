@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Threading;
 using Foundry.Connect.DependencyInjection;
 using Foundry.Connect.Models;
+using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Services.Configuration;
 using Foundry.Connect.Services.Logging;
 using Foundry.Connect.Services.Runtime;
@@ -24,6 +25,7 @@ namespace Foundry.Connect;
 public static class Program
 {
     private const string DisableFluentBackdropSwitch = "Switch.System.Windows.Appearance.DisableFluentThemeWindowBackdrop";
+    private static readonly TimeSpan RemoteDiagnosticsShutdownTimeout = TimeSpan.FromSeconds(2);
 
     /// <summary>
     /// Configures logging, validates runtime constraints, builds the host, and runs the WPF shell.
@@ -34,6 +36,9 @@ public static class Program
     public static int Main(string[] args)
     {
         string startupLogFilePath = FoundryConnectLogging.ResolveStartupLogFilePath();
+        IHost? host = null;
+        ITelemetryService? telemetryService = null;
+        IRemoteDiagnosticsService? remoteDiagnosticsService = null;
         try
         {
             Log.Logger = FoundryConnectLogging.CreateLogger(startupLogFilePath);
@@ -44,7 +49,8 @@ public static class Program
             Log.Logger = FoundryLogConfiguration.CreateDebugLogger(
                 "Foundry.Connect",
                 DiagnosticSessionContext.CurrentSessionId,
-                Serilog.Events.LogEventLevel.Debug);
+                Serilog.Events.LogEventLevel.Debug,
+                additionalSink: RemoteDiagnosticsSink.Instance);
             Log.ForContext(typeof(Program)).Error(ex, "File logging initialization failed. Falling back to debugger output.");
         }
 
@@ -71,9 +77,11 @@ public static class Program
             ConfigureRuntimeCompatibility();
             programLogger.Information("Runtime compatibility configuration completed.");
 
-            using IHost host = BuildHost(args);
+            host = BuildHost(args);
             programLogger.Information("Host built successfully.");
-            ITelemetryService telemetryService = host.Services.GetRequiredService<ITelemetryService>();
+            telemetryService = host.Services.GetRequiredService<ITelemetryService>();
+            remoteDiagnosticsService = host.Services.GetRequiredService<IRemoteDiagnosticsService>();
+            InitializeRemoteDiagnostics(host.Services, remoteDiagnosticsService);
 
             App app = host.Services.GetRequiredService<App>();
             programLogger.Debug("Resolved App instance.");
@@ -115,6 +123,8 @@ public static class Program
         }
         finally
         {
+            ShutdownRemoteDiagnostics(programLogger, remoteDiagnosticsService);
+            host?.Dispose();
             Log.CloseAndFlush();
         }
     }
@@ -166,6 +176,41 @@ public static class Program
         builder.Services.AddFoundryConnectApplicationServices(args);
 
         return builder.Build();
+    }
+
+    private static void InitializeRemoteDiagnostics(
+        IServiceProvider services,
+        IRemoteDiagnosticsService remoteDiagnosticsService)
+    {
+        FoundryConnectConfiguration configuration = services.GetRequiredService<FoundryConnectConfiguration>();
+        TelemetryContext telemetryContext = services.GetRequiredService<TelemetryContext>();
+        RemoteDiagnosticsLifecycle.Initialize(remoteDiagnosticsService, configuration.Telemetry, telemetryContext);
+    }
+
+    private static void ShutdownRemoteDiagnostics(
+        Serilog.ILogger logger,
+        IRemoteDiagnosticsService? remoteDiagnosticsService)
+    {
+        if (remoteDiagnosticsService is null)
+        {
+            return;
+        }
+
+        logger.Debug("Flushing Foundry.Connect remote diagnostics.");
+        using var cancellation = new CancellationTokenSource(RemoteDiagnosticsShutdownTimeout);
+        try
+        {
+            RemoteDiagnosticsLifecycle.ShutdownAsync(remoteDiagnosticsService, cancellation.Token).GetAwaiter().GetResult();
+            logger.Debug("Foundry.Connect remote diagnostics flush completed.");
+        }
+        catch (OperationCanceledException)
+        {
+            logger.Warning("Foundry.Connect remote diagnostics flush timed out after {TimeoutSeconds} seconds.", RemoteDiagnosticsShutdownTimeout.TotalSeconds);
+        }
+        catch (Exception ex)
+        {
+            logger.Warning(ex, "Foundry.Connect remote diagnostics shutdown failed.");
+        }
     }
 
     private static void RegisterGlobalExceptionHandlers()

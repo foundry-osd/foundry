@@ -50,13 +50,26 @@ public static class ServiceCollectionExtensions
         services.AddSingleton(sp =>
         {
             FoundryAppSettings settings = sp.GetRequiredService<IAppSettingsService>().Current;
-            return new TelemetryOptions(
-                settings.Telemetry.IsEnabled,
-                TelemetryDefaults.PostHogEuHost,
-                TelemetryDefaults.ProjectToken,
-                settings.Telemetry.InstallId);
+            return new TelemetrySettings
+            {
+                IsEnabled = settings.Telemetry.IsEnabled,
+                IsRemoteDiagnosticsEnabled = settings.Telemetry.IsRemoteDiagnosticsEnabled,
+                HostUrl = TelemetryDefaults.PostHogEuHost,
+                ProjectToken = TelemetryDefaults.ProjectToken,
+                InstallId = settings.Telemetry.InstallId,
+                RuntimePayloadSource = TelemetryRuntimePayloadSources.None
+            };
         });
-        services.AddSingleton(_ => new TelemetryContext(
+        services.AddSingleton(sp =>
+        {
+            TelemetrySettings settings = sp.GetRequiredService<TelemetrySettings>();
+            return new TelemetryOptions(
+                settings.IsEnabled,
+                settings.HostUrl,
+                settings.ProjectToken,
+                settings.InstallId);
+        });
+        services.AddSingleton(_ => TelemetryContextFactory.Create(
             TelemetryApps.FoundryOsd,
             FoundryApplicationInfo.Version,
             TelemetryBuildConfiguration.Current,
@@ -64,8 +77,7 @@ public static class ServiceCollectionExtensions
             TelemetryRuntimePayloadSources.None,
             TelemetryBootMediaTargets.None,
             RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant(),
-            CultureInfo.CurrentUICulture.Name,
-            Guid.NewGuid().ToString("D")));
+            CultureInfo.CurrentUICulture.Name));
         services.AddSingleton<ITelemetryService>(sp =>
         {
             TelemetryOptions options = sp.GetRequiredService<TelemetryOptions>();
@@ -91,6 +103,7 @@ public static class ServiceCollectionExtensions
                 sp.GetRequiredService<TelemetryContext>(),
                 logger);
         });
+        services.AddSingleton<IRemoteDiagnosticsService>(_ => new PostHogRemoteDiagnosticsSink());
         services.AddSingleton<IAdkInstallationProbe, WindowsAdkInstallationProbe>();
         services.AddSingleton<IFoundryConfigurationService, FoundryConfigurationService>();
         services.AddSingleton<IDeployConfigurationGenerator, DeployConfigurationGenerator>();

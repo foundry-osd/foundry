@@ -23,6 +23,7 @@ namespace Foundry
     public partial class App : Application
     {
         private static readonly ILogger AppLogger = Log.ForContext<App>();
+        private static readonly TimeSpan RemoteDiagnosticsShutdownTimeout = TimeSpan.FromSeconds(2);
         private bool isShuttingDown;
 
         /// <summary>
@@ -78,9 +79,11 @@ namespace Foundry
         {
             Host = FoundryHost.Create();
             _ = Host.Services.GetRequiredService<IApplicationProxyService>();
-            SetDeveloperModeEnabled(Host.Services.GetRequiredService<IAppSettingsService>().Current.Diagnostics.DeveloperMode);
+            IAppSettingsService appSettingsService = Host.Services.GetRequiredService<IAppSettingsService>();
+            SetDeveloperModeEnabled(appSettingsService.Current.Diagnostics.DeveloperMode);
             _ = Host.Services.GetRequiredService<IFoundryConfigurationStateService>();
             Host.Services.GetRequiredService<IApplicationLocalizationService>().InitializeAsync().GetAwaiter().GetResult();
+            InitializeRemoteDiagnostics(Host.Services.GetRequiredService<TelemetrySettings>());
             RegisterWinUiExceptionHandler();
 
             AppLogger.Information("Foundry WinUI host initialized.");
@@ -172,9 +175,41 @@ namespace Foundry
             AppLogger.Debug("Flushing Foundry telemetry events.");
             GetService<ITelemetryService>().FlushAsync().GetAwaiter().GetResult();
             AppLogger.Debug("Foundry telemetry flush completed.");
+            ShutdownRemoteDiagnostics();
             Host.Dispose();
             AppLogger.Information("Foundry WinUI shutdown completed.");
             Log.CloseAndFlush();
+        }
+
+        private void InitializeRemoteDiagnostics(TelemetrySettings telemetrySettings)
+        {
+            RemoteDiagnosticsLifecycle.Initialize(
+                Host.Services.GetRequiredService<IRemoteDiagnosticsService>(),
+                telemetrySettings,
+                Host.Services.GetRequiredService<TelemetryContext>());
+        }
+
+        private void ShutdownRemoteDiagnostics()
+        {
+            AppLogger.Debug("Flushing Foundry remote diagnostics.");
+            using var cancellation = new CancellationTokenSource(RemoteDiagnosticsShutdownTimeout);
+            try
+            {
+                RemoteDiagnosticsLifecycle.ShutdownAsync(
+                    GetService<IRemoteDiagnosticsService>(),
+                    cancellation.Token).GetAwaiter().GetResult();
+                AppLogger.Debug("Foundry remote diagnostics flush completed.");
+            }
+            catch (OperationCanceledException)
+            {
+                AppLogger.Warning(
+                    "Foundry remote diagnostics flush timed out after {TimeoutSeconds} seconds.",
+                    RemoteDiagnosticsShutdownTimeout.TotalSeconds);
+            }
+            catch (Exception ex)
+            {
+                AppLogger.Warning(ex, "Foundry remote diagnostics shutdown failed.");
+            }
         }
 
     }

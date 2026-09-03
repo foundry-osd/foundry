@@ -2055,6 +2055,12 @@
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>general</value>
   </data>
+  <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
+    <value>Trimiteți jurnale curățate și detalii despre excepții pentru a ajuta la diagnosticarea erorilor. Se exclud secretele și identificatorii direcți.</value>
+  </data>
+  <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
+    <value>Activați diagnosticarea la distanță</value>
+  </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
     <value>Trimiteți telemetrie anonimă privind utilizarea pentru a ajuta la îmbunătățirea Foundry. Secretele și identificatorii direcți ai dispozitivului, inclusiv numerele de serie și hashurile hardware, sunt excluse. Telemetria utilizează un identificator anonim al instalării și poate include producătorul și modelul dispozitivului.</value>
   </data>

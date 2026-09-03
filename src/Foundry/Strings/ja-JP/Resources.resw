@@ -2055,6 +2055,12 @@
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>一般</value>
   </data>
+  <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
+    <value>障害の診断に役立てるため、機密情報を除去したログと例外の詳細を送信します。機密情報と直接識別子は除外されます。</value>
+  </data>
+  <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
+    <value>リモート診断を有効にする</value>
+  </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
     <value>Foundry の改善に役立てるため、匿名の使用状況テレメトリを送信します。シークレットと、シリアル番号やハードウェア ハッシュなどのデバイスを直接識別する情報は除外されます。テレメトリでは匿名のインストール ID が使用され、デバイスの製造元とモデルが含まれる場合があります。</value>
   </data>

@@ -66,10 +66,11 @@ public sealed class WinPeBuildService : IWinPeBuildService
 
             if (!copyPeResult.IsSuccess)
             {
-                return WinPeResult<WinPeBuildArtifact>.Failure(
+                return WinPeResult<WinPeBuildArtifact>.Failure(copyPeResult.ToFailureDiagnostic(
                     WinPeErrorCodes.BuildFailed,
                     "Failed to create WinPE workspace using copype.cmd.",
-                    copyPeResult.ToDiagnosticText());
+                    "Build WinPE workspace",
+                    "copype"));
             }
 
             string mediaDirectory = Path.Combine(workingDirectory, "media");
@@ -106,12 +107,19 @@ public sealed class WinPeBuildService : IWinPeBuildService
                 SignatureMode = options.SignatureMode
             });
         }
-        catch (Exception ex)
+        catch (Exception ex) when (ex is not OperationCanceledException)
         {
             return WinPeResult<WinPeBuildArtifact>.Failure(
                 WinPeErrorCodes.BuildFailed,
                 "Unexpected failure while creating the WinPE workspace.",
-                ex.Message);
+                ex.ToString(),
+                stage: "Build WinPE workspace",
+                failureReason: ex is UnauthorizedAccessException
+                    ? WinPeFailureReasons.AccessDenied
+                    : WinPeFailureReasons.ProcessStartFailed,
+                toolName: "copype",
+                errorSummary: ex.Message,
+                exception: ex);
         }
     }
 

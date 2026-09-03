@@ -9,6 +9,27 @@ namespace Foundry.Core.Tests.WinPe;
 public sealed class WinPeDriverCatalogServiceTests
 {
     [Fact]
+    public async Task GetCatalogAsync_WhenHttpRequestTimesOut_ReturnsNetworkTimeoutDiagnostic()
+    {
+        using var httpClient = new HttpClient(new TimeoutHttpMessageHandler());
+        var service = new WinPeDriverCatalogService(httpClient);
+
+        WinPeResult<IReadOnlyList<WinPeDriverCatalogEntry>> result = await service.GetCatalogAsync(
+            new WinPeDriverCatalogOptions
+            {
+                CatalogUri = "https://example.test/catalog.xml",
+                Architecture = WinPeArchitecture.X64
+            },
+            TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.DriverCatalogFetchFailed, result.Error?.Code);
+        Assert.Equal(WinPeFailureKinds.Network, result.Error?.FailureKind);
+        Assert.Equal(WinPeFailureReasons.Timeout, result.Error?.FailureReason);
+        Assert.IsType<TaskCanceledException>(result.Error?.Exception);
+    }
+
+    [Fact]
     public async Task GetCatalogAsync_FiltersArchitectureReleaseVendorAndPreviewPackages()
     {
         string catalogPath = Path.Combine(Path.GetTempPath(), $"foundry-driver-catalog-{Guid.NewGuid():N}.xml");
@@ -89,5 +110,13 @@ public sealed class WinPeDriverCatalogServiceTests
         {
             File.Delete(catalogPath);
         }
+    }
+
+    private sealed class TimeoutHttpMessageHandler : HttpMessageHandler
+    {
+        protected override Task<HttpResponseMessage> SendAsync(
+            HttpRequestMessage request,
+            CancellationToken cancellationToken) =>
+            Task.FromException<HttpResponseMessage>(new TaskCanceledException("Simulated HTTP timeout."));
     }
 }

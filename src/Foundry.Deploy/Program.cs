@@ -33,11 +33,15 @@ namespace Foundry.Deploy;
 public static class Program
 {
     private const string DisableFluentBackdropSwitch = "Switch.System.Windows.Appearance.DisableFluentThemeWindowBackdrop";
+    private static readonly TimeSpan RemoteDiagnosticsShutdownTimeout = TimeSpan.FromSeconds(2);
 
     [STAThread]
     public static int Main(string[] args)
     {
         string startupLogFilePath = FoundryDeployLogging.ResolveStartupLogFilePath();
+        IHost? host = null;
+        ITelemetryService? telemetryService = null;
+        IRemoteDiagnosticsService? remoteDiagnosticsService = null;
         try
         {
             Log.Logger = FoundryDeployLogging.CreateLogger(startupLogFilePath);
@@ -48,7 +52,8 @@ public static class Program
             Log.Logger = FoundryLogConfiguration.CreateDebugLogger(
                 "Foundry.Deploy",
                 DiagnosticSessionContext.CurrentSessionId,
-                Serilog.Events.LogEventLevel.Debug);
+                Serilog.Events.LogEventLevel.Debug,
+                additionalSink: RemoteDiagnosticsSink.Instance);
             Log.ForContext(typeof(Program)).Error(ex, "File logging initialization failed. Falling back to debugger output.");
         }
 
@@ -74,8 +79,10 @@ public static class Program
 
             ConfigureRuntimeCompatibility();
 
-            using IHost host = BuildHost(args);
-            ITelemetryService telemetryService = host.Services.GetRequiredService<ITelemetryService>();
+            host = BuildHost(args);
+            telemetryService = host.Services.GetRequiredService<ITelemetryService>();
+            remoteDiagnosticsService = host.Services.GetRequiredService<IRemoteDiagnosticsService>();
+            InitializeRemoteDiagnostics(host.Services, remoteDiagnosticsService);
 
             App app = host.Services.GetRequiredService<App>();
             app.DispatcherUnhandledException += OnDispatcherUnhandledException;
@@ -97,6 +104,8 @@ public static class Program
         }
         finally
         {
+            ShutdownRemoteDiagnostics(programLogger, remoteDiagnosticsService);
+            host?.Dispose();
             Log.CloseAndFlush();
             FoundryDeployLogging.PersistCurrentLogs();
         }
@@ -149,6 +158,41 @@ public static class Program
         builder.Services.AddFoundryDeployApplicationServices();
 
         return builder.Build();
+    }
+
+    private static void InitializeRemoteDiagnostics(
+        IServiceProvider services,
+        IRemoteDiagnosticsService remoteDiagnosticsService)
+    {
+        TelemetrySettings telemetrySettings = services.GetRequiredService<TelemetrySettings>();
+        TelemetryContext telemetryContext = services.GetRequiredService<TelemetryContext>();
+        RemoteDiagnosticsLifecycle.Initialize(remoteDiagnosticsService, telemetrySettings, telemetryContext);
+    }
+
+    private static void ShutdownRemoteDiagnostics(
+        Serilog.ILogger logger,
+        IRemoteDiagnosticsService? remoteDiagnosticsService)
+    {
+        if (remoteDiagnosticsService is null)
+        {
+            return;
+        }
+
+        logger.Debug("Flushing Foundry.Deploy remote diagnostics.");
+        using var cancellation = new CancellationTokenSource(RemoteDiagnosticsShutdownTimeout);
+        try
+        {
+            RemoteDiagnosticsLifecycle.ShutdownAsync(remoteDiagnosticsService, cancellation.Token).GetAwaiter().GetResult();
+            logger.Debug("Foundry.Deploy remote diagnostics flush completed.");
+        }
+        catch (OperationCanceledException)
+        {
+            logger.Warning("Foundry.Deploy remote diagnostics flush timed out after {TimeoutSeconds} seconds.", RemoteDiagnosticsShutdownTimeout.TotalSeconds);
+        }
+        catch (Exception ex)
+        {
+            logger.Warning(ex, "Foundry.Deploy remote diagnostics shutdown failed.");
+        }
     }
 
     private static void RegisterGlobalExceptionHandlers()

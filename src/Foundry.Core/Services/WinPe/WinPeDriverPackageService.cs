@@ -169,7 +169,10 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
                 return WinPeResult.Failure(
                     WinPeErrorCodes.DownloadFailed,
                     "Driver package download failed.",
-                    $"URI: '{sourceUri}', HTTP status: {(int)response.StatusCode} {response.ReasonPhrase}");
+                    $"URI: '{sourceUri}', HTTP status: {(int)response.StatusCode} {response.ReasonPhrase}",
+                    failureKind: WinPeFailureKinds.Network,
+                    failureReason: WinPeFailureReasons.HttpStatus,
+                    errorSummary: $"HTTP {(int)response.StatusCode} {response.ReasonPhrase}");
             }
 
             Directory.CreateDirectory(Path.GetDirectoryName(destinationPath)!);
@@ -192,12 +195,24 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
                 cancellationToken).ConfigureAwait(false);
             return WinPeResult.Success();
         }
-        catch (Exception ex) when (ex is HttpRequestException or IOException or UnauthorizedAccessException)
+        catch (Exception ex) when (
+            ex is HttpRequestException or IOException or UnauthorizedAccessException or TaskCanceledException &&
+            !cancellationToken.IsCancellationRequested)
         {
             return WinPeResult.Failure(
                 WinPeErrorCodes.DownloadFailed,
                 "Failed to download driver package.",
-                $"URI: '{sourceUri}'. Error: {ex.Message}");
+                $"URI: '{sourceUri}'.{Environment.NewLine}{ex}",
+                failureKind: ex is UnauthorizedAccessException ? WinPeFailureKinds.FileSystem : WinPeFailureKinds.Network,
+                failureReason: ex switch
+                {
+                    TaskCanceledException => WinPeFailureReasons.Timeout,
+                    UnauthorizedAccessException => WinPeFailureReasons.AccessDenied,
+                    HttpRequestException { StatusCode: not null } => WinPeFailureReasons.HttpStatus,
+                    _ => WinPeFailureReasons.Transport
+                },
+                errorSummary: ex.Message,
+                exception: ex);
         }
     }
 
@@ -333,10 +348,10 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
 
         if (!extractionResult.IsSuccess)
         {
-            return WinPeResult.Failure(
+            return WinPeResult.Failure(extractionResult.ToFailureDiagnostic(
                 WinPeErrorCodes.DriverExtractionFailed,
                 "Failed to extract driver package with bundled 7-Zip.",
-                extractionResult.ToDiagnosticText());
+                toolName: "7-Zip"));
         }
 
         if (extension.Equals(".exe", StringComparison.OrdinalIgnoreCase) &&

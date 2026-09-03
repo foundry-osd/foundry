@@ -5,7 +5,6 @@
 using System.IO.Compression;
 using System.Text;
 using System.Text.Json;
-using System.Text.RegularExpressions;
 
 namespace Foundry.Utilities.Diagnostics;
 
@@ -68,11 +67,11 @@ public sealed partial class SupportBundleExporter(TimeProvider? timeProvider = n
                         string content = await ReadSharedTextAsync(sourcePath, cancellationToken).ConfigureAwait(false);
                         if (request.PrivacyMode == SupportBundlePrivacyMode.Sanitized)
                         {
-                            content = SanitizeContent(content);
+                            content = DiagnosticContentSanitizer.SanitizeMultiline(content, int.MaxValue);
                         }
 
                         string publishedSourceName = request.PrivacyMode == SupportBundlePrivacyMode.Sanitized
-                            ? SanitizeContent(sourceName)
+                            ? DiagnosticContentSanitizer.Sanitize(sourceName, int.MaxValue)
                             : sourceName;
                         string entryName = ResolveEntryName(usedEntryNames, publishedSourceName);
                         await WriteTextEntryAsync(archive, $"logs/{entryName}", content, cancellationToken).ConfigureAwait(false);
@@ -90,8 +89,8 @@ public sealed partial class SupportBundleExporter(TimeProvider? timeProvider = n
                 }
 
                 IReadOnlyDictionary<string, string> summary = request.Summary.ToDictionary(
-                    static item => SanitizeContent(LogValueSanitizer.NormalizePropertyValue(item.Key)),
-                    static item => SanitizeContent(LogValueSanitizer.NormalizePropertyValue(item.Value)),
+                    static item => DiagnosticContentSanitizer.Sanitize(item.Key, int.MaxValue),
+                    static item => DiagnosticContentSanitizer.Sanitize(item.Value, int.MaxValue),
                     StringComparer.OrdinalIgnoreCase);
 
                 await WriteJsonEntryAsync(archive, "summary.json", summary, cancellationToken).ConfigureAwait(false);
@@ -218,43 +217,6 @@ public sealed partial class SupportBundleExporter(TimeProvider? timeProvider = n
 
         return builder.Length == 0 ? "Foundry" : builder.ToString();
     }
-
-    private static string SanitizeContent(string content)
-    {
-        string sanitized = UriPattern().Replace(content, static match => SanitizeUriText(match.Value));
-        sanitized = SensitivePropertyPattern().Replace(sanitized, "$1=<redacted>");
-        sanitized = TargetComputerNameMessagePattern().Replace(sanitized, "$1<redacted>");
-        sanitized = WindowsUserPathPattern().Replace(sanitized, "$1<redacted>");
-        sanitized = EmailAddressPattern().Replace(sanitized, "<redacted:email>");
-        return GuidPattern().Replace(sanitized, "<redacted:id>");
-    }
-
-    private static string SanitizeUriText(string value)
-    {
-        string trimmed = value.TrimEnd('.', ',', ';', ')', ']', '}');
-        string suffix = value[trimmed.Length..];
-        return Uri.TryCreate(trimmed, UriKind.Absolute, out Uri? uri)
-            ? LogValueSanitizer.SanitizeUri(uri) + suffix
-            : "<redacted:uri>" + suffix;
-    }
-
-    [GeneratedRegex("https?://[^\\s\\\"'<>]+", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
-    private static partial Regex UriPattern();
-
-    [GeneratedRegex("\\b(Token|Password|Passphrase|Secret|PrivateKey|MediaSecretKey|TenantId|Application(?:Object)?Id|DeviceId|Serial(?:Number)?|HardwareHash|(?:Target)?ComputerName|GroupTag|Ssid|MacAddress|IpAddress)\\s*[=:]\\s*(?:\\\"[^\\\"]*\\\"|'[^']*'|[^\\s,;|}]+)", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
-    private static partial Regex SensitivePropertyPattern();
-
-    [GeneratedRegex("\\b(Target computer name (?:configured|resolved|selected)\\s*:\\s*)[^\\s.,;|}]+", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
-    private static partial Regex TargetComputerNameMessagePattern();
-
-    [GeneratedRegex("\\b([A-Za-z]:\\\\Users\\\\)[^\\\\\\s]+", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
-    private static partial Regex WindowsUserPathPattern();
-
-    [GeneratedRegex("\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\b", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
-    private static partial Regex EmailAddressPattern();
-
-    [GeneratedRegex("\\b[0-9A-F]{8}-[0-9A-F]{4}-[1-5][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}\\b", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
-    private static partial Regex GuidPattern();
 
     private sealed record SupportBundleManifest(
         string ApplicationName,

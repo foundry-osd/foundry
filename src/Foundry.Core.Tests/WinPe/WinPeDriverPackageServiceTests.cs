@@ -92,11 +92,90 @@ public sealed class WinPeDriverPackageServiceTests
         }
     }
 
-    private sealed class StaticPackageHandler(byte[] content) : HttpMessageHandler
+    [Fact]
+    public async Task PrepareAsync_WhenDownloadReturnsError_ClassifiesHttpStatus()
+    {
+        string root = Path.Combine(Path.GetTempPath(), $"foundry-driver-package-{Guid.NewGuid():N}");
+        var service = new WinPeDriverPackageService(
+            new FakeExtractionRunner(),
+            new HttpClient(new StaticPackageHandler([], HttpStatusCode.BadGateway)),
+            "7za.exe");
+
+        try
+        {
+            WinPeResult<WinPePreparedDriverSet> result = await service.PrepareAsync(
+                [CreatePackage()],
+                Path.Combine(root, "downloads"),
+                Path.Combine(root, "extracted"),
+                null,
+                TestContext.Current.CancellationToken);
+
+            Assert.False(result.IsSuccess);
+            Assert.Equal(WinPeFailureReasons.HttpStatus, result.Error?.FailureReason);
+            Assert.Equal("HTTP 502 Bad Gateway", result.Error?.ErrorSummary);
+        }
+        finally
+        {
+            if (Directory.Exists(root))
+            {
+                Directory.Delete(root, recursive: true);
+            }
+        }
+    }
+
+    [Fact]
+    public async Task PrepareAsync_WhenHttpClientTimesOut_PreservesTimeoutException()
+    {
+        string root = Path.Combine(Path.GetTempPath(), $"foundry-driver-package-{Guid.NewGuid():N}");
+        var timeout = new TaskCanceledException("The request timed out.");
+        var service = new WinPeDriverPackageService(
+            new FakeExtractionRunner(),
+            new HttpClient(new StaticPackageHandler([], exception: timeout)),
+            "7za.exe");
+
+        try
+        {
+            WinPeResult<WinPePreparedDriverSet> result = await service.PrepareAsync(
+                [CreatePackage()],
+                Path.Combine(root, "downloads"),
+                Path.Combine(root, "extracted"),
+                null,
+                TestContext.Current.CancellationToken);
+
+            Assert.False(result.IsSuccess);
+            Assert.Equal(WinPeFailureReasons.Timeout, result.Error?.FailureReason);
+            Assert.Same(timeout, result.Error?.Exception);
+        }
+        finally
+        {
+            if (Directory.Exists(root))
+            {
+                Directory.Delete(root, recursive: true);
+            }
+        }
+    }
+
+    private static WinPeDriverCatalogEntry CreatePackage() => new()
+    {
+        Id = "package",
+        DownloadUri = "https://example.test/package.cab",
+        FileName = "package.cab",
+        Format = "cab"
+    };
+
+    private sealed class StaticPackageHandler(
+        byte[] content,
+        HttpStatusCode statusCode = HttpStatusCode.OK,
+        Exception? exception = null) : HttpMessageHandler
     {
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
+            if (exception is not null)
+            {
+                return Task.FromException<HttpResponseMessage>(exception);
+            }
+
+            return Task.FromResult(new HttpResponseMessage(statusCode)
             {
                 Content = new ByteArrayContent(content)
             });

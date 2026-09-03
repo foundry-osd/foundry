@@ -8,7 +8,7 @@ public static class ConfigurationSchemaVersions
 {
     public const int FoundryCurrent = 14;
 
-    public const int ConnectCurrent = 3;
+    public const int ConnectCurrent = 4;
 
     public const int DeployCurrent = 12;
 

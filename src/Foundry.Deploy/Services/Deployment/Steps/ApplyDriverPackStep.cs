@@ -24,7 +24,7 @@ public sealed class ApplyDriverPackStep(IWindowsDeploymentService windowsDeploym
             DriverPackInstallMode.None => Task.FromResult(DeploymentStepResult.Skipped("No driver pack operation is required.")),
             DriverPackInstallMode.OfflineInf => ApplyLiveAsync(context, cancellationToken),
             DriverPackInstallMode.DeferredSetupComplete => Task.FromResult(DeploymentStepResult.Skipped("Driver pack prepared for deferred installation.")),
-            _ => Task.FromResult(DeploymentStepResult.Failed("Unsupported driver pack install mode."))
+            _ => Task.FromResult(CreateUnsupportedModeFailure())
         };
     }
 
@@ -37,7 +37,7 @@ public sealed class ApplyDriverPackStep(IWindowsDeploymentService windowsDeploym
             DriverPackInstallMode.None => Task.FromResult(DeploymentStepResult.Skipped("No driver pack operation is required.")),
             DriverPackInstallMode.OfflineInf => SimulateAsync(context, cancellationToken),
             DriverPackInstallMode.DeferredSetupComplete => Task.FromResult(DeploymentStepResult.Skipped("Driver pack prepared for deferred installation.")),
-            _ => Task.FromResult(DeploymentStepResult.Failed("Unsupported driver pack install mode."))
+            _ => Task.FromResult(CreateUnsupportedModeFailure())
         };
     }
 
@@ -106,14 +106,32 @@ public sealed class ApplyDriverPackStep(IWindowsDeploymentService windowsDeploym
         if (string.IsNullOrWhiteSpace(context.RuntimeState.ExtractedDriverPackPath) ||
             !Directory.Exists(context.RuntimeState.ExtractedDriverPackPath))
         {
-            return DeploymentStepResult.Failed("No extracted INF driver payload is available.");
+            return DeploymentStepResult.Failed(
+                "No extracted INF driver payload is available.",
+                DeploymentFailure.Guard(
+                    DeploymentOperationNames.ApplyDriverPack,
+                    DeploymentFailureReasons.MissingResource,
+                    "missing_driver_payload"));
         }
 
         if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot))
         {
-            return DeploymentStepResult.Failed("Target Windows partition is unavailable.");
+            return DeploymentStepResult.Failed(
+                "Target Windows partition is unavailable.",
+                DeploymentFailure.Guard(
+                    DeploymentOperationNames.ApplyDriverPack,
+                    DeploymentFailureReasons.MissingResource,
+                    "missing_target_partition"));
         }
 
         return null;
     }
+
+    private static DeploymentStepResult CreateUnsupportedModeFailure() =>
+        DeploymentStepResult.Failed(
+            "Unsupported driver pack install mode.",
+            DeploymentFailure.Guard(
+                DeploymentOperationNames.ApplyDriverPack,
+                DeploymentFailureReasons.InvalidInput,
+                "unsupported_driver_mode"));
 }

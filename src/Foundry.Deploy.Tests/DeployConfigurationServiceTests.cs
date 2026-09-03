@@ -12,6 +12,24 @@ namespace Foundry.Deploy.Tests;
 public sealed class DeployConfigurationServiceTests
 {
     [Fact]
+    public void LoadOptional_WhenRemoteDiagnosticsConsentIsMissing_DefaultsToEnabled()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string configurationPath = CreateJsonFile(
+            tempDirectory.Path,
+            "foundry.deploy.config.json",
+            """{ "schemaVersion": 11, "telemetry": { "isEnabled": true } }""");
+        var service = new DeployConfigurationService(
+            NullLogger<DeployConfigurationService>.Instance,
+            configurationPath);
+
+        DeployConfigurationLoadResult result = service.LoadOptional();
+
+        Assert.NotNull(result.Document);
+        Assert.True(result.Document.Telemetry.IsRemoteDiagnosticsEnabled);
+    }
+
+    [Fact]
     public void LoadOptional_WhenSchemaIsOlderThanCurrent_RecommendsBootMediaUpdate()
     {
         using var tempDirectory = new TemporaryDirectory();

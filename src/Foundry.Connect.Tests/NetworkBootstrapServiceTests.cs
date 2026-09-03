@@ -53,9 +53,13 @@ public sealed class NetworkBootstrapServiceTests
             NullLogger<NetworkBootstrapService>.Instance,
             getWifiInterfaceIds: static () => []);
 
-        string result = await service.ApplyProvisionedSettingsAsync(TestContext.Current.CancellationToken);
+        NetworkBootstrapResult result = await service.ApplyProvisionedSettingsAsync(TestContext.Current.CancellationToken);
 
-        Assert.Contains("No wireless adapter is available", result, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("No wireless adapter is available", result.StatusMessage, StringComparison.OrdinalIgnoreCase);
+        NetworkBootstrapHandledFailure failure = Assert.Single(result.HandledFailures);
+        Assert.Equal("network", failure.Kind);
+        Assert.Equal("missing_adapter", failure.Reason);
+        Assert.Equal("no_wireless_adapter", failure.Code);
         Assert.NotNull(roamingService.WifiCaptureRequest);
         Assert.Equal(NetworkProfileRoamingProfileSource.ProvisionedWifi, roamingService.WifiCaptureRequest.Source);
         Assert.True(roamingService.ProfileExistedDuringCapture);
@@ -87,6 +91,69 @@ public sealed class NetworkBootstrapServiceTests
         await Assert.ThrowsAsync<OperationCanceledException>(
             () => service.ApplyProvisionedSettingsAsync(cancellationTokenSource.Token));
         Assert.Null(roamingService.WiredCaptureRequest);
+    }
+
+    [Fact]
+    public async Task ApplyProvisionedSettingsAsync_WhenWiredProfileTemplateIsMissing_ReturnsStructuredWiredFailure()
+    {
+        var configuration = new FoundryConnectConfiguration
+        {
+            Dot1x = new Dot1xSettings
+            {
+                IsEnabled = true,
+                ProfileTemplatePath = "missing-wired-profile.xml"
+            }
+        };
+        var service = new NetworkBootstrapService(
+            configuration,
+            new FakeConnectConfigurationService(configuration),
+            new CapturingNetworkProfileRoamingService(),
+            NullLogger<NetworkBootstrapService>.Instance,
+            getWifiInterfaceIds: static () => []);
+
+        NetworkBootstrapResult result = await service.ApplyProvisionedSettingsAsync(TestContext.Current.CancellationToken);
+
+        NetworkBootstrapHandledFailure failure = Assert.Single(result.HandledFailures);
+        Assert.Equal("network", failure.Kind);
+        Assert.Equal("profile_unavailable", failure.Reason);
+        Assert.Equal("wired_profile_template_missing", failure.Code);
+        Assert.DoesNotContain("wifi_", failure.Code, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public async Task ApplyProvisionedSettingsAsync_WhenWiredAndWifiBootstrapFailuresMix_ReturnsSeparateStructuredFailures()
+    {
+        var configuration = new FoundryConnectConfiguration
+        {
+            Dot1x = new Dot1xSettings
+            {
+                IsEnabled = true,
+                ProfileTemplatePath = "missing-wired-profile.xml"
+            },
+            Capabilities = new NetworkCapabilitiesOptions
+            {
+                WifiProvisioned = true
+            },
+            Wifi = new WifiSettings
+            {
+                IsEnabled = true,
+                Ssid = "Foundry",
+                SecurityType = "Open"
+            }
+        };
+        var service = new NetworkBootstrapService(
+            configuration,
+            new FakeConnectConfigurationService(configuration),
+            new CapturingNetworkProfileRoamingService(),
+            NullLogger<NetworkBootstrapService>.Instance,
+            getWifiInterfaceIds: static () => []);
+
+        NetworkBootstrapResult result = await service.ApplyProvisionedSettingsAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal(2, result.HandledFailures.Count);
+        Assert.Contains(result.HandledFailures, failure => failure.Code == "wired_profile_template_missing");
+        Assert.Contains(result.HandledFailures, failure => failure.Code == "no_wireless_adapter");
+        Assert.DoesNotContain(result.HandledFailures, failure => failure.Code?.StartsWith("wifi_", StringComparison.OrdinalIgnoreCase) == true && failure.Code == "wired_profile_template_missing");
     }
 
     private sealed class CapturingNetworkProfileRoamingService : INetworkProfileRoamingService

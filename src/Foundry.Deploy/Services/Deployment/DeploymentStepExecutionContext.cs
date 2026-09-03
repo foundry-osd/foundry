@@ -39,6 +39,8 @@ public sealed class DeploymentStepExecutionContext
     private readonly IDeploymentLogService _deploymentLogService;
     private readonly ITargetDiskService _targetDiskService;
     private readonly Action<DeploymentStepProgress> _emitStepProgress;
+    private readonly object _runtimeStatePersistenceLock = new();
+    private Task _pendingRuntimeStatePersistence = Task.CompletedTask;
 
     /// <summary>
     /// Initializes a deployment step execution context and creates the initial log session.
@@ -141,6 +143,7 @@ public sealed class DeploymentStepExecutionContext
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(operationName);
         RuntimeState.CurrentOperation = operationName;
+        QueueRuntimeStatePersistence();
     }
 
     /// <summary>
@@ -228,6 +231,77 @@ public sealed class DeploymentStepExecutionContext
     }
 
     /// <summary>
+    /// Attempts to persist runtime state without replacing the primary deployment outcome on failure.
+    /// </summary>
+    /// <param name="cancellationToken">Token that cancels the write.</param>
+    /// <returns>A task that completes after the best-effort persistence attempt.</returns>
+    public async Task TrySaveRuntimeStateAsync(CancellationToken cancellationToken = default)
+    {
+        Task persistence;
+        lock (_runtimeStatePersistenceLock)
+        {
+            persistence = PersistRuntimeStateAfterAsync(_pendingRuntimeStatePersistence, cancellationToken);
+            _pendingRuntimeStatePersistence = ObserveRuntimeStatePersistenceAsync(persistence);
+        }
+
+        await persistence.ConfigureAwait(false);
+    }
+
+    private void QueueRuntimeStatePersistence()
+    {
+        lock (_runtimeStatePersistenceLock)
+        {
+            Task persistence = PersistRuntimeStateAfterAsync(
+                _pendingRuntimeStatePersistence,
+                CancellationToken.None);
+            _pendingRuntimeStatePersistence = ObserveRuntimeStatePersistenceAsync(persistence);
+        }
+    }
+
+    private async Task PersistRuntimeStateAfterAsync(
+        Task previousPersistence,
+        CancellationToken cancellationToken)
+    {
+        await previousPersistence.ConfigureAwait(false);
+        try
+        {
+            await SaveRuntimeStateAsync(cancellationToken).ConfigureAwait(false);
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            LogRuntimeStatePersistenceFailure(ex);
+        }
+    }
+
+    private static async Task ObserveRuntimeStatePersistenceAsync(Task persistence)
+    {
+        try
+        {
+            await persistence.ConfigureAwait(false);
+        }
+        catch
+        {
+            // Preserve the caller-visible outcome on the original task while keeping the serialized queue recoverable.
+        }
+    }
+
+    private void LogRuntimeStatePersistenceFailure(Exception exception)
+    {
+        Log.ForContext<DeploymentStepExecutionContext>().Warning(
+            exception,
+            "Deployment runtime state could not be persisted. Workflow={Workflow}, Stage={Stage}, StepName={StepName}, OperationId={OperationId}, FailedOperationName={FailedOperationName}",
+            "deployment",
+            "runtime_state_persistence",
+            RuntimeState.CurrentStep,
+            RuntimeState.OperationId,
+            RuntimeState.CurrentOperation);
+    }
+
+    /// <summary>
     /// Moves the active log session to the target Windows Foundry root after the target partition is available.
     /// </summary>
     /// <param name="targetFoundryRoot">Foundry root on the applied Windows partition.</param>
@@ -298,13 +372,22 @@ public sealed class DeploymentStepExecutionContext
         TargetDiskInfo? selectedDisk = disks.FirstOrDefault(disk => disk.DiskNumber == Request.TargetDiskNumber);
         if (selectedDisk is null)
         {
-            return (null, DeploymentStepResult.Failed($"Target disk {Request.TargetDiskNumber} is no longer present."));
+            return (null, DeploymentStepResult.Failed(
+                $"Target disk {Request.TargetDiskNumber} is no longer present.",
+                DeploymentFailure.Guard(
+                    DeploymentOperationNames.ValidateTargetDisk,
+                    DeploymentFailureReasons.MissingResource,
+                    "target_disk_not_found")));
         }
 
         if (!selectedDisk.IsSelectable)
         {
             return (null, DeploymentStepResult.Failed(
-                $"Target disk {Request.TargetDiskNumber} is blocked: {selectedDisk.SelectionWarning}"));
+                $"Target disk {Request.TargetDiskNumber} is blocked: {selectedDisk.SelectionWarning}",
+                DeploymentFailure.Guard(
+                    DeploymentOperationNames.ValidateTargetDisk,
+                    DeploymentFailureReasons.InvalidState,
+                    "target_disk_not_selectable")));
         }
 
         await AppendLogAsync(DeploymentLogLevel.Info, $"Target disk revalidated: {selectedDisk.DisplayLabel}", cancellationToken).ConfigureAwait(false);

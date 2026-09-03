@@ -44,7 +44,7 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
     {
         if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot))
         {
-            return DeploymentStepResult.Failed("Target Windows partition is unavailable.");
+            return CreateMissingTargetPartitionFailure();
         }
 
         PreOobeDriverPackScriptSettings? driverPackSettings = null;
@@ -95,7 +95,7 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
     {
         if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot))
         {
-            return DeploymentStepResult.Failed("Target Windows partition is unavailable.");
+            return CreateMissingTargetPartitionFailure();
         }
 
         PreOobeDriverPackScriptSettings? driverPackSettings = null;
@@ -172,7 +172,12 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
         string sourcePath = context.RuntimeState.DownloadedDriverPackPath ?? string.Empty;
         if (!File.Exists(sourcePath))
         {
-            return (null, DeploymentStepResult.Failed("Driver pack source payload is unavailable for deferred staging."));
+            return (null, DeploymentStepResult.Failed(
+                "Driver pack source payload is unavailable for deferred staging.",
+                DeploymentFailure.Guard(
+                    DeploymentOperationNames.StageDeferredDriverPack,
+                    DeploymentFailureReasons.MissingResource,
+                    "missing_driver_payload")));
         }
 
         DriverPackExecutionPlan executionPlan = _driverPackStrategyResolver.Resolve(
@@ -181,7 +186,12 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
             sourcePath);
         if (executionPlan.DeferredCommandKind == DeferredDriverPackageCommandKind.None)
         {
-            return (null, DeploymentStepResult.Failed("Deferred driver pack staging was requested without a supported deferred command."));
+            return (null, DeploymentStepResult.Failed(
+                "Deferred driver pack staging was requested without a supported deferred command.",
+                DeploymentFailure.Guard(
+                    DeploymentOperationNames.StageDeferredDriverPack,
+                    DeploymentFailureReasons.InvalidInput,
+                    "unsupported_deferred_driver_command")));
         }
 
         string packageFileName = Path.GetFileName(sourcePath);
@@ -315,4 +325,12 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
                 context.RuntimeState.WorkspaceRoot,
                 cancellationToken);
     }
+
+    private static DeploymentStepResult CreateMissingTargetPartitionFailure() =>
+        DeploymentStepResult.Failed(
+            "Target Windows partition is unavailable.",
+            DeploymentFailure.Guard(
+                DeploymentOperationNames.StagePreOobe,
+                DeploymentFailureReasons.MissingResource,
+                "missing_target_partition"));
 }

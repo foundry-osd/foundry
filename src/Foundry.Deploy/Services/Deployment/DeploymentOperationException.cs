@@ -21,6 +21,15 @@ public sealed class DeploymentOperationException : Exception
     }
 
     /// <summary>
+    /// Initializes a structured deployment exception while preserving its original cause.
+    /// </summary>
+    public DeploymentOperationException(DeploymentFailure failure, string message, Exception innerException)
+        : base(message, innerException)
+    {
+        Failure = failure;
+    }
+
+    /// <summary>
     /// Gets the telemetry-safe failure details.
     /// </summary>
     public DeploymentFailure Failure { get; }

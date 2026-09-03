@@ -18,6 +18,9 @@ public sealed class WinPeToolResolverTests
 
         Assert.False(result.IsSuccess);
         Assert.Equal(WinPeErrorCodes.ToolNotFound, result.Error?.Code);
+        Assert.Equal(WinPeFailureKinds.Tooling, result.Error?.FailureKind);
+        Assert.Equal(WinPeFailureReasons.ToolNotFound, result.Error?.FailureReason);
+        Assert.Equal("Windows ADK", result.Error?.ToolName);
     }
 
     [Fact]

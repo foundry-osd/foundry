@@ -36,12 +36,14 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
         string requestedOutputPath = options.OutputIsoPath.Trim();
         string? preparedOutputPath = null;
         string? safeWorkspacePath = null;
+        string currentStage = "Prepare ISO output path";
 
         try
         {
             ReportProgress(options.Progress, 0, "Preparing ISO output path.");
             EnsureOutputDirectoryExists(requestedOutputPath);
             preparedOutputPath = PrepareOutputPath(requestedOutputPath, options.IsoTempDirectoryPath);
+            currentStage = "Prepare ISO workspace";
             ReportProgress(options.Progress, 20, "Preparing ISO workspace.");
             string makeWinPeMediaWorkspacePath = PrepareWorkspacePath(
                 preparedWorkspace.Artifact.WorkingDirectoryPath,
@@ -57,6 +59,7 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
                 $"/ISO /F {WinPeProcessRunner.Quote(makeWinPeMediaWorkspacePath)} {WinPeProcessRunner.Quote(preparedOutputPath)}" +
                 (preparedWorkspace.UseBootEx ? " /bootex" : string.Empty);
 
+            currentStage = "Run MakeWinPEMedia for ISO";
             ReportProgress(options.Progress, 40, "Running MakeWinPEMedia for ISO.");
             WinPeProcessExecution execution = await _processRunner.RunCmdScriptAsync(
                 preparedWorkspace.Tools.MakeWinPeMediaPath,
@@ -64,14 +67,29 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
                 makeWinPeMediaWorkspacePath,
                 cancellationToken).ConfigureAwait(false);
 
-            if (!execution.IsSuccess || !File.Exists(preparedOutputPath))
+            if (!execution.IsSuccess)
+            {
+                return WinPeResult.Failure(execution.ToFailureDiagnostic(
+                    WinPeErrorCodes.IsoCreateFailed,
+                    "Failed to create WinPE ISO media.",
+                    "Create ISO media",
+                    "MakeWinPEMedia"));
+            }
+
+            if (!File.Exists(preparedOutputPath))
             {
                 return WinPeResult.Failure(
                     WinPeErrorCodes.IsoCreateFailed,
-                    "Failed to create WinPE ISO media.",
-                    execution.ToDiagnosticText());
+                    "MakeWinPEMedia completed without producing the expected ISO artifact.",
+                    execution.ToDiagnosticText(),
+                    stage: "Create ISO media",
+                    failureKind: WinPeFailureKinds.Process,
+                    failureReason: WinPeFailureReasons.ArtifactMissing,
+                    toolName: "MakeWinPEMedia",
+                    errorSummary: "Expected ISO artifact was not produced.");
             }
 
+            currentStage = "Finalize ISO output";
             ReportProgress(options.Progress, 90, "Finalizing ISO output.");
             FinalizeOutput(preparedOutputPath, requestedOutputPath);
             ReportProgress(options.Progress, 100, "ISO media completed.");
@@ -82,7 +100,21 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
             return WinPeResult.Failure(
                 WinPeErrorCodes.IsoCreateFailed,
                 "Unexpected failure while creating WinPE ISO media.",
-                ex.Message);
+                ex.ToString(),
+                stage: currentStage,
+                failureKind: currentStage == "Run MakeWinPEMedia for ISO"
+                    ? WinPeFailureKinds.Process
+                    : WinPeFailureKinds.FileSystem,
+                failureReason: ex switch
+                {
+                    UnauthorizedAccessException => WinPeFailureReasons.AccessDenied,
+                    IOException => WinPeFailureReasons.IoError,
+                    _ when currentStage == "Run MakeWinPEMedia for ISO" => WinPeFailureReasons.ProcessStartFailed,
+                    _ => WinPeFailureReasons.Unexpected
+                },
+                toolName: currentStage == "Run MakeWinPEMedia for ISO" ? "MakeWinPEMedia" : null,
+                errorSummary: ex.Message,
+                exception: ex);
         }
         finally
         {
