@@ -85,6 +85,7 @@
                             HorizontalAlignment="Stretch"
                             Spacing="{ThemeResource FoundrySpace16}">
                             <CommandBar
+                                Margin="0,8,0,0"
                                 HorizontalAlignment="Stretch"
                                 HorizontalContentAlignment="Stretch"
                                 IsDynamicOverflowEnabled="False"
@@ -127,7 +128,7 @@
                                                 </VisualState>
                                                 <VisualState x:Name="ExpandedMachineNamingCommandBar">
                                                     <VisualState.StateTriggers>
-                                                        <AdaptiveTrigger MinWindowWidth="1440" />
+                                                        <AdaptiveTrigger MinWindowWidth="1600" />
                                                     </VisualState.StateTriggers>
                                                 </VisualState>
                                             </VisualStateGroup>
@@ -220,19 +221,27 @@
                                             Spacing="{ThemeResource FoundrySpace8}">
                                             <TextBlock x:Name="PreviewLabelText"
                                                 VerticalAlignment="Center"
+                                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                                 Style="{ThemeResource FoundryCaptionTextBlockStyle}"
                                                 Text="{x:Bind ViewModel.MachineNamingPreviewLabel, Mode=OneWay}" />
-                                            <TextBlock
+                                            <Border
+                                                MinWidth="{ThemeResource FoundryCompactInputMinWidth}"
                                                 MaxWidth="{ThemeResource FoundrySettingsActionMinWidth}"
+                                                Padding="8,4"
                                                 VerticalAlignment="Center"
-                                                Style="{ThemeResource BodyStrongTextBlockStyle}"
-                                                Text="{x:Bind ViewModel.MachineNamingPreview, Mode=OneWay}"
-                                                TextAlignment="Right"
-                                                TextTrimming="CharacterEllipsis"
-                                                TextWrapping="NoWrap"
-                                                ToolTipService.ToolTip="{x:Bind ViewModel.MachineNamingPreview, Mode=OneWay}" />
+                                                Background="{ThemeResource ControlFillColorSecondaryBrush}"
+                                                CornerRadius="{ThemeResource FoundryControlCornerRadius}"
+                                                ToolTipService.ToolTip="{x:Bind ViewModel.MachineNamingPreview, Mode=OneWay}">
+                                                <TextBlock
+                                                    Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                                    Text="{x:Bind ViewModel.MachineNamingPreview, Mode=OneWay}"
+                                                    TextAlignment="Right"
+                                                    TextTrimming="CharacterEllipsis"
+                                                    TextWrapping="NoWrap" />
+                                            </Border>
                                             <TextBlock x:Name="BudgetText"
                                                 VerticalAlignment="Center"
+                                                AutomationProperties.Name="{x:Bind ViewModel.MachineNamingBudgetText, Mode=OneWay}"
                                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                                 Style="{ThemeResource FoundryCaptionTextBlockStyle}"
                                                 Text="{x:Bind ViewModel.MachineNamingCompactBudgetText, Mode=OneWay}"
@@ -268,7 +277,7 @@
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate x:DataType="viewModels:MachineNameComponentRowViewModel">
                                         <Border
-                                            Padding="16,12"
+                                            Padding="{ThemeResource FoundryCompactContentPadding}"
                                             HorizontalAlignment="Stretch"
                                             Background="{ThemeResource FoundrySurfaceBrush}"
                                             BorderBrush="{ThemeResource FoundrySurfaceBorderBrush}"
@@ -276,8 +285,7 @@
                                             CornerRadius="{ThemeResource FoundryCardCornerRadius}">
                                             <Grid
                                                 MinHeight="48"
-                                                ColumnSpacing="{ThemeResource FoundrySpace16}"
-                                                RowSpacing="{ThemeResource FoundrySpace8}">
+                                                ColumnSpacing="{ThemeResource FoundrySpace16}">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="{ThemeResource FoundryCompactInputMinWidth}" />
                                                     <ColumnDefinition Width="*" />
@@ -359,8 +367,8 @@
                                                 </StackPanel>
                                                 <TextBlock
                                                     Grid.Row="1"
-                                                    Grid.Column="1"
-                                                    Grid.ColumnSpan="2"
+                                                    Grid.ColumnSpan="3"
+                                                    Margin="0,8,0,0"
                                                     Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                                                     Text="{x:Bind ValidationMessage, Mode=OneWay}"
                                                     TextWrapping="WrapWholeWords"

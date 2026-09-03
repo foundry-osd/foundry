@@ -125,7 +125,7 @@ public sealed partial class CustomizationConfigurationViewModel
         ComputerNameRules.MaxLength,
         MachineNamingRemainingLength);
 
-    public string MachineNamingCompactBudgetText => $"{MachineNamingMaximumLength}/{ComputerNameRules.MaxLength}";
+    public string MachineNamingCompactBudgetText => $"{MachineNamingMaximumLength} / {ComputerNameRules.MaxLength}";
 
     public string MachineNamingPreview
     {
