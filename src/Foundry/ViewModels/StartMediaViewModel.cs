@@ -1772,9 +1772,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 string.IsNullOrWhiteSpace(osDescription) ? localizationService.GetString("Nav_OsSelectionKey.Description") : osDescription,
                 ConfigurationNavigationTarget.OperatingSystemSelection),
             CreateOverviewItem(ConfigurationOverviewItem.MachineNaming, overview, "Nav_MachineNamingKey.Title",
-                string.IsNullOrWhiteSpace(customization.MachineNaming.Prefix)
-                    ? localizationService.GetString("Nav_MachineNamingKey.Description")
-                    : customization.MachineNaming.Prefix,
+                customization.MachineNaming.IsEnabled
+                    ? localizationService.GetString(customization.MachineNaming.Mode == MachineNamingMode.Composed
+                        ? "Customization.MachineNamingComposedLabel"
+                        : "Customization.MachineNamingManualLabel")
+                    : localizationService.GetString("Nav_MachineNamingKey.Description"),
                 ConfigurationNavigationTarget.MachineNaming),
             CreateOverviewItem(ConfigurationOverviewItem.Oobe, overview, "Nav_OobeKey.Title",
                 customization.Oobe.IsEnabled
