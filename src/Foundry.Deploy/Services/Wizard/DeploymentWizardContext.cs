@@ -61,7 +61,7 @@ public sealed class DeploymentWizardContext : IDisposable
             Preparation.ApplyAutopilotConfiguration(new DeployAutopilotSettings(), startupSnapshot.AutopilotProfiles);
         }
 
-        Preparation.ApplyOfflineComputerName(startupSnapshot.EffectiveComputerName);
+        Preparation.ApplyMachineNamePreparation(startupSnapshot.MachineNamePreparation);
 
         if (startupSnapshot.DetectedHardware is not null)
         {

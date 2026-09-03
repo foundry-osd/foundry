@@ -591,6 +591,8 @@ Ali želite nadaljevati z uvajanjem?</value></data>
   <data name="Diagnostics.ExportMenu" xml:space="preserve">
     <value>Izvozi diagnostiko...</value>
   </data>
+  <data name="TargetDevice.AssetTag" xml:space="preserve"><value>Oznaka sredstva</value></data>
+  <data name="TargetDevice.SystemUuid" xml:space="preserve"><value>Sistemski UUID</value></data>
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>Izvozi neobdelano diagnostiko...</value>
   </data>

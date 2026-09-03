@@ -591,6 +591,8 @@ Continuar com a implantação?</value></data>
   <data name="Diagnostics.ExportMenu" xml:space="preserve">
     <value>Exportar diagnósticos...</value>
   </data>
+  <data name="TargetDevice.AssetTag" xml:space="preserve"><value>Etiqueta de ativo</value></data>
+  <data name="TargetDevice.SystemUuid" xml:space="preserve"><value>UUID do sistema</value></data>
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>Exportar diagnósticos brutos...</value>
   </data>

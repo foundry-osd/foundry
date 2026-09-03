@@ -1,11 +1,13 @@
 // Copyright (c) Foundry Project contributors.
 // Licensed under the MIT License.
+// See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.System;
+using DeployMachineNameComponentSettings = Foundry.Core.Models.Configuration.Deploy.DeployMachineNameComponentSettings;
 
 namespace Foundry.Deploy.Tests;
 
@@ -20,14 +22,14 @@ public sealed class MachineNamePreparationServiceTests
             Mode = MachineNamingMode.Composed,
             Components =
             [
-                new MachineNameComponentSettings { Type = MachineNameComponentType.StaticText, StaticText = "PC" },
-                new MachineNameComponentSettings
+                new DeployMachineNameComponentSettings { Type = MachineNameComponentType.StaticText, StaticText = "PC" },
+                new DeployMachineNameComponentSettings
                 {
                     Type = MachineNameComponentType.SerialNumber,
                     MaximumLength = 6,
                     Truncation = MachineNameTruncation.KeepRight
                 },
-                new MachineNameComponentSettings { Type = MachineNameComponentType.Random, MaximumLength = 3 }
+                new DeployMachineNameComponentSettings { Type = MachineNameComponentType.Random, MaximumLength = 3 }
             ],
             Separator = MachineNameSeparator.Hyphen,
             Casing = MachineNameCasing.Uppercase
@@ -53,7 +55,7 @@ public sealed class MachineNamePreparationServiceTests
             Mode = MachineNamingMode.Composed,
             Components =
             [
-                new MachineNameComponentSettings
+                new DeployMachineNameComponentSettings
                 {
                     Type = MachineNameComponentType.AssetTag,
                     MaximumLength = 8,

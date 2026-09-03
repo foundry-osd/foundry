@@ -591,6 +591,8 @@ Continuare con la distribuzione?</value></data>
   <data name="Diagnostics.ExportMenu" xml:space="preserve">
     <value>Esporta diagnostica...</value>
   </data>
+  <data name="TargetDevice.AssetTag" xml:space="preserve"><value>Etichetta asset</value></data>
+  <data name="TargetDevice.SystemUuid" xml:space="preserve"><value>UUID di sistema</value></data>
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>Esporta diagnostica non elaborata...</value>
   </data>

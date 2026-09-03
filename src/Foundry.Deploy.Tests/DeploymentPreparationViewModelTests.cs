@@ -6,7 +6,10 @@ using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.Runtime;
+using Foundry.Deploy.Services.System;
 using Foundry.Deploy.ViewModels;
+using MachineNameComponentType = Foundry.Core.Models.Configuration.MachineNameComponentType;
+using MachineNamingMode = Foundry.Core.Models.Configuration.MachineNamingMode;
 
 namespace Foundry.Deploy.Tests;
 
@@ -77,6 +80,51 @@ public sealed class DeploymentPreparationViewModelTests
         Assert.False(viewModel.IsTargetComputerNameReadOnly);
         Assert.Equal("NEW-DEVICE", viewModel.TargetComputerName);
         Assert.False(viewModel.HasTargetComputerNameValidationError);
+    }
+
+    [Fact]
+    public void ApplyMachineNamePreparation_WhenHardwareValueIsUnavailable_ShowsComponentReason()
+    {
+        using DeploymentPreparationViewModel viewModel = CreateViewModel();
+        viewModel.ApplyMachineNamingConfiguration(new DeployMachineNamingSettings
+        {
+            IsEnabled = true,
+            Mode = MachineNamingMode.Composed,
+            AllowEditingDuringDeployment = false
+        });
+
+        viewModel.ApplyMachineNamePreparation(new MachineNamePreparationResult
+        {
+            FailureKind = Foundry.Core.Services.Configuration.MachineNameCompositionFailureKind.MissingHardwareValue,
+            ComponentType = MachineNameComponentType.SerialNumber
+        });
+
+        Assert.True(viewModel.IsTargetComputerNameReadOnly);
+        Assert.Equal(
+            $"{viewModel.Strings["TargetDevice.SerialNumber"]}: {viewModel.Strings["Common.Unavailable"]}",
+            viewModel.TargetComputerNameValidationMessage);
+    }
+
+    [Fact]
+    public void TargetComputerName_WhenPreparationFailedAndEditingIsAllowed_AcceptsValidOverride()
+    {
+        using DeploymentPreparationViewModel viewModel = CreateViewModel();
+        viewModel.ApplyMachineNamingConfiguration(new DeployMachineNamingSettings
+        {
+            IsEnabled = true,
+            Mode = MachineNamingMode.Composed,
+            AllowEditingDuringDeployment = true
+        });
+        viewModel.ApplyMachineNamePreparation(new MachineNamePreparationResult
+        {
+            FailureKind = Foundry.Core.Services.Configuration.MachineNameCompositionFailureKind.PlaceholderHardwareValue,
+            ComponentType = MachineNameComponentType.AssetTag
+        });
+
+        viewModel.TargetComputerName = "MANUAL-01";
+
+        Assert.False(viewModel.HasTargetComputerNameValidationError);
+        Assert.True(viewModel.IsTargetComputerNameValid);
     }
 
     [Fact]

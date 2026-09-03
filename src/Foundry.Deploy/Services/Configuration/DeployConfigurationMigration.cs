@@ -1,8 +1,10 @@
 // Copyright (c) Foundry Project contributors.
 // Licensed under the MIT License.
+// See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Models.Configuration;
 using Foundry.Deploy.Models.Configuration;
+using DeployMachineNameComponentSettings = Foundry.Core.Models.Configuration.Deploy.DeployMachineNameComponentSettings;
 
 namespace Foundry.Deploy.Services.Configuration;
 
@@ -43,17 +45,17 @@ internal static class DeployConfigurationMigration
             };
         }
 
-        List<MachineNameComponentSettings> components = [];
+        List<DeployMachineNameComponentSettings> components = [];
         if (!string.IsNullOrWhiteSpace(legacy.LegacyPrefix))
         {
-            components.Add(new MachineNameComponentSettings
+            components.Add(new DeployMachineNameComponentSettings
             {
                 Type = MachineNameComponentType.StaticText,
                 StaticText = legacy.LegacyPrefix
             });
         }
 
-        components.Add(new MachineNameComponentSettings
+        components.Add(new DeployMachineNameComponentSettings
         {
             Type = MachineNameComponentType.Random,
             MaximumLength = 6

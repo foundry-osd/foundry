@@ -31,6 +31,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     private readonly bool _isDebugSafeMode;
     private HardwareProfile? _detectedHardware;
     private DeployMachineNamingSettings _machineNamingConfiguration = new();
+    private MachineNamePreparationResult? _machineNamePreparationFailure;
     private string _detectedHardwareSummaryRaw = "Detecting hardware...";
     private bool _isApplyingComputerName;
     private bool _isUpdatingFirmwareOptionSelection;
@@ -298,6 +299,14 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         RaiseStateChanged();
     }
 
+    public void ApplyMachineNamePreparation(MachineNamePreparationResult result)
+    {
+        ArgumentNullException.ThrowIfNull(result);
+
+        _machineNamePreparationFailure = result.IsSuccess ? null : result;
+        ApplyComputerName(result.ComputerName);
+    }
+
     public void ApplyTargetDisks(IReadOnlyList<TargetDiskInfo> disks)
     {
         ArgumentNullException.ThrowIfNull(disks);
@@ -340,6 +349,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
             return;
         }
 
+        _machineNamePreparationFailure = null;
         ApplyComputerName(value);
     }
 
@@ -603,10 +613,26 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
 
     private string ResolveComputerNameValidationMessage(string? value)
     {
-        return ComputerNameRules.IsValid(value)
-            ? string.Empty
+        if (ComputerNameRules.IsValid(value))
+        {
+            return string.Empty;
+        }
+
+        return _machineNamePreparationFailure?.ComponentType is { } componentType
+            ? $"{GetMachineNameComponentDisplayName(componentType)}: {GetString("Common.Unavailable")}"
             : GetString("Preparation.ComputerNameValidationMessage");
     }
+
+    private string GetMachineNameComponentDisplayName(Foundry.Core.Models.Configuration.MachineNameComponentType type) =>
+        type switch
+        {
+            Foundry.Core.Models.Configuration.MachineNameComponentType.SerialNumber => GetString("TargetDevice.SerialNumber"),
+            Foundry.Core.Models.Configuration.MachineNameComponentType.Manufacturer => GetString("TargetDevice.Manufacturer"),
+            Foundry.Core.Models.Configuration.MachineNameComponentType.Model => GetString("TargetDevice.Model"),
+            Foundry.Core.Models.Configuration.MachineNameComponentType.AssetTag => GetString("TargetDevice.AssetTag"),
+            Foundry.Core.Models.Configuration.MachineNameComponentType.SystemUuid => GetString("TargetDevice.SystemUuid"),
+            _ => GetString("Preparation.ComputerName")
+        };
 
     private string GetString(string key)
     {

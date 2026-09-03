@@ -591,6 +591,8 @@ Operativni sistem: {4}
   <data name="Diagnostics.ExportMenu" xml:space="preserve">
     <value>Izvezi dijagnostiku...</value>
   </data>
+  <data name="TargetDevice.AssetTag" xml:space="preserve"><value>Oznaka sredstva</value></data>
+  <data name="TargetDevice.SystemUuid" xml:space="preserve"><value>UUID sistema</value></data>
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>Izvezi neobrađenu dijagnostiku...</value>
   </data>

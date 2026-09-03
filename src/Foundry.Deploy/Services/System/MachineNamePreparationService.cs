@@ -1,10 +1,12 @@
 // Copyright (c) Foundry Project contributors.
 // Licensed under the MIT License.
+// See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
+using DeployMachineNameComponentSettings = Foundry.Core.Models.Configuration.Deploy.DeployMachineNameComponentSettings;
 
 namespace Foundry.Deploy.Services.System;
 
@@ -32,7 +34,7 @@ public static class MachineNamePreparationService
             return FromManualValue(source);
         }
 
-        MachineNameComponentSettings? randomComponent = settings.Components
+        DeployMachineNameComponentSettings? randomComponent = settings.Components
             .FirstOrDefault(component => component.Type == MachineNameComponentType.Random);
         string randomValue = randomComponent?.MaximumLength is int randomLength
             ? randomValueFactory(randomLength)
@@ -47,7 +49,13 @@ public static class MachineNamePreparationService
         };
         MachineNameCompositionResult composition = MachineNameComposer.Compose(new MachineNameCompositionRequest
         {
-            Components = settings.Components,
+            Components = settings.Components.Select(component => new MachineNameComponentSettings
+            {
+                Type = component.Type,
+                StaticText = component.StaticText,
+                MaximumLength = component.MaximumLength,
+                Truncation = component.Truncation
+            }).ToArray(),
             Values = values,
             Separator = settings.Separator,
             Casing = settings.Casing,

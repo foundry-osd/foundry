@@ -591,6 +591,8 @@ ErrorCode=0x80070005
   <data name="Diagnostics.ExportMenu" xml:space="preserve">
     <value>ייצוא אבחון...</value>
   </data>
+  <data name="TargetDevice.AssetTag" xml:space="preserve"><value>תג נכס</value></data>
+  <data name="TargetDevice.SystemUuid" xml:space="preserve"><value>UUID של המערכת</value></data>
   <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
     <value>ייצוא אבחון גולמי...</value>
   </data>

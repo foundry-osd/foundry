@@ -221,7 +221,11 @@ public sealed partial class CustomizationConfigurationViewModel
         }
     }
 
-    partial void OnIsMachineNamingEnabledChanged(bool value) => SaveState();
+    partial void OnIsMachineNamingEnabledChanged(bool value)
+    {
+        RaiseMachineNamingPropertiesChanged();
+        SaveState();
+    }
 
     partial void OnManualMachineNameChanged(string value)
     {

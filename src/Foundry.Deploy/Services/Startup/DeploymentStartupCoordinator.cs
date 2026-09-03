@@ -89,7 +89,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
             DeployConfigurationDocument = deployConfigurationDocument,
             IsBootMediaUpdateRecommended = deployConfigLoadResult.IsBootMediaUpdateRecommended,
             AutopilotProfiles = autopilotProfiles,
-            EffectiveComputerName = machineName.ComputerName ?? string.Empty,
+            MachineNamePreparation = machineName,
             DetectedHardware = hardwareTask.Result.Profile,
             HardwareDetectionFailureMessage = hardwareTask.Result.ErrorMessage,
             TargetDisks = targetDisksTask.Result.Disks,
