@@ -38,7 +38,9 @@
                         HorizontalContentAlignment="Stretch"
                         Description="{x:Bind ViewModel.MachineNamingModeDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.MachineNamingModeLabel, Mode=OneWay}">
-                        <StackPanel HorizontalAlignment="Right" Spacing="{ThemeResource FoundrySpace8}">
+                        <StackPanel
+                            HorizontalAlignment="Right"
+                            Spacing="{ThemeResource FoundrySpace8}">
                             <RadioButton
                                 Content="{x:Bind ViewModel.MachineNamingManualLabel, Mode=OneWay}"
                                 GroupName="MachineNamingMode"
@@ -55,11 +57,13 @@
                         Description="{x:Bind ViewModel.MachineNamingManualDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.MachineNamingManualLabel, Mode=OneWay}"
                         Visibility="{x:Bind ViewModel.ManualMachineNamingVisibility, Mode=OneWay}">
-                        <StackPanel HorizontalAlignment="Stretch" Spacing="{ThemeResource FoundrySpace4}">
+                        <StackPanel
+                            HorizontalAlignment="Stretch"
+                            Spacing="{ThemeResource FoundrySpace4}">
                             <TextBox
                                 Width="{ThemeResource FoundryWideInputMinWidth}"
-                                AutomationProperties.Name="{x:Bind ViewModel.MachineNamingManualLabel, Mode=OneWay}"
                                 HorizontalAlignment="Right"
+                                AutomationProperties.Name="{x:Bind ViewModel.MachineNamingManualLabel, Mode=OneWay}"
                                 MaxLength="15"
                                 Text="{x:Bind ViewModel.ManualMachineName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <TextBlock
@@ -75,7 +79,9 @@
                         Description="{x:Bind ViewModel.MachineNamingComponentsDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.MachineNamingComponentsLabel, Mode=OneWay}"
                         Visibility="{x:Bind ViewModel.ComposedMachineNamingVisibility, Mode=OneWay}">
-                        <StackPanel HorizontalAlignment="Stretch" Spacing="{ThemeResource FoundrySpace12}">
+                        <StackPanel
+                            HorizontalAlignment="Stretch"
+                            Spacing="{ThemeResource FoundrySpace12}">
                             <Grid ColumnSpacing="{ThemeResource FoundrySpace8}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
@@ -87,7 +93,9 @@
                                     SelectedItem="{x:Bind ViewModel.SelectedAvailableMachineNameComponent, Mode=TwoWay}">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate x:DataType="viewModels:MachineNameComponentChoice">
-                                            <TextBlock Text="{x:Bind DisplayName, Mode=OneTime}" TextWrapping="Wrap" />
+                                            <TextBlock
+                                                Text="{x:Bind DisplayName, Mode=OneTime}"
+                                                TextWrapping="Wrap" />
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
@@ -127,8 +135,8 @@
                                                     SmallChange="1"
                                                     SpinButtonPlacementMode="Compact"
                                                     ValidationMode="InvalidInputOverwritten"
-                                                    Value="{x:Bind MaximumLength, Mode=TwoWay}"
-                                                    Visibility="{x:Bind MaximumLengthVisibility, Mode=OneWay}" />
+                                                    Visibility="{x:Bind MaximumLengthVisibility, Mode=OneWay}"
+                                                    Value="{x:Bind MaximumLength, Mode=TwoWay}" />
                                                 <ComboBox
                                                     AutomationProperties.Name="{x:Bind DisplayName, Mode=OneWay}"
                                                     SelectedIndex="{x:Bind TruncationIndex, Mode=TwoWay}"
@@ -141,14 +149,31 @@
                                                     Text="{x:Bind ValidationMessage, Mode=OneWay}"
                                                     TextWrapping="WrapWholeWords"
                                                     Visibility="{x:Bind ValidationVisibility, Mode=OneWay}" />
-                                                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Spacing="{ThemeResource FoundrySpace4}">
-                                                    <Button x:Uid="MachineNamingMoveUpButton" Click="MoveComponentUpButton_Click" IsEnabled="{x:Bind CanMoveUp, Mode=OneWay}" Tag="{Binding}" Padding="{ThemeResource FoundrySpace8}">
+                                                <StackPanel
+                                                    HorizontalAlignment="Right"
+                                                    Orientation="Horizontal"
+                                                    Spacing="{ThemeResource FoundrySpace4}">
+                                                    <Button
+                                                        x:Uid="MachineNamingMoveUpButton"
+                                                        Padding="{ThemeResource FoundrySpace8}"
+                                                        Click="MoveComponentUpButton_Click"
+                                                        IsEnabled="{x:Bind CanMoveUp, Mode=OneWay}"
+                                                        Tag="{Binding}">
                                                         <FontIcon Glyph="&#xE70E;" />
                                                     </Button>
-                                                    <Button x:Uid="MachineNamingMoveDownButton" Click="MoveComponentDownButton_Click" IsEnabled="{x:Bind CanMoveDown, Mode=OneWay}" Tag="{Binding}" Padding="{ThemeResource FoundrySpace8}">
+                                                    <Button
+                                                        x:Uid="MachineNamingMoveDownButton"
+                                                        Padding="{ThemeResource FoundrySpace8}"
+                                                        Click="MoveComponentDownButton_Click"
+                                                        IsEnabled="{x:Bind CanMoveDown, Mode=OneWay}"
+                                                        Tag="{Binding}">
                                                         <FontIcon Glyph="&#xE70D;" />
                                                     </Button>
-                                                    <Button x:Uid="MachineNamingRemoveButton" Click="RemoveComponentButton_Click" Tag="{Binding}" Padding="{ThemeResource FoundrySpace8}">
+                                                    <Button
+                                                        x:Uid="MachineNamingRemoveButton"
+                                                        Padding="{ThemeResource FoundrySpace8}"
+                                                        Click="RemoveComponentButton_Click"
+                                                        Tag="{Binding}">
                                                         <SymbolIcon Symbol="Delete" />
                                                     </Button>
                                                 </StackPanel>
@@ -160,25 +185,33 @@
 
                             <StackPanel Spacing="{ThemeResource FoundrySpace12}">
                                 <StackPanel Spacing="{ThemeResource FoundrySpace4}">
-                                    <TextBlock Style="{ThemeResource BodyStrongTextBlockStyle}" Text="{x:Bind ViewModel.MachineNamingSeparatorLabel, Mode=OneWay}" />
+                                    <TextBlock
+                                        Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                        Text="{x:Bind ViewModel.MachineNamingSeparatorLabel, Mode=OneWay}" />
                                     <ComboBox
                                         ItemsSource="{x:Bind ViewModel.MachineNameSeparatorChoices, Mode=OneWay}"
                                         SelectedItem="{x:Bind ViewModel.SelectedMachineNameSeparator, Mode=TwoWay}">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate x:DataType="viewModels:MachineNameSeparatorChoice">
-                                                <TextBlock Text="{x:Bind DisplayName, Mode=OneTime}" TextWrapping="Wrap" />
+                                                <TextBlock
+                                                    Text="{x:Bind DisplayName, Mode=OneTime}"
+                                                    TextWrapping="Wrap" />
                                             </DataTemplate>
                                         </ComboBox.ItemTemplate>
                                     </ComboBox>
                                 </StackPanel>
                                 <StackPanel Spacing="{ThemeResource FoundrySpace4}">
-                                    <TextBlock Style="{ThemeResource BodyStrongTextBlockStyle}" Text="{x:Bind ViewModel.MachineNamingCasingLabel, Mode=OneWay}" />
+                                    <TextBlock
+                                        Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                        Text="{x:Bind ViewModel.MachineNamingCasingLabel, Mode=OneWay}" />
                                     <ComboBox
                                         ItemsSource="{x:Bind ViewModel.MachineNameCasingChoices, Mode=OneWay}"
                                         SelectedItem="{x:Bind ViewModel.SelectedMachineNameCasing, Mode=TwoWay}">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate x:DataType="viewModels:MachineNameCasingChoice">
-                                                <TextBlock Text="{x:Bind DisplayName, Mode=OneTime}" TextWrapping="Wrap" />
+                                                <TextBlock
+                                                    Text="{x:Bind DisplayName, Mode=OneTime}"
+                                                    TextWrapping="Wrap" />
                                             </DataTemplate>
                                         </ComboBox.ItemTemplate>
                                     </ComboBox>
@@ -201,9 +234,15 @@
                             IsOn="{x:Bind ViewModel.AllowMachineNameEditingDuringDeployment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </wct:SettingsCard>
 
-                    <wct:SettingsCard Header="{x:Bind ViewModel.MachineNamingPreviewLabel, Mode=OneWay}" HorizontalContentAlignment="Stretch">
-                        <StackPanel HorizontalAlignment="Right" Spacing="{ThemeResource FoundrySpace4}">
-                            <TextBlock Style="{ThemeResource BodyStrongTextBlockStyle}" Text="{x:Bind ViewModel.MachineNamingPreview, Mode=OneWay}" />
+                    <wct:SettingsCard
+                        HorizontalContentAlignment="Stretch"
+                        Header="{x:Bind ViewModel.MachineNamingPreviewLabel, Mode=OneWay}">
+                        <StackPanel
+                            HorizontalAlignment="Right"
+                            Spacing="{ThemeResource FoundrySpace4}">
+                            <TextBlock
+                                Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                Text="{x:Bind ViewModel.MachineNamingPreview, Mode=OneWay}" />
                             <TextBlock
                                 Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                                 Text="{x:Bind ViewModel.MachineNamingValidationMessage, Mode=OneWay}"

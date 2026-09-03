@@ -1,5 +1,6 @@
 // Copyright (c) Foundry Project contributors.
 // Licensed under the MIT License.
+// See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Models.Configuration;
 
@@ -113,8 +114,8 @@ public static class MachineNameComposer
     private static MachineNameCompositionResult Failure(
         MachineNameCompositionFailureKind kind,
         MachineNameComponentType componentType) => new()
-    {
-        FailureKind = kind,
-        ComponentType = componentType
-    };
+        {
+            FailureKind = kind,
+            ComponentType = componentType
+        };
 }

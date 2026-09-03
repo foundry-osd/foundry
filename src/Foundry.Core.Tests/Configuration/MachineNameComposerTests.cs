@@ -1,5 +1,6 @@
 // Copyright (c) Foundry Project contributors.
 // Licensed under the MIT License.
+// See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
@@ -107,11 +108,11 @@ public sealed class MachineNameComposerTests
         MachineNameComponentType type,
         int maximumLength,
         MachineNameTruncation truncation) => new()
-    {
-        Type = type,
-        MaximumLength = maximumLength,
-        Truncation = truncation
-    };
+        {
+            Type = type,
+            MaximumLength = maximumLength,
+            Truncation = truncation
+        };
 
     private static MachineNameCompositionResult Compose(
         IReadOnlyList<MachineNameComponentSettings> components,
@@ -119,11 +120,11 @@ public sealed class MachineNameComposerTests
         MachineNameSeparator separator = MachineNameSeparator.None,
         MachineNameCasing casing = MachineNameCasing.Preserve,
         string randomValue = "ABC123") => MachineNameComposer.Compose(new MachineNameCompositionRequest
-    {
-        Components = components,
-        Values = values,
-        Separator = separator,
-        Casing = casing,
-        RandomValue = randomValue
-    });
+        {
+            Components = components,
+            Values = values,
+            Separator = separator,
+            Casing = casing,
+            RandomValue = randomValue
+        });
 }
