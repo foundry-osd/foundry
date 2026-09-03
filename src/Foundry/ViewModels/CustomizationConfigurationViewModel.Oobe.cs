@@ -31,8 +31,6 @@ public sealed partial class CustomizationConfigurationViewModel
 
     public bool EffectiveSkipUserAccountCreation => HasAdditionalOobeAccounts;
 
-    public bool IsSkipUserAccountCreationToggleEnabled => false;
-
     public string OobeSkipUserAccountCreationEffectiveDescription => HasAdditionalOobeAccounts
         ? OobeSkipUserAccountCreationLockedDescription
         : OobeSkipUserAccountCreationDescription;
@@ -162,7 +160,6 @@ public sealed partial class CustomizationConfigurationViewModel
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsOobeOptionsEnabled))]
     [NotifyPropertyChangedFor(nameof(AreOobeAccountControlsAvailable))]
-    [NotifyPropertyChangedFor(nameof(IsSkipUserAccountCreationToggleEnabled))]
     public partial bool IsOobeEnabled { get; set; }
 
     [ObservableProperty]
@@ -171,7 +168,6 @@ public sealed partial class CustomizationConfigurationViewModel
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(OobeAccountsBlockedVisibility))]
     [NotifyPropertyChangedFor(nameof(AreOobeAccountControlsAvailable))]
-    [NotifyPropertyChangedFor(nameof(IsSkipUserAccountCreationToggleEnabled))]
     public partial bool IsOobeAccountConfigurationBlockedByAutopilot { get; set; }
 
     [ObservableProperty]
@@ -475,7 +471,6 @@ public sealed partial class CustomizationConfigurationViewModel
     {
         OnPropertyChanged(nameof(HasAdditionalOobeAccounts));
         OnPropertyChanged(nameof(EffectiveSkipUserAccountCreation));
-        OnPropertyChanged(nameof(IsSkipUserAccountCreationToggleEnabled));
         OnPropertyChanged(nameof(OobeSkipUserAccountCreationEffectiveDescription));
         OnPropertyChanged(nameof(OobeAdditionalAccountsEmptyVisibility));
     }

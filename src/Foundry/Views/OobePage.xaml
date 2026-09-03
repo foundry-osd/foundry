@@ -102,7 +102,7 @@
                                         </wct:SettingsCard.HeaderIcon>
                                         <ToggleSwitch
                                             behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
-                                            IsEnabled="{x:Bind ViewModel.IsSkipUserAccountCreationToggleEnabled, Mode=OneWay}"
+                                            IsEnabled="False"
                                             IsOn="{x:Bind ViewModel.EffectiveSkipUserAccountCreation, Mode=OneWay}" />
                                     </wct:SettingsCard>
 
