@@ -23,6 +23,8 @@ public sealed class WindowsHardwareInspectorTests
                   "Model":" Virtual Machine ",
                   "Product":" Workstation ",
                   "SerialNumber":" SERIAL-1 ",
+                  "AssetTag":" ASSET-42 ",
+                  "SystemUuid":" 550e8400-e29b-41d4-a716-446655440000 ",
                   "Architecture":"AMD64",
                   "IsOnBattery":true,
                   "IsTpmPresent":"true",
@@ -45,6 +47,8 @@ public sealed class WindowsHardwareInspectorTests
         Assert.Equal("Virtual Machine", snapshot.Model);
         Assert.Equal("Workstation", snapshot.Product);
         Assert.Equal("SERIAL-1", snapshot.SerialNumber);
+        Assert.Equal("ASSET-42", snapshot.AssetTag);
+        Assert.Equal("550e8400-e29b-41d4-a716-446655440000", snapshot.SystemUuid);
         Assert.Equal("x64", snapshot.Architecture);
         Assert.True(snapshot.IsVirtualMachine);
         Assert.True(snapshot.IsOnBattery);
@@ -87,6 +91,8 @@ public sealed class WindowsHardwareInspectorTests
         Assert.Equal(string.Empty, snapshot.Model);
         Assert.Equal(string.Empty, snapshot.Product);
         Assert.Equal(string.Empty, snapshot.SerialNumber);
+        Assert.Equal(string.Empty, snapshot.AssetTag);
+        Assert.Equal(string.Empty, snapshot.SystemUuid);
         Assert.Equal(string.Empty, snapshot.Architecture);
         Assert.False(snapshot.IsVirtualMachine);
         Assert.False(snapshot.IsOnBattery);

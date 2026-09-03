@@ -24,7 +24,11 @@ public sealed class HardwareProfileServiceTests
             true,
             true,
             "UEFI\\RES_{FIRMWARE}",
-            [new PnpDeviceSnapshot("Device", "PCI\\VEN_1234", ["PCI\\VEN_1234"], "{CLASS}", "Vendor", "Net")]);
+            [new PnpDeviceSnapshot("Device", "PCI\\VEN_1234", ["PCI\\VEN_1234"], "{CLASS}", "Vendor", "Net")])
+        {
+            AssetTag = "ASSET-42",
+            SystemUuid = "550e8400-e29b-41d4-a716-446655440000"
+        };
         var service = CreateService(_ => Task.FromResult(snapshot));
 
         HardwareProfile profile = await service.GetCurrentAsync(TestContext.Current.CancellationToken);
@@ -33,6 +37,8 @@ public sealed class HardwareProfileServiceTests
         Assert.Equal("Unknown", profile.Model);
         Assert.Equal("EliteBook", profile.Product);
         Assert.Equal("SERIAL", profile.SerialNumber);
+        Assert.Equal("ASSET-42", profile.AssetTag);
+        Assert.Equal("550e8400-e29b-41d4-a716-446655440000", profile.SystemUuid);
         Assert.Equal("x64", profile.Architecture);
         Assert.False(profile.IsVirtualMachine);
         Assert.True(profile.IsOnBattery);
@@ -57,6 +63,8 @@ public sealed class HardwareProfileServiceTests
         Assert.Equal("Unknown", profile.Model);
         Assert.Equal("Unknown", profile.Product);
         Assert.Equal("Unknown", profile.SerialNumber);
+        Assert.Equal("Unknown", profile.AssetTag);
+        Assert.Equal("Unknown", profile.SystemUuid);
         Assert.False(profile.IsVirtualMachine);
         Assert.Empty(profile.PnpDevices);
     }
