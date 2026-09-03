@@ -22,7 +22,8 @@ public sealed class PostHogExceptionTrackerTests
             {
                 ["service.name"] = "foundry.deploy",
                 ["session.id"] = "session-1",
-                ["operation.id"] = "operation-1"
+                ["operation.id"] = "operation-1",
+                ["failure.operation"] = "windows_optional_features.validate"
             },
             new RemoteDiagnosticException(
                 "System.InvalidOperationException",
@@ -42,6 +43,7 @@ public sealed class PostHogExceptionTrackerTests
         Assert.Equal(false, captured.Properties["$process_person_profile"]);
         Assert.Equal(true, captured.Properties["$geoip_disable"]);
         Assert.Equal("session-1", captured.Properties["$session_id"]);
+        Assert.Equal("windows_optional_features.validate", captured.Properties["failure.operation"]);
         Assert.Equal("System.InvalidOperationException", captured.Properties["$exception_type"]);
         Assert.Equal("redacted outer", captured.Properties["$exception_message"]);
         var exceptions = Assert.IsType<List<Dictionary<string, object>>>(captured.Properties["$exception_list"]);

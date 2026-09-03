@@ -246,6 +246,7 @@ public sealed class DeploymentOrchestratorTests
         LogEntry terminalLog = Assert.Single(logger.Entries, entry => entry.Properties.ContainsKey("Outcome"));
         Assert.Equal(operationId, terminalLog.Properties["OperationId"]);
         Assert.Equal("failed", terminalLog.Properties["Outcome"]);
+        Assert.Equal(DeploymentOperationNames.ValidateTargetDisk, terminalLog.Properties["FailedOperationName"]);
         Assert.Equal("missing_target_partition", terminalLog.Properties["FailureCode"]);
         Assert.Equal(true, terminalLog.Properties["RemoteDiagnostic"]);
     }

@@ -38,6 +38,7 @@ public static partial class RemoteDiagnosticPropertyPolicy
             ["FailureCode"] = "failure.code",
             ["ErrorCode"] = "failure.code",
             ["FailureReason"] = "failure.reason",
+            ["FailedOperationName"] = "failure.operation",
             ["ToolName"] = "tool.name",
             ["ExitCode"] = "process.exit_code",
             ["NetworkOperation"] = "network.operation",

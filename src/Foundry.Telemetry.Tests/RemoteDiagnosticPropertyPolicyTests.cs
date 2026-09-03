@@ -152,6 +152,7 @@ public sealed class RemoteDiagnosticPropertyPolicyTests
             exception: null,
             ("Mode", "interactive"),
             ("ErrorCode", "network_timeout"),
+            ("FailedOperationName", "windows_optional_features.validate"),
             ("FailedStepName", "download_image"),
             ("UsbOperation", "create"),
             ("Success", false),
@@ -164,6 +165,7 @@ public sealed class RemoteDiagnosticPropertyPolicyTests
 
         Assert.Equal("interactive", result.Attributes["deployment.mode"]);
         Assert.Equal("network_timeout", result.Attributes["failure.code"]);
+        Assert.Equal("windows_optional_features.validate", result.Attributes["failure.operation"]);
         Assert.Equal("download_image", result.Attributes["workflow.step"]);
         Assert.Equal("create", result.Attributes["boot_media.usb_operation"]);
         Assert.Equal(false, result.Attributes["operation.success"]);

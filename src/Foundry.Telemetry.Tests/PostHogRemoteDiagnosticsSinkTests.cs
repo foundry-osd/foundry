@@ -269,7 +269,8 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
                 ["service.release"] = "foundry.deploy@1.2.3",
                 ["runtime.name"] = "winpe",
                 ["runtime.architecture"] = "x64",
-                ["operation.id"] = "operation-1"
+                ["operation.id"] = "operation-1",
+                ["failure.operation"] = "windows_optional_features.validate"
             },
             new RemoteDiagnosticException("System.InvalidOperationException", "redacted", "at Foundry.Run()", []));
 
@@ -284,6 +285,9 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
         Assert.DoesNotContain("runtime.name", logEvent.Properties.Keys, StringComparer.Ordinal);
         Assert.DoesNotContain("runtime.architecture", logEvent.Properties.Keys, StringComparer.Ordinal);
         Assert.Equal("operation-1", Assert.IsType<ScalarValue>(logEvent.Properties["operation.id"]).Value);
+        Assert.Equal(
+            "windows_optional_features.validate",
+            Assert.IsType<ScalarValue>(logEvent.Properties["failure.operation"]).Value);
         Assert.Equal("redacted", Assert.IsType<ScalarValue>(logEvent.Properties["exception.message"]).Value);
     }
 
