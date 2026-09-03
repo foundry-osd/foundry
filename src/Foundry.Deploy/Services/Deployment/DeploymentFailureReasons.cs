@@ -20,6 +20,7 @@ public static class DeploymentFailureReasons
     public const string TransportError = "transport_error";
     public const string InvalidPayload = "invalid_payload";
     public const string DeadlineExceeded = "deadline_exceeded";
+    public const string CallerCancelled = "caller_cancelled";
     public const string CryptographicError = "cryptographic_error";
     public const string OperationBusy = "operation_busy";
     public const string UnexpectedException = "unexpected_exception";

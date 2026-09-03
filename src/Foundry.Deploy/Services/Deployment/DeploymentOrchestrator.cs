@@ -265,13 +265,14 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 LogsDirectoryPath = ResolveLogsDirectory(executionContext)
             };
         }
-        catch (OperationCanceledException ex) when (cancellationToken.IsCancellationRequested)
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {
             _operationProgressService.Fail("Deployment cancelled.");
             string failedStepName = ResolveFailedStepName(runtimeState);
-            DeploymentFailure cancellationFailure = DeploymentFailureClassifier.Classify(
-                ex,
-                runtimeState.CurrentOperation);
+            DeploymentFailure cancellationFailure = new(
+                runtimeState.CurrentOperation,
+                DeploymentFailureKinds.Cancelled,
+                DeploymentFailureReasons.CallerCancelled);
             ApplyTerminalFailure(runtimeState, failedStepName, cancellationFailure);
             if (executionContext is not null)
             {

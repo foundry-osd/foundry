@@ -357,8 +357,8 @@ public sealed class DeploymentOrchestratorTests
         DeploymentStateSnapshot terminal = logService.SavedStates.Last();
         Assert.Equal("os_image.download", terminal.CurrentOperation);
         Assert.Equal(DeploymentStepNames.DownloadOperatingSystemImage, terminal.LastFailureStep);
-        Assert.Equal(DeploymentFailureKinds.Timeout, terminal.LastFailureKind);
-        Assert.Equal(DeploymentFailureReasons.DeadlineExceeded, terminal.LastFailureReason);
+        Assert.Equal(DeploymentFailureKinds.Cancelled, terminal.LastFailureKind);
+        Assert.Equal(DeploymentFailureReasons.CallerCancelled, terminal.LastFailureReason);
         Assert.Null(terminal.LastFailureCode);
         TelemetryEvent telemetryEvent = Assert.Single(telemetryService.Events);
         Assert.True((bool)telemetryEvent.Properties["deploy_session_cancelled"]!);
@@ -412,8 +412,8 @@ public sealed class DeploymentOrchestratorTests
         DeploymentStateSnapshot terminal = logService.SavedStates.Last();
         Assert.Equal(expectedCurrentOperation, terminal.CurrentOperation);
         Assert.Equal(expectedFailureStep, terminal.LastFailureStep);
-        Assert.Equal(DeploymentFailureKinds.Timeout, terminal.LastFailureKind);
-        Assert.Equal(DeploymentFailureReasons.DeadlineExceeded, terminal.LastFailureReason);
+        Assert.Equal(DeploymentFailureKinds.Cancelled, terminal.LastFailureKind);
+        Assert.Equal(DeploymentFailureReasons.CallerCancelled, terminal.LastFailureReason);
         Assert.Null(terminal.LastFailureCode);
         Assert.Equal(
             [logService.SaveCallCount - 1, logService.SaveCallCount],

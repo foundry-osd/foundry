@@ -14,6 +14,7 @@ public static class DeploymentFailureKinds
     public const string Http = "http";
     public const string Io = "io";
     public const string Timeout = "timeout";
+    public const string Cancelled = "cancelled";
     public const string Cryptography = "cryptography";
     public const string Busy = "busy";
     public const string Unexpected = "unexpected";
