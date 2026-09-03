@@ -125,7 +125,7 @@ public sealed class ConfigurationOverviewEvaluatorTests
     }
 
     [Fact]
-    public void Evaluate_InvalidMachineNamePrefix_NeedsAttention()
+    public void Evaluate_InvalidMachineNameComposition_NeedsAttention()
     {
         var configuration = new FoundryConfigurationDocument
         {
@@ -134,7 +134,12 @@ public sealed class ConfigurationOverviewEvaluatorTests
                 MachineNaming = new MachineNamingSettings
                 {
                     IsEnabled = true,
-                    Prefix = "INVALID_PREFIX"
+                    Mode = MachineNamingMode.Composed,
+                    Components =
+                    [
+                        new MachineNameComponentSettings { Type = MachineNameComponentType.StaticText, StaticText = "PC" },
+                        new MachineNameComponentSettings { Type = MachineNameComponentType.StaticText, StaticText = "LAB" }
+                    ]
                 }
             }
         };
@@ -145,7 +150,7 @@ public sealed class ConfigurationOverviewEvaluatorTests
     }
 
     [Fact]
-    public void Evaluate_MachineNamePrefixExceedsSuffixBudget_NeedsAttention()
+    public void Evaluate_ValidMachineNameComposition_IsConfigured()
     {
         var configuration = new FoundryConfigurationDocument
         {
@@ -154,14 +159,25 @@ public sealed class ConfigurationOverviewEvaluatorTests
                 MachineNaming = new MachineNamingSettings
                 {
                     IsEnabled = true,
-                    Prefix = "ABCDEFGHIJ"
+                    Mode = MachineNamingMode.Composed,
+                    Components =
+                    [
+                        new MachineNameComponentSettings { Type = MachineNameComponentType.StaticText, StaticText = "PC" },
+                        new MachineNameComponentSettings
+                        {
+                            Type = MachineNameComponentType.SerialNumber,
+                            MaximumLength = 12,
+                            Truncation = MachineNameTruncation.KeepRight
+                        }
+                    ],
+                    Separator = MachineNameSeparator.Hyphen
                 }
             }
         };
 
         ConfigurationOverviewEvaluation evaluation = ConfigurationOverviewEvaluator.Evaluate(CreateContext(configuration));
 
-        Assert.Equal(ConfigurationOverviewState.NeedsAttention, evaluation[ConfigurationOverviewItem.MachineNaming]);
+        Assert.Equal(ConfigurationOverviewState.Configured, evaluation[ConfigurationOverviewItem.MachineNaming]);
     }
 
     [Fact]

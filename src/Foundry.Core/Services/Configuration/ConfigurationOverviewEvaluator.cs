@@ -208,8 +208,7 @@ public static class ConfigurationOverviewEvaluator
     private static ConfigurationOverviewState EvaluateMachineNaming(MachineNamingSettings settings) =>
         !settings.IsEnabled
             ? ConfigurationOverviewState.Disabled
-            : string.IsNullOrWhiteSpace(settings.Prefix) ||
-              ComputerNameRules.IsValid(settings.Prefix) && settings.Prefix.Length <= MachineNamingRules.MaxPrefixLength
+            : MachineNamingValidator.Validate(settings).IsValid
                 ? ConfigurationOverviewState.Configured
                 : ConfigurationOverviewState.NeedsAttention;
 

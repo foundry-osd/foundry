@@ -84,7 +84,13 @@ public sealed class TelemetryEventPropertyPolicyTests
             ["network_private_key_roaming_enabled"] = true,
             ["customization_any_enabled"] = true,
             ["customization_machine_naming_enabled"] = true,
-            ["customization_machine_naming_mode"] = "auto_generated_editable",
+            ["customization_machine_naming_mode"] = "composed",
+            ["customization_machine_naming_component_count"] = 2,
+            ["customization_machine_naming_component_types"] = "static_text,serial_number",
+            ["customization_machine_naming_separator"] = "hyphen",
+            ["customization_machine_naming_casing"] = "uppercase",
+            ["customization_machine_naming_truncation_directions"] = "keep_right",
+            ["customization_machine_naming_editing_enabled"] = true,
             ["customization_machine_naming_prefix_configured"] = true,
             ["customization_oobe_enabled"] = true,
             ["customization_oobe_skip_license_terms"] = true,
@@ -173,8 +179,14 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.True((bool)result["network_private_key_roaming_enabled"]!);
         Assert.True((bool)result["customization_any_enabled"]!);
         Assert.True((bool)result["customization_machine_naming_enabled"]!);
-        Assert.Equal("auto_generated_editable", result["customization_machine_naming_mode"]);
-        Assert.True((bool)result["customization_machine_naming_prefix_configured"]!);
+        Assert.Equal("composed", result["customization_machine_naming_mode"]);
+        Assert.Equal(2, result["customization_machine_naming_component_count"]);
+        Assert.Equal("static_text,serial_number", result["customization_machine_naming_component_types"]);
+        Assert.Equal("hyphen", result["customization_machine_naming_separator"]);
+        Assert.Equal("uppercase", result["customization_machine_naming_casing"]);
+        Assert.Equal("keep_right", result["customization_machine_naming_truncation_directions"]);
+        Assert.True((bool)result["customization_machine_naming_editing_enabled"]!);
+        Assert.False(result.ContainsKey("customization_machine_naming_prefix_configured"));
         Assert.True((bool)result["customization_oobe_enabled"]!);
         Assert.True((bool)result["customization_oobe_skip_license_terms"]!);
         Assert.Equal("off", result["customization_oobe_diagnostic_data_level"]);

@@ -82,14 +82,26 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                 MachineNaming = new DeployMachineNamingSettings
                 {
                     IsEnabled = document.Customization.MachineNaming.IsEnabled,
-                    Prefix = document.Customization.MachineNaming.IsEnabled
-                        ? document.Customization.MachineNaming.Prefix
+                    Mode = document.Customization.MachineNaming.IsEnabled
+                        ? document.Customization.MachineNaming.Mode
+                        : MachineNamingMode.Manual,
+                    ManualInitialValue = document.Customization.MachineNaming.IsEnabled &&
+                                         document.Customization.MachineNaming.Mode == MachineNamingMode.Manual
+                        ? document.Customization.MachineNaming.ManualInitialValue
                         : null,
-                    AutoGenerateName = document.Customization.MachineNaming.IsEnabled &&
-                                       document.Customization.MachineNaming.AutoGenerateName,
-                    AllowManualSuffixEdit = !document.Customization.MachineNaming.IsEnabled ||
-                                            !document.Customization.MachineNaming.AutoGenerateName ||
-                                            document.Customization.MachineNaming.AllowManualSuffixEdit
+                    Components = document.Customization.MachineNaming.IsEnabled &&
+                                 document.Customization.MachineNaming.Mode == MachineNamingMode.Composed
+                        ? document.Customization.MachineNaming.Components.Select(component => new DeployMachineNameComponentSettings
+                        {
+                            Type = component.Type,
+                            StaticText = component.StaticText,
+                            MaximumLength = component.MaximumLength,
+                            Truncation = component.Truncation
+                        }).ToArray()
+                        : [],
+                    Separator = document.Customization.MachineNaming.Separator,
+                    Casing = document.Customization.MachineNaming.Casing,
+                    AllowEditingDuringDeployment = document.Customization.MachineNaming.AllowEditingDuringDeployment
                 },
                 Oobe = MapOobeSettings(document.Customization.Oobe),
                 AppxRemoval = MapAppxRemovalSettings(document.Customization.AppxRemoval),

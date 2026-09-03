@@ -127,8 +127,16 @@ public static class BootMediaTelemetryPropertyBuilder
         properties["customization_any_enabled"] = machineNaming.IsEnabled || oobe.IsEnabled || isAppxRemovalEnabled || areWindowsOptionalFeaturesEnabled || isAiComponentRemovalEnabled;
         properties["customization_machine_naming_enabled"] = machineNaming.IsEnabled;
         properties["customization_machine_naming_mode"] = ResolveMachineNamingTelemetryMode(machineNaming);
-        properties["customization_machine_naming_prefix_configured"] =
-            machineNaming.IsEnabled && !string.IsNullOrWhiteSpace(machineNaming.Prefix);
+        properties["customization_machine_naming_component_count"] =
+            machineNaming.IsEnabled && machineNaming.Mode == MachineNamingMode.Composed ? machineNaming.Components.Count : 0;
+        properties["customization_machine_naming_component_types"] =
+            ResolveMachineNamingComponentTypes(machineNaming);
+        properties["customization_machine_naming_separator"] = ToTelemetryValue(machineNaming.Separator);
+        properties["customization_machine_naming_casing"] = ToTelemetryValue(machineNaming.Casing);
+        properties["customization_machine_naming_truncation_directions"] =
+            ResolveMachineNamingTruncationDirections(machineNaming);
+        properties["customization_machine_naming_editing_enabled"] =
+            machineNaming.IsEnabled && machineNaming.AllowEditingDuringDeployment;
         properties["customization_oobe_enabled"] = oobe.IsEnabled;
         properties["customization_oobe_skip_license_terms"] = oobe.IsEnabled && oobe.SkipLicenseTerms;
         properties["customization_oobe_diagnostic_data_level"] = ToTelemetryValue(oobe.DiagnosticDataLevel);
@@ -246,15 +254,20 @@ public static class BootMediaTelemetryPropertyBuilder
             return "disabled";
         }
 
-        if (!settings.AutoGenerateName)
-        {
-            return "manual";
-        }
-
-        return settings.AllowManualSuffixEdit
-            ? "auto_generated_editable"
-            : "auto_generated_locked";
+        return ToTelemetryValue(settings.Mode);
     }
+
+    private static string ResolveMachineNamingComponentTypes(MachineNamingSettings settings) =>
+        settings.IsEnabled && settings.Mode == MachineNamingMode.Composed
+            ? string.Join(',', settings.Components.Select(component => ToTelemetryValue(component.Type)))
+            : string.Empty;
+
+    private static string ResolveMachineNamingTruncationDirections(MachineNamingSettings settings) =>
+        settings.IsEnabled && settings.Mode == MachineNamingMode.Composed
+            ? string.Join(',', settings.Components
+                .Where(component => component.Truncation is not null)
+                .Select(component => ToTelemetryValue(component.Truncation!.Value)))
+            : string.Empty;
 
     private static string ResolveAutopilotProvisioningMode(MediaPreflightOptions options)
     {
@@ -399,6 +412,43 @@ public static class BootMediaTelemetryPropertyBuilder
             _ => "user_controlled"
         };
     }
+
+    private static string ToTelemetryValue(MachineNamingMode value) => value switch
+    {
+        MachineNamingMode.Composed => "composed",
+        _ => "manual"
+    };
+
+    private static string ToTelemetryValue(MachineNameSeparator value) => value switch
+    {
+        MachineNameSeparator.Hyphen => "hyphen",
+        _ => "none"
+    };
+
+    private static string ToTelemetryValue(MachineNameCasing value) => value switch
+    {
+        MachineNameCasing.Uppercase => "uppercase",
+        MachineNameCasing.Lowercase => "lowercase",
+        _ => "preserve"
+    };
+
+    private static string ToTelemetryValue(MachineNameComponentType value) => value switch
+    {
+        MachineNameComponentType.StaticText => "static_text",
+        MachineNameComponentType.SerialNumber => "serial_number",
+        MachineNameComponentType.Manufacturer => "manufacturer",
+        MachineNameComponentType.Model => "model",
+        MachineNameComponentType.AssetTag => "asset_tag",
+        MachineNameComponentType.SystemUuid => "system_uuid",
+        MachineNameComponentType.Random => "random",
+        _ => "unknown"
+    };
+
+    private static string ToTelemetryValue(MachineNameTruncation value) => value switch
+    {
+        MachineNameTruncation.KeepRight => "keep_right",
+        _ => "keep_left"
+    };
 
     private static string ResolveNetworkWifiSecurityTelemetryValue(WifiSettings wifi)
     {
