@@ -106,6 +106,24 @@ public sealed class RemoteDiagnosticPropertyPolicyTests
     }
 
     [Fact]
+    public void CreateSanitizedRecord_RendersApprovedPropertiesAndRedactsRejectedValues()
+    {
+        LogEvent source = CreateLogEvent(
+            LogEventLevel.Error,
+            "Operation {OperationId} failed with {FailureCode}. Detail={ErrorSummary}",
+            new InvalidOperationException("private exception"),
+            ("OperationId", "operation-1"),
+            ("FailureCode", "NETWORK_FAILURE"),
+            ("ErrorSummary", "customer-specific private detail"));
+
+        RemoteDiagnosticRecord result = RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(source, CreateContext());
+
+        Assert.Equal("Operation \"operation-1\" failed with \"NETWORK_FAILURE\". Detail=\"<redacted>\"", result.Body);
+        Assert.Equal(result.Body, result.Exception!.Message);
+        Assert.DoesNotContain("customer-specific", result.Body, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void CreateSanitizedRecord_DoesNotExportFreeFormExceptionMessages()
     {
         LogEvent source = CreateLogEvent(

@@ -335,8 +335,14 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
 
 internal sealed class PostHogDiagnosticsExporter : IRemoteDiagnosticsExporter
 {
-    private static readonly MessageTemplate DiagnosticMessageTemplate =
-        new MessageTemplateParser().Parse("{DiagnosticBody:l}");
+    private static readonly HashSet<string> ResourceAttributeNames = new(StringComparer.Ordinal)
+    {
+        "service.name",
+        "service.version",
+        "service.release",
+        "runtime.name",
+        "runtime.architecture"
+    };
 
     private readonly Serilog.ILogger _logExporter;
     private readonly IPostHogEventClient _eventClient;
@@ -395,16 +401,19 @@ internal sealed class PostHogDiagnosticsExporter : IRemoteDiagnosticsExporter
 
     internal static LogEvent CreateLogEvent(RemoteDiagnosticRecord record)
     {
-        var properties = new List<LogEventProperty>(record.Attributes.Count + 4)
-        {
-            new("DiagnosticBody", new ScalarValue(record.Body))
-        };
-        properties.AddRange(record.Attributes.Select(static attribute =>
-            new LogEventProperty(attribute.Key, new ScalarValue(attribute.Value))));
+        var properties = new List<LogEventProperty>(record.Attributes.Count + 3);
+        properties.AddRange(record.Attributes
+            .Where(static attribute => !ResourceAttributeNames.Contains(attribute.Key))
+            .Select(static attribute =>
+                new LogEventProperty(attribute.Key, new ScalarValue(attribute.Value))));
         if (record.Exception is not null)
         {
             properties.Add(new LogEventProperty("exception.type", new ScalarValue(record.Exception.Type)));
-            properties.Add(new LogEventProperty("exception.message", new ScalarValue(record.Exception.Message)));
+            if (!string.Equals(record.Exception.Message, record.Body, StringComparison.Ordinal))
+            {
+                properties.Add(new LogEventProperty("exception.message", new ScalarValue(record.Exception.Message)));
+            }
+
             if (!string.IsNullOrWhiteSpace(record.Exception.StackTrace))
             {
                 properties.Add(new LogEventProperty("exception.stacktrace", new ScalarValue(record.Exception.StackTrace)));
@@ -415,9 +424,15 @@ internal sealed class PostHogDiagnosticsExporter : IRemoteDiagnosticsExporter
             record.Timestamp,
             record.Level,
             exception: null,
-            DiagnosticMessageTemplate,
+            CreateLiteralMessageTemplate(record.Body),
             properties);
     }
+
+    private static MessageTemplate CreateLiteralMessageTemplate(string message) =>
+        new MessageTemplateParser().Parse(
+            message
+                .Replace("{", "{{", StringComparison.Ordinal)
+                .Replace("}", "}}", StringComparison.Ordinal));
 
     public async Task FlushAsync(CancellationToken cancellationToken)
     {

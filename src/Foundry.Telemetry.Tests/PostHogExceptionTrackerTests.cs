@@ -28,7 +28,11 @@ public sealed class PostHogExceptionTrackerTests
                 "System.InvalidOperationException",
                 "redacted outer",
                 "   at Foundry.Deploy.Run() in <redacted:path>:line 10",
-                [new RemoteDiagnosticException("System.IO.IOException", "redacted inner", null, [])]));
+                [new RemoteDiagnosticException(
+                    "System.IO.IOException",
+                    "redacted inner",
+                    "   at System.Net.Http.HttpClient.Send()",
+                    [])]));
 
         tracker.Track(record);
 
@@ -42,6 +46,8 @@ public sealed class PostHogExceptionTrackerTests
         Assert.Equal("redacted outer", captured.Properties["$exception_message"]);
         var exceptions = Assert.IsType<List<Dictionary<string, object>>>(captured.Properties["$exception_list"]);
         Assert.Equal(2, exceptions.Count);
+        Assert.Equal(true, GetSingleFrame(exceptions[0])["in_app"]);
+        Assert.Equal(false, GetSingleFrame(exceptions[1])["in_app"]);
         Assert.DoesNotContain("C:\\", captured.SerializedProperties, StringComparison.OrdinalIgnoreCase);
     }
 
@@ -114,6 +120,13 @@ public sealed class PostHogExceptionTrackerTests
         public Task FlushAsync() => Task.CompletedTask;
 
         public ValueTask DisposeAsync() => ValueTask.CompletedTask;
+    }
+
+    private static Dictionary<string, object> GetSingleFrame(Dictionary<string, object> exception)
+    {
+        var stackTrace = Assert.IsType<Dictionary<string, object>>(exception["stacktrace"]);
+        var frames = Assert.IsType<List<Dictionary<string, object>>>(stackTrace["frames"]);
+        return Assert.Single(frames);
     }
 
     private sealed record CapturedPostHogEvent(

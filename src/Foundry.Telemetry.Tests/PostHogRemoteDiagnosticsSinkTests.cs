@@ -256,7 +256,7 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
     }
 
     [Fact]
-    public void CreateLogEvent_ReconstructsOnlySanitizedRecordData()
+    public void CreateLogEvent_DoesNotDuplicateResourceAttributes()
     {
         var record = new RemoteDiagnosticRecord(
             DateTimeOffset.UtcNow,
@@ -265,6 +265,10 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
             new Dictionary<string, object>
             {
                 ["service.name"] = "foundry.deploy",
+                ["service.version"] = "1.2.3",
+                ["service.release"] = "foundry.deploy@1.2.3",
+                ["runtime.name"] = "winpe",
+                ["runtime.architecture"] = "x64",
                 ["operation.id"] = "operation-1"
             },
             new RemoteDiagnosticException("System.InvalidOperationException", "redacted", "at Foundry.Run()", []));
@@ -273,8 +277,32 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
 
         Assert.Null(logEvent.Exception);
         Assert.Equal("Deployment failed for {Path}", logEvent.RenderMessage());
-        Assert.Equal("foundry.deploy", Assert.IsType<ScalarValue>(logEvent.Properties["service.name"]).Value);
+        Assert.DoesNotContain("DiagnosticBody", logEvent.Properties.Keys, StringComparer.Ordinal);
+        Assert.DoesNotContain("service.name", logEvent.Properties.Keys, StringComparer.Ordinal);
+        Assert.DoesNotContain("service.version", logEvent.Properties.Keys, StringComparer.Ordinal);
+        Assert.DoesNotContain("service.release", logEvent.Properties.Keys, StringComparer.Ordinal);
+        Assert.DoesNotContain("runtime.name", logEvent.Properties.Keys, StringComparer.Ordinal);
+        Assert.DoesNotContain("runtime.architecture", logEvent.Properties.Keys, StringComparer.Ordinal);
+        Assert.Equal("operation-1", Assert.IsType<ScalarValue>(logEvent.Properties["operation.id"]).Value);
         Assert.Equal("redacted", Assert.IsType<ScalarValue>(logEvent.Properties["exception.message"]).Value);
+    }
+
+    [Fact]
+    public void CreateLogEvent_WhenExceptionMessageMatchesBody_DoesNotDuplicateMessage()
+    {
+        LogEvent source = RemoteDiagnosticsTestData.LogEvent(
+            LogEventLevel.Error,
+            "Deployment failed",
+            new InvalidOperationException("private detail"));
+        RemoteDiagnosticRecord record = RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(
+            source,
+            RemoteDiagnosticsTestData.Context());
+
+        LogEvent logEvent = PostHogDiagnosticsExporter.CreateLogEvent(record);
+
+        Assert.Equal("Deployment failed", logEvent.RenderMessage());
+        Assert.DoesNotContain("exception.message", logEvent.Properties.Keys, StringComparer.Ordinal);
+        Assert.Contains("exception.type", logEvent.Properties.Keys, StringComparer.Ordinal);
     }
 
     private static PostHogRemoteDiagnosticsSink CreateService(

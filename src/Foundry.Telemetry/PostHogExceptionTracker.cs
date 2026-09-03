@@ -133,7 +133,8 @@ internal sealed partial class PostHogExceptionTracker(
                 ["platform"] = "custom",
                 ["lang"] = "dotnet",
                 ["function"] = function,
-                ["module"] = GetModule(function)
+                ["module"] = GetModule(function),
+                ["in_app"] = IsApplicationFrame(function)
             };
             if (int.TryParse(match.Groups["line"].Value, out int lineNumber))
             {
@@ -145,6 +146,10 @@ internal sealed partial class PostHogExceptionTracker(
 
         return frames;
     }
+
+    private static bool IsApplicationFrame(string function) =>
+        function.StartsWith("Foundry.", StringComparison.Ordinal) ||
+        function.StartsWith("Foundry+", StringComparison.Ordinal);
 
     private static string GetModule(string function)
     {

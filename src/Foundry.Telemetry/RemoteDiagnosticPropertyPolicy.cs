@@ -83,9 +83,30 @@ public static partial class RemoteDiagnosticPropertyPolicy
             }
         }
 
-        string body = SanitizeRemoteText(logEvent.MessageTemplate.Text, MaximumMessageLength);
+        string body = SanitizeRemoteText(RenderSafeMessage(logEvent), MaximumMessageLength);
         RemoteDiagnosticException? exception = CreateException(logEvent.Exception, body, depth: 0);
         return new RemoteDiagnosticRecord(logEvent.Timestamp, logEvent.Level, body, attributes, exception);
+    }
+
+    private static string RenderSafeMessage(LogEvent logEvent)
+    {
+        var safeProperties = new List<LogEventProperty>(logEvent.Properties.Count);
+        foreach ((string name, LogEventPropertyValue propertyValue) in logEvent.Properties)
+        {
+            object safeValue = AllowedPropertyNames.ContainsKey(name) &&
+                               TryConvertScalar(propertyValue, out object scalarValue)
+                ? scalarValue
+                : "<redacted>";
+            safeProperties.Add(new LogEventProperty(name, new ScalarValue(safeValue)));
+        }
+
+        var safeEvent = new LogEvent(
+            logEvent.Timestamp,
+            logEvent.Level,
+            exception: null,
+            logEvent.MessageTemplate,
+            safeProperties);
+        return safeEvent.RenderMessage(System.Globalization.CultureInfo.InvariantCulture);
     }
 
     private static bool TryConvertScalar(LogEventPropertyValue propertyValue, out object value)
