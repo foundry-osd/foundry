@@ -185,15 +185,15 @@
                                                     <ColumnDefinition Width="Auto" />
                                                     <ColumnDefinition Width="*" />
                                                 </Grid.ColumnDefinitions>
-                                                <Grid VerticalAlignment="Top">
+                                                <Grid VerticalAlignment="Center">
                                                     <FontIcon
                                                         FontSize="{ThemeResource FoundryIconSizeSmall}"
-                                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                        Foreground="{ThemeResource SystemFillColorAttentionBrush}"
                                                         Glyph="&#xE946;"
                                                         Visibility="{x:Bind ViewModel.OobeAdditionalAccountsEmptyVisibility, Mode=OneWay}" />
                                                     <FontIcon
                                                         FontSize="{ThemeResource FoundryIconSizeSmall}"
-                                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                        Foreground="{ThemeResource SystemFillColorSuccessBrush}"
                                                         Glyph="&#xE73E;"
                                                         Visibility="{x:Bind ViewModel.HasAdditionalOobeAccounts, Mode=OneWay}" />
                                                 </Grid>
@@ -219,7 +219,7 @@
                                                 <FontIcon
                                                     VerticalAlignment="Top"
                                                     FontSize="{ThemeResource FoundryIconSizeSmall}"
-                                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                    Foreground="{ThemeResource SystemFillColorCautionBrush}"
                                                     Glyph="&#xE72E;" />
                                                 <TextBlock
                                                     Grid.Column="1"

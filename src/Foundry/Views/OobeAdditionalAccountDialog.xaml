@@ -32,6 +32,7 @@
 
         <ComboBox
             Grid.Row="2"
+            HorizontalAlignment="Stretch"
             DisplayMemberPath="DisplayName"
             Header="{Binding AccountTypeLabel}"
             ItemsSource="{Binding AccountTypeOptions}"
@@ -45,12 +46,14 @@
 
         <PasswordBox x:Name="PasswordBox"
             Grid.Row="4"
+            Header="{Binding PasswordPlaceholder}"
             PlaceholderText="{Binding PasswordPlaceholder}" />
 
         <StackPanel
             Grid.Row="5"
             Spacing="{ThemeResource FoundryCompactStackSpacing}">
             <PasswordBox x:Name="ConfirmationBox"
+                Header="{Binding ConfirmationPlaceholder}"
                 PlaceholderText="{Binding ConfirmationPlaceholder}" />
             <TextBlock x:Name="ValidationTextBlock"
                 Foreground="{ThemeResource SystemFillColorCriticalBrush}"
