@@ -402,12 +402,8 @@ public sealed partial class CustomizationConfigurationViewModel
 
     private void RaiseMachineNamingPropertiesChanged()
     {
-        MachineNamingValidationResult validation = MachineNamingValidator.Validate(BuildMachineNamingSettings());
-        string componentValidation = localizationService.GetString("Customization.MachineNamingValidation");
         for (int index = 0; index < MachineNameComponents.Count; index++)
         {
-            bool hasIssue = validation.Issues.Any(issue => issue.ComponentIndex == index);
-            MachineNameComponents[index].SetValidationMessage(hasIssue ? componentValidation : string.Empty);
             MachineNameComponents[index].UpdatePosition(index, MachineNameComponents.Count);
         }
 

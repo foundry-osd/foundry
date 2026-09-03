@@ -283,16 +283,14 @@
                                             BorderBrush="{ThemeResource FoundrySurfaceBorderBrush}"
                                             BorderThickness="1"
                                             CornerRadius="{ThemeResource FoundryCardCornerRadius}">
-                                            <Grid ColumnSpacing="{ThemeResource FoundrySpace16}">
+                                            <Grid
+                                                MinHeight="48"
+                                                ColumnSpacing="{ThemeResource FoundrySpace16}">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="{ThemeResource FoundryCompactInputMinWidth}" />
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="48" />
-                                                    <RowDefinition Height="Auto" />
-                                                </Grid.RowDefinitions>
                                                 <TextBlock
                                                     VerticalAlignment="Center"
                                                     Style="{ThemeResource BodyStrongTextBlockStyle}"
@@ -363,14 +361,6 @@
                                                         <SymbolIcon Symbol="Delete" />
                                                     </Button>
                                                 </StackPanel>
-                                                <TextBlock
-                                                    Grid.Row="1"
-                                                    Grid.ColumnSpan="3"
-                                                    Margin="0,8,0,0"
-                                                    Foreground="{ThemeResource SystemFillColorCriticalBrush}"
-                                                    Text="{x:Bind ValidationMessage, Mode=OneWay}"
-                                                    TextWrapping="WrapWholeWords"
-                                                    Visibility="{x:Bind ValidationVisibility, Mode=OneWay}" />
                                             </Grid>
                                         </Border>
                                     </DataTemplate>

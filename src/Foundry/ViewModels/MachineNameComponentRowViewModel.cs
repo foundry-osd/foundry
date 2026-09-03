@@ -17,7 +17,6 @@ public sealed partial class MachineNameComponentRowViewModel : ObservableObject
     private int _truncationIndex;
     private bool _canMoveUp;
     private bool _canMoveDown;
-    private string _validationMessage = string.Empty;
 
     public MachineNameComponentRowViewModel(
         MachineNameComponentSettings settings,
@@ -101,22 +100,6 @@ public sealed partial class MachineNameComponentRowViewModel : ObservableObject
         private set => SetProperty(ref _canMoveDown, value);
     }
 
-    public string ValidationMessage
-    {
-        get => _validationMessage;
-        private set
-        {
-            if (SetProperty(ref _validationMessage, value))
-            {
-                OnPropertyChanged(nameof(ValidationVisibility));
-            }
-        }
-    }
-
-    public Visibility ValidationVisibility => string.IsNullOrWhiteSpace(ValidationMessage)
-        ? Visibility.Collapsed
-        : Visibility.Visible;
-
     public MachineNameComponentSettings BuildSettings() => new()
     {
         Type = Type,
@@ -137,8 +120,6 @@ public sealed partial class MachineNameComponentRowViewModel : ObservableObject
         CanMoveUp = index > 0;
         CanMoveDown = index >= 0 && index < count - 1;
     }
-
-    public void SetValidationMessage(string message) => ValidationMessage = message;
 
     private static int DefaultMaximumLength(MachineNameComponentType type) => type == MachineNameComponentType.Random ? 6 : 15;
 }
