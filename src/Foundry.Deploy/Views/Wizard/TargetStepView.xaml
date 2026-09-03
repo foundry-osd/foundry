@@ -34,20 +34,12 @@
                             Margin="0,0,0,8"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
                             Text="{Binding DataContext.Strings[Preparation.ComputerName], ElementName=ViewRoot}" />
-                        <DockPanel LastChildFill="True">
-                            <TextBlock
-                                Margin="0,0,8,0"
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyStrongTextBlockStyle}"
-                                Text="{Binding TargetComputerNamePrefix}"
-                                Visibility="{Binding HasTargetComputerNamePrefix, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                            <TextBox x:Name="TargetComputerNameTextBox"
-                                AutomationProperties.Name="{Binding DataContext.Strings[Preparation.ComputerName], ElementName=ViewRoot}"
-                                IsReadOnly="{Binding IsTargetComputerNameReadOnly}"
-                                MaxLength="{Binding TargetComputerNameInputMaxLength}"
-                                PreviewTextInput="TargetComputerNameTextBox_PreviewTextInput"
-                                Text="{Binding TargetComputerNameInput, UpdateSourceTrigger=PropertyChanged}" />
-                        </DockPanel>
+                        <TextBox x:Name="TargetComputerNameTextBox"
+                            AutomationProperties.Name="{Binding DataContext.Strings[Preparation.ComputerName], ElementName=ViewRoot}"
+                            IsReadOnly="{Binding IsTargetComputerNameReadOnly}"
+                            MaxLength="15"
+                            PreviewTextInput="TargetComputerNameTextBox_PreviewTextInput"
+                            Text="{Binding TargetComputerName, UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock
                             Margin="0,4,0,0"
                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"

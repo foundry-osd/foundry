@@ -309,9 +309,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 Mode = _deploymentRuntimeContext.Mode,
                 CacheRootPath = Preparation.CacheRootPath,
                 TargetComputerName = Preparation.TargetComputerName,
-                RequiredComputerNamePrefix = Preparation.HasTargetComputerNamePrefix
-                    ? Preparation.TargetComputerNamePrefix
-                    : null,
                 DefaultTimeZoneId = _wizardContext.DefaultTimeZoneId,
                 SelectedTargetDisk = Preparation.SelectedTargetDisk,
                 SelectedOperatingSystem = OperatingSystemCatalog.SelectedOperatingSystem,

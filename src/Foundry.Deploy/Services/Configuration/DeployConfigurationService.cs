@@ -68,6 +68,8 @@ public sealed class DeployConfigurationService : IDeployConfigurationService
                 };
             }
 
+            document = DeployConfigurationMigration.ApplySchemaMigrations(document);
+
             if (document.SchemaVersion > ConfigurationSchemaVersions.DeployCurrent)
             {
                 _logger.LogWarning(

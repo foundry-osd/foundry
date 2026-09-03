@@ -13,6 +13,7 @@ using Foundry.Deploy.Services.Catalog;
 using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Runtime;
+using Foundry.Deploy.Services.System;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Startup;
@@ -68,13 +69,27 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
 
         await Task.WhenAll(computerNameTask, hardwareTask, targetDisksTask, catalogTask).ConfigureAwait(false);
 
+        DeployMachineNamingSettings machineNaming = deployConfigurationDocument?.Customization.MachineNaming
+            ?? new DeployMachineNamingSettings();
+        MachineNamePreparationResult machineName = MachineNamePreparationService.Prepare(
+            machineNaming,
+            computerNameTask.Result,
+            hardwareTask.Result.Profile);
+        if (!machineName.IsSuccess)
+        {
+            _logger.LogWarning(
+                "Machine name preparation failed. FailureKind={FailureKind}, ComponentType={ComponentType}",
+                machineName.FailureKind,
+                machineName.ComponentType);
+        }
+
         return new DeploymentStartupSnapshot
         {
             CacheRootPath = cacheRootPath,
             DeployConfigurationDocument = deployConfigurationDocument,
             IsBootMediaUpdateRecommended = deployConfigLoadResult.IsBootMediaUpdateRecommended,
             AutopilotProfiles = autopilotProfiles,
-            EffectiveComputerName = computerNameTask.Result,
+            EffectiveComputerName = machineName.ComputerName ?? string.Empty,
             DetectedHardware = hardwareTask.Result.Profile,
             HardwareDetectionFailureMessage = hardwareTask.Result.ErrorMessage,
             TargetDisks = targetDisksTask.Result.Disks,
