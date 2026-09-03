@@ -6,6 +6,7 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.WinPe;
 using Foundry.Telemetry;
 using System.Text.Json;
 
@@ -365,6 +366,194 @@ public sealed class DeployConfigurationGeneratorTests
 
         InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => generator.Generate(document));
         Assert.Contains("OOBE", exception.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Theory]
+    [InlineData(true, false, false)]
+    [InlineData(false, true, false)]
+    [InlineData(false, false, true)]
+    public void Generate_WhenAutopilotIsEnabledAndOobeAccountBehaviorIsConfigured_ThrowsInvalidOperationException(
+        bool enableAdministratorAccount,
+        bool skipUserAccountCreation,
+        bool includeAdditionalAccount)
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                Oobe = new OobeSettings
+                {
+                    IsEnabled = true,
+                    EnableAdministratorAccount = enableAdministratorAccount,
+                    SkipUserAccountCreation = skipUserAccountCreation,
+                    AdditionalAccounts = includeAdditionalAccount
+                        ? new[]
+                        {
+                            new OobeAdditionalAccountSettings
+                            {
+                                Id = "account-1",
+                                UserName = "Technician",
+                                Type = OobeAccountType.Standard
+                            }
+                        }
+                        : []
+                }
+            },
+            Autopilot = new AutopilotSettings
+            {
+                IsEnabled = true,
+                DefaultProfileId = "profile-a",
+                Profiles =
+                [
+                    CreateProfile("profile-a", "profile-a-folder")
+                ]
+            }
+        };
+
+        InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => generator.Generate(document));
+        Assert.Contains("Autopilot", exception.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void Generate_WhenProtectedOobeAccountPasswordsAreProvided_EncryptsSecretEnvelopes()
+    {
+        var generator = new DeployConfigurationGenerator();
+        using var mediaProtection = DeploymentMediaProtectionService.CreateProtected("MediaPassword123".AsSpan());
+        using var secretState = new OobeAccountSecretState();
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                Oobe = new OobeSettings
+                {
+                    IsEnabled = true,
+                    EnableAdministratorAccount = true,
+                    AdditionalAccounts =
+                    [
+                        new OobeAdditionalAccountSettings
+                        {
+                            Id = "account-1",
+                            UserName = "Technician",
+                            Type = OobeAccountType.Administrator
+                        }
+                    ]
+                }
+            }
+        };
+        secretState.SetAdministratorPassword("AdminPassword123!");
+        secretState.SetAdministratorConfirmation("AdminPassword123!");
+        secretState.SetAdditionalAccountPassword("account-1", "TechPassword123!");
+        secretState.SetAdditionalAccountConfirmation("account-1", "TechPassword123!");
+
+        FoundryDeployConfigurationDocument result = generator.Generate(
+            document,
+            mediaProtection.DeploymentKey,
+            mediaProtection.Settings,
+            secretState);
+
+        Assert.True(result.Customization.Oobe.EnableAdministratorAccount);
+        Assert.False(result.Customization.Oobe.AdministratorPasswordIsBlank);
+        Assert.NotNull(result.Customization.Oobe.AdministratorPasswordSecret);
+        Assert.Equal(
+            "AdminPassword123!",
+            MediaSecretEnvelopeProtector.DecryptString(
+                result.Customization.Oobe.AdministratorPasswordSecret!,
+                mediaProtection.DeploymentKey,
+                MediaSecretEnvelopeProtector.DeploymentKeyId));
+        Assert.Collection(
+            result.Customization.Oobe.AdditionalAccounts,
+            account =>
+            {
+                Assert.Equal("account-1", account.Id);
+                Assert.Equal("Technician", account.UserName);
+                Assert.Equal(OobeAccountType.Administrator, account.Type);
+                Assert.False(account.PasswordIsBlank);
+                Assert.NotNull(account.PasswordSecret);
+                Assert.Equal(
+                    "TechPassword123!",
+                    MediaSecretEnvelopeProtector.DecryptString(
+                        account.PasswordSecret!,
+                        mediaProtection.DeploymentKey,
+                        MediaSecretEnvelopeProtector.DeploymentKeyId));
+            });
+
+        string json = generator.Serialize(result);
+        Assert.DoesNotContain("AdminPassword123!", json, StringComparison.Ordinal);
+        Assert.DoesNotContain("TechPassword123!", json, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void Generate_WhenBlankOobeAccountPasswordsAreProvided_EmitsBlankPasswordIntentWithoutSecrets()
+    {
+        var generator = new DeployConfigurationGenerator();
+        using var mediaProtection = DeploymentMediaProtectionService.CreateProtected("MediaPassword123".AsSpan());
+        using var secretState = new OobeAccountSecretState();
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                Oobe = new OobeSettings
+                {
+                    IsEnabled = true,
+                    EnableAdministratorAccount = true,
+                    AdditionalAccounts =
+                    [
+                        new OobeAdditionalAccountSettings
+                        {
+                            Id = "account-1",
+                            UserName = "Technician",
+                            Type = OobeAccountType.Standard
+                        }
+                    ]
+                }
+            }
+        };
+
+        FoundryDeployConfigurationDocument result = generator.Generate(
+            document,
+            mediaProtection.DeploymentKey,
+            mediaProtection.Settings,
+            secretState);
+
+        Assert.True(result.Customization.Oobe.EnableAdministratorAccount);
+        Assert.True(result.Customization.Oobe.AdministratorPasswordIsBlank);
+        Assert.Null(result.Customization.Oobe.AdministratorPasswordSecret);
+        Assert.Collection(
+            result.Customization.Oobe.AdditionalAccounts,
+            account =>
+            {
+                Assert.True(account.PasswordIsBlank);
+                Assert.Null(account.PasswordSecret);
+            });
+    }
+
+    [Fact]
+    public void Generate_WhenUnprotectedMediaCarriesNonEmptyOobePasswords_ThrowsInvalidOperationException()
+    {
+        var generator = new DeployConfigurationGenerator();
+        using var mediaProtection = DeploymentMediaProtectionService.CreateUnprotected();
+        using var secretState = new OobeAccountSecretState();
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                Oobe = new OobeSettings
+                {
+                    IsEnabled = true,
+                    EnableAdministratorAccount = true
+                }
+            }
+        };
+        secretState.SetAdministratorPassword("AdminPassword123!");
+        secretState.SetAdministratorConfirmation("AdminPassword123!");
+
+        InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => generator.Generate(
+            document,
+            mediaProtection.DeploymentKey,
+            mediaProtection.Settings,
+            secretState));
+        Assert.Contains("protected", exception.Message, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]

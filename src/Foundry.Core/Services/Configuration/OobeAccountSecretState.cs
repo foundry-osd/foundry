@@ -20,7 +20,19 @@ public sealed class OobeAccountSecretState : IDisposable
         administrator.SetPassword(value);
     }
 
+    public void SetAdministratorPassword(ReadOnlySpan<char> value)
+    {
+        ObjectDisposedException.ThrowIf(isDisposed, this);
+        administrator.SetPassword(value);
+    }
+
     public void SetAdministratorConfirmation(string? value)
+    {
+        ObjectDisposedException.ThrowIf(isDisposed, this);
+        administrator.SetConfirmation(value);
+    }
+
+    public void SetAdministratorConfirmation(ReadOnlySpan<char> value)
     {
         ObjectDisposedException.ThrowIf(isDisposed, this);
         administrator.SetConfirmation(value);
@@ -50,7 +62,19 @@ public sealed class OobeAccountSecretState : IDisposable
         GetOrCreateAccount(accountId).SetPassword(value);
     }
 
+    public void SetAdditionalAccountPassword(string accountId, ReadOnlySpan<char> value)
+    {
+        ObjectDisposedException.ThrowIf(isDisposed, this);
+        GetOrCreateAccount(accountId).SetPassword(value);
+    }
+
     public void SetAdditionalAccountConfirmation(string accountId, string? value)
+    {
+        ObjectDisposedException.ThrowIf(isDisposed, this);
+        GetOrCreateAccount(accountId).SetConfirmation(value);
+    }
+
+    public void SetAdditionalAccountConfirmation(string accountId, ReadOnlySpan<char> value)
     {
         ObjectDisposedException.ThrowIf(isDisposed, this);
         GetOrCreateAccount(accountId).SetConfirmation(value);
@@ -183,7 +207,17 @@ public sealed class OobeAccountSecretState : IDisposable
             Replace(ref password, value);
         }
 
+        public void SetPassword(ReadOnlySpan<char> value)
+        {
+            Replace(ref password, value);
+        }
+
         public void SetConfirmation(string? value)
+        {
+            Replace(ref confirmation, value);
+        }
+
+        public void SetConfirmation(ReadOnlySpan<char> value)
         {
             Replace(ref confirmation, value);
         }
@@ -202,6 +236,12 @@ public sealed class OobeAccountSecretState : IDisposable
         {
             ClearBuffer(ref target);
             target = value is null ? null : value.ToCharArray();
+        }
+
+        private static void Replace(ref char[]? target, ReadOnlySpan<char> value)
+        {
+            ClearBuffer(ref target);
+            target = value.IsEmpty ? null : value.ToArray();
         }
 
         private static void ClearBuffer(ref char[]? value)

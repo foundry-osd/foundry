@@ -10,6 +10,8 @@ using Foundry.Services.Autopilot;
 using Foundry.Telemetry;
 using Foundry.Utilities.Security;
 using Serilog;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using AppSettingsService = Foundry.Services.Settings.IAppSettingsService;
 
 namespace Foundry.Services.Configuration;
@@ -87,7 +89,8 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
 
             try
             {
-                byte[]? deploymentSecretsKey = Current.Autopilot.IsEnabled &&
+                byte[]? deploymentSecretsKey = Current.General.DeploymentProtection.IsEnabled ||
+                                               Current.Autopilot.IsEnabled &&
                                                Current.Autopilot.ProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload
                     ? AesGcmEncryption.GenerateKey()
                     : null;
@@ -219,9 +222,10 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         DeployProtectionSettings? protectionSettings = null)
     {
         FoundryConfigurationDocument document = CreateDocumentForDeployGeneration(telemetryOverride);
+        using OobeAccountSecretState oobeAccountSecretState = CreateOobeAccountSecretStateForDeployGeneration(document.Customization.Oobe);
 
         return deployConfigurationGenerator.Serialize(
-            deployConfigurationGenerator.Generate(document, deploymentSecretsKey, protectionSettings));
+            deployConfigurationGenerator.Generate(document, deploymentSecretsKey, protectionSettings, oobeAccountSecretState));
     }
 
     /// <inheritdoc />
@@ -268,6 +272,41 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
             Autopilot = CreateAutopilotSettingsForValidation(Current.Autopilot),
             Telemetry = telemetryOverride ?? Current.Telemetry
         };
+    }
+
+    private OobeAccountSecretState CreateOobeAccountSecretStateForDeployGeneration(OobeSettings settings)
+    {
+        var state = new OobeAccountSecretState();
+
+        if (!settings.IsEnabled)
+        {
+            return state;
+        }
+
+        char[] administratorPassword = oobeAccountSecretStateService.GetAdministratorPasswordCopy();
+        try
+        {
+            state.SetAdministratorPassword(administratorPassword);
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(administratorPassword.AsSpan()));
+        }
+
+        foreach (OobeAdditionalAccountSettings account in settings.AdditionalAccounts)
+        {
+            char[] password = oobeAccountSecretStateService.GetAdditionalAccountPasswordCopy(account.Id);
+            try
+            {
+                state.SetAdditionalAccountPassword(account.Id, password);
+            }
+            finally
+            {
+                CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(password.AsSpan()));
+            }
+        }
+
+        return state;
     }
 
     private AutopilotSettings CreateAutopilotSettingsForValidation(AutopilotSettings settings)

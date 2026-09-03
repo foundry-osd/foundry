@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Core.Models.Configuration;
+
 namespace Foundry.Core.Models.Configuration.Deploy;
 
 /// <summary>
@@ -13,6 +15,16 @@ public sealed record DeployOobeSettings
     /// Gets whether Foundry.Deploy should apply OOBE customization to the offline Windows installation.
     /// </summary>
     public bool IsEnabled { get; init; }
+
+    /// <summary>
+    /// Gets whether the built-in Administrator account should be enabled during OOBE.
+    /// </summary>
+    public bool EnableAdministratorAccount { get; init; }
+
+    /// <summary>
+    /// Gets whether OOBE should skip prompting for an end-user account to be created manually.
+    /// </summary>
+    public bool SkipUserAccountCreation { get; init; }
 
     /// <summary>
     /// Gets whether the Microsoft Software License Terms page should be skipped during OOBE.
@@ -53,4 +65,19 @@ public sealed record DeployOobeSettings
     /// Gets how Windows location access should be configured before first sign-in.
     /// </summary>
     public DeployOobeLocationAccessMode LocationAccess { get; init; } = DeployOobeLocationAccessMode.UserControlled;
+
+    /// <summary>
+    /// Gets a value indicating whether the built-in Administrator account should be provisioned with a blank password.
+    /// </summary>
+    public bool AdministratorPasswordIsBlank { get; init; }
+
+    /// <summary>
+    /// Gets the encrypted built-in Administrator password for deployment-time use.
+    /// </summary>
+    public SecretEnvelope? AdministratorPasswordSecret { get; init; }
+
+    /// <summary>
+    /// Gets the additional local accounts to provision during OOBE.
+    /// </summary>
+    public IReadOnlyList<DeployOobeAdditionalAccountSettings> AdditionalAccounts { get; init; } = [];
 }
