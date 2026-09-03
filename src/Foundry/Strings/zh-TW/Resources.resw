@@ -527,7 +527,6 @@
   <data name="Customization.MachineNamingManualLabel" xml:space="preserve"><value>手動</value></data>
   <data name="Customization.MachineNamingManualDescription" xml:space="preserve"><value>可選擇預先填入完整的電腦名稱。</value></data>
   <data name="Customization.MachineNamingComposedLabel" xml:space="preserve"><value>組合</value></data>
-  <data name="Customization.MachineNamingComposedDescription" xml:space="preserve"><value>使用裝置資料以及固定或隨機文字建立名稱。</value></data>
   <data name="Customization.MachineNamingComponentsLabel" xml:space="preserve"><value>名稱元件</value></data>
   <data name="Customization.MachineNamingComponentsDescription" xml:space="preserve"><value>每種元件類型只能使用一次。重新排序元件以控制最終名稱。</value></data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve"><value>新增元件</value></data>
@@ -554,7 +553,6 @@
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve"><value>保留左側字元</value></data>
   <data name="MachineNamingKeepRightOption.Content" xml:space="preserve"><value>保留右側字元</value></data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve"><value>預覽</value></data>
-  <data name="MachineNamingPreviewCard.Description" xml:space="preserve"><value>已產生電腦名稱的範例</value></data>
   <data name="MachineNamingMoveUpButton.AutomationProperties.Name" xml:space="preserve"><value>向上移動元件</value></data>
   <data name="MachineNamingMoveDownButton.AutomationProperties.Name" xml:space="preserve"><value>向下移動元件</value></data>
   <data name="MachineNamingRemoveButton.AutomationProperties.Name" xml:space="preserve"><value>移除元件</value></data>

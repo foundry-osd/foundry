@@ -56,9 +56,6 @@ public sealed partial class CustomizationConfigurationViewModel
     public partial string MachineNamingComposedLabel { get; set; } = string.Empty;
 
     [ObservableProperty]
-    public partial string MachineNamingComposedDescription { get; set; } = string.Empty;
-
-    [ObservableProperty]
     public partial string MachineNamingComponentsLabel { get; set; } = string.Empty;
 
     [ObservableProperty]
@@ -369,7 +366,6 @@ public sealed partial class CustomizationConfigurationViewModel
         MachineNamingManualLabel = localizationService.GetString("Customization.MachineNamingManualLabel");
         MachineNamingManualDescription = localizationService.GetString("Customization.MachineNamingManualDescription");
         MachineNamingComposedLabel = localizationService.GetString("Customization.MachineNamingComposedLabel");
-        MachineNamingComposedDescription = localizationService.GetString("Customization.MachineNamingComposedDescription");
         MachineNamingComponentsLabel = localizationService.GetString("Customization.MachineNamingComponentsLabel");
         MachineNamingComponentsDescription = localizationService.GetString("Customization.MachineNamingComponentsDescription");
         MachineNamingAddComponentText = localizationService.GetString("Customization.MachineNamingAddComponent");

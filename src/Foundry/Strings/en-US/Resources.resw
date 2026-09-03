@@ -527,7 +527,6 @@
   <data name="Customization.MachineNamingManualLabel" xml:space="preserve"><value>Manual</value></data>
   <data name="Customization.MachineNamingManualDescription" xml:space="preserve"><value>Optionally prefill the complete computer name.</value></data>
   <data name="Customization.MachineNamingComposedLabel" xml:space="preserve"><value>Composed</value></data>
-  <data name="Customization.MachineNamingComposedDescription" xml:space="preserve"><value>Build the name from device data and fixed or random text.</value></data>
   <data name="Customization.MachineNamingComponentsLabel" xml:space="preserve"><value>Name components</value></data>
   <data name="Customization.MachineNamingComponentsDescription" xml:space="preserve"><value>Each component type can be used once. Reorder components to control the final name.</value></data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve"><value>Add component</value></data>
@@ -554,7 +553,6 @@
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve"><value>Keep characters from the left</value></data>
   <data name="MachineNamingKeepRightOption.Content" xml:space="preserve"><value>Keep characters from the right</value></data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve"><value>Preview</value></data>
-  <data name="MachineNamingPreviewCard.Description" xml:space="preserve"><value>Example generated computer name</value></data>
   <data name="MachineNamingMoveUpButton.AutomationProperties.Name" xml:space="preserve"><value>Move component up</value></data>
   <data name="MachineNamingMoveDownButton.AutomationProperties.Name" xml:space="preserve"><value>Move component down</value></data>
   <data name="MachineNamingRemoveButton.AutomationProperties.Name" xml:space="preserve"><value>Remove component</value></data>

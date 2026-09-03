@@ -527,7 +527,6 @@
   <data name="Customization.MachineNamingManualLabel" xml:space="preserve"><value>手動</value></data>
   <data name="Customization.MachineNamingManualDescription" xml:space="preserve"><value>必要に応じて、完全なコンピューター名を事前入力します。</value></data>
   <data name="Customization.MachineNamingComposedLabel" xml:space="preserve"><value>構成</value></data>
-  <data name="Customization.MachineNamingComposedDescription" xml:space="preserve"><value>デバイス情報と固定またはランダムなテキストから名前を構成します。</value></data>
   <data name="Customization.MachineNamingComponentsLabel" xml:space="preserve"><value>名前のコンポーネント</value></data>
   <data name="Customization.MachineNamingComponentsDescription" xml:space="preserve"><value>各コンポーネントの種類は一度だけ使用できます。コンポーネントを並べ替えて最終的な名前を調整します。</value></data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve"><value>コンポーネントの追加</value></data>
@@ -554,7 +553,6 @@
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve"><value>左側の文字を保持</value></data>
   <data name="MachineNamingKeepRightOption.Content" xml:space="preserve"><value>右側の文字を保持</value></data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve"><value>プレビュー</value></data>
-  <data name="MachineNamingPreviewCard.Description" xml:space="preserve"><value>生成されるコンピューター名の例</value></data>
   <data name="MachineNamingMoveUpButton.AutomationProperties.Name" xml:space="preserve"><value>コンポーネントを上へ移動</value></data>
   <data name="MachineNamingMoveDownButton.AutomationProperties.Name" xml:space="preserve"><value>コンポーネントを下へ移動</value></data>
   <data name="MachineNamingRemoveButton.AutomationProperties.Name" xml:space="preserve"><value>コンポーネントを削除</value></data>

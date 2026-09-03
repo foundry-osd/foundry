@@ -527,7 +527,6 @@
   <data name="Customization.MachineNamingManualLabel" xml:space="preserve"><value>Manuel</value></data>
   <data name="Customization.MachineNamingManualDescription" xml:space="preserve"><value>Préremplissez facultativement le nom complet de l’ordinateur.</value></data>
   <data name="Customization.MachineNamingComposedLabel" xml:space="preserve"><value>Composé</value></data>
-  <data name="Customization.MachineNamingComposedDescription" xml:space="preserve"><value>Créez le nom à partir des données de l’appareil et de texte fixe ou aléatoire.</value></data>
   <data name="Customization.MachineNamingComponentsLabel" xml:space="preserve"><value>Composants du nom</value></data>
   <data name="Customization.MachineNamingComponentsDescription" xml:space="preserve"><value>Chaque type de composant peut être utilisé une fois. Réorganisez les composants pour déterminer le nom final.</value></data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve"><value>Ajouter un composant</value></data>
@@ -554,7 +553,6 @@
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve"><value>Conserver les caractères à partir de la gauche</value></data>
   <data name="MachineNamingKeepRightOption.Content" xml:space="preserve"><value>Conserver les caractères à partir de la droite</value></data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve"><value>Aperçu</value></data>
-  <data name="MachineNamingPreviewCard.Description" xml:space="preserve"><value>Exemple de nom d’ordinateur généré</value></data>
   <data name="MachineNamingMoveUpButton.AutomationProperties.Name" xml:space="preserve"><value>Déplacer le composant vers le haut</value></data>
   <data name="MachineNamingMoveDownButton.AutomationProperties.Name" xml:space="preserve"><value>Déplacer le composant vers le bas</value></data>
   <data name="MachineNamingRemoveButton.AutomationProperties.Name" xml:space="preserve"><value>Supprimer le composant</value></data>

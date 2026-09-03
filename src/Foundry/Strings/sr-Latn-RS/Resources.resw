@@ -527,7 +527,6 @@
   <data name="Customization.MachineNamingManualLabel" xml:space="preserve"><value>Ručno</value></data>
   <data name="Customization.MachineNamingManualDescription" xml:space="preserve"><value>Opcionalno unapred unesite puno ime računara.</value></data>
   <data name="Customization.MachineNamingComposedLabel" xml:space="preserve"><value>Sastavljeno</value></data>
-  <data name="Customization.MachineNamingComposedDescription" xml:space="preserve"><value>Sastavite ime od podataka uređaja i fiksnog ili nasumičnog teksta.</value></data>
   <data name="Customization.MachineNamingComponentsLabel" xml:space="preserve"><value>Komponente imena</value></data>
   <data name="Customization.MachineNamingComponentsDescription" xml:space="preserve"><value>Svaki tip komponente može da se koristi jednom. Promenite redosled komponenti da biste odredili konačno ime.</value></data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve"><value>Dodaj komponentu</value></data>
@@ -554,7 +553,6 @@
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve"><value>Zadrži znakove sleva</value></data>
   <data name="MachineNamingKeepRightOption.Content" xml:space="preserve"><value>Zadrži znakove zdesna</value></data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve"><value>Pregled</value></data>
-  <data name="MachineNamingPreviewCard.Description" xml:space="preserve"><value>Primer generisanog imena računara</value></data>
   <data name="MachineNamingMoveUpButton.AutomationProperties.Name" xml:space="preserve"><value>Pomeri komponentu nagore</value></data>
   <data name="MachineNamingMoveDownButton.AutomationProperties.Name" xml:space="preserve"><value>Pomeri komponentu nadole</value></data>
   <data name="MachineNamingRemoveButton.AutomationProperties.Name" xml:space="preserve"><value>Ukloni komponentu</value></data>

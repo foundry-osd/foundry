@@ -527,7 +527,6 @@
   <data name="Customization.MachineNamingManualLabel" xml:space="preserve"><value>Manuellt</value></data>
   <data name="Customization.MachineNamingManualDescription" xml:space="preserve"><value>Förifyll eventuellt hela datornamnet.</value></data>
   <data name="Customization.MachineNamingComposedLabel" xml:space="preserve"><value>Sammansatt</value></data>
-  <data name="Customization.MachineNamingComposedDescription" xml:space="preserve"><value>Bygg namnet från enhetsdata och fast eller slumpmässig text.</value></data>
   <data name="Customization.MachineNamingComponentsLabel" xml:space="preserve"><value>Namnkomponenter</value></data>
   <data name="Customization.MachineNamingComponentsDescription" xml:space="preserve"><value>Varje komponenttyp kan användas en gång. Ändra komponenternas ordning för att styra det slutliga namnet.</value></data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve"><value>Lägg till komponent</value></data>
@@ -554,7 +553,6 @@
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve"><value>Behåll tecken från vänster</value></data>
   <data name="MachineNamingKeepRightOption.Content" xml:space="preserve"><value>Behåll tecken från höger</value></data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve"><value>Förhandsgranskning</value></data>
-  <data name="MachineNamingPreviewCard.Description" xml:space="preserve"><value>Exempel på genererat datornamn</value></data>
   <data name="MachineNamingMoveUpButton.AutomationProperties.Name" xml:space="preserve"><value>Flytta komponenten uppåt</value></data>
   <data name="MachineNamingMoveDownButton.AutomationProperties.Name" xml:space="preserve"><value>Flytta komponenten nedåt</value></data>
   <data name="MachineNamingRemoveButton.AutomationProperties.Name" xml:space="preserve"><value>Ta bort komponenten</value></data>

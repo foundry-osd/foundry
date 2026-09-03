@@ -24,6 +24,7 @@ public sealed class ResourceKeyParityTests
         "Intune",
         "Graph",
         "JSON",
+        "UUID",
         "WinPE",
         "ADK",
         "ISO",

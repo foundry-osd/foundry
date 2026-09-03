@@ -527,7 +527,6 @@
   <data name="Customization.MachineNamingManualLabel" xml:space="preserve"><value>ידני</value></data>
   <data name="Customization.MachineNamingManualDescription" xml:space="preserve"><value>מלא מראש את שם המחשב המלא, לפי הצורך.</value></data>
   <data name="Customization.MachineNamingComposedLabel" xml:space="preserve"><value>מורכב</value></data>
-  <data name="Customization.MachineNamingComposedDescription" xml:space="preserve"><value>בנה את השם מנתוני המכשיר ומטקסט קבוע או אקראי.</value></data>
   <data name="Customization.MachineNamingComponentsLabel" xml:space="preserve"><value>רכיבי השם</value></data>
   <data name="Customization.MachineNamingComponentsDescription" xml:space="preserve"><value>ניתן להשתמש בכל סוג רכיב פעם אחת. סדר מחדש את הרכיבים כדי לקבוע את השם הסופי.</value></data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve"><value>הוסף רכיב</value></data>
@@ -554,7 +553,6 @@
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve"><value>שמור תווים משמאל</value></data>
   <data name="MachineNamingKeepRightOption.Content" xml:space="preserve"><value>שמור תווים מימין</value></data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve"><value>תצוגה מקדימה</value></data>
-  <data name="MachineNamingPreviewCard.Description" xml:space="preserve"><value>דוגמה לשם מחשב שנוצר</value></data>
   <data name="MachineNamingMoveUpButton.AutomationProperties.Name" xml:space="preserve"><value>העבר רכיב למעלה</value></data>
   <data name="MachineNamingMoveDownButton.AutomationProperties.Name" xml:space="preserve"><value>העבר רכיב למטה</value></data>
   <data name="MachineNamingRemoveButton.AutomationProperties.Name" xml:space="preserve"><value>הסר רכיב</value></data>

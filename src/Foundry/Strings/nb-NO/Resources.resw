@@ -527,7 +527,6 @@
   <data name="Customization.MachineNamingManualLabel" xml:space="preserve"><value>Manuell</value></data>
   <data name="Customization.MachineNamingManualDescription" xml:space="preserve"><value>Forhåndsutfyll eventuelt hele datamaskinnavnet.</value></data>
   <data name="Customization.MachineNamingComposedLabel" xml:space="preserve"><value>Sammensatt</value></data>
-  <data name="Customization.MachineNamingComposedDescription" xml:space="preserve"><value>Bygg navnet fra enhetsdata og fast eller tilfeldig tekst.</value></data>
   <data name="Customization.MachineNamingComponentsLabel" xml:space="preserve"><value>Navnekomponenter</value></data>
   <data name="Customization.MachineNamingComponentsDescription" xml:space="preserve"><value>Hver komponenttype kan brukes én gang. Endre rekkefølgen på komponentene for å styre det endelige navnet.</value></data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve"><value>Legg til komponent</value></data>
@@ -554,7 +553,6 @@
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve"><value>Behold tegn fra venstre</value></data>
   <data name="MachineNamingKeepRightOption.Content" xml:space="preserve"><value>Behold tegn fra høyre</value></data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve"><value>Forhåndsvisning</value></data>
-  <data name="MachineNamingPreviewCard.Description" xml:space="preserve"><value>Eksempel på generert datamaskinnavn</value></data>
   <data name="MachineNamingMoveUpButton.AutomationProperties.Name" xml:space="preserve"><value>Flytt komponent opp</value></data>
   <data name="MachineNamingMoveDownButton.AutomationProperties.Name" xml:space="preserve"><value>Flytt komponent ned</value></data>
   <data name="MachineNamingRemoveButton.AutomationProperties.Name" xml:space="preserve"><value>Fjern komponent</value></data>

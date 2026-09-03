@@ -527,7 +527,6 @@
   <data name="Customization.MachineNamingManualLabel" xml:space="preserve"><value>Вручную</value></data>
   <data name="Customization.MachineNamingManualDescription" xml:space="preserve"><value>При необходимости предварительно укажите полное имя компьютера.</value></data>
   <data name="Customization.MachineNamingComposedLabel" xml:space="preserve"><value>Составной</value></data>
-  <data name="Customization.MachineNamingComposedDescription" xml:space="preserve"><value>Создайте имя из данных устройства и фиксированного или случайного текста.</value></data>
   <data name="Customization.MachineNamingComponentsLabel" xml:space="preserve"><value>Компоненты имени</value></data>
   <data name="Customization.MachineNamingComponentsDescription" xml:space="preserve"><value>Каждый тип компонента можно использовать один раз. Изменяйте порядок компонентов, чтобы управлять итоговым именем.</value></data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve"><value>Добавить компонент</value></data>
@@ -554,7 +553,6 @@
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve"><value>Сохранить символы слева</value></data>
   <data name="MachineNamingKeepRightOption.Content" xml:space="preserve"><value>Сохранить символы справа</value></data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve"><value>Предварительный просмотр</value></data>
-  <data name="MachineNamingPreviewCard.Description" xml:space="preserve"><value>Пример сгенерированного имени компьютера</value></data>
   <data name="MachineNamingMoveUpButton.AutomationProperties.Name" xml:space="preserve"><value>Переместить компонент вверх</value></data>
   <data name="MachineNamingMoveDownButton.AutomationProperties.Name" xml:space="preserve"><value>Переместить компонент вниз</value></data>
   <data name="MachineNamingRemoveButton.AutomationProperties.Name" xml:space="preserve"><value>Удалить компонент</value></data>

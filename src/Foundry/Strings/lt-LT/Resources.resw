@@ -527,11 +527,10 @@
   <data name="Customization.MachineNamingManualLabel" xml:space="preserve"><value>Rankinis</value></data>
   <data name="Customization.MachineNamingManualDescription" xml:space="preserve"><value>Pasirinktinai iš anksto įrašykite visą kompiuterio pavadinimą.</value></data>
   <data name="Customization.MachineNamingComposedLabel" xml:space="preserve"><value>Sudėtinis</value></data>
-  <data name="Customization.MachineNamingComposedDescription" xml:space="preserve"><value>Sudarykite pavadinimą iš įrenginio duomenų ir fiksuoto arba atsitiktinio teksto.</value></data>
   <data name="Customization.MachineNamingComponentsLabel" xml:space="preserve"><value>Pavadinimo komponentai</value></data>
   <data name="Customization.MachineNamingComponentsDescription" xml:space="preserve"><value>Kiekvieną komponento tipą galima naudoti vieną kartą. Keiskite komponentų tvarką, kad valdytumėte galutinį pavadinimą.</value></data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve"><value>Pridėti komponentą</value></data>
-  <data name="Customization.MachineNamingSeparatorLabel" xml:space="preserve"><value>Skirtukas</value></data>
+  <data name="Customization.MachineNamingSeparatorLabel" xml:space="preserve"><value>Skyriklis</value></data>
   <data name="Customization.MachineNamingSeparatorNone" xml:space="preserve"><value>Nėra</value></data>
   <data name="Customization.MachineNamingSeparatorHyphen" xml:space="preserve"><value>Brūkšnelis (-)</value></data>
   <data name="Customization.MachineNamingCasingLabel" xml:space="preserve"><value>Raidžių registras</value></data>
@@ -554,7 +553,6 @@
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve"><value>Palikti simbolius iš kairės</value></data>
   <data name="MachineNamingKeepRightOption.Content" xml:space="preserve"><value>Palikti simbolius iš dešinės</value></data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve"><value>Peržiūra</value></data>
-  <data name="MachineNamingPreviewCard.Description" xml:space="preserve"><value>Sugeneruoto kompiuterio pavadinimo pavyzdys</value></data>
   <data name="MachineNamingMoveUpButton.AutomationProperties.Name" xml:space="preserve"><value>Perkelti komponentą aukštyn</value></data>
   <data name="MachineNamingMoveDownButton.AutomationProperties.Name" xml:space="preserve"><value>Perkelti komponentą žemyn</value></data>
   <data name="MachineNamingRemoveButton.AutomationProperties.Name" xml:space="preserve"><value>Pašalinti komponentą</value></data>

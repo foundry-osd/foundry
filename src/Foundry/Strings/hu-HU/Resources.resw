@@ -527,14 +527,13 @@
   <data name="Customization.MachineNamingManualLabel" xml:space="preserve"><value>Kézi</value></data>
   <data name="Customization.MachineNamingManualDescription" xml:space="preserve"><value>Igény szerint előre kitöltheti a számítógép teljes nevét.</value></data>
   <data name="Customization.MachineNamingComposedLabel" xml:space="preserve"><value>Összeállított</value></data>
-  <data name="Customization.MachineNamingComposedDescription" xml:space="preserve"><value>Állítsa össze a nevet eszközadatokból és rögzített vagy véletlenszerű szövegből.</value></data>
   <data name="Customization.MachineNamingComponentsLabel" xml:space="preserve"><value>Névösszetevők</value></data>
   <data name="Customization.MachineNamingComponentsDescription" xml:space="preserve"><value>Minden összetevőtípus egyszer használható. A végleges név szabályozásához rendezze át az összetevőket.</value></data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve"><value>Összetevő hozzáadása</value></data>
   <data name="Customization.MachineNamingSeparatorLabel" xml:space="preserve"><value>Elválasztó</value></data>
   <data name="Customization.MachineNamingSeparatorNone" xml:space="preserve"><value>Nincs</value></data>
   <data name="Customization.MachineNamingSeparatorHyphen" xml:space="preserve"><value>Kötőjel (-)</value></data>
-  <data name="Customization.MachineNamingCasingLabel" xml:space="preserve"><value>Betűméret</value></data>
+  <data name="Customization.MachineNamingCasingLabel" xml:space="preserve"><value>Kis- és nagybetűk</value></data>
   <data name="Customization.MachineNamingCasingPreserve" xml:space="preserve"><value>Megőrzés</value></data>
   <data name="Customization.MachineNamingCasingUppercase" xml:space="preserve"><value>Nagybetűs</value></data>
   <data name="Customization.MachineNamingCasingLowercase" xml:space="preserve"><value>Kisbetűs</value></data>
@@ -554,7 +553,6 @@
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve"><value>Karakterek megtartása balról</value></data>
   <data name="MachineNamingKeepRightOption.Content" xml:space="preserve"><value>Karakterek megtartása jobbról</value></data>
   <data name="MachineNamingPreviewCard.Header" xml:space="preserve"><value>Előnézet</value></data>
-  <data name="MachineNamingPreviewCard.Description" xml:space="preserve"><value>Példa létrehozott számítógépnévre</value></data>
   <data name="MachineNamingMoveUpButton.AutomationProperties.Name" xml:space="preserve"><value>Összetevő mozgatása felfelé</value></data>
   <data name="MachineNamingMoveDownButton.AutomationProperties.Name" xml:space="preserve"><value>Összetevő mozgatása lefelé</value></data>
   <data name="MachineNamingRemoveButton.AutomationProperties.Name" xml:space="preserve"><value>Összetevő eltávolítása</value></data>
