@@ -66,6 +66,16 @@ public sealed class ApplicationProxyTests
     }
 
     [Fact]
+    public void MutableProxy_WhenActivePolicyHasNoProxy_PreservesNullResult()
+    {
+        var proxy = new MutableApplicationProxy(new NoProxyAvailablePolicy());
+        var destination = new Uri("https://eu.i.posthog.com/i/v0/e/");
+
+        Assert.False(proxy.IsBypassed(destination));
+        Assert.Null(proxy.GetProxy(destination));
+    }
+
+    [Fact]
     public void MutableProxy_RejectsSelfReference()
     {
         var proxy = new MutableApplicationProxy(new StubProxy(new Uri("http://system-proxy:8080")));
@@ -80,6 +90,15 @@ public sealed class ApplicationProxyTests
         public ICredentials? Credentials { get; set; }
 
         public Uri GetProxy(Uri destination) => Endpoint;
+
+        public bool IsBypassed(Uri host) => false;
+    }
+
+    private sealed class NoProxyAvailablePolicy : IWebProxy
+    {
+        public ICredentials? Credentials { get; set; }
+
+        public Uri? GetProxy(Uri destination) => null;
 
         public bool IsBypassed(Uri host) => false;
     }

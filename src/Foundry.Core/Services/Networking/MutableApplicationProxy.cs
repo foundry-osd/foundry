@@ -25,7 +25,7 @@ public sealed class MutableApplicationProxy : IWebProxy
         set => Volatile.Read(ref current).Credentials = value;
     }
 
-    public Uri GetProxy(Uri destination) => Volatile.Read(ref current).GetProxy(destination) ?? destination;
+    public Uri? GetProxy(Uri destination) => Volatile.Read(ref current).GetProxy(destination);
 
     public bool IsBypassed(Uri host) => Volatile.Read(ref current).IsBypassed(host);
 
