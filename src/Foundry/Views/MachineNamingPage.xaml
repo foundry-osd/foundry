@@ -283,16 +283,14 @@
                                             BorderBrush="{ThemeResource FoundrySurfaceBorderBrush}"
                                             BorderThickness="1"
                                             CornerRadius="{ThemeResource FoundryCardCornerRadius}">
-                                            <Grid
-                                                MinHeight="48"
-                                                ColumnSpacing="{ThemeResource FoundrySpace16}">
+                                            <Grid ColumnSpacing="{ThemeResource FoundrySpace16}">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="{ThemeResource FoundryCompactInputMinWidth}" />
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
                                                 <Grid.RowDefinitions>
-                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="48" />
                                                     <RowDefinition Height="Auto" />
                                                 </Grid.RowDefinitions>
                                                 <TextBlock
