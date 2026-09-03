@@ -148,7 +148,7 @@
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <StackPanel
-                                            Width="{ThemeResource FoundryCompactInputMinWidth}"
+                                            MinWidth="{ThemeResource FoundrySettingsActionMinWidth}"
                                             Spacing="{ThemeResource FoundrySpace4}">
                                             <TextBlock
                                                 Style="{ThemeResource BodyStrongTextBlockStyle}"
@@ -168,7 +168,7 @@
                                         </StackPanel>
                                         <StackPanel
                                             Grid.Column="1"
-                                            Width="{ThemeResource FoundryCompactInputMinWidth}"
+                                            MinWidth="{ThemeResource FoundrySettingsActionMinWidth}"
                                             Spacing="{ThemeResource FoundrySpace4}">
                                             <TextBlock
                                                 Style="{ThemeResource BodyStrongTextBlockStyle}"
