@@ -2921,4 +2921,103 @@
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
   </data>
+  <data name="Customization.OobeAccountsHeader" xml:space="preserve">
+    <value>Paskyros</value>
+  </data>
+  <data name="Customization.OobeAccountsDescription" xml:space="preserve">
+    <value>Konfigūruokite vietines paskyras, kuriamas per „Windows“ OOBE.</value>
+  </data>
+  <data name="Customization.OobeAccountsBlockedMessage" xml:space="preserve">
+    <value>Paskyrų parengimas nepasiekiamas, kol įjungtas „Autopilot“.</value>
+  </data>
+  <data name="Customization.OobeAccountsSecurityWarning" xml:space="preserve">
+    <value>Įjungus vietines paskyras, ypač įtaisytąją administratoriaus paskyrą, gali sumažėti sauga. Naudokite unikalius slaptažodžius ir apsaugokite diegimo laikmeną.</value>
+  </data>
+  <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
+    <value>Įtaisytoji administratoriaus paskyra</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
+    <value>Palikite abu laukus tuščius, jei norite naudoti tuščią slaptažodį.</value>
+  </data>
+  <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
+    <value>Praleisti paskyros kūrimą per OOBE</value>
+  </data>
+  <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
+    <value>Tęsti į prisijungimo ekraną neprašant naudotojo sukurti paskyros.</value>
+  </data>
+  <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
+    <value>Įjungiama automatiškai, nes papildomos vietinės paskyros praleidžia paskyros kūrimo etapą.</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsLabel" xml:space="preserve">
+    <value>Papildomos vietinės paskyros</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsEmpty" xml:space="preserve">
+    <value>Papildomų vietinių paskyrų nesukonfigūruota.</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsAddButton" xml:space="preserve">
+    <value>Pridėti paskyrą</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsEditButton" xml:space="preserve">
+    <value>Redaguoti</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsRemoveButton" xml:space="preserve">
+    <value>Pašalinti</value>
+  </data>
+  <data name="Customization.OobeAccountTypeStandard" xml:space="preserve">
+    <value>Standartinė</value>
+  </data>
+  <data name="Customization.OobeAccountTypeAdministrator" xml:space="preserve">
+    <value>Administratorius</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.AddTitle" xml:space="preserve">
+    <value>Pridėti vietinę paskyrą</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.EditTitle" xml:space="preserve">
+    <value>Redaguoti vietinę paskyrą</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.Description" xml:space="preserve">
+    <value>Konfigūruokite paskyrą ir pasirinktinį iš anksto nustatytą slaptažodį.</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.UserNameLabel" xml:space="preserve">
+    <value>Naudotojo vardas</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.AccountTypeLabel" xml:space="preserve">
+    <value>Paskyros tipas</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.Save" xml:space="preserve">
+    <value>Pridėti paskyrą</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.Update" xml:space="preserve">
+    <value>Įrašyti pakeitimus</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.UserNameRequired" xml:space="preserve">
+    <value>Įveskite vietinės paskyros pavadinimą.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.DuplicateUserName" xml:space="preserve">
+    <value>Pasirinkite kitą vietinės paskyros pavadinimą.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.ReservedBuiltInUserName" xml:space="preserve">
+    <value>Šis „Windows“ paskyros pavadinimas rezervuotas.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.InvalidUserNameCharacters" xml:space="preserve">
+    <value>Paskyros pavadinime yra „Windows“ neleidžiamų simbolių.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.TrailingPeriodOrSpace" xml:space="preserve">
+    <value>Paskyros pavadinimas negali baigtis tašku ar tarpu.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
+    <value>Slaptažodis ir patvirtinimas turi sutapti.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
+    <value>Peržiūrėkite šią vietinę paskyrą.</value>
+  </data>
+  <data name="StartMedia.OobeSummaryAdministratorEnabled" xml:space="preserve">
+    <value>Įtaisytasis administratorius įjungtas</value>
+  </data>
+  <data name="StartMedia.OobeSummaryAdditionalAccountsFormat" xml:space="preserve">
+    <value>{0} papildoma (-os) vietinė (-ės) paskyra (-os)</value>
+  </data>
+  <data name="StartMedia.OobeSummarySkipUserAccountCreation" xml:space="preserve">
+    <value>OOBE paskyros kūrimas praleistas</value>
+  </data>
 </root>

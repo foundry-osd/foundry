@@ -2921,4 +2921,103 @@
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
   </data>
+  <data name="Customization.OobeAccountsHeader" xml:space="preserve">
+    <value>บัญชี</value>
+  </data>
+  <data name="Customization.OobeAccountsDescription" xml:space="preserve">
+    <value>กำหนดค่าบัญชีภายในเครื่องที่จะสร้างระหว่าง Windows OOBE</value>
+  </data>
+  <data name="Customization.OobeAccountsBlockedMessage" xml:space="preserve">
+    <value>ไม่สามารถเตรียมใช้งานบัญชีได้ขณะเปิดใช้งาน Autopilot</value>
+  </data>
+  <data name="Customization.OobeAccountsSecurityWarning" xml:space="preserve">
+    <value>การเปิดใช้งานบัญชีภายในเครื่อง โดยเฉพาะบัญชี Administrator ที่มีอยู่แล้ว อาจลดความปลอดภัย โปรดใช้รหัสผ่านที่ไม่ซ้ำและปกป้องสื่อการปรับใช้</value>
+  </data>
+  <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
+    <value>บัญชี Administrator ที่มีอยู่แล้ว</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
+    <value>เว้นทั้งสองช่องว่างเพื่อใช้รหัสผ่านว่าง</value>
+  </data>
+  <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
+    <value>ข้ามการสร้างบัญชีระหว่าง OOBE</value>
+  </data>
+  <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
+    <value>ไปยังหน้าจอลงชื่อเข้าใช้โดยไม่ขอให้ผู้ใช้สร้างบัญชี</value>
+  </data>
+  <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
+    <value>เปิดโดยอัตโนมัติ เนื่องจากบัญชีภายในเครื่องเพิ่มเติมจะข้ามขั้นตอนการสร้างบัญชี</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsLabel" xml:space="preserve">
+    <value>บัญชีภายในเครื่องเพิ่มเติม</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsEmpty" xml:space="preserve">
+    <value>ไม่มีบัญชีภายในเครื่องเพิ่มเติมที่กำหนดค่าไว้</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsAddButton" xml:space="preserve">
+    <value>เพิ่มบัญชี</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsEditButton" xml:space="preserve">
+    <value>แก้ไข</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsRemoveButton" xml:space="preserve">
+    <value>เอาออก</value>
+  </data>
+  <data name="Customization.OobeAccountTypeStandard" xml:space="preserve">
+    <value>มาตรฐาน</value>
+  </data>
+  <data name="Customization.OobeAccountTypeAdministrator" xml:space="preserve">
+    <value>ผู้ดูแลระบบ</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.AddTitle" xml:space="preserve">
+    <value>เพิ่มบัญชีภายในเครื่อง</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.EditTitle" xml:space="preserve">
+    <value>แก้ไขบัญชีภายในเครื่อง</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.Description" xml:space="preserve">
+    <value>กำหนดค่าบัญชีและรหัสผ่านที่ตั้งไว้ล่วงหน้าซึ่งไม่บังคับ</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.UserNameLabel" xml:space="preserve">
+    <value>ชื่อผู้ใช้</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.AccountTypeLabel" xml:space="preserve">
+    <value>ชนิดบัญชี</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.Save" xml:space="preserve">
+    <value>เพิ่มบัญชี</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.Update" xml:space="preserve">
+    <value>บันทึกการเปลี่ยนแปลง</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.UserNameRequired" xml:space="preserve">
+    <value>ป้อนชื่อบัญชีภายในเครื่อง</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.DuplicateUserName" xml:space="preserve">
+    <value>เลือกชื่อบัญชีภายในเครื่องอื่น</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.ReservedBuiltInUserName" xml:space="preserve">
+    <value>ชื่อบัญชี Windows นี้ถูกสงวนไว้</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.InvalidUserNameCharacters" xml:space="preserve">
+    <value>ชื่อบัญชีมีอักขระที่ Windows ไม่อนุญาต</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.TrailingPeriodOrSpace" xml:space="preserve">
+    <value>ชื่อบัญชีต้องไม่ลงท้ายด้วยจุดหรือช่องว่าง</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
+    <value>รหัสผ่านและการยืนยันต้องตรงกัน</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
+    <value>ตรวจสอบบัญชีภายในเครื่องนี้</value>
+  </data>
+  <data name="StartMedia.OobeSummaryAdministratorEnabled" xml:space="preserve">
+    <value>เปิดใช้งาน Administrator ที่มีอยู่แล้ว</value>
+  </data>
+  <data name="StartMedia.OobeSummaryAdditionalAccountsFormat" xml:space="preserve">
+    <value>บัญชีภายในเครื่องเพิ่มเติม: {0}</value>
+  </data>
+  <data name="StartMedia.OobeSummarySkipUserAccountCreation" xml:space="preserve">
+    <value>ข้ามการสร้างบัญชี OOBE แล้ว</value>
+  </data>
 </root>

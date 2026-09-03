@@ -2921,4 +2921,103 @@
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
   </data>
+  <data name="Customization.OobeAccountsHeader" xml:space="preserve">
+    <value>Kontoer</value>
+  </data>
+  <data name="Customization.OobeAccountsDescription" xml:space="preserve">
+    <value>Konfigurer lokale kontoer som opprettes under Windows OOBE.</value>
+  </data>
+  <data name="Customization.OobeAccountsBlockedMessage" xml:space="preserve">
+    <value>Kontoklargjøring er ikke tilgjengelig mens Autopilot er aktivert.</value>
+  </data>
+  <data name="Customization.OobeAccountsSecurityWarning" xml:space="preserve">
+    <value>Aktivering av lokale kontoer, spesielt den innebygde Administrator-kontoen, kan redusere sikkerheten. Bruk unike passord og beskytt distribusjonsmediet.</value>
+  </data>
+  <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
+    <value>Innebygd Administrator-konto</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
+    <value>La begge feltene stå tomme for å bruke et tomt passord.</value>
+  </data>
+  <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
+    <value>Hopp over kontooppretting under OOBE</value>
+  </data>
+  <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
+    <value>Fortsett til påloggingsskjermen uten å be brukeren opprette en konto.</value>
+  </data>
+  <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
+    <value>Aktiveres automatisk fordi flere lokale kontoer hopper over kontoopprettingen.</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsLabel" xml:space="preserve">
+    <value>Flere lokale kontoer</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsEmpty" xml:space="preserve">
+    <value>Ingen flere lokale kontoer er konfigurert.</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsAddButton" xml:space="preserve">
+    <value>Legg til konto</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsEditButton" xml:space="preserve">
+    <value>Rediger</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsRemoveButton" xml:space="preserve">
+    <value>Fjern</value>
+  </data>
+  <data name="Customization.OobeAccountTypeStandard" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="Customization.OobeAccountTypeAdministrator" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.AddTitle" xml:space="preserve">
+    <value>Legg til lokal konto</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.EditTitle" xml:space="preserve">
+    <value>Rediger lokal konto</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.Description" xml:space="preserve">
+    <value>Konfigurer kontoen og et valgfritt forhåndsdefinert passord.</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.UserNameLabel" xml:space="preserve">
+    <value>Brukernavn</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.AccountTypeLabel" xml:space="preserve">
+    <value>Kontotype</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.Save" xml:space="preserve">
+    <value>Legg til konto</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.Update" xml:space="preserve">
+    <value>Lagre endringer</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.UserNameRequired" xml:space="preserve">
+    <value>Skriv inn et lokalt kontonavn.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.DuplicateUserName" xml:space="preserve">
+    <value>Velg et annet lokalt kontonavn.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.ReservedBuiltInUserName" xml:space="preserve">
+    <value>Dette Windows-kontonavnet er reservert.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.InvalidUserNameCharacters" xml:space="preserve">
+    <value>Kontonavnet inneholder tegn som Windows ikke tillater.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.TrailingPeriodOrSpace" xml:space="preserve">
+    <value>Kontonavnet kan ikke slutte med punktum eller mellomrom.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
+    <value>Passordet og bekreftelsen må samsvare.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
+    <value>Kontroller denne lokale kontoen.</value>
+  </data>
+  <data name="StartMedia.OobeSummaryAdministratorEnabled" xml:space="preserve">
+    <value>Innebygd Administrator aktivert</value>
+  </data>
+  <data name="StartMedia.OobeSummaryAdditionalAccountsFormat" xml:space="preserve">
+    <value>{0} ekstra lokal(e) konto(er)</value>
+  </data>
+  <data name="StartMedia.OobeSummarySkipUserAccountCreation" xml:space="preserve">
+    <value>OOBE-kontooppretting hoppet over</value>
+  </data>
 </root>

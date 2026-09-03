@@ -2921,4 +2921,103 @@
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
   </data>
+  <data name="Customization.OobeAccountsHeader" xml:space="preserve">
+    <value>الحسابات</value>
+  </data>
+  <data name="Customization.OobeAccountsDescription" xml:space="preserve">
+    <value>كوّن الحسابات المحلية التي يتم إنشاؤها أثناء تجربة إعداد Windows.</value>
+  </data>
+  <data name="Customization.OobeAccountsBlockedMessage" xml:space="preserve">
+    <value>لا تتوفر تهيئة الحسابات أثناء تمكين Autopilot.</value>
+  </data>
+  <data name="Customization.OobeAccountsSecurityWarning" xml:space="preserve">
+    <value>قد يؤدي تمكين الحسابات المحلية، وخصوصًا حساب المسؤول المضمن، إلى تقليل الأمان. استخدم كلمات مرور فريدة واحمِ وسائط النشر.</value>
+  </data>
+  <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
+    <value>حساب المسؤول المضمن</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
+    <value>اترك الحقلين فارغين لاستخدام كلمة مرور فارغة.</value>
+  </data>
+  <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
+    <value>تخطي إنشاء الحساب أثناء OOBE</value>
+  </data>
+  <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
+    <value>تابع إلى شاشة تسجيل الدخول دون مطالبة المستخدم بإنشاء حساب.</value>
+  </data>
+  <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
+    <value>يتم تمكينه تلقائيًا لأن الحسابات المحلية الإضافية تتخطى مرحلة إنشاء الحساب.</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsLabel" xml:space="preserve">
+    <value>حسابات محلية إضافية</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsEmpty" xml:space="preserve">
+    <value>لم يتم تكوين حسابات محلية إضافية.</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsAddButton" xml:space="preserve">
+    <value>إضافة حساب</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsEditButton" xml:space="preserve">
+    <value>تحرير</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsRemoveButton" xml:space="preserve">
+    <value>إزالة</value>
+  </data>
+  <data name="Customization.OobeAccountTypeStandard" xml:space="preserve">
+    <value>قياسي</value>
+  </data>
+  <data name="Customization.OobeAccountTypeAdministrator" xml:space="preserve">
+    <value>مسؤول</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.AddTitle" xml:space="preserve">
+    <value>إضافة حساب محلي</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.EditTitle" xml:space="preserve">
+    <value>تحرير حساب محلي</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.Description" xml:space="preserve">
+    <value>كوّن الحساب وكلمة المرور الاختيارية المحددة مسبقًا.</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.UserNameLabel" xml:space="preserve">
+    <value>اسم المستخدم</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.AccountTypeLabel" xml:space="preserve">
+    <value>نوع الحساب</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.Save" xml:space="preserve">
+    <value>إضافة الحساب</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.Update" xml:space="preserve">
+    <value>حفظ التغييرات</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.UserNameRequired" xml:space="preserve">
+    <value>أدخل اسم حساب محلي.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.DuplicateUserName" xml:space="preserve">
+    <value>اختر اسمًا مختلفًا للحساب المحلي.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.ReservedBuiltInUserName" xml:space="preserve">
+    <value>اسم حساب Windows هذا محجوز.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.InvalidUserNameCharacters" xml:space="preserve">
+    <value>يحتوي اسم الحساب على أحرف لا يسمح بها Windows.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.TrailingPeriodOrSpace" xml:space="preserve">
+    <value>لا يمكن أن ينتهي اسم الحساب بنقطة أو مسافة.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
+    <value>يجب أن تتطابق كلمة المرور مع التأكيد.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
+    <value>راجع هذا الحساب المحلي.</value>
+  </data>
+  <data name="StartMedia.OobeSummaryAdministratorEnabled" xml:space="preserve">
+    <value>تم تمكين المسؤول المضمن</value>
+  </data>
+  <data name="StartMedia.OobeSummaryAdditionalAccountsFormat" xml:space="preserve">
+    <value>الحسابات المحلية الإضافية: {0}</value>
+  </data>
+  <data name="StartMedia.OobeSummarySkipUserAccountCreation" xml:space="preserve">
+    <value>تم تخطي إنشاء حساب OOBE</value>
+  </data>
 </root>

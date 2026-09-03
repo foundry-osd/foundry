@@ -13,7 +13,11 @@ public interface IOobeAccountSecretStateService
 
     void SetAdministratorPassword(string? value);
 
+    void SetAdministratorPassword(ReadOnlySpan<char> value);
+
     void SetAdministratorConfirmation(string? value);
+
+    void SetAdministratorConfirmation(ReadOnlySpan<char> value);
 
     char[] GetAdministratorPasswordCopy();
 
@@ -21,7 +25,11 @@ public interface IOobeAccountSecretStateService
 
     void SetAdditionalAccountPassword(string accountId, string? value);
 
+    void SetAdditionalAccountPassword(string accountId, ReadOnlySpan<char> value);
+
     void SetAdditionalAccountConfirmation(string accountId, string? value);
+
+    void SetAdditionalAccountConfirmation(string accountId, ReadOnlySpan<char> value);
 
     char[] GetAdditionalAccountPasswordCopy(string accountId);
 

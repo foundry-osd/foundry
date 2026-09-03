@@ -2921,4 +2921,103 @@
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
     <value>Enter a username and password for explicit proxy authentication.</value>
   </data>
+  <data name="Customization.OobeAccountsHeader" xml:space="preserve">
+    <value>Hesaplar</value>
+  </data>
+  <data name="Customization.OobeAccountsDescription" xml:space="preserve">
+    <value>Windows OOBE sırasında oluşturulan yerel hesapları yapılandırın.</value>
+  </data>
+  <data name="Customization.OobeAccountsBlockedMessage" xml:space="preserve">
+    <value>Autopilot etkin olduğu sürece hesap sağlama kullanılamaz.</value>
+  </data>
+  <data name="Customization.OobeAccountsSecurityWarning" xml:space="preserve">
+    <value>Yerel hesapları, özellikle yerleşik Administrator hesabını etkinleştirmek güvenliği azaltabilir. Benzersiz parolalar kullanın ve dağıtım medyasını koruyun.</value>
+  </data>
+  <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
+    <value>Yerleşik Administrator hesabı</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
+    <value>Boş parola kullanmak için iki alanı da boş bırakın.</value>
+  </data>
+  <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
+    <value>OOBE sırasında hesap oluşturmayı atla</value>
+  </data>
+  <data name="Customization.OobeSkipUserAccountCreationDescription" xml:space="preserve">
+    <value>Kullanıcıdan hesap oluşturmasını istemeden oturum açma ekranına geçin.</value>
+  </data>
+  <data name="Customization.OobeSkipUserAccountCreationLockedDescription" xml:space="preserve">
+    <value>Ek yerel hesaplar hesap oluşturma aşamasını atladığı için otomatik etkinleştirilir.</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsLabel" xml:space="preserve">
+    <value>Ek yerel hesaplar</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsEmpty" xml:space="preserve">
+    <value>Yapılandırılmış ek yerel hesap yok.</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsAddButton" xml:space="preserve">
+    <value>Hesap ekle</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsEditButton" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsRemoveButton" xml:space="preserve">
+    <value>Kaldır</value>
+  </data>
+  <data name="Customization.OobeAccountTypeStandard" xml:space="preserve">
+    <value>Standart</value>
+  </data>
+  <data name="Customization.OobeAccountTypeAdministrator" xml:space="preserve">
+    <value>Yönetici</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.AddTitle" xml:space="preserve">
+    <value>Yerel hesap ekle</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.EditTitle" xml:space="preserve">
+    <value>Yerel hesabı düzenle</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.Description" xml:space="preserve">
+    <value>Hesabı ve isteğe bağlı önceden tanımlı parolayı yapılandırın.</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.UserNameLabel" xml:space="preserve">
+    <value>Kullanıcı adı</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.AccountTypeLabel" xml:space="preserve">
+    <value>Hesap türü</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.Save" xml:space="preserve">
+    <value>Hesap ekle</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountDialog.Update" xml:space="preserve">
+    <value>Değişiklikleri kaydet</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.UserNameRequired" xml:space="preserve">
+    <value>Yerel hesap adı girin.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.DuplicateUserName" xml:space="preserve">
+    <value>Farklı bir yerel hesap adı seçin.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.ReservedBuiltInUserName" xml:space="preserve">
+    <value>Bu Windows hesap adı ayrılmıştır.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.InvalidUserNameCharacters" xml:space="preserve">
+    <value>Hesap adı Windows'un izin vermediği karakterler içeriyor.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.TrailingPeriodOrSpace" xml:space="preserve">
+    <value>Hesap adı nokta veya boşlukla bitemez.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
+    <value>Parola ve onay eşleşmelidir.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
+    <value>Bu yerel hesabı gözden geçirin.</value>
+  </data>
+  <data name="StartMedia.OobeSummaryAdministratorEnabled" xml:space="preserve">
+    <value>Yerleşik Administrator etkin</value>
+  </data>
+  <data name="StartMedia.OobeSummaryAdditionalAccountsFormat" xml:space="preserve">
+    <value>{0} ek yerel hesap</value>
+  </data>
+  <data name="StartMedia.OobeSummarySkipUserAccountCreation" xml:space="preserve">
+    <value>OOBE hesap oluşturma atlandı</value>
+  </data>
 </root>

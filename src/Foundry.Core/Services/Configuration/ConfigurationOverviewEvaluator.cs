@@ -160,7 +160,10 @@ public static class ConfigurationOverviewEvaluator
             [ConfigurationOverviewItem.OperatingSystemSelection] = EvaluateOptionalFeature(
                 configuration.OperatingSystemSelection.IsEnabled),
             [ConfigurationOverviewItem.MachineNaming] = EvaluateMachineNaming(customization.MachineNaming),
-            [ConfigurationOverviewItem.Oobe] = EvaluateOobe(customization.Oobe, context.IsOobeAccountConfigurationReady),
+            [ConfigurationOverviewItem.Oobe] = EvaluateOobe(
+                customization.Oobe,
+                configuration.Autopilot,
+                context.IsOobeAccountConfigurationReady),
             [ConfigurationOverviewItem.OptionalFeatures] = EvaluateOptionalFeature(
                 customization.WindowsOptionalFeatures.IsEnabled &&
                 (customization.WindowsOptionalFeatures.EnabledFeatureIds.Count > 0 ||
@@ -217,12 +220,29 @@ public static class ConfigurationOverviewEvaluator
                 ? ConfigurationOverviewState.Configured
                 : ConfigurationOverviewState.NeedsAttention;
 
-    private static ConfigurationOverviewState EvaluateOobe(OobeSettings settings, bool isSecretStateReady) =>
+    private static ConfigurationOverviewState EvaluateOobe(
+        OobeSettings settings,
+        AutopilotSettings autopilot,
+        bool isSecretStateReady) =>
         !settings.IsEnabled
             ? ConfigurationOverviewState.Disabled
-            : OobeAccountConfigurationValidator.Validate(settings).IsValid && isSecretStateReady
+            : OobeAccountConfigurationValidator.Validate(settings).IsValid &&
+              isSecretStateReady &&
+              IsOobeCompatibleWithAutopilot(autopilot, settings)
                 ? ConfigurationOverviewState.Configured
                 : ConfigurationOverviewState.NeedsAttention;
+
+    private static bool IsOobeCompatibleWithAutopilot(AutopilotSettings autopilot, OobeSettings oobe)
+    {
+        if (!autopilot.IsEnabled)
+        {
+            return true;
+        }
+
+        return !oobe.EnableAdministratorAccount &&
+               !oobe.SkipUserAccountCreation &&
+               oobe.AdditionalAccounts.Count == 0;
+    }
 
     private static NetworkSettings CreateEthernetOnlyNetwork(NetworkSettings settings) => settings with
     {

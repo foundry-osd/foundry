@@ -34,6 +34,142 @@
                 HorizontalContentAlignment="Stretch"
                 IsEnabled="{x:Bind ViewModel.IsOobeEnabled, Mode=OneWay}">
                 <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+                    <wct:SettingsExpander
+                        Description="{x:Bind ViewModel.OobeAccountsDescription, Mode=OneWay}"
+                        Header="{x:Bind ViewModel.OobeAccountsHeader, Mode=OneWay}"
+                        IsExpanded="True">
+                        <wct:SettingsExpander.HeaderIcon>
+                            <FontIcon Glyph="&#xE77B;" />
+                        </wct:SettingsExpander.HeaderIcon>
+                        <wct:SettingsExpander.Items>
+                            <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+                                <InfoBar
+                                    IsClosable="False"
+                                    IsOpen="True"
+                                    Message="{x:Bind ViewModel.OobeAccountsSecurityWarning, Mode=OneWay}"
+                                    Severity="Warning" />
+                                <InfoBar
+                                    IsClosable="False"
+                                    IsOpen="True"
+                                    Message="{x:Bind ViewModel.OobeAccountsBlockedMessage, Mode=OneWay}"
+                                    Severity="Informational"
+                                    Visibility="{x:Bind ViewModel.OobeAccountsBlockedVisibility, Mode=OneWay}" />
+                                <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+                                    <wct:SettingsExpander
+                                        Description="{x:Bind ViewModel.OobeAccountPasswordDescription, Mode=OneWay}"
+                                        Header="{x:Bind ViewModel.OobeAdministratorAccountLabel, Mode=OneWay}"
+                                        IsEnabled="{x:Bind ViewModel.AreOobeAccountControlsAvailable, Mode=OneWay}"
+                                        IsExpanded="{x:Bind ViewModel.EnableAdministratorAccount, Mode=OneWay}">
+                                        <wct:SettingsExpander.HeaderIcon>
+                                            <FontIcon Glyph="&#xE13D;" />
+                                        </wct:SettingsExpander.HeaderIcon>
+                                        <ToggleSwitch
+                                            x:Name="AdministratorAccountToggle"
+                                            behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                                            IsOn="{x:Bind ViewModel.EnableAdministratorAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Toggled="AdministratorAccountToggle_Toggled" />
+                                        <wct:SettingsExpander.Items>
+                                            <wct:SettingsCard>
+                                                <StackPanel
+                                                    MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                                    Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+                                                    <PasswordBox x:Name="AdministratorPasswordBox"
+                                                        IsEnabled="{x:Bind ViewModel.EnableAdministratorAccount, Mode=OneWay}"
+                                                        Loaded="AdministratorPasswordBox_Loaded"
+                                                        PasswordChanged="AdministratorPasswordBox_PasswordChanged"
+                                                        PlaceholderText="{x:Bind ViewModel.OobePasswordPlaceholder, Mode=OneWay}" />
+                                                    <PasswordBox x:Name="AdministratorConfirmationBox"
+                                                        IsEnabled="{x:Bind ViewModel.EnableAdministratorAccount, Mode=OneWay}"
+                                                        Loaded="AdministratorConfirmationBox_Loaded"
+                                                        PasswordChanged="AdministratorConfirmationBox_PasswordChanged"
+                                                        PlaceholderText="{x:Bind ViewModel.OobeConfirmationPlaceholder, Mode=OneWay}" />
+                                                    <TextBlock
+                                                        Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                                                        Text="{x:Bind ViewModel.OobeAdministratorValidationMessage, Mode=OneWay}"
+                                                        TextWrapping="WrapWholeWords"
+                                                        Visibility="{x:Bind ViewModel.OobeAdministratorValidationVisibility, Mode=OneWay}" />
+                                                </StackPanel>
+                                            </wct:SettingsCard>
+                                        </wct:SettingsExpander.Items>
+                                    </wct:SettingsExpander>
+
+                                    <wct:SettingsCard
+                                        Description="{x:Bind ViewModel.OobeSkipUserAccountCreationEffectiveDescription, Mode=OneWay}"
+                                        Header="{x:Bind ViewModel.OobeSkipUserAccountCreationLabel, Mode=OneWay}"
+                                        IsEnabled="{x:Bind ViewModel.AreOobeAccountControlsAvailable, Mode=OneWay}">
+                                        <wct:SettingsCard.HeaderIcon>
+                                            <FontIcon Glyph="&#xEA39;" />
+                                        </wct:SettingsCard.HeaderIcon>
+                                        <ToggleSwitch
+                                            behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                                            IsEnabled="{x:Bind ViewModel.IsSkipUserAccountCreationToggleEnabled, Mode=OneWay}"
+                                            IsOn="{x:Bind ViewModel.EffectiveSkipUserAccountCreation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    </wct:SettingsCard>
+
+                                    <wct:SettingsCard
+                                        Header="{x:Bind ViewModel.OobeAdditionalAccountsLabel, Mode=OneWay}"
+                                        IsEnabled="{x:Bind ViewModel.AreOobeAccountControlsAvailable, Mode=OneWay}"
+                                        HorizontalContentAlignment="Stretch">
+                                        <wct:SettingsCard.HeaderIcon>
+                                            <FontIcon Glyph="&#xE716;" />
+                                        </wct:SettingsCard.HeaderIcon>
+                                        <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+                                            <Button
+                                                HorizontalAlignment="Left"
+                                                Command="{x:Bind ViewModel.AddOobeAdditionalAccountCommand}"
+                                                Content="{x:Bind ViewModel.OobeAdditionalAccountsAddButton, Mode=OneWay}" />
+                                            <TextBlock
+                                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                Text="{x:Bind ViewModel.OobeAdditionalAccountsEmpty, Mode=OneWay}"
+                                                TextWrapping="WrapWholeWords"
+                                                Visibility="{x:Bind ViewModel.OobeAdditionalAccountsEmptyVisibility, Mode=OneWay}" />
+                                            <ListView
+                                                ItemsSource="{x:Bind ViewModel.OobeAdditionalAccounts, Mode=OneWay}"
+                                                SelectionMode="None">
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate x:DataType="viewModels:OobeAdditionalAccountEntryViewModel">
+                                                        <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*" />
+                                                                <ColumnDefinition Width="Auto" />
+                                                            </Grid.ColumnDefinitions>
+                                                            <StackPanel Spacing="{ThemeResource FoundryCompactStackSpacing}">
+                                                                <TextBlock
+                                                                    Text="{x:Bind UserName, Mode=OneWay}"
+                                                                    TextWrapping="WrapWholeWords" />
+                                                                <TextBlock
+                                                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                                    Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                                                    Text="{x:Bind AccountTypeDisplayName, Mode=OneWay}"
+                                                                    TextWrapping="WrapWholeWords" />
+                                                            </StackPanel>
+                                                            <StackPanel
+                                                                Grid.Column="1"
+                                                                Orientation="Horizontal"
+                                                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                                                <Button
+                                                                    Command="{x:Bind EditCommand, Mode=OneWay}"
+                                                                    Content="{x:Bind EditText, Mode=OneWay}" />
+                                                                <Button
+                                                                    Command="{x:Bind RemoveCommand, Mode=OneWay}"
+                                                                    Content="{x:Bind RemoveText, Mode=OneWay}" />
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                            </ListView>
+                                            <TextBlock
+                                                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                                                Text="{x:Bind ViewModel.OobeAdditionalAccountsValidationMessage, Mode=OneWay}"
+                                                TextWrapping="WrapWholeWords"
+                                                Visibility="{x:Bind ViewModel.OobeAdditionalAccountsValidationVisibility, Mode=OneWay}" />
+                                        </StackPanel>
+                                    </wct:SettingsCard>
+                                </StackPanel>
+                            </StackPanel>
+                        </wct:SettingsExpander.Items>
+                    </wct:SettingsExpander>
+
                     <wct:SettingsCard
                         Description="{x:Bind ViewModel.OobeSkipLicenseTermsDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.OobeSkipLicenseTermsLabel, Mode=OneWay}"

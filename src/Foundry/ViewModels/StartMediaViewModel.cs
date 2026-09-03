@@ -1904,7 +1904,28 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         string locationAccess = localizationService.GetString(settings.LocationAccess == OobeLocationAccessMode.ForceOff
             ? "Customization.OobeLocationForceOff"
             : "Customization.OobeLocationUserControlled");
-        return $"{diagnosticData} · {locationAccess}";
+        List<string> parts =
+        [
+            diagnosticData,
+            locationAccess
+        ];
+
+        if (settings.EnableAdministratorAccount)
+        {
+            parts.Add(localizationService.GetString("StartMedia.OobeSummaryAdministratorEnabled"));
+        }
+
+        if (settings.AdditionalAccounts.Count > 0)
+        {
+            parts.Add(localizationService.FormatString("StartMedia.OobeSummaryAdditionalAccountsFormat", settings.AdditionalAccounts.Count));
+        }
+
+        if (settings.SkipUserAccountCreation)
+        {
+            parts.Add(localizationService.GetString("StartMedia.OobeSummarySkipUserAccountCreation"));
+        }
+
+        return string.Join(" · ", parts);
     }
 
     private string GetOverviewStatus(ConfigurationOverviewState state) => state switch

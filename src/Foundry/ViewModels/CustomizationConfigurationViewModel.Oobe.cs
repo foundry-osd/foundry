@@ -3,19 +3,123 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.ObjectModel;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Configuration;
+using Foundry.Services.Configuration;
+using Microsoft.UI.Xaml;
 
 namespace Foundry.ViewModels;
 
 public sealed partial class CustomizationConfigurationViewModel
 {
     private bool isRefreshingOobeOptions;
+    private int oobeAccountSecretStateVersion;
 
     public ObservableCollection<SelectionOption<OobeDiagnosticDataLevel>> OobeDiagnosticDataOptions { get; } = [];
 
     public ObservableCollection<SelectionOption<OobeLocationAccessMode>> OobeLocationAccessOptions { get; } = [];
 
+    public ObservableCollection<OobeAdditionalAccountEntryViewModel> OobeAdditionalAccounts { get; } = [];
+
     public bool IsOobeOptionsEnabled => IsOobeEnabled;
+
+    public bool AreOobeAccountControlsAvailable => IsOobeEnabled && !IsOobeAccountConfigurationBlockedByAutopilot;
+
+    public bool HasAdditionalOobeAccounts => OobeAdditionalAccounts.Count > 0;
+
+    public bool EffectiveSkipUserAccountCreation
+    {
+        get => HasAdditionalOobeAccounts || SkipUserAccountCreation;
+        set
+        {
+            if (!HasAdditionalOobeAccounts && SkipUserAccountCreation != value)
+            {
+                SkipUserAccountCreation = value;
+            }
+        }
+    }
+
+    public bool IsSkipUserAccountCreationToggleEnabled => AreOobeAccountControlsAvailable && !HasAdditionalOobeAccounts;
+
+    public string OobeSkipUserAccountCreationEffectiveDescription => HasAdditionalOobeAccounts
+        ? OobeSkipUserAccountCreationLockedDescription
+        : OobeSkipUserAccountCreationDescription;
+
+    public Visibility OobeAccountsBlockedVisibility => IsOobeAccountConfigurationBlockedByAutopilot
+        ? Visibility.Visible
+        : Visibility.Collapsed;
+
+    public Visibility OobeAdditionalAccountsEmptyVisibility => HasAdditionalOobeAccounts
+        ? Visibility.Collapsed
+        : Visibility.Visible;
+
+    public Visibility OobeAdministratorValidationVisibility => ToVisibility(OobeAdministratorValidationMessage);
+
+    public Visibility OobeAdditionalAccountsValidationVisibility => ToVisibility(OobeAdditionalAccountsValidationMessage);
+
+    public int OobeAccountSecretStateVersion
+    {
+        get => oobeAccountSecretStateVersion;
+        private set => SetProperty(ref oobeAccountSecretStateVersion, value);
+    }
+
+    [ObservableProperty]
+    public partial string OobeAccountsHeader { get; set; }
+
+    [ObservableProperty]
+    public partial string OobeAccountsDescription { get; set; }
+
+    [ObservableProperty]
+    public partial string OobeAccountsBlockedMessage { get; set; }
+
+    [ObservableProperty]
+    public partial string OobeAccountsSecurityWarning { get; set; }
+
+    [ObservableProperty]
+    public partial string OobeAdministratorAccountLabel { get; set; }
+
+    [ObservableProperty]
+    public partial string OobeAccountPasswordDescription { get; set; }
+
+    [ObservableProperty]
+    public partial string OobePasswordPlaceholder { get; set; }
+
+    [ObservableProperty]
+    public partial string OobeConfirmationPlaceholder { get; set; }
+
+    [ObservableProperty]
+    public partial string OobeSkipUserAccountCreationLabel { get; set; }
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(OobeSkipUserAccountCreationEffectiveDescription))]
+    public partial string OobeSkipUserAccountCreationDescription { get; set; }
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(OobeSkipUserAccountCreationEffectiveDescription))]
+    public partial string OobeSkipUserAccountCreationLockedDescription { get; set; }
+
+    [ObservableProperty]
+    public partial string OobeAdditionalAccountsLabel { get; set; }
+
+    [ObservableProperty]
+    public partial string OobeAdditionalAccountsEmpty { get; set; }
+
+    [ObservableProperty]
+    public partial string OobeAdditionalAccountsAddButton { get; set; }
+
+    [ObservableProperty]
+    public partial string OobeAdditionalAccountsEditButton { get; set; }
+
+    [ObservableProperty]
+    public partial string OobeAdditionalAccountsRemoveButton { get; set; }
+
+    [ObservableProperty]
+    public partial string OobeAdministratorValidationMessage { get; set; }
+
+    [ObservableProperty]
+    public partial string OobeAdditionalAccountsValidationMessage { get; set; }
 
     [ObservableProperty]
     public partial string OobeSkipLicenseTermsLabel { get; set; }
@@ -67,7 +171,21 @@ public sealed partial class CustomizationConfigurationViewModel
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsOobeOptionsEnabled))]
+    [NotifyPropertyChangedFor(nameof(AreOobeAccountControlsAvailable))]
+    [NotifyPropertyChangedFor(nameof(IsSkipUserAccountCreationToggleEnabled))]
     public partial bool IsOobeEnabled { get; set; }
+
+    [ObservableProperty]
+    public partial bool EnableAdministratorAccount { get; set; }
+
+    [ObservableProperty]
+    public partial bool SkipUserAccountCreation { get; set; }
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(OobeAccountsBlockedVisibility))]
+    [NotifyPropertyChangedFor(nameof(AreOobeAccountControlsAvailable))]
+    [NotifyPropertyChangedFor(nameof(IsSkipUserAccountCreationToggleEnabled))]
+    public partial bool IsOobeAccountConfigurationBlockedByAutopilot { get; set; }
 
     [ObservableProperty]
     public partial bool SkipLicenseTerms { get; set; } = true;
@@ -93,8 +211,40 @@ public sealed partial class CustomizationConfigurationViewModel
     [ObservableProperty]
     public partial SelectionOption<OobeLocationAccessMode>? SelectedOobeLocationAccess { get; set; }
 
+    public void SetOobeAdministratorPassword(string value)
+    {
+        oobeAccountSecretStateService.SetAdministratorPassword(value);
+    }
+
+    public void SetOobeAdministratorConfirmation(string value)
+    {
+        oobeAccountSecretStateService.SetAdministratorConfirmation(value);
+    }
+
+    public char[] GetOobeAdministratorPasswordCopy()
+    {
+        return oobeAccountSecretStateService.GetAdministratorPasswordCopy();
+    }
+
+    public char[] GetOobeAdministratorConfirmationCopy()
+    {
+        return oobeAccountSecretStateService.GetAdministratorConfirmationCopy();
+    }
+
     partial void OnIsOobeEnabledChanged(bool value)
     {
+        SaveState();
+    }
+
+    partial void OnEnableAdministratorAccountChanged(bool value)
+    {
+        RefreshOobeAccountValidation();
+        SaveState();
+    }
+
+    partial void OnSkipUserAccountCreationChanged(bool value)
+    {
+        OnPropertyChanged(nameof(EffectiveSkipUserAccountCreation));
         SaveState();
     }
 
@@ -144,10 +294,92 @@ public sealed partial class CustomizationConfigurationViewModel
         }
     }
 
+    [RelayCommand]
+    private async Task AddOobeAdditionalAccountAsync()
+    {
+        if (!AreOobeAccountControlsAvailable)
+        {
+            return;
+        }
+
+        using OobeAdditionalAccountDialogResult? result = await oobeAdditionalAccountDialogService.ShowAsync(
+            account: null,
+            existingAccounts: OobeAdditionalAccounts.Select(entry => entry.Account).ToArray(),
+            initialPassword: [],
+            initialConfirmation: []);
+        if (result is null)
+        {
+            return;
+        }
+
+        OobeAdditionalAccounts.Add(CreateOobeAdditionalAccountEntry(result.Account));
+        ApplyAdditionalAccountSecrets(result);
+        RefreshOobeAdditionalAccountsState();
+        RefreshOobeAccountValidation();
+        SaveState();
+    }
+
+    private async Task EditOobeAdditionalAccountAsync(OobeAdditionalAccountEntryViewModel entry)
+    {
+        if (!AreOobeAccountControlsAvailable)
+        {
+            return;
+        }
+
+        char[] password = oobeAccountSecretStateService.GetAdditionalAccountPasswordCopy(entry.Id);
+        char[] confirmation = oobeAccountSecretStateService.GetAdditionalAccountConfirmationCopy(entry.Id);
+        try
+        {
+            using OobeAdditionalAccountDialogResult? result = await oobeAdditionalAccountDialogService.ShowAsync(
+                entry.Account,
+                OobeAdditionalAccounts.Select(account => account.Account).ToArray(),
+                password,
+                confirmation);
+            password = [];
+            confirmation = [];
+
+            if (result is null)
+            {
+                return;
+            }
+
+            entry.Account = result.Account;
+            entry.RefreshPresentation(
+                GetOobeAccountTypeDisplayName(result.Account.Type),
+                OobeAdditionalAccountsEditButton,
+                OobeAdditionalAccountsRemoveButton);
+            ApplyAdditionalAccountSecrets(result);
+            RefreshOobeAdditionalAccountsState();
+            RefreshOobeAccountValidation();
+            SaveState();
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(password.AsSpan()));
+            CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(confirmation.AsSpan()));
+        }
+    }
+
+    private void RemoveOobeAdditionalAccount(OobeAdditionalAccountEntryViewModel entry)
+    {
+        if (!AreOobeAccountControlsAvailable)
+        {
+            return;
+        }
+
+        OobeAdditionalAccounts.Remove(entry);
+        RefreshOobeAdditionalAccountsState();
+        RefreshOobeAccountValidation();
+        SaveState();
+    }
+
     private void ApplyOobeState(OobeSettings settings)
     {
         IsOobeEnabled = settings.IsEnabled;
+        EnableAdministratorAccount = settings.EnableAdministratorAccount;
+        SkipUserAccountCreation = settings.SkipUserAccountCreation;
         SkipLicenseTerms = settings.SkipLicenseTerms;
+        IsOobeAccountConfigurationBlockedByAutopilot = configurationStateService.IsAutopilotEnabled;
         SelectedOobeDiagnosticData = SelectOption(OobeDiagnosticDataOptions, settings.DiagnosticDataLevel);
         HidePrivacySetup = settings.HidePrivacySetup;
         AllowTailoredExperiences = settings.AllowTailoredExperiences;
@@ -155,6 +387,15 @@ public sealed partial class CustomizationConfigurationViewModel
         AllowOnlineSpeechRecognition = settings.AllowOnlineSpeechRecognition;
         AllowInkingAndTypingDiagnostics = settings.AllowInkingAndTypingDiagnostics;
         SelectedOobeLocationAccess = SelectOption(OobeLocationAccessOptions, settings.LocationAccess);
+
+        OobeAdditionalAccounts.Clear();
+        foreach (OobeAdditionalAccountSettings account in settings.AdditionalAccounts)
+        {
+            OobeAdditionalAccounts.Add(CreateOobeAdditionalAccountEntry(account));
+        }
+
+        RefreshOobeAdditionalAccountsState();
+        RefreshOobeAccountValidation();
     }
 
     private OobeSettings BuildOobeSettings()
@@ -163,6 +404,8 @@ public sealed partial class CustomizationConfigurationViewModel
             ? new OobeSettings
             {
                 IsEnabled = true,
+                EnableAdministratorAccount = EnableAdministratorAccount,
+                SkipUserAccountCreation = HasAdditionalOobeAccounts || SkipUserAccountCreation,
                 SkipLicenseTerms = SkipLicenseTerms,
                 DiagnosticDataLevel = SelectedOobeDiagnosticData?.Value ?? OobeDiagnosticDataLevel.Required,
                 HidePrivacySetup = HidePrivacySetup,
@@ -170,13 +413,30 @@ public sealed partial class CustomizationConfigurationViewModel
                 AllowAdvertisingId = AllowAdvertisingId,
                 AllowOnlineSpeechRecognition = AllowOnlineSpeechRecognition,
                 AllowInkingAndTypingDiagnostics = AllowInkingAndTypingDiagnostics,
-                LocationAccess = SelectedOobeLocationAccess?.Value ?? OobeLocationAccessMode.UserControlled
+                LocationAccess = SelectedOobeLocationAccess?.Value ?? OobeLocationAccessMode.UserControlled,
+                AdditionalAccounts = OobeAdditionalAccounts.Select(entry => entry.Account).ToArray()
             }
             : new OobeSettings();
     }
 
     private void RefreshOobeLocalizedText()
     {
+        OobeAccountsHeader = localizationService.GetString("Customization.OobeAccountsHeader");
+        OobeAccountsDescription = localizationService.GetString("Customization.OobeAccountsDescription");
+        OobeAccountsBlockedMessage = localizationService.GetString("Customization.OobeAccountsBlockedMessage");
+        OobeAccountsSecurityWarning = localizationService.GetString("Customization.OobeAccountsSecurityWarning");
+        OobeAdministratorAccountLabel = localizationService.GetString("Customization.OobeAdministratorAccountLabel");
+        OobeAccountPasswordDescription = localizationService.GetString("Customization.OobeAccountPasswordDescription");
+        OobePasswordPlaceholder = localizationService.GetString("GeneralConfiguration.DeploymentProtection.Password.Placeholder");
+        OobeConfirmationPlaceholder = localizationService.GetString("GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder");
+        OobeSkipUserAccountCreationLabel = localizationService.GetString("Customization.OobeSkipUserAccountCreationLabel");
+        OobeSkipUserAccountCreationDescription = localizationService.GetString("Customization.OobeSkipUserAccountCreationDescription");
+        OobeSkipUserAccountCreationLockedDescription = localizationService.GetString("Customization.OobeSkipUserAccountCreationLockedDescription");
+        OobeAdditionalAccountsLabel = localizationService.GetString("Customization.OobeAdditionalAccountsLabel");
+        OobeAdditionalAccountsEmpty = localizationService.GetString("Customization.OobeAdditionalAccountsEmpty");
+        OobeAdditionalAccountsAddButton = localizationService.GetString("Customization.OobeAdditionalAccountsAddButton");
+        OobeAdditionalAccountsEditButton = localizationService.GetString("Customization.OobeAdditionalAccountsEditButton");
+        OobeAdditionalAccountsRemoveButton = localizationService.GetString("Customization.OobeAdditionalAccountsRemoveButton");
         OobeSkipLicenseTermsLabel = localizationService.GetString("Customization.OobeSkipLicenseTermsLabel");
         OobeSkipLicenseTermsDescription = localizationService.GetString("Customization.OobeSkipLicenseTermsDescription");
         OobeDiagnosticDataLabel = localizationService.GetString("Customization.OobeDiagnosticDataLabel");
@@ -193,6 +453,16 @@ public sealed partial class CustomizationConfigurationViewModel
         OobeInkingAndTypingDiagnosticsDescription = localizationService.GetString("Customization.OobeInkingAndTypingDiagnosticsDescription");
         OobeLocationAccessLabel = localizationService.GetString("Customization.OobeLocationAccessLabel");
         OobeLocationAccessDescription = localizationService.GetString("Customization.OobeLocationAccessDescription");
+
+        foreach (OobeAdditionalAccountEntryViewModel account in OobeAdditionalAccounts)
+        {
+            account.RefreshPresentation(
+                GetOobeAccountTypeDisplayName(account.Account.Type),
+                OobeAdditionalAccountsEditButton,
+                OobeAdditionalAccountsRemoveButton);
+        }
+
+        RefreshOobeAccountValidation();
         RefreshOobeOptions();
     }
 
@@ -221,9 +491,79 @@ public sealed partial class CustomizationConfigurationViewModel
         }
     }
 
+    private void RefreshOobeAdditionalAccountsState()
+    {
+        OnPropertyChanged(nameof(HasAdditionalOobeAccounts));
+        OnPropertyChanged(nameof(EffectiveSkipUserAccountCreation));
+        OnPropertyChanged(nameof(IsSkipUserAccountCreationToggleEnabled));
+        OnPropertyChanged(nameof(OobeSkipUserAccountCreationEffectiveDescription));
+        OnPropertyChanged(nameof(OobeAdditionalAccountsEmptyVisibility));
+    }
+
+    private void RefreshOobeAccountValidation()
+    {
+        OobeSettings settings = BuildOobeSettings();
+        OobeAccountConfigurationValidationResult validation = oobeAccountSecretStateService.Validate(settings);
+        OobeAdministratorValidationMessage = validation.Issues
+            .FirstOrDefault(issue => issue.IsAdministratorAccount) is { } administratorIssue
+            ? OobeAccountValidationTextFormatter.FormatAdministratorIssue(localizationService, administratorIssue)
+            : string.Empty;
+        OobeAdditionalAccountsValidationMessage = validation.Issues
+            .FirstOrDefault(issue => !issue.IsAdministratorAccount) is { } accountIssue
+            ? OobeAccountValidationTextFormatter.FormatAdditionalAccountIssue(localizationService, accountIssue)
+            : string.Empty;
+
+        OnPropertyChanged(nameof(OobeAdministratorValidationVisibility));
+        OnPropertyChanged(nameof(OobeAdditionalAccountsValidationVisibility));
+    }
+
+    private void ApplyAdditionalAccountSecrets(OobeAdditionalAccountDialogResult result)
+    {
+        if (result.Password.Length == 0)
+        {
+            oobeAccountSecretStateService.SetAdditionalAccountPassword(result.Account.Id, string.Empty);
+        }
+        else
+        {
+            oobeAccountSecretStateService.SetAdditionalAccountPassword(result.Account.Id, result.Password);
+        }
+
+        if (result.Confirmation.Length == 0)
+        {
+            oobeAccountSecretStateService.SetAdditionalAccountConfirmation(result.Account.Id, string.Empty);
+        }
+        else
+        {
+            oobeAccountSecretStateService.SetAdditionalAccountConfirmation(result.Account.Id, result.Confirmation);
+        }
+    }
+
+    private OobeAdditionalAccountEntryViewModel CreateOobeAdditionalAccountEntry(OobeAdditionalAccountSettings account)
+    {
+        return new OobeAdditionalAccountEntryViewModel(
+            account,
+            GetOobeAccountTypeDisplayName(account.Type),
+            OobeAdditionalAccountsEditButton,
+            OobeAdditionalAccountsRemoveButton,
+            EditOobeAdditionalAccountAsync,
+            RemoveOobeAdditionalAccount);
+    }
+
+    private string GetOobeAccountTypeDisplayName(OobeAccountType type)
+    {
+        return localizationService.GetString(type == OobeAccountType.Administrator
+            ? "Customization.OobeAccountTypeAdministrator"
+            : "Customization.OobeAccountTypeStandard");
+    }
+
     private static SelectionOption<T>? SelectOption<T>(IEnumerable<SelectionOption<T>> options, T value)
         where T : struct, Enum
     {
         return options.FirstOrDefault(option => EqualityComparer<T>.Default.Equals(option.Value, value));
+    }
+
+    private static Visibility ToVisibility(string value)
+    {
+        return string.IsNullOrWhiteSpace(value) ? Visibility.Collapsed : Visibility.Visible;
     }
 }

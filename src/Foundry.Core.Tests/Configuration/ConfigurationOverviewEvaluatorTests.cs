@@ -233,6 +233,39 @@ public sealed class ConfigurationOverviewEvaluatorTests
     }
 
     [Fact]
+    public void Evaluate_OobeLocalAccountsWhenAutopilotEnabled_NeedsAttention()
+    {
+        var configuration = new FoundryConfigurationDocument
+        {
+            Autopilot = new AutopilotSettings
+            {
+                IsEnabled = true,
+                ProvisioningMode = AutopilotProvisioningMode.JsonProfile
+            },
+            Customization = new CustomizationSettings
+            {
+                Oobe = new OobeSettings
+                {
+                    IsEnabled = true,
+                    AdditionalAccounts =
+                    [
+                        new OobeAdditionalAccountSettings
+                        {
+                            Id = "account-1",
+                            UserName = "Technician",
+                            Type = OobeAccountType.Standard
+                        }
+                    ]
+                }
+            }
+        };
+
+        ConfigurationOverviewEvaluation evaluation = ConfigurationOverviewEvaluator.Evaluate(CreateContext(configuration));
+
+        Assert.Equal(ConfigurationOverviewState.NeedsAttention, evaluation[ConfigurationOverviewItem.Oobe]);
+    }
+
+    [Fact]
     public void Count_InvalidEthernetConfiguration_CountsOneActionableItem()
     {
         var configuration = new FoundryConfigurationDocument

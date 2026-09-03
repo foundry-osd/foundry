@@ -319,7 +319,19 @@ public sealed class FoundryConfigurationStateServiceTests
             Changed?.Invoke(this, EventArgs.Empty);
         }
 
+        public void SetAdministratorPassword(ReadOnlySpan<char> value)
+        {
+            state.SetAdministratorPassword(value);
+            Changed?.Invoke(this, EventArgs.Empty);
+        }
+
         public void SetAdministratorConfirmation(string? value)
+        {
+            state.SetAdministratorConfirmation(value);
+            Changed?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void SetAdministratorConfirmation(ReadOnlySpan<char> value)
         {
             state.SetAdministratorConfirmation(value);
             Changed?.Invoke(this, EventArgs.Empty);
@@ -335,7 +347,19 @@ public sealed class FoundryConfigurationStateServiceTests
             Changed?.Invoke(this, EventArgs.Empty);
         }
 
+        public void SetAdditionalAccountPassword(string accountId, ReadOnlySpan<char> value)
+        {
+            state.SetAdditionalAccountPassword(accountId, value);
+            Changed?.Invoke(this, EventArgs.Empty);
+        }
+
         public void SetAdditionalAccountConfirmation(string accountId, string? value)
+        {
+            state.SetAdditionalAccountConfirmation(accountId, value);
+            Changed?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void SetAdditionalAccountConfirmation(string accountId, ReadOnlySpan<char> value)
         {
             state.SetAdditionalAccountConfirmation(accountId, value);
             Changed?.Invoke(this, EventArgs.Empty);

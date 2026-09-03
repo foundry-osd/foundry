@@ -120,6 +120,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<INetworkSecretStateService, NetworkSecretStateService>();
         services.AddSingleton<IDeploymentProtectionSecretStateService, DeploymentProtectionSecretStateService>();
         services.AddSingleton<IOobeAccountSecretStateService, OobeAccountSecretStateService>();
+        services.AddSingleton<IOobeAdditionalAccountDialogService, OobeAdditionalAccountDialogService>();
         services.AddSingleton<IFoundryConfigurationStateService, FoundryConfigurationStateService>();
         services.AddSingleton<IWinPeLanguageDiscoveryService, WinPeLanguageDiscoveryService>();
         services.AddSingleton<IConfigurationOverviewService, ConfigurationOverviewService>();

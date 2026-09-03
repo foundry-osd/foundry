@@ -20,6 +20,8 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
     private readonly IDialogService dialogService;
     private readonly IApplicationLocalizationService localizationService;
     private readonly ILanguageRegistryService languageRegistryService;
+    private readonly IOobeAccountSecretStateService oobeAccountSecretStateService;
+    private readonly IOobeAdditionalAccountDialogService oobeAdditionalAccountDialogService;
     private readonly HashSet<CustomizationCatalog> initializedCatalogs = [];
     private bool isApplyingState = true;
     private bool isSavingState;
@@ -28,12 +30,16 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
         IFoundryConfigurationStateService configurationStateService,
         ILanguageRegistryService languageRegistryService,
         IApplicationLocalizationService localizationService,
-        IDialogService dialogService)
+        IDialogService dialogService,
+        IOobeAccountSecretStateService oobeAccountSecretStateService,
+        IOobeAdditionalAccountDialogService oobeAdditionalAccountDialogService)
     {
         this.configurationStateService = configurationStateService;
         this.languageRegistryService = languageRegistryService;
         this.localizationService = localizationService;
         this.dialogService = dialogService;
+        this.oobeAccountSecretStateService = oobeAccountSecretStateService;
+        this.oobeAdditionalAccountDialogService = oobeAdditionalAccountDialogService;
 
         RefreshLocalizedText();
         ApplyState(
@@ -42,6 +48,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
 
         localizationService.LanguageChanged += OnLanguageChanged;
         configurationStateService.StateChanged += OnConfigurationStateChanged;
+        oobeAccountSecretStateService.Changed += OnOobeAccountSecretStateChanged;
         isApplyingState = false;
     }
 
@@ -108,6 +115,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
     {
         localizationService.LanguageChanged -= OnLanguageChanged;
         configurationStateService.StateChanged -= OnConfigurationStateChanged;
+        oobeAccountSecretStateService.Changed -= OnOobeAccountSecretStateChanged;
         foreach (AppxRemovalItemViewModel item in AppxRemovalCategories.SelectMany(category => category.Items))
         {
             item.PropertyChanged -= OnAppxRemovalItemPropertyChanged;
@@ -217,6 +225,12 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
         ApplyState(
             configurationStateService.Current.Customization,
             configurationStateService.Current.OperatingSystemSelection);
+    }
+
+    private void OnOobeAccountSecretStateChanged(object? sender, EventArgs e)
+    {
+        RefreshOobeAccountValidation();
+        OobeAccountSecretStateVersion++;
     }
 
 }
