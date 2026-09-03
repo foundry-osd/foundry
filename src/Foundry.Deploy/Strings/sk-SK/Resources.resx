@@ -527,6 +527,9 @@ Pokračovať v nasadzovaní?</value></data>
   <data name="Summary.LicenseChannel" xml:space="preserve"><value>Licenčný kanál</value></data>
   <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
   <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.BuiltInAdministrator" xml:space="preserve"><value>Vstavané konto správcu</value></data>
+  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve"><value>Ďalšie lokálne kontá</value></data>
+  <data name="Summary.SkipAccountCreation" xml:space="preserve"><value>Preskočiť vytvorenie konta</value></data>
   <data name="Summary.AppxRemoval" xml:space="preserve"><value>Odstránenie AppX</value></data>
   <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>Odstránenie komponentov AI</value></data>
   <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Roaming sieťového profilu</value></data>

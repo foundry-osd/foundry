@@ -544,6 +544,9 @@
   <data name="Summary.LicenseChannel" xml:space="preserve"><value>授权渠道</value></data>
   <data name="Summary.Build" xml:space="preserve"><value>内部版本</value></data>
   <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.BuiltInAdministrator" xml:space="preserve"><value>内置 Administrator 帐户</value></data>
+  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve"><value>其他本地帐户</value></data>
+  <data name="Summary.SkipAccountCreation" xml:space="preserve"><value>跳过帐户创建</value></data>
   <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX 删除</value></data>
   <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>AI 组件移除</value></data>
   <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>网络配置文件漫游</value></data>

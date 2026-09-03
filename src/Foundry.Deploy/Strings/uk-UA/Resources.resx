@@ -527,6 +527,9 @@ ErrorCode=0x80070005
   <data name="Summary.LicenseChannel" xml:space="preserve"><value>Ліцензійний канал</value></data>
   <data name="Summary.Build" xml:space="preserve"><value>Збірка</value></data>
   <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.BuiltInAdministrator" xml:space="preserve"><value>Вбудований обліковий запис адміністратора</value></data>
+  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve"><value>Додаткові локальні облікові записи</value></data>
+  <data name="Summary.SkipAccountCreation" xml:space="preserve"><value>Пропустити створення облікового запису</value></data>
   <data name="Summary.AppxRemoval" xml:space="preserve"><value>Видалення AppX</value></data>
   <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>Видалення компонента ШІ</value></data>
   <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Роумінг мережевих профілів</value></data>

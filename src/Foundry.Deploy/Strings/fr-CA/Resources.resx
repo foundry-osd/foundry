@@ -527,6 +527,9 @@ Continuer le déploiement?</value></data>
   <data name="Summary.LicenseChannel" xml:space="preserve"><value>Canal de licence</value></data>
   <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
   <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.BuiltInAdministrator" xml:space="preserve"><value>Compte Administrateur intégré</value></data>
+  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve"><value>Comptes locaux supplémentaires</value></data>
+  <data name="Summary.SkipAccountCreation" xml:space="preserve"><value>Ignorer la création de compte</value></data>
   <data name="Summary.AppxRemoval" xml:space="preserve"><value>Suppression des applications AppX</value></data>
   <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>Suppression des composants d’IA</value></data>
   <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Itinérance des profils réseau</value></data>

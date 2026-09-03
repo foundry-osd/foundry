@@ -527,6 +527,9 @@ Operativni sistem: {4}
   <data name="Summary.LicenseChannel" xml:space="preserve"><value>Licencni kanal</value></data>
   <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
   <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.BuiltInAdministrator" xml:space="preserve"><value>Ugrađeni administratorski nalog</value></data>
+  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve"><value>Dodatni lokalni nalozi</value></data>
+  <data name="Summary.SkipAccountCreation" xml:space="preserve"><value>Preskoči kreiranje naloga</value></data>
   <data name="Summary.AppxRemoval" xml:space="preserve"><value>Uklanjanje AppX aplikacija</value></data>
   <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>Uklanjanje AI komponenti</value></data>
   <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Roming mrežnih profila</value></data>

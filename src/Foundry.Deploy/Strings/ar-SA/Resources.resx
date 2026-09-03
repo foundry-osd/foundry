@@ -544,6 +544,9 @@
   <data name="Summary.LicenseChannel" xml:space="preserve"><value>قناة الترخيص</value></data>
   <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
   <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.BuiltInAdministrator" xml:space="preserve"><value>حساب المسؤول المضمن</value></data>
+  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve"><value>الحسابات المحلية الإضافية</value></data>
+  <data name="Summary.SkipAccountCreation" xml:space="preserve"><value>تخطي إنشاء الحساب</value></data>
   <data name="Summary.AppxRemoval" xml:space="preserve"><value>إزالة AppX</value></data>
   <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>إزالة مكون الذكاء الاصطناعي</value></data>
   <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>تجوال ملف تعريف الشبكة</value></data>

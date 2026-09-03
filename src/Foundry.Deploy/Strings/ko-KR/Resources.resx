@@ -544,6 +544,9 @@
   <data name="Summary.LicenseChannel" xml:space="preserve"><value>라이선스 채널</value></data>
   <data name="Summary.Build" xml:space="preserve"><value>빌드</value></data>
   <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.BuiltInAdministrator" xml:space="preserve"><value>기본 제공 Administrator 계정</value></data>
+  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve"><value>추가 로컬 계정</value></data>
+  <data name="Summary.SkipAccountCreation" xml:space="preserve"><value>계정 생성 건너뛰기</value></data>
   <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX 제거</value></data>
   <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>AI 구성 요소 제거</value></data>
   <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>네트워크 프로필 로밍</value></data>

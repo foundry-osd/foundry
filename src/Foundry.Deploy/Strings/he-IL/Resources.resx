@@ -544,6 +544,9 @@ ErrorCode=0x80070005
   <data name="Summary.LicenseChannel" xml:space="preserve"><value>ערוץ רישיון</value></data>
   <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
   <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.BuiltInAdministrator" xml:space="preserve"><value>חשבון מנהל מערכת מוכלל</value></data>
+  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve"><value>חשבונות מקומיים נוספים</value></data>
+  <data name="Summary.SkipAccountCreation" xml:space="preserve"><value>דלג על יצירת חשבון</value></data>
   <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX הסרה</value></data>
   <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>הסרת רכיבי AI</value></data>
   <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>נדידה של פרופיל רשת</value></data>

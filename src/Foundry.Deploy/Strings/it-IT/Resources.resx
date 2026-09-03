@@ -527,6 +527,9 @@ Continuare con la distribuzione?</value></data>
   <data name="Summary.LicenseChannel" xml:space="preserve"><value>Canale di licenza</value></data>
   <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
   <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.BuiltInAdministrator" xml:space="preserve"><value>Account Administrator predefinito</value></data>
+  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve"><value>Account locali aggiuntivi</value></data>
+  <data name="Summary.SkipAccountCreation" xml:space="preserve"><value>Ignora creazione account</value></data>
   <data name="Summary.AppxRemoval" xml:space="preserve"><value>Rimozione delle app AppX</value></data>
   <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>Rimozione dei componenti AI</value></data>
   <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Roaming del profilo di rete</value></data>

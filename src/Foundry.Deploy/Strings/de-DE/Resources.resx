@@ -527,6 +527,9 @@ Mit der Bereitstellung fortfahren?</value></data>
   <data name="Summary.LicenseChannel" xml:space="preserve"><value>Lizenzkanal</value></data>
   <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
   <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.BuiltInAdministrator" xml:space="preserve"><value>Integriertes Administratorkonto</value></data>
+  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve"><value>Zusätzliche lokale Konten</value></data>
+  <data name="Summary.SkipAccountCreation" xml:space="preserve"><value>Kontoerstellung überspringen</value></data>
   <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX-Entfernung</value></data>
   <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>KI-Komponentenentfernung</value></data>
   <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Netzwerkprofil-Roaming</value></data>

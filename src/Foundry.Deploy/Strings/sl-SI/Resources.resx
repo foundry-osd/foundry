@@ -527,6 +527,9 @@ Ali želite nadaljevati z uvajanjem?</value></data>
   <data name="Summary.LicenseChannel" xml:space="preserve"><value>Licenčni kanal</value></data>
   <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
   <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.BuiltInAdministrator" xml:space="preserve"><value>Vgrajeni skrbniški račun</value></data>
+  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve"><value>Dodatni lokalni računi</value></data>
+  <data name="Summary.SkipAccountCreation" xml:space="preserve"><value>Preskoči ustvarjanje računa</value></data>
   <data name="Summary.AppxRemoval" xml:space="preserve"><value>Odstranitev aplikacij AppX</value></data>
   <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>Odstranitev komponent AI</value></data>
   <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Gostovanje omrežnih profilov</value></data>

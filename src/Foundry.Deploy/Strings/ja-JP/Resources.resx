@@ -544,6 +544,9 @@
   <data name="Summary.LicenseChannel" xml:space="preserve"><value>ライセンスチャネル</value></data>
   <data name="Summary.Build" xml:space="preserve"><value>ビルド</value></data>
   <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.BuiltInAdministrator" xml:space="preserve"><value>組み込みの Administrator アカウント</value></data>
+  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve"><value>追加のローカル アカウント</value></data>
+  <data name="Summary.SkipAccountCreation" xml:space="preserve"><value>アカウント作成をスキップ</value></data>
   <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX 削除</value></data>
   <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>AI コンポーネントの削除</value></data>
   <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>ネットワーク プロファイルのローミング</value></data>

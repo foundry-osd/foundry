@@ -527,6 +527,9 @@ Sistema operativo: {4}
   <data name="Summary.LicenseChannel" xml:space="preserve"><value>Canal de licencia</value></data>
   <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
   <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.BuiltInAdministrator" xml:space="preserve"><value>Cuenta de administrador integrada</value></data>
+  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve"><value>Cuentas locales adicionales</value></data>
+  <data name="Summary.SkipAccountCreation" xml:space="preserve"><value>Omitir la creación de cuentas</value></data>
   <data name="Summary.AppxRemoval" xml:space="preserve"><value>Eliminación de aplicaciones AppX</value></data>
   <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>Eliminación de componentes de IA</value></data>
   <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Itinerancia del perfil de red</value></data>

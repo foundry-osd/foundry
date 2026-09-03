@@ -544,6 +544,9 @@
   <data name="Summary.LicenseChannel" xml:space="preserve"><value>授權管道</value></data>
   <data name="Summary.Build" xml:space="preserve"><value>組建</value></data>
   <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.BuiltInAdministrator" xml:space="preserve"><value>內建 Administrator 帳戶</value></data>
+  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve"><value>其他本機帳戶</value></data>
+  <data name="Summary.SkipAccountCreation" xml:space="preserve"><value>略過帳戶建立</value></data>
   <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX 移除</value></data>
   <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>AI 元件移除</value></data>
   <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>網路設定檔漫遊</value></data>

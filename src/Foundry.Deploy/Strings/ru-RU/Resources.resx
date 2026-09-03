@@ -527,6 +527,9 @@
   <data name="Summary.LicenseChannel" xml:space="preserve"><value>Лицензионный канал</value></data>
   <data name="Summary.Build" xml:space="preserve"><value>Сборка</value></data>
   <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.BuiltInAdministrator" xml:space="preserve"><value>Встроенная учетная запись администратора</value></data>
+  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve"><value>Дополнительные локальные учетные записи</value></data>
+  <data name="Summary.SkipAccountCreation" xml:space="preserve"><value>Пропустить создание учетной записи</value></data>
   <data name="Summary.AppxRemoval" xml:space="preserve"><value>Удаление AppX</value></data>
   <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>Удаление компонентов ИИ</value></data>
   <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Роуминг сетевых профилей</value></data>

@@ -544,6 +544,9 @@
   <data name="Summary.LicenseChannel" xml:space="preserve"><value>ช่องทางการอนุญาต</value></data>
   <data name="Summary.Build" xml:space="preserve"><value>บิลด์</value></data>
   <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.BuiltInAdministrator" xml:space="preserve"><value>บัญชีผู้ดูแลระบบที่มีอยู่แล้วภายใน</value></data>
+  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve"><value>บัญชีภายในเครื่องเพิ่มเติม</value></data>
+  <data name="Summary.SkipAccountCreation" xml:space="preserve"><value>ข้ามการสร้างบัญชี</value></data>
   <data name="Summary.AppxRemoval" xml:space="preserve"><value>การลบ AppX</value></data>
   <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>การลบส่วนประกอบ AI</value></data>
   <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>การโรมมิ่งโปรไฟล์เครือข่าย</value></data>

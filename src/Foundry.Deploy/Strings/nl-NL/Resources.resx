@@ -527,6 +527,9 @@ Doorgaan met de implementatie?</value></data>
   <data name="Summary.LicenseChannel" xml:space="preserve"><value>Licentiekanaal</value></data>
   <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
   <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.BuiltInAdministrator" xml:space="preserve"><value>Ingebouwd Administrator-account</value></data>
+  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve"><value>Extra lokale accounts</value></data>
+  <data name="Summary.SkipAccountCreation" xml:space="preserve"><value>Account maken overslaan</value></data>
   <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX verwijderen</value></data>
   <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>Verwijdering van AI-componenten</value></data>
   <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Netwerkprofielroaming</value></data>

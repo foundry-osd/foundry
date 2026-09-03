@@ -527,6 +527,9 @@ Vil du fortsette med distribusjonen?</value></data>
   <data name="Summary.LicenseChannel" xml:space="preserve"><value>Lisenskanal</value></data>
   <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
   <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.BuiltInAdministrator" xml:space="preserve"><value>Innebygd administratorkonto</value></data>
+  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve"><value>Ekstra lokale kontoer</value></data>
+  <data name="Summary.SkipAccountCreation" xml:space="preserve"><value>Hopp over kontoopprettelse</value></data>
   <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX-fjerning</value></data>
   <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>Fjerning av AI-komponenter</value></data>
   <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Nettverksprofilroaming</value></data>

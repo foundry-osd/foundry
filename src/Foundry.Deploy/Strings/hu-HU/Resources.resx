@@ -527,6 +527,9 @@ Folytatja a telepítést?</value></data>
   <data name="Summary.LicenseChannel" xml:space="preserve"><value>Licenccsatorna</value></data>
   <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
   <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.BuiltInAdministrator" xml:space="preserve"><value>Beépített rendszergazdai fiók</value></data>
+  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve"><value>További helyi fiókok</value></data>
+  <data name="Summary.SkipAccountCreation" xml:space="preserve"><value>Fióklétrehozás kihagyása</value></data>
   <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX eltávolítás</value></data>
   <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>AI komponens eltávolítása</value></data>
   <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Hálózati profilok roamingja</value></data>

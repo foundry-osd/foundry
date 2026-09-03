@@ -527,6 +527,9 @@ Dağıtıma devam edilsin mi?</value></data>
   <data name="Summary.LicenseChannel" xml:space="preserve"><value>Lisans kanalı</value></data>
   <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
   <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.BuiltInAdministrator" xml:space="preserve"><value>Yerleşik Yönetici hesabı</value></data>
+  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve"><value>Ek yerel hesaplar</value></data>
+  <data name="Summary.SkipAccountCreation" xml:space="preserve"><value>Hesap oluşturmayı atla</value></data>
   <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX kaldırma</value></data>
   <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>AI bileşenlerinin kaldırılması</value></data>
   <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Ağ profili dolaşımı</value></data>

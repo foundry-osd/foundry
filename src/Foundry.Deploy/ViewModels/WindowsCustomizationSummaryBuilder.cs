@@ -24,6 +24,9 @@ internal static class WindowsCustomizationSummaryBuilder
             AddSection(rows, getString("Summary.Oobe"));
             rows.Add(new(getString("Summary.DiagnosticData"), GetDiagnosticDataText(oobe.DiagnosticDataLevel, getString)));
             rows.Add(new(getString("Summary.LocationAccess"), GetLocationAccessText(oobe.LocationAccess, getString)));
+            rows.Add(new(getString("Summary.BuiltInAdministrator"), GetEnabledText(oobe.EnableAdministratorAccount, getString)));
+            rows.Add(new(getString("Summary.AdditionalLocalAccounts"), oobe.AdditionalAccounts.Count.ToString(culture)));
+            rows.Add(new(getString("Summary.SkipAccountCreation"), GetYesNoText(oobe.AdditionalAccounts.Count > 0, getString)));
             rows.Add(new(getString("Summary.SkipLicenseTerms"), GetYesNoText(oobe.SkipLicenseTerms, getString)));
             rows.Add(new(getString("Summary.HidePrivacySetup"), GetYesNoText(oobe.HidePrivacySetup, getString)));
             rows.Add(new(getString("Summary.TailoredExperiences"), GetEnabledText(oobe.AllowTailoredExperiences, getString)));

@@ -527,6 +527,9 @@ Tęsti diegimą?</value></data>
   <data name="Summary.LicenseChannel" xml:space="preserve"><value>Licencijos kanalas</value></data>
   <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
   <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
+  <data name="Summary.BuiltInAdministrator" xml:space="preserve"><value>Integruotoji administratoriaus paskyra</value></data>
+  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve"><value>Papildomos vietinės paskyros</value></data>
+  <data name="Summary.SkipAccountCreation" xml:space="preserve"><value>Praleisti paskyros kūrimą</value></data>
   <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX pašalinimas</value></data>
   <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>AI komponentų pašalinimas</value></data>
   <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Tinklo profilio tarptinklinis ryšys</value></data>
