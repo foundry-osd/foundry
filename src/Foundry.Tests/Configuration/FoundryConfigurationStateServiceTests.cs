@@ -43,6 +43,124 @@ public sealed class FoundryConfigurationStateServiceTests
     }
 
     [Fact]
+    public void IsDeployConfigurationReady_WhenProtectedOobePasswordExists_ReturnsTrue()
+    {
+        var oobeSecretStateService = new TestOobeAccountSecretStateService();
+        oobeSecretStateService.SetAdministratorPassword("AdminPassword123!");
+        oobeSecretStateService.SetAdministratorConfirmation("AdminPassword123!");
+
+        IFoundryConfigurationStateService stateService = CreateStateService(
+            new FoundryConfigurationDocument
+            {
+                General = new GeneralSettings
+                {
+                    DeploymentProtection = new DeploymentProtectionSettings
+                    {
+                        IsEnabled = true
+                    }
+                },
+                Customization = new CustomizationSettings
+                {
+                    Oobe = new OobeSettings
+                    {
+                        IsEnabled = true,
+                        EnableAdministratorAccount = true
+                    }
+                }
+            },
+            deploymentProtectionSecretStateService: new TestDeploymentProtectionSecretStateService
+            {
+                IsValid = true
+            },
+            oobeAccountSecretStateService: oobeSecretStateService);
+
+        Assert.True(stateService.IsDeployConfigurationReady);
+    }
+
+    [Fact]
+    public void GenerateDeployConfigurationJson_WhenAdministratorPasswordIsUnconfirmed_ThrowsInvalidOperationException()
+    {
+        using var mediaProtection = DeploymentMediaProtectionService.CreateProtected("MediaPassword123".AsSpan());
+        var oobeSecretStateService = new TestOobeAccountSecretStateService();
+        oobeSecretStateService.SetAdministratorPassword("AdminPassword123!");
+
+        IFoundryConfigurationStateService stateService = CreateStateService(
+            new FoundryConfigurationDocument
+            {
+                General = new GeneralSettings
+                {
+                    DeploymentProtection = new DeploymentProtectionSettings
+                    {
+                        IsEnabled = true
+                    }
+                },
+                Customization = new CustomizationSettings
+                {
+                    Oobe = new OobeSettings
+                    {
+                        IsEnabled = true,
+                        EnableAdministratorAccount = true
+                    }
+                }
+            },
+            deploymentProtectionSecretStateService: new TestDeploymentProtectionSecretStateService
+            {
+                IsValid = true
+            },
+            oobeAccountSecretStateService: oobeSecretStateService);
+
+        Assert.Throws<InvalidOperationException>(() => stateService.GenerateDeployConfigurationJson(
+            deploymentSecretsKey: mediaProtection.DeploymentKey,
+            protectionSettings: mediaProtection.Settings));
+    }
+
+    [Fact]
+    public void GenerateDeployConfigurationJson_WhenAdditionalAccountPasswordConfirmationMismatches_ThrowsInvalidOperationException()
+    {
+        using var mediaProtection = DeploymentMediaProtectionService.CreateProtected("MediaPassword123".AsSpan());
+        var oobeSecretStateService = new TestOobeAccountSecretStateService();
+        oobeSecretStateService.SetAdditionalAccountPassword("account-1", "TechPassword123!");
+        oobeSecretStateService.SetAdditionalAccountConfirmation("account-1", "DifferentPassword123!");
+
+        IFoundryConfigurationStateService stateService = CreateStateService(
+            new FoundryConfigurationDocument
+            {
+                General = new GeneralSettings
+                {
+                    DeploymentProtection = new DeploymentProtectionSettings
+                    {
+                        IsEnabled = true
+                    }
+                },
+                Customization = new CustomizationSettings
+                {
+                    Oobe = new OobeSettings
+                    {
+                        IsEnabled = true,
+                        AdditionalAccounts = new[]
+                        {
+                            new OobeAdditionalAccountSettings
+                            {
+                                Id = "account-1",
+                                UserName = "Technician",
+                                Type = OobeAccountType.Standard
+                            }
+                        }
+                    }
+                }
+            },
+            deploymentProtectionSecretStateService: new TestDeploymentProtectionSecretStateService
+            {
+                IsValid = true
+            },
+            oobeAccountSecretStateService: oobeSecretStateService);
+
+        Assert.Throws<InvalidOperationException>(() => stateService.GenerateDeployConfigurationJson(
+            deploymentSecretsKey: mediaProtection.DeploymentKey,
+            protectionSettings: mediaProtection.Settings));
+    }
+
+    [Fact]
     public void GenerateDeployConfigurationJson_WhenOobePasswordExists_MergesTransientSecretsWithoutPersistingPlaintext()
     {
         using var mediaProtection = DeploymentMediaProtectionService.CreateProtected("MediaPassword123".AsSpan());

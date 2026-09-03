@@ -94,10 +94,18 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
                                                Current.Autopilot.ProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload
                     ? AesGcmEncryption.GenerateKey()
                     : null;
+                DeployProtectionSettings? protectionSettings = Current.General.DeploymentProtection.IsEnabled
+                    ? new DeployProtectionSettings
+                    {
+                        IsEnabled = true
+                    }
+                    : null;
 
                 try
                 {
-                    _ = GenerateDeployConfigurationJson(deploymentSecretsKey: deploymentSecretsKey);
+                    _ = GenerateDeployConfigurationJson(
+                        deploymentSecretsKey: deploymentSecretsKey,
+                        protectionSettings: protectionSettings);
                     return true;
                 }
                 finally
@@ -222,6 +230,12 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         DeployProtectionSettings? protectionSettings = null)
     {
         FoundryConfigurationDocument document = CreateDocumentForDeployGeneration(telemetryOverride);
+        OobeAccountConfigurationValidationResult validation = oobeAccountSecretStateService.Validate(document.Customization.Oobe);
+        if (!validation.IsValid)
+        {
+            throw new InvalidOperationException("OOBE local account password confirmation is invalid.");
+        }
+
         using OobeAccountSecretState oobeAccountSecretState = CreateOobeAccountSecretStateForDeployGeneration(document.Customization.Oobe);
 
         return deployConfigurationGenerator.Serialize(
@@ -293,6 +307,16 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
             CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(administratorPassword.AsSpan()));
         }
 
+        char[] administratorConfirmation = oobeAccountSecretStateService.GetAdministratorConfirmationCopy();
+        try
+        {
+            state.SetAdministratorConfirmation(administratorConfirmation);
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(administratorConfirmation.AsSpan()));
+        }
+
         foreach (OobeAdditionalAccountSettings account in settings.AdditionalAccounts)
         {
             char[] password = oobeAccountSecretStateService.GetAdditionalAccountPasswordCopy(account.Id);
@@ -303,6 +327,16 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
             finally
             {
                 CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(password.AsSpan()));
+            }
+
+            char[] confirmation = oobeAccountSecretStateService.GetAdditionalAccountConfirmationCopy(account.Id);
+            try
+            {
+                state.SetAdditionalAccountConfirmation(account.Id, confirmation);
+            }
+            finally
+            {
+                CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(confirmation.AsSpan()));
             }
         }
 
