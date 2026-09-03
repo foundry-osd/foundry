@@ -2936,8 +2936,14 @@
   <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
     <value>Inbyggt administratörskonto</value>
   </data>
+  <data name="Customization.OobeAdministratorAccountDescription" xml:space="preserve">
+    <value>Aktiverar det inbyggda Windows-administratörskontot under OOBE.</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordLabel" xml:space="preserve">
+    <value>Ange ett lösenord</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
-    <value>Lämna båda fälten tomma för att använda ett tomt lösenord.</value>
+    <value>Anger ett fördefinierat lösenord för det här kontot. Skyddat distributionsmedium krävs. Stäng av detta för att använda ett tomt lösenord.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
     <value>Hoppa över kontoskapande under OOBE</value>
@@ -3007,6 +3013,9 @@
   </data>
   <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
     <value>Lösenord och bekräftelse måste stämma överens.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordRequired" xml:space="preserve">
+    <value>Ange och bekräfta ett lösenord eller stäng av Ange ett lösenord.</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
     <value>Granska det här lokala kontot.</value>

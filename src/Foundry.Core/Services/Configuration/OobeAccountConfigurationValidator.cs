@@ -47,6 +47,17 @@ public static class OobeAccountConfigurationValidator
         }
 
         if (settings.EnableAdministratorAccount &&
+            settings.UseAdministratorPassword &&
+            secretState is not null &&
+            !secretState.HasAdministratorPassword)
+        {
+            issues.Add(new OobeAccountConfigurationValidationIssue(
+                OobeAccountConfigurationValidationCode.PasswordRequired,
+                IsAdministratorAccount: true));
+        }
+
+        if (settings.EnableAdministratorAccount &&
+            settings.UseAdministratorPassword &&
             secretState?.HasAdministratorPasswordConfirmationMismatch == true)
         {
             issues.Add(new OobeAccountConfigurationValidationIssue(
@@ -59,7 +70,12 @@ public static class OobeAccountConfigurationValidator
 
     public static void ThrowIfInvalid(OobeSettings settings)
     {
-        OobeAccountConfigurationValidationResult result = Validate(settings);
+        ThrowIfInvalid(settings, secretState: null);
+    }
+
+    public static void ThrowIfInvalid(OobeSettings settings, OobeAccountSecretState? secretState)
+    {
+        OobeAccountConfigurationValidationResult result = Validate(settings, secretState);
         if (!result.IsValid)
         {
             throw new InvalidOperationException("The OOBE local account configuration is invalid.");
@@ -125,6 +141,17 @@ public static class OobeAccountConfigurationValidator
         }
 
         if (!string.IsNullOrWhiteSpace(accountId) &&
+            account.UsePassword &&
+            secretState is not null &&
+            !secretState.HasAdditionalAccountPassword(accountId))
+        {
+            issues.Add(new OobeAccountConfigurationValidationIssue(
+                OobeAccountConfigurationValidationCode.PasswordRequired,
+                accountId));
+        }
+
+        if (!string.IsNullOrWhiteSpace(accountId) &&
+            account.UsePassword &&
             secretState?.HasAdditionalAccountPasswordConfirmationMismatch(accountId) == true)
         {
             issues.Add(new OobeAccountConfigurationValidationIssue(

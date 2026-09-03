@@ -13,5 +13,6 @@ public enum OobeAccountConfigurationValidationCode
     ReservedBuiltInUserName,
     InvalidUserNameCharacters,
     TrailingPeriodOrSpace,
+    PasswordRequired,
     PasswordConfirmationMismatch
 }

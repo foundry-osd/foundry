@@ -2936,8 +2936,14 @@
   <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
     <value>Beépített rendszergazdai fiók</value>
   </data>
+  <data name="Customization.OobeAdministratorAccountDescription" xml:space="preserve">
+    <value>Engedélyezi a Windows beépített rendszergazdai fiókját az OOBE során.</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordLabel" xml:space="preserve">
+    <value>Jelszó beállítása</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
-    <value>Üres jelszó használatához hagyja üresen mindkét mezőt.</value>
+    <value>Előre megadott jelszót állít be ehhez a fiókhoz. Védett telepítési adathordozó szükséges. Üres jelszó használatához kapcsolja ki.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
     <value>Fióklétrehozás kihagyása az OOBE során</value>
@@ -3007,6 +3013,9 @@
   </data>
   <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
     <value>A jelszónak és a megerősítésnek egyeznie kell.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordRequired" xml:space="preserve">
+    <value>Adja meg és erősítse meg a jelszót, vagy kapcsolja ki a Jelszó beállítása lehetőséget.</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
     <value>Ellenőrizze ezt a helyi fiókot.</value>

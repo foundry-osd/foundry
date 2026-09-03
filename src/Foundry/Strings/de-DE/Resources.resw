@@ -2936,8 +2936,14 @@
   <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
     <value>Integriertes Administratorkonto</value>
   </data>
+  <data name="Customization.OobeAdministratorAccountDescription" xml:space="preserve">
+    <value>Aktiviert das integrierte Windows-Administratorkonto während der OOBE.</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordLabel" xml:space="preserve">
+    <value>Kennwort festlegen</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
-    <value>Lassen Sie beide Felder leer, um ein leeres Kennwort zu verwenden.</value>
+    <value>Legt ein vordefiniertes Kennwort für dieses Konto fest. Ein geschütztes Bereitstellungsmedium ist erforderlich. Deaktivieren Sie diese Option, um ein leeres Kennwort zu verwenden.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
     <value>Kontoerstellung während der OOBE überspringen</value>
@@ -3007,6 +3013,9 @@
   </data>
   <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
     <value>Kennwort und Bestätigung müssen übereinstimmen.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordRequired" xml:space="preserve">
+    <value>Geben Sie ein Kennwort ein und bestätigen Sie es, oder deaktivieren Sie Kennwort festlegen.</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
     <value>Überprüfen Sie dieses lokale Konto.</value>

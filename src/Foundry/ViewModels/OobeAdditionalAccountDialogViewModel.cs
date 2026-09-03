@@ -28,6 +28,7 @@ public sealed partial class OobeAdditionalAccountDialogViewModel : ObservableObj
             : account.Id;
 
         UserName = account?.UserName ?? string.Empty;
+        UsePassword = account?.UsePassword ?? true;
         RefreshLocalizedText();
         RefreshAccountTypeOptions(account?.Type ?? OobeAccountType.Standard);
 
@@ -52,6 +53,9 @@ public sealed partial class OobeAdditionalAccountDialogViewModel : ObservableObj
     public partial string AccountTypeLabel { get; set; }
 
     [ObservableProperty]
+    public partial string PasswordLabel { get; set; }
+
+    [ObservableProperty]
     public partial string PasswordDescription { get; set; }
 
     [ObservableProperty]
@@ -70,6 +74,9 @@ public sealed partial class OobeAdditionalAccountDialogViewModel : ObservableObj
     public partial string UserName { get; set; }
 
     [ObservableProperty]
+    public partial bool UsePassword { get; set; }
+
+    [ObservableProperty]
     public partial SelectionOption<OobeAccountType>? SelectedAccountType { get; set; }
 
     public bool IsEditing => existingAccounts.Any(account => string.Equals(account.Id, accountId, StringComparison.Ordinal));
@@ -84,7 +91,8 @@ public sealed partial class OobeAdditionalAccountDialogViewModel : ObservableObj
         {
             Id = accountId,
             UserName = UserName,
-            Type = SelectedAccountType?.Value ?? OobeAccountType.Standard
+            Type = SelectedAccountType?.Value ?? OobeAccountType.Standard,
+            UsePassword = UsePassword
         };
 
         OobeAccountConfigurationValidationResult validation = OobeAccountConfigurationValidator.Validate(
@@ -128,6 +136,7 @@ public sealed partial class OobeAdditionalAccountDialogViewModel : ObservableObj
         UserNameLabel = localizationService.GetString("Customization.OobeAdditionalAccountDialog.UserNameLabel");
         UserNamePlaceholder = localizationService.GetString("Proxy_UsernameTextBox.PlaceholderText");
         AccountTypeLabel = localizationService.GetString("Customization.OobeAdditionalAccountDialog.AccountTypeLabel");
+        PasswordLabel = localizationService.GetString("Customization.OobeAccountPasswordLabel");
         PasswordDescription = localizationService.GetString("Customization.OobeAccountPasswordDescription");
         PasswordPlaceholder = localizationService.GetString("GeneralConfiguration.DeploymentProtection.Password.Placeholder");
         ConfirmationPlaceholder = localizationService.GetString("GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder");

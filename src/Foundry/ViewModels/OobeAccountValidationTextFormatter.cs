@@ -14,9 +14,14 @@ internal static class OobeAccountValidationTextFormatter
         OobeAccountConfigurationValidationIssue issue)
     {
         ArgumentNullException.ThrowIfNull(localizationService);
-        return issue.Code == OobeAccountConfigurationValidationCode.PasswordConfirmationMismatch
-            ? localizationService.GetString("Customization.OobeAccounts.Validation.PasswordConfirmationMismatch")
-            : localizationService.GetString("Customization.OobeAccounts.Validation.Generic");
+        return issue.Code switch
+        {
+            OobeAccountConfigurationValidationCode.PasswordRequired =>
+                localizationService.GetString("Customization.OobeAccounts.Validation.PasswordRequired"),
+            OobeAccountConfigurationValidationCode.PasswordConfirmationMismatch =>
+                localizationService.GetString("Customization.OobeAccounts.Validation.PasswordConfirmationMismatch"),
+            _ => localizationService.GetString("Customization.OobeAccounts.Validation.Generic")
+        };
     }
 
     public static string FormatAdditionalAccountIssue(
@@ -39,6 +44,8 @@ internal static class OobeAccountValidationTextFormatter
                 localizationService.GetString("Customization.OobeAccounts.Validation.TrailingPeriodOrSpace"),
             OobeAccountConfigurationValidationCode.PasswordConfirmationMismatch =>
                 localizationService.GetString("Customization.OobeAccounts.Validation.PasswordConfirmationMismatch"),
+            OobeAccountConfigurationValidationCode.PasswordRequired =>
+                localizationService.GetString("Customization.OobeAccounts.Validation.PasswordRequired"),
             _ => localizationService.GetString("Customization.OobeAccounts.Validation.Generic")
         };
     }

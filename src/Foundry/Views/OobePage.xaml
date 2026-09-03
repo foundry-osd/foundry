@@ -72,15 +72,42 @@
                                                         TextWrapping="WrapWholeWords" />
                                                     <TextBlock
                                                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                                        Text="{x:Bind ViewModel.OobeAccountPasswordDescription, Mode=OneWay}"
+                                                        Text="{x:Bind ViewModel.OobeAdministratorAccountDescription, Mode=OneWay}"
                                                         TextWrapping="WrapWholeWords" />
                                                 </StackPanel>
                                                 <ToggleSwitch x:Name="AdministratorAccountToggle"
                                                     Grid.Column="1"
                                                     VerticalAlignment="Center"
                                                     behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                                                    AutomationProperties.Name="{x:Bind ViewModel.OobeAdministratorAccountLabel, Mode=OneWay}"
                                                     IsOn="{x:Bind ViewModel.EnableAdministratorAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     Toggled="AdministratorAccountToggle_Toggled" />
+                                            </Grid>
+
+                                            <Grid
+                                                ColumnSpacing="{ThemeResource FoundryPageHeaderColumnSpacing}"
+                                                Visibility="{x:Bind ViewModel.EnableAdministratorAccount, Mode=OneWay}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel Spacing="{ThemeResource FoundryTextGroupSpacing}">
+                                                    <TextBlock
+                                                        Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                                        Text="{x:Bind ViewModel.OobeAccountPasswordLabel, Mode=OneWay}"
+                                                        TextWrapping="WrapWholeWords" />
+                                                    <TextBlock
+                                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                        Text="{x:Bind ViewModel.OobeAccountPasswordDescription, Mode=OneWay}"
+                                                        TextWrapping="WrapWholeWords" />
+                                                </StackPanel>
+                                                <ToggleSwitch x:Name="AdministratorPasswordToggle"
+                                                    Grid.Column="1"
+                                                    VerticalAlignment="Center"
+                                                    behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                                                    AutomationProperties.Name="{x:Bind ViewModel.OobeAccountPasswordLabel, Mode=OneWay}"
+                                                    IsOn="{x:Bind ViewModel.UseAdministratorPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Toggled="AdministratorPasswordToggle_Toggled" />
                                             </Grid>
 
                                             <StackPanel
@@ -89,10 +116,12 @@
                                                 Spacing="{ThemeResource FoundrySettingsSectionSpacing}"
                                                 Visibility="{x:Bind ViewModel.EnableAdministratorAccount, Mode=OneWay}">
                                                 <PasswordBox x:Name="AdministratorPasswordBox"
+                                                    IsEnabled="{x:Bind ViewModel.UseAdministratorPassword, Mode=OneWay}"
                                                     Loaded="AdministratorPasswordBox_Loaded"
                                                     PasswordChanged="AdministratorPasswordBox_PasswordChanged"
                                                     PlaceholderText="{x:Bind ViewModel.OobePasswordPlaceholder, Mode=OneWay}" />
                                                 <PasswordBox x:Name="AdministratorConfirmationBox"
+                                                    IsEnabled="{x:Bind ViewModel.UseAdministratorPassword, Mode=OneWay}"
                                                     Loaded="AdministratorConfirmationBox_Loaded"
                                                     PasswordChanged="AdministratorConfirmationBox_PasswordChanged"
                                                     PlaceholderText="{x:Bind ViewModel.OobeConfirmationPlaceholder, Mode=OneWay}" />
@@ -105,6 +134,7 @@
 
                                             <Rectangle
                                                 Height="1"
+                                                AutomationProperties.AccessibilityView="Raw"
                                                 Fill="{ThemeResource DividerStrokeColorDefaultBrush}" />
 
                                             <Grid ColumnSpacing="{ThemeResource FoundryPageHeaderColumnSpacing}">
@@ -179,6 +209,11 @@
                                                 Text="{x:Bind ViewModel.OobeAdditionalAccountsValidationMessage, Mode=OneWay}"
                                                 TextWrapping="WrapWholeWords"
                                                 Visibility="{x:Bind ViewModel.OobeAdditionalAccountsValidationVisibility, Mode=OneWay}" />
+
+                                            <Rectangle
+                                                Height="1"
+                                                AutomationProperties.AccessibilityView="Raw"
+                                                Fill="{ThemeResource DividerStrokeColorDefaultBrush}" />
 
                                             <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
                                                 <Grid.ColumnDefinitions>

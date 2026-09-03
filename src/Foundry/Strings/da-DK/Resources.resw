@@ -2936,8 +2936,14 @@
   <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
     <value>Indbygget Administrator-konto</value>
   </data>
+  <data name="Customization.OobeAdministratorAccountDescription" xml:space="preserve">
+    <value>Aktiverer den indbyggede Windows Administrator-konto under OOBE.</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordLabel" xml:space="preserve">
+    <value>Angiv en adgangskode</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
-    <value>Lad begge felter være tomme for at bruge en tom adgangskode.</value>
+    <value>Angiver en foruddefineret adgangskode til denne konto. Der kræves beskyttede installationsmedier. Slå dette fra for at bruge en tom adgangskode.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
     <value>Spring kontooprettelse over under OOBE</value>
@@ -3007,6 +3013,9 @@
   </data>
   <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
     <value>Adgangskoden og bekræftelsen skal være ens.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordRequired" xml:space="preserve">
+    <value>Angiv og bekræft en adgangskode, eller slå Angiv en adgangskode fra.</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
     <value>Gennemgå denne lokale konto.</value>

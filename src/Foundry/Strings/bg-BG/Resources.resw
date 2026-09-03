@@ -2936,8 +2936,14 @@
   <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
     <value>Вграден акаунт Administrator</value>
   </data>
+  <data name="Customization.OobeAdministratorAccountDescription" xml:space="preserve">
+    <value>Активира вградения акаунт Administrator на Windows по време на OOBE.</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordLabel" xml:space="preserve">
+    <value>Задаване на парола</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
-    <value>Оставете двете полета празни, за да използвате празна парола.</value>
+    <value>Задава предварително определена парола за този акаунт. Изисква се защитен носител за разполагане. Изключете тази опция, за да използвате празна парола.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
     <value>Пропускане на създаването на акаунт по време на OOBE</value>
@@ -3007,6 +3013,9 @@
   </data>
   <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
     <value>Паролата и потвърждението трябва да съвпадат.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordRequired" xml:space="preserve">
+    <value>Въведете и потвърдете парола или изключете „Задаване на парола“.</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
     <value>Прегледайте този локален акаунт.</value>

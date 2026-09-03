@@ -2936,8 +2936,14 @@
   <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
     <value>Iebūvētais administratora konts</value>
   </data>
+  <data name="Customization.OobeAdministratorAccountDescription" xml:space="preserve">
+    <value>Iespējo Windows iebūvēto administratora kontu OOBE laikā.</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordLabel" xml:space="preserve">
+    <value>Iestatīt paroli</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
-    <value>Atstājiet abus laukus tukšus, lai izmantotu tukšu paroli.</value>
+    <value>Iestata šim kontam iepriekš definētu paroli. Nepieciešams aizsargāts izvietošanas datu nesējs. Izslēdziet, lai izmantotu tukšu paroli.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
     <value>Izlaist konta izveidi OOBE laikā</value>
@@ -3007,6 +3013,9 @@
   </data>
   <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
     <value>Parolei un apstiprinājumam jāsakrīt.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordRequired" xml:space="preserve">
+    <value>Ievadiet un apstipriniet paroli vai izslēdziet opciju Iestatīt paroli.</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
     <value>Pārbaudiet šo lokālo kontu.</value>

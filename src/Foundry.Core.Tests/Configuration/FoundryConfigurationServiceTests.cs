@@ -88,6 +88,7 @@ public sealed class FoundryConfigurationServiceTests
                 {
                     IsEnabled = true,
                     EnableAdministratorAccount = true,
+                    UseAdministratorPassword = true,
                     SkipUserAccountCreation = true,
                     SkipLicenseTerms = true,
                     DiagnosticDataLevel = OobeDiagnosticDataLevel.Off,
@@ -103,7 +104,8 @@ public sealed class FoundryConfigurationServiceTests
                         {
                             Id = "account-1",
                             UserName = "Technician",
-                            Type = OobeAccountType.Administrator
+                            Type = OobeAccountType.Administrator,
+                            UsePassword = true
                         }
                     ]
                 },
@@ -176,6 +178,7 @@ public sealed class FoundryConfigurationServiceTests
         Assert.False(loaded.Customization.MachineNaming.AllowEditingDuringDeployment);
         Assert.True(loaded.Customization.Oobe.IsEnabled);
         Assert.True(loaded.Customization.Oobe.EnableAdministratorAccount);
+        Assert.True(loaded.Customization.Oobe.UseAdministratorPassword);
         Assert.True(loaded.Customization.Oobe.SkipUserAccountCreation);
         Assert.True(loaded.Customization.Oobe.SkipLicenseTerms);
         Assert.Equal(OobeDiagnosticDataLevel.Off, loaded.Customization.Oobe.DiagnosticDataLevel);
@@ -192,8 +195,9 @@ public sealed class FoundryConfigurationServiceTests
                 Assert.Equal("account-1", account.Id);
                 Assert.Equal("Technician", account.UserName);
                 Assert.Equal(OobeAccountType.Administrator, account.Type);
+                Assert.True(account.UsePassword);
             });
-        Assert.DoesNotContain("password", json, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("\"password\":", json, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("confirmation", json, StringComparison.OrdinalIgnoreCase);
         Assert.True(loaded.Customization.AppxRemoval.IsEnabled);
         Assert.Equal(["Microsoft.BingWeather", "Microsoft.GamingApp"], loaded.Customization.AppxRemoval.PackageNames);
@@ -494,7 +498,7 @@ public sealed class FoundryConfigurationServiceTests
 
         Assert.Contains("\"provisioningMode\": \"hardwareHashUpload\"", json, StringComparison.Ordinal);
         Assert.DoesNotContain("pfx", json, StringComparison.OrdinalIgnoreCase);
-        Assert.DoesNotContain("password", json, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("\"pfxPassword\"", json, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("accessToken", json, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("PfxPassword-DoNotLeak", json, StringComparison.Ordinal);
         Assert.DoesNotContain(@"E:\Secrets", json, StringComparison.OrdinalIgnoreCase);

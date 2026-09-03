@@ -2936,8 +2936,14 @@
   <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
     <value>Ενσωματωμένος λογαριασμός Διαχειριστή</value>
   </data>
+  <data name="Customization.OobeAdministratorAccountDescription" xml:space="preserve">
+    <value>Ενεργοποιεί τον ενσωματωμένο λογαριασμό Διαχειριστή των Windows κατά τη διαδικασία OOBE.</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordLabel" xml:space="preserve">
+    <value>Ορισμός κωδικού πρόσβασης</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
-    <value>Αφήστε και τα δύο πεδία κενά για κενό κωδικό πρόσβασης.</value>
+    <value>Ορίζει έναν προκαθορισμένο κωδικό πρόσβασης για αυτόν τον λογαριασμό. Απαιτείται προστατευμένο μέσο ανάπτυξης. Απενεργοποιήστε αυτήν την επιλογή για κενό κωδικό πρόσβασης.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
     <value>Παράλειψη δημιουργίας λογαριασμού κατά το OOBE</value>
@@ -3007,6 +3013,9 @@
   </data>
   <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
     <value>Ο κωδικός και η επιβεβαίωση πρέπει να ταιριάζουν.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordRequired" xml:space="preserve">
+    <value>Εισαγάγετε και επιβεβαιώστε έναν κωδικό πρόσβασης ή απενεργοποιήστε τον Ορισμό κωδικού πρόσβασης.</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
     <value>Ελέγξτε αυτόν τον τοπικό λογαριασμό.</value>

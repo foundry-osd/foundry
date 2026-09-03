@@ -44,7 +44,8 @@ public sealed class OobeAccountSecretStateTests
                 {
                     Id = "kept-account",
                     UserName = "Technician",
-                    Type = OobeAccountType.Administrator
+                    Type = OobeAccountType.Administrator,
+                    UsePassword = true
                 }
             ]
         });

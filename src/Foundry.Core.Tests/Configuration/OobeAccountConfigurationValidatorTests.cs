@@ -117,11 +117,35 @@ public sealed class OobeAccountConfigurationValidatorTests
         state.SetAdministratorConfirmation("Password2!");
 
         OobeAccountConfigurationValidationResult result = OobeAccountConfigurationValidator.Validate(
-            CreateOobeSettings([], enableAdministratorAccount: true),
+            new OobeSettings
+            {
+                IsEnabled = true,
+                EnableAdministratorAccount = true,
+                UseAdministratorPassword = true
+            },
             state);
 
         Assert.Contains(result.Issues, issue =>
             issue.Code == OobeAccountConfigurationValidationCode.PasswordConfirmationMismatch &&
+            issue.IsAdministratorAccount);
+    }
+
+    [Fact]
+    public void Validate_WhenAdministratorPasswordIsEnabledButUnavailable_ReturnsPasswordRequiredIssue()
+    {
+        using var state = new OobeAccountSecretState();
+
+        OobeAccountConfigurationValidationResult result = OobeAccountConfigurationValidator.Validate(
+            new OobeSettings
+            {
+                IsEnabled = true,
+                EnableAdministratorAccount = true,
+                UseAdministratorPassword = true
+            },
+            state);
+
+        Assert.Contains(result.Issues, issue =>
+            issue.Code == OobeAccountConfigurationValidationCode.PasswordRequired &&
             issue.IsAdministratorAccount);
     }
 
@@ -133,12 +157,63 @@ public sealed class OobeAccountConfigurationValidatorTests
         state.SetAdditionalAccountConfirmation("account-1", "Password2!");
 
         OobeAccountConfigurationValidationResult result = OobeAccountConfigurationValidator.Validate(
-            CreateOobeSettings(CreateAccount("account-1", "Technician")),
+            CreateOobeSettings(new OobeAdditionalAccountSettings
+            {
+                Id = "account-1",
+                UserName = "Technician",
+                Type = OobeAccountType.Standard,
+                UsePassword = true
+            }),
             state);
 
         Assert.Contains(result.Issues, issue =>
             issue.Code == OobeAccountConfigurationValidationCode.PasswordConfirmationMismatch &&
             issue.AccountId == "account-1");
+    }
+
+    [Fact]
+    public void Validate_WhenAdditionalAccountPasswordIsEnabledButUnavailable_ReturnsPasswordRequiredIssue()
+    {
+        using var state = new OobeAccountSecretState();
+
+        OobeAccountConfigurationValidationResult result = OobeAccountConfigurationValidator.Validate(
+            CreateOobeSettings(new OobeAdditionalAccountSettings
+            {
+                Id = "account-1",
+                UserName = "Technician",
+                Type = OobeAccountType.Standard,
+                UsePassword = true
+            }),
+            state);
+
+        Assert.Contains(result.Issues, issue =>
+            issue.Code == OobeAccountConfigurationValidationCode.PasswordRequired &&
+            issue.AccountId == "account-1");
+    }
+
+    [Fact]
+    public void Validate_WhenSecretStateIsNotProvided_DoesNotReportPasswordRequiredIssue()
+    {
+        OobeAccountConfigurationValidationResult result = OobeAccountConfigurationValidator.Validate(
+            new OobeSettings
+            {
+                IsEnabled = true,
+                EnableAdministratorAccount = true,
+                UseAdministratorPassword = true,
+                AdditionalAccounts =
+                [
+                    new OobeAdditionalAccountSettings
+                    {
+                        Id = "account-1",
+                        UserName = "Technician",
+                        Type = OobeAccountType.Standard,
+                        UsePassword = true
+                    }
+                ]
+            });
+
+        Assert.DoesNotContain(result.Issues, issue =>
+            issue.Code == OobeAccountConfigurationValidationCode.PasswordRequired);
     }
 
     [Fact]

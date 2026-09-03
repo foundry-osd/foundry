@@ -2936,8 +2936,14 @@
   <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
     <value>บัญชี Administrator ที่มีอยู่แล้ว</value>
   </data>
+  <data name="Customization.OobeAdministratorAccountDescription" xml:space="preserve">
+    <value>เปิดใช้งานบัญชี Administrator ที่มีอยู่แล้วภายใน Windows ระหว่าง OOBE</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordLabel" xml:space="preserve">
+    <value>ตั้งรหัสผ่าน</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
-    <value>เว้นทั้งสองช่องว่างเพื่อใช้รหัสผ่านว่าง</value>
+    <value>ตั้งรหัสผ่านที่กำหนดไว้ล่วงหน้าสำหรับบัญชีนี้ จำเป็นต้องใช้สื่อการปรับใช้ที่มีการป้องกัน ปิดตัวเลือกนี้เพื่อใช้รหัสผ่านว่าง</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
     <value>ข้ามการสร้างบัญชีระหว่าง OOBE</value>
@@ -3007,6 +3013,9 @@
   </data>
   <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
     <value>รหัสผ่านและการยืนยันต้องตรงกัน</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordRequired" xml:space="preserve">
+    <value>ป้อนและยืนยันรหัสผ่าน หรือปิด ตั้งรหัสผ่าน</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
     <value>ตรวจสอบบัญชีภายในเครื่องนี้</value>

@@ -2936,8 +2936,14 @@
   <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
     <value>內建 Administrator 帳戶</value>
   </data>
+  <data name="Customization.OobeAdministratorAccountDescription" xml:space="preserve">
+    <value>在 OOBE 期間啟用 Windows 內建 Administrator 帳戶。</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordLabel" xml:space="preserve">
+    <value>設定密碼</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
-    <value>將兩個欄位留空即可使用空白密碼。</value>
+    <value>為此帳戶設定預先定義的密碼。需要受保護的部署媒體。關閉此選項可使用空白密碼。</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
     <value>略過 OOBE 期間的帳戶建立</value>
@@ -3007,6 +3013,9 @@
   </data>
   <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
     <value>密碼與確認內容必須相符。</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordRequired" xml:space="preserve">
+    <value>輸入並確認密碼，或關閉「設定密碼」。</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
     <value>請檢查此本機帳戶。</value>

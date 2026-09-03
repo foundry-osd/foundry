@@ -2936,8 +2936,14 @@
   <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
     <value>Compte Administrateur intégré</value>
   </data>
+  <data name="Customization.OobeAdministratorAccountDescription" xml:space="preserve">
+    <value>Active le compte Administrateur intégré de Windows pendant l’OOBE.</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordLabel" xml:space="preserve">
+    <value>Définir un mot de passe</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
-    <value>Laissez les deux champs vides pour utiliser un mot de passe vide.</value>
+    <value>Définit un mot de passe prédéfini pour ce compte. Un support de déploiement protégé est requis. Désactivez cette option pour utiliser un mot de passe vide.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
     <value>Ignorer la création de compte pendant l’OOBE</value>
@@ -3007,6 +3013,9 @@
   </data>
   <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
     <value>Le mot de passe et la confirmation doivent correspondre.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordRequired" xml:space="preserve">
+    <value>Entrez et confirmez un mot de passe, ou désactivez Définir un mot de passe.</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
     <value>Vérifiez ce compte local.</value>

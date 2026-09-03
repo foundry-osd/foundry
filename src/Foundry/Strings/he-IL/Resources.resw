@@ -2936,8 +2936,14 @@
   <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
     <value>חשבון מנהל מערכת מוכלל</value>
   </data>
+  <data name="Customization.OobeAdministratorAccountDescription" xml:space="preserve">
+    <value>הפעלת חשבון מנהל המערכת המוכלל של Windows במהלך OOBE.</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordLabel" xml:space="preserve">
+    <value>הגדרת סיסמה</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
-    <value>השאר את שני השדות ריקים כדי להשתמש בסיסמה ריקה.</value>
+    <value>הגדרת סיסמה מוגדרת מראש עבור חשבון זה. נדרשת מדיית פריסה מוגנת. כבה אפשרות זו כדי להשתמש בסיסמה ריקה.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
     <value>דלג על יצירת חשבון במהלך OOBE</value>
@@ -3007,6 +3013,9 @@
   </data>
   <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
     <value>הסיסמה והאישור חייבים להיות זהים.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordRequired" xml:space="preserve">
+    <value>הזן ואשר סיסמה, או כבה את האפשרות הגדרת סיסמה.</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
     <value>בדוק חשבון מקומי זה.</value>

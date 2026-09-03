@@ -2936,8 +2936,14 @@
   <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
     <value>Įtaisytoji administratoriaus paskyra</value>
   </data>
+  <data name="Customization.OobeAdministratorAccountDescription" xml:space="preserve">
+    <value>Įgalina įtaisytąją Windows administratoriaus paskyrą OOBE metu.</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordLabel" xml:space="preserve">
+    <value>Nustatyti slaptažodį</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
-    <value>Palikite abu laukus tuščius, jei norite naudoti tuščią slaptažodį.</value>
+    <value>Nustato iš anksto apibrėžtą šios paskyros slaptažodį. Reikalinga apsaugota diegimo laikmena. Išjunkite, jei norite naudoti tuščią slaptažodį.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
     <value>Praleisti paskyros kūrimą per OOBE</value>
@@ -3007,6 +3013,9 @@
   </data>
   <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
     <value>Slaptažodis ir patvirtinimas turi sutapti.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordRequired" xml:space="preserve">
+    <value>Įveskite ir patvirtinkite slaptažodį arba išjunkite Nustatyti slaptažodį.</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
     <value>Peržiūrėkite šią vietinę paskyrą.</value>

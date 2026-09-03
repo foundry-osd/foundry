@@ -23,4 +23,9 @@ public sealed record OobeAdditionalAccountSettings
     /// Gets the local account type to provision.
     /// </summary>
     public OobeAccountType Type { get; init; }
+
+    /// <summary>
+    /// Gets whether the local account should use a predefined password.
+    /// </summary>
+    public bool UsePassword { get; init; }
 }

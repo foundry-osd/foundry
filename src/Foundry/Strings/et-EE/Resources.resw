@@ -2936,8 +2936,14 @@
   <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
     <value>Sisseehitatud administraatorikonto</value>
   </data>
+  <data name="Customization.OobeAdministratorAccountDescription" xml:space="preserve">
+    <value>Lubab Windowsi sisseehitatud administraatorikonto OOBE ajal.</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordLabel" xml:space="preserve">
+    <value>Määra parool</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
-    <value>Tühja parooli kasutamiseks jätke mõlemad väljad tühjaks.</value>
+    <value>Määrab sellele kontole eelmääratud parooli. Nõutav on kaitstud juurutusmeedium. Tühja parooli kasutamiseks lülitage see välja.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
     <value>Jäta konto loomine OOBE ajal vahele</value>
@@ -3007,6 +3013,9 @@
   </data>
   <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
     <value>Parool ja kinnitus peavad ühtima.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordRequired" xml:space="preserve">
+    <value>Sisestage ja kinnitage parool või lülitage Määra parool välja.</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
     <value>Kontrollige seda kohalikku kontot.</value>

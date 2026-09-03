@@ -56,6 +56,8 @@ public sealed class OobeAccountSecretState : IDisposable
         return administrator.IsConfirmed;
     }
 
+    internal bool HasAdministratorPassword => administrator.HasPassword;
+
     public void SetAdditionalAccountPassword(string accountId, string? value)
     {
         ObjectDisposedException.ThrowIf(isDisposed, this);
@@ -102,6 +104,11 @@ public sealed class OobeAccountSecretState : IDisposable
         return !TryGetAccount(accountId, out SecretPair? pair) || pair!.IsConfirmed;
     }
 
+    internal bool HasAdditionalAccountPassword(string accountId)
+    {
+        return TryGetAccount(accountId, out SecretPair? pair) && pair!.HasPassword;
+    }
+
     public void Update(OobeSettings settings)
     {
         ObjectDisposedException.ThrowIf(isDisposed, this);
@@ -113,25 +120,31 @@ public sealed class OobeAccountSecretState : IDisposable
             return;
         }
 
-        if (!settings.EnableAdministratorAccount)
+        if (!settings.EnableAdministratorAccount || !settings.UseAdministratorPassword)
         {
             administrator.Clear();
         }
 
-        HashSet<string> activeAccountIds = settings.AdditionalAccounts
+        Dictionary<string, bool> activeAccountPasswordModes = settings.AdditionalAccounts
             .Where(account => !string.IsNullOrWhiteSpace(account.Id))
-            .Select(account => account.Id)
-            .ToHashSet(StringComparer.Ordinal);
+            .GroupBy(account => account.Id, StringComparer.Ordinal)
+            .ToDictionary(group => group.Key, group => group.Last().UsePassword, StringComparer.Ordinal);
 
         foreach (string accountId in additionalAccounts.Keys.ToArray())
         {
-            if (activeAccountIds.Contains(accountId))
+            if (!activeAccountPasswordModes.TryGetValue(accountId, out bool usePassword))
+            {
+                additionalAccounts[accountId].Clear();
+                additionalAccounts.Remove(accountId);
+                continue;
+            }
+
+            if (usePassword)
             {
                 continue;
             }
 
             additionalAccounts[accountId].Clear();
-            additionalAccounts.Remove(accountId);
         }
     }
 
@@ -195,6 +208,8 @@ public sealed class OobeAccountSecretState : IDisposable
     {
         private char[]? password;
         private char[]? confirmation;
+
+        public bool HasPassword => password is { Length: > 0 };
 
         public bool IsConfirmed =>
             password is null && confirmation is null ||

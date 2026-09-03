@@ -2936,8 +2936,14 @@
   <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
     <value>Sisäinen järjestelmänvalvojan tili</value>
   </data>
+  <data name="Customization.OobeAdministratorAccountDescription" xml:space="preserve">
+    <value>Ottaa Windowsin sisäisen järjestelmänvalvojan tilin käyttöön OOBE-vaiheessa.</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordLabel" xml:space="preserve">
+    <value>Aseta salasana</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
-    <value>Jätä molemmat kentät tyhjiksi käyttääksesi tyhjää salasanaa.</value>
+    <value>Asettaa tälle tilille ennalta määritetyn salasanan. Suojattu käyttöönottomedia vaaditaan. Poista tämä käytöstä, jos haluat käyttää tyhjää salasanaa.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
     <value>Ohita tilin luonti OOBE-vaiheessa</value>
@@ -3007,6 +3013,9 @@
   </data>
   <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
     <value>Salasanan ja vahvistuksen on vastattava toisiaan.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordRequired" xml:space="preserve">
+    <value>Anna ja vahvista salasana tai poista Aseta salasana käytöstä.</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
     <value>Tarkista tämä paikallinen tili.</value>

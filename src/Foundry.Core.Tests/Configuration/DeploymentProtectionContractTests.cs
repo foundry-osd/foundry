@@ -28,7 +28,7 @@ public sealed class DeploymentProtectionContractTests
 
         Assert.True(loaded.General.DeploymentProtection.IsEnabled);
         Assert.Contains("\"deploymentProtection\"", json, StringComparison.Ordinal);
-        Assert.DoesNotContain("password", json, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("\"password\":", json, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("confirmation", json, StringComparison.OrdinalIgnoreCase);
     }
 

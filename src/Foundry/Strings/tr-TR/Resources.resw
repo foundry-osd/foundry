@@ -2936,8 +2936,14 @@
   <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
     <value>Yerleşik Administrator hesabı</value>
   </data>
+  <data name="Customization.OobeAdministratorAccountDescription" xml:space="preserve">
+    <value>OOBE sırasında yerleşik Windows Administrator hesabını etkinleştirir.</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordLabel" xml:space="preserve">
+    <value>Parola ayarla</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
-    <value>Boş parola kullanmak için iki alanı da boş bırakın.</value>
+    <value>Bu hesap için önceden tanımlanmış bir parola ayarlar. Korumalı dağıtım medyası gereklidir. Boş parola kullanmak için bunu kapatın.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
     <value>OOBE sırasında hesap oluşturmayı atla</value>
@@ -3007,6 +3013,9 @@
   </data>
   <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
     <value>Parola ve onay eşleşmelidir.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordRequired" xml:space="preserve">
+    <value>Bir parola girip onaylayın veya Parola ayarla seçeneğini kapatın.</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
     <value>Bu yerel hesabı gözden geçirin.</value>

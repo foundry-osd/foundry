@@ -2936,8 +2936,14 @@
   <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
     <value>Встроенная учетная запись Administrator</value>
   </data>
+  <data name="Customization.OobeAdministratorAccountDescription" xml:space="preserve">
+    <value>Включает встроенную учетную запись Administrator Windows во время OOBE.</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordLabel" xml:space="preserve">
+    <value>Задать пароль</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
-    <value>Оставьте оба поля пустыми, чтобы использовать пустой пароль.</value>
+    <value>Задает предопределенный пароль для этой учетной записи. Требуется защищенный носитель развертывания. Отключите этот параметр, чтобы использовать пустой пароль.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
     <value>Пропустить создание учетной записи во время OOBE</value>
@@ -3007,6 +3013,9 @@
   </data>
   <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
     <value>Пароль и подтверждение должны совпадать.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordRequired" xml:space="preserve">
+    <value>Введите и подтвердите пароль либо отключите параметр «Задать пароль».</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
     <value>Проверьте эту локальную учетную запись.</value>

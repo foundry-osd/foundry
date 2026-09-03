@@ -60,7 +60,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         ArgumentNullException.ThrowIfNull(document);
         AutopilotConfigurationValidator.ThrowIfNotReady(document.Autopilot, DateTimeOffset.UtcNow);
         MachineNamingValidator.ThrowIfInvalid(document.Customization.MachineNaming);
-        OobeAccountConfigurationValidator.ThrowIfInvalid(document.Customization.Oobe);
+        OobeAccountConfigurationValidator.ThrowIfInvalid(document.Customization.Oobe, oobeAccountSecretState);
         ThrowIfAutopilotConflictsWithOobeAccounts(document.Autopilot, document.Customization.Oobe);
         ThrowIfOobePasswordsRequireProtectedMedia(document.Customization.Oobe, protectionSettings, deploymentSecretsKey, oobeAccountSecretState);
 
@@ -317,7 +317,11 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         }
 
         (bool administratorPasswordIsBlank, SecretEnvelope? administratorPasswordSecret) =
-            CreateAccountPassword(settings.EnableAdministratorAccount, deploymentSecretsKey, oobeAccountSecretState?.GetAdministratorPasswordCopy());
+            CreateAccountPassword(
+                settings.EnableAdministratorAccount,
+                settings.UseAdministratorPassword,
+                deploymentSecretsKey,
+                oobeAccountSecretState?.GetAdministratorPasswordCopy());
 
         return new DeployOobeSettings
         {
@@ -348,6 +352,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         (bool passwordIsBlank, SecretEnvelope? passwordSecret) =
             CreateAccountPassword(
                 isProvisioned: true,
+                usePassword: account.UsePassword,
                 deploymentSecretsKey,
                 oobeAccountSecretState?.GetAdditionalAccountPasswordCopy(account.Id));
 
@@ -363,6 +368,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
 
     private static (bool IsBlank, SecretEnvelope? Secret) CreateAccountPassword(
         bool isProvisioned,
+        bool usePassword,
         byte[]? deploymentSecretsKey,
         char[]? password)
     {
@@ -376,12 +382,22 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             return (false, null);
         }
 
+        if (!usePassword)
+        {
+            if (password is not null)
+            {
+                CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(password.AsSpan()));
+            }
+
+            return (true, null);
+        }
+
         char[] effectivePassword = password ?? [];
         try
         {
             if (effectivePassword.Length == 0)
             {
-                return (true, null);
+                throw new InvalidOperationException("An OOBE account password was configured but is unavailable in the current session.");
             }
 
             byte[] plaintextBytes = Encoding.UTF8.GetBytes(effectivePassword);

@@ -73,6 +73,12 @@ public sealed partial class CustomizationConfigurationViewModel
     public partial string OobeAdministratorAccountLabel { get; set; }
 
     [ObservableProperty]
+    public partial string OobeAdministratorAccountDescription { get; set; }
+
+    [ObservableProperty]
+    public partial string OobeAccountPasswordLabel { get; set; }
+
+    [ObservableProperty]
     public partial string OobeAccountPasswordDescription { get; set; }
 
     [ObservableProperty]
@@ -170,6 +176,9 @@ public sealed partial class CustomizationConfigurationViewModel
     public partial bool EnableAdministratorAccount { get; set; }
 
     [ObservableProperty]
+    public partial bool UseAdministratorPassword { get; set; }
+
+    [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(OobeAccountsBlockedVisibility))]
     [NotifyPropertyChangedFor(nameof(AreOobeAccountControlsAvailable))]
     [NotifyPropertyChangedFor(nameof(OobeAdministratorValidationVisibility))]
@@ -226,6 +235,17 @@ public sealed partial class CustomizationConfigurationViewModel
     }
 
     partial void OnEnableAdministratorAccountChanged(bool value)
+    {
+        if (!isApplyingState)
+        {
+            UseAdministratorPassword = value;
+        }
+
+        RefreshOobeAccountValidation();
+        SaveState();
+    }
+
+    partial void OnUseAdministratorPasswordChanged(bool value)
     {
         RefreshOobeAccountValidation();
         SaveState();
@@ -359,6 +379,7 @@ public sealed partial class CustomizationConfigurationViewModel
     private void ApplyOobeState(OobeSettings settings)
     {
         IsOobeEnabled = settings.IsEnabled;
+        UseAdministratorPassword = settings.UseAdministratorPassword;
         EnableAdministratorAccount = settings.EnableAdministratorAccount;
         SkipLicenseTerms = settings.SkipLicenseTerms;
         IsOobeAccountConfigurationBlockedByAutopilot = configurationStateService.IsAutopilotEnabled;
@@ -387,6 +408,7 @@ public sealed partial class CustomizationConfigurationViewModel
             {
                 IsEnabled = true,
                 EnableAdministratorAccount = EnableAdministratorAccount,
+                UseAdministratorPassword = UseAdministratorPassword,
                 SkipUserAccountCreation = HasAdditionalOobeAccounts,
                 SkipLicenseTerms = SkipLicenseTerms,
                 DiagnosticDataLevel = SelectedOobeDiagnosticData?.Value ?? OobeDiagnosticDataLevel.Required,
@@ -408,6 +430,8 @@ public sealed partial class CustomizationConfigurationViewModel
         OobeAccountsBlockedMessage = localizationService.GetString("Customization.OobeAccountsBlockedMessage");
         OobeAccountsSecurityWarning = localizationService.GetString("Customization.OobeAccountsSecurityWarning");
         OobeAdministratorAccountLabel = localizationService.GetString("Customization.OobeAdministratorAccountLabel");
+        OobeAdministratorAccountDescription = localizationService.GetString("Customization.OobeAdministratorAccountDescription");
+        OobeAccountPasswordLabel = localizationService.GetString("Customization.OobeAccountPasswordLabel");
         OobeAccountPasswordDescription = localizationService.GetString("Customization.OobeAccountPasswordDescription");
         OobePasswordPlaceholder = localizationService.GetString("GeneralConfiguration.DeploymentProtection.Password.Placeholder");
         OobeConfirmationPlaceholder = localizationService.GetString("GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder");

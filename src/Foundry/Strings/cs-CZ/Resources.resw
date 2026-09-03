@@ -2936,8 +2936,14 @@
   <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
     <value>Integrovaný účet Administrator</value>
   </data>
+  <data name="Customization.OobeAdministratorAccountDescription" xml:space="preserve">
+    <value>Povolí integrovaný účet Administrator systému Windows během počátečního nastavení.</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordLabel" xml:space="preserve">
+    <value>Nastavit heslo</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
-    <value>Chcete-li použít prázdné heslo, ponechte obě pole prázdná.</value>
+    <value>Nastaví pro tento účet předdefinované heslo. Je vyžadováno chráněné instalační médium. Vypnutím použijete prázdné heslo.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
     <value>Přeskočit vytvoření účtu během OOBE</value>
@@ -3007,6 +3013,9 @@
   </data>
   <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
     <value>Heslo a potvrzení se musí shodovat.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordRequired" xml:space="preserve">
+    <value>Zadejte a potvrďte heslo nebo vypněte možnost Nastavit heslo.</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
     <value>Zkontrolujte tento místní účet.</value>

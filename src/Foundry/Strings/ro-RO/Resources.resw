@@ -2936,8 +2936,14 @@
   <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
     <value>Cont Administrator încorporat</value>
   </data>
+  <data name="Customization.OobeAdministratorAccountDescription" xml:space="preserve">
+    <value>Activează contul Administrator încorporat din Windows în timpul OOBE.</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordLabel" xml:space="preserve">
+    <value>Setați o parolă</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
-    <value>Lăsați ambele câmpuri goale pentru a utiliza o parolă goală.</value>
+    <value>Setează o parolă predefinită pentru acest cont. Este necesar un suport de implementare protejat. Dezactivați această opțiune pentru a utiliza o parolă goală.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
     <value>Omite crearea contului în timpul OOBE</value>
@@ -3007,6 +3013,9 @@
   </data>
   <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
     <value>Parola și confirmarea trebuie să coincidă.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordRequired" xml:space="preserve">
+    <value>Introduceți și confirmați o parolă sau dezactivați Setați o parolă.</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
     <value>Verificați acest cont local.</value>

@@ -20,6 +20,11 @@ public sealed record OobeSettings
     public bool EnableAdministratorAccount { get; init; }
 
     /// <summary>
+    /// Gets whether the built-in Administrator account should use a predefined password.
+    /// </summary>
+    public bool UseAdministratorPassword { get; init; }
+
+    /// <summary>
     /// Gets whether OOBE should skip prompting for an end-user account to be created manually.
     /// </summary>
     public bool SkipUserAccountCreation { get; init; }

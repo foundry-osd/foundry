@@ -2936,8 +2936,14 @@
   <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
     <value>Вбудований обліковий запис Administrator</value>
   </data>
+  <data name="Customization.OobeAdministratorAccountDescription" xml:space="preserve">
+    <value>Вмикає вбудований обліковий запис Administrator Windows під час OOBE.</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordLabel" xml:space="preserve">
+    <value>Установити пароль</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
-    <value>Залиште обидва поля порожніми, щоб використовувати порожній пароль.</value>
+    <value>Установлює попередньо визначений пароль для цього облікового запису. Потрібен захищений носій розгортання. Вимкніть цей параметр, щоб використовувати порожній пароль.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
     <value>Пропустити створення облікового запису під час OOBE</value>
@@ -3007,6 +3013,9 @@
   </data>
   <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
     <value>Пароль і підтвердження мають збігатися.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordRequired" xml:space="preserve">
+    <value>Введіть і підтвердьте пароль або вимкніть параметр «Установити пароль».</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
     <value>Перевірте цей локальний обліковий запис.</value>

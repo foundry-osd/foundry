@@ -2936,8 +2936,14 @@
   <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
     <value>حساب المسؤول المضمن</value>
   </data>
+  <data name="Customization.OobeAdministratorAccountDescription" xml:space="preserve">
+    <value>تمكين حساب مسؤول Windows المضمن أثناء تجربة OOBE.</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordLabel" xml:space="preserve">
+    <value>تعيين كلمة مرور</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
-    <value>اترك الحقلين فارغين لاستخدام كلمة مرور فارغة.</value>
+    <value>يعيّن كلمة مرور محددة مسبقًا لهذا الحساب. يلزم استخدام وسائط نشر محمية. أوقف تشغيل هذا الخيار لاستخدام كلمة مرور فارغة.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
     <value>تخطي إنشاء الحساب أثناء OOBE</value>
@@ -3007,6 +3013,9 @@
   </data>
   <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
     <value>يجب أن تتطابق كلمة المرور مع التأكيد.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordRequired" xml:space="preserve">
+    <value>أدخل كلمة مرور وأكّدها، أو أوقف تشغيل «تعيين كلمة مرور».</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
     <value>راجع هذا الحساب المحلي.</value>

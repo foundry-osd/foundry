@@ -2936,8 +2936,14 @@
   <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
     <value>Ingebouwd Administrator-account</value>
   </data>
+  <data name="Customization.OobeAdministratorAccountDescription" xml:space="preserve">
+    <value>Schakelt het ingebouwde Windows Administrator-account in tijdens OOBE.</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordLabel" xml:space="preserve">
+    <value>Een wachtwoord instellen</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
-    <value>Laat beide velden leeg om een leeg wachtwoord te gebruiken.</value>
+    <value>Stelt een vooraf gedefinieerd wachtwoord in voor dit account. Beveiligde installatiemedia zijn vereist. Schakel dit uit om een leeg wachtwoord te gebruiken.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
     <value>Account maken tijdens OOBE overslaan</value>
@@ -3007,6 +3013,9 @@
   </data>
   <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
     <value>Wachtwoord en bevestiging moeten overeenkomen.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordRequired" xml:space="preserve">
+    <value>Voer een wachtwoord in en bevestig het, of schakel Een wachtwoord instellen uit.</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
     <value>Controleer dit lokale account.</value>

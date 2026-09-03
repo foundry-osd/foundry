@@ -2936,8 +2936,14 @@
   <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
     <value>組み込み Administrator アカウント</value>
   </data>
+  <data name="Customization.OobeAdministratorAccountDescription" xml:space="preserve">
+    <value>OOBE 中に Windows の組み込み Administrator アカウントを有効にします。</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordLabel" xml:space="preserve">
+    <value>パスワードを設定する</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
-    <value>空のパスワードを使用するには、両方の欄を空にします。</value>
+    <value>このアカウントに事前定義されたパスワードを設定します。保護された展開メディアが必要です。空のパスワードを使用するにはオフにします。</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
     <value>OOBE 中のアカウント作成をスキップ</value>
@@ -3007,6 +3013,9 @@
   </data>
   <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
     <value>パスワードと確認入力が一致する必要があります。</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordRequired" xml:space="preserve">
+    <value>パスワードを入力して確認するか、[パスワードを設定する] をオフにしてください。</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
     <value>このローカル アカウントを確認してください。</value>

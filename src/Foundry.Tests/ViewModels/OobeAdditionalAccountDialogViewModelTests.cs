@@ -38,7 +38,18 @@ public sealed class OobeAdditionalAccountDialogViewModelTests
     }
 
     [Fact]
-    public void TryCreateResult_WhenBlankPasswordIsConfirmed_ReturnsEmptySecrets()
+    public void Constructor_WhenAddingAccount_EnablesPasswordByDefault()
+    {
+        var viewModel = new OobeAdditionalAccountDialogViewModel(
+            new TestLocalizationService(),
+            account: null,
+            existingAccounts: []);
+
+        Assert.True(viewModel.UsePassword);
+    }
+
+    [Fact]
+    public void TryCreateResult_WhenPasswordIsDisabled_ReturnsEmptySecrets()
     {
         var localizationService = new TestLocalizationService();
         var viewModel = new OobeAdditionalAccountDialogViewModel(
@@ -47,6 +58,7 @@ public sealed class OobeAdditionalAccountDialogViewModelTests
             existingAccounts: []);
 
         viewModel.UserName = "Technician";
+        viewModel.UsePassword = false;
 
         using OobeAdditionalAccountDialogResult? result = viewModel.TryCreateResult(string.Empty, string.Empty, out string validationMessage);
 
@@ -55,6 +67,7 @@ public sealed class OobeAdditionalAccountDialogViewModelTests
         Assert.Empty(result.Password);
         Assert.Empty(result.Confirmation);
         Assert.Equal("Technician", result.Account.UserName);
+        Assert.False(result.Account.UsePassword);
     }
 
     private sealed class TestLocalizationService : IApplicationLocalizationService
@@ -79,7 +92,8 @@ public sealed class OobeAdditionalAccountDialogViewModelTests
             "Customization.OobeAdditionalAccountDialog.UserNameLabel" => "Username",
             "Proxy_UsernameTextBox.PlaceholderText" => "Username",
             "Customization.OobeAdditionalAccountDialog.AccountTypeLabel" => "Account type",
-            "Customization.OobeAccountPasswordDescription" => "Leave both fields blank to create a blank password.",
+            "Customization.OobeAccountPasswordLabel" => "Set a password",
+            "Customization.OobeAccountPasswordDescription" => "Set a predefined password.",
             "GeneralConfiguration.DeploymentProtection.Password.Placeholder" => "Password",
             "GeneralConfiguration.DeploymentProtection.Confirmation.Placeholder" => "Confirm password",
             "Customization.OobeAdditionalAccountDialog.Save" => "Add account",
@@ -93,6 +107,7 @@ public sealed class OobeAdditionalAccountDialogViewModelTests
             "Customization.OobeAccounts.Validation.InvalidUserNameCharacters" => "The account name contains characters Windows does not allow.",
             "Customization.OobeAccounts.Validation.TrailingPeriodOrSpace" => "The account name cannot end with a period or space.",
             "Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" => "Password and confirmation must match.",
+            "Customization.OobeAccounts.Validation.PasswordRequired" => "Enter and confirm a password.",
             "Customization.OobeAccounts.Validation.Generic" => "Review this local account.",
             _ => key
         };

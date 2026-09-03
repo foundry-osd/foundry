@@ -24,12 +24,25 @@ public sealed partial class OobePage : Page
 
     private void AdministratorAccountToggle_Toggled(object sender, RoutedEventArgs e)
     {
-        if (AdministratorAccountToggle.IsOn)
+        if (!AdministratorAccountToggle.IsOn)
+        {
+            ClearAdministratorPasswordBoxes();
+        }
+    }
+
+    private void AdministratorPasswordToggle_Toggled(object sender, RoutedEventArgs e)
+    {
+        if (AdministratorPasswordToggle.IsOn && AdministratorPasswordToggle.IsLoaded)
         {
             AdministratorPasswordBox.Focus(FocusState.Programmatic);
             return;
         }
 
+        ClearAdministratorPasswordBoxes();
+    }
+
+    private void ClearAdministratorPasswordBoxes()
+    {
         AdministratorPasswordBox.Password = string.Empty;
         AdministratorConfirmationBox.Password = string.Empty;
     }

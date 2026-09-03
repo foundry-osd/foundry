@@ -72,6 +72,15 @@ public sealed partial class OobeAdditionalAccountDialog : ContentDialog, IDispos
         if (string.Equals(e.PropertyName, nameof(OobeAdditionalAccountDialogViewModel.CloseButtonText), StringComparison.Ordinal))
         {
             CloseButtonText = ViewModel.CloseButtonText;
+            return;
+        }
+
+        if (string.Equals(e.PropertyName, nameof(OobeAdditionalAccountDialogViewModel.UsePassword), StringComparison.Ordinal) &&
+            !ViewModel.UsePassword)
+        {
+            PasswordBox.Password = string.Empty;
+            ConfirmationBox.Password = string.Empty;
+            ValidationTextBlock.Text = string.Empty;
         }
     }
 

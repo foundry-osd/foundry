@@ -2936,8 +2936,14 @@
   <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
     <value>Wbudowane konto Administrator</value>
   </data>
+  <data name="Customization.OobeAdministratorAccountDescription" xml:space="preserve">
+    <value>Włącza wbudowane konto Administrator systemu Windows podczas OOBE.</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordLabel" xml:space="preserve">
+    <value>Ustaw hasło</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
-    <value>Pozostaw oba pola puste, aby użyć pustego hasła.</value>
+    <value>Ustawia wstępnie zdefiniowane hasło dla tego konta. Wymagany jest chroniony nośnik wdrożeniowy. Wyłącz tę opcję, aby użyć pustego hasła.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
     <value>Pomiń tworzenie konta podczas OOBE</value>
@@ -3007,6 +3013,9 @@
   </data>
   <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
     <value>Hasło i potwierdzenie muszą być zgodne.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordRequired" xml:space="preserve">
+    <value>Wprowadź i potwierdź hasło albo wyłącz opcję Ustaw hasło.</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
     <value>Sprawdź to konto lokalne.</value>

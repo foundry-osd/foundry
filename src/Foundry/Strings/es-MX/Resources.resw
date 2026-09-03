@@ -2936,8 +2936,14 @@
   <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
     <value>Cuenta Administrador integrada</value>
   </data>
+  <data name="Customization.OobeAdministratorAccountDescription" xml:space="preserve">
+    <value>Habilita la cuenta Administrador integrada de Windows durante OOBE.</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordLabel" xml:space="preserve">
+    <value>Establecer una contraseña</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
-    <value>Deje ambos campos vacíos para usar una contraseña en blanco.</value>
+    <value>Establece una contraseña predefinida para esta cuenta. Se requiere un medio de implementación protegido. Desactive esta opción para usar una contraseña en blanco.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
     <value>Omitir la creación de cuentas durante la OOBE</value>
@@ -3007,6 +3013,9 @@
   </data>
   <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
     <value>La contraseña y la confirmación deben coincidir.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordRequired" xml:space="preserve">
+    <value>Escriba y confirme una contraseña, o desactive Establecer una contraseña.</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
     <value>Revise esta cuenta local.</value>

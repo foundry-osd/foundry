@@ -2936,8 +2936,14 @@
   <data name="Customization.OobeAdministratorAccountLabel" xml:space="preserve">
     <value>Vgrajeni skrbniški račun</value>
   </data>
+  <data name="Customization.OobeAdministratorAccountDescription" xml:space="preserve">
+    <value>Omogoči vgrajeni skrbniški račun sistema Windows med OOBE.</value>
+  </data>
+  <data name="Customization.OobeAccountPasswordLabel" xml:space="preserve">
+    <value>Nastavi geslo</value>
+  </data>
   <data name="Customization.OobeAccountPasswordDescription" xml:space="preserve">
-    <value>Za prazno geslo pustite obe polji prazni.</value>
+    <value>Nastavi vnaprej določeno geslo za ta račun. Potreben je zaščiten namestitveni medij. Izklopite za uporabo praznega gesla.</value>
   </data>
   <data name="Customization.OobeSkipUserAccountCreationLabel" xml:space="preserve">
     <value>Preskoči ustvarjanje računa med OOBE</value>
@@ -3007,6 +3013,9 @@
   </data>
   <data name="Customization.OobeAccounts.Validation.PasswordConfirmationMismatch" xml:space="preserve">
     <value>Geslo in potrditev se morata ujemati.</value>
+  </data>
+  <data name="Customization.OobeAccounts.Validation.PasswordRequired" xml:space="preserve">
+    <value>Vnesite in potrdite geslo ali izklopite možnost Nastavi geslo.</value>
   </data>
   <data name="Customization.OobeAccounts.Validation.Generic" xml:space="preserve">
     <value>Preverite ta lokalni račun.</value>

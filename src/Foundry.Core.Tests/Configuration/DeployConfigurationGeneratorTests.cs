@@ -478,13 +478,15 @@ public sealed class DeployConfigurationGeneratorTests
                 {
                     IsEnabled = true,
                     EnableAdministratorAccount = true,
+                    UseAdministratorPassword = true,
                     AdditionalAccounts =
                     [
                         new OobeAdditionalAccountSettings
                         {
                             Id = "account-1",
                             UserName = "Technician",
-                            Type = OobeAccountType.Administrator
+                            Type = OobeAccountType.Administrator,
+                            UsePassword = true
                         }
                     ]
                 }
