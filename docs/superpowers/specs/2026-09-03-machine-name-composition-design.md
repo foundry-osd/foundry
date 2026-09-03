@@ -171,7 +171,7 @@ Random data is generated once per deployment preparation context and remains sta
 
 These values flow through `HardwareSnapshot`, the Deploy hardware profile service, and `HardwareProfile`. Placeholder detection is centralized so authoring preview, runtime composition, diagnostics, and tests do not grow inconsistent copies.
 
-Hardware identifiers remain sensitive. They must not be written to telemetry, included in ordinary informational logs, or exposed in support bundles without the existing sanitization policy.
+Serial numbers, asset tags, SMBIOS UUIDs, generated names, and raw component values remain sensitive. They must not be added to telemetry or ordinary informational logs, and existing support-bundle sanitization must continue to redact them. Existing coarse hardware-vendor and model telemetry remains outside this feature's scope.
 
 ## Runtime Flow
 
