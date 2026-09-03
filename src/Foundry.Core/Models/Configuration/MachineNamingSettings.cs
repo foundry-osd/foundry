@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Text.Json.Serialization;
+
 namespace Foundry.Core.Models.Configuration;
 
 /// <summary>
@@ -15,17 +17,53 @@ public sealed record MachineNamingSettings
     public bool IsEnabled { get; init; }
 
     /// <summary>
-    /// Gets the optional computer-name prefix.
+    /// Gets how the computer name is supplied.
     /// </summary>
+    public MachineNamingMode Mode { get; init; } = MachineNamingMode.Manual;
+
+    /// <summary>
+    /// Gets the optional complete value used to prefill manual naming.
+    /// </summary>
+    public string? ManualInitialValue { get; init; }
+
+    /// <summary>
+    /// Gets the ordered components used by composed naming.
+    /// </summary>
+    public IReadOnlyList<MachineNameComponentSettings> Components { get; init; } = [];
+
+    /// <summary>
+    /// Gets the separator inserted between resolved components.
+    /// </summary>
+    public MachineNameSeparator Separator { get; init; }
+
+    /// <summary>
+    /// Gets the casing applied to the complete resolved name.
+    /// </summary>
+    public MachineNameCasing Casing { get; init; }
+
+    /// <summary>
+    /// Gets whether the technician may edit a composed name during deployment.
+    /// </summary>
+    public bool AllowEditingDuringDeployment { get; init; } = true;
+
+    [JsonIgnore]
     public string? Prefix { get; init; }
 
-    /// <summary>
-    /// Gets whether deployment should generate a six-character uppercase alphanumeric suffix.
-    /// </summary>
+    [JsonIgnore]
     public bool AutoGenerateName { get; init; }
 
-    /// <summary>
-    /// Gets whether users may edit an automatically generated suffix before deployment.
-    /// </summary>
+    [JsonIgnore]
     public bool AllowManualSuffixEdit { get; init; } = true;
+
+    [JsonPropertyName("prefix")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? LegacyPrefix { get; init; }
+
+    [JsonPropertyName("autoGenerateName")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? LegacyAutoGenerateName { get; init; }
+
+    [JsonPropertyName("allowManualSuffixEdit")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? LegacyAllowManualSuffixEdit { get; init; }
 }

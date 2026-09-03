@@ -65,9 +65,24 @@ public sealed class FoundryConfigurationServiceTests
                 MachineNaming = new MachineNamingSettings
                 {
                     IsEnabled = true,
-                    Prefix = "FD-",
-                    AutoGenerateName = true,
-                    AllowManualSuffixEdit = false
+                    Mode = MachineNamingMode.Composed,
+                    Components =
+                    [
+                        new MachineNameComponentSettings
+                        {
+                            Type = MachineNameComponentType.StaticText,
+                            StaticText = "FD"
+                        },
+                        new MachineNameComponentSettings
+                        {
+                            Type = MachineNameComponentType.SerialNumber,
+                            MaximumLength = 12,
+                            Truncation = MachineNameTruncation.KeepRight
+                        }
+                    ],
+                    Separator = MachineNameSeparator.Hyphen,
+                    Casing = MachineNameCasing.Uppercase,
+                    AllowEditingDuringDeployment = false
                 },
                 Oobe = new OobeSettings
                 {
@@ -130,9 +145,23 @@ public sealed class FoundryConfigurationServiceTests
         Assert.Equal("RET", loaded.OperatingSystemSelection.DefaultLicenseChannel);
         Assert.Equal(["Pro"], loaded.OperatingSystemSelection.AllowedEditions);
         Assert.Equal("Pro", loaded.OperatingSystemSelection.DefaultEdition);
-        Assert.Equal("FD-", loaded.Customization.MachineNaming.Prefix);
-        Assert.True(loaded.Customization.MachineNaming.AutoGenerateName);
-        Assert.False(loaded.Customization.MachineNaming.AllowManualSuffixEdit);
+        Assert.Equal(MachineNamingMode.Composed, loaded.Customization.MachineNaming.Mode);
+        Assert.Collection(
+            loaded.Customization.MachineNaming.Components,
+            component =>
+            {
+                Assert.Equal(MachineNameComponentType.StaticText, component.Type);
+                Assert.Equal("FD", component.StaticText);
+            },
+            component =>
+            {
+                Assert.Equal(MachineNameComponentType.SerialNumber, component.Type);
+                Assert.Equal(12, component.MaximumLength);
+                Assert.Equal(MachineNameTruncation.KeepRight, component.Truncation);
+            });
+        Assert.Equal(MachineNameSeparator.Hyphen, loaded.Customization.MachineNaming.Separator);
+        Assert.Equal(MachineNameCasing.Uppercase, loaded.Customization.MachineNaming.Casing);
+        Assert.False(loaded.Customization.MachineNaming.AllowEditingDuringDeployment);
         Assert.True(loaded.Customization.Oobe.IsEnabled);
         Assert.True(loaded.Customization.Oobe.SkipLicenseTerms);
         Assert.Equal(OobeDiagnosticDataLevel.Off, loaded.Customization.Oobe.DiagnosticDataLevel);
@@ -159,6 +188,100 @@ public sealed class FoundryConfigurationServiceTests
         Assert.False(loaded.Telemetry.IsEnabled);
         Assert.Equal("install-id", loaded.Telemetry.InstallId);
         Assert.Equal("project-token", loaded.Telemetry.ProjectToken);
+    }
+
+    [Fact]
+    public void Deserialize_WhenLegacyGeneratedMachineNameIsConfigured_MigratesToComposition()
+    {
+        var service = new FoundryConfigurationService();
+
+        FoundryConfigurationDocument loaded = service.Deserialize("""
+            {
+              "schemaVersion": 13,
+              "customization": {
+                "machineNaming": {
+                  "isEnabled": true,
+                  "prefix": "FD-",
+                  "autoGenerateName": true,
+                  "allowManualSuffixEdit": false
+                }
+              }
+            }
+            """);
+
+        MachineNamingSettings naming = loaded.Customization.MachineNaming;
+        Assert.Equal(MachineNamingMode.Composed, naming.Mode);
+        Assert.Collection(
+            naming.Components,
+            component =>
+            {
+                Assert.Equal(MachineNameComponentType.StaticText, component.Type);
+                Assert.Equal("FD-", component.StaticText);
+            },
+            component =>
+            {
+                Assert.Equal(MachineNameComponentType.Random, component.Type);
+                Assert.Equal(6, component.MaximumLength);
+                Assert.Null(component.Truncation);
+            });
+        Assert.Equal(MachineNameSeparator.None, naming.Separator);
+        Assert.Equal(MachineNameCasing.Preserve, naming.Casing);
+        Assert.False(naming.AllowEditingDuringDeployment);
+        Assert.Equal(14, loaded.SchemaVersion);
+
+        string serialized = service.Serialize(loaded);
+        Assert.DoesNotContain("prefix", serialized, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("autoGenerateName", serialized, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("allowManualSuffixEdit", serialized, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void Deserialize_WhenLegacyManualMachineNameIsConfigured_MigratesInitialValue()
+    {
+        var service = new FoundryConfigurationService();
+
+        FoundryConfigurationDocument loaded = service.Deserialize("""
+            {
+              "schemaVersion": 13,
+              "customization": {
+                "machineNaming": {
+                  "isEnabled": true,
+                  "prefix": "LAB-",
+                  "autoGenerateName": false,
+                  "allowManualSuffixEdit": false
+                }
+              }
+            }
+            """);
+
+        MachineNamingSettings naming = loaded.Customization.MachineNaming;
+        Assert.Equal(MachineNamingMode.Manual, naming.Mode);
+        Assert.Equal("LAB-", naming.ManualInitialValue);
+        Assert.Empty(naming.Components);
+        Assert.True(naming.AllowEditingDuringDeployment);
+    }
+
+    [Fact]
+    public void Deserialize_WhenLegacyMachineNamingIsDisabled_PreservesDisabledState()
+    {
+        var service = new FoundryConfigurationService();
+
+        FoundryConfigurationDocument loaded = service.Deserialize("""
+            {
+              "schemaVersion": 13,
+              "customization": {
+                "machineNaming": {
+                  "isEnabled": false,
+                  "prefix": "IGNORED",
+                  "autoGenerateName": true
+                }
+              }
+            }
+            """);
+
+        Assert.False(loaded.Customization.MachineNaming.IsEnabled);
+        Assert.Empty(loaded.Customization.MachineNaming.Components);
+        Assert.Null(loaded.Customization.MachineNaming.ManualInitialValue);
     }
 
     [Fact]

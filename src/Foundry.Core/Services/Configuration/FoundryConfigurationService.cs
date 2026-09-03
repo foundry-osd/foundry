@@ -22,8 +22,6 @@ public sealed class FoundryConfigurationService : IFoundryConfigurationService
                 json,
                 ConfigurationJsonDefaults.SerializerOptions)
             ?? new FoundryConfigurationDocument();
-        return document.SchemaVersion < FoundryConfigurationDocument.CurrentSchemaVersion
-            ? document with { SchemaVersion = FoundryConfigurationDocument.CurrentSchemaVersion }
-            : document;
+        return FoundryConfigurationMigration.ApplySchemaMigrations(document);
     }
 }

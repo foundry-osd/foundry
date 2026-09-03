@@ -8,6 +8,22 @@ namespace Foundry.Core.Services.Configuration;
 
 public static class FoundryConfigurationMigration
 {
+    private const int StructuredMachineNamingSchemaVersion = 14;
+    private const int LegacyRandomLength = 6;
+
+    public static FoundryConfigurationDocument ApplySchemaMigrations(FoundryConfigurationDocument document)
+    {
+        ArgumentNullException.ThrowIfNull(document);
+
+        FoundryConfigurationDocument migrated = document.SchemaVersion < StructuredMachineNamingSchemaVersion
+            ? MigrateMachineNaming(document)
+            : document;
+
+        return migrated.SchemaVersion < FoundryConfigurationDocument.CurrentSchemaVersion
+            ? migrated with { SchemaVersion = FoundryConfigurationDocument.CurrentSchemaVersion }
+            : migrated;
+    }
+
     public static FoundryConfigurationDocument ApplyLegacyGeneralSettings(
         FoundryConfigurationDocument document,
         GeneralSettings? legacyGeneralSettings)
@@ -20,5 +36,57 @@ public static class FoundryConfigurationMigration
         }
 
         return document with { General = legacyGeneralSettings };
+    }
+
+    private static FoundryConfigurationDocument MigrateMachineNaming(FoundryConfigurationDocument document)
+    {
+        MachineNamingSettings legacy = document.Customization.MachineNaming;
+        bool autoGenerateName = legacy.LegacyAutoGenerateName ?? legacy.AutoGenerateName;
+        MachineNamingSettings migrated = !legacy.IsEnabled
+            ? new MachineNamingSettings()
+            : autoGenerateName
+                ? CreateGeneratedMachineNaming(legacy)
+                : new MachineNamingSettings
+                {
+                    IsEnabled = true,
+                    Mode = MachineNamingMode.Manual,
+                    ManualInitialValue = legacy.LegacyPrefix ?? legacy.Prefix,
+                    AllowEditingDuringDeployment = true
+                };
+
+        return document with
+        {
+            Customization = document.Customization with { MachineNaming = migrated }
+        };
+    }
+
+    private static MachineNamingSettings CreateGeneratedMachineNaming(MachineNamingSettings legacy)
+    {
+        var components = new List<MachineNameComponentSettings>();
+        string? prefix = legacy.LegacyPrefix ?? legacy.Prefix;
+        if (!string.IsNullOrWhiteSpace(prefix))
+        {
+            components.Add(new MachineNameComponentSettings
+            {
+                Type = MachineNameComponentType.StaticText,
+                StaticText = prefix
+            });
+        }
+
+        components.Add(new MachineNameComponentSettings
+        {
+            Type = MachineNameComponentType.Random,
+            MaximumLength = LegacyRandomLength
+        });
+
+        return new MachineNamingSettings
+        {
+            IsEnabled = true,
+            Mode = MachineNamingMode.Composed,
+            Components = components,
+            Separator = MachineNameSeparator.None,
+            Casing = MachineNameCasing.Preserve,
+            AllowEditingDuringDeployment = legacy.LegacyAllowManualSuffixEdit ?? legacy.AllowManualSuffixEdit
+        };
     }
 }
