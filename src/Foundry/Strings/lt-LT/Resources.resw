@@ -280,7 +280,7 @@
     <value>Interaktyvus aparatūros maišos įkėlimas</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Paruošia techniko prisijungimą naudojant įrenginio kodą aparatūros maišos registracijai OOBE metu.</value>
+    <value>Įjungus, technikas OOBE metu prisijungia naudodamas Microsoft įrenginio kodą ir įkelia įrenginio aparatūros maišą.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Prijunkite nuomininką</value>

@@ -280,7 +280,7 @@
     <value>Upload interativo do hash de hardware</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Prepara a entrada do técnico com código do dispositivo para registrar o hash de hardware durante o OOBE.</value>
+    <value>Quando habilitado, o técnico entra com um código de dispositivo da Microsoft durante o OOBE e carrega o hash de hardware do dispositivo.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Conectar inquilino</value>

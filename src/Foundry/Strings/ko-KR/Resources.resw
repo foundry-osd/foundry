@@ -280,7 +280,7 @@
     <value>대화형 하드웨어 해시 업로드</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>OOBE 중 하드웨어 해시 등록을 위해 기술자 장치 코드 로그인을 준비합니다.</value>
+    <value>활성화하면 기술자가 OOBE 중에 Microsoft 장치 코드로 로그인하고 장치 하드웨어 해시를 업로드합니다.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>테넌트 연결</value>

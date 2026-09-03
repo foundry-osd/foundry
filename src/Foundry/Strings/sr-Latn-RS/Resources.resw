@@ -280,7 +280,7 @@
     <value>Interaktivno otpremanje hardverskog heša</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Priprema prijavljivanje tehničara pomoću koda uređaja za registraciju hardverskog heša tokom OOBE.</value>
+    <value>Kada je omogućeno, tehničar se tokom OOBE prijavljuje pomoću Microsoft koda uređaja i otprema hardverski heš uređaja.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Povežite stanara</value>

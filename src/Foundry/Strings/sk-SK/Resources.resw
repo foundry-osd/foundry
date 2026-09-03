@@ -280,7 +280,7 @@
     <value>Interaktívne nahratie hardvérového hashu</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Pripraví prihlásenie technika pomocou kódu zariadenia na registráciu hardvérového hashu počas OOBE.</value>
+    <value>Po povolení sa technik počas OOBE prihlási pomocou kódu zariadenia Microsoft a nahrá hardvérový hash zariadenia.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Pripojte nájomcu</value>

@@ -280,7 +280,7 @@
     <value>互動式硬體雜湊上傳</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>在 OOBE 期間為硬體雜湊註冊準備技術人員裝置代碼登入。</value>
+    <value>啟用後，技術人員將在 OOBE 期間使用 Microsoft 裝置代碼登入並上傳裝置硬體雜湊。</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>連接租戶</value>
