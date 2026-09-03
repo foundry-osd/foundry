@@ -52,14 +52,14 @@
                                         IsClosable="False"
                                         IsOpen="True"
                                         Message="{x:Bind ViewModel.OobeAccountsBlockedMessage, Mode=OneWay}"
-                                        Severity="Informational"
+                                        Severity="Error"
                                         Visibility="{x:Bind ViewModel.OobeAccountsBlockedVisibility, Mode=OneWay}" />
 
                                     <ContentControl
                                         HorizontalContentAlignment="Stretch"
                                         IsEnabled="{x:Bind ViewModel.AreOobeAccountControlsAvailable, Mode=OneWay}"
                                         IsTabStop="False">
-                                        <StackPanel Spacing="{ThemeResource FoundryContentGroupSpacing}">
+                                        <StackPanel Spacing="{ThemeResource FoundrySpace16}">
                                             <Grid ColumnSpacing="{ThemeResource FoundryPageHeaderColumnSpacing}">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*" />
@@ -84,26 +84,18 @@
                                             </Grid>
 
                                             <StackPanel
+                                                Width="{ThemeResource FoundryWideInputMinWidth}"
+                                                HorizontalAlignment="Left"
                                                 Spacing="{ThemeResource FoundrySettingsSectionSpacing}"
                                                 Visibility="{x:Bind ViewModel.EnableAdministratorAccount, Mode=OneWay}">
-                                                <Grid
-                                                    MaxWidth="720"
-                                                    HorizontalAlignment="Left"
-                                                    ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="*" />
-                                                        <ColumnDefinition Width="*" />
-                                                    </Grid.ColumnDefinitions>
-                                                    <PasswordBox x:Name="AdministratorPasswordBox"
-                                                        Loaded="AdministratorPasswordBox_Loaded"
-                                                        PasswordChanged="AdministratorPasswordBox_PasswordChanged"
-                                                        PlaceholderText="{x:Bind ViewModel.OobePasswordPlaceholder, Mode=OneWay}" />
-                                                    <PasswordBox x:Name="AdministratorConfirmationBox"
-                                                        Grid.Column="1"
-                                                        Loaded="AdministratorConfirmationBox_Loaded"
-                                                        PasswordChanged="AdministratorConfirmationBox_PasswordChanged"
-                                                        PlaceholderText="{x:Bind ViewModel.OobeConfirmationPlaceholder, Mode=OneWay}" />
-                                                </Grid>
+                                                <PasswordBox x:Name="AdministratorPasswordBox"
+                                                    Loaded="AdministratorPasswordBox_Loaded"
+                                                    PasswordChanged="AdministratorPasswordBox_PasswordChanged"
+                                                    PlaceholderText="{x:Bind ViewModel.OobePasswordPlaceholder, Mode=OneWay}" />
+                                                <PasswordBox x:Name="AdministratorConfirmationBox"
+                                                    Loaded="AdministratorConfirmationBox_Loaded"
+                                                    PasswordChanged="AdministratorConfirmationBox_PasswordChanged"
+                                                    PlaceholderText="{x:Bind ViewModel.OobeConfirmationPlaceholder, Mode=OneWay}" />
                                                 <TextBlock
                                                     Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                                                     Text="{x:Bind ViewModel.OobeAdministratorValidationMessage, Mode=OneWay}"
@@ -133,6 +125,7 @@
                                                 </StackPanel>
                                                 <Button
                                                     Grid.Column="1"
+                                                    MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
                                                     VerticalAlignment="Center"
                                                     Command="{x:Bind ViewModel.AddOobeAdditionalAccountCommand}"
                                                     Content="{x:Bind ViewModel.OobeAdditionalAccountsAddButton, Mode=OneWay}" />
@@ -143,7 +136,7 @@
                                                     <DataTemplate x:DataType="viewModels:OobeAdditionalAccountEntryViewModel">
                                                         <Border
                                                             Margin="0,0,0,8"
-                                                            Padding="{ThemeResource FoundryDefaultContentPadding}"
+                                                            Padding="{ThemeResource FoundryCompactContentPadding}"
                                                             HorizontalAlignment="Stretch"
                                                             Background="{ThemeResource ControlFillColorSecondaryBrush}"
                                                             CornerRadius="{ThemeResource FoundryControlCornerRadius}">
@@ -192,11 +185,18 @@
                                                     <ColumnDefinition Width="Auto" />
                                                     <ColumnDefinition Width="*" />
                                                 </Grid.ColumnDefinitions>
-                                                <FontIcon
-                                                    VerticalAlignment="Top"
-                                                    FontSize="16"
-                                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                                    Glyph="&#xEA39;" />
+                                                <Grid VerticalAlignment="Top">
+                                                    <FontIcon
+                                                        FontSize="{ThemeResource FoundryIconSizeSmall}"
+                                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                        Glyph="&#xE946;"
+                                                        Visibility="{x:Bind ViewModel.OobeAdditionalAccountsEmptyVisibility, Mode=OneWay}" />
+                                                    <FontIcon
+                                                        FontSize="{ThemeResource FoundryIconSizeSmall}"
+                                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                        Glyph="&#xE73E;"
+                                                        Visibility="{x:Bind ViewModel.HasAdditionalOobeAccounts, Mode=OneWay}" />
+                                                </Grid>
                                                 <StackPanel
                                                     Grid.Column="1"
                                                     Spacing="{ThemeResource FoundryTextGroupSpacing}">
@@ -218,7 +218,7 @@
                                                 </Grid.ColumnDefinitions>
                                                 <FontIcon
                                                     VerticalAlignment="Top"
-                                                    FontSize="16"
+                                                    FontSize="{ThemeResource FoundryIconSizeSmall}"
                                                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                                     Glyph="&#xE72E;" />
                                                 <TextBlock

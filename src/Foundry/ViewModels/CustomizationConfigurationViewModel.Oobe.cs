@@ -43,9 +43,13 @@ public sealed partial class CustomizationConfigurationViewModel
         ? Visibility.Collapsed
         : Visibility.Visible;
 
-    public Visibility OobeAdministratorValidationVisibility => ToVisibility(OobeAdministratorValidationMessage);
+    public Visibility OobeAdministratorValidationVisibility => IsOobeAccountConfigurationBlockedByAutopilot
+        ? Visibility.Collapsed
+        : ToVisibility(OobeAdministratorValidationMessage);
 
-    public Visibility OobeAdditionalAccountsValidationVisibility => ToVisibility(OobeAdditionalAccountsValidationMessage);
+    public Visibility OobeAdditionalAccountsValidationVisibility => IsOobeAccountConfigurationBlockedByAutopilot
+        ? Visibility.Collapsed
+        : ToVisibility(OobeAdditionalAccountsValidationMessage);
 
     public int OobeAccountSecretStateVersion
     {
@@ -168,6 +172,8 @@ public sealed partial class CustomizationConfigurationViewModel
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(OobeAccountsBlockedVisibility))]
     [NotifyPropertyChangedFor(nameof(AreOobeAccountControlsAvailable))]
+    [NotifyPropertyChangedFor(nameof(OobeAdministratorValidationVisibility))]
+    [NotifyPropertyChangedFor(nameof(OobeAdditionalAccountsValidationVisibility))]
     public partial bool IsOobeAccountConfigurationBlockedByAutopilot { get; set; }
 
     [ObservableProperty]
