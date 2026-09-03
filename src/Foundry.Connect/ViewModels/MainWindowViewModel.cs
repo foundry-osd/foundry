@@ -1222,9 +1222,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         try
         {
-            string status = await _networkBootstrapService.ApplyProvisionedSettingsAsync(cancellationToken).ConfigureAwait(false);
-            LogHandledNetworkFailure("network.apply_provisioned_settings", operationId, status);
-            string? feedback = BuildProvisionedWifiInitializationFeedback(status);
+            NetworkBootstrapResult result = await _networkBootstrapService.ApplyProvisionedSettingsAsync(cancellationToken).ConfigureAwait(false);
+            LogHandledNetworkFailures("network.apply_provisioned_settings", operationId, result);
+            string? feedback = BuildProvisionedWifiInitializationFeedback(result.StatusMessage);
             if (!string.IsNullOrWhiteSpace(feedback))
             {
                 await RunOnUiAsync(() => ProvisionedWifiActionFeedbackText = feedback).ConfigureAwait(false);
@@ -1258,7 +1258,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     }
 
     private async Task ExecuteProvisionedWifiActionAsync(
-        Func<Task<string>> action,
+        Func<Task<NetworkBootstrapResult>> action,
         string networkOperation,
         Func<string, string?> resolveFeedback,
         bool refreshAfterAction)
@@ -1279,9 +1279,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         try
         {
-            string status = await action().ConfigureAwait(false);
-            LogHandledNetworkFailure(networkOperation, operationId, status);
-            string? feedback = resolveFeedback(status);
+            NetworkBootstrapResult result = await action().ConfigureAwait(false);
+            LogHandledNetworkFailures(networkOperation, operationId, result);
+            string? feedback = resolveFeedback(result.StatusMessage);
 
             await RunOnUiAsync(() =>
             {
@@ -1320,7 +1320,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     }
 
     private async Task ExecuteSelectedWifiActionAsync(
-        Func<Task<string>> action,
+        Func<Task<NetworkBootstrapResult>> action,
         string networkOperation,
         Func<string, string?> resolveFeedback,
         bool refreshAfterAction)
@@ -1341,9 +1341,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         try
         {
-            string status = await action().ConfigureAwait(false);
-            LogHandledNetworkFailure(networkOperation, operationId, status);
-            string? feedback = resolveFeedback(status);
+            NetworkBootstrapResult result = await action().ConfigureAwait(false);
+            LogHandledNetworkFailures(networkOperation, operationId, result);
+            string? feedback = resolveFeedback(result.StatusMessage);
 
             await RunOnUiAsync(() =>
             {
@@ -1658,15 +1658,19 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             : _configuration.Wifi.Ssid.Trim();
     }
 
-    private void LogHandledNetworkFailure(string networkOperation, string operationId, string status)
+    private void LogHandledNetworkFailures(string networkOperation, string operationId, NetworkBootstrapResult result)
     {
-        NetworkFailureClassification? failure = NetworkTelemetryClassifier.TryClassifyHandledFailure(status);
-        if (failure is null)
+        foreach (NetworkBootstrapHandledFailure handledFailure in result.HandledFailures.Distinct())
         {
-            return;
+            LogNetworkFailure(
+                LogLevel.Warning,
+                networkOperation,
+                operationId,
+                new NetworkFailureClassification(
+                    handledFailure.Kind,
+                    handledFailure.Reason,
+                    handledFailure.Code));
         }
-
-        LogNetworkFailure(LogLevel.Warning, networkOperation, operationId, failure);
     }
 
     private void LogNetworkFailure(

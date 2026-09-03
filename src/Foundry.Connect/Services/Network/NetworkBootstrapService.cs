@@ -78,9 +78,10 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
     }
 
     /// <inheritdoc />
-    public async Task<string> ApplyProvisionedSettingsAsync(CancellationToken cancellationToken)
+    public async Task<NetworkBootstrapResult> ApplyProvisionedSettingsAsync(CancellationToken cancellationToken)
     {
         List<string> messages = [];
+        List<NetworkBootstrapHandledFailure> handledFailures = [];
         int requestedActionCount = 0;
         _logger.LogInformation(
             "Provisioned network bootstrap started. WiredDot1xEnabled={WiredDot1xEnabled}, WifiEnabled={WifiEnabled}, WifiProvisioned={WifiProvisioned}",
@@ -91,43 +92,66 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         if (_configuration.Dot1x.IsEnabled)
         {
             requestedActionCount++;
-            messages.Add(await ApplyWiredDot1xProfileAsync(cancellationToken).ConfigureAwait(false));
+            AppendResult(
+                messages,
+                handledFailures,
+                await ApplyWiredDot1xProfileAsync(cancellationToken).ConfigureAwait(false));
         }
 
         if (_configuration.Capabilities.WifiProvisioned && _configuration.Wifi.IsEnabled)
         {
             requestedActionCount++;
-            messages.Add(await EnsureWifiProfileAsync(cancellationToken).ConfigureAwait(false));
+            AppendResult(
+                messages,
+                handledFailures,
+                await EnsureWifiProfileAsync(cancellationToken).ConfigureAwait(false));
         }
 
         _logger.LogInformation(
             "Provisioned network bootstrap finished. RequestedActionCount={RequestedActionCount}",
             requestedActionCount);
 
-        return messages.Count == 0
-            ? "No provisioned network bootstrap actions were requested."
-            : string.Join(" ", messages.Where(static value => !string.IsNullOrWhiteSpace(value)));
+        if (messages.Count == 0)
+        {
+            return NetworkBootstrapResult.Success("No provisioned network bootstrap actions were requested.");
+        }
+
+        return new NetworkBootstrapResult(
+            JoinMessages(messages),
+            handledFailures);
     }
 
     /// <inheritdoc />
-    public async Task<string> ConnectConfiguredWifiAsync(CancellationToken cancellationToken)
+    public async Task<NetworkBootstrapResult> ConnectConfiguredWifiAsync(CancellationToken cancellationToken)
     {
+        List<string> messages = [];
+        List<NetworkBootstrapHandledFailure> handledFailures = [];
+
         if (!_configuration.Capabilities.WifiProvisioned || !_configuration.Wifi.IsEnabled)
         {
-            return "Wi-Fi is not provisioned for this image.";
+            return NetworkBootstrapResult.Failed(
+                "Wi-Fi is not provisioned for this image.",
+                CreateHandledFailure("profile_unavailable", "wifi_profile_unavailable"));
         }
 
-        string ensureMessage = await EnsureWifiProfileAsync(cancellationToken).ConfigureAwait(false);
+        AppendResult(
+            messages,
+            handledFailures,
+            await EnsureWifiProfileAsync(cancellationToken).ConfigureAwait(false));
         string? profileName = ResolveWifiProfileName();
         if (string.IsNullOrWhiteSpace(profileName))
         {
-            return $"{ensureMessage} No Wi-Fi profile is available to connect.";
+            AddHandledFailure(handledFailures, CreateHandledFailure("profile_unavailable", "wifi_profile_unavailable"));
+            AddMessage(messages, "No Wi-Fi profile is available to connect.");
+            return new NetworkBootstrapResult(JoinMessages(messages), handledFailures);
         }
 
         IReadOnlyList<Guid> wirelessInterfaceIds = _getWifiInterfaceIds();
         if (wirelessInterfaceIds.Count == 0)
         {
-            return $"{ensureMessage} No wireless adapter is available to connect the provisioned Wi-Fi profile.";
+            AddHandledFailure(handledFailures, CreateHandledFailure("missing_adapter", "no_wireless_adapter"));
+            AddMessage(messages, "No wireless adapter is available to connect the provisioned Wi-Fi profile.");
+            return new NetworkBootstrapResult(JoinMessages(messages), handledFailures);
         }
 
         string arguments = $"wlan connect name=\"{EscapeNetshArgument(profileName)}\"";
@@ -140,7 +164,9 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                 result.ExitCode,
                 result.StandardOutput.Length,
                 result.StandardError.Length);
-            return $"{ensureMessage} Wi-Fi connection request failed: {CollapseError(result)}";
+            AddHandledFailure(handledFailures, CreateHandledFailure("connect_request_failed", "wifi_connect_request_failed"));
+            AddMessage(messages, $"Wi-Fi connection request failed: {CollapseError(result)}");
+            return new NetworkBootstrapResult(JoinMessages(messages), handledFailures);
         }
 
         string expectedSsid = string.IsNullOrWhiteSpace(_configuration.Wifi.Ssid)
@@ -151,29 +177,41 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             expectedSsid,
             cancellationToken).ConfigureAwait(false);
 
-        return attemptResult.IsConnected
-            ? $"{ensureMessage} Wi-Fi connected to '{expectedSsid}'."
-            : $"{ensureMessage} Wi-Fi connection failed: {attemptResult.FailureMessage}";
+        if (attemptResult.IsConnected)
+        {
+            AddMessage(messages, $"Wi-Fi connected to '{expectedSsid}'.");
+            return new NetworkBootstrapResult(JoinMessages(messages), handledFailures);
+        }
+
+        AddHandledFailure(handledFailures, CreateHandledFailure("timeout", "wifi_connect_timeout"));
+        AddMessage(messages, $"Wi-Fi connection failed: {attemptResult.FailureMessage}");
+        return new NetworkBootstrapResult(JoinMessages(messages), handledFailures);
     }
 
     /// <inheritdoc />
-    public async Task<string> ConnectWifiNetworkAsync(string ssid, string? ssidHex, string authentication, string? passphrase, CancellationToken cancellationToken)
+    public async Task<NetworkBootstrapResult> ConnectWifiNetworkAsync(string ssid, string? ssidHex, string authentication, string? passphrase, CancellationToken cancellationToken)
     {
         if (!_configuration.Capabilities.WifiProvisioned && !Debugger.IsAttached)
         {
-            return "Wi-Fi support is not provisioned for this image.";
+            return NetworkBootstrapResult.Failed(
+                "Wi-Fi support is not provisioned for this image.",
+                CreateHandledFailure("profile_unavailable", "wifi_profile_unavailable"));
         }
 
         string trimmedSsid = ssid?.Trim() ?? string.Empty;
         if (string.IsNullOrWhiteSpace(trimmedSsid))
         {
-            return "A discovered Wi-Fi network must provide an SSID before it can be connected.";
+            return NetworkBootstrapResult.Failed(
+                "A discovered Wi-Fi network must provide an SSID before it can be connected.",
+                CreateHandledFailure("invalid_input", "wifi_missing_ssid"));
         }
 
         string securityType = NetworkConfigurationValidator.ResolveDiscoveredWifiSecurityType(authentication);
         if (NetworkConfigurationValidator.IsEnterpriseSecurityType(securityType))
         {
-            return "Enterprise Wi-Fi from the discovery list requires a provisioned profile template in this build.";
+            return NetworkBootstrapResult.Failed(
+                "Enterprise Wi-Fi from the discovery list requires a provisioned profile template in this build.",
+                CreateHandledFailure("unsupported", "wifi_runtime_not_supported"));
         }
 
         string? profilePath = null;
@@ -186,7 +224,9 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             IReadOnlyList<Guid> wirelessInterfaceIds = _getWifiInterfaceIds();
             if (wirelessInterfaceIds.Count == 0)
             {
-                return "No wireless adapter is available to connect the selected Wi-Fi network.";
+                return NetworkBootstrapResult.Failed(
+                    "No wireless adapter is available to connect the selected Wi-Fi network.",
+                    CreateHandledFailure("missing_adapter", "no_wireless_adapter"));
             }
 
             ProcessExecutionResult addProfileResult = await ImportWifiProfileAsync(profilePath, cancellationToken).ConfigureAwait(false);
@@ -195,7 +235,9 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                 _logger.LogWarning(
                     "Failed to import discovered Wi-Fi profile. ExitCode={ExitCode}",
                     addProfileResult.ExitCode);
-                return $"Wi-Fi profile import failed for '{trimmedSsid}': {CollapseError(addProfileResult)}";
+                return NetworkBootstrapResult.Failed(
+                    $"Wi-Fi profile import failed for '{trimmedSsid}': {CollapseError(addProfileResult)}",
+                    CreateHandledFailure("profile_import_failed", "wifi_profile_import_failed"));
             }
 
             ProcessExecutionResult connectResult = await _processExecutor.ExecuteAsync(
@@ -204,7 +246,9 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                 cancellationToken).ConfigureAwait(false);
             if (connectResult.ExitCode != 0)
             {
-                return $"Wi-Fi connection request failed for '{trimmedSsid}': {CollapseError(connectResult)}";
+                return NetworkBootstrapResult.Failed(
+                    $"Wi-Fi connection request failed for '{trimmedSsid}': {CollapseError(connectResult)}",
+                    CreateHandledFailure("connect_request_failed", "wifi_connect_request_failed"));
             }
 
             WifiConnectionAttemptResult attemptResult = await WaitForWifiConnectionAsync(
@@ -214,7 +258,9 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
 
             if (!attemptResult.IsConnected)
             {
-                return $"Wi-Fi connection failed for '{trimmedSsid}': {attemptResult.FailureMessage}";
+                return NetworkBootstrapResult.Failed(
+                    $"Wi-Fi connection failed for '{trimmedSsid}': {attemptResult.FailureMessage}",
+                    CreateHandledFailure("timeout", "wifi_connect_timeout"));
             }
 
             await _networkProfileRoamingService.CaptureWifiProfileAsync(
@@ -224,7 +270,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                     NetworkProfileRoamingConnectivityExpectation.PreOobeConnectable),
                 cancellationToken).ConfigureAwait(false);
 
-            return $"Wi-Fi connected to '{trimmedSsid}'.";
+            return NetworkBootstrapResult.Success($"Wi-Fi connected to '{trimmedSsid}'.");
         }
         finally
         {
@@ -233,18 +279,20 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
     }
 
     /// <inheritdoc />
-    public async Task<string> DisconnectWifiAsync(CancellationToken cancellationToken)
+    public async Task<NetworkBootstrapResult> DisconnectWifiAsync(CancellationToken cancellationToken)
     {
         IReadOnlyList<Guid> wirelessInterfaceIds = _getWifiInterfaceIds();
         if (wirelessInterfaceIds.Count == 0)
         {
-            return "No wireless adapter is available to disconnect.";
+            return NetworkBootstrapResult.Failed(
+                "No wireless adapter is available to disconnect.",
+                CreateHandledFailure("missing_adapter", "no_wireless_adapter"));
         }
 
         string? connectedSsid = NativeWifiApi.GetConnectedSsid();
         if (string.IsNullOrWhiteSpace(connectedSsid))
         {
-            return "Wi-Fi is already disconnected.";
+            return NetworkBootstrapResult.Success("Wi-Fi is already disconnected.");
         }
 
         ProcessExecutionResult disconnectResult = await _processExecutor.ExecuteAsync(
@@ -253,7 +301,9 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             cancellationToken).ConfigureAwait(false);
         if (disconnectResult.ExitCode != 0)
         {
-            return $"Wi-Fi disconnect request failed: {CollapseError(disconnectResult)}";
+            return NetworkBootstrapResult.Failed(
+                $"Wi-Fi disconnect request failed: {CollapseError(disconnectResult)}",
+                CreateHandledFailure("disconnect_request_failed", "wifi_disconnect_request_failed"));
         }
 
         WifiDisconnectAttemptResult attemptResult = await WaitForWifiDisconnectionAsync(
@@ -262,32 +312,44 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             cancellationToken).ConfigureAwait(false);
 
         return attemptResult.IsDisconnected
-            ? $"Wi-Fi disconnected from '{connectedSsid}'."
-            : $"Wi-Fi disconnect failed: {attemptResult.FailureMessage}";
+            ? NetworkBootstrapResult.Success($"Wi-Fi disconnected from '{connectedSsid}'.")
+            : NetworkBootstrapResult.Failed(
+                $"Wi-Fi disconnect failed: {attemptResult.FailureMessage}",
+                CreateHandledFailure("timeout", "wifi_disconnect_timeout"));
     }
 
-    private async Task<string> ApplyWiredDot1xProfileAsync(CancellationToken cancellationToken)
+    private async Task<NetworkBootstrapResult> ApplyWiredDot1xProfileAsync(CancellationToken cancellationToken)
     {
         string? profilePath = ProvisionedWifiProfileResolver.ResolveAssetPath(
             _configuration.Dot1x.ProfileTemplatePath,
             _configurationService.ConfigurationPath);
         if (string.IsNullOrWhiteSpace(profilePath) || !File.Exists(profilePath))
         {
-            return "Wired 802.1X is enabled, but no wired profile template was found.";
+            return NetworkBootstrapResult.Failed(
+                "Wired 802.1X is enabled, but no wired profile template was found.",
+                CreateHandledFailure("profile_unavailable", "wired_profile_template_missing"));
         }
 
         List<string> messages = [];
+        List<NetworkBootstrapHandledFailure> handledFailures = [];
         string? certificatePath = ProvisionedWifiProfileResolver.ResolveAssetPath(
             _configuration.Dot1x.CertificatePath,
             _configurationService.ConfigurationPath);
         if (!string.IsNullOrWhiteSpace(certificatePath) && File.Exists(certificatePath))
         {
-            messages.Add(ImportCertificate(certificatePath, _configuration.Dot1x.CertificatePfxPassword));
+            AppendCertificateImportResult(
+                messages,
+                handledFailures,
+                ImportCertificate(
+                    certificatePath,
+                    _configuration.Dot1x.CertificatePfxPassword,
+                    "wired_certificate_import_failed"));
         }
 
         if (_configuration.Dot1x.AllowRuntimeCredentials)
         {
             messages.Add("Runtime-entered wired 802.1X credentials are not supported in this build. Use a profile template that already contains the required enterprise settings.");
+            AddHandledFailure(handledFailures, CreateHandledFailure("unsupported", "wired_runtime_not_supported"));
         }
 
         ProcessExecutionResult addProfileResult = await _processExecutor.ExecuteAsync(
@@ -302,7 +364,8 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                 addProfileResult.StandardOutput.Length,
                 addProfileResult.StandardError.Length);
             messages.Add($"Wired 802.1X profile import failed: {CollapseError(addProfileResult)}");
-            return string.Join(" ", messages);
+            AddHandledFailure(handledFailures, CreateHandledFailure("profile_import_failed", "wired_profile_import_failed"));
+            return new NetworkBootstrapResult(JoinMessages(messages), handledFailures);
         }
 
         messages.Add("Wired 802.1X profile imported.");
@@ -322,31 +385,45 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                 "netsh",
                 $"lan reconnect interface=\"{ethernetInterfaceName}\"",
                 cancellationToken).ConfigureAwait(false);
-            messages.Add(reconnectResult.ExitCode == 0
-                ? $"Wired reconnect requested on '{ethernetInterfaceName}'."
-                : $"Wired reconnect request failed: {CollapseError(reconnectResult)}");
+            if (reconnectResult.ExitCode == 0)
+            {
+                messages.Add($"Wired reconnect requested on '{ethernetInterfaceName}'.");
+            }
+            else
+            {
+                messages.Add($"Wired reconnect request failed: {CollapseError(reconnectResult)}");
+                AddHandledFailure(handledFailures, CreateHandledFailure("reconnect_request_failed", "wired_reconnect_request_failed"));
+            }
         }
 
-        return string.Join(" ", messages);
+        return new NetworkBootstrapResult(JoinMessages(messages), handledFailures);
     }
 
-    private async Task<string> EnsureWifiProfileAsync(CancellationToken cancellationToken)
+    private async Task<NetworkBootstrapResult> EnsureWifiProfileAsync(CancellationToken cancellationToken)
     {
         List<string> messages = [];
+        List<NetworkBootstrapHandledFailure> handledFailures = [];
 
         string? certificatePath = ProvisionedWifiProfileResolver.ResolveAssetPath(
             _configuration.Wifi.CertificatePath,
             _configurationService.ConfigurationPath);
         if (!string.IsNullOrWhiteSpace(certificatePath) && File.Exists(certificatePath))
         {
-            messages.Add(ImportCertificate(certificatePath, _configuration.Wifi.CertificatePfxPassword));
+            AppendCertificateImportResult(
+                messages,
+                handledFailures,
+                ImportCertificate(
+                    certificatePath,
+                    _configuration.Wifi.CertificatePfxPassword,
+                    "wifi_certificate_import_failed"));
         }
 
         string? wifiProfilePath = await EnsureWifiProfileFileAsync(cancellationToken).ConfigureAwait(false);
         if (string.IsNullOrWhiteSpace(wifiProfilePath))
         {
             messages.Add("No Wi-Fi profile is configured for this image.");
-            return string.Join(" ", messages);
+            AddHandledFailure(handledFailures, CreateHandledFailure("profile_unavailable", "wifi_profile_unavailable"));
+            return new NetworkBootstrapResult(JoinMessages(messages), handledFailures);
         }
 
         try
@@ -363,7 +440,8 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             if (_getWifiInterfaceIds().Count == 0)
             {
                 messages.Add("No wireless adapter is available to import the provisioned Wi-Fi profile in WinPE.");
-                return string.Join(" ", messages);
+                AddHandledFailure(handledFailures, CreateHandledFailure("missing_adapter", "no_wireless_adapter"));
+                return new NetworkBootstrapResult(JoinMessages(messages), handledFailures);
             }
 
             ProcessExecutionResult addProfileResult = await ImportWifiProfileAsync(wifiProfilePath, cancellationToken).ConfigureAwait(false);
@@ -374,6 +452,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                     "Failed to add provisioned Wi-Fi profile. ExitCode={ExitCode}",
                     addProfileResult.ExitCode);
                 messages.Add($"Wi-Fi profile import failed: {CollapseError(addProfileResult)}");
+                AddHandledFailure(handledFailures, CreateHandledFailure("profile_import_failed", "wifi_profile_import_failed"));
             }
             else
             {
@@ -391,9 +470,10 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         if (_configuration.Wifi.HasEnterpriseProfile && _configuration.Wifi.AllowRuntimeCredentials)
         {
             messages.Add("Runtime-entered Wi-Fi 802.1X credentials are not supported in this build. Use a provisioned enterprise profile template.");
+            AddHandledFailure(handledFailures, CreateHandledFailure("unsupported", "wifi_runtime_not_supported"));
         }
 
-        return string.Join(" ", messages);
+        return new NetworkBootstrapResult(JoinMessages(messages), handledFailures);
     }
 
     private async Task<string?> EnsureWifiProfileFileAsync(CancellationToken cancellationToken)
@@ -567,7 +647,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             .ToArray();
     }
 
-    private string ImportCertificate(string certificatePath, string? certificatePfxPassword)
+    private CertificateImportResult ImportCertificate(string certificatePath, string? certificatePfxPassword, string failureCode)
     {
         try
         {
@@ -580,7 +660,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                 using X509Store myStore = new(StoreName.My, StoreLocation.LocalMachine);
                 myStore.Open(OpenFlags.ReadWrite);
                 AddCertificateIfMissing(myStore, pfxCertificate);
-                return $"Certificate '{Path.GetFileName(certificatePath)}' was imported into the local machine personal store.";
+                return new CertificateImportResult($"Certificate '{Path.GetFileName(certificatePath)}' was imported into the local machine personal store.");
             }
 
             X509Certificate2 publicCertificate = X509CertificateLoader.LoadCertificateFromFile(certificatePath);
@@ -595,8 +675,8 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             }
 
             return alreadyPresent
-                ? $"Certificate '{Path.GetFileName(certificatePath)}' was already trusted."
-                : $"Certificate '{Path.GetFileName(certificatePath)}' was imported into the local machine root store.";
+                ? new CertificateImportResult($"Certificate '{Path.GetFileName(certificatePath)}' was already trusted.")
+                : new CertificateImportResult($"Certificate '{Path.GetFileName(certificatePath)}' was imported into the local machine root store.");
         }
         catch (Exception ex)
         {
@@ -604,8 +684,62 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                 ex,
                 "Failed to import certificate. CertificateFileName={CertificateFileName}",
                 Path.GetFileName(certificatePath));
-            return $"Certificate import failed for '{Path.GetFileName(certificatePath)}': {ex.Message}";
+            return new CertificateImportResult(
+                $"Certificate import failed for '{Path.GetFileName(certificatePath)}': {ex.Message}",
+                CreateHandledFailure("certificate_import_failed", failureCode));
         }
+    }
+
+    private static void AppendResult(
+        List<string> messages,
+        List<NetworkBootstrapHandledFailure> handledFailures,
+        NetworkBootstrapResult result)
+    {
+        AddMessage(messages, result.StatusMessage);
+        foreach (NetworkBootstrapHandledFailure failure in result.HandledFailures)
+        {
+            AddHandledFailure(handledFailures, failure);
+        }
+    }
+
+    private static void AppendCertificateImportResult(
+        List<string> messages,
+        List<NetworkBootstrapHandledFailure> handledFailures,
+        CertificateImportResult result)
+    {
+        AddMessage(messages, result.Message);
+        if (result.Failure is not null)
+        {
+            AddHandledFailure(handledFailures, result.Failure);
+        }
+    }
+
+    private static void AddHandledFailure(
+        List<NetworkBootstrapHandledFailure> handledFailures,
+        NetworkBootstrapHandledFailure failure)
+    {
+        if (!handledFailures.Contains(failure))
+        {
+            handledFailures.Add(failure);
+        }
+    }
+
+    private static void AddMessage(List<string> messages, string? message)
+    {
+        if (!string.IsNullOrWhiteSpace(message))
+        {
+            messages.Add(message);
+        }
+    }
+
+    private static string JoinMessages(IEnumerable<string> messages)
+    {
+        return string.Join(" ", messages.Where(static value => !string.IsNullOrWhiteSpace(value)));
+    }
+
+    private static NetworkBootstrapHandledFailure CreateHandledFailure(string reason, string code)
+    {
+        return new NetworkBootstrapHandledFailure("network", reason, code);
     }
 
     private static void AddCertificateIfMissing(X509Store store, X509Certificate2 certificate)
@@ -764,5 +898,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             return new WifiDisconnectAttemptResult(false, message);
         }
     }
+
+    private sealed record CertificateImportResult(string Message, NetworkBootstrapHandledFailure? Failure = null);
 
 }

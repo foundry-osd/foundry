@@ -41,20 +41,6 @@ public sealed class NetworkTelemetryClassifierTests
     };
 
     [Theory]
-    [InlineData("Wi-Fi profile import failed: simulated error", "profile_import_failed", "wifi_profile_import_failed")]
-    [InlineData("Windows started the Wi-Fi connection workflow, but 'Foundry' did not reach the connected state within 10 seconds.", "timeout", "wifi_connect_timeout")]
-    [InlineData("No wireless adapter is available to connect the provisioned Wi-Fi profile.", "missing_adapter", "no_wireless_adapter")]
-    public void TryClassifyHandledFailure_ReturnsStableFieldsForReturnedStatus(string status, string expectedReason, string expectedCode)
-    {
-        NetworkFailureClassification? result = NetworkTelemetryClassifier.TryClassifyHandledFailure(status);
-
-        Assert.NotNull(result);
-        Assert.Equal("network", result.Kind);
-        Assert.Equal(expectedReason, result.Reason);
-        Assert.Equal(expectedCode, result.Code);
-    }
-
-    [Theory]
     [InlineData("Open", "open")]
     [InlineData("OWE", "owe")]
     [InlineData("WPA2-Personal", "personal")]

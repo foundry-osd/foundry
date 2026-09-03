@@ -364,6 +364,48 @@ public sealed class DeploymentOrchestratorTests
     }
 
     [Theory]
+    [InlineData(1)]
+    [InlineData(3)]
+    public async Task RunAsync_WhenCancellationOccursDuringRuntimeStatePersistence_RecoversFinalPersistence(int cancelledSaveCallNumber)
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        using var cancellation = new CancellationTokenSource();
+        var logService = new CancellationDuringSaveDeploymentLogService(cancellation, cancelledSaveCallNumber);
+        var telemetryService = new RecordingTelemetryService();
+        var logger = new RecordingLogger<DeploymentOrchestrator>();
+        var orchestrator = new DeploymentOrchestrator(
+            new FakeOperationProgressService(),
+            logService,
+            new FakeTargetDiskService(),
+            DeploymentStepNames.ExecutionOrder.Select(name => (IDeploymentStep)new PersistenceTrackingStep(name)),
+            telemetryService,
+            logger);
+
+        DeploymentResult result = await orchestrator.RunAsync(new DeploymentContext
+        {
+            Mode = DeploymentMode.Iso,
+            IsDryRun = false,
+            CacheRootPath = workspace.RootPath,
+            TargetDiskNumber = 1,
+            TargetComputerName = "LAB01",
+            DriverPackSelectionKind = DriverPackSelectionKind.None,
+            OperatingSystem = new OperatingSystemCatalogItem()
+        }, cancellation.Token);
+
+        Assert.False(result.IsSuccess);
+        TelemetryEvent telemetryEvent = Assert.Single(telemetryService.Events);
+        Assert.True((bool)telemetryEvent.Properties["deploy_session_cancelled"]!);
+        Assert.False((bool)telemetryEvent.Properties["deploy_session_success"]!);
+        LogEntry terminalLog = Assert.Single(logger.Entries, entry => entry.Properties.ContainsKey("Outcome"));
+        Assert.Equal("cancelled", terminalLog.Properties["Outcome"]);
+        Assert.Equal(true, terminalLog.Properties["Cancelled"]);
+        Assert.True(logService.SuccessfulBestEffortSaveCount >= 2);
+        Assert.Equal(
+            [logService.SaveCallCount - 1, logService.SaveCallCount],
+            logService.BestEffortSaveCallNumbers.Skip(Math.Max(0, logService.BestEffortSaveCallNumbers.Count - 2)).ToArray());
+    }
+
+    [Theory]
     [InlineData(false, 42, "manual", null)]
     [InlineData(true, 0, "immediate", null)]
     [InlineData(true, 42, "countdown", 42)]
@@ -527,6 +569,19 @@ public sealed class DeploymentOrchestratorTests
         }
     }
 
+    private sealed class PersistenceTrackingStep(string name) : IDeploymentStep
+    {
+        public string Name { get; } = name;
+
+        public Task<DeploymentStepResult> ExecuteAsync(
+            DeploymentStepExecutionContext context,
+            CancellationToken cancellationToken)
+        {
+            context.SetCurrentOperation("os_image.download");
+            return Task.FromResult(DeploymentStepResult.Succeeded("ok"));
+        }
+    }
+
     private sealed class FakeDeploymentLogService : IDeploymentLogService
     {
         public List<DeploymentStateSnapshot> SavedStates { get; } = [];
@@ -583,6 +638,61 @@ public sealed class DeploymentOrchestratorTests
             await File.WriteAllTextAsync(session.StateFilePath, "{}", cancellationToken);
         }
 
+    }
+
+    private sealed class CancellationDuringSaveDeploymentLogService(
+        CancellationTokenSource cancellationTokenSource,
+        int cancelledSaveCallNumber) : IDeploymentLogService
+    {
+        public int SaveCallCount { get; private set; }
+
+        public int SuccessfulBestEffortSaveCount { get; private set; }
+
+        public List<int> BestEffortSaveCallNumbers { get; } = [];
+
+        public DeploymentLogSession Initialize(string rootPath)
+        {
+            string logsDirectory = Path.Combine(rootPath, "Logs");
+            string stateDirectory = Path.Combine(rootPath, "State");
+            Directory.CreateDirectory(logsDirectory);
+            Directory.CreateDirectory(stateDirectory);
+            return new DeploymentLogSession
+            {
+                RootPath = rootPath,
+                LogsDirectoryPath = logsDirectory,
+                StateDirectoryPath = stateDirectory,
+                StateFilePath = Path.Combine(stateDirectory, "deployment-state.json")
+            };
+        }
+
+        public Task AppendAsync(
+            DeploymentLogSession session,
+            DeploymentLogLevel level,
+            string message,
+            CancellationToken cancellationToken = default) => Task.CompletedTask;
+
+        public async Task SaveStateAsync<TState>(
+            DeploymentLogSession session,
+            TState state,
+            CancellationToken cancellationToken = default)
+        {
+            SaveCallCount++;
+            if (SaveCallCount == cancelledSaveCallNumber)
+            {
+                cancellationTokenSource.Cancel();
+            }
+
+            cancellationToken.ThrowIfCancellationRequested();
+
+            if (!cancellationToken.CanBeCanceled)
+            {
+                SuccessfulBestEffortSaveCount++;
+                BestEffortSaveCallNumbers.Add(SaveCallCount);
+            }
+
+            Directory.CreateDirectory(session.StateDirectoryPath);
+            await File.WriteAllTextAsync(session.StateFilePath, "{}", cancellationToken);
+        }
     }
 
     private sealed record DeploymentStateSnapshot(

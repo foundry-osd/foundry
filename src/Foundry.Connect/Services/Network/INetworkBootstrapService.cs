@@ -13,15 +13,15 @@ public interface INetworkBootstrapService
     /// Imports provisioned wired and Wi-Fi profiles from the runtime configuration.
     /// </summary>
     /// <param name="cancellationToken">A token used to cancel network commands.</param>
-    /// <returns>A user-facing status message.</returns>
-    Task<string> ApplyProvisionedSettingsAsync(CancellationToken cancellationToken);
+    /// <returns>A user-facing status message plus any structured handled failures.</returns>
+    Task<NetworkBootstrapResult> ApplyProvisionedSettingsAsync(CancellationToken cancellationToken);
 
     /// <summary>
     /// Connects the Wi-Fi profile supplied by the provisioned configuration.
     /// </summary>
     /// <param name="cancellationToken">A token used to cancel network commands.</param>
-    /// <returns>A user-facing status message.</returns>
-    Task<string> ConnectConfiguredWifiAsync(CancellationToken cancellationToken);
+    /// <returns>A user-facing status message plus any structured handled failures.</returns>
+    Task<NetworkBootstrapResult> ConnectConfiguredWifiAsync(CancellationToken cancellationToken);
 
     /// <summary>
     /// Connects a discovered open, OWE, or personal Wi-Fi network.
@@ -31,13 +31,13 @@ public interface INetworkBootstrapService
     /// <param name="authentication">The discovered authentication description.</param>
     /// <param name="passphrase">The optional personal Wi-Fi passphrase.</param>
     /// <param name="cancellationToken">A token used to cancel network commands.</param>
-    /// <returns>A user-facing status message.</returns>
-    Task<string> ConnectWifiNetworkAsync(string ssid, string? ssidHex, string authentication, string? passphrase, CancellationToken cancellationToken);
+    /// <returns>A user-facing status message plus any structured handled failures.</returns>
+    Task<NetworkBootstrapResult> ConnectWifiNetworkAsync(string ssid, string? ssidHex, string authentication, string? passphrase, CancellationToken cancellationToken);
 
     /// <summary>
     /// Disconnects the currently connected Wi-Fi network.
     /// </summary>
     /// <param name="cancellationToken">A token used to cancel network commands.</param>
-    /// <returns>A user-facing status message.</returns>
-    Task<string> DisconnectWifiAsync(CancellationToken cancellationToken);
+    /// <returns>A user-facing status message plus any structured handled failures.</returns>
+    Task<NetworkBootstrapResult> DisconnectWifiAsync(CancellationToken cancellationToken);
 }

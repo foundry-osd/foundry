@@ -197,21 +197,23 @@ public sealed class RemoteDiagnosticPropertyPolicyTests
     {
         LogEvent source = CreateLogEvent(
             LogEventLevel.Warning,
-            "Persistence failed for {Workflow}/{Stage}/{StepName}/{OperationId}",
+            "Persistence failed for {Workflow}/{Stage}/{StepName}/{OperationId}/{FailedOperationName}",
             exception: null,
             ("Workflow", "deployment"),
             ("Stage", "runtime_state_persistence"),
             ("StepName", "download_image"),
             ("OperationId", "operation-1"),
+            ("FailedOperationName", "os_image.download"),
             ("CurrentStep", "download_image"),
             ("CurrentOperation", "os_image.download"));
 
         RemoteDiagnosticRecord result = RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(source, CreateContext());
 
         Assert.Equal(
-            "Persistence failed for \"deployment\"/\"runtime_state_persistence\"/\"download_image\"/\"operation-1\"",
+            "Persistence failed for \"deployment\"/\"runtime_state_persistence\"/\"download_image\"/\"operation-1\"/\"os_image.download\"",
             result.Body);
         Assert.DoesNotContain("<redacted>", result.Body, StringComparison.Ordinal);
+        Assert.Equal("os_image.download", result.Attributes["failure.operation"]);
     }
 
     private static RemoteDiagnosticsContext CreateContext() => new(

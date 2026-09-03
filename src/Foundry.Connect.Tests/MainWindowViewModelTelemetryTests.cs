@@ -114,7 +114,9 @@ public sealed class MainWindowViewModelTelemetryTests
         MainWindowViewModel viewModel = CreateViewModel(
             telemetry,
             new QueueNetworkStatusService(CreateReadySnapshot()),
-            networkBootstrapService: new StatusNetworkBootstrapService("Wi-Fi profile import failed: simulated error"),
+            networkBootstrapService: new ResultNetworkBootstrapService(NetworkBootstrapResult.Failed(
+                "Wi-Fi profile import failed: simulated error",
+                new NetworkBootstrapHandledFailure("network", "profile_import_failed", "wifi_profile_import_failed"))),
             logger: logger);
 
         await viewModel.InitializeAsync();
@@ -140,7 +142,9 @@ public sealed class MainWindowViewModelTelemetryTests
         MainWindowViewModel viewModel = CreateViewModel(
             telemetry,
             new QueueNetworkStatusService(CreateDisconnectedSnapshot(), CreateDisconnectedSnapshot()),
-            networkBootstrapService: new ConnectConfiguredWifiStatusNetworkBootstrapService("Wi-Fi connection request failed: simulated error"),
+            networkBootstrapService: new ConnectConfiguredWifiResultNetworkBootstrapService(NetworkBootstrapResult.Failed(
+                "Wi-Fi connection request failed: simulated error",
+                new NetworkBootstrapHandledFailure("network", "connect_request_failed", "wifi_connect_request_failed"))),
             logger: logger);
 
         await viewModel.InitializeAsync();
@@ -158,6 +162,58 @@ public sealed class MainWindowViewModelTelemetryTests
         Assert.Equal("wifi_connect_request_failed", entry.Properties["FailureCode"]);
         Assert.Equal(true, entry.Properties["RemoteDiagnostic"]);
         Assert.Single(logger.Entries, item => item.Properties.ContainsKey("RemoteDiagnostic"));
+    }
+
+    [Fact]
+    public async Task InitializeAsync_WhenProvisionedSettingsReturnWiredHandledFailure_LogsStructuredWiredRemoteDiagnostic()
+    {
+        var telemetry = new RecordingTelemetryService();
+        var logger = new RecordingLogger<MainWindowViewModel>();
+        MainWindowViewModel viewModel = CreateViewModel(
+            telemetry,
+            new QueueNetworkStatusService(CreateReadySnapshot()),
+            networkBootstrapService: new ResultNetworkBootstrapService(NetworkBootstrapResult.Failed(
+                "Wired 802.1X is enabled, but no wired profile template was found.",
+                new NetworkBootstrapHandledFailure("network", "profile_unavailable", "wired_profile_template_missing"))),
+            logger: logger);
+
+        await viewModel.InitializeAsync();
+        viewModel.Dispose();
+
+        LogEntry entry = Assert.Single(logger.Entries, item => item.Properties.ContainsKey("RemoteDiagnostic"));
+        Assert.Equal("network.apply_provisioned_settings", entry.Properties["NetworkOperation"]);
+        Assert.Equal("profile_unavailable", entry.Properties["FailureReason"]);
+        Assert.Equal("wired_profile_template_missing", entry.Properties["FailureCode"]);
+    }
+
+    [Fact]
+    public async Task InitializeAsync_WhenProvisionedSettingsReturnMixedHandledFailures_LogsOneRemoteDiagnosticPerFailure()
+    {
+        var telemetry = new RecordingTelemetryService();
+        var logger = new RecordingLogger<MainWindowViewModel>();
+        MainWindowViewModel viewModel = CreateViewModel(
+            telemetry,
+            new QueueNetworkStatusService(CreateReadySnapshot()),
+            networkBootstrapService: new ResultNetworkBootstrapService(new NetworkBootstrapResult(
+                "Wired and Wi-Fi bootstrap finished with handled failures.",
+                [
+                    new NetworkBootstrapHandledFailure("network", "profile_unavailable", "wired_profile_template_missing"),
+                    new NetworkBootstrapHandledFailure("network", "missing_adapter", "no_wireless_adapter")
+                ])),
+            logger: logger);
+
+        await viewModel.InitializeAsync();
+        viewModel.Dispose();
+
+        LogEntry[] entries = logger.Entries
+            .Where(item => item.Properties.ContainsKey("RemoteDiagnostic"))
+            .ToArray();
+        Assert.Equal(2, entries.Length);
+        Assert.All(entries, entry => Assert.Equal("network.apply_provisioned_settings", entry.Properties["NetworkOperation"]));
+        string operationId = Assert.IsType<string>(entries[0].Properties["OperationId"]);
+        Assert.All(entries, entry => Assert.Equal(operationId, entry.Properties["OperationId"]));
+        Assert.Contains(entries, entry => Equals(entry.Properties["FailureCode"], "wired_profile_template_missing"));
+        Assert.Contains(entries, entry => Equals(entry.Properties["FailureCode"], "no_wireless_adapter"));
     }
 
     [Fact]
@@ -358,100 +414,100 @@ public sealed class MainWindowViewModelTelemetryTests
 
     private sealed class FakeNetworkBootstrapService : INetworkBootstrapService
     {
-        public Task<string> ApplyProvisionedSettingsAsync(CancellationToken cancellationToken)
+        public Task<NetworkBootstrapResult> ApplyProvisionedSettingsAsync(CancellationToken cancellationToken)
         {
-            return Task.FromResult(string.Empty);
+            return Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
         }
 
-        public Task<string> ConnectConfiguredWifiAsync(CancellationToken cancellationToken)
+        public Task<NetworkBootstrapResult> ConnectConfiguredWifiAsync(CancellationToken cancellationToken)
         {
-            return Task.FromResult(string.Empty);
+            return Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
         }
 
-        public Task<string> ConnectWifiNetworkAsync(
+        public Task<NetworkBootstrapResult> ConnectWifiNetworkAsync(
             string ssid,
             string? ssidHex,
             string authentication,
             string? passphrase,
             CancellationToken cancellationToken)
         {
-            return Task.FromResult(string.Empty);
+            return Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
         }
 
-        public Task<string> DisconnectWifiAsync(CancellationToken cancellationToken)
+        public Task<NetworkBootstrapResult> DisconnectWifiAsync(CancellationToken cancellationToken)
         {
-            return Task.FromResult(string.Empty);
+            return Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
         }
     }
 
     private sealed class ThrowingNetworkBootstrapService : INetworkBootstrapService
     {
-        public Task<string> ApplyProvisionedSettingsAsync(CancellationToken cancellationToken) =>
-            Task.FromException<string>(new HttpRequestException("Simulated failure.", null, System.Net.HttpStatusCode.BadGateway));
+        public Task<NetworkBootstrapResult> ApplyProvisionedSettingsAsync(CancellationToken cancellationToken) =>
+            Task.FromException<NetworkBootstrapResult>(new HttpRequestException("Simulated failure.", null, System.Net.HttpStatusCode.BadGateway));
 
-        public Task<string> ConnectConfiguredWifiAsync(CancellationToken cancellationToken) => Task.FromResult(string.Empty);
+        public Task<NetworkBootstrapResult> ConnectConfiguredWifiAsync(CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
 
-        public Task<string> ConnectWifiNetworkAsync(
+        public Task<NetworkBootstrapResult> ConnectWifiNetworkAsync(
             string ssid,
             string? ssidHex,
             string authentication,
             string? passphrase,
-            CancellationToken cancellationToken) => Task.FromResult(string.Empty);
+            CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
 
-        public Task<string> DisconnectWifiAsync(CancellationToken cancellationToken) => Task.FromResult(string.Empty);
+        public Task<NetworkBootstrapResult> DisconnectWifiAsync(CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
     }
 
-    private sealed class StatusNetworkBootstrapService(string applyProvisionedSettingsStatus) : INetworkBootstrapService
+    private sealed class ResultNetworkBootstrapService(NetworkBootstrapResult applyProvisionedSettingsResult) : INetworkBootstrapService
     {
-        public Task<string> ApplyProvisionedSettingsAsync(CancellationToken cancellationToken) =>
-            Task.FromResult(applyProvisionedSettingsStatus);
+        public Task<NetworkBootstrapResult> ApplyProvisionedSettingsAsync(CancellationToken cancellationToken) =>
+            Task.FromResult(applyProvisionedSettingsResult);
 
-        public Task<string> ConnectConfiguredWifiAsync(CancellationToken cancellationToken) => Task.FromResult(string.Empty);
+        public Task<NetworkBootstrapResult> ConnectConfiguredWifiAsync(CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
 
-        public Task<string> ConnectWifiNetworkAsync(
+        public Task<NetworkBootstrapResult> ConnectWifiNetworkAsync(
             string ssid,
             string? ssidHex,
             string authentication,
             string? passphrase,
-            CancellationToken cancellationToken) => Task.FromResult(string.Empty);
+            CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
 
-        public Task<string> DisconnectWifiAsync(CancellationToken cancellationToken) => Task.FromResult(string.Empty);
+        public Task<NetworkBootstrapResult> DisconnectWifiAsync(CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
     }
 
-    private sealed class ConnectConfiguredWifiStatusNetworkBootstrapService(string connectConfiguredWifiStatus) : INetworkBootstrapService
+    private sealed class ConnectConfiguredWifiResultNetworkBootstrapService(NetworkBootstrapResult connectConfiguredWifiResult) : INetworkBootstrapService
     {
-        public Task<string> ApplyProvisionedSettingsAsync(CancellationToken cancellationToken) => Task.FromResult(string.Empty);
+        public Task<NetworkBootstrapResult> ApplyProvisionedSettingsAsync(CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
 
-        public Task<string> ConnectConfiguredWifiAsync(CancellationToken cancellationToken) =>
-            Task.FromResult(connectConfiguredWifiStatus);
+        public Task<NetworkBootstrapResult> ConnectConfiguredWifiAsync(CancellationToken cancellationToken) =>
+            Task.FromResult(connectConfiguredWifiResult);
 
-        public Task<string> ConnectWifiNetworkAsync(
+        public Task<NetworkBootstrapResult> ConnectWifiNetworkAsync(
             string ssid,
             string? ssidHex,
             string authentication,
             string? passphrase,
-            CancellationToken cancellationToken) => Task.FromResult(string.Empty);
+            CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
 
-        public Task<string> DisconnectWifiAsync(CancellationToken cancellationToken) => Task.FromResult(string.Empty);
+        public Task<NetworkBootstrapResult> DisconnectWifiAsync(CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
     }
 
     private sealed class CancellingNetworkBootstrapService : INetworkBootstrapService
     {
-        public Task<string> ApplyProvisionedSettingsAsync(CancellationToken cancellationToken) =>
-            Task.FromCanceled<string>(cancellationToken.IsCancellationRequested
+        public Task<NetworkBootstrapResult> ApplyProvisionedSettingsAsync(CancellationToken cancellationToken) =>
+            Task.FromCanceled<NetworkBootstrapResult>(cancellationToken.IsCancellationRequested
                 ? cancellationToken
                 : new CancellationToken(canceled: true));
 
-        public Task<string> ConnectConfiguredWifiAsync(CancellationToken cancellationToken) => Task.FromResult(string.Empty);
+        public Task<NetworkBootstrapResult> ConnectConfiguredWifiAsync(CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
 
-        public Task<string> ConnectWifiNetworkAsync(
+        public Task<NetworkBootstrapResult> ConnectWifiNetworkAsync(
             string ssid,
             string? ssidHex,
             string authentication,
             string? passphrase,
-            CancellationToken cancellationToken) => Task.FromResult(string.Empty);
+            CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
 
-        public Task<string> DisconnectWifiAsync(CancellationToken cancellationToken) => Task.FromResult(string.Empty);
+        public Task<NetworkBootstrapResult> DisconnectWifiAsync(CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
     }
 
     private sealed class RecordingLogger<T> : ILogger<T>

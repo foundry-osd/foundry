@@ -162,7 +162,27 @@ public sealed class DeploymentStepExecutionContextTests
     }
 
     [Fact]
-    public async Task TrySaveRuntimeStateAsync_WhenPersistenceFails_LogsCanonicalRemoteDiagnosticFields()
+    public async Task TrySaveRuntimeStateAsync_WhenCancelledSavePrecedesBestEffortSave_RecoversPersistenceQueue()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var logService = new CancellationThenSuccessDeploymentLogService();
+        DeploymentStepExecutionContext context = CreateExecutionContext(
+            workspace.RootPath,
+            Path.Combine(workspace.CacheRootPath, "Runtime"),
+            logService: logService);
+        using var cancellation = new CancellationTokenSource();
+        cancellation.Cancel();
+
+        await Assert.ThrowsAsync<OperationCanceledException>(() => context.TrySaveRuntimeStateAsync(cancellation.Token));
+
+        await context.TrySaveRuntimeStateAsync(CancellationToken.None);
+
+        Assert.Equal(2, logService.SaveCallCount);
+        Assert.Equal(1, logService.SuccessfulSaveCount);
+    }
+
+    [Fact]
+    public async Task TrySaveRuntimeStateAsync_WhenPersistenceFails_LogsCanonicalRemoteDiagnosticFieldsIncludingCurrentOperation()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
         var sink = new RecordingSerilogSink();
@@ -180,14 +200,16 @@ public sealed class DeploymentStepExecutionContextTests
                 logService: new ThrowingSaveDeploymentLogService(),
                 operationId: "operation-1");
             context.SetCurrentStep(new SucceedingDeploymentStep("download_image"), 1);
+            context.SetCurrentOperation("os_image.download");
 
             await context.TrySaveRuntimeStateAsync(TestContext.Current.CancellationToken);
 
-            LogEvent warning = Assert.Single(sink.Events, item => item.Level == LogEventLevel.Warning);
+            LogEvent warning = sink.Events.Last(item => item.Level == LogEventLevel.Warning);
             Assert.Equal("deployment", Assert.IsType<ScalarValue>(warning.Properties["Workflow"]).Value);
             Assert.Equal("runtime_state_persistence", Assert.IsType<ScalarValue>(warning.Properties["Stage"]).Value);
             Assert.Equal("download_image", Assert.IsType<ScalarValue>(warning.Properties["StepName"]).Value);
             Assert.Equal("operation-1", Assert.IsType<ScalarValue>(warning.Properties["OperationId"]).Value);
+            Assert.Equal("os_image.download", Assert.IsType<ScalarValue>(warning.Properties["FailedOperationName"]).Value);
             Assert.False(warning.Properties.ContainsKey("CurrentStep"));
             Assert.False(warning.Properties.ContainsKey("CurrentOperation"));
         }
@@ -380,6 +402,41 @@ public sealed class DeploymentStepExecutionContextTests
             TState state,
             CancellationToken cancellationToken = default) =>
             Task.FromException(new IOException("Simulated persistence failure."));
+    }
+
+    private sealed class CancellationThenSuccessDeploymentLogService : IDeploymentLogService
+    {
+        public int SaveCallCount { get; private set; }
+
+        public int SuccessfulSaveCount { get; private set; }
+
+        public DeploymentLogSession Initialize(string rootPath)
+        {
+            return new DeploymentLogSession
+            {
+                RootPath = rootPath,
+                LogsDirectoryPath = Path.Combine(rootPath, "Logs"),
+                StateDirectoryPath = Path.Combine(rootPath, "State"),
+                StateFilePath = Path.Combine(rootPath, "State", "deployment-state.json")
+            };
+        }
+
+        public Task AppendAsync(
+            DeploymentLogSession session,
+            DeploymentLogLevel level,
+            string message,
+            CancellationToken cancellationToken = default) => Task.CompletedTask;
+
+        public Task SaveStateAsync<TState>(
+            DeploymentLogSession session,
+            TState state,
+            CancellationToken cancellationToken = default)
+        {
+            SaveCallCount++;
+            cancellationToken.ThrowIfCancellationRequested();
+            SuccessfulSaveCount++;
+            return Task.CompletedTask;
+        }
     }
 
     private sealed class RecordingSerilogSink : ILogEventSink

@@ -241,7 +241,7 @@ public sealed class DeploymentStepExecutionContext
         lock (_runtimeStatePersistenceLock)
         {
             persistence = PersistRuntimeStateAfterAsync(_pendingRuntimeStatePersistence, cancellationToken);
-            _pendingRuntimeStatePersistence = persistence;
+            _pendingRuntimeStatePersistence = ObserveRuntimeStatePersistenceAsync(persistence);
         }
 
         await persistence.ConfigureAwait(false);
@@ -251,9 +251,10 @@ public sealed class DeploymentStepExecutionContext
     {
         lock (_runtimeStatePersistenceLock)
         {
-            _pendingRuntimeStatePersistence = PersistRuntimeStateAfterAsync(
+            Task persistence = PersistRuntimeStateAfterAsync(
                 _pendingRuntimeStatePersistence,
                 CancellationToken.None);
+            _pendingRuntimeStatePersistence = ObserveRuntimeStatePersistenceAsync(persistence);
         }
     }
 
@@ -276,15 +277,28 @@ public sealed class DeploymentStepExecutionContext
         }
     }
 
+    private static async Task ObserveRuntimeStatePersistenceAsync(Task persistence)
+    {
+        try
+        {
+            await persistence.ConfigureAwait(false);
+        }
+        catch
+        {
+            // Preserve the caller-visible outcome on the original task while keeping the serialized queue recoverable.
+        }
+    }
+
     private void LogRuntimeStatePersistenceFailure(Exception exception)
     {
         Log.ForContext<DeploymentStepExecutionContext>().Warning(
             exception,
-            "Deployment runtime state could not be persisted. Workflow={Workflow}, Stage={Stage}, StepName={StepName}, OperationId={OperationId}",
+            "Deployment runtime state could not be persisted. Workflow={Workflow}, Stage={Stage}, StepName={StepName}, OperationId={OperationId}, FailedOperationName={FailedOperationName}",
             "deployment",
             "runtime_state_persistence",
             RuntimeState.CurrentStep,
-            RuntimeState.OperationId);
+            RuntimeState.OperationId,
+            RuntimeState.CurrentOperation);
     }
 
     /// <summary>
