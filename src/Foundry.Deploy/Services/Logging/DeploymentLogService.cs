@@ -78,7 +78,24 @@ public sealed class DeploymentLogService : IDeploymentLogService
             WriteIndented = true
         });
 
-        await File.WriteAllTextAsync(session.StateFilePath, json, cancellationToken).ConfigureAwait(false);
+        string temporaryStateFilePath = session.StateFilePath + ".tmp";
+        try
+        {
+            await File.WriteAllTextAsync(temporaryStateFilePath, json, cancellationToken).ConfigureAwait(false);
+            File.Move(temporaryStateFilePath, session.StateFilePath, overwrite: true);
+        }
+        finally
+        {
+            try
+            {
+                File.Delete(temporaryStateFilePath);
+            }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+            {
+                global::System.Diagnostics.Debug.WriteLine(
+                    $"Foundry.Deploy temporary state cleanup failed: {ex.GetType().Name}");
+            }
+        }
     }
 
     private static LogEventLevel MapLevel(DeploymentLogLevel level)

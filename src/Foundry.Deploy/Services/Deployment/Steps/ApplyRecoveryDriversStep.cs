@@ -24,7 +24,7 @@ public sealed class ApplyRecoveryDriversStep(IWindowsDeploymentService windowsDe
             DriverPackInstallMode.None => Task.FromResult(DeploymentStepResult.Skipped("No driver pack operation is required.")),
             DriverPackInstallMode.DeferredSetupComplete => Task.FromResult(DeploymentStepResult.Skipped("No driver pack operation is required.")),
             DriverPackInstallMode.OfflineInf => ApplyLiveAsync(context, cancellationToken),
-            _ => Task.FromResult(DeploymentStepResult.Failed("Unsupported driver pack install mode."))
+            _ => Task.FromResult(CreateUnsupportedModeFailure())
         };
     }
 
@@ -37,7 +37,7 @@ public sealed class ApplyRecoveryDriversStep(IWindowsDeploymentService windowsDe
             DriverPackInstallMode.None => Task.FromResult(DeploymentStepResult.Skipped("No driver pack operation is required.")),
             DriverPackInstallMode.DeferredSetupComplete => Task.FromResult(DeploymentStepResult.Skipped("No driver pack operation is required.")),
             DriverPackInstallMode.OfflineInf => SimulateAsync(context, cancellationToken),
-            _ => Task.FromResult(DeploymentStepResult.Failed("Unsupported driver pack install mode."))
+            _ => Task.FromResult(CreateUnsupportedModeFailure())
         };
     }
 
@@ -112,20 +112,41 @@ public sealed class ApplyRecoveryDriversStep(IWindowsDeploymentService windowsDe
     {
         if (!context.RuntimeState.WinReConfigured)
         {
-            return DeploymentStepResult.Failed("Recovery partition is unavailable.");
+            return CreateMissingRecoveryPartitionFailure();
         }
 
         if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetRecoveryPartitionRoot))
         {
-            return DeploymentStepResult.Failed("Recovery partition is unavailable.");
+            return CreateMissingRecoveryPartitionFailure();
         }
 
         if (string.IsNullOrWhiteSpace(context.RuntimeState.ExtractedDriverPackPath) ||
             !Directory.Exists(context.RuntimeState.ExtractedDriverPackPath))
         {
-            return DeploymentStepResult.Failed("No extracted INF driver payload is available.");
+            return DeploymentStepResult.Failed(
+                "No extracted INF driver payload is available.",
+                DeploymentFailure.Guard(
+                    DeploymentOperationNames.ApplyRecoveryDrivers,
+                    DeploymentFailureReasons.MissingResource,
+                    "missing_driver_payload"));
         }
 
         return null;
     }
+
+    private static DeploymentStepResult CreateMissingRecoveryPartitionFailure() =>
+        DeploymentStepResult.Failed(
+            "Recovery partition is unavailable.",
+            DeploymentFailure.Guard(
+                DeploymentOperationNames.ApplyRecoveryDrivers,
+                DeploymentFailureReasons.MissingResource,
+                "missing_recovery_partition"));
+
+    private static DeploymentStepResult CreateUnsupportedModeFailure() =>
+        DeploymentStepResult.Failed(
+            "Unsupported driver pack install mode.",
+            DeploymentFailure.Guard(
+                DeploymentOperationNames.ApplyRecoveryDrivers,
+                DeploymentFailureReasons.InvalidInput,
+                "unsupported_driver_mode"));
 }

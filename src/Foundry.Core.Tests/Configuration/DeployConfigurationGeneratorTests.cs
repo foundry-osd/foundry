@@ -139,6 +139,7 @@ public sealed class DeployConfigurationGeneratorTests
         var telemetry = new TelemetrySettings
         {
             IsEnabled = false,
+            IsRemoteDiagnosticsEnabled = true,
             InstallId = "install-id",
             HostUrl = TelemetryDefaults.PostHogEuHost,
             ProjectToken = "project-token",
@@ -148,6 +149,9 @@ public sealed class DeployConfigurationGeneratorTests
         var result = generator.Generate(new FoundryConfigurationDocument { Telemetry = telemetry });
 
         Assert.Same(telemetry, result.Telemetry);
+        Assert.True(result.Telemetry.IsRemoteDiagnosticsEnabled);
+        using JsonDocument serialized = JsonDocument.Parse(generator.Serialize(result));
+        Assert.True(serialized.RootElement.GetProperty("telemetry").GetProperty("isRemoteDiagnosticsEnabled").GetBoolean());
     }
 
     [Fact]

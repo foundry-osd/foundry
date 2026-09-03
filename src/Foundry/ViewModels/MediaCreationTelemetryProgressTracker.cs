@@ -3,13 +3,15 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Services.WinPe;
+using Serilog.Core;
+using Serilog.Events;
 
 namespace Foundry.ViewModels;
 
 /// <summary>
 /// Tracks the active low-cardinality media creation stage while preserving existing UI progress forwarding.
 /// </summary>
-internal sealed class MediaCreationTelemetryProgressTracker
+internal sealed class MediaCreationTelemetryProgressTracker : ILogEventEnricher
 {
     private static readonly IReadOnlyList<StatusStepMapping> CustomizationStatusMappings =
     (StatusStepMapping[])
@@ -70,6 +72,11 @@ internal sealed class MediaCreationTelemetryProgressTracker
     public void SetCurrentStep(string stepName)
     {
         CurrentStepName = string.IsNullOrWhiteSpace(stepName) ? MediaCreationStepNames.Unknown : stepName;
+    }
+
+    public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
+    {
+        logEvent.AddPropertyIfAbsent(propertyFactory.CreateProperty("Stage", CurrentStepName));
     }
 
     /// <summary>

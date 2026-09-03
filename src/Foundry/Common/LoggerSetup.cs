@@ -5,6 +5,7 @@
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
+using Foundry.Telemetry;
 using Foundry.Utilities.Diagnostics;
 using Foundry.Utilities.IO;
 
@@ -50,7 +51,8 @@ namespace Foundry.Common
                     DiagnosticSessionContext.CurrentSessionId,
                     LogEventLevel.Information,
                     RetainedLogFileCount,
-                    MinimumLevelSwitch);
+                    MinimumLevelSwitch,
+                    RemoteDiagnosticsSink.Instance);
             }
             catch (Exception ex)
             {
@@ -60,7 +62,8 @@ namespace Foundry.Common
                     "Foundry.OSD",
                     DiagnosticSessionContext.CurrentSessionId,
                     LogEventLevel.Information,
-                    MinimumLevelSwitch);
+                    MinimumLevelSwitch,
+                    RemoteDiagnosticsSink.Instance);
             }
 
             Log.Logger = Logger;

@@ -24,14 +24,24 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
         if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot) ||
             string.IsNullOrWhiteSpace(context.RuntimeState.TargetSystemPartitionRoot))
         {
-            return DeploymentStepResult.Failed("Target disk layout was not prepared.");
+            return DeploymentStepResult.Failed(
+                "Target disk layout was not prepared.",
+                DeploymentFailure.Guard(
+                    DeploymentOperationNames.ApplyOperatingSystemImage,
+                    DeploymentFailureReasons.MissingResource,
+                    "missing_target_layout"));
         }
 
         string targetFoundryRoot = context.EnsureTargetFoundryRoot();
         string imagePath = context.RuntimeState.DownloadedOperatingSystemPath ?? string.Empty;
         if (!File.Exists(imagePath))
         {
-            return DeploymentStepResult.Failed("Operating system image was not downloaded.");
+            return DeploymentStepResult.Failed(
+                "Operating system image was not downloaded.",
+                DeploymentFailure.Guard(
+                    DeploymentOperationNames.ApplyOperatingSystemImage,
+                    DeploymentFailureReasons.MissingResource,
+                    "missing_os_image"));
         }
 
         string workingDirectory = Path.Combine(targetFoundryRoot, "Temp", "Deployment");
@@ -125,7 +135,12 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
         if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot) ||
             string.IsNullOrWhiteSpace(context.RuntimeState.TargetSystemPartitionRoot))
         {
-            return DeploymentStepResult.Failed("Target disk layout was not prepared.");
+            return DeploymentStepResult.Failed(
+                "Target disk layout was not prepared.",
+                DeploymentFailure.Guard(
+                    DeploymentOperationNames.ApplyOperatingSystemImage,
+                    DeploymentFailureReasons.MissingResource,
+                    "missing_target_layout"));
         }
 
         string targetFoundryRoot = context.EnsureTargetFoundryRoot();

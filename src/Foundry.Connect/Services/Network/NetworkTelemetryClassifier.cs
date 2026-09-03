@@ -2,6 +2,11 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Globalization;
+using System.Net;
+using System.Net.Http;
+using System.Net.Sockets;
+using System.Security.Authentication;
 using Foundry.Connect.Models;
 using Foundry.Connect.Models.Network;
 
@@ -12,6 +17,50 @@ namespace Foundry.Connect.Services.Network;
 /// </summary>
 internal static class NetworkTelemetryClassifier
 {
+    /// <summary>
+    /// Classifies a network exception without retaining messages, addresses, or request data.
+    /// </summary>
+    /// <param name="exception">Network operation exception.</param>
+    /// <param name="cancellationRequested">Whether the caller requested cancellation.</param>
+    /// <returns>Stable low-cardinality failure fields.</returns>
+    public static NetworkFailureClassification ClassifyFailure(Exception exception, bool cancellationRequested = false)
+    {
+        ArgumentNullException.ThrowIfNull(exception);
+
+        if (exception is OperationCanceledException)
+        {
+            return new NetworkFailureClassification(
+                "network",
+                cancellationRequested ? "cancelled" : "timeout");
+        }
+
+        if (exception is HttpRequestException { StatusCode: HttpStatusCode.ProxyAuthenticationRequired })
+        {
+            return new NetworkFailureClassification("network", "proxy", "407");
+        }
+
+        if (exception is HttpRequestException { StatusCode: HttpStatusCode statusCode })
+        {
+            return new NetworkFailureClassification(
+                "network",
+                "http_status",
+                ((int)statusCode).ToString(CultureInfo.InvariantCulture));
+        }
+
+        if (FindInnerException<AuthenticationException>(exception) is not null)
+        {
+            return new NetworkFailureClassification("network", "tls");
+        }
+
+        if (FindInnerException<SocketException>(exception) is SocketException socketException &&
+            socketException.SocketErrorCode is SocketError.HostNotFound or SocketError.NoData or SocketError.TryAgain)
+        {
+            return new NetworkFailureClassification("network", "dns", socketException.SocketErrorCode.ToString());
+        }
+
+        return new NetworkFailureClassification("network", "transport");
+    }
+
     /// <summary>
     /// Classifies the active connection type without exposing adapter or network identifiers.
     /// </summary>
@@ -82,4 +131,23 @@ internal static class NetworkTelemetryClassifier
 
         return "unknown";
     }
+
+    private static TException? FindInnerException<TException>(Exception exception)
+        where TException : Exception
+    {
+        for (Exception? current = exception; current is not null; current = current.InnerException)
+        {
+            if (current is TException match)
+            {
+                return match;
+            }
+        }
+
+        return null;
+    }
 }
+
+/// <summary>
+/// Contains privacy-safe network failure fields for remote diagnostics.
+/// </summary>
+internal sealed record NetworkFailureClassification(string Kind, string Reason, string? Code = null);

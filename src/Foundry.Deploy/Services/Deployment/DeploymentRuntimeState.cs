@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Text.Json.Serialization;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Cache;
@@ -34,8 +33,32 @@ public sealed record DeploymentRuntimeState
     /// <summary>
     /// Gets or sets the active logical operation name.
     /// </summary>
-    [JsonIgnore]
     public string CurrentOperation { get; set; } = "deployment.unknown";
+
+    /// <summary>
+    /// Gets the operation identifier shared by deployment telemetry and diagnostic logs.
+    /// </summary>
+    public string OperationId { get; init; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the step that produced the last terminal failure.
+    /// </summary>
+    public string? LastFailureStep { get; set; }
+
+    /// <summary>
+    /// Gets or sets the stable category of the last terminal failure.
+    /// </summary>
+    public string? LastFailureKind { get; set; }
+
+    /// <summary>
+    /// Gets or sets the stable reason for the last terminal failure.
+    /// </summary>
+    public string? LastFailureReason { get; set; }
+
+    /// <summary>
+    /// Gets or sets the optional stable code for the last terminal failure.
+    /// </summary>
+    public string? LastFailureCode { get; set; }
 
     /// <summary>
     /// Gets the deployment source mode.

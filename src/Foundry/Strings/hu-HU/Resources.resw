@@ -2040,6 +2040,12 @@
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>tábornok</value>
   </data>
+  <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
+    <value>Küldjön megtisztított naplókat és kivételadatokat a hibák diagnosztizálásának elősegítéséhez. A titkos adatok és a közvetlen azonosítók kimaradnak.</value>
+  </data>
+  <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
+    <value>Távoli diagnosztika engedélyezése</value>
+  </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
     <value>Küldjön névtelen használati telemetriát a Foundry fejlesztéséhez. A titkos adatok és a közvetlen eszközazonosítók, beleértve a sorozatszámokat és a hardverkivonatokat, ki vannak zárva. A telemetria névtelen telepítési azonosítót használ, és tartalmazhatja az eszköz gyártóját és modelljét.</value>
   </data>

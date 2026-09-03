@@ -89,6 +89,12 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
     public async Task<DeploymentResult> RunAsync(DeploymentContext context, CancellationToken cancellationToken = default)
     {
         Stopwatch stopwatch = Stopwatch.StartNew();
+        string operationId = Guid.NewGuid().ToString("N", CultureInfo.InvariantCulture);
+        using IDisposable? logScope = _logger.BeginScope(new Dictionary<string, object?>
+        {
+            ["OperationId"] = operationId,
+            ["Workflow"] = "deployment"
+        });
         _logger.LogInformation(
             "Starting deployment orchestration. Mode={Mode}, IsDryRun={IsDryRun}, TargetDiskNumber={TargetDiskNumber}, HasTargetComputerName={HasTargetComputerName}, DriverPackSelectionKind={DriverPackSelectionKind}, ApplyFirmwareUpdates={ApplyFirmwareUpdates}",
             context.Mode,
@@ -100,8 +106,22 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
         if (!_operationProgressService.TryStart(OperationKind.Deploy, "Starting Foundry.Deploy orchestration.", 0))
         {
-            _logger.LogWarning("Deployment orchestration rejected because another operation is already in progress.");
+            LogTerminalOutcome(
+                LogLevel.Warning,
+                exception: null,
+                operationId,
+                outcome: "failed",
+                context,
+                runtimeState: null,
+                failedStepName: "operation_busy",
+                failure: new DeploymentFailure(
+                    DeploymentOperationNames.AcquireGate,
+                    DeploymentFailureKinds.Busy,
+                    DeploymentFailureReasons.OperationBusy),
+                stopwatch.Elapsed,
+                cancelled: false);
             await TrackDeploymentCompletedAsync(
+                operationId,
                 context,
                 runtimeState: null,
                 success: false,
@@ -124,6 +144,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
         var runtimeState = new DeploymentRuntimeState
         {
+            OperationId = operationId,
             WorkspaceRoot = DeploymentStepExecutionContext.ResolveWorkspaceRoot(context),
             Mode = context.Mode,
             IsDryRun = context.IsDryRun,
@@ -173,6 +194,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
                 IDeploymentStep step = _steps[i];
                 executionContext.SetCurrentStep(step, i + 1);
+                await executionContext.TrySaveRuntimeStateAsync(cancellationToken).ConfigureAwait(false);
 
                 _logger.LogInformation(
                     "Executing deployment step {StepIndex}/{StepCount}: {StepName}",
@@ -197,7 +219,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
                 if (result.State == DeploymentStepState.Failed)
                 {
-                    _logger.LogWarning("Deployment step failed. StepName={StepName}, Message={Message}", step.Name, result.Message);
+                    _logger.LogDebug("Deployment step failed. StepName={StepName}", step.Name);
                     DeploymentFailure failure = result.Failure ?? new DeploymentFailure(
                         DeploymentOperationNames.ForStep(step.Name),
                         DeploymentFailureKinds.Validation,
@@ -210,12 +232,23 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     runtimeState.CompletedSteps.Add(step.Name);
                 }
 
-                await executionContext.SaveRuntimeStateAsync(cancellationToken).ConfigureAwait(false);
+                await executionContext.TrySaveRuntimeStateAsync(cancellationToken).ConfigureAwait(false);
             }
 
             _operationProgressService.Complete("Deployment orchestration completed.");
-            _logger.LogInformation("Deployment orchestration completed successfully.");
+            LogTerminalOutcome(
+                LogLevel.Information,
+                exception: null,
+                operationId,
+                outcome: "succeeded",
+                context,
+                runtimeState,
+                failedStepName: null,
+                failure: null,
+                stopwatch.Elapsed,
+                cancelled: false);
             await TrackDeploymentCompletedAsync(
+                operationId,
                 context,
                 runtimeState,
                 success: true,
@@ -232,20 +265,39 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 LogsDirectoryPath = ResolveLogsDirectory(executionContext)
             };
         }
-        catch (OperationCanceledException)
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {
             _operationProgressService.Fail("Deployment cancelled.");
-            _logger.LogWarning("Deployment orchestration cancelled.");
+            string failedStepName = ResolveFailedStepName(runtimeState);
+            DeploymentFailure cancellationFailure = new(
+                runtimeState.CurrentOperation,
+                DeploymentFailureKinds.Cancelled,
+                DeploymentFailureReasons.CallerCancelled);
+            ApplyTerminalFailure(runtimeState, failedStepName, cancellationFailure);
             if (executionContext is not null)
             {
+                await executionContext.TrySaveRuntimeStateAsync(CancellationToken.None).ConfigureAwait(false);
                 await TryRebindLogsToFinalTargetAsync(executionContext, CancellationToken.None).ConfigureAwait(false);
+                await executionContext.TrySaveRuntimeStateAsync(CancellationToken.None).ConfigureAwait(false);
             }
+            LogTerminalOutcome(
+                LogLevel.Warning,
+                exception: null,
+                operationId,
+                outcome: "cancelled",
+                context,
+                runtimeState,
+                failedStepName,
+                failure: null,
+                stopwatch.Elapsed,
+                cancelled: true);
             await TrackDeploymentCompletedAsync(
+                operationId,
                 context,
                 runtimeState,
                 success: false,
                 cancelled: true,
-                failedStepName: ResolveFailedStepName(runtimeState),
+                failedStepName,
                 failure: null,
                 stopwatch.Elapsed,
                 CancellationToken.None).ConfigureAwait(false);
@@ -262,18 +314,33 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             DeploymentFailure failure = DeploymentFailureClassifier.Classify(
                 ex,
                 runtimeState.CurrentOperation);
+            string failedStepName = ResolveFailedStepName(runtimeState);
+            ApplyTerminalFailure(runtimeState, failedStepName, failure);
             _operationProgressService.Fail("Deployment failed.");
-            _logger.LogError(ex, "Deployment orchestration failed.");
             if (executionContext is not null)
             {
+                await executionContext.TrySaveRuntimeStateAsync(CancellationToken.None).ConfigureAwait(false);
                 await TryRebindLogsToFinalTargetAsync(executionContext, CancellationToken.None).ConfigureAwait(false);
+                await executionContext.TrySaveRuntimeStateAsync(CancellationToken.None).ConfigureAwait(false);
             }
+            LogTerminalOutcome(
+                LogLevel.Error,
+                ex,
+                operationId,
+                outcome: "failed",
+                context,
+                runtimeState,
+                failedStepName,
+                failure,
+                stopwatch.Elapsed,
+                cancelled: false);
             await TrackDeploymentCompletedAsync(
+                operationId,
                 context,
                 runtimeState,
                 success: false,
                 cancelled: false,
-                failedStepName: ResolveFailedStepName(runtimeState),
+                failedStepName,
                 failure,
                 stopwatch.Elapsed,
                 CancellationToken.None).ConfigureAwait(false);
@@ -288,6 +355,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
     }
 
     private Task TrackDeploymentCompletedAsync(
+        string operationId,
         DeploymentContext context,
         DeploymentRuntimeState? runtimeState,
         bool success,
@@ -303,6 +371,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             context.Completion.AutomaticRebootDelaySeconds);
         var properties = new Dictionary<string, object?>
         {
+            ["operation_id"] = operationId,
             ["deploy_session_success"] = success,
             ["deploy_session_cancelled"] = cancelled,
             ["deploy_session_duration_seconds"] = Math.Round(duration.TotalSeconds, 2),
@@ -366,6 +435,38 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             properties["deploy_driver_pack_model"]);
 
         return _telemetryService.TrackAsync(TelemetryEvents.DeploySessionFinished, properties, cancellationToken);
+    }
+
+    private void LogTerminalOutcome(
+        LogLevel level,
+        Exception? exception,
+        string operationId,
+        string outcome,
+        DeploymentContext context,
+        DeploymentRuntimeState? runtimeState,
+        string? failedStepName,
+        DeploymentFailure? failure,
+        TimeSpan duration,
+        bool cancelled)
+    {
+        _logger.Log(
+            level,
+            eventId: default,
+            exception,
+            "Deployment operation finished. OperationId={OperationId}, Outcome={Outcome}, DurationMs={DurationMs}, CompletedStepCount={CompletedStepCount}, FailedStepName={FailedStepName}, FailedOperationName={FailedOperationName}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, Mode={Mode}, IsDryRun={IsDryRun}, Cancelled={Cancelled}, RemoteDiagnostic={RemoteDiagnostic}",
+            operationId,
+            outcome,
+            Math.Round(duration.TotalMilliseconds, 0),
+            runtimeState?.CompletedSteps.Count ?? 0,
+            failedStepName,
+            failure?.OperationName,
+            failure?.Kind,
+            failure?.Reason,
+            failure?.Code,
+            context.Mode,
+            context.IsDryRun,
+            cancelled,
+            true);
     }
 
     private static string ResolveFailedStepName(DeploymentRuntimeState runtimeState)
@@ -469,5 +570,16 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         }
 
         return executionContext?.ResolveWorkspaceLogsPath() ?? string.Empty;
+    }
+
+    private static void ApplyTerminalFailure(
+        DeploymentRuntimeState runtimeState,
+        string failedStepName,
+        DeploymentFailure failure)
+    {
+        runtimeState.LastFailureStep = failedStepName;
+        runtimeState.LastFailureKind = failure.Kind;
+        runtimeState.LastFailureReason = failure.Reason;
+        runtimeState.LastFailureCode = failure.Code;
     }
 }

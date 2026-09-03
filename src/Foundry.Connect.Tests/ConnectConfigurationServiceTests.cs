@@ -133,6 +133,7 @@ public sealed class ConnectConfigurationServiceTests
               "schemaVersion": {{FoundryConnectConfiguration.CurrentSchemaVersion}},
               "telemetry": {
                 "isEnabled": false,
+                "isRemoteDiagnosticsEnabled": true,
                 "installId": "install-id",
                 "hostUrl": "https://eu.i.posthog.com",
                 "projectToken": "project-token",
@@ -146,11 +147,28 @@ public sealed class ConnectConfigurationServiceTests
         FoundryConnectConfiguration configuration = service.Load();
 
         Assert.False(configuration.Telemetry.IsEnabled);
+        Assert.True(configuration.Telemetry.IsRemoteDiagnosticsEnabled);
         Assert.False(service.IsBootMediaUpdateRecommended);
         Assert.Equal("install-id", configuration.Telemetry.InstallId);
         Assert.Equal(TelemetryDefaults.PostHogEuHost, configuration.Telemetry.HostUrl);
         Assert.Equal("project-token", configuration.Telemetry.ProjectToken);
         Assert.Equal(TelemetryRuntimePayloadSources.Debug, configuration.Telemetry.RuntimePayloadSource);
+    }
+
+    [Fact]
+    public void Load_WhenRemoteDiagnosticsConsentIsMissing_DefaultsToEnabled()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var tempDirectory = new TemporaryDirectory();
+        string configurationPath = CreateJsonFile(
+            tempDirectory.Path,
+            "legacy-telemetry.json",
+            """{ "schemaVersion": 3, "telemetry": { "isEnabled": true } }""");
+        var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
+
+        FoundryConnectConfiguration configuration = service.Load();
+
+        Assert.True(configuration.Telemetry.IsRemoteDiagnosticsEnabled);
     }
 
     [Fact]

@@ -55,6 +55,8 @@ public sealed class WinPeUsbMediaServiceTests
 
         Assert.False(result.IsSuccess);
         Assert.Equal(WinPeErrorCodes.UsbUnsafeTarget, result.Error?.Code);
+        Assert.Equal(WinPeFailureKinds.Validation, result.Error?.FailureKind);
+        Assert.Equal(WinPeFailureReasons.DiskValidation, result.Error?.FailureReason);
     }
 
     [Fact]
@@ -81,6 +83,8 @@ public sealed class WinPeUsbMediaServiceTests
 
         Assert.False(result.IsSuccess);
         Assert.Equal(WinPeErrorCodes.UsbIdentityMismatch, result.Error?.Code);
+        Assert.Equal(WinPeFailureKinds.Validation, result.Error?.FailureKind);
+        Assert.Equal(WinPeFailureReasons.DiskValidation, result.Error?.FailureReason);
     }
 
     [Fact]

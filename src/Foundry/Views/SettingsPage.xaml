@@ -31,6 +31,15 @@
                     behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
                     IsOn="{x:Bind ViewModel.IsTelemetryEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </wct:SettingsCard>
+            <wct:SettingsCard x:Name="RemoteDiagnosticsCard"
+                x:Uid="SettingsPage_RemoteDiagnosticsCard">
+                <wct:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE9D9;" />
+                </wct:SettingsCard.HeaderIcon>
+                <ToggleSwitch x:Name="RemoteDiagnosticsToggle"
+                    behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                    IsOn="{x:Bind ViewModel.IsRemoteDiagnosticsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </wct:SettingsCard>
             <wct:SettingsCard x:Name="ProxySettingsCard"
                 x:Uid="SettingsPage_ProxyCard"
                 Click="ProxySettingsCard_Click"

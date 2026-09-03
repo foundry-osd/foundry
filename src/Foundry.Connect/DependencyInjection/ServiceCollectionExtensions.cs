@@ -39,6 +39,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton(sp => sp.GetRequiredService<IConnectConfigurationService>().Load());
         services.AddSingleton(CreateTelemetryOptions);
         services.AddSingleton(CreateTelemetryContext);
+        services.AddSingleton<IRemoteDiagnosticsService>(_ => new PostHogRemoteDiagnosticsSink());
         services.AddSingleton<ITelemetryService>(sp =>
         {
             TelemetryOptions options = sp.GetRequiredService<TelemetryOptions>();
@@ -87,7 +88,7 @@ public static class ServiceCollectionExtensions
     {
         FoundryConnectConfiguration configuration = serviceProvider.GetRequiredService<FoundryConnectConfiguration>();
         string runtime = WinPeRuntimeDetector.IsWinPeRuntime() ? TelemetryRuntimeModes.WinPe : TelemetryRuntimeModes.Desktop;
-        return new TelemetryContext(
+        return TelemetryContextFactory.Create(
             TelemetryApps.FoundryConnect,
             FoundryConnectApplicationInfo.Version,
             TelemetryBuildConfiguration.Current,
@@ -99,7 +100,6 @@ public static class ServiceCollectionExtensions
                 runtime,
                 Environment.GetEnvironmentVariable(DeploymentModeEnvironmentVariable)),
             RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant(),
-            CultureInfo.CurrentUICulture.Name,
-            Guid.NewGuid().ToString("D"));
+            CultureInfo.CurrentUICulture.Name);
     }
 }

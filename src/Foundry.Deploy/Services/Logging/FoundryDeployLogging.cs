@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
+using Foundry.Telemetry;
 using Foundry.Utilities.IO;
 using Foundry.Utilities.Diagnostics;
 using Serilog;
@@ -41,7 +42,8 @@ internal static class FoundryDeployLogging
             "Foundry.Deploy",
             DiagnosticSessionContext.CurrentSessionId,
             LogEventLevel.Debug,
-            RetainedLogFileCount);
+            RetainedLogFileCount,
+            additionalSink: RemoteDiagnosticsSink.Instance);
 
         CurrentLogFilePath = normalizedLogFilePath;
         _startupLogDirectoryPath = Path.GetDirectoryName(normalizedLogFilePath);

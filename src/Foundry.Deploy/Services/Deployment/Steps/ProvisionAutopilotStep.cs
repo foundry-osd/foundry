@@ -61,19 +61,28 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
 
         if (context.Request.SelectedAutopilotProfile is null)
         {
-            return DeploymentStepResult.Failed("Autopilot is enabled but no profile was selected.");
+            return CreateMissingProfileFailure();
         }
 
         if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot))
         {
-            return DeploymentStepResult.Failed("Target Windows partition is unavailable for Autopilot staging.");
+            return DeploymentStepResult.Failed(
+                "Target Windows partition is unavailable for Autopilot staging.",
+                DeploymentFailure.Guard(
+                    DeploymentOperationNames.StageAutopilotProfile,
+                    DeploymentFailureReasons.MissingResource,
+                    "missing_target_partition"));
         }
 
         string sourceConfigurationPath = context.Request.SelectedAutopilotProfile.ConfigurationFilePath;
         if (!File.Exists(sourceConfigurationPath))
         {
             return DeploymentStepResult.Failed(
-                $"Selected Autopilot profile file was not found: '{sourceConfigurationPath}'.");
+                $"Selected Autopilot profile file was not found: '{sourceConfigurationPath}'.",
+                DeploymentFailure.Guard(
+                    DeploymentOperationNames.StageAutopilotProfile,
+                    DeploymentFailureReasons.NotFound,
+                    "autopilot_profile_file_not_found"));
         }
 
         string targetConfigurationPath = Path.Combine(
@@ -82,7 +91,12 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
         string? targetDirectoryPath = Path.GetDirectoryName(targetConfigurationPath);
         if (string.IsNullOrWhiteSpace(targetDirectoryPath))
         {
-            return DeploymentStepResult.Failed("Failed to resolve the target Autopilot directory.");
+            return DeploymentStepResult.Failed(
+                "Failed to resolve the target Autopilot directory.",
+                DeploymentFailure.Guard(
+                    DeploymentOperationNames.StageAutopilotProfile,
+                    DeploymentFailureReasons.InvalidState,
+                    "unresolved_autopilot_target_directory"));
         }
 
         context.EmitCurrentStepIndeterminate("Staging Autopilot profile...", "Copying AutopilotConfigurationFile.json...", DeploymentOperationNames.StageAutopilotProfile);
@@ -131,7 +145,7 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
 
         if (context.Request.SelectedAutopilotProfile is null)
         {
-            return DeploymentStepResult.Failed("Autopilot is enabled but no profile was selected.");
+            return CreateMissingProfileFailure();
         }
 
         string targetFoundryRoot = context.EnsureTargetFoundryRoot();
@@ -171,7 +185,12 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
     {
         if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot))
         {
-            return DeploymentStepResult.Failed("Target Windows partition is unavailable for interactive Autopilot registration assistant staging.");
+            return DeploymentStepResult.Failed(
+                "Target Windows partition is unavailable for interactive Autopilot registration assistant staging.",
+                DeploymentFailure.Guard(
+                    DeploymentOperationNames.StageAutopilotAssistant,
+                    DeploymentFailureReasons.MissingResource,
+                    "missing_target_partition"));
         }
 
         context.EmitCurrentStepIndeterminate("Staging Autopilot registration assistant...", "Copying interactive registration files...", DeploymentOperationNames.StageAutopilotAssistant);
@@ -199,7 +218,12 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
 
         if (!dryRun && string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot))
         {
-            return DeploymentStepResult.Failed("Target Windows partition is unavailable for Autopilot hardware hash upload.");
+            return DeploymentStepResult.Failed(
+                "Target Windows partition is unavailable for Autopilot hardware hash upload.",
+                DeploymentFailure.Guard(
+                    DeploymentOperationNames.CaptureAutopilotHash,
+                    DeploymentFailureReasons.MissingResource,
+                    "missing_target_partition"));
         }
 
         if (settings.ActiveCertificateExpiresOnUtc is DateTimeOffset expiresOn &&
@@ -493,5 +517,13 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
                 "support_library_load_failed")
         };
     }
+
+    private static DeploymentStepResult CreateMissingProfileFailure() =>
+        DeploymentStepResult.Failed(
+            "Autopilot is enabled but no profile was selected.",
+            DeploymentFailure.Guard(
+                DeploymentOperationNames.ProvisionAutopilot,
+                DeploymentFailureReasons.MissingResource,
+                "missing_autopilot_profile"));
 
 }

@@ -39,7 +39,7 @@ public sealed class ExtractDriverPackStep : DeploymentStepBase
                 return DeploymentStepResult.Skipped("Microsoft Update Catalog did not produce a driver payload.");
             }
 
-            return DeploymentStepResult.Failed("Driver pack was not downloaded.");
+            return CreateMissingDriverPackFailure();
         }
 
         string extractionRoot = Path.Combine(context.EnsureTargetFoundryRoot(), "Extracted", "Drivers");
@@ -88,7 +88,7 @@ public sealed class ExtractDriverPackStep : DeploymentStepBase
                 return DeploymentStepResult.Skipped("Microsoft Update Catalog did not produce a driver payload.");
             }
 
-            return DeploymentStepResult.Failed("Driver pack was not downloaded.");
+            return CreateMissingDriverPackFailure();
         }
 
         DriverPackExecutionPlan executionPlan = _driverPackStrategyResolver.Resolve(
@@ -134,4 +134,12 @@ public sealed class ExtractDriverPackStep : DeploymentStepBase
     {
         return File.Exists(path) || Directory.Exists(path);
     }
+
+    private static DeploymentStepResult CreateMissingDriverPackFailure() =>
+        DeploymentStepResult.Failed(
+            "Driver pack was not downloaded.",
+            DeploymentFailure.Guard(
+                DeploymentOperationNames.ExtractDriverPack,
+                DeploymentFailureReasons.MissingResource,
+                "missing_driver_payload"));
 }

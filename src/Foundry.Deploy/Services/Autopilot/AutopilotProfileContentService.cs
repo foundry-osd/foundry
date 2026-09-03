@@ -51,7 +51,7 @@ public sealed class AutopilotProfileContentService(IDeploymentSecretKeySession d
                                    InvalidOperationException or ArgumentException or FormatException or
                                    CryptographicException or InvalidDataException)
         {
-            throw new InvalidDataException("Protected Autopilot profile could not be read.");
+            throw new InvalidDataException("Protected Autopilot profile could not be read.", ex);
         }
         finally
         {

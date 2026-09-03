@@ -582,6 +582,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     {
         await ExecuteProvisionedWifiActionAsync(
             () => _networkBootstrapService.ConnectConfiguredWifiAsync(_disposeCts.Token),
+            "wifi.provisioned_action",
             BuildProvisionedWifiConnectFeedback,
             refreshAfterAction: true).ConfigureAwait(false);
     }
@@ -591,6 +592,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     {
         await ExecuteProvisionedWifiActionAsync(
             () => _networkBootstrapService.DisconnectWifiAsync(_disposeCts.Token),
+            "wifi.provisioned_action",
             BuildProvisionedWifiDisconnectFeedback,
             refreshAfterAction: true).ConfigureAwait(false);
     }
@@ -610,6 +612,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 SelectedWifiNetwork.Authentication,
                 SelectedWifiNetwork.RequiresPassphrase ? SelectedWifiPassphrase : null,
                 _disposeCts.Token),
+            "wifi.selected_action",
             BuildSelectedWifiConnectFeedback,
             refreshAfterAction: true).ConfigureAwait(false);
     }
@@ -624,6 +627,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         await ExecuteSelectedWifiActionAsync(
             () => _networkBootstrapService.DisconnectWifiAsync(_disposeCts.Token),
+            "wifi.selected_action",
             BuildSelectedWifiDisconnectFeedback,
             refreshAfterAction: true).ConfigureAwait(false);
     }
@@ -659,6 +663,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
     private async Task RefreshCoreAsync(CancellationToken cancellationToken)
     {
+        string operationId = CreateNetworkOperationId();
         await _refreshGate.WaitAsync(cancellationToken).ConfigureAwait(false);
 
         try
@@ -680,7 +685,12 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to refresh network status.");
+            LogNetworkFailure(
+                LogLevel.Error,
+                "network.refresh",
+                operationId,
+                NetworkTelemetryClassifier.ClassifyFailure(ex),
+                ex);
             await RunOnUiAsync(() =>
             {
                 IsPrimaryStatusSuccessful = false;
@@ -736,6 +746,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             {
                 await ExecuteProvisionedWifiActionAsync(
                     () => _networkBootstrapService.ConnectConfiguredWifiAsync(_disposeCts.Token),
+                    "wifi.provisioned_action",
                     BuildProvisionedWifiConnectFeedback,
                     refreshAfterAction: true).ConfigureAwait(false);
             });
@@ -1207,10 +1218,13 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             return;
         }
 
+        string operationId = CreateNetworkOperationId();
+
         try
         {
-            string status = await _networkBootstrapService.ApplyProvisionedSettingsAsync(cancellationToken).ConfigureAwait(false);
-            string? feedback = BuildProvisionedWifiInitializationFeedback(status);
+            NetworkBootstrapResult result = await _networkBootstrapService.ApplyProvisionedSettingsAsync(cancellationToken).ConfigureAwait(false);
+            LogHandledNetworkFailures("network.apply_provisioned_settings", operationId, result);
+            string? feedback = BuildProvisionedWifiInitializationFeedback(result.StatusMessage);
             if (!string.IsNullOrWhiteSpace(feedback))
             {
                 await RunOnUiAsync(() => ProvisionedWifiActionFeedbackText = feedback).ConfigureAwait(false);
@@ -1222,7 +1236,12 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Provisioned settings initialization failed.");
+            LogNetworkFailure(
+                LogLevel.Error,
+                "network.apply_provisioned_settings",
+                operationId,
+                NetworkTelemetryClassifier.ClassifyFailure(ex),
+                ex);
             await RunOnUiAsync(() => ProvisionedWifiActionFeedbackText = GetString("Wifi.ActionApplyProvisionedFailed")).ConfigureAwait(false);
         }
     }
@@ -1239,7 +1258,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     }
 
     private async Task ExecuteProvisionedWifiActionAsync(
-        Func<Task<string>> action,
+        Func<Task<NetworkBootstrapResult>> action,
+        string networkOperation,
         Func<string, string?> resolveFeedback,
         bool refreshAfterAction)
     {
@@ -1247,6 +1267,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         {
             return;
         }
+
+        string operationId = CreateNetworkOperationId();
 
         await RunOnUiAsync(() =>
         {
@@ -1257,8 +1279,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         try
         {
-            string status = await action().ConfigureAwait(false);
-            string? feedback = resolveFeedback(status);
+            NetworkBootstrapResult result = await action().ConfigureAwait(false);
+            LogHandledNetworkFailures(networkOperation, operationId, result);
+            string? feedback = resolveFeedback(result.StatusMessage);
 
             await RunOnUiAsync(() =>
             {
@@ -1278,7 +1301,12 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Provisioned network action failed.");
+            LogNetworkFailure(
+                LogLevel.Error,
+                networkOperation,
+                operationId,
+                NetworkTelemetryClassifier.ClassifyFailure(ex),
+                ex);
             await RunOnUiAsync(() => ProvisionedWifiActionFeedbackText = GetString("Wifi.ActionTryAgain")).ConfigureAwait(false);
         }
         finally
@@ -1292,7 +1320,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     }
 
     private async Task ExecuteSelectedWifiActionAsync(
-        Func<Task<string>> action,
+        Func<Task<NetworkBootstrapResult>> action,
+        string networkOperation,
         Func<string, string?> resolveFeedback,
         bool refreshAfterAction)
     {
@@ -1300,6 +1329,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         {
             return;
         }
+
+        string operationId = CreateNetworkOperationId();
 
         await RunOnUiAsync(() =>
         {
@@ -1310,8 +1341,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         try
         {
-            string status = await action().ConfigureAwait(false);
-            string? feedback = resolveFeedback(status);
+            NetworkBootstrapResult result = await action().ConfigureAwait(false);
+            LogHandledNetworkFailures(networkOperation, operationId, result);
+            string? feedback = resolveFeedback(result.StatusMessage);
 
             await RunOnUiAsync(() =>
             {
@@ -1336,7 +1368,12 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Selected Wi-Fi action failed.");
+            LogNetworkFailure(
+                LogLevel.Error,
+                networkOperation,
+                operationId,
+                NetworkTelemetryClassifier.ClassifyFailure(ex),
+                ex);
             await RunOnUiAsync(() => SelectedWifiActionFeedbackText = GetString("Wifi.ActionTryAgain")).ConfigureAwait(false);
         }
         finally
@@ -1619,6 +1656,47 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         return string.IsNullOrWhiteSpace(_configuration.Wifi.Ssid)
             ? GetString("Wifi.UnnamedProvisionedProfile")
             : _configuration.Wifi.Ssid.Trim();
+    }
+
+    private void LogHandledNetworkFailures(string networkOperation, string operationId, NetworkBootstrapResult result)
+    {
+        foreach (NetworkBootstrapHandledFailure handledFailure in result.HandledFailures.Distinct())
+        {
+            LogNetworkFailure(
+                LogLevel.Warning,
+                networkOperation,
+                operationId,
+                new NetworkFailureClassification(
+                    handledFailure.Kind,
+                    handledFailure.Reason,
+                    handledFailure.Code));
+        }
+    }
+
+    private void LogNetworkFailure(
+        LogLevel level,
+        string networkOperation,
+        string operationId,
+        NetworkFailureClassification failure,
+        Exception? exception = null)
+    {
+        _logger.Log(
+            level,
+            eventId: default,
+            exception,
+            "Network operation failed. Workflow={Workflow}, OperationId={OperationId}, NetworkOperation={NetworkOperation}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, RemoteDiagnostic={RemoteDiagnostic}",
+            "connect",
+            operationId,
+            networkOperation,
+            failure.Kind,
+            failure.Reason,
+            failure.Code,
+            true);
+    }
+
+    private static string CreateNetworkOperationId()
+    {
+        return Guid.NewGuid().ToString("N", CultureInfo.InvariantCulture);
     }
 
     private string BuildProvisionedWifiAuthenticationText()

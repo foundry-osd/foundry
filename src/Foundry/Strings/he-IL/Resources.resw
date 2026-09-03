@@ -2040,6 +2040,12 @@
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>כללי</value>
   </data>
+  <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
+    <value>שלח יומנים מנוקים ופרטי חריגות כדי לסייע באבחון תקלות. סודות ומזהים ישירים אינם נכללים.</value>
+  </data>
+  <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
+    <value>הפעלת אבחון מרחוק</value>
+  </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
     <value>שלח נתוני טלמטריית שימוש אנונימיים כדי לעזור בשיפור Foundry. סודות ומזהים ישירים של המכשיר, כולל מספרים סידוריים וגיבובי חומרה, אינם נכללים. הטלמטריה משתמשת במזהה התקנה אנונימי ועשויה לכלול את יצרן המכשיר והדגם שלו.</value>
   </data>

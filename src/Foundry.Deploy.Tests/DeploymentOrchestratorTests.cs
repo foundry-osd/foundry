@@ -9,6 +9,7 @@ using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Telemetry;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Foundry.Deploy.Tests;
@@ -121,7 +122,7 @@ public sealed class DeploymentOrchestratorTests
             TargetComputerName = "LAB01",
             OperatingSystem = new OperatingSystemCatalogItem(),
             DriverPackSelectionKind = DriverPackSelectionKind.None
-        });
+        }, TestContext.Current.CancellationToken);
 
         string expectedFinalLogsPath = Path.Combine(targetWindowsRoot, "Windows", "Temp", "Foundry", "Logs");
         Assert.False(result.IsSuccess);
@@ -174,7 +175,7 @@ public sealed class DeploymentOrchestratorTests
             {
                 DefaultGroupTag = "Sales"
             }
-        });
+        }, TestContext.Current.CancellationToken);
 
         TelemetryEvent telemetryEvent = Assert.Single(telemetryService.Events);
         Assert.Equal(TelemetryEvents.DeploySessionFinished, telemetryEvent.Name);
@@ -199,6 +200,224 @@ public sealed class DeploymentOrchestratorTests
         Assert.True((bool)telemetryEvent.Properties["deploy_autopilot_hash_group_tag_selected"]!);
         Assert.False(telemetryEvent.Properties.ContainsKey("success"));
         Assert.False(telemetryEvent.Properties.ContainsKey("autopilot_enabled"));
+    }
+
+    [Fact]
+    public async Task RunAsync_WhenStepFails_PersistsCurrentOperationAndTerminalFailure()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var logService = new FakeDeploymentLogService();
+        var telemetryService = new RecordingTelemetryService();
+        var logger = new RecordingLogger<DeploymentOrchestrator>();
+        var orchestrator = new DeploymentOrchestrator(
+            new FakeOperationProgressService(),
+            logService,
+            new FakeTargetDiskService(),
+            DeploymentStepNames.ExecutionOrder.Select(name => (IDeploymentStep)(name == DeploymentStepNames.ValidateTargetConfiguration
+                ? new OperationFailingStep(name)
+                : new SucceedingStep(name))),
+            telemetryService,
+            logger);
+
+        DeploymentResult result = await orchestrator.RunAsync(new DeploymentContext
+        {
+            Mode = DeploymentMode.Iso,
+            IsDryRun = true,
+            CacheRootPath = workspace.RootPath,
+            TargetDiskNumber = 1,
+            TargetComputerName = "LAB01",
+            DriverPackSelectionKind = DriverPackSelectionKind.None,
+            OperatingSystem = new OperatingSystemCatalogItem()
+        }, TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Contains(
+            logService.SavedStates,
+            state => state.CurrentOperation == DeploymentOperationNames.ValidateTargetDisk && state.LastFailureCode is null);
+        DeploymentStateSnapshot terminal = logService.SavedStates.Last(state => state.LastFailureCode == "missing_target_partition");
+        Assert.Equal(DeploymentOperationNames.ValidateTargetDisk, terminal.CurrentOperation);
+        Assert.Equal(DeploymentStepNames.ValidateTargetConfiguration, terminal.LastFailureStep);
+        Assert.Equal(DeploymentFailureKinds.Validation, terminal.LastFailureKind);
+        Assert.Equal(DeploymentFailureReasons.MissingResource, terminal.LastFailureReason);
+
+        TelemetryEvent telemetryEvent = Assert.Single(telemetryService.Events);
+        string operationId = Assert.IsType<string>(telemetryEvent.Properties["operation_id"]);
+        Assert.False(string.IsNullOrWhiteSpace(operationId));
+        LogEntry terminalLog = Assert.Single(logger.Entries, entry => entry.Properties.ContainsKey("Outcome"));
+        Assert.Equal(operationId, terminalLog.Properties["OperationId"]);
+        Assert.Equal("failed", terminalLog.Properties["Outcome"]);
+        Assert.Equal(DeploymentOperationNames.ValidateTargetDisk, terminalLog.Properties["FailedOperationName"]);
+        Assert.Equal("missing_target_partition", terminalLog.Properties["FailureCode"]);
+        Assert.Equal(true, terminalLog.Properties["RemoteDiagnostic"]);
+    }
+
+    [Fact]
+    public async Task RunAsync_WhenStatePersistenceFails_PreservesDeploymentFailure()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var logService = new FakeDeploymentLogService { ThrowOnSave = true };
+        var telemetryService = new RecordingTelemetryService();
+        var orchestrator = new DeploymentOrchestrator(
+            new FakeOperationProgressService(),
+            logService,
+            new FakeTargetDiskService(),
+            DeploymentStepNames.ExecutionOrder.Select(name => (IDeploymentStep)(name == DeploymentStepNames.ValidateTargetConfiguration
+                ? new OperationFailingStep(name)
+                : new SucceedingStep(name))),
+            telemetryService,
+            NullLogger<DeploymentOrchestrator>.Instance);
+
+        DeploymentResult result = await orchestrator.RunAsync(new DeploymentContext
+        {
+            Mode = DeploymentMode.Iso,
+            IsDryRun = true,
+            CacheRootPath = workspace.RootPath,
+            TargetDiskNumber = 1,
+            TargetComputerName = "LAB01",
+            DriverPackSelectionKind = DriverPackSelectionKind.None,
+            OperatingSystem = new OperatingSystemCatalogItem()
+        }, TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal("Target Windows partition is unavailable.", result.Message);
+        TelemetryEvent telemetryEvent = Assert.Single(telemetryService.Events);
+        Assert.Equal("missing_target_partition", telemetryEvent.Properties["deploy_session_failure_code"]);
+    }
+
+    [Fact]
+    public async Task RunAsync_WhenStepThrowsTaskCanceledWithoutCallerCancellation_TracksFailedTimeout()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var telemetryService = new RecordingTelemetryService();
+        var logger = new RecordingLogger<DeploymentOrchestrator>();
+        var orchestrator = new DeploymentOrchestrator(
+            new FakeOperationProgressService(),
+            new FakeDeploymentLogService(),
+            new FakeTargetDiskService(),
+            DeploymentStepNames.ExecutionOrder.Select(name => (IDeploymentStep)(name == DeploymentStepNames.DownloadOperatingSystemImage
+                ? new TimeoutFailingStep(name)
+                : new SucceedingStep(name))),
+            telemetryService,
+            logger);
+
+        DeploymentResult result = await orchestrator.RunAsync(new DeploymentContext
+        {
+            Mode = DeploymentMode.Iso,
+            IsDryRun = false,
+            CacheRootPath = workspace.RootPath,
+            TargetDiskNumber = 1,
+            TargetComputerName = "LAB01",
+            DriverPackSelectionKind = DriverPackSelectionKind.None,
+            OperatingSystem = new OperatingSystemCatalogItem()
+        }, TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        TelemetryEvent telemetryEvent = Assert.Single(telemetryService.Events);
+        Assert.False((bool)telemetryEvent.Properties["deploy_session_cancelled"]!);
+        Assert.Equal("timeout", telemetryEvent.Properties["deploy_session_failure_kind"]);
+        Assert.Equal("deadline_exceeded", telemetryEvent.Properties["deploy_session_failure_reason"]);
+        Assert.Equal("os_image.download", telemetryEvent.Properties["deploy_session_failed_operation_name"]);
+        LogEntry terminalLog = Assert.Single(logger.Entries, entry => entry.Properties.ContainsKey("Outcome"));
+        Assert.Equal("failed", terminalLog.Properties["Outcome"]);
+        Assert.Equal(false, terminalLog.Properties["Cancelled"]);
+        Assert.Equal("timeout", terminalLog.Properties["FailureKind"]);
+    }
+
+    [Fact]
+    public async Task RunAsync_WhenCallerCancellationIsRequested_TracksCancelledOutcomeAndPersistsFinalState()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var logService = new FakeDeploymentLogService();
+        var telemetryService = new RecordingTelemetryService();
+        var logger = new RecordingLogger<DeploymentOrchestrator>();
+        using var cancellation = new CancellationTokenSource();
+        var orchestrator = new DeploymentOrchestrator(
+            new FakeOperationProgressService(),
+            logService,
+            new FakeTargetDiskService(),
+            DeploymentStepNames.ExecutionOrder.Select(name => (IDeploymentStep)(name == DeploymentStepNames.DownloadOperatingSystemImage
+                ? new CallerCancellingStep(name, cancellation)
+                : new SucceedingStep(name))),
+            telemetryService,
+            logger);
+
+        DeploymentResult result = await orchestrator.RunAsync(new DeploymentContext
+        {
+            Mode = DeploymentMode.Iso,
+            IsDryRun = false,
+            CacheRootPath = workspace.RootPath,
+            TargetDiskNumber = 1,
+            TargetComputerName = "LAB01",
+            DriverPackSelectionKind = DriverPackSelectionKind.None,
+            OperatingSystem = new OperatingSystemCatalogItem()
+        }, cancellation.Token);
+
+        Assert.False(result.IsSuccess);
+        Assert.Contains(logService.SavedStates, state => state.CurrentOperation == "os_image.download");
+        DeploymentStateSnapshot terminal = logService.SavedStates.Last();
+        Assert.Equal("os_image.download", terminal.CurrentOperation);
+        Assert.Equal(DeploymentStepNames.DownloadOperatingSystemImage, terminal.LastFailureStep);
+        Assert.Equal(DeploymentFailureKinds.Cancelled, terminal.LastFailureKind);
+        Assert.Equal(DeploymentFailureReasons.CallerCancelled, terminal.LastFailureReason);
+        Assert.Null(terminal.LastFailureCode);
+        TelemetryEvent telemetryEvent = Assert.Single(telemetryService.Events);
+        Assert.True((bool)telemetryEvent.Properties["deploy_session_cancelled"]!);
+        Assert.False((bool)telemetryEvent.Properties["deploy_session_success"]!);
+        Assert.False(telemetryEvent.Properties.ContainsKey("deploy_session_failure_kind"));
+        LogEntry terminalLog = Assert.Single(logger.Entries, entry => entry.Properties.ContainsKey("Outcome"));
+        Assert.Equal("cancelled", terminalLog.Properties["Outcome"]);
+        Assert.Equal(true, terminalLog.Properties["Cancelled"]);
+    }
+
+    [Theory]
+    [InlineData(1, DeploymentStepNames.GatherDeploymentVariables, DeploymentOperationNames.GatherVariables)]
+    [InlineData(3, DeploymentStepNames.GatherDeploymentVariables, DeploymentOperationNames.DownloadOperatingSystemImage)]
+    public async Task RunAsync_WhenCancellationOccursDuringRuntimeStatePersistence_RecoversFinalPersistence(
+        int cancelledSaveCallNumber,
+        string expectedFailureStep,
+        string expectedCurrentOperation)
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        using var cancellation = new CancellationTokenSource();
+        var logService = new CancellationDuringSaveDeploymentLogService(cancellation, cancelledSaveCallNumber);
+        var telemetryService = new RecordingTelemetryService();
+        var logger = new RecordingLogger<DeploymentOrchestrator>();
+        var orchestrator = new DeploymentOrchestrator(
+            new FakeOperationProgressService(),
+            logService,
+            new FakeTargetDiskService(),
+            DeploymentStepNames.ExecutionOrder.Select(name => (IDeploymentStep)new PersistenceTrackingStep(name)),
+            telemetryService,
+            logger);
+
+        DeploymentResult result = await orchestrator.RunAsync(new DeploymentContext
+        {
+            Mode = DeploymentMode.Iso,
+            IsDryRun = false,
+            CacheRootPath = workspace.RootPath,
+            TargetDiskNumber = 1,
+            TargetComputerName = "LAB01",
+            DriverPackSelectionKind = DriverPackSelectionKind.None,
+            OperatingSystem = new OperatingSystemCatalogItem()
+        }, cancellation.Token);
+
+        Assert.False(result.IsSuccess);
+        TelemetryEvent telemetryEvent = Assert.Single(telemetryService.Events);
+        Assert.True((bool)telemetryEvent.Properties["deploy_session_cancelled"]!);
+        Assert.False((bool)telemetryEvent.Properties["deploy_session_success"]!);
+        LogEntry terminalLog = Assert.Single(logger.Entries, entry => entry.Properties.ContainsKey("Outcome"));
+        Assert.Equal("cancelled", terminalLog.Properties["Outcome"]);
+        Assert.Equal(true, terminalLog.Properties["Cancelled"]);
+        Assert.True(logService.SuccessfulBestEffortSaveCount >= 2);
+        DeploymentStateSnapshot terminal = logService.SavedStates.Last();
+        Assert.Equal(expectedCurrentOperation, terminal.CurrentOperation);
+        Assert.Equal(expectedFailureStep, terminal.LastFailureStep);
+        Assert.Equal(DeploymentFailureKinds.Cancelled, terminal.LastFailureKind);
+        Assert.Equal(DeploymentFailureReasons.CallerCancelled, terminal.LastFailureReason);
+        Assert.Null(terminal.LastFailureCode);
+        Assert.Equal(
+            [logService.SaveCallCount - 1, logService.SaveCallCount],
+            logService.BestEffortSaveCallNumbers.Skip(Math.Max(0, logService.BestEffortSaveCallNumbers.Count - 2)).ToArray());
     }
 
     [Theory]
@@ -235,7 +454,7 @@ public sealed class DeploymentOrchestratorTests
                 AutomaticRebootEnabled = automaticRebootEnabled,
                 AutomaticRebootDelaySeconds = delaySeconds
             }
-        });
+        }, TestContext.Current.CancellationToken);
 
         TelemetryEvent telemetryEvent = Assert.Single(telemetryService.Events);
 
@@ -308,6 +527,51 @@ public sealed class DeploymentOrchestratorTests
         }
     }
 
+    private sealed class OperationFailingStep(string name) : IDeploymentStep
+    {
+        public string Name { get; } = name;
+
+        public Task<DeploymentStepResult> ExecuteAsync(
+            DeploymentStepExecutionContext context,
+            CancellationToken cancellationToken)
+        {
+            context.SetCurrentOperation(DeploymentOperationNames.ValidateTargetDisk);
+            return Task.FromResult(DeploymentStepResult.Failed(
+                "Target Windows partition is unavailable.",
+                DeploymentFailure.Guard(
+                    DeploymentOperationNames.ValidateTargetDisk,
+                    DeploymentFailureReasons.MissingResource,
+                    "missing_target_partition")));
+        }
+    }
+
+    private sealed class TimeoutFailingStep(string name) : IDeploymentStep
+    {
+        public string Name { get; } = name;
+
+        public Task<DeploymentStepResult> ExecuteAsync(
+            DeploymentStepExecutionContext context,
+            CancellationToken cancellationToken)
+        {
+            context.SetCurrentOperation("os_image.download");
+            return Task.FromException<DeploymentStepResult>(new TaskCanceledException("Simulated HTTP timeout."));
+        }
+    }
+
+    private sealed class CallerCancellingStep(string name, CancellationTokenSource cancellation) : IDeploymentStep
+    {
+        public string Name { get; } = name;
+
+        public Task<DeploymentStepResult> ExecuteAsync(
+            DeploymentStepExecutionContext context,
+            CancellationToken cancellationToken)
+        {
+            context.SetCurrentOperation("os_image.download");
+            cancellation.Cancel();
+            return Task.FromCanceled<DeploymentStepResult>(cancellationToken);
+        }
+    }
+
     private sealed class SucceedingStep(string name) : IDeploymentStep
     {
         public string Name { get; } = name;
@@ -320,8 +584,25 @@ public sealed class DeploymentOrchestratorTests
         }
     }
 
+    private sealed class PersistenceTrackingStep(string name) : IDeploymentStep
+    {
+        public string Name { get; } = name;
+
+        public Task<DeploymentStepResult> ExecuteAsync(
+            DeploymentStepExecutionContext context,
+            CancellationToken cancellationToken)
+        {
+            context.SetCurrentOperation("os_image.download");
+            return Task.FromResult(DeploymentStepResult.Succeeded("ok"));
+        }
+    }
+
     private sealed class FakeDeploymentLogService : IDeploymentLogService
     {
+        public List<DeploymentStateSnapshot> SavedStates { get; } = [];
+
+        public bool ThrowOnSave { get; init; }
+
         public DeploymentLogSession Initialize(string rootPath)
         {
             string logsDirectory = Path.Combine(rootPath, "Logs");
@@ -353,10 +634,124 @@ public sealed class DeploymentOrchestratorTests
             TState state,
             CancellationToken cancellationToken = default)
         {
+            if (ThrowOnSave)
+            {
+                throw new IOException("Synthetic state persistence failure.");
+            }
+
+            if (state is DeploymentRuntimeState runtimeState)
+            {
+                SavedStates.Add(new DeploymentStateSnapshot(
+                    runtimeState.CurrentOperation,
+                    runtimeState.LastFailureStep,
+                    runtimeState.LastFailureKind,
+                    runtimeState.LastFailureReason,
+                    runtimeState.LastFailureCode));
+            }
+
             Directory.CreateDirectory(session.StateDirectoryPath);
             await File.WriteAllTextAsync(session.StateFilePath, "{}", cancellationToken);
         }
 
+    }
+
+    private sealed class CancellationDuringSaveDeploymentLogService(
+        CancellationTokenSource cancellationTokenSource,
+        int cancelledSaveCallNumber) : IDeploymentLogService
+    {
+        public int SaveCallCount { get; private set; }
+
+        public int SuccessfulBestEffortSaveCount { get; private set; }
+
+        public List<int> BestEffortSaveCallNumbers { get; } = [];
+
+        public List<DeploymentStateSnapshot> SavedStates { get; } = [];
+
+        public DeploymentLogSession Initialize(string rootPath)
+        {
+            string logsDirectory = Path.Combine(rootPath, "Logs");
+            string stateDirectory = Path.Combine(rootPath, "State");
+            Directory.CreateDirectory(logsDirectory);
+            Directory.CreateDirectory(stateDirectory);
+            return new DeploymentLogSession
+            {
+                RootPath = rootPath,
+                LogsDirectoryPath = logsDirectory,
+                StateDirectoryPath = stateDirectory,
+                StateFilePath = Path.Combine(stateDirectory, "deployment-state.json")
+            };
+        }
+
+        public Task AppendAsync(
+            DeploymentLogSession session,
+            DeploymentLogLevel level,
+            string message,
+            CancellationToken cancellationToken = default) => Task.CompletedTask;
+
+        public async Task SaveStateAsync<TState>(
+            DeploymentLogSession session,
+            TState state,
+            CancellationToken cancellationToken = default)
+        {
+            SaveCallCount++;
+            if (SaveCallCount == cancelledSaveCallNumber)
+            {
+                cancellationTokenSource.Cancel();
+            }
+
+            cancellationToken.ThrowIfCancellationRequested();
+
+            if (!cancellationToken.CanBeCanceled)
+            {
+                SuccessfulBestEffortSaveCount++;
+                BestEffortSaveCallNumbers.Add(SaveCallCount);
+            }
+
+            if (state is DeploymentRuntimeState runtimeState)
+            {
+                SavedStates.Add(new DeploymentStateSnapshot(
+                    runtimeState.CurrentOperation,
+                    runtimeState.LastFailureStep,
+                    runtimeState.LastFailureKind,
+                    runtimeState.LastFailureReason,
+                    runtimeState.LastFailureCode));
+            }
+
+            Directory.CreateDirectory(session.StateDirectoryPath);
+            await File.WriteAllTextAsync(session.StateFilePath, "{}", cancellationToken);
+        }
+    }
+
+    private sealed record DeploymentStateSnapshot(
+        string CurrentOperation,
+        string? LastFailureStep,
+        string? LastFailureKind,
+        string? LastFailureReason,
+        string? LastFailureCode);
+
+    private sealed record LogEntry(LogLevel Level, IReadOnlyDictionary<string, object?> Properties);
+
+    private sealed class RecordingLogger<T> : ILogger<T>
+    {
+        public List<LogEntry> Entries { get; } = [];
+
+        public IDisposable? BeginScope<TState>(TState state) where TState : notnull => null;
+
+        public bool IsEnabled(LogLevel logLevel) => true;
+
+        public void Log<TState>(
+            LogLevel logLevel,
+            EventId eventId,
+            TState state,
+            Exception? exception,
+            Func<TState, Exception?, string> formatter)
+        {
+            var properties = state as IEnumerable<KeyValuePair<string, object?>>;
+            Entries.Add(new LogEntry(
+                logLevel,
+                properties?.ToDictionary(pair => pair.Key, pair => pair.Value, StringComparer.Ordinal)
+                    ?? new Dictionary<string, object?>()));
+        }
     }
 
     private sealed class FakeOperationProgressService : IOperationProgressService

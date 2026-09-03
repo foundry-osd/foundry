@@ -55,12 +55,24 @@ public sealed class WinPeDriverCatalogService : IWinPeDriverCatalogService
                 xmlContent = await File.ReadAllTextAsync(options.CatalogUri, cancellationToken).ConfigureAwait(false);
             }
         }
-        catch (Exception ex) when (ex is HttpRequestException or IOException or UnauthorizedAccessException)
+        catch (Exception ex) when (
+            ex is HttpRequestException or IOException or UnauthorizedAccessException ||
+            ex is TaskCanceledException && !cancellationToken.IsCancellationRequested)
         {
             return WinPeResult<IReadOnlyList<WinPeDriverCatalogEntry>>.Failure(
                 WinPeErrorCodes.DriverCatalogFetchFailed,
                 "Failed to retrieve the WinPE driver catalog.",
-                $"Catalog URI/path: '{options.CatalogUri}'. Error: {ex.Message}");
+                $"Catalog URI/path: '{options.CatalogUri}'.{Environment.NewLine}{ex}",
+                failureKind: ex is UnauthorizedAccessException ? WinPeFailureKinds.FileSystem : WinPeFailureKinds.Network,
+                failureReason: ex switch
+                {
+                    UnauthorizedAccessException => WinPeFailureReasons.AccessDenied,
+                    TaskCanceledException => WinPeFailureReasons.Timeout,
+                    HttpRequestException { StatusCode: not null } => WinPeFailureReasons.HttpStatus,
+                    _ => WinPeFailureReasons.Transport
+                },
+                errorSummary: ex.Message,
+                exception: ex);
         }
 
         try

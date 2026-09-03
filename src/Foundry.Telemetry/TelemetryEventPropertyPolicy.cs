@@ -58,6 +58,12 @@ public static class TelemetryEventPropertyPolicy
                 "boot_media_creation_success",
                 "boot_media_creation_duration_seconds",
                 "boot_media_creation_failed_step_name",
+                "boot_media_failure_kind",
+                "boot_media_failure_reason",
+                "boot_media_failure_code",
+                "boot_media_failure_tool",
+                "boot_media_failure_exit_code",
+                "operation_id",
                 "boot_media_architecture",
                 "boot_media_winpe_language",
                 "boot_media_boot_image_source",
@@ -151,6 +157,7 @@ public static class TelemetryEventPropertyPolicy
             },
             [TelemetryEvents.DeploySessionFinished] = new(StringComparer.Ordinal)
             {
+                "operation_id",
                 "deploy_session_success",
                 "deploy_session_cancelled",
                 "deploy_session_duration_seconds",

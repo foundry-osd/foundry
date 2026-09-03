@@ -2061,6 +2061,12 @@
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Général</value>
   </data>
+  <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
+    <value>Envoyez des journaux assainis et les détails des exceptions afin de faciliter le diagnostic des défaillances. Les secrets et les identifiants directs sont exclus.</value>
+  </data>
+  <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
+    <value>Activer les diagnostics à distance</value>
+  </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
     <value>Envoyez des données de télémétrie d’utilisation anonymes pour contribuer à l’amélioration de Foundry. Les secrets et les identifiants directs de l’appareil, notamment les numéros de série et les empreintes matérielles, sont exclus. La télémétrie utilise un identifiant d’installation anonyme et peut inclure le fabricant et le modèle de l’appareil.</value>
   </data>

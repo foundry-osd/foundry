@@ -39,7 +39,7 @@ public sealed class ConfigureOobeSettingsStep : DeploymentStepBase
 
         if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot))
         {
-            return DeploymentStepResult.Failed("Target Windows partition is unavailable.");
+            return CreateMissingTargetPartitionFailure();
         }
 
         string targetFoundryRoot = context.EnsureTargetFoundryRoot();
@@ -91,7 +91,7 @@ public sealed class ConfigureOobeSettingsStep : DeploymentStepBase
 
         if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot))
         {
-            return DeploymentStepResult.Failed("Target Windows partition is unavailable.");
+            return CreateMissingTargetPartitionFailure();
         }
 
         context.EmitCurrentStepIndeterminate("Configuring offline customizations...", "Writing first-run defaults...", DeploymentOperationNames.WriteOobeUnattend);
@@ -115,4 +115,12 @@ public sealed class ConfigureOobeSettingsStep : DeploymentStepBase
                 settings.DisablePaintAi ||
                 settings.DisableNotepadAi);
     }
+
+    private static DeploymentStepResult CreateMissingTargetPartitionFailure() =>
+        DeploymentStepResult.Failed(
+            "Target Windows partition is unavailable.",
+            DeploymentFailure.Guard(
+                DeploymentOperationNames.ConfigureOobe,
+                DeploymentFailureReasons.MissingResource,
+                "missing_target_partition"));
 }

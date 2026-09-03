@@ -108,6 +108,7 @@ public sealed class FoundryConfigurationServiceTests
             Telemetry = new TelemetrySettings
             {
                 IsEnabled = false,
+                IsRemoteDiagnosticsEnabled = true,
                 InstallId = "install-id",
                 HostUrl = TelemetryDefaults.PostHogEuHost,
                 ProjectToken = "project-token",
@@ -157,8 +158,26 @@ public sealed class FoundryConfigurationServiceTests
         Assert.True(loaded.Customization.AiComponentRemoval.DisablePaintAi);
         Assert.True(loaded.Customization.AiComponentRemoval.DisableNotepadAi);
         Assert.False(loaded.Telemetry.IsEnabled);
+        Assert.True(loaded.Telemetry.IsRemoteDiagnosticsEnabled);
         Assert.Equal("install-id", loaded.Telemetry.InstallId);
         Assert.Equal("project-token", loaded.Telemetry.ProjectToken);
+    }
+
+    [Fact]
+    public void Deserialize_WhenRemoteDiagnosticsConsentIsMissing_DefaultsToEnabled()
+    {
+        var service = new FoundryConfigurationService();
+
+        FoundryConfigurationDocument loaded = service.Deserialize("""
+            {
+              "schemaVersion": 13,
+              "telemetry": {
+                "isEnabled": true
+              }
+            }
+            """);
+
+        Assert.True(loaded.Telemetry.IsRemoteDiagnosticsEnabled);
     }
 
     [Fact]

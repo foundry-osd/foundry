@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Utilities.Diagnostics;
 using Foundry.Utilities.Processes;
 
 namespace Foundry.Core.Services.WinPe;
@@ -20,6 +21,25 @@ public sealed record WinPeProcessExecution
     public string ToDiagnosticText()
     {
         return ToProcessExecutionResult().ToDiagnosticText();
+    }
+
+    public WinPeDiagnostic ToFailureDiagnostic(
+        string code,
+        string message,
+        string? stage = null,
+        string? toolName = null)
+    {
+        string summarySource = string.IsNullOrWhiteSpace(StandardError) ? StandardOutput : StandardError;
+        return new WinPeDiagnostic(
+            code,
+            message,
+            ToDiagnosticText(),
+            stage,
+            exitCode: ExitCode,
+            failureKind: WinPeFailureKinds.Process,
+            failureReason: WinPeFailureReasons.NonZeroExit,
+            toolName: toolName ?? Path.GetFileNameWithoutExtension(FileName),
+            errorSummary: DiagnosticContentSanitizer.Sanitize(summarySource, 512));
     }
 
     internal static WinPeProcessExecution FromProcessExecutionResult(ProcessExecutionResult result)

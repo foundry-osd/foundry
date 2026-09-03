@@ -38,18 +38,33 @@ public sealed class ConfigureWindowsOptionalFeaturesStep : DeploymentStepBase
 
         if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot))
         {
-            return DeploymentStepResult.Failed("Target Windows partition is unavailable.");
+            return DeploymentStepResult.Failed(
+                "Target Windows partition is unavailable.",
+                DeploymentFailure.Guard(
+                    DeploymentOperationNames.ConfigureWindowsOptionalFeatures,
+                    DeploymentFailureReasons.MissingResource,
+                    "missing_target_partition"));
         }
 
         if (context.RuntimeState.AppliedImageIndex is not int appliedImageIndex)
         {
-            return DeploymentStepResult.Failed("Applied Windows image index is unavailable.");
+            return DeploymentStepResult.Failed(
+                "Applied Windows image index is unavailable.",
+                DeploymentFailure.Guard(
+                    DeploymentOperationNames.ConfigureWindowsOptionalFeatures,
+                    DeploymentFailureReasons.MissingResource,
+                    "missing_applied_image_index"));
         }
 
         string imagePath = context.RuntimeState.DownloadedOperatingSystemPath ?? string.Empty;
         if (!File.Exists(imagePath))
         {
-            return DeploymentStepResult.Failed("Operating system image was not downloaded.");
+            return DeploymentStepResult.Failed(
+                "Operating system image was not downloaded.",
+                DeploymentFailure.Guard(
+                    DeploymentOperationNames.ConfigureWindowsOptionalFeatures,
+                    DeploymentFailureReasons.MissingResource,
+                    "missing_os_image"));
         }
 
         string targetFoundryRoot = context.EnsureTargetFoundryRoot();
