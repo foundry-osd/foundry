@@ -2041,10 +2041,10 @@
     <value>Genel</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded.</value>
+    <value>Hataları tanılamaya yardımcı olmak için hassas bilgilerden arındırılmış günlükleri ve özel durum ayrıntılarını gönderin. Gizli bilgiler ve doğrudan tanımlayıcılar hariç tutulur.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
-    <value>Enable remote diagnostics</value>
+    <value>Uzaktan tanılamayı etkinleştir</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
     <value>Foundry’nin iyileştirilmesine yardımcı olmak için anonim kullanım telemetrisi gönderin. Seri numaraları ve donanım karmaları dâhil olmak üzere sırlar ve doğrudan cihaz tanımlayıcıları hariç tutulur. Telemetri anonim bir yükleme kimliği kullanır ve cihaz üreticisini ve modelini içerebilir.</value>

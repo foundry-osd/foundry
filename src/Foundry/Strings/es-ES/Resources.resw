@@ -2041,10 +2041,10 @@
     <value>General</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded.</value>
+    <value>Envíe registros saneados y detalles de excepciones para ayudar a diagnosticar errores. Se excluyen los secretos y los identificadores directos.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
-    <value>Enable remote diagnostics</value>
+    <value>Activar diagnósticos remotos</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
     <value>Envíe telemetría de uso anónima para ayudar a mejorar Foundry. Se excluyen los secretos y los identificadores directos del dispositivo, incluidos los números de serie y los hashes de hardware. La telemetría utiliza un identificador de instalación anónimo y puede incluir el fabricante y el modelo del dispositivo.</value>

@@ -2041,10 +2041,10 @@
     <value>Ģenerālis</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded.</value>
+    <value>Nosūtiet attīrītus žurnālus un detalizētu informāciju par izņēmumiem, lai palīdzētu diagnosticēt kļūmes. Noslēpumi un tiešie identifikatori netiek iekļauti.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
-    <value>Enable remote diagnostics</value>
+    <value>Iespējot attālo diagnostiku</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
     <value>Nosūtiet anonīmu lietojuma telemetriju, lai palīdzētu uzlabot Foundry. Noslēpumi un tiešie ierīces identifikatori, tostarp sērijas numuri un aparatūras jaucējvērtības, netiek iekļauti. Telemetrija izmanto anonīmu instalācijas identifikatoru un var ietvert ierīces ražotāju un modeli.</value>

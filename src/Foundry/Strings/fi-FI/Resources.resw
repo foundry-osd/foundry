@@ -2041,10 +2041,10 @@
     <value>Kenraali</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded.</value>
+    <value>Lähetä puhdistetut lokitiedot ja poikkeusten tiedot, jotta virheiden diagnosointi olisi helpompaa. Salaisuudet ja suorat tunnisteet jätetään pois.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
-    <value>Enable remote diagnostics</value>
+    <value>Ota etädiagnostiikka käyttöön</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
     <value>Auta parantamaan Foundrya lähettämällä anonyymiä käyttötelemetriaa. Salaisuudet ja suorat laitetunnisteet, kuten sarjanumerot ja laitteistotiivisteet, jätetään pois. Telemetria käyttää anonyymiä asennustunnistetta ja voi sisältää laitteen valmistajan ja mallin.</value>

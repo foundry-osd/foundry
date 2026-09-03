@@ -2041,10 +2041,10 @@
     <value>ทั่วไป</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded.</value>
+    <value>ส่งบันทึกที่ผ่านการลบข้อมูลละเอียดอ่อนและรายละเอียดข้อยกเว้นเพื่อช่วยวินิจฉัยความล้มเหลว โดยจะไม่รวมข้อมูลลับและตัวระบุโดยตรง</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
-    <value>Enable remote diagnostics</value>
+    <value>เปิดใช้งานการวินิจฉัยระยะไกล</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
     <value>ส่งข้อมูลการใช้งานทางไกลแบบไม่ระบุตัวตนเพื่อช่วยปรับปรุง Foundry ระบบจะไม่รวมข้อมูลลับและตัวระบุอุปกรณ์โดยตรง รวมถึงหมายเลขประจำเครื่องและแฮชฮาร์ดแวร์ ข้อมูลทางไกลใช้รหัสการติดตั้งแบบไม่ระบุตัวตนและอาจรวมผู้ผลิตและรุ่นของอุปกรณ์</value>

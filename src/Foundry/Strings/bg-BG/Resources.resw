@@ -2041,10 +2041,10 @@
     <value>генерал</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded.</value>
+    <value>Изпращайте обезличени регистрационни файлове и подробности за изключенията, за да помогнете при диагностицирането на неизправности. Тайните данни и преките идентификатори се изключват.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
-    <value>Enable remote diagnostics</value>
+    <value>Активиране на отдалечената диагностика</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
     <value>Изпращайте анонимни телеметрични данни за използването, за да помогнете за подобряването на Foundry. Тайните и преките идентификатори на устройства, включително серийните номера и хешовете на хардуера, се изключват. Телеметрията използва анонимен идентификатор на инсталацията и може да включва производителя и модела на устройството.</value>

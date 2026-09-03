@@ -2041,10 +2041,10 @@
     <value>Kindral</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded.</value>
+    <value>Saatke tõrgete diagnoosimiseks puhastatud logid ja erandite üksikasjad. Saladused ja otsesed identifikaatorid jäetakse välja.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
-    <value>Enable remote diagnostics</value>
+    <value>Luba kaugdiagnostika</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
     <value>Saatke Foundry täiustamiseks anonüümseid kasutustelemeetria andmeid. Saladused ja otsesed seadmeidentifikaatorid, sealhulgas seerianumbrid ja riistvararäsid, jäetakse välja. Telemeetria kasutab anonüümset installiidentifikaatorit ning võib sisaldada seadme tootjat ja mudelit.</value>

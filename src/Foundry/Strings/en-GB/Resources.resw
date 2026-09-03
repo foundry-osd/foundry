@@ -2041,7 +2041,7 @@
     <value>General</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded.</value>
+    <value>Send sanitised logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Enable remote diagnostics</value>
