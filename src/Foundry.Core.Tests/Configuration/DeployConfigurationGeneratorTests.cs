@@ -131,6 +131,39 @@ public sealed class DeployConfigurationGeneratorTests
     }
 
     [Fact]
+    public void Generate_WhenMachineNamingIsInvalid_Throws()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                MachineNaming = new MachineNamingSettings
+                {
+                    IsEnabled = true,
+                    Mode = MachineNamingMode.Composed,
+                    Components =
+                    [
+                        new MachineNameComponentSettings
+                        {
+                            Type = MachineNameComponentType.StaticText,
+                            StaticText = "TOO-LONG-PREFIX"
+                        },
+                        new MachineNameComponentSettings
+                        {
+                            Type = MachineNameComponentType.Random,
+                            MaximumLength = 6
+                        }
+                    ],
+                    Separator = MachineNameSeparator.Hyphen
+                }
+            }
+        };
+
+        Assert.Throws<InvalidOperationException>(() => generator.Generate(document));
+    }
+
+    [Fact]
     public void Generate_WhenNetworkProfileRoamingIsDisabled_DisablesDeployRoaming()
     {
         var generator = new DeployConfigurationGenerator();

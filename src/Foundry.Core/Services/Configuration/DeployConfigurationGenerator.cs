@@ -46,6 +46,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
     {
         ArgumentNullException.ThrowIfNull(document);
         AutopilotConfigurationValidator.ThrowIfNotReady(document.Autopilot, DateTimeOffset.UtcNow);
+        MachineNamingValidator.ThrowIfInvalid(document.Customization.MachineNaming);
 
         return new FoundryDeployConfigurationDocument
         {
