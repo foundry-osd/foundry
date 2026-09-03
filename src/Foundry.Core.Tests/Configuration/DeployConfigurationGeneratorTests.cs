@@ -306,6 +306,68 @@ public sealed class DeployConfigurationGeneratorTests
     }
 
     [Fact]
+    public void Generate_WhenOobeAdditionalAccountIdIsMissing_ThrowsInvalidOperationException()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                Oobe = new OobeSettings
+                {
+                    IsEnabled = true,
+                    AdditionalAccounts =
+                    [
+                        new OobeAdditionalAccountSettings
+                        {
+                            Id = " ",
+                            UserName = "Technician",
+                            Type = OobeAccountType.Standard
+                        }
+                    ]
+                }
+            }
+        };
+
+        InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => generator.Generate(document));
+        Assert.Contains("OOBE", exception.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void Generate_WhenOobeAdditionalAccountIdsAreDuplicated_ThrowsInvalidOperationException()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                Oobe = new OobeSettings
+                {
+                    IsEnabled = true,
+                    AdditionalAccounts =
+                    [
+                        new OobeAdditionalAccountSettings
+                        {
+                            Id = "account-1",
+                            UserName = "Technician",
+                            Type = OobeAccountType.Standard
+                        },
+                        new OobeAdditionalAccountSettings
+                        {
+                            Id = "account-1",
+                            UserName = "Support",
+                            Type = OobeAccountType.Administrator
+                        }
+                    ]
+                }
+            }
+        };
+
+        InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => generator.Generate(document));
+        Assert.Contains("OOBE", exception.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
     public void Generate_WhenAppxRemovalIsEnabled_PropagatesDistinctPackageNames()
     {
         var generator = new DeployConfigurationGenerator();

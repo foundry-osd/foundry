@@ -39,10 +39,11 @@ public static class OobeAccountConfigurationValidator
         }
 
         List<OobeAccountConfigurationValidationIssue> issues = [];
+        HashSet<string> accountIds = new(StringComparer.Ordinal);
         HashSet<string> userNames = new(StringComparer.OrdinalIgnoreCase);
         foreach (OobeAdditionalAccountSettings account in settings.AdditionalAccounts)
         {
-            ValidateAccount(account, userNames, secretState, issues);
+            ValidateAccount(account, accountIds, userNames, secretState, issues);
         }
 
         if (settings.EnableAdministratorAccount &&
@@ -67,16 +68,30 @@ public static class OobeAccountConfigurationValidator
 
     private static void ValidateAccount(
         OobeAdditionalAccountSettings account,
+        ISet<string> accountIds,
         ISet<string> userNames,
         OobeAccountSecretState? secretState,
         ICollection<OobeAccountConfigurationValidationIssue> issues)
     {
+        string? accountId = account.Id;
+        if (string.IsNullOrWhiteSpace(accountId))
+        {
+            issues.Add(new OobeAccountConfigurationValidationIssue(
+                OobeAccountConfigurationValidationCode.AccountIdRequired));
+        }
+        else if (!accountIds.Add(accountId))
+        {
+            issues.Add(new OobeAccountConfigurationValidationIssue(
+                OobeAccountConfigurationValidationCode.DuplicateAccountId,
+                accountId));
+        }
+
         string? userName = account.UserName;
         if (string.IsNullOrWhiteSpace(userName))
         {
             issues.Add(new OobeAccountConfigurationValidationIssue(
                 OobeAccountConfigurationValidationCode.UserNameRequired,
-                account.Id));
+                accountId));
         }
         else
         {
@@ -84,37 +99,37 @@ public static class OobeAccountConfigurationValidator
             {
                 issues.Add(new OobeAccountConfigurationValidationIssue(
                     OobeAccountConfigurationValidationCode.DuplicateUserName,
-                    account.Id));
+                    accountId));
             }
 
             if (ReservedBuiltInUserNames.Contains(userName))
             {
                 issues.Add(new OobeAccountConfigurationValidationIssue(
                     OobeAccountConfigurationValidationCode.ReservedBuiltInUserName,
-                    account.Id));
+                    accountId));
             }
 
             if (userName.AsSpan().IndexOfAny(InvalidUserNameCharacters) >= 0)
             {
                 issues.Add(new OobeAccountConfigurationValidationIssue(
                     OobeAccountConfigurationValidationCode.InvalidUserNameCharacters,
-                    account.Id));
+                    accountId));
             }
 
             if (userName.EndsWith(' ') || userName.EndsWith('.'))
             {
                 issues.Add(new OobeAccountConfigurationValidationIssue(
                     OobeAccountConfigurationValidationCode.TrailingPeriodOrSpace,
-                    account.Id));
+                    accountId));
             }
         }
 
-        if (!string.IsNullOrWhiteSpace(account.Id) &&
-            secretState?.HasAdditionalAccountPasswordConfirmationMismatch(account.Id) == true)
+        if (!string.IsNullOrWhiteSpace(accountId) &&
+            secretState?.HasAdditionalAccountPasswordConfirmationMismatch(accountId) == true)
         {
             issues.Add(new OobeAccountConfigurationValidationIssue(
                 OobeAccountConfigurationValidationCode.PasswordConfirmationMismatch,
-                account.Id));
+                accountId));
         }
     }
 }

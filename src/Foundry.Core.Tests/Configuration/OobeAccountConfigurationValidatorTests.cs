@@ -26,6 +26,35 @@ public sealed class OobeAccountConfigurationValidatorTests
     }
 
     [Fact]
+    public void Validate_WhenAdditionalAccountIdIsMissing_ReturnsRequiredIssue()
+    {
+        OobeAccountConfigurationValidationResult result = OobeAccountConfigurationValidator.Validate(
+            CreateOobeSettings(new OobeAdditionalAccountSettings
+            {
+                Id = " ",
+                UserName = "Technician",
+                Type = OobeAccountType.Standard
+            }));
+
+        Assert.Contains(result.Issues, issue =>
+            issue.Code == OobeAccountConfigurationValidationCode.AccountIdRequired &&
+            issue.AccountId is null);
+    }
+
+    [Fact]
+    public void Validate_WhenAdditionalAccountIdsAreDuplicated_ReturnsDuplicateIssue()
+    {
+        OobeAccountConfigurationValidationResult result = OobeAccountConfigurationValidator.Validate(
+            CreateOobeSettings(
+                CreateAccount("account-1", "Technician"),
+                CreateAccount("account-1", "Support")));
+
+        Assert.Contains(result.Issues, issue =>
+            issue.Code == OobeAccountConfigurationValidationCode.DuplicateAccountId &&
+            issue.AccountId == "account-1");
+    }
+
+    [Fact]
     public void Validate_WhenAdditionalAccountNamesDifferOnlyByCase_ReturnsDuplicateIssue()
     {
         OobeAccountConfigurationValidationResult result = OobeAccountConfigurationValidator.Validate(

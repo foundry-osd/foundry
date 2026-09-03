@@ -6,6 +6,8 @@ namespace Foundry.Core.Services.Configuration;
 
 public enum OobeAccountConfigurationValidationCode
 {
+    AccountIdRequired,
+    DuplicateAccountId,
     UserNameRequired,
     DuplicateUserName,
     ReservedBuiltInUserName,
