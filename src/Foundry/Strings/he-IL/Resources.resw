@@ -280,7 +280,7 @@
     <value>העלאה אינטראקטיבית של hash חומרה</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>מכין כניסת טכנאי באמצעות קוד מכשיר לרישום hash חומרה במהלך OOBE.</value>
+    <value>כשהאפשרות מופעלת, הטכנאי נכנס באמצעות קוד מכשיר של Microsoft במהלך OOBE ומעלה את hash החומרה של המכשיר.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>חבר דייר</value>

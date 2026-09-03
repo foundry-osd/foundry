@@ -280,7 +280,7 @@
     <value>Interactive hardware hash upload</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Stage technician device-code sign-in for hardware hash registration during OOBE.</value>
+    <value>When enabled, the technician signs in with a Microsoft device code during OOBE and uploads the device hardware hash.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Connect tenant</value>

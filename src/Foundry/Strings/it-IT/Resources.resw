@@ -280,7 +280,7 @@
     <value>Caricamento interattivo dell’hash hardware</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Prepara l’accesso del tecnico con codice dispositivo per registrare l’hash hardware durante OOBE.</value>
+    <value>Quando è abilitato, il tecnico accede con un codice dispositivo Microsoft durante OOBE e carica l’hash hardware del dispositivo.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Connetti l'inquilino</value>

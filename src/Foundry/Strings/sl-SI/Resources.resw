@@ -280,7 +280,7 @@
     <value>Interaktivno nalaganje zgoščene vrednosti strojne opreme</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Pripravi prijavo tehnika s kodo naprave za registracijo zgoščene vrednosti strojne opreme med OOBE.</value>
+    <value>Ko je omogočeno, se tehnik med OOBE prijavi s kodo naprave Microsoft in naloži zgoščeno vrednost strojne opreme naprave.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Povežite najemnika</value>

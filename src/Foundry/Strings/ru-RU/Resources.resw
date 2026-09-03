@@ -280,7 +280,7 @@
     <value>Интерактивная отправка аппаратного хеша</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Подготавливает вход техника с помощью кода устройства для регистрации аппаратного хеша во время OOBE.</value>
+    <value>При включении технический специалист входит в систему с кодом устройства Microsoft во время OOBE и отправляет аппаратный хеш устройства.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Подключить арендатора</value>

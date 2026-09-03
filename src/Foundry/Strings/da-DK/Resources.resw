@@ -280,7 +280,7 @@
     <value>Interaktiv upload af hardwarehash</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Klargør teknikerlogin med enhedskode til registrering af hardwarehash under OOBE.</value>
+    <value>Når den er aktiveret, logger teknikeren på med en Microsoft-enhedskode under OOBE og uploader enhedens hardwarehash.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Tilslut lejer</value>

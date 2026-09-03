@@ -280,7 +280,7 @@
     <value>交互式硬件哈希上传</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>在 OOBE 期间为硬件哈希注册准备技术人员设备代码登录。</value>
+    <value>启用后，技术人员将在 OOBE 期间使用 Microsoft 设备代码登录并上传设备硬件哈希。</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>连接租户</value>

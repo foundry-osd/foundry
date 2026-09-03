@@ -280,7 +280,7 @@
     <value>Interaktív hardverhash-feltöltés</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Előkészíti a technikusi eszközkódos bejelentkezést a hardverhash regisztrálásához az OOBE során.</value>
+    <value>Ha engedélyezve van, a technikus az OOBE során Microsoft-eszközkóddal jelentkezik be, és feltölti az eszköz hardverhashét.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Csatlakoztassa a bérlőt</value>

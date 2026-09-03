@@ -280,7 +280,7 @@
     <value>Интерактивно качване на хардуерен хеш</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Подготвя влизане на техник с код на устройство за регистрация на хардуерен хеш по време на OOBE.</value>
+    <value>Когато е разрешено, техникът влиза с код за устройство на Microsoft по време на OOBE и качва хардуерния хеш на устройството.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Свържете наемател</value>

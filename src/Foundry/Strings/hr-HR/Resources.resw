@@ -280,7 +280,7 @@
     <value>Interaktivni prijenos hardverskog hasha</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Priprema prijavu tehničara pomoću koda uređaja za registraciju hardverskog hasha tijekom OOBE-a.</value>
+    <value>Kada je omogućeno, tehničar se tijekom OOBE-a prijavljuje pomoću Microsoftova koda uređaja i prenosi hardverski hash uređaja.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Povežite stanara</value>

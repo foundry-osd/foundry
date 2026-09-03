@@ -280,7 +280,7 @@
     <value>การอัปโหลดแฮชฮาร์ดแวร์แบบโต้ตอบ</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>จัดเตรียมการลงชื่อเข้าใช้ของช่างเทคนิคด้วยรหัสอุปกรณ์สำหรับการลงทะเบียนแฮชฮาร์ดแวร์ระหว่าง OOBE</value>
+    <value>เมื่อเปิดใช้งาน ช่างเทคนิคจะลงชื่อเข้าใช้ด้วยรหัสอุปกรณ์ Microsoft ระหว่าง OOBE และอัปโหลดแฮชฮาร์ดแวร์ของอุปกรณ์</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>เชื่อมต่อผู้เช่า</value>

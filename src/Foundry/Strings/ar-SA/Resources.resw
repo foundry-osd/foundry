@@ -280,7 +280,7 @@
     <value>تحميل تفاعلي لتجزئة الأجهزة</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>تجهيز تسجيل دخول الفني باستخدام رمز الجهاز لتسجيل تجزئة الأجهزة أثناء OOBE.</value>
+    <value>عند التمكين، يسجل الفني الدخول باستخدام رمز جهاز Microsoft أثناء OOBE ويحمّل تجزئة أجهزة الجهاز.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>ربط المستأجر</value>

@@ -280,7 +280,7 @@
     <value>Etkileşimli donanım karması yükleme</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>OOBE sırasında donanım karması kaydı için teknisyenin cihaz koduyla oturum açmasını hazırlar.</value>
+    <value>Etkinleştirildiğinde teknisyen, OOBE sırasında Microsoft cihaz koduyla oturum açar ve cihazın donanım karmasını yükler.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Kiracıyı bağlayın</value>

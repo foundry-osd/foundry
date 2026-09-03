@@ -5,37 +5,68 @@
     xmlns:controls="using:Foundry.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:tv="using:WinUI.TableView"
-    xmlns:wct="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d">
-    <ScrollView
+    <Grid
         Margin="{ThemeResource ContentPageMargin}"
         Padding="{ThemeResource ContentPagePadding}"
-        HorizontalContentAlignment="Stretch"
-        VerticalScrollBarVisibility="Auto">
-        <StackPanel
-            HorizontalAlignment="Stretch"
-            Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
-            <controls:PageHeader
-                x:Uid="AutopilotInteractiveHashUploadPageHeader"
-                DocumentationUrl="{x:Bind ViewModel.InteractiveDocumentationUrl, Mode=OneWay}"
-                IconGlyph="&#xE928;">
-                <controls:PageHeader.ActionContent>
-                    <Button
-                        Click="OnModeActionClick"
-                        Content="{x:Bind ViewModel.InteractiveHardwareHashUploadActionText, Mode=OneWay}" />
-                </controls:PageHeader.ActionContent>
-            </controls:PageHeader>
+        RowSpacing="{ThemeResource FoundrySettingsSectionSpacing}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
+        <controls:PageHeader
+            x:Uid="AutopilotInteractiveHashUploadPageHeader"
+            DocumentationUrl="{x:Bind ViewModel.InteractiveDocumentationUrl, Mode=OneWay}"
+            IconGlyph="&#xE928;">
+            <controls:PageHeader.ActionContent>
+                <Button
+                    Click="OnModeActionClick"
+                    Content="{x:Bind ViewModel.InteractiveHardwareHashUploadActionText, Mode=OneWay}" />
+            </controls:PageHeader.ActionContent>
+        </controls:PageHeader>
+
+        <ScrollView x:Name="InteractiveContentScrollView"
+            Grid.Row="1"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
+            SizeChanged="OnInteractiveContentSizeChanged"
+            VerticalScrollBarVisibility="Auto">
             <ContentControl
+                MinHeight="{x:Bind InteractiveContentScrollView.ActualHeight, Mode=OneWay}"
                 HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
                 IsEnabled="{x:Bind ViewModel.IsInteractiveHardwareHashUploadActive, Mode=OneWay}">
-                <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
-                    <TextBlock
-                        Text="{x:Bind ViewModel.InteractiveHardwareHashDescription, Mode=OneWay}"
-                        TextWrapping="Wrap" />
-                </StackPanel>
+                <Grid>
+                    <Grid x:Name="InteractivePresentation"
+                        MaxWidth="{ThemeResource FoundryContentMaxWidth}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        RowSpacing="{ThemeResource FoundrySpace12}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Image x:Name="InteractiveImage"
+                            MaxHeight="720"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            AutomationProperties.AccessibilityView="Raw"
+                            Source="ms-appx:///Assets/AutopilotInteractiveHardwareHashUpload.png"
+                            Stretch="Uniform" />
+
+                        <TextBlock x:Name="InteractiveDescription"
+                            Grid.Row="1"
+                            HorizontalAlignment="Stretch"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            SizeChanged="OnInteractiveContentSizeChanged"
+                            Text="{x:Bind ViewModel.InteractiveHardwareHashDescription, Mode=OneWay}"
+                            TextAlignment="Center"
+                            TextWrapping="WrapWholeWords" />
+                    </Grid>
+                </Grid>
             </ContentControl>
-        </StackPanel>
-    </ScrollView>
+        </ScrollView>
+    </Grid>
 </Page>
