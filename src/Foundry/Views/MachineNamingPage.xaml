@@ -84,13 +84,17 @@
                         <StackPanel
                             HorizontalAlignment="Stretch"
                             Spacing="{ThemeResource FoundrySpace12}">
-                            <Grid ColumnSpacing="{ThemeResource FoundrySpace12}">
+                            <Grid
+                                HorizontalAlignment="Left"
+                                ColumnSpacing="{ThemeResource FoundrySpace12}">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="320" />
+                                    <ColumnDefinition Width="240" />
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <ComboBox
+                                    Width="240"
+                                    HorizontalAlignment="Stretch"
                                     AutomationProperties.Name="{x:Bind ViewModel.MachineNamingAddComponentText, Mode=OneWay}"
                                     ItemsSource="{x:Bind ViewModel.AvailableMachineNameComponentTypes, Mode=OneWay}"
                                     SelectedItem="{x:Bind ViewModel.SelectedAvailableMachineNameComponent, Mode=TwoWay}">
@@ -110,7 +114,7 @@
                                     Style="{StaticResource AccentButtonStyle}" />
                                 <TextBlock
                                     Grid.Column="2"
-                                    HorizontalAlignment="Right"
+                                    HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
                                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                     Style="{ThemeResource CaptionTextBlockStyle}"
@@ -118,84 +122,55 @@
                                     TextWrapping="WrapWholeWords" />
                             </Grid>
 
-                            <ItemsRepeater ItemsSource="{x:Bind ViewModel.MachineNameComponents, Mode=OneWay}">
+                            <ItemsRepeater
+                                HorizontalAlignment="Left"
+                                ItemsSource="{x:Bind ViewModel.MachineNameComponents, Mode=OneWay}">
                                 <ItemsRepeater.Layout>
                                     <StackLayout Spacing="{ThemeResource FoundrySpace8}" />
                                 </ItemsRepeater.Layout>
                                 <ItemsRepeater.ItemTemplate>
                                     <DataTemplate x:DataType="viewModels:MachineNameComponentRowViewModel">
                                         <Border
-                                            Padding="{ThemeResource FoundrySpace16}"
+                                            HorizontalAlignment="Left"
+                                            Padding="{ThemeResource FoundrySpace12}"
                                             Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}"
                                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                                             BorderThickness="1"
                                             CornerRadius="{ThemeResource ControlCornerRadius}">
-                                            <Grid RowSpacing="{ThemeResource FoundrySpace12}">
+                                            <Grid
+                                                ColumnSpacing="{ThemeResource FoundrySpace12}"
+                                                RowSpacing="{ThemeResource FoundrySpace8}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="160" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="Auto" />
                                                     <RowDefinition Height="Auto" />
-                                                    <RowDefinition Height="Auto" />
                                                 </Grid.RowDefinitions>
-                                                <Grid ColumnSpacing="{ThemeResource FoundrySpace12}">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="*" />
-                                                        <ColumnDefinition Width="Auto" />
-                                                    </Grid.ColumnDefinitions>
-                                                    <TextBlock
-                                                        VerticalAlignment="Center"
-                                                        Style="{ThemeResource BodyStrongTextBlockStyle}"
-                                                        Text="{x:Bind DisplayName, Mode=OneWay}"
-                                                        TextWrapping="Wrap" />
-                                                    <StackPanel
-                                                        Grid.Column="1"
-                                                        HorizontalAlignment="Right"
-                                                        Orientation="Horizontal"
-                                                        Spacing="{ThemeResource FoundrySpace4}">
-                                                        <Button
-                                                            x:Uid="MachineNamingMoveUpButton"
-                                                            MinWidth="40"
-                                                            MinHeight="40"
-                                                            Padding="{ThemeResource FoundrySpace8}"
-                                                            Click="MoveComponentUpButton_Click"
-                                                            IsEnabled="{x:Bind CanMoveUp, Mode=OneWay}"
-                                                            Tag="{x:Bind}">
-                                                            <FontIcon Glyph="&#xE70E;" />
-                                                        </Button>
-                                                        <Button
-                                                            x:Uid="MachineNamingMoveDownButton"
-                                                            MinWidth="40"
-                                                            MinHeight="40"
-                                                            Padding="{ThemeResource FoundrySpace8}"
-                                                            Click="MoveComponentDownButton_Click"
-                                                            IsEnabled="{x:Bind CanMoveDown, Mode=OneWay}"
-                                                            Tag="{x:Bind}">
-                                                            <FontIcon Glyph="&#xE70D;" />
-                                                        </Button>
-                                                        <Button
-                                                            x:Uid="MachineNamingRemoveButton"
-                                                            MinWidth="40"
-                                                            MinHeight="40"
-                                                            Padding="{ThemeResource FoundrySpace8}"
-                                                            Click="RemoveComponentButton_Click"
-                                                            Tag="{x:Bind}">
-                                                            <SymbolIcon Symbol="Delete" />
-                                                        </Button>
-                                                    </StackPanel>
-                                                </Grid>
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                                    Text="{x:Bind DisplayName, Mode=OneWay}"
+                                                    TextWrapping="Wrap" />
                                                 <Grid
-                                                    Grid.Row="1"
+                                                    Grid.Column="1"
+                                                    VerticalAlignment="Center"
                                                     ColumnSpacing="{ThemeResource FoundrySpace12}">
                                                     <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="160" />
-                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
                                                     </Grid.ColumnDefinitions>
                                                     <TextBox
                                                         Grid.ColumnSpan="2"
+                                                        Width="{ThemeResource FoundryWideInputMinWidth}"
                                                         AutomationProperties.Name="{x:Bind DisplayName, Mode=OneWay}"
                                                         MaxLength="15"
                                                         Text="{x:Bind StaticText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                         Visibility="{x:Bind StaticTextVisibility, Mode=OneWay}" />
                                                     <NumberBox
+                                                        Width="128"
                                                         AutomationProperties.Name="{x:Bind DisplayName, Mode=OneWay}"
                                                         Maximum="15"
                                                         Minimum="1"
@@ -206,7 +181,7 @@
                                                         Value="{x:Bind MaximumLength, Mode=TwoWay}" />
                                                     <ComboBox
                                                         Grid.Column="1"
-                                                        HorizontalAlignment="Stretch"
+                                                        Width="240"
                                                         AutomationProperties.Name="{x:Bind DisplayName, Mode=OneWay}"
                                                         SelectedIndex="{x:Bind TruncationIndex, Mode=TwoWay}"
                                                         Visibility="{x:Bind TruncationVisibility, Mode=OneWay}">
@@ -214,8 +189,45 @@
                                                         <ComboBoxItem x:Uid="MachineNamingKeepRightOption" />
                                                     </ComboBox>
                                                 </Grid>
+                                                <StackPanel
+                                                    Grid.Column="3"
+                                                    HorizontalAlignment="Right"
+                                                    Orientation="Horizontal"
+                                                    Spacing="{ThemeResource FoundrySpace4}">
+                                                    <Button
+                                                        x:Uid="MachineNamingMoveUpButton"
+                                                        MinWidth="40"
+                                                        MinHeight="40"
+                                                        Padding="{ThemeResource FoundrySpace8}"
+                                                        Click="MoveComponentUpButton_Click"
+                                                        IsEnabled="{x:Bind CanMoveUp, Mode=OneWay}"
+                                                        Tag="{x:Bind}">
+                                                        <FontIcon Glyph="&#xE70E;" />
+                                                    </Button>
+                                                    <Button
+                                                        x:Uid="MachineNamingMoveDownButton"
+                                                        MinWidth="40"
+                                                        MinHeight="40"
+                                                        Padding="{ThemeResource FoundrySpace8}"
+                                                        Click="MoveComponentDownButton_Click"
+                                                        IsEnabled="{x:Bind CanMoveDown, Mode=OneWay}"
+                                                        Tag="{x:Bind}">
+                                                        <FontIcon Glyph="&#xE70D;" />
+                                                    </Button>
+                                                    <Button
+                                                        x:Uid="MachineNamingRemoveButton"
+                                                        MinWidth="40"
+                                                        MinHeight="40"
+                                                        Padding="{ThemeResource FoundrySpace8}"
+                                                        Click="RemoveComponentButton_Click"
+                                                        Tag="{x:Bind}">
+                                                        <SymbolIcon Symbol="Delete" />
+                                                    </Button>
+                                                </StackPanel>
                                                 <TextBlock
-                                                    Grid.Row="2"
+                                                    Grid.Row="1"
+                                                    Grid.Column="1"
+                                                    Grid.ColumnSpan="2"
                                                     Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                                                     Text="{x:Bind ValidationMessage, Mode=OneWay}"
                                                     TextWrapping="WrapWholeWords"
@@ -226,16 +238,19 @@
                                 </ItemsRepeater.ItemTemplate>
                             </ItemsRepeater>
 
-                            <Grid ColumnSpacing="{ThemeResource FoundrySpace16}">
+                            <Grid
+                                HorizontalAlignment="Left"
+                                ColumnSpacing="{ThemeResource FoundrySpace24}">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="240" />
+                                    <ColumnDefinition Width="240" />
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Spacing="{ThemeResource FoundrySpace4}">
                                     <TextBlock
                                         Style="{ThemeResource BodyStrongTextBlockStyle}"
                                         Text="{x:Bind ViewModel.MachineNamingSeparatorLabel, Mode=OneWay}" />
                                     <ComboBox
+                                        Width="240"
                                         ItemsSource="{x:Bind ViewModel.MachineNameSeparatorChoices, Mode=OneWay}"
                                         SelectedItem="{x:Bind ViewModel.SelectedMachineNameSeparator, Mode=TwoWay}">
                                         <ComboBox.ItemTemplate>
@@ -254,6 +269,7 @@
                                         Style="{ThemeResource BodyStrongTextBlockStyle}"
                                         Text="{x:Bind ViewModel.MachineNamingCasingLabel, Mode=OneWay}" />
                                     <ComboBox
+                                        Width="240"
                                         ItemsSource="{x:Bind ViewModel.MachineNameCasingChoices, Mode=OneWay}"
                                         SelectedItem="{x:Bind ViewModel.SelectedMachineNameCasing, Mode=TwoWay}">
                                         <ComboBox.ItemTemplate>
