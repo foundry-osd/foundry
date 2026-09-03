@@ -125,6 +125,8 @@ public sealed partial class CustomizationConfigurationViewModel
         ComputerNameRules.MaxLength,
         MachineNamingRemainingLength);
 
+    public string MachineNamingCompactBudgetText => $"{MachineNamingMaximumLength}/{ComputerNameRules.MaxLength}";
+
     public string MachineNamingPreview
     {
         get
@@ -415,6 +417,7 @@ public sealed partial class CustomizationConfigurationViewModel
         OnPropertyChanged(nameof(ComposedMachineNamingVisibility));
         OnPropertyChanged(nameof(CanAddMachineNameComponent));
         OnPropertyChanged(nameof(MachineNamingBudgetText));
+        OnPropertyChanged(nameof(MachineNamingCompactBudgetText));
         OnPropertyChanged(nameof(MachineNamingPreview));
         OnPropertyChanged(nameof(MachineNamingValidationMessage));
         OnPropertyChanged(nameof(HasMachineNamingValidationError));
