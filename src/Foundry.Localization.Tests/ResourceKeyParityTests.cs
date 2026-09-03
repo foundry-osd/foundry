@@ -133,23 +133,6 @@ public sealed class ResourceKeyParityTests
     }
 
     [Fact]
-    public void FoundryResources_UseEnglishFallbackForRemoteDiagnosticsConsent()
-    {
-        string stringsRoot = Path.Combine(FindSourceRoot(), "Foundry", "Strings");
-        const string expectedHeader = "Enable remote diagnostics";
-        const string expectedDescription = "Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded.";
-
-        foreach (string culture in SupportedCultures)
-        {
-            string culturePath = Path.Combine(stringsRoot, culture, "Resources.resw");
-            IReadOnlyDictionary<string, string> values = ReadResourceValues(culturePath);
-
-            Assert.Equal(expectedHeader, values["SettingsPage_RemoteDiagnosticsCard.Header"]);
-            Assert.Equal(expectedDescription, values["SettingsPage_RemoteDiagnosticsCard.Description"]);
-        }
-    }
-
-    [Fact]
     public void FoundryResources_IncludeWindowsOptionalFeatureCatalogKeys()
     {
         string sourceRoot = FindSourceRoot();

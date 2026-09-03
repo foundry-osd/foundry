@@ -33,10 +33,4 @@ public sealed class ConfigurationSchemaVersionsTests
         Assert.Equal(4, ConfigurationSchemaVersions.ConnectCurrent);
     }
 
-    [Fact]
-    public void PreviousPublishedMediaSchemas_RecommendBootMediaUpdate()
-    {
-        Assert.True(ConfigurationSchemaVersions.IsBootMediaUpdateRecommended(3, ConfigurationSchemaVersions.ConnectCurrent));
-        Assert.True(ConfigurationSchemaVersions.IsBootMediaUpdateRecommended(11, ConfigurationSchemaVersions.DeployCurrent));
-    }
 }

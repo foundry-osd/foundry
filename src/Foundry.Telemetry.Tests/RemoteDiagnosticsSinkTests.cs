@@ -36,7 +36,7 @@ public sealed class RemoteDiagnosticsSinkTests : IDisposable
 
         RemoteDiagnosticsSink.Instance.Emit(logEvent);
 
-        Assert.Same(logEvent, Assert.Single(service.Events));
+        Assert.Equal("Failed", Assert.Single(service.Events).RenderMessage());
     }
 
     [Fact]

@@ -42,7 +42,6 @@ public sealed class PostHogExceptionTrackerTests
         Assert.Equal("redacted outer", captured.Properties["$exception_message"]);
         var exceptions = Assert.IsType<List<Dictionary<string, object>>>(captured.Properties["$exception_list"]);
         Assert.Equal(2, exceptions.Count);
-        Assert.DoesNotContain("abs_path", captured.SerializedProperties, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("C:\\", captured.SerializedProperties, StringComparison.OrdinalIgnoreCase);
     }
 

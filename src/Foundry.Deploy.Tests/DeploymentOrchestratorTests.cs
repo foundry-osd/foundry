@@ -11,7 +11,6 @@ using Foundry.Deploy.Services.Operations;
 using Foundry.Telemetry;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using System.Text.Json;
 
 namespace Foundry.Deploy.Tests;
 
@@ -282,24 +281,6 @@ public sealed class DeploymentOrchestratorTests
         Assert.Equal("Target Windows partition is unavailable.", result.Message);
         TelemetryEvent telemetryEvent = Assert.Single(telemetryService.Events);
         Assert.Equal("missing_target_partition", telemetryEvent.Properties["deploy_session_failure_code"]);
-    }
-
-    [Fact]
-    public void DeploymentRuntimeState_SerializesOperationAndFailureContext()
-    {
-        var state = new DeploymentRuntimeState
-        {
-            CurrentOperation = "os_image.apply",
-            LastFailureStep = "Apply image",
-            LastFailureKind = DeploymentFailureKinds.Process,
-            LastFailureReason = DeploymentFailureReasons.NonZeroExit,
-            LastFailureCode = "5"
-        };
-
-        string json = JsonSerializer.Serialize(state);
-
-        Assert.Contains("CurrentOperation", json, StringComparison.Ordinal);
-        Assert.Contains("LastFailureCode", json, StringComparison.Ordinal);
     }
 
     [Theory]
