@@ -159,7 +159,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         ProcessExecutionResult result = await _processExecutor.ExecuteAsync("netsh", arguments, cancellationToken).ConfigureAwait(false);
         if (result.ExitCode != 0)
         {
-            _logger.LogWarning(
+            _logger.LogInformation(
                 "Provisioned Wi-Fi connection request failed. ExitCode={ExitCode}, StdOutLength={StdOutLength}, StdErrLength={StdErrLength}",
                 result.ExitCode,
                 result.StandardOutput.Length,
@@ -232,7 +232,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             ProcessExecutionResult addProfileResult = await ImportWifiProfileAsync(profilePath, cancellationToken).ConfigureAwait(false);
             if (addProfileResult.ExitCode != 0)
             {
-                _logger.LogWarning(
+                _logger.LogInformation(
                     "Failed to import discovered Wi-Fi profile. ExitCode={ExitCode}",
                     addProfileResult.ExitCode);
                 return NetworkBootstrapResult.Failed(
@@ -358,7 +358,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             cancellationToken).ConfigureAwait(false);
         if (addProfileResult.ExitCode != 0)
         {
-            _logger.LogWarning(
+            _logger.LogInformation(
                 "Failed to add wired 802.1X profile. ExitCode={ExitCode}, StdOutLength={StdOutLength}, StdErrLength={StdErrLength}",
                 addProfileResult.ExitCode,
                 addProfileResult.StandardOutput.Length,
@@ -448,7 +448,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
 
             if (addProfileResult.ExitCode != 0)
             {
-                _logger.LogWarning(
+                _logger.LogInformation(
                     "Failed to add provisioned Wi-Fi profile. ExitCode={ExitCode}",
                     addProfileResult.ExitCode);
                 messages.Add($"Wi-Fi profile import failed: {CollapseError(addProfileResult)}");
@@ -680,7 +680,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         }
         catch (Exception ex)
         {
-            _logger.LogWarning(
+            _logger.LogInformation(
                 ex,
                 "Failed to import certificate. CertificateFileName={CertificateFileName}",
                 Path.GetFileName(certificatePath));

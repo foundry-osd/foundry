@@ -16,9 +16,13 @@ using Foundry.Telemetry;
 using System.Reflection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using Serilog;
+using Serilog.Core;
+using Serilog.Events;
 
 namespace Foundry.Connect.Tests;
 
+[Collection(ConnectRemoteDiagnosticsCollection.Name)]
 public sealed class MainWindowViewModelTelemetryTests
 {
     [Fact]
@@ -233,6 +237,83 @@ public sealed class MainWindowViewModelTelemetryTests
         Assert.DoesNotContain(logger.Entries, item => item.Properties.ContainsKey("RemoteDiagnostic"));
     }
 
+    [Fact]
+    public async Task InitializeAsync_WhenHandledFailuresAlsoLogLocalServiceDetails_ExportsOneRemoteEligibleWarningPerFailure()
+    {
+        using var temporaryDirectory = new TemporaryDirectory();
+        string certificatePath = temporaryDirectory.CreateFile("invalid.cer", "not-a-certificate");
+        var configuration = new FoundryConnectConfiguration
+        {
+            Capabilities = new NetworkCapabilitiesOptions
+            {
+                WifiProvisioned = true
+            },
+            Wifi = new WifiSettings
+            {
+                IsEnabled = true,
+                CertificatePath = certificatePath
+            }
+        };
+        var telemetry = new RecordingTelemetryService();
+        var remoteDiagnostics = new RecordingRemoteDiagnosticsService();
+        var localSink = new RecordingSerilogSink();
+        using Logger serilogLogger = new LoggerConfiguration()
+            .MinimumLevel.Verbose()
+            .WriteTo.Sink(localSink)
+            .WriteTo.Sink(RemoteDiagnosticsSink.Instance)
+            .CreateLogger();
+        using ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
+        {
+            builder.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+            builder.AddSerilog(serilogLogger, dispose: false);
+        });
+        var networkBootstrapService = new NetworkBootstrapService(
+            configuration,
+            new FakeConnectConfigurationService(configuration),
+            new FakeNetworkProfileRoamingService(),
+            loggerFactory.CreateLogger<NetworkBootstrapService>(),
+            getWifiInterfaceIds: static () => []);
+        MainWindowViewModel viewModel = CreateViewModel(
+            telemetry,
+            new QueueNetworkStatusService(CreateReadySnapshot()),
+            networkBootstrapService: networkBootstrapService,
+            logger: loggerFactory.CreateLogger<MainWindowViewModel>());
+
+        RemoteDiagnosticsSink.SetService(remoteDiagnostics);
+
+        try
+        {
+            await viewModel.InitializeAsync();
+        }
+        finally
+        {
+            viewModel.Dispose();
+            RemoteDiagnosticsSink.Clear();
+        }
+
+        Assert.Equal(2, remoteDiagnostics.ExportEligibleWarnings.Count);
+        Assert.All(
+            remoteDiagnostics.ExportEligibleWarnings,
+            warning =>
+            {
+                Assert.Equal(LogEventLevel.Warning, warning.Level);
+                Assert.True(HasTrueScalar(warning, "RemoteDiagnostic"));
+                Assert.False(string.IsNullOrWhiteSpace(GetScalarText(warning, "FailureCode")));
+            });
+        Assert.Contains(
+            remoteDiagnostics.ExportEligibleWarnings,
+            warning => GetScalarText(warning, "FailureCode") == "wifi_certificate_import_failed");
+        Assert.Contains(
+            remoteDiagnostics.ExportEligibleWarnings,
+            warning => GetScalarText(warning, "FailureCode") == "wifi_profile_unavailable");
+
+        LogEvent localCertificateDiagnostic = Assert.Single(localSink.Events, item =>
+            item.Level == LogEventLevel.Information &&
+            item.Exception is not null &&
+            item.Properties.ContainsKey("CertificateFileName"));
+        Assert.Equal("invalid.cer", GetScalarText(localCertificateDiagnostic, "CertificateFileName"));
+    }
+
     private static MainWindowViewModel CreateViewModel(
         RecordingTelemetryService telemetryService,
         INetworkStatusService networkStatusService,
@@ -326,6 +407,15 @@ public sealed class MainWindowViewModelTelemetryTests
         await task;
     }
 
+    private static bool HasTrueScalar(LogEvent logEvent, string propertyName) =>
+        logEvent.Properties.TryGetValue(propertyName, out LogEventPropertyValue? propertyValue) &&
+        propertyValue is ScalarValue { Value: true };
+
+    private static string GetScalarText(LogEvent logEvent, string propertyName) =>
+        logEvent.Properties.TryGetValue(propertyName, out LogEventPropertyValue? value) && value is ScalarValue scalar
+            ? scalar.Value?.ToString() ?? string.Empty
+            : string.Empty;
+
     private sealed class RecordingTelemetryService : ITelemetryService
     {
         public List<TelemetryEvent> Events { get; } = [];
@@ -396,6 +486,13 @@ public sealed class MainWindowViewModelTelemetryTests
         public void ShowAbout()
         {
         }
+    }
+
+    private sealed class FakeNetworkProfileRoamingService : INetworkProfileRoamingService
+    {
+        public Task CaptureWifiProfileAsync(NetworkProfileRoamingCaptureRequest request, CancellationToken cancellationToken) => Task.CompletedTask;
+
+        public Task CaptureWiredDot1xProfileAsync(NetworkProfileRoamingCaptureRequest request, CancellationToken cancellationToken) => Task.CompletedTask;
     }
 
     private sealed class FakeConnectConfigurationService(FoundryConnectConfiguration configuration) : IConnectConfigurationService
@@ -533,4 +630,77 @@ public sealed class MainWindowViewModelTelemetryTests
     }
 
     private sealed record LogEntry(LogLevel Level, IReadOnlyDictionary<string, object?> Properties);
+
+    private sealed class RecordingRemoteDiagnosticsService : IRemoteDiagnosticsService
+    {
+        public List<LogEvent> ExportEligibleWarnings { get; } = [];
+
+        public void Configure(RemoteDiagnosticsOptions options, RemoteDiagnosticsContext context)
+        {
+        }
+
+        public void Disable()
+        {
+        }
+
+        public void Emit(LogEvent logEvent)
+        {
+            if (logEvent.Level == LogEventLevel.Warning && !HasTrueScalar(logEvent, "RemoteDiagnosticsInternal"))
+            {
+                ExportEligibleWarnings.Add(logEvent);
+            }
+        }
+
+        public Task FlushAsync(CancellationToken cancellationToken)
+        {
+            return Task.CompletedTask;
+        }
+
+        public ValueTask DisposeAsync()
+        {
+            return ValueTask.CompletedTask;
+        }
+    }
+
+    private sealed class RecordingSerilogSink : ILogEventSink
+    {
+        public List<LogEvent> Events { get; } = [];
+
+        public void Emit(LogEvent logEvent)
+        {
+            Events.Add(logEvent);
+        }
+    }
+
+    private sealed class TemporaryDirectory : IDisposable
+    {
+        public TemporaryDirectory()
+        {
+            Path = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "Foundry.Connect.Tests", Guid.NewGuid().ToString("N"));
+            Directory.CreateDirectory(Path);
+        }
+
+        public string Path { get; }
+
+        public string CreateFile(string fileName, string contents)
+        {
+            string path = System.IO.Path.Combine(Path, fileName);
+            File.WriteAllText(path, contents);
+            return path;
+        }
+
+        public void Dispose()
+        {
+            if (Directory.Exists(Path))
+            {
+                Directory.Delete(Path, recursive: true);
+            }
+        }
+    }
+}
+
+[CollectionDefinition(ConnectRemoteDiagnosticsCollection.Name, DisableParallelization = true)]
+public sealed class ConnectRemoteDiagnosticsCollection
+{
+    public const string Name = "ConnectRemoteDiagnostics";
 }
