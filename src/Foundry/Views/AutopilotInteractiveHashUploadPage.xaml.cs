@@ -28,4 +28,13 @@ public sealed partial class AutopilotInteractiveHashUploadPage : Page
         await ViewModel.ToggleProvisioningModeAsync(AutopilotProvisioningMode.InteractiveHardwareHashUpload);
     }
 
+    private void OnInteractiveContentSizeChanged(object sender, SizeChangedEventArgs e)
+    {
+        InteractiveImage.MaxHeight = Math.Max(
+            0,
+            InteractiveContentScrollView.ActualHeight
+                - InteractiveDescription.ActualHeight
+                - InteractivePresentation.RowSpacing);
+    }
+
 }

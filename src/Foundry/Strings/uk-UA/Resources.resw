@@ -280,7 +280,7 @@
     <value>Інтерактивне завантаження апаратного хешу</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Готує вхід техніка за кодом пристрою для реєстрації апаратного хешу під час OOBE.</value>
+    <value>Коли ввімкнено, технічний спеціаліст входить за кодом пристрою Microsoft під час OOBE і завантажує апаратний хеш пристрою.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Підключити орендаря</value>

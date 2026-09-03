@@ -280,7 +280,7 @@
     <value>対話型ハードウェア ハッシュ アップロード</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>OOBE 中のハードウェア ハッシュ登録のために、技術者のデバイス コード サインインを準備します。</value>
+    <value>有効にすると、技術者は OOBE 中に Microsoft のデバイス コードでサインインし、デバイスのハードウェア ハッシュをアップロードします。</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>テナントを接続する</value>

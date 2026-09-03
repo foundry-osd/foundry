@@ -280,7 +280,7 @@
     <value>Envoi interactif du hash matériel</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Prépare la connexion du technicien par code d’appareil pour l’enregistrement du hash matériel pendant l’OOBE.</value>
+    <value>Lorsqu’elle est activée, le technicien se connecte avec un code d’appareil Microsoft pendant l’OOBE et envoie le hash matériel de l’appareil.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Se connecter au tenant</value>

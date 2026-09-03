@@ -280,7 +280,7 @@
     <value>Interaktywne przesyłanie skrótu sprzętowego</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Przygotowuje logowanie technika kodem urządzenia do rejestracji skrótu sprzętowego podczas OOBE.</value>
+    <value>Po włączeniu technik loguje się za pomocą kodu urządzenia Microsoft podczas OOBE i przesyła skrót sprzętowy urządzenia.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Połącz najemcę</value>

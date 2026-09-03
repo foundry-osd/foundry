@@ -280,7 +280,7 @@
     <value>Încărcare interactivă a hashului hardware</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Pregătește conectarea tehnicianului cu cod de dispozitiv pentru înregistrarea hashului hardware în timpul OOBE.</value>
+    <value>Când este activată, tehnicianul se conectează cu un cod de dispozitiv Microsoft în timpul OOBE și încarcă hashul hardware al dispozitivului.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Conectați chiriașul</value>

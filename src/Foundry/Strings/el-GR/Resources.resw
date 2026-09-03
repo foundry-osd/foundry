@@ -280,7 +280,7 @@
     <value>Διαδραστική αποστολή κατακερματισμού υλικού</value>
   </data>
   <data name="Autopilot.InteractiveHardwareHashDescription" xml:space="preserve">
-    <value>Προετοιμάζει σύνδεση τεχνικού με κωδικό συσκευής για εγγραφή κατακερματισμού υλικού κατά το OOBE.</value>
+    <value>Όταν είναι ενεργοποιημένη, ο τεχνικός συνδέεται με κωδικό συσκευής Microsoft κατά το OOBE και αποστέλλει τον κατακερματισμό υλικού της συσκευής.</value>
   </data>
   <data name="Autopilot.HardwareHashConnectTenantButton" xml:space="preserve">
     <value>Συνδέστε τον ενοικιαστή</value>
