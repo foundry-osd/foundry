@@ -53,7 +53,8 @@ internal sealed partial class PostHogExceptionTracker(
             ["$exception_message"] = record.Exception.Message,
             ["$exception_level"] = record.Level == Serilog.Events.LogEventLevel.Fatal ? "fatal" : "error",
             ["$exception_list"] = CreateExceptionList(record.Exception),
-            ["$process_person_profile"] = false
+            ["$process_person_profile"] = false,
+            ["$geoip_disable"] = true
         };
 
         if (record.Attributes.TryGetValue("session.id", out object? sessionId))

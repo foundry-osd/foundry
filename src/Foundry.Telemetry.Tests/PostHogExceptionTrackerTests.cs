@@ -36,6 +36,7 @@ public sealed class PostHogExceptionTrackerTests
         Assert.Equal("install-1", captured.DistinctId);
         Assert.Equal("$exception", captured.EventName);
         Assert.Equal(false, captured.Properties["$process_person_profile"]);
+        Assert.Equal(true, captured.Properties["$geoip_disable"]);
         Assert.Equal("session-1", captured.Properties["$session_id"]);
         Assert.Equal("System.InvalidOperationException", captured.Properties["$exception_type"]);
         Assert.Equal("redacted outer", captured.Properties["$exception_message"]);

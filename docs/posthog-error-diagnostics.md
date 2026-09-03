@@ -8,6 +8,8 @@ Remote diagnostics include warning, error, and fatal events, plus information ev
 
 Before an event enters the delivery queue, Foundry applies an explicit property allowlist and removes or replaces paths, URLs, credentials, tokens, network identifiers, machine names, user names, and similar direct identifiers. Full commands, process output, local file locations, and support-bundle details remain in local logs.
 
+PostHog receives the connection source IP as transport metadata during direct HTTPS delivery. Foundry does not add it to diagnostic attributes, and Error Tracking events disable GeoIP enrichment.
+
 The setting is applied live. Disabling it stops acceptance of new remote records immediately; records already being transmitted may finish. Delivery uses a bounded in-memory queue with rate limiting and duplicate exception suppression. It does not create a persistent outbox, so diagnostics can be dropped when the queue is full, the process exits, the network is unavailable, or PostHog rejects a request. Diagnostic export failures never replace the original operation result.
 
 ## PostHog operations
