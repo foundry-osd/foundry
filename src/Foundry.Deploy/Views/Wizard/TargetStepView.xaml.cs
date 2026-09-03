@@ -5,7 +5,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Foundry.Deploy.Validation;
+using ComputerNameRules = Foundry.Core.Services.Configuration.ComputerNameRules;
 
 namespace Foundry.Deploy.Views.Wizard;
 

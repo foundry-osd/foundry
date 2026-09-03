@@ -25,7 +25,7 @@ using Foundry.Utilities.Networking;
 using Foundry.Deploy.Services.Theme;
 using Foundry.Deploy.Services.Wizard;
 using Foundry.Localization;
-using Foundry.Deploy.Validation;
+using ComputerNameRules = Foundry.Core.Services.Configuration.ComputerNameRules;
 using Microsoft.Extensions.Logging;
 using DeployThemeMode = Foundry.Deploy.Services.Theme.ThemeMode;
 

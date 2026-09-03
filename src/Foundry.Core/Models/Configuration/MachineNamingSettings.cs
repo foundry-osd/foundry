@@ -46,15 +46,6 @@ public sealed record MachineNamingSettings
     /// </summary>
     public bool AllowEditingDuringDeployment { get; init; } = true;
 
-    [JsonIgnore]
-    public string? Prefix { get; init; }
-
-    [JsonIgnore]
-    public bool AutoGenerateName { get; init; }
-
-    [JsonIgnore]
-    public bool AllowManualSuffixEdit { get; init; } = true;
-
     [JsonPropertyName("prefix")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? LegacyPrefix { get; init; }

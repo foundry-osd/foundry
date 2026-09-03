@@ -41,7 +41,7 @@ public static class FoundryConfigurationMigration
     private static FoundryConfigurationDocument MigrateMachineNaming(FoundryConfigurationDocument document)
     {
         MachineNamingSettings legacy = document.Customization.MachineNaming;
-        bool autoGenerateName = legacy.LegacyAutoGenerateName ?? legacy.AutoGenerateName;
+        bool autoGenerateName = legacy.LegacyAutoGenerateName ?? false;
         MachineNamingSettings migrated = !legacy.IsEnabled
             ? new MachineNamingSettings()
             : autoGenerateName
@@ -50,7 +50,7 @@ public static class FoundryConfigurationMigration
                 {
                     IsEnabled = true,
                     Mode = MachineNamingMode.Manual,
-                    ManualInitialValue = legacy.LegacyPrefix ?? legacy.Prefix,
+                    ManualInitialValue = legacy.LegacyPrefix,
                     AllowEditingDuringDeployment = true
                 };
 
@@ -63,7 +63,7 @@ public static class FoundryConfigurationMigration
     private static MachineNamingSettings CreateGeneratedMachineNaming(MachineNamingSettings legacy)
     {
         var components = new List<MachineNameComponentSettings>();
-        string? prefix = legacy.LegacyPrefix ?? legacy.Prefix;
+        string? prefix = legacy.LegacyPrefix;
         if (!string.IsNullOrWhiteSpace(prefix))
         {
             components.Add(new MachineNameComponentSettings
@@ -86,7 +86,7 @@ public static class FoundryConfigurationMigration
             Components = components,
             Separator = MachineNameSeparator.None,
             Casing = MachineNameCasing.Preserve,
-            AllowEditingDuringDeployment = legacy.LegacyAllowManualSuffixEdit ?? legacy.AllowManualSuffixEdit
+            AllowEditingDuringDeployment = legacy.LegacyAllowManualSuffixEdit ?? true
         };
     }
 }
