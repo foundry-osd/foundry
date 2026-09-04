@@ -65,6 +65,10 @@ function ConvertTo-CanonicalResourceXml {
 
     $dataNodes = [System.Collections.Generic.List[System.Xml.XmlElement]]::new()
     foreach ($dataNode in $document.DocumentElement.SelectNodes('data')) {
+        foreach ($commentNode in @($dataNode.SelectNodes('comment'))) {
+            [void]$dataNode.RemoveChild($commentNode)
+        }
+
         $dataNodes.Add($dataNode)
     }
 
