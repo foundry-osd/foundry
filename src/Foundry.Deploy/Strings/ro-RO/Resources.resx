@@ -12,337 +12,301 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="App.Name" xml:space="preserve"><value>Foundry Deploy</value></data>
-  <data name="App.WindowTitle" xml:space="preserve"><value>Foundry Deploy</value></data>
-  <data name="About.Title" xml:space="preserve"><value>Despre Foundry Deploy</value></data>
-  <data name="About.DescriptionLine1" xml:space="preserve"><value>Foundry Deploy este experiența de implementare WinPE pentru Foundry.</value></data>
-  <data name="About.DescriptionLine2" xml:space="preserve"><value>Acest software este furnizat ca atare. Examinați setările de implementare înainte de utilizare.</value></data>
-  <data name="About.Footer" xml:space="preserve"><value>Drepturi de autor (c) 2026 Foundry Project. Licențiat sub licența MIT.</value></data>
-  <data name="Menu.Theme" xml:space="preserve"><value>_Temă</value></data>
-  <data name="Menu.Language" xml:space="preserve"><value>_Limba</value></data>
-  <data name="Menu.Tools" xml:space="preserve"><value>_Unelte</value></data>
-  <data name="Menu.Debug" xml:space="preserve"><value>_Depanare</value></data>
-  <data name="Menu.About" xml:space="preserve"><value>_Despre</value></data>
-  <data name="Theme.System" xml:space="preserve"><value>Sistem</value></data>
-  <data name="Theme.Light" xml:space="preserve"><value>Lumină</value></data>
-  <data name="Theme.Dark" xml:space="preserve"><value>Întuneric</value></data>
-  <data name="Tools.OpenLogFile" xml:space="preserve"><value>Deschideți fișierul jurnal</value></data>
-  <data name="Preparation.ComputerName" xml:space="preserve"><value>Numele computerului</value></data>
-  <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 caractere. A-Z, a-z, 0-9 și numai cratima.</value></data>
-  <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Numele computerului trebuie să conțină între 1 și 15 caractere valide (litere, cifre sau cratimă).</value></data>
-  <data name="Preparation.TargetDisk" xml:space="preserve"><value>Disc țintă</value></data>
-  <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Selectați un disc țintă. Discurile neeligibile sunt blocate.</value></data>
-  <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Aplicați actualizări de firmware</value></data>
-  <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profil</value></data>
-  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Nu au fost găsite profiluri Autopilot încorporate pe acest media.</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON furnizarea profilului</value></data>
-  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Încărcare zero-touch a hashului hardware</value></data>
-  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Încărcare interactivă a hashului hardware</value></data>
-  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Starea încărcării hash hardware</value></data>
-  <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Gata pentru a încărca hash hardware</value></data>
-  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Încărcarea hashului hardware nu este disponibilă</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Lipsesc informațiile necesare despre certificat. Implementarea poate continua fără încărcarea hashului hardware.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Certificatul Autopilot a expirat. Implementarea poate continua fără încărcarea hashului hardware.</value></data>
-  <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>ID locatar</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Expirarea certificatului</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Eticheta de grup</value></data>
-  <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Se detectează hardware-ul...</value></data>
-  <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Detectarea hardware-ului a eșuat.</value></data>
-  <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Detectarea hardware-ului a eșuat: {0}</value></data>
-  <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | Putere: {2} | Firmware: {3}</value></data>
-  <data name="Preparation.PowerBattery" xml:space="preserve"><value>Bateria</value></data>
-  <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
-  <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Descoperirea discului țintă a eșuat: {0}</value></data>
-  <data name="Catalog.Version" xml:space="preserve"><value>Versiune</value></data>
-<data name="Catalog.Media" xml:space="preserve"><value>Actualizare Windows</value></data>
-<data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Cea mai recentă)</value></data>
-  <data name="Catalog.Language" xml:space="preserve"><value>Limba</value></data>
-  <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Canal de licență</value></data>
-  <data name="Catalog.EditionTarget" xml:space="preserve"><value>Ediție (țintă)</value></data>
-  <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>Arhitectură: {0}</value></data>
-  <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Cataloage încărcate: {0} intrări ale sistemului de operare, {1} pachete de drivere.</value></data>
-  <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Încărcarea catalogului a eșuat: {0}</value></data>
-  <data name="DriverPack.Source" xml:space="preserve"><value>Sursa driverului</value></data>
-  <data name="DriverPack.Model" xml:space="preserve"><value>Model</value></data>
-  <data name="DriverPack.Version" xml:space="preserve"><value>Versiune</value></data>
-  <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
-  <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
-  <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: nu se potrivește model sau versiune</value></data>
-  <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (modele +{1})</value></data>
-  <data name="Summary.Title" xml:space="preserve"><value>Rezumatul implementării</value></data>
-  <data name="Summary.TargetDisk" xml:space="preserve"><value>Disc țintă</value></data>
-  <data name="Summary.NoDiskSelected" xml:space="preserve"><value>Niciun disc selectat</value></data>
-  <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Sistem de operare</value></data>
-  <data name="Summary.NoSelection" xml:space="preserve"><value>Fără selecție</value></data>
-  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Caracteristici opționale Windows</value></data>
-  <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profil</value></data>
-  <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Eticheta de grup Autopilot</value></data>
-  <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Nu Autopilot</value></data>
-  <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>Profilul JSON</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Încărcare zero-touch a hashului hardware</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>Certificat valabil</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>Certificat expirat</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>Lipsesc informații despre certificat</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag" xml:space="preserve"><value>Nicio etichetă implicită de grup</value></data>
-  <data name="Debug.DeploymentPages" xml:space="preserve"><value>Pagini de implementare</value></data>
-  <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Pagina de progres</value></data>
-  <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Pagina de succes</value></data>
-  <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Pagina de eroare</value></data>
-  <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Previzualizare depanare: DISM aplicarea eșuată deoarece partiția țintă este doar pentru citire.
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Foundry Deploy este experiența de implementare WinPE pentru Foundry.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>Acest software este furnizat ca atare. Examinați setările de implementare înainte de utilizare.</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>Drepturi de autor (c) 2026 Foundry Project. Licențiat sub licența MIT.</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>Despre Foundry Deploy</value>
+  </data>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Deploy</value>
+  </data>
+  <data name="App.WindowTitle" xml:space="preserve">
+    <value>Foundry Deploy</value>
+  </data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve">
+    <value>Detalii de configurare</value>
+  </data>
+  <data name="Autopilot.Description" xml:space="preserve">
+    <value>Verificați setările de asigurare a accesului Autopilot pentru acest dispozitiv.</value>
+  </data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
+    <value>Încarcă hashul hardware al acestui dispozitiv în Windows Autopilot în timpul implementării.</value>
+  </data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
+    <value>Adaugă un profil Autopilot offline la instalarea Windows.</value>
+  </data>
+  <data name="Autopilot.Title" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve">
+    <value>Se recomandă regenerarea imaginii de pornire</value>
+  </data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
+    <value>Această imagine de pornire utilizează un format de configurare Foundry OSD mai vechi. Regenerați-o pentru a asigura compatibilitatea cu cele mai recente caracteristici.</value>
+  </data>
+  <data name="Catalog.ArchitectureFormat" xml:space="preserve">
+    <value>Arhitectură: {0}</value>
+  </data>
+  <data name="Catalog.EditionTarget" xml:space="preserve">
+    <value>Ediție (țintă)</value>
+  </data>
+  <data name="Catalog.Language" xml:space="preserve">
+    <value>Limba</value>
+  </data>
+  <data name="Catalog.LicenseChannel" xml:space="preserve">
+    <value>Canal de licență</value>
+  </data>
+  <data name="Catalog.LoadFailedFormat" xml:space="preserve">
+    <value>Încărcarea catalogului a eșuat: {0}</value>
+  </data>
+  <data name="Catalog.LoadedFormat" xml:space="preserve">
+    <value>Cataloage încărcate: {0} intrări ale sistemului de operare, {1} pachete de drivere.</value>
+  </data>
+  <data name="Catalog.Media" xml:space="preserve">
+    <value>Actualizare Windows</value>
+  </data>
+  <data name="Catalog.MediaLatestFormat" xml:space="preserve">
+    <value>{0} (Cea mai recentă)</value>
+  </data>
+  <data name="Catalog.Version" xml:space="preserve">
+    <value>Versiune</value>
+  </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Anulați</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Închide fereastra</value>
+  </data>
+  <data name="Common.Copy" xml:space="preserve">
+    <value>Copiați în clipboard</value>
+  </data>
+  <data name="Common.Deploy" xml:space="preserve">
+    <value>Implementează</value>
+  </data>
+  <data name="Common.Detected" xml:space="preserve">
+    <value>Detectat</value>
+  </data>
+  <data name="Common.Disabled" xml:space="preserve">
+    <value>Dezactivat</value>
+  </data>
+  <data name="Common.Edit" xml:space="preserve">
+    <value>Editați</value>
+  </data>
+  <data name="Common.Enabled" xml:space="preserve">
+    <value>Activat</value>
+  </data>
+  <data name="Common.Next" xml:space="preserve">
+    <value>În continuare</value>
+  </data>
+  <data name="Common.No" xml:space="preserve">
+    <value>Nu</value>
+  </data>
+  <data name="Common.None" xml:space="preserve">
+    <value>Niciuna</value>
+  </data>
+  <data name="Common.NotAvailable" xml:space="preserve">
+    <value>N/A</value>
+  </data>
+  <data name="Common.Previous" xml:space="preserve">
+    <value>Anterior</value>
+  </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Indisponibil</value>
+  </data>
+  <data name="Common.Unknown" xml:space="preserve">
+    <value>Necunoscut</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>Versiune: {0}</value>
+  </data>
+  <data name="Common.Yes" xml:space="preserve">
+    <value>Da</value>
+  </data>
+  <data name="Debug.Autopilot" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve">
+    <value>Încărcare zero-touch a hashului hardware</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve">
+    <value>Certificat expirat</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve">
+    <value>Lipsesc informații despre certificat</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag" xml:space="preserve">
+    <value>Nicio etichetă implicită de grup</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve">
+    <value>Certificat valabil</value>
+  </data>
+  <data name="Debug.Autopilot.JsonProfile" xml:space="preserve">
+    <value>Profilul JSON</value>
+  </data>
+  <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
+    <value>Nu Autopilot</value>
+  </data>
+  <data name="Debug.DeploymentPages" xml:space="preserve">
+    <value>Pagini de implementare</value>
+  </data>
+  <data name="Debug.ErrorPageCommand" xml:space="preserve">
+    <value>Pagina de eroare</value>
+  </data>
+  <data name="Debug.ErrorPreviewMessage" xml:space="preserve">
+    <value>Previzualizare depanare: DISM aplicarea eșuată deoarece partiția țintă este doar pentru citire.
 
 ErrorCode=0x80070005
 Detalii: Accesul a fost interzis la montarea imaginii pe calea țintă.
-Acțiune: Verificați atributele discului și reîncercați implementarea.</value></data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Se recomandă regenerarea imaginii de pornire</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Această imagine de pornire utilizează un format de configurare Foundry OSD mai vechi. Regenerați-o pentru a asigura compatibilitatea cu cele mai recente caracteristici.</value></data>
-  <data name="Common.VersionFormat" xml:space="preserve"><value>Versiune: {0}</value></data>
-  <data name="Common.Previous" xml:space="preserve"><value>Anterior</value></data>
-  <data name="Common.Next" xml:space="preserve"><value>În continuare</value></data>
-  <data name="Common.Deploy" xml:space="preserve"><value>Implementează</value></data>
-  <data name="Common.NotAvailable" xml:space="preserve"><value>N/A</value></data>
-  <data name="Common.Unavailable" xml:space="preserve"><value>Indisponibil</value></data>
-  <data name="Common.None" xml:space="preserve"><value>Niciuna</value></data>
-  <data name="Common.Unknown" xml:space="preserve"><value>Necunoscut</value></data>
-  <data name="Common.Detected" xml:space="preserve"><value>Detectat</value></data>
-  <data name="Common.Yes" xml:space="preserve"><value>Da</value></data>
-  <data name="Common.No" xml:space="preserve"><value>Nu</value></data>
-  <data name="Common.Enabled" xml:space="preserve"><value>Activat</value></data>
-  <data name="Common.Disabled" xml:space="preserve"><value>Dezactivat</value></data>
-  <data name="Progress.Networking" xml:space="preserve"><value>Rețele</value></data>
-  <data name="Progress.StartTime" xml:space="preserve"><value>Ora de începere</value></data>
-  <data name="Progress.ElapsedTime" xml:space="preserve"><value>Timp scurs</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>Implementare finalizată</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Acest computer va reporni în {0}s.</value></data>
-  <data name="Success.RebootNow" xml:space="preserve"><value>Reporniți</value></data>
-  <data name="Error.Title" xml:space="preserve"><value>Implementarea a eșuat</value></data>
-  <data name="Error.FailedStepFormat" xml:space="preserve"><value>Pas nereușit: {0}</value></data>
-  <data name="Splash.Welcome" xml:space="preserve"><value>Bun venit</value></data>
-  <data name="Splash.InitializingComponents" xml:space="preserve"><value>Initializarea componentelor...</value></data>
-  <data name="Splash.StartDeployment" xml:space="preserve"><value>Porniți implementarea</value></data>
-  <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>Disc {0} | {1} | {2} | {3}{4}</value></data>
-  <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
-  <data name="Disk.UnknownSize" xml:space="preserve"><value>Dimensiune necunoscută</value></data>
-  <data name="Disk.BlockedSystemDisk" xml:space="preserve"><value>Blocat: disc de sistem</value></data>
-  <data name="Disk.BlockedBootDisk" xml:space="preserve"><value>Blocat: disc de pornire</value></data>
-  <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Blocat: numai pentru citire</value></data>
-  <data name="Disk.BlockedOffline" xml:space="preserve"><value>Blocat: offline</value></data>
-  <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>DEBUG ȚINTĂ VIRTUALĂ</value></data>
-  <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Discul țintă {0} nu mai este prezent.</value></data>
-  <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Discul țintă {0} este blocat: {1}</value></data>
-  <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Confirmați ștergerea discului</value></data>
-  <data name="Launch.ConfirmDiskEraseMessageFormat" xml:space="preserve"><value>Aceasta va șterge toate datele de pe discul selectat și va instala sistemul de operare selectat.
-
-Disc: {0}
-Model: {1}
-Autobuz: {2}
-Dimensiune: {3}
-
-Sistem de operare: {4}
-
-Continuați cu implementarea?</value></data>
-  <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Se așteaptă implementarea...</value></data>
-  <data name="Status.WaitingForProgress" xml:space="preserve"><value>În așteptarea progresului...</value></data>
-  <data name="Status.PreparingDeployment" xml:space="preserve"><value>Se pregătește implementarea...</value></data>
-  <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Implementarea a fost anulată.</value></data>
-  <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>O altă operațiune este deja în curs de desfășurare.</value></data>
-  <data name="Status.StartingStep" xml:space="preserve"><value>Începe pasul...</value></data>
-  <data name="Status.StartingStepFormat" xml:space="preserve"><value>Începând cu {0}.</value></data>
-  <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Începând cu {0}...</value></data>
-  <data name="Status.StepCompleted" xml:space="preserve"><value>Pas finalizat.</value></data>
-  <data name="Status.StepFailed" xml:space="preserve"><value>Pasul a eșuat.</value></data>
-  <data name="Status.StepSkipped" xml:space="preserve"><value>Pas sărit.</value></data>
-  <data name="Status.InProgress" xml:space="preserve"><value>În curs...</value></data>
-  <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Pasul:? de?</value></data>
-  <data name="Status.StepCounterFormat" xml:space="preserve"><value>Pas: {0} din {1}</value></data>
-  <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe a eșuat cu codul de ieșire {0}. {1}</value></data>
-  <data name="Status.SystemReboot" xml:space="preserve"><value>Repornirea sistemului</value></data>
-  <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Executabilul de repornire obligatoriu „wpeutil.exe” nu a fost găsit.</value></data>
-  <data name="Status.UnknownStep" xml:space="preserve"><value>Pas necunoscut</value></data>
-  <data name="Status.NoErrorDetails" xml:space="preserve"><value>Nu au fost furnizate detalii despre eroare.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Colectează variabile</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Inițializează implementarea</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Validează configurația</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Verifică memoria cache</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Pregătește discul</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Descarcă sistemul de operare</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Aplică sistemul de operare</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Setează numele computerului</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Configurează OOBE</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Configurează recuperarea Windows</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Descarcă drivere</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Extrage drivere</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Pregătește personalizările</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Aplică drivere</value></data>
-  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>Aplică drivere de recuperare</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Descarcă firmware</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Aplică firmware</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Sigilează partiția de recuperare</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Configurează Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Finalizează implementarea</value></data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Se colectează variabilele de implementare...</value></data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Se colectează contextul de implementare...</value></data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Variabilele de implementare adunate.</value></data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve"><value>Variabilele de implementare colectate (simulare).</value></data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve"><value>Se inițializează spațiul de lucru de implementare...</value></data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve"><value>Se creează foldere pentru spațiul de lucru...</value></data>
-  <data name="StepMessage.FinalizingDeployment" xml:space="preserve"><value>Se finalizează implementarea...</value></data>
-  <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve"><value>Se curăță spațiul de lucru temporar...</value></data>
-  <data name="StepMessage.WritingDeploymentSummary" xml:space="preserve"><value>Se scrie rezumatul implementării...</value></data>
-  <data name="StepMessage.WritingCompletionLogs" xml:space="preserve"><value>Se scriu jurnalele de finalizare...</value></data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve"><value>Spațiul de lucru a fost inițializat.</value></data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve"><value>Spațiul de lucru inițializat (simulare).</value></data>
-  <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve"><value>Se validează configurația țintei...</value></data>
-  <data name="StepMessage.RevalidatingTargetDisk" xml:space="preserve"><value>Se revalidează discul țintă...</value></data>
-  <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve"><value>Se detectează profilul hardware...</value></data>
-  <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve"><value>Sistemul de operare URL lipsește.</value></data>
-  <data name="StepResult.TargetDiskNumberRequired" xml:space="preserve"><value>Numărul discului țintă este necesar.</value></data>
-  <data name="StepResult.TargetConfigurationValidated" xml:space="preserve"><value>Configurația țintei a fost validată.</value></data>
-  <data name="StepResult.TargetConfigurationValidatedSimulation" xml:space="preserve"><value>Configurație țintă validată (simulare).</value></data>
-  <data name="StepMessage.ResolvingCacheStrategy" xml:space="preserve"><value>Se verifică memoria cache de implementare...</value></data>
-  <data name="StepMessage.ResolvingCacheLocation" xml:space="preserve"><value>Se rezolvă locația cache...</value></data>
-  <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve"><value>Se verifică conflictul discului cache...</value></data>
-  <data name="StepResult.CacheStrategyResolved" xml:space="preserve"><value>Strategia de cache a fost rezolvată.</value></data>
-  <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve"><value>Strategia de cache a fost rezolvată (simulare).</value></data>
-  <data name="StepMessage.PreparingTargetDiskLayout" xml:space="preserve"><value>Se pregătește aspectul discului țintă...</value></data>
-  <data name="StepMessage.PartitioningTargetDisk" xml:space="preserve"><value>Se partitioneaza discul tinta...</value></data>
-  <data name="StepMessage.PreparingTargetWorkspace" xml:space="preserve"><value>Se pregătește spațiul de lucru țintă...</value></data>
-  <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve"><value>Se creează partiții simulate...</value></data>
-  <data name="StepResult.TargetDiskLayoutPrepared" xml:space="preserve"><value>Aspectul discului țintă a fost pregătit.</value></data>
-  <data name="StepResult.TargetDiskLayoutPreparedSimulation" xml:space="preserve"><value>Dispunerea discului țintă pregătită (simulare).</value></data>
-  <data name="StepResult.TargetDiskLayoutNotPrepared" xml:space="preserve"><value>Dispunerea discului țintă nu a fost pregătită.</value></data>
-  <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve"><value>Se descarcă imaginea sistemului de operare...</value></data>
-  <data name="StepMessage.CheckingCache" xml:space="preserve"><value>Se verifică memoria cache...</value></data>
-  <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve"><value>Imaginea sistemului de operare gata (simulare).</value></data>
-  <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve"><value>Imaginea sistemului de operare nu a fost descărcată.</value></data>
-  <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve"><value>Imaginea sistemului de operare a fost descărcată.</value></data>
-  <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve"><value>Imaginea sistemului de operare a fost rezolvată din cache.</value></data>
-  <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve"><value>Se aplică imaginea sistemului de operare...</value></data>
-  <data name="StepMessage.InspectingImage" xml:space="preserve"><value>Se inspectează imaginea...</value></data>
-  <data name="StepMessage.ApplyingImage" xml:space="preserve"><value>Se aplică imaginea...</value></data>
-  <data name="StepMessage.ConfiguringBoot" xml:space="preserve"><value>Se configurează boot-ul...</value></data>
-  <data name="StepMessage.VerifyingImage" xml:space="preserve"><value>Se verifică imaginea...</value></data>
-  <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve"><value>Imaginea sistemului de operare aplicată.</value></data>
-  <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve"><value>Imaginea sistemului de operare aplicată (simulare).</value></data>
-  <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Se configurează numele computerului țintă...</value></data>
-  <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Se scrie numele computerului offline...</value></data>
-  <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Partiția țintă Windows nu este disponibilă.</value></data>
-  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Indexul imaginii Windows aplicate nu este disponibil.</value></data>
-  <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Numele computerului țintă a fost configurat.</value></data>
-  <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Numele computerului țintă a fost configurat (simulare).</value></data>
-  <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Personalizarea offline a fost dezactivată.</value></data>
-  <data name="StepMessage.ConfiguringOfflineCustomizations" xml:space="preserve"><value>Se configurează personalizările offline...</value></data>
-  <data name="StepMessage.WritingFirstRunDefaults" xml:space="preserve"><value>Se scriu valorile implicite pentru prima rulare...</value></data>
-  <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve"><value>Se configurează eliminarea componentei AI...</value></data>
-  <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>Se scriu politici offline AI...</value></data>
-  <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>Personalizare offline configurată.</value></data>
-  <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>Personalizare offline configurată (simulare).</value></data>
-  <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>Se configurează setările OOBE...</value></data>
-  <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>Se scriu valorile implicite de confidențialitate pentru prima rulare...</value></data>
-  <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>Se configurează mediul de recuperare...</value></data>
-  <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Se pregătește mediul de recuperare Windows...</value></data>
-  <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>Partiția de recuperare nu este disponibilă.</value></data>
-  <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>Mediu de recuperare configurat.</value></data>
-  <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>Mediu de recuperare configurat (simulare).</value></data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>Nu sunt necesare scripturi de personalizare pre-OOBE.</value></data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>Se realizează personalizări pre-OOBE...</value></data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>Personalizări pre-OOBE puse în scenă.</value></data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>Personalizări pre-OOBE puse în scenă (simulare).</value></data>
-  <data name="StepResult.DriverPackDisabled" xml:space="preserve"><value>Pachetul de drivere dezactivat (Niciunul selectat).</value></data>
-  <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve"><value>Nu este necesară descărcarea pachetului de drivere.</value></data>
-  <data name="StepMessage.DownloadingDriverPack" xml:space="preserve"><value>Se descarcă pachetul de drivere...</value></data>
-  <data name="StepMessage.PreparingDownload" xml:space="preserve"><value>Se pregătește descărcarea...</value></data>
-  <data name="StepResult.OemDriverPackMissing" xml:space="preserve"><value>Modul pachet de drivere OEM a fost selectat, dar nu a fost furnizat niciun pachet de drivere.</value></data>
-  <data name="StepResult.DriverPackDownloaded" xml:space="preserve"><value>Pachetul de drivere descărcat.</value></data>
-  <data name="StepResult.DriverPackDownloadedSimulation" xml:space="preserve"><value>Pachetul de drivere descărcat (simulare).</value></data>
-  <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve"><value>Pachetul de drivere a fost rezolvat din cache.</value></data>
-  <data name="StepMessage.ExtractingDriverPack" xml:space="preserve"><value>Se extrage pachetul de drivere...</value></data>
-  <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve"><value>Pachetul de drivere nu a fost descărcat.</value></data>
-  <data name="StepResult.DriverPackExtracted" xml:space="preserve"><value>Pachetul de drivere extras.</value></data>
-  <data name="StepResult.DriverPackExtractedSimulation" xml:space="preserve"><value>Pachetul de drivere extras (simulare).</value></data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve"><value>Pachet de drivere pregătit pentru instalare la prima pornire.</value></data>
-  <data name="StepResult.NoDriverPackOperationRequired" xml:space="preserve"><value>Nu este necesară nicio operațiune cu pachetul de drivere.</value></data>
-  <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve"><value>Modul de instalare a pachetului de drivere neacceptat.</value></data>
-  <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve"><value>Nu este disponibil niciun conținut extras de driver INF.</value></data>
-  <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve"><value>Conținutul sursă al pachetului de drivere nu este disponibil pentru prima pornire.</value></data>
-  <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve"><value>Microsoft Update Catalog nu a produs conținut de driver.</value></data>
-  <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve"><value>Staging-ul pachetului de drivere pentru prima pornire a fost solicitat fără o comandă acceptată.</value></data>
-  <data name="StepMessage.ApplyingDriverPack" xml:space="preserve"><value>Se aplică pachetul de drivere...</value></data>
-  <data name="StepMessage.ApplyingWindowsDrivers" xml:space="preserve"><value>Se aplică driverele Windows...</value></data>
-  <data name="StepMessage.MountingWinRe" xml:space="preserve"><value>Se montează WinRE...</value></data>
-  <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve"><value>Se aplică driverele WinRE...</value></data>
-  <data name="StepMessage.UnmountingWinRe" xml:space="preserve"><value>Se demontează WinRE...</value></data>
-  <data name="StepMessage.StagingPackage" xml:space="preserve"><value>Pachet de montaj...</value></data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve"><value>Se actualizează scriptul de configurare la prima pornire...</value></data>
-  <data name="StepProgress.PercentFormat" xml:space="preserve"><value>{0}: {1}%</value></data>
-  <data name="StepProgress.Downloading" xml:space="preserve"><value>Descărcare</value></data>
-  <data name="StepProgress.Extracting" xml:space="preserve"><value>Extragerea</value></data>
-  <data name="StepProgress.Applying" xml:space="preserve"><value>Aplicarea</value></data>
-  <data name="StepProgress.Staging" xml:space="preserve"><value>Înscenare</value></data>
-  <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>{0} descărcat</value></data>
-  <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>Pachetul de șoferi a fost aplicat.</value></data>
-  <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>Pachetul de drivere aplicat (simulare).</value></data>
-  <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>Se descarcă actualizarea firmware-ului...</value></data>
-  <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>Se pregătește căutarea Microsoft Update Catalog...</value></data>
-  <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve"><value>Actualizările de firmware sunt dezactivate.</value></data>
-  <data name="StepResult.FirmwareUpdatesDisabledForVirtualMachines" xml:space="preserve"><value>Actualizările de firmware sunt dezactivate pentru mașinile virtuale.</value></data>
-  <data name="StepResult.FirmwareUpdatesSkippedOnBattery" xml:space="preserve"><value>Actualizările de firmware sunt omise în timp ce dispozitivul funcționează pe baterie.</value></data>
-  <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve"><value>Identificatorul hardware al firmware-ului sistemului este indisponibil.</value></data>
-  <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve"><value>Actualizare firmware descărcată.</value></data>
-  <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve"><value>Actualizare firmware descărcată (simulare).</value></data>
-  <data name="StepResult.NoExtractedFirmwarePayload" xml:space="preserve"><value>Nu este disponibil niciun conținut de firmware extras.</value></data>
-  <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve"><value>Conținutul de firmware extras nu conține niciun fișier INF.</value></data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve"><value>Se aplică actualizarea firmware-ului...</value></data>
-  <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve"><value>Se injectează conținut firmware în offline Windows...</value></data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve"><value>Actualizare firmware aplicată.</value></data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve"><value>Actualizare firmware aplicată (simulare).</value></data>
-  <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve"><value>Sigilarea partiției de recuperare...</value></data>
-  <data name="StepMessage.RemovingRecoveryDriveLetter" xml:space="preserve"><value>Se elimină litera unității de recuperare...</value></data>
-  <data name="StepResult.RecoveryPartitionSealed" xml:space="preserve"><value>Partiție de recuperare sigilată.</value></data>
-  <data name="StepResult.RecoveryPartitionSealedSimulation" xml:space="preserve"><value>Partiție de recuperare sigilată (simulare).</value></data>
-  <data name="StepResult.AutopilotDisabled" xml:space="preserve"><value>Autopilot este dezactivat.</value></data>
-  <data name="StepResult.AutopilotProfileMissing" xml:space="preserve"><value>Autopilot este activat, dar nu a fost selectat niciun profil.</value></data>
-  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve"><value>Partiția țintă Windows nu este disponibilă pentru Autopilot.</value></data>
-  <data name="StepResult.TargetAutopilotDirectoryUnavailable" xml:space="preserve"><value>Nu s-a putut rezolva directorul țintă Autopilot.</value></data>
-  <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve"><value>Montarea profilului Autopilot...</value></data>
-  <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve"><value>Se copiează AutopilotConfigurationFile.json...</value></data>
-  <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve"><value>Se scrie manifestul Autopilot simulat...</value></data>
-  <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve"><value>Se capturează Autopilot hash hardware...</value></data>
-  <data name="StepMessage.RunningOa3Tool" xml:space="preserve"><value>Se rulează OA3Tool...</value></data>
-  <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve"><value>Se încarcă Autopilot hash hardware...</value></data>
-  <data name="StepMessage.PreparingMicrosoftGraphImport" xml:space="preserve"><value>Se pregătește importul Microsoft Graph...</value></data>
-  <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve"><value>Se trimite cererea de import la Microsoft Graph...</value></data>
-  <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve"><value>Se așteaptă vizibilitatea dispozitivului Autopilot...</value></data>
-  <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve"><value>Se verifică dispozitivele Windows Autopilot ({0} rămase)...</value></data>
-  <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve"><value>Se actualizează dispozitivul Autopilot existent...</value></data>
-  <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve"><value>Se actualizează eticheta de grup Windows Autopilot în Microsoft Graph...</value></data>
-  <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve"><value>Se așteaptă actualizarea etichetei de grup Autopilot...</value></data>
-  <data name="StepMessage.CheckingWindowsAutopilotGroupTagFormat" xml:space="preserve"><value>Se verifică eticheta de grup Windows Autopilot ({0} rămasă)...</value></data>
-  <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve"><value>Se pregătește încărcarea hash hardware Autopilot...</value></data>
-  <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve"><value>Se decriptează certificatul media...</value></data>
-  <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve"><value>Se autentifică încărcarea hash hardware Autopilot...</value></data>
-  <data name="StepMessage.RequestingMicrosoftGraphToken" xml:space="preserve"><value>Se solicită simbolul Microsoft Graph...</value></data>
-  <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve"><value>Se importă hash hardware în Microsoft Graph...</value></data>
-  <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve"><value>Se scrie manifestul hash Autopilot simulat...</value></data>
-  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve"><value>Partiția țintă Windows nu este disponibilă pentru încărcarea hash hardware Autopilot.</value></data>
-  <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve"><value>Autopilot Încărcarea hash hardware a fost omisă deoarece certificatul încorporat a expirat.</value></data>
-  <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve"><value>Autopilot Încărcarea hash hardware a fost omisă deoarece informațiile necesare despre certificatul media sunt incomplete.</value></data>
-  <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve"><value>Hash hardware Autopilot importat și vizibil pe dispozitivele Windows Autopilot.</value></data>
-  <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve"><value>Dispozitivul Autopilot importat nu a apărut pe dispozitivele Windows Autopilot înainte de expirare.</value></data>
-  <data name="StepResult.AutopilotGroupTagUpdateTimedOut" xml:space="preserve"><value>Actualizarea etichetei grupului de dispozitive Windows Autopilot nu a fost confirmată înainte de expirare.</value></data>
-  <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve"><value>Autopilot Încărcare hash hardware pregătită pentru simulare.</value></data>
-  <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve"><value>Autopilot încărcare hash hardware pregătită (simulare).</value></data>
-  <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve"><value>Fișierul de profil Autopilot selectat nu a fost găsit: {0}</value></data>
-  <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Captura hash hardware Autopilot nu a reușit: {0}</value></data>
-  <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Importarea hash hardware Autopilot nu a reușit: {0}</value></data>
-  <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Încărcarea hash hardware Autopilot a fost omisă: {0}</value></data>
-  <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Profil Autopilot pus în scenă.</value></data>
-  <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profil pus în scenă (simulare).</value></data>
+Acțiune: Verificați atributele discului și reîncercați implementarea.</value>
+  </data>
+  <data name="Debug.ProgressPageCommand" xml:space="preserve">
+    <value>Pagina de progres</value>
+  </data>
+  <data name="Debug.SuccessPageCommand" xml:space="preserve">
+    <value>Pagina de succes</value>
+  </data>
+  <data name="DeploymentAccess.Continue" xml:space="preserve">
+    <value>Continuați</value>
+  </data>
+  <data name="DeploymentAccess.Description" xml:space="preserve">
+    <value>Introduceți parola tehnicianului pentru a continua.</value>
+  </data>
+  <data name="DeploymentAccess.Heading" xml:space="preserve">
+    <value>Parolă necesară</value>
+  </data>
+  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve">
+    <value>Parola este incorectă. Încercați din nou.</value>
+  </data>
+  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve">
+    <value>Parolă de implementare</value>
+  </data>
+  <data name="DeploymentAccess.Title" xml:space="preserve">
+    <value>Implementare protejată</value>
+  </data>
+  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve">
+    <value>Afișați sau ascundeți parola</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Alegeți unde să exportați diagnosticele Foundry</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Diagnosticele nu au putut fi exportate. Verificați jurnalul pentru detalii.</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Exportul diagnosticelor a eșuat</value>
+  </data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>Exportă diagnosticele...</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Exportă jurnalele brute</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>Exportă diagnosticele brute...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Exportați diagnosticele brute?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Jurnalele brute pot conține acreditări, identificatori, căi, nume de rețea și alte date sensibile. Exportați-le numai când sunt solicitate explicit de un contact de suport de încredere.</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>Diagnosticele au fost exportate în:
+{0}</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnostice exportate</value>
+  </data>
+  <data name="Disk.BlockedBootDisk" xml:space="preserve">
+    <value>Blocat: disc de pornire</value>
+  </data>
+  <data name="Disk.BlockedOffline" xml:space="preserve">
+    <value>Blocat: offline</value>
+  </data>
+  <data name="Disk.BlockedReadOnly" xml:space="preserve">
+    <value>Blocat: numai pentru citire</value>
+  </data>
+  <data name="Disk.BlockedSystemDisk" xml:space="preserve">
+    <value>Blocat: disc de sistem</value>
+  </data>
+  <data name="Disk.DebugVirtualTarget" xml:space="preserve">
+    <value>DEBUG ȚINTĂ VIRTUALĂ</value>
+  </data>
+  <data name="Disk.DisplayLabelFormat" xml:space="preserve">
+    <value>Disc {0} | {1} | {2} | {3}{4}</value>
+  </data>
+  <data name="Disk.TargetBlockedFormat" xml:space="preserve">
+    <value>Discul țintă {0} este blocat: {1}</value>
+  </data>
+  <data name="Disk.TargetMissingFormat" xml:space="preserve">
+    <value>Discul țintă {0} nu mai este prezent.</value>
+  </data>
+  <data name="Disk.UnknownSize" xml:space="preserve">
+    <value>Dimensiune necunoscută</value>
+  </data>
+  <data name="Disk.WarningSuffixFormat" xml:space="preserve">
+    <value>| {0}</value>
+  </data>
+  <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
+    <value>Microsoft Update Catalog</value>
+  </data>
+  <data name="DriverPack.Model" xml:space="preserve">
+    <value>Model</value>
+  </data>
+  <data name="DriverPack.MultiModelFormat" xml:space="preserve">
+    <value>{0} (modele +{1})</value>
+  </data>
+  <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve">
+    <value>{0}: nu se potrivește model sau versiune</value>
+  </data>
+  <data name="DriverPack.Oem" xml:space="preserve">
+    <value>OEM</value>
+  </data>
+  <data name="DriverPack.Source" xml:space="preserve">
+    <value>Sursa driverului</value>
+  </data>
+  <data name="DriverPack.Version" xml:space="preserve">
+    <value>Versiune</value>
+  </data>
+  <data name="Drivers.Description" xml:space="preserve">
+    <value>Alegeți sursa driverelor și, atunci când este necesar, modelul și versiunea corespunzătoare.</value>
+  </data>
+  <data name="Drivers.Title" xml:space="preserve">
+    <value>Drivere de dispozitiv</value>
+  </data>
+  <data name="Error.FailedStepFormat" xml:space="preserve">
+    <value>Pas nereușit: {0}</value>
+  </data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
+    <value>Detalii despre eroare</value>
+  </data>
+  <data name="Error.Title" xml:space="preserve">
+    <value>Implementarea a eșuat</value>
+  </data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve">
+    <value>Vedeți detaliile erorii</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arabă (Arabia Saudită)</value>
   </data>
   <data name="Language.BulgarianBulgaria" xml:space="preserve">
     <value>bulgară (Bulgaria)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Chineză simplificată (China)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>Chineză tradițională (Taiwan)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>croată (Croația)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
     <value>Cehia (Cehia)</value>
@@ -350,23 +314,14 @@ Continuați cu implementarea?</value></data>
   <data name="Language.DanishDenmark" xml:space="preserve">
     <value>daneză (Danemarca)</value>
   </data>
-  <data name="Language.GermanGermany" xml:space="preserve">
-    <value>germană (Germania)</value>
-  </data>
-  <data name="Language.GreekGreece" xml:space="preserve">
-    <value>greacă (Grecia)</value>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>olandeză (Olanda)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>engleză (Regatul Unit)</value>
   </data>
   <data name="Language.EnglishUnitedStates" xml:space="preserve">
     <value>engleză (Statele Unite)</value>
-  </data>
-  <data name="Language.SpanishSpain" xml:space="preserve">
-    <value>spaniolă (Spania)</value>
-  </data>
-  <data name="Language.SpanishMexico" xml:space="preserve">
-    <value>spaniolă (Mexic)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
     <value>Estonă (Estonia)</value>
@@ -380,11 +335,14 @@ Continuați cu implementarea?</value></data>
   <data name="Language.FrenchFrance" xml:space="preserve">
     <value>franceza (Franta)</value>
   </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>germană (Germania)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>greacă (Grecia)</value>
+  </data>
   <data name="Language.HebrewIsrael" xml:space="preserve">
     <value>ebraică (Israel)</value>
-  </data>
-  <data name="Language.CroatianCroatia" xml:space="preserve">
-    <value>croată (Croația)</value>
   </data>
   <data name="Language.HungarianHungary" xml:space="preserve">
     <value>maghiară (Ungaria)</value>
@@ -398,17 +356,14 @@ Continuați cu implementarea?</value></data>
   <data name="Language.KoreanKorea" xml:space="preserve">
     <value>coreeană (Coreea)</value>
   </data>
-  <data name="Language.LithuanianLithuania" xml:space="preserve">
-    <value>lituaniană (Lituania)</value>
-  </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
     <value>letonă (Letonia)</value>
   </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>lituaniană (Lituania)</value>
+  </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
     <value>Norvegiana Bokmal (Norvegia)</value>
-  </data>
-  <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>olandeză (Olanda)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>poloneză (Polonia)</value>
@@ -425,14 +380,20 @@ Continuați cu implementarea?</value></data>
   <data name="Language.RussianRussia" xml:space="preserve">
     <value>rusă (Rusia)</value>
   </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>Sârbă latină (Serbia)</value>
+  </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Slovacă (Slovacia)</value>
   </data>
   <data name="Language.SlovenianSlovenia" xml:space="preserve">
     <value>slovenă (Slovenia)</value>
   </data>
-  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Sârbă latină (Serbia)</value>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>spaniolă (Mexic)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>spaniolă (Spania)</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
     <value>suedeză (Suedia)</value>
@@ -446,23 +407,644 @@ Continuați cu implementarea?</value></data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ucraineană (Ucraina)</value>
   </data>
-  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Chineză simplificată (China)</value>
+  <data name="Launch.ConfirmDiskEraseMessageFormat" xml:space="preserve">
+    <value>Aceasta va șterge toate datele de pe discul selectat și va instala sistemul de operare selectat.
+
+Disc: {0}
+Model: {1}
+Autobuz: {2}
+Dimensiune: {3}
+
+Sistem de operare: {4}
+
+Continuați cu implementarea?</value>
   </data>
-  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>Chineză tradițională (Taiwan)</value>
+  <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve">
+    <value>Confirmați ștergerea discului</value>
   </data>
-  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
-    <value>Se pregătește asistentul de înregistrare Autopilot...</value>
+  <data name="Menu.About" xml:space="preserve">
+    <value>_Despre</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>_Depanare</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>_Limba</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>_Temă</value>
+  </data>
+  <data name="Menu.Tools" xml:space="preserve">
+    <value>_Unelte</value>
+  </data>
+  <data name="OperatingSystem.Description" xml:space="preserve">
+    <value>Alegeți versiunea Windows, limba, ediția și canalul de licențiere.</value>
+  </data>
+  <data name="OperatingSystem.Title" xml:space="preserve">
+    <value>Sistem de operare</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
+    <value>Expirarea certificatului</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve">
+    <value>Certificatul Autopilot a expirat. Implementarea poate continua fără încărcarea hashului hardware.</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve">
+    <value>Eticheta de grup</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve">
+    <value>Lipsesc informațiile necesare despre certificat. Implementarea poate continua fără încărcarea hashului hardware.</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve">
+    <value>Gata pentru a încărca hash hardware</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve">
+    <value>ID locatar</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve">
+    <value>Încărcarea hashului hardware nu este disponibilă</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve">
+    <value>Starea încărcării hash hardware</value>
+  </data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve">
+    <value>Încărcare zero-touch a hashului hardware</value>
+  </data>
+  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve">
+    <value>Încărcare interactivă a hashului hardware</value>
+  </data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
+    <value>JSON furnizarea profilului</value>
+  </data>
+  <data name="Preparation.AutopilotProfile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve">
+    <value>Nu au fost găsite profiluri Autopilot încorporate pe acest media.</value>
+  </data>
+  <data name="Preparation.ComputerName" xml:space="preserve">
+    <value>Numele computerului</value>
+  </data>
+  <data name="Preparation.ComputerNameHint" xml:space="preserve">
+    <value>1-15 caractere. A-Z, a-z, 0-9 și numai cratima.</value>
+  </data>
+  <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve">
+    <value>Numele computerului trebuie să conțină între 1 și 15 caractere valide (litere, cifre sau cratimă).</value>
+  </data>
+  <data name="Preparation.DetectingHardware" xml:space="preserve">
+    <value>Se detectează hardware-ul...</value>
+  </data>
+  <data name="Preparation.FirmwareUpdates" xml:space="preserve">
+    <value>Aplicați actualizări de firmware</value>
+  </data>
+  <data name="Preparation.HardwareDetectionFailed" xml:space="preserve">
+    <value>Detectarea hardware-ului a eșuat.</value>
+  </data>
+  <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve">
+    <value>Detectarea hardware-ului a eșuat: {0}</value>
+  </data>
+  <data name="Preparation.HardwareSummaryFormat" xml:space="preserve">
+    <value>{0} | TPM: {1} | Putere: {2} | Firmware: {3}</value>
+  </data>
+  <data name="Preparation.PowerAc" xml:space="preserve">
+    <value>AC</value>
+  </data>
+  <data name="Preparation.PowerBattery" xml:space="preserve">
+    <value>Bateria</value>
+  </data>
+  <data name="Preparation.TargetDisk" xml:space="preserve">
+    <value>Disc țintă</value>
+  </data>
+  <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve">
+    <value>Descoperirea discului țintă a eșuat: {0}</value>
+  </data>
+  <data name="Preparation.TargetDiskHint" xml:space="preserve">
+    <value>Selectați un disc țintă. Discurile neeligibile sunt blocate.</value>
+  </data>
+  <data name="Progress.ElapsedTime" xml:space="preserve">
+    <value>Timp scurs</value>
+  </data>
+  <data name="Progress.Networking" xml:space="preserve">
+    <value>Rețele</value>
+  </data>
+  <data name="Progress.RingAutomationName" xml:space="preserve">
+    <value>Progresul general al implementării</value>
+  </data>
+  <data name="Progress.Session" xml:space="preserve">
+    <value>Sesiune de implementare</value>
+  </data>
+  <data name="Progress.StartTime" xml:space="preserve">
+    <value>Ora de începere</value>
+  </data>
+  <data name="Progress.Timeline" xml:space="preserve">
+    <value>Pași</value>
+  </data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve">
+    <value>Pași de implementare</value>
+  </data>
+  <data name="Splash.InitializingComponents" xml:space="preserve">
+    <value>Initializarea componentelor...</value>
+  </data>
+  <data name="Splash.StartDeployment" xml:space="preserve">
+    <value>Porniți implementarea</value>
+  </data>
+  <data name="Splash.Welcome" xml:space="preserve">
+    <value>Bun venit</value>
+  </data>
+  <data name="Status.AnotherOperationRunning" xml:space="preserve">
+    <value>O altă operațiune este deja în curs de desfășurare.</value>
+  </data>
+  <data name="Status.DeploymentCancelled" xml:space="preserve">
+    <value>Implementarea a fost anulată.</value>
+  </data>
+  <data name="Status.InProgress" xml:space="preserve">
+    <value>În curs...</value>
+  </data>
+  <data name="Status.NoErrorDetails" xml:space="preserve">
+    <value>Nu au fost furnizate detalii despre eroare.</value>
+  </data>
+  <data name="Status.PreparingDeployment" xml:space="preserve">
+    <value>Se pregătește implementarea...</value>
+  </data>
+  <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve">
+    <value>Executabilul de repornire obligatoriu „wpeutil.exe” nu a fost găsit.</value>
+  </data>
+  <data name="Status.StartingStep" xml:space="preserve">
+    <value>Începe pasul...</value>
+  </data>
+  <data name="Status.StartingStepFormat" xml:space="preserve">
+    <value>Începând cu {0}.</value>
+  </data>
+  <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
+    <value>Începând cu {0}...</value>
+  </data>
+  <data name="Status.StepCompleted" xml:space="preserve">
+    <value>Pas finalizat.</value>
+  </data>
+  <data name="Status.StepCounterFormat" xml:space="preserve">
+    <value>Pas: {0} din {1}</value>
+  </data>
+  <data name="Status.StepCounterUnknown" xml:space="preserve">
+    <value>Pasul:? de?</value>
+  </data>
+  <data name="Status.StepFailed" xml:space="preserve">
+    <value>Pasul a eșuat.</value>
+  </data>
+  <data name="Status.StepSkipped" xml:space="preserve">
+    <value>Pas sărit.</value>
+  </data>
+  <data name="Status.SystemReboot" xml:space="preserve">
+    <value>Repornirea sistemului</value>
+  </data>
+  <data name="Status.UnknownStep" xml:space="preserve">
+    <value>Pas necunoscut</value>
+  </data>
+  <data name="Status.WaitingForDeployment" xml:space="preserve">
+    <value>Se așteaptă implementarea...</value>
+  </data>
+  <data name="Status.WaitingForProgress" xml:space="preserve">
+    <value>În așteptarea progresului...</value>
+  </data>
+  <data name="Status.WpeUtilFailureFormat" xml:space="preserve">
+    <value>wpeutil.exe a eșuat cu codul de ieșire {0}. {1}</value>
+  </data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve">
+    <value>Aplică drivere</value>
+  </data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
+    <value>Aplică firmware</value>
+  </data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
+    <value>Aplică sistemul de operare</value>
+  </data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
+    <value>Aplică drivere de recuperare</value>
+  </data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve">
+    <value>Configurează OOBE</value>
+  </data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
+    <value>Configurează recuperarea Windows</value>
+  </data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
+    <value>Setează numele computerului</value>
+  </data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
+    <value>Configurează caracteristicile opționale</value>
+  </data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve">
+    <value>Descarcă drivere</value>
+  </data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
+    <value>Descarcă firmware</value>
+  </data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
+    <value>Descarcă sistemul de operare</value>
+  </data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve">
+    <value>Extrage drivere</value>
+  </data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
+    <value>Finalizează implementarea</value>
+  </data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
+    <value>Colectează variabile</value>
+  </data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
+    <value>Inițializează implementarea</value>
+  </data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
+    <value>Pregătește discul</value>
+  </data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve">
+    <value>Configurează Autopilot</value>
+  </data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve">
+    <value>Verifică memoria cache</value>
+  </data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve">
+    <value>Sigilează partiția de recuperare</value>
+  </data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve">
+    <value>Pregătește personalizările</value>
+  </data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
+    <value>Validează configurația</value>
+  </data>
+  <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
+    <value>Se aplică pachetul de drivere...</value>
+  </data>
+  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
+    <value>Se aplică actualizarea firmware-ului...</value>
+  </data>
+  <data name="StepMessage.ApplyingImage" xml:space="preserve">
+    <value>Se aplică imaginea...</value>
+  </data>
+  <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve">
+    <value>Se aplică imaginea sistemului de operare...</value>
+  </data>
+  <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve">
+    <value>Se aplică driverele WinRE...</value>
+  </data>
+  <data name="StepMessage.ApplyingWindowsDrivers" xml:space="preserve">
+    <value>Se aplică driverele Windows...</value>
+  </data>
+  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
+    <value>Se aplică modificări ale caracteristicilor...</value>
+  </data>
+  <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve">
+    <value>Se autentifică încărcarea hash hardware Autopilot...</value>
+  </data>
+  <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
+    <value>Se capturează Autopilot hash hardware...</value>
+  </data>
+  <data name="StepMessage.CheckingCache" xml:space="preserve">
+    <value>Se verifică memoria cache...</value>
+  </data>
+  <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
+    <value>Se verifică conflictul discului cache...</value>
+  </data>
+  <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
+    <value>Se verifică dispozitivele Windows Autopilot ({0} rămase)...</value>
+  </data>
+  <data name="StepMessage.CheckingWindowsAutopilotGroupTagFormat" xml:space="preserve">
+    <value>Se verifică eticheta de grup Windows Autopilot ({0} rămasă)...</value>
+  </data>
+  <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
+    <value>Se curăță spațiul de lucru temporar...</value>
+  </data>
+  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
+    <value>Se colectează contextul de implementare...</value>
+  </data>
+  <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
+    <value>Se configurează eliminarea componentei AI...</value>
+  </data>
+  <data name="StepMessage.ConfiguringBoot" xml:space="preserve">
+    <value>Se configurează boot-ul...</value>
+  </data>
+  <data name="StepMessage.ConfiguringOfflineCustomizations" xml:space="preserve">
+    <value>Se configurează personalizările offline...</value>
+  </data>
+  <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve">
+    <value>Se configurează setările OOBE...</value>
+  </data>
+  <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve">
+    <value>Se configurează mediul de recuperare...</value>
+  </data>
+  <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve">
+    <value>Se configurează numele computerului țintă...</value>
+  </data>
+  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve">
+    <value>Configurarea caracteristicilor opționale Windows...</value>
+  </data>
+  <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
+    <value>Se copiează AutopilotConfigurationFile.json...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Se copiază fișierele de înregistrare interactivă...</value>
   </data>
+  <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
+    <value>Se creează partiții simulate...</value>
+  </data>
+  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
+    <value>Se creează foldere pentru spațiul de lucru...</value>
+  </data>
+  <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
+    <value>Se decriptează certificatul media...</value>
+  </data>
+  <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve">
+    <value>Se detectează profilul hardware...</value>
+  </data>
+  <data name="StepMessage.DownloadingDriverPack" xml:space="preserve">
+    <value>Se descarcă pachetul de drivere...</value>
+  </data>
+  <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve">
+    <value>Se descarcă actualizarea firmware-ului...</value>
+  </data>
+  <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve">
+    <value>Se descarcă imaginea sistemului de operare...</value>
+  </data>
+  <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
+    <value>Se extrage pachetul de drivere...</value>
+  </data>
+  <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
+    <value>Se finalizează implementarea...</value>
+  </data>
+  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
+    <value>Se colectează variabilele de implementare...</value>
+  </data>
+  <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
+    <value>Se importă hash hardware în Microsoft Graph...</value>
+  </data>
+  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
+    <value>Se inițializează spațiul de lucru de implementare...</value>
+  </data>
+  <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
+    <value>Se injectează conținut firmware în offline Windows...</value>
+  </data>
+  <data name="StepMessage.InspectingImage" xml:space="preserve">
+    <value>Se inspectează imaginea...</value>
+  </data>
+  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve">
+    <value>Se inspectează stările caracteristicilor...</value>
+  </data>
+  <data name="StepMessage.MountingWinRe" xml:space="preserve">
+    <value>Se montează WinRE...</value>
+  </data>
+  <data name="StepMessage.PartitioningTargetDisk" xml:space="preserve">
+    <value>Se partitioneaza discul tinta...</value>
+  </data>
+  <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve">
+    <value>Se pregătește încărcarea hash hardware Autopilot...</value>
+  </data>
+  <data name="StepMessage.PreparingDownload" xml:space="preserve">
+    <value>Se pregătește descărcarea...</value>
+  </data>
+  <data name="StepMessage.PreparingMicrosoftGraphImport" xml:space="preserve">
+    <value>Se pregătește importul Microsoft Graph...</value>
+  </data>
+  <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve">
+    <value>Se pregătește căutarea Microsoft Update Catalog...</value>
+  </data>
+  <data name="StepMessage.PreparingTargetDiskLayout" xml:space="preserve">
+    <value>Se pregătește aspectul discului țintă...</value>
+  </data>
+  <data name="StepMessage.PreparingTargetWorkspace" xml:space="preserve">
+    <value>Se pregătește spațiul de lucru țintă...</value>
+  </data>
+  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve">
+    <value>Se pregătesc sursele media de configurare potrivite...</value>
+  </data>
+  <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve">
+    <value>Se pregătește mediul de recuperare Windows...</value>
+  </data>
+  <data name="StepMessage.RemovingRecoveryDriveLetter" xml:space="preserve">
+    <value>Se elimină litera unității de recuperare...</value>
+  </data>
+  <data name="StepMessage.RequestingMicrosoftGraphToken" xml:space="preserve">
+    <value>Se solicită simbolul Microsoft Graph...</value>
+  </data>
+  <data name="StepMessage.ResolvingCacheLocation" xml:space="preserve">
+    <value>Se rezolvă locația cache...</value>
+  </data>
+  <data name="StepMessage.ResolvingCacheStrategy" xml:space="preserve">
+    <value>Se verifică memoria cache de implementare...</value>
+  </data>
+  <data name="StepMessage.RevalidatingTargetDisk" xml:space="preserve">
+    <value>Se revalidează discul țintă...</value>
+  </data>
+  <data name="StepMessage.RunningOa3Tool" xml:space="preserve">
+    <value>Se rulează OA3Tool...</value>
+  </data>
+  <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve">
+    <value>Sigilarea partiției de recuperare...</value>
+  </data>
+  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve">
+    <value>Se simulează modificările caracteristicilor...</value>
+  </data>
+  <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
+    <value>Montarea profilului Autopilot...</value>
+  </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Se pregătește asistentul de înregistrare Autopilot...</value>
+  </data>
+  <data name="StepMessage.StagingPackage" xml:space="preserve">
+    <value>Pachet de montaj...</value>
+  </data>
+  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
+    <value>Se realizează personalizări pre-OOBE...</value>
+  </data>
+  <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
+    <value>Se trimite cererea de import la Microsoft Graph...</value>
+  </data>
+  <data name="StepMessage.UnmountingWinRe" xml:space="preserve">
+    <value>Se demontează WinRE...</value>
+  </data>
+  <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
+    <value>Se actualizează dispozitivul Autopilot existent...</value>
+  </data>
+  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
+    <value>Se actualizează scriptul de configurare la prima pornire...</value>
+  </data>
+  <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
+    <value>Se actualizează eticheta de grup Windows Autopilot în Microsoft Graph...</value>
+  </data>
+  <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve">
+    <value>Se încarcă Autopilot hash hardware...</value>
+  </data>
+  <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve">
+    <value>Se validează configurația țintei...</value>
+  </data>
+  <data name="StepMessage.VerifyingImage" xml:space="preserve">
+    <value>Se verifică imaginea...</value>
+  </data>
+  <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve">
+    <value>Se așteaptă vizibilitatea dispozitivului Autopilot...</value>
+  </data>
+  <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
+    <value>Se așteaptă actualizarea etichetei de grup Autopilot...</value>
+  </data>
+  <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
+    <value>Se scriu jurnalele de finalizare...</value>
+  </data>
+  <data name="StepMessage.WritingDeploymentSummary" xml:space="preserve">
+    <value>Se scrie rezumatul implementării...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve">
+    <value>Se scrie manifestul hash Autopilot simulat...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve">
+    <value>Se scrie manifestul Autopilot simulat...</value>
+  </data>
   <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
     <value>Se scrie manifestul de înregistrare interactivă pentru rulare de probă...</value>
   </data>
-  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
-    <value>Partiția Windows țintă nu este disponibilă pentru pregătirea asistentului de înregistrare interactivă Autopilot.</value>
+  <data name="StepMessage.WritingFirstRunDefaults" xml:space="preserve">
+    <value>Se scriu valorile implicite pentru prima rulare...</value>
+  </data>
+  <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve">
+    <value>Se scriu valorile implicite de confidențialitate pentru prima rulare...</value>
+  </data>
+  <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve">
+    <value>Se scriu politici offline AI...</value>
+  </data>
+  <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve">
+    <value>Se scrie numele computerului offline...</value>
+  </data>
+  <data name="StepProgress.Applying" xml:space="preserve">
+    <value>Aplicarea</value>
+  </data>
+  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
+    <value>Aplicarea modificărilor caracteristicilor</value>
+  </data>
+  <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve">
+    <value>{0} descărcat</value>
+  </data>
+  <data name="StepProgress.Downloading" xml:space="preserve">
+    <value>Descărcare</value>
+  </data>
+  <data name="StepProgress.Extracting" xml:space="preserve">
+    <value>Extragerea</value>
+  </data>
+  <data name="StepProgress.PercentFormat" xml:space="preserve">
+    <value>{0}: {1}%</value>
+  </data>
+  <data name="StepProgress.Staging" xml:space="preserve">
+    <value>Înscenare</value>
+  </data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
+    <value>Indexul imaginii Windows aplicate nu este disponibil.</value>
+  </data>
+  <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve">
+    <value>Dispozitivul Autopilot importat nu a apărut pe dispozitivele Windows Autopilot înainte de expirare.</value>
+  </data>
+  <data name="StepResult.AutopilotDisabled" xml:space="preserve">
+    <value>Autopilot este dezactivat.</value>
+  </data>
+  <data name="StepResult.AutopilotGroupTagUpdateTimedOut" xml:space="preserve">
+    <value>Actualizarea etichetei grupului de dispozitive Windows Autopilot nu a fost confirmată înainte de expirare.</value>
+  </data>
+  <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve">
+    <value>Hash hardware Autopilot importat și vizibil pe dispozitivele Windows Autopilot.</value>
+  </data>
+  <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve">
+    <value>Captura hash hardware Autopilot nu a reușit: {0}</value>
+  </data>
+  <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve">
+    <value>Importarea hash hardware Autopilot nu a reușit: {0}</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve">
+    <value>Autopilot Încărcare hash hardware pregătită pentru simulare.</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve">
+    <value>Autopilot încărcare hash hardware pregătită (simulare).</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve">
+    <value>Autopilot Încărcarea hash hardware a fost omisă deoarece certificatul încorporat a expirat.</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve">
+    <value>Încărcarea hash hardware Autopilot a fost omisă: {0}</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
+    <value>Autopilot Încărcarea hash hardware a fost omisă deoarece informațiile necesare despre certificatul media sunt incomplete.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
+    <value>Autopilot este activat, dar nu a fost selectat niciun profil.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
+    <value>Profil Autopilot pus în scenă.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
+    <value>Autopilot profil pus în scenă (simulare).</value>
+  </data>
+  <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
+    <value>Strategia de cache a fost rezolvată.</value>
+  </data>
+  <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
+    <value>Strategia de cache a fost rezolvată (simulare).</value>
+  </data>
+  <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
+    <value>Staging-ul pachetului de drivere pentru prima pornire a fost solicitat fără o comandă acceptată.</value>
+  </data>
+  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
+    <value>Variabilele de implementare adunate.</value>
+  </data>
+  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
+    <value>Variabilele de implementare colectate (simulare).</value>
+  </data>
+  <data name="StepResult.DriverPackApplied" xml:space="preserve">
+    <value>Pachetul de șoferi a fost aplicat.</value>
+  </data>
+  <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve">
+    <value>Pachetul de drivere aplicat (simulare).</value>
+  </data>
+  <data name="StepResult.DriverPackDisabled" xml:space="preserve">
+    <value>Pachetul de drivere dezactivat (Niciunul selectat).</value>
+  </data>
+  <data name="StepResult.DriverPackDownloaded" xml:space="preserve">
+    <value>Pachetul de drivere descărcat.</value>
+  </data>
+  <data name="StepResult.DriverPackDownloadedSimulation" xml:space="preserve">
+    <value>Pachetul de drivere descărcat (simulare).</value>
+  </data>
+  <data name="StepResult.DriverPackExtracted" xml:space="preserve">
+    <value>Pachetul de drivere extras.</value>
+  </data>
+  <data name="StepResult.DriverPackExtractedSimulation" xml:space="preserve">
+    <value>Pachetul de drivere extras (simulare).</value>
+  </data>
+  <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
+    <value>Pachetul de drivere nu a fost descărcat.</value>
+  </data>
+  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
+    <value>Pachet de drivere pregătit pentru instalare la prima pornire.</value>
+  </data>
+  <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
+    <value>Pachetul de drivere a fost rezolvat din cache.</value>
+  </data>
+  <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
+    <value>Conținutul sursă al pachetului de drivere nu este disponibil pentru prima pornire.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
+    <value>Actualizare firmware aplicată.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
+    <value>Actualizare firmware aplicată (simulare).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
+    <value>Actualizare firmware descărcată.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
+    <value>Actualizare firmware descărcată (simulare).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
+    <value>Actualizările de firmware sunt dezactivate.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdatesDisabledForVirtualMachines" xml:space="preserve">
+    <value>Actualizările de firmware sunt dezactivate pentru mașinile virtuale.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdatesSkippedOnBattery" xml:space="preserve">
+    <value>Actualizările de firmware sunt omise în timp ce dispozitivul funcționează pe baterie.</value>
   </data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
     <value>Asistentul de înregistrare interactivă Autopilot a fost pregătit.</value>
@@ -470,157 +1052,448 @@ Continuați cu implementarea?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Asistentul de înregistrare interactivă Autopilot a fost pregătit (simulare).</value>
   </data>
-  <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Scoateți suportul de pornire, apoi selectați Repornire.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Configurează caracteristicile opționale</value></data>
-  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Configurarea caracteristicilor opționale Windows...</value></data>
-  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Se inspectează stările caracteristicilor...</value></data>
-  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Se pregătesc sursele media de configurare potrivite...</value></data>
-  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Se aplică modificări ale caracteristicilor...</value></data>
-  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Se simulează modificările caracteristicilor...</value></data>
-  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Aplicarea modificărilor caracteristicilor</value></data>
-  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve"><value>Configurarea caracteristicilor opționale Windows este dezactivată.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve"><value>Configurația opțională a caracteristicilor Windows este nevalidă.</value></data>
-  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve"><value>Funcțiile opționale Windows au fost configurate ({0} schimbat, {1} deja satisfăcut, {2} indisponibil).</value></data>
-  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve"><value>Configurarea caracteristicilor opționale Windows simulată ({0} acțiuni).</value></data>
-  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Caracteristica opțională Windows „{0}” are o sarcină utilă eliminată și nu este acceptată maparea surselor locale.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Verificarea caracteristicilor opționale Windows nu a reușit pentru „{0}”.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Sursa NetFx3 corespunzătoare nu este disponibilă. {0}</value></data>
-  <data name="Common.Cancel" xml:space="preserve"><value>Anulați</value></data>
-  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Implementare protejată</value></data>
-  <data name="DeploymentAccess.Heading" xml:space="preserve"><value>Parolă necesară</value></data>
-  <data name="DeploymentAccess.Description" xml:space="preserve"><value>Introduceți parola tehnicianului pentru a continua.</value></data>
-  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>Parolă de implementare</value></data>
-  <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Continuați</value></data>
-  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Afișați sau ascundeți parola</value></data>
-  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Parola este incorectă. Încercați din nou.</value></data>
-  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>Dispozitiv țintă</value></data>
-  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>Sistem de operare</value></data>
-  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>Drivere de dispozitiv</value></data>
-  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Wizard.Step.Summary" xml:space="preserve"><value>Rezumat</value></data>
-  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>Pașii de configurare a implementării</value></data>
-  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>Reveniți la rezumat</value></data>
-  <data name="Common.Edit" xml:space="preserve"><value>Editați</value></data>
-  <data name="Common.Copy" xml:space="preserve"><value>Copiați în clipboard</value></data>
-  <data name="Common.Close" xml:space="preserve"><value>Închide fereastra</value></data>
-  <data name="TargetDevice.Title" xml:space="preserve"><value>Dispozitiv țintă</value></data>
-  <data name="TargetDevice.Firmware" xml:space="preserve"><value>Actualizări de firmware</value></data>
-  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>Nu este disponibil pe mașinile virtuale</value></data>
-  <data name="OperatingSystem.Title" xml:space="preserve"><value>Sistem de operare</value></data>
-  <data name="Drivers.Title" xml:space="preserve"><value>Drivere de dispozitiv</value></data>
-  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>Detalii de configurare</value></data>
-  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>Dispozitiv țintă</value></data>
-  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>Sistem de operare</value></data>
-  <data name="Summary.Category.Drivers" xml:space="preserve"><value>Drivere de dispozitiv</value></data>
-  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Personalizare Windows</value></data>
-  <data name="Summary.Category.Network" xml:space="preserve"><value>Rețea</value></data>
-  <data name="Summary.Category.Completion" xml:space="preserve"><value>Finalizare</value></data>
-  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Nu este configurat</value></data>
-  <data name="Summary.Status.Configured" xml:space="preserve"><value>Configurat</value></data>
-  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Nicio modificare</value></data>
-  <data name="Summary.Release" xml:space="preserve"><value>Versiune</value></data>
-  <data name="Summary.Edition" xml:space="preserve"><value>Ediția sistemului de operare</value></data>
-  <data name="Summary.Architecture" xml:space="preserve"><value>Arhitectura sistemului</value></data>
-  <data name="Summary.Language" xml:space="preserve"><value>Limba</value></data>
-  <data name="Summary.LicenseChannel" xml:space="preserve"><value>Canal de licență</value></data>
-  <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
-  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
-  <data name="Summary.BuiltInAdministrator" xml:space="preserve"><value>Cont Administrator încorporat</value></data>
-  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve"><value>Conturi locale suplimentare</value></data>
-  <data name="Summary.SkipAccountCreation" xml:space="preserve"><value>Omiteți crearea contului</value></data>
-  <data name="Summary.AppxRemoval" xml:space="preserve"><value>Eliminarea aplicațiilor AppX</value></data>
-  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>Eliminarea componentelor AI</value></data>
-  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Roamingul profilului de rețea</value></data>
-  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>Repornire automată</value></data>
-  <data name="Summary.ManualRestart" xml:space="preserve"><value>Repornire manuală</value></data>
-  <data name="Summary.RestartDelay" xml:space="preserve"><value>Întârziere de repornire</value></data>
-  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} secunde</value></data>
-  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Discul țintă selectat va fi șters când începe implementarea.</value></data>
-  <data name="Progress.Session" xml:space="preserve"><value>Sesiune de implementare</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Pași</value></data>
-  <data name="Progress.RingAutomationName" xml:space="preserve"><value>Progresul general al implementării</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Pași de implementare</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Vedeți detaliile erorii</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Detalii despre eroare</value></data>
-  <data name="TargetDevice.Description" xml:space="preserve"><value>Alegeți numele computerului și discul țintă, apoi verificați hardware-ul detectat.</value></data>
-  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Setări de implementare</value></data>
-  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Inventarul dispozitivului</value></data>
-  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Identitatea dispozitivului</value></data>
-  <data name="TargetDevice.Platform" xml:space="preserve"><value>Platformă</value></data>
-  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Producător</value></data>
-  <data name="TargetDevice.Model" xml:space="preserve"><value>Model</value></data>
-  <data name="TargetDevice.Product" xml:space="preserve"><value>Produs</value></data>
-  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Număr de serie</value></data>
-  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Arhitectură</value></data>
-  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
-  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Sursă de alimentare</value></data>
-  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Starea firmware-ului</value></data>
-  <data name="OperatingSystem.Description" xml:space="preserve"><value>Alegeți versiunea Windows, limba, ediția și canalul de licențiere.</value></data>
-  <data name="Drivers.Description" xml:space="preserve"><value>Alegeți sursa driverelor și, atunci când este necesar, modelul și versiunea corespunzătoare.</value></data>
-  <data name="Autopilot.Description" xml:space="preserve"><value>Verificați setările de asigurare a accesului Autopilot pentru acest dispozitiv.</value></data>
-  <data name="Summary.Description" xml:space="preserve"><value>Verificați selecțiile înainte de a începe implementarea.</value></data>
-  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Adaugă un profil Autopilot offline la instalarea Windows.</value></data>
-  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Încarcă hashul hardware al acestui dispozitiv în Windows Autopilot în timpul implementării.</value></data>
-  <data name="Summary.Status" xml:space="preserve"><value>Stare</value></data>
-  <data name="Summary.ProvisioningMethod" xml:space="preserve"><value>Metodă de provizionare</value></data>
-  <data name="Summary.WarningDetails" xml:space="preserve"><value>Detalii de avertizare</value></data>
-  <data name="Summary.DiagnosticData" xml:space="preserve"><value>Date de diagnosticare</value></data>
-  <data name="Summary.LocationAccess" xml:space="preserve"><value>Acces la locație</value></data>
-  <data name="Summary.SkipLicenseTerms" xml:space="preserve"><value>Ignorați termenii licenței</value></data>
-  <data name="Summary.HidePrivacySetup" xml:space="preserve"><value>Ascundeți configurarea confidențialității</value></data>
-  <data name="Summary.TailoredExperiences" xml:space="preserve"><value>Experiențe personalizate</value></data>
-  <data name="Summary.AdvertisingId" xml:space="preserve"><value>ID de publicitate</value></data>
-  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve"><value>Recunoaștere vocală online</value></data>
-  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve"><value>Diagnosticare prin scriere și tastare</value></data>
-  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve"><value>Eliminare aplicație și IA</value></data>
-  <data name="Summary.TotalConfigured" xml:space="preserve"><value>Total configurat</value></data>
-  <data name="Summary.FeaturesEnabled" xml:space="preserve"><value>Caracteristici activate</value></data>
-  <data name="Summary.FeaturesDisabled" xml:space="preserve"><value>Caracteristici dezactivate</value></data>
-  <data name="Summary.WiredDot1x" xml:space="preserve"><value>Cu fir 802.1X</value></data>
-  <data name="Summary.Wifi" xml:space="preserve"><value>Wi-Fi</value></data>
-  <data name="Summary.PrivateKeyMaterial" xml:space="preserve"><value>Material cu cheie privată</value></data>
-  <data name="Summary.Included" xml:space="preserve"><value>Inclus</value></data>
-  <data name="Summary.NotIncluded" xml:space="preserve"><value>Nu este inclus</value></data>
-  <data name="Summary.RestartBehavior" xml:space="preserve"><value>Comportament repornire</value></data>
-  <data name="Summary.Automatic" xml:space="preserve"><value>Automat</value></data>
-  <data name="Summary.Manual" xml:space="preserve"><value>Manual</value></data>
-  <data name="Summary.DiagnosticData.Required" xml:space="preserve"><value>Necesar</value></data>
-  <data name="Summary.DiagnosticData.Optional" xml:space="preserve"><value>Opțional</value></data>
-  <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>Dezactivat</value></data>
-  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>Controlat de utilizator</value></data>
-  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>Forțat</value></data>
-  <data name="Diagnostics.ExportMenu" xml:space="preserve">
-    <value>Exportă diagnosticele...</value>
+  <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
+    <value>Microsoft Update Catalog nu a produs conținut de driver.</value>
   </data>
-  <data name="TargetDevice.AssetTag" xml:space="preserve"><value>Etichetă de inventar</value></data>
-  <data name="TargetDevice.SystemUuid" xml:space="preserve"><value>UUID sistem</value></data>
-  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
-    <value>Exportă diagnosticele brute...</value>
+  <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
+    <value>Nu este necesară descărcarea pachetului de drivere.</value>
   </data>
-  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
-    <value>Exportați diagnosticele brute?</value>
+  <data name="StepResult.NoDriverPackOperationRequired" xml:space="preserve">
+    <value>Nu este necesară nicio operațiune cu pachetul de drivere.</value>
   </data>
-  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
-    <value>Jurnalele brute pot conține acreditări, identificatori, căi, nume de rețea și alte date sensibile. Exportați-le numai când sunt solicitate explicit de un contact de suport de încredere.</value>
+  <data name="StepResult.NoExtractedFirmwarePayload" xml:space="preserve">
+    <value>Nu este disponibil niciun conținut de firmware extras.</value>
   </data>
-  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
-    <value>Exportă jurnalele brute</value>
+  <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
+    <value>Nu este disponibil niciun conținut extras de driver INF.</value>
   </data>
-  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
-    <value>Alegeți unde să exportați diagnosticele Foundry</value>
+  <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
+    <value>Conținutul de firmware extras nu conține niciun fișier INF.</value>
   </data>
-  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
-    <value>Diagnostice exportate</value>
+  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
+    <value>Nu sunt necesare scripturi de personalizare pre-OOBE.</value>
   </data>
-  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
-    <value>Diagnosticele au fost exportate în:&#xA;{0}</value>
+  <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
+    <value>Modul pachet de drivere OEM a fost selectat, dar nu a fost furnizat niciun pachet de drivere.</value>
   </data>
-  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
-    <value>Exportul diagnosticelor a eșuat</value>
+  <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve">
+    <value>Personalizare offline configurată.</value>
   </data>
-  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
-    <value>Diagnosticele nu au putut fi exportate. Verificați jurnalul pentru detalii.</value>
+  <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve">
+    <value>Personalizare offline configurată (simulare).</value>
+  </data>
+  <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve">
+    <value>Personalizarea offline a fost dezactivată.</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve">
+    <value>Imaginea sistemului de operare aplicată.</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve">
+    <value>Imaginea sistemului de operare aplicată (simulare).</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve">
+    <value>Imaginea sistemului de operare a fost descărcată.</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
+    <value>Imaginea sistemului de operare nu a fost descărcată.</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve">
+    <value>Imaginea sistemului de operare gata (simulare).</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve">
+    <value>Imaginea sistemului de operare a fost rezolvată din cache.</value>
+  </data>
+  <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
+    <value>Sistemul de operare URL lipsește.</value>
+  </data>
+  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
+    <value>Personalizări pre-OOBE puse în scenă.</value>
+  </data>
+  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
+    <value>Personalizări pre-OOBE puse în scenă (simulare).</value>
+  </data>
+  <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
+    <value>Mediu de recuperare configurat.</value>
+  </data>
+  <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve">
+    <value>Mediu de recuperare configurat (simulare).</value>
+  </data>
+  <data name="StepResult.RecoveryPartitionSealed" xml:space="preserve">
+    <value>Partiție de recuperare sigilată.</value>
+  </data>
+  <data name="StepResult.RecoveryPartitionSealedSimulation" xml:space="preserve">
+    <value>Partiție de recuperare sigilată (simulare).</value>
+  </data>
+  <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve">
+    <value>Partiția de recuperare nu este disponibilă.</value>
+  </data>
+  <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
+    <value>Fișierul de profil Autopilot selectat nu a fost găsit: {0}</value>
+  </data>
+  <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
+    <value>Identificatorul hardware al firmware-ului sistemului este indisponibil.</value>
+  </data>
+  <data name="StepResult.TargetAutopilotDirectoryUnavailable" xml:space="preserve">
+    <value>Nu s-a putut rezolva directorul țintă Autopilot.</value>
+  </data>
+  <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve">
+    <value>Numele computerului țintă a fost configurat.</value>
+  </data>
+  <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve">
+    <value>Numele computerului țintă a fost configurat (simulare).</value>
+  </data>
+  <data name="StepResult.TargetConfigurationValidated" xml:space="preserve">
+    <value>Configurația țintei a fost validată.</value>
+  </data>
+  <data name="StepResult.TargetConfigurationValidatedSimulation" xml:space="preserve">
+    <value>Configurație țintă validată (simulare).</value>
+  </data>
+  <data name="StepResult.TargetDiskLayoutNotPrepared" xml:space="preserve">
+    <value>Dispunerea discului țintă nu a fost pregătită.</value>
+  </data>
+  <data name="StepResult.TargetDiskLayoutPrepared" xml:space="preserve">
+    <value>Aspectul discului țintă a fost pregătit.</value>
+  </data>
+  <data name="StepResult.TargetDiskLayoutPreparedSimulation" xml:space="preserve">
+    <value>Dispunerea discului țintă pregătită (simulare).</value>
+  </data>
+  <data name="StepResult.TargetDiskNumberRequired" xml:space="preserve">
+    <value>Numărul discului țintă este necesar.</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve">
+    <value>Partiția țintă Windows nu este disponibilă.</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve">
+    <value>Partiția țintă Windows nu este disponibilă pentru Autopilot.</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
+    <value>Partiția țintă Windows nu este disponibilă pentru încărcarea hash hardware Autopilot.</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>Partiția Windows țintă nu este disponibilă pentru pregătirea asistentului de înregistrare interactivă Autopilot.</value>
+  </data>
+  <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
+    <value>Modul de instalare a pachetului de drivere neacceptat.</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
+    <value>Configurarea caracteristicilor opționale Windows este dezactivată.</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve">
+    <value>Configurația opțională a caracteristicilor Windows este nevalidă.</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve">
+    <value>Sursa NetFx3 corespunzătoare nu este disponibilă. {0}</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve">
+    <value>Caracteristica opțională Windows „{0}” are o sarcină utilă eliminată și nu este acceptată maparea surselor locale.</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve">
+    <value>Verificarea caracteristicilor opționale Windows nu a reușit pentru „{0}”.</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve">
+    <value>Funcțiile opționale Windows au fost configurate ({0} schimbat, {1} deja satisfăcut, {2} indisponibil).</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
+    <value>Configurarea caracteristicilor opționale Windows simulată ({0} acțiuni).</value>
+  </data>
+  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
+    <value>Spațiul de lucru a fost inițializat.</value>
+  </data>
+  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
+    <value>Spațiul de lucru inițializat (simulare).</value>
+  </data>
+  <data name="Success.Completed" xml:space="preserve">
+    <value>Implementare finalizată</value>
+  </data>
+  <data name="Success.ManualRebootInstruction" xml:space="preserve">
+    <value>Scoateți suportul de pornire, apoi selectați Repornire.</value>
+  </data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve">
+    <value>Acest computer va reporni în {0}s.</value>
+  </data>
+  <data name="Success.RebootNow" xml:space="preserve">
+    <value>Reporniți</value>
+  </data>
+  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve">
+    <value>Conturi locale suplimentare</value>
+  </data>
+  <data name="Summary.AdvertisingId" xml:space="preserve">
+    <value>ID de publicitate</value>
+  </data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve">
+    <value>Eliminarea componentelor AI</value>
+  </data>
+  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve">
+    <value>Eliminare aplicație și IA</value>
+  </data>
+  <data name="Summary.AppxRemoval" xml:space="preserve">
+    <value>Eliminarea aplicațiilor AppX</value>
+  </data>
+  <data name="Summary.Architecture" xml:space="preserve">
+    <value>Arhitectura sistemului</value>
+  </data>
+  <data name="Summary.Automatic" xml:space="preserve">
+    <value>Automat</value>
+  </data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve">
+    <value>Repornire automată</value>
+  </data>
+  <data name="Summary.AutopilotGroupTag" xml:space="preserve">
+    <value>Eticheta de grup Autopilot</value>
+  </data>
+  <data name="Summary.AutopilotProfile" xml:space="preserve">
+    <value>Autopilot Profil</value>
+  </data>
+  <data name="Summary.Build" xml:space="preserve">
+    <value>Build</value>
+  </data>
+  <data name="Summary.BuiltInAdministrator" xml:space="preserve">
+    <value>Cont Administrator încorporat</value>
+  </data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Summary.Category.Completion" xml:space="preserve">
+    <value>Finalizare</value>
+  </data>
+  <data name="Summary.Category.Drivers" xml:space="preserve">
+    <value>Drivere de dispozitiv</value>
+  </data>
+  <data name="Summary.Category.Network" xml:space="preserve">
+    <value>Rețea</value>
+  </data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve">
+    <value>Sistem de operare</value>
+  </data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve">
+    <value>Dispozitiv țintă</value>
+  </data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve">
+    <value>Personalizare Windows</value>
+  </data>
+  <data name="Summary.Description" xml:space="preserve">
+    <value>Verificați selecțiile înainte de a începe implementarea.</value>
+  </data>
+  <data name="Summary.DiagnosticData" xml:space="preserve">
+    <value>Date de diagnosticare</value>
+  </data>
+  <data name="Summary.DiagnosticData.Off" xml:space="preserve">
+    <value>Dezactivat</value>
+  </data>
+  <data name="Summary.DiagnosticData.Optional" xml:space="preserve">
+    <value>Opțional</value>
+  </data>
+  <data name="Summary.DiagnosticData.Required" xml:space="preserve">
+    <value>Necesar</value>
+  </data>
+  <data name="Summary.Edition" xml:space="preserve">
+    <value>Ediția sistemului de operare</value>
+  </data>
+  <data name="Summary.FeaturesDisabled" xml:space="preserve">
+    <value>Caracteristici dezactivate</value>
+  </data>
+  <data name="Summary.FeaturesEnabled" xml:space="preserve">
+    <value>Caracteristici activate</value>
+  </data>
+  <data name="Summary.HidePrivacySetup" xml:space="preserve">
+    <value>Ascundeți configurarea confidențialității</value>
+  </data>
+  <data name="Summary.Included" xml:space="preserve">
+    <value>Inclus</value>
+  </data>
+  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve">
+    <value>Diagnosticare prin scriere și tastare</value>
+  </data>
+  <data name="Summary.Language" xml:space="preserve">
+    <value>Limba</value>
+  </data>
+  <data name="Summary.LicenseChannel" xml:space="preserve">
+    <value>Canal de licență</value>
+  </data>
+  <data name="Summary.LocationAccess" xml:space="preserve">
+    <value>Acces la locație</value>
+  </data>
+  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve">
+    <value>Forțat</value>
+  </data>
+  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve">
+    <value>Controlat de utilizator</value>
+  </data>
+  <data name="Summary.Manual" xml:space="preserve">
+    <value>Manual</value>
+  </data>
+  <data name="Summary.ManualRestart" xml:space="preserve">
+    <value>Repornire manuală</value>
+  </data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve">
+    <value>Roamingul profilului de rețea</value>
+  </data>
+  <data name="Summary.NoDiskSelected" xml:space="preserve">
+    <value>Niciun disc selectat</value>
+  </data>
+  <data name="Summary.NoSelection" xml:space="preserve">
+    <value>Fără selecție</value>
+  </data>
+  <data name="Summary.NotIncluded" xml:space="preserve">
+    <value>Nu este inclus</value>
+  </data>
+  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve">
+    <value>Recunoaștere vocală online</value>
+  </data>
+  <data name="Summary.Oobe" xml:space="preserve">
+    <value>OOBE</value>
+  </data>
+  <data name="Summary.PrivateKeyMaterial" xml:space="preserve">
+    <value>Material cu cheie privată</value>
+  </data>
+  <data name="Summary.ProvisioningMethod" xml:space="preserve">
+    <value>Metodă de provizionare</value>
+  </data>
+  <data name="Summary.Release" xml:space="preserve">
+    <value>Versiune</value>
+  </data>
+  <data name="Summary.RestartBehavior" xml:space="preserve">
+    <value>Comportament repornire</value>
+  </data>
+  <data name="Summary.RestartDelay" xml:space="preserve">
+    <value>Întârziere de repornire</value>
+  </data>
+  <data name="Summary.SecondsFormat" xml:space="preserve">
+    <value>{0} secunde</value>
+  </data>
+  <data name="Summary.SelectedOperatingSystem" xml:space="preserve">
+    <value>Sistem de operare</value>
+  </data>
+  <data name="Summary.SkipAccountCreation" xml:space="preserve">
+    <value>Omiteți crearea contului</value>
+  </data>
+  <data name="Summary.SkipLicenseTerms" xml:space="preserve">
+    <value>Ignorați termenii licenței</value>
+  </data>
+  <data name="Summary.Status" xml:space="preserve">
+    <value>Stare</value>
+  </data>
+  <data name="Summary.Status.Configured" xml:space="preserve">
+    <value>Configurat</value>
+  </data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve">
+    <value>Nicio modificare</value>
+  </data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve">
+    <value>Nu este configurat</value>
+  </data>
+  <data name="Summary.TailoredExperiences" xml:space="preserve">
+    <value>Experiențe personalizate</value>
+  </data>
+  <data name="Summary.TargetDisk" xml:space="preserve">
+    <value>Disc țintă</value>
+  </data>
+  <data name="Summary.Title" xml:space="preserve">
+    <value>Rezumatul implementării</value>
+  </data>
+  <data name="Summary.TotalConfigured" xml:space="preserve">
+    <value>Total configurat</value>
+  </data>
+  <data name="Summary.WarningDetails" xml:space="preserve">
+    <value>Detalii de avertizare</value>
+  </data>
+  <data name="Summary.Wifi" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve">
+    <value>Caracteristici opționale Windows</value>
+  </data>
+  <data name="Summary.WiredDot1x" xml:space="preserve">
+    <value>Cu fir 802.1X</value>
+  </data>
+  <data name="TargetDevice.Architecture" xml:space="preserve">
+    <value>Arhitectură</value>
+  </data>
+  <data name="TargetDevice.AssetTag" xml:space="preserve">
+    <value>Etichetă de inventar</value>
+  </data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve">
+    <value>Setări de implementare</value>
+  </data>
+  <data name="TargetDevice.Description" xml:space="preserve">
+    <value>Alegeți numele computerului și discul țintă, apoi verificați hardware-ul detectat.</value>
+  </data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve">
+    <value>Identitatea dispozitivului</value>
+  </data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve">
+    <value>Inventarul dispozitivului</value>
+  </data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve">
+    <value>Discul țintă selectat va fi șters când începe implementarea.</value>
+  </data>
+  <data name="TargetDevice.Firmware" xml:space="preserve">
+    <value>Actualizări de firmware</value>
+  </data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve">
+    <value>Starea firmware-ului</value>
+  </data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve">
+    <value>Nu este disponibil pe mașinile virtuale</value>
+  </data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve">
+    <value>Producător</value>
+  </data>
+  <data name="TargetDevice.Model" xml:space="preserve">
+    <value>Model</value>
+  </data>
+  <data name="TargetDevice.Platform" xml:space="preserve">
+    <value>Platformă</value>
+  </data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve">
+    <value>Sursă de alimentare</value>
+  </data>
+  <data name="TargetDevice.Product" xml:space="preserve">
+    <value>Produs</value>
+  </data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve">
+    <value>Număr de serie</value>
+  </data>
+  <data name="TargetDevice.SystemUuid" xml:space="preserve">
+    <value>UUID sistem</value>
+  </data>
+  <data name="TargetDevice.Title" xml:space="preserve">
+    <value>Dispozitiv țintă</value>
+  </data>
+  <data name="TargetDevice.Tpm" xml:space="preserve">
+    <value>TPM</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>Întuneric</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>Lumină</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>Sistem</value>
+  </data>
+  <data name="Tools.OpenLogFile" xml:space="preserve">
+    <value>Deschideți fișierul jurnal</value>
+  </data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve">
+    <value>Reveniți la rezumat</value>
+  </data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve">
+    <value>Drivere de dispozitiv</value>
+  </data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve">
+    <value>Sistem de operare</value>
+  </data>
+  <data name="Wizard.Step.Summary" xml:space="preserve">
+    <value>Rezumat</value>
+  </data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve">
+    <value>Dispozitiv țintă</value>
+  </data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve">
+    <value>Pașii de configurare a implementării</value>
   </data>
 </root>

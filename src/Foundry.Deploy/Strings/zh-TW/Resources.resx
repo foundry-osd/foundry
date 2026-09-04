@@ -12,337 +12,301 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="App.Name" xml:space="preserve"><value>Foundry Deploy</value></data>
-  <data name="App.WindowTitle" xml:space="preserve"><value>Foundry Deploy</value></data>
-  <data name="About.Title" xml:space="preserve"><value>關於Foundry Deploy</value></data>
-  <data name="About.DescriptionLine1" xml:space="preserve"><value>Foundry Deploy 是Foundry 的WinPE 部署體驗。</value></data>
-  <data name="About.DescriptionLine2" xml:space="preserve"><value>該軟體按原樣提供。使用前檢查您的部署設定。</value></data>
-  <data name="About.Footer" xml:space="preserve"><value>版權所有 (c) 2026 Foundry Project。根據 MIT 許可證獲得許可。</value></data>
-  <data name="Menu.Theme" xml:space="preserve"><value>_主題</value></data>
-  <data name="Menu.Language" xml:space="preserve"><value>_語言</value></data>
-  <data name="Menu.Tools" xml:space="preserve"><value>_工具</value></data>
-  <data name="Menu.Debug" xml:space="preserve"><value>_偵錯</value></data>
-  <data name="Menu.About" xml:space="preserve"><value>_關於</value></data>
-  <data name="Theme.System" xml:space="preserve"><value>系統</value></data>
-  <data name="Theme.Light" xml:space="preserve"><value>光</value></data>
-  <data name="Theme.Dark" xml:space="preserve"><value>黑暗</value></data>
-  <data name="Tools.OpenLogFile" xml:space="preserve"><value>打開日誌文件</value></data>
-  <data name="Preparation.ComputerName" xml:space="preserve"><value>電腦名稱</value></data>
-  <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 個字元。僅 A-Z、a-z、0-9 和連字號。</value></data>
-  <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>電腦名稱必須包含 1 到 15 個有效字元（字母、數字或連字號）。</value></data>
-  <data name="Preparation.TargetDisk" xml:space="preserve"><value>目標磁碟</value></data>
-  <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>選擇目標磁碟。不符合條件的磁碟將被阻止。</value></data>
-  <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>應用程式韌體更新</value></data>
-  <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>公司簡介</value></data>
-  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>在此媒體上未找到嵌入的 Autopilot 設定檔。</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON 設定檔配置</value></data>
-  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch 硬體雜湊上傳</value></data>
-  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>互動式硬體雜湊上傳</value></data>
-  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>硬體哈希上傳狀態</value></data>
-  <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>準備上傳硬體哈希</value></data>
-  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>硬體哈希上傳無法使用</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>缺少必要的憑證資訊。可以繼續部署而不上傳硬體哈希。</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Autopilot 憑證已過期。可以繼續部署而不上傳硬體哈希。</value></data>
-  <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>租戶ID</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>憑證過期</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>群組標籤</value></data>
-  <data name="Preparation.DetectingHardware" xml:space="preserve"><value>偵測硬體...</value></data>
-  <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>硬體檢測失敗。</value></data>
-  <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>硬體偵測失敗：{0}</value></data>
-  <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM：{1} |力量：{2} |韌體：{3}</value></data>
-  <data name="Preparation.PowerBattery" xml:space="preserve"><value>電池</value></data>
-  <data name="Preparation.PowerAc" xml:space="preserve"><value>交流電</value></data>
-  <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>目標磁碟發現失敗：{0}</value></data>
-  <data name="Catalog.Version" xml:space="preserve"><value>版本</value></data>
-  <data name="Catalog.Media" xml:space="preserve"><value>Windows 更新</value></data>
-  <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0}（最新）</value></data>
-  <data name="Catalog.Language" xml:space="preserve"><value>語言</value></data>
-  <data name="Catalog.LicenseChannel" xml:space="preserve"><value>授權管道</value></data>
-  <data name="Catalog.EditionTarget" xml:space="preserve"><value>版本（目標）</value></data>
-  <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>建築：{0}</value></data>
-  <data name="Catalog.LoadedFormat" xml:space="preserve"><value>載入的目錄：{0}作業系統條目、{1}驅動程式套件。</value></data>
-  <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>目錄載入失敗：{0}</value></data>
-  <data name="DriverPack.Source" xml:space="preserve"><value>驅動程式原始碼</value></data>
-  <data name="DriverPack.Model" xml:space="preserve"><value>型號</value></data>
-  <data name="DriverPack.Version" xml:space="preserve"><value>版本</value></data>
-  <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
-  <data name="DriverPack.Oem" xml:space="preserve"><value>代加工</value></data>
-  <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}：沒有相符的型號或版本</value></data>
-  <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0}（+{1} 型號）</value></data>
-  <data name="Summary.Title" xml:space="preserve"><value>部署總結</value></data>
-  <data name="Summary.TargetDisk" xml:space="preserve"><value>目標磁碟</value></data>
-  <data name="Summary.NoDiskSelected" xml:space="preserve"><value>未選擇磁碟</value></data>
-  <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>作業系統</value></data>
-  <data name="Summary.NoSelection" xml:space="preserve"><value>沒有選擇</value></data>
-  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Windows 選用功能</value></data>
-  <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot 個人資料</value></data>
-  <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot組標籤</value></data>
-  <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>沒有Autopilot</value></data>
-  <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON個人資料</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Zero-touch 硬體雜湊上傳</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>有效證件</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>憑證過期</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>缺少證書信息</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag" xml:space="preserve"><value>沒有預設群組標籤</value></data>
-  <data name="Debug.DeploymentPages" xml:space="preserve"><value>部署頁面</value></data>
-  <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>進度頁面</value></data>
-  <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>成功頁面</value></data>
-  <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>錯誤頁面</value></data>
-  <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>偵錯預覽：DISM 應用程式失敗，因為目標分區是唯讀的。
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Foundry Deploy 是Foundry 的WinPE 部署體驗。</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>該軟體按原樣提供。使用前檢查您的部署設定。</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>版權所有 (c) 2026 Foundry Project。根據 MIT 許可證獲得許可。</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>關於Foundry Deploy</value>
+  </data>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Deploy</value>
+  </data>
+  <data name="App.WindowTitle" xml:space="preserve">
+    <value>Foundry Deploy</value>
+  </data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve">
+    <value>設定詳細資料</value>
+  </data>
+  <data name="Autopilot.Description" xml:space="preserve">
+    <value>檢視此裝置的 Autopilot 佈建設定。</value>
+  </data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
+    <value>在部署期間將此裝置的硬體雜湊上傳至 Windows Autopilot。</value>
+  </data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
+    <value>將離線 Autopilot 設定檔新增至 Windows 安裝。</value>
+  </data>
+  <data name="Autopilot.Title" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve">
+    <value>建議重新產生開機映像</value>
+  </data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
+    <value>此開機映像使用較舊的 Foundry OSD 設定格式。請重新產生，以確保與最新功能相容。</value>
+  </data>
+  <data name="Catalog.ArchitectureFormat" xml:space="preserve">
+    <value>建築：{0}</value>
+  </data>
+  <data name="Catalog.EditionTarget" xml:space="preserve">
+    <value>版本（目標）</value>
+  </data>
+  <data name="Catalog.Language" xml:space="preserve">
+    <value>語言</value>
+  </data>
+  <data name="Catalog.LicenseChannel" xml:space="preserve">
+    <value>授權管道</value>
+  </data>
+  <data name="Catalog.LoadFailedFormat" xml:space="preserve">
+    <value>目錄載入失敗：{0}</value>
+  </data>
+  <data name="Catalog.LoadedFormat" xml:space="preserve">
+    <value>載入的目錄：{0}作業系統條目、{1}驅動程式套件。</value>
+  </data>
+  <data name="Catalog.Media" xml:space="preserve">
+    <value>Windows 更新</value>
+  </data>
+  <data name="Catalog.MediaLatestFormat" xml:space="preserve">
+    <value>{0}（最新）</value>
+  </data>
+  <data name="Catalog.Version" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>關閉</value>
+  </data>
+  <data name="Common.Copy" xml:space="preserve">
+    <value>複製</value>
+  </data>
+  <data name="Common.Deploy" xml:space="preserve">
+    <value>部署</value>
+  </data>
+  <data name="Common.Detected" xml:space="preserve">
+    <value>檢測到</value>
+  </data>
+  <data name="Common.Disabled" xml:space="preserve">
+    <value>殘障人士</value>
+  </data>
+  <data name="Common.Edit" xml:space="preserve">
+    <value>編輯</value>
+  </data>
+  <data name="Common.Enabled" xml:space="preserve">
+    <value>啟用</value>
+  </data>
+  <data name="Common.Next" xml:space="preserve">
+    <value>下一步</value>
+  </data>
+  <data name="Common.No" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="Common.None" xml:space="preserve">
+    <value>無</value>
+  </data>
+  <data name="Common.NotAvailable" xml:space="preserve">
+    <value>不適用</value>
+  </data>
+  <data name="Common.Previous" xml:space="preserve">
+    <value>上一頁</value>
+  </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>不可用</value>
+  </data>
+  <data name="Common.Unknown" xml:space="preserve">
+    <value>未知</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>版本：{0}</value>
+  </data>
+  <data name="Common.Yes" xml:space="preserve">
+    <value>是的</value>
+  </data>
+  <data name="Debug.Autopilot" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve">
+    <value>Zero-touch 硬體雜湊上傳</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve">
+    <value>憑證過期</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve">
+    <value>缺少證書信息</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag" xml:space="preserve">
+    <value>沒有預設群組標籤</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve">
+    <value>有效證件</value>
+  </data>
+  <data name="Debug.Autopilot.JsonProfile" xml:space="preserve">
+    <value>JSON個人資料</value>
+  </data>
+  <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
+    <value>沒有Autopilot</value>
+  </data>
+  <data name="Debug.DeploymentPages" xml:space="preserve">
+    <value>部署頁面</value>
+  </data>
+  <data name="Debug.ErrorPageCommand" xml:space="preserve">
+    <value>錯誤頁面</value>
+  </data>
+  <data name="Debug.ErrorPreviewMessage" xml:space="preserve">
+    <value>偵錯預覽：DISM 應用程式失敗，因為目標分區是唯讀的。
 
 錯誤代碼=0x80070005
 詳細資訊：將映像安裝到目標路徑時存取被拒絕。
-操作：驗證磁碟屬性並重試部署。</value></data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>建議重新產生開機映像</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>此開機映像使用較舊的 Foundry OSD 設定格式。請重新產生，以確保與最新功能相容。</value></data>
-  <data name="Common.VersionFormat" xml:space="preserve"><value>版本：{0}</value></data>
-  <data name="Common.Previous" xml:space="preserve"><value>上一頁</value></data>
-  <data name="Common.Next" xml:space="preserve"><value>下一步</value></data>
-  <data name="Common.Deploy" xml:space="preserve"><value>部署</value></data>
-  <data name="Common.NotAvailable" xml:space="preserve"><value>不適用</value></data>
-  <data name="Common.Unavailable" xml:space="preserve"><value>不可用</value></data>
-  <data name="Common.None" xml:space="preserve"><value>無</value></data>
-  <data name="Common.Unknown" xml:space="preserve"><value>未知</value></data>
-  <data name="Common.Detected" xml:space="preserve"><value>檢測到</value></data>
-  <data name="Common.Yes" xml:space="preserve"><value>是的</value></data>
-  <data name="Common.No" xml:space="preserve"><value>否</value></data>
-  <data name="Common.Enabled" xml:space="preserve"><value>啟用</value></data>
-  <data name="Common.Disabled" xml:space="preserve"><value>殘障人士</value></data>
-  <data name="Progress.Networking" xml:space="preserve"><value>網路</value></data>
-  <data name="Progress.StartTime" xml:space="preserve"><value>開始時間</value></data>
-  <data name="Progress.ElapsedTime" xml:space="preserve"><value>經過時間</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>部署已完成</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>這台電腦將在 {0}s 後重新啟動。</value></data>
-  <data name="Success.RebootNow" xml:space="preserve"><value>重新啟動</value></data>
-  <data name="Error.Title" xml:space="preserve"><value>部署失敗</value></data>
-  <data name="Error.FailedStepFormat" xml:space="preserve"><value>失敗的步驟：{0}</value></data>
-  <data name="Splash.Welcome" xml:space="preserve"><value>歡迎</value></data>
-  <data name="Splash.InitializingComponents" xml:space="preserve"><value>正在初始化組件...</value></data>
-  <data name="Splash.StartDeployment" xml:space="preserve"><value>開始部署</value></data>
-  <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>磁碟{0} | {1} | {2} | {3}{4}</value></data>
-  <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
-  <data name="Disk.UnknownSize" xml:space="preserve"><value>尺寸未知</value></data>
-  <data name="Disk.BlockedSystemDisk" xml:space="preserve"><value>被封鎖：系統盤</value></data>
-  <data name="Disk.BlockedBootDisk" xml:space="preserve"><value>被封鎖：啟動磁碟</value></data>
-  <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>已阻止：唯讀</value></data>
-  <data name="Disk.BlockedOffline" xml:space="preserve"><value>已阻止：離線</value></data>
-  <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>調試虛擬目標</value></data>
-  <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>目標磁碟{0} 不再存在。</value></data>
-  <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>目標磁碟{0}被封鎖：{1}</value></data>
-  <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>確認磁碟清除</value></data>
-  <data name="Launch.ConfirmDiskEraseMessageFormat" xml:space="preserve"><value>這將擦除所選磁碟上的所有資料並安裝所選作業系統。
-
-磁碟：{0}
-型號：{1}
-巴士：{2}
-尺寸：{3}
-
-作業系統：{4}
-
-繼續部署嗎？</value></data>
-  <data name="Status.WaitingForDeployment" xml:space="preserve"><value>等待部署...</value></data>
-  <data name="Status.WaitingForProgress" xml:space="preserve"><value>等待進展...</value></data>
-  <data name="Status.PreparingDeployment" xml:space="preserve"><value>正在準備部署...</value></data>
-  <data name="Status.DeploymentCancelled" xml:space="preserve"><value>部署已取消。</value></data>
-  <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>另一個操作已經在運作。</value></data>
-  <data name="Status.StartingStep" xml:space="preserve"><value>開始步驟...</value></data>
-  <data name="Status.StartingStepFormat" xml:space="preserve"><value>開始{0}。</value></data>
-  <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>開始{0}...</value></data>
-  <data name="Status.StepCompleted" xml:space="preserve"><value>步驟已完成。</value></data>
-  <data name="Status.StepFailed" xml:space="preserve"><value>步驟失敗。</value></data>
-  <data name="Status.StepSkipped" xml:space="preserve"><value>跳過了步驟。</value></data>
-  <data name="Status.InProgress" xml:space="preserve"><value>進行中...</value></data>
-  <data name="Status.StepCounterUnknown" xml:space="preserve"><value>步驟：?的 ？</value></data>
-  <data name="Status.StepCounterFormat" xml:space="preserve"><value>步驟：{0}的{1}</value></data>
-  <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe 失敗，退出程式碼{0}。 {1}</value></data>
-  <data name="Status.SystemReboot" xml:space="preserve"><value>系統重啟</value></data>
-  <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>未找到所需的重新啟動可執行檔“wpeutil.exe”。</value></data>
-  <data name="Status.UnknownStep" xml:space="preserve"><value>未知步驟</value></data>
-  <data name="Status.NoErrorDetails" xml:space="preserve"><value>沒有提供錯誤詳細資訊。</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>收集變數</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>初始化部署</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>驗證設定</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>檢查快取</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>準備磁碟</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>下載作業系統</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>套用作業系統</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>設定電腦名稱</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>設定 OOBE</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>設定 Windows 復原</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>下載驅動程式</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>解壓縮驅動程式</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>準備自訂項目</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>套用驅動程式</value></data>
-  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>套用復原驅動程式</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>下載韌體</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>套用韌體</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>封存復原分割區</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>預配 Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>完成部署</value></data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>正在收集部署變數...</value></data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>正在收集部署上下文...</value></data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>收集部署變數。</value></data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve"><value>收集部署變數（模擬）。</value></data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve"><value>正在初始化部署工作區...</value></data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve"><value>建立工作區資料夾...</value></data>
-  <data name="StepMessage.FinalizingDeployment" xml:space="preserve"><value>正在完成部署...</value></data>
-  <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve"><value>清理臨時工作空間...</value></data>
-  <data name="StepMessage.WritingDeploymentSummary" xml:space="preserve"><value>正在編寫部署摘要...</value></data>
-  <data name="StepMessage.WritingCompletionLogs" xml:space="preserve"><value>寫入完成日誌...</value></data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve"><value>工作區已初始化。</value></data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve"><value>工作區已初始化（模擬）。</value></data>
-  <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve"><value>正在驗證目標配置...</value></data>
-  <data name="StepMessage.RevalidatingTargetDisk" xml:space="preserve"><value>正在重新驗證目標磁碟...</value></data>
-  <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve"><value>正在偵測硬體設定檔...</value></data>
-  <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve"><value>作業系統URL 遺失。</value></data>
-  <data name="StepResult.TargetDiskNumberRequired" xml:space="preserve"><value>需要目標磁碟號。</value></data>
-  <data name="StepResult.TargetConfigurationValidated" xml:space="preserve"><value>目標配置已驗證。</value></data>
-  <data name="StepResult.TargetConfigurationValidatedSimulation" xml:space="preserve"><value>目標配置已驗證（模擬）。</value></data>
-  <data name="StepMessage.ResolvingCacheStrategy" xml:space="preserve"><value>正在檢查部署快取...</value></data>
-  <data name="StepMessage.ResolvingCacheLocation" xml:space="preserve"><value>正在解析快取位置...</value></data>
-  <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve"><value>檢查快取磁碟衝突...</value></data>
-  <data name="StepResult.CacheStrategyResolved" xml:space="preserve"><value>快取策略已解決。</value></data>
-  <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve"><value>快取策略已解決（模擬）。</value></data>
-  <data name="StepMessage.PreparingTargetDiskLayout" xml:space="preserve"><value>正在準備目標磁碟佈局...</value></data>
-  <data name="StepMessage.PartitioningTargetDisk" xml:space="preserve"><value>正在對目標磁碟進行分割...</value></data>
-  <data name="StepMessage.PreparingTargetWorkspace" xml:space="preserve"><value>正在準備目標工作區...</value></data>
-  <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve"><value>建立模擬分割區...</value></data>
-  <data name="StepResult.TargetDiskLayoutPrepared" xml:space="preserve"><value>目標磁碟佈局已準備好。</value></data>
-  <data name="StepResult.TargetDiskLayoutPreparedSimulation" xml:space="preserve"><value>準備好目標磁碟佈局（模擬）。</value></data>
-  <data name="StepResult.TargetDiskLayoutNotPrepared" xml:space="preserve"><value>未準備目標磁碟佈局。</value></data>
-  <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve"><value>正在下載作業系統映像...</value></data>
-  <data name="StepMessage.CheckingCache" xml:space="preserve"><value>正在檢查快取...</value></data>
-  <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve"><value>作業系統映像就緒（模擬）。</value></data>
-  <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve"><value>未下載作業系統映像。</value></data>
-  <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve"><value>下載作業系統映像。</value></data>
-  <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve"><value>從快取中解析的作業系統映像。</value></data>
-  <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve"><value>正在套用作業系統映像...</value></data>
-  <data name="StepMessage.InspectingImage" xml:space="preserve"><value>正在檢查圖像...</value></data>
-  <data name="StepMessage.ApplyingImage" xml:space="preserve"><value>正在套用圖像...</value></data>
-  <data name="StepMessage.ConfiguringBoot" xml:space="preserve"><value>配置啟動...</value></data>
-  <data name="StepMessage.VerifyingImage" xml:space="preserve"><value>正在驗證映像...</value></data>
-  <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve"><value>應用作業系統映像。</value></data>
-  <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve"><value>應用作業系統映像（模擬）。</value></data>
-  <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>配置目標電腦名稱...</value></data>
-  <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>寫入離線電腦名稱...</value></data>
-  <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>目標Windows分區不可用。</value></data>
-  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>已套用的 Windows 映像索引無法使用。</value></data>
-  <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>配置的目標電腦名稱。</value></data>
-  <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>配置的目標電腦名稱（模擬）。</value></data>
-  <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>離線定制已停用。</value></data>
-  <data name="StepMessage.ConfiguringOfflineCustomizations" xml:space="preserve"><value>配置離線自訂...</value></data>
-  <data name="StepMessage.WritingFirstRunDefaults" xml:space="preserve"><value>寫入首次運行預設值...</value></data>
-  <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve"><value>配置 AI 組件刪除...</value></data>
-  <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>編寫離線人工智慧策略...</value></data>
-  <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>已配置離線自訂。</value></data>
-  <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>離線定製配置（模擬）。</value></data>
-  <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>配置OOBE 設定...</value></data>
-  <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>編寫首次運行的隱私預設值...</value></data>
-  <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>配置恢復環境...</value></data>
-  <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>正在準備Windows恢復環境...</value></data>
-  <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>恢復分區不可用。</value></data>
-  <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>恢復環境已配置。</value></data>
-  <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>配置恢復環境（模擬）。</value></data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>不需要 OOBE 前的自訂腳本。</value></data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>進行 OOBE 前客製化...</value></data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>預 OOBE 定制已上演。</value></data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>預 OOBE 定制已上演（模擬）。</value></data>
-  <data name="StepResult.DriverPackDisabled" xml:space="preserve"><value>驅動程式包已停用（未選擇）。</value></data>
-  <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve"><value>無需下載驅動程式包。</value></data>
-  <data name="StepMessage.DownloadingDriverPack" xml:space="preserve"><value>正在下載驅動程式包...</value></data>
-  <data name="StepMessage.PreparingDownload" xml:space="preserve"><value>正在準備下載...</value></data>
-  <data name="StepResult.OemDriverPackMissing" xml:space="preserve"><value>選擇了 OEM 驅動程式套件模式，但未提供驅動程式套件。</value></data>
-  <data name="StepResult.DriverPackDownloaded" xml:space="preserve"><value>驅動包已下載。</value></data>
-  <data name="StepResult.DriverPackDownloadedSimulation" xml:space="preserve"><value>下載驅動程式包（模擬）。</value></data>
-  <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve"><value>從快取中解析驅動程式包。</value></data>
-  <data name="StepMessage.ExtractingDriverPack" xml:space="preserve"><value>正在解壓縮驅動包...</value></data>
-  <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve"><value>驅動包沒有下載。</value></data>
-  <data name="StepResult.DriverPackExtracted" xml:space="preserve"><value>驅動包已解壓縮。</value></data>
-  <data name="StepResult.DriverPackExtractedSimulation" xml:space="preserve"><value>提取驅動程式包（模擬）。</value></data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve"><value>為首次啟動安裝所準備的驅動程式套件。</value></data>
-  <data name="StepResult.NoDriverPackOperationRequired" xml:space="preserve"><value>無需驅動程式包操作。</value></data>
-  <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve"><value>不支援的驅動程式包安裝模式。</value></data>
-  <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve"><value>沒有提取的 INF 驅動程式內容可用。</value></data>
-  <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve"><value>驅動程式套件來源內容無法用於首次啟動暫存。</value></data>
-  <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve"><value>Microsoft Update Catalog 沒有產生驅動程式內容。</value></data>
-  <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve"><value>在沒有支援的命令的情況下請求了首次啟動驅動程式包暫存。</value></data>
-  <data name="StepMessage.ApplyingDriverPack" xml:space="preserve"><value>正在應用驅動程式包...</value></data>
-  <data name="StepMessage.ApplyingWindowsDrivers" xml:space="preserve"><value>正在應用 Windows 驅動程式...</value></data>
-  <data name="StepMessage.MountingWinRe" xml:space="preserve"><value>正在安裝 WinRE...</value></data>
-  <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve"><value>正在套用 WinRE 驅動程式...</value></data>
-  <data name="StepMessage.UnmountingWinRe" xml:space="preserve"><value>正在解除安裝 WinRE...</value></data>
-  <data name="StepMessage.StagingPackage" xml:space="preserve"><value>暫存包...</value></data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve"><value>正在更新首次啟動設定腳本...</value></data>
-  <data name="StepProgress.PercentFormat" xml:space="preserve"><value>{0}：{1}%</value></data>
-  <data name="StepProgress.Downloading" xml:space="preserve"><value>正在下載</value></data>
-  <data name="StepProgress.Extracting" xml:space="preserve"><value>提取</value></data>
-  <data name="StepProgress.Applying" xml:space="preserve"><value>正在申請</value></data>
-  <data name="StepProgress.Staging" xml:space="preserve"><value>分期</value></data>
-  <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>{0}已下載</value></data>
-  <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>應用驅動程式包。</value></data>
-  <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>應用驅動程式包（模擬）。</value></data>
-  <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>正在下載韌體更新...</value></data>
-  <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>正在準備 Microsoft Update Catalog 查找...</value></data>
-  <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve"><value>韌體更新被禁用。</value></data>
-  <data name="StepResult.FirmwareUpdatesDisabledForVirtualMachines" xml:space="preserve"><value>虛擬機器的韌體更新已停用。</value></data>
-  <data name="StepResult.FirmwareUpdatesSkippedOnBattery" xml:space="preserve"><value>當裝置使用電池電源運作時，會跳過韌體更新。</value></data>
-  <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve"><value>系統韌體硬體標識符不可用。</value></data>
-  <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve"><value>韌體更新已下載。</value></data>
-  <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve"><value>下載韌體更新（模擬）。</value></data>
-  <data name="StepResult.NoExtractedFirmwarePayload" xml:space="preserve"><value>沒有可用的提取韌體內容。</value></data>
-  <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve"><value>提取的韌體內容不包含任何 INF 檔案。</value></data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve"><value>正在套用韌體更新...</value></data>
-  <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve"><value>正在將韌體內容注入離線Windows...</value></data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve"><value>已套用韌體更新。</value></data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve"><value>應用韌體更新（模擬）。</value></data>
-  <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve"><value>密封恢復分區...</value></data>
-  <data name="StepMessage.RemovingRecoveryDriveLetter" xml:space="preserve"><value>正在刪除恢復磁碟機代號...</value></data>
-  <data name="StepResult.RecoveryPartitionSealed" xml:space="preserve"><value>恢復分區密封。</value></data>
-  <data name="StepResult.RecoveryPartitionSealedSimulation" xml:space="preserve"><value>恢復分區密封（模擬）。</value></data>
-  <data name="StepResult.AutopilotDisabled" xml:space="preserve"><value>Autopilot 已停用。</value></data>
-  <data name="StepResult.AutopilotProfileMissing" xml:space="preserve"><value>Autopilot 已啟用，但未選擇設定檔。</value></data>
-  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve"><value>目標Windows 分區不可用於Autopilot 暫存。</value></data>
-  <data name="StepResult.TargetAutopilotDirectoryUnavailable" xml:space="preserve"><value>無法解析目標Autopilot 目錄。</value></data>
-  <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve"><value>暫存Autopilot個人檔案...</value></data>
-  <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve"><value>正在複製 AutopilotConfigurationFile.json...</value></data>
-  <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve"><value>寫模擬Autopilot清單...</value></data>
-  <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve"><value>正在捕獲Autopilot硬體哈希...</value></data>
-  <data name="StepMessage.RunningOa3Tool" xml:space="preserve"><value>運行OA3Tool...</value></data>
-  <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve"><value>正在上傳Autopilot硬體哈希...</value></data>
-  <data name="StepMessage.PreparingMicrosoftGraphImport" xml:space="preserve"><value>正在準備Microsoft Graph 導入...</value></data>
-  <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve"><value>正在向Microsoft Graph提交導入請求...</value></data>
-  <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve"><value>正在等待Autopilot設備可見性...</value></data>
-  <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve"><value>正在檢查 Windows Autopilot 設備（{0} 剩餘）...</value></data>
-  <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve"><value>正在更新現有Autopilot設備...</value></data>
-  <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve"><value>正在更新Microsoft Graph中的Windows Autopilot群組標籤...</value></data>
-  <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve"><value>正在等待Autopilot群組標籤更新...</value></data>
-  <data name="StepMessage.CheckingWindowsAutopilotGroupTagFormat" xml:space="preserve"><value>正在檢查Windows Autopilot群組標籤（{0}剩餘）...</value></data>
-  <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve"><value>正在準備Autopilot硬體哈希上傳...</value></data>
-  <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve"><value>正在解密媒體憑證...</value></data>
-  <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve"><value>正在驗證Autopilot硬體哈希上傳...</value></data>
-  <data name="StepMessage.RequestingMicrosoftGraphToken" xml:space="preserve"><value>正在請求Microsoft Graph令牌...</value></data>
-  <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve"><value>正在將硬體哈希導入Microsoft Graph...</value></data>
-  <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve"><value>寫模擬Autopilot哈希清單...</value></data>
-  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve"><value>目標Windows分區不可用於Autopilot硬體哈希上傳。</value></data>
-  <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve"><value>Autopilot 硬體哈希上傳已跳過，因為嵌入式憑證已過期。</value></data>
-  <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve"><value>Autopilot 硬體哈希上傳已跳過，因為所需的媒體憑證資訊不完整。</value></data>
-  <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve"><value>Autopilot 硬體哈希已導入並在 Windows Autopilot 設備中可見。</value></data>
-  <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve"><value>導入的Autopilot設備在逾時之前沒有出現在Windows Autopilot設備中。</value></data>
-  <data name="StepResult.AutopilotGroupTagUpdateTimedOut" xml:space="preserve"><value>Windows Autopilot 設備群組標籤更新在逾時之前未確認。</value></data>
-  <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve"><value>Autopilot 硬體哈希上傳準備用於模擬。</value></data>
-  <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve"><value>Autopilot 硬體哈希上傳準備（模擬）。</value></data>
-  <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve"><value>未找到所選Autopilot 設定檔：{0}</value></data>
-  <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot硬體哈希捕獲失敗：{0}</value></data>
-  <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot硬體哈希導入失敗：{0}</value></data>
-  <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot 硬體哈希上傳已跳過：{0}</value></data>
-  <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot 個人檔案上演。</value></data>
-  <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot 設定檔已上演（模擬）。</value></data>
+操作：驗證磁碟屬性並重試部署。</value>
+  </data>
+  <data name="Debug.ProgressPageCommand" xml:space="preserve">
+    <value>進度頁面</value>
+  </data>
+  <data name="Debug.SuccessPageCommand" xml:space="preserve">
+    <value>成功頁面</value>
+  </data>
+  <data name="DeploymentAccess.Continue" xml:space="preserve">
+    <value>繼續</value>
+  </data>
+  <data name="DeploymentAccess.Description" xml:space="preserve">
+    <value>請輸入技術人員密碼以繼續。</value>
+  </data>
+  <data name="DeploymentAccess.Heading" xml:space="preserve">
+    <value>需要密碼</value>
+  </data>
+  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve">
+    <value>密碼不正確，請再試一次。</value>
+  </data>
+  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve">
+    <value>部署密碼</value>
+  </data>
+  <data name="DeploymentAccess.Title" xml:space="preserve">
+    <value>受保護的部署</value>
+  </data>
+  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve">
+    <value>顯示或隱藏密碼</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>選擇要將 Foundry 診斷資訊匯出到何處</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>無法匯出診斷資訊。請檢查記錄以取得詳細資料。</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>匯出診斷資訊失敗</value>
+  </data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>匯出診斷資訊...</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>匯出原始記錄</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>匯出原始診斷資訊...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>要匯出原始診斷資訊嗎？</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>原始記錄可能包含認證資料、識別碼、路徑、網路名稱及其他敏感資料。只有在可信任的支援聯絡人明確要求時才匯出。</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>診斷資訊已匯出到：
+{0}</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>診斷資訊已匯出</value>
+  </data>
+  <data name="Disk.BlockedBootDisk" xml:space="preserve">
+    <value>被封鎖：啟動磁碟</value>
+  </data>
+  <data name="Disk.BlockedOffline" xml:space="preserve">
+    <value>已阻止：離線</value>
+  </data>
+  <data name="Disk.BlockedReadOnly" xml:space="preserve">
+    <value>已阻止：唯讀</value>
+  </data>
+  <data name="Disk.BlockedSystemDisk" xml:space="preserve">
+    <value>被封鎖：系統盤</value>
+  </data>
+  <data name="Disk.DebugVirtualTarget" xml:space="preserve">
+    <value>調試虛擬目標</value>
+  </data>
+  <data name="Disk.DisplayLabelFormat" xml:space="preserve">
+    <value>磁碟{0} | {1} | {2} | {3}{4}</value>
+  </data>
+  <data name="Disk.TargetBlockedFormat" xml:space="preserve">
+    <value>目標磁碟{0}被封鎖：{1}</value>
+  </data>
+  <data name="Disk.TargetMissingFormat" xml:space="preserve">
+    <value>目標磁碟{0} 不再存在。</value>
+  </data>
+  <data name="Disk.UnknownSize" xml:space="preserve">
+    <value>尺寸未知</value>
+  </data>
+  <data name="Disk.WarningSuffixFormat" xml:space="preserve">
+    <value>| {0}</value>
+  </data>
+  <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
+    <value>Microsoft Update Catalog</value>
+  </data>
+  <data name="DriverPack.Model" xml:space="preserve">
+    <value>型號</value>
+  </data>
+  <data name="DriverPack.MultiModelFormat" xml:space="preserve">
+    <value>{0}（+{1} 型號）</value>
+  </data>
+  <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve">
+    <value>{0}：沒有相符的型號或版本</value>
+  </data>
+  <data name="DriverPack.Oem" xml:space="preserve">
+    <value>代加工</value>
+  </data>
+  <data name="DriverPack.Source" xml:space="preserve">
+    <value>驅動程式原始碼</value>
+  </data>
+  <data name="DriverPack.Version" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="Drivers.Description" xml:space="preserve">
+    <value>選擇驅動程式來源，並在需要時選擇相符的型號與版本。</value>
+  </data>
+  <data name="Drivers.Title" xml:space="preserve">
+    <value>裝置驅動程式</value>
+  </data>
+  <data name="Error.FailedStepFormat" xml:space="preserve">
+    <value>失敗的步驟：{0}</value>
+  </data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
+    <value>錯誤詳細資料</value>
+  </data>
+  <data name="Error.Title" xml:space="preserve">
+    <value>部署失敗</value>
+  </data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve">
+    <value>檢視錯誤詳細資料</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>阿拉伯語（沙烏地阿拉伯）</value>
   </data>
   <data name="Language.BulgarianBulgaria" xml:space="preserve">
     <value>保加利亞語（保加利亞語）</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>簡體中文（中國）</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>繁體中文（台灣）</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>克羅埃西亞語（克羅埃西亞）</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
     <value>捷克語（捷克）</value>
@@ -350,23 +314,14 @@
   <data name="Language.DanishDenmark" xml:space="preserve">
     <value>丹麥語（丹麥）</value>
   </data>
-  <data name="Language.GermanGermany" xml:space="preserve">
-    <value>德語（德國）</value>
-  </data>
-  <data name="Language.GreekGreece" xml:space="preserve">
-    <value>希臘文（希臘文）</value>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>荷蘭語（荷蘭）</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>英語（英國）</value>
   </data>
   <data name="Language.EnglishUnitedStates" xml:space="preserve">
     <value>英語（美國）</value>
-  </data>
-  <data name="Language.SpanishSpain" xml:space="preserve">
-    <value>西班牙語（西班牙）</value>
-  </data>
-  <data name="Language.SpanishMexico" xml:space="preserve">
-    <value>西班牙語（墨西哥）</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
     <value>愛沙尼亞語（愛沙尼亞）</value>
@@ -380,11 +335,14 @@
   <data name="Language.FrenchFrance" xml:space="preserve">
     <value>法語（法國）</value>
   </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>德語（德國）</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>希臘文（希臘文）</value>
+  </data>
   <data name="Language.HebrewIsrael" xml:space="preserve">
     <value>希伯來文（以色列）</value>
-  </data>
-  <data name="Language.CroatianCroatia" xml:space="preserve">
-    <value>克羅埃西亞語（克羅埃西亞）</value>
   </data>
   <data name="Language.HungarianHungary" xml:space="preserve">
     <value>匈牙利語（匈牙利）</value>
@@ -398,17 +356,14 @@
   <data name="Language.KoreanKorea" xml:space="preserve">
     <value>韓語（韓國）</value>
   </data>
-  <data name="Language.LithuanianLithuania" xml:space="preserve">
-    <value>立陶宛語（立陶宛）</value>
-  </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
     <value>拉脫維亞語（拉脫維亞）</value>
   </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>立陶宛語（立陶宛）</value>
+  </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
     <value>挪威博克馬爾語（挪威）</value>
-  </data>
-  <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>荷蘭語（荷蘭）</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>波蘭語（波蘭）</value>
@@ -425,14 +380,20 @@
   <data name="Language.RussianRussia" xml:space="preserve">
     <value>俄語（俄羅斯）</value>
   </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>塞爾維亞拉丁語（塞爾維亞）</value>
+  </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>斯洛伐克（斯洛伐克）</value>
   </data>
   <data name="Language.SlovenianSlovenia" xml:space="preserve">
     <value>斯洛維尼亞語（斯洛維尼亞）</value>
   </data>
-  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>塞爾維亞拉丁語（塞爾維亞）</value>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>西班牙語（墨西哥）</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>西班牙語（西班牙）</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
     <value>瑞典文（瑞典）</value>
@@ -446,23 +407,644 @@
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>烏克蘭語（烏克蘭）</value>
   </data>
-  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>簡體中文（中國）</value>
+  <data name="Launch.ConfirmDiskEraseMessageFormat" xml:space="preserve">
+    <value>這將擦除所選磁碟上的所有資料並安裝所選作業系統。
+
+磁碟：{0}
+型號：{1}
+巴士：{2}
+尺寸：{3}
+
+作業系統：{4}
+
+繼續部署嗎？</value>
   </data>
-  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>繁體中文（台灣）</value>
+  <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve">
+    <value>確認磁碟清除</value>
   </data>
-  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
-    <value>正在暫存 Autopilot 註冊助理...</value>
+  <data name="Menu.About" xml:space="preserve">
+    <value>_關於</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>_偵錯</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>_語言</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>_主題</value>
+  </data>
+  <data name="Menu.Tools" xml:space="preserve">
+    <value>_工具</value>
+  </data>
+  <data name="OperatingSystem.Description" xml:space="preserve">
+    <value>選擇 Windows 發行版本、語言、版本與授權通道。</value>
+  </data>
+  <data name="OperatingSystem.Title" xml:space="preserve">
+    <value>作業系統</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
+    <value>憑證過期</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve">
+    <value>Autopilot 憑證已過期。可以繼續部署而不上傳硬體哈希。</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve">
+    <value>群組標籤</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve">
+    <value>缺少必要的憑證資訊。可以繼續部署而不上傳硬體哈希。</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve">
+    <value>準備上傳硬體哈希</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve">
+    <value>租戶ID</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve">
+    <value>硬體哈希上傳無法使用</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve">
+    <value>硬體哈希上傳狀態</value>
+  </data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve">
+    <value>Zero-touch 硬體雜湊上傳</value>
+  </data>
+  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve">
+    <value>互動式硬體雜湊上傳</value>
+  </data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
+    <value>JSON 設定檔配置</value>
+  </data>
+  <data name="Preparation.AutopilotProfile" xml:space="preserve">
+    <value>公司簡介</value>
+  </data>
+  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve">
+    <value>在此媒體上未找到嵌入的 Autopilot 設定檔。</value>
+  </data>
+  <data name="Preparation.ComputerName" xml:space="preserve">
+    <value>電腦名稱</value>
+  </data>
+  <data name="Preparation.ComputerNameHint" xml:space="preserve">
+    <value>1-15 個字元。僅 A-Z、a-z、0-9 和連字號。</value>
+  </data>
+  <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve">
+    <value>電腦名稱必須包含 1 到 15 個有效字元（字母、數字或連字號）。</value>
+  </data>
+  <data name="Preparation.DetectingHardware" xml:space="preserve">
+    <value>偵測硬體...</value>
+  </data>
+  <data name="Preparation.FirmwareUpdates" xml:space="preserve">
+    <value>應用程式韌體更新</value>
+  </data>
+  <data name="Preparation.HardwareDetectionFailed" xml:space="preserve">
+    <value>硬體檢測失敗。</value>
+  </data>
+  <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve">
+    <value>硬體偵測失敗：{0}</value>
+  </data>
+  <data name="Preparation.HardwareSummaryFormat" xml:space="preserve">
+    <value>{0} | TPM：{1} |力量：{2} |韌體：{3}</value>
+  </data>
+  <data name="Preparation.PowerAc" xml:space="preserve">
+    <value>交流電</value>
+  </data>
+  <data name="Preparation.PowerBattery" xml:space="preserve">
+    <value>電池</value>
+  </data>
+  <data name="Preparation.TargetDisk" xml:space="preserve">
+    <value>目標磁碟</value>
+  </data>
+  <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve">
+    <value>目標磁碟發現失敗：{0}</value>
+  </data>
+  <data name="Preparation.TargetDiskHint" xml:space="preserve">
+    <value>選擇目標磁碟。不符合條件的磁碟將被阻止。</value>
+  </data>
+  <data name="Progress.ElapsedTime" xml:space="preserve">
+    <value>經過時間</value>
+  </data>
+  <data name="Progress.Networking" xml:space="preserve">
+    <value>網路</value>
+  </data>
+  <data name="Progress.RingAutomationName" xml:space="preserve">
+    <value>總體部署進度</value>
+  </data>
+  <data name="Progress.Session" xml:space="preserve">
+    <value>工作階段</value>
+  </data>
+  <data name="Progress.StartTime" xml:space="preserve">
+    <value>開始時間</value>
+  </data>
+  <data name="Progress.Timeline" xml:space="preserve">
+    <value>步驟</value>
+  </data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve">
+    <value>部署步驟</value>
+  </data>
+  <data name="Splash.InitializingComponents" xml:space="preserve">
+    <value>正在初始化組件...</value>
+  </data>
+  <data name="Splash.StartDeployment" xml:space="preserve">
+    <value>開始部署</value>
+  </data>
+  <data name="Splash.Welcome" xml:space="preserve">
+    <value>歡迎</value>
+  </data>
+  <data name="Status.AnotherOperationRunning" xml:space="preserve">
+    <value>另一個操作已經在運作。</value>
+  </data>
+  <data name="Status.DeploymentCancelled" xml:space="preserve">
+    <value>部署已取消。</value>
+  </data>
+  <data name="Status.InProgress" xml:space="preserve">
+    <value>進行中...</value>
+  </data>
+  <data name="Status.NoErrorDetails" xml:space="preserve">
+    <value>沒有提供錯誤詳細資訊。</value>
+  </data>
+  <data name="Status.PreparingDeployment" xml:space="preserve">
+    <value>正在準備部署...</value>
+  </data>
+  <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve">
+    <value>未找到所需的重新啟動可執行檔“wpeutil.exe”。</value>
+  </data>
+  <data name="Status.StartingStep" xml:space="preserve">
+    <value>開始步驟...</value>
+  </data>
+  <data name="Status.StartingStepFormat" xml:space="preserve">
+    <value>開始{0}。</value>
+  </data>
+  <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
+    <value>開始{0}...</value>
+  </data>
+  <data name="Status.StepCompleted" xml:space="preserve">
+    <value>步驟已完成。</value>
+  </data>
+  <data name="Status.StepCounterFormat" xml:space="preserve">
+    <value>步驟：{0}的{1}</value>
+  </data>
+  <data name="Status.StepCounterUnknown" xml:space="preserve">
+    <value>步驟：?的 ？</value>
+  </data>
+  <data name="Status.StepFailed" xml:space="preserve">
+    <value>步驟失敗。</value>
+  </data>
+  <data name="Status.StepSkipped" xml:space="preserve">
+    <value>跳過了步驟。</value>
+  </data>
+  <data name="Status.SystemReboot" xml:space="preserve">
+    <value>系統重啟</value>
+  </data>
+  <data name="Status.UnknownStep" xml:space="preserve">
+    <value>未知步驟</value>
+  </data>
+  <data name="Status.WaitingForDeployment" xml:space="preserve">
+    <value>等待部署...</value>
+  </data>
+  <data name="Status.WaitingForProgress" xml:space="preserve">
+    <value>等待進展...</value>
+  </data>
+  <data name="Status.WpeUtilFailureFormat" xml:space="preserve">
+    <value>wpeutil.exe 失敗，退出程式碼{0}。 {1}</value>
+  </data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve">
+    <value>套用驅動程式</value>
+  </data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
+    <value>套用韌體</value>
+  </data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
+    <value>套用作業系統</value>
+  </data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
+    <value>套用復原驅動程式</value>
+  </data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve">
+    <value>設定 OOBE</value>
+  </data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
+    <value>設定 Windows 復原</value>
+  </data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
+    <value>設定電腦名稱</value>
+  </data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
+    <value>設定選用功能</value>
+  </data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve">
+    <value>下載驅動程式</value>
+  </data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
+    <value>下載韌體</value>
+  </data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
+    <value>下載作業系統</value>
+  </data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve">
+    <value>解壓縮驅動程式</value>
+  </data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
+    <value>完成部署</value>
+  </data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
+    <value>收集變數</value>
+  </data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
+    <value>初始化部署</value>
+  </data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
+    <value>準備磁碟</value>
+  </data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve">
+    <value>預配 Autopilot</value>
+  </data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve">
+    <value>檢查快取</value>
+  </data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve">
+    <value>封存復原分割區</value>
+  </data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve">
+    <value>準備自訂項目</value>
+  </data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
+    <value>驗證設定</value>
+  </data>
+  <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
+    <value>正在應用驅動程式包...</value>
+  </data>
+  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
+    <value>正在套用韌體更新...</value>
+  </data>
+  <data name="StepMessage.ApplyingImage" xml:space="preserve">
+    <value>正在套用圖像...</value>
+  </data>
+  <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve">
+    <value>正在套用作業系統映像...</value>
+  </data>
+  <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve">
+    <value>正在套用 WinRE 驅動程式...</value>
+  </data>
+  <data name="StepMessage.ApplyingWindowsDrivers" xml:space="preserve">
+    <value>正在應用 Windows 驅動程式...</value>
+  </data>
+  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
+    <value>正在套用功能變更...</value>
+  </data>
+  <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve">
+    <value>正在驗證Autopilot硬體哈希上傳...</value>
+  </data>
+  <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
+    <value>正在捕獲Autopilot硬體哈希...</value>
+  </data>
+  <data name="StepMessage.CheckingCache" xml:space="preserve">
+    <value>正在檢查快取...</value>
+  </data>
+  <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
+    <value>檢查快取磁碟衝突...</value>
+  </data>
+  <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
+    <value>正在檢查 Windows Autopilot 設備（{0} 剩餘）...</value>
+  </data>
+  <data name="StepMessage.CheckingWindowsAutopilotGroupTagFormat" xml:space="preserve">
+    <value>正在檢查Windows Autopilot群組標籤（{0}剩餘）...</value>
+  </data>
+  <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
+    <value>清理臨時工作空間...</value>
+  </data>
+  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
+    <value>正在收集部署上下文...</value>
+  </data>
+  <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
+    <value>配置 AI 組件刪除...</value>
+  </data>
+  <data name="StepMessage.ConfiguringBoot" xml:space="preserve">
+    <value>配置啟動...</value>
+  </data>
+  <data name="StepMessage.ConfiguringOfflineCustomizations" xml:space="preserve">
+    <value>配置離線自訂...</value>
+  </data>
+  <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve">
+    <value>配置OOBE 設定...</value>
+  </data>
+  <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve">
+    <value>配置恢復環境...</value>
+  </data>
+  <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve">
+    <value>配置目標電腦名稱...</value>
+  </data>
+  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve">
+    <value>配置 Windows 選用功能...</value>
+  </data>
+  <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
+    <value>正在複製 AutopilotConfigurationFile.json...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>正在複製互動式註冊檔案...</value>
   </data>
+  <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
+    <value>建立模擬分割區...</value>
+  </data>
+  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
+    <value>建立工作區資料夾...</value>
+  </data>
+  <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
+    <value>正在解密媒體憑證...</value>
+  </data>
+  <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve">
+    <value>正在偵測硬體設定檔...</value>
+  </data>
+  <data name="StepMessage.DownloadingDriverPack" xml:space="preserve">
+    <value>正在下載驅動程式包...</value>
+  </data>
+  <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve">
+    <value>正在下載韌體更新...</value>
+  </data>
+  <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve">
+    <value>正在下載作業系統映像...</value>
+  </data>
+  <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
+    <value>正在解壓縮驅動包...</value>
+  </data>
+  <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
+    <value>正在完成部署...</value>
+  </data>
+  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
+    <value>正在收集部署變數...</value>
+  </data>
+  <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
+    <value>正在將硬體哈希導入Microsoft Graph...</value>
+  </data>
+  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
+    <value>正在初始化部署工作區...</value>
+  </data>
+  <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
+    <value>正在將韌體內容注入離線Windows...</value>
+  </data>
+  <data name="StepMessage.InspectingImage" xml:space="preserve">
+    <value>正在檢查圖像...</value>
+  </data>
+  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve">
+    <value>檢查功能狀態...</value>
+  </data>
+  <data name="StepMessage.MountingWinRe" xml:space="preserve">
+    <value>正在安裝 WinRE...</value>
+  </data>
+  <data name="StepMessage.PartitioningTargetDisk" xml:space="preserve">
+    <value>正在對目標磁碟進行分割...</value>
+  </data>
+  <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve">
+    <value>正在準備Autopilot硬體哈希上傳...</value>
+  </data>
+  <data name="StepMessage.PreparingDownload" xml:space="preserve">
+    <value>正在準備下載...</value>
+  </data>
+  <data name="StepMessage.PreparingMicrosoftGraphImport" xml:space="preserve">
+    <value>正在準備Microsoft Graph 導入...</value>
+  </data>
+  <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve">
+    <value>正在準備 Microsoft Update Catalog 查找...</value>
+  </data>
+  <data name="StepMessage.PreparingTargetDiskLayout" xml:space="preserve">
+    <value>正在準備目標磁碟佈局...</value>
+  </data>
+  <data name="StepMessage.PreparingTargetWorkspace" xml:space="preserve">
+    <value>正在準備目標工作區...</value>
+  </data>
+  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve">
+    <value>正在準備匹配的設定媒體來源...</value>
+  </data>
+  <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve">
+    <value>正在準備Windows恢復環境...</value>
+  </data>
+  <data name="StepMessage.RemovingRecoveryDriveLetter" xml:space="preserve">
+    <value>正在刪除恢復磁碟機代號...</value>
+  </data>
+  <data name="StepMessage.RequestingMicrosoftGraphToken" xml:space="preserve">
+    <value>正在請求Microsoft Graph令牌...</value>
+  </data>
+  <data name="StepMessage.ResolvingCacheLocation" xml:space="preserve">
+    <value>正在解析快取位置...</value>
+  </data>
+  <data name="StepMessage.ResolvingCacheStrategy" xml:space="preserve">
+    <value>正在檢查部署快取...</value>
+  </data>
+  <data name="StepMessage.RevalidatingTargetDisk" xml:space="preserve">
+    <value>正在重新驗證目標磁碟...</value>
+  </data>
+  <data name="StepMessage.RunningOa3Tool" xml:space="preserve">
+    <value>運行OA3Tool...</value>
+  </data>
+  <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve">
+    <value>密封恢復分區...</value>
+  </data>
+  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve">
+    <value>模擬功能更改...</value>
+  </data>
+  <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
+    <value>暫存Autopilot個人檔案...</value>
+  </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>正在暫存 Autopilot 註冊助理...</value>
+  </data>
+  <data name="StepMessage.StagingPackage" xml:space="preserve">
+    <value>暫存包...</value>
+  </data>
+  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
+    <value>進行 OOBE 前客製化...</value>
+  </data>
+  <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
+    <value>正在向Microsoft Graph提交導入請求...</value>
+  </data>
+  <data name="StepMessage.UnmountingWinRe" xml:space="preserve">
+    <value>正在解除安裝 WinRE...</value>
+  </data>
+  <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
+    <value>正在更新現有Autopilot設備...</value>
+  </data>
+  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
+    <value>正在更新首次啟動設定腳本...</value>
+  </data>
+  <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
+    <value>正在更新Microsoft Graph中的Windows Autopilot群組標籤...</value>
+  </data>
+  <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve">
+    <value>正在上傳Autopilot硬體哈希...</value>
+  </data>
+  <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve">
+    <value>正在驗證目標配置...</value>
+  </data>
+  <data name="StepMessage.VerifyingImage" xml:space="preserve">
+    <value>正在驗證映像...</value>
+  </data>
+  <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve">
+    <value>正在等待Autopilot設備可見性...</value>
+  </data>
+  <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
+    <value>正在等待Autopilot群組標籤更新...</value>
+  </data>
+  <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
+    <value>寫入完成日誌...</value>
+  </data>
+  <data name="StepMessage.WritingDeploymentSummary" xml:space="preserve">
+    <value>正在編寫部署摘要...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve">
+    <value>寫模擬Autopilot哈希清單...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve">
+    <value>寫模擬Autopilot清單...</value>
+  </data>
   <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
     <value>正在寫入互動式註冊試執行資訊清單...</value>
   </data>
-  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
-    <value>目標 Windows 分割區無法用於暫存互動式 Autopilot 註冊助理。</value>
+  <data name="StepMessage.WritingFirstRunDefaults" xml:space="preserve">
+    <value>寫入首次運行預設值...</value>
+  </data>
+  <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve">
+    <value>編寫首次運行的隱私預設值...</value>
+  </data>
+  <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve">
+    <value>編寫離線人工智慧策略...</value>
+  </data>
+  <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve">
+    <value>寫入離線電腦名稱...</value>
+  </data>
+  <data name="StepProgress.Applying" xml:space="preserve">
+    <value>正在申請</value>
+  </data>
+  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
+    <value>應用程式功能更改</value>
+  </data>
+  <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve">
+    <value>{0}已下載</value>
+  </data>
+  <data name="StepProgress.Downloading" xml:space="preserve">
+    <value>正在下載</value>
+  </data>
+  <data name="StepProgress.Extracting" xml:space="preserve">
+    <value>提取</value>
+  </data>
+  <data name="StepProgress.PercentFormat" xml:space="preserve">
+    <value>{0}：{1}%</value>
+  </data>
+  <data name="StepProgress.Staging" xml:space="preserve">
+    <value>分期</value>
+  </data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
+    <value>已套用的 Windows 映像索引無法使用。</value>
+  </data>
+  <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve">
+    <value>導入的Autopilot設備在逾時之前沒有出現在Windows Autopilot設備中。</value>
+  </data>
+  <data name="StepResult.AutopilotDisabled" xml:space="preserve">
+    <value>Autopilot 已停用。</value>
+  </data>
+  <data name="StepResult.AutopilotGroupTagUpdateTimedOut" xml:space="preserve">
+    <value>Windows Autopilot 設備群組標籤更新在逾時之前未確認。</value>
+  </data>
+  <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve">
+    <value>Autopilot 硬體哈希已導入並在 Windows Autopilot 設備中可見。</value>
+  </data>
+  <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve">
+    <value>Autopilot硬體哈希捕獲失敗：{0}</value>
+  </data>
+  <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve">
+    <value>Autopilot硬體哈希導入失敗：{0}</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve">
+    <value>Autopilot 硬體哈希上傳準備用於模擬。</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve">
+    <value>Autopilot 硬體哈希上傳準備（模擬）。</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve">
+    <value>Autopilot 硬體哈希上傳已跳過，因為嵌入式憑證已過期。</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve">
+    <value>Autopilot 硬體哈希上傳已跳過：{0}</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
+    <value>Autopilot 硬體哈希上傳已跳過，因為所需的媒體憑證資訊不完整。</value>
+  </data>
+  <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
+    <value>Autopilot 已啟用，但未選擇設定檔。</value>
+  </data>
+  <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
+    <value>Autopilot 個人檔案上演。</value>
+  </data>
+  <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
+    <value>Autopilot 設定檔已上演（模擬）。</value>
+  </data>
+  <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
+    <value>快取策略已解決。</value>
+  </data>
+  <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
+    <value>快取策略已解決（模擬）。</value>
+  </data>
+  <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
+    <value>在沒有支援的命令的情況下請求了首次啟動驅動程式包暫存。</value>
+  </data>
+  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
+    <value>收集部署變數。</value>
+  </data>
+  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
+    <value>收集部署變數（模擬）。</value>
+  </data>
+  <data name="StepResult.DriverPackApplied" xml:space="preserve">
+    <value>應用驅動程式包。</value>
+  </data>
+  <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve">
+    <value>應用驅動程式包（模擬）。</value>
+  </data>
+  <data name="StepResult.DriverPackDisabled" xml:space="preserve">
+    <value>驅動程式包已停用（未選擇）。</value>
+  </data>
+  <data name="StepResult.DriverPackDownloaded" xml:space="preserve">
+    <value>驅動包已下載。</value>
+  </data>
+  <data name="StepResult.DriverPackDownloadedSimulation" xml:space="preserve">
+    <value>下載驅動程式包（模擬）。</value>
+  </data>
+  <data name="StepResult.DriverPackExtracted" xml:space="preserve">
+    <value>驅動包已解壓縮。</value>
+  </data>
+  <data name="StepResult.DriverPackExtractedSimulation" xml:space="preserve">
+    <value>提取驅動程式包（模擬）。</value>
+  </data>
+  <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
+    <value>驅動包沒有下載。</value>
+  </data>
+  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
+    <value>為首次啟動安裝所準備的驅動程式套件。</value>
+  </data>
+  <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
+    <value>從快取中解析驅動程式包。</value>
+  </data>
+  <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
+    <value>驅動程式套件來源內容無法用於首次啟動暫存。</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
+    <value>已套用韌體更新。</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
+    <value>應用韌體更新（模擬）。</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
+    <value>韌體更新已下載。</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
+    <value>下載韌體更新（模擬）。</value>
+  </data>
+  <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
+    <value>韌體更新被禁用。</value>
+  </data>
+  <data name="StepResult.FirmwareUpdatesDisabledForVirtualMachines" xml:space="preserve">
+    <value>虛擬機器的韌體更新已停用。</value>
+  </data>
+  <data name="StepResult.FirmwareUpdatesSkippedOnBattery" xml:space="preserve">
+    <value>當裝置使用電池電源運作時，會跳過韌體更新。</value>
   </data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
     <value>互動式 Autopilot 註冊助理已暫存。</value>
@@ -470,157 +1052,448 @@
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>互動式 Autopilot 註冊助理已暫存 (模擬)。</value>
   </data>
-  <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>移除開機媒體，然後選取「重新啟動」。</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>設定選用功能</value></data>
-  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>配置 Windows 選用功能...</value></data>
-  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>檢查功能狀態...</value></data>
-  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>正在準備匹配的設定媒體來源...</value></data>
-  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>正在套用功能變更...</value></data>
-  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve"><value>模擬功能更改...</value></data>
-  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>應用程式功能更改</value></data>
-  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve"><value>Windows 選用功能配置已停用。</value></data>
-  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve"><value>Windows 選用功能配置無效。</value></data>
-  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve"><value>已配置 Windows 選用功能（{0} 已更改，{1} 已滿足，{2} 不可用）。</value></data>
-  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve"><value>模擬 Windows 選用功能配置（{0} 操作）。</value></data>
-  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Windows 選用功能「{0}」已刪除有效負載且不支援本機來源對應。</value></data>
-  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>“{0}”的 Windows 選用功能驗證失敗。</value></data>
-  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>符合的 NetFx3 來源不可用。 {0}</value></data>
-  <data name="Common.Cancel" xml:space="preserve"><value>取消</value></data>
-  <data name="DeploymentAccess.Title" xml:space="preserve"><value>受保護的部署</value></data>
-  <data name="DeploymentAccess.Heading" xml:space="preserve"><value>需要密碼</value></data>
-  <data name="DeploymentAccess.Description" xml:space="preserve"><value>請輸入技術人員密碼以繼續。</value></data>
-  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>部署密碼</value></data>
-  <data name="DeploymentAccess.Continue" xml:space="preserve"><value>繼續</value></data>
-  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>顯示或隱藏密碼</value></data>
-  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>密碼不正確，請再試一次。</value></data>
-  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>目標設備</value></data>
-  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>作業系統</value></data>
-  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>裝置驅動程式</value></data>
-  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Wizard.Step.Summary" xml:space="preserve"><value>摘要</value></data>
-  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>部署設定步驟</value></data>
-  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>返回摘要</value></data>
-  <data name="Common.Edit" xml:space="preserve"><value>編輯</value></data>
-  <data name="Common.Copy" xml:space="preserve"><value>複製</value></data>
-  <data name="Common.Close" xml:space="preserve"><value>關閉</value></data>
-  <data name="TargetDevice.Title" xml:space="preserve"><value>目標設備</value></data>
-  <data name="TargetDevice.Description" xml:space="preserve"><value>選擇電腦名稱與目標磁碟，然後檢視偵測到的硬體。</value></data>
-  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>部署設定</value></data>
-  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>裝置資訊</value></data>
-  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>裝置識別資訊</value></data>
-  <data name="TargetDevice.Platform" xml:space="preserve"><value>平台</value></data>
-  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>製造商</value></data>
-  <data name="TargetDevice.Model" xml:space="preserve"><value>型號</value></data>
-  <data name="TargetDevice.Product" xml:space="preserve"><value>產品</value></data>
-  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>序號</value></data>
-  <data name="TargetDevice.Architecture" xml:space="preserve"><value>架構</value></data>
-  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
-  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>電源</value></data>
-  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>韌體狀態</value></data>
-  <data name="TargetDevice.Firmware" xml:space="preserve"><value>韌體更新</value></data>
-  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>在虛擬機器上不可用</value></data>
-  <data name="OperatingSystem.Title" xml:space="preserve"><value>作業系統</value></data>
-  <data name="OperatingSystem.Description" xml:space="preserve"><value>選擇 Windows 發行版本、語言、版本與授權通道。</value></data>
-  <data name="Drivers.Title" xml:space="preserve"><value>裝置驅動程式</value></data>
-  <data name="Drivers.Description" xml:space="preserve"><value>選擇驅動程式來源，並在需要時選擇相符的型號與版本。</value></data>
-  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Autopilot.Description" xml:space="preserve"><value>檢視此裝置的 Autopilot 佈建設定。</value></data>
-  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>設定詳細資料</value></data>
-  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>目標設備</value></data>
-  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>作業系統</value></data>
-  <data name="Summary.Category.Drivers" xml:space="preserve"><value>裝置驅動程式</value></data>
-  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Windows 自訂</value></data>
-  <data name="Summary.Category.Network" xml:space="preserve"><value>網路</value></data>
-  <data name="Summary.Category.Completion" xml:space="preserve"><value>完成</value></data>
-  <data name="Summary.Description" xml:space="preserve"><value>開始部署前，請檢查您的選擇。</value></data>
-  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>未配置</value></data>
-  <data name="Summary.Status.Configured" xml:space="preserve"><value>已設定</value></data>
-  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>無變更</value></data>
-  <data name="Summary.Release" xml:space="preserve"><value>版本</value></data>
-  <data name="Summary.Edition" xml:space="preserve"><value>作業系統版本</value></data>
-  <data name="Summary.Architecture" xml:space="preserve"><value>系統架構</value></data>
-  <data name="Summary.Language" xml:space="preserve"><value>語言</value></data>
-  <data name="Summary.LicenseChannel" xml:space="preserve"><value>授權管道</value></data>
-  <data name="Summary.Build" xml:space="preserve"><value>組建</value></data>
-  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
-  <data name="Summary.BuiltInAdministrator" xml:space="preserve"><value>內建 Administrator 帳戶</value></data>
-  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve"><value>其他本機帳戶</value></data>
-  <data name="Summary.SkipAccountCreation" xml:space="preserve"><value>略過帳戶建立</value></data>
-  <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX 移除</value></data>
-  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>AI 元件移除</value></data>
-  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>網路設定檔漫遊</value></data>
-  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>自動重啟</value></data>
-  <data name="Summary.ManualRestart" xml:space="preserve"><value>手動重啟</value></data>
-  <data name="Summary.RestartDelay" xml:space="preserve"><value>重啟延遲</value></data>
-  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0}秒</value></data>
-  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>部署開始時，所選目標磁碟將會被清除。</value></data>
-  <data name="Progress.Session" xml:space="preserve"><value>工作階段</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>步驟</value></data>
-  <data name="Progress.RingAutomationName" xml:space="preserve"><value>總體部署進度</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>部署步驟</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>檢視錯誤詳細資料</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>錯誤詳細資料</value></data>
-  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>將離線 Autopilot 設定檔新增至 Windows 安裝。</value></data>
-  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>在部署期間將此裝置的硬體雜湊上傳至 Windows Autopilot。</value></data>
-  <data name="Summary.Status" xml:space="preserve"><value>狀態</value></data>
-  <data name="Summary.ProvisioningMethod" xml:space="preserve"><value>佈建方法</value></data>
-  <data name="Summary.WarningDetails" xml:space="preserve"><value>警告詳細資料</value></data>
-  <data name="Summary.DiagnosticData" xml:space="preserve"><value>診斷資料</value></data>
-  <data name="Summary.LocationAccess" xml:space="preserve"><value>位置存取</value></data>
-  <data name="Summary.SkipLicenseTerms" xml:space="preserve"><value>略過授權條款</value></data>
-  <data name="Summary.HidePrivacySetup" xml:space="preserve"><value>隱藏隱私權設定</value></data>
-  <data name="Summary.TailoredExperiences" xml:space="preserve"><value>量身打造的體驗</value></data>
-  <data name="Summary.AdvertisingId" xml:space="preserve"><value>廣告識別碼</value></data>
-  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve"><value>線上語音辨識</value></data>
-  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve"><value>筆跡與輸入診斷</value></data>
-  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve"><value>移除應用程式和 AI</value></data>
-  <data name="Summary.TotalConfigured" xml:space="preserve"><value>設定總數</value></data>
-  <data name="Summary.FeaturesEnabled" xml:space="preserve"><value>已啟用的功能</value></data>
-  <data name="Summary.FeaturesDisabled" xml:space="preserve"><value>已停用的功能</value></data>
-  <data name="Summary.WiredDot1x" xml:space="preserve"><value>有線 802.1X</value></data>
-  <data name="Summary.Wifi" xml:space="preserve"><value>Wi-Fi</value></data>
-  <data name="Summary.PrivateKeyMaterial" xml:space="preserve"><value>私密金鑰資料</value></data>
-  <data name="Summary.Included" xml:space="preserve"><value>已包含</value></data>
-  <data name="Summary.NotIncluded" xml:space="preserve"><value>未包含</value></data>
-  <data name="Summary.RestartBehavior" xml:space="preserve"><value>重新啟動行為</value></data>
-  <data name="Summary.Automatic" xml:space="preserve"><value>自動</value></data>
-  <data name="Summary.Manual" xml:space="preserve"><value>手動</value></data>
-  <data name="Summary.DiagnosticData.Required" xml:space="preserve"><value>必要</value></data>
-  <data name="Summary.DiagnosticData.Optional" xml:space="preserve"><value>選用</value></data>
-  <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>關閉</value></data>
-  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>使用者控制</value></data>
-  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>強制關閉</value></data>
-  <data name="Diagnostics.ExportMenu" xml:space="preserve">
-    <value>匯出診斷資訊...</value>
+  <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
+    <value>Microsoft Update Catalog 沒有產生驅動程式內容。</value>
   </data>
-  <data name="TargetDevice.AssetTag" xml:space="preserve"><value>資產標籤</value></data>
-  <data name="TargetDevice.SystemUuid" xml:space="preserve"><value>系統 UUID</value></data>
-  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
-    <value>匯出原始診斷資訊...</value>
+  <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
+    <value>無需下載驅動程式包。</value>
   </data>
-  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
-    <value>要匯出原始診斷資訊嗎？</value>
+  <data name="StepResult.NoDriverPackOperationRequired" xml:space="preserve">
+    <value>無需驅動程式包操作。</value>
   </data>
-  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
-    <value>原始記錄可能包含認證資料、識別碼、路徑、網路名稱及其他敏感資料。只有在可信任的支援聯絡人明確要求時才匯出。</value>
+  <data name="StepResult.NoExtractedFirmwarePayload" xml:space="preserve">
+    <value>沒有可用的提取韌體內容。</value>
   </data>
-  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
-    <value>匯出原始記錄</value>
+  <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
+    <value>沒有提取的 INF 驅動程式內容可用。</value>
   </data>
-  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
-    <value>選擇要將 Foundry 診斷資訊匯出到何處</value>
+  <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
+    <value>提取的韌體內容不包含任何 INF 檔案。</value>
   </data>
-  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
-    <value>診斷資訊已匯出</value>
+  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
+    <value>不需要 OOBE 前的自訂腳本。</value>
   </data>
-  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
-    <value>診斷資訊已匯出到：&#xA;{0}</value>
+  <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
+    <value>選擇了 OEM 驅動程式套件模式，但未提供驅動程式套件。</value>
   </data>
-  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
-    <value>匯出診斷資訊失敗</value>
+  <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve">
+    <value>已配置離線自訂。</value>
   </data>
-  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
-    <value>無法匯出診斷資訊。請檢查記錄以取得詳細資料。</value>
+  <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve">
+    <value>離線定製配置（模擬）。</value>
+  </data>
+  <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve">
+    <value>離線定制已停用。</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve">
+    <value>應用作業系統映像。</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve">
+    <value>應用作業系統映像（模擬）。</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve">
+    <value>下載作業系統映像。</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
+    <value>未下載作業系統映像。</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve">
+    <value>作業系統映像就緒（模擬）。</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve">
+    <value>從快取中解析的作業系統映像。</value>
+  </data>
+  <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
+    <value>作業系統URL 遺失。</value>
+  </data>
+  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
+    <value>預 OOBE 定制已上演。</value>
+  </data>
+  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
+    <value>預 OOBE 定制已上演（模擬）。</value>
+  </data>
+  <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
+    <value>恢復環境已配置。</value>
+  </data>
+  <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve">
+    <value>配置恢復環境（模擬）。</value>
+  </data>
+  <data name="StepResult.RecoveryPartitionSealed" xml:space="preserve">
+    <value>恢復分區密封。</value>
+  </data>
+  <data name="StepResult.RecoveryPartitionSealedSimulation" xml:space="preserve">
+    <value>恢復分區密封（模擬）。</value>
+  </data>
+  <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve">
+    <value>恢復分區不可用。</value>
+  </data>
+  <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
+    <value>未找到所選Autopilot 設定檔：{0}</value>
+  </data>
+  <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
+    <value>系統韌體硬體標識符不可用。</value>
+  </data>
+  <data name="StepResult.TargetAutopilotDirectoryUnavailable" xml:space="preserve">
+    <value>無法解析目標Autopilot 目錄。</value>
+  </data>
+  <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve">
+    <value>配置的目標電腦名稱。</value>
+  </data>
+  <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve">
+    <value>配置的目標電腦名稱（模擬）。</value>
+  </data>
+  <data name="StepResult.TargetConfigurationValidated" xml:space="preserve">
+    <value>目標配置已驗證。</value>
+  </data>
+  <data name="StepResult.TargetConfigurationValidatedSimulation" xml:space="preserve">
+    <value>目標配置已驗證（模擬）。</value>
+  </data>
+  <data name="StepResult.TargetDiskLayoutNotPrepared" xml:space="preserve">
+    <value>未準備目標磁碟佈局。</value>
+  </data>
+  <data name="StepResult.TargetDiskLayoutPrepared" xml:space="preserve">
+    <value>目標磁碟佈局已準備好。</value>
+  </data>
+  <data name="StepResult.TargetDiskLayoutPreparedSimulation" xml:space="preserve">
+    <value>準備好目標磁碟佈局（模擬）。</value>
+  </data>
+  <data name="StepResult.TargetDiskNumberRequired" xml:space="preserve">
+    <value>需要目標磁碟號。</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve">
+    <value>目標Windows分區不可用。</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve">
+    <value>目標Windows 分區不可用於Autopilot 暫存。</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
+    <value>目標Windows分區不可用於Autopilot硬體哈希上傳。</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>目標 Windows 分割區無法用於暫存互動式 Autopilot 註冊助理。</value>
+  </data>
+  <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
+    <value>不支援的驅動程式包安裝模式。</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
+    <value>Windows 選用功能配置已停用。</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve">
+    <value>Windows 選用功能配置無效。</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve">
+    <value>符合的 NetFx3 來源不可用。 {0}</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve">
+    <value>Windows 選用功能「{0}」已刪除有效負載且不支援本機來源對應。</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve">
+    <value>“{0}”的 Windows 選用功能驗證失敗。</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve">
+    <value>已配置 Windows 選用功能（{0} 已更改，{1} 已滿足，{2} 不可用）。</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
+    <value>模擬 Windows 選用功能配置（{0} 操作）。</value>
+  </data>
+  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
+    <value>工作區已初始化。</value>
+  </data>
+  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
+    <value>工作區已初始化（模擬）。</value>
+  </data>
+  <data name="Success.Completed" xml:space="preserve">
+    <value>部署已完成</value>
+  </data>
+  <data name="Success.ManualRebootInstruction" xml:space="preserve">
+    <value>移除開機媒體，然後選取「重新啟動」。</value>
+  </data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve">
+    <value>這台電腦將在 {0}s 後重新啟動。</value>
+  </data>
+  <data name="Success.RebootNow" xml:space="preserve">
+    <value>重新啟動</value>
+  </data>
+  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve">
+    <value>其他本機帳戶</value>
+  </data>
+  <data name="Summary.AdvertisingId" xml:space="preserve">
+    <value>廣告識別碼</value>
+  </data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve">
+    <value>AI 元件移除</value>
+  </data>
+  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve">
+    <value>移除應用程式和 AI</value>
+  </data>
+  <data name="Summary.AppxRemoval" xml:space="preserve">
+    <value>AppX 移除</value>
+  </data>
+  <data name="Summary.Architecture" xml:space="preserve">
+    <value>系統架構</value>
+  </data>
+  <data name="Summary.Automatic" xml:space="preserve">
+    <value>自動</value>
+  </data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve">
+    <value>自動重啟</value>
+  </data>
+  <data name="Summary.AutopilotGroupTag" xml:space="preserve">
+    <value>Autopilot組標籤</value>
+  </data>
+  <data name="Summary.AutopilotProfile" xml:space="preserve">
+    <value>Autopilot 個人資料</value>
+  </data>
+  <data name="Summary.Build" xml:space="preserve">
+    <value>組建</value>
+  </data>
+  <data name="Summary.BuiltInAdministrator" xml:space="preserve">
+    <value>內建 Administrator 帳戶</value>
+  </data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Summary.Category.Completion" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="Summary.Category.Drivers" xml:space="preserve">
+    <value>裝置驅動程式</value>
+  </data>
+  <data name="Summary.Category.Network" xml:space="preserve">
+    <value>網路</value>
+  </data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve">
+    <value>作業系統</value>
+  </data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve">
+    <value>目標設備</value>
+  </data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve">
+    <value>Windows 自訂</value>
+  </data>
+  <data name="Summary.Description" xml:space="preserve">
+    <value>開始部署前，請檢查您的選擇。</value>
+  </data>
+  <data name="Summary.DiagnosticData" xml:space="preserve">
+    <value>診斷資料</value>
+  </data>
+  <data name="Summary.DiagnosticData.Off" xml:space="preserve">
+    <value>關閉</value>
+  </data>
+  <data name="Summary.DiagnosticData.Optional" xml:space="preserve">
+    <value>選用</value>
+  </data>
+  <data name="Summary.DiagnosticData.Required" xml:space="preserve">
+    <value>必要</value>
+  </data>
+  <data name="Summary.Edition" xml:space="preserve">
+    <value>作業系統版本</value>
+  </data>
+  <data name="Summary.FeaturesDisabled" xml:space="preserve">
+    <value>已停用的功能</value>
+  </data>
+  <data name="Summary.FeaturesEnabled" xml:space="preserve">
+    <value>已啟用的功能</value>
+  </data>
+  <data name="Summary.HidePrivacySetup" xml:space="preserve">
+    <value>隱藏隱私權設定</value>
+  </data>
+  <data name="Summary.Included" xml:space="preserve">
+    <value>已包含</value>
+  </data>
+  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve">
+    <value>筆跡與輸入診斷</value>
+  </data>
+  <data name="Summary.Language" xml:space="preserve">
+    <value>語言</value>
+  </data>
+  <data name="Summary.LicenseChannel" xml:space="preserve">
+    <value>授權管道</value>
+  </data>
+  <data name="Summary.LocationAccess" xml:space="preserve">
+    <value>位置存取</value>
+  </data>
+  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve">
+    <value>強制關閉</value>
+  </data>
+  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve">
+    <value>使用者控制</value>
+  </data>
+  <data name="Summary.Manual" xml:space="preserve">
+    <value>手動</value>
+  </data>
+  <data name="Summary.ManualRestart" xml:space="preserve">
+    <value>手動重啟</value>
+  </data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve">
+    <value>網路設定檔漫遊</value>
+  </data>
+  <data name="Summary.NoDiskSelected" xml:space="preserve">
+    <value>未選擇磁碟</value>
+  </data>
+  <data name="Summary.NoSelection" xml:space="preserve">
+    <value>沒有選擇</value>
+  </data>
+  <data name="Summary.NotIncluded" xml:space="preserve">
+    <value>未包含</value>
+  </data>
+  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve">
+    <value>線上語音辨識</value>
+  </data>
+  <data name="Summary.Oobe" xml:space="preserve">
+    <value>OOBE</value>
+  </data>
+  <data name="Summary.PrivateKeyMaterial" xml:space="preserve">
+    <value>私密金鑰資料</value>
+  </data>
+  <data name="Summary.ProvisioningMethod" xml:space="preserve">
+    <value>佈建方法</value>
+  </data>
+  <data name="Summary.Release" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="Summary.RestartBehavior" xml:space="preserve">
+    <value>重新啟動行為</value>
+  </data>
+  <data name="Summary.RestartDelay" xml:space="preserve">
+    <value>重啟延遲</value>
+  </data>
+  <data name="Summary.SecondsFormat" xml:space="preserve">
+    <value>{0}秒</value>
+  </data>
+  <data name="Summary.SelectedOperatingSystem" xml:space="preserve">
+    <value>作業系統</value>
+  </data>
+  <data name="Summary.SkipAccountCreation" xml:space="preserve">
+    <value>略過帳戶建立</value>
+  </data>
+  <data name="Summary.SkipLicenseTerms" xml:space="preserve">
+    <value>略過授權條款</value>
+  </data>
+  <data name="Summary.Status" xml:space="preserve">
+    <value>狀態</value>
+  </data>
+  <data name="Summary.Status.Configured" xml:space="preserve">
+    <value>已設定</value>
+  </data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve">
+    <value>無變更</value>
+  </data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve">
+    <value>未配置</value>
+  </data>
+  <data name="Summary.TailoredExperiences" xml:space="preserve">
+    <value>量身打造的體驗</value>
+  </data>
+  <data name="Summary.TargetDisk" xml:space="preserve">
+    <value>目標磁碟</value>
+  </data>
+  <data name="Summary.Title" xml:space="preserve">
+    <value>部署總結</value>
+  </data>
+  <data name="Summary.TotalConfigured" xml:space="preserve">
+    <value>設定總數</value>
+  </data>
+  <data name="Summary.WarningDetails" xml:space="preserve">
+    <value>警告詳細資料</value>
+  </data>
+  <data name="Summary.Wifi" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve">
+    <value>Windows 選用功能</value>
+  </data>
+  <data name="Summary.WiredDot1x" xml:space="preserve">
+    <value>有線 802.1X</value>
+  </data>
+  <data name="TargetDevice.Architecture" xml:space="preserve">
+    <value>架構</value>
+  </data>
+  <data name="TargetDevice.AssetTag" xml:space="preserve">
+    <value>資產標籤</value>
+  </data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve">
+    <value>部署設定</value>
+  </data>
+  <data name="TargetDevice.Description" xml:space="preserve">
+    <value>選擇電腦名稱與目標磁碟，然後檢視偵測到的硬體。</value>
+  </data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve">
+    <value>裝置識別資訊</value>
+  </data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve">
+    <value>裝置資訊</value>
+  </data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve">
+    <value>部署開始時，所選目標磁碟將會被清除。</value>
+  </data>
+  <data name="TargetDevice.Firmware" xml:space="preserve">
+    <value>韌體更新</value>
+  </data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve">
+    <value>韌體狀態</value>
+  </data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve">
+    <value>在虛擬機器上不可用</value>
+  </data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve">
+    <value>製造商</value>
+  </data>
+  <data name="TargetDevice.Model" xml:space="preserve">
+    <value>型號</value>
+  </data>
+  <data name="TargetDevice.Platform" xml:space="preserve">
+    <value>平台</value>
+  </data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve">
+    <value>電源</value>
+  </data>
+  <data name="TargetDevice.Product" xml:space="preserve">
+    <value>產品</value>
+  </data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve">
+    <value>序號</value>
+  </data>
+  <data name="TargetDevice.SystemUuid" xml:space="preserve">
+    <value>系統 UUID</value>
+  </data>
+  <data name="TargetDevice.Title" xml:space="preserve">
+    <value>目標設備</value>
+  </data>
+  <data name="TargetDevice.Tpm" xml:space="preserve">
+    <value>TPM</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>黑暗</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>光</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>系統</value>
+  </data>
+  <data name="Tools.OpenLogFile" xml:space="preserve">
+    <value>打開日誌文件</value>
+  </data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve">
+    <value>返回摘要</value>
+  </data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve">
+    <value>裝置驅動程式</value>
+  </data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve">
+    <value>作業系統</value>
+  </data>
+  <data name="Wizard.Step.Summary" xml:space="preserve">
+    <value>摘要</value>
+  </data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve">
+    <value>目標設備</value>
+  </data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve">
+    <value>部署設定步驟</value>
   </data>
 </root>

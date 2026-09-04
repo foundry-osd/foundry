@@ -12,337 +12,301 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="App.Name" xml:space="preserve"><value>Foundry Deploy</value></data>
-  <data name="App.WindowTitle" xml:space="preserve"><value>Foundry Deploy</value></data>
-  <data name="About.Title" xml:space="preserve"><value>על Foundry Deploy</value></data>
-  <data name="About.DescriptionLine1" xml:space="preserve"><value>Foundry Deploy היא חווית הפריסה של WinPE עבור Foundry.</value></data>
-  <data name="About.DescriptionLine2" xml:space="preserve"><value>תוכנה זו מסופקת כפי שהיא. סקור את הגדרות הפריסה שלך לפני השימוש.</value></data>
-  <data name="About.Footer" xml:space="preserve"><value>זכויות יוצרים (ג) 2026 Foundry Project. מורשה תחת רישיון MIT.</value></data>
-  <data name="Menu.Theme" xml:space="preserve"><value>_נושא</value></data>
-  <data name="Menu.Language" xml:space="preserve"><value>_שפה</value></data>
-  <data name="Menu.Tools" xml:space="preserve"><value>_כלים</value></data>
-  <data name="Menu.Debug" xml:space="preserve"><value>_ניפוי באגים</value></data>
-  <data name="Menu.About" xml:space="preserve"><value>_בערך</value></data>
-  <data name="Theme.System" xml:space="preserve"><value>מערכת</value></data>
-  <data name="Theme.Light" xml:space="preserve"><value>אור</value></data>
-  <data name="Theme.Dark" xml:space="preserve"><value>כהה</value></data>
-  <data name="Tools.OpenLogFile" xml:space="preserve"><value>פתח קובץ יומן</value></data>
-  <data name="Preparation.ComputerName" xml:space="preserve"><value>שם המחשב</value></data>
-  <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 תווים. A-Z, a-z, 0-9 ומקף בלבד.</value></data>
-  <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>שם המחשב חייב להכיל 1 עד 15 תווים חוקיים (אותיות, מספרים או מקף).</value></data>
-  <data name="Preparation.TargetDisk" xml:space="preserve"><value>דיסק מטרה</value></data>
-  <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>בחר דיסק יעד. דיסקים לא כשירים חסומים.</value></data>
-  <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>החל עדכוני קושחה</value></data>
-  <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>פרופיל</value></data>
-  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>לא נמצאו פרופילים משובצים של Autopilot במדיה זו.</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON הקצאת פרופיל</value></data>
-  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>העלאת Hash חומרה ב-Zero-touch</value></data>
-  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>העלאה אינטראקטיבית של hash חומרה</value></data>
-  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>סטטוס העלאת גיבוב של חומרה</value></data>
-  <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>מוכן להעלות hash של חומרה</value></data>
-  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>העלאת גיבוב החומרה אינה זמינה</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>מידע האישור הנדרש חסר. ניתן להמשיך בפריסה בלי להעלות את גיבוב החומרה.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>פג תוקף אישור Autopilot. ניתן להמשיך בפריסה בלי להעלות את גיבוב החומרה.</value></data>
-  <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>זיהוי דייר</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>תפוגה של תעודה</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>תג קבוצה</value></data>
-  <data name="Preparation.DetectingHardware" xml:space="preserve"><value>מזהה חומרה...</value></data>
-  <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>זיהוי החומרה נכשל.</value></data>
-  <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>זיהוי החומרה נכשל: {0}</value></data>
-  <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | כוח: {2} | קושחה: {3}</value></data>
-  <data name="Preparation.PowerBattery" xml:space="preserve"><value>סוללה</value></data>
-  <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
-  <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>גילוי דיסק יעד נכשל: {0}</value></data>
-  <data name="Catalog.Version" xml:space="preserve"><value>גרסה</value></data>
-  <data name="Catalog.Media" xml:space="preserve"><value>עדכון Windows</value></data>
-  <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (העדכנית ביותר)</value></data>
-  <data name="Catalog.Language" xml:space="preserve"><value>שפה</value></data>
-  <data name="Catalog.LicenseChannel" xml:space="preserve"><value>ערוץ רישיון</value></data>
-  <data name="Catalog.EditionTarget" xml:space="preserve"><value>מהדורה (יעד)</value></data>
-  <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>ארכיטקטורה: {0}</value></data>
-  <data name="Catalog.LoadedFormat" xml:space="preserve"><value>קטלוגים נטענים: {0} ערכי מערכת הפעלה, {1} חבילות מנהלי התקנים.</value></data>
-  <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>טעינת הקטלוג נכשלה: {0}</value></data>
-  <data name="DriverPack.Source" xml:space="preserve"><value>מקור מנהל ההתקן</value></data>
-  <data name="DriverPack.Model" xml:space="preserve"><value>דגם</value></data>
-  <data name="DriverPack.Version" xml:space="preserve"><value>גרסה</value></data>
-  <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
-  <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
-  <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: אין דגם או גרסה תואמים</value></data>
-  <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (דגמים +{1})</value></data>
-  <data name="Summary.Title" xml:space="preserve"><value>סיכום פריסה</value></data>
-  <data name="Summary.TargetDisk" xml:space="preserve"><value>דיסק מטרה</value></data>
-  <data name="Summary.NoDiskSelected" xml:space="preserve"><value>לא נבחר דיסק</value></data>
-  <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>מערכת הפעלה</value></data>
-  <data name="Summary.NoSelection" xml:space="preserve"><value>אין בחירה</value></data>
-  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>תכונות אופציונליות של Windows</value></data>
-  <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot פרופיל</value></data>
-  <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>תג קבוצתי Autopilot</value></data>
-  <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>לא Autopilot</value></data>
-  <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>פרופיל JSON</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>העלאת zero-touch של hash חומרה</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>תעודה תקפה</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>תעודה שפג תוקפו</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>חסר מידע על תעודה</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag" xml:space="preserve"><value>אין תג ברירת מחדל לקבוצה</value></data>
-  <data name="Debug.DeploymentPages" xml:space="preserve"><value>דפי פריסה</value></data>
-  <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>דף התקדמות</value></data>
-  <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>דף הצלחה</value></data>
-  <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>דף שגיאה</value></data>
-  <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>תצוגה מקדימה של ניפוי באגים: יישום DISM נכשל מכיוון שמחיצת היעד היא לקריאה בלבד.
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Foundry Deploy היא חווית הפריסה של WinPE עבור Foundry.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>תוכנה זו מסופקת כפי שהיא. סקור את הגדרות הפריסה שלך לפני השימוש.</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>זכויות יוצרים (ג) 2026 Foundry Project. מורשה תחת רישיון MIT.</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>על Foundry Deploy</value>
+  </data>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Deploy</value>
+  </data>
+  <data name="App.WindowTitle" xml:space="preserve">
+    <value>Foundry Deploy</value>
+  </data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve">
+    <value>פרטי תצורה</value>
+  </data>
+  <data name="Autopilot.Description" xml:space="preserve">
+    <value>בדוק את הגדרות ההקצאה של Autopilot עבור מכשיר זה.</value>
+  </data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
+    <value>מעלה את ה-hash של חומרת המכשיר ל-Windows Autopilot במהלך הפריסה.</value>
+  </data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
+    <value>מוסיף פרופיל Autopilot לא מקוון להתקנת Windows.</value>
+  </data>
+  <data name="Autopilot.Title" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve">
+    <value>מומלץ ליצור מחדש את תמונת האתחול</value>
+  </data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
+    <value>תמונת האתחול הזו משתמשת בתבנית תצורה ישנה יותר של Foundry OSD. צור אותה מחדש כדי להבטיח תאימות לתכונות העדכניות ביותר.</value>
+  </data>
+  <data name="Catalog.ArchitectureFormat" xml:space="preserve">
+    <value>ארכיטקטורה: {0}</value>
+  </data>
+  <data name="Catalog.EditionTarget" xml:space="preserve">
+    <value>מהדורה (יעד)</value>
+  </data>
+  <data name="Catalog.Language" xml:space="preserve">
+    <value>שפה</value>
+  </data>
+  <data name="Catalog.LicenseChannel" xml:space="preserve">
+    <value>ערוץ רישיון</value>
+  </data>
+  <data name="Catalog.LoadFailedFormat" xml:space="preserve">
+    <value>טעינת הקטלוג נכשלה: {0}</value>
+  </data>
+  <data name="Catalog.LoadedFormat" xml:space="preserve">
+    <value>קטלוגים נטענים: {0} ערכי מערכת הפעלה, {1} חבילות מנהלי התקנים.</value>
+  </data>
+  <data name="Catalog.Media" xml:space="preserve">
+    <value>עדכון Windows</value>
+  </data>
+  <data name="Catalog.MediaLatestFormat" xml:space="preserve">
+    <value>{0} (העדכנית ביותר)</value>
+  </data>
+  <data name="Catalog.Version" xml:space="preserve">
+    <value>גרסה</value>
+  </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>ביטול</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>סגור</value>
+  </data>
+  <data name="Common.Copy" xml:space="preserve">
+    <value>העתק</value>
+  </data>
+  <data name="Common.Deploy" xml:space="preserve">
+    <value>פרוס</value>
+  </data>
+  <data name="Common.Detected" xml:space="preserve">
+    <value>זוהה</value>
+  </data>
+  <data name="Common.Disabled" xml:space="preserve">
+    <value>מושבת</value>
+  </data>
+  <data name="Common.Edit" xml:space="preserve">
+    <value>ערוך</value>
+  </data>
+  <data name="Common.Enabled" xml:space="preserve">
+    <value>מופעל</value>
+  </data>
+  <data name="Common.Next" xml:space="preserve">
+    <value>הבא</value>
+  </data>
+  <data name="Common.No" xml:space="preserve">
+    <value>לא</value>
+  </data>
+  <data name="Common.None" xml:space="preserve">
+    <value>אין</value>
+  </data>
+  <data name="Common.NotAvailable" xml:space="preserve">
+    <value>לא</value>
+  </data>
+  <data name="Common.Previous" xml:space="preserve">
+    <value>הקודם</value>
+  </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>לא זמין</value>
+  </data>
+  <data name="Common.Unknown" xml:space="preserve">
+    <value>לא ידוע</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>גרסה: {0}</value>
+  </data>
+  <data name="Common.Yes" xml:space="preserve">
+    <value>כן</value>
+  </data>
+  <data name="Debug.Autopilot" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve">
+    <value>העלאת zero-touch של hash חומרה</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve">
+    <value>תעודה שפג תוקפו</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve">
+    <value>חסר מידע על תעודה</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag" xml:space="preserve">
+    <value>אין תג ברירת מחדל לקבוצה</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve">
+    <value>תעודה תקפה</value>
+  </data>
+  <data name="Debug.Autopilot.JsonProfile" xml:space="preserve">
+    <value>פרופיל JSON</value>
+  </data>
+  <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
+    <value>לא Autopilot</value>
+  </data>
+  <data name="Debug.DeploymentPages" xml:space="preserve">
+    <value>דפי פריסה</value>
+  </data>
+  <data name="Debug.ErrorPageCommand" xml:space="preserve">
+    <value>דף שגיאה</value>
+  </data>
+  <data name="Debug.ErrorPreviewMessage" xml:space="preserve">
+    <value>תצוגה מקדימה של ניפוי באגים: יישום DISM נכשל מכיוון שמחיצת היעד היא לקריאה בלבד.
 
 ErrorCode=0x80070005
 פרטים: הגישה נדחתה בעת הרכבת התמונה לנתיב היעד.
-פעולה: אמת את תכונות הדיסק ונסה שוב לפרוס.</value></data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>מומלץ ליצור מחדש את תמונת האתחול</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>תמונת האתחול הזו משתמשת בתבנית תצורה ישנה יותר של Foundry OSD. צור אותה מחדש כדי להבטיח תאימות לתכונות העדכניות ביותר.</value></data>
-  <data name="Common.VersionFormat" xml:space="preserve"><value>גרסה: {0}</value></data>
-  <data name="Common.Previous" xml:space="preserve"><value>הקודם</value></data>
-  <data name="Common.Next" xml:space="preserve"><value>הבא</value></data>
-  <data name="Common.Deploy" xml:space="preserve"><value>פרוס</value></data>
-  <data name="Common.NotAvailable" xml:space="preserve"><value>לא</value></data>
-  <data name="Common.Unavailable" xml:space="preserve"><value>לא זמין</value></data>
-  <data name="Common.None" xml:space="preserve"><value>אין</value></data>
-  <data name="Common.Unknown" xml:space="preserve"><value>לא ידוע</value></data>
-  <data name="Common.Detected" xml:space="preserve"><value>זוהה</value></data>
-  <data name="Common.Yes" xml:space="preserve"><value>כן</value></data>
-  <data name="Common.No" xml:space="preserve"><value>לא</value></data>
-  <data name="Common.Enabled" xml:space="preserve"><value>מופעל</value></data>
-  <data name="Common.Disabled" xml:space="preserve"><value>מושבת</value></data>
-  <data name="Progress.Networking" xml:space="preserve"><value>רשת</value></data>
-  <data name="Progress.StartTime" xml:space="preserve"><value>שעת התחלה</value></data>
-  <data name="Progress.ElapsedTime" xml:space="preserve"><value>זמן שחלף</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>הפריסה הושלמה</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>מחשב זה יופעל מחדש בעוד {0}s.</value></data>
-  <data name="Success.RebootNow" xml:space="preserve"><value>אתחול מחדש</value></data>
-  <data name="Error.Title" xml:space="preserve"><value>הפריסה נכשלה</value></data>
-  <data name="Error.FailedStepFormat" xml:space="preserve"><value>שלב שנכשל: {0}</value></data>
-  <data name="Splash.Welcome" xml:space="preserve"><value>ברוך הבא</value></data>
-  <data name="Splash.InitializingComponents" xml:space="preserve"><value>מאתחל רכיבים...</value></data>
-  <data name="Splash.StartDeployment" xml:space="preserve"><value>התחל פריסה</value></data>
-  <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>דיסק {0} | {1} | {2} | {3}{4}</value></data>
-  <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
-  <data name="Disk.UnknownSize" xml:space="preserve"><value>גודל לא ידוע</value></data>
-  <data name="Disk.BlockedSystemDisk" xml:space="preserve"><value>חסום: דיסק מערכת</value></data>
-  <data name="Disk.BlockedBootDisk" xml:space="preserve"><value>חסום: דיסק אתחול</value></data>
-  <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>חסום: לקריאה בלבד</value></data>
-  <data name="Disk.BlockedOffline" xml:space="preserve"><value>חסום: לא מקוון</value></data>
-  <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>ניפוי יעד וירטואלי</value></data>
-  <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>דיסק היעד {0} אינו קיים יותר.</value></data>
-  <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>דיסק היעד {0} חסום: {1}</value></data>
-  <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>אשר את מחיקת הדיסק</value></data>
-  <data name="Launch.ConfirmDiskEraseMessageFormat" xml:space="preserve"><value>פעולה זו תמחק את כל הנתונים בדיסק שנבחר ותתקין את מערכת ההפעלה שנבחרה.
-
-דיסק: {0}
-דגם: {1}
-אוטובוס: {2}
-גודל: {3}
-
-מערכת הפעלה: {4}
-
-האם להמשיך בפריסה?</value></data>
-  <data name="Status.WaitingForDeployment" xml:space="preserve"><value>ממתין לפריסה...</value></data>
-  <data name="Status.WaitingForProgress" xml:space="preserve"><value>מחכה להתקדמות...</value></data>
-  <data name="Status.PreparingDeployment" xml:space="preserve"><value>מכין פריסה...</value></data>
-  <data name="Status.DeploymentCancelled" xml:space="preserve"><value>הפריסה בוטלה.</value></data>
-  <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>פעולה נוספת כבר פועלת.</value></data>
-  <data name="Status.StartingStep" xml:space="preserve"><value>שלב מתחיל...</value></data>
-  <data name="Status.StartingStepFormat" xml:space="preserve"><value>מתחיל {0}.</value></data>
-  <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>מתחיל {0}...</value></data>
-  <data name="Status.StepCompleted" xml:space="preserve"><value>שלב הושלם.</value></data>
-  <data name="Status.StepFailed" xml:space="preserve"><value>השלב נכשל.</value></data>
-  <data name="Status.StepSkipped" xml:space="preserve"><value>צעד דילג.</value></data>
-  <data name="Status.InProgress" xml:space="preserve"><value>בתהליך...</value></data>
-  <data name="Status.StepCounterUnknown" xml:space="preserve"><value>שלב:? של?</value></data>
-  <data name="Status.StepCounterFormat" xml:space="preserve"><value>שלב: {0} של {1}</value></data>
-  <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe נכשל עם קוד יציאה {0}. {1}</value></data>
-  <data name="Status.SystemReboot" xml:space="preserve"><value>אתחול המערכת</value></data>
-  <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>קובץ ההפעלה 'wpeutil.exe' הנדרש לא נמצא.</value></data>
-  <data name="Status.UnknownStep" xml:space="preserve"><value>צעד לא ידוע</value></data>
-  <data name="Status.NoErrorDetails" xml:space="preserve"><value>לא נמסרו פרטי שגיאה.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>איסוף משתנים</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>אתחול פריסה</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>אימות תצורה</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>בדיקת מטמון</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>הכנת דיסק</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>הורדת מערכת הפעלה</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>החלת מערכת הפעלה</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>הגדרת שם מחשב</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>הגדרת OOBE</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>הגדרת שחזור Windows</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>הורדת מנהלי התקנים</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>חילוץ מנהלי התקנים</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>הכנת התאמות</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>החלת מנהלי התקנים</value></data>
-  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>החלת מנהלי התקני שחזור</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>הורדת קושחה</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>החלת קושחה</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>איטום מחיצת שחזור</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>הכנת Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>סיום פריסה</value></data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>אוסף משתני פריסה...</value></data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>אוסף את הקשר הפריסה...</value></data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>משתני פריסה נאספו.</value></data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve"><value>משתני פריסה נאספו (סימולציה).</value></data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve"><value>מאתחל את סביבת העבודה של הפריסה...</value></data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve"><value>יוצר תיקיות סביבת עבודה...</value></data>
-  <data name="StepMessage.FinalizingDeployment" xml:space="preserve"><value>מסיים את הפריסה...</value></data>
-  <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve"><value>ניקוי חלל עבודה זמני...</value></data>
-  <data name="StepMessage.WritingDeploymentSummary" xml:space="preserve"><value>כותב סיכום פריסה...</value></data>
-  <data name="StepMessage.WritingCompletionLogs" xml:space="preserve"><value>כתיבת יומני השלמה...</value></data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve"><value>סביבת העבודה אותחלה.</value></data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve"><value>סביבת עבודה אותחל (סימולציה).</value></data>
-  <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve"><value>מאמת את תצורת היעד...</value></data>
-  <data name="StepMessage.RevalidatingTargetDisk" xml:space="preserve"><value>מאמת מחדש את דיסק היעד...</value></data>
-  <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve"><value>מזהה פרופיל חומרה...</value></data>
-  <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve"><value>מערכת ההפעלה URL חסרה.</value></data>
-  <data name="StepResult.TargetDiskNumberRequired" xml:space="preserve"><value>נדרש מספר דיסק יעד.</value></data>
-  <data name="StepResult.TargetConfigurationValidated" xml:space="preserve"><value>תצורת היעד אומתה.</value></data>
-  <data name="StepResult.TargetConfigurationValidatedSimulation" xml:space="preserve"><value>תצורת היעד אומתה (סימולציה).</value></data>
-  <data name="StepMessage.ResolvingCacheStrategy" xml:space="preserve"><value>בודק מטמון פריסה...</value></data>
-  <data name="StepMessage.ResolvingCacheLocation" xml:space="preserve"><value>פותר את מיקום המטמון...</value></data>
-  <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve"><value>בודק התנגשות דיסק מטמון...</value></data>
-  <data name="StepResult.CacheStrategyResolved" xml:space="preserve"><value>אסטרטגיית המטמון נפתרה.</value></data>
-  <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve"><value>אסטרטגיית המטמון נפתרה (סימולציה).</value></data>
-  <data name="StepMessage.PreparingTargetDiskLayout" xml:space="preserve"><value>מכין פריסת דיסק יעד...</value></data>
-  <data name="StepMessage.PartitioningTargetDisk" xml:space="preserve"><value>מחלק את דיסק היעד...</value></data>
-  <data name="StepMessage.PreparingTargetWorkspace" xml:space="preserve"><value>מכין סביבת עבודה יעד...</value></data>
-  <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve"><value>יצירת מחיצות מדומות...</value></data>
-  <data name="StepResult.TargetDiskLayoutPrepared" xml:space="preserve"><value>פריסת דיסק יעד הוכנה.</value></data>
-  <data name="StepResult.TargetDiskLayoutPreparedSimulation" xml:space="preserve"><value>פריסת דיסק יעד הוכנה (סימולציה).</value></data>
-  <data name="StepResult.TargetDiskLayoutNotPrepared" xml:space="preserve"><value>פריסת דיסק היעד לא הוכנה.</value></data>
-  <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve"><value>מוריד את תמונת מערכת ההפעלה...</value></data>
-  <data name="StepMessage.CheckingCache" xml:space="preserve"><value>בודק מטמון...</value></data>
-  <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve"><value>תמונת מערכת הפעלה מוכנה (סימולציה).</value></data>
-  <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve"><value>תמונת מערכת ההפעלה לא הורדה.</value></data>
-  <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve"><value>הורדת תמונת מערכת ההפעלה.</value></data>
-  <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve"><value>תמונת מערכת ההפעלה נפתרה מהמטמון.</value></data>
-  <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve"><value>מחיל תמונת מערכת הפעלה...</value></data>
-  <data name="StepMessage.InspectingImage" xml:space="preserve"><value>בודק תמונה...</value></data>
-  <data name="StepMessage.ApplyingImage" xml:space="preserve"><value>מחיל תמונה...</value></data>
-  <data name="StepMessage.ConfiguringBoot" xml:space="preserve"><value>מגדיר אתחול...</value></data>
-  <data name="StepMessage.VerifyingImage" xml:space="preserve"><value>מאמת תמונה...</value></data>
-  <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve"><value>הוחלה תמונת מערכת ההפעלה.</value></data>
-  <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve"><value>הוחלה תמונת מערכת הפעלה (סימולציה).</value></data>
-  <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>מגדיר את שם מחשב היעד...</value></data>
-  <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>כותב שם מחשב במצב לא מקוון...</value></data>
-  <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>מחיצת יעד Windows אינה זמינה.</value></data>
-  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>האינדקס של תמונת Windows שהוחלה אינו זמין.</value></data>
-  <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>שם מחשב היעד הוגדר.</value></data>
-  <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>שם מחשב היעד מוגדר (סימולציה).</value></data>
-  <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>התאמה אישית לא מקוונת מושבתת.</value></data>
-  <data name="StepMessage.ConfiguringOfflineCustomizations" xml:space="preserve"><value>מגדיר התאמות אישיות לא מקוונות...</value></data>
-  <data name="StepMessage.WritingFirstRunDefaults" xml:space="preserve"><value>כתיבת ברירות מחדל של הפעלה ראשונה...</value></data>
-  <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve"><value>מגדיר הסרת רכיבי AI...</value></data>
-  <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>כתיבת מדיניות AI לא מקוונת...</value></data>
-  <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>הוגדרה התאמה אישית לא מקוונת.</value></data>
-  <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>הוגדרה התאמה אישית לא מקוונת (סימולציה).</value></data>
-  <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>הגדרת הגדרות OOBE...</value></data>
-  <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>כתיבת ברירות מחדל של פרטיות בהפעלה ראשונה...</value></data>
-  <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>מגדיר את סביבת השחזור...</value></data>
-  <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>מכין סביבת שחזור Windows...</value></data>
-  <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>מחיצת השחזור אינה זמינה.</value></data>
-  <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>הוגדרה סביבת שחזור.</value></data>
-  <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>מוגדרת סביבת שחזור (סימולציה).</value></data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>אין צורך בתסריטים להתאמה אישית של OOBE.</value></data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>ביצוע התאמות אישיות לפני OOBE...</value></data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>בוצעו התאמות אישיות לפני OOBE.</value></data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>התאמות אישיות לפני OOBE בשלבים (סימולציה).</value></data>
-  <data name="StepResult.DriverPackDisabled" xml:space="preserve"><value>חבילת מנהלי ההתקן מושבתת (אף אחד לא נבחר).</value></data>
-  <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve"><value>אין צורך בהורדת חבילת דרייברים.</value></data>
-  <data name="StepMessage.DownloadingDriverPack" xml:space="preserve"><value>מוריד חבילת מנהלי התקנים...</value></data>
-  <data name="StepMessage.PreparingDownload" xml:space="preserve"><value>מכין הורדה...</value></data>
-  <data name="StepResult.OemDriverPackMissing" xml:space="preserve"><value>מצב חבילת מנהלי התקן OEM נבחר אך לא סופקה חבילת מנהלי התקן.</value></data>
-  <data name="StepResult.DriverPackDownloaded" xml:space="preserve"><value>הורדת חבילת דרייברים.</value></data>
-  <data name="StepResult.DriverPackDownloadedSimulation" xml:space="preserve"><value>הורדת חבילת דרייברים (סימולציה).</value></data>
-  <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve"><value>חבילת מנהלי התקנים נפתרה מהמטמון.</value></data>
-  <data name="StepMessage.ExtractingDriverPack" xml:space="preserve"><value>מחלץ חבילת דרייברים...</value></data>
-  <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve"><value>לא הורדה חבילת מנהלי התקנים.</value></data>
-  <data name="StepResult.DriverPackExtracted" xml:space="preserve"><value>חבילת דרייברים חולצה.</value></data>
-  <data name="StepResult.DriverPackExtractedSimulation" xml:space="preserve"><value>חבילת דרייברים חולצה (סימולציה).</value></data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve"><value>חבילת מנהלי התקנים מוכנה להתקנת אתחול ראשון.</value></data>
-  <data name="StepResult.NoDriverPackOperationRequired" xml:space="preserve"><value>אין צורך בפעולת חבילת מנהלי התקנים.</value></data>
-  <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve"><value>מצב התקנת חבילת מנהלי התקנים לא נתמך.</value></data>
-  <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve"><value>אין תוכן מנהלי INF שחולץ זמין.</value></data>
-  <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve"><value>תוכן מקור חבילת מנהלי התקנים אינו זמין עבור שלב אתחול ראשון.</value></data>
-  <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve"><value>Microsoft Update Catalog לא ייצר תוכן מנהל התקן.</value></data>
-  <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve"><value>התבקשה שלב חבילת מנהל התקן אתחול ראשון ללא פקודה נתמכת.</value></data>
-  <data name="StepMessage.ApplyingDriverPack" xml:space="preserve"><value>מחיל חבילת מנהלי התקנים...</value></data>
-  <data name="StepMessage.ApplyingWindowsDrivers" xml:space="preserve"><value>החלת מנהלי התקנים של Windows...</value></data>
-  <data name="StepMessage.MountingWinRe" xml:space="preserve"><value>הרכבה של WinRE...</value></data>
-  <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve"><value>החלת מנהלי התקנים של WinRE...</value></data>
-  <data name="StepMessage.UnmountingWinRe" xml:space="preserve"><value>מסיר את WinRE...</value></data>
-  <data name="StepMessage.StagingPackage" xml:space="preserve"><value>חבילת בימוי...</value></data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve"><value>מעדכן את סקריפט ההתקנה של האתחול הראשון...</value></data>
-  <data name="StepProgress.PercentFormat" xml:space="preserve"><value>{0}: {1}%</value></data>
-  <data name="StepProgress.Downloading" xml:space="preserve"><value>מוריד</value></data>
-  <data name="StepProgress.Extracting" xml:space="preserve"><value>חילוץ</value></data>
-  <data name="StepProgress.Applying" xml:space="preserve"><value>מגיש בקשה</value></data>
-  <data name="StepProgress.Staging" xml:space="preserve"><value>בימוי</value></data>
-  <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>הורדת {0}</value></data>
-  <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>חבילת מנהלי התקנים הוחלה.</value></data>
-  <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>חבילת דרייברים הוחלה (סימולציה).</value></data>
-  <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>מוריד עדכון קושחה...</value></data>
-  <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>מכין חיפוש Microsoft Update Catalog...</value></data>
-  <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve"><value>עדכוני קושחה מושבתים.</value></data>
-  <data name="StepResult.FirmwareUpdatesDisabledForVirtualMachines" xml:space="preserve"><value>עדכוני קושחה מושבתים עבור מכונות וירטואליות.</value></data>
-  <data name="StepResult.FirmwareUpdatesSkippedOnBattery" xml:space="preserve"><value>עדכוני קושחה מדלגים בזמן שהמכשיר פועל על סוללה.</value></data>
-  <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve"><value>מזהה חומרת קושחת המערכת אינו זמין.</value></data>
-  <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve"><value>הורד עדכון קושחה.</value></data>
-  <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve"><value>הורד עדכון קושחה (סימולציה).</value></data>
-  <data name="StepResult.NoExtractedFirmwarePayload" xml:space="preserve"><value>אין תוכן קושחה שחולץ זמין.</value></data>
-  <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve"><value>תוכן הקושחה שחולץ אינו מכיל קבצי INF.</value></data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve"><value>מחיל עדכון קושחה...</value></data>
-  <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve"><value>הזרקת תוכן קושחה לא מקוון Windows...</value></data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve"><value>הוחל עדכון קושחה.</value></data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve"><value>הוחל עדכון קושחה (סימולציה).</value></data>
-  <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve"><value>איטום מחיצת שחזור...</value></data>
-  <data name="StepMessage.RemovingRecoveryDriveLetter" xml:space="preserve"><value>מסיר את אות כונן השחזור...</value></data>
-  <data name="StepResult.RecoveryPartitionSealed" xml:space="preserve"><value>מחיצת שחזור אטומה.</value></data>
-  <data name="StepResult.RecoveryPartitionSealedSimulation" xml:space="preserve"><value>מחיצת שחזור אטומה (סימולציה).</value></data>
-  <data name="StepResult.AutopilotDisabled" xml:space="preserve"><value>Autopilot מושבת.</value></data>
-  <data name="StepResult.AutopilotProfileMissing" xml:space="preserve"><value>Autopilot מופעל אך לא נבחר פרופיל.</value></data>
-  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve"><value>מחיצת יעד Windows אינה זמינה עבור Autopilot.</value></data>
-  <data name="StepResult.TargetAutopilotDirectoryUnavailable" xml:space="preserve"><value>נכשל בפתרון ספריית היעד Autopilot.</value></data>
-  <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve"><value>מביים פרופיל Autopilot...</value></data>
-  <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve"><value>מעתיק AutopilotConfigurationFile.json...</value></data>
-  <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve"><value>כתיבת מניפסט מדומה של Autopilot...</value></data>
-  <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve"><value>לוכד Autopilot hash חומרה...</value></data>
-  <data name="StepMessage.RunningOa3Tool" xml:space="preserve"><value>פועל OA3Tool...</value></data>
-  <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve"><value>מעלה Autopilot hash חומרה...</value></data>
-  <data name="StepMessage.PreparingMicrosoftGraphImport" xml:space="preserve"><value>מכין ייבוא Microsoft Graph...</value></data>
-  <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve"><value>שולח בקשת יבוא אל Microsoft Graph...</value></data>
-  <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve"><value>ממתין לנראות המכשיר Autopilot...</value></data>
-  <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve"><value>בודק התקני Windows Autopilot (נותרו {0})...</value></data>
-  <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve"><value>מעדכן מכשיר Autopilot קיים...</value></data>
-  <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve"><value>מעדכן את תג הקבוצה Windows Autopilot ב-Microsoft Graph...</value></data>
-  <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve"><value>ממתין לעדכון תג הקבוצה Autopilot...</value></data>
-  <data name="StepMessage.CheckingWindowsAutopilotGroupTagFormat" xml:space="preserve"><value>בודק תג קבוצה Windows Autopilot (נותר {0})...</value></data>
-  <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve"><value>מכין Autopilot העלאת גיבוב חומרה...</value></data>
-  <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve"><value>מפענח אישור מדיה...</value></data>
-  <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve"><value>מאמת Autopilot העלאת גיבוב חומרה...</value></data>
-  <data name="StepMessage.RequestingMicrosoftGraphToken" xml:space="preserve"><value>מבקש אסימון Microsoft Graph...</value></data>
-  <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve"><value>מייבא hash חומרה אל Microsoft Graph...</value></data>
-  <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve"><value>כתיבת מניפסט hash מדומה Autopilot...</value></data>
-  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve"><value>מחיצת יעד Windows אינה זמינה להעלאת גיבוב חומרה Autopilot.</value></data>
-  <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve"><value>Autopilot העלאת ה-hash של החומרה דילגה כי פג תוקף האישור המוטבע.</value></data>
-  <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve"><value>Autopilot העלאת ה-hash של החומרה דילגה מכיוון שהמידע הנדרש על אישור המדיה אינו שלם.</value></data>
-  <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve"><value>Autopilot hash חומרה מיובא וגלוי במכשירי Windows Autopilot.</value></data>
-  <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve"><value>מכשיר Autopilot מיובא לא הופיע במכשירי Windows Autopilot לפני פסק הזמן הקצוב.</value></data>
-  <data name="StepResult.AutopilotGroupTagUpdateTimedOut" xml:space="preserve"><value>Windows Autopilot עדכון תג קבוצת המכשירים לא אושר לפני הזמן הקצוב.</value></data>
-  <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve"><value>Autopilot העלאת גיבוב חומרה שהוכנה לסימולציה.</value></data>
-  <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve"><value>Autopilot העלאת גיבוב חומרה הוכנה (סימולציה).</value></data>
-  <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve"><value>קובץ הפרופיל Autopilot שנבחר לא נמצא: {0}</value></data>
-  <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot לכידת hash חומרה נכשלה: {0}</value></data>
-  <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot ייבוא גיבוב חומרה נכשל: {0}</value></data>
-  <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot העלאת גיבוב חומרה דילגה: {0}</value></data>
-  <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>פרופיל Autopilot מבוים.</value></data>
-  <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot פרופיל מבויים (סימולציה).</value></data>
+פעולה: אמת את תכונות הדיסק ונסה שוב לפרוס.</value>
+  </data>
+  <data name="Debug.ProgressPageCommand" xml:space="preserve">
+    <value>דף התקדמות</value>
+  </data>
+  <data name="Debug.SuccessPageCommand" xml:space="preserve">
+    <value>דף הצלחה</value>
+  </data>
+  <data name="DeploymentAccess.Continue" xml:space="preserve">
+    <value>המשך</value>
+  </data>
+  <data name="DeploymentAccess.Description" xml:space="preserve">
+    <value>הזן את סיסמת הטכנאי כדי להמשיך.</value>
+  </data>
+  <data name="DeploymentAccess.Heading" xml:space="preserve">
+    <value>נדרשת סיסמה</value>
+  </data>
+  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve">
+    <value>הסיסמה שגויה. נסה שוב.</value>
+  </data>
+  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve">
+    <value>סיסמת פריסה</value>
+  </data>
+  <data name="DeploymentAccess.Title" xml:space="preserve">
+    <value>פריסה מוגנת</value>
+  </data>
+  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve">
+    <value>הצג או הסתר את הסיסמה</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>בחר היכן לייצא את אבחון Foundry</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>לא ניתן היה לייצא את האבחון. בדוק את היומן לפרטים.</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>ייצוא האבחון נכשל</value>
+  </data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>ייצוא אבחון...</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>ייצוא יומנים גולמיים</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>ייצוא אבחון גולמי...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>לייצא אבחון גולמי?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>יומנים גולמיים עשויים להכיל אישורי גישה, מזהים, נתיבים, שמות רשת ונתונים רגישים אחרים. ייצא אותם רק כאשר איש תמיכה מהימן מבקש זאת במפורש.</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>האבחון יוצא אל:
+{0}</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>האבחון יוצא</value>
+  </data>
+  <data name="Disk.BlockedBootDisk" xml:space="preserve">
+    <value>חסום: דיסק אתחול</value>
+  </data>
+  <data name="Disk.BlockedOffline" xml:space="preserve">
+    <value>חסום: לא מקוון</value>
+  </data>
+  <data name="Disk.BlockedReadOnly" xml:space="preserve">
+    <value>חסום: לקריאה בלבד</value>
+  </data>
+  <data name="Disk.BlockedSystemDisk" xml:space="preserve">
+    <value>חסום: דיסק מערכת</value>
+  </data>
+  <data name="Disk.DebugVirtualTarget" xml:space="preserve">
+    <value>ניפוי יעד וירטואלי</value>
+  </data>
+  <data name="Disk.DisplayLabelFormat" xml:space="preserve">
+    <value>דיסק {0} | {1} | {2} | {3}{4}</value>
+  </data>
+  <data name="Disk.TargetBlockedFormat" xml:space="preserve">
+    <value>דיסק היעד {0} חסום: {1}</value>
+  </data>
+  <data name="Disk.TargetMissingFormat" xml:space="preserve">
+    <value>דיסק היעד {0} אינו קיים יותר.</value>
+  </data>
+  <data name="Disk.UnknownSize" xml:space="preserve">
+    <value>גודל לא ידוע</value>
+  </data>
+  <data name="Disk.WarningSuffixFormat" xml:space="preserve">
+    <value>| {0}</value>
+  </data>
+  <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
+    <value>Microsoft Update Catalog</value>
+  </data>
+  <data name="DriverPack.Model" xml:space="preserve">
+    <value>דגם</value>
+  </data>
+  <data name="DriverPack.MultiModelFormat" xml:space="preserve">
+    <value>{0} (דגמים +{1})</value>
+  </data>
+  <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve">
+    <value>{0}: אין דגם או גרסה תואמים</value>
+  </data>
+  <data name="DriverPack.Oem" xml:space="preserve">
+    <value>OEM</value>
+  </data>
+  <data name="DriverPack.Source" xml:space="preserve">
+    <value>מקור מנהל ההתקן</value>
+  </data>
+  <data name="DriverPack.Version" xml:space="preserve">
+    <value>גרסה</value>
+  </data>
+  <data name="Drivers.Description" xml:space="preserve">
+    <value>בחר את מקור מנהלי ההתקנים, ובמידת הצורך את הדגם והגרסה המתאימים.</value>
+  </data>
+  <data name="Drivers.Title" xml:space="preserve">
+    <value>מנהלי התקנים</value>
+  </data>
+  <data name="Error.FailedStepFormat" xml:space="preserve">
+    <value>שלב שנכשל: {0}</value>
+  </data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
+    <value>פרטי שגיאה</value>
+  </data>
+  <data name="Error.Title" xml:space="preserve">
+    <value>הפריסה נכשלה</value>
+  </data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve">
+    <value>הצג פרטי שגיאה</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>ערבית (ערב הסעודית)</value>
   </data>
   <data name="Language.BulgarianBulgaria" xml:space="preserve">
     <value>בולגרית (בולגריה)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>סינית פשוטה (סין)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>סינית מסורתית (טייוואן)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>קרואטית (קרואטיה)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
     <value>צ'כיה (צ'כיה)</value>
@@ -350,23 +314,14 @@ ErrorCode=0x80070005
   <data name="Language.DanishDenmark" xml:space="preserve">
     <value>דנית (דנמרק)</value>
   </data>
-  <data name="Language.GermanGermany" xml:space="preserve">
-    <value>גרמנית (גרמניה)</value>
-  </data>
-  <data name="Language.GreekGreece" xml:space="preserve">
-    <value>יוונית (יוון)</value>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>הולנדית (הולנד)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>אנגלית (בריטניה)</value>
   </data>
   <data name="Language.EnglishUnitedStates" xml:space="preserve">
     <value>אנגלית (ארצות הברית)</value>
-  </data>
-  <data name="Language.SpanishSpain" xml:space="preserve">
-    <value>ספרדית (ספרד)</value>
-  </data>
-  <data name="Language.SpanishMexico" xml:space="preserve">
-    <value>ספרדית (מקסיקו)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
     <value>אסטונית (אסטוניה)</value>
@@ -380,11 +335,14 @@ ErrorCode=0x80070005
   <data name="Language.FrenchFrance" xml:space="preserve">
     <value>צרפתית (צרפת)</value>
   </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>גרמנית (גרמניה)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>יוונית (יוון)</value>
+  </data>
   <data name="Language.HebrewIsrael" xml:space="preserve">
     <value>עברית (ישראל)</value>
-  </data>
-  <data name="Language.CroatianCroatia" xml:space="preserve">
-    <value>קרואטית (קרואטיה)</value>
   </data>
   <data name="Language.HungarianHungary" xml:space="preserve">
     <value>הונגרית (הונגריה)</value>
@@ -398,17 +356,14 @@ ErrorCode=0x80070005
   <data name="Language.KoreanKorea" xml:space="preserve">
     <value>קוריאנית (קוריאה)</value>
   </data>
-  <data name="Language.LithuanianLithuania" xml:space="preserve">
-    <value>ליטאית (ליטא)</value>
-  </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
     <value>לטביה (לטביה)</value>
   </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>ליטאית (ליטא)</value>
+  </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
     <value>בוקמאל הנורבגי (נורווגיה)</value>
-  </data>
-  <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>הולנדית (הולנד)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>פולנית (פולין)</value>
@@ -425,14 +380,20 @@ ErrorCode=0x80070005
   <data name="Language.RussianRussia" xml:space="preserve">
     <value>רוסית (רוסיה)</value>
   </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>לטינית סרבית (סרביה)</value>
+  </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>סלובקית (סלובקיה)</value>
   </data>
   <data name="Language.SlovenianSlovenia" xml:space="preserve">
     <value>סלובנית (סלובניה)</value>
   </data>
-  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>לטינית סרבית (סרביה)</value>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>ספרדית (מקסיקו)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>ספרדית (ספרד)</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
     <value>שוודית (שבדיה)</value>
@@ -446,23 +407,644 @@ ErrorCode=0x80070005
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>אוקראינית (אוקראינה)</value>
   </data>
-  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>סינית פשוטה (סין)</value>
+  <data name="Launch.ConfirmDiskEraseMessageFormat" xml:space="preserve">
+    <value>פעולה זו תמחק את כל הנתונים בדיסק שנבחר ותתקין את מערכת ההפעלה שנבחרה.
+
+דיסק: {0}
+דגם: {1}
+אוטובוס: {2}
+גודל: {3}
+
+מערכת הפעלה: {4}
+
+האם להמשיך בפריסה?</value>
   </data>
-  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>סינית מסורתית (טייוואן)</value>
+  <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve">
+    <value>אשר את מחיקת הדיסק</value>
   </data>
-  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
-    <value>מכין את מסייע הרישום של Autopilot...</value>
+  <data name="Menu.About" xml:space="preserve">
+    <value>_בערך</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>_ניפוי באגים</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>_שפה</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>_נושא</value>
+  </data>
+  <data name="Menu.Tools" xml:space="preserve">
+    <value>_כלים</value>
+  </data>
+  <data name="OperatingSystem.Description" xml:space="preserve">
+    <value>בחר את מהדורת Windows, השפה, הגרסה וערוץ הרישוי.</value>
+  </data>
+  <data name="OperatingSystem.Title" xml:space="preserve">
+    <value>מערכת הפעלה</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
+    <value>תפוגה של תעודה</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve">
+    <value>פג תוקף אישור Autopilot. ניתן להמשיך בפריסה בלי להעלות את גיבוב החומרה.</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve">
+    <value>תג קבוצה</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve">
+    <value>מידע האישור הנדרש חסר. ניתן להמשיך בפריסה בלי להעלות את גיבוב החומרה.</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve">
+    <value>מוכן להעלות hash של חומרה</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve">
+    <value>זיהוי דייר</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve">
+    <value>העלאת גיבוב החומרה אינה זמינה</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve">
+    <value>סטטוס העלאת גיבוב של חומרה</value>
+  </data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve">
+    <value>העלאת Hash חומרה ב-Zero-touch</value>
+  </data>
+  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve">
+    <value>העלאה אינטראקטיבית של hash חומרה</value>
+  </data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
+    <value>JSON הקצאת פרופיל</value>
+  </data>
+  <data name="Preparation.AutopilotProfile" xml:space="preserve">
+    <value>פרופיל</value>
+  </data>
+  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve">
+    <value>לא נמצאו פרופילים משובצים של Autopilot במדיה זו.</value>
+  </data>
+  <data name="Preparation.ComputerName" xml:space="preserve">
+    <value>שם המחשב</value>
+  </data>
+  <data name="Preparation.ComputerNameHint" xml:space="preserve">
+    <value>1-15 תווים. A-Z, a-z, 0-9 ומקף בלבד.</value>
+  </data>
+  <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve">
+    <value>שם המחשב חייב להכיל 1 עד 15 תווים חוקיים (אותיות, מספרים או מקף).</value>
+  </data>
+  <data name="Preparation.DetectingHardware" xml:space="preserve">
+    <value>מזהה חומרה...</value>
+  </data>
+  <data name="Preparation.FirmwareUpdates" xml:space="preserve">
+    <value>החל עדכוני קושחה</value>
+  </data>
+  <data name="Preparation.HardwareDetectionFailed" xml:space="preserve">
+    <value>זיהוי החומרה נכשל.</value>
+  </data>
+  <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve">
+    <value>זיהוי החומרה נכשל: {0}</value>
+  </data>
+  <data name="Preparation.HardwareSummaryFormat" xml:space="preserve">
+    <value>{0} | TPM: {1} | כוח: {2} | קושחה: {3}</value>
+  </data>
+  <data name="Preparation.PowerAc" xml:space="preserve">
+    <value>AC</value>
+  </data>
+  <data name="Preparation.PowerBattery" xml:space="preserve">
+    <value>סוללה</value>
+  </data>
+  <data name="Preparation.TargetDisk" xml:space="preserve">
+    <value>דיסק מטרה</value>
+  </data>
+  <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve">
+    <value>גילוי דיסק יעד נכשל: {0}</value>
+  </data>
+  <data name="Preparation.TargetDiskHint" xml:space="preserve">
+    <value>בחר דיסק יעד. דיסקים לא כשירים חסומים.</value>
+  </data>
+  <data name="Progress.ElapsedTime" xml:space="preserve">
+    <value>זמן שחלף</value>
+  </data>
+  <data name="Progress.Networking" xml:space="preserve">
+    <value>רשת</value>
+  </data>
+  <data name="Progress.RingAutomationName" xml:space="preserve">
+    <value>התקדמות הפריסה הכוללת</value>
+  </data>
+  <data name="Progress.Session" xml:space="preserve">
+    <value>הפעלת פריסה</value>
+  </data>
+  <data name="Progress.StartTime" xml:space="preserve">
+    <value>שעת התחלה</value>
+  </data>
+  <data name="Progress.Timeline" xml:space="preserve">
+    <value>שלבים</value>
+  </data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve">
+    <value>שלבי פריסה</value>
+  </data>
+  <data name="Splash.InitializingComponents" xml:space="preserve">
+    <value>מאתחל רכיבים...</value>
+  </data>
+  <data name="Splash.StartDeployment" xml:space="preserve">
+    <value>התחל פריסה</value>
+  </data>
+  <data name="Splash.Welcome" xml:space="preserve">
+    <value>ברוך הבא</value>
+  </data>
+  <data name="Status.AnotherOperationRunning" xml:space="preserve">
+    <value>פעולה נוספת כבר פועלת.</value>
+  </data>
+  <data name="Status.DeploymentCancelled" xml:space="preserve">
+    <value>הפריסה בוטלה.</value>
+  </data>
+  <data name="Status.InProgress" xml:space="preserve">
+    <value>בתהליך...</value>
+  </data>
+  <data name="Status.NoErrorDetails" xml:space="preserve">
+    <value>לא נמסרו פרטי שגיאה.</value>
+  </data>
+  <data name="Status.PreparingDeployment" xml:space="preserve">
+    <value>מכין פריסה...</value>
+  </data>
+  <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve">
+    <value>קובץ ההפעלה 'wpeutil.exe' הנדרש לא נמצא.</value>
+  </data>
+  <data name="Status.StartingStep" xml:space="preserve">
+    <value>שלב מתחיל...</value>
+  </data>
+  <data name="Status.StartingStepFormat" xml:space="preserve">
+    <value>מתחיל {0}.</value>
+  </data>
+  <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
+    <value>מתחיל {0}...</value>
+  </data>
+  <data name="Status.StepCompleted" xml:space="preserve">
+    <value>שלב הושלם.</value>
+  </data>
+  <data name="Status.StepCounterFormat" xml:space="preserve">
+    <value>שלב: {0} של {1}</value>
+  </data>
+  <data name="Status.StepCounterUnknown" xml:space="preserve">
+    <value>שלב:? של?</value>
+  </data>
+  <data name="Status.StepFailed" xml:space="preserve">
+    <value>השלב נכשל.</value>
+  </data>
+  <data name="Status.StepSkipped" xml:space="preserve">
+    <value>צעד דילג.</value>
+  </data>
+  <data name="Status.SystemReboot" xml:space="preserve">
+    <value>אתחול המערכת</value>
+  </data>
+  <data name="Status.UnknownStep" xml:space="preserve">
+    <value>צעד לא ידוע</value>
+  </data>
+  <data name="Status.WaitingForDeployment" xml:space="preserve">
+    <value>ממתין לפריסה...</value>
+  </data>
+  <data name="Status.WaitingForProgress" xml:space="preserve">
+    <value>מחכה להתקדמות...</value>
+  </data>
+  <data name="Status.WpeUtilFailureFormat" xml:space="preserve">
+    <value>wpeutil.exe נכשל עם קוד יציאה {0}. {1}</value>
+  </data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve">
+    <value>החלת מנהלי התקנים</value>
+  </data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
+    <value>החלת קושחה</value>
+  </data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
+    <value>החלת מערכת הפעלה</value>
+  </data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
+    <value>החלת מנהלי התקני שחזור</value>
+  </data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve">
+    <value>הגדרת OOBE</value>
+  </data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
+    <value>הגדרת שחזור Windows</value>
+  </data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
+    <value>הגדרת שם מחשב</value>
+  </data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
+    <value>הגדרת תכונות אופציונליות</value>
+  </data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve">
+    <value>הורדת מנהלי התקנים</value>
+  </data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
+    <value>הורדת קושחה</value>
+  </data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
+    <value>הורדת מערכת הפעלה</value>
+  </data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve">
+    <value>חילוץ מנהלי התקנים</value>
+  </data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
+    <value>סיום פריסה</value>
+  </data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
+    <value>איסוף משתנים</value>
+  </data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
+    <value>אתחול פריסה</value>
+  </data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
+    <value>הכנת דיסק</value>
+  </data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve">
+    <value>הכנת Autopilot</value>
+  </data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve">
+    <value>בדיקת מטמון</value>
+  </data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve">
+    <value>איטום מחיצת שחזור</value>
+  </data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve">
+    <value>הכנת התאמות</value>
+  </data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
+    <value>אימות תצורה</value>
+  </data>
+  <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
+    <value>מחיל חבילת מנהלי התקנים...</value>
+  </data>
+  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
+    <value>מחיל עדכון קושחה...</value>
+  </data>
+  <data name="StepMessage.ApplyingImage" xml:space="preserve">
+    <value>מחיל תמונה...</value>
+  </data>
+  <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve">
+    <value>מחיל תמונת מערכת הפעלה...</value>
+  </data>
+  <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve">
+    <value>החלת מנהלי התקנים של WinRE...</value>
+  </data>
+  <data name="StepMessage.ApplyingWindowsDrivers" xml:space="preserve">
+    <value>החלת מנהלי התקנים של Windows...</value>
+  </data>
+  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
+    <value>מחיל שינויים בתכונות...</value>
+  </data>
+  <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve">
+    <value>מאמת Autopilot העלאת גיבוב חומרה...</value>
+  </data>
+  <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
+    <value>לוכד Autopilot hash חומרה...</value>
+  </data>
+  <data name="StepMessage.CheckingCache" xml:space="preserve">
+    <value>בודק מטמון...</value>
+  </data>
+  <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
+    <value>בודק התנגשות דיסק מטמון...</value>
+  </data>
+  <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
+    <value>בודק התקני Windows Autopilot (נותרו {0})...</value>
+  </data>
+  <data name="StepMessage.CheckingWindowsAutopilotGroupTagFormat" xml:space="preserve">
+    <value>בודק תג קבוצה Windows Autopilot (נותר {0})...</value>
+  </data>
+  <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
+    <value>ניקוי חלל עבודה זמני...</value>
+  </data>
+  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
+    <value>אוסף את הקשר הפריסה...</value>
+  </data>
+  <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
+    <value>מגדיר הסרת רכיבי AI...</value>
+  </data>
+  <data name="StepMessage.ConfiguringBoot" xml:space="preserve">
+    <value>מגדיר אתחול...</value>
+  </data>
+  <data name="StepMessage.ConfiguringOfflineCustomizations" xml:space="preserve">
+    <value>מגדיר התאמות אישיות לא מקוונות...</value>
+  </data>
+  <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve">
+    <value>הגדרת הגדרות OOBE...</value>
+  </data>
+  <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve">
+    <value>מגדיר את סביבת השחזור...</value>
+  </data>
+  <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve">
+    <value>מגדיר את שם מחשב היעד...</value>
+  </data>
+  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve">
+    <value>הגדרת תכונות אופציונליות של Windows...</value>
+  </data>
+  <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
+    <value>מעתיק AutopilotConfigurationFile.json...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>מעתיק קובצי רישום אינטראקטיבי...</value>
   </data>
+  <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
+    <value>יצירת מחיצות מדומות...</value>
+  </data>
+  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
+    <value>יוצר תיקיות סביבת עבודה...</value>
+  </data>
+  <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
+    <value>מפענח אישור מדיה...</value>
+  </data>
+  <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve">
+    <value>מזהה פרופיל חומרה...</value>
+  </data>
+  <data name="StepMessage.DownloadingDriverPack" xml:space="preserve">
+    <value>מוריד חבילת מנהלי התקנים...</value>
+  </data>
+  <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve">
+    <value>מוריד עדכון קושחה...</value>
+  </data>
+  <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve">
+    <value>מוריד את תמונת מערכת ההפעלה...</value>
+  </data>
+  <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
+    <value>מחלץ חבילת דרייברים...</value>
+  </data>
+  <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
+    <value>מסיים את הפריסה...</value>
+  </data>
+  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
+    <value>אוסף משתני פריסה...</value>
+  </data>
+  <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
+    <value>מייבא hash חומרה אל Microsoft Graph...</value>
+  </data>
+  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
+    <value>מאתחל את סביבת העבודה של הפריסה...</value>
+  </data>
+  <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
+    <value>הזרקת תוכן קושחה לא מקוון Windows...</value>
+  </data>
+  <data name="StepMessage.InspectingImage" xml:space="preserve">
+    <value>בודק תמונה...</value>
+  </data>
+  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve">
+    <value>בודק מצבי תכונה...</value>
+  </data>
+  <data name="StepMessage.MountingWinRe" xml:space="preserve">
+    <value>הרכבה של WinRE...</value>
+  </data>
+  <data name="StepMessage.PartitioningTargetDisk" xml:space="preserve">
+    <value>מחלק את דיסק היעד...</value>
+  </data>
+  <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve">
+    <value>מכין Autopilot העלאת גיבוב חומרה...</value>
+  </data>
+  <data name="StepMessage.PreparingDownload" xml:space="preserve">
+    <value>מכין הורדה...</value>
+  </data>
+  <data name="StepMessage.PreparingMicrosoftGraphImport" xml:space="preserve">
+    <value>מכין ייבוא Microsoft Graph...</value>
+  </data>
+  <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve">
+    <value>מכין חיפוש Microsoft Update Catalog...</value>
+  </data>
+  <data name="StepMessage.PreparingTargetDiskLayout" xml:space="preserve">
+    <value>מכין פריסת דיסק יעד...</value>
+  </data>
+  <data name="StepMessage.PreparingTargetWorkspace" xml:space="preserve">
+    <value>מכין סביבת עבודה יעד...</value>
+  </data>
+  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve">
+    <value>מכין מקורות מדיה תואמים להגדרה...</value>
+  </data>
+  <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve">
+    <value>מכין סביבת שחזור Windows...</value>
+  </data>
+  <data name="StepMessage.RemovingRecoveryDriveLetter" xml:space="preserve">
+    <value>מסיר את אות כונן השחזור...</value>
+  </data>
+  <data name="StepMessage.RequestingMicrosoftGraphToken" xml:space="preserve">
+    <value>מבקש אסימון Microsoft Graph...</value>
+  </data>
+  <data name="StepMessage.ResolvingCacheLocation" xml:space="preserve">
+    <value>פותר את מיקום המטמון...</value>
+  </data>
+  <data name="StepMessage.ResolvingCacheStrategy" xml:space="preserve">
+    <value>בודק מטמון פריסה...</value>
+  </data>
+  <data name="StepMessage.RevalidatingTargetDisk" xml:space="preserve">
+    <value>מאמת מחדש את דיסק היעד...</value>
+  </data>
+  <data name="StepMessage.RunningOa3Tool" xml:space="preserve">
+    <value>פועל OA3Tool...</value>
+  </data>
+  <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve">
+    <value>איטום מחיצת שחזור...</value>
+  </data>
+  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve">
+    <value>הדמיית שינויים בתכונות...</value>
+  </data>
+  <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
+    <value>מביים פרופיל Autopilot...</value>
+  </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>מכין את מסייע הרישום של Autopilot...</value>
+  </data>
+  <data name="StepMessage.StagingPackage" xml:space="preserve">
+    <value>חבילת בימוי...</value>
+  </data>
+  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
+    <value>ביצוע התאמות אישיות לפני OOBE...</value>
+  </data>
+  <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
+    <value>שולח בקשת יבוא אל Microsoft Graph...</value>
+  </data>
+  <data name="StepMessage.UnmountingWinRe" xml:space="preserve">
+    <value>מסיר את WinRE...</value>
+  </data>
+  <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
+    <value>מעדכן מכשיר Autopilot קיים...</value>
+  </data>
+  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
+    <value>מעדכן את סקריפט ההתקנה של האתחול הראשון...</value>
+  </data>
+  <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
+    <value>מעדכן את תג הקבוצה Windows Autopilot ב-Microsoft Graph...</value>
+  </data>
+  <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve">
+    <value>מעלה Autopilot hash חומרה...</value>
+  </data>
+  <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve">
+    <value>מאמת את תצורת היעד...</value>
+  </data>
+  <data name="StepMessage.VerifyingImage" xml:space="preserve">
+    <value>מאמת תמונה...</value>
+  </data>
+  <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve">
+    <value>ממתין לנראות המכשיר Autopilot...</value>
+  </data>
+  <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
+    <value>ממתין לעדכון תג הקבוצה Autopilot...</value>
+  </data>
+  <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
+    <value>כתיבת יומני השלמה...</value>
+  </data>
+  <data name="StepMessage.WritingDeploymentSummary" xml:space="preserve">
+    <value>כותב סיכום פריסה...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve">
+    <value>כתיבת מניפסט hash מדומה Autopilot...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve">
+    <value>כתיבת מניפסט מדומה של Autopilot...</value>
+  </data>
   <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
     <value>כותב מניפסט רישום אינטראקטיבי להרצה יבשה...</value>
   </data>
-  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
-    <value>מחיצת ה-Windows היעד אינה זמינה להכנת מסייע הרישום האינטראקטיבי של Autopilot.</value>
+  <data name="StepMessage.WritingFirstRunDefaults" xml:space="preserve">
+    <value>כתיבת ברירות מחדל של הפעלה ראשונה...</value>
+  </data>
+  <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve">
+    <value>כתיבת ברירות מחדל של פרטיות בהפעלה ראשונה...</value>
+  </data>
+  <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve">
+    <value>כתיבת מדיניות AI לא מקוונת...</value>
+  </data>
+  <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve">
+    <value>כותב שם מחשב במצב לא מקוון...</value>
+  </data>
+  <data name="StepProgress.Applying" xml:space="preserve">
+    <value>מגיש בקשה</value>
+  </data>
+  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
+    <value>החלת שינויים בתכונות</value>
+  </data>
+  <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve">
+    <value>הורדת {0}</value>
+  </data>
+  <data name="StepProgress.Downloading" xml:space="preserve">
+    <value>מוריד</value>
+  </data>
+  <data name="StepProgress.Extracting" xml:space="preserve">
+    <value>חילוץ</value>
+  </data>
+  <data name="StepProgress.PercentFormat" xml:space="preserve">
+    <value>{0}: {1}%</value>
+  </data>
+  <data name="StepProgress.Staging" xml:space="preserve">
+    <value>בימוי</value>
+  </data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
+    <value>האינדקס של תמונת Windows שהוחלה אינו זמין.</value>
+  </data>
+  <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve">
+    <value>מכשיר Autopilot מיובא לא הופיע במכשירי Windows Autopilot לפני פסק הזמן הקצוב.</value>
+  </data>
+  <data name="StepResult.AutopilotDisabled" xml:space="preserve">
+    <value>Autopilot מושבת.</value>
+  </data>
+  <data name="StepResult.AutopilotGroupTagUpdateTimedOut" xml:space="preserve">
+    <value>Windows Autopilot עדכון תג קבוצת המכשירים לא אושר לפני הזמן הקצוב.</value>
+  </data>
+  <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve">
+    <value>Autopilot hash חומרה מיובא וגלוי במכשירי Windows Autopilot.</value>
+  </data>
+  <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve">
+    <value>Autopilot לכידת hash חומרה נכשלה: {0}</value>
+  </data>
+  <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve">
+    <value>Autopilot ייבוא גיבוב חומרה נכשל: {0}</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve">
+    <value>Autopilot העלאת גיבוב חומרה שהוכנה לסימולציה.</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve">
+    <value>Autopilot העלאת גיבוב חומרה הוכנה (סימולציה).</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve">
+    <value>Autopilot העלאת ה-hash של החומרה דילגה כי פג תוקף האישור המוטבע.</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve">
+    <value>Autopilot העלאת גיבוב חומרה דילגה: {0}</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
+    <value>Autopilot העלאת ה-hash של החומרה דילגה מכיוון שהמידע הנדרש על אישור המדיה אינו שלם.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
+    <value>Autopilot מופעל אך לא נבחר פרופיל.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
+    <value>פרופיל Autopilot מבוים.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
+    <value>Autopilot פרופיל מבויים (סימולציה).</value>
+  </data>
+  <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
+    <value>אסטרטגיית המטמון נפתרה.</value>
+  </data>
+  <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
+    <value>אסטרטגיית המטמון נפתרה (סימולציה).</value>
+  </data>
+  <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
+    <value>התבקשה שלב חבילת מנהל התקן אתחול ראשון ללא פקודה נתמכת.</value>
+  </data>
+  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
+    <value>משתני פריסה נאספו.</value>
+  </data>
+  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
+    <value>משתני פריסה נאספו (סימולציה).</value>
+  </data>
+  <data name="StepResult.DriverPackApplied" xml:space="preserve">
+    <value>חבילת מנהלי התקנים הוחלה.</value>
+  </data>
+  <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve">
+    <value>חבילת דרייברים הוחלה (סימולציה).</value>
+  </data>
+  <data name="StepResult.DriverPackDisabled" xml:space="preserve">
+    <value>חבילת מנהלי ההתקן מושבתת (אף אחד לא נבחר).</value>
+  </data>
+  <data name="StepResult.DriverPackDownloaded" xml:space="preserve">
+    <value>הורדת חבילת דרייברים.</value>
+  </data>
+  <data name="StepResult.DriverPackDownloadedSimulation" xml:space="preserve">
+    <value>הורדת חבילת דרייברים (סימולציה).</value>
+  </data>
+  <data name="StepResult.DriverPackExtracted" xml:space="preserve">
+    <value>חבילת דרייברים חולצה.</value>
+  </data>
+  <data name="StepResult.DriverPackExtractedSimulation" xml:space="preserve">
+    <value>חבילת דרייברים חולצה (סימולציה).</value>
+  </data>
+  <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
+    <value>לא הורדה חבילת מנהלי התקנים.</value>
+  </data>
+  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
+    <value>חבילת מנהלי התקנים מוכנה להתקנת אתחול ראשון.</value>
+  </data>
+  <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
+    <value>חבילת מנהלי התקנים נפתרה מהמטמון.</value>
+  </data>
+  <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
+    <value>תוכן מקור חבילת מנהלי התקנים אינו זמין עבור שלב אתחול ראשון.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
+    <value>הוחל עדכון קושחה.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
+    <value>הוחל עדכון קושחה (סימולציה).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
+    <value>הורד עדכון קושחה.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
+    <value>הורד עדכון קושחה (סימולציה).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
+    <value>עדכוני קושחה מושבתים.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdatesDisabledForVirtualMachines" xml:space="preserve">
+    <value>עדכוני קושחה מושבתים עבור מכונות וירטואליות.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdatesSkippedOnBattery" xml:space="preserve">
+    <value>עדכוני קושחה מדלגים בזמן שהמכשיר פועל על סוללה.</value>
   </data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
     <value>מסייע הרישום האינטראקטיבי של Autopilot הוכן.</value>
@@ -470,157 +1052,448 @@ ErrorCode=0x80070005
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>מסייע הרישום האינטראקטיבי של Autopilot הוכן (סימולציה).</value>
   </data>
-  <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>הסר את מדיית האתחול ולאחר מכן בחר הפעל מחדש.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>הגדרת תכונות אופציונליות</value></data>
-  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>הגדרת תכונות אופציונליות של Windows...</value></data>
-  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>בודק מצבי תכונה...</value></data>
-  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>מכין מקורות מדיה תואמים להגדרה...</value></data>
-  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>מחיל שינויים בתכונות...</value></data>
-  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve"><value>הדמיית שינויים בתכונות...</value></data>
-  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>החלת שינויים בתכונות</value></data>
-  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve"><value>תצורת התכונה האופציונלית של Windows מושבתת.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve"><value>תצורת התכונה האופציונלית של Windows אינה חוקית.</value></data>
-  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve"><value>תכונות אופציונליות של Windows הוגדרו ({0} השתנו, {1} כבר במצב המבוקש, {2} לא זמינות).</value></data>
-  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve"><value>סימולציה של תצורת תכונה אופציונלית של Windows ({0} פעולות).</value></data>
-  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>לתכונה האופציונלית של Windows &#39;{0}&#39; יש מטען שהוסר ואין מיפוי מקור מקומי נתמך.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>אימות התכונה האופציונלית של Windows נכשל עבור &#39;{0}&#39;.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>מקור NetFx3 תואם אינו זמין. {0}</value></data>
-  <data name="Common.Cancel" xml:space="preserve"><value>ביטול</value></data>
-  <data name="DeploymentAccess.Title" xml:space="preserve"><value>פריסה מוגנת</value></data>
-  <data name="DeploymentAccess.Heading" xml:space="preserve"><value>נדרשת סיסמה</value></data>
-  <data name="DeploymentAccess.Description" xml:space="preserve"><value>הזן את סיסמת הטכנאי כדי להמשיך.</value></data>
-  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>סיסמת פריסה</value></data>
-  <data name="DeploymentAccess.Continue" xml:space="preserve"><value>המשך</value></data>
-  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>הצג או הסתר את הסיסמה</value></data>
-  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>הסיסמה שגויה. נסה שוב.</value></data>
-  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>מכשיר יעד</value></data>
-  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>מערכת הפעלה</value></data>
-  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>מנהלי התקנים</value></data>
-  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Wizard.Step.Summary" xml:space="preserve"><value>סיכום</value></data>
-  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>שלבי הגדרת הפריסה</value></data>
-  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>חזרה לסיכום</value></data>
-  <data name="Common.Edit" xml:space="preserve"><value>ערוך</value></data>
-  <data name="Common.Copy" xml:space="preserve"><value>העתק</value></data>
-  <data name="Common.Close" xml:space="preserve"><value>סגור</value></data>
-  <data name="TargetDevice.Title" xml:space="preserve"><value>מכשיר יעד</value></data>
-  <data name="TargetDevice.Description" xml:space="preserve"><value>בחר את שם המחשב ואת דיסק היעד, ולאחר מכן בדוק את החומרה שזוהתה.</value></data>
-  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>הגדרות פריסה</value></data>
-  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>פרטי המכשיר</value></data>
-  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>זהות המכשיר</value></data>
-  <data name="TargetDevice.Platform" xml:space="preserve"><value>פלטפורמה</value></data>
-  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>יצרן</value></data>
-  <data name="TargetDevice.Model" xml:space="preserve"><value>דגם</value></data>
-  <data name="TargetDevice.Product" xml:space="preserve"><value>מוצר</value></data>
-  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>מספר סידורי</value></data>
-  <data name="TargetDevice.Architecture" xml:space="preserve"><value>ארכיטקטורה</value></data>
-  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
-  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>מקור מתח</value></data>
-  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>מצב קושחה</value></data>
-  <data name="TargetDevice.Firmware" xml:space="preserve"><value>עדכוני קושחה</value></data>
-  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>לא זמין במכונות וירטואליות</value></data>
-  <data name="OperatingSystem.Title" xml:space="preserve"><value>מערכת הפעלה</value></data>
-  <data name="OperatingSystem.Description" xml:space="preserve"><value>בחר את מהדורת Windows, השפה, הגרסה וערוץ הרישוי.</value></data>
-  <data name="Drivers.Title" xml:space="preserve"><value>מנהלי התקנים</value></data>
-  <data name="Drivers.Description" xml:space="preserve"><value>בחר את מקור מנהלי ההתקנים, ובמידת הצורך את הדגם והגרסה המתאימים.</value></data>
-  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Autopilot.Description" xml:space="preserve"><value>בדוק את הגדרות ההקצאה של Autopilot עבור מכשיר זה.</value></data>
-  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>פרטי תצורה</value></data>
-  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>מכשיר יעד</value></data>
-  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>מערכת הפעלה</value></data>
-  <data name="Summary.Category.Drivers" xml:space="preserve"><value>מנהלי התקנים</value></data>
-  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>התאמה אישית של Windows</value></data>
-  <data name="Summary.Category.Network" xml:space="preserve"><value>רשת</value></data>
-  <data name="Summary.Category.Completion" xml:space="preserve"><value>השלמה</value></data>
-  <data name="Summary.Description" xml:space="preserve"><value>בדוק את הבחירות שלך לפני תחילת הפריסה.</value></data>
-  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>לא מוגדר</value></data>
-  <data name="Summary.Status.Configured" xml:space="preserve"><value>מוגדר</value></data>
-  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>אין שינויים</value></data>
-  <data name="Summary.Release" xml:space="preserve"><value>גרסה</value></data>
-  <data name="Summary.Edition" xml:space="preserve"><value>מהדורת מערכת ההפעלה</value></data>
-  <data name="Summary.Architecture" xml:space="preserve"><value>ארכיטקטורת מערכת</value></data>
-  <data name="Summary.Language" xml:space="preserve"><value>שפה</value></data>
-  <data name="Summary.LicenseChannel" xml:space="preserve"><value>ערוץ רישיון</value></data>
-  <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
-  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
-  <data name="Summary.BuiltInAdministrator" xml:space="preserve"><value>חשבון מנהל מערכת מוכלל</value></data>
-  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve"><value>חשבונות מקומיים נוספים</value></data>
-  <data name="Summary.SkipAccountCreation" xml:space="preserve"><value>דלג על יצירת חשבון</value></data>
-  <data name="Summary.AppxRemoval" xml:space="preserve"><value>AppX הסרה</value></data>
-  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>הסרת רכיבי AI</value></data>
-  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>נדידה של פרופיל רשת</value></data>
-  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>הפעלה מחדש אוטומטית</value></data>
-  <data name="Summary.ManualRestart" xml:space="preserve"><value>הפעלה מחדש ידנית</value></data>
-  <data name="Summary.RestartDelay" xml:space="preserve"><value>עיכוב הפעלה מחדש</value></data>
-  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} שניות</value></data>
-  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>דיסק היעד שנבחר יימחק עם תחילת הפריסה.</value></data>
-  <data name="Progress.Session" xml:space="preserve"><value>הפעלת פריסה</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>שלבים</value></data>
-  <data name="Progress.RingAutomationName" xml:space="preserve"><value>התקדמות הפריסה הכוללת</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>שלבי פריסה</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>הצג פרטי שגיאה</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>פרטי שגיאה</value></data>
-  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>מוסיף פרופיל Autopilot לא מקוון להתקנת Windows.</value></data>
-  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>מעלה את ה-hash של חומרת המכשיר ל-Windows Autopilot במהלך הפריסה.</value></data>
-  <data name="Summary.Status" xml:space="preserve"><value>סטטוס</value></data>
-  <data name="Summary.ProvisioningMethod" xml:space="preserve"><value>שיטת אספקה</value></data>
-  <data name="Summary.WarningDetails" xml:space="preserve"><value>פרטי אזהרה</value></data>
-  <data name="Summary.DiagnosticData" xml:space="preserve"><value>נתוני אבחון</value></data>
-  <data name="Summary.LocationAccess" xml:space="preserve"><value>גישת מיקום</value></data>
-  <data name="Summary.SkipLicenseTerms" xml:space="preserve"><value>תנאי רישיון דילוג</value></data>
-  <data name="Summary.HidePrivacySetup" xml:space="preserve"><value>הסתרת הגדרת פרטיות</value></data>
-  <data name="Summary.TailoredExperiences" xml:space="preserve"><value>חוויות מותאמות</value></data>
-  <data name="Summary.AdvertisingId" xml:space="preserve"><value>מזהה פרסום</value></data>
-  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve"><value>זיהוי דיבור מקוון</value></data>
-  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve"><value>אבחון בדיו והקלדה</value></data>
-  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve"><value>הסרת יישומים ובינה מלאכותית</value></data>
-  <data name="Summary.TotalConfigured" xml:space="preserve"><value>סך הכל מוגדר</value></data>
-  <data name="Summary.FeaturesEnabled" xml:space="preserve"><value>תכונות מופעלות</value></data>
-  <data name="Summary.FeaturesDisabled" xml:space="preserve"><value>תכונות מושבתות</value></data>
-  <data name="Summary.WiredDot1x" xml:space="preserve"><value>Wired 802.1X</value></data>
-  <data name="Summary.Wifi" xml:space="preserve"><value>Wi-Fi</value></data>
-  <data name="Summary.PrivateKeyMaterial" xml:space="preserve"><value>Private - key material</value></data>
-  <data name="Summary.Included" xml:space="preserve"><value>Included</value></data>
-  <data name="Summary.NotIncluded" xml:space="preserve"><value>Not included</value></data>
-  <data name="Summary.RestartBehavior" xml:space="preserve"><value>Restart behavior</value></data>
-  <data name="Summary.Automatic" xml:space="preserve"><value>Automatic</value></data>
-  <data name="Summary.Manual" xml:space="preserve"><value>Manual</value></data>
-  <data name="Summary.DiagnosticData.Required" xml:space="preserve"><value>Required</value></data>
-  <data name="Summary.DiagnosticData.Optional" xml:space="preserve"><value>Optional</value></data>
-  <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>Off</value></data>
-  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>User controlled</value></data>
-  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>Forced Off</value></data>
-  <data name="Diagnostics.ExportMenu" xml:space="preserve">
-    <value>ייצוא אבחון...</value>
+  <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
+    <value>Microsoft Update Catalog לא ייצר תוכן מנהל התקן.</value>
   </data>
-  <data name="TargetDevice.AssetTag" xml:space="preserve"><value>תג נכס</value></data>
-  <data name="TargetDevice.SystemUuid" xml:space="preserve"><value>UUID של המערכת</value></data>
-  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
-    <value>ייצוא אבחון גולמי...</value>
+  <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
+    <value>אין צורך בהורדת חבילת דרייברים.</value>
   </data>
-  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
-    <value>לייצא אבחון גולמי?</value>
+  <data name="StepResult.NoDriverPackOperationRequired" xml:space="preserve">
+    <value>אין צורך בפעולת חבילת מנהלי התקנים.</value>
   </data>
-  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
-    <value>יומנים גולמיים עשויים להכיל אישורי גישה, מזהים, נתיבים, שמות רשת ונתונים רגישים אחרים. ייצא אותם רק כאשר איש תמיכה מהימן מבקש זאת במפורש.</value>
+  <data name="StepResult.NoExtractedFirmwarePayload" xml:space="preserve">
+    <value>אין תוכן קושחה שחולץ זמין.</value>
   </data>
-  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
-    <value>ייצוא יומנים גולמיים</value>
+  <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
+    <value>אין תוכן מנהלי INF שחולץ זמין.</value>
   </data>
-  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
-    <value>בחר היכן לייצא את אבחון Foundry</value>
+  <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
+    <value>תוכן הקושחה שחולץ אינו מכיל קבצי INF.</value>
   </data>
-  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
-    <value>האבחון יוצא</value>
+  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
+    <value>אין צורך בתסריטים להתאמה אישית של OOBE.</value>
   </data>
-  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
-    <value>האבחון יוצא אל:&#xA;{0}</value>
+  <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
+    <value>מצב חבילת מנהלי התקן OEM נבחר אך לא סופקה חבילת מנהלי התקן.</value>
   </data>
-  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
-    <value>ייצוא האבחון נכשל</value>
+  <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve">
+    <value>הוגדרה התאמה אישית לא מקוונת.</value>
   </data>
-  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
-    <value>לא ניתן היה לייצא את האבחון. בדוק את היומן לפרטים.</value>
+  <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve">
+    <value>הוגדרה התאמה אישית לא מקוונת (סימולציה).</value>
+  </data>
+  <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve">
+    <value>התאמה אישית לא מקוונת מושבתת.</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve">
+    <value>הוחלה תמונת מערכת ההפעלה.</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve">
+    <value>הוחלה תמונת מערכת הפעלה (סימולציה).</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve">
+    <value>הורדת תמונת מערכת ההפעלה.</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
+    <value>תמונת מערכת ההפעלה לא הורדה.</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve">
+    <value>תמונת מערכת הפעלה מוכנה (סימולציה).</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve">
+    <value>תמונת מערכת ההפעלה נפתרה מהמטמון.</value>
+  </data>
+  <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
+    <value>מערכת ההפעלה URL חסרה.</value>
+  </data>
+  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
+    <value>בוצעו התאמות אישיות לפני OOBE.</value>
+  </data>
+  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
+    <value>התאמות אישיות לפני OOBE בשלבים (סימולציה).</value>
+  </data>
+  <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
+    <value>הוגדרה סביבת שחזור.</value>
+  </data>
+  <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve">
+    <value>מוגדרת סביבת שחזור (סימולציה).</value>
+  </data>
+  <data name="StepResult.RecoveryPartitionSealed" xml:space="preserve">
+    <value>מחיצת שחזור אטומה.</value>
+  </data>
+  <data name="StepResult.RecoveryPartitionSealedSimulation" xml:space="preserve">
+    <value>מחיצת שחזור אטומה (סימולציה).</value>
+  </data>
+  <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve">
+    <value>מחיצת השחזור אינה זמינה.</value>
+  </data>
+  <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
+    <value>קובץ הפרופיל Autopilot שנבחר לא נמצא: {0}</value>
+  </data>
+  <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
+    <value>מזהה חומרת קושחת המערכת אינו זמין.</value>
+  </data>
+  <data name="StepResult.TargetAutopilotDirectoryUnavailable" xml:space="preserve">
+    <value>נכשל בפתרון ספריית היעד Autopilot.</value>
+  </data>
+  <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve">
+    <value>שם מחשב היעד הוגדר.</value>
+  </data>
+  <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve">
+    <value>שם מחשב היעד מוגדר (סימולציה).</value>
+  </data>
+  <data name="StepResult.TargetConfigurationValidated" xml:space="preserve">
+    <value>תצורת היעד אומתה.</value>
+  </data>
+  <data name="StepResult.TargetConfigurationValidatedSimulation" xml:space="preserve">
+    <value>תצורת היעד אומתה (סימולציה).</value>
+  </data>
+  <data name="StepResult.TargetDiskLayoutNotPrepared" xml:space="preserve">
+    <value>פריסת דיסק היעד לא הוכנה.</value>
+  </data>
+  <data name="StepResult.TargetDiskLayoutPrepared" xml:space="preserve">
+    <value>פריסת דיסק יעד הוכנה.</value>
+  </data>
+  <data name="StepResult.TargetDiskLayoutPreparedSimulation" xml:space="preserve">
+    <value>פריסת דיסק יעד הוכנה (סימולציה).</value>
+  </data>
+  <data name="StepResult.TargetDiskNumberRequired" xml:space="preserve">
+    <value>נדרש מספר דיסק יעד.</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve">
+    <value>מחיצת יעד Windows אינה זמינה.</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve">
+    <value>מחיצת יעד Windows אינה זמינה עבור Autopilot.</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
+    <value>מחיצת יעד Windows אינה זמינה להעלאת גיבוב חומרה Autopilot.</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>מחיצת ה-Windows היעד אינה זמינה להכנת מסייע הרישום האינטראקטיבי של Autopilot.</value>
+  </data>
+  <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
+    <value>מצב התקנת חבילת מנהלי התקנים לא נתמך.</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
+    <value>תצורת התכונה האופציונלית של Windows מושבתת.</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve">
+    <value>תצורת התכונה האופציונלית של Windows אינה חוקית.</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve">
+    <value>מקור NetFx3 תואם אינו זמין. {0}</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve">
+    <value>לתכונה האופציונלית של Windows '{0}' יש מטען שהוסר ואין מיפוי מקור מקומי נתמך.</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve">
+    <value>אימות התכונה האופציונלית של Windows נכשל עבור '{0}'.</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve">
+    <value>תכונות אופציונליות של Windows הוגדרו ({0} השתנו, {1} כבר במצב המבוקש, {2} לא זמינות).</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
+    <value>סימולציה של תצורת תכונה אופציונלית של Windows ({0} פעולות).</value>
+  </data>
+  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
+    <value>סביבת העבודה אותחלה.</value>
+  </data>
+  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
+    <value>סביבת עבודה אותחל (סימולציה).</value>
+  </data>
+  <data name="Success.Completed" xml:space="preserve">
+    <value>הפריסה הושלמה</value>
+  </data>
+  <data name="Success.ManualRebootInstruction" xml:space="preserve">
+    <value>הסר את מדיית האתחול ולאחר מכן בחר הפעל מחדש.</value>
+  </data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve">
+    <value>מחשב זה יופעל מחדש בעוד {0}s.</value>
+  </data>
+  <data name="Success.RebootNow" xml:space="preserve">
+    <value>אתחול מחדש</value>
+  </data>
+  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve">
+    <value>חשבונות מקומיים נוספים</value>
+  </data>
+  <data name="Summary.AdvertisingId" xml:space="preserve">
+    <value>מזהה פרסום</value>
+  </data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve">
+    <value>הסרת רכיבי AI</value>
+  </data>
+  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve">
+    <value>הסרת יישומים ובינה מלאכותית</value>
+  </data>
+  <data name="Summary.AppxRemoval" xml:space="preserve">
+    <value>AppX הסרה</value>
+  </data>
+  <data name="Summary.Architecture" xml:space="preserve">
+    <value>ארכיטקטורת מערכת</value>
+  </data>
+  <data name="Summary.Automatic" xml:space="preserve">
+    <value>Automatic</value>
+  </data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve">
+    <value>הפעלה מחדש אוטומטית</value>
+  </data>
+  <data name="Summary.AutopilotGroupTag" xml:space="preserve">
+    <value>תג קבוצתי Autopilot</value>
+  </data>
+  <data name="Summary.AutopilotProfile" xml:space="preserve">
+    <value>Autopilot פרופיל</value>
+  </data>
+  <data name="Summary.Build" xml:space="preserve">
+    <value>Build</value>
+  </data>
+  <data name="Summary.BuiltInAdministrator" xml:space="preserve">
+    <value>חשבון מנהל מערכת מוכלל</value>
+  </data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Summary.Category.Completion" xml:space="preserve">
+    <value>השלמה</value>
+  </data>
+  <data name="Summary.Category.Drivers" xml:space="preserve">
+    <value>מנהלי התקנים</value>
+  </data>
+  <data name="Summary.Category.Network" xml:space="preserve">
+    <value>רשת</value>
+  </data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve">
+    <value>מערכת הפעלה</value>
+  </data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve">
+    <value>מכשיר יעד</value>
+  </data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve">
+    <value>התאמה אישית של Windows</value>
+  </data>
+  <data name="Summary.Description" xml:space="preserve">
+    <value>בדוק את הבחירות שלך לפני תחילת הפריסה.</value>
+  </data>
+  <data name="Summary.DiagnosticData" xml:space="preserve">
+    <value>נתוני אבחון</value>
+  </data>
+  <data name="Summary.DiagnosticData.Off" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="Summary.DiagnosticData.Optional" xml:space="preserve">
+    <value>Optional</value>
+  </data>
+  <data name="Summary.DiagnosticData.Required" xml:space="preserve">
+    <value>Required</value>
+  </data>
+  <data name="Summary.Edition" xml:space="preserve">
+    <value>מהדורת מערכת ההפעלה</value>
+  </data>
+  <data name="Summary.FeaturesDisabled" xml:space="preserve">
+    <value>תכונות מושבתות</value>
+  </data>
+  <data name="Summary.FeaturesEnabled" xml:space="preserve">
+    <value>תכונות מופעלות</value>
+  </data>
+  <data name="Summary.HidePrivacySetup" xml:space="preserve">
+    <value>הסתרת הגדרת פרטיות</value>
+  </data>
+  <data name="Summary.Included" xml:space="preserve">
+    <value>Included</value>
+  </data>
+  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve">
+    <value>אבחון בדיו והקלדה</value>
+  </data>
+  <data name="Summary.Language" xml:space="preserve">
+    <value>שפה</value>
+  </data>
+  <data name="Summary.LicenseChannel" xml:space="preserve">
+    <value>ערוץ רישיון</value>
+  </data>
+  <data name="Summary.LocationAccess" xml:space="preserve">
+    <value>גישת מיקום</value>
+  </data>
+  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve">
+    <value>Forced Off</value>
+  </data>
+  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve">
+    <value>User controlled</value>
+  </data>
+  <data name="Summary.Manual" xml:space="preserve">
+    <value>Manual</value>
+  </data>
+  <data name="Summary.ManualRestart" xml:space="preserve">
+    <value>הפעלה מחדש ידנית</value>
+  </data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve">
+    <value>נדידה של פרופיל רשת</value>
+  </data>
+  <data name="Summary.NoDiskSelected" xml:space="preserve">
+    <value>לא נבחר דיסק</value>
+  </data>
+  <data name="Summary.NoSelection" xml:space="preserve">
+    <value>אין בחירה</value>
+  </data>
+  <data name="Summary.NotIncluded" xml:space="preserve">
+    <value>Not included</value>
+  </data>
+  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve">
+    <value>זיהוי דיבור מקוון</value>
+  </data>
+  <data name="Summary.Oobe" xml:space="preserve">
+    <value>OOBE</value>
+  </data>
+  <data name="Summary.PrivateKeyMaterial" xml:space="preserve">
+    <value>Private - key material</value>
+  </data>
+  <data name="Summary.ProvisioningMethod" xml:space="preserve">
+    <value>שיטת אספקה</value>
+  </data>
+  <data name="Summary.Release" xml:space="preserve">
+    <value>גרסה</value>
+  </data>
+  <data name="Summary.RestartBehavior" xml:space="preserve">
+    <value>Restart behavior</value>
+  </data>
+  <data name="Summary.RestartDelay" xml:space="preserve">
+    <value>עיכוב הפעלה מחדש</value>
+  </data>
+  <data name="Summary.SecondsFormat" xml:space="preserve">
+    <value>{0} שניות</value>
+  </data>
+  <data name="Summary.SelectedOperatingSystem" xml:space="preserve">
+    <value>מערכת הפעלה</value>
+  </data>
+  <data name="Summary.SkipAccountCreation" xml:space="preserve">
+    <value>דלג על יצירת חשבון</value>
+  </data>
+  <data name="Summary.SkipLicenseTerms" xml:space="preserve">
+    <value>תנאי רישיון דילוג</value>
+  </data>
+  <data name="Summary.Status" xml:space="preserve">
+    <value>סטטוס</value>
+  </data>
+  <data name="Summary.Status.Configured" xml:space="preserve">
+    <value>מוגדר</value>
+  </data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve">
+    <value>אין שינויים</value>
+  </data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve">
+    <value>לא מוגדר</value>
+  </data>
+  <data name="Summary.TailoredExperiences" xml:space="preserve">
+    <value>חוויות מותאמות</value>
+  </data>
+  <data name="Summary.TargetDisk" xml:space="preserve">
+    <value>דיסק מטרה</value>
+  </data>
+  <data name="Summary.Title" xml:space="preserve">
+    <value>סיכום פריסה</value>
+  </data>
+  <data name="Summary.TotalConfigured" xml:space="preserve">
+    <value>סך הכל מוגדר</value>
+  </data>
+  <data name="Summary.WarningDetails" xml:space="preserve">
+    <value>פרטי אזהרה</value>
+  </data>
+  <data name="Summary.Wifi" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve">
+    <value>תכונות אופציונליות של Windows</value>
+  </data>
+  <data name="Summary.WiredDot1x" xml:space="preserve">
+    <value>Wired 802.1X</value>
+  </data>
+  <data name="TargetDevice.Architecture" xml:space="preserve">
+    <value>ארכיטקטורה</value>
+  </data>
+  <data name="TargetDevice.AssetTag" xml:space="preserve">
+    <value>תג נכס</value>
+  </data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve">
+    <value>הגדרות פריסה</value>
+  </data>
+  <data name="TargetDevice.Description" xml:space="preserve">
+    <value>בחר את שם המחשב ואת דיסק היעד, ולאחר מכן בדוק את החומרה שזוהתה.</value>
+  </data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve">
+    <value>זהות המכשיר</value>
+  </data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve">
+    <value>פרטי המכשיר</value>
+  </data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve">
+    <value>דיסק היעד שנבחר יימחק עם תחילת הפריסה.</value>
+  </data>
+  <data name="TargetDevice.Firmware" xml:space="preserve">
+    <value>עדכוני קושחה</value>
+  </data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve">
+    <value>מצב קושחה</value>
+  </data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve">
+    <value>לא זמין במכונות וירטואליות</value>
+  </data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve">
+    <value>יצרן</value>
+  </data>
+  <data name="TargetDevice.Model" xml:space="preserve">
+    <value>דגם</value>
+  </data>
+  <data name="TargetDevice.Platform" xml:space="preserve">
+    <value>פלטפורמה</value>
+  </data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve">
+    <value>מקור מתח</value>
+  </data>
+  <data name="TargetDevice.Product" xml:space="preserve">
+    <value>מוצר</value>
+  </data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve">
+    <value>מספר סידורי</value>
+  </data>
+  <data name="TargetDevice.SystemUuid" xml:space="preserve">
+    <value>UUID של המערכת</value>
+  </data>
+  <data name="TargetDevice.Title" xml:space="preserve">
+    <value>מכשיר יעד</value>
+  </data>
+  <data name="TargetDevice.Tpm" xml:space="preserve">
+    <value>TPM</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>כהה</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>אור</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>מערכת</value>
+  </data>
+  <data name="Tools.OpenLogFile" xml:space="preserve">
+    <value>פתח קובץ יומן</value>
+  </data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve">
+    <value>חזרה לסיכום</value>
+  </data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve">
+    <value>מנהלי התקנים</value>
+  </data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve">
+    <value>מערכת הפעלה</value>
+  </data>
+  <data name="Wizard.Step.Summary" xml:space="preserve">
+    <value>סיכום</value>
+  </data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve">
+    <value>מכשיר יעד</value>
+  </data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve">
+    <value>שלבי הגדרת הפריסה</value>
   </data>
 </root>

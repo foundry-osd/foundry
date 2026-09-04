@@ -12,337 +12,301 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="App.Name" xml:space="preserve"><value>Foundry Deploy</value></data>
-  <data name="App.WindowTitle" xml:space="preserve"><value>Foundry Deploy</value></data>
-  <data name="About.Title" xml:space="preserve"><value>Informazioni su Foundry Deploy</value></data>
-  <data name="About.DescriptionLine1" xml:space="preserve"><value>Foundry Deploy è l'esperienza di distribuzione di WinPE per Foundry.</value></data>
-  <data name="About.DescriptionLine2" xml:space="preserve"><value>Questo software viene fornito così com'è. Controlla le impostazioni di distribuzione prima dell'uso.</value></data>
-  <data name="About.Footer" xml:space="preserve"><value>Diritto d'autore (c) 2026 Foundry Project. Concesso in licenza con la licenza MIT.</value></data>
-  <data name="Menu.Theme" xml:space="preserve"><value>_Tema</value></data>
-  <data name="Menu.Language" xml:space="preserve"><value>_Lingua</value></data>
-  <data name="Menu.Tools" xml:space="preserve"><value>_Strumenti</value></data>
-  <data name="Menu.Debug" xml:space="preserve"><value>_Debug</value></data>
-  <data name="Menu.About" xml:space="preserve"><value>_Circa</value></data>
-  <data name="Theme.System" xml:space="preserve"><value>Sistema</value></data>
-  <data name="Theme.Light" xml:space="preserve"><value>Luce</value></data>
-  <data name="Theme.Dark" xml:space="preserve"><value>Buio</value></data>
-  <data name="Tools.OpenLogFile" xml:space="preserve"><value>Apri il file di registro</value></data>
-  <data name="Preparation.ComputerName" xml:space="preserve"><value>Nome del computer</value></data>
-  <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 caratteri. Solo A-Z, a-z, 0-9 e trattino.</value></data>
-  <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Il nome del computer deve contenere da 1 a 15 caratteri validi (lettere, numeri o trattini).</value></data>
-  <data name="Preparation.TargetDisk" xml:space="preserve"><value>Disco di destinazione</value></data>
-  <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Seleziona un disco di destinazione. I dischi non idonei vengono bloccati.</value></data>
-  <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Applicare gli aggiornamenti del firmware</value></data>
-  <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Profilo</value></data>
-  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>Nessun profilo Autopilot incorporato trovato su questo supporto.</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON provisioning del profilo</value></data>
-  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Caricamento zero-touch dell’hash hardware</value></data>
-  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Caricamento interattivo dell’hash hardware</value></data>
-  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Stato di caricamento dell'hash hardware</value></data>
-  <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Pronto per caricare l'hash hardware</value></data>
-  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Caricamento dell'hash hardware non disponibile</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Mancano le informazioni richieste sul certificato. La distribuzione può continuare senza caricare l'hash hardware.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Il certificato Autopilot è scaduto. La distribuzione può continuare senza caricare l'hash hardware.</value></data>
-  <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>ID inquilino</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Scadenza del certificato</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Etichetta di gruppo</value></data>
-  <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Rilevamento dell'hardware in corso...</value></data>
-  <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Rilevamento dell'hardware non riuscito.</value></data>
-  <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Rilevamento hardware non riuscito: {0}</value></data>
-  <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | Potenza: {2} | Firmware: {3}</value></data>
-  <data name="Preparation.PowerBattery" xml:space="preserve"><value>Batteria</value></data>
-  <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
-  <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Individuazione del disco di destinazione non riuscita: {0}</value></data>
-  <data name="Catalog.Version" xml:space="preserve"><value>Versione</value></data>
-  <data name="Catalog.Media" xml:space="preserve"><value>Aggiornamento Windows</value></data>
-  <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Più recente)</value></data>
-  <data name="Catalog.Language" xml:space="preserve"><value>Lingua</value></data>
-  <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Canale di licenza</value></data>
-  <data name="Catalog.EditionTarget" xml:space="preserve"><value>Edizione (destinazione)</value></data>
-  <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>Architettura: {0}</value></data>
-  <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Cataloghi caricati: voci del sistema operativo {0}, pacchetti driver {1}.</value></data>
-  <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Caricamento del catalogo non riuscito: {0}</value></data>
-  <data name="DriverPack.Source" xml:space="preserve"><value>Origine del conducente</value></data>
-  <data name="DriverPack.Model" xml:space="preserve"><value>Modello</value></data>
-  <data name="DriverPack.Version" xml:space="preserve"><value>Versione</value></data>
-  <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
-  <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
-  <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: nessun modello o versione corrispondente</value></data>
-  <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (+{1} modelli)</value></data>
-  <data name="Summary.Title" xml:space="preserve"><value>Riepilogo della distribuzione</value></data>
-  <data name="Summary.TargetDisk" xml:space="preserve"><value>Disco di destinazione</value></data>
-  <data name="Summary.NoDiskSelected" xml:space="preserve"><value>Nessun disco selezionato</value></data>
-  <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Sistema operativo</value></data>
-  <data name="Summary.NoSelection" xml:space="preserve"><value>Nessuna selezione</value></data>
-  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Funzionalit&#224; facoltative di Windows</value></data>
-  <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Profilo</value></data>
-  <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot tag di gruppo</value></data>
-  <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>No Autopilot</value></data>
-  <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON profilo</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Caricamento zero-touch dell’hash hardware</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>Certificato valido</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>Certificato scaduto</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>Informazioni sul certificato mancanti</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag" xml:space="preserve"><value>Nessun tag di gruppo predefinito</value></data>
-  <data name="Debug.DeploymentPages" xml:space="preserve"><value>Pagine di distribuzione</value></data>
-  <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Pagina di avanzamento</value></data>
-  <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Pagina del successo</value></data>
-  <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Pagina di errore</value></data>
-  <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Anteprima del debug: DISM applicazione non riuscita perché la partizione di destinazione è di sola lettura.
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Foundry Deploy è l'esperienza di distribuzione di WinPE per Foundry.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>Questo software viene fornito così com'è. Controlla le impostazioni di distribuzione prima dell'uso.</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>Diritto d'autore (c) 2026 Foundry Project. Concesso in licenza con la licenza MIT.</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>Informazioni su Foundry Deploy</value>
+  </data>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Deploy</value>
+  </data>
+  <data name="App.WindowTitle" xml:space="preserve">
+    <value>Foundry Deploy</value>
+  </data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve">
+    <value>Dettagli di configurazione</value>
+  </data>
+  <data name="Autopilot.Description" xml:space="preserve">
+    <value>Esaminare le impostazioni di provisioning di Autopilot per questo dispositivo.</value>
+  </data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
+    <value>Carica l'hash hardware del dispositivo in Windows Autopilot durante la distribuzione.</value>
+  </data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
+    <value>Include un profilo Autopilot offline nell'installazione di Windows.</value>
+  </data>
+  <data name="Autopilot.Title" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve">
+    <value>Rigenerazione dell’immagine di avvio consigliata</value>
+  </data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
+    <value>Questa immagine di avvio utilizza un formato di configurazione Foundry OSD precedente. Rigenerala per garantire la compatibilità con le funzionalità più recenti.</value>
+  </data>
+  <data name="Catalog.ArchitectureFormat" xml:space="preserve">
+    <value>Architettura: {0}</value>
+  </data>
+  <data name="Catalog.EditionTarget" xml:space="preserve">
+    <value>Edizione (destinazione)</value>
+  </data>
+  <data name="Catalog.Language" xml:space="preserve">
+    <value>Lingua</value>
+  </data>
+  <data name="Catalog.LicenseChannel" xml:space="preserve">
+    <value>Canale di licenza</value>
+  </data>
+  <data name="Catalog.LoadFailedFormat" xml:space="preserve">
+    <value>Caricamento del catalogo non riuscito: {0}</value>
+  </data>
+  <data name="Catalog.LoadedFormat" xml:space="preserve">
+    <value>Cataloghi caricati: voci del sistema operativo {0}, pacchetti driver {1}.</value>
+  </data>
+  <data name="Catalog.Media" xml:space="preserve">
+    <value>Aggiornamento Windows</value>
+  </data>
+  <data name="Catalog.MediaLatestFormat" xml:space="preserve">
+    <value>{0} (Più recente)</value>
+  </data>
+  <data name="Catalog.Version" xml:space="preserve">
+    <value>Versione</value>
+  </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Chiudi la finestra</value>
+  </data>
+  <data name="Common.Copy" xml:space="preserve">
+    <value>Copia negli appunti</value>
+  </data>
+  <data name="Common.Deploy" xml:space="preserve">
+    <value>Distribuire</value>
+  </data>
+  <data name="Common.Detected" xml:space="preserve">
+    <value>Rilevato</value>
+  </data>
+  <data name="Common.Disabled" xml:space="preserve">
+    <value>Disabilitato</value>
+  </data>
+  <data name="Common.Edit" xml:space="preserve">
+    <value>Modifica</value>
+  </data>
+  <data name="Common.Enabled" xml:space="preserve">
+    <value>Abilitato</value>
+  </data>
+  <data name="Common.Next" xml:space="preserve">
+    <value>Avanti</value>
+  </data>
+  <data name="Common.No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Common.None" xml:space="preserve">
+    <value>Nessuno</value>
+  </data>
+  <data name="Common.NotAvailable" xml:space="preserve">
+    <value>N/D</value>
+  </data>
+  <data name="Common.Previous" xml:space="preserve">
+    <value>Precedente</value>
+  </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Non disponibile</value>
+  </data>
+  <data name="Common.Unknown" xml:space="preserve">
+    <value>Sconosciuto</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>Versione: {0}</value>
+  </data>
+  <data name="Common.Yes" xml:space="preserve">
+    <value>Sì</value>
+  </data>
+  <data name="Debug.Autopilot" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve">
+    <value>Caricamento zero-touch dell’hash hardware</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve">
+    <value>Certificato scaduto</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve">
+    <value>Informazioni sul certificato mancanti</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag" xml:space="preserve">
+    <value>Nessun tag di gruppo predefinito</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve">
+    <value>Certificato valido</value>
+  </data>
+  <data name="Debug.Autopilot.JsonProfile" xml:space="preserve">
+    <value>JSON profilo</value>
+  </data>
+  <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
+    <value>No Autopilot</value>
+  </data>
+  <data name="Debug.DeploymentPages" xml:space="preserve">
+    <value>Pagine di distribuzione</value>
+  </data>
+  <data name="Debug.ErrorPageCommand" xml:space="preserve">
+    <value>Pagina di errore</value>
+  </data>
+  <data name="Debug.ErrorPreviewMessage" xml:space="preserve">
+    <value>Anteprima del debug: DISM applicazione non riuscita perché la partizione di destinazione è di sola lettura.
 
 Codice errore=0x80070005
 Dettagli: accesso negato durante il montaggio dell'immagine sul percorso di destinazione.
-Azione: verificare gli attributi del disco e riprovare la distribuzione.</value></data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Rigenerazione dell’immagine di avvio consigliata</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Questa immagine di avvio utilizza un formato di configurazione Foundry OSD precedente. Rigenerala per garantire la compatibilità con le funzionalità più recenti.</value></data>
-  <data name="Common.VersionFormat" xml:space="preserve"><value>Versione: {0}</value></data>
-  <data name="Common.Previous" xml:space="preserve"><value>Precedente</value></data>
-  <data name="Common.Next" xml:space="preserve"><value>Avanti</value></data>
-  <data name="Common.Deploy" xml:space="preserve"><value>Distribuire</value></data>
-  <data name="Common.NotAvailable" xml:space="preserve"><value>N/D</value></data>
-  <data name="Common.Unavailable" xml:space="preserve"><value>Non disponibile</value></data>
-  <data name="Common.None" xml:space="preserve"><value>Nessuno</value></data>
-  <data name="Common.Unknown" xml:space="preserve"><value>Sconosciuto</value></data>
-  <data name="Common.Detected" xml:space="preserve"><value>Rilevato</value></data>
-  <data name="Common.Yes" xml:space="preserve"><value>Sì</value></data>
-  <data name="Common.No" xml:space="preserve"><value>No</value></data>
-  <data name="Common.Enabled" xml:space="preserve"><value>Abilitato</value></data>
-  <data name="Common.Disabled" xml:space="preserve"><value>Disabilitato</value></data>
-  <data name="Progress.Networking" xml:space="preserve"><value>Rete</value></data>
-  <data name="Progress.StartTime" xml:space="preserve"><value>Ora di inizio</value></data>
-  <data name="Progress.ElapsedTime" xml:space="preserve"><value>Tempo trascorso</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>Distribuzione completata</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Questo computer verrà riavviato tra {0}s.</value></data>
-  <data name="Success.RebootNow" xml:space="preserve"><value>Riavviare</value></data>
-  <data name="Error.Title" xml:space="preserve"><value>Distribuzione non riuscita</value></data>
-  <data name="Error.FailedStepFormat" xml:space="preserve"><value>Passaggio non riuscito: {0}</value></data>
-  <data name="Splash.Welcome" xml:space="preserve"><value>Benvenuto</value></data>
-  <data name="Splash.InitializingComponents" xml:space="preserve"><value>Inizializzazione dei componenti...</value></data>
-  <data name="Splash.StartDeployment" xml:space="preserve"><value>Avvia distribuzione</value></data>
-  <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>Disco {0} | {1} | {2} | {3}{4}</value></data>
-  <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
-  <data name="Disk.UnknownSize" xml:space="preserve"><value>Dimensioni sconosciute</value></data>
-  <data name="Disk.BlockedSystemDisk" xml:space="preserve"><value>Bloccato: disco di sistema</value></data>
-  <data name="Disk.BlockedBootDisk" xml:space="preserve"><value>Bloccato: disco di avvio</value></data>
-  <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Bloccato: sola lettura</value></data>
-  <data name="Disk.BlockedOffline" xml:space="preserve"><value>Bloccato: offline</value></data>
-  <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>DEBUG BERSAGLI VIRTUALI</value></data>
-  <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Il disco di destinazione {0} non è più presente.</value></data>
-  <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Il disco di destinazione {0} è bloccato: {1}</value></data>
-  <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Conferma la cancellazione del disco</value></data>
-  <data name="Launch.ConfirmDiskEraseMessageFormat" xml:space="preserve"><value>Ciò cancellerà tutti i dati sul disco selezionato e installerà il sistema operativo selezionato.
-
-Disco: {0}
-Modello: {1}
-Autobus: {2}
-Dimensioni: {3}
-
-Sistema operativo: {4}
-
-Continuare con la distribuzione?</value></data>
-  <data name="Status.WaitingForDeployment" xml:space="preserve"><value>In attesa di distribuzione...</value></data>
-  <data name="Status.WaitingForProgress" xml:space="preserve"><value>In attesa di progressi...</value></data>
-  <data name="Status.PreparingDeployment" xml:space="preserve"><value>Preparazione della distribuzione in corso...</value></data>
-  <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Distribuzione annullata.</value></data>
-  <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Un'altra operazione è già in corso.</value></data>
-  <data name="Status.StartingStep" xml:space="preserve"><value>Passo iniziale...</value></data>
-  <data name="Status.StartingStepFormat" xml:space="preserve"><value>Inizio {0}.</value></data>
-  <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Inizio {0}...</value></data>
-  <data name="Status.StepCompleted" xml:space="preserve"><value>Passaggio completato.</value></data>
-  <data name="Status.StepFailed" xml:space="preserve"><value>Passaggio non riuscito.</value></data>
-  <data name="Status.StepSkipped" xml:space="preserve"><value>Passaggio saltato.</value></data>
-  <data name="Status.InProgress" xml:space="preserve"><value>In corso...</value></data>
-  <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Passo:? Di?</value></data>
-  <data name="Status.StepCounterFormat" xml:space="preserve"><value>Passo: {0} di {1}</value></data>
-  <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>wpeutil.exe non è riuscito con il codice di uscita {0}. {1}</value></data>
-  <data name="Status.SystemReboot" xml:space="preserve"><value>Riavvio del sistema</value></data>
-  <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>L'eseguibile di riavvio richiesto "wpeutil.exe" non è stato trovato.</value></data>
-  <data name="Status.UnknownStep" xml:space="preserve"><value>Passaggio sconosciuto</value></data>
-  <data name="Status.NoErrorDetails" xml:space="preserve"><value>Non sono stati forniti dettagli sull'errore.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Raccogliere variabili</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Inizializzare distribuzione</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Convalidare configurazione</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Controllare cache</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Preparare il disco</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Scaricare sistema operativo</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Applicare sistema operativo</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Impostare nome computer</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Configurare OOBE</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Configurare ripristino Windows</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Scaricare driver</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Estrarre driver</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Preparare personalizzazioni</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Applicare driver</value></data>
-  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>Applicare driver di ripristino</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Scaricare firmware</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Applicare firmware</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Sigillare partizione di ripristino</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Provisionare Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Completare distribuzione</value></data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Raccolta delle variabili di distribuzione...</value></data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Raccolta del contesto di distribuzione in corso...</value></data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Variabili di distribuzione raccolte.</value></data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve"><value>Variabili di distribuzione raccolte (simulazione).</value></data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve"><value>Inizializzazione dell'area di lavoro di distribuzione in corso...</value></data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve"><value>Creazione delle cartelle dell'area di lavoro...</value></data>
-  <data name="StepMessage.FinalizingDeployment" xml:space="preserve"><value>Finalizzazione della distribuzione in corso...</value></data>
-  <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve"><value>Pulizia dell'area di lavoro temporanea...</value></data>
-  <data name="StepMessage.WritingDeploymentSummary" xml:space="preserve"><value>Scrittura del riepilogo della distribuzione in corso...</value></data>
-  <data name="StepMessage.WritingCompletionLogs" xml:space="preserve"><value>Scrittura dei registri di completamento...</value></data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve"><value>Area di lavoro inizializzata.</value></data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve"><value>Spazio di lavoro inizializzato (simulazione).</value></data>
-  <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve"><value>Convalida della configurazione di destinazione in corso...</value></data>
-  <data name="StepMessage.RevalidatingTargetDisk" xml:space="preserve"><value>Riconvalida del disco di destinazione in corso...</value></data>
-  <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve"><value>Rilevamento profilo hardware in corso...</value></data>
-  <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve"><value>Manca il sistema operativo URL.</value></data>
-  <data name="StepResult.TargetDiskNumberRequired" xml:space="preserve"><value>Il numero del disco di destinazione è obbligatorio.</value></data>
-  <data name="StepResult.TargetConfigurationValidated" xml:space="preserve"><value>Configurazione target convalidata.</value></data>
-  <data name="StepResult.TargetConfigurationValidatedSimulation" xml:space="preserve"><value>Configurazione target convalidata (simulazione).</value></data>
-  <data name="StepMessage.ResolvingCacheStrategy" xml:space="preserve"><value>Controllo della cache di distribuzione in corso...</value></data>
-  <data name="StepMessage.ResolvingCacheLocation" xml:space="preserve"><value>Risoluzione della posizione della cache in corso...</value></data>
-  <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve"><value>Verifica conflitto disco cache...</value></data>
-  <data name="StepResult.CacheStrategyResolved" xml:space="preserve"><value>Strategia della cache risolta.</value></data>
-  <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve"><value>Strategia cache risolta (simulazione).</value></data>
-  <data name="StepMessage.PreparingTargetDiskLayout" xml:space="preserve"><value>Preparazione del layout del disco di destinazione in corso...</value></data>
-  <data name="StepMessage.PartitioningTargetDisk" xml:space="preserve"><value>Partizionamento del disco di destinazione...</value></data>
-  <data name="StepMessage.PreparingTargetWorkspace" xml:space="preserve"><value>Preparazione dell'area di lavoro di destinazione...</value></data>
-  <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve"><value>Creazione di partizioni simulate...</value></data>
-  <data name="StepResult.TargetDiskLayoutPrepared" xml:space="preserve"><value>Layout del disco di destinazione preparato.</value></data>
-  <data name="StepResult.TargetDiskLayoutPreparedSimulation" xml:space="preserve"><value>Layout del disco di destinazione preparato (simulazione).</value></data>
-  <data name="StepResult.TargetDiskLayoutNotPrepared" xml:space="preserve"><value>Il layout del disco di destinazione non è stato preparato.</value></data>
-  <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve"><value>Download dell'immagine del sistema operativo in corso...</value></data>
-  <data name="StepMessage.CheckingCache" xml:space="preserve"><value>Controllo della cache...</value></data>
-  <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve"><value>Immagine del sistema operativo pronta (simulazione).</value></data>
-  <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve"><value>L'immagine del sistema operativo non è stata scaricata.</value></data>
-  <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve"><value>Immagine del sistema operativo scaricata.</value></data>
-  <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve"><value>Immagine del sistema operativo risolta dalla cache.</value></data>
-  <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve"><value>Applicazione dell'immagine del sistema operativo in corso...</value></data>
-  <data name="StepMessage.InspectingImage" xml:space="preserve"><value>Ispezione dell'immagine...</value></data>
-  <data name="StepMessage.ApplyingImage" xml:space="preserve"><value>Applicazione dell'immagine...</value></data>
-  <data name="StepMessage.ConfiguringBoot" xml:space="preserve"><value>Configurazione dell'avvio...</value></data>
-  <data name="StepMessage.VerifyingImage" xml:space="preserve"><value>Verifica immagine...</value></data>
-  <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve"><value>Immagine del sistema operativo applicata.</value></data>
-  <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve"><value>Immagine del sistema operativo applicata (simulazione).</value></data>
-  <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Configurazione del nome del computer di destinazione in corso...</value></data>
-  <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Scrittura del nome del computer offline...</value></data>
-  <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>La partizione di destinazione Windows non è disponibile.</value></data>
-  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>L'indice dell'immagine Windows applicata non è disponibile.</value></data>
-  <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Nome del computer di destinazione configurato.</value></data>
-  <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Nome del computer di destinazione configurato (simulazione).</value></data>
-  <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Personalizzazione offline disabilitata.</value></data>
-  <data name="StepMessage.ConfiguringOfflineCustomizations" xml:space="preserve"><value>Configurazione delle personalizzazioni offline...</value></data>
-  <data name="StepMessage.WritingFirstRunDefaults" xml:space="preserve"><value>Scrittura delle impostazioni predefinite di prima esecuzione...</value></data>
-  <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve"><value>Configurazione della rimozione del componente AI in corso...</value></data>
-  <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>Scrittura di policy AI offline...</value></data>
-  <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>Personalizzazione offline configurata.</value></data>
-  <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>Personalizzazione offline configurata (simulazione).</value></data>
-  <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>Configurazione delle impostazioni OOBE...</value></data>
-  <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>Scrittura delle impostazioni predefinite di privacy di prima esecuzione...</value></data>
-  <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>Configurazione dell'ambiente di ripristino in corso...</value></data>
-  <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Preparazione dell'ambiente di ripristino Windows...</value></data>
-  <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>La partizione di ripristino non è disponibile.</value></data>
-  <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>Ambiente di ripristino configurato.</value></data>
-  <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>Ambiente di ripristino configurato (simulazione).</value></data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>Non sono richiesti script di personalizzazione pre-OOBE.</value></data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>Preparazione delle personalizzazioni pre-OOBE in corso...</value></data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>Personalizzazioni pre-OOBE organizzate.</value></data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>Personalizzazioni pre-OOBE organizzate (simulazione).</value></data>
-  <data name="StepResult.DriverPackDisabled" xml:space="preserve"><value>Pacchetto driver disabilitato (nessuno selezionato).</value></data>
-  <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve"><value>Non è richiesto il download del pacchetto driver.</value></data>
-  <data name="StepMessage.DownloadingDriverPack" xml:space="preserve"><value>Download del pacchetto driver in corso...</value></data>
-  <data name="StepMessage.PreparingDownload" xml:space="preserve"><value>Preparazione download...</value></data>
-  <data name="StepResult.OemDriverPackMissing" xml:space="preserve"><value>Modalità pacchetto driver OEM selezionata ma non è stato fornito alcun pacchetto driver.</value></data>
-  <data name="StepResult.DriverPackDownloaded" xml:space="preserve"><value>Pacchetto driver scaricato.</value></data>
-  <data name="StepResult.DriverPackDownloadedSimulation" xml:space="preserve"><value>Pacchetto driver scaricato (simulazione).</value></data>
-  <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve"><value>Pacchetto driver risolto dalla cache.</value></data>
-  <data name="StepMessage.ExtractingDriverPack" xml:space="preserve"><value>Estrazione pacchetto driver...</value></data>
-  <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve"><value>Il pacchetto driver non è stato scaricato.</value></data>
-  <data name="StepResult.DriverPackExtracted" xml:space="preserve"><value>Pacchetto driver estratto.</value></data>
-  <data name="StepResult.DriverPackExtractedSimulation" xml:space="preserve"><value>Pacchetto driver estratto (simulazione).</value></data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve"><value>Pacchetto driver preparato per l'installazione al primo avvio.</value></data>
-  <data name="StepResult.NoDriverPackOperationRequired" xml:space="preserve"><value>Non è richiesta alcuna operazione del pacchetto driver.</value></data>
-  <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve"><value>Modalità di installazione del pacchetto driver non supportata.</value></data>
-  <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve"><value>Non è disponibile alcun contenuto del driver INF estratto.</value></data>
-  <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve"><value>Il contenuto di origine del pacchetto driver non è disponibile per la gestione temporanea al primo avvio.</value></data>
-  <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve"><value>Microsoft Update Catalog non ha prodotto contenuto del driver.</value></data>
-  <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve"><value>È stata richiesta la gestione temporanea del pacchetto driver al primo avvio senza un comando supportato.</value></data>
-  <data name="StepMessage.ApplyingDriverPack" xml:space="preserve"><value>Applicazione del pacchetto driver in corso...</value></data>
-  <data name="StepMessage.ApplyingWindowsDrivers" xml:space="preserve"><value>Applicazione dei driver Windows...</value></data>
-  <data name="StepMessage.MountingWinRe" xml:space="preserve"><value>Montaggio WinRE...</value></data>
-  <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve"><value>Applicazione dei driver WinRE...</value></data>
-  <data name="StepMessage.UnmountingWinRe" xml:space="preserve"><value>Smontaggio WinRE...</value></data>
-  <data name="StepMessage.StagingPackage" xml:space="preserve"><value>Pacchetto di allestimento...</value></data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve"><value>Aggiornamento dello script di installazione al primo avvio in corso...</value></data>
-  <data name="StepProgress.PercentFormat" xml:space="preserve"><value>{0}: {1}%</value></data>
-  <data name="StepProgress.Downloading" xml:space="preserve"><value>Download in corso</value></data>
-  <data name="StepProgress.Extracting" xml:space="preserve"><value>Estrarre</value></data>
-  <data name="StepProgress.Applying" xml:space="preserve"><value>Applicazione</value></data>
-  <data name="StepProgress.Staging" xml:space="preserve"><value>Messa in scena</value></data>
-  <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>{0} scaricato</value></data>
-  <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>Pacchetto driver applicato.</value></data>
-  <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>Pacchetto driver applicato (simulazione).</value></data>
-  <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>Download dell'aggiornamento firmware in corso...</value></data>
-  <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>Preparazione della ricerca Microsoft Update Catalog...</value></data>
-  <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve"><value>Gli aggiornamenti del firmware sono disabilitati.</value></data>
-  <data name="StepResult.FirmwareUpdatesDisabledForVirtualMachines" xml:space="preserve"><value>Gli aggiornamenti del firmware sono disabilitati per le macchine virtuali.</value></data>
-  <data name="StepResult.FirmwareUpdatesSkippedOnBattery" xml:space="preserve"><value>Gli aggiornamenti del firmware vengono saltati mentre il dispositivo è alimentato a batteria.</value></data>
-  <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve"><value>L'identificatore hardware del firmware di sistema non è disponibile.</value></data>
-  <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve"><value>Aggiornamento del firmware scaricato.</value></data>
-  <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve"><value>Aggiornamento firmware scaricato (simulazione).</value></data>
-  <data name="StepResult.NoExtractedFirmwarePayload" xml:space="preserve"><value>Non è disponibile alcun contenuto firmware estratto.</value></data>
-  <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve"><value>Il contenuto del firmware estratto non contiene file INF.</value></data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve"><value>Applicazione dell'aggiornamento firmware in corso...</value></data>
-  <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve"><value>Inserimento del contenuto del firmware offline Windows...</value></data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve"><value>Aggiornamento firmware applicato.</value></data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve"><value>Aggiornamento firmware applicato (simulazione).</value></data>
-  <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve"><value>Sigillatura della partizione di ripristino...</value></data>
-  <data name="StepMessage.RemovingRecoveryDriveLetter" xml:space="preserve"><value>Rimozione della lettera dell'unità di ripristino in corso...</value></data>
-  <data name="StepResult.RecoveryPartitionSealed" xml:space="preserve"><value>Partizione di ripristino sigillata.</value></data>
-  <data name="StepResult.RecoveryPartitionSealedSimulation" xml:space="preserve"><value>Partizione di ripristino sigillata (simulazione).</value></data>
-  <data name="StepResult.AutopilotDisabled" xml:space="preserve"><value>Autopilot è disabilitato.</value></data>
-  <data name="StepResult.AutopilotProfileMissing" xml:space="preserve"><value>Autopilot è abilitato ma non è stato selezionato alcun profilo.</value></data>
-  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve"><value>La partizione di destinazione Windows non è disponibile per la gestione temporanea Autopilot.</value></data>
-  <data name="StepResult.TargetAutopilotDirectoryUnavailable" xml:space="preserve"><value>Impossibile risolvere la directory Autopilot di destinazione.</value></data>
-  <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve"><value>Messa in scena del profilo Autopilot...</value></data>
-  <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve"><value>Copia di AutopilotConfigurationFile.json in corso...</value></data>
-  <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve"><value>Scrittura del manifest Autopilot simulato...</value></data>
-  <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve"><value>Acquisizione dell'hash hardware Autopilot in corso...</value></data>
-  <data name="StepMessage.RunningOa3Tool" xml:space="preserve"><value>In esecuzione OA3Tool...</value></data>
-  <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve"><value>Caricamento dell'hash hardware Autopilot in corso...</value></data>
-  <data name="StepMessage.PreparingMicrosoftGraphImport" xml:space="preserve"><value>Preparazione dell'importazione Microsoft Graph...</value></data>
-  <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve"><value>Invio della richiesta di importazione a Microsoft Graph...</value></data>
-  <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve"><value>In attesa della visibilità del dispositivo Autopilot...</value></data>
-  <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve"><value>Controllo dei dispositivi Windows Autopilot ({0} rimanenti)...</value></data>
-  <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve"><value>Aggiornamento del dispositivo Autopilot esistente...</value></data>
-  <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve"><value>Aggiornamento del tag del gruppo Windows Autopilot in Microsoft Graph...</value></data>
-  <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve"><value>In attesa dell'aggiornamento del tag del gruppo Autopilot...</value></data>
-  <data name="StepMessage.CheckingWindowsAutopilotGroupTagFormat" xml:space="preserve"><value>Controllo del tag del gruppo Windows Autopilot ({0} rimanente)...</value></data>
-  <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve"><value>Preparazione caricamento hash hardware Autopilot in corso...</value></data>
-  <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve"><value>Decrittografia del certificato multimediale in corso...</value></data>
-  <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve"><value>Autenticazione caricamento hash hardware Autopilot in corso...</value></data>
-  <data name="StepMessage.RequestingMicrosoftGraphToken" xml:space="preserve"><value>Richiesta del token Microsoft Graph...</value></data>
-  <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve"><value>Importazione dell'hash hardware in Microsoft Graph...</value></data>
-  <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve"><value>Scrittura del manifest hash Autopilot simulato...</value></data>
-  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve"><value>La partizione di destinazione Windows non è disponibile per il caricamento dell'hash hardware Autopilot.</value></data>
-  <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve"><value>Autopilot Caricamento dell'hash hardware ignorato perché il certificato incorporato è scaduto.</value></data>
-  <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve"><value>Autopilot Caricamento dell'hash hardware ignorato perché le informazioni richieste sul certificato multimediale sono incomplete.</value></data>
-  <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve"><value>Hash hardware Autopilot importato e visibile nei dispositivi Windows Autopilot.</value></data>
-  <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve"><value>Il dispositivo Autopilot importato non veniva visualizzato nei dispositivi Windows Autopilot prima del timeout.</value></data>
-  <data name="StepResult.AutopilotGroupTagUpdateTimedOut" xml:space="preserve"><value>Windows Autopilot L'aggiornamento del tag del gruppo di dispositivi non è stato confermato prima del timeout.</value></data>
-  <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve"><value>Autopilot Caricamento hash hardware preparato per la simulazione.</value></data>
-  <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve"><value>Autopilot Caricamento hash hardware preparato (simulazione).</value></data>
-  <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve"><value>Il file del profilo Autopilot selezionato non è stato trovato: {0}</value></data>
-  <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot acquisizione hash hardware non riuscita: {0}</value></data>
-  <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot Importazione hash hardware non riuscita: {0}</value></data>
-  <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot Caricamento hash hardware saltato: {0}</value></data>
-  <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot profilo messo in scena.</value></data>
-  <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot profilo messo in scena (simulazione).</value></data>
+Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
+  </data>
+  <data name="Debug.ProgressPageCommand" xml:space="preserve">
+    <value>Pagina di avanzamento</value>
+  </data>
+  <data name="Debug.SuccessPageCommand" xml:space="preserve">
+    <value>Pagina del successo</value>
+  </data>
+  <data name="DeploymentAccess.Continue" xml:space="preserve">
+    <value>Continua</value>
+  </data>
+  <data name="DeploymentAccess.Description" xml:space="preserve">
+    <value>Inserisci la password del tecnico per continuare.</value>
+  </data>
+  <data name="DeploymentAccess.Heading" xml:space="preserve">
+    <value>Password richiesta</value>
+  </data>
+  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve">
+    <value>La password non è corretta. Riprova.</value>
+  </data>
+  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve">
+    <value>Password di distribuzione</value>
+  </data>
+  <data name="DeploymentAccess.Title" xml:space="preserve">
+    <value>Distribuzione protetta</value>
+  </data>
+  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve">
+    <value>Mostra o nascondi la password</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Scegli dove esportare la diagnostica di Foundry</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Non è stato possibile esportare la diagnostica. Controlla il log per i dettagli.</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Esportazione della diagnostica non riuscita</value>
+  </data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>Esporta diagnostica...</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Esporta log non elaborati</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>Esporta diagnostica non elaborata...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Esportare la diagnostica non elaborata?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>I log non elaborati possono contenere credenziali, identificatori, percorsi, nomi di rete e altri dati sensibili. Esportali solo quando vengono richiesti esplicitamente da un contatto di supporto attendibile.</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>La diagnostica è stata esportata in:
+{0}</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Diagnostica esportata</value>
+  </data>
+  <data name="Disk.BlockedBootDisk" xml:space="preserve">
+    <value>Bloccato: disco di avvio</value>
+  </data>
+  <data name="Disk.BlockedOffline" xml:space="preserve">
+    <value>Bloccato: offline</value>
+  </data>
+  <data name="Disk.BlockedReadOnly" xml:space="preserve">
+    <value>Bloccato: sola lettura</value>
+  </data>
+  <data name="Disk.BlockedSystemDisk" xml:space="preserve">
+    <value>Bloccato: disco di sistema</value>
+  </data>
+  <data name="Disk.DebugVirtualTarget" xml:space="preserve">
+    <value>DEBUG BERSAGLI VIRTUALI</value>
+  </data>
+  <data name="Disk.DisplayLabelFormat" xml:space="preserve">
+    <value>Disco {0} | {1} | {2} | {3}{4}</value>
+  </data>
+  <data name="Disk.TargetBlockedFormat" xml:space="preserve">
+    <value>Il disco di destinazione {0} è bloccato: {1}</value>
+  </data>
+  <data name="Disk.TargetMissingFormat" xml:space="preserve">
+    <value>Il disco di destinazione {0} non è più presente.</value>
+  </data>
+  <data name="Disk.UnknownSize" xml:space="preserve">
+    <value>Dimensioni sconosciute</value>
+  </data>
+  <data name="Disk.WarningSuffixFormat" xml:space="preserve">
+    <value>| {0}</value>
+  </data>
+  <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
+    <value>Microsoft Update Catalog</value>
+  </data>
+  <data name="DriverPack.Model" xml:space="preserve">
+    <value>Modello</value>
+  </data>
+  <data name="DriverPack.MultiModelFormat" xml:space="preserve">
+    <value>{0} (+{1} modelli)</value>
+  </data>
+  <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve">
+    <value>{0}: nessun modello o versione corrispondente</value>
+  </data>
+  <data name="DriverPack.Oem" xml:space="preserve">
+    <value>OEM</value>
+  </data>
+  <data name="DriverPack.Source" xml:space="preserve">
+    <value>Origine del conducente</value>
+  </data>
+  <data name="DriverPack.Version" xml:space="preserve">
+    <value>Versione</value>
+  </data>
+  <data name="Drivers.Description" xml:space="preserve">
+    <value>Scegliere l’origine dei driver e, quando necessario, il modello e la versione corrispondenti.</value>
+  </data>
+  <data name="Drivers.Title" xml:space="preserve">
+    <value>Driver del dispositivo</value>
+  </data>
+  <data name="Error.FailedStepFormat" xml:space="preserve">
+    <value>Passaggio non riuscito: {0}</value>
+  </data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
+    <value>Dettagli errore</value>
+  </data>
+  <data name="Error.Title" xml:space="preserve">
+    <value>Distribuzione non riuscita</value>
+  </data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve">
+    <value>Visualizza dettagli errore</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arabo (Arabia Saudita)</value>
   </data>
   <data name="Language.BulgarianBulgaria" xml:space="preserve">
     <value>Bulgaro (Bulgaria)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Cinese semplificato (Cina)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>Cinese tradizionale (Taiwan)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>Croato (Croazia)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
     <value>Ceco (Repubblica Ceca)</value>
@@ -350,23 +314,14 @@ Continuare con la distribuzione?</value></data>
   <data name="Language.DanishDenmark" xml:space="preserve">
     <value>Danese (Danimarca)</value>
   </data>
-  <data name="Language.GermanGermany" xml:space="preserve">
-    <value>Tedesco (Germania)</value>
-  </data>
-  <data name="Language.GreekGreece" xml:space="preserve">
-    <value>Greco (Grecia)</value>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>Olandese (Paesi Bassi)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>Inglese (Regno Unito)</value>
   </data>
   <data name="Language.EnglishUnitedStates" xml:space="preserve">
     <value>Inglese (Stati Uniti)</value>
-  </data>
-  <data name="Language.SpanishSpain" xml:space="preserve">
-    <value>Spagnolo (Spagna)</value>
-  </data>
-  <data name="Language.SpanishMexico" xml:space="preserve">
-    <value>Spagnolo (Messico)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
     <value>Estone (Estonia)</value>
@@ -380,11 +335,14 @@ Continuare con la distribuzione?</value></data>
   <data name="Language.FrenchFrance" xml:space="preserve">
     <value>Francese (Francia)</value>
   </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>Tedesco (Germania)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>Greco (Grecia)</value>
+  </data>
   <data name="Language.HebrewIsrael" xml:space="preserve">
     <value>Ebraico (Israele)</value>
-  </data>
-  <data name="Language.CroatianCroatia" xml:space="preserve">
-    <value>Croato (Croazia)</value>
   </data>
   <data name="Language.HungarianHungary" xml:space="preserve">
     <value>Ungherese (Ungheria)</value>
@@ -398,17 +356,14 @@ Continuare con la distribuzione?</value></data>
   <data name="Language.KoreanKorea" xml:space="preserve">
     <value>Coreano (Corea)</value>
   </data>
-  <data name="Language.LithuanianLithuania" xml:space="preserve">
-    <value>Lituano (Lituania)</value>
-  </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
     <value>Lettone (Lettonia)</value>
   </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>Lituano (Lituania)</value>
+  </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
     <value>Bokmal norvegese (Norvegia)</value>
-  </data>
-  <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>Olandese (Paesi Bassi)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>Polacco (Polonia)</value>
@@ -425,14 +380,20 @@ Continuare con la distribuzione?</value></data>
   <data name="Language.RussianRussia" xml:space="preserve">
     <value>Russo (Russia)</value>
   </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>Latino serbo (Serbia)</value>
+  </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>Slovacco (Slovacchia)</value>
   </data>
   <data name="Language.SlovenianSlovenia" xml:space="preserve">
     <value>Sloveno (Slovenia)</value>
   </data>
-  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Latino serbo (Serbia)</value>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>Spagnolo (Messico)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>Spagnolo (Spagna)</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
     <value>Svedese (Svezia)</value>
@@ -446,23 +407,644 @@ Continuare con la distribuzione?</value></data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Ucraino (Ucraina)</value>
   </data>
-  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Cinese semplificato (Cina)</value>
+  <data name="Launch.ConfirmDiskEraseMessageFormat" xml:space="preserve">
+    <value>Ciò cancellerà tutti i dati sul disco selezionato e installerà il sistema operativo selezionato.
+
+Disco: {0}
+Modello: {1}
+Autobus: {2}
+Dimensioni: {3}
+
+Sistema operativo: {4}
+
+Continuare con la distribuzione?</value>
   </data>
-  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>Cinese tradizionale (Taiwan)</value>
+  <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve">
+    <value>Conferma la cancellazione del disco</value>
   </data>
-  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
-    <value>Preparazione dell&apos;assistente di registrazione Autopilot...</value>
+  <data name="Menu.About" xml:space="preserve">
+    <value>_Circa</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>_Debug</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>_Lingua</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>_Tema</value>
+  </data>
+  <data name="Menu.Tools" xml:space="preserve">
+    <value>_Strumenti</value>
+  </data>
+  <data name="OperatingSystem.Description" xml:space="preserve">
+    <value>Scegliere la versione di Windows, la lingua, l’edizione e il canale di licenza.</value>
+  </data>
+  <data name="OperatingSystem.Title" xml:space="preserve">
+    <value>Sistema operativo</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
+    <value>Scadenza del certificato</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve">
+    <value>Il certificato Autopilot è scaduto. La distribuzione può continuare senza caricare l'hash hardware.</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve">
+    <value>Etichetta di gruppo</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve">
+    <value>Mancano le informazioni richieste sul certificato. La distribuzione può continuare senza caricare l'hash hardware.</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve">
+    <value>Pronto per caricare l'hash hardware</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve">
+    <value>ID inquilino</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve">
+    <value>Caricamento dell'hash hardware non disponibile</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve">
+    <value>Stato di caricamento dell'hash hardware</value>
+  </data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve">
+    <value>Caricamento zero-touch dell’hash hardware</value>
+  </data>
+  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve">
+    <value>Caricamento interattivo dell’hash hardware</value>
+  </data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
+    <value>JSON provisioning del profilo</value>
+  </data>
+  <data name="Preparation.AutopilotProfile" xml:space="preserve">
+    <value>Profilo</value>
+  </data>
+  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve">
+    <value>Nessun profilo Autopilot incorporato trovato su questo supporto.</value>
+  </data>
+  <data name="Preparation.ComputerName" xml:space="preserve">
+    <value>Nome del computer</value>
+  </data>
+  <data name="Preparation.ComputerNameHint" xml:space="preserve">
+    <value>1-15 caratteri. Solo A-Z, a-z, 0-9 e trattino.</value>
+  </data>
+  <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve">
+    <value>Il nome del computer deve contenere da 1 a 15 caratteri validi (lettere, numeri o trattini).</value>
+  </data>
+  <data name="Preparation.DetectingHardware" xml:space="preserve">
+    <value>Rilevamento dell'hardware in corso...</value>
+  </data>
+  <data name="Preparation.FirmwareUpdates" xml:space="preserve">
+    <value>Applicare gli aggiornamenti del firmware</value>
+  </data>
+  <data name="Preparation.HardwareDetectionFailed" xml:space="preserve">
+    <value>Rilevamento dell'hardware non riuscito.</value>
+  </data>
+  <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve">
+    <value>Rilevamento hardware non riuscito: {0}</value>
+  </data>
+  <data name="Preparation.HardwareSummaryFormat" xml:space="preserve">
+    <value>{0} | TPM: {1} | Potenza: {2} | Firmware: {3}</value>
+  </data>
+  <data name="Preparation.PowerAc" xml:space="preserve">
+    <value>AC</value>
+  </data>
+  <data name="Preparation.PowerBattery" xml:space="preserve">
+    <value>Batteria</value>
+  </data>
+  <data name="Preparation.TargetDisk" xml:space="preserve">
+    <value>Disco di destinazione</value>
+  </data>
+  <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve">
+    <value>Individuazione del disco di destinazione non riuscita: {0}</value>
+  </data>
+  <data name="Preparation.TargetDiskHint" xml:space="preserve">
+    <value>Seleziona un disco di destinazione. I dischi non idonei vengono bloccati.</value>
+  </data>
+  <data name="Progress.ElapsedTime" xml:space="preserve">
+    <value>Tempo trascorso</value>
+  </data>
+  <data name="Progress.Networking" xml:space="preserve">
+    <value>Rete</value>
+  </data>
+  <data name="Progress.RingAutomationName" xml:space="preserve">
+    <value>Avanzamento generale della distribuzione</value>
+  </data>
+  <data name="Progress.Session" xml:space="preserve">
+    <value>Sessione di distribuzione</value>
+  </data>
+  <data name="Progress.StartTime" xml:space="preserve">
+    <value>Ora di inizio</value>
+  </data>
+  <data name="Progress.Timeline" xml:space="preserve">
+    <value>Passaggi</value>
+  </data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve">
+    <value>Passaggi della distribuzione</value>
+  </data>
+  <data name="Splash.InitializingComponents" xml:space="preserve">
+    <value>Inizializzazione dei componenti...</value>
+  </data>
+  <data name="Splash.StartDeployment" xml:space="preserve">
+    <value>Avvia distribuzione</value>
+  </data>
+  <data name="Splash.Welcome" xml:space="preserve">
+    <value>Benvenuto</value>
+  </data>
+  <data name="Status.AnotherOperationRunning" xml:space="preserve">
+    <value>Un'altra operazione è già in corso.</value>
+  </data>
+  <data name="Status.DeploymentCancelled" xml:space="preserve">
+    <value>Distribuzione annullata.</value>
+  </data>
+  <data name="Status.InProgress" xml:space="preserve">
+    <value>In corso...</value>
+  </data>
+  <data name="Status.NoErrorDetails" xml:space="preserve">
+    <value>Non sono stati forniti dettagli sull'errore.</value>
+  </data>
+  <data name="Status.PreparingDeployment" xml:space="preserve">
+    <value>Preparazione della distribuzione in corso...</value>
+  </data>
+  <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve">
+    <value>L'eseguibile di riavvio richiesto "wpeutil.exe" non è stato trovato.</value>
+  </data>
+  <data name="Status.StartingStep" xml:space="preserve">
+    <value>Passo iniziale...</value>
+  </data>
+  <data name="Status.StartingStepFormat" xml:space="preserve">
+    <value>Inizio {0}.</value>
+  </data>
+  <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
+    <value>Inizio {0}...</value>
+  </data>
+  <data name="Status.StepCompleted" xml:space="preserve">
+    <value>Passaggio completato.</value>
+  </data>
+  <data name="Status.StepCounterFormat" xml:space="preserve">
+    <value>Passo: {0} di {1}</value>
+  </data>
+  <data name="Status.StepCounterUnknown" xml:space="preserve">
+    <value>Passo:? Di?</value>
+  </data>
+  <data name="Status.StepFailed" xml:space="preserve">
+    <value>Passaggio non riuscito.</value>
+  </data>
+  <data name="Status.StepSkipped" xml:space="preserve">
+    <value>Passaggio saltato.</value>
+  </data>
+  <data name="Status.SystemReboot" xml:space="preserve">
+    <value>Riavvio del sistema</value>
+  </data>
+  <data name="Status.UnknownStep" xml:space="preserve">
+    <value>Passaggio sconosciuto</value>
+  </data>
+  <data name="Status.WaitingForDeployment" xml:space="preserve">
+    <value>In attesa di distribuzione...</value>
+  </data>
+  <data name="Status.WaitingForProgress" xml:space="preserve">
+    <value>In attesa di progressi...</value>
+  </data>
+  <data name="Status.WpeUtilFailureFormat" xml:space="preserve">
+    <value>wpeutil.exe non è riuscito con il codice di uscita {0}. {1}</value>
+  </data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve">
+    <value>Applicare driver</value>
+  </data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
+    <value>Applicare firmware</value>
+  </data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
+    <value>Applicare sistema operativo</value>
+  </data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
+    <value>Applicare driver di ripristino</value>
+  </data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve">
+    <value>Configurare OOBE</value>
+  </data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
+    <value>Configurare ripristino Windows</value>
+  </data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
+    <value>Impostare nome computer</value>
+  </data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
+    <value>Configurare funzionalità opzionali</value>
+  </data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve">
+    <value>Scaricare driver</value>
+  </data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
+    <value>Scaricare firmware</value>
+  </data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
+    <value>Scaricare sistema operativo</value>
+  </data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve">
+    <value>Estrarre driver</value>
+  </data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
+    <value>Completare distribuzione</value>
+  </data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
+    <value>Raccogliere variabili</value>
+  </data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
+    <value>Inizializzare distribuzione</value>
+  </data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
+    <value>Preparare il disco</value>
+  </data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve">
+    <value>Provisionare Autopilot</value>
+  </data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve">
+    <value>Controllare cache</value>
+  </data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve">
+    <value>Sigillare partizione di ripristino</value>
+  </data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve">
+    <value>Preparare personalizzazioni</value>
+  </data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
+    <value>Convalidare configurazione</value>
+  </data>
+  <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
+    <value>Applicazione del pacchetto driver in corso...</value>
+  </data>
+  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
+    <value>Applicazione dell'aggiornamento firmware in corso...</value>
+  </data>
+  <data name="StepMessage.ApplyingImage" xml:space="preserve">
+    <value>Applicazione dell'immagine...</value>
+  </data>
+  <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve">
+    <value>Applicazione dell'immagine del sistema operativo in corso...</value>
+  </data>
+  <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve">
+    <value>Applicazione dei driver WinRE...</value>
+  </data>
+  <data name="StepMessage.ApplyingWindowsDrivers" xml:space="preserve">
+    <value>Applicazione dei driver Windows...</value>
+  </data>
+  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
+    <value>Applicazione delle modifiche alle funzionalità...</value>
+  </data>
+  <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve">
+    <value>Autenticazione caricamento hash hardware Autopilot in corso...</value>
+  </data>
+  <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
+    <value>Acquisizione dell'hash hardware Autopilot in corso...</value>
+  </data>
+  <data name="StepMessage.CheckingCache" xml:space="preserve">
+    <value>Controllo della cache...</value>
+  </data>
+  <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
+    <value>Verifica conflitto disco cache...</value>
+  </data>
+  <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
+    <value>Controllo dei dispositivi Windows Autopilot ({0} rimanenti)...</value>
+  </data>
+  <data name="StepMessage.CheckingWindowsAutopilotGroupTagFormat" xml:space="preserve">
+    <value>Controllo del tag del gruppo Windows Autopilot ({0} rimanente)...</value>
+  </data>
+  <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
+    <value>Pulizia dell'area di lavoro temporanea...</value>
+  </data>
+  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
+    <value>Raccolta del contesto di distribuzione in corso...</value>
+  </data>
+  <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
+    <value>Configurazione della rimozione del componente AI in corso...</value>
+  </data>
+  <data name="StepMessage.ConfiguringBoot" xml:space="preserve">
+    <value>Configurazione dell'avvio...</value>
+  </data>
+  <data name="StepMessage.ConfiguringOfflineCustomizations" xml:space="preserve">
+    <value>Configurazione delle personalizzazioni offline...</value>
+  </data>
+  <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve">
+    <value>Configurazione delle impostazioni OOBE...</value>
+  </data>
+  <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve">
+    <value>Configurazione dell'ambiente di ripristino in corso...</value>
+  </data>
+  <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve">
+    <value>Configurazione del nome del computer di destinazione in corso...</value>
+  </data>
+  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve">
+    <value>Configurazione delle funzionalità facoltative di Windows...</value>
+  </data>
+  <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
+    <value>Copia di AutopilotConfigurationFile.json in corso...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Copia dei file di registrazione interattiva...</value>
   </data>
+  <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
+    <value>Creazione di partizioni simulate...</value>
+  </data>
+  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
+    <value>Creazione delle cartelle dell'area di lavoro...</value>
+  </data>
+  <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
+    <value>Decrittografia del certificato multimediale in corso...</value>
+  </data>
+  <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve">
+    <value>Rilevamento profilo hardware in corso...</value>
+  </data>
+  <data name="StepMessage.DownloadingDriverPack" xml:space="preserve">
+    <value>Download del pacchetto driver in corso...</value>
+  </data>
+  <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve">
+    <value>Download dell'aggiornamento firmware in corso...</value>
+  </data>
+  <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve">
+    <value>Download dell'immagine del sistema operativo in corso...</value>
+  </data>
+  <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
+    <value>Estrazione pacchetto driver...</value>
+  </data>
+  <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
+    <value>Finalizzazione della distribuzione in corso...</value>
+  </data>
+  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
+    <value>Raccolta delle variabili di distribuzione...</value>
+  </data>
+  <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
+    <value>Importazione dell'hash hardware in Microsoft Graph...</value>
+  </data>
+  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
+    <value>Inizializzazione dell'area di lavoro di distribuzione in corso...</value>
+  </data>
+  <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
+    <value>Inserimento del contenuto del firmware offline Windows...</value>
+  </data>
+  <data name="StepMessage.InspectingImage" xml:space="preserve">
+    <value>Ispezione dell'immagine...</value>
+  </data>
+  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve">
+    <value>Ispezione degli stati delle funzionalità...</value>
+  </data>
+  <data name="StepMessage.MountingWinRe" xml:space="preserve">
+    <value>Montaggio WinRE...</value>
+  </data>
+  <data name="StepMessage.PartitioningTargetDisk" xml:space="preserve">
+    <value>Partizionamento del disco di destinazione...</value>
+  </data>
+  <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve">
+    <value>Preparazione caricamento hash hardware Autopilot in corso...</value>
+  </data>
+  <data name="StepMessage.PreparingDownload" xml:space="preserve">
+    <value>Preparazione download...</value>
+  </data>
+  <data name="StepMessage.PreparingMicrosoftGraphImport" xml:space="preserve">
+    <value>Preparazione dell'importazione Microsoft Graph...</value>
+  </data>
+  <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve">
+    <value>Preparazione della ricerca Microsoft Update Catalog...</value>
+  </data>
+  <data name="StepMessage.PreparingTargetDiskLayout" xml:space="preserve">
+    <value>Preparazione del layout del disco di destinazione in corso...</value>
+  </data>
+  <data name="StepMessage.PreparingTargetWorkspace" xml:space="preserve">
+    <value>Preparazione dell'area di lavoro di destinazione...</value>
+  </data>
+  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve">
+    <value>Preparazione delle origini multimediali di configurazione corrispondenti in corso...</value>
+  </data>
+  <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve">
+    <value>Preparazione dell'ambiente di ripristino Windows...</value>
+  </data>
+  <data name="StepMessage.RemovingRecoveryDriveLetter" xml:space="preserve">
+    <value>Rimozione della lettera dell'unità di ripristino in corso...</value>
+  </data>
+  <data name="StepMessage.RequestingMicrosoftGraphToken" xml:space="preserve">
+    <value>Richiesta del token Microsoft Graph...</value>
+  </data>
+  <data name="StepMessage.ResolvingCacheLocation" xml:space="preserve">
+    <value>Risoluzione della posizione della cache in corso...</value>
+  </data>
+  <data name="StepMessage.ResolvingCacheStrategy" xml:space="preserve">
+    <value>Controllo della cache di distribuzione in corso...</value>
+  </data>
+  <data name="StepMessage.RevalidatingTargetDisk" xml:space="preserve">
+    <value>Riconvalida del disco di destinazione in corso...</value>
+  </data>
+  <data name="StepMessage.RunningOa3Tool" xml:space="preserve">
+    <value>In esecuzione OA3Tool...</value>
+  </data>
+  <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve">
+    <value>Sigillatura della partizione di ripristino...</value>
+  </data>
+  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve">
+    <value>Simulazione delle modifiche alle funzionalità...</value>
+  </data>
+  <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
+    <value>Messa in scena del profilo Autopilot...</value>
+  </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Preparazione dell'assistente di registrazione Autopilot...</value>
+  </data>
+  <data name="StepMessage.StagingPackage" xml:space="preserve">
+    <value>Pacchetto di allestimento...</value>
+  </data>
+  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
+    <value>Preparazione delle personalizzazioni pre-OOBE in corso...</value>
+  </data>
+  <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
+    <value>Invio della richiesta di importazione a Microsoft Graph...</value>
+  </data>
+  <data name="StepMessage.UnmountingWinRe" xml:space="preserve">
+    <value>Smontaggio WinRE...</value>
+  </data>
+  <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
+    <value>Aggiornamento del dispositivo Autopilot esistente...</value>
+  </data>
+  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
+    <value>Aggiornamento dello script di installazione al primo avvio in corso...</value>
+  </data>
+  <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
+    <value>Aggiornamento del tag del gruppo Windows Autopilot in Microsoft Graph...</value>
+  </data>
+  <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve">
+    <value>Caricamento dell'hash hardware Autopilot in corso...</value>
+  </data>
+  <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve">
+    <value>Convalida della configurazione di destinazione in corso...</value>
+  </data>
+  <data name="StepMessage.VerifyingImage" xml:space="preserve">
+    <value>Verifica immagine...</value>
+  </data>
+  <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve">
+    <value>In attesa della visibilità del dispositivo Autopilot...</value>
+  </data>
+  <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
+    <value>In attesa dell'aggiornamento del tag del gruppo Autopilot...</value>
+  </data>
+  <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
+    <value>Scrittura dei registri di completamento...</value>
+  </data>
+  <data name="StepMessage.WritingDeploymentSummary" xml:space="preserve">
+    <value>Scrittura del riepilogo della distribuzione in corso...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve">
+    <value>Scrittura del manifest hash Autopilot simulato...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve">
+    <value>Scrittura del manifest Autopilot simulato...</value>
+  </data>
   <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
     <value>Scrittura del manifesto di registrazione interattiva di prova...</value>
   </data>
-  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
-    <value>La partizione Windows di destinazione non è disponibile per preparare l&apos;assistente di registrazione interattiva di Autopilot.</value>
+  <data name="StepMessage.WritingFirstRunDefaults" xml:space="preserve">
+    <value>Scrittura delle impostazioni predefinite di prima esecuzione...</value>
+  </data>
+  <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve">
+    <value>Scrittura delle impostazioni predefinite di privacy di prima esecuzione...</value>
+  </data>
+  <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve">
+    <value>Scrittura di policy AI offline...</value>
+  </data>
+  <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve">
+    <value>Scrittura del nome del computer offline...</value>
+  </data>
+  <data name="StepProgress.Applying" xml:space="preserve">
+    <value>Applicazione</value>
+  </data>
+  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
+    <value>Applicazione delle modifiche alle funzionalità</value>
+  </data>
+  <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve">
+    <value>{0} scaricato</value>
+  </data>
+  <data name="StepProgress.Downloading" xml:space="preserve">
+    <value>Download in corso</value>
+  </data>
+  <data name="StepProgress.Extracting" xml:space="preserve">
+    <value>Estrarre</value>
+  </data>
+  <data name="StepProgress.PercentFormat" xml:space="preserve">
+    <value>{0}: {1}%</value>
+  </data>
+  <data name="StepProgress.Staging" xml:space="preserve">
+    <value>Messa in scena</value>
+  </data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
+    <value>L'indice dell'immagine Windows applicata non è disponibile.</value>
+  </data>
+  <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve">
+    <value>Il dispositivo Autopilot importato non veniva visualizzato nei dispositivi Windows Autopilot prima del timeout.</value>
+  </data>
+  <data name="StepResult.AutopilotDisabled" xml:space="preserve">
+    <value>Autopilot è disabilitato.</value>
+  </data>
+  <data name="StepResult.AutopilotGroupTagUpdateTimedOut" xml:space="preserve">
+    <value>Windows Autopilot L'aggiornamento del tag del gruppo di dispositivi non è stato confermato prima del timeout.</value>
+  </data>
+  <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve">
+    <value>Hash hardware Autopilot importato e visibile nei dispositivi Windows Autopilot.</value>
+  </data>
+  <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve">
+    <value>Autopilot acquisizione hash hardware non riuscita: {0}</value>
+  </data>
+  <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve">
+    <value>Autopilot Importazione hash hardware non riuscita: {0}</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve">
+    <value>Autopilot Caricamento hash hardware preparato per la simulazione.</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve">
+    <value>Autopilot Caricamento hash hardware preparato (simulazione).</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve">
+    <value>Autopilot Caricamento dell'hash hardware ignorato perché il certificato incorporato è scaduto.</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve">
+    <value>Autopilot Caricamento hash hardware saltato: {0}</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
+    <value>Autopilot Caricamento dell'hash hardware ignorato perché le informazioni richieste sul certificato multimediale sono incomplete.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
+    <value>Autopilot è abilitato ma non è stato selezionato alcun profilo.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
+    <value>Autopilot profilo messo in scena.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
+    <value>Autopilot profilo messo in scena (simulazione).</value>
+  </data>
+  <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
+    <value>Strategia della cache risolta.</value>
+  </data>
+  <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
+    <value>Strategia cache risolta (simulazione).</value>
+  </data>
+  <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
+    <value>È stata richiesta la gestione temporanea del pacchetto driver al primo avvio senza un comando supportato.</value>
+  </data>
+  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
+    <value>Variabili di distribuzione raccolte.</value>
+  </data>
+  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
+    <value>Variabili di distribuzione raccolte (simulazione).</value>
+  </data>
+  <data name="StepResult.DriverPackApplied" xml:space="preserve">
+    <value>Pacchetto driver applicato.</value>
+  </data>
+  <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve">
+    <value>Pacchetto driver applicato (simulazione).</value>
+  </data>
+  <data name="StepResult.DriverPackDisabled" xml:space="preserve">
+    <value>Pacchetto driver disabilitato (nessuno selezionato).</value>
+  </data>
+  <data name="StepResult.DriverPackDownloaded" xml:space="preserve">
+    <value>Pacchetto driver scaricato.</value>
+  </data>
+  <data name="StepResult.DriverPackDownloadedSimulation" xml:space="preserve">
+    <value>Pacchetto driver scaricato (simulazione).</value>
+  </data>
+  <data name="StepResult.DriverPackExtracted" xml:space="preserve">
+    <value>Pacchetto driver estratto.</value>
+  </data>
+  <data name="StepResult.DriverPackExtractedSimulation" xml:space="preserve">
+    <value>Pacchetto driver estratto (simulazione).</value>
+  </data>
+  <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
+    <value>Il pacchetto driver non è stato scaricato.</value>
+  </data>
+  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
+    <value>Pacchetto driver preparato per l'installazione al primo avvio.</value>
+  </data>
+  <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
+    <value>Pacchetto driver risolto dalla cache.</value>
+  </data>
+  <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
+    <value>Il contenuto di origine del pacchetto driver non è disponibile per la gestione temporanea al primo avvio.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
+    <value>Aggiornamento firmware applicato.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
+    <value>Aggiornamento firmware applicato (simulazione).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
+    <value>Aggiornamento del firmware scaricato.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
+    <value>Aggiornamento firmware scaricato (simulazione).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
+    <value>Gli aggiornamenti del firmware sono disabilitati.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdatesDisabledForVirtualMachines" xml:space="preserve">
+    <value>Gli aggiornamenti del firmware sono disabilitati per le macchine virtuali.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdatesSkippedOnBattery" xml:space="preserve">
+    <value>Gli aggiornamenti del firmware vengono saltati mentre il dispositivo è alimentato a batteria.</value>
   </data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
     <value>Assistente di registrazione interattiva di Autopilot preparato.</value>
@@ -470,157 +1052,448 @@ Continuare con la distribuzione?</value></data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Assistente di registrazione interattiva di Autopilot preparato (simulazione).</value>
   </data>
-  <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Rimuovere il supporto di avvio, quindi selezionare Riavvia.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Configurare funzionalità opzionali</value></data>
-  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Configurazione delle funzionalit&#224; facoltative di Windows...</value></data>
-  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Ispezione degli stati delle funzionalit&#224;...</value></data>
-  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Preparazione delle origini multimediali di configurazione corrispondenti in corso...</value></data>
-  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Applicazione delle modifiche alle funzionalit&#224;...</value></data>
-  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Simulazione delle modifiche alle funzionalit&#224;...</value></data>
-  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Applicazione delle modifiche alle funzionalit&#224;</value></data>
-  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve"><value>Configurazione delle funzionalit&#224; facoltative di Windows disabilitata.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve"><value>La configurazione delle funzionalit&#224; facoltative di Windows non &#232; valida.</value></data>
-  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve"><value>Funzionalit&#224; facoltative di Windows configurate ({0} modificate, {1} gi&#224; soddisfatte, {2} non disponibili).</value></data>
-  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve"><value>Configurazione delle funzionalit&#224; facoltative di Windows simulata ({0} azioni).</value></data>
-  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>La funzionalit&#224; facoltativa di Windows &#39;{0}&#39; presenta un payload rimosso e nessuna mappatura dell&#39;origine locale supportata.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>La verifica delle funzionalit&#224; facoltative di Windows non &#232; riuscita per &#39;{0}&#39;.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>La sorgente NetFx3 corrispondente non &#232; disponibile. {0}</value></data>
-  <data name="Common.Cancel" xml:space="preserve"><value>Annulla</value></data>
-  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Distribuzione protetta</value></data>
-  <data name="DeploymentAccess.Heading" xml:space="preserve"><value>Password richiesta</value></data>
-  <data name="DeploymentAccess.Description" xml:space="preserve"><value>Inserisci la password del tecnico per continuare.</value></data>
-  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>Password di distribuzione</value></data>
-  <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Continua</value></data>
-  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Mostra o nascondi la password</value></data>
-  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>La password non è corretta. Riprova.</value></data>
-  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>Dispositivo di destinazione</value></data>
-  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>Sistema operativo</value></data>
-  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>Driver del dispositivo</value></data>
-  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Wizard.Step.Summary" xml:space="preserve"><value>Riepilogo</value></data>
-  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>Passaggi di configurazione della distribuzione</value></data>
-  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>Torna al riepilogo</value></data>
-  <data name="Common.Edit" xml:space="preserve"><value>Modifica</value></data>
-  <data name="Common.Copy" xml:space="preserve"><value>Copia negli appunti</value></data>
-  <data name="Common.Close" xml:space="preserve"><value>Chiudi la finestra</value></data>
-  <data name="TargetDevice.Title" xml:space="preserve"><value>Dispositivo di destinazione</value></data>
-  <data name="TargetDevice.Firmware" xml:space="preserve"><value>Aggiornamenti firmware</value></data>
-  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>Non disponibile sulle macchine virtuali</value></data>
-  <data name="OperatingSystem.Title" xml:space="preserve"><value>Sistema operativo</value></data>
-  <data name="Drivers.Title" xml:space="preserve"><value>Driver del dispositivo</value></data>
-  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>Dettagli di configurazione</value></data>
-  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>Dispositivo di destinazione</value></data>
-  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>Sistema operativo</value></data>
-  <data name="Summary.Category.Drivers" xml:space="preserve"><value>Driver del dispositivo</value></data>
-  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Personalizzazione di Windows</value></data>
-  <data name="Summary.Category.Network" xml:space="preserve"><value>Rete</value></data>
-  <data name="Summary.Category.Completion" xml:space="preserve"><value>Completamento</value></data>
-  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Non configurato</value></data>
-  <data name="Summary.Status.Configured" xml:space="preserve"><value>Configurato</value></data>
-  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Nessuna modifica</value></data>
-  <data name="Summary.Release" xml:space="preserve"><value>Versione</value></data>
-  <data name="Summary.Edition" xml:space="preserve"><value>Edizione del sistema operativo</value></data>
-  <data name="Summary.Architecture" xml:space="preserve"><value>Architettura del sistema</value></data>
-  <data name="Summary.Language" xml:space="preserve"><value>Lingua</value></data>
-  <data name="Summary.LicenseChannel" xml:space="preserve"><value>Canale di licenza</value></data>
-  <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
-  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
-  <data name="Summary.BuiltInAdministrator" xml:space="preserve"><value>Account Administrator predefinito</value></data>
-  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve"><value>Account locali aggiuntivi</value></data>
-  <data name="Summary.SkipAccountCreation" xml:space="preserve"><value>Ignora creazione account</value></data>
-  <data name="Summary.AppxRemoval" xml:space="preserve"><value>Rimozione delle app AppX</value></data>
-  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>Rimozione dei componenti AI</value></data>
-  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Roaming del profilo di rete</value></data>
-  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>Riavvio automatico</value></data>
-  <data name="Summary.ManualRestart" xml:space="preserve"><value>Riavvio manuale</value></data>
-  <data name="Summary.RestartDelay" xml:space="preserve"><value>Ritardo del riavvio</value></data>
-  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} secondi</value></data>
-  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Il disco di destinazione selezionato verrà cancellato all&apos;avvio della distribuzione.</value></data>
-  <data name="Progress.Session" xml:space="preserve"><value>Sessione di distribuzione</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Passaggi</value></data>
-  <data name="Progress.RingAutomationName" xml:space="preserve"><value>Avanzamento generale della distribuzione</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Passaggi della distribuzione</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Visualizza dettagli errore</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Dettagli errore</value></data>
-  <data name="TargetDevice.Description" xml:space="preserve"><value>Scegliere il nome del computer e il disco di destinazione, quindi esaminare l’hardware rilevato.</value></data>
-  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Impostazioni di distribuzione</value></data>
-  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Inventario del dispositivo</value></data>
-  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Identità del dispositivo</value></data>
-  <data name="TargetDevice.Platform" xml:space="preserve"><value>Piattaforma</value></data>
-  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Produttore</value></data>
-  <data name="TargetDevice.Model" xml:space="preserve"><value>Modello</value></data>
-  <data name="TargetDevice.Product" xml:space="preserve"><value>Prodotto</value></data>
-  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Numero di serie</value></data>
-  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Architettura</value></data>
-  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
-  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Fonte di alimentazione</value></data>
-  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Stato del firmware</value></data>
-  <data name="OperatingSystem.Description" xml:space="preserve"><value>Scegliere la versione di Windows, la lingua, l’edizione e il canale di licenza.</value></data>
-  <data name="Drivers.Description" xml:space="preserve"><value>Scegliere l’origine dei driver e, quando necessario, il modello e la versione corrispondenti.</value></data>
-  <data name="Autopilot.Description" xml:space="preserve"><value>Esaminare le impostazioni di provisioning di Autopilot per questo dispositivo.</value></data>
-  <data name="Summary.Description" xml:space="preserve"><value>Esaminare le selezioni prima di avviare la distribuzione.</value></data>
-  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Include un profilo Autopilot offline nell'installazione di Windows.</value></data>
-  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Carica l'hash hardware del dispositivo in Windows Autopilot durante la distribuzione.</value></data>
-  <data name="Summary.Status" xml:space="preserve"><value>Stato</value></data>
-  <data name="Summary.ProvisioningMethod" xml:space="preserve"><value>Metodo di provisioning</value></data>
-  <data name="Summary.WarningDetails" xml:space="preserve"><value>Dettagli di avviso</value></data>
-  <data name="Summary.DiagnosticData" xml:space="preserve"><value>Dati diagnostici</value></data>
-  <data name="Summary.LocationAccess" xml:space="preserve"><value>Accesso alla posizione</value></data>
-  <data name="Summary.SkipLicenseTerms" xml:space="preserve"><value>Salta i termini di licenza</value></data>
-  <data name="Summary.HidePrivacySetup" xml:space="preserve"><value>Nascondi la configurazione della privacy</value></data>
-  <data name="Summary.TailoredExperiences" xml:space="preserve"><value>Esperienze su misura</value></data>
-  <data name="Summary.AdvertisingId" xml:space="preserve"><value>ID pubblicitario</value></data>
-  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve"><value>Riconoscimento vocale online</value></data>
-  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve"><value>Diagnostica dell&apos;input penna e della digitazione</value></data>
-  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve"><value>Rimozione dell&apos;applicazione e dell&apos;intelligenza artificiale</value></data>
-  <data name="Summary.TotalConfigured" xml:space="preserve"><value>Totale configurato</value></data>
-  <data name="Summary.FeaturesEnabled" xml:space="preserve"><value>Funzionalità abilitate</value></data>
-  <data name="Summary.FeaturesDisabled" xml:space="preserve"><value>Funzionalità disabilitate</value></data>
-  <data name="Summary.WiredDot1x" xml:space="preserve"><value>Cablato 802.1X</value></data>
-  <data name="Summary.Wifi" xml:space="preserve"><value>Wi-Fi</value></data>
-  <data name="Summary.PrivateKeyMaterial" xml:space="preserve"><value>Materiale a chiave privata</value></data>
-  <data name="Summary.Included" xml:space="preserve"><value>Incluso</value></data>
-  <data name="Summary.NotIncluded" xml:space="preserve"><value>Non incluso</value></data>
-  <data name="Summary.RestartBehavior" xml:space="preserve"><value>Comportamento di riavvio</value></data>
-  <data name="Summary.Automatic" xml:space="preserve"><value>Automatico</value></data>
-  <data name="Summary.Manual" xml:space="preserve"><value>Manuale</value></data>
-  <data name="Summary.DiagnosticData.Required" xml:space="preserve"><value>Richiesto</value></data>
-  <data name="Summary.DiagnosticData.Optional" xml:space="preserve"><value>Facoltativo</value></data>
-  <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>Off</value></data>
-  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>Controllato dall&apos;utente</value></data>
-  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>Forzato off</value></data>
-  <data name="Diagnostics.ExportMenu" xml:space="preserve">
-    <value>Esporta diagnostica...</value>
+  <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
+    <value>Microsoft Update Catalog non ha prodotto contenuto del driver.</value>
   </data>
-  <data name="TargetDevice.AssetTag" xml:space="preserve"><value>Etichetta asset</value></data>
-  <data name="TargetDevice.SystemUuid" xml:space="preserve"><value>UUID di sistema</value></data>
-  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
-    <value>Esporta diagnostica non elaborata...</value>
+  <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
+    <value>Non è richiesto il download del pacchetto driver.</value>
   </data>
-  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
-    <value>Esportare la diagnostica non elaborata?</value>
+  <data name="StepResult.NoDriverPackOperationRequired" xml:space="preserve">
+    <value>Non è richiesta alcuna operazione del pacchetto driver.</value>
   </data>
-  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
-    <value>I log non elaborati possono contenere credenziali, identificatori, percorsi, nomi di rete e altri dati sensibili. Esportali solo quando vengono richiesti esplicitamente da un contatto di supporto attendibile.</value>
+  <data name="StepResult.NoExtractedFirmwarePayload" xml:space="preserve">
+    <value>Non è disponibile alcun contenuto firmware estratto.</value>
   </data>
-  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
-    <value>Esporta log non elaborati</value>
+  <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
+    <value>Non è disponibile alcun contenuto del driver INF estratto.</value>
   </data>
-  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
-    <value>Scegli dove esportare la diagnostica di Foundry</value>
+  <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
+    <value>Il contenuto del firmware estratto non contiene file INF.</value>
   </data>
-  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
-    <value>Diagnostica esportata</value>
+  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
+    <value>Non sono richiesti script di personalizzazione pre-OOBE.</value>
   </data>
-  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
-    <value>La diagnostica è stata esportata in:&#xA;{0}</value>
+  <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
+    <value>Modalità pacchetto driver OEM selezionata ma non è stato fornito alcun pacchetto driver.</value>
   </data>
-  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
-    <value>Esportazione della diagnostica non riuscita</value>
+  <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve">
+    <value>Personalizzazione offline configurata.</value>
   </data>
-  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
-    <value>Non è stato possibile esportare la diagnostica. Controlla il log per i dettagli.</value>
+  <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve">
+    <value>Personalizzazione offline configurata (simulazione).</value>
+  </data>
+  <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve">
+    <value>Personalizzazione offline disabilitata.</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve">
+    <value>Immagine del sistema operativo applicata.</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve">
+    <value>Immagine del sistema operativo applicata (simulazione).</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve">
+    <value>Immagine del sistema operativo scaricata.</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
+    <value>L'immagine del sistema operativo non è stata scaricata.</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve">
+    <value>Immagine del sistema operativo pronta (simulazione).</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve">
+    <value>Immagine del sistema operativo risolta dalla cache.</value>
+  </data>
+  <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
+    <value>Manca il sistema operativo URL.</value>
+  </data>
+  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
+    <value>Personalizzazioni pre-OOBE organizzate.</value>
+  </data>
+  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
+    <value>Personalizzazioni pre-OOBE organizzate (simulazione).</value>
+  </data>
+  <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
+    <value>Ambiente di ripristino configurato.</value>
+  </data>
+  <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve">
+    <value>Ambiente di ripristino configurato (simulazione).</value>
+  </data>
+  <data name="StepResult.RecoveryPartitionSealed" xml:space="preserve">
+    <value>Partizione di ripristino sigillata.</value>
+  </data>
+  <data name="StepResult.RecoveryPartitionSealedSimulation" xml:space="preserve">
+    <value>Partizione di ripristino sigillata (simulazione).</value>
+  </data>
+  <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve">
+    <value>La partizione di ripristino non è disponibile.</value>
+  </data>
+  <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
+    <value>Il file del profilo Autopilot selezionato non è stato trovato: {0}</value>
+  </data>
+  <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
+    <value>L'identificatore hardware del firmware di sistema non è disponibile.</value>
+  </data>
+  <data name="StepResult.TargetAutopilotDirectoryUnavailable" xml:space="preserve">
+    <value>Impossibile risolvere la directory Autopilot di destinazione.</value>
+  </data>
+  <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve">
+    <value>Nome del computer di destinazione configurato.</value>
+  </data>
+  <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve">
+    <value>Nome del computer di destinazione configurato (simulazione).</value>
+  </data>
+  <data name="StepResult.TargetConfigurationValidated" xml:space="preserve">
+    <value>Configurazione target convalidata.</value>
+  </data>
+  <data name="StepResult.TargetConfigurationValidatedSimulation" xml:space="preserve">
+    <value>Configurazione target convalidata (simulazione).</value>
+  </data>
+  <data name="StepResult.TargetDiskLayoutNotPrepared" xml:space="preserve">
+    <value>Il layout del disco di destinazione non è stato preparato.</value>
+  </data>
+  <data name="StepResult.TargetDiskLayoutPrepared" xml:space="preserve">
+    <value>Layout del disco di destinazione preparato.</value>
+  </data>
+  <data name="StepResult.TargetDiskLayoutPreparedSimulation" xml:space="preserve">
+    <value>Layout del disco di destinazione preparato (simulazione).</value>
+  </data>
+  <data name="StepResult.TargetDiskNumberRequired" xml:space="preserve">
+    <value>Il numero del disco di destinazione è obbligatorio.</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve">
+    <value>La partizione di destinazione Windows non è disponibile.</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve">
+    <value>La partizione di destinazione Windows non è disponibile per la gestione temporanea Autopilot.</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
+    <value>La partizione di destinazione Windows non è disponibile per il caricamento dell'hash hardware Autopilot.</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>La partizione Windows di destinazione non è disponibile per preparare l'assistente di registrazione interattiva di Autopilot.</value>
+  </data>
+  <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
+    <value>Modalità di installazione del pacchetto driver non supportata.</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
+    <value>Configurazione delle funzionalità facoltative di Windows disabilitata.</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve">
+    <value>La configurazione delle funzionalità facoltative di Windows non è valida.</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve">
+    <value>La sorgente NetFx3 corrispondente non è disponibile. {0}</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve">
+    <value>La funzionalità facoltativa di Windows '{0}' presenta un payload rimosso e nessuna mappatura dell'origine locale supportata.</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve">
+    <value>La verifica delle funzionalità facoltative di Windows non è riuscita per '{0}'.</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve">
+    <value>Funzionalità facoltative di Windows configurate ({0} modificate, {1} già soddisfatte, {2} non disponibili).</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
+    <value>Configurazione delle funzionalità facoltative di Windows simulata ({0} azioni).</value>
+  </data>
+  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
+    <value>Area di lavoro inizializzata.</value>
+  </data>
+  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
+    <value>Spazio di lavoro inizializzato (simulazione).</value>
+  </data>
+  <data name="Success.Completed" xml:space="preserve">
+    <value>Distribuzione completata</value>
+  </data>
+  <data name="Success.ManualRebootInstruction" xml:space="preserve">
+    <value>Rimuovere il supporto di avvio, quindi selezionare Riavvia.</value>
+  </data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve">
+    <value>Questo computer verrà riavviato tra {0}s.</value>
+  </data>
+  <data name="Success.RebootNow" xml:space="preserve">
+    <value>Riavviare</value>
+  </data>
+  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve">
+    <value>Account locali aggiuntivi</value>
+  </data>
+  <data name="Summary.AdvertisingId" xml:space="preserve">
+    <value>ID pubblicitario</value>
+  </data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve">
+    <value>Rimozione dei componenti AI</value>
+  </data>
+  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve">
+    <value>Rimozione dell'applicazione e dell'intelligenza artificiale</value>
+  </data>
+  <data name="Summary.AppxRemoval" xml:space="preserve">
+    <value>Rimozione delle app AppX</value>
+  </data>
+  <data name="Summary.Architecture" xml:space="preserve">
+    <value>Architettura del sistema</value>
+  </data>
+  <data name="Summary.Automatic" xml:space="preserve">
+    <value>Automatico</value>
+  </data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve">
+    <value>Riavvio automatico</value>
+  </data>
+  <data name="Summary.AutopilotGroupTag" xml:space="preserve">
+    <value>Autopilot tag di gruppo</value>
+  </data>
+  <data name="Summary.AutopilotProfile" xml:space="preserve">
+    <value>Autopilot Profilo</value>
+  </data>
+  <data name="Summary.Build" xml:space="preserve">
+    <value>Build</value>
+  </data>
+  <data name="Summary.BuiltInAdministrator" xml:space="preserve">
+    <value>Account Administrator predefinito</value>
+  </data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Summary.Category.Completion" xml:space="preserve">
+    <value>Completamento</value>
+  </data>
+  <data name="Summary.Category.Drivers" xml:space="preserve">
+    <value>Driver del dispositivo</value>
+  </data>
+  <data name="Summary.Category.Network" xml:space="preserve">
+    <value>Rete</value>
+  </data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve">
+    <value>Sistema operativo</value>
+  </data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve">
+    <value>Dispositivo di destinazione</value>
+  </data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve">
+    <value>Personalizzazione di Windows</value>
+  </data>
+  <data name="Summary.Description" xml:space="preserve">
+    <value>Esaminare le selezioni prima di avviare la distribuzione.</value>
+  </data>
+  <data name="Summary.DiagnosticData" xml:space="preserve">
+    <value>Dati diagnostici</value>
+  </data>
+  <data name="Summary.DiagnosticData.Off" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="Summary.DiagnosticData.Optional" xml:space="preserve">
+    <value>Facoltativo</value>
+  </data>
+  <data name="Summary.DiagnosticData.Required" xml:space="preserve">
+    <value>Richiesto</value>
+  </data>
+  <data name="Summary.Edition" xml:space="preserve">
+    <value>Edizione del sistema operativo</value>
+  </data>
+  <data name="Summary.FeaturesDisabled" xml:space="preserve">
+    <value>Funzionalità disabilitate</value>
+  </data>
+  <data name="Summary.FeaturesEnabled" xml:space="preserve">
+    <value>Funzionalità abilitate</value>
+  </data>
+  <data name="Summary.HidePrivacySetup" xml:space="preserve">
+    <value>Nascondi la configurazione della privacy</value>
+  </data>
+  <data name="Summary.Included" xml:space="preserve">
+    <value>Incluso</value>
+  </data>
+  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve">
+    <value>Diagnostica dell'input penna e della digitazione</value>
+  </data>
+  <data name="Summary.Language" xml:space="preserve">
+    <value>Lingua</value>
+  </data>
+  <data name="Summary.LicenseChannel" xml:space="preserve">
+    <value>Canale di licenza</value>
+  </data>
+  <data name="Summary.LocationAccess" xml:space="preserve">
+    <value>Accesso alla posizione</value>
+  </data>
+  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve">
+    <value>Forzato off</value>
+  </data>
+  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve">
+    <value>Controllato dall'utente</value>
+  </data>
+  <data name="Summary.Manual" xml:space="preserve">
+    <value>Manuale</value>
+  </data>
+  <data name="Summary.ManualRestart" xml:space="preserve">
+    <value>Riavvio manuale</value>
+  </data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve">
+    <value>Roaming del profilo di rete</value>
+  </data>
+  <data name="Summary.NoDiskSelected" xml:space="preserve">
+    <value>Nessun disco selezionato</value>
+  </data>
+  <data name="Summary.NoSelection" xml:space="preserve">
+    <value>Nessuna selezione</value>
+  </data>
+  <data name="Summary.NotIncluded" xml:space="preserve">
+    <value>Non incluso</value>
+  </data>
+  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve">
+    <value>Riconoscimento vocale online</value>
+  </data>
+  <data name="Summary.Oobe" xml:space="preserve">
+    <value>OOBE</value>
+  </data>
+  <data name="Summary.PrivateKeyMaterial" xml:space="preserve">
+    <value>Materiale a chiave privata</value>
+  </data>
+  <data name="Summary.ProvisioningMethod" xml:space="preserve">
+    <value>Metodo di provisioning</value>
+  </data>
+  <data name="Summary.Release" xml:space="preserve">
+    <value>Versione</value>
+  </data>
+  <data name="Summary.RestartBehavior" xml:space="preserve">
+    <value>Comportamento di riavvio</value>
+  </data>
+  <data name="Summary.RestartDelay" xml:space="preserve">
+    <value>Ritardo del riavvio</value>
+  </data>
+  <data name="Summary.SecondsFormat" xml:space="preserve">
+    <value>{0} secondi</value>
+  </data>
+  <data name="Summary.SelectedOperatingSystem" xml:space="preserve">
+    <value>Sistema operativo</value>
+  </data>
+  <data name="Summary.SkipAccountCreation" xml:space="preserve">
+    <value>Ignora creazione account</value>
+  </data>
+  <data name="Summary.SkipLicenseTerms" xml:space="preserve">
+    <value>Salta i termini di licenza</value>
+  </data>
+  <data name="Summary.Status" xml:space="preserve">
+    <value>Stato</value>
+  </data>
+  <data name="Summary.Status.Configured" xml:space="preserve">
+    <value>Configurato</value>
+  </data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve">
+    <value>Nessuna modifica</value>
+  </data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve">
+    <value>Non configurato</value>
+  </data>
+  <data name="Summary.TailoredExperiences" xml:space="preserve">
+    <value>Esperienze su misura</value>
+  </data>
+  <data name="Summary.TargetDisk" xml:space="preserve">
+    <value>Disco di destinazione</value>
+  </data>
+  <data name="Summary.Title" xml:space="preserve">
+    <value>Riepilogo della distribuzione</value>
+  </data>
+  <data name="Summary.TotalConfigured" xml:space="preserve">
+    <value>Totale configurato</value>
+  </data>
+  <data name="Summary.WarningDetails" xml:space="preserve">
+    <value>Dettagli di avviso</value>
+  </data>
+  <data name="Summary.Wifi" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve">
+    <value>Funzionalità facoltative di Windows</value>
+  </data>
+  <data name="Summary.WiredDot1x" xml:space="preserve">
+    <value>Cablato 802.1X</value>
+  </data>
+  <data name="TargetDevice.Architecture" xml:space="preserve">
+    <value>Architettura</value>
+  </data>
+  <data name="TargetDevice.AssetTag" xml:space="preserve">
+    <value>Etichetta asset</value>
+  </data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve">
+    <value>Impostazioni di distribuzione</value>
+  </data>
+  <data name="TargetDevice.Description" xml:space="preserve">
+    <value>Scegliere il nome del computer e il disco di destinazione, quindi esaminare l’hardware rilevato.</value>
+  </data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve">
+    <value>Identità del dispositivo</value>
+  </data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve">
+    <value>Inventario del dispositivo</value>
+  </data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve">
+    <value>Il disco di destinazione selezionato verrà cancellato all'avvio della distribuzione.</value>
+  </data>
+  <data name="TargetDevice.Firmware" xml:space="preserve">
+    <value>Aggiornamenti firmware</value>
+  </data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve">
+    <value>Stato del firmware</value>
+  </data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve">
+    <value>Non disponibile sulle macchine virtuali</value>
+  </data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve">
+    <value>Produttore</value>
+  </data>
+  <data name="TargetDevice.Model" xml:space="preserve">
+    <value>Modello</value>
+  </data>
+  <data name="TargetDevice.Platform" xml:space="preserve">
+    <value>Piattaforma</value>
+  </data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve">
+    <value>Fonte di alimentazione</value>
+  </data>
+  <data name="TargetDevice.Product" xml:space="preserve">
+    <value>Prodotto</value>
+  </data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve">
+    <value>Numero di serie</value>
+  </data>
+  <data name="TargetDevice.SystemUuid" xml:space="preserve">
+    <value>UUID di sistema</value>
+  </data>
+  <data name="TargetDevice.Title" xml:space="preserve">
+    <value>Dispositivo di destinazione</value>
+  </data>
+  <data name="TargetDevice.Tpm" xml:space="preserve">
+    <value>TPM</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>Buio</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>Luce</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>Sistema</value>
+  </data>
+  <data name="Tools.OpenLogFile" xml:space="preserve">
+    <value>Apri il file di registro</value>
+  </data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve">
+    <value>Torna al riepilogo</value>
+  </data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve">
+    <value>Driver del dispositivo</value>
+  </data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve">
+    <value>Sistema operativo</value>
+  </data>
+  <data name="Wizard.Step.Summary" xml:space="preserve">
+    <value>Riepilogo</value>
+  </data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve">
+    <value>Dispositivo di destinazione</value>
+  </data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve">
+    <value>Passaggi di configurazione della distribuzione</value>
   </data>
 </root>
