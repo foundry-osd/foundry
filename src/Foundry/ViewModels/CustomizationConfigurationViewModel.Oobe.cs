@@ -39,9 +39,15 @@ public sealed partial class CustomizationConfigurationViewModel
         : Visibility.Collapsed;
 
     public Visibility OobeAccountsNeedsAttentionVisibility => IsOobeEnabled
-        && (IsOobeAccountConfigurationBlockedByAutopilot || hasOobeAccountValidationIssues)
+        && (IsOobeAccountConfigurationBlockedByAutopilot ||
+            hasOobeAccountValidationIssues ||
+            IsOobeAccountDeploymentProtectionMissing)
             ? Visibility.Visible
             : Visibility.Collapsed;
+
+    public Visibility OobeAccountDeploymentProtectionRequiredVisibility => IsOobeAccountDeploymentProtectionMissing
+        ? Visibility.Visible
+        : Visibility.Collapsed;
 
     public Visibility OobeAdditionalAccountsEmptyVisibility => HasAdditionalOobeAccounts
         ? Visibility.Collapsed
@@ -529,8 +535,13 @@ public sealed partial class CustomizationConfigurationViewModel
 
         OnPropertyChanged(nameof(OobeAdministratorValidationVisibility));
         OnPropertyChanged(nameof(OobeAdditionalAccountsValidationVisibility));
+        OnPropertyChanged(nameof(OobeAccountDeploymentProtectionRequiredVisibility));
         OnPropertyChanged(nameof(OobeAccountsNeedsAttentionVisibility));
     }
+
+    private bool IsOobeAccountDeploymentProtectionMissing =>
+        OobeAccountConfigurationValidator.RequiresProtectedMedia(BuildOobeSettings()) &&
+        !configurationStateService.Current.General.DeploymentProtection.IsEnabled;
 
     private void ApplyAdditionalAccountSecrets(OobeAdditionalAccountDialogResult result)
     {

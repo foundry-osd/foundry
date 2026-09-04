@@ -32,6 +32,10 @@ public sealed class CustomizationConfigurationViewModelTests
     {
         using var viewModel = CreateViewModel(new FoundryConfigurationDocument
         {
+            General = new GeneralSettings
+            {
+                DeploymentProtection = new DeploymentProtectionSettings { IsEnabled = true }
+            },
             Customization = new CustomizationSettings
             {
                 Oobe = new OobeSettings
@@ -49,6 +53,28 @@ public sealed class CustomizationConfigurationViewModelTests
         viewModel.SetOobeAdministratorConfirmation("AdminPassword123!");
 
         Assert.Equal(Visibility.Collapsed, viewModel.OobeAccountsNeedsAttentionVisibility);
+    }
+
+    [Fact]
+    public void OobeAccountsNeedsAttentionVisibility_WhenPasswordRequiresDeploymentProtection_RemainsVisible()
+    {
+        using var viewModel = CreateViewModel(new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                Oobe = new OobeSettings
+                {
+                    IsEnabled = true,
+                    EnableAdministratorAccount = true,
+                    UseAdministratorPassword = true
+                }
+            }
+        });
+
+        viewModel.SetOobeAdministratorPassword("AdminPassword123!");
+        viewModel.SetOobeAdministratorConfirmation("AdminPassword123!");
+
+        Assert.Equal(Visibility.Visible, viewModel.OobeAccountsNeedsAttentionVisibility);
     }
 
     [Fact]

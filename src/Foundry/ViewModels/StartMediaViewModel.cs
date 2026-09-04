@@ -1704,6 +1704,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         ConfigurationOverviewEvaluation overview)
     {
         GeneralSettings general = configuration.General;
+        bool oobePasswordRequiresDeploymentProtection =
+            OobeAccountConfigurationValidator.RequiresProtectedMedia(configuration.Customization.Oobe) &&
+            !general.DeploymentProtection.IsEnabled;
         MediaPreflightBlockingReason? languageReason = GetFirstReason(
             mediaEvaluation,
             MediaPreflightBlockingReason.MissingWinPeLanguage,
@@ -1734,7 +1737,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     : localizationService.GetString("Common.Disabled"),
                 ConfigurationNavigationTarget.General),
             CreateOverviewItem(ConfigurationOverviewItem.DeploymentProtection, overview, "GeneralConfiguration.DeploymentProtection.Header",
-                localizationService.GetString("GeneralConfiguration.DeploymentProtection.Description"),
+                localizationService.GetString(oobePasswordRequiresDeploymentProtection
+                    ? "Customization.OobeAccountPasswordDescription"
+                    : "GeneralConfiguration.DeploymentProtection.Description"),
                 ConfigurationNavigationTarget.General),
             CreateOverviewItem(ConfigurationOverviewItem.DriverOptions, overview, "StartMedia.DriverOptions.Header",
                 driverReason.HasValue
@@ -1815,6 +1820,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         ConfigurationOverviewEvaluation overview)
     {
         CustomizationSettings customization = configuration.Customization;
+        bool oobePasswordRequiresDeploymentProtection =
+            OobeAccountConfigurationValidator.RequiresProtectedMedia(customization.Oobe) &&
+            !configuration.General.DeploymentProtection.IsEnabled;
         OperatingSystemSelectionSettings os = configuration.OperatingSystemSelection;
         string osDescription = string.Join(" · ", new[]
         {
@@ -1844,7 +1852,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     : localizationService.GetString("Nav_MachineNamingKey.Description"),
                 ConfigurationNavigationTarget.MachineNaming),
             CreateOverviewItem(ConfigurationOverviewItem.Oobe, overview, "Nav_OobeKey.Title",
-                customization.Oobe.IsEnabled
+                oobePasswordRequiresDeploymentProtection
+                    ? localizationService.GetString("Customization.OobeAccountPasswordDescription")
+                    : customization.Oobe.IsEnabled
                     ? FormatOobeSummary(customization.Oobe)
                     : localizationService.GetString("Nav_OobeKey.Description"),
                 ConfigurationNavigationTarget.Oobe),

@@ -27,6 +27,15 @@ public static class OobeAccountConfigurationValidator
         return Validate(settings, secretState: null);
     }
 
+    public static bool RequiresProtectedMedia(OobeSettings settings)
+    {
+        ArgumentNullException.ThrowIfNull(settings);
+
+        return settings.IsEnabled &&
+               ((settings.EnableAdministratorAccount && settings.UseAdministratorPassword) ||
+                settings.AdditionalAccounts.Any(account => account.UsePassword));
+    }
+
     public static OobeAccountConfigurationValidationResult Validate(
         OobeSettings settings,
         OobeAccountSecretState? secretState)

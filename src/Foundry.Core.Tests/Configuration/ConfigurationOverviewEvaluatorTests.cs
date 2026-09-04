@@ -233,6 +233,28 @@ public sealed class ConfigurationOverviewEvaluatorTests
     }
 
     [Fact]
+    public void Evaluate_OobePasswordWithoutDeploymentProtection_MarksRelatedSettingsAsNeedingAttention()
+    {
+        var configuration = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings
+            {
+                Oobe = new OobeSettings
+                {
+                    IsEnabled = true,
+                    EnableAdministratorAccount = true,
+                    UseAdministratorPassword = true
+                }
+            }
+        };
+
+        ConfigurationOverviewEvaluation evaluation = ConfigurationOverviewEvaluator.Evaluate(CreateContext(configuration));
+
+        Assert.Equal(ConfigurationOverviewState.NeedsAttention, evaluation[ConfigurationOverviewItem.DeploymentProtection]);
+        Assert.Equal(ConfigurationOverviewState.NeedsAttention, evaluation[ConfigurationOverviewItem.Oobe]);
+    }
+
+    [Fact]
     public void Evaluate_OobeLocalAccountsWhenAutopilotEnabled_NeedsAttention()
     {
         var configuration = new FoundryConfigurationDocument
