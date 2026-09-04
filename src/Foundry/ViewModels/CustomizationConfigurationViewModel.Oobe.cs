@@ -15,6 +15,7 @@ namespace Foundry.ViewModels;
 public sealed partial class CustomizationConfigurationViewModel
 {
     private bool isRefreshingOobeOptions;
+    private bool hasOobeAccountValidationIssues;
     private int oobeAccountSecretStateVersion;
 
     public ObservableCollection<SelectionOption<OobeDiagnosticDataLevel>> OobeDiagnosticDataOptions { get; } = [];
@@ -36,6 +37,11 @@ public sealed partial class CustomizationConfigurationViewModel
     public Visibility OobeAccountsBlockedVisibility => IsOobeAccountConfigurationBlockedByAutopilot
         ? Visibility.Visible
         : Visibility.Collapsed;
+
+    public Visibility OobeAccountsNeedsAttentionVisibility => IsOobeEnabled
+        && (IsOobeAccountConfigurationBlockedByAutopilot || hasOobeAccountValidationIssues)
+            ? Visibility.Visible
+            : Visibility.Collapsed;
 
     public Visibility OobeAdditionalAccountsEmptyVisibility => HasAdditionalOobeAccounts
         ? Visibility.Collapsed
@@ -60,6 +66,9 @@ public sealed partial class CustomizationConfigurationViewModel
 
     [ObservableProperty]
     public partial string OobeAccountsDescription { get; set; }
+
+    [ObservableProperty]
+    public partial string OobeAccountsNeedsAttentionText { get; set; }
 
     [ObservableProperty]
     public partial string OobeAccountsBlockedMessage { get; set; }
@@ -168,6 +177,7 @@ public sealed partial class CustomizationConfigurationViewModel
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsOobeOptionsEnabled))]
     [NotifyPropertyChangedFor(nameof(AreOobeAccountControlsAvailable))]
+    [NotifyPropertyChangedFor(nameof(OobeAccountsNeedsAttentionVisibility))]
     public partial bool IsOobeEnabled { get; set; }
 
     [ObservableProperty]
@@ -181,6 +191,7 @@ public sealed partial class CustomizationConfigurationViewModel
     [NotifyPropertyChangedFor(nameof(AreOobeAccountControlsAvailable))]
     [NotifyPropertyChangedFor(nameof(OobeAdministratorValidationVisibility))]
     [NotifyPropertyChangedFor(nameof(OobeAdditionalAccountsValidationVisibility))]
+    [NotifyPropertyChangedFor(nameof(OobeAccountsNeedsAttentionVisibility))]
     public partial bool IsOobeAccountConfigurationBlockedByAutopilot { get; set; }
 
     [ObservableProperty]
@@ -424,6 +435,7 @@ public sealed partial class CustomizationConfigurationViewModel
     {
         OobeAccountsHeader = localizationService.GetString("Customization.OobeAccountsHeader");
         OobeAccountsDescription = localizationService.GetString("Customization.OobeAccountsDescription");
+        OobeAccountsNeedsAttentionText = localizationService.GetString("Common.NeedsAttention");
         OobeAccountsBlockedMessage = localizationService.GetString("Customization.OobeAccountsBlockedMessage");
         OobeAccountsSecurityWarning = localizationService.GetString("Customization.OobeAccountsSecurityWarning");
         OobeAdministratorAccountLabel = localizationService.GetString("Customization.OobeAdministratorAccountLabel");
@@ -505,6 +517,7 @@ public sealed partial class CustomizationConfigurationViewModel
     {
         OobeSettings settings = BuildOobeSettings();
         OobeAccountConfigurationValidationResult validation = oobeAccountSecretStateService.Validate(settings);
+        hasOobeAccountValidationIssues = !validation.IsValid;
         OobeAdministratorValidationMessage = validation.Issues
             .FirstOrDefault(issue => issue.IsAdministratorAccount) is { } administratorIssue
             ? OobeAccountValidationTextFormatter.FormatAdministratorIssue(localizationService, administratorIssue)
@@ -516,6 +529,7 @@ public sealed partial class CustomizationConfigurationViewModel
 
         OnPropertyChanged(nameof(OobeAdministratorValidationVisibility));
         OnPropertyChanged(nameof(OobeAdditionalAccountsValidationVisibility));
+        OnPropertyChanged(nameof(OobeAccountsNeedsAttentionVisibility));
     }
 
     private void ApplyAdditionalAccountSecrets(OobeAdditionalAccountDialogResult result)

@@ -40,6 +40,28 @@
                         <wct:SettingsExpander.HeaderIcon>
                             <FontIcon Glyph="&#xE77B;" />
                         </wct:SettingsExpander.HeaderIcon>
+                        <Border
+                            Margin="{ThemeResource FoundrySettingsExpanderTrailingAffordanceMargin}"
+                            Padding="8,3"
+                            AutomationProperties.Name="{x:Bind ViewModel.OobeAccountsNeedsAttentionText, Mode=OneWay}"
+                            Background="{ThemeResource FoundryStatusBlockedBrush}"
+                            CornerRadius="12"
+                            IsHitTestVisible="False"
+                            Visibility="{x:Bind ViewModel.OobeAccountsNeedsAttentionVisibility, Mode=OneWay}">
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Spacing="4">
+                                <FontIcon
+                                    FontSize="10"
+                                    Foreground="{ThemeResource FoundryStatusBlockedForegroundBrush}"
+                                    Glyph="&#xE711;" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    FontSize="11"
+                                    Foreground="{ThemeResource FoundryStatusBlockedForegroundBrush}"
+                                    Text="{x:Bind ViewModel.OobeAccountsNeedsAttentionText, Mode=OneWay}" />
+                            </StackPanel>
+                        </Border>
                         <wct:SettingsExpander.Items>
                             <Border
                                 Padding="{ThemeResource FoundryDefaultContentPadding}"

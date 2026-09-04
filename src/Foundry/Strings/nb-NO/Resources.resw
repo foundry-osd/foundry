@@ -2762,7 +2762,7 @@
   <data name="StartOverview.State.NotSelected" xml:space="preserve">
     <value>Ikke valgt</value>
   </data>
-  <data name="StartOverview.State.NeedsAttention" xml:space="preserve">
+  <data name="Common.NeedsAttention" xml:space="preserve">
     <value>Krever oppmerksomhet</value>
   </data>
   <data name="Nav_ReportBugKey.Title" xml:space="preserve">

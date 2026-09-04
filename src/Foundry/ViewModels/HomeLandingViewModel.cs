@@ -375,7 +375,7 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
             adkReady,
             configurationOverviewService.Evaluate());
         string readyText = localizationService.GetString("StartMedia.Readiness.State.Ready");
-        string needsAttentionText = localizationService.GetString("StartOverview.State.NeedsAttention");
+        string needsAttentionText = localizationService.GetString("Common.NeedsAttention");
         string requiresAdkText = localizationService.GetString("Home.Status.ConfigCard.BlockedStatus");
 
         Step1State = ToSeverity(workflow.Adk);

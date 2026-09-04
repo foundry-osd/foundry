@@ -1935,7 +1935,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         ConfigurationOverviewState.NotConfigured => localizationService.GetString("NavigationStatus.NotConfigured"),
         ConfigurationOverviewState.Default => localizationService.GetString("StartOverview.State.Default"),
         ConfigurationOverviewState.NotSelected => localizationService.GetString("StartOverview.State.NotSelected"),
-        _ => localizationService.GetString("StartOverview.State.NeedsAttention")
+        _ => localizationService.GetString("Common.NeedsAttention")
     };
 
     private string GetOverviewSummary(IEnumerable<StartConfigurationOverviewItemViewModel> items)
@@ -1967,7 +1967,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
 
         string additionalItemCount = attentionItems.Count > 1 ? $" (+{attentionItems.Count - 1})" : string.Empty;
-        return $"{localizationService.GetString("StartOverview.State.NeedsAttention")}: {attentionItems[0].Title}{additionalItemCount}";
+        return $"{localizationService.GetString("Common.NeedsAttention")}: {attentionItems[0].Title}{additionalItemCount}";
     }
 
     private static bool ReplaceOverviewItems(

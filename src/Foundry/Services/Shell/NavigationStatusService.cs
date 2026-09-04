@@ -122,7 +122,7 @@ internal sealed class NavigationStatusService : INavigationStatusService
         return state switch
         {
             ConfigurationOverviewState.NeedsAttention => CreateStatus(
-                "StartOverview.State.NeedsAttention",
+                "Common.NeedsAttention",
                 NavigationInfoBadgeSeverity.Critical),
             ConfigurationOverviewState.Configured or ConfigurationOverviewState.Default => CreateStatus(
                 isAutopilotTarget ? "NavigationStatus.ActiveProvisioningMode" : "NavigationStatus.Configured",
