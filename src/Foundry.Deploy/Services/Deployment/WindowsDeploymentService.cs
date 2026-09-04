@@ -34,7 +34,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     private const string WinReImageFileName = "winre.wim";
     private const string AdministratorActivationDescription = "Enable built-in Administrator account";
     private const string AdministratorActivationCommand =
-        "powershell.exe -NoProfile -NonInteractive -Command \"$account = Get-CimInstance Win32_UserAccount -Filter \\\"LocalAccount=True\\\" | Where-Object SID -like '*-500' | Select-Object -First 1; if ($null -eq $account) { throw 'Built-in Administrator account not found.' }; $user = [ADSI]('WinNT://./' + $account.Name + ',user'); $user.InvokeSet('AccountDisabled', $false); $user.SetInfo()\"";
+        "powershell.exe -NoProfile -NonInteractive -Command \"$user=Get-LocalUser|Where-Object SID -like '*-500';if($null -eq $user){throw 'Built-in Administrator account not found'};$user|Enable-LocalUser -ErrorAction Stop\"";
     private readonly IProcessRunner _processRunner;
     private readonly ILogger<WindowsDeploymentService> _logger;
     private readonly UnattendDocumentService _unattendDocumentService;
@@ -655,8 +655,8 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         runSynchronous.Add(
             new XElement(ns + "RunSynchronousCommand",
                 new XAttribute(wcm + "action", "add"),
-                new XElement(ns + "Order", order),
                 new XElement(ns + "Description", AdministratorActivationDescription),
+                new XElement(ns + "Order", order),
                 new XElement(ns + "Path", AdministratorActivationCommand)));
         if (runSynchronous.Parent is null)
         {

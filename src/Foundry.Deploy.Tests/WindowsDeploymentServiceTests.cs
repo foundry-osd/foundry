@@ -859,7 +859,11 @@ public sealed class WindowsDeploymentServiceTests
         Assert.Equal(string.Empty, password.Element(ns + "Value")?.Value);
         Assert.Equal("true", password.Element(ns + "PlainText")?.Value);
         XElement activationCommand = document.Descendants(ns + "RunSynchronousCommand").Single();
-        Assert.Contains("Get-CimInstance Win32_UserAccount", activationCommand.Value, StringComparison.Ordinal);
+        XElement activationPath = activationCommand.Element(ns + "Path")!;
+        Assert.InRange(activationPath.Value.Length, 1, 259);
+        Assert.Equal(
+            ["Description", "Order", "Path"],
+            activationCommand.Elements().Select(element => element.Name.LocalName));
         Assert.Contains("*-500", activationCommand.Value, StringComparison.Ordinal);
         Assert.Equal("Microsoft-Windows-Deployment", activationCommand.Ancestors(ns + "component").Single().Attribute("name")?.Value);
         Assert.Empty(document.Descendants(ns + "AutoLogon"));
