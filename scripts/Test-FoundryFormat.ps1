@@ -3,6 +3,9 @@ $ErrorActionPreference = 'Stop'
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $solutionPath = Join-Path $repoRoot 'src\Foundry.slnx'
 $toolManifestPath = Join-Path $repoRoot '.config\dotnet-tools.json'
+
+& (Join-Path $PSScriptRoot 'Format-Foundry.ps1') -VerifyResourceFormatting
+
 $xamlFiles = git -C $repoRoot ls-files '*.xaml'
 if ($LASTEXITCODE -ne 0) {
     throw 'Failed to list tracked XAML files.'
