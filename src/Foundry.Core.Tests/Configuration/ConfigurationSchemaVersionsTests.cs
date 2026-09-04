@@ -28,8 +28,8 @@ public sealed class ConfigurationSchemaVersionsTests
     [Fact]
     public void CurrentSchemaVersions_MatchNextPublishedContractVersions()
     {
-        Assert.Equal(15, ConfigurationSchemaVersions.FoundryCurrent);
-        Assert.Equal(13, ConfigurationSchemaVersions.DeployCurrent);
+        Assert.Equal(14, ConfigurationSchemaVersions.FoundryCurrent);
+        Assert.Equal(12, ConfigurationSchemaVersions.DeployCurrent);
         Assert.Equal(4, ConfigurationSchemaVersions.ConnectCurrent);
     }
 

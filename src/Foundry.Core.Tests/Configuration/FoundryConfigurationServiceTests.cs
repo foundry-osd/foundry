@@ -271,7 +271,7 @@ public sealed class FoundryConfigurationServiceTests
         Assert.Equal(MachineNameSeparator.None, naming.Separator);
         Assert.Equal(MachineNameCasing.Preserve, naming.Casing);
         Assert.False(naming.AllowEditingDuringDeployment);
-        Assert.Equal(15, loaded.SchemaVersion);
+        Assert.Equal(14, loaded.SchemaVersion);
 
         string serialized = service.Serialize(loaded);
         Assert.DoesNotContain("prefix", serialized, StringComparison.OrdinalIgnoreCase);
