@@ -368,62 +368,11 @@ public sealed class DeployConfigurationGeneratorTests
         Assert.Contains("OOBE", exception.Message, StringComparison.OrdinalIgnoreCase);
     }
 
-    [Fact]
-    public void Generate_WhenSkipIsRequestedWithoutAdditionalAccount_DisablesUnsupportedSkip()
-    {
-        var generator = new DeployConfigurationGenerator();
-        var document = new FoundryConfigurationDocument
-        {
-            Customization = new CustomizationSettings
-            {
-                Oobe = new OobeSettings
-                {
-                    IsEnabled = true,
-                    SkipUserAccountCreation = true
-                }
-            }
-        };
-
-        FoundryDeployConfigurationDocument result = generator.Generate(document);
-
-        Assert.False(result.Customization.Oobe.SkipUserAccountCreation);
-    }
-
-    [Fact]
-    public void Generate_WhenAdditionalAccountExists_EnablesAccountCreationSkip()
-    {
-        var generator = new DeployConfigurationGenerator();
-        var document = new FoundryConfigurationDocument
-        {
-            Customization = new CustomizationSettings
-            {
-                Oobe = new OobeSettings
-                {
-                    IsEnabled = true,
-                    AdditionalAccounts =
-                    [
-                        new OobeAdditionalAccountSettings
-                        {
-                            Id = "account-1",
-                            UserName = "Technician",
-                            Type = OobeAccountType.Standard
-                        }
-                    ]
-                }
-            }
-        };
-
-        FoundryDeployConfigurationDocument result = generator.Generate(document);
-
-        Assert.True(result.Customization.Oobe.SkipUserAccountCreation);
-    }
-
     [Theory]
-    [InlineData(true, false, false)]
-    [InlineData(false, false, true)]
+    [InlineData(true, false)]
+    [InlineData(false, true)]
     public void Generate_WhenAutopilotIsEnabledAndOobeAccountBehaviorIsConfigured_ThrowsInvalidOperationException(
         bool enableAdministratorAccount,
-        bool skipUserAccountCreation,
         bool includeAdditionalAccount)
     {
         var generator = new DeployConfigurationGenerator();
@@ -435,7 +384,6 @@ public sealed class DeployConfigurationGeneratorTests
                 {
                     IsEnabled = true,
                     EnableAdministratorAccount = enableAdministratorAccount,
-                    SkipUserAccountCreation = skipUserAccountCreation,
                     AdditionalAccounts = includeAdditionalAccount
                         ? new[]
                         {
@@ -592,7 +540,8 @@ public sealed class DeployConfigurationGeneratorTests
                 Oobe = new OobeSettings
                 {
                     IsEnabled = true,
-                    EnableAdministratorAccount = true
+                    EnableAdministratorAccount = true,
+                    UseAdministratorPassword = true
                 }
             }
         };

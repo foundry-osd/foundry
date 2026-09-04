@@ -25,11 +25,6 @@ public sealed record OobeSettings
     public bool UseAdministratorPassword { get; init; }
 
     /// <summary>
-    /// Gets whether OOBE should skip prompting for an end-user account to be created manually.
-    /// </summary>
-    public bool SkipUserAccountCreation { get; init; }
-
-    /// <summary>
     /// Gets whether the Microsoft Software License Terms page should be skipped during OOBE.
     /// </summary>
     public bool SkipLicenseTerms { get; init; } = true;

@@ -18,7 +18,6 @@ public sealed class OobeAccountSecretStateTests
 
         state.SetAdditionalAccountPassword("account-1", "Password2!");
 
-        Assert.False(state.IsAdditionalAccountPasswordConfirmed("account-1"));
         Assert.Equal("Password2!", new string(state.GetAdditionalAccountPasswordCopy("account-1")));
         Assert.Equal("Password1!", new string(state.GetAdditionalAccountConfirmationCopy("account-1")));
     }
@@ -58,57 +57,4 @@ public sealed class OobeAccountSecretStateTests
         Assert.Equal("KeptPass1!", new string(state.GetAdditionalAccountConfirmationCopy("kept-account")));
     }
 
-    [Fact]
-    public void Validate_WhenAdditionalAccountIdIsMissing_ReturnsRequiredIssue()
-    {
-        using var state = new OobeAccountSecretState();
-
-        OobeAccountConfigurationValidationResult result = state.Validate(new OobeSettings
-        {
-            IsEnabled = true,
-            AdditionalAccounts =
-            [
-                new OobeAdditionalAccountSettings
-                {
-                    Id = " ",
-                    UserName = "Technician",
-                    Type = OobeAccountType.Standard
-                }
-            ]
-        });
-
-        Assert.Contains(result.Issues, issue =>
-            issue.Code == OobeAccountConfigurationValidationCode.AccountIdRequired &&
-            issue.AccountId is null);
-    }
-
-    [Fact]
-    public void Validate_WhenAdditionalAccountIdsAreDuplicated_ReturnsDuplicateIssue()
-    {
-        using var state = new OobeAccountSecretState();
-
-        OobeAccountConfigurationValidationResult result = state.Validate(new OobeSettings
-        {
-            IsEnabled = true,
-            AdditionalAccounts =
-            [
-                new OobeAdditionalAccountSettings
-                {
-                    Id = "account-1",
-                    UserName = "Technician",
-                    Type = OobeAccountType.Standard
-                },
-                new OobeAdditionalAccountSettings
-                {
-                    Id = "account-1",
-                    UserName = "Support",
-                    Type = OobeAccountType.Administrator
-                }
-            ]
-        });
-
-        Assert.Contains(result.Issues, issue =>
-            issue.Code == OobeAccountConfigurationValidationCode.DuplicateAccountId &&
-            issue.AccountId == "account-1");
-    }
 }

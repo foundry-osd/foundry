@@ -271,7 +271,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             return false;
         }
 
-        if (settings.EnableAdministratorAccount)
+        if (settings.EnableAdministratorAccount && settings.UseAdministratorPassword)
         {
             char[] administratorPassword = oobeAccountSecretState.GetAdministratorPasswordCopy();
             try
@@ -287,7 +287,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             }
         }
 
-        foreach (OobeAdditionalAccountSettings account in settings.AdditionalAccounts)
+        foreach (OobeAdditionalAccountSettings account in settings.AdditionalAccounts.Where(account => account.UsePassword))
         {
             char[] password = oobeAccountSecretState.GetAdditionalAccountPasswordCopy(account.Id);
             try
@@ -327,7 +327,6 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         {
             IsEnabled = true,
             EnableAdministratorAccount = settings.EnableAdministratorAccount,
-            SkipUserAccountCreation = settings.AdditionalAccounts.Count > 0,
             SkipLicenseTerms = settings.SkipLicenseTerms,
             DiagnosticDataLevel = MapDiagnosticDataLevel(settings.DiagnosticDataLevel),
             HidePrivacySetup = settings.HidePrivacySetup,

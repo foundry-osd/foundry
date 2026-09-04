@@ -89,7 +89,6 @@ public sealed class FoundryConfigurationServiceTests
                     IsEnabled = true,
                     EnableAdministratorAccount = true,
                     UseAdministratorPassword = true,
-                    SkipUserAccountCreation = true,
                     SkipLicenseTerms = true,
                     DiagnosticDataLevel = OobeDiagnosticDataLevel.Off,
                     HidePrivacySetup = true,
@@ -179,7 +178,6 @@ public sealed class FoundryConfigurationServiceTests
         Assert.True(loaded.Customization.Oobe.IsEnabled);
         Assert.True(loaded.Customization.Oobe.EnableAdministratorAccount);
         Assert.True(loaded.Customization.Oobe.UseAdministratorPassword);
-        Assert.True(loaded.Customization.Oobe.SkipUserAccountCreation);
         Assert.True(loaded.Customization.Oobe.SkipLicenseTerms);
         Assert.Equal(OobeDiagnosticDataLevel.Off, loaded.Customization.Oobe.DiagnosticDataLevel);
         Assert.True(loaded.Customization.Oobe.HidePrivacySetup);
@@ -273,7 +271,7 @@ public sealed class FoundryConfigurationServiceTests
         Assert.Equal(MachineNameSeparator.None, naming.Separator);
         Assert.Equal(MachineNameCasing.Preserve, naming.Casing);
         Assert.False(naming.AllowEditingDuringDeployment);
-        Assert.Equal(14, loaded.SchemaVersion);
+        Assert.Equal(15, loaded.SchemaVersion);
 
         string serialized = service.Serialize(loaded);
         Assert.DoesNotContain("prefix", serialized, StringComparison.OrdinalIgnoreCase);

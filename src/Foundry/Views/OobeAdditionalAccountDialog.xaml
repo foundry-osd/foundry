@@ -28,7 +28,7 @@
         <TextBox
             Grid.Row="1"
             Header="{Binding UserNameLabel}"
-            PlaceholderText="{Binding UserNamePlaceholder}"
+            PlaceholderText="{Binding UserNameLabel}"
             Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <ComboBox

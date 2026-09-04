@@ -33,7 +33,8 @@ public sealed class FoundryConfigurationStateServiceTests
                     Oobe = new OobeSettings
                     {
                         IsEnabled = true,
-                        EnableAdministratorAccount = true
+                        EnableAdministratorAccount = true,
+                        UseAdministratorPassword = true
                     }
                 }
             },
@@ -64,7 +65,8 @@ public sealed class FoundryConfigurationStateServiceTests
                     Oobe = new OobeSettings
                     {
                         IsEnabled = true,
-                        EnableAdministratorAccount = true
+                        EnableAdministratorAccount = true,
+                        UseAdministratorPassword = true
                     }
                 }
             },
@@ -99,7 +101,8 @@ public sealed class FoundryConfigurationStateServiceTests
                     Oobe = new OobeSettings
                     {
                         IsEnabled = true,
-                        EnableAdministratorAccount = true
+                        EnableAdministratorAccount = true,
+                        UseAdministratorPassword = true
                     }
                 }
             },
@@ -143,7 +146,8 @@ public sealed class FoundryConfigurationStateServiceTests
                             {
                                 Id = "account-1",
                                 UserName = "Technician",
-                                Type = OobeAccountType.Standard
+                                Type = OobeAccountType.Standard,
+                                UsePassword = true
                             }
                         }
                     }
@@ -185,13 +189,15 @@ public sealed class FoundryConfigurationStateServiceTests
                 {
                     IsEnabled = true,
                     EnableAdministratorAccount = true,
+                    UseAdministratorPassword = true,
                     AdditionalAccounts = new[]
                     {
                         new OobeAdditionalAccountSettings
                         {
                             Id = "account-1",
                             UserName = "Technician",
-                            Type = OobeAccountType.Standard
+                            Type = OobeAccountType.Standard,
+                            UsePassword = true
                         }
                     }
                 }

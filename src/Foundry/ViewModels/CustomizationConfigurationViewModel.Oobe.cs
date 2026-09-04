@@ -29,8 +29,6 @@ public sealed partial class CustomizationConfigurationViewModel
 
     public bool HasAdditionalOobeAccounts => OobeAdditionalAccounts.Count > 0;
 
-    public bool EffectiveSkipUserAccountCreation => HasAdditionalOobeAccounts;
-
     public string OobeSkipUserAccountCreationEffectiveDescription => HasAdditionalOobeAccounts
         ? OobeSkipUserAccountCreationLockedDescription
         : OobeSkipUserAccountCreationDescription;
@@ -409,7 +407,6 @@ public sealed partial class CustomizationConfigurationViewModel
                 IsEnabled = true,
                 EnableAdministratorAccount = EnableAdministratorAccount,
                 UseAdministratorPassword = UseAdministratorPassword,
-                SkipUserAccountCreation = HasAdditionalOobeAccounts,
                 SkipLicenseTerms = SkipLicenseTerms,
                 DiagnosticDataLevel = SelectedOobeDiagnosticData?.Value ?? OobeDiagnosticDataLevel.Required,
                 HidePrivacySetup = HidePrivacySetup,
@@ -500,7 +497,6 @@ public sealed partial class CustomizationConfigurationViewModel
     private void RefreshOobeAdditionalAccountsState()
     {
         OnPropertyChanged(nameof(HasAdditionalOobeAccounts));
-        OnPropertyChanged(nameof(EffectiveSkipUserAccountCreation));
         OnPropertyChanged(nameof(OobeSkipUserAccountCreationEffectiveDescription));
         OnPropertyChanged(nameof(OobeAdditionalAccountsEmptyVisibility));
     }

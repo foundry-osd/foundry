@@ -845,8 +845,7 @@ public sealed class WindowsDeploymentServiceTests
             {
                 IsEnabled = true,
                 EnableAdministratorAccount = true,
-                AdministratorPasswordIsBlank = true,
-                SkipUserAccountCreation = true
+                AdministratorPasswordIsBlank = true
             },
             "amd64",
             Path.Combine(workspace.RootPath, "Work"),

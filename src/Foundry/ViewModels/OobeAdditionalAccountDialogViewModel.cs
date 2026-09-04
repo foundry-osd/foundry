@@ -47,9 +47,6 @@ public sealed partial class OobeAdditionalAccountDialogViewModel : ObservableObj
     public partial string UserNameLabel { get; set; }
 
     [ObservableProperty]
-    public partial string UserNamePlaceholder { get; set; }
-
-    [ObservableProperty]
     public partial string AccountTypeLabel { get; set; }
 
     [ObservableProperty]
@@ -134,7 +131,6 @@ public sealed partial class OobeAdditionalAccountDialogViewModel : ObservableObj
                 : "Customization.OobeAdditionalAccountDialog.AddTitle");
         Description = localizationService.GetString("Customization.OobeAdditionalAccountDialog.Description");
         UserNameLabel = localizationService.GetString("Customization.OobeAdditionalAccountDialog.UserNameLabel");
-        UserNamePlaceholder = localizationService.GetString("Proxy_UsernameTextBox.PlaceholderText");
         AccountTypeLabel = localizationService.GetString("Customization.OobeAdditionalAccountDialog.AccountTypeLabel");
         PasswordLabel = localizationService.GetString("Customization.OobeAccountPasswordLabel");
         PasswordDescription = localizationService.GetString("Customization.OobeAccountPasswordDescription");

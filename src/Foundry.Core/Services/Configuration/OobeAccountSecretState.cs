@@ -50,12 +50,6 @@ public sealed class OobeAccountSecretState : IDisposable
         return administrator.GetConfirmationCopy();
     }
 
-    public bool IsAdministratorPasswordConfirmed()
-    {
-        ObjectDisposedException.ThrowIf(isDisposed, this);
-        return administrator.IsConfirmed;
-    }
-
     internal bool HasAdministratorPassword => administrator.HasPassword;
 
     public void SetAdditionalAccountPassword(string accountId, string? value)
@@ -96,12 +90,6 @@ public sealed class OobeAccountSecretState : IDisposable
         return TryGetAccount(accountId, out SecretPair? pair)
             ? pair!.GetConfirmationCopy()
             : [];
-    }
-
-    public bool IsAdditionalAccountPasswordConfirmed(string accountId)
-    {
-        ObjectDisposedException.ThrowIf(isDisposed, this);
-        return !TryGetAccount(accountId, out SecretPair? pair) || pair!.IsConfirmed;
     }
 
     internal bool HasAdditionalAccountPassword(string accountId)
@@ -145,6 +133,7 @@ public sealed class OobeAccountSecretState : IDisposable
             }
 
             additionalAccounts[accountId].Clear();
+            additionalAccounts.Remove(accountId);
         }
     }
 

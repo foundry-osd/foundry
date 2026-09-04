@@ -52,7 +52,8 @@ public sealed class OobeAccountSecretStateServiceTests
                 {
                     Id = "kept-account",
                     UserName = "Technician",
-                    Type = OobeAccountType.Standard
+                    Type = OobeAccountType.Standard,
+                    UsePassword = true
                 }
             }
         });
