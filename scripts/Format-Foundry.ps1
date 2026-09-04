@@ -1,18 +1,13 @@
-param(
-    [switch]$VerifyResourceFormatting,
-    [string[]]$ResourceFiles
-)
+param([switch]$VerifyResourceFormatting)
 
 $ErrorActionPreference = 'Stop'
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $solutionPath = Join-Path $repoRoot 'src\Foundry.slnx'
 $toolManifestPath = Join-Path $repoRoot '.config\dotnet-tools.json'
-if (-not $PSBoundParameters.ContainsKey('ResourceFiles')) {
-    $ResourceFiles = git -C $repoRoot ls-files '*.resw' '*.resx'
-    if ($LASTEXITCODE -ne 0) {
-        throw 'Failed to list tracked resource files.'
-    }
+$resourceFiles = git -C $repoRoot ls-files '*.resw' '*.resx'
+if ($LASTEXITCODE -ne 0) {
+    throw 'Failed to list tracked resource files.'
 }
 
 function Format-ResourceWhitespaceNode {
@@ -31,7 +26,7 @@ function Format-ResourceWhitespaceNode {
             [System.Xml.XmlNodeType]::SignificantWhitespace)
 
         if ($isTextNode -and
-            $Node.LocalName -notin @('value', 'comment') -and
+            $Node.LocalName -ne 'value' -and
             [string]::IsNullOrWhiteSpace($childNode.Value)) {
             [void]$Node.RemoveChild($childNode)
         }
@@ -116,7 +111,7 @@ function ConvertTo-CanonicalResourceXml {
 }
 
 $invalidResourceFiles = @()
-foreach ($resourceFile in $ResourceFiles) {
+foreach ($resourceFile in $resourceFiles) {
     $resourcePath = Join-Path $repoRoot $resourceFile
     $actualBytes = [System.IO.File]::ReadAllBytes($resourcePath)
     $expectedBytes = [System.Text.Encoding]::UTF8.GetBytes(
