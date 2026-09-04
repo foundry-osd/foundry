@@ -865,6 +865,7 @@ public sealed class WindowsDeploymentServiceTests
             ["Description", "Order", "Path"],
             activationCommand.Elements().Select(element => element.Name.LocalName));
         Assert.Contains("*-500", activationCommand.Value, StringComparison.Ordinal);
+        Assert.DoesNotContain("throw", activationCommand.Value, StringComparison.OrdinalIgnoreCase);
         Assert.Equal("Microsoft-Windows-Deployment", activationCommand.Ancestors(ns + "component").Single().Attribute("name")?.Value);
         Assert.Empty(document.Descendants(ns + "AutoLogon"));
         Assert.Equal("false", document.Descendants(ns + "HideOnlineAccountScreens").Single().Value);
