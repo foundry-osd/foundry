@@ -864,8 +864,8 @@
   <data name="Customization.OobeAccounts.Validation.UserNameRequired" xml:space="preserve">
     <value>Yerel hesap adı girin.</value>
   </data>
-  <data name="Customization.OobeAccountsBlockedMessage" xml:space="preserve">
-    <value>Autopilot etkin olduğu sürece hesap sağlama kullanılamaz.</value>
+  <data name="Customization.OobeAccounts.Validation.UserNameTooLong" xml:space="preserve">
+    <value>Hesap adı 256 karakteri aşamaz.</value>
   </data>
   <data name="Customization.OobeAccountsDescription" xml:space="preserve">
     <value>Windows OOBE sırasında oluşturulan yerel hesapları yapılandırın.</value>
@@ -899,6 +899,9 @@
   </data>
   <data name="Customization.OobeAdditionalAccountsAddButton" xml:space="preserve">
     <value>Hesap ekle</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsBlockedMessage" xml:space="preserve">
+    <value>Autopilot, ek yerel hesaplarla birlikte kullanılamaz.</value>
   </data>
   <data name="Customization.OobeAdditionalAccountsEditButton" xml:space="preserve">
     <value>Düzenle</value>
@@ -962,6 +965,9 @@
   </data>
   <data name="Customization.OobeLocationUserControlled" xml:space="preserve">
     <value>Kullanıcı kontrollü</value>
+  </data>
+  <data name="Customization.OobeNoAdministratorWarning" xml:space="preserve">
+    <value>Yalnızca standart hesaplar yapılandırılmış. Başka bir yönetici hesabının veya yönetim yönteminin kullanılabilir olduğundan emin olun.</value>
   </data>
   <data name="Customization.OobeOnlineSpeechRecognitionDescription" xml:space="preserve">
     <value>Microsoft bulut tabanlı konuşma tanıma hizmetlerine izin verir.</value>

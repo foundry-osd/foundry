@@ -864,8 +864,8 @@
   <data name="Customization.OobeAccounts.Validation.UserNameRequired" xml:space="preserve">
     <value>Sisestage kohaliku konto nimi.</value>
   </data>
-  <data name="Customization.OobeAccountsBlockedMessage" xml:space="preserve">
-    <value>Kontode ettevalmistamine pole saadaval, kui Autopilot on lubatud.</value>
+  <data name="Customization.OobeAccounts.Validation.UserNameTooLong" xml:space="preserve">
+    <value>Konto nimi ei tohi ületada 256 märki.</value>
   </data>
   <data name="Customization.OobeAccountsDescription" xml:space="preserve">
     <value>Windows OOBE ajal loodavate kohalike kontode konfigureerimine.</value>
@@ -899,6 +899,9 @@
   </data>
   <data name="Customization.OobeAdditionalAccountsAddButton" xml:space="preserve">
     <value>Lisa konto</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsBlockedMessage" xml:space="preserve">
+    <value>Autopiloti ei saa kasutada koos täiendavate kohalike kontodega.</value>
   </data>
   <data name="Customization.OobeAdditionalAccountsEditButton" xml:space="preserve">
     <value>Muuda</value>
@@ -962,6 +965,9 @@
   </data>
   <data name="Customization.OobeLocationUserControlled" xml:space="preserve">
     <value>Kasutaja kontrollitud</value>
+  </data>
+  <data name="Customization.OobeNoAdministratorWarning" xml:space="preserve">
+    <value>Konfigureeritud on ainult tavakasutajakontod. Veenduge, et saadaval oleks teine administraatorikonto või haldusmeetod.</value>
   </data>
   <data name="Customization.OobeOnlineSpeechRecognitionDescription" xml:space="preserve">
     <value>Võimaldab Microsoft pilvepõhiseid kõnetuvastusteenuseid.</value>

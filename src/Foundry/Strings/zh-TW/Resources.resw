@@ -864,8 +864,8 @@
   <data name="Customization.OobeAccounts.Validation.UserNameRequired" xml:space="preserve">
     <value>請輸入本機帳戶名稱。</value>
   </data>
-  <data name="Customization.OobeAccountsBlockedMessage" xml:space="preserve">
-    <value>啟用 Autopilot 時無法佈建帳戶。</value>
+  <data name="Customization.OobeAccounts.Validation.UserNameTooLong" xml:space="preserve">
+    <value>帳戶名稱不能超過 256 個字元。</value>
   </data>
   <data name="Customization.OobeAccountsDescription" xml:space="preserve">
     <value>設定在 Windows OOBE 期間建立的本機帳戶。</value>
@@ -899,6 +899,9 @@
   </data>
   <data name="Customization.OobeAdditionalAccountsAddButton" xml:space="preserve">
     <value>新增帳戶</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsBlockedMessage" xml:space="preserve">
+    <value>Autopilot 無法與其他本機帳戶同時使用。</value>
   </data>
   <data name="Customization.OobeAdditionalAccountsEditButton" xml:space="preserve">
     <value>編輯</value>
@@ -962,6 +965,9 @@
   </data>
   <data name="Customization.OobeLocationUserControlled" xml:space="preserve">
     <value>使用者控制</value>
+  </data>
+  <data name="Customization.OobeNoAdministratorWarning" xml:space="preserve">
+    <value>目前僅設定了標準帳戶。請確保有其他系統管理員帳戶或管理方式可用。</value>
   </data>
   <data name="Customization.OobeOnlineSpeechRecognitionDescription" xml:space="preserve">
     <value>允許Microsoft基於雲端的語音辨識服務。</value>

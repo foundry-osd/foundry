@@ -864,8 +864,8 @@
   <data name="Customization.OobeAccounts.Validation.UserNameRequired" xml:space="preserve">
     <value>أدخل اسم حساب محلي.</value>
   </data>
-  <data name="Customization.OobeAccountsBlockedMessage" xml:space="preserve">
-    <value>لا تتوفر تهيئة الحسابات أثناء تمكين Autopilot.</value>
+  <data name="Customization.OobeAccounts.Validation.UserNameTooLong" xml:space="preserve">
+    <value>لا يمكن أن يتجاوز اسم الحساب 256 حرفًا.</value>
   </data>
   <data name="Customization.OobeAccountsDescription" xml:space="preserve">
     <value>كوّن الحسابات المحلية التي يتم إنشاؤها أثناء تجربة إعداد Windows.</value>
@@ -899,6 +899,9 @@
   </data>
   <data name="Customization.OobeAdditionalAccountsAddButton" xml:space="preserve">
     <value>إضافة حساب</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsBlockedMessage" xml:space="preserve">
+    <value>لا يمكن الجمع بين Autopilot وحسابات محلية إضافية.</value>
   </data>
   <data name="Customization.OobeAdditionalAccountsEditButton" xml:space="preserve">
     <value>تحرير</value>
@@ -962,6 +965,9 @@
   </data>
   <data name="Customization.OobeLocationUserControlled" xml:space="preserve">
     <value>التحكم المستخدم</value>
+  </data>
+  <data name="Customization.OobeNoAdministratorWarning" xml:space="preserve">
+    <value>تم تكوين حسابات قياسية فقط. تأكد من توفر حساب مسؤول آخر أو طريقة أخرى للإدارة.</value>
   </data>
   <data name="Customization.OobeOnlineSpeechRecognitionDescription" xml:space="preserve">
     <value>يسمح Microsoft بخدمات التعرف على الكلام المستندة إلى السحابة.</value>

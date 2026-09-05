@@ -864,8 +864,8 @@
   <data name="Customization.OobeAccounts.Validation.UserNameRequired" xml:space="preserve">
     <value>Anna paikallisen tilin nimi.</value>
   </data>
-  <data name="Customization.OobeAccountsBlockedMessage" xml:space="preserve">
-    <value>Tilien valmistelu ei ole käytettävissä, kun Autopilot on käytössä.</value>
+  <data name="Customization.OobeAccounts.Validation.UserNameTooLong" xml:space="preserve">
+    <value>Tilin nimessä voi olla enintään 256 merkkiä.</value>
   </data>
   <data name="Customization.OobeAccountsDescription" xml:space="preserve">
     <value>Määritä Windowsin OOBE-vaiheessa luotavat paikalliset tilit.</value>
@@ -899,6 +899,9 @@
   </data>
   <data name="Customization.OobeAdditionalAccountsAddButton" xml:space="preserve">
     <value>Lisää tili</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsBlockedMessage" xml:space="preserve">
+    <value>Autopilotia ei voi yhdistää muihin paikallisiin tileihin.</value>
   </data>
   <data name="Customization.OobeAdditionalAccountsEditButton" xml:space="preserve">
     <value>Muokkaa</value>
@@ -962,6 +965,9 @@
   </data>
   <data name="Customization.OobeLocationUserControlled" xml:space="preserve">
     <value>Käyttäjän hallinnassa</value>
+  </data>
+  <data name="Customization.OobeNoAdministratorWarning" xml:space="preserve">
+    <value>Vain tavallisia käyttäjätilejä on määritetty. Varmista, että käytettävissä on toinen järjestelmänvalvojatili tai hallintamenetelmä.</value>
   </data>
   <data name="Customization.OobeOnlineSpeechRecognitionDescription" xml:space="preserve">
     <value>Sallii Microsoft pilvipohjaiset puheentunnistuspalvelut.</value>

@@ -864,8 +864,8 @@
   <data name="Customization.OobeAccounts.Validation.UserNameRequired" xml:space="preserve">
     <value>Adjon meg egy helyi fióknevet.</value>
   </data>
-  <data name="Customization.OobeAccountsBlockedMessage" xml:space="preserve">
-    <value>A fiókkiépítés nem érhető el, amíg az Autopilot engedélyezve van.</value>
+  <data name="Customization.OobeAccounts.Validation.UserNameTooLong" xml:space="preserve">
+    <value>A fióknév legfeljebb 256 karakterből állhat.</value>
   </data>
   <data name="Customization.OobeAccountsDescription" xml:space="preserve">
     <value>A Windows OOBE során létrehozott helyi fiókok konfigurálása.</value>
@@ -899,6 +899,9 @@
   </data>
   <data name="Customization.OobeAdditionalAccountsAddButton" xml:space="preserve">
     <value>Fiók hozzáadása</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsBlockedMessage" xml:space="preserve">
+    <value>Az Autopilot nem használható további helyi fiókokkal együtt.</value>
   </data>
   <data name="Customization.OobeAdditionalAccountsEditButton" xml:space="preserve">
     <value>Szerkesztés</value>
@@ -962,6 +965,9 @@
   </data>
   <data name="Customization.OobeLocationUserControlled" xml:space="preserve">
     <value>Felhasználó által irányított</value>
+  </data>
+  <data name="Customization.OobeNoAdministratorWarning" xml:space="preserve">
+    <value>Csak általános jogú fiókok vannak beállítva. Gondoskodjon másik rendszergazdai fiók vagy felügyeleti módszer elérhetőségéről.</value>
   </data>
   <data name="Customization.OobeOnlineSpeechRecognitionDescription" xml:space="preserve">
     <value>Lehetővé teszi a Microsoft felhőalapú beszédfelismerő szolgáltatásokat.</value>

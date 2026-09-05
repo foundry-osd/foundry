@@ -254,8 +254,12 @@ public sealed class ConfigurationOverviewEvaluatorTests
         Assert.Equal(ConfigurationOverviewState.NeedsAttention, evaluation[ConfigurationOverviewItem.Oobe]);
     }
 
-    [Fact]
-    public void Evaluate_OobeLocalAccountsWhenAutopilotEnabled_NeedsAttention()
+    [Theory]
+    [InlineData(false, true, ConfigurationOverviewState.NeedsAttention)]
+    [InlineData(true, true, ConfigurationOverviewState.NeedsAttention)]
+    [InlineData(true, false, ConfigurationOverviewState.Configured)]
+    public void Evaluate_OobeAccountsWhenAutopilotEnabled_OnlyAdditionalAccountsNeedAttention(
+        bool enableAdministrator, bool includeAdditionalAccount, ConfigurationOverviewState expectedState)
     {
         var configuration = new FoundryConfigurationDocument
         {
@@ -269,7 +273,8 @@ public sealed class ConfigurationOverviewEvaluatorTests
                 Oobe = new OobeSettings
                 {
                     IsEnabled = true,
-                    AdditionalAccounts =
+                    EnableAdministratorAccount = enableAdministrator,
+                    AdditionalAccounts = includeAdditionalAccount ?
                     [
                         new OobeAdditionalAccountSettings
                         {
@@ -277,14 +282,14 @@ public sealed class ConfigurationOverviewEvaluatorTests
                             UserName = "Technician",
                             Type = OobeAccountType.Standard
                         }
-                    ]
+                    ] : []
                 }
             }
         };
 
         ConfigurationOverviewEvaluation evaluation = ConfigurationOverviewEvaluator.Evaluate(CreateContext(configuration));
 
-        Assert.Equal(ConfigurationOverviewState.NeedsAttention, evaluation[ConfigurationOverviewItem.Oobe]);
+        Assert.Equal(expectedState, evaluation[ConfigurationOverviewItem.Oobe]);
     }
 
     [Fact]

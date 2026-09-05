@@ -864,8 +864,8 @@
   <data name="Customization.OobeAccounts.Validation.UserNameRequired" xml:space="preserve">
     <value>Įveskite vietinės paskyros pavadinimą.</value>
   </data>
-  <data name="Customization.OobeAccountsBlockedMessage" xml:space="preserve">
-    <value>Paskyrų parengimas nepasiekiamas, kol įjungtas „Autopilot“.</value>
+  <data name="Customization.OobeAccounts.Validation.UserNameTooLong" xml:space="preserve">
+    <value>Paskyros pavadinimas negali viršyti 256 simbolių.</value>
   </data>
   <data name="Customization.OobeAccountsDescription" xml:space="preserve">
     <value>Konfigūruokite vietines paskyras, kuriamas per „Windows“ OOBE.</value>
@@ -899,6 +899,9 @@
   </data>
   <data name="Customization.OobeAdditionalAccountsAddButton" xml:space="preserve">
     <value>Pridėti paskyrą</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsBlockedMessage" xml:space="preserve">
+    <value>„Autopilot“ negalima naudoti kartu su papildomomis vietinėmis paskyromis.</value>
   </data>
   <data name="Customization.OobeAdditionalAccountsEditButton" xml:space="preserve">
     <value>Redaguoti</value>
@@ -962,6 +965,9 @@
   </data>
   <data name="Customization.OobeLocationUserControlled" xml:space="preserve">
     <value>Vartotojo valdomas</value>
+  </data>
+  <data name="Customization.OobeNoAdministratorWarning" xml:space="preserve">
+    <value>Sukonfigūruotos tik standartinės paskyros. Įsitikinkite, kad yra kita administratoriaus paskyra arba valdymo būdas.</value>
   </data>
   <data name="Customization.OobeOnlineSpeechRecognitionDescription" xml:space="preserve">
     <value>Leidžia Microsoft debesies pagrindu veikiančias kalbos atpažinimo paslaugas.</value>

@@ -255,8 +255,7 @@ public static class ConfigurationOverviewEvaluator
             return true;
         }
 
-        return !oobe.EnableAdministratorAccount &&
-               oobe.AdditionalAccounts.Count == 0;
+        return oobe.AdditionalAccounts.Count == 0;
     }
 
     private static NetworkSettings CreateEthernetOnlyNetwork(NetworkSettings settings) => settings with

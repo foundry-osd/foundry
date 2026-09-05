@@ -864,8 +864,8 @@
   <data name="Customization.OobeAccounts.Validation.UserNameRequired" xml:space="preserve">
     <value>ป้อนชื่อบัญชีภายในเครื่อง</value>
   </data>
-  <data name="Customization.OobeAccountsBlockedMessage" xml:space="preserve">
-    <value>ไม่สามารถเตรียมใช้งานบัญชีได้ขณะเปิดใช้งาน Autopilot</value>
+  <data name="Customization.OobeAccounts.Validation.UserNameTooLong" xml:space="preserve">
+    <value>ชื่อบัญชีต้องมีความยาวไม่เกิน 256 อักขระ</value>
   </data>
   <data name="Customization.OobeAccountsDescription" xml:space="preserve">
     <value>กำหนดค่าบัญชีภายในเครื่องที่จะสร้างระหว่าง Windows OOBE</value>
@@ -899,6 +899,9 @@
   </data>
   <data name="Customization.OobeAdditionalAccountsAddButton" xml:space="preserve">
     <value>เพิ่มบัญชี</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsBlockedMessage" xml:space="preserve">
+    <value>ไม่สามารถใช้ Autopilot ร่วมกับบัญชีภายในเครื่องเพิ่มเติมได้</value>
   </data>
   <data name="Customization.OobeAdditionalAccountsEditButton" xml:space="preserve">
     <value>แก้ไข</value>
@@ -962,6 +965,9 @@
   </data>
   <data name="Customization.OobeLocationUserControlled" xml:space="preserve">
     <value>ผู้ใช้ควบคุม</value>
+  </data>
+  <data name="Customization.OobeNoAdministratorWarning" xml:space="preserve">
+    <value>มีการกำหนดค่าเฉพาะบัญชีมาตรฐานเท่านั้น โปรดตรวจสอบว่ามีบัญชีผู้ดูแลระบบอื่นหรือวิธีจัดการอื่นที่สามารถใช้งานได้</value>
   </data>
   <data name="Customization.OobeOnlineSpeechRecognitionDescription" xml:space="preserve">
     <value>อนุญาต Microsoft บริการรู้จำคำพูดบนคลาวด์</value>

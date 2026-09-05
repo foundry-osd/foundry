@@ -864,8 +864,8 @@
   <data name="Customization.OobeAccounts.Validation.UserNameRequired" xml:space="preserve">
     <value>ローカル アカウント名を入力してください。</value>
   </data>
-  <data name="Customization.OobeAccountsBlockedMessage" xml:space="preserve">
-    <value>Autopilot が有効な間はアカウントをプロビジョニングできません。</value>
+  <data name="Customization.OobeAccounts.Validation.UserNameTooLong" xml:space="preserve">
+    <value>アカウント名は 256 文字以内で入力してください。</value>
   </data>
   <data name="Customization.OobeAccountsDescription" xml:space="preserve">
     <value>Windows OOBE 中に作成するローカル アカウントを構成します。</value>
@@ -899,6 +899,9 @@
   </data>
   <data name="Customization.OobeAdditionalAccountsAddButton" xml:space="preserve">
     <value>アカウントを追加</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsBlockedMessage" xml:space="preserve">
+    <value>Autopilot と追加のローカルアカウントは併用できません。</value>
   </data>
   <data name="Customization.OobeAdditionalAccountsEditButton" xml:space="preserve">
     <value>編集</value>
@@ -962,6 +965,9 @@
   </data>
   <data name="Customization.OobeLocationUserControlled" xml:space="preserve">
     <value>ユーザー制御</value>
+  </data>
+  <data name="Customization.OobeNoAdministratorWarning" xml:space="preserve">
+    <value>標準アカウントのみが構成されています。別の管理者アカウントまたは管理方法が利用できることを確認してください。</value>
   </data>
   <data name="Customization.OobeOnlineSpeechRecognitionDescription" xml:space="preserve">
     <value>Microsoft クラウドベースの音声認識サービスを許可します。</value>

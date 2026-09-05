@@ -14,5 +14,6 @@ public enum OobeAccountConfigurationValidationCode
     InvalidUserNameCharacters,
     TrailingPeriodOrSpace,
     PasswordRequired,
-    PasswordConfirmationMismatch
+    PasswordConfirmationMismatch,
+    UserNameTooLong
 }

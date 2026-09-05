@@ -381,13 +381,20 @@ public sealed class DeployConfigurationGeneratorTests
     }
 
     [Theory]
-    [InlineData(true, false)]
-    [InlineData(false, true)]
-    public void Generate_WhenAutopilotIsEnabledAndOobeAccountBehaviorIsConfigured_ThrowsInvalidOperationException(
+    [InlineData(true, false, false)]
+    [InlineData(true, false, true)]
+    [InlineData(false, true, false)]
+    [InlineData(true, true, false)]
+    public void Generate_WhenAutopilotIsEnabled_RejectsOnlyAdditionalAccounts(
         bool enableAdministratorAccount,
-        bool includeAdditionalAccount)
+        bool includeAdditionalAccount,
+        bool useAdministratorPassword)
     {
         var generator = new DeployConfigurationGenerator();
+        using var mediaProtection = DeploymentMediaProtectionService.CreateProtected("MediaPassword123".AsSpan());
+        using var secretState = new OobeAccountSecretState();
+        secretState.SetAdministratorPassword("AdminPassword123!");
+        secretState.SetAdministratorConfirmation("AdminPassword123!");
         var document = new FoundryConfigurationDocument
         {
             Customization = new CustomizationSettings
@@ -396,6 +403,7 @@ public sealed class DeployConfigurationGeneratorTests
                 {
                     IsEnabled = true,
                     EnableAdministratorAccount = enableAdministratorAccount,
+                    UseAdministratorPassword = useAdministratorPassword,
                     AdditionalAccounts = includeAdditionalAccount
                         ? new[]
                         {
@@ -420,8 +428,26 @@ public sealed class DeployConfigurationGeneratorTests
             }
         };
 
-        InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => generator.Generate(document));
-        Assert.Contains("Autopilot", exception.Message, StringComparison.OrdinalIgnoreCase);
+        if (includeAdditionalAccount)
+        {
+            InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => generator.Generate(document));
+            Assert.Contains("Autopilot", exception.Message, StringComparison.OrdinalIgnoreCase);
+        }
+        else
+        {
+            FoundryDeployConfigurationDocument result = generator.Generate(
+                document, mediaProtection.DeploymentKey, mediaProtection.Settings, secretState);
+            Assert.True(result.Customization.Oobe.EnableAdministratorAccount);
+            Assert.Empty(result.Customization.Oobe.AdditionalAccounts);
+            Assert.Equal(!useAdministratorPassword, result.Customization.Oobe.AdministratorPasswordIsBlank);
+            if (useAdministratorPassword)
+            {
+                Assert.Equal("AdminPassword123!", MediaSecretEnvelopeProtector.DecryptString(
+                    result.Customization.Oobe.AdministratorPasswordSecret!,
+                    mediaProtection.DeploymentKey,
+                    MediaSecretEnvelopeProtector.DeploymentKeyId));
+            }
+        }
     }
 
     [Fact]

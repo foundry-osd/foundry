@@ -15,12 +15,13 @@ public static class OobeAccountConfigurationValidator
         "DefaultAccount",
         "Guest",
         "HelpAssistant",
+        "NONE",
         "WDAGUtilityAccount",
         "WSIAccount"
     };
 
     private static readonly SearchValues<char> InvalidUserNameCharacters =
-        SearchValues.Create("\"/\\[]:;|=,+*?<>");
+        SearchValues.Create("\"/\\[]:;|=,+*?<>%@");
 
     public static OobeAccountConfigurationValidationResult Validate(OobeSettings settings)
     {
@@ -120,6 +121,13 @@ public static class OobeAccountConfigurationValidator
         }
         else
         {
+            if (userName.Length > 256)
+            {
+                issues.Add(new OobeAccountConfigurationValidationIssue(
+                    OobeAccountConfigurationValidationCode.UserNameTooLong,
+                    accountId));
+            }
+
             if (!userNames.Add(userName))
             {
                 issues.Add(new OobeAccountConfigurationValidationIssue(

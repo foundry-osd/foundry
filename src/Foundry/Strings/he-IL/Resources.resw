@@ -864,8 +864,8 @@
   <data name="Customization.OobeAccounts.Validation.UserNameRequired" xml:space="preserve">
     <value>הזן שם חשבון מקומי.</value>
   </data>
-  <data name="Customization.OobeAccountsBlockedMessage" xml:space="preserve">
-    <value>הקצאת חשבונות אינה זמינה כאשר Autopilot מופעל.</value>
+  <data name="Customization.OobeAccounts.Validation.UserNameTooLong" xml:space="preserve">
+    <value>שם החשבון לא יכול לעלות על 256 תווים.</value>
   </data>
   <data name="Customization.OobeAccountsDescription" xml:space="preserve">
     <value>הגדר חשבונות מקומיים שייווצרו במהלך Windows OOBE.</value>
@@ -899,6 +899,9 @@
   </data>
   <data name="Customization.OobeAdditionalAccountsAddButton" xml:space="preserve">
     <value>הוסף חשבון</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsBlockedMessage" xml:space="preserve">
+    <value>לא ניתן לשלב את Autopilot עם חשבונות מקומיים נוספים.</value>
   </data>
   <data name="Customization.OobeAdditionalAccountsEditButton" xml:space="preserve">
     <value>ערוך</value>
@@ -962,6 +965,9 @@
   </data>
   <data name="Customization.OobeLocationUserControlled" xml:space="preserve">
     <value>נשלט על ידי משתמש</value>
+  </data>
+  <data name="Customization.OobeNoAdministratorWarning" xml:space="preserve">
+    <value>מוגדרים רק חשבונות רגילים. יש לוודא שקיים חשבון מנהל מערכת נוסף או אמצעי ניהול אחר.</value>
   </data>
   <data name="Customization.OobeOnlineSpeechRecognitionDescription" xml:space="preserve">
     <value>מאפשר Microsoft שירותי זיהוי דיבור מבוססי ענן.</value>

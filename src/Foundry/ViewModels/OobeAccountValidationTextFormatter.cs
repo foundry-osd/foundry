@@ -34,6 +34,8 @@ internal static class OobeAccountValidationTextFormatter
         {
             OobeAccountConfigurationValidationCode.UserNameRequired =>
                 localizationService.GetString("Customization.OobeAccounts.Validation.UserNameRequired"),
+            OobeAccountConfigurationValidationCode.UserNameTooLong =>
+                localizationService.GetString("Customization.OobeAccounts.Validation.UserNameTooLong"),
             OobeAccountConfigurationValidationCode.DuplicateUserName =>
                 localizationService.GetString("Customization.OobeAccounts.Validation.DuplicateUserName"),
             OobeAccountConfigurationValidationCode.ReservedBuiltInUserName =>

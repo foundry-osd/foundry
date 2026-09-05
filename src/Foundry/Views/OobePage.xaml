@@ -71,13 +71,6 @@
                                 CornerRadius="{ThemeResource FoundryCardCornerRadius}">
                                 <StackPanel Spacing="{ThemeResource FoundryContentGroupSpacing}">
                                     <InfoBar
-                                        IsClosable="False"
-                                        IsOpen="True"
-                                        Message="{x:Bind ViewModel.OobeAccountsBlockedMessage, Mode=OneWay}"
-                                        Severity="Error"
-                                        Visibility="{x:Bind ViewModel.OobeAccountsBlockedVisibility, Mode=OneWay}" />
-
-                                    <InfoBar
                                         Title="{x:Bind ViewModel.OobeAccountsNeedsAttentionText, Mode=OneWay}"
                                         IsClosable="False"
                                         IsOpen="True"
@@ -87,7 +80,7 @@
 
                                     <ContentControl
                                         HorizontalContentAlignment="Stretch"
-                                        IsEnabled="{x:Bind ViewModel.AreOobeAccountControlsAvailable, Mode=OneWay}"
+                                        IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}"
                                         IsTabStop="False">
                                         <StackPanel Spacing="{ThemeResource FoundrySpace16}">
                                             <Grid ColumnSpacing="{ThemeResource FoundryPageHeaderColumnSpacing}">
@@ -190,8 +183,16 @@
                                                     MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
                                                     VerticalAlignment="Center"
                                                     Command="{x:Bind ViewModel.AddOobeAdditionalAccountCommand}"
-                                                    Content="{x:Bind ViewModel.OobeAdditionalAccountsAddButton, Mode=OneWay}" />
+                                                    Content="{x:Bind ViewModel.OobeAdditionalAccountsAddButton, Mode=OneWay}"
+                                                    IsEnabled="{x:Bind ViewModel.AreOobeAdditionalAccountControlsAvailable, Mode=OneWay}" />
                                             </Grid>
+
+                                            <InfoBar
+                                                IsClosable="False"
+                                                IsOpen="True"
+                                                Message="{x:Bind ViewModel.OobeAdditionalAccountsBlockedMessage, Mode=OneWay}"
+                                                Severity="Warning"
+                                                Visibility="{x:Bind ViewModel.OobeAdditionalAccountsBlockedVisibility, Mode=OneWay}" />
 
                                             <ItemsControl
                                                 HorizontalContentAlignment="Stretch"
@@ -255,6 +256,13 @@
                                                 Text="{x:Bind ViewModel.OobeAdditionalAccountsValidationMessage, Mode=OneWay}"
                                                 TextWrapping="WrapWholeWords"
                                                 Visibility="{x:Bind ViewModel.OobeAdditionalAccountsValidationVisibility, Mode=OneWay}" />
+
+                                            <InfoBar
+                                                IsClosable="False"
+                                                IsOpen="True"
+                                                Message="{x:Bind ViewModel.OobeNoAdministratorWarning, Mode=OneWay}"
+                                                Severity="Warning"
+                                                Visibility="{x:Bind ViewModel.OobeNoAdministratorWarningVisibility, Mode=OneWay}" />
 
                                             <Rectangle
                                                 Height="1"

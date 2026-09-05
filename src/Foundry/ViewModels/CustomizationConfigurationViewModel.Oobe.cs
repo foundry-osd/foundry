@@ -26,20 +26,27 @@ public sealed partial class CustomizationConfigurationViewModel
 
     public bool IsOobeOptionsEnabled => IsOobeEnabled;
 
-    public bool AreOobeAccountControlsAvailable => IsOobeEnabled && !IsOobeAccountConfigurationBlockedByAutopilot;
+    public bool AreOobeAdditionalAccountControlsAvailable => IsOobeEnabled && !IsOobeAdditionalAccountsBlockedByAutopilot;
 
     public bool HasAdditionalOobeAccounts => OobeAdditionalAccounts.Count > 0;
+
+    public Visibility OobeNoAdministratorWarningVisibility => IsOobeEnabled &&
+        !IsOobeAdditionalAccountsBlockedByAutopilot &&
+        !EnableAdministratorAccount && HasAdditionalOobeAccounts &&
+        OobeAdditionalAccounts.All(entry => entry.Account.Type == OobeAccountType.Standard)
+            ? Visibility.Visible
+            : Visibility.Collapsed;
 
     public string OobeSkipUserAccountCreationEffectiveDescription => HasAdditionalOobeAccounts
         ? OobeSkipUserAccountCreationLockedDescription
         : OobeSkipUserAccountCreationDescription;
 
-    public Visibility OobeAccountsBlockedVisibility => IsOobeAccountConfigurationBlockedByAutopilot
+    public Visibility OobeAdditionalAccountsBlockedVisibility => IsOobeAdditionalAccountsBlockedByAutopilot
         ? Visibility.Visible
         : Visibility.Collapsed;
 
     public Visibility OobeAccountsNeedsAttentionVisibility => IsOobeEnabled
-        && ((IsOobeAccountConfigurationBlockedByAutopilot && (EnableAdministratorAccount || HasAdditionalOobeAccounts)) ||
+        && ((IsOobeAdditionalAccountsBlockedByAutopilot && HasAdditionalOobeAccounts) ||
             hasOobeAccountValidationIssues ||
             IsOobeAccountDeploymentProtectionMissing)
             ? Visibility.Visible
@@ -53,13 +60,9 @@ public sealed partial class CustomizationConfigurationViewModel
         ? Visibility.Collapsed
         : Visibility.Visible;
 
-    public Visibility OobeAdministratorValidationVisibility => IsOobeAccountConfigurationBlockedByAutopilot
-        ? Visibility.Collapsed
-        : ToVisibility(OobeAdministratorValidationMessage);
+    public Visibility OobeAdministratorValidationVisibility => ToVisibility(OobeAdministratorValidationMessage);
 
-    public Visibility OobeAdditionalAccountsValidationVisibility => IsOobeAccountConfigurationBlockedByAutopilot
-        ? Visibility.Collapsed
-        : ToVisibility(OobeAdditionalAccountsValidationMessage);
+    public Visibility OobeAdditionalAccountsValidationVisibility => ToVisibility(OobeAdditionalAccountsValidationMessage);
 
     public int OobeAccountSecretStateVersion
     {
@@ -77,10 +80,13 @@ public sealed partial class CustomizationConfigurationViewModel
     public partial string OobeAccountsNeedsAttentionText { get; set; }
 
     [ObservableProperty]
-    public partial string OobeAccountsBlockedMessage { get; set; }
+    public partial string OobeAdditionalAccountsBlockedMessage { get; set; }
 
     [ObservableProperty]
     public partial string OobeAccountsSecurityWarning { get; set; }
+
+    [ObservableProperty]
+    public partial string OobeNoAdministratorWarning { get; set; }
 
     [ObservableProperty]
     public partial string OobeAdministratorAccountLabel { get; set; }
@@ -182,7 +188,7 @@ public sealed partial class CustomizationConfigurationViewModel
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsOobeOptionsEnabled))]
-    [NotifyPropertyChangedFor(nameof(AreOobeAccountControlsAvailable))]
+    [NotifyPropertyChangedFor(nameof(AreOobeAdditionalAccountControlsAvailable))]
     [NotifyPropertyChangedFor(nameof(OobeAccountsNeedsAttentionVisibility))]
     public partial bool IsOobeEnabled { get; set; }
 
@@ -193,12 +199,12 @@ public sealed partial class CustomizationConfigurationViewModel
     public partial bool UseAdministratorPassword { get; set; }
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(OobeAccountsBlockedVisibility))]
-    [NotifyPropertyChangedFor(nameof(AreOobeAccountControlsAvailable))]
+    [NotifyPropertyChangedFor(nameof(OobeAdditionalAccountsBlockedVisibility))]
+    [NotifyPropertyChangedFor(nameof(AreOobeAdditionalAccountControlsAvailable))]
     [NotifyPropertyChangedFor(nameof(OobeAdministratorValidationVisibility))]
     [NotifyPropertyChangedFor(nameof(OobeAdditionalAccountsValidationVisibility))]
     [NotifyPropertyChangedFor(nameof(OobeAccountsNeedsAttentionVisibility))]
-    public partial bool IsOobeAccountConfigurationBlockedByAutopilot { get; set; }
+    public partial bool IsOobeAdditionalAccountsBlockedByAutopilot { get; set; }
 
     [ObservableProperty]
     public partial bool SkipLicenseTerms { get; set; } = true;
@@ -317,7 +323,7 @@ public sealed partial class CustomizationConfigurationViewModel
     [RelayCommand]
     private async Task AddOobeAdditionalAccountAsync()
     {
-        if (!AreOobeAccountControlsAvailable)
+        if (!AreOobeAdditionalAccountControlsAvailable)
         {
             return;
         }
@@ -341,7 +347,7 @@ public sealed partial class CustomizationConfigurationViewModel
 
     private async Task EditOobeAdditionalAccountAsync(OobeAdditionalAccountEntryViewModel entry)
     {
-        if (!AreOobeAccountControlsAvailable)
+        if (!IsOobeEnabled)
         {
             return;
         }
@@ -379,7 +385,7 @@ public sealed partial class CustomizationConfigurationViewModel
 
     private void RemoveOobeAdditionalAccount(OobeAdditionalAccountEntryViewModel entry)
     {
-        if (!AreOobeAccountControlsAvailable)
+        if (!IsOobeEnabled)
         {
             return;
         }
@@ -396,7 +402,7 @@ public sealed partial class CustomizationConfigurationViewModel
         UseAdministratorPassword = settings.UseAdministratorPassword;
         EnableAdministratorAccount = settings.EnableAdministratorAccount;
         SkipLicenseTerms = settings.SkipLicenseTerms;
-        IsOobeAccountConfigurationBlockedByAutopilot = configurationStateService.IsAutopilotEnabled;
+        IsOobeAdditionalAccountsBlockedByAutopilot = configurationStateService.IsAutopilotEnabled;
         SelectedOobeDiagnosticData = SelectOption(OobeDiagnosticDataOptions, settings.DiagnosticDataLevel);
         HidePrivacySetup = settings.HidePrivacySetup;
         AllowTailoredExperiences = settings.AllowTailoredExperiences;
@@ -441,8 +447,9 @@ public sealed partial class CustomizationConfigurationViewModel
         OobeAccountsHeader = localizationService.GetString("Customization.OobeAccountsHeader");
         OobeAccountsDescription = localizationService.GetString("Customization.OobeAccountsDescription");
         OobeAccountsNeedsAttentionText = localizationService.GetString("Common.NeedsAttention");
-        OobeAccountsBlockedMessage = localizationService.GetString("Customization.OobeAccountsBlockedMessage");
+        OobeAdditionalAccountsBlockedMessage = localizationService.GetString("Customization.OobeAdditionalAccountsBlockedMessage");
         OobeAccountsSecurityWarning = localizationService.GetString("Customization.OobeAccountsSecurityWarning");
+        OobeNoAdministratorWarning = localizationService.GetString("Customization.OobeNoAdministratorWarning");
         OobeAdministratorAccountLabel = localizationService.GetString("Customization.OobeAdministratorAccountLabel");
         OobeAdministratorAccountDescription = localizationService.GetString("Customization.OobeAdministratorAccountDescription");
         OobeAccountPasswordLabel = localizationService.GetString("Customization.OobeAccountPasswordLabel");
@@ -535,6 +542,7 @@ public sealed partial class CustomizationConfigurationViewModel
         OnPropertyChanged(nameof(OobeAdministratorValidationVisibility));
         OnPropertyChanged(nameof(OobeAdditionalAccountsValidationVisibility));
         OnPropertyChanged(nameof(OobeAccountDeploymentProtectionRequiredVisibility));
+        OnPropertyChanged(nameof(OobeNoAdministratorWarningVisibility));
         OnPropertyChanged(nameof(OobeAccountsNeedsAttentionVisibility));
     }
 

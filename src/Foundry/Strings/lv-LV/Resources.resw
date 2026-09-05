@@ -864,8 +864,8 @@
   <data name="Customization.OobeAccounts.Validation.UserNameRequired" xml:space="preserve">
     <value>Ievadiet lokālā konta nosaukumu.</value>
   </data>
-  <data name="Customization.OobeAccountsBlockedMessage" xml:space="preserve">
-    <value>Kontu nodrošināšana nav pieejama, kamēr ir iespējots Autopilot.</value>
+  <data name="Customization.OobeAccounts.Validation.UserNameTooLong" xml:space="preserve">
+    <value>Konta nosaukums nedrīkst pārsniegt 256 rakstzīmes.</value>
   </data>
   <data name="Customization.OobeAccountsDescription" xml:space="preserve">
     <value>Konfigurējiet lokālos kontus, kas tiek izveidoti Windows OOBE laikā.</value>
@@ -899,6 +899,9 @@
   </data>
   <data name="Customization.OobeAdditionalAccountsAddButton" xml:space="preserve">
     <value>Pievienot kontu</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsBlockedMessage" xml:space="preserve">
+    <value>Autopilot nevar izmantot kopā ar papildu lokālajiem kontiem.</value>
   </data>
   <data name="Customization.OobeAdditionalAccountsEditButton" xml:space="preserve">
     <value>Rediģēt</value>
@@ -962,6 +965,9 @@
   </data>
   <data name="Customization.OobeLocationUserControlled" xml:space="preserve">
     <value>Lietotāja kontrolēts</value>
+  </data>
+  <data name="Customization.OobeNoAdministratorWarning" xml:space="preserve">
+    <value>Ir konfigurēti tikai standarta konti. Pārliecinieties, vai ir pieejams cits administratora konts vai pārvaldības veids.</value>
   </data>
   <data name="Customization.OobeOnlineSpeechRecognitionDescription" xml:space="preserve">
     <value>Ļauj Microsoft mākoņa bāzes runas atpazīšanas pakalpojumus.</value>

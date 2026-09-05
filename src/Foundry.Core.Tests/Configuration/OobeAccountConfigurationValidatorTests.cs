@@ -72,6 +72,8 @@ public sealed class OobeAccountConfigurationValidatorTests
     [InlineData("Guest")]
     [InlineData("DefaultAccount")]
     [InlineData("WDAGUtilityAccount")]
+    [InlineData("NONE")]
+    [InlineData("none")]
     public void Validate_WhenAdditionalAccountUsesReservedBuiltInName_ReturnsReservedNameIssue(string userName)
     {
         OobeAccountConfigurationValidationResult result = OobeAccountConfigurationValidator.Validate(
@@ -99,6 +101,8 @@ public sealed class OobeAccountConfigurationValidatorTests
     [InlineData("Tech/User")]
     [InlineData("Tech<User")]
     [InlineData("Tech|User")]
+    [InlineData("Tech%User")]
+    [InlineData("support@example.com")]
     public void Validate_WhenAdditionalAccountNameContainsInvalidWindowsCharacters_ReturnsInvalidCharacterIssue(string userName)
     {
         OobeAccountConfigurationValidationResult result = OobeAccountConfigurationValidator.Validate(
@@ -107,6 +111,17 @@ public sealed class OobeAccountConfigurationValidatorTests
         Assert.Contains(result.Issues, issue =>
             issue.Code == OobeAccountConfigurationValidationCode.InvalidUserNameCharacters &&
             issue.AccountId == "account-1");
+    }
+
+    [Theory]
+    [InlineData(256, true)]
+    [InlineData(257, false)]
+    public void Validate_AdditionalAccountNameLength_RespectsUnattendLimit(int length, bool expectedValid)
+    {
+        OobeAccountConfigurationValidationResult result = OobeAccountConfigurationValidator.Validate(
+            CreateOobeSettings(CreateAccount("account-1", new string('a', length))));
+
+        Assert.Equal(expectedValid, result.IsValid);
     }
 
     [Fact]

@@ -864,8 +864,8 @@
   <data name="Customization.OobeAccounts.Validation.UserNameRequired" xml:space="preserve">
     <value>Wprowadź nazwę konta lokalnego.</value>
   </data>
-  <data name="Customization.OobeAccountsBlockedMessage" xml:space="preserve">
-    <value>Aprowizowanie kont jest niedostępne, gdy funkcja Autopilot jest włączona.</value>
+  <data name="Customization.OobeAccounts.Validation.UserNameTooLong" xml:space="preserve">
+    <value>Nazwa konta nie może przekraczać 256 znaków.</value>
   </data>
   <data name="Customization.OobeAccountsDescription" xml:space="preserve">
     <value>Skonfiguruj konta lokalne tworzone podczas środowiska OOBE systemu Windows.</value>
@@ -899,6 +899,9 @@
   </data>
   <data name="Customization.OobeAdditionalAccountsAddButton" xml:space="preserve">
     <value>Dodaj konto</value>
+  </data>
+  <data name="Customization.OobeAdditionalAccountsBlockedMessage" xml:space="preserve">
+    <value>Nie można łączyć funkcji Autopilot z dodatkowymi kontami lokalnymi.</value>
   </data>
   <data name="Customization.OobeAdditionalAccountsEditButton" xml:space="preserve">
     <value>Edytuj</value>
@@ -962,6 +965,9 @@
   </data>
   <data name="Customization.OobeLocationUserControlled" xml:space="preserve">
     <value>Kontrolowane przez użytkownika</value>
+  </data>
+  <data name="Customization.OobeNoAdministratorWarning" xml:space="preserve">
+    <value>Skonfigurowano tylko konta standardowe. Upewnij się, że dostępne jest inne konto administratora lub inna metoda zarządzania.</value>
   </data>
   <data name="Customization.OobeOnlineSpeechRecognitionDescription" xml:space="preserve">
     <value>Umożliwia Microsoft usługi rozpoznawania mowy w chmurze.</value>

@@ -233,13 +233,12 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             return;
         }
 
-        if (!oobe.EnableAdministratorAccount &&
-            oobe.AdditionalAccounts.Count == 0)
+        if (oobe.AdditionalAccounts.Count == 0)
         {
             return;
         }
 
-        throw new InvalidOperationException("Autopilot cannot be combined with OOBE local account provisioning.");
+        throw new InvalidOperationException("Autopilot cannot be combined with additional OOBE local accounts.");
     }
 
     private static void ThrowIfOobePasswordsRequireProtectedMedia(
