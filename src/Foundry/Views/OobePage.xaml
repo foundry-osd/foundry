@@ -42,7 +42,7 @@
                         </wct:SettingsExpander.HeaderIcon>
                         <Border
                             Margin="{ThemeResource FoundrySettingsExpanderTrailingAffordanceMargin}"
-                            Padding="8,3"
+                            Padding="8,4"
                             AutomationProperties.Name="{x:Bind ViewModel.OobeAccountsNeedsAttentionText, Mode=OneWay}"
                             Background="{ThemeResource FoundryStatusBlockedBrush}"
                             CornerRadius="12"
@@ -57,8 +57,8 @@
                                     Glyph="&#xE711;" />
                                 <TextBlock
                                     VerticalAlignment="Center"
-                                    FontSize="11"
                                     Foreground="{ThemeResource FoundryStatusBlockedForegroundBrush}"
+                                    Style="{ThemeResource FoundryCaptionTextBlockStyle}"
                                     Text="{x:Bind ViewModel.OobeAccountsNeedsAttentionText, Mode=OneWay}" />
                             </StackPanel>
                         </Border>
@@ -146,11 +146,13 @@
                                                 Spacing="{ThemeResource FoundrySettingsSectionSpacing}"
                                                 Visibility="{x:Bind ViewModel.EnableAdministratorAccount, Mode=OneWay}">
                                                 <PasswordBox x:Name="AdministratorPasswordBox"
+                                                    AutomationProperties.Name="{x:Bind ViewModel.OobePasswordPlaceholder, Mode=OneWay}"
                                                     IsEnabled="{x:Bind ViewModel.UseAdministratorPassword, Mode=OneWay}"
                                                     Loaded="AdministratorPasswordBox_Loaded"
                                                     PasswordChanged="AdministratorPasswordBox_PasswordChanged"
                                                     PlaceholderText="{x:Bind ViewModel.OobePasswordPlaceholder, Mode=OneWay}" />
                                                 <PasswordBox x:Name="AdministratorConfirmationBox"
+                                                    AutomationProperties.Name="{x:Bind ViewModel.OobeConfirmationPlaceholder, Mode=OneWay}"
                                                     IsEnabled="{x:Bind ViewModel.UseAdministratorPassword, Mode=OneWay}"
                                                     Loaded="AdministratorConfirmationBox_Loaded"
                                                     PasswordChanged="AdministratorConfirmationBox_PasswordChanged"
@@ -191,11 +193,25 @@
                                                     Content="{x:Bind ViewModel.OobeAdditionalAccountsAddButton, Mode=OneWay}" />
                                             </Grid>
 
-                                            <ItemsControl ItemsSource="{x:Bind ViewModel.OobeAdditionalAccounts, Mode=OneWay}">
+                                            <ItemsControl
+                                                HorizontalContentAlignment="Stretch"
+                                                ItemsSource="{x:Bind ViewModel.OobeAdditionalAccounts, Mode=OneWay}"
+                                                Visibility="{x:Bind ViewModel.HasAdditionalOobeAccounts, Mode=OneWay}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}" />
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemContainerStyle>
+                                                    <Style TargetType="ContentPresenter">
+                                                        <Setter
+                                                            Property="HorizontalContentAlignment"
+                                                            Value="Stretch" />
+                                                    </Style>
+                                                </ItemsControl.ItemContainerStyle>
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate x:DataType="viewModels:OobeAdditionalAccountEntryViewModel">
                                                         <Border
-                                                            Margin="0,0,0,8"
                                                             Padding="{ThemeResource FoundryCompactContentPadding}"
                                                             HorizontalAlignment="Stretch"
                                                             Background="{ThemeResource ControlFillColorSecondaryBrush}"

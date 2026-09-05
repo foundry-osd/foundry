@@ -49,7 +49,7 @@
                         Text="{x:Bind Title, Mode=OneWay}" />
                     <Border
                         Grid.Column="2"
-                        Padding="8,3"
+                        Padding="8,4"
                         Background="{x:Bind BadgeBackground, Mode=OneWay}"
                         CornerRadius="12">
                         <StackPanel
@@ -61,8 +61,8 @@
                                 Glyph="{x:Bind BadgeGlyph, Mode=OneWay}" />
                             <TextBlock
                                 VerticalAlignment="Center"
-                                FontSize="11"
                                 Foreground="{x:Bind BadgeForeground, Mode=OneWay}"
+                                Style="{ThemeResource FoundryCaptionTextBlockStyle}"
                                 Text="{x:Bind StatusText, Mode=OneWay}" />
                         </StackPanel>
                     </Border>
