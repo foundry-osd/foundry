@@ -51,9 +51,10 @@
 
                     <wct:SettingsCard
                         HorizontalContentAlignment="Stretch"
+                        ContentAlignment="Vertical"
                         Description="{x:Bind ViewModel.CatalogDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.CatalogLabel, Mode=OneWay}">
-                        <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+                        <StackPanel Spacing="{ThemeResource FoundryContentGroupSpacing}">
                             <StackPanel
                                 Orientation="Horizontal"
                                 Spacing="{ThemeResource FoundryInlineControlSpacing}">
@@ -86,17 +87,22 @@
                                     <DataTemplate x:DataType="viewModels:UnattendFileEntryViewModel">
                                         <StackPanel
                                             Padding="0,8"
-                                            Spacing="4">
+                                            Spacing="{ThemeResource FoundryTextGroupSpacing}">
                                             <TextBlock
                                                 FontWeight="SemiBold"
+                                                Style="{StaticResource FoundryBodyTextBlockStyle}"
                                                 Text="{x:Bind DisplayName}"
                                                 TextWrapping="Wrap" />
                                             <TextBlock
                                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                Style="{StaticResource FoundryCaptionTextBlockStyle}"
                                                 Text="{x:Bind SourcePath}"
                                                 TextWrapping="Wrap" />
-                                            <TextBlock Text="{x:Bind ArchitectureText}" />
                                             <TextBlock
+                                                Style="{StaticResource FoundryCaptionTextBlockStyle}"
+                                                Text="{x:Bind ArchitectureText}" />
+                                            <TextBlock
+                                                Style="{StaticResource FoundryBodyTextBlockStyle}"
                                                 Text="{x:Bind ValidationMessage}"
                                                 TextWrapping="Wrap" />
                                         </StackPanel>
@@ -106,7 +112,9 @@
 
                             <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition
+                                        Width="*"
+                                        MaxWidth="{ThemeResource FoundrySettingsControlMaxWidth}" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <TextBox
@@ -141,10 +149,16 @@
                     </wct:SettingsCard>
 
                     <TextBlock
+                        MaxWidth="{ThemeResource FoundryContentMaxWidth}"
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource FoundryBodyTextBlockStyle}"
                         Text="{x:Bind ViewModel.OwnershipDescription, Mode=OneWay}"
                         TextWrapping="Wrap" />
                     <TextBlock
+                        MaxWidth="{ThemeResource FoundryContentMaxWidth}"
+                        HorizontalAlignment="Left"
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Style="{StaticResource FoundryBodyTextBlockStyle}"
                         Text="{x:Bind ViewModel.CompatibilityDescription, Mode=OneWay}"
                         TextWrapping="Wrap" />
                 </StackPanel>
