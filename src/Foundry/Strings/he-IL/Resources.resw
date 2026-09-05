@@ -2092,7 +2092,7 @@
     <value>התחל</value>
   </data>
   <data name="Nav_UnattendKey.Description" xml:space="preserve">
-    <value>Import Windows answer files and choose which settings deployments use.</value>
+    <value>ייבוא קובצי תשובות של Windows ובחירת ההגדרות שישמשו בפריסות.</value>
   </data>
   <data name="Nav_UnattendKey.Title" xml:space="preserve">
     <value>Unattend</value>
@@ -2992,85 +2992,112 @@
     <value>מיקה</value>
   </data>
   <data name="Unattend.AutopilotWarning" xml:space="preserve">
-    <value>Contains settings that can prevent Autopilot enrollment; incompatible enrollment modes will be blocked during deployment.</value>
+    <value>מכיל הגדרות שעלולות למנוע רישום ל-Autopilot; מצבי רישום שאינם תואמים ייחסמו במהלך הפריסה.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Select a file to rename, refresh, or remove it. Source files must remain available until media creation; changed sources require Refresh.</value>
+    <value>בחרו קובץ כדי לשנות את שמו, לרענן או להסיר אותו. קובצי המקור חייבים להישאר זמינים עד ליצירת המדיה; מקורות שהשתנו דורשים רענון.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
-    <value>Answer files</value>
+    <value>קובצי תשובות</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Check sources</value>
+    <value>בדיקת מקורות</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
-    <value>Contains commands; review overlap with Foundry customization and setup hooks.</value>
+    <value>מכיל פקודות; בדקו אם הן חופפות להתאמות של Foundry ולפעולות ההתקנה שלו.</value>
   </data>
   <data name="Unattend.CompatibilityDescription" xml:space="preserve">
-    <value>Only specialize and oobeSystem settings are supported. Foundry still controls disks, images, drivers, AppX removal, AI policies, optional features, and network roaming. Custom commands may conflict with these operations or setup hooks. Validate with Windows SIM and test the intended image in a VM; external script files are not imported.</value>
+    <value>נתמכות רק הגדרות specialize ו-oobeSystem. Foundry ממשיך לנהל דיסקים, תמונות מערכת, מנהלי התקנים, הסרת AppX, מדיניות בינה מלאכותית, תכונות אופציונליות והעברת פרופילי רשת. פקודות מותאמות אישית עלולות להתנגש בפעולות אלה או בפעולות ההתקנה. אמתו באמצעות Windows SIM ובדקו את תמונת המערכת המיועדת במכונה וירטואלית; קובצי סקריפטים חיצוניים אינם מיובאים.</value>
   </data>
   <data name="Unattend.DefaultDescription" xml:space="preserve">
-    <value>The operator can choose Foundry settings or one packaged file on the Target page. Importing a file does not change the default.</value>
+    <value>המפעיל יכול לבחור בהגדרות Foundry או בקובץ אחד שנכלל במדיה בדף היעד. ייבוא קובץ אינו משנה את ברירת המחדל.</value>
   </data>
   <data name="Unattend.DefaultLabel" xml:space="preserve">
-    <value>Deployment default</value>
+    <value>ברירת המחדל לפריסה</value>
   </data>
   <data name="Unattend.DisplayNameLabel" xml:space="preserve">
-    <value>Display name</value>
+    <value>שם תצוגה</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Skipped {0} file(s) already present in the catalog.</value>
+    <value>דולגו {0} קבצים שכבר קיימים בקטלוג.</value>
+  </data>
+  <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
+    <value>ייבאו לפחות קובץ תשובות אחד כדי להשתמש בתכונה זו.</value>
   </data>
   <data name="Unattend.EnableDescription" xml:space="preserve">
-    <value>Package the imported files in the boot image. Turning this off preserves the catalog but excludes its files from new media.</value>
+    <value>כלילת הקבצים המיובאים בתמונת האתחול. כיבוי האפשרות שומר את הקטלוג אך אינו כולל את קבציו במדיה חדשה.</value>
   </data>
   <data name="Unattend.EnableLabel" xml:space="preserve">
-    <value>Enable custom answer files</value>
+    <value>הפעלת קובצי תשובות מותאמים אישית</value>
   </data>
   <data name="Unattend.ImportLabel" xml:space="preserve">
-    <value>Import files</value>
+    <value>ייבוא קבצים</value>
   </data>
   <data name="Unattend.ImportPickerTitle" xml:space="preserve">
-    <value>Import Windows answer files</value>
+    <value>ייבוא קובצי תשובות של Windows</value>
+  </data>
+  <data name="Unattend.InvalidArchitectureMessage" xml:space="preserve">
+    <value>הקובץ חייב להצהיר על ארכיטקטורה נתמכת ולכלול הגדרות רכיבים החלות עליה.</value>
+  </data>
+  <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
+    <value>הקטלוג מכיל רשומות לא תקינות או כפולות. רעננו או הסירו את הקבצים הרלוונטיים.</value>
+  </data>
+  <data name="Unattend.InvalidFileMessage" xml:space="preserve">
+    <value>השתמשו ב-XML תקין של קובץ תשובות של Windows, בגודל של עד 4 MiB, ללא DTD או ישויות חיצוניות. אמתו את הקובץ באמצעות Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Some sources are missing, changed, or invalid. Refresh or remove these entries before creating media.</value>
+    <value>חלק מהמקורות חסרים, השתנו או אינם תקינים. רעננו או הסירו רשומות אלה לפני יצירת המדיה.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
-    <value>Missing default - choose a replacement</value>
+    <value>ברירת המחדל חסרה — בחרו חלופה</value>
   </data>
   <data name="Unattend.NativeOption" xml:space="preserve">
-    <value>Use Foundry settings</value>
+    <value>שימוש בהגדרות Foundry</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>A selected answer file owns Windows naming, time zone, accounts, autologon, and OOBE. Foundry does not merge settings or fill omissions. Saved Foundry settings remain available and must be valid for the native choice.</value>
+    <value>קובץ תשובות שנבחר קובע את שם המחשב ב-Windows, אזור הזמן, החשבונות, הכניסה האוטומטית ו-OOBE. Foundry אינו ממזג הגדרות ואינו משלים ערכים חסרים. הגדרות Foundry השמורות נשארות זמינות וחייבות להיות תקינות כדי להשתמש באפשרות המובנית.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Custom files require deployment media password protection in General configuration. XML may contain credentials or scripts. The catalog saves source references only; the boot image contains encrypted copies.</value>
+    <value>קבצים מותאמים אישית מחייבים הגנת סיסמה למדיית הפריסה בתצורה הכללית. XML עשוי להכיל אישורים או סקריפטים. הקטלוג שומר רק הפניות למקורות; תמונת האתחול מכילה עותקים מוצפנים.</value>
+  </data>
+  <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
+    <value>הפעילו הגנת סיסמה למדיית הפריסה בתצורה הכללית כדי להשתמש בקובצי תשובות מותאמים אישית.</value>
   </data>
   <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>This source now duplicates another imported file. Remove this entry and choose the existing file instead.</value>
+    <value>מקור זה זהה כעת לקובץ מיובא אחר. הסירו רשומה זו ובחרו בקובץ הקיים.</value>
   </data>
   <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Refresh source</value>
+    <value>רענון מקור</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
-    <value>Remove</value>
+    <value>הסרה</value>
   </data>
   <data name="Unattend.RenameLabel" xml:space="preserve">
-    <value>Rename</value>
+    <value>שינוי שם</value>
   </data>
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
-    <value>The configuration could not be saved. Check access to the Foundry configuration folder and try again.</value>
+    <value>לא ניתן לשמור את התצורה. בדקו את הגישה לתיקיית התצורה של Foundry ונסו שוב.</value>
+  </data>
+  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
+    <value>המקור השתנה. השתמשו ברענון מקור כדי לקבל את הקובץ המעודכן לפני יצירת המדיה.</value>
+  </data>
+  <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
+    <value>שתי בדיקות מקור עדיין ממתינות לגישה לקבצים. שחזרו את הגישה למיקומי המקור שאינם זמינים ובדקו שוב את המקורות.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Source check pending. Choose Check sources to validate the current file without accepting content changes.</value>
+    <value>בדיקת המקור ממתינה. בחרו בדיקת מקורות כדי לאמת את הקובץ הנוכחי בלי לקבל שינויים בתוכן.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>The source could not be read. Check that the file still exists and is accessible.</value>
+    <value>לא ניתן לקרוא את המקור. ודאו שהקובץ עדיין קיים ונגיש.</value>
+  </data>
+  <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
+    <value>תם הזמן הקצוב לאימות המקור. בדקו את הגישה למיקום המקור ונסו שוב.</value>
+  </data>
+  <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
+    <value>נתמכות רק הגדרות specialize ו-oobeSystem. הסירו שלבי תצורה אחרים שאינם ריקים, הוראות שירות לא מקוון או הוראות לאתחול מחדש במצב ביקורת.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Source validated.</value>
+    <value>המקור אומת.</value>
   </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>חדש</value>

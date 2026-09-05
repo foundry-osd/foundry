@@ -76,6 +76,11 @@ public static class FoundryApplicationInfo
     public const string OobeDocumentationUrl = DocumentationUrl + "/foundry-osd/customization/oobe";
 
     /// <summary>
+    /// Gets the reviewed answer-file guide while its GitBook page awaits publication.
+    /// </summary>
+    public const string UnattendDocumentationUrl = "https://github.com/foundry-osd/GitBook/blob/b217dce9373ce1347948581802e4aec88a7824b3/foundry-osd/customization/unattend.md";
+
+    /// <summary>
     /// Gets the Windows optional features documentation URL.
     /// </summary>
     public const string OptionalFeaturesDocumentationUrl = DocumentationUrl + "/foundry-osd/customization/optional-features";

@@ -666,13 +666,13 @@ Jatketaanko käyttöönottoa?</value>
     <value>Sinetöi palautusosio</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Stage custom answer file</value>
+    <value>Valmistele mukautettu vastaustiedosto</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
     <value>Valmistele mukautukset</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Validate custom answer file</value>
+    <value>Vahvista mukautettu vastaustiedosto</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
     <value>Vahvista määritys</value>
@@ -1482,37 +1482,37 @@ Jatketaanko käyttöönottoa?</value>
     <value>Avaa lokitiedosto</value>
   </data>
   <data name="Unattend.AutopilotConflict" xml:space="preserve">
-    <value>This answer file conflicts with the configured Autopilot enrollment mode. Choose another file or change the media configuration.</value>
+    <value>Tämä vastaustiedosto on ristiriidassa määritetyn Autopilot-rekisteröintitilan kanssa. Valitse toinen tiedosto tai muuta tietovälineen asetuksia.</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
-    <value>Custom commands may overlap with Foundry setup hooks, network roaming, customization and enrollment. Verify this combination in a deployment test.</value>
+    <value>Mukautetut komennot voivat vaikuttaa Foundryn asennuskomentosarjoihin, verkkoprofiilien siirtoon, mukautuksiin ja rekisteröintiin. Varmista yhdistelmän toimivuus testikäyttöönotossa.</value>
   </data>
   <data name="Unattend.HashWarning" xml:space="preserve">
-    <value>Hardware hash upload registers the device; custom OOBE can still prevent subsequent Autopilot enrollment.</value>
+    <value>Laitteistohajautuksen lataaminen rekisteröi laitteen; mukautettu OOBE voi silti estää myöhemmän Autopilot-rekisteröinnin.</value>
   </data>
   <data name="Unattend.HookCompatibility" xml:space="preserve">
-    <value>SetupComplete hooks depend on the Windows edition and product-key channel; verify deferred drivers, network roaming and application removal on the target image.</value>
+    <value>SetupComplete-komentosarjat riippuvat Windows-versiosta ja tuoteavaimen kanavasta. Tarkista lykätty ohjainasennus, verkkoprofiilien siirto ja sovellusten poisto kohdenäköistiedostossa.</value>
   </data>
   <data name="Unattend.Invalid" xml:space="preserve">
-    <value>The selected answer file is unavailable, invalid, or incompatible with the selected Windows architecture. Choose another file or rebuild the media.</value>
+    <value>Valittu vastaustiedosto ei ole käytettävissä, on virheellinen tai ei ole yhteensopiva valitun Windows-arkkitehtuurin kanssa. Valitse toinen tiedosto tai luo tietoväline uudelleen.</value>
   </data>
   <data name="Unattend.Managed" xml:space="preserve">
-    <value>Managed by answer file</value>
+    <value>Vastaustiedoston hallitsema</value>
   </data>
   <data name="Unattend.MissingDefault" xml:space="preserve">
-    <value>The configured default answer file is missing. Rebuild the boot media.</value>
+    <value>Määritetty oletusvastaustiedosto puuttuu. Luo käynnistystietoväline uudelleen.</value>
   </data>
   <data name="Unattend.Native" xml:space="preserve">
-    <value>Use Foundry settings</value>
+    <value>Käytä Foundryn asetuksia</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>A custom answer file replaces Foundry computer name, time zone, accounts and OOBE settings. Other deployment features remain enabled as configured.</value>
+    <value>Mukautettu vastaustiedosto korvaa Foundryn tietokonenimi-, aikavyöhyke-, tili- ja OOBE-asetukset. Muut käyttöönotto-ominaisuudet pysyvät käytössä asetusten mukaisesti.</value>
   </data>
   <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Time zone</value>
+    <value>Aikavyöhyke</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
-    <value>Answer file</value>
+    <value>Vastaustiedosto</value>
   </data>
   <data name="Wizard.ReturnToSummary" xml:space="preserve">
     <value>Palaa yhteenvetoon</value>

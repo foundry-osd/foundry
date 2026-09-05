@@ -666,13 +666,13 @@
     <value>ختم قسم الاسترداد</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Stage custom answer file</value>
+    <value>تجهيز ملف الإجابات المخصص</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
     <value>تجهيز التخصيصات</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Validate custom answer file</value>
+    <value>التحقق من ملف الإجابات المخصص</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
     <value>التحقق من التكوين</value>
@@ -1482,37 +1482,37 @@
     <value>فتح ملف السجل</value>
   </data>
   <data name="Unattend.AutopilotConflict" xml:space="preserve">
-    <value>This answer file conflicts with the configured Autopilot enrollment mode. Choose another file or change the media configuration.</value>
+    <value>يتعارض ملف الإجابات هذا مع وضع التسجيل في Autopilot المحدد. اختر ملفًا آخر أو غيّر إعدادات الوسائط.</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
-    <value>Custom commands may overlap with Foundry setup hooks, network roaming, customization and enrollment. Verify this combination in a deployment test.</value>
+    <value>قد تتداخل الأوامر المخصصة مع إجراءات إعداد Foundry وتجوال الشبكة والتخصيص والتسجيل. تحقق من هذا الجمع في اختبار نشر.</value>
   </data>
   <data name="Unattend.HashWarning" xml:space="preserve">
-    <value>Hardware hash upload registers the device; custom OOBE can still prevent subsequent Autopilot enrollment.</value>
+    <value>يؤدي رفع تجزئة الأجهزة إلى تسجيل الجهاز؛ وقد تمنع إعدادات OOBE المخصصة التسجيل اللاحق في Autopilot.</value>
   </data>
   <data name="Unattend.HookCompatibility" xml:space="preserve">
-    <value>SetupComplete hooks depend on the Windows edition and product-key channel; verify deferred drivers, network roaming and application removal on the target image.</value>
+    <value>تعتمد إجراءات SetupComplete على إصدار Windows وقناة مفتاح المنتج؛ تحقق من برامج التشغيل المؤجلة وتجوال الشبكة وإزالة التطبيقات في الصورة المستهدفة.</value>
   </data>
   <data name="Unattend.Invalid" xml:space="preserve">
-    <value>The selected answer file is unavailable, invalid, or incompatible with the selected Windows architecture. Choose another file or rebuild the media.</value>
+    <value>ملف الإجابات المحدد غير متاح أو غير صالح أو غير متوافق مع بنية Windows المحددة. اختر ملفًا آخر أو أعد إنشاء الوسائط.</value>
   </data>
   <data name="Unattend.Managed" xml:space="preserve">
-    <value>Managed by answer file</value>
+    <value>تتم إدارته بواسطة ملف الإجابات</value>
   </data>
   <data name="Unattend.MissingDefault" xml:space="preserve">
-    <value>The configured default answer file is missing. Rebuild the boot media.</value>
+    <value>ملف الإجابات الافتراضي المحدد مفقود. أعد إنشاء وسائط التمهيد.</value>
   </data>
   <data name="Unattend.Native" xml:space="preserve">
-    <value>Use Foundry settings</value>
+    <value>استخدام إعدادات Foundry</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>A custom answer file replaces Foundry computer name, time zone, accounts and OOBE settings. Other deployment features remain enabled as configured.</value>
+    <value>يستبدل ملف الإجابات المخصص إعدادات اسم الكمبيوتر والمنطقة الزمنية والحسابات وOOBE في Foundry. تظل ميزات النشر الأخرى مفعّلة وفق إعداداتها.</value>
   </data>
   <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Time zone</value>
+    <value>المنطقة الزمنية</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
-    <value>Answer file</value>
+    <value>ملف الإجابات</value>
   </data>
   <data name="Wizard.ReturnToSummary" xml:space="preserve">
     <value>العودة إلى الملخص</value>

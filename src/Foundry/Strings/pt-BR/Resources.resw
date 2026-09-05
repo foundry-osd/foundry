@@ -2092,7 +2092,7 @@
     <value>Começar</value>
   </data>
   <data name="Nav_UnattendKey.Description" xml:space="preserve">
-    <value>Import Windows answer files and choose which settings deployments use.</value>
+    <value>Importe arquivos de resposta do Windows e escolha as configurações usadas nas implantações.</value>
   </data>
   <data name="Nav_UnattendKey.Title" xml:space="preserve">
     <value>Unattend</value>
@@ -2992,85 +2992,112 @@
     <value>Mica</value>
   </data>
   <data name="Unattend.AutopilotWarning" xml:space="preserve">
-    <value>Contains settings that can prevent Autopilot enrollment; incompatible enrollment modes will be blocked during deployment.</value>
+    <value>Contém configurações que podem impedir a inscrição no Autopilot. Modos de inscrição incompatíveis serão bloqueados durante a implantação.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Select a file to rename, refresh, or remove it. Source files must remain available until media creation; changed sources require Refresh.</value>
+    <value>Selecione um arquivo para renomeá-lo, atualizá-lo ou removê-lo. Os arquivos de origem devem permanecer disponíveis até a criação da mídia. Origens alteradas precisam ser atualizadas.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
-    <value>Answer files</value>
+    <value>Arquivos de resposta</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Check sources</value>
+    <value>Verificar origens</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
-    <value>Contains commands; review overlap with Foundry customization and setup hooks.</value>
+    <value>Contém comandos. Verifique se há sobreposição com as personalizações e os hooks de instalação do Foundry.</value>
   </data>
   <data name="Unattend.CompatibilityDescription" xml:space="preserve">
-    <value>Only specialize and oobeSystem settings are supported. Foundry still controls disks, images, drivers, AppX removal, AI policies, optional features, and network roaming. Custom commands may conflict with these operations or setup hooks. Validate with Windows SIM and test the intended image in a VM; external script files are not imported.</value>
+    <value>Somente as configurações de specialize e oobeSystem são compatíveis. O Foundry continua controlando discos, imagens, drivers, remoção de AppX, políticas de IA, recursos opcionais e roaming de rede. Comandos personalizados podem entrar em conflito com essas operações ou com hooks de instalação. Valide com o Windows SIM e teste a imagem desejada em uma máquina virtual. Arquivos de script externos não são importados.</value>
   </data>
   <data name="Unattend.DefaultDescription" xml:space="preserve">
-    <value>The operator can choose Foundry settings or one packaged file on the Target page. Importing a file does not change the default.</value>
+    <value>O operador pode escolher as configurações do Foundry ou um arquivo incluído na mídia na página de destino. Importar um arquivo não altera a opção padrão.</value>
   </data>
   <data name="Unattend.DefaultLabel" xml:space="preserve">
-    <value>Deployment default</value>
+    <value>Opção padrão da implantação</value>
   </data>
   <data name="Unattend.DisplayNameLabel" xml:space="preserve">
-    <value>Display name</value>
+    <value>Nome de exibição</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Skipped {0} file(s) already present in the catalog.</value>
+    <value>{0} arquivo(s) já presente(s) no catálogo foram ignorados.</value>
+  </data>
+  <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
+    <value>Importe pelo menos um arquivo de resposta para usar este recurso.</value>
   </data>
   <data name="Unattend.EnableDescription" xml:space="preserve">
-    <value>Package the imported files in the boot image. Turning this off preserves the catalog but excludes its files from new media.</value>
+    <value>Inclua os arquivos importados na imagem de inicialização. Desativar esta opção preserva o catálogo, mas exclui seus arquivos das novas mídias.</value>
   </data>
   <data name="Unattend.EnableLabel" xml:space="preserve">
-    <value>Enable custom answer files</value>
+    <value>Habilitar arquivos de resposta personalizados</value>
   </data>
   <data name="Unattend.ImportLabel" xml:space="preserve">
-    <value>Import files</value>
+    <value>Importar arquivos</value>
   </data>
   <data name="Unattend.ImportPickerTitle" xml:space="preserve">
-    <value>Import Windows answer files</value>
+    <value>Importar arquivos de resposta do Windows</value>
+  </data>
+  <data name="Unattend.InvalidArchitectureMessage" xml:space="preserve">
+    <value>O arquivo deve declarar uma arquitetura compatível e conter configurações de componentes aplicáveis a ela.</value>
+  </data>
+  <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
+    <value>O catálogo contém entradas inválidas ou duplicadas. Atualize ou remova os arquivos afetados.</value>
+  </data>
+  <data name="Unattend.InvalidFileMessage" xml:space="preserve">
+    <value>Use um XML de arquivo de resposta do Windows válido, com até 4 MiB, sem DTDs ou entidades externas. Valide o arquivo com o Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Some sources are missing, changed, or invalid. Refresh or remove these entries before creating media.</value>
+    <value>Algumas origens estão ausentes, alteradas ou inválidas. Atualize ou remova essas entradas antes de criar a mídia.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
-    <value>Missing default - choose a replacement</value>
+    <value>Opção padrão ausente — escolha outra</value>
   </data>
   <data name="Unattend.NativeOption" xml:space="preserve">
-    <value>Use Foundry settings</value>
+    <value>Usar configurações do Foundry</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>A selected answer file owns Windows naming, time zone, accounts, autologon, and OOBE. Foundry does not merge settings or fill omissions. Saved Foundry settings remain available and must be valid for the native choice.</value>
+    <value>O arquivo de resposta selecionado controla o nome do computador Windows, fuso horário, contas, logon automático e OOBE. O Foundry não mescla configurações nem preenche valores ausentes. As configurações salvas do Foundry permanecem disponíveis e devem ser válidas para que a opção de usá-las funcione.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Custom files require deployment media password protection in General configuration. XML may contain credentials or scripts. The catalog saves source references only; the boot image contains encrypted copies.</value>
+    <value>Arquivos personalizados exigem proteção por senha da mídia de implantação na configuração geral. O XML pode conter credenciais ou scripts. O catálogo salva apenas referências às origens. A imagem de inicialização contém cópias criptografadas.</value>
+  </data>
+  <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
+    <value>Habilite a proteção por senha da mídia de implantação na configuração geral para usar arquivos de resposta personalizados.</value>
   </data>
   <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>This source now duplicates another imported file. Remove this entry and choose the existing file instead.</value>
+    <value>Esta origem agora é uma cópia de outro arquivo importado. Remova esta entrada e escolha o arquivo existente.</value>
   </data>
   <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Refresh source</value>
+    <value>Atualizar origem</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
-    <value>Remove</value>
+    <value>Remover</value>
   </data>
   <data name="Unattend.RenameLabel" xml:space="preserve">
-    <value>Rename</value>
+    <value>Renomear</value>
   </data>
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
-    <value>The configuration could not be saved. Check access to the Foundry configuration folder and try again.</value>
+    <value>Não foi possível salvar a configuração. Verifique o acesso à pasta de configuração do Foundry e tente novamente.</value>
+  </data>
+  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
+    <value>A origem foi alterada. Use Atualizar origem para aceitar o arquivo atualizado antes de criar a mídia.</value>
+  </data>
+  <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
+    <value>Duas verificações de origem ainda aguardam acesso aos arquivos. Restaure o acesso aos locais de origem indisponíveis e verifique as origens novamente.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Source check pending. Choose Check sources to validate the current file without accepting content changes.</value>
+    <value>A verificação da origem está pendente. Escolha Verificar origens para validar o arquivo atual sem aceitar alterações no conteúdo.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>The source could not be read. Check that the file still exists and is accessible.</value>
+    <value>Não foi possível ler a origem. Verifique se o arquivo ainda existe e está acessível.</value>
+  </data>
+  <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
+    <value>O tempo limite de validação da origem foi excedido. Verifique o acesso ao local de origem e tente novamente.</value>
+  </data>
+  <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
+    <value>Somente as configurações de specialize e oobeSystem são compatíveis. Remova outras etapas não vazias, instruções de manutenção offline ou a opção de selar novamente no modo de auditoria.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Source validated.</value>
+    <value>Origem validada.</value>
   </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Novo</value>

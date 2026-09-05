@@ -2092,7 +2092,7 @@
     <value>Alusta</value>
   </data>
   <data name="Nav_UnattendKey.Description" xml:space="preserve">
-    <value>Import Windows answer files and choose which settings deployments use.</value>
+    <value>Importige Windowsi vastusefailid ja valige juurutustel kasutatavad sätted.</value>
   </data>
   <data name="Nav_UnattendKey.Title" xml:space="preserve">
     <value>Unattend</value>
@@ -2992,85 +2992,112 @@
     <value>Vilgukivi</value>
   </data>
   <data name="Unattend.AutopilotWarning" xml:space="preserve">
-    <value>Contains settings that can prevent Autopilot enrollment; incompatible enrollment modes will be blocked during deployment.</value>
+    <value>Sisaldab sätteid, mis võivad takistada Autopiloti registreerimist. Ühildumatud registreerimisrežiimid blokeeritakse juurutamise ajal.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Select a file to rename, refresh, or remove it. Source files must remain available until media creation; changed sources require Refresh.</value>
+    <value>Valige fail, et see ümber nimetada, selle allikat värskendada või see eemaldada. Lähtefailid peavad olema saadaval kuni andmekandja loomiseni. Muudetud allikad tuleb värskendada.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
-    <value>Answer files</value>
+    <value>Vastusefailid</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Check sources</value>
+    <value>Kontrolli allikaid</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
-    <value>Contains commands; review overlap with Foundry customization and setup hooks.</value>
+    <value>Sisaldab käske. Kontrollige kattuvust Foundry kohanduste ja installiskriptidega.</value>
   </data>
   <data name="Unattend.CompatibilityDescription" xml:space="preserve">
-    <value>Only specialize and oobeSystem settings are supported. Foundry still controls disks, images, drivers, AppX removal, AI policies, optional features, and network roaming. Custom commands may conflict with these operations or setup hooks. Validate with Windows SIM and test the intended image in a VM; external script files are not imported.</value>
+    <value>Toetatud on ainult specialize- ja oobeSystem-sätted. Foundry haldab endiselt kettaid, tõmmiseid, draivereid, AppX-i eemaldamist, tehisintellekti poliitikaid, valikulisi funktsioone ja võrguprofiilide ülekandmist. Kohandatud käsud võivad nende toimingute või installiskriptidega vastuollu minna. Valideerige fail Windows SIM-iga ja katsetage kavandatud tõmmist virtuaalmasinas. Väliseid skriptifaile ei impordita.</value>
   </data>
   <data name="Unattend.DefaultDescription" xml:space="preserve">
-    <value>The operator can choose Foundry settings or one packaged file on the Target page. Importing a file does not change the default.</value>
+    <value>Operaator saab lehel Siht valida Foundry sätted või ühe kaasatud faili. Faili importimine ei muuda vaikevalikut.</value>
   </data>
   <data name="Unattend.DefaultLabel" xml:space="preserve">
-    <value>Deployment default</value>
+    <value>Juurutamise vaikevalik</value>
   </data>
   <data name="Unattend.DisplayNameLabel" xml:space="preserve">
-    <value>Display name</value>
+    <value>Kuvatav nimi</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Skipped {0} file(s) already present in the catalog.</value>
+    <value>Vahele jäeti {0} faili, mis on juba kataloogis.</value>
+  </data>
+  <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
+    <value>Selle funktsiooni kasutamiseks importige vähemalt üks vastusefail.</value>
   </data>
   <data name="Unattend.EnableDescription" xml:space="preserve">
-    <value>Package the imported files in the boot image. Turning this off preserves the catalog but excludes its files from new media.</value>
+    <value>Lisage imporditud failid alglaadimistõmmisesse. Väljalülitamisel säilib kataloog, kuid selle faile ei lisata uutele andmekandjatele.</value>
   </data>
   <data name="Unattend.EnableLabel" xml:space="preserve">
-    <value>Enable custom answer files</value>
+    <value>Luba kohandatud vastusefailid</value>
   </data>
   <data name="Unattend.ImportLabel" xml:space="preserve">
-    <value>Import files</value>
+    <value>Impordi failid</value>
   </data>
   <data name="Unattend.ImportPickerTitle" xml:space="preserve">
-    <value>Import Windows answer files</value>
+    <value>Impordi Windowsi vastusefailid</value>
+  </data>
+  <data name="Unattend.InvalidArchitectureMessage" xml:space="preserve">
+    <value>Fail peab deklareerima toetatud arhitektuuri ja sisaldama sellele sobivaid komponendisätteid.</value>
+  </data>
+  <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
+    <value>Kataloog sisaldab kehtetuid või korduvaid kirjeid. Värskendage või eemaldage vastavad failid.</value>
+  </data>
+  <data name="Unattend.InvalidFileMessage" xml:space="preserve">
+    <value>Kasutage kehtivat Windowsi vastusefaili XML-i, mille suurus on kuni 4 MiB ning mis ei sisalda DTD-sid ega väliseid olemeid. Valideerige fail Windows SIM-iga.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Some sources are missing, changed, or invalid. Refresh or remove these entries before creating media.</value>
+    <value>Mõned allikad puuduvad, on muutunud või kehtetud. Enne andmekandja loomist värskendage või eemaldage need kirjed.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
-    <value>Missing default - choose a replacement</value>
+    <value>Vaikefail puudub – valige asendus</value>
   </data>
   <data name="Unattend.NativeOption" xml:space="preserve">
-    <value>Use Foundry settings</value>
+    <value>Kasuta Foundry sätteid</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>A selected answer file owns Windows naming, time zone, accounts, autologon, and OOBE. Foundry does not merge settings or fill omissions. Saved Foundry settings remain available and must be valid for the native choice.</value>
+    <value>Valitud vastusefail määrab Windowsi nime, ajavööndi, kontod, automaatse sisselogimise ja OOBE. Foundry ei ühenda sätteid ega täida puuduvaid väärtusi. Salvestatud Foundry sätted jäävad saadavale ja peavad sisseehitatud valiku jaoks kehtima.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Custom files require deployment media password protection in General configuration. XML may contain credentials or scripts. The catalog saves source references only; the boot image contains encrypted copies.</value>
+    <value>Kohandatud failid nõuavad üldkonfiguratsioonis juurutusandmekandja paroolikaitset. XML võib sisaldada identimisteavet või skripte. Kataloog salvestab ainult allikaviited; alglaadimistõmmis sisaldab krüptitud koopiaid.</value>
+  </data>
+  <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
+    <value>Kohandatud vastusefailide kasutamiseks lubage üldkonfiguratsioonis juurutusandmekandja paroolikaitse.</value>
   </data>
   <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>This source now duplicates another imported file. Remove this entry and choose the existing file instead.</value>
+    <value>See allikas on nüüd teise imporditud faili koopia. Eemaldage see kirje ja valige olemasolev fail.</value>
   </data>
   <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Refresh source</value>
+    <value>Värskenda allikat</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
-    <value>Remove</value>
+    <value>Eemalda</value>
   </data>
   <data name="Unattend.RenameLabel" xml:space="preserve">
-    <value>Rename</value>
+    <value>Nimeta ümber</value>
   </data>
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
-    <value>The configuration could not be saved. Check access to the Foundry configuration folder and try again.</value>
+    <value>Konfiguratsiooni ei saanud salvestada. Kontrollige juurdepääsu Foundry konfiguratsioonikaustale ja proovige uuesti.</value>
+  </data>
+  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
+    <value>Allikas on muutunud. Enne andmekandja loomist valige Värskenda allikat, et uuendatud fail vastu võtta.</value>
+  </data>
+  <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
+    <value>Kaks allikakontrolli ootavad endiselt failidele juurdepääsu. Taastage juurdepääs kättesaamatutele allika asukohtadele ja kontrollige allikaid uuesti.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Source check pending. Choose Check sources to validate the current file without accepting content changes.</value>
+    <value>Allika kontroll on ootel. Valige Kontrolli allikaid, et valideerida praegune fail sisumuudatusi vastu võtmata.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>The source could not be read. Check that the file still exists and is accessible.</value>
+    <value>Allikat ei saanud lugeda. Kontrollige, kas fail on endiselt olemas ja juurdepääsetav.</value>
+  </data>
+  <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
+    <value>Allika valideerimine aegus. Kontrollige juurdepääsu allika asukohale ja proovige uuesti.</value>
+  </data>
+  <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
+    <value>Toetatud on ainult specialize- ja oobeSystem-sätted. Eemaldage muud mittetühjad konfiguratsioonietapid, ühenduseta hoolduse juhised ja auditirežiimi uuesti sulgemine.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Source validated.</value>
+    <value>Allikas valideeritud.</value>
   </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Uus</value>

@@ -2092,7 +2092,7 @@
     <value>Begin</value>
   </data>
   <data name="Nav_UnattendKey.Description" xml:space="preserve">
-    <value>Import Windows answer files and choose which settings deployments use.</value>
+    <value>Importeer Windows-antwoordbestanden en kies welke instellingen implementaties gebruiken.</value>
   </data>
   <data name="Nav_UnattendKey.Title" xml:space="preserve">
     <value>Unattend</value>
@@ -2992,85 +2992,112 @@
     <value>Mica</value>
   </data>
   <data name="Unattend.AutopilotWarning" xml:space="preserve">
-    <value>Contains settings that can prevent Autopilot enrollment; incompatible enrollment modes will be blocked during deployment.</value>
+    <value>Bevat instellingen die Autopilot-inschrijving kunnen verhinderen. Incompatibele inschrijvingsmodi worden tijdens de implementatie geblokkeerd.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Select a file to rename, refresh, or remove it. Source files must remain available until media creation; changed sources require Refresh.</value>
+    <value>Selecteer een bestand om het te hernoemen, te vernieuwen of te verwijderen. Bronbestanden moeten beschikbaar blijven totdat het medium is gemaakt. Gewijzigde bronnen moeten worden vernieuwd.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
-    <value>Answer files</value>
+    <value>Antwoordbestanden</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Check sources</value>
+    <value>Bronnen controleren</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
-    <value>Contains commands; review overlap with Foundry customization and setup hooks.</value>
+    <value>Bevat opdrachten. Controleer op overlap met Foundry-aanpassingen en installatiehooks.</value>
   </data>
   <data name="Unattend.CompatibilityDescription" xml:space="preserve">
-    <value>Only specialize and oobeSystem settings are supported. Foundry still controls disks, images, drivers, AppX removal, AI policies, optional features, and network roaming. Custom commands may conflict with these operations or setup hooks. Validate with Windows SIM and test the intended image in a VM; external script files are not imported.</value>
+    <value>Alleen instellingen voor specialize en oobeSystem worden ondersteund. Foundry beheert nog steeds schijven, images, stuurprogramma's, AppX-verwijdering, AI-beleid, optionele functies en netwerkroaming. Aangepaste opdrachten kunnen conflicteren met deze bewerkingen of installatiehooks. Valideer met Windows SIM en test de beoogde image in een virtuele machine. Externe scriptbestanden worden niet geïmporteerd.</value>
   </data>
   <data name="Unattend.DefaultDescription" xml:space="preserve">
-    <value>The operator can choose Foundry settings or one packaged file on the Target page. Importing a file does not change the default.</value>
+    <value>De operator kan op de doelpagina Foundry-instellingen of één meegeleverd bestand kiezen. Het importeren van een bestand wijzigt de standaardkeuze niet.</value>
   </data>
   <data name="Unattend.DefaultLabel" xml:space="preserve">
-    <value>Deployment default</value>
+    <value>Standaardkeuze voor implementatie</value>
   </data>
   <data name="Unattend.DisplayNameLabel" xml:space="preserve">
-    <value>Display name</value>
+    <value>Weergavenaam</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Skipped {0} file(s) already present in the catalog.</value>
+    <value>{0} bestand(en) overgeslagen die al in de catalogus staan.</value>
+  </data>
+  <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
+    <value>Importeer ten minste één antwoordbestand om deze functie te gebruiken.</value>
   </data>
   <data name="Unattend.EnableDescription" xml:space="preserve">
-    <value>Package the imported files in the boot image. Turning this off preserves the catalog but excludes its files from new media.</value>
+    <value>Neem de geïmporteerde bestanden op in de opstartimage. Als u dit uitschakelt, blijft de catalogus behouden, maar worden de bestanden niet opgenomen in nieuwe media.</value>
   </data>
   <data name="Unattend.EnableLabel" xml:space="preserve">
-    <value>Enable custom answer files</value>
+    <value>Aangepaste antwoordbestanden inschakelen</value>
   </data>
   <data name="Unattend.ImportLabel" xml:space="preserve">
-    <value>Import files</value>
+    <value>Bestanden importeren</value>
   </data>
   <data name="Unattend.ImportPickerTitle" xml:space="preserve">
-    <value>Import Windows answer files</value>
+    <value>Windows-antwoordbestanden importeren</value>
+  </data>
+  <data name="Unattend.InvalidArchitectureMessage" xml:space="preserve">
+    <value>Het bestand moet een ondersteunde architectuur opgeven en componentinstellingen bevatten die daarop van toepassing zijn.</value>
+  </data>
+  <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
+    <value>De catalogus bevat ongeldige of dubbele vermeldingen. Vernieuw of verwijder de betreffende bestanden.</value>
+  </data>
+  <data name="Unattend.InvalidFileMessage" xml:space="preserve">
+    <value>Gebruik geldige XML voor Windows-antwoordbestanden van maximaal 4 MiB, zonder DTD's of externe entiteiten. Valideer het bestand met Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Some sources are missing, changed, or invalid. Refresh or remove these entries before creating media.</value>
+    <value>Sommige bronnen ontbreken, zijn gewijzigd of zijn ongeldig. Vernieuw of verwijder deze vermeldingen voordat u media maakt.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
-    <value>Missing default - choose a replacement</value>
+    <value>Standaardkeuze ontbreekt – kies een vervanging</value>
   </data>
   <data name="Unattend.NativeOption" xml:space="preserve">
-    <value>Use Foundry settings</value>
+    <value>Foundry-instellingen gebruiken</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>A selected answer file owns Windows naming, time zone, accounts, autologon, and OOBE. Foundry does not merge settings or fill omissions. Saved Foundry settings remain available and must be valid for the native choice.</value>
+    <value>Het geselecteerde antwoordbestand beheert de Windows-naam, tijdzone, accounts, automatische aanmelding en OOBE. Foundry voegt geen instellingen samen en vult ontbrekende waarden niet aan. Opgeslagen Foundry-instellingen blijven beschikbaar en moeten geldig zijn om de optie voor Foundry-instellingen te kunnen gebruiken.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Custom files require deployment media password protection in General configuration. XML may contain credentials or scripts. The catalog saves source references only; the boot image contains encrypted copies.</value>
+    <value>Aangepaste bestanden vereisen wachtwoordbeveiliging voor implementatiemedia in de algemene configuratie. XML kan aanmeldingsgegevens of scripts bevatten. De catalogus slaat alleen bronverwijzingen op. De opstartimage bevat versleutelde kopieën.</value>
+  </data>
+  <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
+    <value>Schakel wachtwoordbeveiliging voor implementatiemedia in de algemene configuratie in om aangepaste antwoordbestanden te gebruiken.</value>
   </data>
   <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>This source now duplicates another imported file. Remove this entry and choose the existing file instead.</value>
+    <value>Deze bron is nu identiek aan een ander geïmporteerd bestand. Verwijder deze vermelding en kies het bestaande bestand.</value>
   </data>
   <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Refresh source</value>
+    <value>Bron vernieuwen</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
-    <value>Remove</value>
+    <value>Verwijderen</value>
   </data>
   <data name="Unattend.RenameLabel" xml:space="preserve">
-    <value>Rename</value>
+    <value>Naam wijzigen</value>
   </data>
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
-    <value>The configuration could not be saved. Check access to the Foundry configuration folder and try again.</value>
+    <value>De configuratie kon niet worden opgeslagen. Controleer de toegang tot de configuratiemap van Foundry en probeer het opnieuw.</value>
+  </data>
+  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
+    <value>De bron is gewijzigd. Gebruik Bron vernieuwen om het bijgewerkte bestand te accepteren voordat u media maakt.</value>
+  </data>
+  <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
+    <value>Twee broncontroles wachten nog op bestandstoegang. Herstel de toegang tot de onbeschikbare bronlocaties en controleer de bronnen opnieuw.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Source check pending. Choose Check sources to validate the current file without accepting content changes.</value>
+    <value>De bron is nog niet gecontroleerd. Kies Bronnen controleren om het huidige bestand te valideren zonder inhoudswijzigingen te accepteren.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>The source could not be read. Check that the file still exists and is accessible.</value>
+    <value>De bron kon niet worden gelezen. Controleer of het bestand nog bestaat en toegankelijk is.</value>
+  </data>
+  <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
+    <value>Er is een time-out opgetreden bij het valideren van de bron. Controleer de toegang tot de bronlocatie en probeer het opnieuw.</value>
+  </data>
+  <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
+    <value>Alleen instellingen voor specialize en oobeSystem worden ondersteund. Verwijder andere niet-lege configuratiefasen, instructies voor offlineonderhoud of resealing naar de controlemodus.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Source validated.</value>
+    <value>Bron gevalideerd.</value>
   </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Nieuw</value>

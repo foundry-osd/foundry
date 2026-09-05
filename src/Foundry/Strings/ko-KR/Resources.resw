@@ -2092,7 +2092,7 @@
     <value>시작</value>
   </data>
   <data name="Nav_UnattendKey.Description" xml:space="preserve">
-    <value>Import Windows answer files and choose which settings deployments use.</value>
+    <value>Windows 응답 파일을 가져오고 배포에 사용할 설정을 선택합니다.</value>
   </data>
   <data name="Nav_UnattendKey.Title" xml:space="preserve">
     <value>Unattend</value>
@@ -2992,85 +2992,112 @@
     <value>운모</value>
   </data>
   <data name="Unattend.AutopilotWarning" xml:space="preserve">
-    <value>Contains settings that can prevent Autopilot enrollment; incompatible enrollment modes will be blocked during deployment.</value>
+    <value>Autopilot 등록을 방해할 수 있는 설정이 포함되어 있습니다. 호환되지 않는 등록 모드는 배포 중 차단됩니다.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Select a file to rename, refresh, or remove it. Source files must remain available until media creation; changed sources require Refresh.</value>
+    <value>이름을 바꾸거나 새로 고치거나 제거할 파일을 선택하세요. 미디어를 만들 때까지 원본 파일에 접근할 수 있어야 합니다. 원본이 변경되면 새로 고침이 필요합니다.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
-    <value>Answer files</value>
+    <value>응답 파일</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Check sources</value>
+    <value>원본 확인</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
-    <value>Contains commands; review overlap with Foundry customization and setup hooks.</value>
+    <value>명령이 포함되어 있습니다. Foundry 사용자 지정 및 설치 작업과의 중복이나 충돌을 확인하세요.</value>
   </data>
   <data name="Unattend.CompatibilityDescription" xml:space="preserve">
-    <value>Only specialize and oobeSystem settings are supported. Foundry still controls disks, images, drivers, AppX removal, AI policies, optional features, and network roaming. Custom commands may conflict with these operations or setup hooks. Validate with Windows SIM and test the intended image in a VM; external script files are not imported.</value>
+    <value>specialize 및 oobeSystem 설정만 지원됩니다. 디스크, 이미지, 드라이버, AppX 제거, AI 정책, 선택적 기능 및 네트워크 프로필 이전은 계속 Foundry에서 관리합니다. 사용자 지정 명령은 이러한 작업이나 설치 작업과 충돌할 수 있습니다. Windows SIM으로 유효성을 검사하고 사용할 이미지를 가상 머신에서 테스트하세요. 외부 스크립트 파일은 가져오지 않습니다.</value>
   </data>
   <data name="Unattend.DefaultDescription" xml:space="preserve">
-    <value>The operator can choose Foundry settings or one packaged file on the Target page. Importing a file does not change the default.</value>
+    <value>작업자는 대상 페이지에서 Foundry 설정 또는 미디어에 포함된 파일 하나를 선택할 수 있습니다. 파일을 가져와도 기본 선택은 변경되지 않습니다.</value>
   </data>
   <data name="Unattend.DefaultLabel" xml:space="preserve">
-    <value>Deployment default</value>
+    <value>배포 기본 선택</value>
   </data>
   <data name="Unattend.DisplayNameLabel" xml:space="preserve">
-    <value>Display name</value>
+    <value>표시 이름</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Skipped {0} file(s) already present in the catalog.</value>
+    <value>카탈로그에 이미 있는 파일 {0}개를 건너뛰었습니다.</value>
+  </data>
+  <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
+    <value>이 기능을 사용하려면 응답 파일을 하나 이상 가져오세요.</value>
   </data>
   <data name="Unattend.EnableDescription" xml:space="preserve">
-    <value>Package the imported files in the boot image. Turning this off preserves the catalog but excludes its files from new media.</value>
+    <value>가져온 파일을 부팅 이미지에 포함합니다. 이 옵션을 끄면 카탈로그는 유지되지만 새 미디어에는 해당 파일이 포함되지 않습니다.</value>
   </data>
   <data name="Unattend.EnableLabel" xml:space="preserve">
-    <value>Enable custom answer files</value>
+    <value>사용자 지정 응답 파일 사용</value>
   </data>
   <data name="Unattend.ImportLabel" xml:space="preserve">
-    <value>Import files</value>
+    <value>파일 가져오기</value>
   </data>
   <data name="Unattend.ImportPickerTitle" xml:space="preserve">
-    <value>Import Windows answer files</value>
+    <value>Windows 응답 파일 가져오기</value>
+  </data>
+  <data name="Unattend.InvalidArchitectureMessage" xml:space="preserve">
+    <value>파일에 지원되는 아키텍처와 해당 아키텍처에 적용되는 구성 요소 설정이 지정되어 있어야 합니다.</value>
+  </data>
+  <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
+    <value>카탈로그에 유효하지 않거나 중복된 항목이 있습니다. 해당 파일을 새로 고치거나 제거하세요.</value>
+  </data>
+  <data name="Unattend.InvalidFileMessage" xml:space="preserve">
+    <value>DTD 또는 외부 엔터티가 없고 크기가 4 MiB 이하인 유효한 Windows 응답 파일 XML을 사용하세요. Windows SIM으로 파일의 유효성을 검사하세요.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Some sources are missing, changed, or invalid. Refresh or remove these entries before creating media.</value>
+    <value>일부 원본이 없거나 변경되었거나 유효하지 않습니다. 미디어를 만들기 전에 해당 항목을 새로 고치거나 제거하세요.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
-    <value>Missing default - choose a replacement</value>
+    <value>기본 파일 없음 — 대체 파일 선택</value>
   </data>
   <data name="Unattend.NativeOption" xml:space="preserve">
-    <value>Use Foundry settings</value>
+    <value>Foundry 설정 사용</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>A selected answer file owns Windows naming, time zone, accounts, autologon, and OOBE. Foundry does not merge settings or fill omissions. Saved Foundry settings remain available and must be valid for the native choice.</value>
+    <value>선택한 응답 파일이 Windows 컴퓨터 이름, 표준 시간대, 계정, 자동 로그온 및 OOBE를 관리합니다. Foundry는 설정을 병합하거나 누락된 값을 채우지 않습니다. 저장된 Foundry 설정은 계속 사용할 수 있으며 기본 제공 방식을 선택하려면 해당 설정이 유효해야 합니다.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Custom files require deployment media password protection in General configuration. XML may contain credentials or scripts. The catalog saves source references only; the boot image contains encrypted copies.</value>
+    <value>사용자 지정 파일을 사용하려면 일반 구성에서 배포 미디어 암호 보호를 사용하도록 설정해야 합니다. XML에는 자격 증명이나 스크립트가 포함될 수 있습니다. 카탈로그에는 원본 참조만 저장되며 부팅 이미지에는 암호화된 복사본이 포함됩니다.</value>
+  </data>
+  <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
+    <value>사용자 지정 응답 파일을 사용하려면 일반 구성에서 배포 미디어 암호 보호를 사용하도록 설정하세요.</value>
   </data>
   <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>This source now duplicates another imported file. Remove this entry and choose the existing file instead.</value>
+    <value>이 원본의 내용이 다른 가져온 파일과 같아졌습니다. 이 항목을 제거하고 기존 파일을 선택하세요.</value>
   </data>
   <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Refresh source</value>
+    <value>원본 새로 고침</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
-    <value>Remove</value>
+    <value>제거</value>
   </data>
   <data name="Unattend.RenameLabel" xml:space="preserve">
-    <value>Rename</value>
+    <value>이름 바꾸기</value>
   </data>
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
-    <value>The configuration could not be saved. Check access to the Foundry configuration folder and try again.</value>
+    <value>구성을 저장하지 못했습니다. Foundry 구성 폴더에 대한 접근 권한을 확인한 후 다시 시도하세요.</value>
+  </data>
+  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
+    <value>원본이 변경되었습니다. 미디어를 만들기 전에 원본 새로 고침을 사용하여 업데이트된 파일을 수락하세요.</value>
+  </data>
+  <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
+    <value>원본 확인 두 건이 아직 파일 접근을 기다리고 있습니다. 사용할 수 없는 원본 위치에 대한 접근을 복구한 후 원본을 다시 확인하세요.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Source check pending. Choose Check sources to validate the current file without accepting content changes.</value>
+    <value>원본 확인이 필요합니다. 원본 확인을 선택하면 내용 변경을 수락하지 않고 현재 파일의 유효성을 검사할 수 있습니다.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>The source could not be read. Check that the file still exists and is accessible.</value>
+    <value>원본을 읽지 못했습니다. 파일이 여전히 존재하고 접근 가능한지 확인하세요.</value>
+  </data>
+  <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
+    <value>원본 유효성 검사 시간이 초과되었습니다. 원본 위치에 접근할 수 있는지 확인한 후 다시 시도하세요.</value>
+  </data>
+  <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
+    <value>specialize 및 oobeSystem 설정만 지원됩니다. 비어 있지 않은 다른 구성 단계, 오프라인 서비스 지침 또는 감사 모드로 다시 봉인하는 설정을 제거하세요.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Source validated.</value>
+    <value>원본 유효성이 확인되었습니다.</value>
   </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>새로운</value>

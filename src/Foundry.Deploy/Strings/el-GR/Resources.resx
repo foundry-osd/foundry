@@ -666,13 +666,13 @@
     <value>Σφράγιση διαμερίσματος ανάκτησης</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Stage custom answer file</value>
+    <value>Τοποθέτηση προσαρμοσμένου αρχείου απαντήσεων</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
     <value>Προετοιμασία προσαρμογών</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Validate custom answer file</value>
+    <value>Επικύρωση προσαρμοσμένου αρχείου απαντήσεων</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
     <value>Επαλήθευση διαμόρφωσης</value>
@@ -1482,37 +1482,37 @@
     <value>Ανοίξτε το αρχείο καταγραφής</value>
   </data>
   <data name="Unattend.AutopilotConflict" xml:space="preserve">
-    <value>This answer file conflicts with the configured Autopilot enrollment mode. Choose another file or change the media configuration.</value>
+    <value>Αυτό το αρχείο απαντήσεων δεν είναι συμβατό με τη ρυθμισμένη μέθοδο εγγραφής στο Autopilot. Επιλέξτε άλλο αρχείο ή αλλάξτε τις ρυθμίσεις του μέσου.</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
-    <value>Custom commands may overlap with Foundry setup hooks, network roaming, customization and enrollment. Verify this combination in a deployment test.</value>
+    <value>Οι προσαρμοσμένες εντολές ενδέχεται να επηρεάζουν τα σενάρια εγκατάστασης, τη μεταφορά προφίλ δικτύου, την προσαρμογή και την εγγραφή του Foundry. Ελέγξτε αυτόν τον συνδυασμό σε δοκιμαστική ανάπτυξη.</value>
   </data>
   <data name="Unattend.HashWarning" xml:space="preserve">
-    <value>Hardware hash upload registers the device; custom OOBE can still prevent subsequent Autopilot enrollment.</value>
+    <value>Η αποστολή του κατακερματισμού υλικού καταχωρίζει τη συσκευή. Ωστόσο, ένα προσαρμοσμένο OOBE μπορεί να εμποδίσει τη μετέπειτα εγγραφή στο Autopilot.</value>
   </data>
   <data name="Unattend.HookCompatibility" xml:space="preserve">
-    <value>SetupComplete hooks depend on the Windows edition and product-key channel; verify deferred drivers, network roaming and application removal on the target image.</value>
+    <value>Τα σενάρια SetupComplete εξαρτώνται από την έκδοση των Windows και το κανάλι του κλειδιού προϊόντος. Ελέγξτε την αναβαλλόμενη εγκατάσταση προγραμμάτων οδήγησης, τη μεταφορά προφίλ δικτύου και την κατάργηση εφαρμογών στην εικόνα προορισμού.</value>
   </data>
   <data name="Unattend.Invalid" xml:space="preserve">
-    <value>The selected answer file is unavailable, invalid, or incompatible with the selected Windows architecture. Choose another file or rebuild the media.</value>
+    <value>Το επιλεγμένο αρχείο απαντήσεων δεν είναι διαθέσιμο, δεν είναι έγκυρο ή δεν είναι συμβατό με την επιλεγμένη αρχιτεκτονική των Windows. Επιλέξτε άλλο αρχείο ή δημιουργήστε ξανά το μέσο.</value>
   </data>
   <data name="Unattend.Managed" xml:space="preserve">
-    <value>Managed by answer file</value>
+    <value>Διαχείριση από το αρχείο απαντήσεων</value>
   </data>
   <data name="Unattend.MissingDefault" xml:space="preserve">
-    <value>The configured default answer file is missing. Rebuild the boot media.</value>
+    <value>Το καθορισμένο προεπιλεγμένο αρχείο απαντήσεων λείπει. Δημιουργήστε ξανά το μέσο εκκίνησης.</value>
   </data>
   <data name="Unattend.Native" xml:space="preserve">
-    <value>Use Foundry settings</value>
+    <value>Χρήση των ρυθμίσεων του Foundry</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>A custom answer file replaces Foundry computer name, time zone, accounts and OOBE settings. Other deployment features remain enabled as configured.</value>
+    <value>Ένα προσαρμοσμένο αρχείο απαντήσεων αντικαθιστά τις ρυθμίσεις του Foundry για το όνομα υπολογιστή, τη ζώνη ώρας, τους λογαριασμούς και το OOBE. Οι άλλες δυνατότητες ανάπτυξης παραμένουν ενεργές σύμφωνα με τις ρυθμίσεις.</value>
   </data>
   <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Time zone</value>
+    <value>Ζώνη ώρας</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
-    <value>Answer file</value>
+    <value>Αρχείο απαντήσεων</value>
   </data>
   <data name="Wizard.ReturnToSummary" xml:space="preserve">
     <value>Επιστροφή στη σύνοψη</value>

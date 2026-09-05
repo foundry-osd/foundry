@@ -666,13 +666,13 @@ Doorgaan met de implementatie?</value>
     <value>Recovery-partitie verzegelen</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Stage custom answer file</value>
+    <value>Aangepast antwoordbestand klaarzetten</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
     <value>Aanpassingen voorbereiden</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Validate custom answer file</value>
+    <value>Aangepast antwoordbestand valideren</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
     <value>Configuratie valideren</value>
@@ -1482,37 +1482,37 @@ Doorgaan met de implementatie?</value>
     <value>Logbestand openen</value>
   </data>
   <data name="Unattend.AutopilotConflict" xml:space="preserve">
-    <value>This answer file conflicts with the configured Autopilot enrollment mode. Choose another file or change the media configuration.</value>
+    <value>Dit antwoordbestand conflicteert met de ingestelde Autopilot-inschrijvingsmodus. Kies een ander bestand of wijzig de mediaconfiguratie.</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
-    <value>Custom commands may overlap with Foundry setup hooks, network roaming, customization and enrollment. Verify this combination in a deployment test.</value>
+    <value>Aangepaste opdrachten kunnen overlappen met installatiehooks, netwerkroaming, aanpassingen en inschrijving van Foundry. Controleer deze combinatie in een implementatietest.</value>
   </data>
   <data name="Unattend.HashWarning" xml:space="preserve">
-    <value>Hardware hash upload registers the device; custom OOBE can still prevent subsequent Autopilot enrollment.</value>
+    <value>Het uploaden van de hardwarehash registreert het apparaat. Aangepaste OOBE kan de daaropvolgende Autopilot-inschrijving nog steeds verhinderen.</value>
   </data>
   <data name="Unattend.HookCompatibility" xml:space="preserve">
-    <value>SetupComplete hooks depend on the Windows edition and product-key channel; verify deferred drivers, network roaming and application removal on the target image.</value>
+    <value>SetupComplete-hooks zijn afhankelijk van de Windows-editie en het productsleutelkanaal. Controleer uitgestelde stuurprogramma-installatie, netwerkroaming en toepassingsverwijdering op de doelimage.</value>
   </data>
   <data name="Unattend.Invalid" xml:space="preserve">
-    <value>The selected answer file is unavailable, invalid, or incompatible with the selected Windows architecture. Choose another file or rebuild the media.</value>
+    <value>Het geselecteerde antwoordbestand is niet beschikbaar, ongeldig of niet compatibel met de geselecteerde Windows-architectuur. Kies een ander bestand of maak de media opnieuw.</value>
   </data>
   <data name="Unattend.Managed" xml:space="preserve">
-    <value>Managed by answer file</value>
+    <value>Beheerd door antwoordbestand</value>
   </data>
   <data name="Unattend.MissingDefault" xml:space="preserve">
-    <value>The configured default answer file is missing. Rebuild the boot media.</value>
+    <value>Het ingestelde standaardantwoordbestand ontbreekt. Maak het opstartmedium opnieuw.</value>
   </data>
   <data name="Unattend.Native" xml:space="preserve">
-    <value>Use Foundry settings</value>
+    <value>Foundry-instellingen gebruiken</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>A custom answer file replaces Foundry computer name, time zone, accounts and OOBE settings. Other deployment features remain enabled as configured.</value>
+    <value>Een aangepast antwoordbestand vervangt de Foundry-instellingen voor computernaam, tijdzone, accounts en OOBE. Andere implementatiefuncties blijven ingeschakeld volgens de configuratie.</value>
   </data>
   <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Time zone</value>
+    <value>Tijdzone</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
-    <value>Answer file</value>
+    <value>Antwoordbestand</value>
   </data>
   <data name="Wizard.ReturnToSummary" xml:space="preserve">
     <value>Terug naar overzicht</value>

@@ -666,13 +666,13 @@
     <value>ซีลพาร์ติชันการกู้คืน</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Stage custom answer file</value>
+    <value>เตรียมไฟล์คำตอบที่กำหนดเอง</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
     <value>เตรียมการปรับแต่ง</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Validate custom answer file</value>
+    <value>ตรวจสอบไฟล์คำตอบที่กำหนดเอง</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
     <value>ตรวจสอบการกำหนดค่า</value>
@@ -1482,37 +1482,37 @@
     <value>เปิดไฟล์บันทึก</value>
   </data>
   <data name="Unattend.AutopilotConflict" xml:space="preserve">
-    <value>This answer file conflicts with the configured Autopilot enrollment mode. Choose another file or change the media configuration.</value>
+    <value>ไฟล์คำตอบนี้ขัดแย้งกับโหมดการลงทะเบียน Autopilot ที่กำหนดไว้ โปรดเลือกไฟล์อื่นหรือเปลี่ยนการกำหนดค่าของสื่อ</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
-    <value>Custom commands may overlap with Foundry setup hooks, network roaming, customization and enrollment. Verify this combination in a deployment test.</value>
+    <value>คำสั่งที่กำหนดเองอาจขัดแย้งกับจุดเรียกทำงานระหว่างการติดตั้งของ Foundry การถ่ายโอนโปรไฟล์เครือข่าย การปรับแต่ง และการลงทะเบียน โปรดตรวจสอบการใช้งานร่วมกันนี้ด้วยการทดสอบการปรับใช้</value>
   </data>
   <data name="Unattend.HashWarning" xml:space="preserve">
-    <value>Hardware hash upload registers the device; custom OOBE can still prevent subsequent Autopilot enrollment.</value>
+    <value>การอัปโหลดแฮชฮาร์ดแวร์เป็นการลงทะเบียนอุปกรณ์ แต่ OOBE ที่กำหนดเองยังอาจขัดขวางการลงทะเบียนกับ Autopilot ในภายหลัง</value>
   </data>
   <data name="Unattend.HookCompatibility" xml:space="preserve">
-    <value>SetupComplete hooks depend on the Windows edition and product-key channel; verify deferred drivers, network roaming and application removal on the target image.</value>
+    <value>จุดเรียกทำงาน SetupComplete ขึ้นอยู่กับรุ่นของ Windows และช่องทางของหมายเลขผลิตภัณฑ์ โปรดตรวจสอบการติดตั้งไดรเวอร์แบบเลื่อนเวลา การถ่ายโอนโปรไฟล์เครือข่าย และการลบแอปพลิเคชันบนอิมเมจเป้าหมาย</value>
   </data>
   <data name="Unattend.Invalid" xml:space="preserve">
-    <value>The selected answer file is unavailable, invalid, or incompatible with the selected Windows architecture. Choose another file or rebuild the media.</value>
+    <value>ไฟล์คำตอบที่เลือกไม่พร้อมใช้งาน ไม่ถูกต้อง หรือเข้ากันไม่ได้กับสถาปัตยกรรม Windows ที่เลือก โปรดเลือกไฟล์อื่นหรือสร้างสื่อใหม่</value>
   </data>
   <data name="Unattend.Managed" xml:space="preserve">
-    <value>Managed by answer file</value>
+    <value>จัดการโดยไฟล์คำตอบ</value>
   </data>
   <data name="Unattend.MissingDefault" xml:space="preserve">
-    <value>The configured default answer file is missing. Rebuild the boot media.</value>
+    <value>ไม่พบไฟล์คำตอบเริ่มต้นที่กำหนดไว้ โปรดสร้างสื่อสำหรับบูตใหม่</value>
   </data>
   <data name="Unattend.Native" xml:space="preserve">
-    <value>Use Foundry settings</value>
+    <value>ใช้การตั้งค่าของ Foundry</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>A custom answer file replaces Foundry computer name, time zone, accounts and OOBE settings. Other deployment features remain enabled as configured.</value>
+    <value>ไฟล์คำตอบที่กำหนดเองจะแทนที่การตั้งค่าชื่อคอมพิวเตอร์ เขตเวลา บัญชี และ OOBE ของ Foundry คุณลักษณะการปรับใช้อื่นยังคงเปิดใช้ตามการกำหนดค่า</value>
   </data>
   <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Time zone</value>
+    <value>เขตเวลา</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
-    <value>Answer file</value>
+    <value>ไฟล์คำตอบ</value>
   </data>
   <data name="Wizard.ReturnToSummary" xml:space="preserve">
     <value>กลับสู่สรุป</value>

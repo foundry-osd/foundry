@@ -666,13 +666,13 @@ ErrorCode=0x80070005
     <value>Запечатування розділу відновлення</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Stage custom answer file</value>
+    <value>Підготувати власний файл відповідей</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
     <value>Підготовка налаштувань</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Validate custom answer file</value>
+    <value>Перевірити власний файл відповідей</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
     <value>Перевірка конфігурації</value>
@@ -1482,37 +1482,37 @@ ErrorCode=0x80070005
     <value>Відкрити файл журналу</value>
   </data>
   <data name="Unattend.AutopilotConflict" xml:space="preserve">
-    <value>This answer file conflicts with the configured Autopilot enrollment mode. Choose another file or change the media configuration.</value>
+    <value>Цей файл відповідей конфліктує з налаштованим режимом реєстрації в Autopilot. Виберіть інший файл або змініть конфігурацію носія.</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
-    <value>Custom commands may overlap with Foundry setup hooks, network roaming, customization and enrollment. Verify this combination in a deployment test.</value>
+    <value>Власні команди можуть конфліктувати з обробниками інсталяції Foundry, перенесенням мережевих профілів, налаштуванням і реєстрацією. Перевірте це поєднання під час тестового розгортання.</value>
   </data>
   <data name="Unattend.HashWarning" xml:space="preserve">
-    <value>Hardware hash upload registers the device; custom OOBE can still prevent subsequent Autopilot enrollment.</value>
+    <value>Передавання хешу обладнання реєструє пристрій; власне налаштування OOBE все ще може перешкодити подальшій реєстрації в Autopilot.</value>
   </data>
   <data name="Unattend.HookCompatibility" xml:space="preserve">
-    <value>SetupComplete hooks depend on the Windows edition and product-key channel; verify deferred drivers, network roaming and application removal on the target image.</value>
+    <value>Обробники SetupComplete залежать від випуску Windows і каналу ключа продукту; перевірте відкладене встановлення драйверів, перенесення мережевих профілів і видалення програм у цільовому образі.</value>
   </data>
   <data name="Unattend.Invalid" xml:space="preserve">
-    <value>The selected answer file is unavailable, invalid, or incompatible with the selected Windows architecture. Choose another file or rebuild the media.</value>
+    <value>Вибраний файл відповідей недоступний, недійсний або несумісний із вибраною архітектурою Windows. Виберіть інший файл або створіть носій повторно.</value>
   </data>
   <data name="Unattend.Managed" xml:space="preserve">
-    <value>Managed by answer file</value>
+    <value>Керується файлом відповідей</value>
   </data>
   <data name="Unattend.MissingDefault" xml:space="preserve">
-    <value>The configured default answer file is missing. Rebuild the boot media.</value>
+    <value>Налаштований файл відповідей за замовчуванням відсутній. Створіть завантажувальний носій повторно.</value>
   </data>
   <data name="Unattend.Native" xml:space="preserve">
-    <value>Use Foundry settings</value>
+    <value>Використовувати параметри Foundry</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>A custom answer file replaces Foundry computer name, time zone, accounts and OOBE settings. Other deployment features remain enabled as configured.</value>
+    <value>Власний файл відповідей замінює параметри Foundry для імені комп’ютера, часового поясу, облікових записів і OOBE. Інші функції розгортання залишаються ввімкненими згідно з конфігурацією.</value>
   </data>
   <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Time zone</value>
+    <value>Часовий пояс</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
-    <value>Answer file</value>
+    <value>Файл відповідей</value>
   </data>
   <data name="Wizard.ReturnToSummary" xml:space="preserve">
     <value>Повернутися до резюме</value>

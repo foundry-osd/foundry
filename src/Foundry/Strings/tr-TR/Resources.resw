@@ -2092,7 +2092,7 @@
     <value>Başlat</value>
   </data>
   <data name="Nav_UnattendKey.Description" xml:space="preserve">
-    <value>Import Windows answer files and choose which settings deployments use.</value>
+    <value>Windows yanıt dosyalarını içe aktarın ve dağıtımda kullanılacak ayarları seçin.</value>
   </data>
   <data name="Nav_UnattendKey.Title" xml:space="preserve">
     <value>Unattend</value>
@@ -2992,85 +2992,112 @@
     <value>Mika</value>
   </data>
   <data name="Unattend.AutopilotWarning" xml:space="preserve">
-    <value>Contains settings that can prevent Autopilot enrollment; incompatible enrollment modes will be blocked during deployment.</value>
+    <value>Autopilot kaydını engelleyebilecek ayarlar içerir; uyumsuz kayıt modları dağıtım sırasında engellenir.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Select a file to rename, refresh, or remove it. Source files must remain available until media creation; changed sources require Refresh.</value>
+    <value>Yeniden adlandırmak, yenilemek veya kaldırmak için bir dosya seçin. Kaynak dosyalar medya oluşturulana kadar erişilebilir olmalıdır; değiştirilen kaynakların yenilenmesi gerekir.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
-    <value>Answer files</value>
+    <value>Yanıt dosyaları</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Check sources</value>
+    <value>Kaynakları denetle</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
-    <value>Contains commands; review overlap with Foundry customization and setup hooks.</value>
+    <value>Komutlar içerir; Foundry özelleştirmeleri ve kurulum tetikleyicileriyle olası çakışmaları inceleyin.</value>
   </data>
   <data name="Unattend.CompatibilityDescription" xml:space="preserve">
-    <value>Only specialize and oobeSystem settings are supported. Foundry still controls disks, images, drivers, AppX removal, AI policies, optional features, and network roaming. Custom commands may conflict with these operations or setup hooks. Validate with Windows SIM and test the intended image in a VM; external script files are not imported.</value>
+    <value>Yalnızca specialize ve oobeSystem ayarları desteklenir. Foundry; diskleri, görüntüleri, sürücüleri, AppX kaldırmayı, yapay zekâ ilkelerini, isteğe bağlı özellikleri ve ağ profili dolaşımını yönetmeye devam eder. Özel komutlar bu işlemlerle veya kurulum tetikleyicileriyle çakışabilir. Windows SIM ile doğrulayın ve hedef görüntüyü bir sanal makinede test edin; harici betik dosyaları içe aktarılmaz.</value>
   </data>
   <data name="Unattend.DefaultDescription" xml:space="preserve">
-    <value>The operator can choose Foundry settings or one packaged file on the Target page. Importing a file does not change the default.</value>
+    <value>Operatör, Hedef cihaz sayfasında Foundry ayarlarını veya medyaya eklenen bir dosyayı seçebilir. Dosya içe aktarmak varsayılan seçimi değiştirmez.</value>
   </data>
   <data name="Unattend.DefaultLabel" xml:space="preserve">
-    <value>Deployment default</value>
+    <value>Varsayılan dağıtım seçimi</value>
   </data>
   <data name="Unattend.DisplayNameLabel" xml:space="preserve">
-    <value>Display name</value>
+    <value>Görünen ad</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Skipped {0} file(s) already present in the catalog.</value>
+    <value>Katalogda zaten bulunan {0} dosya atlandı.</value>
+  </data>
+  <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
+    <value>Bu özelliği kullanmak için en az bir yanıt dosyası içe aktarın.</value>
   </data>
   <data name="Unattend.EnableDescription" xml:space="preserve">
-    <value>Package the imported files in the boot image. Turning this off preserves the catalog but excludes its files from new media.</value>
+    <value>İçe aktarılan dosyaları önyükleme görüntüsüne ekleyin. Bu seçeneği kapatmak kataloğu korur ancak dosyalarını yeni medyalara eklemez.</value>
   </data>
   <data name="Unattend.EnableLabel" xml:space="preserve">
-    <value>Enable custom answer files</value>
+    <value>Özel yanıt dosyalarını etkinleştir</value>
   </data>
   <data name="Unattend.ImportLabel" xml:space="preserve">
-    <value>Import files</value>
+    <value>Dosyaları içe aktar</value>
   </data>
   <data name="Unattend.ImportPickerTitle" xml:space="preserve">
-    <value>Import Windows answer files</value>
+    <value>Windows yanıt dosyalarını içe aktar</value>
+  </data>
+  <data name="Unattend.InvalidArchitectureMessage" xml:space="preserve">
+    <value>Dosya, desteklenen bir mimari belirtmeli ve bu mimariye uygulanabilen bileşen ayarları içermelidir.</value>
+  </data>
+  <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
+    <value>Katalog geçersiz veya yinelenen girdiler içeriyor. Etkilenen dosyaları yenileyin veya kaldırın.</value>
+  </data>
+  <data name="Unattend.InvalidFileMessage" xml:space="preserve">
+    <value>DTD veya harici varlık içermeyen, en fazla 4 MiB boyutunda geçerli bir Windows yanıt dosyası XML'i kullanın. Dosyayı Windows SIM ile doğrulayın.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Some sources are missing, changed, or invalid. Refresh or remove these entries before creating media.</value>
+    <value>Bazı kaynaklar eksik, değiştirilmiş veya geçersiz. Medya oluşturmadan önce bu girdileri yenileyin veya kaldırın.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
-    <value>Missing default - choose a replacement</value>
+    <value>Varsayılan dosya eksik — yerine başka bir dosya seçin</value>
   </data>
   <data name="Unattend.NativeOption" xml:space="preserve">
-    <value>Use Foundry settings</value>
+    <value>Foundry ayarlarını kullan</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>A selected answer file owns Windows naming, time zone, accounts, autologon, and OOBE. Foundry does not merge settings or fill omissions. Saved Foundry settings remain available and must be valid for the native choice.</value>
+    <value>Seçilen yanıt dosyası Windows adını, saat dilimini, hesapları, otomatik oturum açmayı ve OOBE'yi yönetir. Foundry ayarları birleştirmez veya eksik değerleri tamamlamaz. Kaydedilen Foundry ayarları kullanılabilir kalır ve yerleşik seçenek için geçerli olmalıdır.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Custom files require deployment media password protection in General configuration. XML may contain credentials or scripts. The catalog saves source references only; the boot image contains encrypted copies.</value>
+    <value>Özel dosyalar, Genel yapılandırmada dağıtım medyasının parolayla korunmasını gerektirir. XML, kimlik bilgileri veya betikler içerebilir. Katalog yalnızca kaynak başvurularını kaydeder; önyükleme görüntüsü şifrelenmiş kopyalar içerir.</value>
+  </data>
+  <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
+    <value>Özel yanıt dosyalarını kullanmak için Genel yapılandırmada dağıtım medyasının parola korumasını etkinleştirin.</value>
   </data>
   <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>This source now duplicates another imported file. Remove this entry and choose the existing file instead.</value>
+    <value>Bu kaynak artık içe aktarılan başka bir dosyayla aynı. Bu girdiyi kaldırın ve mevcut dosyayı seçin.</value>
   </data>
   <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Refresh source</value>
+    <value>Kaynağı yenile</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
-    <value>Remove</value>
+    <value>Kaldır</value>
   </data>
   <data name="Unattend.RenameLabel" xml:space="preserve">
-    <value>Rename</value>
+    <value>Yeniden adlandır</value>
   </data>
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
-    <value>The configuration could not be saved. Check access to the Foundry configuration folder and try again.</value>
+    <value>Yapılandırma kaydedilemedi. Foundry yapılandırma klasörüne erişimi denetleyip yeniden deneyin.</value>
+  </data>
+  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
+    <value>Kaynak değişti. Medya oluşturmadan önce güncellenen dosyayı kabul etmek için Kaynağı yenile'yi kullanın.</value>
+  </data>
+  <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
+    <value>İki kaynak denetimi hâlâ dosya erişimi bekliyor. Kullanılamayan kaynak konumlarına erişimi yeniden sağlayın, ardından kaynakları tekrar denetleyin.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Source check pending. Choose Check sources to validate the current file without accepting content changes.</value>
+    <value>Kaynak denetimi bekleniyor. İçerik değişikliklerini kabul etmeden geçerli dosyayı doğrulamak için Kaynakları denetle'yi seçin.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>The source could not be read. Check that the file still exists and is accessible.</value>
+    <value>Kaynak okunamadı. Dosyanın hâlâ mevcut ve erişilebilir olduğunu denetleyin.</value>
+  </data>
+  <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
+    <value>Kaynak doğrulaması zaman aşımına uğradı. Kaynak konumuna erişimi denetleyip yeniden deneyin.</value>
+  </data>
+  <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
+    <value>Yalnızca specialize ve oobeSystem ayarları desteklenir. Diğer boş olmayan yapılandırma aşamalarını, çevrimdışı bakım yönergelerini veya denetim modunda yeniden başlatma hazırlığını kaldırın.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Source validated.</value>
+    <value>Kaynak doğrulandı.</value>
   </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Yeni</value>

@@ -2092,7 +2092,7 @@
     <value>เริ่ม</value>
   </data>
   <data name="Nav_UnattendKey.Description" xml:space="preserve">
-    <value>Import Windows answer files and choose which settings deployments use.</value>
+    <value>นำเข้าไฟล์คำตอบของ Windows และเลือกการตั้งค่าที่ใช้ในการปรับใช้</value>
   </data>
   <data name="Nav_UnattendKey.Title" xml:space="preserve">
     <value>Unattend</value>
@@ -2992,85 +2992,112 @@
     <value>ไมกา</value>
   </data>
   <data name="Unattend.AutopilotWarning" xml:space="preserve">
-    <value>Contains settings that can prevent Autopilot enrollment; incompatible enrollment modes will be blocked during deployment.</value>
+    <value>มีการตั้งค่าที่อาจขัดขวางการลงทะเบียนกับ Autopilot ระบบจะบล็อกโหมดการลงทะเบียนที่เข้ากันไม่ได้ระหว่างการปรับใช้</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Select a file to rename, refresh, or remove it. Source files must remain available until media creation; changed sources require Refresh.</value>
+    <value>เลือกไฟล์เพื่อเปลี่ยนชื่อ รีเฟรช หรือลบ ไฟล์ต้นฉบับต้องพร้อมใช้งานจนกว่าจะสร้างสื่อเสร็จ หากต้นฉบับเปลี่ยนแปลง ต้องรีเฟรชต้นฉบับ</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
-    <value>Answer files</value>
+    <value>ไฟล์คำตอบ</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Check sources</value>
+    <value>ตรวจสอบต้นฉบับ</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
-    <value>Contains commands; review overlap with Foundry customization and setup hooks.</value>
+    <value>มีคำสั่งอยู่ โปรดตรวจสอบความขัดแย้งกับการปรับแต่งของ Foundry และจุดเรียกทำงานระหว่างการติดตั้ง</value>
   </data>
   <data name="Unattend.CompatibilityDescription" xml:space="preserve">
-    <value>Only specialize and oobeSystem settings are supported. Foundry still controls disks, images, drivers, AppX removal, AI policies, optional features, and network roaming. Custom commands may conflict with these operations or setup hooks. Validate with Windows SIM and test the intended image in a VM; external script files are not imported.</value>
+    <value>รองรับเฉพาะการตั้งค่าใน specialize และ oobeSystem เท่านั้น Foundry ยังคงควบคุมดิสก์ อิมเมจ ไดรเวอร์ การลบ AppX นโยบาย AI คุณลักษณะเสริม และการถ่ายโอนโปรไฟล์เครือข่าย คำสั่งที่กำหนดเองอาจขัดแย้งกับการทำงานเหล่านี้หรือจุดเรียกทำงานระหว่างการติดตั้ง ตรวจสอบด้วย Windows SIM และทดสอบอิมเมจที่ต้องการในเครื่องเสมือน โดยจะไม่นำเข้าไฟล์สคริปต์ภายนอก</value>
   </data>
   <data name="Unattend.DefaultDescription" xml:space="preserve">
-    <value>The operator can choose Foundry settings or one packaged file on the Target page. Importing a file does not change the default.</value>
+    <value>ผู้ปฏิบัติงานสามารถเลือกการตั้งค่าของ Foundry หรือไฟล์หนึ่งไฟล์ที่รวมอยู่ในสื่อได้ในหน้าอุปกรณ์เป้าหมาย การนำเข้าไฟล์จะไม่เปลี่ยนตัวเลือกเริ่มต้น</value>
   </data>
   <data name="Unattend.DefaultLabel" xml:space="preserve">
-    <value>Deployment default</value>
+    <value>ตัวเลือกเริ่มต้นสำหรับการปรับใช้</value>
   </data>
   <data name="Unattend.DisplayNameLabel" xml:space="preserve">
-    <value>Display name</value>
+    <value>ชื่อที่แสดง</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Skipped {0} file(s) already present in the catalog.</value>
+    <value>ข้ามไฟล์ที่มีอยู่ในแค็ตตาล็อกแล้ว {0} ไฟล์</value>
+  </data>
+  <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
+    <value>นำเข้าไฟล์คำตอบอย่างน้อยหนึ่งไฟล์เพื่อใช้คุณลักษณะนี้</value>
   </data>
   <data name="Unattend.EnableDescription" xml:space="preserve">
-    <value>Package the imported files in the boot image. Turning this off preserves the catalog but excludes its files from new media.</value>
+    <value>รวมไฟล์ที่นำเข้าไว้ในอิมเมจสำหรับบูต การปิดตัวเลือกนี้จะเก็บแค็ตตาล็อกไว้ แต่จะไม่รวมไฟล์เหล่านั้นไว้ในสื่อใหม่</value>
   </data>
   <data name="Unattend.EnableLabel" xml:space="preserve">
-    <value>Enable custom answer files</value>
+    <value>เปิดใช้ไฟล์คำตอบที่กำหนดเอง</value>
   </data>
   <data name="Unattend.ImportLabel" xml:space="preserve">
-    <value>Import files</value>
+    <value>นำเข้าไฟล์</value>
   </data>
   <data name="Unattend.ImportPickerTitle" xml:space="preserve">
-    <value>Import Windows answer files</value>
+    <value>นำเข้าไฟล์คำตอบของ Windows</value>
+  </data>
+  <data name="Unattend.InvalidArchitectureMessage" xml:space="preserve">
+    <value>ไฟล์ต้องระบุสถาปัตยกรรมที่รองรับและมีการตั้งค่าคอมโพเนนต์ที่ใช้ได้กับสถาปัตยกรรมนั้น</value>
+  </data>
+  <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
+    <value>แค็ตตาล็อกมีรายการที่ไม่ถูกต้องหรือซ้ำกัน โปรดรีเฟรชหรือลบไฟล์ที่เกี่ยวข้อง</value>
+  </data>
+  <data name="Unattend.InvalidFileMessage" xml:space="preserve">
+    <value>ใช้ XML ของไฟล์คำตอบ Windows ที่ถูกต้อง ขนาดไม่เกิน 4 MiB และไม่มี DTD หรือเอนทิตีภายนอก ตรวจสอบไฟล์ด้วย Windows SIM</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Some sources are missing, changed, or invalid. Refresh or remove these entries before creating media.</value>
+    <value>ต้นฉบับบางรายการหายไป มีการเปลี่ยนแปลง หรือไม่ถูกต้อง โปรดรีเฟรชหรือลบรายการเหล่านี้ก่อนสร้างสื่อ</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
-    <value>Missing default - choose a replacement</value>
+    <value>ไม่พบไฟล์เริ่มต้น — โปรดเลือกไฟล์แทน</value>
   </data>
   <data name="Unattend.NativeOption" xml:space="preserve">
-    <value>Use Foundry settings</value>
+    <value>ใช้การตั้งค่าของ Foundry</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>A selected answer file owns Windows naming, time zone, accounts, autologon, and OOBE. Foundry does not merge settings or fill omissions. Saved Foundry settings remain available and must be valid for the native choice.</value>
+    <value>ไฟล์คำตอบที่เลือกจะควบคุมชื่อ Windows เขตเวลา บัญชี การลงชื่อเข้าใช้อัตโนมัติ และ OOBE Foundry จะไม่ผสานการตั้งค่าหรือเติมค่าที่ไม่ได้ระบุ การตั้งค่าของ Foundry ที่บันทึกไว้ยังคงใช้งานได้ และต้องถูกต้องสำหรับตัวเลือกแบบปกติ</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Custom files require deployment media password protection in General configuration. XML may contain credentials or scripts. The catalog saves source references only; the boot image contains encrypted copies.</value>
+    <value>ไฟล์ที่กำหนดเองต้องเปิดใช้การป้องกันสื่อการปรับใช้ด้วยรหัสผ่านในการกำหนดค่าทั่วไป XML อาจมีข้อมูลรับรองหรือสคริปต์ แค็ตตาล็อกจะบันทึกเฉพาะการอ้างอิงไปยังต้นฉบับ ส่วนอิมเมจสำหรับบูตจะมีสำเนาที่เข้ารหัส</value>
+  </data>
+  <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
+    <value>เปิดใช้การป้องกันสื่อการปรับใช้ด้วยรหัสผ่านในการกำหนดค่าทั่วไปเพื่อใช้ไฟล์คำตอบที่กำหนดเอง</value>
   </data>
   <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>This source now duplicates another imported file. Remove this entry and choose the existing file instead.</value>
+    <value>ขณะนี้ต้นฉบับนี้ซ้ำกับไฟล์อื่นที่นำเข้าไว้แล้ว โปรดลบรายการนี้และเลือกไฟล์ที่มีอยู่แทน</value>
   </data>
   <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Refresh source</value>
+    <value>รีเฟรชต้นฉบับ</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
-    <value>Remove</value>
+    <value>ลบ</value>
   </data>
   <data name="Unattend.RenameLabel" xml:space="preserve">
-    <value>Rename</value>
+    <value>เปลี่ยนชื่อ</value>
   </data>
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
-    <value>The configuration could not be saved. Check access to the Foundry configuration folder and try again.</value>
+    <value>ไม่สามารถบันทึกการกำหนดค่าได้ โปรดตรวจสอบสิทธิ์เข้าถึงโฟลเดอร์การกำหนดค่าของ Foundry แล้วลองอีกครั้ง</value>
+  </data>
+  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
+    <value>ต้นฉบับมีการเปลี่ยนแปลง ใช้รีเฟรชต้นฉบับเพื่อยอมรับไฟล์ที่อัปเดตก่อนสร้างสื่อ</value>
+  </data>
+  <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
+    <value>การตรวจสอบต้นฉบับสองรายการยังคงรอการเข้าถึงไฟล์ โปรดกู้คืนการเข้าถึงตำแหน่งต้นฉบับที่ไม่พร้อมใช้งาน แล้วตรวจสอบต้นฉบับอีกครั้ง</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Source check pending. Choose Check sources to validate the current file without accepting content changes.</value>
+    <value>กำลังรอตรวจสอบต้นฉบับ เลือกตรวจสอบต้นฉบับเพื่อตรวจสอบไฟล์ปัจจุบันโดยไม่ยอมรับการเปลี่ยนแปลงเนื้อหา</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>The source could not be read. Check that the file still exists and is accessible.</value>
+    <value>ไม่สามารถอ่านต้นฉบับได้ โปรดตรวจสอบว่าไฟล์ยังคงอยู่และเข้าถึงได้</value>
+  </data>
+  <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
+    <value>การตรวจสอบต้นฉบับหมดเวลา โปรดตรวจสอบการเข้าถึงตำแหน่งต้นฉบับแล้วลองอีกครั้ง</value>
+  </data>
+  <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
+    <value>รองรับเฉพาะการตั้งค่าใน specialize และ oobeSystem เท่านั้น โปรดลบขั้นตอนอื่นที่มีเนื้อหา คำสั่งการให้บริการออฟไลน์ หรือการเตรียมให้เริ่มระบบใหม่ในโหมดตรวจสอบ</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Source validated.</value>
+    <value>ตรวจสอบต้นฉบับแล้ว</value>
   </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>ใหม่</value>

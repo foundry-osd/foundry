@@ -666,13 +666,13 @@ Pokračovať v nasadzovaní?</value>
     <value>Uzavri obnovovaciu oblasť</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Stage custom answer file</value>
+    <value>Pripraviť vlastný súbor odpovedí</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
     <value>Priprav prispôsobenia</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Validate custom answer file</value>
+    <value>Overiť vlastný súbor odpovedí</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
     <value>Over konfiguráciu</value>
@@ -1482,37 +1482,37 @@ Pokračovať v nasadzovaní?</value>
     <value>Otvorte súbor denníka</value>
   </data>
   <data name="Unattend.AutopilotConflict" xml:space="preserve">
-    <value>This answer file conflicts with the configured Autopilot enrollment mode. Choose another file or change the media configuration.</value>
+    <value>Tento súbor odpovedí je v konflikte s nakonfigurovaným režimom registrácie Autopilot. Vyberte iný súbor alebo zmeňte konfiguráciu média.</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
-    <value>Custom commands may overlap with Foundry setup hooks, network roaming, customization and enrollment. Verify this combination in a deployment test.</value>
+    <value>Vlastné príkazy môžu byť v konflikte so spúšťacími bodmi inštalácie Foundry, prenosom sieťových profilov, prispôsobením a registráciou. Overte túto kombináciu pri testovacom nasadení.</value>
   </data>
   <data name="Unattend.HashWarning" xml:space="preserve">
-    <value>Hardware hash upload registers the device; custom OOBE can still prevent subsequent Autopilot enrollment.</value>
+    <value>Nahratie hardvérového hashu zaregistruje zariadenie; vlastné nastavenie OOBE však môže zabrániť následnej registrácii v Autopilot.</value>
   </data>
   <data name="Unattend.HookCompatibility" xml:space="preserve">
-    <value>SetupComplete hooks depend on the Windows edition and product-key channel; verify deferred drivers, network roaming and application removal on the target image.</value>
+    <value>Spúšťacie body SetupComplete závisia od vydania systému Windows a kanála kódu Product Key; overte odloženú inštaláciu ovládačov, prenos sieťových profilov a odstraňovanie aplikácií v cieľovom obraze.</value>
   </data>
   <data name="Unattend.Invalid" xml:space="preserve">
-    <value>The selected answer file is unavailable, invalid, or incompatible with the selected Windows architecture. Choose another file or rebuild the media.</value>
+    <value>Vybraný súbor odpovedí je nedostupný, neplatný alebo nekompatibilný s vybranou architektúrou systému Windows. Vyberte iný súbor alebo znova vytvorte médium.</value>
   </data>
   <data name="Unattend.Managed" xml:space="preserve">
-    <value>Managed by answer file</value>
+    <value>Spravuje súbor odpovedí</value>
   </data>
   <data name="Unattend.MissingDefault" xml:space="preserve">
-    <value>The configured default answer file is missing. Rebuild the boot media.</value>
+    <value>Nakonfigurovaný predvolený súbor odpovedí chýba. Znova vytvorte zavádzacie médium.</value>
   </data>
   <data name="Unattend.Native" xml:space="preserve">
-    <value>Use Foundry settings</value>
+    <value>Použiť nastavenia Foundry</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>A custom answer file replaces Foundry computer name, time zone, accounts and OOBE settings. Other deployment features remain enabled as configured.</value>
+    <value>Vlastný súbor odpovedí nahrádza nastavenia Foundry pre názov počítača, časové pásmo, kontá a OOBE. Ostatné funkcie nasadenia zostávajú zapnuté podľa konfigurácie.</value>
   </data>
   <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Time zone</value>
+    <value>Časové pásmo</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
-    <value>Answer file</value>
+    <value>Súbor odpovedí</value>
   </data>
   <data name="Wizard.ReturnToSummary" xml:space="preserve">
     <value>Späť na súhrn</value>

@@ -666,13 +666,13 @@ Fortsätt med implementeringen?</value>
     <value>Försegla återställningspartitionen</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Stage custom answer file</value>
+    <value>Förbered egen svarsfil</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
     <value>Förbered anpassningar</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Validate custom answer file</value>
+    <value>Validera egen svarsfil</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
     <value>Validera konfiguration</value>
@@ -1482,37 +1482,37 @@ Fortsätt med implementeringen?</value>
     <value>Öppna loggfilen</value>
   </data>
   <data name="Unattend.AutopilotConflict" xml:space="preserve">
-    <value>This answer file conflicts with the configured Autopilot enrollment mode. Choose another file or change the media configuration.</value>
+    <value>Den här svarsfilen står i konflikt med det konfigurerade registreringsläget för Autopilot. Välj en annan fil eller ändra mediets konfiguration.</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
-    <value>Custom commands may overlap with Foundry setup hooks, network roaming, customization and enrollment. Verify this combination in a deployment test.</value>
+    <value>Egna kommandon kan stå i konflikt med Foundrys installationspunkter, överföring av nätverksprofiler, anpassning och registrering. Verifiera kombinationen med en testdistribution.</value>
   </data>
   <data name="Unattend.HashWarning" xml:space="preserve">
-    <value>Hardware hash upload registers the device; custom OOBE can still prevent subsequent Autopilot enrollment.</value>
+    <value>Uppladdning av maskinvaruhashen registrerar enheten; egen OOBE-konfiguration kan ändå förhindra efterföljande registrering i Autopilot.</value>
   </data>
   <data name="Unattend.HookCompatibility" xml:space="preserve">
-    <value>SetupComplete hooks depend on the Windows edition and product-key channel; verify deferred drivers, network roaming and application removal on the target image.</value>
+    <value>SetupComplete-körningspunkter beror på Windows-utgåvan och produktnyckelns kanal; verifiera uppskjuten drivrutinsinstallation, överföring av nätverksprofiler och borttagning av program i målavbildningen.</value>
   </data>
   <data name="Unattend.Invalid" xml:space="preserve">
-    <value>The selected answer file is unavailable, invalid, or incompatible with the selected Windows architecture. Choose another file or rebuild the media.</value>
+    <value>Den valda svarsfilen är otillgänglig, ogiltig eller inkompatibel med den valda Windows-arkitekturen. Välj en annan fil eller skapa om mediet.</value>
   </data>
   <data name="Unattend.Managed" xml:space="preserve">
-    <value>Managed by answer file</value>
+    <value>Hanteras av svarsfilen</value>
   </data>
   <data name="Unattend.MissingDefault" xml:space="preserve">
-    <value>The configured default answer file is missing. Rebuild the boot media.</value>
+    <value>Den konfigurerade standardsvarsfilen saknas. Skapa om startmediet.</value>
   </data>
   <data name="Unattend.Native" xml:space="preserve">
-    <value>Use Foundry settings</value>
+    <value>Använd Foundry-inställningar</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>A custom answer file replaces Foundry computer name, time zone, accounts and OOBE settings. Other deployment features remain enabled as configured.</value>
+    <value>En egen svarsfil ersätter Foundrys inställningar för datornamn, tidszon, konton och OOBE. Övriga distributionsfunktioner förblir aktiverade enligt konfigurationen.</value>
   </data>
   <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Time zone</value>
+    <value>Tidszon</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
-    <value>Answer file</value>
+    <value>Svarsfil</value>
   </data>
   <data name="Wizard.ReturnToSummary" xml:space="preserve">
     <value>Återgå till sammanfattningen</value>

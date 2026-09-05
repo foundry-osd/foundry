@@ -2092,7 +2092,7 @@
     <value>Старт</value>
   </data>
   <data name="Nav_UnattendKey.Description" xml:space="preserve">
-    <value>Import Windows answer files and choose which settings deployments use.</value>
+    <value>Импортируйте файлы ответов Windows и выберите параметры для развёртывания.</value>
   </data>
   <data name="Nav_UnattendKey.Title" xml:space="preserve">
     <value>Unattend</value>
@@ -2992,85 +2992,112 @@
     <value>Слюда</value>
   </data>
   <data name="Unattend.AutopilotWarning" xml:space="preserve">
-    <value>Contains settings that can prevent Autopilot enrollment; incompatible enrollment modes will be blocked during deployment.</value>
+    <value>Содержит параметры, которые могут помешать регистрации в Autopilot; несовместимые режимы регистрации будут заблокированы при развёртывании.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Select a file to rename, refresh, or remove it. Source files must remain available until media creation; changed sources require Refresh.</value>
+    <value>Выберите файл, чтобы переименовать, обновить или удалить его. Исходные файлы должны оставаться доступными до создания носителя; изменённые источники необходимо обновить.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
-    <value>Answer files</value>
+    <value>Файлы ответов</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Check sources</value>
+    <value>Проверить источники</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
-    <value>Contains commands; review overlap with Foundry customization and setup hooks.</value>
+    <value>Содержит команды; проверьте возможные конфликты с настройками Foundry и обработчиками установки.</value>
   </data>
   <data name="Unattend.CompatibilityDescription" xml:space="preserve">
-    <value>Only specialize and oobeSystem settings are supported. Foundry still controls disks, images, drivers, AppX removal, AI policies, optional features, and network roaming. Custom commands may conflict with these operations or setup hooks. Validate with Windows SIM and test the intended image in a VM; external script files are not imported.</value>
+    <value>Поддерживаются только параметры specialize и oobeSystem. Foundry по-прежнему управляет дисками, образами, драйверами, удалением AppX, политиками ИИ, дополнительными компонентами и переносом сетевых профилей. Пользовательские команды могут конфликтовать с этими операциями или обработчиками установки. Выполните проверку в Windows SIM и протестируйте нужный образ на виртуальной машине; внешние файлы сценариев не импортируются.</value>
   </data>
   <data name="Unattend.DefaultDescription" xml:space="preserve">
-    <value>The operator can choose Foundry settings or one packaged file on the Target page. Importing a file does not change the default.</value>
+    <value>На странице «Целевое устройство» оператор может выбрать параметры Foundry или один из файлов на носителе. Импорт файла не меняет выбор по умолчанию.</value>
   </data>
   <data name="Unattend.DefaultLabel" xml:space="preserve">
-    <value>Deployment default</value>
+    <value>Выбор по умолчанию для развёртывания</value>
   </data>
   <data name="Unattend.DisplayNameLabel" xml:space="preserve">
-    <value>Display name</value>
+    <value>Отображаемое имя</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Skipped {0} file(s) already present in the catalog.</value>
+    <value>Пропущено файлов, уже имеющихся в каталоге: {0}.</value>
+  </data>
+  <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
+    <value>Импортируйте хотя бы один файл ответов, чтобы использовать эту функцию.</value>
   </data>
   <data name="Unattend.EnableDescription" xml:space="preserve">
-    <value>Package the imported files in the boot image. Turning this off preserves the catalog but excludes its files from new media.</value>
+    <value>Включить импортированные файлы в загрузочный образ. При отключении каталог сохраняется, но его файлы не включаются в новые носители.</value>
   </data>
   <data name="Unattend.EnableLabel" xml:space="preserve">
-    <value>Enable custom answer files</value>
+    <value>Включить пользовательские файлы ответов</value>
   </data>
   <data name="Unattend.ImportLabel" xml:space="preserve">
-    <value>Import files</value>
+    <value>Импортировать файлы</value>
   </data>
   <data name="Unattend.ImportPickerTitle" xml:space="preserve">
-    <value>Import Windows answer files</value>
+    <value>Импорт файлов ответов Windows</value>
+  </data>
+  <data name="Unattend.InvalidArchitectureMessage" xml:space="preserve">
+    <value>Файл должен указывать поддерживаемую архитектуру и содержать применимые к ней параметры компонентов.</value>
+  </data>
+  <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
+    <value>Каталог содержит недопустимые или повторяющиеся записи. Обновите или удалите соответствующие файлы.</value>
+  </data>
+  <data name="Unattend.InvalidFileMessage" xml:space="preserve">
+    <value>Используйте корректный XML-файл ответов Windows размером не более 4 MiB, без DTD и внешних сущностей. Проверьте файл в Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Some sources are missing, changed, or invalid. Refresh or remove these entries before creating media.</value>
+    <value>Некоторые источники отсутствуют, изменены или недопустимы. Обновите или удалите эти записи перед созданием носителя.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
-    <value>Missing default - choose a replacement</value>
+    <value>Файл по умолчанию отсутствует — выберите замену</value>
   </data>
   <data name="Unattend.NativeOption" xml:space="preserve">
-    <value>Use Foundry settings</value>
+    <value>Использовать параметры Foundry</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>A selected answer file owns Windows naming, time zone, accounts, autologon, and OOBE. Foundry does not merge settings or fill omissions. Saved Foundry settings remain available and must be valid for the native choice.</value>
+    <value>Выбранный файл ответов управляет именем Windows, часовым поясом, учётными записями, автоматическим входом и OOBE. Foundry не объединяет параметры и не заполняет пропуски. Сохранённые параметры Foundry остаются доступными и должны быть допустимыми для встроенного режима.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Custom files require deployment media password protection in General configuration. XML may contain credentials or scripts. The catalog saves source references only; the boot image contains encrypted copies.</value>
+    <value>Для пользовательских файлов требуется защита носителя развёртывания паролем в общих настройках. XML может содержать учётные данные или сценарии. Каталог хранит только ссылки на источники; загрузочный образ содержит зашифрованные копии.</value>
+  </data>
+  <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
+    <value>Чтобы использовать пользовательские файлы ответов, включите защиту носителя развёртывания паролем в общих настройках.</value>
   </data>
   <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>This source now duplicates another imported file. Remove this entry and choose the existing file instead.</value>
+    <value>Теперь этот источник дублирует другой импортированный файл. Удалите эту запись и выберите существующий файл.</value>
   </data>
   <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Refresh source</value>
+    <value>Обновить источник</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
-    <value>Remove</value>
+    <value>Удалить</value>
   </data>
   <data name="Unattend.RenameLabel" xml:space="preserve">
-    <value>Rename</value>
+    <value>Переименовать</value>
   </data>
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
-    <value>The configuration could not be saved. Check access to the Foundry configuration folder and try again.</value>
+    <value>Не удалось сохранить конфигурацию. Проверьте доступ к папке конфигурации Foundry и повторите попытку.</value>
+  </data>
+  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
+    <value>Источник изменён. Нажмите «Обновить источник», чтобы принять обновлённый файл перед созданием носителя.</value>
+  </data>
+  <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
+    <value>Две проверки источников всё ещё ожидают доступа к файлам. Восстановите доступ к недоступным расположениям и повторите проверку источников.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Source check pending. Choose Check sources to validate the current file without accepting content changes.</value>
+    <value>Проверка источника ожидается. Нажмите «Проверить источники», чтобы проверить текущий файл, не принимая изменения содержимого.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>The source could not be read. Check that the file still exists and is accessible.</value>
+    <value>Не удалось прочитать источник. Убедитесь, что файл существует и доступен.</value>
+  </data>
+  <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
+    <value>Время проверки источника истекло. Проверьте доступ к расположению источника и повторите попытку.</value>
+  </data>
+  <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
+    <value>Поддерживаются только параметры specialize и oobeSystem. Удалите другие непустые проходы настройки, инструкции автономного обслуживания или указания на повторную загрузку в режиме аудита.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Source validated.</value>
+    <value>Источник проверен.</value>
   </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Новый</value>

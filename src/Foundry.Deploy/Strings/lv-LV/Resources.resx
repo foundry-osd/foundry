@@ -666,13 +666,13 @@ Vai turpināt izvietošanu?</value>
     <value>Noslēdz atkopšanas nodalījumu</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Stage custom answer file</value>
+    <value>Sagatavot pielāgotu atbilžu failu</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
     <value>Sagatavo pielāgojumus</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Validate custom answer file</value>
+    <value>Validēt pielāgotu atbilžu failu</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
     <value>Pārbaudi konfigurāciju</value>
@@ -1482,37 +1482,37 @@ Vai turpināt izvietošanu?</value>
     <value>Atveriet žurnāla failu</value>
   </data>
   <data name="Unattend.AutopilotConflict" xml:space="preserve">
-    <value>This answer file conflicts with the configured Autopilot enrollment mode. Choose another file or change the media configuration.</value>
+    <value>Šis atbilžu fails konfliktē ar konfigurēto Autopilot reģistrācijas režīmu. Izvēlieties citu failu vai mainiet datu nesēja konfigurāciju.</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
-    <value>Custom commands may overlap with Foundry setup hooks, network roaming, customization and enrollment. Verify this combination in a deployment test.</value>
+    <value>Pielāgotas komandas var pārklāties ar Foundry uzstādīšanas darbībām, tīkla profilu pārnešanu, pielāgošanu un reģistrāciju. Pārbaudiet šo kombināciju testa izvietošanā.</value>
   </data>
   <data name="Unattend.HashWarning" xml:space="preserve">
-    <value>Hardware hash upload registers the device; custom OOBE can still prevent subsequent Autopilot enrollment.</value>
+    <value>Aparatūras jaucējvērtības augšupielāde reģistrē ierīci; pielāgots OOBE joprojām var liegt turpmāku reģistrāciju pakalpojumā Autopilot.</value>
   </data>
   <data name="Unattend.HookCompatibility" xml:space="preserve">
-    <value>SetupComplete hooks depend on the Windows edition and product-key channel; verify deferred drivers, network roaming and application removal on the target image.</value>
+    <value>SetupComplete darbības ir atkarīgas no Windows izdevuma un produkta atslēgas kanāla; mērķa attēlā pārbaudiet atlikto draiveru instalēšanu, tīkla profilu pārnešanu un lietojumprogrammu noņemšanu.</value>
   </data>
   <data name="Unattend.Invalid" xml:space="preserve">
-    <value>The selected answer file is unavailable, invalid, or incompatible with the selected Windows architecture. Choose another file or rebuild the media.</value>
+    <value>Atlasītais atbilžu fails nav pieejams, nav derīgs vai nav saderīgs ar atlasīto Windows arhitektūru. Izvēlieties citu failu vai izveidojiet datu nesēju no jauna.</value>
   </data>
   <data name="Unattend.Managed" xml:space="preserve">
-    <value>Managed by answer file</value>
+    <value>Pārvalda atbilžu fails</value>
   </data>
   <data name="Unattend.MissingDefault" xml:space="preserve">
-    <value>The configured default answer file is missing. Rebuild the boot media.</value>
+    <value>Trūkst konfigurētā noklusējuma atbilžu faila. Izveidojiet sāknēšanas datu nesēju no jauna.</value>
   </data>
   <data name="Unattend.Native" xml:space="preserve">
-    <value>Use Foundry settings</value>
+    <value>Izmantot Foundry iestatījumus</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>A custom answer file replaces Foundry computer name, time zone, accounts and OOBE settings. Other deployment features remain enabled as configured.</value>
+    <value>Pielāgots atbilžu fails aizstāj Foundry datora nosaukuma, laika joslas, kontu un OOBE iestatījumus. Citi izvietošanas līdzekļi paliek iespējoti atbilstoši konfigurācijai.</value>
   </data>
   <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Time zone</value>
+    <value>Laika josla</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
-    <value>Answer file</value>
+    <value>Atbilžu fails</value>
   </data>
   <data name="Wizard.ReturnToSummary" xml:space="preserve">
     <value>Atgriezties uz kopsavilkumu</value>

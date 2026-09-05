@@ -666,13 +666,13 @@ Vil du fortsette med distribusjonen?</value>
     <value>Forsegl gjenopprettingspartisjon</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Stage custom answer file</value>
+    <value>Klargjør egendefinert svarfil</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
     <value>Forbered tilpasninger</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Validate custom answer file</value>
+    <value>Valider egendefinert svarfil</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
     <value>Valider konfigurasjon</value>
@@ -1482,37 +1482,37 @@ Vil du fortsette med distribusjonen?</value>
     <value>Åpne loggfilen</value>
   </data>
   <data name="Unattend.AutopilotConflict" xml:space="preserve">
-    <value>This answer file conflicts with the configured Autopilot enrollment mode. Choose another file or change the media configuration.</value>
+    <value>Denne svarfilen er i konflikt med den konfigurerte Autopilot-registreringsmodusen. Velg en annen fil eller endre mediekonfigurasjonen.</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
-    <value>Custom commands may overlap with Foundry setup hooks, network roaming, customization and enrollment. Verify this combination in a deployment test.</value>
+    <value>Egendefinerte kommandoer kan overlappe med Foundrys installasjonshooks, nettverksroaming, tilpasninger og registrering. Kontroller denne kombinasjonen i en distribusjonstest.</value>
   </data>
   <data name="Unattend.HashWarning" xml:space="preserve">
-    <value>Hardware hash upload registers the device; custom OOBE can still prevent subsequent Autopilot enrollment.</value>
+    <value>Opplasting av maskinvarehash registrerer enheten. Egendefinert OOBE kan fortsatt hindre den påfølgende Autopilot-registreringen.</value>
   </data>
   <data name="Unattend.HookCompatibility" xml:space="preserve">
-    <value>SetupComplete hooks depend on the Windows edition and product-key channel; verify deferred drivers, network roaming and application removal on the target image.</value>
+    <value>SetupComplete-hooks avhenger av Windows-utgaven og produktnøkkelkanalen. Kontroller utsatt driverinstallasjon, nettverksroaming og programfjerning på målavbildningen.</value>
   </data>
   <data name="Unattend.Invalid" xml:space="preserve">
-    <value>The selected answer file is unavailable, invalid, or incompatible with the selected Windows architecture. Choose another file or rebuild the media.</value>
+    <value>Den valgte svarfilen er utilgjengelig, ugyldig eller inkompatibel med den valgte Windows-arkitekturen. Velg en annen fil eller opprett mediet på nytt.</value>
   </data>
   <data name="Unattend.Managed" xml:space="preserve">
-    <value>Managed by answer file</value>
+    <value>Styres av svarfilen</value>
   </data>
   <data name="Unattend.MissingDefault" xml:space="preserve">
-    <value>The configured default answer file is missing. Rebuild the boot media.</value>
+    <value>Den konfigurerte standardsvarfilen mangler. Opprett oppstartsmediet på nytt.</value>
   </data>
   <data name="Unattend.Native" xml:space="preserve">
-    <value>Use Foundry settings</value>
+    <value>Bruk Foundry-innstillinger</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>A custom answer file replaces Foundry computer name, time zone, accounts and OOBE settings. Other deployment features remain enabled as configured.</value>
+    <value>En egendefinert svarfil erstatter Foundrys innstillinger for datamaskinnavn, tidssone, kontoer og OOBE. Andre distribusjonsfunksjoner forblir aktivert som konfigurert.</value>
   </data>
   <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Time zone</value>
+    <value>Tidssone</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
-    <value>Answer file</value>
+    <value>Svarfil</value>
   </data>
   <data name="Wizard.ReturnToSummary" xml:space="preserve">
     <value>Gå tilbake til sammendraget</value>

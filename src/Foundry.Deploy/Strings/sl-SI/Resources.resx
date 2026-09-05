@@ -666,13 +666,13 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Zapečati obnovitveno particijo</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Stage custom answer file</value>
+    <value>Pripravi datoteko odgovorov po meri</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
     <value>Pripravi prilagoditve</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Validate custom answer file</value>
+    <value>Preveri datoteko odgovorov po meri</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
     <value>Preveri konfiguracijo</value>
@@ -1482,37 +1482,37 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Odpri datoteko dnevnika</value>
   </data>
   <data name="Unattend.AutopilotConflict" xml:space="preserve">
-    <value>This answer file conflicts with the configured Autopilot enrollment mode. Choose another file or change the media configuration.</value>
+    <value>Ta datoteka odgovorov je v navzkrižju z nastavljenim načinom vpisa v Autopilot. Izberite drugo datoteko ali spremenite konfiguracijo medija.</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
-    <value>Custom commands may overlap with Foundry setup hooks, network roaming, customization and enrollment. Verify this combination in a deployment test.</value>
+    <value>Ukazi po meri so lahko v navzkrižju s sprožilci namestitve Foundry, prenosom omrežnih profilov, prilagoditvami in vpisom. To kombinacijo preverite s preizkusnim uvajanjem.</value>
   </data>
   <data name="Unattend.HashWarning" xml:space="preserve">
-    <value>Hardware hash upload registers the device; custom OOBE can still prevent subsequent Autopilot enrollment.</value>
+    <value>Nalaganje zgoščene vrednosti strojne opreme registrira napravo; OOBE po meri lahko še vedno prepreči poznejši vpis v Autopilot.</value>
   </data>
   <data name="Unattend.HookCompatibility" xml:space="preserve">
-    <value>SetupComplete hooks depend on the Windows edition and product-key channel; verify deferred drivers, network roaming and application removal on the target image.</value>
+    <value>Sprožilci SetupComplete so odvisni od izdaje sistema Windows in kanala ključa izdelka; v ciljni sliki preverite odloženo namestitev gonilnikov, prenos omrežnih profilov in odstranjevanje aplikacij.</value>
   </data>
   <data name="Unattend.Invalid" xml:space="preserve">
-    <value>The selected answer file is unavailable, invalid, or incompatible with the selected Windows architecture. Choose another file or rebuild the media.</value>
+    <value>Izbrana datoteka odgovorov ni na voljo, ni veljavna ali ni združljiva z izbrano arhitekturo sistema Windows. Izberite drugo datoteko ali znova ustvarite medij.</value>
   </data>
   <data name="Unattend.Managed" xml:space="preserve">
-    <value>Managed by answer file</value>
+    <value>Upravlja datoteka odgovorov</value>
   </data>
   <data name="Unattend.MissingDefault" xml:space="preserve">
-    <value>The configured default answer file is missing. Rebuild the boot media.</value>
+    <value>Nastavljena privzeta datoteka odgovorov manjka. Znova ustvarite zagonski medij.</value>
   </data>
   <data name="Unattend.Native" xml:space="preserve">
-    <value>Use Foundry settings</value>
+    <value>Uporabi nastavitve Foundry</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>A custom answer file replaces Foundry computer name, time zone, accounts and OOBE settings. Other deployment features remain enabled as configured.</value>
+    <value>Datoteka odgovorov po meri nadomesti nastavitve Foundry za ime računalnika, časovni pas, račune in OOBE. Druge funkcije uvajanja ostanejo omogočene v skladu s konfiguracijo.</value>
   </data>
   <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Time zone</value>
+    <value>Časovni pas</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
-    <value>Answer file</value>
+    <value>Datoteka odgovorov</value>
   </data>
   <data name="Wizard.ReturnToSummary" xml:space="preserve">
     <value>Nazaj na povzetek</value>

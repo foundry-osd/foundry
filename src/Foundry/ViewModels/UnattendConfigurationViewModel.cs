@@ -40,9 +40,17 @@ public sealed partial class UnattendConfigurationViewModel : ObservableObject, I
     public ObservableCollection<UnattendDefaultOption> DefaultOptions { get; } = [];
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(CanImport))]
+    [NotifyPropertyChangedFor(nameof(CanEdit))]
+    [NotifyCanExecuteChangedFor(nameof(ImportFilesCommand))]
+    [NotifyCanExecuteChangedFor(nameof(RefreshSourcesCommand))]
+    [NotifyCanExecuteChangedFor(nameof(RefreshFileCommand))]
+    [NotifyCanExecuteChangedFor(nameof(RemoveFileCommand))]
+    [NotifyCanExecuteChangedFor(nameof(RenameFileCommand))]
     public partial bool IsEnabled { get; set; }
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(CanToggle))]
     [NotifyPropertyChangedFor(nameof(CanImport))]
     [NotifyPropertyChangedFor(nameof(CanEdit))]
     [NotifyCanExecuteChangedFor(nameof(ImportFilesCommand))]
@@ -78,13 +86,16 @@ public sealed partial class UnattendConfigurationViewModel : ObservableObject, I
 
     public bool IsStatusOpen => !string.IsNullOrWhiteSpace(StatusMessage);
 
-    public bool CanImport => !IsBusy;
+    public bool CanToggle => !IsBusy;
 
-    public bool CanEdit => !IsBusy && SelectedFile is not null;
+    public bool CanImport => IsEnabled && !IsBusy;
+
+    public bool CanEdit => CanImport && SelectedFile is not null;
 
     public bool CanRename => CanEdit && !string.IsNullOrWhiteSpace(RenameText);
 
     public string PageTitle => Text("Nav_UnattendKey.Title");
+    public string DocumentationUrl => FoundryApplicationInfo.UnattendDocumentationUrl;
     public string PageDescription => Text("Nav_UnattendKey.Description");
     public string EnableLabel => Text("Unattend.EnableLabel");
     public string EnableDescription => Text("Unattend.EnableDescription");
@@ -267,7 +278,7 @@ public sealed partial class UnattendConfigurationViewModel : ObservableObject, I
     [RelayCommand(CanExecute = nameof(CanImport))]
     public async Task RefreshSourcesAsync()
     {
-        if (isDisposed)
+        if (isDisposed || !IsEnabled)
         {
             return;
         }
@@ -344,7 +355,9 @@ public sealed partial class UnattendConfigurationViewModel : ObservableObject, I
         if (validation?.Inspection is not { } inspection)
         {
             return new UnattendFileEntryViewModel(file, string.Empty,
-                validation?.ErrorMessage ?? Text("Unattend.SourceNotCheckedMessage"), false);
+                validation?.ErrorMessage is { } errorMessage
+                    ? LocalizeSourceMessage(errorMessage)
+                    : Text("Unattend.SourceNotCheckedMessage"), false);
         }
 
         string status = Text("Unattend.ValidSource");
@@ -385,8 +398,31 @@ public sealed partial class UnattendConfigurationViewModel : ObservableObject, I
         ex is IOException or InvalidDataException or UnauthorizedAccessException or InvalidOperationException or ArgumentException;
 
     private string GetSourceFailureMessage(Exception ex) => ex is InvalidDataException or InvalidOperationException
-        ? ex.Message
+        ? LocalizeSourceMessage(ex.Message)
         : Text("Unattend.SourceReadFailedMessage");
+
+    private string LocalizeSourceMessage(string message) => Text(message switch
+    {
+        "Custom answer files require deployment media password protection." => "Unattend.ProtectionRequiredMessage",
+        "Import at least one answer file before enabling custom answer files." => "Unattend.EmptyCatalogMessage",
+        "The default answer file is missing from the catalog. Select an available default." => "Unattend.MissingDefaultOption",
+        "The answer-file catalog is invalid." or
+        "The answer-file catalog contains invalid or duplicate entries." or
+        "The answer-file source metadata is invalid." or
+        "The answer-file identifier is invalid." => "Unattend.InvalidCatalogMessage",
+        "The answer-file source changed. Refresh the imported file before building media." => "Unattend.SourceChangedMessage",
+        "Source validation timed out. Check the source location and refresh again." => "Unattend.SourceTimeoutMessage",
+        "Two source checks are still waiting for file access. Restore the unavailable source locations, then check sources again." => "Unattend.SourceChecksBusyMessage",
+        "The answer file or selected image declares an unsupported architecture." or
+        "The answer file has no supported component settings applicable to the selected architecture." => "Unattend.InvalidArchitectureMessage",
+        "Audit-mode resealing is not supported for normal Windows deployment." => "Unattend.UnsupportedSettingsMessage",
+        _ when message.StartsWith("The answer file contains unsupported ", StringComparison.Ordinal) => "Unattend.UnsupportedSettingsMessage",
+        "The answer file must use the Windows unattend root and namespace." or
+        "The answer file exceeds the 4 MiB limit." or
+        "The answer file must contain XML and be no larger than 4 MiB." or
+        "The answer file contains invalid or prohibited XML. Validate it with Windows System Image Manager." => "Unattend.InvalidFileMessage",
+        _ => "Unattend.SourceReadFailedMessage"
+    });
 
     private string Text(string key) => localizationService.GetString(key);
 

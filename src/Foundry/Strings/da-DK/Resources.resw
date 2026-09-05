@@ -2092,7 +2092,7 @@
     <value>Start</value>
   </data>
   <data name="Nav_UnattendKey.Description" xml:space="preserve">
-    <value>Import Windows answer files and choose which settings deployments use.</value>
+    <value>Importér Windows-svarfiler, og vælg de indstillinger, der skal bruges ved udrulning.</value>
   </data>
   <data name="Nav_UnattendKey.Title" xml:space="preserve">
     <value>Unattend</value>
@@ -2992,85 +2992,112 @@
     <value>Glimmer</value>
   </data>
   <data name="Unattend.AutopilotWarning" xml:space="preserve">
-    <value>Contains settings that can prevent Autopilot enrollment; incompatible enrollment modes will be blocked during deployment.</value>
+    <value>Indeholder indstillinger, der kan forhindre Autopilot-tilmelding. Inkompatible tilmeldingstilstande blokeres under udrulningen.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Select a file to rename, refresh, or remove it. Source files must remain available until media creation; changed sources require Refresh.</value>
+    <value>Vælg en fil for at omdøbe, opdatere eller fjerne den. Kildefilerne skal være tilgængelige, indtil mediet er oprettet. Ændrede kilder skal opdateres.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
-    <value>Answer files</value>
+    <value>Svarfiler</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Check sources</value>
+    <value>Kontrollér kilder</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
-    <value>Contains commands; review overlap with Foundry customization and setup hooks.</value>
+    <value>Indeholder kommandoer. Kontrollér, om de overlapper med Foundry-tilpasninger og installationshooks.</value>
   </data>
   <data name="Unattend.CompatibilityDescription" xml:space="preserve">
-    <value>Only specialize and oobeSystem settings are supported. Foundry still controls disks, images, drivers, AppX removal, AI policies, optional features, and network roaming. Custom commands may conflict with these operations or setup hooks. Validate with Windows SIM and test the intended image in a VM; external script files are not imported.</value>
+    <value>Kun indstillinger for specialize og oobeSystem understøttes. Foundry styrer fortsat diske, afbildninger, drivere, fjernelse af AppX, AI-politikker, valgfrie funktioner og netværksroaming. Brugerdefinerede kommandoer kan være i konflikt med disse handlinger eller installationshooks. Validér med Windows SIM, og test den ønskede afbildning på en virtuel maskine. Eksterne scriptfiler importeres ikke.</value>
   </data>
   <data name="Unattend.DefaultDescription" xml:space="preserve">
-    <value>The operator can choose Foundry settings or one packaged file on the Target page. Importing a file does not change the default.</value>
+    <value>Operatøren kan vælge Foundry-indstillinger eller en af de medfølgende filer på målsiden. Import af en fil ændrer ikke standardvalget.</value>
   </data>
   <data name="Unattend.DefaultLabel" xml:space="preserve">
-    <value>Deployment default</value>
+    <value>Standardvalg for udrulning</value>
   </data>
   <data name="Unattend.DisplayNameLabel" xml:space="preserve">
-    <value>Display name</value>
+    <value>Visningsnavn</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Skipped {0} file(s) already present in the catalog.</value>
+    <value>Sprang {0} fil(er) over, som allerede findes i kataloget.</value>
+  </data>
+  <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
+    <value>Importér mindst én svarfil for at bruge denne funktion.</value>
   </data>
   <data name="Unattend.EnableDescription" xml:space="preserve">
-    <value>Package the imported files in the boot image. Turning this off preserves the catalog but excludes its files from new media.</value>
+    <value>Medtag de importerede filer i startafbildningen. Når dette slås fra, bevares kataloget, men dets filer medtages ikke på nye medier.</value>
   </data>
   <data name="Unattend.EnableLabel" xml:space="preserve">
-    <value>Enable custom answer files</value>
+    <value>Aktivér brugerdefinerede svarfiler</value>
   </data>
   <data name="Unattend.ImportLabel" xml:space="preserve">
-    <value>Import files</value>
+    <value>Importér filer</value>
   </data>
   <data name="Unattend.ImportPickerTitle" xml:space="preserve">
-    <value>Import Windows answer files</value>
+    <value>Importér Windows-svarfiler</value>
+  </data>
+  <data name="Unattend.InvalidArchitectureMessage" xml:space="preserve">
+    <value>Filen skal angive en understøttet arkitektur og indeholde komponentindstillinger, der gælder for den.</value>
+  </data>
+  <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
+    <value>Kataloget indeholder ugyldige eller dublerede poster. Opdater eller fjern de berørte filer.</value>
+  </data>
+  <data name="Unattend.InvalidFileMessage" xml:space="preserve">
+    <value>Brug gyldig XML til en Windows-svarfil på højst 4 MiB uden DTD'er eller eksterne entiteter. Validér filen med Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Some sources are missing, changed, or invalid. Refresh or remove these entries before creating media.</value>
+    <value>Nogle kilder mangler, er ændret eller er ugyldige. Opdater eller fjern disse poster, før du opretter medier.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
-    <value>Missing default - choose a replacement</value>
+    <value>Standardvalget mangler – vælg et andet</value>
   </data>
   <data name="Unattend.NativeOption" xml:space="preserve">
-    <value>Use Foundry settings</value>
+    <value>Brug Foundry-indstillinger</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>A selected answer file owns Windows naming, time zone, accounts, autologon, and OOBE. Foundry does not merge settings or fill omissions. Saved Foundry settings remain available and must be valid for the native choice.</value>
+    <value>Den valgte svarfil styrer Windows-navn, tidszone, konti, automatisk logon og OOBE. Foundry sammenfletter ikke indstillinger og udfylder ikke manglende værdier. Gemte Foundry-indstillinger er fortsat tilgængelige og skal være gyldige, hvis de vælges til udrulningen.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Custom files require deployment media password protection in General configuration. XML may contain credentials or scripts. The catalog saves source references only; the boot image contains encrypted copies.</value>
+    <value>Brugerdefinerede filer kræver adgangskodebeskyttelse af udrulningsmediet i den generelle konfiguration. XML kan indeholde legitimationsoplysninger eller scripts. Kataloget gemmer kun referencer til kilderne. Startafbildningen indeholder krypterede kopier.</value>
+  </data>
+  <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
+    <value>Aktivér adgangskodebeskyttelse af udrulningsmediet i den generelle konfiguration for at bruge brugerdefinerede svarfiler.</value>
   </data>
   <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>This source now duplicates another imported file. Remove this entry and choose the existing file instead.</value>
+    <value>Denne kilde er nu en kopi af en anden importeret fil. Fjern denne post, og vælg den eksisterende fil i stedet.</value>
   </data>
   <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Refresh source</value>
+    <value>Opdater kilde</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
-    <value>Remove</value>
+    <value>Fjern</value>
   </data>
   <data name="Unattend.RenameLabel" xml:space="preserve">
-    <value>Rename</value>
+    <value>Omdøb</value>
   </data>
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
-    <value>The configuration could not be saved. Check access to the Foundry configuration folder and try again.</value>
+    <value>Konfigurationen kunne ikke gemmes. Kontrollér adgangen til Foundrys konfigurationsmappe, og prøv igen.</value>
+  </data>
+  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
+    <value>Kilden er ændret. Brug Opdater kilde for at acceptere den opdaterede fil, før du opretter medier.</value>
+  </data>
+  <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
+    <value>To kildekontroller venter stadig på filadgang. Gendan adgangen til de utilgængelige kildeplaceringer, og kontrollér derefter kilderne igen.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Source check pending. Choose Check sources to validate the current file without accepting content changes.</value>
+    <value>Kilden afventer kontrol. Vælg Kontrollér kilder for at validere den aktuelle fil uden at acceptere ændringer i indholdet.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>The source could not be read. Check that the file still exists and is accessible.</value>
+    <value>Kilden kunne ikke læses. Kontrollér, at filen stadig findes og er tilgængelig.</value>
+  </data>
+  <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
+    <value>Valideringen af kilden overskred tidsgrænsen. Kontrollér adgangen til kildeplaceringen, og prøv igen.</value>
+  </data>
+  <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
+    <value>Kun indstillinger for specialize og oobeSystem understøttes. Fjern andre ikke-tomme konfigurationsfaser, instruktioner til offlinevedligeholdelse eller genforsegling til overvågningstilstand.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Source validated.</value>
+    <value>Kilden er valideret.</value>
   </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Ny</value>

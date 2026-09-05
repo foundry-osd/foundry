@@ -666,13 +666,13 @@ Kontynuować wdrażanie?</value>
     <value>Zamknij partycję odzyskiwania</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Stage custom answer file</value>
+    <value>Przygotuj niestandardowy plik odpowiedzi</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
     <value>Przygotuj modyfikacje</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Validate custom answer file</value>
+    <value>Sprawdź niestandardowy plik odpowiedzi</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
     <value>Zweryfikuj konfigurację</value>
@@ -1482,37 +1482,37 @@ Kontynuować wdrażanie?</value>
     <value>Otwórz plik dziennika</value>
   </data>
   <data name="Unattend.AutopilotConflict" xml:space="preserve">
-    <value>This answer file conflicts with the configured Autopilot enrollment mode. Choose another file or change the media configuration.</value>
+    <value>Ten plik odpowiedzi koliduje ze skonfigurowanym trybem rejestracji w Autopilot. Wybierz inny plik lub zmień konfigurację nośnika.</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
-    <value>Custom commands may overlap with Foundry setup hooks, network roaming, customization and enrollment. Verify this combination in a deployment test.</value>
+    <value>Polecenia niestandardowe mogą powielać procedury instalacyjne, roaming sieciowy, dostosowania i rejestrację Foundry. Sprawdź tę kombinację w teście wdrożenia.</value>
   </data>
   <data name="Unattend.HashWarning" xml:space="preserve">
-    <value>Hardware hash upload registers the device; custom OOBE can still prevent subsequent Autopilot enrollment.</value>
+    <value>Przesłanie skrótu sprzętu rejestruje urządzenie. Niestandardowe OOBE może jednak uniemożliwić późniejszą rejestrację w Autopilot.</value>
   </data>
   <data name="Unattend.HookCompatibility" xml:space="preserve">
-    <value>SetupComplete hooks depend on the Windows edition and product-key channel; verify deferred drivers, network roaming and application removal on the target image.</value>
+    <value>Procedury SetupComplete zależą od edycji systemu Windows i kanału klucza produktu. Sprawdź odroczoną instalację sterowników, roaming sieciowy i usuwanie aplikacji na obrazie docelowym.</value>
   </data>
   <data name="Unattend.Invalid" xml:space="preserve">
-    <value>The selected answer file is unavailable, invalid, or incompatible with the selected Windows architecture. Choose another file or rebuild the media.</value>
+    <value>Wybrany plik odpowiedzi jest niedostępny, nieprawidłowy lub niezgodny z wybraną architekturą systemu Windows. Wybierz inny plik lub ponownie utwórz nośnik.</value>
   </data>
   <data name="Unattend.Managed" xml:space="preserve">
-    <value>Managed by answer file</value>
+    <value>Zarządzane przez plik odpowiedzi</value>
   </data>
   <data name="Unattend.MissingDefault" xml:space="preserve">
-    <value>The configured default answer file is missing. Rebuild the boot media.</value>
+    <value>Brakuje skonfigurowanego domyślnego pliku odpowiedzi. Ponownie utwórz nośnik rozruchowy.</value>
   </data>
   <data name="Unattend.Native" xml:space="preserve">
-    <value>Use Foundry settings</value>
+    <value>Użyj ustawień Foundry</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>A custom answer file replaces Foundry computer name, time zone, accounts and OOBE settings. Other deployment features remain enabled as configured.</value>
+    <value>Niestandardowy plik odpowiedzi zastępuje ustawienia Foundry dotyczące nazwy komputera, strefy czasowej, kont i OOBE. Pozostałe funkcje wdrażania pozostają włączone zgodnie z konfiguracją.</value>
   </data>
   <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Time zone</value>
+    <value>Strefa czasowa</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
-    <value>Answer file</value>
+    <value>Plik odpowiedzi</value>
   </data>
   <data name="Wizard.ReturnToSummary" xml:space="preserve">
     <value>Powrót do podsumowania</value>

@@ -2092,7 +2092,7 @@
     <value>開始</value>
   </data>
   <data name="Nav_UnattendKey.Description" xml:space="preserve">
-    <value>Import Windows answer files and choose which settings deployments use.</value>
+    <value>匯入 Windows 回應檔案，並選擇部署時使用的設定。</value>
   </data>
   <data name="Nav_UnattendKey.Title" xml:space="preserve">
     <value>Unattend</value>
@@ -2992,85 +2992,112 @@
     <value>雲母</value>
   </data>
   <data name="Unattend.AutopilotWarning" xml:space="preserve">
-    <value>Contains settings that can prevent Autopilot enrollment; incompatible enrollment modes will be blocked during deployment.</value>
+    <value>包含可能阻止 Autopilot 註冊的設定；部署時將封鎖不相容的註冊模式。</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Select a file to rename, refresh, or remove it. Source files must remain available until media creation; changed sources require Refresh.</value>
+    <value>選取檔案以重新命名、重新整理或移除。來源檔案必須在建立媒體前保持可用；來源檔案變更後需要重新整理。</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
-    <value>Answer files</value>
+    <value>回應檔案</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Check sources</value>
+    <value>檢查來源</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
-    <value>Contains commands; review overlap with Foundry customization and setup hooks.</value>
+    <value>包含命令；請檢查是否與 Foundry 自訂設定及安裝掛鉤發生衝突。</value>
   </data>
   <data name="Unattend.CompatibilityDescription" xml:space="preserve">
-    <value>Only specialize and oobeSystem settings are supported. Foundry still controls disks, images, drivers, AppX removal, AI policies, optional features, and network roaming. Custom commands may conflict with these operations or setup hooks. Validate with Windows SIM and test the intended image in a VM; external script files are not imported.</value>
+    <value>僅支援 specialize 和 oobeSystem 設定。Foundry 仍負責磁碟、映像、驅動程式、AppX 移除、AI 原則、選用功能及網路設定檔漫遊。自訂命令可能與這些作業或安裝掛鉤發生衝突。請使用 Windows SIM 驗證，並在虛擬機器中測試目標映像；不會匯入外部指令碼檔案。</value>
   </data>
   <data name="Unattend.DefaultDescription" xml:space="preserve">
-    <value>The operator can choose Foundry settings or one packaged file on the Target page. Importing a file does not change the default.</value>
+    <value>操作人員可在「目標裝置」頁面選擇 Foundry 設定或媒體內含的一個檔案。匯入檔案不會變更預設選項。</value>
   </data>
   <data name="Unattend.DefaultLabel" xml:space="preserve">
-    <value>Deployment default</value>
+    <value>部署預設選項</value>
   </data>
   <data name="Unattend.DisplayNameLabel" xml:space="preserve">
-    <value>Display name</value>
+    <value>顯示名稱</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Skipped {0} file(s) already present in the catalog.</value>
+    <value>已略過目錄中現有的 {0} 個檔案。</value>
+  </data>
+  <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
+    <value>請至少匯入一個回應檔案以使用此功能。</value>
   </data>
   <data name="Unattend.EnableDescription" xml:space="preserve">
-    <value>Package the imported files in the boot image. Turning this off preserves the catalog but excludes its files from new media.</value>
+    <value>將匯入的檔案包含在開機映像中。關閉此選項會保留目錄，但新媒體不會包含這些檔案。</value>
   </data>
   <data name="Unattend.EnableLabel" xml:space="preserve">
-    <value>Enable custom answer files</value>
+    <value>啟用自訂回應檔案</value>
   </data>
   <data name="Unattend.ImportLabel" xml:space="preserve">
-    <value>Import files</value>
+    <value>匯入檔案</value>
   </data>
   <data name="Unattend.ImportPickerTitle" xml:space="preserve">
-    <value>Import Windows answer files</value>
+    <value>匯入 Windows 回應檔案</value>
+  </data>
+  <data name="Unattend.InvalidArchitectureMessage" xml:space="preserve">
+    <value>檔案必須宣告支援的架構，並包含適用於該架構的元件設定。</value>
+  </data>
+  <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
+    <value>目錄包含無效或重複項目。請重新整理或移除受影響的檔案。</value>
+  </data>
+  <data name="Unattend.InvalidFileMessage" xml:space="preserve">
+    <value>請使用有效的 Windows 回應檔案 XML，大小不超過 4 MiB，且不含 DTD 或外部實體。使用 Windows SIM 驗證檔案。</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Some sources are missing, changed, or invalid. Refresh or remove these entries before creating media.</value>
+    <value>部分來源遺失、已變更或無效。請在建立媒體前重新整理或移除這些項目。</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
-    <value>Missing default - choose a replacement</value>
+    <value>預設檔案遺失 — 請選擇替代檔案</value>
   </data>
   <data name="Unattend.NativeOption" xml:space="preserve">
-    <value>Use Foundry settings</value>
+    <value>使用 Foundry 設定</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>A selected answer file owns Windows naming, time zone, accounts, autologon, and OOBE. Foundry does not merge settings or fill omissions. Saved Foundry settings remain available and must be valid for the native choice.</value>
+    <value>選取的回應檔案負責 Windows 命名、時區、帳戶、自動登入和 OOBE。Foundry 不會合併設定或補上遺漏的值。已儲存的 Foundry 設定仍然可用，而且必須有效，才能使用內建選項。</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Custom files require deployment media password protection in General configuration. XML may contain credentials or scripts. The catalog saves source references only; the boot image contains encrypted copies.</value>
+    <value>自訂檔案需要在「一般」設定中啟用部署媒體密碼保護。XML 可能包含認證或指令碼。目錄僅儲存來源參照；開機映像包含加密副本。</value>
+  </data>
+  <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
+    <value>請在「一般」設定中啟用部署媒體密碼保護，以使用自訂回應檔案。</value>
   </data>
   <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>This source now duplicates another imported file. Remove this entry and choose the existing file instead.</value>
+    <value>此來源現在與另一個已匯入檔案重複。請移除此項目並選擇現有檔案。</value>
   </data>
   <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Refresh source</value>
+    <value>重新整理來源</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
-    <value>Remove</value>
+    <value>移除</value>
   </data>
   <data name="Unattend.RenameLabel" xml:space="preserve">
-    <value>Rename</value>
+    <value>重新命名</value>
   </data>
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
-    <value>The configuration could not be saved. Check access to the Foundry configuration folder and try again.</value>
+    <value>無法儲存設定。請檢查 Foundry 設定資料夾的存取權限，然後再試一次。</value>
+  </data>
+  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
+    <value>來源已變更。請在建立媒體前使用「重新整理來源」接受更新後的檔案。</value>
+  </data>
+  <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
+    <value>兩項來源檢查仍在等待檔案存取。請恢復對無法使用的來源位置的存取，然後重新檢查來源。</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Source check pending. Choose Check sources to validate the current file without accepting content changes.</value>
+    <value>來源檢查待處理。選擇「檢查來源」可驗證目前的檔案，而不接受內容變更。</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>The source could not be read. Check that the file still exists and is accessible.</value>
+    <value>無法讀取來源。請確認檔案仍存在且可存取。</value>
+  </data>
+  <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
+    <value>來源驗證逾時。請檢查來源位置的存取權限，然後再試一次。</value>
+  </data>
+  <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
+    <value>僅支援 specialize 和 oobeSystem 設定。請移除其他非空白設定階段、離線維護指令，或重新封裝為稽核模式的設定。</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Source validated.</value>
+    <value>來源已驗證。</value>
   </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>新</value>

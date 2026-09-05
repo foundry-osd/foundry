@@ -666,13 +666,13 @@ Folytatja a telepítést?</value>
     <value>Helyreállítási partíció lezárása</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Stage custom answer file</value>
+    <value>Egyéni válaszfájl előkészítése</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
     <value>Testreszabások előkészítése</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Validate custom answer file</value>
+    <value>Egyéni válaszfájl ellenőrzése</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
     <value>Konfiguráció ellenőrzése</value>
@@ -1482,37 +1482,37 @@ Folytatja a telepítést?</value>
     <value>Nyissa meg a naplófájlt</value>
   </data>
   <data name="Unattend.AutopilotConflict" xml:space="preserve">
-    <value>This answer file conflicts with the configured Autopilot enrollment mode. Choose another file or change the media configuration.</value>
+    <value>Ez a válaszfájl ütközik a beállított Autopilot-regisztrációs móddal. Válasszon másik fájlt, vagy módosítsa az adathordozó konfigurációját.</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
-    <value>Custom commands may overlap with Foundry setup hooks, network roaming, customization and enrollment. Verify this combination in a deployment test.</value>
+    <value>Az egyéni parancsok ütközhetnek a Foundry telepítési műveleteivel, a hálózati profilok átvitelével, a testreszabásokkal és a regisztrációval. Ellenőrizze ezt a kombinációt egy teszttelepítésben.</value>
   </data>
   <data name="Unattend.HashWarning" xml:space="preserve">
-    <value>Hardware hash upload registers the device; custom OOBE can still prevent subsequent Autopilot enrollment.</value>
+    <value>A hardverkivonat feltöltése regisztrálja az eszközt; az egyéni OOBE továbbra is megakadályozhatja a későbbi Autopilot-regisztrációt.</value>
   </data>
   <data name="Unattend.HookCompatibility" xml:space="preserve">
-    <value>SetupComplete hooks depend on the Windows edition and product-key channel; verify deferred drivers, network roaming and application removal on the target image.</value>
+    <value>A SetupComplete műveletei a Windows kiadásától és a termékkulcs csatornájától függenek; ellenőrizze a halasztott illesztőprogram-telepítést, a hálózati profilok átvitelét és az alkalmazások eltávolítását a célrendszerképen.</value>
   </data>
   <data name="Unattend.Invalid" xml:space="preserve">
-    <value>The selected answer file is unavailable, invalid, or incompatible with the selected Windows architecture. Choose another file or rebuild the media.</value>
+    <value>A kiválasztott válaszfájl nem érhető el, érvénytelen, vagy nem kompatibilis a kiválasztott Windows-architektúrával. Válasszon másik fájlt, vagy hozza létre újra az adathordozót.</value>
   </data>
   <data name="Unattend.Managed" xml:space="preserve">
-    <value>Managed by answer file</value>
+    <value>A válaszfájl kezeli</value>
   </data>
   <data name="Unattend.MissingDefault" xml:space="preserve">
-    <value>The configured default answer file is missing. Rebuild the boot media.</value>
+    <value>A beállított alapértelmezett válaszfájl hiányzik. Hozza létre újra a rendszerindító adathordozót.</value>
   </data>
   <data name="Unattend.Native" xml:space="preserve">
-    <value>Use Foundry settings</value>
+    <value>A Foundry beállításainak használata</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>A custom answer file replaces Foundry computer name, time zone, accounts and OOBE settings. Other deployment features remain enabled as configured.</value>
+    <value>Az egyéni válaszfájl felülváltja a Foundry számítógépnév-, időzóna-, fiók- és OOBE-beállításait. A többi telepítési funkció a konfigurációnak megfelelően engedélyezve marad.</value>
   </data>
   <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Time zone</value>
+    <value>Időzóna</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
-    <value>Answer file</value>
+    <value>Válaszfájl</value>
   </data>
   <data name="Wizard.ReturnToSummary" xml:space="preserve">
     <value>Vissza az összefoglalóhoz</value>

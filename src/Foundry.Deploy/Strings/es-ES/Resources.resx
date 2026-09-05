@@ -666,13 +666,13 @@ Sistema operativo: {4}
     <value>Sellar partición de recuperación</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Stage custom answer file</value>
+    <value>Preparar archivo de respuesta personalizado</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
     <value>Preparar personalizaciones</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Validate custom answer file</value>
+    <value>Validar archivo de respuesta personalizado</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
     <value>Validar configuración</value>
@@ -1482,37 +1482,37 @@ Sistema operativo: {4}
     <value>Abrir archivo de registro</value>
   </data>
   <data name="Unattend.AutopilotConflict" xml:space="preserve">
-    <value>This answer file conflicts with the configured Autopilot enrollment mode. Choose another file or change the media configuration.</value>
+    <value>Este archivo de respuesta entra en conflicto con el modo de inscripción de Autopilot configurado. Elija otro archivo o cambie la configuración del medio.</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
-    <value>Custom commands may overlap with Foundry setup hooks, network roaming, customization and enrollment. Verify this combination in a deployment test.</value>
+    <value>Los comandos personalizados pueden interferir con los scripts de instalación de Foundry, la transferencia de perfiles de red, la personalización y la inscripción. Verifique esta combinación en una implementación de prueba.</value>
   </data>
   <data name="Unattend.HashWarning" xml:space="preserve">
-    <value>Hardware hash upload registers the device; custom OOBE can still prevent subsequent Autopilot enrollment.</value>
+    <value>La carga del hash de hardware registra el dispositivo; una OOBE personalizada aún puede impedir la inscripción posterior en Autopilot.</value>
   </data>
   <data name="Unattend.HookCompatibility" xml:space="preserve">
-    <value>SetupComplete hooks depend on the Windows edition and product-key channel; verify deferred drivers, network roaming and application removal on the target image.</value>
+    <value>Los scripts de SetupComplete dependen de la edición de Windows y del canal de la clave de producto; compruebe la instalación diferida de controladores, la transferencia de perfiles de red y la eliminación de aplicaciones en la imagen de destino.</value>
   </data>
   <data name="Unattend.Invalid" xml:space="preserve">
-    <value>The selected answer file is unavailable, invalid, or incompatible with the selected Windows architecture. Choose another file or rebuild the media.</value>
+    <value>El archivo de respuesta seleccionado no está disponible, no es válido o no es compatible con la arquitectura de Windows seleccionada. Elija otro archivo o vuelva a crear el medio.</value>
   </data>
   <data name="Unattend.Managed" xml:space="preserve">
-    <value>Managed by answer file</value>
+    <value>Administrado por el archivo de respuesta</value>
   </data>
   <data name="Unattend.MissingDefault" xml:space="preserve">
-    <value>The configured default answer file is missing. Rebuild the boot media.</value>
+    <value>Falta el archivo de respuesta predeterminado configurado. Vuelva a crear el medio de arranque.</value>
   </data>
   <data name="Unattend.Native" xml:space="preserve">
-    <value>Use Foundry settings</value>
+    <value>Usar la configuración de Foundry</value>
   </data>
   <data name="Unattend.Ownership" xml:space="preserve">
-    <value>A custom answer file replaces Foundry computer name, time zone, accounts and OOBE settings. Other deployment features remain enabled as configured.</value>
+    <value>Un archivo de respuesta personalizado reemplaza las opciones de nombre de equipo, zona horaria, cuentas y OOBE de Foundry. Las demás características de implementación siguen habilitadas según su configuración.</value>
   </data>
   <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Time zone</value>
+    <value>Zona horaria</value>
   </data>
   <data name="Unattend.Title" xml:space="preserve">
-    <value>Answer file</value>
+    <value>Archivo de respuesta</value>
   </data>
   <data name="Wizard.ReturnToSummary" xml:space="preserve">
     <value>Volver al resumen</value>

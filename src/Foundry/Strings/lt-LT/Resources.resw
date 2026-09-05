@@ -2092,7 +2092,7 @@
     <value>Pradėti</value>
   </data>
   <data name="Nav_UnattendKey.Description" xml:space="preserve">
-    <value>Import Windows answer files and choose which settings deployments use.</value>
+    <value>Importuokite „Windows“ atsakymų failus ir pasirinkite diegimams taikomus parametrus.</value>
   </data>
   <data name="Nav_UnattendKey.Title" xml:space="preserve">
     <value>Unattend</value>
@@ -2992,85 +2992,112 @@
     <value>Žėrutis</value>
   </data>
   <data name="Unattend.AutopilotWarning" xml:space="preserve">
-    <value>Contains settings that can prevent Autopilot enrollment; incompatible enrollment modes will be blocked during deployment.</value>
+    <value>Yra parametrų, galinčių neleisti užregistruoti įrenginio „Autopilot“; nesuderinami registravimo režimai diegimo metu bus blokuojami.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Select a file to rename, refresh, or remove it. Source files must remain available until media creation; changed sources require Refresh.</value>
+    <value>Pasirinkite failą, kurį norite pervardyti, atnaujinti arba pašalinti. Šaltinio failai turi būti pasiekiami iki laikmenos sukūrimo; pasikeitusius šaltinius reikia atnaujinti.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
-    <value>Answer files</value>
+    <value>Atsakymų failai</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Check sources</value>
+    <value>Tikrinti šaltinius</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
-    <value>Contains commands; review overlap with Foundry customization and setup hooks.</value>
+    <value>Yra komandų; patikrinkite, ar jos nesidubliuoja su „Foundry“ tinkinimais ir diegimo veiksmais.</value>
   </data>
   <data name="Unattend.CompatibilityDescription" xml:space="preserve">
-    <value>Only specialize and oobeSystem settings are supported. Foundry still controls disks, images, drivers, AppX removal, AI policies, optional features, and network roaming. Custom commands may conflict with these operations or setup hooks. Validate with Windows SIM and test the intended image in a VM; external script files are not imported.</value>
+    <value>Palaikomi tik specialize ir oobeSystem parametrai. „Foundry“ ir toliau valdo diskus, atvaizdus, tvarkykles, AppX šalinimą, DI strategijas, pasirinktines funkcijas ir tinklo profilių perkėlimą. Pasirinktinės komandos gali konfliktuoti su šiomis operacijomis ar diegimo veiksmais. Patikrinkite naudodami „Windows SIM“ ir išbandykite numatytą atvaizdą virtualiojoje mašinoje; išoriniai scenarijų failai neimportuojami.</value>
   </data>
   <data name="Unattend.DefaultDescription" xml:space="preserve">
-    <value>The operator can choose Foundry settings or one packaged file on the Target page. Importing a file does not change the default.</value>
+    <value>Operatorius puslapyje „Paskirties įrenginys“ gali pasirinkti „Foundry“ parametrus arba vieną laikmenoje esantį failą. Importavus failą numatytasis pasirinkimas nesikeičia.</value>
   </data>
   <data name="Unattend.DefaultLabel" xml:space="preserve">
-    <value>Deployment default</value>
+    <value>Numatytasis diegimo pasirinkimas</value>
   </data>
   <data name="Unattend.DisplayNameLabel" xml:space="preserve">
-    <value>Display name</value>
+    <value>Rodomas pavadinimas</value>
   </data>
   <data name="Unattend.DuplicateMessage" xml:space="preserve">
-    <value>Skipped {0} file(s) already present in the catalog.</value>
+    <value>Praleista kataloge jau esančių failų: {0}.</value>
+  </data>
+  <data name="Unattend.EmptyCatalogMessage" xml:space="preserve">
+    <value>Norėdami naudoti šią funkciją, importuokite bent vieną atsakymų failą.</value>
   </data>
   <data name="Unattend.EnableDescription" xml:space="preserve">
-    <value>Package the imported files in the boot image. Turning this off preserves the catalog but excludes its files from new media.</value>
+    <value>Įtraukite importuotus failus į įkrovos atvaizdą. Išjungus šią parinktį katalogas išsaugomas, tačiau jo failai neįtraukiami į naujas laikmenas.</value>
   </data>
   <data name="Unattend.EnableLabel" xml:space="preserve">
-    <value>Enable custom answer files</value>
+    <value>Įgalinti pasirinktinius atsakymų failus</value>
   </data>
   <data name="Unattend.ImportLabel" xml:space="preserve">
-    <value>Import files</value>
+    <value>Importuoti failus</value>
   </data>
   <data name="Unattend.ImportPickerTitle" xml:space="preserve">
-    <value>Import Windows answer files</value>
+    <value>Importuoti „Windows“ atsakymų failus</value>
+  </data>
+  <data name="Unattend.InvalidArchitectureMessage" xml:space="preserve">
+    <value>Faile turi būti nurodyta palaikoma architektūra ir jai taikomi komponentų parametrai.</value>
+  </data>
+  <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
+    <value>Kataloge yra netinkamų arba pasikartojančių įrašų. Atnaujinkite arba pašalinkite atitinkamus failus.</value>
+  </data>
+  <data name="Unattend.InvalidFileMessage" xml:space="preserve">
+    <value>Naudokite tinkamą „Windows“ atsakymų failo XML, ne didesnį nei 4 MiB, be DTD ir išorinių objektų. Patikrinkite failą naudodami „Windows SIM“.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Some sources are missing, changed, or invalid. Refresh or remove these entries before creating media.</value>
+    <value>Kai kurių šaltinių nėra, jie pasikeitė arba yra netinkami. Prieš kurdami laikmeną atnaujinkite arba pašalinkite šiuos įrašus.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
-    <value>Missing default - choose a replacement</value>
+    <value>Nėra numatytojo failo – pasirinkite kitą</value>
   </data>
   <data name="Unattend.NativeOption" xml:space="preserve">
-    <value>Use Foundry settings</value>
+    <value>Naudoti „Foundry“ parametrus</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>A selected answer file owns Windows naming, time zone, accounts, autologon, and OOBE. Foundry does not merge settings or fill omissions. Saved Foundry settings remain available and must be valid for the native choice.</value>
+    <value>Pasirinktas atsakymų failas nustato „Windows“ kompiuterio pavadinimą, laiko juostą, paskyras, automatinį prisijungimą ir OOBE. „Foundry“ nesujungia parametrų ir neužpildo praleistų reikšmių. Išsaugoti „Foundry“ parametrai lieka pasiekiami ir turi būti tinkami norint naudoti integruotą režimą.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Custom files require deployment media password protection in General configuration. XML may contain credentials or scripts. The catalog saves source references only; the boot image contains encrypted copies.</value>
+    <value>Pasirinktiniams failams reikia diegimo laikmenos apsaugos slaptažodžiu bendrojoje konfigūracijoje. XML gali būti kredencialų arba scenarijų. Kataloge išsaugomos tik nuorodos į šaltinius; įkrovos atvaizde yra užšifruotos kopijos.</value>
+  </data>
+  <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
+    <value>Norėdami naudoti pasirinktinius atsakymų failus, bendrojoje konfigūracijoje įgalinkite diegimo laikmenos apsaugą slaptažodžiu.</value>
   </data>
   <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>This source now duplicates another imported file. Remove this entry and choose the existing file instead.</value>
+    <value>Šis šaltinis dabar sutampa su kitu importuotu failu. Pašalinkite šį įrašą ir pasirinkite esamą failą.</value>
   </data>
   <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Refresh source</value>
+    <value>Atnaujinti šaltinį</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
-    <value>Remove</value>
+    <value>Pašalinti</value>
   </data>
   <data name="Unattend.RenameLabel" xml:space="preserve">
-    <value>Rename</value>
+    <value>Pervardyti</value>
   </data>
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
-    <value>The configuration could not be saved. Check access to the Foundry configuration folder and try again.</value>
+    <value>Nepavyko išsaugoti konfigūracijos. Patikrinkite prieigą prie „Foundry“ konfigūracijos aplanko ir bandykite dar kartą.</value>
+  </data>
+  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
+    <value>Šaltinis pasikeitė. Prieš kurdami laikmeną pasirinkite „Atnaujinti šaltinį“, kad priimtumėte atnaujintą failą.</value>
+  </data>
+  <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
+    <value>Dvi šaltinių patikros vis dar laukia prieigos prie failų. Atkurkite prieigą prie nepasiekiamų šaltinių vietų, tada dar kartą patikrinkite šaltinius.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Source check pending. Choose Check sources to validate the current file without accepting content changes.</value>
+    <value>Šaltinis dar nepatikrintas. Pasirinkite „Tikrinti šaltinius“, kad patikrintumėte dabartinį failą nepriimdami turinio pakeitimų.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>The source could not be read. Check that the file still exists and is accessible.</value>
+    <value>Nepavyko perskaityti šaltinio. Patikrinkite, ar failas vis dar yra ir ar jis pasiekiamas.</value>
+  </data>
+  <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
+    <value>Baigėsi šaltinio tikrinimo laikas. Patikrinkite prieigą prie šaltinio vietos ir bandykite dar kartą.</value>
+  </data>
+  <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
+    <value>Palaikomi tik specialize ir oobeSystem parametrai. Pašalinkite kitus netuščius konfigūracijos etapus, autonominės priežiūros nurodymus arba pakartotinį parengimą audito režimui.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Source validated.</value>
+    <value>Šaltinis patikrintas.</value>
   </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Nauja</value>
