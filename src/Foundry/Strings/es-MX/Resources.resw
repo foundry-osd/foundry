@@ -3078,6 +3078,9 @@
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
     <value>No se pudo guardar la configuración. Compruebe el acceso a la carpeta de configuración de Foundry e inténtelo de nuevo.</value>
   </data>
+  <data name="Unattend.SelectedFileLabel" xml:space="preserve">
+    <value>Archivo seleccionado</value>
+  </data>
   <data name="Unattend.SourceChangedMessage" xml:space="preserve">
     <value>El origen cambió. Use Actualizar origen para aceptar el archivo actualizado antes de crear el medio.</value>
   </data>

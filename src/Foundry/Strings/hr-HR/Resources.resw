@@ -3078,6 +3078,9 @@
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
     <value>Konfiguraciju nije moguće spremiti. Provjerite pristup konfiguracijskoj mapi sustava Foundry i pokušajte ponovno.</value>
   </data>
+  <data name="Unattend.SelectedFileLabel" xml:space="preserve">
+    <value>Odabrana datoteka</value>
+  </data>
   <data name="Unattend.SourceChangedMessage" xml:space="preserve">
     <value>Izvor je izmijenjen. Upotrijebite Osvježi izvor da biste prihvatili ažuriranu datoteku prije stvaranja medija.</value>
   </data>

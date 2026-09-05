@@ -3078,6 +3078,9 @@
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
     <value>De configuratie kon niet worden opgeslagen. Controleer de toegang tot de configuratiemap van Foundry en probeer het opnieuw.</value>
   </data>
+  <data name="Unattend.SelectedFileLabel" xml:space="preserve">
+    <value>Geselecteerd bestand</value>
+  </data>
   <data name="Unattend.SourceChangedMessage" xml:space="preserve">
     <value>De bron is gewijzigd. Gebruik Bron vernieuwen om het bijgewerkte bestand te accepteren voordat u media maakt.</value>
   </data>

@@ -3078,6 +3078,9 @@
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
     <value>Konfigurationen kunde inte sparas. Kontrollera åtkomsten till Foundrys konfigurationsmapp och försök igen.</value>
   </data>
+  <data name="Unattend.SelectedFileLabel" xml:space="preserve">
+    <value>Vald fil</value>
+  </data>
   <data name="Unattend.SourceChangedMessage" xml:space="preserve">
     <value>Källan har ändrats. Välj Uppdatera källa för att godkänna den uppdaterade filen innan mediet skapas.</value>
   </data>

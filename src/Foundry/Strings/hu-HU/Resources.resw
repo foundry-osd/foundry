@@ -3078,6 +3078,9 @@
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
     <value>A konfiguráció mentése sikertelen. Ellenőrizze a Foundry konfigurációs mappájához való hozzáférést, majd próbálja újra.</value>
   </data>
+  <data name="Unattend.SelectedFileLabel" xml:space="preserve">
+    <value>Kiválasztott fájl</value>
+  </data>
   <data name="Unattend.SourceChangedMessage" xml:space="preserve">
     <value>A forrás módosult. Az adathordozó létrehozása előtt a Forrás frissítése művelettel fogadja el a frissített fájlt.</value>
   </data>

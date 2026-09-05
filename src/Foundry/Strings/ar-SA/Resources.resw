@@ -3078,6 +3078,9 @@
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
     <value>تعذر حفظ الإعدادات. تحقق من إمكانية الوصول إلى مجلد إعدادات Foundry وحاول مرة أخرى.</value>
   </data>
+  <data name="Unattend.SelectedFileLabel" xml:space="preserve">
+    <value>الملف المحدد</value>
+  </data>
   <data name="Unattend.SourceChangedMessage" xml:space="preserve">
     <value>تغيّر المصدر. استخدم تحديث المصدر لقبول الملف المحدّث قبل إنشاء الوسائط.</value>
   </data>

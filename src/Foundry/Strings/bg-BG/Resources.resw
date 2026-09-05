@@ -3078,6 +3078,9 @@
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
     <value>Настройките не можаха да бъдат запазени. Проверете достъпа до папката с настройки на Foundry и опитайте отново.</value>
   </data>
+  <data name="Unattend.SelectedFileLabel" xml:space="preserve">
+    <value>Избран файл</value>
+  </data>
   <data name="Unattend.SourceChangedMessage" xml:space="preserve">
     <value>Източникът е променен. Използвайте „Обновяване на източника“, за да приемете обновения файл, преди да създадете носителя.</value>
   </data>

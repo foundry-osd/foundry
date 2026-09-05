@@ -3078,6 +3078,9 @@
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
     <value>Configurația nu a putut fi salvată. Verificați accesul la folderul de configurare Foundry și încercați din nou.</value>
   </data>
+  <data name="Unattend.SelectedFileLabel" xml:space="preserve">
+    <value>Fișier selectat</value>
+  </data>
   <data name="Unattend.SourceChangedMessage" xml:space="preserve">
     <value>Sursa a fost modificată. Folosiți Actualizează sursa pentru a accepta fișierul actualizat înainte de a crea suportul.</value>
   </data>

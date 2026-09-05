@@ -3078,6 +3078,9 @@
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
     <value>לא ניתן לשמור את התצורה. בדקו את הגישה לתיקיית התצורה של Foundry ונסו שוב.</value>
   </data>
+  <data name="Unattend.SelectedFileLabel" xml:space="preserve">
+    <value>הקובץ שנבחר</value>
+  </data>
   <data name="Unattend.SourceChangedMessage" xml:space="preserve">
     <value>המקור השתנה. השתמשו ברענון מקור כדי לקבל את הקובץ המעודכן לפני יצירת המדיה.</value>
   </data>

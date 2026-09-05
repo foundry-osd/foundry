@@ -3078,6 +3078,9 @@
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
     <value>Asetuksia ei voitu tallentaa. Tarkista Foundryn asetuskansion käyttöoikeudet ja yritä uudelleen.</value>
   </data>
+  <data name="Unattend.SelectedFileLabel" xml:space="preserve">
+    <value>Valittu tiedosto</value>
+  </data>
   <data name="Unattend.SourceChangedMessage" xml:space="preserve">
     <value>Lähde on muuttunut. Hyväksy päivitetty tiedosto valitsemalla Päivitä lähde ennen tietovälineen luomista.</value>
   </data>

@@ -3078,6 +3078,9 @@
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
     <value>Не удалось сохранить конфигурацию. Проверьте доступ к папке конфигурации Foundry и повторите попытку.</value>
   </data>
+  <data name="Unattend.SelectedFileLabel" xml:space="preserve">
+    <value>Выбранный файл</value>
+  </data>
   <data name="Unattend.SourceChangedMessage" xml:space="preserve">
     <value>Источник изменён. Нажмите «Обновить источник», чтобы принять обновлённый файл перед созданием носителя.</value>
   </data>

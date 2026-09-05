@@ -3078,6 +3078,9 @@
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
     <value>ไม่สามารถบันทึกการกำหนดค่าได้ โปรดตรวจสอบสิทธิ์เข้าถึงโฟลเดอร์การกำหนดค่าของ Foundry แล้วลองอีกครั้ง</value>
   </data>
+  <data name="Unattend.SelectedFileLabel" xml:space="preserve">
+    <value>ไฟล์ที่เลือก</value>
+  </data>
   <data name="Unattend.SourceChangedMessage" xml:space="preserve">
     <value>ต้นฉบับมีการเปลี่ยนแปลง ใช้รีเฟรชต้นฉบับเพื่อยอมรับไฟล์ที่อัปเดตก่อนสร้างสื่อ</value>
   </data>

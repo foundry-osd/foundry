@@ -3078,6 +3078,9 @@
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
     <value>Impossible d’enregistrer la configuration. Vérifiez l’accès au dossier de configuration de Foundry et réessayez.</value>
   </data>
+  <data name="Unattend.SelectedFileLabel" xml:space="preserve">
+    <value>Fichier sélectionné</value>
+  </data>
   <data name="Unattend.SourceChangedMessage" xml:space="preserve">
     <value>La source a changé. Utilisez Actualiser la source pour accepter le fichier mis à jour avant de créer un média.</value>
   </data>

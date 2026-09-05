@@ -3078,6 +3078,9 @@
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
     <value>Nie udało się zapisać konfiguracji. Sprawdź dostęp do folderu konfiguracji Foundry i spróbuj ponownie.</value>
   </data>
+  <data name="Unattend.SelectedFileLabel" xml:space="preserve">
+    <value>Wybrany plik</value>
+  </data>
   <data name="Unattend.SourceChangedMessage" xml:space="preserve">
     <value>Źródło uległo zmianie. Użyj Odśwież źródło, aby zaakceptować zaktualizowany plik przed utworzeniem nośnika.</value>
   </data>

@@ -3078,6 +3078,9 @@
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
     <value>Nepavyko išsaugoti konfigūracijos. Patikrinkite prieigą prie „Foundry“ konfigūracijos aplanko ir bandykite dar kartą.</value>
   </data>
+  <data name="Unattend.SelectedFileLabel" xml:space="preserve">
+    <value>Pasirinktas failas</value>
+  </data>
   <data name="Unattend.SourceChangedMessage" xml:space="preserve">
     <value>Šaltinis pasikeitė. Prieš kurdami laikmeną pasirinkite „Atnaujinti šaltinį“, kad priimtumėte atnaujintą failą.</value>
   </data>

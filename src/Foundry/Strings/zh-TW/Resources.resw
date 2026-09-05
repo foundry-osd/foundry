@@ -3078,6 +3078,9 @@
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
     <value>無法儲存設定。請檢查 Foundry 設定資料夾的存取權限，然後再試一次。</value>
   </data>
+  <data name="Unattend.SelectedFileLabel" xml:space="preserve">
+    <value>所選檔案</value>
+  </data>
   <data name="Unattend.SourceChangedMessage" xml:space="preserve">
     <value>來源已變更。請在建立媒體前使用「重新整理來源」接受更新後的檔案。</value>
   </data>

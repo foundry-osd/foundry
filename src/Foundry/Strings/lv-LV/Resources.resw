@@ -3078,6 +3078,9 @@
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
     <value>Konfigurāciju neizdevās saglabāt. Pārbaudiet piekļuvi Foundry konfigurācijas mapei un mēģiniet vēlreiz.</value>
   </data>
+  <data name="Unattend.SelectedFileLabel" xml:space="preserve">
+    <value>Atlasītais fails</value>
+  </data>
   <data name="Unattend.SourceChangedMessage" xml:space="preserve">
     <value>Avots ir mainīts. Pirms datu nesēja izveides izmantojiet Atsvaidzināt avotu, lai pieņemtu atjaunināto failu.</value>
   </data>

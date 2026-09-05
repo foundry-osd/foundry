@@ -3078,6 +3078,9 @@
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
     <value>Konfiguráciu sa nepodarilo uložiť. Skontrolujte prístup k priečinku konfigurácie Foundry a skúste to znova.</value>
   </data>
+  <data name="Unattend.SelectedFileLabel" xml:space="preserve">
+    <value>Vybraný súbor</value>
+  </data>
   <data name="Unattend.SourceChangedMessage" xml:space="preserve">
     <value>Zdroj sa zmenil. Pred vytvorením média použite Obnoviť zdroj na prijatie aktualizovaného súboru.</value>
   </data>

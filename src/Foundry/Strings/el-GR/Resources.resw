@@ -3078,6 +3078,9 @@
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
     <value>Δεν ήταν δυνατή η αποθήκευση των ρυθμίσεων. Ελέγξτε την πρόσβαση στον φάκελο ρυθμίσεων του Foundry και δοκιμάστε ξανά.</value>
   </data>
+  <data name="Unattend.SelectedFileLabel" xml:space="preserve">
+    <value>Επιλεγμένο αρχείο</value>
+  </data>
   <data name="Unattend.SourceChangedMessage" xml:space="preserve">
     <value>Το αρχείο προέλευσης άλλαξε. Χρησιμοποιήστε την Ανανέωση προέλευσης για αποδοχή του ενημερωμένου αρχείου πριν δημιουργήσετε το μέσο.</value>
   </data>

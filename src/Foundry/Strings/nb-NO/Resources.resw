@@ -3078,6 +3078,9 @@
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
     <value>Konfigurasjonen kunne ikke lagres. Kontroller tilgangen til Foundrys konfigurasjonsmappe, og prøv igjen.</value>
   </data>
+  <data name="Unattend.SelectedFileLabel" xml:space="preserve">
+    <value>Valgt fil</value>
+  </data>
   <data name="Unattend.SourceChangedMessage" xml:space="preserve">
     <value>Kilden er endret. Bruk Oppdater kilde for å godta den oppdaterte filen før du oppretter medier.</value>
   </data>

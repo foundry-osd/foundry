@@ -3078,6 +3078,9 @@
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
     <value>无法保存配置。请检查对 Foundry 配置文件夹的访问权限，然后重试。</value>
   </data>
+  <data name="Unattend.SelectedFileLabel" xml:space="preserve">
+    <value>所选文件</value>
+  </data>
   <data name="Unattend.SourceChangedMessage" xml:space="preserve">
     <value>源文件已更改。请在创建介质前使用“刷新源文件”接受更新后的文件。</value>
   </data>

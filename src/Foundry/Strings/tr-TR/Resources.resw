@@ -3078,6 +3078,9 @@
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
     <value>Yapılandırma kaydedilemedi. Foundry yapılandırma klasörüne erişimi denetleyip yeniden deneyin.</value>
   </data>
+  <data name="Unattend.SelectedFileLabel" xml:space="preserve">
+    <value>Seçili dosya</value>
+  </data>
   <data name="Unattend.SourceChangedMessage" xml:space="preserve">
     <value>Kaynak değişti. Medya oluşturmadan önce güncellenen dosyayı kabul etmek için Kaynağı yenile'yi kullanın.</value>
   </data>

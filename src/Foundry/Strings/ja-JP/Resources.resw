@@ -3078,6 +3078,9 @@
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
     <value>構成を保存できませんでした。Foundry の構成フォルダーへのアクセスを確認して、もう一度お試しください。</value>
   </data>
+  <data name="Unattend.SelectedFileLabel" xml:space="preserve">
+    <value>選択したファイル</value>
+  </data>
   <data name="Unattend.SourceChangedMessage" xml:space="preserve">
     <value>ソースが変更されました。メディアを作成する前に、「ソースの更新」で更新済みファイルを受け入れてください。</value>
   </data>

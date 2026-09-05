@@ -3078,6 +3078,9 @@
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
     <value>Konfiguracije ni bilo mogoče shraniti. Preverite dostop do konfiguracijske mape Foundry in poskusite znova.</value>
   </data>
+  <data name="Unattend.SelectedFileLabel" xml:space="preserve">
+    <value>Izbrana datoteka</value>
+  </data>
   <data name="Unattend.SourceChangedMessage" xml:space="preserve">
     <value>Vir se je spremenil. Pred ustvarjanjem medija izberite Osveži vir, da sprejmete posodobljeno datoteko.</value>
   </data>

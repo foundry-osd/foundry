@@ -107,6 +107,7 @@ public sealed partial class UnattendConfigurationViewModel : ObservableObject, I
     public string RemoveLabel => Text("Unattend.RemoveLabel");
     public string RenameLabel => Text("Unattend.RenameLabel");
     public string DisplayNameLabel => Text("Unattend.DisplayNameLabel");
+    public string SelectedFileLabel => Text("Unattend.SelectedFileLabel");
     public string DefaultLabel => Text("Unattend.DefaultLabel");
     public string DefaultDescription => Text("Unattend.DefaultDescription");
     public string OwnershipDescription => Text("Unattend.OwnershipDescription");

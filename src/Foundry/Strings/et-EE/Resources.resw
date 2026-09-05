@@ -3078,6 +3078,9 @@
   <data name="Unattend.SaveFailedMessage" xml:space="preserve">
     <value>Konfiguratsiooni ei saanud salvestada. Kontrollige juurdepääsu Foundry konfiguratsioonikaustale ja proovige uuesti.</value>
   </data>
+  <data name="Unattend.SelectedFileLabel" xml:space="preserve">
+    <value>Valitud fail</value>
+  </data>
   <data name="Unattend.SourceChangedMessage" xml:space="preserve">
     <value>Allikas on muutunud. Enne andmekandja loomist valige Värskenda allikat, et uuendatud fail vastu võtta.</value>
   </data>
