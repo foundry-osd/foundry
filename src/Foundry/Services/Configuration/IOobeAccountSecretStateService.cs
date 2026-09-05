@@ -7,27 +7,22 @@ using Foundry.Core.Services.Configuration;
 
 namespace Foundry.Services.Configuration;
 
+/// <summary>
+/// Provides session-only OOBE secrets and notifies authoring views when they change.
+/// </summary>
 public interface IOobeAccountSecretStateService
 {
     event EventHandler? Changed;
 
     void SetAdministratorPassword(string? value);
 
-    void SetAdministratorPassword(ReadOnlySpan<char> value);
-
     void SetAdministratorConfirmation(string? value);
-
-    void SetAdministratorConfirmation(ReadOnlySpan<char> value);
 
     char[] GetAdministratorPasswordCopy();
 
     char[] GetAdministratorConfirmationCopy();
 
-    void SetAdditionalAccountPassword(string accountId, string? value);
-
     void SetAdditionalAccountPassword(string accountId, ReadOnlySpan<char> value);
-
-    void SetAdditionalAccountConfirmation(string accountId, string? value);
 
     void SetAdditionalAccountConfirmation(string accountId, ReadOnlySpan<char> value);
 
@@ -38,6 +33,4 @@ public interface IOobeAccountSecretStateService
     OobeAccountConfigurationValidationResult Validate(OobeSettings settings);
 
     void Update(OobeSettings settings);
-
-    void Clear();
 }

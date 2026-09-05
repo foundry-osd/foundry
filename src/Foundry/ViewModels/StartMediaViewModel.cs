@@ -1928,10 +1928,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         if (settings.AdditionalAccounts.Count > 0)
         {
             parts.Add(localizationService.FormatString("StartMedia.OobeSummaryAdditionalAccountsFormat", settings.AdditionalAccounts.Count));
-        }
-
-        if (settings.AdditionalAccounts.Count > 0)
-        {
             parts.Add(localizationService.GetString("StartMedia.OobeSummarySkipUserAccountCreation"));
         }
 

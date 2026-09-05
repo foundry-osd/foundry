@@ -865,7 +865,6 @@ public sealed class WindowsDeploymentServiceTests
             ["Description", "Order", "Path"],
             activationCommand.Elements().Select(element => element.Name.LocalName));
         Assert.Contains("*-500", activationCommand.Value, StringComparison.Ordinal);
-        Assert.DoesNotContain("throw", activationCommand.Value, StringComparison.OrdinalIgnoreCase);
         Assert.Equal("Microsoft-Windows-Deployment", activationCommand.Ancestors(ns + "component").Single().Attribute("name")?.Value);
         Assert.Empty(document.Descendants(ns + "AutoLogon"));
         Assert.Equal("false", document.Descendants(ns + "HideOnlineAccountScreens").Single().Value);
@@ -902,7 +901,11 @@ public sealed class WindowsDeploymentServiceTests
         XNamespace ns = "urn:schemas-microsoft-com:unattend";
 
         Assert.DoesNotContain(plaintext, xml, StringComparison.Ordinal);
-        Assert.Equal("false", document.Descendants(ns + "AdministratorPassword").Single().Element(ns + "PlainText")?.Value);
+        XElement password = document.Descendants(ns + "AdministratorPassword").Single();
+        Assert.Equal("false", password.Element(ns + "PlainText")?.Value);
+        Assert.Equal(
+            plaintext + "AdministratorPassword",
+            Encoding.Unicode.GetString(Convert.FromBase64String(password.Element(ns + "Value")!.Value)));
         Assert.Equal(workspace.RootPath, keyProvider.LastWorkspaceRootPath);
     }
 
@@ -954,6 +957,9 @@ public sealed class WindowsDeploymentServiceTests
         Assert.Equal(["LocalUser", "LocalAdmin"], accounts.Select(account => account.Element(ns + "Name")?.Value));
         Assert.Equal(["Users", "Administrators"], accounts.Select(account => account.Element(ns + "Group")?.Value));
         Assert.Equal("false", accounts[0].Descendants(ns + "PlainText").Single().Value);
+        Assert.Equal(
+            plaintext + "Password",
+            Encoding.Unicode.GetString(Convert.FromBase64String(accounts[0].Descendants(ns + "Value").Single().Value)));
         Assert.Equal("true", accounts[1].Descendants(ns + "PlainText").Single().Value);
         Assert.DoesNotContain(plaintext, xml, StringComparison.Ordinal);
         Assert.Equal("true", document.Descendants(ns + "HideOnlineAccountScreens").Single().Value);

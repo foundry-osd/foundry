@@ -62,7 +62,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         MachineNamingValidator.ThrowIfInvalid(document.Customization.MachineNaming);
         OobeAccountConfigurationValidator.ThrowIfInvalid(document.Customization.Oobe, oobeAccountSecretState);
         ThrowIfAutopilotConflictsWithOobeAccounts(document.Autopilot, document.Customization.Oobe);
-        ThrowIfOobePasswordsRequireProtectedMedia(document.Customization.Oobe, protectionSettings, deploymentSecretsKey, oobeAccountSecretState);
+        ThrowIfOobePasswordsRequireProtectedMedia(document.Customization.Oobe, protectionSettings, deploymentSecretsKey);
 
         return new FoundryDeployConfigurationDocument
         {
@@ -228,7 +228,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
 
     private static void ThrowIfAutopilotConflictsWithOobeAccounts(AutopilotSettings autopilot, OobeSettings oobe)
     {
-        if (!autopilot.IsEnabled)
+        if (!autopilot.IsEnabled || !oobe.IsEnabled)
         {
             return;
         }
@@ -239,16 +239,15 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             return;
         }
 
-        throw new InvalidOperationException("Autopilot cannot be combined with OOBE local account provisioning or account-stage skip settings.");
+        throw new InvalidOperationException("Autopilot cannot be combined with OOBE local account provisioning.");
     }
 
     private static void ThrowIfOobePasswordsRequireProtectedMedia(
         OobeSettings settings,
         DeployProtectionSettings? protectionSettings,
-        byte[]? deploymentSecretsKey,
-        OobeAccountSecretState? oobeAccountSecretState)
+        byte[]? deploymentSecretsKey)
     {
-        if (!HasNonEmptyOobePassword(settings, oobeAccountSecretState))
+        if (!OobeAccountConfigurationValidator.RequiresProtectedMedia(settings))
         {
             return;
         }
@@ -262,48 +261,6 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         {
             throw new InvalidOperationException("OOBE local account password generation requires a Deploy secret key.");
         }
-    }
-
-    private static bool HasNonEmptyOobePassword(OobeSettings settings, OobeAccountSecretState? oobeAccountSecretState)
-    {
-        if (oobeAccountSecretState is null)
-        {
-            return false;
-        }
-
-        if (settings.EnableAdministratorAccount && settings.UseAdministratorPassword)
-        {
-            char[] administratorPassword = oobeAccountSecretState.GetAdministratorPasswordCopy();
-            try
-            {
-                if (administratorPassword.Length > 0)
-                {
-                    return true;
-                }
-            }
-            finally
-            {
-                CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(administratorPassword.AsSpan()));
-            }
-        }
-
-        foreach (OobeAdditionalAccountSettings account in settings.AdditionalAccounts.Where(account => account.UsePassword))
-        {
-            char[] password = oobeAccountSecretState.GetAdditionalAccountPasswordCopy(account.Id);
-            try
-            {
-                if (password.Length > 0)
-                {
-                    return true;
-                }
-            }
-            finally
-            {
-                CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(password.AsSpan()));
-            }
-        }
-
-        return false;
     }
 
     private static DeployOobeSettings MapOobeSettings(

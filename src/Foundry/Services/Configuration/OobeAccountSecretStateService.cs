@@ -7,7 +7,7 @@ using Foundry.Core.Services.Configuration;
 
 namespace Foundry.Services.Configuration;
 
-internal sealed partial class OobeAccountSecretStateService : IOobeAccountSecretStateService, IDisposable
+internal sealed class OobeAccountSecretStateService : IOobeAccountSecretStateService, IDisposable
 {
     private readonly OobeAccountSecretState state = new();
 
@@ -19,19 +19,7 @@ internal sealed partial class OobeAccountSecretStateService : IOobeAccountSecret
         Changed?.Invoke(this, EventArgs.Empty);
     }
 
-    public void SetAdministratorPassword(ReadOnlySpan<char> value)
-    {
-        state.SetAdministratorPassword(value);
-        Changed?.Invoke(this, EventArgs.Empty);
-    }
-
     public void SetAdministratorConfirmation(string? value)
-    {
-        state.SetAdministratorConfirmation(value);
-        Changed?.Invoke(this, EventArgs.Empty);
-    }
-
-    public void SetAdministratorConfirmation(ReadOnlySpan<char> value)
     {
         state.SetAdministratorConfirmation(value);
         Changed?.Invoke(this, EventArgs.Empty);
@@ -47,21 +35,9 @@ internal sealed partial class OobeAccountSecretStateService : IOobeAccountSecret
         return state.GetAdministratorConfirmationCopy();
     }
 
-    public void SetAdditionalAccountPassword(string accountId, string? value)
-    {
-        state.SetAdditionalAccountPassword(accountId, value);
-        Changed?.Invoke(this, EventArgs.Empty);
-    }
-
     public void SetAdditionalAccountPassword(string accountId, ReadOnlySpan<char> value)
     {
         state.SetAdditionalAccountPassword(accountId, value);
-        Changed?.Invoke(this, EventArgs.Empty);
-    }
-
-    public void SetAdditionalAccountConfirmation(string accountId, string? value)
-    {
-        state.SetAdditionalAccountConfirmation(accountId, value);
         Changed?.Invoke(this, EventArgs.Empty);
     }
 
@@ -88,14 +64,10 @@ internal sealed partial class OobeAccountSecretStateService : IOobeAccountSecret
 
     public void Update(OobeSettings settings)
     {
-        state.Update(settings);
-        Changed?.Invoke(this, EventArgs.Empty);
-    }
-
-    public void Clear()
-    {
-        state.Clear();
-        Changed?.Invoke(this, EventArgs.Empty);
+        if (state.Update(settings))
+        {
+            Changed?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     public void Dispose()

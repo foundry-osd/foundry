@@ -39,7 +39,7 @@ public sealed partial class CustomizationConfigurationViewModel
         : Visibility.Collapsed;
 
     public Visibility OobeAccountsNeedsAttentionVisibility => IsOobeEnabled
-        && (IsOobeAccountConfigurationBlockedByAutopilot ||
+        && ((IsOobeAccountConfigurationBlockedByAutopilot && (EnableAdministratorAccount || HasAdditionalOobeAccounts)) ||
             hasOobeAccountValidationIssues ||
             IsOobeAccountDeploymentProtectionMissing)
             ? Visibility.Visible
@@ -246,14 +246,16 @@ public sealed partial class CustomizationConfigurationViewModel
 
     partial void OnIsOobeEnabledChanged(bool value)
     {
+        RefreshOobeAccountValidation();
         SaveState();
     }
 
     partial void OnEnableAdministratorAccountChanged(bool value)
     {
-        if (!isApplyingState)
+        if (!isApplyingState && UseAdministratorPassword != value)
         {
             UseAdministratorPassword = value;
+            return;
         }
 
         RefreshOobeAccountValidation();
@@ -353,9 +355,6 @@ public sealed partial class CustomizationConfigurationViewModel
                 OobeAdditionalAccounts.Select(account => account.Account).ToArray(),
                 password,
                 confirmation);
-            password = [];
-            confirmation = [];
-
             if (result is null)
             {
                 return;
@@ -545,23 +544,8 @@ public sealed partial class CustomizationConfigurationViewModel
 
     private void ApplyAdditionalAccountSecrets(OobeAdditionalAccountDialogResult result)
     {
-        if (result.Password.Length == 0)
-        {
-            oobeAccountSecretStateService.SetAdditionalAccountPassword(result.Account.Id, string.Empty);
-        }
-        else
-        {
-            oobeAccountSecretStateService.SetAdditionalAccountPassword(result.Account.Id, result.Password);
-        }
-
-        if (result.Confirmation.Length == 0)
-        {
-            oobeAccountSecretStateService.SetAdditionalAccountConfirmation(result.Account.Id, string.Empty);
-        }
-        else
-        {
-            oobeAccountSecretStateService.SetAdditionalAccountConfirmation(result.Account.Id, result.Confirmation);
-        }
+        oobeAccountSecretStateService.SetAdditionalAccountPassword(result.Account.Id, result.Password);
+        oobeAccountSecretStateService.SetAdditionalAccountConfirmation(result.Account.Id, result.Confirmation);
     }
 
     private OobeAdditionalAccountEntryViewModel CreateOobeAdditionalAccountEntry(OobeAdditionalAccountSettings account)

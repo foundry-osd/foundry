@@ -258,22 +258,34 @@ public sealed class DeployConfigurationGeneratorTests
     public void Generate_WhenOobeCustomizationIsDisabled_DoesNotEnableRuntimeOobeSettings()
     {
         var generator = new DeployConfigurationGenerator();
+        using var secretState = new OobeAccountSecretState();
+        secretState.SetAdministratorPassword("DormantPassword123!");
+        secretState.SetAdministratorConfirmation("DormantPassword123!");
         var document = new FoundryConfigurationDocument
         {
+            Autopilot = new AutopilotSettings
+            {
+                IsEnabled = true,
+                ProvisioningMode = AutopilotProvisioningMode.InteractiveHardwareHashUpload
+            },
             Customization = new CustomizationSettings
             {
                 Oobe = new OobeSettings
                 {
                     IsEnabled = false,
+                    EnableAdministratorAccount = true,
+                    UseAdministratorPassword = true,
                     DiagnosticDataLevel = OobeDiagnosticDataLevel.Optional,
                     LocationAccess = OobeLocationAccessMode.ForceOff
                 }
             }
         };
 
-        var result = generator.Generate(document);
+        var result = generator.Generate(document, null, null, secretState);
 
         Assert.False(result.Customization.Oobe.IsEnabled);
+        Assert.False(result.Customization.Oobe.EnableAdministratorAccount);
+        Assert.Null(result.Customization.Oobe.AdministratorPasswordSecret);
         Assert.Equal(DeployOobeDiagnosticDataLevel.Required, result.Customization.Oobe.DiagnosticDataLevel);
         Assert.Equal(DeployOobeLocationAccessMode.UserControlled, result.Customization.Oobe.LocationAccess);
     }

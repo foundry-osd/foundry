@@ -26,7 +26,6 @@ public sealed partial class OobeAdditionalAccountDialog : ContentDialog, IDispos
         PrimaryButtonText = ViewModel.PrimaryButtonText;
         CloseButtonText = ViewModel.CloseButtonText;
         ViewModel.PropertyChanged += OnViewModelPropertyChanged;
-        Closed += OnClosed;
         ApplyPassword(PasswordBox, initialPassword);
         ApplyPassword(ConfirmationBox, initialConfirmation);
     }
@@ -43,7 +42,6 @@ public sealed partial class OobeAdditionalAccountDialog : ContentDialog, IDispos
         }
 
         ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
-        Closed -= OnClosed;
         isDisposed = true;
     }
 
@@ -82,12 +80,6 @@ public sealed partial class OobeAdditionalAccountDialog : ContentDialog, IDispos
             ConfirmationBox.Password = string.Empty;
             ValidationTextBlock.Text = string.Empty;
         }
-    }
-
-    private void OnClosed(ContentDialog sender, ContentDialogClosedEventArgs args)
-    {
-        ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
-        Closed -= OnClosed;
     }
 
     private static void ApplyPassword(PasswordBox passwordBox, char[] value)

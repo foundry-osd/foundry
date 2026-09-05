@@ -8,28 +8,19 @@ using Foundry.Core.Models.Configuration;
 
 namespace Foundry.Core.Services.Configuration;
 
+/// <summary>
+/// Holds session-only account secrets in owned buffers that are cleared when replaced or discarded.
+/// </summary>
 public sealed class OobeAccountSecretState : IDisposable
 {
     private readonly SecretPair administrator = new();
     private readonly Dictionary<string, SecretPair> additionalAccounts = new(StringComparer.Ordinal);
     private bool isDisposed;
 
-    public void SetAdministratorPassword(string? value)
-    {
-        ObjectDisposedException.ThrowIf(isDisposed, this);
-        administrator.SetPassword(value);
-    }
-
     public void SetAdministratorPassword(ReadOnlySpan<char> value)
     {
         ObjectDisposedException.ThrowIf(isDisposed, this);
         administrator.SetPassword(value);
-    }
-
-    public void SetAdministratorConfirmation(string? value)
-    {
-        ObjectDisposedException.ThrowIf(isDisposed, this);
-        administrator.SetConfirmation(value);
     }
 
     public void SetAdministratorConfirmation(ReadOnlySpan<char> value)
@@ -52,22 +43,10 @@ public sealed class OobeAccountSecretState : IDisposable
 
     internal bool HasAdministratorPassword => administrator.HasPassword;
 
-    public void SetAdditionalAccountPassword(string accountId, string? value)
-    {
-        ObjectDisposedException.ThrowIf(isDisposed, this);
-        GetOrCreateAccount(accountId).SetPassword(value);
-    }
-
     public void SetAdditionalAccountPassword(string accountId, ReadOnlySpan<char> value)
     {
         ObjectDisposedException.ThrowIf(isDisposed, this);
         GetOrCreateAccount(accountId).SetPassword(value);
-    }
-
-    public void SetAdditionalAccountConfirmation(string accountId, string? value)
-    {
-        ObjectDisposedException.ThrowIf(isDisposed, this);
-        GetOrCreateAccount(accountId).SetConfirmation(value);
     }
 
     public void SetAdditionalAccountConfirmation(string accountId, ReadOnlySpan<char> value)
@@ -97,20 +76,23 @@ public sealed class OobeAccountSecretState : IDisposable
         return TryGetAccount(accountId, out SecretPair? pair) && pair!.HasPassword;
     }
 
-    public void Update(OobeSettings settings)
+    /// <summary>
+    /// Discards secrets for disabled or removed accounts and reports whether any secret state was cleared.
+    /// </summary>
+    public bool Update(OobeSettings settings)
     {
         ObjectDisposedException.ThrowIf(isDisposed, this);
         ArgumentNullException.ThrowIfNull(settings);
 
         if (!settings.IsEnabled)
         {
-            Clear();
-            return;
+            return Clear();
         }
 
+        bool changed = false;
         if (!settings.EnableAdministratorAccount || !settings.UseAdministratorPassword)
         {
-            administrator.Clear();
+            changed = administrator.Clear();
         }
 
         Dictionary<string, bool> activeAccountPasswordModes = settings.AdditionalAccounts
@@ -120,21 +102,15 @@ public sealed class OobeAccountSecretState : IDisposable
 
         foreach (string accountId in additionalAccounts.Keys.ToArray())
         {
-            if (!activeAccountPasswordModes.TryGetValue(accountId, out bool usePassword))
+            if (!activeAccountPasswordModes.TryGetValue(accountId, out bool usePassword) || !usePassword)
             {
                 additionalAccounts[accountId].Clear();
                 additionalAccounts.Remove(accountId);
-                continue;
+                changed = true;
             }
-
-            if (usePassword)
-            {
-                continue;
-            }
-
-            additionalAccounts[accountId].Clear();
-            additionalAccounts.Remove(accountId);
         }
+
+        return changed;
     }
 
     public OobeAccountConfigurationValidationResult Validate(OobeSettings settings)
@@ -143,16 +119,17 @@ public sealed class OobeAccountSecretState : IDisposable
         return OobeAccountConfigurationValidator.Validate(settings, this);
     }
 
-    public void Clear()
+    public bool Clear()
     {
-        administrator.Clear();
+        bool changed = administrator.Clear();
 
         foreach (SecretPair pair in additionalAccounts.Values)
         {
-            pair.Clear();
+            changed |= pair.Clear();
         }
 
         additionalAccounts.Clear();
+        return changed;
     }
 
     public void Dispose()
@@ -200,25 +177,11 @@ public sealed class OobeAccountSecretState : IDisposable
 
         public bool HasPassword => password is { Length: > 0 };
 
-        public bool IsConfirmed =>
-            password is null && confirmation is null ||
-            password is not null &&
-            confirmation is not null &&
-            password.AsSpan().SequenceEqual(confirmation);
-
-        public void SetPassword(string? value)
-        {
-            Replace(ref password, value);
-        }
+        public bool IsConfirmed => password.AsSpan().SequenceEqual(confirmation);
 
         public void SetPassword(ReadOnlySpan<char> value)
         {
             Replace(ref password, value);
-        }
-
-        public void SetConfirmation(string? value)
-        {
-            Replace(ref confirmation, value);
         }
 
         public void SetConfirmation(ReadOnlySpan<char> value)
@@ -230,16 +193,12 @@ public sealed class OobeAccountSecretState : IDisposable
 
         public char[] GetConfirmationCopy() => confirmation?.ToArray() ?? [];
 
-        public void Clear()
+        public bool Clear()
         {
+            bool changed = password is not null || confirmation is not null;
             ClearBuffer(ref password);
             ClearBuffer(ref confirmation);
-        }
-
-        private static void Replace(ref char[]? target, string? value)
-        {
-            ClearBuffer(ref target);
-            target = value is null ? null : value.ToCharArray();
+            return changed;
         }
 
         private static void Replace(ref char[]? target, ReadOnlySpan<char> value)

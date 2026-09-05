@@ -22,23 +22,15 @@ public sealed class OobeAdditionalAccountDialogService(
         ArgumentNullException.ThrowIfNull(initialPassword);
         ArgumentNullException.ThrowIfNull(initialConfirmation);
 
-        var viewModel = new OobeAdditionalAccountDialogViewModel(localizationService, account, existingAccounts);
-        var dialog = new OobeAdditionalAccountDialog(viewModel, initialPassword, initialConfirmation)
+        using var viewModel = new OobeAdditionalAccountDialogViewModel(localizationService, account, existingAccounts);
+        using var dialog = new OobeAdditionalAccountDialog(viewModel, initialPassword, initialConfirmation)
         {
             XamlRoot = App.MainWindow.Content.XamlRoot
         };
 
-        try
-        {
-            ContentDialogResult result = await dialog.ShowAsync();
-            return result == ContentDialogResult.Primary
-                ? dialog.Result
-                : null;
-        }
-        finally
-        {
-            dialog.Dispose();
-            viewModel.Dispose();
-        }
+        ContentDialogResult result = await dialog.ShowAsync();
+        return result == ContentDialogResult.Primary
+            ? dialog.Result
+            : null;
     }
 }

@@ -15,7 +15,7 @@ public sealed record OobeSettings
     public bool IsEnabled { get; init; }
 
     /// <summary>
-    /// Gets whether the built-in Windows Administrator account should be enabled during OOBE.
+    /// Gets whether the built-in Windows Administrator account should be enabled during Windows setup.
     /// </summary>
     public bool EnableAdministratorAccount { get; init; }
 

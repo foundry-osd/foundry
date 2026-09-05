@@ -33,7 +33,7 @@ public sealed class OobeAccountSecretStateTests
         state.SetAdditionalAccountPassword("kept-account", "KeptPass1!");
         state.SetAdditionalAccountConfirmation("kept-account", "KeptPass1!");
 
-        state.Update(new OobeSettings
+        var settings = new OobeSettings
         {
             IsEnabled = true,
             EnableAdministratorAccount = false,
@@ -47,7 +47,9 @@ public sealed class OobeAccountSecretStateTests
                     UsePassword = true
                 }
             ]
-        });
+        };
+
+        Assert.True(state.Update(settings));
 
         Assert.Empty(state.GetAdministratorPasswordCopy());
         Assert.Empty(state.GetAdministratorConfirmationCopy());
@@ -55,6 +57,14 @@ public sealed class OobeAccountSecretStateTests
         Assert.Empty(state.GetAdditionalAccountConfirmationCopy("removed-account"));
         Assert.Equal("KeptPass1!", new string(state.GetAdditionalAccountPasswordCopy("kept-account")));
         Assert.Equal("KeptPass1!", new string(state.GetAdditionalAccountConfirmationCopy("kept-account")));
+        Assert.False(state.Update(settings));
+
+        Assert.True(state.Update(settings with
+        {
+            AdditionalAccounts = [settings.AdditionalAccounts[0] with { UsePassword = false }]
+        }));
+        Assert.Empty(state.GetAdditionalAccountPasswordCopy("kept-account"));
+        Assert.Empty(state.GetAdditionalAccountConfirmationCopy("kept-account"));
     }
 
 }

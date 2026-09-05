@@ -9,7 +9,7 @@
     PrimaryButtonClick="OnPrimaryButtonClick"
     PrimaryButtonStyle="{ThemeResource AccentButtonStyle}"
     Style="{ThemeResource DefaultContentDialogStyle}">
-    <Grid x:Name="DialogContentRoot"
+    <Grid
         Width="{ThemeResource FoundryWideInputMinWidth}"
         RowSpacing="{ThemeResource FoundryContentGroupSpacing}">
         <Grid.RowDefinitions>
