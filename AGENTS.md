@@ -24,6 +24,8 @@ Instruction handling:
 Skill and documentation tools:
 - Use Context7 when implementation or verification depends on library or framework APIs, setup, or version-specific behavior; resolve the relevant library and consult documentation matching the repository version before relying on memory
 - Use the relevant Superpowers skill when the task calls for its workflow, such as brainstorming, debugging, planning, implementation, review, or verification; read and apply the selected skill rather than merely naming it
+- Use the relevant PostHog skill for Foundry telemetry instrumentation, event contracts, privacy behavior, analytics queries, or PostHog investigations; read and apply the task-specific skill before implementation or tool calls
+- Keep telemetry implementation in `Foundry.Telemetry` and relevant tests in `Foundry.Telemetry.Tests`; preserve consent and privacy contracts, and resolve the target PostHog project from verified context before accessing live data
 - Keep skill use proportional to the task and follow the instruction precedence above; do not invoke unrelated skills or add unnecessary workflow steps
 - If Context7 or a required skill is unavailable, state the limitation and continue with official documentation or an equivalent workflow where possible; do not claim to have used unavailable tools
 
