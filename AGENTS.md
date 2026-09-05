@@ -21,6 +21,12 @@ Instruction handling:
 - Read relevant repository and skill instructions before applying them, and resolve conflicts using the current task context
 - If a skill or repository instruction blocks progress, identify the exact file and instruction, explain its relevance, and distinguish an explicit requirement from an interpretation
 
+Skill and documentation tools:
+- Use Context7 when implementation or verification depends on library or framework APIs, setup, or version-specific behavior; resolve the relevant library and consult documentation matching the repository version before relying on memory
+- Use the relevant Superpowers skill when the task calls for its workflow, such as brainstorming, debugging, planning, implementation, review, or verification; read and apply the selected skill rather than merely naming it
+- Keep skill use proportional to the task and follow the instruction precedence above; do not invoke unrelated skills or add unnecessary workflow steps
+- If Context7 or a required skill is unavailable, state the limitation and continue with official documentation or an equivalent workflow where possible; do not claim to have used unavailable tools
+
 Verification scope:
 - Run the smallest checks that validate the changed behavior, plus all checks explicitly required by this repository
 - Broaden or repeat checks only when changes, failures, or unresolved risks justify doing so
