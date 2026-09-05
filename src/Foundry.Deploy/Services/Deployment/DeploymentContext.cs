@@ -13,6 +13,12 @@ namespace Foundry.Deploy.Services.Deployment;
 /// </summary>
 public sealed record DeploymentContext
 {
+    /// <summary>Gets the selected custom file; null retains native Foundry customization.</summary>
+    public UnattendSelection? Unattend { get; init; }
+
+    /// <summary>Gets whether the answer file exclusively owns naming, time zone and OOBE.</summary>
+    public bool UsesCustomUnattend => Unattend is not null;
+
     /// <summary>
     /// Gets the deployment source mode.
     /// </summary>
